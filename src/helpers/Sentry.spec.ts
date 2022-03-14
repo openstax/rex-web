@@ -100,7 +100,7 @@ describe('Sentry error logging', () => {
     Sentry.initializeWithMiddleware();
 
     const spyConsoleInfo = jest.spyOn(console, 'info')
-      .mockImplementationOnce(jest.fn)
+      .mockImplementation(jest.fn())
     ;
 
     expect(spyConsoleInfo).not.toHaveBeenCalled();
@@ -117,7 +117,7 @@ describe('Sentry error logging', () => {
     Sentry.initializeWithMiddleware();
 
     const spyConsoleWarn = jest.spyOn(console, 'warn')
-      .mockImplementationOnce(jest.fn)
+      .mockImplementation(jest.fn())
     ;
 
     expect(spyConsoleWarn).not.toHaveBeenCalled();

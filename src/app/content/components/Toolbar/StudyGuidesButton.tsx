@@ -31,13 +31,15 @@ const StudyGuidesIcon = styled.img`
 // tslint:disable-next-line:variable-name
 const StudyGuidesText = styled.span`
   ${toolbarDefaultText}
+  font-size: 1.8rem;
+  line-height: 2.9rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const StudyGuidesButton = () => {
   const dispatch = useDispatch();
   const intl = useIntl();
-  const trackOpenClose = useAnalyticsEvent('openCloseStudyGuides');
+  const trackOpen = useAnalyticsEvent('openStudyGuides');
 
   const isEnabled = useSelector(studyGuidesEnabled);
   const studyGuidesSummaryNotEmpty = useSelector(hasStudyGuides);
@@ -46,7 +48,7 @@ const StudyGuidesButton = () => {
 
   const openStudyGuidesSummary = () => {
     dispatch(openStudyGuidesAction());
-    trackOpenClose();
+    trackOpen('button');
   };
 
   const text = intl.formatMessage({id: 'i18n:toolbar:studyguides:button:text'});

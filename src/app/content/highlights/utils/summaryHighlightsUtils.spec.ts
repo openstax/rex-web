@@ -1,5 +1,4 @@
 import {
-  Highlight,
   HighlightColorEnum,
   HighlightUpdate,
   HighlightUpdateColorEnum,
@@ -24,8 +23,8 @@ const highlight = {
   color: HighlightColorEnum.Green,
   id: 'highlight',
   sourceId: 'page1',
-} as Highlight;
-const highlight2 = { id: 'highlight2' } as Highlight;
+} as HighlightData;
+const highlight2 = { id: 'highlight2' } as HighlightData;
 
 describe('addSummaryHighlight', () => {
   it('add highlight to empty object', () => {

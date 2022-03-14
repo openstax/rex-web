@@ -1,38 +1,78 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
+import { ifUndefined } from '../app/fpUtils';
+import BOOKS from '../config.books';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
-/*
- * appUrl is reported to the app for the resolving of relative assets in the content.
- * there are situatons such as pre-rendering using a local proxy where this is different
- * from the actual url that is fetched from.
- */
-export default (backendUrl: string, appUrl: string = backendUrl) => {
+interface Options {
+  /*
+   * appPrefix and archivePrefix can be used if there is a base
+   * portion of the content path that must be different between
+   * actually loading the content, and where to report the content
+   * came from for the purpose of resolving relative urls.
+   *
+   * pre-rendering is a case where these must be different because
+   * it loads content from a different path than it will be served
+   * from after release.
+   *
+   * archivePrefix alone is still helpful because it will be prepended
+   * to any book archiveOverride values (in case you need those to have
+   * a host, like in scripts)
+   */
+  appPrefix?: string;
+  archivePrefix?: string;
 
-  const contentUrl = (base: string, ref: string) => `${base}/contents/${ref}.json`;
+  /*
+   * books can specify an archiveOverride in the config.books.json
+   * pass true here if you want to disable that.
+   *
+   * when passing an override query parameter in development, or when
+   * checking alternate content in pipeline upgrade scripts, are examples
+   * of when you'd probably want to disable this
+   */
+  disablePerBookPinning?: boolean;
+
+  bookCache?: Cache<string, ArchiveBook>;
+  pageCache?: Cache<string, ArchivePage>;
+}
+
+const defaultOptions = () => ({
+  archivePrefix: '',
+  bookCache: createCache<string, ArchiveBook>({maxRecords: 20}),
+  pageCache: createCache<string, ArchivePage>({maxRecords: 20}),
+});
+
+export default (archivePath: string, options: Options = {}) => {
+  const {pageCache, bookCache, appPrefix, archivePrefix, disablePerBookPinning} = {
+    ...defaultOptions(),
+    ...options,
+  };
+
+  const contentUrlBase = (host: string, bookId: string) => disablePerBookPinning
+    ? `${host}${archivePath}`
+    : `${host}${BOOKS[bookId]?.archiveOverride || archivePath}`;
+  const contentUrl = (host: string, bookId: string, ref: string) =>
+    `${contentUrlBase(host, bookId)}/contents/${ref}.json`;
 
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
     .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
     .then((response) => response.json() as Promise<T>);
 
-  const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) => (id: string) => {
+  const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) => (bookId: string, id: string) => {
     const cached = cache.get(id);
     if (cached) {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<C>(contentUrl(backendUrl, id))
+    return archiveFetch<C>(contentUrl(archivePrefix, bookId, id))
       .then((response) => {
         cache.set(id, response);
         return response;
       });
   };
 
-  const bookCache = createCache<string, ArchiveBook>({maxRecords: 20});
   const bookLoader = contentsLoader<ArchiveBook>(bookCache);
-
-  const pageCache = createCache<string, ArchivePage>({maxRecords: 20});
   const pageLoader = contentsLoader<ArchivePage>(pageCache);
 
   return {
@@ -41,14 +81,14 @@ export default (backendUrl: string, appUrl: string = backendUrl) => {
 
       return {
         cached: () => bookCache.get(bookRef),
-        load: () => bookLoader(bookRef),
+        load: () => bookLoader(bookId, bookRef),
 
         page: (pageId: string) => {
-          const bookAndPageUrl = `${bookRef}:${pageId}`;
+          const bookAndPageRef = `${bookRef}:${pageId}`;
           return {
-            cached: () => pageCache.get(bookAndPageUrl),
-            load: () => pageLoader(bookAndPageUrl),
-            url: () => contentUrl(appUrl, bookAndPageUrl),
+            cached: () => pageCache.get(bookAndPageRef),
+            load: () => pageLoader(bookId, bookAndPageRef),
+            url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), bookId, bookAndPageRef),
           };
         },
       };

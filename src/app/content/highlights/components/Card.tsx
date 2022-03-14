@@ -5,6 +5,7 @@ import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
@@ -25,6 +26,7 @@ import { getHighlightLocationFilterForPage } from '../utils';
 import { mainCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
+import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 
 export interface CardProps {
@@ -48,6 +50,7 @@ export interface CardProps {
   topOffset?: number;
   highlightOffsets?: { top: number, bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
+  isHidden: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -57,23 +60,26 @@ const Card = (props: CardProps) => {
   const [editing, setEditing] = React.useState<boolean>(!annotation);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
+  const services = useServices();
 
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
-    if (!isActive && (!hasUnsavedHighlight || await showConfirmation())) {
+    if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services))) {
       focus(id);
     }
-  }, [isActive, hasUnsavedHighlight, id, focus]);
+  }, [isActive, hasUnsavedHighlight, id, focus, services]);
 
   useFocusIn(element, true, focusCard);
 
   React.useEffect(() => {
     if (!props.isActive) {
       setEditing(false);
+    } else {
+      scrollHighlightIntoView(props.highlight, element);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.isActive]);
+  }, [element, props.isActive]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -111,7 +117,7 @@ const Card = (props: CardProps) => {
   };
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
-  const onCreate = () => {
+  const onCreate = (isDefaultColor: boolean) => {
     props.create({
       ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
@@ -119,6 +125,7 @@ const Card = (props: CardProps) => {
       sourceMetadata: {bookVersion: book.version},
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
+      isDefaultColor,
       locationFilterId,
       pageId: page.id,
     });

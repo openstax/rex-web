@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
-import { argv } from 'yargs';
+import argv from 'yargs';
 import { Book } from '../src/app/content/types';
 import { getBookPageUrlAndParams } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
@@ -20,7 +20,7 @@ const {
   queryString,
   rootUrl,
   showBrowser,
-} = argv as {
+} = argv.string('bookVersion').argv as {
   quiet?: string;
   archiveUrl?: string;
   bookId?: string;
@@ -31,7 +31,7 @@ const {
 };
 
 const devTools = false;
-const auditName = argv._[1];
+const auditName = argv.argv._[1];
 const auditPath = `./audits/${auditName}`;
 
 if (!auditName) {
@@ -145,7 +145,9 @@ async function run() {
     devtools: devTools,
     headless: showBrowser === undefined,
   });
-  const archiveLoader = createArchiveLoader(`${archiveUrl ? archiveUrl : rootUrl}${config.REACT_APP_ARCHIVE_URL}`);
+  const archiveLoader = createArchiveLoader(config.REACT_APP_ARCHIVE_URL, {
+    archivePrefix: archiveUrl ? archiveUrl : rootUrl,
+  });
   const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const books = await findBooks({
     archiveLoader,

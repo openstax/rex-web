@@ -6,7 +6,7 @@ import { book, page } from '../../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../../test/TestContainer';
-import { Store } from '../../../../types';
+import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
 import { formatBookData } from '../../../utils';
 import { highlightLocationFilters } from '../../selectors';
@@ -94,12 +94,16 @@ describe('HighlightDeleteWrapper', () => {
 
 describe('Highlight annotation', () => {
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let highlight: ReturnType<typeof createMockHighlight>;
 
   beforeEach(() => {
     store = createTestStore();
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     highlight = createMockHighlight('asdf');
   });
 
@@ -110,7 +114,7 @@ describe('Highlight annotation', () => {
     const locationFilters = highlightLocationFilters(store.getState());
     const location = getHighlightLocationFilterForPage(locationFilters, page);
 
-    jest.spyOn(utils, 'createHighlightLink')
+    jest.spyOn(utils, 'useCreateHighlightLink')
       .mockReturnValue('/link/to/highlight');
 
     const component = renderer.create(<TestContainer services={services} store={store}>

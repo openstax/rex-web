@@ -54,6 +54,8 @@ declare global {
     };
     MathJax: any;
     ga: UniversalAnalytics.ga;
+    dataLayer: object[];
+    gtag: (eventKey?: string, eventVal?: string, eventObj?: object) => boolean | void;
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
@@ -64,4 +66,5 @@ declare global {
   // tslint:disable-next-line:variable-name
   var DOMParser: dom.DOMParserConstructor;
   var KeyboardEvent: dom.KeyboardEventConstructor
+  var ResizeObserver: dom.ResizeObserverConstructor
 }

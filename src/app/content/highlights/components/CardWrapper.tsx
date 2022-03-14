@@ -3,7 +3,6 @@ import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { scrollIntoView } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination } from '../../../reactUtils';
 import { AppState } from '../../../types';
@@ -36,7 +35,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const focusedHighlight = React.useMemo(
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
-  const prevFocusedHighlightId = React.useRef(focusedId);
+  const setNewCardsPositionsRef = React.useRef<() => void>();
 
   // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -68,38 +67,48 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   }, [cardsHeights]);
 
   const getOffsetsForHighlight = React.useCallback((highlight: Highlight) => {
-    if (offsets.has(highlight.id)) {
-      return assertDefined(offsets.get(highlight.id), 'this has to be defined');
-    } else {
-      const newOffsets = assertDefined(
-        getHighlightOffset(container, highlight),
-        `Couldn't get offsets for highlight with an id: ${highlight.id}`
+    const newOffsets = assertDefined(
+      getHighlightOffset(container, highlight),
+      `Couldn't get offsets for highlight with an id: ${highlight.id}`
+    );
+    setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
+    return newOffsets;
+  }, [container]);
+
+  const checkIfHiddenByCollapsedAncestor = (highlight: Highlight) => {
+    const highlightElement = highlight.elements[0] as HTMLElement;
+    const collapsedAncestor = highlightElement
+      ? highlightElement.closest('details[data-type="solution"]:not([open])')
+      : null;
+    return Boolean(collapsedAncestor);
+  };
+
+  React.useEffect(() => {
+    setNewCardsPositionsRef.current = () => {
+      const positions = updateCardsPositions(
+        focusedHighlight,
+        highlights,
+        cardsHeights,
+        getOffsetsForHighlight,
+        checkIfHiddenByCollapsedAncestor
       );
-      setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
-      return newOffsets;
-    }
-  }, [container, offsets]);
+      setCardsPositions(positions);
+    };
+    setNewCardsPositionsRef.current();
+  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
 
   React.useEffect(() => {
-    const positions = updateCardsPositions(focusedHighlight, highlights, cardsHeights, getOffsetsForHighlight);
-    setCardsPositions(positions);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [highlights, cardsHeights, focusedHighlight]);
-
-  // Scroll into view of highlight when user focuses it
-  React.useEffect(() => {
-    if (!focusedHighlight) { return; }
-    // Check for prevFocusedHighlightId.current is required so we do not scroll to the
-    // focused highlight after user switches between the browser tabs - in this case
-    // highlights are refetched and it trigers cardPositions to be updated since reference
-    // to the highlights or highlights' data has changed.
-    // focusedHighlight.elements[0] will be undefined for pendingHighlight
-    if (focusedHighlight.id !== prevFocusedHighlightId.current && focusedHighlight.elements[0]) {
-      prevFocusedHighlightId.current = focusedHighlight.id;
-      scrollIntoView(focusedHighlight.elements[0] as HTMLElement);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focusedHighlight, cardsPositions]);
+    const resizeObserver = new ResizeObserver(() => {
+      assertDefined(
+        setNewCardsPositionsRef.current,
+        'setNewCardsPositionsRef should be already defined by useEffect'
+      )();
+    });
+    resizeObserver.observe(container);
+    return () => {
+        resizeObserver.disconnect();
+    };
+  }, [container]);
 
   return highlights.length
     ? <div className={className} ref={element}>
@@ -115,6 +124,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
           shouldFocusCard={focusThisCard}
+          isHidden={checkIfHiddenByCollapsedAncestor(highlight)}
         />;
       })}
     </div>

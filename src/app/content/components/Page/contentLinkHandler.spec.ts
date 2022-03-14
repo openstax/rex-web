@@ -1,12 +1,15 @@
 import { HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
+import createTestServices from '../../../../test/createTestServices';
+import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../../test/utils';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
-import { ContentLinkProp } from './contentLinkHandler';
+import { ContentLinkProp, reduceReferences } from './contentLinkHandler';
 
 const book = {
   ...formatBookData(archiveBook, mockCmsBook),
@@ -17,10 +20,18 @@ describe('contentLinkHandler', () => {
   let handler: (e: MouseEvent) => Promise<void>;
   let prop: ContentLinkProp;
   let anchor: HTMLAnchorElement;
+  let services: AppServices & MiddlewareAPI;
+  let store: Store;
 
   beforeEach(() => {
     resetModules();
     anchor = assertDocument().createElement('a');
+    store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
 
     prop = {
       book,
@@ -30,8 +41,62 @@ describe('contentLinkHandler', () => {
       locationState: {} as any,
       navigate: jest.fn(),
       page,
+      persistentQueryParams: {},
       references: [],
+      systemQueryParams: {},
     };
+  });
+
+  describe('reduce references', () => {
+    it('noops if the href is not found', async() => {
+      const link1 = '#foo';
+      const link2 = '#bar';
+      const document = assertDocument();
+      const linkElem = document.createElement('link');
+      const anchorElem = document.createElement('a');
+      linkElem.setAttribute('url', link1);
+      anchorElem.setAttribute('href', link2);
+      document.body.append(linkElem);
+      document.body.append(anchorElem);
+
+      prop.references = [{
+        match: link1,
+        params: {
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'page-title',
+          },
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      },
+      {
+        match: link2,
+        params: {
+          book: {
+            slug: book.slug,
+          },
+          page: {
+            slug: 'page-title',
+          },
+        },
+        state: {
+          bookUid: 'book',
+          bookVersion: 'version',
+          pageUid: 'page',
+        },
+      }];
+
+      reduceReferences(document, prop);
+      expect(document.body.innerHTML).toMatchInlineSnapshot(
+        `"<link url=\\"#foo\\"><a href=\\"books/book-slug-1/pages/page-title#bar\\"></a>"`
+      );
+    });
   });
 
   describe('without unsaved highlight', () => {
@@ -39,7 +104,7 @@ describe('contentLinkHandler', () => {
 
     beforeEach(() => {
       contentRoute = require('../../routes').content;
-      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop);
+      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop, services);
     });
 
     it('intercepts clicking content links with uuid', async() => {
@@ -293,7 +358,7 @@ describe('contentLinkHandler', () => {
     beforeEach(() => {
       prop.hasUnsavedHighlight = true;
 
-      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop);
+      handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop, services);
 
       const link = `/books/${book.id}@${book.version}/pages/page-title`;
       anchor.setAttribute('href', link);

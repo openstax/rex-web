@@ -3,17 +3,24 @@ FROM debian:buster as utils
 
 # general utils
 RUN apt-get update && apt-get install -y \
-  git \
-  procps \
   curl \
+  git \
   jq \
+  locales \
+  procps \
+  unzip \
   && rm -rf /var/lib/apt/lists/*
 
+# using an UTF-8 locale is required for the aws cli
+# to successfully list S3 objects with unicode characters
+# setup from https://stackoverflow.com/a/28406007
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 # AWS CLI
-RUN apt-get update && apt-get install -y \
-  unzip && \
-  rm -rf /var/lib/apt/lists/* && \
-  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
   unzip awscliv2.zip && \
   ./aws/install && \
   rm -rf awscliv2.zip aws
@@ -85,3 +92,5 @@ RUN apt-get update && apt-get install -y \
   wget \
   xdg-utils \
   && rm -rf /var/lib/apt/lists/*
+
+FROM utils AS release

@@ -1,5 +1,6 @@
 import { createMemoryHistory } from 'history';
 import { notFound } from '../errors/routes';
+import { initialState } from '../reducer';
 import { AnyAction } from '../types';
 import { assertWindow } from '../utils/browser-assertions';
 import * as actions from './actions';
@@ -37,11 +38,12 @@ describe('navigation middleware', () => {
     const history = createMemoryHistory();
     const next = jest.fn((_: AnyAction) => undefined);
     const dispatch = jest.fn((_: AnyAction) => undefined);
+    const getState = jest.fn(() => ({ ...initialState, navigation: { query: {} } }));
 
     const pushSpy = jest.spyOn(history, 'push');
     pushSpy.mockImplementation(() => null);
 
-    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
+    middleware([], history)({dispatch, getState})(next)(actions.callHistoryMethod({
       method: 'push',
       params: {},
       route: routes[0],
@@ -57,6 +59,7 @@ describe('navigation middleware', () => {
     const history = createMemoryHistory();
     const next = jest.fn((_: AnyAction) => undefined);
     const dispatch = jest.fn((_: AnyAction) => undefined);
+    const getState = jest.fn(() => ({ ...initialState, navigation: { query: {} } }));
     const state = {
       bookUid: '',
       bookVersion: '',
@@ -66,7 +69,7 @@ describe('navigation middleware', () => {
     const pushSpy = jest.spyOn(history, 'push');
     pushSpy.mockImplementation(() => null);
 
-    middleware([], history)({dispatch})(next)(actions.callHistoryMethod({
+    middleware([], history)({dispatch, getState})(next)(actions.callHistoryMethod({
       method: 'push',
       params: {},
       route: routes[0],

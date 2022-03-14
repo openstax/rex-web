@@ -235,7 +235,7 @@ describe('matchSearch', () => {
     expect(
       matchSearch(
         {route: routes[2], params} as AnyMatch,
-        ''
+        {}
       )
     ).toEqual('archive=https%3A%2F%2Farchive-content03.cnx.org');
     expect(spy).toHaveBeenCalledWith(params);
@@ -252,7 +252,7 @@ describe('matchSearch', () => {
     expect(
       matchSearch(
         {route: routes[2]} as AnyMatch,
-        ''
+        {}
       )
     ).toEqual('archive=https%3A%2F%2Farchive-content03.cnx.org');
   });
@@ -307,11 +307,11 @@ describe('getScrollTargetFromQuery', () => {
 
 describe('getQueryForParam', () => {
   it('returns a query string for a parameter', () => {
-    expect(getQueryForParam('myParameter', 'whatever'))
+    expect(getQueryForParam({myParameter: 'whatever'}))
       .toBe('myParameter=whatever');
   });
   it('adds parameters to an existing query', () => {
-    expect(getQueryForParam('myParameter', 'whatever', 'a=1&b=3'))
+    expect(getQueryForParam({myParameter: 'whatever'}, 'a=1&b=3'))
       .toBe('a=1&b=3&myParameter=whatever');
   });
 });

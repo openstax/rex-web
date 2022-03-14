@@ -10,7 +10,7 @@ import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import * as appGuards from '../../../guards';
-import { Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
 import { receiveBook } from '../../actions';
@@ -38,11 +38,15 @@ describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
   let store: Store;
   let user: User;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
-    services = createTestServices();
     store = createTestStore();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
     user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
 
     dispatch = jest.spyOn(store, 'dispatch');
@@ -96,7 +100,18 @@ describe('MyHighlights button and PopUp', () => {
     const addEventListener = jest.fn();
     const removeEventListener = jest.fn();
     const querySelectorAll = jest.fn(() => []);
-    const createNodeMock = () => ({focus, addEventListener, removeEventListener, querySelectorAll});
+    const getAttribute = jest.fn();
+    const setAttribute = jest.fn();
+    const removeAttribute = jest.fn();
+    const createNodeMock = () => ({
+      addEventListener,
+      focus,
+      getAttribute,
+      querySelectorAll,
+      removeAttribute,
+      removeEventListener,
+      setAttribute,
+    });
 
     renderer.create(<TestContainer services={services} store={store}>
       <HighlightsPopUp />
@@ -210,7 +225,18 @@ describe('MyHighlights button and PopUp', () => {
     const addEventListener = jest.fn();
     const removeEventListener = jest.fn();
     const querySelectorAll = jest.fn(() => []);
-    const createNodeMock = () => ({focus, addEventListener, removeEventListener, querySelectorAll});
+    const getAttribute = jest.fn();
+    const setAttribute = jest.fn();
+    const removeAttribute = jest.fn();
+    const createNodeMock = () => ({
+      addEventListener,
+      focus,
+      getAttribute,
+      querySelectorAll,
+      removeAttribute,
+      removeEventListener,
+      setAttribute,
+    });
 
     const component = renderer.create(<TestContainer services={services} store={store}>
       <HighlightsPopUp />

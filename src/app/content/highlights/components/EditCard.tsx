@@ -24,6 +24,7 @@ import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
 import Note from './Note';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
+import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 
 export interface EditCardProps {
   isActive: boolean;
@@ -31,7 +32,7 @@ export interface EditCardProps {
   highlight: Highlight;
   locationFilterId: string;
   pageId: string;
-  onCreate: () => void;
+  onCreate: (isDefaultColor: boolean) => void;
   onBlur: typeof clearFocusedHighlight;
   setAnnotationChangesPending: typeof setAnnotationChangesPendingAction;
   onRemove: () => void;
@@ -54,7 +55,6 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const element = React.useRef<HTMLElement>(null);
   const textarea = React.useRef<HTMLTextAreaElement>(null);
 
-  const trackCreateNote = useAnalyticsEvent('createNote');
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
   const trackShowCreate = useAnalyticsEvent('showCreate');
@@ -116,8 +116,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
       trackEditNoteColor(color);
     } else {
       assertWindow().getSelection()?.removeAllRanges();
-      props.onCreate();
-      trackCreateNote(isDefault ? 'default' : color);
+      props.onCreate(isDefault === true);
     }
   };
 
@@ -135,7 +134,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     }));
     trackEditAnnotation(addedNote, toSave.color);
     props.onCancel();
-    props.highlight.focus();
+    scrollHighlightIntoView(props.highlight, element);
   };
 
   const updateUnsavedHighlightStatus = (newValue: string) => {

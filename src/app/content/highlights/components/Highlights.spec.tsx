@@ -1,4 +1,4 @@
-import { Highlight, HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -6,7 +6,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
-import { Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
 import LoaderWrapper from '../../styles/LoaderWrapper';
@@ -21,7 +21,7 @@ import {
 } from '../actions';
 import * as requestDeleteHighlightHook from '../hooks/requestDeleteHighlight';
 import { highlightLocationFilters } from '../selectors';
-import { SummaryHighlights } from '../types';
+import { HighlightData, SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights from './Highlights';
 import { NoHighlightsTip } from './Highlights';
@@ -41,7 +41,7 @@ describe('Highlights', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let consoleError: jest.SpyInstance;
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
@@ -52,7 +52,11 @@ describe('Highlights', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...page, references: []}));
 
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   afterEach(() => {
@@ -376,14 +380,14 @@ describe('Highlights', () => {
       secondDeleteWrapper.props.onCancel();
 
       requestDeleteHighlightHook.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
-        requestDeleteHighlight(hlBlue as Highlight, {
+        requestDeleteHighlight(hlBlue as HighlightData, {
           locationFilterId: pageId,
           pageId,
         }
       ));
     });
 
-    expect(dispatch).toHaveBeenCalledWith(requestDeleteHighlight(hlBlue as Highlight, {
+    expect(dispatch).toHaveBeenCalledWith(requestDeleteHighlight(hlBlue as HighlightData, {
       locationFilterId: pageId,
       pageId,
     }));

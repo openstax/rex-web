@@ -1,5 +1,3 @@
-import { SearchResultHit } from '@openstax/open-search-client';
-import isEqual from 'lodash/fp/isEqual';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
@@ -10,12 +8,14 @@ import { Book, Page } from '../../../types';
 import { stripIdVersion } from '../../../utils/idUtils';
 import { closeSearchResultsMobile, selectSearchResult } from '../../actions';
 import { isSearchResultChapter } from '../../guards';
-import { SearchResultChapter, SearchResultContainer,
-  SearchResultPage, SearchScrollTarget, SelectedResult } from '../../types';
+import * as selectSearch from '../../selectors';
+import { SearchResultChapter, SearchResultContainer, SearchResultPage, SelectedResult } from '../../types';
+import SearchResultHits from './SearchResultHits';
 import * as Styled from './styled';
 
 interface SearchResultContainersProps {
   currentPage: Page | undefined;
+  currentQuery: string | null;
   containers: SearchResultContainer[];
   book: Book;
   selectedResult: SelectedResult | null;
@@ -29,6 +29,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
       isSearchResultChapter(node) ? (
         <SearchResultsDropdown
           currentPage={props.currentPage}
+          currentQuery={props.currentQuery}
           chapter={node}
           book={props.book}
           selectResult={props.selectResult}
@@ -39,6 +40,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
       ) : (
         <SearchResult
           currentPage={props.currentPage}
+          currentQuery={props.currentQuery}
           page={node}
           book={props.book}
           selectResult={props.selectResult}
@@ -54,6 +56,7 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
 // tslint:disable-next-line:variable-name
 const SearchResult = (props: {
   currentPage: Page | undefined;
+  currentQuery: string | null;
   page: SearchResultPage;
   book: Book;
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
@@ -72,36 +75,22 @@ const SearchResult = (props: {
         dangerouslySetInnerHTML={{ __html: props.page.title }}
       />
     </Styled.LinkWrapper>
-    {props.page.results.map((hit: SearchResultHit) =>
-      hit.highlight.visibleContent.map((highlight: string, index: number) => {
-        const thisResult = {result: hit, highlight: index};
-        const isSelected = isEqual(props.selectedResult, thisResult);
-        const target: SearchScrollTarget = {
-          elementId: thisResult.result.source.elementId,
-          index,
-          type: 'search',
-        };
-        return <Styled.SectionContentPreview
-          selectedResult={isSelected}
-          data-testid='search-result'
-          key={index}
-          book={props.book}
-          page={props.page}
-          result={thisResult}
-          scrollTarget={target}
-          onClick={() => props.selectResult(thisResult)}
-          {...isSelected ?  {ref: props.activeSectionRef} : {}}
-        >
-          <div tabIndex={-1} dangerouslySetInnerHTML={{ __html: highlight }} />
-        </Styled.SectionContentPreview>;
-      })
-    )}
+    <SearchResultHits
+      activeSectionRef={props.activeSectionRef}
+      book={props.book}
+      hits={props.page.results}
+      testId='search-result'
+      getPage={() => props.page}
+      onClick={(result) => props.selectResult(result)}
+      selectedResult={props.selectedResult}
+    />
   </Styled.NavItem>;
 };
 
 // tslint:disable-next-line:variable-name
 const SearchResultsDropdown = (props: {
   currentPage: Page | undefined;
+  currentQuery: string | null;
   chapter: SearchResultChapter;
   book: Book;
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
@@ -122,6 +111,7 @@ const SearchResultsDropdown = (props: {
       <Styled.DetailsOl>
         <SearchResultContainers
           currentPage={props.currentPage}
+          currentQuery={props.currentQuery}
           containers={props.chapter.contents}
           book={props.book}
           selectResult={props.selectResult}
@@ -136,6 +126,7 @@ const SearchResultsDropdown = (props: {
 export default connect(
   (state: AppState) => ({
     currentPage: select.page(state),
+    currentQuery: selectSearch.query(state),
   }),
   (dispatch: Dispatch) => ({
     selectResult: () => {

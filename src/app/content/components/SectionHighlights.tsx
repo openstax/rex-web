@@ -1,10 +1,9 @@
-import { Highlight } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { h4Style, labelStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { assertDefined } from '../../utils';
-import { OrderedSummaryHighlights } from '../highlights/types';
+import { HighlightData, OrderedSummaryHighlights } from '../highlights/types';
 import {
   desktopHorizontalMargin,
   desktopVerticalMargin,
@@ -12,7 +11,11 @@ import {
   mobilePaddingSides,
 } from '../styles/PopupConstants';
 import { popupBodyPadding, popupPadding } from '../styles/PopupStyles';
-import { archiveTreeSectionIsChapter, findArchiveTreeNodeById } from '../utils/archiveTreeUtils';
+import {
+  archiveTreeSectionIsAnswerKey,
+  archiveTreeSectionIsChapter,
+  findArchiveTreeNodeById,
+} from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 
 // tslint:disable-next-line:variable-name
@@ -97,7 +100,7 @@ export const HighlightSection = styled.div`
 
 interface SectionHighlightsProps {
   highlightDataInSection: OrderedSummaryHighlights[0];
-  highlightRenderer: (highlight: Highlight, pageId: string) => JSX.Element;
+  highlightRenderer: (highlight: HighlightData, pageId: string) => JSX.Element;
 }
 
 // tslint:disable-next-line: variable-name
@@ -113,7 +116,7 @@ const SectionHighlights = (
       </HighlightsChapterWrapper>
       {pages.map(({pageId, highlights}) => {
         const page = assertDefined(
-          archiveTreeSectionIsChapter(location)
+          (archiveTreeSectionIsChapter(location) || archiveTreeSectionIsAnswerKey(location))
             ? findArchiveTreeNodeById(location, stripIdVersion(pageId))
             : location,
           `Page is undefined in SectionHighlights`

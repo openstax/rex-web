@@ -1,5 +1,5 @@
 @table-cell-padding: 0.5em 1em;
-@base-font: 14px;
+@base-font: 16px;
 
 // Styles for the contents of a page.
 // This should **only** be imported inside a containing selector like:
@@ -32,8 +32,8 @@ a:not([role="button"]) {
 
 img {
   max-width: 100%;
-  padding-top: 1em;
-  padding-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 pre {
@@ -74,7 +74,7 @@ figure {
   // do not wrap this in a .media so it applies to editing in Aloha
   img {
     max-width: 100%;
-    padding: 0; //overrides top&bott padding on img, all img EXCEPT those in figure tags should have 1em top&bott padding
+    margin: 0; //overrides top&bott margin on img, all img EXCEPT those in figure tags should have 1em top&bott margin
   }
 
   > [data-type="media"],
@@ -182,7 +182,7 @@ figure[data-orient="vertical"] {
       top: 1.5rem;
       left: 1.5rem;
       color: @gray;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       font-weight: bold;
       letter-spacing: 0.1rem;
       text-transform: uppercase;
@@ -224,7 +224,6 @@ figure[data-orient="vertical"] {
   }
   .style(note) {
     margin: 3rem 6rem 0 6rem;
-    padding: 1.5rem;
     background-color: @gray-lightest;
 
     @media (max-width: @screen-xs-max) {
@@ -295,33 +294,23 @@ blockquote {
     padding: 0.5em 1em;
   }
 
-  // Exercise Solutions contain a button to toggle showing or hiding the solution
+  // Exercise Solutions contain a summary to toggle showing or hiding the solution
   [data-type="solution"],
   .solution {
     border-top: 0.1rem solid @gray;
 
     // The Show/Hide Solution text
-    > .ui-toggle-wrapper {
+    > .ui-toggle {
+      font-weight: bold;
       text-align: center;
+      list-style: none;
+      cursor: pointer;
+      text-transform: capitalize;
 
-      > .ui-toggle {
-        font-weight: bold;
-        text-align: center;
-      }
-    }
+      &::-webkit-details-marker { display: none; }
 
-    &:not(.ui-solution-visible) {
-      > .ui-toggle-wrapper > button.ui-toggle::before {
-        content: "[Show Solution]";
-      }
-      > section {
-        display: none;
-      }
-    }
-
-    &.ui-solution-visible {
-      > .ui-toggle-wrapper > button.ui-toggle::before {
-        content: "[Hide Solution]";
+      &::before {
+        content: "["attr(data-content)"]";
       }
     }
   }
@@ -407,7 +396,7 @@ table {
 
     > .title {
       display: block;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: bold;
 
       &::before {
@@ -481,4 +470,33 @@ table {
 // --------------------------------------------------
 [data-type="equation"] {
   overflow: auto;
+}
+
+//
+// Code
+// --------------------------------------------------
+[data-type="code"] {
+  font-family: 'IBM Plex Mono', monospace;
+
+  &.blue-code,
+  .blue-code {
+    color: #2E3092;
+  }
+
+  &.red-code,
+  .red-code {
+    color: #B90000;
+  }
+}
+
+pre[data-type="code"] {
+  display: block;
+  overflow: auto;
+
+  &.centered-code {
+    color: @gray;
+    text-align: center;
+    background: none;
+    margin: 0 auto;
+  }
 }

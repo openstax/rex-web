@@ -10,6 +10,7 @@ import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import MessageProvider from '../../../test/MessageProvider';
 import mockArchiveLoader, { book, page, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
@@ -17,7 +18,6 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import { scrollTo } from '../../domUtils';
-import MessageProvider from '../../MessageProvider';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
 import { toastMessageKeys } from '../../notifications/components/ToastNotifications/constants';
@@ -52,9 +52,15 @@ jest.mock('../../domUtils', () => ({
   scrollTo: jest.fn(),
 }));
 
-const makeEvent = (doc: Document) => {
-  const event = doc.createEvent('MouseEvents');
-  event.initEvent('click', true, false);
+const makeClickEvent = () => {
+  const event = new Event('click', { bubbles: true, cancelable: true });
+  event.preventDefault();
+  event.preventDefault = jest.fn();
+  return event;
+};
+
+const makeToggleEvent = () => {
+  const event = new Event('toggle', { bubbles: true, cancelable: true });
   event.preventDefault();
   event.preventDefault = jest.fn();
   return event;
@@ -338,55 +344,22 @@ describe('Page', () => {
             <div data-type="problem" id="problem1"><div class="os-problem-container">
               <p id="paragraph1">blah blah blah</p>
             </div></div>
-            <div `
+            <details `
               + `data-type="solution" `
               + `id="fs-id2913818" `
               + `data-print-placement="here" `
-              + `aria-label="show solution" `
-              + `aria-expanded="false"`
+              + `aria-label="Show/Hide Solution"`
             + `>
-      <div class="ui-toggle-wrapper">
-        <button class="btn-link ui-toggle" title="Show/Hide Solution"></button>
-      </div>
-      <section class="ui-body" role="alert" style="display: block; overflow: hidden; height: 0px">
+      <summary class="btn-link ui-toggle" title="Show/Hide Solution" data-content="Show/Hide Solution"></summary>
+      <section class="ui-body" role="alert">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
               </div>
             </section>
-    </div>
+    </details>
           </section></div>
         `);
-      });
-
-      it('can be opened and closed', async() => {
-        await htmlHelper(`
-          <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
-            <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
-            <div data-type="problem" id="problem1"><div class="os-problem-container">
-              <p id="paragraph1">blah blah blah</p>
-            </div></div>
-            <div data-type="solution" id="fs-id2913818" data-print-placement="here">
-              <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
-              <div class="os-solution-container">
-                <p id="paragraph2">answer answer answer.</p>
-              </div>
-            </div>
-          </div>
-        `);
-
-        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle');
-        const solution = pageElement.querySelector('[data-type="solution"]');
-
-        if (!button || !solution) {
-          return expect(false).toBe(true);
-        }
-
-        expect(solution.matches('.ui-solution-visible')).toBe(false);
-        button.dispatchEvent(makeEvent(pageElement.ownerDocument!));
-        expect(solution.matches('.ui-solution-visible')).toBe(true);
-        button.dispatchEvent(makeEvent(pageElement.ownerDocument!));
-        expect(solution.matches('.ui-solution-visible')).toBe(false);
       });
 
       it('doesn\'t use display none to hide solutions', async() => {
@@ -436,17 +409,17 @@ describe('Page', () => {
           </div>
         `);
 
-        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle-wrapper > .ui-toggle');
-        const solution = pageElement.querySelector('[data-type="solution"]');
+        const button = pageElement.querySelector('[data-type="solution"] > .ui-toggle');
+        const solution = pageElement.querySelector('details[data-type="solution"]');
 
         if (!button || !solution) {
           return expect(false).toBe(true);
         }
 
         Object.defineProperty(button.parentElement, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeEvent(pageElement.ownerDocument!))).not.toThrow();
+        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
         Object.defineProperty(button, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeEvent(pageElement.ownerDocument!))).not.toThrow();
+        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
       });
     });
 
@@ -516,10 +489,10 @@ describe('Page', () => {
       return;
     }
 
-    const evt1 = makeEvent(document);
-    const evt2 = makeEvent(document);
-    const evt3 = makeEvent(document);
-    const evt4 = makeEvent(document);
+    const evt1 = makeClickEvent();
+    const evt2 = makeClickEvent();
+    const evt3 = makeClickEvent();
+    const evt4 = makeClickEvent();
 
     firstLink.dispatchEvent(evt1);
     secondLink.dispatchEvent(evt2);
@@ -558,7 +531,8 @@ describe('Page', () => {
   it('interceptes clicking links that failed due to reference loading error', async() => {
     const {root} = renderDomWithReferences();
 
-    const spyAlert = jest.spyOn(globalThis as any, 'alert');
+    const spyAlert = jest.spyOn(globalThis as any, 'alert')
+      .mockImplementation(jest.fn());
 
     dispatch.mockReset();
     const [, , , , lastLink] = Array.from(root.querySelectorAll('#main-content a'));
@@ -569,7 +543,7 @@ describe('Page', () => {
       return;
     }
 
-    const event = makeEvent(document);
+    const event = makeClickEvent();
     lastLink.dispatchEvent(event);
 
     expect(event.preventDefault).not.toHaveBeenCalled();
@@ -597,7 +571,7 @@ describe('Page', () => {
       return expect(firstLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent(document);
+    const evt1 = makeClickEvent();
 
     firstLink.dispatchEvent(evt1);
 
@@ -642,7 +616,7 @@ describe('Page', () => {
       return expect(hashLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent(document);
+    const evt1 = makeClickEvent();
 
     hashLink.dispatchEvent(evt1);
 
@@ -674,7 +648,7 @@ describe('Page', () => {
       return expect(archiveLink).toBeTruthy();
     }
 
-    const evt1 = makeEvent(document);
+    const evt1 = makeClickEvent();
 
     archiveLink.dispatchEvent(evt1);
 
@@ -766,7 +740,7 @@ describe('Page', () => {
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
     // after images are loaded
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     // click again for selectedSearchResult to update
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
@@ -790,7 +764,7 @@ describe('Page', () => {
     renderDomWithReferences();
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page});
@@ -814,9 +788,7 @@ describe('Page', () => {
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
     // page lifecycle hooks
-    await Promise.resolve();
-    // after images are loaded
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
@@ -870,7 +842,7 @@ describe('Page', () => {
     renderDomWithReferences();
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     const highlightResults = jest.spyOn(searchUtils, 'highlightResults');
     const hit = makeSearchResultHit({book, page: shortPage});
@@ -893,12 +865,10 @@ describe('Page', () => {
     store.dispatch(selectSearchResult({result: hit, highlight: 0}));
 
     // page lifecycle hooks
-    await Promise.resolve();
-    // after images are loaded
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     // make sure nothing happened
-    expect(highlightResults).toHaveBeenCalledWith(expect.anything(), []);
+    expect(highlightResults).not.toHaveBeenCalled();
     expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
 
@@ -912,12 +882,9 @@ describe('Page', () => {
     store.dispatch(receivePage({...shortPage, references: []}));
 
     // page lifecycle hooks
-    await Promise.resolve();
-    // previous processing
-    await Promise.resolve();
-    // after images are loaded
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
+    expect(highlightResults).toHaveBeenCalledWith(expect.anything(), [hit]);
     expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
     expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
@@ -1080,7 +1047,7 @@ describe('Page', () => {
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     renderer.act(() => {
       store.dispatch(locationChange({
@@ -1091,7 +1058,7 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(
       addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
@@ -1109,7 +1076,7 @@ describe('Page', () => {
     });
 
     // page lifecycle hooks
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(dispatch).not.toHaveBeenCalledWith(
       addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
@@ -1174,7 +1141,7 @@ describe('Page', () => {
       title: 'qerqwer',
     }));
 
-    await Promise.resolve();
+    await new Promise((resolve) => setImmediate(resolve));
 
     expect(spy).toHaveBeenCalledWith(0, 0);
   });

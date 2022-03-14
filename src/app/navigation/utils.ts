@@ -67,14 +67,13 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
   }
 };
 
-export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: string | undefined) => {
-  const previous = querystring.parse(search || '');
+export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: queryString.OutputParams) => {
   const route = querystring.parse(
     action.route.getSearch ? action.route.getSearch(action.params) : ''
   );
 
   return querystring.stringify({
-    ...previous,
+    ...search,
     ...route,
   });
 };
@@ -128,16 +127,19 @@ export const findPathForParams = (params: object, paths: string[]) => {
   });
 };
 
-export const getQueryForParam = (param: string, value: string, existingQuery?: string | OutputParams) => {
+export const getQueryForParam = (
+  values: Record<string, string | string[]>,
+  existingQuery?: string | OutputParams
+) => {
   if (existingQuery) {
     const parsedExistingQuery = typeof existingQuery === 'string'
       ? queryString.parse(existingQuery)
       : existingQuery;
 
-    return queryString.stringify({...parsedExistingQuery, [param]: value});
+    return queryString.stringify({...parsedExistingQuery, ...values});
   }
 
-  return queryString.stringify({[param]: value});
+  return queryString.stringify(values);
 };
 
 export const isScrollTarget = (
@@ -170,10 +172,10 @@ export const getScrollTargetFromQuery = (
 };
 
 export const createNavigationOptions = (
-  search: { query?: string | null },
+  search: Record<string, string | null | undefined>,
   scrollTarget?: ScrollTarget
 ) => ({
-  hash: scrollTarget ? scrollTarget.elementId : undefined,
+  hash: scrollTarget ? `#${scrollTarget.elementId}` : undefined,
   search: queryString.stringify({
     ...omitBy(isNull, search),
     target: scrollTarget ? JSON.stringify(omit('elementId', scrollTarget)) : undefined,

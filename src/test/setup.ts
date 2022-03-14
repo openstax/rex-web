@@ -79,6 +79,7 @@ let matchMedia: jest.SpyInstance;
 let scrollTo: jest.SpyInstance;
 let scrollBy: jest.SpyInstance;
 let mockGa: any;
+let mockResizeObserver: any;
 
 resetModules();
 
@@ -93,6 +94,12 @@ beforeEach(() => {
 
   scrollTo = window.scrollTo = jest.fn();
   scrollBy = window.scrollBy = jest.fn();
+  window.dataLayer = window.dataLayer || [];
+
+  // function also defined in index.html
+  function gtag() {
+    window!.dataLayer.push(arguments);
+  }
 
   matchMedia = window.matchMedia = jest.fn().mockImplementation((query) => {
     return {
@@ -113,6 +120,17 @@ beforeEach(() => {
 
   mockGa = jest.fn();
   window.ga = mockGa;
+  window.gtag = gtag;
+  // tslint:disable-next-line: only-arrow-functions
+  mockResizeObserver = function(callback: () => void) {
+    callback();
+    return ({
+      disconnect: jest.fn(),
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+    });
+  };
+  globalThis.ResizeObserver = mockResizeObserver;
 });
 
 afterEach(() => {

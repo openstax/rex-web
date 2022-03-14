@@ -24,7 +24,7 @@ const Notifications = ({updateAvailable, error, sendMessages, acceptCookies}: Pr
   }
 
   return <Panel title='Notifications'>
-    <ButtonGroup expand={false}>
+    <ButtonGroup expand vertical>
 
       <Button onClick={acceptCookies} >accept cookies</Button>
 

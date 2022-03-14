@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
+import createTestStore from '../../../test/createTestStore';
 import { book } from '../../../test/mocks/archiveLoader';
 import TestContainer from '../../../test/TestContainer';
 import Home from './Home';
@@ -15,11 +16,16 @@ jest.mock('../../../config.books', () => ({
 }));
 
 describe('Home', () => {
-  const services = createTestServices();
-  services.archiveLoader.mockBook({ ...book, id: 'some-id', title: 'Should be second' } as any);
-  services.archiveLoader.mockBook({ ...book, id: 'some-id-2', title: '0 Should be first' } as any);
+  const store = createTestStore();
+  const services = {
+    ...createTestServices(),
+    dispatch: store.dispatch,
+    getState: store.getState,
+  };
+  services.archiveLoader.mockBook({ ...book, id: 'some-id', title: 'booktitle' } as any);
+  services.archiveLoader.mockBook({ ...book, id: 'some-id-2', title: 'booktitle2' } as any);
 
-  it('matches snapshot and books are sorted', async() => {
+  it('matches snapshot', async() => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const component = renderer.create(<TestContainer services={services}>
       <Home />

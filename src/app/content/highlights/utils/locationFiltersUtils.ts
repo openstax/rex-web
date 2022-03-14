@@ -11,6 +11,7 @@ import {
   Page
 } from '../../types';
 import {
+  archiveTreeSectionIsAnswerKey,
   archiveTreeSectionIsBook,
   archiveTreeSectionIsChapter,
   archiveTreeSectionIsPage,
@@ -35,9 +36,13 @@ export const getHighlightLocationFilters = (filterBy: (section: LocationFilterSe
   sectionsToLocationFilters
 );
 
-export const sectionIsHighlightLocationFitler = (section: LocationFilterSection) =>
-  (archiveTreeSectionIsPage(section) && archiveTreeSectionIsBook(section.parent))
-  || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section));
+// condition allowing unit parents added to accomodate writing guide book
+export const sectionIsHighlightLocationFilter = (section: LocationFilterSection) =>
+  (archiveTreeSectionIsPage(section)
+    && (archiveTreeSectionIsBook(section.parent) || archiveTreeSectionIsUnit(section.parent)))
+  || (archiveTreeSectionIsChapter(section) && !archiveTreeSectionIsUnit(section))
+  || archiveTreeSectionIsAnswerKey(section)
+;
 
 export const getHighlightLocationFilterForPage = (
   locationFilters: LocationFilters, page: Page | LinkedArchiveTreeNode | string
@@ -47,7 +52,10 @@ export const getHighlightLocationFilterForPage = (
 
   if (!location) {
     for (const filter of locationFilters.values()) {
-      if (archiveTreeSectionIsChapter(filter.section) && findArchiveTreeNodeById(filter.section, pageId)) {
+      if (
+        (archiveTreeSectionIsChapter(filter.section) || archiveTreeSectionIsAnswerKey(filter.section))
+        && findArchiveTreeNodeById(filter.section, pageId)
+      ) {
         location = filter;
         break;
       }

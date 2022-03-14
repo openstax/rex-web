@@ -7,17 +7,25 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter, pageInOtherChapter } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
-import { Store } from '../../../types';
+import { locationChange } from '../../../navigation/actions';
+import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
+import { modalQueryParameterName } from '../../constants';
 import { SummaryHighlights } from '../../highlights/types';
-import { getHighlightLocationFilterForPage } from '../../highlights/utils';
+import { getHighlightLocationFilterForPage, getSortedSummaryHighlights } from '../../highlights/utils';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { formatBookData } from '../../utils';
-import { receiveStudyGuidesTotalCounts, receiveSummaryStudyGuides, setSummaryFilters } from '../actions';
-import { studyGuidesLocationFilters } from '../selectors';
+import {
+  loadMoreStudyGuides,
+  openStudyGuides,
+  receiveStudyGuidesTotalCounts,
+  receiveSummaryStudyGuides
+} from '../actions';
+import { modalUrlName } from '../constants';
+import * as selectors from '../selectors';
 import StudyGuides, { NoStudyGuidesTip } from './StudyGuides';
 
 const hlBlue = {
@@ -44,7 +52,7 @@ const hlYellow = {
 describe('StudyGuides', () => {
   const book = formatBookData(archiveBook, mockCmsBook);
   let store: Store;
-  let services: ReturnType<typeof createTestServices>;
+  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
   beforeEach(() => {
     store = createTestStore();
@@ -52,12 +60,16 @@ describe('StudyGuides', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({...page, references: []}));
 
-    services = createTestServices();
+    services = {
+      ...createTestServices(),
+      dispatch: store.dispatch,
+      getState: store.getState,
+    };
   });
 
   it('properly display summary highlights', () => {
     const state = store.getState();
-    const locationFilters = studyGuidesLocationFilters(state);
+    const locationFilters = selectors.studyGuidesLocationFilters(state);
     const firstLocation = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     const secondLocation = getHighlightLocationFilterForPage(locationFilters, pageInOtherChapter);
 
@@ -93,7 +105,7 @@ describe('StudyGuides', () => {
     const container = assertWindow().document.createElement('div');
     const spyPromiseCollectorAdd = jest.spyOn(services.promiseCollector, 'add');
 
-    const locationFilters = studyGuidesLocationFilters(store.getState());
+    const locationFilters = selectors.studyGuidesLocationFilters(store.getState());
     const firstLocation = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     const secondLocation = getHighlightLocationFilterForPage(locationFilters, pageInOtherChapter);
 
@@ -128,7 +140,7 @@ describe('StudyGuides', () => {
 
   it('show loading state on filters change', () => {
     const state = store.getState();
-    const locationFilters = studyGuidesLocationFilters(state);
+    const locationFilters = selectors.studyGuidesLocationFilters(state);
     const firstLocation = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     const secondLocation = getHighlightLocationFilterForPage(locationFilters, pageInOtherChapter);
 
@@ -150,9 +162,24 @@ describe('StudyGuides', () => {
       },
     } as SummaryHighlights;
 
+    jest.spyOn(selectors, 'orderedSummaryStudyGuides')
+      .mockReturnValue(getSortedSummaryHighlights(summaryHighlights, locationFilters));
+
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
-      store.dispatch(receiveSummaryStudyGuides(summaryHighlights, {pagination: null}));
+      // set filters
+      store.dispatch(openStudyGuides());
+      store.dispatch(locationChange({
+        action: 'PUSH',
+        location: {
+          search: `modal=${modalUrlName}`,
+        },
+      } as any));
+      store.dispatch(locationChange({
+        action: 'REPLACE',
+        location: {
+          search: `?locationIds=${firstLocation.id}&locationIds=${secondLocation.id}&modal=${modalUrlName}`,
+        },
+      } as any));
     });
 
     const component = renderer.create(<TestContainer services={services} store={store}>
@@ -165,7 +192,16 @@ describe('StudyGuides', () => {
     expect(component.root.findAllByType(LoaderWrapper).length).toEqual(0);
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [firstLocation.id, secondLocation.id]}));
+      // set filters
+      store.dispatch(locationChange({
+        action: 'REPLACE',
+        location: {},
+        query: {
+          locationIds: [firstLocation.id, secondLocation.id],
+          [modalQueryParameterName]: modalUrlName,
+        },
+      } as any));
+      store.dispatch(loadMoreStudyGuides());
     });
 
     const isLoading = component.root.findByType(LoaderWrapper);
@@ -174,7 +210,10 @@ describe('StudyGuides', () => {
 
   it('shows "no results" state', () => {
     const summaryStudyGuides = {} as SummaryHighlights;
-    store.dispatch(receiveSummaryStudyGuides(summaryStudyGuides, {pagination: null}));
+    const state = store.getState();
+
+    jest.spyOn(selectors, 'orderedSummaryStudyGuides')
+    .mockReturnValue(getSortedSummaryHighlights(summaryStudyGuides, selectors.studyGuidesLocationFilters(state)));
 
     const component = renderer.create(<TestContainer services={services} store={store}>
       <StudyGuides />

@@ -47,7 +47,7 @@ const prepareRedirects = async(
 
       redirects.push({
         from: pathname,
-        to: content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } }),
+        to: decodeURI(content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } })),
       });
     }
   }

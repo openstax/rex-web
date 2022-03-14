@@ -9,10 +9,11 @@ import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import BuyBook from '../BuyBook';
+import LabsCTA from '../LabsCTA';
 import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
-import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
+import { transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
@@ -35,7 +36,8 @@ export default class PageComponent extends Component<PagePropTypes> {
   private searchHighlightManager = stubManager;
   private highlightManager = stubHighlightManager;
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
-  private processing: Promise<void> = Promise.resolve();
+  private processing: Array<Promise<void>> = [];
+  private componentDidUpdateCounter = 0;
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
@@ -62,21 +64,39 @@ export default class PageComponent extends Component<PagePropTypes> {
       return;
     }
     this.searchHighlightManager = searchHighlightManager(this.container.current, this.props.intl);
-    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.intl);
+    // tslint:disable-next-line: max-line-length
+    this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
+
+    // Sometimes data is already populated on mount, eg when navigating to a new tab
+    if (this.props.searchHighlights.selectedResult) {
+      this.searchHighlightManager.update(null, this.props.searchHighlights, {
+        forceRedraw: true,
+        onSelect: this.onSearchHighlightSelect,
+      });
+    }
+    this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
-    // if there is a previous processing job, wait for it to finish.
-    // this is mostly only relevant for initial load to ensure search results
-    // are not highlighted before math is done typesetting, but may also
-    // be relevant if there are rapid page navigations.
-    await this.processing;
+    // Store the id of this update. We need it because we want to update highlight managers only once
+    // per rerender. componentDidUpdate is called multiple times when user navigates quickly.
+    const runId = this.getRunId();
+
+    // If page has changed, call postProcess that will remove old and attach new listerns and start mathjax typesetting.
+    if (prevProps.page !== this.props.page) {
+      this.postProcess();
+    }
+
+    // Wait for the mathjax promise set by postProcess from previous or current componentDidUpdate call.
+    await Promise.all(this.processing);
 
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
-    if (prevProps.page !== this.props.page) {
-      await this.postProcess();
+    // If user navigated quickly between pages then most likelly there were multiple componentDidUpdate calls started.
+    // We want to update highlight manager only for the last componentDidUpdate.
+    if (!this.shouldUpdateHighlightManagers(prevProps, this.props, runId)) {
+      return;
     }
 
     const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
@@ -100,13 +120,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       this.props.addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'});
     }
   };
-
-  public getSnapshotBeforeUpdate(prevProps: PagePropTypes) {
-    if (prevProps.page !== this.props.page) {
-      this.listenersOff();
-    }
-    return null;
-  }
 
   public componentWillUnmount() {
     this.listenersOff();
@@ -134,10 +147,12 @@ export default class PageComponent extends Component<PagePropTypes> {
     return <React.Fragment>
       <PageContent
         key='main-content'
+        className='page-content'
         ref={this.container}
         dangerouslySetInnerHTML={{ __html: html}}
       />
       <PrevNextBar />
+      <LabsCTA />
       <BuyBook />
     </React.Fragment>;
   };
@@ -177,15 +192,9 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOff();
 
     this.mapLinks((a) => {
-      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks);
+      const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
-    });
-
-    mapSolutions(this.container.current, (button) => {
-      const handler = toggleSolution(button, this.props.intl);
-      this.clickListeners.set(button, handler);
-      button.addEventListener('click', handler);
     });
   }
 
@@ -198,7 +207,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     };
 
     this.mapLinks(removeIfExists);
-    mapSolutions(this.container.current, removeIfExists);
   }
 
   private postProcess() {
@@ -212,8 +220,30 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     const promise = typesetMath(container, assertWindow());
     this.props.services.promiseCollector.add(promise);
-    this.processing = promise;
+    this.processing.push(promise);
 
-    return promise;
+    return promise.then(() => {
+      this.processing = this.processing.filter((p) => p !== promise);
+    });
+  }
+
+  private getRunId(): number {
+    const newId = this.componentDidUpdateCounter + 1;
+    this.componentDidUpdateCounter = newId;
+    return newId;
+  }
+
+  /**
+   * When a user navigates quickly between pages there are multiple calls to componentDidUpdate
+   * and since it is an async function there might be still unresolved promisses that would result
+   * in calling highlighter.update multiple times after they are done.
+   * see: https://github.com/openstax/unified/issues/1169
+   */
+  private shouldUpdateHighlightManagers(prevProps: PagePropTypes, props: PagePropTypes, runId: number): boolean {
+    // Update search highlight manager if selected result has changed.
+    // If we don't do this then for the last componenDidUpdate call prevProps will equal props and it will noop.
+    if (!prevProps.searchHighlights.selectedResult && props.searchHighlights.selectedResult) { return true; }
+    // Update highlighters only for the latest run
+    return this.componentDidUpdateCounter === runId;
   }
 }

@@ -164,7 +164,6 @@ describe('Attribution', () => {
 
       store = createTestStore(newState);
       const { node: details } = renderToDom(render());
-      details.setAttribute('open', '');
 
       expect(details.children[1].innerHTML).toMatch(`Authors: Jhon Doe, Jonny Doe`);
     });
