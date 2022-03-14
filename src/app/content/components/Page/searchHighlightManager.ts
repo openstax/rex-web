@@ -1,5 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { HTMLDetailsElement, HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { IntlShape } from 'react-intl';
 import { scrollTo } from '../../../domUtils';
@@ -7,6 +7,7 @@ import { AppState } from '../../../types';
 import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
+import { expandClosestSolution } from '../../utils/domUtils';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
 interface Services {
@@ -62,12 +63,7 @@ const selectResult = (services: Services, previous: HighlightProp | null, curren
 
   if (firstSelectedHighlight) {
     // If selected result is in the collapsed solution then expand it
-    const details = (firstSelectedHighlight.elements[0] as HTMLElement)
-      .closest('details[data-type="solution"]:not([open])');
-    if (details) {
-      (details as HTMLDetailsElement).open = true;
-    }
-
+    expandClosestSolution(firstSelectedHighlight.elements[0] as HTMLElement)
     firstSelectedHighlight.addFocusedStyles();
   }
 
