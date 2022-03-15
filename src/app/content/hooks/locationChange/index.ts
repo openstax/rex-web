@@ -1,6 +1,4 @@
-import googleAnalyticsClient from '../../../../gateways/googleAnalyticsClient';
 import { locationChange } from '../../../navigation/actions';
-import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { loadHighlights } from '../../highlights/hooks';
 import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
@@ -8,26 +6,15 @@ import { content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
 import { loadStudyGuides } from '../../studyGuides/hooks';
 import initializeIntl from '../intlHook';
+import registerPageView from '../registerPageView';
 import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent from './resolveContent';
 
 const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
-  const state = services.getState();
-  const pathname = selectNavigation.pathname(state);
-  const query = selectNavigation.query(state);
-  const prevPath = action.prevLocation?.pathname;
-  const prevQuery = action.prevLocation?.query;
-
-  const pathOrModalChanged =
-    pathname !== prevPath || prevQuery.modal !== query.modal;
-
-  if (action.action !== 'REPLACE' && pathOrModalChanged) {
-    googleAnalyticsClient.trackPageView(pathname, query);
-  }
-
   await resolveContent(services, action.match);
 
   await Promise.all([
+    registerPageView(services)(action),
     syncSearch(services)(action),
     loadBuyPrintConfig(services)(),
     loadHighlights(services)(locationChange(action)),

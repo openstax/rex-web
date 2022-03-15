@@ -64,7 +64,7 @@ export interface LocationChange<M = AnyMatch> {
 export type AnyRoute = typeof routes[number];
 export type AnyMatch = UnionRouteMatches<AnyRoute>;
 
-export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices, prevLocation?: string) =>
+export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
   (locationChange: Required<LocationChange<Match<R>>>) =>
     Promise<any> | void;
 
