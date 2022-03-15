@@ -1,5 +1,6 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLDetailsElement, HTMLElement } from '@openstax/types/lib.dom';
 import {
+  expandClosestSolution,
   expandCurrentChapter, scrollSidebarSectionIntoView,
 } from './domUtils';
 
@@ -127,6 +128,35 @@ describe('scrollSidebarSectionIntoView', () => {
 
     scrollSidebarSectionIntoView(sidebar, activeSection);
     expect(sidebar.scrollTop).toBe(1500);
+  });
+});
+
+describe('expandClosestSolution', () => {
+  let container: HTMLElement;
+
+  beforeEach(() => {
+    if (!document) {
+      throw new Error('jsdom...');
+    }
+
+    container = document.createElement('div');
+  });
+
+  it('expands the parent solution', () => {
+    container.innerHTML = `
+      <details data-type="solution" data-testid="details">
+        <div data-testid="target" />
+      </details>
+    `;
+
+    const target: HTMLElement | null = container.querySelector('[data-testid="target"]');
+    const details: HTMLDetailsElement | null = container.querySelector('[data-testid="details"]');
+    if ( !target ) { return expect(target).toBeTruthy(); }
+    if ( !details ) { return expect(details).toBeTruthy(); }
+
+    expect(details.open).toBe(false);
+    expandClosestSolution(target);
+    expect(details.open).toBe(true);
   });
 });
 
