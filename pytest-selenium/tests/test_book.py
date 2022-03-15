@@ -323,23 +323,8 @@ def test_search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
         assert search_sidebar.search_results_present
 
         # AND: Content page scrolls to the first search result
-        # Loop through the words in search term and assert if at least one of
-        # them is highlighted in the book
-        split_search_term = re.findall(r"\w+", search_term)
-        for x in split_search_term:
-            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
-            try:
-                assert (
-                    focussed_search_term
-                ), f"the highlighted search term ('{x}') was not found on the page"
-                assert book.element_in_viewport(focussed_search_term[0])
-            except AssertionError:
-                continue
-            except IndexError:
-                # Wait till the focussed search term is scrolled to the viewport
-                sleep(1)
-                assert book.element_in_viewport(focussed_search_term[0])
-            break
+        # AND: Search term is focussed in the content page
+        book.assert_search_term_is_highlighted_in_content_page(search_term)
 
         # AND: Rex 404 page is not displayed
         assert not book.content.page_error_displayed
@@ -357,23 +342,8 @@ def test_search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
         Utilities.click_option(selenium, element=search_results[0])
 
         # AND: Content page scrolls to the selected search result
-        # Loop through the words in search term and assert if atleast one of
-        # them is highlighted in the book
-        split_search_term = re.findall(r"\w+", search_term)
-        for x in split_search_term:
-            focussed_search_term = book.content.find_elements(By.XPATH, XPATH_SEARCH.format(term=x))
-            try:
-                assert (
-                    focussed_search_term
-                ), f"the highlighted search term ('{x}') was not found on the page"
-                assert book.element_in_viewport(focussed_search_term[0])
-            except AssertionError:
-                continue
-            except IndexError:
-                # Wait till the focussed search term is scrolled to the viewport
-                sleep(1)
-                assert book.element_in_viewport(focussed_search_term[0])
-            break
+        # AND: Search term is focussed in the content page
+        book.assert_search_term_is_highlighted_in_content_page(search_term)
 
         # AND: Rex 404 page is not displayed
         assert not book.content.page_error_displayed

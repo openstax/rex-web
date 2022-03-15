@@ -11,10 +11,7 @@ from utils.utility import Highlight, Color
 
 @markers.test_case("C593151")
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "4-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "4-introduction")])
 def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug, page_slug):
     """No results message when selecting None in either or both chapter & color filters."""
 
@@ -37,7 +34,7 @@ def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug,
         by=random.choice,
         group=book.content.paragraphs,
         offset=Highlight.ENTIRE,
-        color=Color.YELLOW
+        color=Color.YELLOW,
     )
 
     my_highlights = book.toolbar.my_highlights()
@@ -90,10 +87,7 @@ def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug,
 
 @markers.test_case("C593153")
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "4-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "4-introduction")])
 def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, page_slug):
     """No results message when removing filter tags."""
 
@@ -116,7 +110,7 @@ def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, pag
         by=random.choice,
         group=book.content.paragraphs,
         offset=Highlight.ENTIRE,
-        color=Color.YELLOW
+        color=Color.YELLOW,
     )
 
     my_highlights = book.toolbar.my_highlights()
@@ -164,11 +158,7 @@ def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, pag
 @markers.test_case("C594028")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
-@markers.smoke_test
+@markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
 def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug, page_slug):
     """Filter state preserved throughout the session irrespective of chapter/section navigation."""
 
@@ -206,7 +196,7 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
             by=random.choice,
             group=book.content.paragraphs,
             offset=Highlight.ENTIRE,
-            color=Highlight.random_color()
+            color=Highlight.random_color(),
         )
 
         content_highlight_ids = content_highlight_ids + list(
@@ -295,10 +285,7 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
 
 @markers.test_case("C594029")
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
 def test_filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_slug, page_slug):
     """Filter state is not preserved if MH page is opened in a new tab."""
 
@@ -336,7 +323,7 @@ def test_filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_s
             by=random.choice,
             group=book.content.paragraphs,
             offset=Highlight.ENTIRE,
-            color=Highlight.random_color()
+            color=Highlight.random_color(),
         )
 
         content_highlight_ids = content_highlight_ids + list(
@@ -395,10 +382,7 @@ def test_filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_s
 @markers.test_case("C593145")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "6-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "6-introduction")])
 def test_chapter_filter_collapses_on_clicking_color_filter(
     selenium, base_url, book_slug, page_slug
 ):
@@ -436,7 +420,7 @@ def test_chapter_filter_collapses_on_clicking_color_filter(
             by=random.choice,
             group=book.content.paragraphs,
             offset=Highlight.ENTIRE,
-            color=color
+            color=color,
         )
 
         my_highlights = book.toolbar.my_highlights()
@@ -482,10 +466,7 @@ def test_chapter_filter_collapses_on_clicking_color_filter(
 @markers.test_case("C593152")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("psychology-2e", "2-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("psychology-2e", "2-introduction")])
 def test_select_chapter_with_highlights_and_select_color_not_used_in_that_chapter(
     selenium, base_url, book_slug, page_slug
 ):
@@ -517,7 +498,7 @@ def test_select_chapter_with_highlights_and_select_color_not_used_in_that_chapte
             by=random.choice,
             group=book.content.paragraphs,
             offset=Highlight.ENTIRE,
-            color=color
+            color=color,
         )
 
     # WHEN: Update chapter dropdown to include only one highlighted
@@ -544,10 +525,7 @@ def test_select_chapter_with_highlights_and_select_color_not_used_in_that_chapte
 @markers.test_case("C593155")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("astronomy", "1-1-the-nature-of-astronomy")]
-)
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
 def test_keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_slug, page_slug):
     """Keyboard navigation for the MH dropdown filters."""
 
@@ -570,7 +548,7 @@ def test_keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_sl
         by=random.choice,
         group=book.content.paragraphs,
         offset=Highlight.ENTIRE,
-        color=Color.YELLOW
+        color=Color.YELLOW,
     )
     content_highlight_ids = list(book.content.highlight_ids)
 
@@ -678,10 +656,7 @@ def test_keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_sl
 @markers.test_case("C593156")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("astronomy", "1-1-the-nature-of-astronomy")]
-)
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
 def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, page_slug):
     """Keyboard navigation for the MH filter tags."""
 
@@ -704,7 +679,7 @@ def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, p
         by=random.choice,
         group=book.content.paragraphs,
         offset=Highlight.ENTIRE,
-        color=Color.YELLOW
+        color=Color.YELLOW,
     )
 
     # AND: Open MH page
@@ -729,10 +704,7 @@ def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, p
 
 @markers.test_case("C592628")
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("astronomy", "1-1-the-nature-of-astronomy")]
-)
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
 def test_MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug):
     """Logged in user empty state for MH page."""
 
@@ -789,10 +761,7 @@ def test_MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug)
 @markers.test_case("C592644")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("astronomy", "1-1-the-nature-of-astronomy")]
-)
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
 def test_keyboard_navigation_MH_empty_state_logged_in_user(
     selenium, base_url, book_slug, page_slug
 ):
@@ -845,10 +814,7 @@ def test_keyboard_navigation_MH_empty_state_logged_in_user(
 @markers.test_case("C592645")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("astronomy", "1-1-the-nature-of-astronomy")]
-)
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
 def test_keyboard_navigation_MH_empty_state_non_logged_in_user(
     selenium, base_url, book_slug, page_slug
 ):
