@@ -13,7 +13,7 @@ import LabsCTA from '../LabsCTA';
 import PageToasts from '../Page/PageToasts';
 import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
-import { mapSolutions, toggleSolution, transformContent } from './contentDOMTransformations';
+import { transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import MinPageHeight from './MinPageHeight';
@@ -196,12 +196,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });
-
-    mapSolutions(this.container.current, (button) => {
-      const handler = toggleSolution(button, this.props.intl);
-      this.clickListeners.set(button, handler);
-      button.addEventListener('click', handler);
-    });
   }
 
   private listenersOff() {
@@ -213,7 +207,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     };
 
     this.mapLinks(removeIfExists);
-    mapSolutions(this.container.current, removeIfExists);
   }
 
   private postProcess() {

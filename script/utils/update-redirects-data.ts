@@ -26,16 +26,27 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
   const formatSection = (section: LinkedArchiveTreeNode) => ({
     bookId: currentBook.id,
     pageId: section.id,
-    pathname: content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } }),
+    pathname: decodeURI(
+      content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
+    ),
   });
 
   const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
   const matchSection = (section: LinkedArchiveTreeNode) => (node: LinkedArchiveTreeNode) => section.id === node.id;
 
+  const allowedDeletions = [
+    {
+      id: 'c96816d3-855a-59a3-b2eb-1628764de0ea',
+      slug: 'chapter-11',
+    },
+  ];
+
   let countNewRedirections = 0;
   for (const section of flatCurrentTree) {
     const { slug } = flatNewTree.find(matchSection(section)) || {};
     const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
+    const matchException =
+      allowedDeletions.find((allowed) => allowed.id === section.id && allowed.slug === section.slug);
 
     if (
       (slug && slug !== section.slug)
@@ -45,7 +56,7 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
       countNewRedirections++;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
-    } else if (!slug && matchSlug(section.slug) === undefined) {
+    } else if (!slug && matchSlug(section.slug) === undefined && !matchException) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);

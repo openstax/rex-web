@@ -40,12 +40,14 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
 export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
 export const hookBody: ActionHookBody<
-  typeof actions.setDefaultSummaryFilters |
-  typeof actions.setSummaryFilters |
-  typeof actions.updateSummaryFilters |
   typeof actions.loadMoreStudyGuides
 > = (services) => async() => {
-  const filters = select.summaryFilters(services.getState());
+  const state = services.getState();
+  const summaryIsOpen = select.studyGuidesOpen(state);
+
+  if (!summaryIsOpen) { return; }
+
+  services.dispatch(actions.toggleStudyGuidesSummaryLoading(true));
 
   let response: Unpromisify<LoadMoreResponse>;
 
@@ -57,10 +59,7 @@ export const hookBody: ActionHookBody<
   }
 
   const {formattedHighlights, pagination} = response;
-  services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination, filters}));
+  services.dispatch(actions.receiveSummaryStudyGuides(formattedHighlights, {pagination}));
 };
 
 export const loadMoreHook = actionHook(actions.loadMoreStudyGuides, hookBody);
-export const setSummaryFiltersHook = actionHook(actions.setSummaryFilters, hookBody);
-export const updateSummaryFiltersHook = actionHook(actions.updateSummaryFilters, hookBody);
-export const setDefaultSummaryFiltersHook = actionHook(actions.setDefaultSummaryFilters, hookBody);

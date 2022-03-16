@@ -11,7 +11,7 @@ export const openModal = (modalUrlName: string) => (services: MiddlewareAPI & Ap
 
   if (match) {
     services.dispatch(push(match, {
-      search: getQueryForParam(modalQueryParameterName, modalUrlName, existingQuery),
+      search: getQueryForParam({[modalQueryParameterName]: modalUrlName}, existingQuery),
     }));
   }
 };
