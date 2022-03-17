@@ -98,8 +98,11 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     if (element.current) {
       props.onHeightChange(element);
     }
+    if (!props.isActive && !props.data?.annotation) {
+      setPendingAnnotation(defaultAnnotation());;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, editingAnnotation, props.isActive]);
+ ; }, [element, editingAnnotation, props.isActive]);
 
   useFocusElement(textarea, props.shouldFocusCard);
 
