@@ -17,7 +17,6 @@ const minMobileContentSize =
 
 export default styled.div`
   @media screen {
-    width: 100%;
     overflow: visible;
     flex: 1;
     display: flex;
