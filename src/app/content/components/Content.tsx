@@ -9,7 +9,6 @@ import theme from '../../theme';
 import { AppState } from '../../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQuestionsPopup';
-import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
 import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
 import Footer from './../../components/Footer';
@@ -29,8 +28,8 @@ import {
 import ContentPane from './ContentPane';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
-import TableOfContents from './TableOfContents';
-import VerticalNav from './Toolbar';
+
+import Navigation from './Navigation';
 import Topbar from './Topbar';
 import { isVerticalNavOpenConnector } from './utils/sidebar';
 import Wrapper from './Wrapper';
@@ -164,9 +163,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       <OuterWrapper>
         <Topbar />
         <Wrapper>
-          <VerticalNav />
-          <TableOfContents />
-          <SearchResultsSidebar />
+          <Navigation />
           <CenteredContentRow>
             <ContentPane>
               <UndoPadding>
