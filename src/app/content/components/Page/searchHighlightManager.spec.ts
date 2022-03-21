@@ -38,17 +38,14 @@ describe('searchHighlightManager', () => {
 
   beforeEach(() => {
     const container = assertDocument().createElement('div');
-    const collapsedSolution = assertDocument().createElement('div');
-    collapsedSolution.setAttribute('data-type', 'solution');
-    collapsedSolution.setAttribute('aria-expanded', 'false');
     details = assertDocument().createElement('details');
-    collapsedSolution.append(details);
+    details.setAttribute('data-type', 'solution');
 
     const hl1 = assertDocument().createElement('span');
     const hl2 = assertDocument().createElement('span');
     const hl3 = assertDocument().createElement('span');
 
-    collapsedSolution.append(hl1, hl2);
+    details.append(hl1, hl2);
 
     intl = { formatMessage: jest.fn() } as any as IntlShape;
     attachedManager = searchHighlightManager(container, intl);
