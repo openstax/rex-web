@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from enum import Enum
 from json import loads
+from os.path import exists
 from platform import system
 from random import choice, choices, randint
 from string import digits, ascii_letters
@@ -211,9 +212,11 @@ class Highlight:
 class Library(object):
 
     # Read the books details from books.json file
-    book_details = open("pytest-selenium/utils/books.json", "r")
-    books = loads(book_details.read())
-    book_details.close()
+    local = "utils/books.json"
+    parent = f"pytest-selenium/{local}"
+    location = parent if exists(parent) else local
+    with open(location, "r") as book_details:
+        books = loads(book_details.read())
 
     def random_book_slug(self):
         """Book slug of a random book selected from the Library."""
