@@ -24,10 +24,11 @@ ACTION_SCRIPT = (
 
 def print_queue(events):
     """Print the current GA event queue with relative indices."""
-    for event in events:
-        index = 0 - len(events) + events.index(event)
+    print("\n")
+    for index, event in enumerate(events):
+        position = -1 * len(events) + index
         _type = event.get("hitType", "     ")
-        print(f"{index} : [{_type}]: {event}")
+        print(f"{position} : [{_type}]: {event}")
 
 
 # --------------------- #
@@ -977,9 +978,10 @@ def test_cancel_highlight_delete_ga_event(selenium, base_url, book_slug, page_sl
 def test_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a highlight is deleted."""
     # SETUP:
-    event_action = "cancel"
+    event_action = "delete"
     event_category = "REX Button (confirm-delete-inline-highlight)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
     note = Utilities.random_string(length=36)
 
     # GIVEN: a logged in user viewing a book page
@@ -987,7 +989,7 @@ def test_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
 
     # WHEN:  they create a new highlight with a note
     # AND:   open the highlight context menu and click the 'Delete' link
-    # AND:   click the 'Cancel' button
+    # AND:   click the 'Delete' button
     while not book.content.highlight_count:
         try:
             book.content.highlight(
@@ -998,22 +1000,27 @@ def test_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.delete_note()
 
-    book.content.highlight_box.cancel()
+    book.content.highlight_box.confirm_deletion()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "cancel",
+    #        { eventAction: "delete",
     #          eventCategory: "REX Button (confirm-delete-inline-highlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    delete_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in delete_event
+        and "eventCategory" in delete_event
+        and "eventLabel" in delete_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert delete_event["eventAction"] == event_action
+    assert delete_event["eventCategory"] == event_category
+    assert delete_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
 
 
 @markers.test_case("C621351", "C621352")
@@ -1023,14 +1030,15 @@ def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when existing note is edited."""
     # SETUP:
     color = Highlight.random_color()
-    first_event_action = "save"
-    first_event_category = "REX Button (edit-note)"
-    first_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    color_confirmation_action = str(color)
+    color_confirmation_category = "REX highlighting (inline edit note)"
+    color_confirmation_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     note_one = Utilities.random_string(length=16)
     note_two = Utilities.random_string(length=28)
-    second_event_action = str(color)
-    second_event_category = "REX highlighting (inline edit note)"
-    second_event_label = first_event_label
+    save_event_action = "save"
+    save_event_category = "REX Button (edit-note)"
+    save_event_label = color_confirmation_label
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
@@ -1049,6 +1057,7 @@ def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.edit_note()
 
@@ -1064,23 +1073,26 @@ def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
     #          eventCategory: "REX highlighting (inline edit note)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    second_to_last_event = events[-2]
+    save_note_event = events[-2]
     assert (
-        "eventAction" in second_to_last_event
-        and "eventCategory" in second_to_last_event
-        and "eventLabel" in second_to_last_event
+        "eventAction" in save_note_event
+        and "eventCategory" in save_note_event
+        and "eventLabel" in save_note_event
     ), "Not viewing the correct GA event"
-    assert second_to_last_event["eventAction"] == first_event_action
-    assert second_to_last_event["eventCategory"] == first_event_category
-    assert second_to_last_event["eventLabel"] == first_event_label
+    assert save_note_event["eventAction"] == save_event_action
+    assert save_note_event["eventCategory"] == save_event_category
+    assert save_note_event["eventLabel"] == save_event_label
 
-    last_event = events[-1]
+    color_confirmation = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in color_confirmation
+        and "eventCategory" in color_confirmation
+        and "eventLabel" in color_confirmation
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == second_event_action
-    assert last_event["eventCategory"] == second_event_category
-    assert last_event["eventLabel"] == second_event_label
+    assert color_confirmation["eventAction"] == color_confirmation_action
+    assert color_confirmation["eventCategory"] == color_confirmation_category
+    assert color_confirmation["eventLabel"] == color_confirmation_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
 
 
 @markers.test_case("C621353", "C621354")
@@ -1090,13 +1102,14 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
     """The page submits the correct GA event when note added to a highlight."""
     # SETUP:
     color = Highlight.random_color()
-    first_event_action = "save"
-    first_event_category = "REX Button (edit-note)"
-    first_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    color_confirmation_action = str(color)
+    color_confirmation_category = "REX highlighting (inline add note)"
+    color_confirmation_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     note = Utilities.random_string(length=30)
-    second_event_action = str(color)
-    second_event_category = "REX highlighting (inline add note)"
-    second_event_label = first_event_label
+    save_event_action = "save"
+    save_event_category = "REX Button (edit-note)"
+    save_event_label = color_confirmation_label
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
@@ -1114,6 +1127,7 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.note = note
     book.content.highlight_box.save()
@@ -1127,23 +1141,26 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
     #          eventCategory: "REX highlighting (inline add note)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    second_to_last_event = events[-2]
+    save_note_event = events[-2]
     assert (
-        "eventAction" in second_to_last_event
-        and "eventCategory" in second_to_last_event
-        and "eventLabel" in second_to_last_event
+        "eventAction" in save_note_event
+        and "eventCategory" in save_note_event
+        and "eventLabel" in save_note_event
     ), "Not viewing the correct GA event"
-    assert second_to_last_event["eventAction"] == first_event_action
-    assert second_to_last_event["eventCategory"] == first_event_category
-    assert second_to_last_event["eventLabel"] == first_event_label
+    assert save_note_event["eventAction"] == save_event_action
+    assert save_note_event["eventCategory"] == save_event_category
+    assert save_note_event["eventLabel"] == save_event_label
 
-    last_event = events[-1]
+    color_confirmation = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in color_confirmation
+        and "eventCategory" in color_confirmation
+        and "eventLabel" in color_confirmation
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == second_event_action
-    assert last_event["eventCategory"] == second_event_category
-    assert last_event["eventLabel"] == second_event_label
+    assert color_confirmation["eventAction"] == color_confirmation_action
+    assert color_confirmation["eventCategory"] == color_confirmation_category
+    assert color_confirmation["eventLabel"] == color_confirmation_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
 
 
 @markers.test_case("C621355")
