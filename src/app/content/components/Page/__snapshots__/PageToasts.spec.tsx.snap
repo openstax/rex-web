@@ -4,7 +4,7 @@ exports[`PageToasts matches snapshot 1`] = `null`;
 
 exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
 <div
-  className="PageToasts__ToastContainerWrapper-ey1bvc-0 cJJVUI"
+  className="PageToasts__ToastContainerWrapper-ey1bvc-0 cBolZZ"
 >
   <div
     className="styles__ToastsContainer-zqr5u1-0 clxXiP"
@@ -64,7 +64,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 
 exports[`PageToasts matches snapshots with toasts 1`] = `
 <div
-  className="PageToasts__ToastContainerWrapper-ey1bvc-0 hnEzOM"
+  className="PageToasts__ToastContainerWrapper-ey1bvc-0 lfcJjQ"
 >
   <div
     className="styles__ToastsContainer-zqr5u1-0 clxXiP"
