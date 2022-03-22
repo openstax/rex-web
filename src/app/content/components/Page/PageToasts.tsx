@@ -5,6 +5,7 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   toolbarMobileSearchWrapperHeight,
+  toolbarWidth,
   topbarDesktopHeight,
   topbarMobileHeight
 } from '../../../content/components/constants';
@@ -12,6 +13,7 @@ import ToastNotifications from '../../../notifications/components/ToastNotificat
 import { groupedToastNotifications } from '../../../notifications/selectors';
 import theme from '../../../theme';
 import { mobileToolbarOpen as mobileToolbarOpenSelector } from '../../search/selectors';
+import { isVerticalNavOpenConnector } from '../utils/sidebar';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
@@ -19,8 +21,9 @@ export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpe
   : bookBannerMobileMiniHeight + topbarMobileHeight;
 
 // tslint:disable-next-line:variable-name
-export const ToastContainerWrapper = styled.div`
-  width: 100%;
+export const ToastContainerWrapper = isVerticalNavOpenConnector(styled.div`
+  margin-left: ${(props) => props.isVerticalNavOpen ? `0` : `${toolbarWidth}rem` };
+  width: ${(props) => props.isVerticalNavOpen ? `100%` : `calc(100% - ${toolbarWidth}rem)` };
   position: sticky;
   overflow: visible;
   z-index: ${theme.zIndex.contentNotifications - 1};
@@ -28,8 +31,10 @@ export const ToastContainerWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
     top: ${getMobileSearchFailureTop}rem;
+    margin-left: 0;
+    width: 100%;
   `)}
-`;
+`);
 
 // tslint:disable-next-line:variable-name
 const PageToasts = () => {
