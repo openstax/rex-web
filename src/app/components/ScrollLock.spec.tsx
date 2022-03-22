@@ -2,7 +2,6 @@ import { Document, Element, HTMLElement, MediaQueryList } from '@openstax/types/
 import { ComponentType } from 'react';
 import rendererType from 'react-test-renderer';
 import { reactAndFriends, resetModules } from '../../test/utils';
-import MobileScrollLock from './ScrollLock';
 
 jest.mock('../reactUtils', () => ({
   ...jest.requireActual('../reactUtils'),
@@ -15,9 +14,11 @@ describe('MobileScrollLock', () => {
   let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
 
   describe('in browser', () => {
+    let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
     beforeEach(() => {
       resetModules();
       ({React, renderToDom, ReactDOM} = reactAndFriends());
+      MobileScrollLock = require('./ScrollLock').default;
     });
 
     it('mounts and unmmounts with a dom', () => {
