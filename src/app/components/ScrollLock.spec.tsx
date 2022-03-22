@@ -90,11 +90,6 @@ describe('MobileScrollLock', () => {
           win.matchMedia = () => ({matches: true}) as MediaQueryList;
         });
 
-        it('renders on when mediumScreensOnly disabled', () => {
-          const {root} = renderToDom(<MobileScrollLock mediumScreensOnly={false} />);
-          expect(() => ReactDOM.unmountComponentAtNode(root)).not.toThrow();
-        });
-
         it('prevents touchmove events when there is no scrollable parent (scrolling the window)', () => {
           touchEvent(nonScrollyElement, 10, 'touchstart');
           const {spy} = touchEvent(nonScrollyElement, 5);
