@@ -59,6 +59,10 @@ export const DropdownContainer = styled.div`
   ${fadeInAnimation}
   overflow: visible;
   position: relative;
+  height: 100%;
+  ${theme.breakpoints.mobile(css`
+    height: auto;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -152,7 +156,7 @@ export const DropdownToggle = styled.div`
   color: ${theme.color.white};
   background-color: #007297;
   cursor: pointer;
-  margin-top: 1.6rem;
+  margin-top: 1.25rem;
 
   ${theme.breakpoints.mobile(css`
     margin-top: 0;

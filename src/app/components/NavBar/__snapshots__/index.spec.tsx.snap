@@ -75,11 +75,11 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       />
     </a>
     <div
-      className="styled__DropdownContainer-sc-3syvnw-2 cgIyER"
+      className="styled__DropdownContainer-sc-3syvnw-2 bZPfgq"
       data-testid="user-nav"
     >
       <div
-        className="styled__DropdownToggle-sc-3syvnw-7 fTGyUR"
+        className="styled__DropdownToggle-sc-3syvnw-7 gDfLQk"
         data-testid="user-nav-toggle"
         tabIndex="0"
       >
