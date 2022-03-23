@@ -680,6 +680,7 @@ class MyHighlights(Region):
             _cancel_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=cancel]")
             _save_annotation_button_locator = (By.CSS_SELECTOR, "[data-testid=save]")
             _note_indicator_locator = (By.XPATH, "./following::div[3]/span[contains(text(), 'Note:')]")
+            _note_content_locator = (By.XPATH, "./following::div[3]/span[contains(text(), 'Note:')]/following-sibling::*[1]")
             _delete_confirmation_button_locator = (By.CSS_SELECTOR, "[data-testid=delete]")
             _delete_confirmation_message_locator = (By.CSS_SELECTOR, "[class*=HighlightDeleteWrapper] span")
             _highlight_edit_box_locator = (By.CSS_SELECTOR, "[class*=HighlightToggleEditContent]")
@@ -727,8 +728,18 @@ class MyHighlights(Region):
                 return bool(self.find_elements(*self._note_indicator_locator))
 
             @property
+            def note_content(self) -> str:
+                """Return the highlight note when the text is in non-edit mode.
+
+                :return: the current highlight note content
+                :rtype: str
+
+                """
+                return self.find_element(*self._note_content_locator).text
+
+            @property
             def note(self) -> str:
-                """Return the highlight note.
+                """Return the highlight note when the text box is in edit mode.
 
                 :return: the current highlight note text
                 :rtype: str
