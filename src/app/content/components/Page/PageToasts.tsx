@@ -28,7 +28,6 @@ export const ToastContainerWrapper = isVerticalNavOpenConnector(styled.div`
   ${theme.breakpoints.mobile(css`
     z-index: ${theme.zIndex.contentNotifications + 1};
     top: ${getMobileSearchFailureTop}rem;
-    margin-left: 0;
   `)}
 `);
 
