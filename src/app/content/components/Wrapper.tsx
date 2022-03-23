@@ -36,7 +36,7 @@ export const Wrapper = styled(
 // tslint:disable-next-line:variable-name
 const ContentLayoutBody = styled.div`
   width: 100%;
-  max-width: 148rem;
+  max-width: 132rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 8rem auto auto;

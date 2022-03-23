@@ -22,6 +22,7 @@ import {
   scrollOffset,
   sidebarTransitionTime,
   toolbarMobileExpandedHeight,
+  toolbarWidth,
   topbarDesktopHeight,
   topbarMobileHeight
 } from './constants';
@@ -79,13 +80,14 @@ const MainContentWrapper = isVerticalNavOpenConnector(styled.div`
     transition: max-width ${sidebarTransitionTime}ms;
     width: 100%;
     margin: 0 auto;
+    padding-left: 0;
     ${theme.breakpoints.mobile(css`
       padding-left: 0;
       max-width: ${contentWrapperMaxWidth}rem;
     `)}
     ${(props) => (props.isVerticalNavOpen === false) && `
       max-width: ${contentWrapperMaxWidth}rem;
-      padding-left: 0;
+      padding-left: ${toolbarWidth}rem;
     `}
   }
 `);
