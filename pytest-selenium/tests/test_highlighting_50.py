@@ -1,4 +1,5 @@
 import random
+from time import sleep
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
@@ -389,3 +390,80 @@ def test_no_context_menu_in_mobile_MH_page(selenium, base_url, book_slug, page_s
     highlight = my_highlights.highlights.edit_highlight
 
     assert not highlight[0].toggle_menu_visible()
+
+
+@markers.test_case("C597679")
+@markers.desktop_only
+@markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
+def test_MH_color_filters_reflect_highlight_color_change(selenium, base_url, book_slug, page_slug):
+    """Highlight color change in MH page is reflected in MH filters."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # AND: Highlight 2 set of texts in the page with pink & blue
+    paragraph = random.sample(book.content.paragraphs, 2)
+    note = Utilities.random_string()
+    data = [(paragraph[0], Color.PINK, note), (paragraph[1], Color.BLUE, note == "")]
+
+    for paragraphs, colors, note in data:
+        book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
+
+    # WHEN: Uncheck blue color from color filter in MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+    sleep(0.25)
+    filterbar.toggle_color_dropdown_menu()
+    filterbar.color_filters.colors[2].click()
+    assert not filterbar.color_filters.colors[2].is_checked
+    assert not filterbar.color_filters.colors[2].is_disabled
+    assert not filterbar.color_filters.colors[4].is_disabled
+
+    # AND: Change pink highlight to blue
+    highlight = my_highlights.highlights.edit_highlight
+    new_highlight_color = Color.BLUE
+    highlight[0].toggle_menu()
+    highlight[0].toggle_color(new_highlight_color)
+
+    # THEN: The highlight is removed from the modal and no results message is displayed
+    assert my_highlights.highlights.no_results_message
+
+    # AND: Pink color is disabled in the color filter
+    filterbar.toggle_color_dropdown_menu()
+    assert filterbar.color_filters.colors[4].is_disabled
+    assert filterbar.color_filters.colors[0].is_disabled
+
+    # WHEN: Blue color is checked in the color filter
+    filterbar.color_filters.colors[2].click()
+    filterbar.toggle_color_dropdown_menu()
+    sleep(0.25)
+
+    # THEN: MH modal displays both highlights in blue
+    highlight = my_highlights.highlights.edit_highlight
+    assert highlight[0].highlight_color == "blue"
+    assert highlight[1].highlight_color == "blue"
+
+    # WHEN: Change the first highlight color to yellow
+    new_highlight_color = Color.YELLOW
+    highlight[0].toggle_menu()
+    highlight[0].toggle_color(new_highlight_color)
+
+    # THEN: Yellow color is checked and enabled in color filter dropdown
+    filterbar.toggle_color_dropdown_menu()
+    assert filterbar.color_filters.colors[0].is_checked
+    assert not filterbar.color_filters.colors[0].is_disabled
+    filterbar.toggle_color_dropdown_menu()
+
+    # AND: Blue and yellow are shown as active filter tags
+    x = filterbar.active_filter_tags
+    assert x[1].color == "Blue"
+    assert x[2].color == "Yellow"
