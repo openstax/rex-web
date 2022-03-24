@@ -1,5 +1,6 @@
 import random
 
+from time import sleep
 import pytest
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -97,6 +98,12 @@ def test_change_highlight_color_using_keyboard_content_page(
         highlight_1_color_after_color_change == Color.PINK
     ), f"Highlight color in the page {selenium.current_url} is {highlight_1_color_after_color_change}"
 
+    # AND: The new highlight color is reflected in the MH page
+    my_highlights = book.toolbar.my_highlights()
+    highlight = my_highlights.highlights.edit_highlight
+    assert highlight[0].highlight_color == "pink"
+    assert highlight[1].highlight_color == "pink"
+
 
 @markers.test_case("C639520")
 @markers.desktop_only
@@ -169,6 +176,12 @@ def test_add_note_using_keyboard_content_page(selenium, base_url, book_slug, pag
     assert (
         book.content.highlight_box.note == note_text
     ), "the note text does not match the note added"
+
+    # AND: The note added is reflected in MH page
+    my_highlights = book.toolbar.my_highlights()
+    highlight = my_highlights.highlights.edit_highlight
+    assert highlight[0].note_present
+    assert highlight[0].note_content == note_text
 
 
 @markers.test_case("C626893")
@@ -253,6 +266,11 @@ def test_edit_note_using_keyboard_content_page(selenium, base_url, book_slug, pa
         book.content.highlight_box.note == note_append + note_text
     ), "the note text does not match the updated text"
 
+    # AND: The edited note is reflected in MH page
+    my_highlights = book.toolbar.my_highlights()
+    highlight = my_highlights.highlights.edit_highlight
+    assert highlight[0].note_content == note_append + note_text
+
 
 @markers.test_case("C626894")
 @markers.desktop_only
@@ -324,8 +342,28 @@ def test_delete_note_using_keyboard_content_page(selenium, base_url, book_slug, 
         book.content.highlight_box
     assert "No open highlight boxes found" in str(ex.value)
 
+    # AND: The deleted highlight is removed from MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+    assert (
+        my_highlights.highlights.logged_in_user_empty_state_message
+        == "You have no highlights in this book"
+    ), "message not displayed or incorrect message"
 
-@markers.test_case("C600015")
+    # AND: All chapter dropdown options are disabled
+    filterbar.toggle_chapter_dropdown_menu()
+    for chapter in filterbar.chapter_filters.chapters:
+        assert not chapter.has_highlights, (
+            f"Highlights present in chapter {chapter.number}," f"{chapter.title}"
+        )
+
+    # AND: All color dropdown options are disabled
+    filterbar.toggle_color_dropdown_menu()
+    for color in filterbar.color_filters.colors:
+        assert not color.is_checked, f"Highlights present for the color {color.color},"
+
+
+@markers.test_case("C600015", "C598230")
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize(
@@ -727,3 +765,301 @@ def test_delete_highlight_from_MH_page_using_keyboard_navigation(
         with pytest.raises(NoSuchElementException) as ex:
             book.content.highlight_box
         assert "No open highlight boxes found" in str(ex.value)
+
+
+@markers.test_case("C592644")
+@markers.desktop_only
+@markers.highlighting
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+def test_keyboard_navigation_MH_empty_state_logged_in_user(
+    selenium, base_url, book_slug, page_slug
+):
+    """Keyboard navigation for logged in user empty state MH page."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # WHEN: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+
+    # AND: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Close icon is focussed
+    assert selenium.switch_to.active_element == my_highlights.close_icon
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Chapter dropdown is focussed
+    assert selenium.switch_to.active_element == filterbar.chapter_dropdown
+    assert filterbar.chapter_dropdown.get_attribute("aria-label") == "Filter highlights by Chapter"
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Color dropdown is focussed
+    assert selenium.switch_to.active_element == filterbar.color_dropdown
+    assert filterbar.color_dropdown.get_attribute("aria-label") == "Filter highlights by Color"
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Print icon is focussed
+    assert selenium.switch_to.active_element == filterbar.print
+
+
+@markers.test_case("C592645")
+@markers.desktop_only
+@markers.highlighting
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+def test_keyboard_navigation_MH_empty_state_non_logged_in_user(
+    selenium, base_url, book_slug, page_slug
+):
+    """Keyboard navigation for non-logged in user empty state MH page."""
+
+    # GIVEN: Open book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # WHEN: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+
+    # AND: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Close icon is focussed
+    assert selenium.switch_to.active_element == my_highlights.close_icon
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Log in link is focussed
+    assert selenium.switch_to.active_element == my_highlights.log_in_link
+
+
+@markers.test_case("C593155")
+@markers.desktop_only
+@markers.highlighting
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+def test_keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_slug, page_slug):
+    """Keyboard navigation for the MH dropdown filters."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # AND: Highlight 1 paragraph
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.paragraphs,
+        offset=Highlight.ENTIRE,
+        color=Color.YELLOW,
+    )
+    content_highlight_ids = list(book.content.highlight_ids)
+
+    # AND: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    mh_highlight_ids = my_highlights.highlights.mh_highlight_ids
+    filterbar = my_highlights.filter_bar
+
+    # WHEN: Hit tab twice and hit the return key
+    (ActionChains(selenium).send_keys(Keys.TAB * 2).send_keys(Keys.RETURN).perform())
+
+    # THEN: Chapter dropdown is open
+    assert filterbar.chapter_dropdown_open
+
+    # WHEN: Tab to None in the chapter dropdown and hit Enter
+    (ActionChains(selenium).send_keys(Keys.TAB * 2).send_keys(Keys.ENTER).perform())
+
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when both tags are removed"
+
+    # WHEN: Tab to All in chapter dropdown and hit Enter
+    (
+        ActionChains(selenium)
+        .send_keys(Keys.SHIFT, Keys.TAB, Keys.SHIFT)
+        .send_keys(Keys.ENTER)
+        .perform()
+    )
+
+    # THEN: MH page displays the highlights made in content page
+    assert mh_highlight_ids == content_highlight_ids
+
+    # WHEN: Tab to a selected chapter and hit spacebar to remove the selection
+    (ActionChains(selenium).send_keys(Keys.TAB * 2).send_keys(Keys.SPACE).perform())
+
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when both tags are removed"
+
+    # WHEN: Hit spacebar again to select the chapter
+    (ActionChains(selenium).send_keys(Keys.SPACE).perform())
+
+    # THEN: MH page displays the highlights made in content page
+    assert mh_highlight_ids == content_highlight_ids
+
+    # WHEN: Tab to color filter and hit Return
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.RETURN).perform())
+
+    # THEN: Color dropdown is open
+    assert filterbar.color_dropdown_open
+
+    # AND: Chapter dropdown is closed
+    assert not filterbar.chapter_dropdown_open
+
+    # WHEN: Tab to None in color dropdown and hit Enter
+    (ActionChains(selenium).send_keys(Keys.TAB * 2).send_keys(Keys.ENTER).perform())
+
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when both tags are removed"
+
+    # WHEN: Tab to All in Color dropdown and hit Enter
+    (
+        ActionChains(selenium)
+        .send_keys(Keys.SHIFT, Keys.TAB, Keys.SHIFT)
+        .send_keys(Keys.ENTER)
+        .perform()
+    )
+
+    # THEN: MH page displays the highlights made in content page
+    assert mh_highlight_ids == content_highlight_ids
+
+    # WHEN: Tab to a selected color and hit spacebar to remove the selection
+    (ActionChains(selenium).send_keys(Keys.TAB * 2).send_keys(Keys.SPACE).perform())
+
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when both tags are removed"
+
+    # WHEN: Hit spacebar again to select the color
+    (ActionChains(selenium).send_keys(Keys.SPACE).perform())
+    sleep(0.25)
+
+    # THEN: MH page displays the highlights made in content page
+    assert mh_highlight_ids == content_highlight_ids
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: Print icon is focussed
+    assert selenium.switch_to.active_element == filterbar.print
+
+    # AND: Color dropdown is closed
+    assert not filterbar.color_dropdown_open
+
+
+@markers.test_case("C593156")
+@markers.desktop_only
+@markers.highlighting
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
+def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, page_slug):
+    """Keyboard navigation for the MH filter tags."""
+
+    # GIVEN: Login book page
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email = Signup(selenium).register()
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    # AND: Highlight 1 paragraph
+    Highlight.force_highlight(
+        book=book,
+        by=random.choice,
+        group=book.content.paragraphs,
+        offset=Highlight.ENTIRE,
+        color=Color.YELLOW,
+    )
+
+    # AND: Open MH page
+    my_highlights = book.toolbar.my_highlights()
+    filterbar = my_highlights.filter_bar
+
+    # WHEN: Hit tab to focus the first filter tag and hit the return key - remove chapter tag
+    (ActionChains(selenium).send_keys(Keys.TAB * 5).send_keys(Keys.RETURN).perform())
+
+    # THEN: No results message is displayed
+    assert (
+        my_highlights.highlights.no_results_message
+        == "No results.Try selecting different chapter or color filters to see different results."
+    ), "message not displayed or incorrect message when both tags are removed"
+
+    # WHEN: Hit Tab
+    (ActionChains(selenium).send_keys(Keys.TAB).perform())
+
+    # THEN: The 'x' button of color filter tag is focussed
+    assert selenium.switch_to.active_element == filterbar.active_filter_tags[0].remove_tag_icon
+
+
+@markers.test_case("C592640")
+@markers.desktop_only
+@markers.highlighting
+@markers.parametrize("book_slug, page_slug", [("chemistry-2e", "1-introduction")])
+def test_able_to_close_my_highlights_with_keyboard_navigation(
+    selenium, base_url, book_slug, page_slug
+):
+    """My Highlights modal can be closed (x) using keyboard navigation."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   the My Highlights and Notes modal is open
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+    book.navbar.click_login()
+    name, email, password = Signup(selenium).register(True)
+
+    book.wait_for_page_to_load()
+    while book.notification_present:
+        book.notification.got_it()
+    book.content.show_solutions()
+
+    book.toolbar.my_highlights()
+
+    # WHEN: they tab to the close 'x' and send the return key to it
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.RETURN).perform())
+
+    # THEN: the My Highlights and Notes modal is closed
+    assert not book.my_highlights_open, "My Highlights and Notes modal is still open"
