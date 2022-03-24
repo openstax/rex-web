@@ -1039,7 +1039,7 @@ def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, p
 def test_able_to_close_my_highlights_with_keyboard_navigation(
     selenium, base_url, book_slug, page_slug
 ):
-    """My Highlights and Notes summary shows all types of page content."""
+    """My Highlights modal can be closed (x) using keyboard navigation."""
     # GIVEN: a book section is displayed
     # AND:   a user is logged in
     # AND:   all content is visible
