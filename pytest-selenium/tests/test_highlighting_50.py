@@ -1,4 +1,5 @@
 import random
+from time import sleep
 
 import pytest
 from selenium.common.exceptions import NoSuchElementException
@@ -395,7 +396,7 @@ def test_no_context_menu_in_mobile_MH_page(selenium, base_url, book_slug, page_s
 @markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
 def test_MH_color_filters_reflect_highlight_color_change(selenium, base_url, book_slug, page_slug):
-    """Highlight color change from MH page is reflected in MH filters."""
+    """Highlight color change in MH page is reflected in MH filters."""
 
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -420,15 +421,12 @@ def test_MH_color_filters_reflect_highlight_color_change(selenium, base_url, boo
     # WHEN: Uncheck blue color from color filter in MH page
     my_highlights = book.toolbar.my_highlights()
     filterbar = my_highlights.filter_bar
+    sleep(0.25)
     filterbar.toggle_color_dropdown_menu()
     filterbar.color_filters.colors[2].click()
     assert not filterbar.color_filters.colors[2].is_checked
     assert not filterbar.color_filters.colors[2].is_disabled
     assert not filterbar.color_filters.colors[4].is_disabled
-
-    from time import sleep
-
-    sleep(1)
 
     # AND: Change pink highlight to blue
     highlight = my_highlights.highlights.edit_highlight
@@ -446,10 +444,8 @@ def test_MH_color_filters_reflect_highlight_color_change(selenium, base_url, boo
 
     # WHEN: Blue color is checked in the color filter
     filterbar.color_filters.colors[2].click()
-
     filterbar.toggle_color_dropdown_menu()
-
-    sleep(1)
+    sleep(0.25)
 
     # THEN: MH modal displays both highlights in blue
     highlight = my_highlights.highlights.edit_highlight
@@ -471,5 +467,3 @@ def test_MH_color_filters_reflect_highlight_color_change(selenium, base_url, boo
     x = filterbar.active_filter_tags
     assert x[1].color == "Blue"
     assert x[2].color == "Yellow"
-
-    sleep(4)
