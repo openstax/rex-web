@@ -63,7 +63,7 @@ export const defaultText = `
 
 <p>
   © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {El contenido de los libros de texto que produce OpenStax tiene una {bookLicenseName} {bookLicenseVersion}. }
+    OpenStax {El contenido de los libros de texto que produce OpenStax tiene una licencia de {bookLicenseName} {bookLicenseVersion}. }
     other {}}<strong>El nombre de OpenStax, el logotipo de OpenStax, las portadas de libros de OpenStax, el nombre de OpenStax CNX y el logotipo de OpenStax CNX no están sujetos a la licencia de Creative Commons y no se pueden reproducir sin el previo y expreso consentimiento por escrito de Rice University.</strong>
 </p>
 `;
