@@ -295,7 +295,9 @@ class Content(Page):
             .get_attribute("content")
             .split("/")
         )
-        meta_url_parts[2] = self.base_url.split("/")[-1]
+        url = self.base_url.split("/")
+        base_url = url[-2] if url[-1] == "" else url[-1]
+        meta_url_parts[2] = base_url
         meta_url = "/".join(meta_url_parts)
 
         return (title, meta_title, meta_url)
