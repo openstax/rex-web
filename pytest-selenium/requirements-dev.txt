@@ -24,7 +24,7 @@ PyPOM==2.2.3
 pytest==7.1.1
 pytest-base-url==2.0.0
 pytest-html==3.1.1
-pytest-metadata==1.11.0
+pytest-metadata==2.0.1
 pytest-securestore==0.2.0
 pytest-selenium==2.0.1
 pytest-testrail==2.9.0
