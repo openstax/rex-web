@@ -11,11 +11,14 @@ import { colorfilterLabels } from './constants';
 import * as selectors from './selectors';
 
 export const getFiltersFromQuery = (query: OutputParams) => {
+  console.log('get filters from query');
   const queryColors = query[colorFilterQueryParameterName] as HighlightColorEnum | HighlightColorEnum[] | undefined;
   const queryLocationIds = query[locationIdsFilterQueryParameterName] as string | string[] | undefined;
 
+  console.log('query colors: ', queryColors);
   const colors = (Array.isArray(queryColors) ? queryColors : [queryColors])
     .filter((color) => color && colorfilterLabels.has(color)) as HighlightColorEnum[];
+  console.log('colors: ', colors);
 
   const locationIds = (Array.isArray(queryLocationIds) ? queryLocationIds : [queryLocationIds])
     .filter((id) => id) as string[];

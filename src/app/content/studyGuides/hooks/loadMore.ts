@@ -12,6 +12,7 @@ import * as actions from '../actions';
 import * as select from '../selectors';
 
 export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {
+  console.log('load more hook');
   const state = services.getState();
 
   const locationFilters = select.studyGuidesLocationFilters(state);
@@ -20,6 +21,8 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
   const filteredCounts = select.filteredCountsPerPage(state);
   const previousPagination = select.summaryStudyGuidesPagination(state);
   const book = bookSelector(state);
+
+  console.log('color filters: ', colorFilters);
 
   const {highlights, pagination} = await loadUntilPageSize({
     book,

@@ -35,7 +35,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           filters: {
             ...state.summary.filters,
-            ...(colors.length && {colors}),
+            ...(colors.length && {colors}), // this length check seems to be the problem
             ...(locationIds.length && {locationIds}),
           },
           open: hasModalQuery,
