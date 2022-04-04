@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
+import * as authSelectors from '../../auth/selectors';
 import * as selectFeatureFlags from '../../featureFlags/selectors';
+import * as navigationSelectors from '../../navigation/selectors';
 import { studyGuidesFeatureFlag } from '../constants';
 import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
 import {
@@ -15,6 +17,8 @@ import {
 } from '../highlights/utils/selectorsUtils';
 import * as parentSelectors from '../selectors';
 import { archiveTreeSectionIsChapter } from '../utils/archiveTreeUtils';
+import { colorfilterLabels } from './constants';
+import { getFiltersFromQuery } from './utils';
 
 export const localState = createSelector(
   parentSelectors.localState,
@@ -29,6 +33,11 @@ export const studyGuidesEnabled = createSelector(
 export const studyGuidesSummary = createSelector(
   localState,
   (state) => state.summary
+);
+
+export const studyGuidesFilters = createSelector(
+  studyGuidesSummary,
+  (summary) => summary.filters
 );
 
 export const hasStudyGuides = createSelector(
@@ -49,7 +58,10 @@ export const totalCountsPerPageOrEmpty = createSelector(
 
 export const studyGuidesOpen = createSelector(
   studyGuidesSummary,
-  (summary) => summary.open
+  studyGuidesEnabled,
+  parentSelectors.book,
+  parentSelectors.page,
+  (summary, flagEnabled, book, page) => summary.open && flagEnabled && !!book && !!page
 );
 
 export const summaryIsLoading = createSelector(
@@ -83,19 +95,63 @@ export const loadedCountsPerSource = createSelector(
   getLoadedCountsPerSource
 );
 
+export const highlightColorFiltersWithContent = createSelector(
+  totalCountsPerPageOrEmpty,
+  getHighlightColorFiltersWithContent
+);
+
+export const defaultLocationFilter = createSelector(
+  studyGuidesLocationFilters,
+  parentSelectors.page,
+  (filters, currentPage) => currentPage && getHighlightLocationFilterForPage(filters, currentPage)
+);
+
+const filtersFromQuery = createSelector(
+  navigationSelectors.query,
+  (query) => getFiltersFromQuery(query)
+);
+
+const loggedIn = createSelector(
+  authSelectors.loggedOut,
+  (loggedOut) => !loggedOut
+);
+
+export const loggedOutAndQueryMissingFirstChapter = createSelector(
+  loggedIn,
+  parentSelectors.firstChapter,
+  filtersFromQuery,
+  (logged, firstChapter, queryFilters) =>
+    !logged && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
+);
+
+const defaultFilters = createSelector(
+  loggedIn,
+  defaultLocationFilter,
+  highlightColorFiltersWithContent,
+  parentSelectors.firstChapter,
+  (logged, defaultLocation, colorFilters, firstChapter) => ({
+    colors: Array.from(colorFilters.size ? colorFilters : colorfilterLabels),
+    locationIds: logged && defaultLocation
+      ? [defaultLocation.id]
+      : (!logged && firstChapter ? [firstChapter.id] : []),
+  })
+);
+
 export const summaryFilters = createSelector(
-  localState,
-  (state) => state.summary.filters
+  loggedIn,
+  defaultFilters,
+  studyGuidesFilters,
+  (logged, defaults, filtersFromState) => logged
+    ? {
+        ...defaults,
+        ...(filtersFromState.colors.length && {colors: filtersFromState.colors}),
+        ...(filtersFromState.locationIds.length && {locationIds: filtersFromState.locationIds}),
+      } : defaults
 );
 
 const rawSummaryLocationFilters = createSelector(
   summaryFilters,
   (filters) => filters.locationIds
-);
-
-export const highlightColorFiltersWithContent = createSelector(
-  totalCountsPerPageOrEmpty,
-  getHighlightColorFiltersWithContent
 );
 
 export const summaryColorFilters = createSelector(
@@ -108,17 +164,6 @@ export const studyGuidesLocationFiltersWithContent = createSelector(
   studyGuidesLocationFilters,
   totalCountsPerPageOrEmpty,
   getHighlightLocationFiltersWithContent
-);
-
-export const filtersHaveBeenSet = createSelector(
-  summaryFilters,
-  (filters) => filters.default === false
-);
-
-export const defaultLocationFilter = createSelector(
-  studyGuidesLocationFilters,
-  parentSelectors.page,
-  (filters, currentPage) => currentPage && getHighlightLocationFilterForPage(filters, currentPage)
 );
 
 export const summaryLocationFilters = createSelector(

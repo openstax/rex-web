@@ -7,6 +7,7 @@ import { AppState } from '../../../types';
 import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import { highlightResults } from '../../search/utils';
+import { expandClosestSolution } from '../../utils/domUtils';
 import allImagesLoaded from '../utils/allImagesLoaded';
 
 interface Services {
@@ -62,13 +63,7 @@ const selectResult = (services: Services, previous: HighlightProp | null, curren
 
   if (firstSelectedHighlight) {
     // If selected result is in the collapsed solution then expand it
-    const solution = (firstSelectedHighlight.elements[0] as HTMLElement)
-      .closest('[data-type="solution"][aria-expanded="false"]');
-    if (solution) {
-      const button = solution.querySelector('button');
-      button?.click();
-    }
-
+    expandClosestSolution(firstSelectedHighlight.elements[0] as HTMLElement);
     firstSelectedHighlight.addFocusedStyles();
   }
 

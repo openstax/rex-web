@@ -1,9 +1,13 @@
 import { ApplicationError, ToastMesssageError } from '../../../../helpers/applicationMessageError';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
+import { book, page } from '../../../../test/mocks/archiveLoader';
+import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
+import { receiveBook, receivePage } from '../../actions';
+import { studyGuidesFeatureFlag } from '../../constants';
 import {
   closeStudyGuides,
   printStudyGuides,
@@ -43,6 +47,10 @@ describe('printStudyGuides', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
+
+    store.dispatch(receiveBook(book));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     const window = assertWindow();
     window.print = jest.fn();

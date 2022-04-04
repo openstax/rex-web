@@ -1,4 +1,4 @@
-import { HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLDetailsElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "Node.children" */ 'mdn-polyfills/Node.prototype.children');
@@ -16,7 +16,8 @@ export const findFirstScrollableChild = (element: HTMLElement | null): HTMLEleme
 };
 
 export const tocSectionIsVisible = (scrollable: HTMLElement, section: HTMLElement) => {
-  return section.offsetTop > scrollable.scrollTop && section.offsetTop - scrollable.scrollTop < scrollable.offsetHeight;
+  return section.offsetTop > scrollable.scrollTop &&
+    section.offsetTop + section.offsetHeight - scrollable.scrollTop < scrollable.offsetHeight;
 };
 
 export const findParentTocSection = (container: HTMLElement, section: HTMLElement) => {
@@ -52,7 +53,6 @@ export const scrollSidebarSectionIntoView = (sidebar: HTMLElement | null, active
   const scrollTarget = determineScrollTarget(scrollable, selectedChapter, activeSection);
 
   scrollable.scrollTop = scrollTarget.offsetTop;
-
 };
 
 export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
@@ -64,6 +64,17 @@ export const expandCurrentChapter = (activeSection: HTMLElement | null) => {
     }
 
     focus = focus.parentElement;
+  }
+};
+
+export const expandClosestSolution = (element: HTMLElement | null) => {
+  if (!element || !element.closest) {
+    return;
+  }
+
+  const details = element.closest('details[data-type="solution"]:not([open])');
+  if (details) {
+    (details as HTMLDetailsElement).open = true;
   }
 };
 

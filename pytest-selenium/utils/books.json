@@ -5,6 +5,12 @@
         "chapter_search_results_total": 6,
         "rkt_search_results_total": 0
     },
+        "algebra-and-trigonometry-2e": {
+        "default_page": "1-introduction-to-prerequisites",
+        "search_term": "quadratic equations",
+        "chapter_search_results_total": 58,
+        "rkt_search_results_total": 2
+    },
     "american-government-2e": {
         "default_page": "1-introduction",
         "search_term": "hypodermic theory",
@@ -28,6 +34,12 @@
         "search_term": "leap year",
         "chapter_search_results_total": 23,
         "rkt_search_results_total": 0
+    },
+    "astronomy-2e": {
+        "default_page": "1-introduction",
+        "search_term": "(AU)",
+        "chapter_search_results_total": 76,
+        "rkt_search_results_total": 1
     },
     "biology-2e": {
         "default_page": "1-introduction",
@@ -71,11 +83,23 @@
         "chapter_search_results_total": 113,
         "rkt_search_results_total": 2
     },
+        "college-algebra-2e": {
+        "default_page": "1-introduction-to-prerequisites",
+        "search_term": "index",
+        "chapter_search_results_total": 13,
+        "rkt_search_results_total": 2
+    },
     "college-algebra-corequisite-support": {
         "default_page": "1-introduction-to-prerequisites",
         "search_term": "commutative property of addition",
         "chapter_search_results_total": 1,
         "rkt_search_results_total": 1
+    },
+        "college-algebra-corequisite-support-2e": {
+        "default_page": "1-introduction-to-prerequisites",
+        "search_term": "table",
+        "chapter_search_results_total": 262,
+        "rkt_search_results_total": 0
     },
     "college-physics": {
         "default_page": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
@@ -122,7 +146,7 @@
     "entrepreneurship": {
         "default_page": "1-introduction",
         "search_term": "Business Model",
-        "chapter_search_results_total": 349,
+        "chapter_search_results_total": 350,
         "rkt_search_results_total": 8
     },
     "elementary-algebra-2e": {
@@ -137,6 +161,12 @@
         "chapter_search_results_total": 6,
         "rkt_search_results_total": 0
     },
+    "introduction-anthropology": {
+        "default_page": "1-introduction",
+        "search_term": "orientalism",
+        "chapter_search_results_total": 13,
+        "rkt_search_results_total": 1
+    },
     "introductory-business-statistics": {
         "default_page": "1-introduction",
         "search_term": "chi-square probabilities",
@@ -148,6 +178,12 @@
         "search_term": "Buyer behavior",
         "chapter_search_results_total": 15,
         "rkt_search_results_total": 1
+    },
+    "introduction-intellectual-property": {
+        "default_page": "1-introduction",
+        "search_term": "plant patent",
+        "chapter_search_results_total": 15,
+        "rkt_search_results_total": 0
     },
     "introduction-sociology-2e": {
         "default_page": "1-introduction-to-sociology",
@@ -163,8 +199,8 @@
     },
     "introductory-statistics": {
         "default_page": "1-introduction",
-        "search_term": "randomly selected student",
-        "chapter_search_results_total": 12,
+        "search_term": "ABC College",
+        "chapter_search_results_total": 13,
         "rkt_search_results_total": 0
     },
     "microbiology": {
@@ -182,7 +218,7 @@
     "physics": {
         "default_page": "1-introduction",
         "search_term": "linear relationship",
-        "chapter_search_results_total": 10,
+        "chapter_search_results_total": 11,
         "rkt_search_results_total": 0
     },
     "precalculus": {
@@ -191,6 +227,13 @@
         "chapter_search_results_total": 18,
         "rkt_search_results_total": 1
     },
+    "precalculus-2e": {
+        "default_page": "1-introduction-to-functions",
+        "search_term": "one-to-one function",
+        "chapter_search_results_total": 410,
+        "rkt_search_results_total": 3
+    },
+
     "prealgebra-2e": {
         "default_page": "1-introduction",
         "search_term": "Whole Numbers",
@@ -206,7 +249,7 @@
     "principles-economics-2e": {
         "default_page": "1-introduction",
         "search_term": "Elasticity",
-        "chapter_search_results_total": 165,
+        "chapter_search_results_total": 166,
         "rkt_search_results_total": 11
     },
     "principles-macroeconomics-2e": {
@@ -279,6 +322,12 @@
         "default_page": "1-introduction",
         "search_term": "PATRIOTS",
         "chapter_search_results_total": 20,
+        "rkt_search_results_total": 0
+    },
+    "writing-guide": {
+        "default_page": "1-introduction",
+        "search_term": "Social Media Savvy",
+        "chapter_search_results_total": 2,
         "rkt_search_results_total": 0
     }
 }
