@@ -58,6 +58,10 @@ const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
     Sentry.captureException(e);
     dispatch(replace({route: notFound, params: {url: selectNavigation.pathname(getState())}, state: {}}));
     return;
+  } else if (e instanceof ArchiveBookMissingError) {
+    // Most of the app intentionally doesn't render until book data is loaded,
+    // so allow this error to bubble up and let the outer ErrorBoundary handle it.
+    throw e;
   } else if (e instanceof ToastMesssageError) {
     const errorId = Sentry.captureException(e);
     dispatch(addToast(e.messageKey, { ...e.meta, errorId }));
@@ -184,3 +188,6 @@ export class UnauthenticatedError extends ApplicationError {}
 
 // tslint:disable-next-line: max-classes-per-file
 export class BookNotFoundError extends ApplicationError {}
+
+// tslint:disable-next-line: max-classes-per-file
+export class ArchiveBookMissingError extends ApplicationError {}
