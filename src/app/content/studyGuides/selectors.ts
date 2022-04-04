@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import * as authSelectors from '../../auth/selectors';
 import * as selectFeatureFlags from '../../featureFlags/selectors';
+import { isDefined } from '../../guards';
 import * as navigationSelectors from '../../navigation/selectors';
 import { studyGuidesFeatureFlag } from '../constants';
 import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
@@ -144,8 +145,8 @@ export const summaryFilters = createSelector(
   (logged, defaults, filtersFromState) => logged
     ? {
         ...defaults,
-        ...(filtersFromState.colors.length && {colors: filtersFromState.colors}),
-        ...(filtersFromState.locationIds.length && {locationIds: filtersFromState.locationIds}),
+        ...({colors: isDefined(filtersFromState.colors) ? filtersFromState.colors : []}),
+        ...({locationIds: isDefined(filtersFromState.locationIds) ? filtersFromState.locationIds : []}),
       } : defaults
 );
 

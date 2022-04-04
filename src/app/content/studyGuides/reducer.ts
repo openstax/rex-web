@@ -1,5 +1,6 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
+import { isDefined } from '../../guards';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
@@ -35,8 +36,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           filters: {
             ...state.summary.filters,
-            ...(colors.length && {colors}), // this length check seems to be the problem
-            ...(locationIds.length && {locationIds}),
+            ...(isDefined(colors) ? {colors} : []),
+            ...(isDefined(locationIds) ? {locationIds} : []),
           },
           open: hasModalQuery,
           pagination: hasModalQuery ? null : state.summary.pagination,
