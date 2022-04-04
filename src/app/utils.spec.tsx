@@ -13,7 +13,7 @@ import * as selectNavigation from './navigation/selectors';
 import { addToast } from './notifications/actions';
 import { AppServices, AppState, MiddlewareAPI, Store } from './types';
 import * as utils from './utils';
-import { assertDocument, UnauthenticatedError } from './utils';
+import { ArchiveBookMissingError, assertDocument, UnauthenticatedError } from './utils';
 
 jest.mock('../helpers/Sentry');
 
@@ -166,6 +166,27 @@ describe('actionHook', () => {
     expect(hookSpy).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(
       addToast('some-key', { destination: 'myHighlights', shouldAutoDismiss: true, errorId: 'first-error' }));
+    jest.resetAllMocks();
+  });
+
+  it('rethrows error if it is an instance of ArchiveBookMissingError', async() => {
+    const hookSpy = jest.fn(async() => Promise.reject(new ArchiveBookMissingError('404')));
+    const helpers = ({
+      dispatch: () => undefined,
+      getState: () => ({} as AppState),
+      promiseCollector: new PromiseCollector(),
+    } as any) as MiddlewareAPI & AppServices;
+    expect(hookSpy).rejects.toThrowError();
+
+    const middleware = utils.actionHook(actions.openToc, () => hookSpy);
+    middleware(helpers)(helpers)((action) => action)(actions.openToc());
+
+    await new Promise((resolve) => setImmediate(resolve));
+
+    expect(hookSpy).rejects.toThrowError();
+    expect(Sentry.captureException).not.toHaveBeenCalled();
+    expect(hookSpy).toHaveBeenCalled();
+
     jest.resetAllMocks();
   });
 });
