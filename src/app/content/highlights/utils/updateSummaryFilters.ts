@@ -21,6 +21,8 @@ const updateSummaryFilters = (filters: SummaryFilters, update: Partial<SummaryFi
     );
   }
 
+  console.log('new: ', newFilters);
+
   return newFilters;
 };
 

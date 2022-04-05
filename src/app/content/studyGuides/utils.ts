@@ -14,11 +14,14 @@ export const getFiltersFromQuery = (query: OutputParams) => {
   const queryColors = query[colorFilterQueryParameterName] as HighlightColorEnum | HighlightColorEnum[] | undefined;
   const queryLocationIds = query[locationIdsFilterQueryParameterName] as string | string[] | undefined;
 
-  const colors = (Array.isArray(queryColors) ? queryColors : [queryColors])
-    .filter((color) => color && colorfilterLabels.has(color)) as HighlightColorEnum[];
+  const colorsArray = queryColors ? (Array.isArray(queryColors) ? queryColors : [queryColors]) : null;
+  const colors = colorsArray?.filter((color) => color && colorfilterLabels.has(color)) as HighlightColorEnum[];
 
-  const locationIds = (Array.isArray(queryLocationIds) ? queryLocationIds : [queryLocationIds])
-    .filter((id) => id) as string[];
+  const locationsArray = queryLocationIds
+    ? (Array.isArray(queryLocationIds) ? queryLocationIds : [queryLocationIds])
+    : null;
+
+  const locationIds = locationsArray?.filter((id) => id) as string[];
 
   return { colors, locationIds };
 };

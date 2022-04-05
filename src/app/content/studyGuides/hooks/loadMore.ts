@@ -12,9 +12,7 @@ import * as actions from '../actions';
 import * as select from '../selectors';
 
 export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {
-  console.log('load more hook');
   const state = services.getState();
-
   const locationFilters = select.studyGuidesLocationFilters(state);
   const colorFilters = select.summaryColorFilters(state);
   const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));

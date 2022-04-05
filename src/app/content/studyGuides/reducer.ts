@@ -1,6 +1,5 @@
 import { Reducer } from 'redux';
 import { getType } from 'typesafe-actions';
-import { isDefined } from '../../guards';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
@@ -13,8 +12,8 @@ import { getFiltersFromQuery } from './utils';
 export const initialState: State = {
   summary: {
     filters: {
-      colors: [],
-      locationIds: [],
+      colors: null,
+      locationIds: null,
     },
     loading: false,
     open: false,
@@ -29,6 +28,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(locationChange): {
       const hasModalQuery = action.payload.query[modalQueryParameterName] === modalUrlName;
       const {colors, locationIds} = getFiltersFromQuery(action.payload.query);
+      console.log('colors, locIds: ', colors, locationIds);
 
       return {
         ...state,
@@ -36,8 +36,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           filters: {
             ...state.summary.filters,
-            ...(isDefined(colors) ? {colors} : []),
-            ...(isDefined(locationIds) ? {locationIds} : []),
+            ...{colors: colors ? colors : null},
+            ...{locationIds: locationIds ? locationIds : null},
           },
           open: hasModalQuery,
           pagination: hasModalQuery ? null : state.summary.pagination,

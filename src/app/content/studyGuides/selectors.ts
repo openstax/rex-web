@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import * as authSelectors from '../../auth/selectors';
 import * as selectFeatureFlags from '../../featureFlags/selectors';
-import { isDefined } from '../../guards';
 import * as navigationSelectors from '../../navigation/selectors';
 import { studyGuidesFeatureFlag } from '../constants';
 import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage } from '../highlights/utils';
@@ -122,7 +121,7 @@ export const loggedOutAndQueryMissingFirstChapter = createSelector(
   parentSelectors.firstChapter,
   filtersFromQuery,
   (logged, firstChapter, queryFilters) =>
-    !logged && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
+    !logged && firstChapter && !queryFilters.locationIds?.includes(firstChapter.id)
 );
 
 const defaultFilters = createSelector(
@@ -145,8 +144,8 @@ export const summaryFilters = createSelector(
   (logged, defaults, filtersFromState) => logged
     ? {
         ...defaults,
-        ...({colors: isDefined(filtersFromState.colors) ? filtersFromState.colors : []}),
-        ...({locationIds: isDefined(filtersFromState.locationIds) ? filtersFromState.locationIds : []}),
+        ...(filtersFromState.colors !== null && {colors: filtersFromState.colors}),
+        ...(filtersFromState.locationIds !== null && {locationIds: filtersFromState.locationIds}),
       } : defaults
 );
 
