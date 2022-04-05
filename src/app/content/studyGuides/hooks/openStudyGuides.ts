@@ -18,7 +18,6 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
   const defaultFilter = select.defaultLocationFilter(state);
 
   if (loggedOutAndQueryMissingFirstChapter || (!notLoggedIn && defaultFilter)) {
-    console.log('thing: ', summaryFilters);
     services.dispatch(replace(match as AnyMatch, {
       search: getQueryForParam(summaryFilters as any as Record<string, string[]>, query),
     }));

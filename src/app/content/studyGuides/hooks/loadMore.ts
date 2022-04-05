@@ -13,14 +13,13 @@ import * as select from '../selectors';
 
 export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: number) => {
   const state = services.getState();
+
   const locationFilters = select.studyGuidesLocationFilters(state);
   const colorFilters = select.summaryColorFilters(state);
   const sourcesFetched = Object.keys(select.loadedCountsPerSource(state));
   const filteredCounts = select.filteredCountsPerPage(state);
   const previousPagination = select.summaryStudyGuidesPagination(state);
   const book = bookSelector(state);
-
-  console.log('color filters: ', colorFilters);
 
   const {highlights, pagination} = await loadUntilPageSize({
     book,
