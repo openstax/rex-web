@@ -61,7 +61,7 @@ export default (prefix: string, options: Options = {}) => {
     }
 
     return fetch(buildUrl(param))
-      .then(acceptStatus(200, (status, message) => `Error response from OSWeb ${status}: ${message}`))
+      .then(acceptStatus(200, (status, message) => new Error(`Error response from OSWeb ${status}: ${message}`)))
       .then(toJson)
       .then(firstRecord)
       .then(cacheRecord(param))
