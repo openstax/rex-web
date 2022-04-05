@@ -144,8 +144,8 @@ export const summaryFilters = createSelector(
   (logged, defaults, filtersFromState) => logged
     ? {
         ...defaults,
-        ...(filtersFromState.colors !== null && {colors: filtersFromState.colors}),
-        ...(filtersFromState.locationIds !== null && {locationIds: filtersFromState.locationIds}),
+        ...(filtersFromState.colors && {colors: filtersFromState.colors}),
+        ...(filtersFromState.locationIds && {locationIds: filtersFromState.locationIds}),
       } : defaults
 );
 
