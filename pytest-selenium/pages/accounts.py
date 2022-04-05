@@ -8,7 +8,8 @@ from pypom import Page
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as expect
-from selenium.webdriver.support.ui import Select, WebDriverWait
+# from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait
 
 from utils.restmail import RestMail
 from utils.utility import Utilities
@@ -189,16 +190,16 @@ class Signup(Page):
         first_name_field.send_keys(first_name)
         last_name_field = self.find_element(*self._last_name_input_locator)
         last_name_field.send_keys(last_name)
-        if self._use_new_accounts_flow:
-            email_field = self.find_element(*self._email_signup_input_locator)
-            email_field.send_keys(email)
-            password_field = self.find_element(
-                *self._password_select_input_locator)
-            password_field.send_keys(password)
-        else:
-            school_name_field = self.find_element(
-                *self._school_name_input_locator)
-            school_name_field.send_keys(school)
+        # if self._use_new_accounts_flow:
+        email_field = self.find_element(*self._email_signup_input_locator)
+        email_field.send_keys(email)
+        password_field = self.find_element(
+            *self._password_select_input_locator)
+        password_field.send_keys(password)
+        # else:
+        #     school_name_field = self.find_element(
+        #         *self._school_name_input_locator)
+        #     school_name_field.send_keys(school)
         i_agree_checkbox = self.find_element(
             *self._accept_policies_checkbox_locator)
         Utilities.click_option(self.driver, element=i_agree_checkbox)
@@ -220,14 +221,14 @@ class Signup(Page):
 
         self.sign_up()
         self.select_role(email.address)
-        if self._use_new_accounts_flow:
-            self.enter_user_info(*name, school, email.address, password)
-            self.confirm_email(email)
-            self.complete()
-        else:
-            self.confirm_email(email)
-            self.select_password(password)
-            self.enter_user_info(*name, school, email.address, password)
+        # if self._use_new_accounts_flow:
+        self.enter_user_info(*name, school, email.address, password)
+        self.confirm_email(email)
+        self.complete()
+        # else:
+        #     self.confirm_email(email)
+        #     self.select_password(password)
+        #     self.enter_user_info(*name, school, email.address, password)
 
         if return_password:
             return (name, email, password)
@@ -273,18 +274,18 @@ class Signup(Page):
         :param str email: the user's email address
 
         """
-        if self._use_new_accounts_flow:
-            as_a_student_button = self.find_element(
-                *self._as_a_student_button_locator)
-            Utilities.click_option(self.driver, element=as_a_student_button)
-            return
+        # if self._use_new_accounts_flow:
+        as_a_student_button = self.find_element(
+            *self._as_a_student_button_locator)
+        Utilities.click_option(self.driver, element=as_a_student_button)
+        # return
         # old flow
-        role_menu = Select(self.find_element(*self._user_select_role_locator))
-        role_menu.select_by_visible_text("Student")
-        email_field = self.find_element(*self._email_signup_input_locator)
-        email_field.send_keys(email)
-        next_button = self.find_element(*self._next_button_locator)
-        Utilities.click_option(self.driver, element=next_button)
+        # role_menu = Select(self.find_element(*self._user_select_role_locator))
+        # role_menu.select_by_visible_text("Student")
+        # email_field = self.find_element(*self._email_signup_input_locator)
+        # email_field.send_keys(email)
+        # next_button = self.find_element(*self._next_button_locator)
+        # Utilities.click_option(self.driver, element=next_button)
 
     def sign_up(self):
         """Click the sign up link."""
