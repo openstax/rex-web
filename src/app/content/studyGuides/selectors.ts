@@ -145,8 +145,8 @@ export const summaryFilters = createSelector(
   (logged, defaults, filtersFromState) => logged
     ? {
         ...defaults,
-        colors: filtersFromState.colors,
-        locationIds: filtersFromState.locationIds,
+        ...(filtersFromState.colors && {colors: filtersFromState.colors}), // shd not be null after open
+        ...(filtersFromState.locationIds && {locationIds: filtersFromState.locationIds}),
       } : defaults
 );
 
