@@ -1,10 +1,10 @@
 // tslint:disable max-line-length
 export const defaultText = `
 <p>
- Chcesz zacytować, udostępnić albo zmodyfikować treść tej książki? Została ona wydana na licencji,
+ Chcesz zacytować, udostępnić albo zmodyfikować treść tej książki? Została ona wydana na licencji
   <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
     {bookLicenseName} {bookLicenseVersion}
-  </a> która wymaga od Ciebie uznania autorstwa {copyrightHolder}.{originalMaterialLink, select,
+  </a>, która wymaga od Ciebie uznania autorstwa {copyrightHolder}.{originalMaterialLink, select,
     null {}
     other {Oryginalna publikacja jest dostępna na: <a target="_blank" rel="noopener" href="{originalMaterialLink}">
       {originalMaterialLink}

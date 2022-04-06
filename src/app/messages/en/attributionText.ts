@@ -1,7 +1,7 @@
 // tslint:disable max-line-length
 export const defaultText = `
 <p>
-  Want to cite, share, or modify this book? This book is
+  Want to cite, share, or modify this book? This book uses the
   <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
     {bookLicenseName} {bookLicenseVersion}
   </a> and you must attribute {copyrightHolder}.{originalMaterialLink, select,
@@ -66,7 +66,7 @@ export const defaultText = `
 
 <p>
   © {bookLatestRevision, date, medium} {copyrightHolder}. {copyrightHolder, select,
-    OpenStax {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion} license. }
+    OpenStax {Textbook content produced by OpenStax is licensed under a {bookLicenseName} {bookLicenseVersion}. }
     other {}}<strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo
   are not subject to the Creative Commons license and may not be reproduced without the prior and express written
   consent of Rice University.</strong>
