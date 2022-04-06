@@ -20,13 +20,7 @@ def test_login_and_logout(selenium, base_url, book_slug, page_slug, email, passw
     user_nav.click_login()
 
     # THEN: The page navigates to accounts/login
-    expected_page_url = (
-        f"{base_url}/accounts/i/login?r=%2Fbooks%2F" f"{book_slug}%2Fpages%2F{page_slug}"
-    )
-    # expected_page_url = (
-    #     f"{base_url}/accounts/login?r=/books/"
-    #     f"{book_slug}/pages/{page_slug}"
-    # )
+    expected_page_url = f"{base_url}/accounts/login?r=/books/" f"{book_slug}/pages/{page_slug}"
     assert expected_page_url in selenium.current_url, "not viewing the Accounts log in page"
 
     # WHEN: they log in as an existing user
