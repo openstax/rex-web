@@ -1,4 +1,3 @@
-import { HighlightColorEnum } from '@openstax/highlights-client';
 import { createSelector } from 'reselect';
 import * as authSelectors from '../../auth/selectors';
 import * as selectFeatureFlags from '../../featureFlags/selectors';
@@ -158,9 +157,7 @@ const rawSummaryLocationFilters = createSelector(
 export const summaryColorFilters = createSelector(
   summaryFilters,
   highlightColorFiltersWithContent,
-  (filters, withContent) => filters.colors
-    ? new Set(filters.colors.filter((color) => withContent.has(color)))
-    : new Set() as Set<HighlightColorEnum>
+  (filters, withContent) => new Set(filters.colors.filter((color) => withContent.has(color)))
 );
 
 export const studyGuidesLocationFiltersWithContent = createSelector(
