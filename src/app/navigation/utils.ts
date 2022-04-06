@@ -94,26 +94,25 @@ export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, l
   dispatch(actions.locationChange({location, match, action}));
 });
 
-export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) =>
-  actionHook(actions.locationChange, (stateHelpers) => {
-    let storedLocation: State;
+export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) => {
+  let storedLocation: State;
+
+  return actionHook(actions.locationChange, (stateHelpers) => {
     const boundHook = body(stateHelpers);
-    const storeLocation = (location: State) => {
-      storedLocation = location;
-    };
 
     return (action) => {
       const prevLocation = storedLocation;
-      storeLocation({
+      storedLocation = {
         ...action.payload.location,
         match: action.payload.match,
         query: action.payload.query,
-      });
+      };
       if (locationChangeForRoute(route, action.payload)) {
         return boundHook({...action.payload, prevLocation});
       }
     };
   });
+};
 
 /*
  * Recursively creates combinations of supplied replacements
