@@ -30,6 +30,7 @@ export const getFiltersFromQuery = (query: OutputParams) => {
 
 export const updateQueryFromFilterChange = (dispatch: Dispatch, state: AppState, change: SummaryFiltersUpdate) => {
   const updatedFilters: {[key: string]: any} = updateSummaryFilters(selectors.summaryFilters(state), change);
+  // convert empty filter arrys to null so they are preserved in query
   for (const filter in updatedFilters) {
     if (updatedFilters[filter] && !updatedFilters[filter].length) {
       updatedFilters[filter] = null;
