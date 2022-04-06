@@ -6,9 +6,9 @@ import { getQueryForParam } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
 import { colorFilterQueryParameterName, locationIdsFilterQueryParameterName } from '../constants';
 import { SummaryFiltersUpdate } from '../highlights/types';
+import updateSummaryFilters from '../highlights/utils/updateSummaryFilters';
 import { colorfilterLabels } from './constants';
 import * as selectors from './selectors';
-import { StudyGuidesSummaryFilters } from './types';
 
 export const getFiltersFromQuery = (query: OutputParams) => {
   const queryColors = query[colorFilterQueryParameterName] as HighlightColorEnum | HighlightColorEnum[] | undefined;
@@ -28,38 +28,9 @@ export const getFiltersFromQuery = (query: OutputParams) => {
   return { colors, locationIds };
 };
 
-const updateStudyGuidesFilters = (
-  filters: StudyGuidesSummaryFilters,
-  update: Partial<SummaryFiltersUpdate>
-): StudyGuidesSummaryFilters => {
-  const newFilters = {...filters};
-  const { colors: colorsChange, locations: locationsChange } = update;
-
-  if (colorsChange) {
-    if (newFilters.colors && colorsChange.remove.length) {
-      newFilters.colors = newFilters.colors.filter((color) => !colorsChange.remove.includes(color));
-    }
-    const newColors = newFilters.colors || [];
-    newFilters.colors = Array.from(new Set([...newColors, ...colorsChange.new]));
-  }
-
-  if (locationsChange) {
-    if (newFilters.locationIds && locationsChange.remove.length) {
-      newFilters.locationIds = newFilters.locationIds.filter(
-        (id) => !locationsChange.remove.find((location) => id === location.id));
-    }
-    const newLocationIds = newFilters.locationIds || [];
-    newFilters.locationIds = Array.from(
-      new Set([...newLocationIds, ...locationsChange.new.map((location) => location.id)])
-    );
-  }
-
-  return newFilters;
-};
-
 export const updateQueryFromFilterChange = (dispatch: Dispatch, state: AppState, change: SummaryFiltersUpdate) => {
   // this only happens on change
-  const updatedFilters = updateStudyGuidesFilters(selectors.summaryFilters(state), change);
+  const updatedFilters = updateSummaryFilters(selectors.summaryFilters(state), change);
   const filtersCopy = updatedFilters as {[key: string]: any};
   for (const filter in updatedFilters) {
     if (filtersCopy[filter] && !filtersCopy[filter].length) {
