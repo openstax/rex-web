@@ -189,7 +189,6 @@ class Signup(Page):
         first_name_field.send_keys(first_name)
         last_name_field = self.find_element(*self._last_name_input_locator)
         last_name_field.send_keys(last_name)
-        # if self._use_new_accounts_flow:
         email_field = self.find_element(*self._email_signup_input_locator)
         email_field.send_keys(email)
         password_field = self.find_element(
