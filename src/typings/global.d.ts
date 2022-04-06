@@ -56,6 +56,11 @@ declare global {
     ga: UniversalAnalytics.ga;
     dataLayer: object[];
     gtag: (eventKey?: string, eventVal?: string, eventObj?: object) => boolean | void;
+    Intl: {
+      Locale: {
+        new(locale: string): { language: string };
+      };
+    };
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;

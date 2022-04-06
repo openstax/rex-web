@@ -16,7 +16,7 @@ export default () => {
   const loadRemoteBookConfig = () => {
     const url = '/rex/release.json';
     return fetch(url)
-      .then(acceptStatus(200, (status, message) => `Error response from "${url}" ${status}: ${message}`))
+      .then(acceptStatus(200, (status, message) => new Error(`Error response from "${url}" ${status}: ${message}`)))
       .then((response) => response.json() as Promise<ReleaseJsonStructure>)
       .then((response) => response && response.books)
       .catch((e) => {
