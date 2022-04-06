@@ -34,6 +34,7 @@ export interface CardProps {
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
   isActive: boolean;
+  lastActive: number;
   isTocOpen: boolean;
   hasQuery: boolean;
   highlighter: Highlighter;
@@ -73,13 +74,13 @@ const Card = (props: CardProps) => {
   useFocusIn(element, true, focusCard);
 
   React.useEffect(() => {
-    if (!props.isActive) {
+    if (!props.lastActive) {
       setEditing(false);
     } else {
       scrollHighlightIntoView(props.highlight, element);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, props.isActive]);
+  }, [element, props.lastActive]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -176,6 +177,7 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isActive: selectHighlights.focused(state) === ownProps.highlight.id,
     isTocOpen: contentSelect.tocOpen(state),
+    lastActive: (selectHighlights.focused(state) === ownProps.highlight.id) && selectHighlights.lastFocused(state),
   }),
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),
