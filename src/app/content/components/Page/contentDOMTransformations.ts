@@ -1,6 +1,6 @@
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
-import { assertNotNull, assertWindow } from '../../../utils';
+import { assertNotNull } from '../../../utils';
 import { expandClosestSolution } from '../../utils/domUtils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
@@ -112,7 +112,8 @@ function wrapSolutions(document: Document, rootEl: HTMLElement, intl: IntlShape)
 
 function expandSolutionForFragment(document: Document) {
   // Auto expand a solution that contains the anchor the URL fragment points at
-  const id = assertWindow().location.hash.substr(1);
+  if (typeof window === 'undefined') { return; }
+  const id = window.location.hash.substr(1);
 
   if (id) {
     const element = document.getElementById(id) as HTMLElement;
