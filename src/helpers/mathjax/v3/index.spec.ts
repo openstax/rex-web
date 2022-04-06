@@ -1,17 +1,12 @@
-import { startMathJax, typesetMath } from './mathjax';
+import { startMathJax, typesetMath } from '.';
 
 const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
 
 const mockMathJax = () => ({
-  HTML: {
-    Cookie: {},
+  startup: {
+    ready: jest.fn(),
   },
-  Hub: {
-    Config: jest.fn(),
-    Configured: jest.fn(),
-    Queue: (...fns: Array<() => void>) => fns.forEach((fn) => fn()),
-    Typeset: jest.fn(),
-  },
+  typesetPromise: jest.fn(() => Promise.resolve()),
 });
 
 beforeEach(() => {
@@ -38,7 +33,7 @@ describe('typesetMath', () => {
 
     await debounce();
 
-    expect(window.MathJax.Hub.Typeset).not.toHaveBeenCalledWith();
+    expect(window.MathJax.typesetPromise).not.toHaveBeenCalledWith();
   });
 
   it('typesets the element if it contains mathml', async() => {
@@ -54,7 +49,7 @@ describe('typesetMath', () => {
 
     await debounce();
 
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledWith(element);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
 
   it('debounces', async() => {
@@ -82,7 +77,7 @@ describe('typesetMath', () => {
 
     await debounce();
 
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledTimes(2);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledTimes(2);
   });
 
   it('typesets the element if it is data-math', async() => {
@@ -107,8 +102,8 @@ describe('typesetMath', () => {
 
     await debounce();
 
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledWith([math1, math2]);
-    expect(window.MathJax.Hub.Typeset).not.toHaveBeenCalledWith(element);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([math1, math2]);
+    expect(window.MathJax.typesetPromise).not.toHaveBeenCalledWith(element);
   });
 
   it('moves latex formulas inline', async() => {
@@ -159,8 +154,7 @@ describe('startMathJax', () => {
 
     startMathJax();
 
-    expect(window.MathJax.Hub.Config).toHaveBeenCalled();
-    expect(window.MathJax.Hub.Configured).toHaveBeenCalled();
+    expect(window.MathJax.startup.ready).toBeInstanceOf(Function);
   });
 
   describe('outside the browser', () => {
