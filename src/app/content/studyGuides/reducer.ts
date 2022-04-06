@@ -32,8 +32,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           filters: {
             ...state.summary.filters,
-            colors,
-            locationIds,
+            ...(colors && {colors}),
+            ...(locationIds && {locationIds}),
           },
           open: hasModalQuery,
           pagination: hasModalQuery ? null : state.summary.pagination,
