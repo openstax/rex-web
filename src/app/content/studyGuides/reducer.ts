@@ -11,10 +11,7 @@ import { getFiltersFromQuery } from './utils';
 
 export const initialState: State = {
   summary: {
-    filters: {
-      colors: null,
-      locationIds: null,
-    },
+    filters: {},
     loading: false,
     open: false,
     pagination: null,
