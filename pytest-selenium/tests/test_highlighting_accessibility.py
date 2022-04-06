@@ -1063,3 +1063,34 @@ def test_able_to_close_my_highlights_with_keyboard_navigation(
 
     # THEN: the My Highlights and Notes modal is closed
     assert not book.my_highlights_open, "My Highlights and Notes modal is still open"
+
+
+@markers.test_case("C592640")
+@markers.desktop_only
+@markers.highlighting
+@markers.parametrize("book_slug, page_slug", [("chemistry-2e", "1-introduction")])
+def test_close_nudge_using_Esc(selenium, base_url, book_slug, page_slug):
+    """My Highlights modal can be closed (x) using keyboard navigation."""
+    # GIVEN: a book section is displayed
+    # AND:   a user is logged in
+    # AND:   all content is visible
+    # AND:   the My Highlights and Notes modal is open
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    while book.notification_present:
+        book.notification.got_it()
+
+    # Add the removed cookies
+    selenium.delete_cookie("nudge_study_guides_counter")
+    selenium.delete_cookie("nudge_study_guides_page_counter")
+    selenium.delete_cookie("nudge_study_guides_date")
+
+    book.reload()
+    book.click_next_link()
+
+    # WHEN: Hit Esc
+    (ActionChains(selenium).send_keys(Keys.ESCAPE).perform())
+
+    from time import sleep
+
+    sleep(2)
