@@ -29,18 +29,16 @@ export const getFiltersFromQuery = (query: OutputParams) => {
 };
 
 export const updateQueryFromFilterChange = (dispatch: Dispatch, state: AppState, change: SummaryFiltersUpdate) => {
-  // this only happens on change
-  const updatedFilters = updateSummaryFilters(selectors.summaryFilters(state), change);
-  const filtersCopy = updatedFilters as {[key: string]: any};
+  const updatedFilters: {[key: string]: any} = updateSummaryFilters(selectors.summaryFilters(state), change);
   for (const filter in updatedFilters) {
-    if (filtersCopy[filter] && !filtersCopy[filter].length) {
-      filtersCopy[filter] = null;
+    if (updatedFilters[filter] && !updatedFilters[filter].length) {
+      updatedFilters[filter] = null;
     }
   }
   const match = navigation.match(state);
   const existingQuery = navigation.query(state);
   if (!match ) { return; }
   dispatch(replace(match, {
-    search: getQueryForParam(filtersCopy as any as Record<string, string[]>, existingQuery),
+    search: getQueryForParam(updatedFilters as any as Record<string, string[]>, existingQuery),
   }));
 };
