@@ -390,7 +390,7 @@ def test_accessibility_help_link(selenium, base_url, book_slug, page_slug):
 
 
 @markers.test_case("C647981")
-@markers.desktop_only
+@markers.nondestructive
 @markers.parametrize("page_slug", ["preface"])
 def test_close_nudge_using_x_icon(selenium, base_url, book_slug, page_slug):
     """Full page Highlighting/SG nudge can be closed using x icon."""
