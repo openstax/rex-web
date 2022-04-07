@@ -428,7 +428,6 @@ describe('Page', () => {
         }
 
         window.location.hash = 'paragraph';
-
         await htmlHelper(`
           <div data-type="exercise">
             <div data-type="solution">
@@ -439,6 +438,24 @@ describe('Page', () => {
 
         const details = pageElement.querySelector('[data-type="solution"]') as HTMLDetailsElement;
         expect(details.open).toBe(true);
+      });
+
+      it('is not expanded if it does not contain the link anchor', async() => {
+        if (!window) {
+          return expect(window).toBeTruthy();
+        }
+
+        window.location.hash = 'notfound';
+        await htmlHelper(`
+          <div data-type="exercise">
+            <div data-type="solution">
+              <p id="paragraph">answer</p>
+            </div>
+          </div>
+        `);
+
+        const details = pageElement.querySelector('[data-type="solution"]') as HTMLDetailsElement;
+        expect(details.open).toBe(false);
       });
     });
 
