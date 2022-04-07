@@ -476,3 +476,22 @@ def test_open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug
 
     # AND: Total search results is same as in first window
     assert rex.search_sidebar.chapter_search_result_total == 13
+
+
+@markers.test_case("C545836")
+@markers.parametrize("book_slug, page_slug", [("biology-2e", "preface")])
+@markers.desktop_only
+@markers.nondestructive
+def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slug):
+    """Highlight entire search element if unable to find single term"""
+
+    # GIVEN: Book page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    # Skip any notification/nudge popups
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN: Search is performed
+    # search_sidebar = book.search_sidebar
+    # search_term = get_search_term(book_slug)
