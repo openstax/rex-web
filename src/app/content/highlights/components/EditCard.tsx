@@ -98,6 +98,9 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     if (element.current) {
       props.onHeightChange(element);
     }
+    if (!props.isActive) {
+      setPendingAnnotation(defaultAnnotation());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, editingAnnotation, props.isActive]);
 
