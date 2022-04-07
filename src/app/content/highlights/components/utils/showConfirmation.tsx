@@ -4,6 +4,8 @@ import { RawIntlProvider } from 'react-intl';
 import uuid from 'uuid/v4';
 import { AppServices, MiddlewareAPI } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
+import { focusHighlight } from '../../actions';
+import { focused } from '../../selectors';
 import ConfirmationModal from '../ConfirmationModal';
 
 export default async(services: AppServices & MiddlewareAPI) => {
@@ -16,8 +18,14 @@ export default async(services: AppServices & MiddlewareAPI) => {
   root.insertAdjacentElement('afterend', domNode);
 
   const userChoice: boolean = await new Promise((resolve) => {
+    const focusedHighlight = focused(services.getState());
     const confirm = () => resolve(true);
-    const deny = () => resolve(false);
+    const deny = () => {
+      resolve(false);
+      if (focusedHighlight) {
+        services.dispatch(focusHighlight(focusedHighlight));
+      }
+    };
     ReactDOM.render(
       <RawIntlProvider value={intl}>
         <ConfirmationModal deny={deny} confirm={confirm} />

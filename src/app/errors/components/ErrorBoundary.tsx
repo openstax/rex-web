@@ -56,6 +56,18 @@ class ErrorBoundary extends React.Component<Props, State> {
     this.props.recordError(error);
   }
 
+  public componentDidMount() {
+    if (typeof(window) !== 'undefined') {
+      window.addEventListener('unhandledrejection', this.handleRejection);
+    }
+  }
+
+  public componentWillUnmount() {
+    if (typeof(window) !== 'undefined') {
+      window.removeEventListener('unhandledrejection', this.handleRejection);
+    }
+  }
+
   public render() {
     if (this.state.error) {
       return <React.Fragment>
@@ -73,6 +85,11 @@ class ErrorBoundary extends React.Component<Props, State> {
     }
     return this.props.children;
   }
+
+  private handleRejection = (event: PromiseRejectionEvent) => {
+    event.preventDefault();
+    this.componentDidCatch(event.reason);
+  };
 }
 
 export default connect(
