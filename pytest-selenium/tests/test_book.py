@@ -387,3 +387,33 @@ def test_accessibility_help_link(selenium, base_url, book_slug, page_slug):
     # THEN: The accessibility help page is opened in the same window
     expected_url = "https://openstax.org/accessibility-statement"
     assert book.current_url == expected_url
+
+
+@markers.test_case("C647981")
+@markers.desktop_only
+@markers.parametrize("page_slug", ["preface"])
+def test_close_nudge_using_x_icon(selenium, base_url, book_slug, page_slug):
+    """Full page Highlighting/SG nudge can be closed using x icon."""
+    # GIVEN: A book section is displayed
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # The nudge cookies are added as part of the page open script.
+    # For this test to work, those cookies should not be present.
+    # So deleting those nudge cookies.
+    selenium.delete_cookie("nudge_study_guides_counter")
+    selenium.delete_cookie("nudge_study_guides_page_counter")
+    selenium.delete_cookie("nudge_study_guides_date")
+
+    # AND: Full page nudge is displayed on 2nd page load
+    book.reload()
+    book.click_next_link()
+    assert book.full_page_nudge_displayed()
+
+    # WHEN: Click x icon in the full page nudge
+    nudge = book.full_page_nudge
+    nudge.click_close_icon()
+
+    # THEN: Full page nudge is closed
+    assert not book.full_page_nudge_displayed()
