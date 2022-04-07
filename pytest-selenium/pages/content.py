@@ -44,6 +44,7 @@ class Content(Page):
     _body_locator = (By.CSS_SELECTOR, "body")
     _book_section_content_locator = (By.CSS_SELECTOR, "[class*=MinPageHeight]")
     _error_modal_locator = (By.CSS_SELECTOR, ".error-modal")
+    _full_page_nudge_locator = (By.CSS_SELECTOR, "[data-analytics-region='Nudge Study Tools']")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _modal_root_locator = (By.CSS_SELECTOR, "[class*=PopupWrapper]")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
@@ -114,6 +115,17 @@ class Content(Page):
         """
         error_modal = self.find_element(*self._error_modal_locator)
         return self.Error(self, error_modal)
+
+    @property
+    def full_page_nudge(self) -> Content.FullPageNudge:
+        """Access the highlighting/study guide full page nudge.
+
+        :return: the highlighting/study guide full page nudge
+        :rtype: Content.FullPageNudge
+
+        """
+        full_page_nudge = self.find_element(*self._full_page_nudge_locator)
+        return self.FullPageNudge(self, full_page_nudge)
 
     @property
     def mobile_search_toolbar(self) -> Content.MobileSearchToolbar:
@@ -369,6 +381,14 @@ class Content(Page):
                 return False
             sleep(0.25)
             return self.error_shown(repeat - 1)
+
+    def full_page_nudge_displayed(self) -> bool:
+        """Return true if highlighting/study guide nudge is displayed"""
+
+        try:
+            return bool(self.full_page_nudge)
+        except NoSuchElementException:
+            return False
 
     def scroll_over_content_overlay(self):
         """Touch and scroll starting at on_element, moving by an offset.
@@ -1657,6 +1677,20 @@ class Content(Page):
             Utilities.click_option(self.driver, element=button)
             self.wait.until(expected.staleness_of(self.root))
             return self.page
+
+    class FullPageNudge(Region):
+        """Full page highlighting/study guide nudge."""
+
+        _close_icon_locator = (By.CSS_SELECTOR, "[class*='NudgeCloseIcon']")
+
+        @property
+        def close_icon(self) -> WebElement:
+            """Return the close icon in the full page nudge."""
+            return self.find_element(*self._close_icon_locator)
+
+        def click_close_icon(self):
+            """Clicks the close icon in the full page nudge."""
+            Utilities.click_option(self.driver, element=self.close_icon)
 
     class MobileSearchToolbar(Region):
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
