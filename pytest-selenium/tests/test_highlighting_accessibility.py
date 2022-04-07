@@ -1063,3 +1063,61 @@ def test_able_to_close_my_highlights_with_keyboard_navigation(
 
     # THEN: the My Highlights and Notes modal is closed
     assert not book.my_highlights_open, "My Highlights and Notes modal is still open"
+
+
+@markers.test_case("C641280")
+@markers.nondestructive
+@markers.parametrize("page_slug", ["preface"])
+def test_close_nudge_using_Esc(selenium, base_url, book_slug, page_slug):
+    """Full page Highlighting/SG nudge can be closed using Esc key."""
+    # GIVEN: A book section is displayed
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # The nudge cookies are added as part of the page open script.
+    # For this test to work, those cookies should not be present.
+    # So deleting those nudge cookies.
+    selenium.delete_cookie("nudge_study_guides_counter")
+    selenium.delete_cookie("nudge_study_guides_page_counter")
+    selenium.delete_cookie("nudge_study_guides_date")
+
+    # AND: Full page nudge is displayed on 2nd page load
+    book.reload()
+    book.click_next_link()
+    assert book.full_page_nudge_displayed()
+
+    # WHEN: Hit Esc
+    (ActionChains(selenium).send_keys(Keys.ESCAPE).perform())
+
+    # THEN: Full page nudge is closed
+    assert not book.full_page_nudge_displayed()
+
+
+@markers.test_case("C608132")
+@markers.nondestructive
+@markers.parametrize("page_slug", ["preface"])
+def test_close_nudge_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
+    """Full page Highlighting/SG nudge can be closed using keyboard navigation."""
+    # GIVEN: A book section is displayed
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    while book.notification_present:
+        book.notification.got_it()
+
+    # The nudge cookies are added as part of the page open script.
+    # For this test to work, those cookies should not be present.
+    # So deleting those nudge cookies.
+    selenium.delete_cookie("nudge_study_guides_counter")
+    selenium.delete_cookie("nudge_study_guides_page_counter")
+    selenium.delete_cookie("nudge_study_guides_date")
+
+    # AND: Full page nudge is displayed on 2nd page load
+    book.reload()
+    book.click_next_link()
+    assert book.full_page_nudge_displayed()
+
+    # WHEN: Hit Tab and Return
+    (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.RETURN).perform())
+
+    # THEN: Full page nudge is closed
+    assert not book.full_page_nudge_displayed()

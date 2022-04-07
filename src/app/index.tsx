@@ -16,6 +16,7 @@ import ErrorBoundary from './errors/components/ErrorBoundary';
 import * as featureFlags from './featureFlags';
 import * as head from './head';
 import MessageProvider from './messages/MessageProvider';
+import SimpleMessageProvider from './messages/SimpleMessageProvider';
 import * as navigation from './navigation';
 import { AnyMatch } from './navigation/types';
 import { matchPathname } from './navigation/utils';
@@ -112,13 +113,17 @@ export default (options: AppOptions) => {
 
   const container = () => (
     <Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <ErrorBoundary>
-            <navigation.components.NavigationProvider routes={routes} />
-          </ErrorBoundary>
-        </MessageProvider>
-      </Services.Provider>
+      <SimpleMessageProvider>
+        <ErrorBoundary>
+          <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
+            <MessageProvider>
+              <ErrorBoundary>
+                <navigation.components.NavigationProvider routes={routes} />
+              </ErrorBoundary>
+            </MessageProvider>
+          </Services.Provider>
+        </ErrorBoundary>
+      </SimpleMessageProvider>
     </Provider>
   );
 
