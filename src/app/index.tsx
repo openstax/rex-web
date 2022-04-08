@@ -115,7 +115,7 @@ export default (options: AppOptions) => {
     <Provider store={store}>
       <SimpleMessageProvider>
         <ErrorBoundary>
-          <Services.Provider value={services}>
+          <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
             <MessageProvider>
               <ErrorBoundary>
                 <navigation.components.NavigationProvider routes={routes} />
