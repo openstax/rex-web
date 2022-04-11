@@ -1,6 +1,7 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
 import { ifUndefined } from '../app/fpUtils';
+import { ArchiveBookMissingError } from '../app/utils';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 import { getBookVersionFromUUIDSync } from './createBookConfigLoader';
@@ -56,7 +57,8 @@ export default (archivePath: string, options: Options = {}) => {
     `${contentUrlBase(host, bookId)}/contents/${ref}.json`;
 
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
-    .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
+    .then(acceptStatus(200, (status, message) =>
+      new ArchiveBookMissingError(`Error response from archive "${fetchUrl}" ${status}: ${message}`)))
     .then((response) => response.json() as Promise<T>);
 
   const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) => (bookId: string, id: string) => {
