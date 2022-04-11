@@ -290,9 +290,6 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* Introductory Business Statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': [
     /* Introductory Statistics */ ['30189442-6998-4686-ac05-ed152b91b9de', {}],
   ],
-  /* Chemistry: Atoms First 2e */ 'd9b85ee6-c57f-4861-8208-5ddf261e9c5f' : [
-    /* Chemistry 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {}],
-  ],
   /* Precalculus 2e */ 'f021395f-fd63-46cd-ab95-037c6f051730' : [
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
   ],
