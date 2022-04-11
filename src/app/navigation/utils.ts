@@ -23,7 +23,7 @@ import {
   ScrollTarget
 } from './types';
 
-if (typeof (document) !== 'undefined') {
+if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "Array.includes" */ 'mdn-polyfills/Array.prototype.includes');
 }
 
@@ -38,14 +38,14 @@ export const locationChangeForRoute = <R extends AnyRoute>(
 ): locationChange is Required<LocationChange<Match<R>>> =>
   !!locationChange.match && locationChange.match.route.name === route.name;
 
-export const getUrlRegexParams = (obj: object): object => flatten(obj, { delimiter });
+export const getUrlRegexParams = (obj: object): object => flatten(obj, {delimiter});
 
 const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   const [, ...values] = match;
   return unflatten(keys.reduce((result, key, index) => {
     const value = values[index] ? decodeURIComponent(values[index]) : values[index];
-    return { ...result, [key.name]: value };
-  }, {}), { delimiter });
+    return {...result, [key.name] : value};
+  }, {}), {delimiter});
 };
 
 const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray) => ({
@@ -58,7 +58,7 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch
   for (const route of routes) {
     for (const path of route.paths) {
       const keys: Key[] = [];
-      const re = pathToRegexp(path, keys, { end: true });
+      const re = pathToRegexp(path, keys, {end: true});
       const match = re.exec(location.pathname);
       if (match) {
         return formatRouteMatch(route, location.state || {}, keys, match);
@@ -90,7 +90,7 @@ export const matchUrl = <M extends Match<Route<any, any>>>(action: M) => {
 
 export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, location: Location, action: Action) => {
   const match = findRouteMatch(routes, location);
-  dispatch(actions.locationChange({ location, match, action }));
+  dispatch(actions.locationChange({location, match, action}));
 });
 
 export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) =>
@@ -98,17 +98,17 @@ export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) 
     const boundHook = body(stateHelpers);
 
     return (action) => {
-      if (locationChangeForRoute(route, action.payload)) {
-        return boundHook(action.payload);
-      }
-    };
-  });
+    if (locationChangeForRoute(route, action.payload)) {
+      return boundHook(action.payload);
+    }
+  };
+});
 
 /*
  * Recursively creates combinations of supplied replacements
  * for the base parameter in an url
  */
-export const injectParamsToBaseUrl = (baseUrl: string, params: { [key: string]: string[] }): string[] => {
+export const injectParamsToBaseUrl = (baseUrl: string, params: {[key: string]: string[]}): string[] => {
   const keyToInject = Object.keys(params)[0];
   if (!keyToInject) { return [baseUrl]; }
 
@@ -123,7 +123,7 @@ export const findPathForParams = (params: object, paths: string[]) => {
   return paths.find((path) => {
     const paramsInPath = parse(path).filter((param) => pathTokenIsKey(param)) as Key[];
     return paramsInPath.length === paramKeys.length &&
-      paramsInPath.every(({ name }) => paramKeys.includes(name.toString()));
+      paramsInPath.every(({name}) => paramKeys.includes(name.toString()));
   });
 };
 
@@ -136,7 +136,7 @@ export const getQueryForParam = (
       ? queryString.parse(existingQuery)
       : existingQuery;
 
-    return queryString.stringify({ ...parsedExistingQuery, ...values });
+    return queryString.stringify({...parsedExistingQuery, ...values});
   }
 
   return queryString.stringify(values);
@@ -165,7 +165,7 @@ export const getScrollTargetFromQuery = (
     return null;
   }
   if (isPlainObject(parsed)) {
-    (parsed as { [key: string]: any }).elementId = hash.replace('#', '');
+    (parsed as {[key: string]: any}).elementId = hash.replace('#', '');
     if (isScrollTarget(parsed)) { return parsed; }
   }
   return null;
