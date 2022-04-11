@@ -47,10 +47,10 @@ export async function getCanonicalUrlParams(
       if (book.id !== id || !hasOSWebData(book)) {
         const newCanonicals = getCanonicals(canonicalBook.id);
         const canonicalsAreEqual = isEqual(canonicals, newCanonicals);
+        canonicals = newCanonicals;
         if (!newCanonicals.length || canonicalsAreEqual) {
           done = true;
         }
-        canonicals = newCanonicals;
         break;
       }
 

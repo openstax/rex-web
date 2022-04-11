@@ -45,6 +45,11 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* Astronomy */ '2e737be8-ea65-48c3-aa0a-9f35b4c6a966': [
     /* Astronomy 2e */ ['4c29f9e5-a53d-42c0-bdb5-091990527d79', {}],
   ],
+  /* Biology for AP Courses */ '6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2': [
+    /* Biology 2e */ ['8d50a0af-948b-4204-a71d-4826cba765b8', {
+      // needs page mapping
+    }],
+  ],
   /* Principles of Macroeconomics 2e */ '27f59064-990e-48f1-b604-5188b9086c29': [
     /* Principles of Economics 2e */['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
   ],
@@ -348,6 +353,11 @@ export const CANONICAL_MAP: CanonicalBookMap = {
       '9d111d7d-7cb8-4688-9cd2-46774c477da9': 'b451b1e5-82ab-48c4-8275-37628dd79df7',
       /* 17.7 Catalysis to the same module in 2e */
       '40651eeb-28e7-4577-9bf7-d42282ec6ae5': 'a6400a57-a040-4768-8222-61705d4fff83',
+    }],
+  ],
+  /* College Physics for AP Courses */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': [
+    /* College Physics */['031da8d3-b525-429c-80cf-6c8ed997733a', {
+      // needs page mapping
     }],
   ],
   /* Precalculus 2e */ 'f021395f-fd63-46cd-ab95-037c6f051730' : [
