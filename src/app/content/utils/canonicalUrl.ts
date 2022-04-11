@@ -4,7 +4,7 @@ import { getBookVersionFromUUIDSync } from '../../../gateways/createBookConfigLo
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { hasOSWebData } from '../guards';
-import { Book } from '../types';
+import { Book, BookWithOSWebData } from '../types';
 import { makeUnifiedBookLoader } from '../utils';
 import { findArchiveTreeNodeById } from './archiveTreeUtils';
 
@@ -28,10 +28,10 @@ export async function getCanonicalUrlParams(
 };
 
   let canonicals = getCanonicals(book.id);
+  let canonicalBook;
   let done = false;
   let mappedPageId;
   let treeSection;
-  let canonicalBook;
 
   while (!done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicals) {
@@ -39,12 +39,14 @@ export async function getCanonicalUrlParams(
         getBookVersionFromUUIDSync(id),
         `We've already filtered out books that are not in the BOOK configuration`
       ).defaultVersion;
-      canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
+      const useCurrentBookAsCanonical = book.id === id  && hasOSWebData(book);
+      canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id, version);
       pageId = mappedPageId || pageId;
       mappedPageId = CANONICAL_PAGES_MAP[pageId] || pageId;
       treeSection = findArchiveTreeNodeById(canonicalBook.tree, mappedPageId);
 
-      if (book.id !== id || !hasOSWebData(book)) {
+      if (!useCurrentBookAsCanonical) {
+        canonicalBook = await getBook(id, version);
         const newCanonicals = getCanonicals(canonicalBook.id);
         const canonicalsAreEqual = isEqual(canonicals, newCanonicals);
         canonicals = newCanonicals;
@@ -58,9 +60,9 @@ export async function getCanonicalUrlParams(
     }
   }
 
-  if (canonicalBook && treeSection) {
+  if (treeSection) {
     const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
-    return {book: {slug: canonicalBook.slug}, page: {slug: pageInBook}};
+    return {book: {slug: (canonicalBook as BookWithOSWebData).slug}, page: {slug: pageInBook}};
   }
 
   return null;
