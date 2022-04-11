@@ -46,7 +46,6 @@ export async function getCanonicalUrlParams(
       treeSection = findArchiveTreeNodeById(canonicalBook.tree, mappedPageId);
 
       if (!useCurrentBookAsCanonical) {
-        canonicalBook = await getBook(id, version);
         const newCanonicals = getCanonicals(canonicalBook.id);
         const canonicalsAreEqual = isEqual(canonicals, newCanonicals);
         canonicals = newCanonicals;
