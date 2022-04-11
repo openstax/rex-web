@@ -4,6 +4,7 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import * as selectNavigation from '../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../types';
+import { assertWindow } from '../../utils/browser-assertions';
 import * as routes from '../routes';
 import registerPageView from './registerPageView';
 
@@ -18,7 +19,10 @@ describe('registerPageView', () => {
 
     const action = {
       action: 'PUSH' as 'PUSH',
-      location: {...new URL('http://localhost/'), state: {}},
+      location: {
+        ...assertWindow().location,
+        state: {},
+      },
       match: {
         params: {
           book: {
@@ -30,15 +34,6 @@ describe('registerPageView', () => {
         },
         route: routes.content,
         state: {},
-      },
-      prevLocation: {
-        hash: '',
-        pathname: '/',
-        query: {
-          modal: 'SG',
-        },
-        search: '',
-        state: '',
       },
       query: {},
     };
@@ -73,15 +68,5 @@ describe('registerPageView', () => {
 
       await hook(action);
       expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: 'foo'});
-    });
-
-    it('does not register a page view if pathname unchanged and modal query unchanged', async() => {
-      jest.spyOn(selectNavigation, 'query').mockReturnValue({});
-      jest.spyOn(selectNavigation, 'pathname').mockReturnValue('/');
-
-      const otherAction = {...action, prevLocation: {...action.prevLocation, hash: '123', query: {}}};
-
-      await hook(otherAction);
-      expect(mockGa).not.toHaveBeenCalled();
     });
   });

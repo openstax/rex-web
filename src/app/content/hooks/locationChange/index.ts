@@ -10,18 +10,22 @@ import registerPageView from '../registerPageView';
 import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent from './resolveContent';
 
-const hookBody: RouteHookBody<typeof content> = (services) => async(action) => {
-  await resolveContent(services, action.match);
+const hookBody: RouteHookBody<typeof content> = (services) => {
+  const boundRegisterPageView = registerPageView(services);
 
-  await Promise.all([
-    registerPageView(services)(action),
-    syncSearch(services)(action),
-    loadBuyPrintConfig(services)(),
-    loadHighlights(services)(locationChange(action)),
-    loadStudyGuides(services)(),
-    loadPracticeQuestions(services)(),
-    initializeIntl(services)(),
-  ]);
+  return async(action) => {
+    await resolveContent(services, action.match);
+
+    await Promise.all([
+      boundRegisterPageView(action),
+      syncSearch(services)(action),
+      loadBuyPrintConfig(services)(),
+      loadHighlights(services)(locationChange(action)),
+      loadStudyGuides(services)(),
+      loadPracticeQuestions(services)(),
+      initializeIntl(services)(),
+    ]);
+  };
 };
 
 export default hookBody;

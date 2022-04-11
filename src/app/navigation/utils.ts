@@ -20,8 +20,7 @@ import {
   Route,
   RouteHookBody,
   RouteState,
-  ScrollTarget,
-  State
+  ScrollTarget
 } from './types';
 
 if (typeof(document) !== 'undefined') {
@@ -94,25 +93,16 @@ export const changeToLocation = curry((routes: AnyRoute[], dispatch: Dispatch, l
   dispatch(actions.locationChange({location, match, action}));
 });
 
-export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) => {
-  let storedLocation: State;
-
-  return actionHook(actions.locationChange, (stateHelpers) => {
+export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) =>
+  actionHook(actions.locationChange, (stateHelpers) => {
     const boundHook = body(stateHelpers);
 
     return (action) => {
-      const prevLocation = storedLocation;
-      storedLocation = {
-        ...action.payload.location,
-        match: action.payload.match,
-        query: action.payload.query,
-      };
-      if (locationChangeForRoute(route, action.payload)) {
-        return boundHook({...action.payload, prevLocation});
-      }
-    };
-  });
-};
+    if (locationChangeForRoute(route, action.payload)) {
+      return boundHook({...action.payload});
+    }
+  };
+});
 
 /*
  * Recursively creates combinations of supplied replacements
