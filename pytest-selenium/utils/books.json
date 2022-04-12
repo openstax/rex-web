@@ -38,7 +38,7 @@
     "astronomy-2e": {
         "default_page": "1-introduction",
         "search_term": "(AU)",
-        "chapter_search_results_total": 76,
+        "chapter_search_results_total": 75,
         "rkt_search_results_total": 1
     },
     "biology-2e": {
@@ -83,7 +83,7 @@
         "chapter_search_results_total": 113,
         "rkt_search_results_total": 2
     },
-        "college-algebra-2e": {
+    "college-algebra-2e": {
         "default_page": "1-introduction-to-prerequisites",
         "search_term": "index",
         "chapter_search_results_total": 13,
@@ -95,7 +95,7 @@
         "chapter_search_results_total": 1,
         "rkt_search_results_total": 1
     },
-        "college-algebra-corequisite-support-2e": {
+    "college-algebra-corequisite-support-2e": {
         "default_page": "1-introduction-to-prerequisites",
         "search_term": "table",
         "chapter_search_results_total": 262,
@@ -116,14 +116,14 @@
     "concepts-biology": {
         "default_page": "1-introduction",
         "search_term": "Cell",
-        "chapter_search_results_total": 780,
+        "chapter_search_results_total": 788,
         "rkt_search_results_total": 23
     },
     "calculus-volume-1": {
         "default_page": "1-introduction",
         "search_term": "number",
-        "chapter_search_results_total": 209,
-        "rkt_search_results_total": 1
+        "chapter_search_results_total": 210,
+        "rkt_search_results_total": 2
     },
     "calculus-volume-2": {
         "default_page": "1-introduction",
