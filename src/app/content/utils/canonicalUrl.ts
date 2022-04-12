@@ -17,7 +17,7 @@ export async function getCanonicalUrlParams(
 ) {
   const getBook = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
-  const getCanonicals = (bookId: string) => {
+  const getCanonicalMap = (bookId: string) => {
     const bookDefaultMap = [[bookId, {}]] as Array<[string, ObjectLiteral<undefined>]>;
     const bookVersionFromConfig = getBookVersionFromUUIDSync(bookId);
     return ([
@@ -27,34 +27,30 @@ export async function getCanonicalUrlParams(
     ]).filter(([id]) => !!getBookVersionFromUUIDSync(id));
 };
 
-  let canonicals = getCanonicals(book.id);
+  let canonicalMap = getCanonicalMap(book.id);
   let canonicalBook;
+  let canonicalPageId = pageId;
   let done = false;
-  let mappedPageId;
   let treeSection;
 
   while (!done) {
-    for (const [id, CANONICAL_PAGES_MAP] of canonicals) {
+    for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
       const version = assertDefined(
         getBookVersionFromUUIDSync(id),
         `We've already filtered out books that are not in the BOOK configuration`
       ).defaultVersion;
       const useCurrentBookAsCanonical = book.id === id  && hasOSWebData(book);
       canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id, version);
-      pageId = mappedPageId || pageId;
-      mappedPageId = CANONICAL_PAGES_MAP[pageId] || pageId;
-      treeSection = findArchiveTreeNodeById(canonicalBook.tree, mappedPageId);
+      canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
+      treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 
       if (!useCurrentBookAsCanonical) {
-        const newCanonicals = getCanonicals(canonicalBook.id);
-        const canonicalsAreEqual = isEqual(canonicals, newCanonicals);
-        canonicals = newCanonicals;
-        if (!newCanonicals.length || canonicalsAreEqual) {
-          done = true;
-        }
+        const newMap = getCanonicalMap(canonicalBook.id);
+        // stop when we run out of canonical maps to check
+        done = !newMap.length || isEqual(canonicalMap, newMap);
+        canonicalMap = newMap;
         break;
       }
-
       done = true;
     }
   }
