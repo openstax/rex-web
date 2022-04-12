@@ -71,11 +71,7 @@ const LabsText = styled.div`
   font-size: ${(props) => props.size}rem;
   font-weight: ${(props) => props.weight};
   line-height: ${(props) => props.lineHeight}rem;
-  ${(props) => props.size === 'h1' ? css`
-      font-size: 1.4rem;
-      font-weight: 500;
-      line-height: 1.6rem;
-    ` : props.size === 'h2' ? css`
+  ${(props) => props.size === 'h2' ? css`
       font-size: 2rem;
       font-weight: 500;
       line-height: 2.4rem;
