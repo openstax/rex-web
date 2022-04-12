@@ -1,10 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import icon from '../../../assets/kinetic.svg';
 import Button from '../../components/Button';
-import { kineticBannerVariant } from '../../featureFlags/selectors';
 import theme from '../../theme';
 import { disablePrint } from './utils/disablePrint';
 
@@ -97,27 +95,9 @@ const LabsCTALink = styled(Button)`
   background-color: #6922ea;
 `;
 
-const variants = [
+const texts =
   [
     {
-      maxWidth: 17,
-      text: [
-        {text: 'Kinetic by OpenStax:', size: 'h1'},
-        {text: 'Expand Your Learning Potential', size: 'h2'},
-      ],
-    },
-    {
-      text: [
-        {
-          size: 'text',
-          text: 'Explore innovative study tools designed to help you discover how you learn best.',
-        },
-      ],
-    },
-  ],
-  [
-    {
-      maxWidth: 17,
       text: [
         {text: 'Do you know how you learn best?', size: 'h2'},
       ],
@@ -131,64 +111,36 @@ const variants = [
         },
       ],
     },
-  ],
-  [
-    {
-      maxWidth: 25,
-      text: [
-        {text: 'Kinetic by OpenStax:', size: 'h1'},
-        {text: 'A brighter future for digital education starts here.', size: 'h2'},
-      ],
-    },
-    {
-      text: [
-        {
-          size: 'text',
-          text: 'See how you can help us create better online learning tools optimized to help everyone grow.',
-        },
-      ],
-    },
-  ],
-];
+  ];
 
 // tslint:disable-next-line: variable-name
-const LabsCTA = () => {
-  const variant = useSelector(kineticBannerVariant);
-  const config = typeof variant === 'number' && variants[variant];
-
-  if (!config) {
-    return null;
-  }
-
-  return (
-    <LabsCTAWrapper data-experiment={true}>
-      <LabsCTAHeader>
-        <Column>
-          <LabsLogo src={icon} role='img' alt='' />
-        </Column>
-        <Column maxWidth={config[0].maxWidth}>
-          {config[0].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
-        </Column>
-      </LabsCTAHeader>
-      <Column flex>
-        {config[1].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
+const LabsCTA = () =>
+  <LabsCTAWrapper data-experiment={true}>
+    <LabsCTAHeader>
+      <Column>
+        <LabsLogo src={icon} role='img' alt='' />
       </Column>
-      <Column last>
-        <LabsCTALink
-          component={<a href='/kinetic/'>
-            <FormattedMessage id='i18n:toolbar:labs-cta:link'>
-              {(msg) => msg}
-            </FormattedMessage>
-          </a>}
-          data-analytics-label='kinetic-banner'
-          variant='primary'
-          size='large'
-          target='_blank'
-          rel='noopener'
-        />
+      <Column maxWidth={17}>
+        {texts[0].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
       </Column>
-    </LabsCTAWrapper>
-  );
-};
+    </LabsCTAHeader>
+    <Column flex>
+      {texts[0].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
+    </Column>
+    <Column last>
+      <LabsCTALink
+        component={<a href='/kinetic/'>
+          <FormattedMessage id='i18n:toolbar:labs-cta:link'>
+            {(msg) => msg}
+          </FormattedMessage>
+        </a>}
+        data-analytics-label='kinetic-banner'
+        variant='primary'
+        size='large'
+        target='_blank'
+        rel='noopener'
+      />
+    </Column>
+  </LabsCTAWrapper>;
 
 export default LabsCTA;
