@@ -1062,27 +1062,26 @@ Array [
                       </a>
                     </div>
                     <div
-                      className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 figEZj"
-                      data-experiment={true}
+                      className="LabsCall__LabsCallWrapper-d86l90-1 bcbaHX"
                     >
                       <div
-                        className="LabsCTA__LabsCTAHeader-sc-117qi5r-3 gvQZQT"
+                        className="LabsCall__LabsCallHeader-d86l90-3 sNaCK"
                       >
                         <div
-                          className="LabsCTA__Column-sc-117qi5r-2 cRAhAC"
+                          className="LabsCall__Column-d86l90-2 deeNsF"
                         >
                           <img
                             alt=""
-                            className="LabsCTA__LabsLogo-sc-117qi5r-0 LUvlV"
+                            className="LabsCall__LabsLogo-d86l90-0 dPyHAM"
                             role="img"
                             src="kinetic.svg"
                           />
                         </div>
                         <div
-                          className="LabsCTA__Column-sc-117qi5r-2 vXuFz"
+                          className="LabsCall__Column-d86l90-2 gqXLzN"
                         >
                           <div
-                            className="LabsCTA__LabsText-sc-117qi5r-4 fnabEM"
+                            className="LabsCall__LabsText-d86l90-4 cjnDlO"
                             size="h2"
                           >
                             Do you know how you learn best?
@@ -1090,20 +1089,20 @@ Array [
                         </div>
                       </div>
                       <div
-                        className="LabsCTA__Column-sc-117qi5r-2 ciJCWM"
+                        className="LabsCall__Column-d86l90-2 hGpelF"
                       >
                         <div
-                          className="LabsCTA__LabsText-sc-117qi5r-4 hgTBzT"
+                          className="LabsCall__LabsText-d86l90-4 hPIBGI"
                           size="text"
                         >
                           Kinetic by OpenStax offers access to innovative study tools designed to help you maximize your learning potential.
                         </div>
                       </div>
                       <div
-                        className="LabsCTA__Column-sc-117qi5r-2 hKDNCR"
+                        className="LabsCall__Column-d86l90-2 kFNwm"
                       >
                         <a
-                          className="Button-ayg7nk-0 LabsCTA__LabsCTALink-sc-117qi5r-5 dzloHR"
+                          className="Button-ayg7nk-0 LabsCall__LabsCallLink-d86l90-5 imqIKp"
                           data-analytics-label="kinetic-banner"
                           href="/kinetic/"
                           rel="noopener"
