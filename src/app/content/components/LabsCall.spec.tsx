@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import TestContainer from '../../../test/TestContainer';
-import LabsCTA from './LabsCTA';
+import LabsCTA from './LabsCall';
 
 describe('LabsCTA', () => {
 

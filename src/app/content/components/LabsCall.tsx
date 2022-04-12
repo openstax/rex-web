@@ -12,7 +12,7 @@ const LabsLogo = styled.img`
 `;
 
 // tslint:disable-next-line: variable-name
-const LabsCTAWrapper = styled.div`
+const LabsCallWrapper = styled.div`
   width: 100%;
   max-width: 82.5rem;
   margin: 0 auto 1.6rem;
@@ -53,7 +53,7 @@ const Column = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const LabsCTAHeader = styled.div`
+const LabsCallHeader = styled.div`
   display: flex;
   flex-direction: row;
   ${theme.breakpoints.mobileMedium(css`
@@ -91,44 +91,29 @@ const LabsText = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const LabsCTALink = styled(Button)`
+const LabsCallLink = styled(Button)`
   background-color: #6922ea;
 `;
 
-const texts =
-  [
-    {
-      text: [
-        {text: 'Do you know how you learn best?', size: 'h2'},
-      ],
-    },
-    {
-      text: [
-        {
-          size: 'text',
-          text: 'Kinetic by OpenStax offers access to innovative study tools designed' +
-                ' to help you maximize your learning potential.',
-        },
-      ],
-    },
-  ];
-
 // tslint:disable-next-line: variable-name
 const LabsCTA = () =>
-  <LabsCTAWrapper data-experiment={true}>
-    <LabsCTAHeader>
+  <LabsCallWrapper>
+    <LabsCallHeader>
       <Column>
         <LabsLogo src={icon} role='img' alt='' />
       </Column>
       <Column maxWidth={17}>
-        {texts[0].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
+        <LabsText size={'h2'}>Do you know how you learn best?</LabsText>
       </Column>
-    </LabsCTAHeader>
+    </LabsCallHeader>
     <Column flex>
-      {texts[0].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
+      <LabsText size={'text'}>
+        Kinetic by OpenStax offers access to innovative study tools designed
+        to help you maximize your learning potential.
+      </LabsText>
     </Column>
     <Column last>
-      <LabsCTALink
+      <LabsCallLink
         component={<a href='/kinetic/'>
           <FormattedMessage id='i18n:toolbar:labs-cta:link'>
             {(msg) => msg}
@@ -141,6 +126,6 @@ const LabsCTA = () =>
         rel='noopener'
       />
     </Column>
-  </LabsCTAWrapper>;
+  </LabsCallWrapper>;
 
 export default LabsCTA;

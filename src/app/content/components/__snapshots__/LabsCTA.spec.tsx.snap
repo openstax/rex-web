@@ -1,72 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PrevNextBar renders \`null\` when selector is false 1`] = `null`;
-
-exports[`PrevNextBar renders first variant 1`] = `
-<div
-  className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 figEZj"
-  data-experiment={true}
->
-  <div
-    className="LabsCTA__LabsCTAHeader-sc-117qi5r-3 gvQZQT"
-  >
-    <div
-      className="LabsCTA__Column-sc-117qi5r-2 cRAhAC"
-    >
-      <img
-        alt=""
-        className="LabsCTA__LabsLogo-sc-117qi5r-0 LUvlV"
-        role="img"
-        src="kinetic.svg"
-      />
-    </div>
-    <div
-      className="LabsCTA__Column-sc-117qi5r-2 vXuFz"
-    >
-      <div
-        className="LabsCTA__LabsText-sc-117qi5r-4 khUpZV"
-        size="h1"
-      >
-         
-        Kinetic by OpenStax:
-      </div>
-      <div
-        className="LabsCTA__LabsText-sc-117qi5r-4 fnabEM"
-        size="h2"
-      >
-         
-        Expand Your Learning Potential
-      </div>
-    </div>
-  </div>
-  <div
-    className="LabsCTA__Column-sc-117qi5r-2 ciJCWM"
-  >
-    <div
-      className="LabsCTA__LabsText-sc-117qi5r-4 hgTBzT"
-      size="text"
-    >
-       
-      Explore innovative study tools designed to help you discover how you learn best.
-    </div>
-  </div>
-  <div
-    className="LabsCTA__Column-sc-117qi5r-2 hKDNCR"
-  >
-    <a
-      className="Button-ayg7nk-0 LabsCTA__LabsCTALink-sc-117qi5r-5 dzloHR"
-      data-analytics-label="kinetic-banner"
-      href="/kinetic/"
-      rel="noopener"
-      target="_blank"
-    >
-      Explore Kinetic
-    </a>
-  </div>
-</div>
-`;
-
-exports[`PrevNextBar renders second variant 1`] = `
+exports[`LabsCTA renders cta 1`] = `
 <div
   className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 figEZj"
   data-experiment={true}
@@ -91,7 +25,6 @@ exports[`PrevNextBar renders second variant 1`] = `
         className="LabsCTA__LabsText-sc-117qi5r-4 fnabEM"
         size="h2"
       >
-         
         Do you know how you learn best?
       </div>
     </div>
@@ -103,72 +36,7 @@ exports[`PrevNextBar renders second variant 1`] = `
       className="LabsCTA__LabsText-sc-117qi5r-4 hgTBzT"
       size="text"
     >
-       
       Kinetic by OpenStax offers access to innovative study tools designed to help you maximize your learning potential.
-    </div>
-  </div>
-  <div
-    className="LabsCTA__Column-sc-117qi5r-2 hKDNCR"
-  >
-    <a
-      className="Button-ayg7nk-0 LabsCTA__LabsCTALink-sc-117qi5r-5 dzloHR"
-      data-analytics-label="kinetic-banner"
-      href="/kinetic/"
-      rel="noopener"
-      target="_blank"
-    >
-      Explore Kinetic
-    </a>
-  </div>
-</div>
-`;
-
-exports[`PrevNextBar renders third variant 1`] = `
-<div
-  className="LabsCTA__LabsCTAWrapper-sc-117qi5r-1 figEZj"
-  data-experiment={true}
->
-  <div
-    className="LabsCTA__LabsCTAHeader-sc-117qi5r-3 gvQZQT"
-  >
-    <div
-      className="LabsCTA__Column-sc-117qi5r-2 cRAhAC"
-    >
-      <img
-        alt=""
-        className="LabsCTA__LabsLogo-sc-117qi5r-0 LUvlV"
-        role="img"
-        src="kinetic.svg"
-      />
-    </div>
-    <div
-      className="LabsCTA__Column-sc-117qi5r-2 izlHRA"
-    >
-      <div
-        className="LabsCTA__LabsText-sc-117qi5r-4 khUpZV"
-        size="h1"
-      >
-         
-        Kinetic by OpenStax:
-      </div>
-      <div
-        className="LabsCTA__LabsText-sc-117qi5r-4 fnabEM"
-        size="h2"
-      >
-         
-        A brighter future for digital education starts here.
-      </div>
-    </div>
-  </div>
-  <div
-    className="LabsCTA__Column-sc-117qi5r-2 ciJCWM"
-  >
-    <div
-      className="LabsCTA__LabsText-sc-117qi5r-4 hgTBzT"
-      size="text"
-    >
-       
-      See how you can help us create better online learning tools optimized to help everyone grow.
     </div>
   </div>
   <div
