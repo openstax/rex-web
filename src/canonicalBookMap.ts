@@ -296,7 +296,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Introductory Statistics */ ['30189442-6998-4686-ac05-ed152b91b9de', {}],
   ],
   /* Chemistry: Atoms First 2e */ 'd9b85ee6-c57f-4861-8208-5ddf261e9c5f' : [
-        /* Chemistry 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
+    /* Chemistry 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
       /* Preface to the same module in 2e */
       '541d7d79-a70e-42c2-b765-d55586648390': '138634ed-6ed0-4edb-b13d-b78d388028b0',
       /* 2.0 Introduction to the same module in 2e */
