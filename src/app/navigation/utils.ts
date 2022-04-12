@@ -98,11 +98,11 @@ export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) 
     const boundHook = body(stateHelpers);
 
     return (action) => {
-    if (locationChangeForRoute(route, action.payload)) {
-      return boundHook(action.payload);
-    }
-  };
-});
+      if (locationChangeForRoute(route, action.payload)) {
+        return boundHook(action.payload);
+      }
+    };
+  });
 
 /*
  * Recursively creates combinations of supplied replacements
