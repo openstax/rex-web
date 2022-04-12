@@ -35,9 +35,9 @@ def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page
     event_action = None
     event_category = "REX Link (toc)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     page_view_type = "pageview"
     page_view_page = None
-    new_events = 2
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -281,13 +281,15 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     #        { eventAction: "Click to close the Table of Contents",
     #          eventCategory: "REX Button (toc)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    toc_close_event = Utilities.get_analytics_queue(selenium, -1)
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in toc_close_event
+        and "eventCategory" in toc_close_event
+        and "eventLabel" in toc_close_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == close_event_action
-    assert last_event["eventCategory"] == close_event_category
-    assert last_event["eventLabel"] == close_event_label
+    assert toc_close_event["eventAction"] == close_event_action
+    assert toc_close_event["eventCategory"] == close_event_category
+    assert toc_close_event["eventLabel"] == close_event_label
 
     # WHEN:  they open the table of contents
     book.toolbar.click_toc_toggle_button()
@@ -297,13 +299,15 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     #          eventCategory: "REX Button (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    last_event = events[-1]
+    toc_open_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in toc_open_event
+        and "eventCategory" in toc_open_event
+        and "eventLabel" in toc_open_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == open_event_action
-    assert last_event["eventCategory"] == open_event_category
-    assert last_event["eventLabel"] == open_event_label
+    assert toc_open_event["eventAction"] == open_event_action
+    assert toc_open_event["eventCategory"] == open_event_category
+    assert toc_open_event["eventLabel"] == open_event_label
     assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
@@ -383,13 +387,15 @@ def test_account_profile_menu_bar_click_ga_event(selenium, base_url, book_slug, 
     #        { eventAction: "/accounts/profile",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = events[-1]
+    profile_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in profile_event
+        and "eventCategory" in profile_event
+        and "eventLabel" in profile_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert profile_event["eventAction"] == event_action
+    assert profile_event["eventCategory"] == event_category
+    assert profile_event["eventLabel"] == event_label
     assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
