@@ -29,6 +29,12 @@
         "chapter_search_results_total": 19,
         "rkt_search_results_total": 0
     },
+    "anatomy-and-physiology-2e": {
+        "default_page": "1-introduction",
+        "search_term": "Figure 2.22a",
+        "chapter_search_results_total": 3,
+        "rkt_search_results_total": 0
+    },
     "astronomy": {
         "default_page": "1-introduction",
         "search_term": "leap year",

@@ -505,17 +505,17 @@ def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slu
     sleep(0.5)
     assert search_sidebar.search_results_present
 
-    # THEN: Entire search element is highlighted
+    # THEN: Entire search element is highlighted in content page
     xpath_search_block = (
         "//span[contains(@class,'search-highlight text last focus')][contains(text(),'{term}')]"
     )
     focussed_search_term = book.find_elements(By.XPATH, xpath_search_block.format(term=search_term))
 
     try:
-        # Verify search word is highlighted in content
+        # Verify search element is highlighted in content
         book.wait.until(expected.visibility_of(focussed_search_term[0]))
 
-        # Verify if the search word is scrolled to viewport
+        # Verify if the search element is scrolled to viewport
         assert book.element_in_viewport(focussed_search_term[0])
 
     except TimeoutException:
@@ -530,6 +530,7 @@ def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slu
     except AssertionError:
         pytest.fail(f"highlighted search term ('{search_term}') is not in view port")
 
+    # AND: The entire element is highlighted
     assert focussed_search_term[0].text == (
         "The phospholipid bilayer is the major component of all cellular membranes. "
         "The hydrophilic head groups of the phospholipids face the aqueous solution. "
