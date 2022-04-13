@@ -23,7 +23,7 @@ import {
   toolbarSearchInputMobileHeight,
   topbarDesktopHeight,
   topbarMobileHeight,
-  verticalNavbar
+  verticalNavbarMaxWidth
 } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
@@ -241,7 +241,7 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
     padding-left: ${sidebarDesktopWidth}rem;
   `}
   ${theme.breakpoints.mobile(css`
-    padding-left: ${verticalNavbar}rem;
+    padding-left: ${verticalNavbarMaxWidth}rem;
   `)}
   ${theme.breakpoints.mobileMedium(css`
     height: ${topbarMobileHeight}rem;

@@ -14,7 +14,7 @@ import {
   sidebarDesktopWidth,
   toolbarIconColor,
   topbarDesktopHeight,
-  verticalNavbar,
+  verticalNavbarMaxWidth,
 } from '../constants';
 import { disablePrint } from '../utils/disablePrint';
 import { toolbarIconStyles } from './iconStyles';
@@ -132,7 +132,7 @@ export const ToolbarWrapper = styled.div`
   height: calc(100vh - 13rem);
   margin-top: -${topbarDesktopHeight}rem;
   max-height: calc(100vh - 7rem);
-  max-width: ${verticalNavbar}rem;
+  max-width: ${verticalNavbarMaxWidth}rem;
   overflow: visible;
   z-index: ${theme.zIndex.toolbar}; /* stay above book content */
   background-color: ${theme.color.neutral.darker};

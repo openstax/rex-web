@@ -35,7 +35,7 @@ export const topbarMobileHeight = 4;
 export const toolbarMobileExpandedHeight = topbarMobileHeight
   + toolbarMobileSearchWrapperHeight;
 
-export const verticalNavbar = 8;
+export const verticalNavbarMaxWidth = 8;
 
 export const searchSidebarTopOffset = bookBannerMobileMiniHeight
   + toolbarMobileExpandedHeight;

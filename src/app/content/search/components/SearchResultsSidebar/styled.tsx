@@ -20,7 +20,7 @@ import {
     toolbarIconColor,
     topbarDesktopHeight,
     topbarMobileHeight,
-    verticalNavbar,
+    verticalNavbarMaxWidth,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
 import { toolbarIconStyles } from '../../../components/Toolbar/iconStyles';
@@ -122,7 +122,7 @@ export const SearchResultsBar = styled.div`
   ${theme.breakpoints.mobile(css`
     width: ${searchResultsBarMobileWidth}rem;
     top: ${bookBannerMobileMiniHeight}rem;
-    left: ${verticalNavbar}rem;
+    left: ${verticalNavbarMaxWidth}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
   `)}
