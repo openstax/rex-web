@@ -232,7 +232,7 @@ describe('content', () => {
     expect(tableOfContentsComponent.props.isOpen).toBe(true);
   });
 
-  it('renders with ToC closed on mobile', () => {
+  it('renders with ToC in null state on mobile', () => {
     jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
