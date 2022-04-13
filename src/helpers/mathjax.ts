@@ -10,7 +10,7 @@ interface MathJaxWindow extends Window {
 export const startMathJax = () => {
   const window: MathJaxWindow = assertWindow();
   const params = new URLSearchParams(window.location.search);
-  const version = params.get('useMathJaxVersion');
+  const version = params.get('mathjax-version');
 
   if (version === '3') {
     window.__MJX_VERSION = 3;
