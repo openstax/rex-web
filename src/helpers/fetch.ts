@@ -1,9 +1,8 @@
-
-export type FormatError = (status: number, message: string) => string;
+export type FormatError = (status: number, message: string) => Error;
 
 export const rejectResponse = (response: Response, formatError: FormatError) =>
   response.text().then((message: string) => {
-    throw new Error(formatError(response.status, message));
+    throw formatError(response.status, message);
   });
 
 export const acceptStatus = (
