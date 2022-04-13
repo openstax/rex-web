@@ -17,6 +17,9 @@ export const hookBody: RouteHookBody<typeof content> = (services: MiddlewareAPI 
     const pathOrModalChanged =
       pathname !== prevPath || prevQuery?.modal !== query.modal;
 
+    console.log('path: ', pathname, prevPath);
+    console.log('modal: ', prevQuery?.modal, query.modal);
+
     if (action.action !== 'REPLACE' && pathOrModalChanged) {
       lastTrackedLocation = {query, pathname};
       googleAnalyticsClient.trackPageView(pathname, query);
