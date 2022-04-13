@@ -1,12 +1,15 @@
 """Test REx search."""
 
 import unittest
+import pytest
 from math import isclose
 from random import choice
 from string import digits, ascii_letters
 from time import sleep
 
+from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as expected
 
 from pages.content import Content
 from tests import markers
@@ -476,3 +479,60 @@ def test_open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug
 
     # AND: Total search results is same as in first window
     assert rex.search_sidebar.chapter_search_result_total == 13
+
+
+@markers.test_case("C545836")
+@markers.parametrize("book_slug, page_slug", [("biology-2e", "preface")])
+@markers.desktop_only
+@markers.nondestructive
+def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slug):
+    """Highlight entire search element if unable to find single term"""
+
+    # GIVEN: Book page is loaded
+    book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+
+    # Skip any notification/nudge popups
+    while book.notification_present:
+        book.notification.got_it()
+
+    # WHEN: Search is performed
+    toolbar = book.toolbar
+    search_sidebar = book.search_sidebar
+    search_term = "phospholipid bilayer"
+
+    # AND: Search sidebar is displayed with search results
+    toolbar.search_for(search_term)
+    sleep(0.5)
+    assert search_sidebar.search_results_present
+
+    # THEN: Entire search element is highlighted in content page
+    xpath_search_block = (
+        "//span[contains(@class,'search-highlight text last focus')][contains(text(),'{term}')]"
+    )
+    focussed_search_term = book.find_elements(By.XPATH, xpath_search_block.format(term=search_term))
+
+    try:
+        # Verify search element is highlighted in content
+        book.wait.until(expected.visibility_of(focussed_search_term[0]))
+
+        # Verify if the search element is scrolled to viewport
+        assert book.element_in_viewport(focussed_search_term[0])
+
+    except TimeoutException:
+        pytest.fail(f"the highlighted search term ('{search_term}') was not found on the page")
+
+    except IndexError:
+        pytest.fail(
+            f"Value of focussed_search_term = '{focussed_search_term}'."
+            f"If the value is null, the search term ('{search_term}') is not highlighted in the page."
+        )
+
+    except AssertionError:
+        pytest.fail(f"highlighted search term ('{search_term}') is not in view port")
+
+    # AND: The entire element is highlighted
+    assert focussed_search_term[0].text == (
+        "The phospholipid bilayer is the major component of all cellular membranes. "
+        "The hydrophilic head groups of the phospholipids face the aqueous solution. "
+        "The hydrophobic tails are sequestered in the middle of the bilayer."
+    )
