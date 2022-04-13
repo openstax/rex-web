@@ -28,9 +28,9 @@ export async function getCanonicalUrlParams(
 };
 
   let canonicalMap = getCanonicalMap(book.id);
-  let canonicalBook;
   let canonicalPageId = pageId;
   let done = false;
+  let canonicalBook;
   let treeSection;
 
   while (!done) {
