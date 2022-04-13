@@ -39,6 +39,7 @@ describe('registerPageView', () => {
     };
 
     beforeEach(() => {
+      jest.restoreAllMocks();
       store = createTestStore();
       client = googleAnalyticsClient;
       mockGa = jest.fn<UniversalAnalytics.ga, []>();
@@ -69,12 +70,9 @@ describe('registerPageView', () => {
     });
 
     it('does not register a page view if pathname and modal query are unchanged', async() => {
-      // jest.spyOn(selectNavigation, 'query').mockReturnValue({});
-      // jest.spyOn(selectNavigation, 'pathname').mockReturnValue('foo');
-
-      // await hook(action);
-      // expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: 'foo'});
-      // await hook(action);
-      // expect(mockGa).not.toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: 'foo'});
+      await hook(action);
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/'});
+      await hook(action);
+      expect(mockGa).not.toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/'});
     });
   });
