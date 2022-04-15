@@ -50,6 +50,7 @@ const resolveBook = async(
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
   const {dispatch, getState, archiveLoader, osWebLoader} = services;
   const [bookSlug, bookId, bookVersion] = await resolveBookReference(services, match);
+
   const loader = archiveLoader.book(bookId, bookVersion);
   const state = getState();
   const bookState = select.book(state);
@@ -163,7 +164,6 @@ export const getBookInformation = async(
     return undefined;
   }
 
-  // loading OS web book
   const osWebBook =  await services.osWebLoader.getBookFromId(bookId);
 
   if (!bookVersion) {
