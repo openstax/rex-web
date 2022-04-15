@@ -30,6 +30,7 @@ import { renderSitemap, renderSitemapIndex } from './sitemap';
 const {
   CODE_VERSION,
   REACT_APP_ACCOUNTS_URL,
+  REACT_APP_ARCHIVE,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
@@ -50,6 +51,7 @@ let networkTime = 0;
 
 async function renderManifest() {
   writeAssetFile('/rex/release.json', JSON.stringify({
+    archive: REACT_APP_ARCHIVE,
     books: BOOKS,
     code: CODE_VERSION,
     id: RELEASE_ID,
