@@ -6,7 +6,7 @@ import { startMathJax as startMathJax3, typesetMath as typesetMath3 } from './ma
 const getMathJaxQueryParam = () => {
   const params = new URLSearchParams(assertWindow().location.search);
   return params.get('mathjax-version');
-}
+};
 
 export const startMathJax = () => {
   if (getMathJaxQueryParam() === '3') {

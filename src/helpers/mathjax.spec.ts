@@ -31,7 +31,7 @@ describe('v3', () => {
     Object.defineProperty(assertWindow(), 'location', {
       value: {
         search: 'mathjax-version=3',
-      }
+      },
     });
   });
 
