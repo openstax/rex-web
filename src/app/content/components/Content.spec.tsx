@@ -10,7 +10,6 @@ import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
-import * as reactUtils from '../../reactUtils';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { openToc, receiveBook, receivePage } from '../actions';
@@ -142,9 +141,6 @@ describe('content', () => {
   });
 
   it('provides the right scroll offset when mobile search collapsed', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
-      .mockReturnValue(true);
-
     store.dispatch(receiveBook(bookState));
     store.dispatch(openMobileToolbar());
 
@@ -211,31 +207,7 @@ describe('content', () => {
     expect(pageComponent).toBeDefined();
   });
 
-  it('renders with ToC open on desktop', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
-      .mockReturnValue(false);
-
-    store.dispatch(receiveBook(bookState));
-
-    const component = renderer.create(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Content />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
-
-    const tableOfContentsComponent = component.root.findByType(TableOfContents);
-
-    expect(tableOfContentsComponent.props.isOpen).toBe(true);
-  });
-
-  it('renders with ToC in null state on mobile', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
-      .mockReturnValue(true);
-
+  it('renders with ToC open in null state', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
@@ -280,8 +252,6 @@ describe('content', () => {
   });
 
   it('SidebarControl opens and closes ToC', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
-      .mockReturnValue(false);
 
     store.dispatch(receiveBook(bookState));
 
@@ -295,7 +265,7 @@ describe('content', () => {
       </Provider>
     );
 
-    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
 
     renderer.act(() => {
       component.root

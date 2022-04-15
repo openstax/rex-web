@@ -6,7 +6,7 @@ import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
-import { AppState, Dispatch } from '../../types';
+import { AppState } from '../../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQuestionsPopup';
 import { mobileToolbarOpen } from '../search/selectors';
@@ -30,8 +30,6 @@ import ContentPane from './ContentPane';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
 
-import { actions } from '..';
-import { useMatchMobileMediumQuery } from '../../reactUtils';
 import Navigation from './Navigation';
 import Topbar from './Topbar';
 import { isVerticalNavOpenConnector } from './utils/sidebar';
@@ -144,63 +142,50 @@ const OuterWrapper = styled.div`
  *   of things need to know when the sidebar is open/closed.
  */
 // tslint:disable-next-line:variable-name
-const Content = ({mobileExpanded, openToc}: {mobileExpanded: boolean, openToc: () => void}) => {
-  const isMobile = useMatchMobileMediumQuery();
-
-  React.useEffect(() => {
-    if (!isMobile) {
-      openToc();
+const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
+  <ScrollOffset
+    desktopOffset={
+      bookBannerDesktopMiniHeight
+      + topbarDesktopHeight
+      + scrollOffset
     }
-  }, []);
-
-  return <Layout>
-    <ScrollOffset
-      desktopOffset={
-        bookBannerDesktopMiniHeight
-        + topbarDesktopHeight
-        + scrollOffset
-      }
-      mobileOffset={
-        bookBannerMobileMiniHeight
-        + (mobileExpanded ? toolbarMobileExpandedHeight : topbarMobileHeight)
-        + scrollOffset
-      }
-    />
-    <Background>
-      <BookBanner />
-      <ErrorBoundary>
-        <HighlightsPopUp />
-        <StudyguidesPopUp />
-        <PracticeQuestionsPopup />
-        <NudgeStudyTools />
-        <OuterWrapper>
-          <Topbar />
-          <Wrapper>
-            <Navigation />
-            <CenteredContentRow>
-              <ContentPane>
-                <UndoPadding>
-                  <MainContentWrapper>
-                    <ContentNotifications mobileExpanded={mobileExpanded} />
-                    <Page />
-                    <Attribution />
-                    <Footer />
-                  </MainContentWrapper>
-                </UndoPadding>
-              </ContentPane>
-            </CenteredContentRow>
-          </Wrapper>
-        </OuterWrapper>
-      </ErrorBoundary>
-    </Background>
-  </Layout>;
-};
+    mobileOffset={
+      bookBannerMobileMiniHeight
+      + (mobileExpanded ? toolbarMobileExpandedHeight : topbarMobileHeight)
+      + scrollOffset
+    }
+  />
+  <Background>
+    <BookBanner />
+    <ErrorBoundary>
+      <HighlightsPopUp />
+      <StudyguidesPopUp />
+      <PracticeQuestionsPopup />
+      <NudgeStudyTools />
+      <OuterWrapper>
+        <Topbar />
+        <Wrapper>
+          <Navigation />
+          <CenteredContentRow>
+            <ContentPane>
+              <UndoPadding>
+                <MainContentWrapper>
+                  <ContentNotifications mobileExpanded={mobileExpanded} />
+                  <Page />
+                  <Attribution />
+                  <Footer />
+                </MainContentWrapper>
+              </UndoPadding>
+            </ContentPane>
+          </CenteredContentRow>
+        </Wrapper>
+      </OuterWrapper>
+    </ErrorBoundary>
+  </Background>
+</Layout>;
 
 export default connect(
   (state: AppState) => ({
     mobileExpanded: mobileToolbarOpen(state),
-  }),
-  (dispatch: Dispatch) => ({
-    openToc: () => dispatch(actions.openToc()),
   })
 )(Content);
