@@ -100,7 +100,7 @@ export const resolveBookReference = async(
   const bookVersion = 'version' in match.params.book
     ? match.params.book.version
     : assertDefined(
-        await bookConfigLoader.getBookVersionFromUUID(bookUid),
+        await bookConfigLoader.getBookVersionFromUUID(bookUid), // why using mock loader here?
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
       ).defaultVersion;
 
