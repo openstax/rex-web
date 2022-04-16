@@ -19,6 +19,7 @@ import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
 import loadOptimize from './helpers/loadOptimize';
+import { startMathJax } from './helpers/mathjax';
 import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
@@ -104,6 +105,7 @@ window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
 
 // start long running processes
 pollUpdates(app.store);
+startMathJax();
 
 // load optimize
 loadOptimize(window, app.store);

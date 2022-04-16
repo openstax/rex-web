@@ -1,7 +1,6 @@
 import isEqual from 'lodash/fp/isEqual';
 import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
 import { getBookVersionFromUUIDSync } from '../../../../gateways/createBookConfigLoader';
-import { startMathJax } from '../../../../helpers/mathjax';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { assertDefined, BookNotFoundError } from '../../../utils';
@@ -65,7 +64,6 @@ const resolveBook = async(
     dispatch(requestBook(match.params.book));
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
     dispatch(receiveBook(response[0]));
-    startMathJax();
     return response;
   } else {
     return await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
