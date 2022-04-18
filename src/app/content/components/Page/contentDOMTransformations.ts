@@ -116,8 +116,7 @@ function expandSolutionForFragment(document: Document) {
   const id = window.location.hash.substr(1);
 
   if (id) {
-    const element = document.getElementById(id) as HTMLElement;
-    expandClosestSolution(element);
+    expandClosestSolution(document.getElementById(id) as HTMLElement);
   }
 }
 
