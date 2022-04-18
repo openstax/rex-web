@@ -454,8 +454,22 @@ describe('Page', () => {
           </div>
         `);
 
-        const details = pageElement.querySelector('[data-type="solution"]') as HTMLDetailsElement;
+        let details = pageElement.querySelector('[data-type="solution"]') as HTMLDetailsElement;
         expect(details.open).toBe(false);
+
+        const _window = window;
+        window = void 0;
+        await htmlHelper(`
+          <div data-type="exercise">
+            <div data-type="solution">
+              <p id="paragraph">answer</p>
+            </div>
+          </div>
+        `);
+
+        details = pageElement.querySelector('[data-type="solution"]') as HTMLDetailsElement;
+        expect(details.open).toBe(false);
+        window = _window;
       });
     });
 
