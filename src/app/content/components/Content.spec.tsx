@@ -252,7 +252,6 @@ describe('content', () => {
   });
 
   it('SidebarControl opens and closes ToC', () => {
-
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
