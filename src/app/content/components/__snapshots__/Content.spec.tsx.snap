@@ -291,7 +291,7 @@ Array [
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 hKFotz"
+              className="SidebarControl__ToCButton-sdjc7-1 hBGnvm"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -328,7 +328,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 kdMVwR"
+              className="SidebarControl__ToCButton-sdjc7-1 ibeoGO"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -458,7 +458,7 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 geZWFe"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 epWWiK"
           data-analytics-region="toc"
           data-testid="toc"
         >
@@ -1126,13 +1126,8 @@ Array [
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 hlAHny"
+            className="ContentPane__Wrapper-sc-6et83r-0 kFSEcE"
           >
-            <div
-              className="ScrollLock__Overlay-sc-1fi845b-0 hFDzlA"
-              data-testid="scroll-lock-overlay"
-              onClick={[Function]}
-            />
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
             >
@@ -1883,7 +1878,7 @@ Array [
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 hKFotz"
+              className="SidebarControl__ToCButton-sdjc7-1 hBGnvm"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -1920,7 +1915,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 kdMVwR"
+              className="SidebarControl__ToCButton-sdjc7-1 ibeoGO"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2050,7 +2045,7 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 geZWFe"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 epWWiK"
           data-analytics-region="toc"
           data-testid="toc"
         >
@@ -2716,13 +2711,8 @@ Array [
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 hlAHny"
+            className="ContentPane__Wrapper-sc-6et83r-0 kFSEcE"
           >
-            <div
-              className="ScrollLock__Overlay-sc-1fi845b-0 hFDzlA"
-              data-testid="scroll-lock-overlay"
-              onClick={[Function]}
-            />
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
             >
