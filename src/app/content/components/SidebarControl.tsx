@@ -110,10 +110,8 @@ export const CloseToCAndMobileMenuButton = styled((props) => {
 `;
 
 // tslint:disable-next-line:variable-name
-export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => {
-  console.log('is open? ', props.isOpen);
-  console.log('is active? ', props.isActive);
-  return <ToCButton
+export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => 
+  <ToCButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
   >
@@ -123,7 +121,6 @@ export const TOCControl = ({ message, children, ...props }: React.PropsWithChild
     </ToCButtonText>
     {children}
   </ToCButton>;
-  };
 
 // tslint:disable-next-line:variable-name
 export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
