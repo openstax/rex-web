@@ -158,12 +158,13 @@ export const DropdownToggle = styled.div`
   cursor: pointer;
   margin-top: 1.25rem;
 
-  ${theme.breakpoints.mobile(css`
-    margin-top: 0;
-  `)}
   :hover {
     box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.3);
   }
+
+  ${theme.breakpoints.mobile(css`
+    margin-top: 0;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
