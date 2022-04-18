@@ -56,7 +56,10 @@ const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
     ${toolbarIconStyles};
   }
 
-  display: ${({isOpen, isActive}) => (isOpen && isActive) || (!isOpen && !isActive) ? 'flex' : 'none'};
+  display: ${({isOpen, isActive}) => (isOpen !== false && isActive) || (isOpen === false && !isActive)
+    ? 'flex'
+    : 'none'
+  };
   ${(props) => props.isOpen === null && !props.isActive && theme.breakpoints.mobile(css`
     display: flex;
   `)}
@@ -108,6 +111,8 @@ export const CloseToCAndMobileMenuButton = styled((props) => {
 
 // tslint:disable-next-line:variable-name
 export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => {
+  console.log('is open? ', props.isOpen);
+  console.log('is active? ', props.isActive);
   return <ToCButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
