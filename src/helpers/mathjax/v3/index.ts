@@ -84,12 +84,11 @@ const startMathJax = () => {
     },
   };
 
-  (() => {
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js';
-    script.async = true;
-    document.head.appendChild(script);
-  })();
+
+  const script = document.createElement('script');
+  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js';
+  script.async = true;
+  document.head.appendChild(script);
 };
 
 export {
