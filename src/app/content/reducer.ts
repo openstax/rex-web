@@ -79,7 +79,7 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.openMobileMenu):
       return {...state, mobileMenuOpen: true, showNudgeStudyTools: false};
     case getType(actions.closeMobileMenu):
-      return {...state, mobileMenuOpen: false, tocOpen: false};
+      return {...state, mobileMenuOpen: false};
     case getType(actions.requestBook):
       return {...state, loading: {...state.loading, book: action.payload}};
     case getType(actions.receiveBook): {
