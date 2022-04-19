@@ -94,7 +94,7 @@ describe('openStudyGuides', () => {
 
     expect(selectors.studyGuidesFilters(store.getState())).toEqual({
         colors: [HighlightColorEnum.Blue],
-        locationIds: [],
+        locationIds: undefined,
     });
   });
 
