@@ -6,8 +6,8 @@ import {
 } from '../highlights/types';
 
 export interface StudyGuidesSummaryFilters {
-  colors: HighlightColorEnum[];
-  locationIds: string[];
+  colors?: HighlightColorEnum[];
+  locationIds?: string[];
 }
 
 export interface State {
