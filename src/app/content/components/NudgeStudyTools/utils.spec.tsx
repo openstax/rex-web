@@ -109,7 +109,7 @@ describe('usePositions', () => {
       "spotlightTopOffset": 203,
       "spotlightWidth": 282,
     }
-  `)
+  `);
 
     // Add additional padding to the spotlight when isMobile prop is passed
     expect(utils.getPositions(target, true)).toMatchInlineSnapshot(`

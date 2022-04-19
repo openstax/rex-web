@@ -111,7 +111,7 @@ export const CloseToCAndMobileMenuButton = styled((props) => {
 `;
 
 // tslint:disable-next-line:variable-name
-export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) => 
+export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) =>
   <ToCButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
