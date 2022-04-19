@@ -243,7 +243,7 @@ describe('Filters', () => {
 
     expect(dispatch).toHaveBeenCalledWith(
       replace(mockMatch, {
-        search: `colors=yellow&colors=green&colors=blue&colors=purple&modal=${modalUrlName}`,
+        search: `colors=yellow&colors=green&colors=blue&colors=purple&locationIds&modal=${modalUrlName}`,
       })
     );
   });
@@ -284,7 +284,7 @@ describe('Filters', () => {
     });
 
     const historyReplace = replace(mockMatch, {
-      search: 'colors=yellow&colors=blue&colors=purple&modal=SG',
+      search: 'colors=yellow&colors=blue&colors=purple&locationIds&modal=SG',
     });
     expect(dispatch).toHaveBeenCalledWith(historyReplace);
   });
