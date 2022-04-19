@@ -11,10 +11,7 @@ import { getFiltersFromQuery } from './utils';
 
 export const initialState: State = {
   summary: {
-    filters: {
-      colors: [],
-      locationIds: [],
-    },
+    filters: {},
     loading: false,
     open: false,
     pagination: null,
@@ -35,8 +32,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           filters: {
             ...state.summary.filters,
-            ...(colors.length && {colors}),
-            ...(locationIds.length && {locationIds}),
+            ...(colors && {colors}),
+            ...(locationIds && {locationIds}),
           },
           open: hasModalQuery,
           pagination: hasModalQuery ? null : state.summary.pagination,
