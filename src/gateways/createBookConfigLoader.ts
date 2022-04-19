@@ -4,7 +4,6 @@ import { acceptStatus } from '../helpers/fetch';
 import Sentry, { Severity } from '../helpers/Sentry';
 
 type BookVersion = typeof BOOKS[0];
-type ArchiveVersion = string;
 
 interface ReleaseJsonStructure {
   archive: string;
@@ -30,7 +29,7 @@ export default () => {
   };
 
   return {
-    getArchiveVersionFromUUID: (): Promise<ArchiveVersion | undefined> => {
+    getArchiveVersionFromUUID: (): Promise<string | undefined> => {
       return cachedArchive ? Promise.resolve(cachedArchive) : loadRemoteBookConfig().then((config) => {
           if (config?.archive) {
             cachedArchive = config.archive;
@@ -50,4 +49,4 @@ export default () => {
 };
 
 export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => cachedBooks[uuid];
-export const getArchiveVersionFromUUIDSync = (): ArchiveVersion | undefined => cachedArchive;
+export const getArchiveVersionFromUUIDSync = (): string | undefined => cachedArchive;
