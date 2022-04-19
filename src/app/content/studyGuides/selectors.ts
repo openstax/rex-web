@@ -121,7 +121,7 @@ export const loggedOutAndQueryMissingFirstChapter = createSelector(
   parentSelectors.firstChapter,
   filtersFromQuery,
   (logged, firstChapter, queryFilters) =>
-    !logged && firstChapter && !queryFilters.locationIds.includes(firstChapter.id)
+    !logged && firstChapter && !queryFilters.locationIds?.includes(firstChapter.id)
 );
 
 const defaultFilters = createSelector(
@@ -144,8 +144,8 @@ export const summaryFilters = createSelector(
   (logged, defaults, filtersFromState) => logged
     ? {
         ...defaults,
-        ...(filtersFromState.colors.length && {colors: filtersFromState.colors}),
-        ...(filtersFromState.locationIds.length && {locationIds: filtersFromState.locationIds}),
+        ...(filtersFromState.colors && {colors: filtersFromState.colors}),
+        ...(filtersFromState.locationIds && {locationIds: filtersFromState.locationIds}),
       } : defaults
 );
 
