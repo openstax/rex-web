@@ -169,10 +169,18 @@ export const useMatchMobileQuery = () => {
   }, []);
 
   React.useEffect(() => {
-    const addEventListener = matchMedia.addEventListener || matchMedia.addListener;
-    const removeEventListener = matchMedia.removeEventListener || matchMedia.removeListener;
-    addEventListener('change', listener);
-    return () => { removeEventListener('change', listener); };
+    if (typeof matchMedia.addEventListener === 'function') {
+      matchMedia.addEventListener('change', listener);
+    } else {
+      matchMedia.addListener(listener);
+    }
+    return () => {
+      if (typeof matchMedia.removeEventListener === 'function') {
+        matchMedia.addEventListener('change', listener);
+      } else {
+        matchMedia.addListener(listener);
+      }
+    };
   }, [listener, matchMedia]);
 
   return isMobile;
