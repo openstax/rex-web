@@ -9,8 +9,9 @@ const SimpleMessageProvider = (props: { children?: React.ReactNode }) => {
 
   useEffect(() => {
     const setUpIntl = async() => {
-      const languageWithCode = assertWindow().navigator.language || 'en-US';
-      const language = new (assertWindow()).Intl.Locale(languageWithCode).language;
+      const languageWithCode = assertWindow().navigator.language || 'en';
+      const Locale = assertWindow().Intl?.Locale;
+      const language = Locale ? new Locale(languageWithCode).language : languageWithCode;
       const intlObject = await createIntl(language);
       setIntl(intlObject);
     };
