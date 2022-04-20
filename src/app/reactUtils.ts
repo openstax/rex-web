@@ -176,9 +176,9 @@ export const useMatchMobileQuery = () => {
     }
     return () => {
       if (typeof matchMedia.removeEventListener === 'function') {
-        matchMedia.addEventListener('change', listener);
+        matchMedia.removeEventListener('change', listener);
       } else {
-        matchMedia.addListener(listener);
+        matchMedia.removeListener(listener);
       }
     };
   }, [listener, matchMedia]);
