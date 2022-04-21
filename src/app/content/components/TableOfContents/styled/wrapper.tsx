@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components/macro';
 import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
 import theme from '../../../../theme';
-import { State } from '../../../types';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
