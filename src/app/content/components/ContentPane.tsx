@@ -42,7 +42,7 @@ const Wrapper = styled.div`
     `)}
 
     ${styleWhenSidebarClosed(css`
-      padding-left: 0;
+      padding-left: 0 !important;
     `)}
   }
 `;
