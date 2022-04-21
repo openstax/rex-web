@@ -139,8 +139,8 @@ export default connect(
   }),
   (dispatch: Dispatch) => ({
     onNavigate: () => {
-      dispatch(closeMobileMenu());
       dispatch(resetToc());
+      dispatch(closeMobileMenu());
     },
   })
 )(TableOfContents);
