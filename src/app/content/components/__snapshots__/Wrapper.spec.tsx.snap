@@ -2,12 +2,12 @@
 
 exports[`wrapper matches snapshot 1`] = `
 <div
-  className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 kzZLnd"
+  className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 fRDSoc"
 />
 `;
 
 exports[`wrapper matches snapshot with search open 1`] = `
 <div
-  className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 kzZLnd"
+  className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 fRDSoc"
 />
 `;

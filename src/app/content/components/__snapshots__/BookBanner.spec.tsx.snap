@@ -8,10 +8,10 @@ Array [
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dvPBpX"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 kTujtd"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -30,7 +30,7 @@ Array [
         Test Book 1
       </a>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 ggGIzK"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 zXeYG"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -45,10 +45,10 @@ Array [
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 jGQWFK"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dfDzFf"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -68,7 +68,7 @@ Array [
         Test Book 1
       </a>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 eTtQEi"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 fPGhpm"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -88,10 +88,10 @@ Array [
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dvPBpX"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 kTujtd"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -110,7 +110,7 @@ Array [
         Test Book 1
       </a>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 ggGIzK"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 zXeYG"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -125,10 +125,10 @@ Array [
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 jGQWFK"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dfDzFf"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -148,7 +148,7 @@ Array [
         Test Book 1
       </a>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 eTtQEi"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 fPGhpm"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -168,16 +168,16 @@ Array [
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <span
-        className="BookBanner__BookTitle-sc-1avy0c0-2 VmSYS"
+        className="BookBanner__BookTitle-sc-1avy0c0-2 kobDyh"
         data-testid="book-title-expanded"
       >
         Test Book 1
       </span>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 ggGIzK"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 zXeYG"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -192,16 +192,16 @@ Array [
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <span
-        className="BookBanner__BookTitle-sc-1avy0c0-2 fxlyoX"
+        className="BookBanner__BookTitle-sc-1avy0c0-2 ixYSjW"
         data-testid="book-title-collapsed"
       >
         Test Book 1
       </span>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 eTtQEi"
+        className="BookBanner__BookChapter-sc-1avy0c0-4 fPGhpm"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -221,10 +221,10 @@ Array [
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dvPBpX"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 kTujtd"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -250,10 +250,10 @@ Array [
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 jGQWFK"
+        className="BookBanner__BookTitleLink-sc-1avy0c0-3 dfDzFf"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}

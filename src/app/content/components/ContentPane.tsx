@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components/macro';
 import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
+import { remsToEms } from '../../utils';
 import { closeToc } from '../actions';
 import { State } from '../types';
 import {
@@ -15,6 +16,10 @@ import {
 } from './constants';
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
+export const contentWrapperWidthBreakpoint = '(max-width: ' + remsToEms(contentWrapperMaxWidth) + 'em)';
+export const contentWrapperAndNavWidthBreakpoint =
+  '(max-width: ' + remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth) + 'em)';
+
 // tslint:disable-next-line:variable-name
 const Wrapper = styled.div`
   @media screen {
@@ -24,11 +29,11 @@ const Wrapper = styled.div`
     background-color: ${mainContentBackground};
     padding-left: ${sidebarDesktopWidth}rem;
 
-    @media screen and (max-width: ${contentWrapperMaxWidth + verticalNavbarMaxWidth}rem) {
+    @media screen and ${contentWrapperAndNavWidthBreakpoint} {
       padding-left: calc(${sidebarDesktopWithToolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2);
     }
 
-    @media screen and (max-width: ${contentWrapperMaxWidth}rem) {
+    @media screen and ${contentWrapperWidthBreakpoint} {
       padding-left: ${sidebarDesktopWithToolbarWidth}rem;
     }
 

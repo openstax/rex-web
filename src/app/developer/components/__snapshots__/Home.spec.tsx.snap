@@ -24,7 +24,7 @@ Array [
     data-analytics-region="openstax-navbar"
   >
     <div
-      className="styled__TopBar-sc-3syvnw-0 iIFcKD"
+      className="styled__TopBar-sc-3syvnw-0 iVnlSK"
       data-testid="navbar"
     >
       <a
@@ -43,7 +43,7 @@ Array [
     className="Layout__LayoutBody-s6mgs9-0 Home__Wrapper-kkxtzr-3 fENBpB"
   >
     <div
-      className="Home__HomeStyle-kkxtzr-0 cjtepw"
+      className="Home__HomeStyle-kkxtzr-0 dWEdFf"
     >
       <h1
         className="headings__H1-sc-1xfiggv-0 cErBHT"
@@ -286,7 +286,7 @@ Array [
         className="styled__FooterTop-y5hgq4-6 emNNEw"
       >
         <div
-          className="styled__TopBoxed-y5hgq4-7 fHNzfX"
+          className="styled__TopBoxed-y5hgq4-7 jVeZhX"
         >
           <div
             aria-level={2}
@@ -419,7 +419,7 @@ Array [
         className="styled__FooterBottom-y5hgq4-16 DOTyv"
       >
         <div
-          className="styled__BottomBoxed-y5hgq4-17 dIgmob"
+          className="styled__BottomBoxed-y5hgq4-17 hViXPP"
         >
           <div
             className="styled__Copyrights-y5hgq4-18 bCRniQ"

@@ -12,7 +12,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
     onClick={[Function]}
   />
   <div
-    className="PopupStyles__Modal-w0z1hl-3 etDDkl"
+    className="PopupStyles__Modal-w0z1hl-3 dxCHBC"
     data-testid="practice-questions-popup-wrapper"
     tabIndex="-1"
   >

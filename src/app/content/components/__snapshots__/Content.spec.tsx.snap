@@ -24,7 +24,7 @@ Array [
     data-analytics-region="openstax-navbar"
   >
     <div
-      className="styled__TopBar-sc-3syvnw-0 iIFcKD"
+      className="styled__TopBar-sc-3syvnw-0 iVnlSK"
       data-testid="navbar"
     >
       <a
@@ -48,10 +48,10 @@ Array [
       data-testid="bookbanner"
     >
       <div
-        className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+        className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitleLink-sc-1avy0c0-3 dvPBpX"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 kTujtd"
           data-testid="details-link-expanded"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -70,7 +70,7 @@ Array [
           Test Book 1
         </a>
         <h1
-          className="BookBanner__BookChapter-sc-1avy0c0-4 ggGIzK"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 zXeYG"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -85,10 +85,10 @@ Array [
       data-testid="bookbanner-collapsed"
     >
       <div
-        className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+        className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitleLink-sc-1avy0c0-3 jGQWFK"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 dfDzFf"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -108,7 +108,7 @@ Array [
           Test Book 1
         </a>
         <span
-          className="BookBanner__BookChapter-sc-1avy0c0-4 eTtQEi"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 fPGhpm"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -125,7 +125,7 @@ Array [
         data-testid="topbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-12dq39v-9 kRRdlW"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 cmhJLF"
         >
           <div
             className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -235,7 +235,7 @@ Array [
         </div>
       </div>
       <div
-        className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 kzZLnd"
+        className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 fRDSoc"
       >
         <div
           className="styled__ToolbarWrapper-sc-1119auh-4 FSENt"
@@ -1122,17 +1122,17 @@ Array [
           </ol>
         </div>
         <div
-          className="CenteredContentRow__Wrapper-sc-22brdm-0 iCCmQf"
+          className="CenteredContentRow__Wrapper-sc-22brdm-0 hOWhro"
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 kFSEcE"
+            className="ContentPane__Wrapper-sc-6et83r-0 gOywPb"
           >
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
             >
               <div
-                className="Content__MainContentWrapper-sc-1f451g1-3 jSyCRv"
+                className="Content__MainContentWrapper-sc-1f451g1-3 kpSnEC"
               >
                 <div
                   className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
@@ -1141,7 +1141,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
-                      className="page-content PageContent-ny9bj0-0 cXwdbF"
+                      className="page-content PageContent-ny9bj0-0 gQGCbx"
                       tabIndex={0}
                     >
                       <div
@@ -1157,7 +1157,7 @@ Array [
                       />
                     </div>
                     <div
-                      className="PrevNextBar__BarWrapper-sc-13m2i12-3 fEZPiF"
+                      className="PrevNextBar__BarWrapper-sc-13m2i12-3 bGqgnM"
                       data-analytics-region="prev-next"
                     >
                       <a
@@ -1210,7 +1210,7 @@ Array [
                 >
                   <summary
                     aria-label="Citation/Attribution"
-                    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
+                    className="Attribution__AttributionSummary-sc-11isnv6-2 kQnzje Details__Summary-xi326o-2 goqLfs"
                   >
                     <svg
                       aria-hidden="true"
@@ -1241,7 +1241,7 @@ Array [
                     </span>
                   </summary>
                   <div
-                    className="Attribution__Content-sc-11isnv6-3 SNfN"
+                    className="Attribution__Content-sc-11isnv6-3 kWSdVm"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "
@@ -1323,7 +1323,7 @@ Array [
                       className="styled__FooterTop-y5hgq4-6 emNNEw"
                     >
                       <div
-                        className="styled__TopBoxed-y5hgq4-7 fHNzfX"
+                        className="styled__TopBoxed-y5hgq4-7 jVeZhX"
                       >
                         <div
                           aria-level={2}
@@ -1456,7 +1456,7 @@ Array [
                       className="styled__FooterBottom-y5hgq4-16 DOTyv"
                     >
                       <div
-                        className="styled__BottomBoxed-y5hgq4-17 dIgmob"
+                        className="styled__BottomBoxed-y5hgq4-17 hViXPP"
                       >
                         <div
                           className="styled__Copyrights-y5hgq4-18 bCRniQ"
@@ -1611,7 +1611,7 @@ Array [
     data-analytics-region="openstax-navbar"
   >
     <div
-      className="styled__TopBar-sc-3syvnw-0 iIFcKD"
+      className="styled__TopBar-sc-3syvnw-0 iVnlSK"
       data-testid="navbar"
     >
       <a
@@ -1635,10 +1635,10 @@ Array [
       data-testid="bookbanner"
     >
       <div
-        className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+        className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitleLink-sc-1avy0c0-3 dvPBpX"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 kTujtd"
           data-testid="details-link-expanded"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -1657,7 +1657,7 @@ Array [
           Test Book 1
         </a>
         <h1
-          className="BookBanner__BookChapter-sc-1avy0c0-4 ggGIzK"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 zXeYG"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -1672,10 +1672,10 @@ Array [
       data-testid="bookbanner-collapsed"
     >
       <div
-        className="BookBanner__TopBar-sc-1avy0c0-1 fhQuDP"
+        className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitleLink-sc-1avy0c0-3 jGQWFK"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 dfDzFf"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -1695,7 +1695,7 @@ Array [
           Test Book 1
         </a>
         <span
-          className="BookBanner__BookChapter-sc-1avy0c0-4 eTtQEi"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 fPGhpm"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -1712,7 +1712,7 @@ Array [
         data-testid="topbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-12dq39v-9 kRRdlW"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 cmhJLF"
         >
           <div
             className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -1822,7 +1822,7 @@ Array [
         </div>
       </div>
       <div
-        className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 kzZLnd"
+        className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 fRDSoc"
       >
         <div
           className="styled__ToolbarWrapper-sc-1119auh-4 FSENt"
@@ -2707,17 +2707,17 @@ Array [
           </ol>
         </div>
         <div
-          className="CenteredContentRow__Wrapper-sc-22brdm-0 iCCmQf"
+          className="CenteredContentRow__Wrapper-sc-22brdm-0 hOWhro"
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 kFSEcE"
+            className="ContentPane__Wrapper-sc-6et83r-0 gOywPb"
           >
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
             >
               <div
-                className="Content__MainContentWrapper-sc-1f451g1-3 jSyCRv"
+                className="Content__MainContentWrapper-sc-1f451g1-3 kpSnEC"
               >
                 <div
                   className="MinPageHeight-sc-1i28xs0-0 hxgCaZ"
@@ -2726,7 +2726,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
-                      className="PageContent-ny9bj0-0 cXwdbF"
+                      className="PageContent-ny9bj0-0 gQGCbx"
                       tabIndex={0}
                     >
                       <div
@@ -2816,7 +2816,7 @@ Array [
                 >
                   <summary
                     aria-label="Citation/Attribution"
-                    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
+                    className="Attribution__AttributionSummary-sc-11isnv6-2 kQnzje Details__Summary-xi326o-2 goqLfs"
                   >
                     <svg
                       aria-hidden="true"
@@ -2847,7 +2847,7 @@ Array [
                     </span>
                   </summary>
                   <div
-                    className="Attribution__Content-sc-11isnv6-3 SNfN"
+                    className="Attribution__Content-sc-11isnv6-3 kWSdVm"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "
@@ -2929,7 +2929,7 @@ Array [
                       className="styled__FooterTop-y5hgq4-6 emNNEw"
                     >
                       <div
-                        className="styled__TopBoxed-y5hgq4-7 fHNzfX"
+                        className="styled__TopBoxed-y5hgq4-7 jVeZhX"
                       >
                         <div
                           aria-level={2}
@@ -3062,7 +3062,7 @@ Array [
                       className="styled__FooterBottom-y5hgq4-16 DOTyv"
                     >
                       <div
-                        className="styled__BottomBoxed-y5hgq4-17 dIgmob"
+                        className="styled__BottomBoxed-y5hgq4-17 hViXPP"
                       >
                         <div
                           className="styled__Copyrights-y5hgq4-18 bCRniQ"
