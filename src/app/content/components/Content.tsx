@@ -22,7 +22,6 @@ import {
   scrollOffset,
   sidebarTransitionTime,
   toolbarMobileExpandedHeight,
-  toolbarWidth,
   topbarDesktopHeight,
   topbarMobileHeight
 } from './constants';
@@ -87,7 +86,6 @@ const MainContentWrapper = isVerticalNavOpenConnector(styled.div`
     `)}
     ${(props) => (props.isVerticalNavOpen === false) && `
       max-width: ${contentWrapperMaxWidth}rem;
-      padding-left: ${toolbarWidth}rem;
     `}
   }
 `);

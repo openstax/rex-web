@@ -7,8 +7,11 @@ import { Dispatch } from '../../types';
 import { closeToc } from '../actions';
 import { State } from '../types';
 import {
+  contentWrapperMaxWidth,
   mainContentBackground,
+  sidebarDesktopWidth,
   sidebarDesktopWithToolbarWidth,
+  verticalNavbarMaxWidth,
 } from './constants';
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
@@ -19,12 +22,21 @@ const Wrapper = styled.div`
     width: 100%;
     overflow: visible;
     background-color: ${mainContentBackground};
-    padding-left: ${sidebarDesktopWithToolbarWidth}rem;
-    ${styleWhenSidebarClosed(css`
+    padding-left: ${sidebarDesktopWidth}rem;
+
+    @media screen and (max-width: ${contentWrapperMaxWidth + verticalNavbarMaxWidth}rem) {
+      padding-left: calc(${sidebarDesktopWithToolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2);
+    }
+
+    @media screen and (max-width: ${contentWrapperMaxWidth}rem) {
+      padding-left: ${sidebarDesktopWithToolbarWidth}rem;
+    }
+
+    ${theme.breakpoints.mobile(css`
       padding-left: 0;
     `)}
 
-    ${theme.breakpoints.mobile(css`
+    ${styleWhenSidebarClosed(css`
       padding-left: 0;
     `)}
   }

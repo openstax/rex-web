@@ -6,6 +6,7 @@ import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
 import * as contentSelectors from '../selectors';
+import { contentWrapperMaxWidth, verticalNavbarMaxWidth } from './constants';
 
 export { wrapperPadding } from '../../components/Layout';
 
@@ -36,7 +37,7 @@ export const Wrapper = styled(
 // tslint:disable-next-line:variable-name
 const ContentLayoutBody = styled.div`
   width: 100%;
-  max-width: 132rem;
+  max-width: ${contentWrapperMaxWidth + verticalNavbarMaxWidth * 2}rem;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 8rem auto auto;
