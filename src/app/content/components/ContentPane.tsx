@@ -18,7 +18,7 @@ import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/side
 
 export const contentWrapperWidthBreakpoint = '(max-width: ' + remsToEms(contentWrapperMaxWidth) + 'em)';
 export const contentWrapperAndNavWidthBreakpoint =
-  '(max-width: ' + remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth) + 'em)';
+  '(max-width: ' + remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2) + 'em)';
 
 // tslint:disable-next-line:variable-name
 const Wrapper = styled.div`

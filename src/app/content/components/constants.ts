@@ -40,11 +40,11 @@ export const verticalNavbarMaxWidth = 8;
 export const searchSidebarTopOffset = bookBannerMobileMiniHeight
   + toolbarMobileExpandedHeight;
 
-export const contentTextWidth = 90.5;
+export const contentTextWidth = 82.5;
 
 export const mainContentBackground = '#fff';
 
 export const maxContentGutter = 6;
-export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth;
+export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + verticalNavbarMaxWidth;
 
 export const defaultTheme = 'blue' as BookWithOSWebData['theme'];

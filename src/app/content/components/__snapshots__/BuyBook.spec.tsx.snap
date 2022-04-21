@@ -2,7 +2,7 @@
 
 exports[`BuyBook renders when config is available 1`] = `
 <div
-  className="BuyBook__BuyBookAlignment-s2exzh-0 bwDlUW"
+  className="BuyBook__BuyBookAlignment-s2exzh-0 dsrSOQ"
 >
   <a
     aria-label="Buy book"

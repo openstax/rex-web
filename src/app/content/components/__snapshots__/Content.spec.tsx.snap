@@ -51,7 +51,7 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitleLink-sc-1avy0c0-3 kTujtd"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
           data-testid="details-link-expanded"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -70,7 +70,7 @@ Array [
           Test Book 1
         </a>
         <h1
-          className="BookBanner__BookChapter-sc-1avy0c0-4 zXeYG"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -88,7 +88,7 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitleLink-sc-1avy0c0-3 dfDzFf"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -108,7 +108,7 @@ Array [
           Test Book 1
         </a>
         <span
-          className="BookBanner__BookChapter-sc-1avy0c0-4 fPGhpm"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -1126,7 +1126,7 @@ Array [
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 gOywPb"
+            className="ContentPane__Wrapper-sc-6et83r-0 fdjUxJ"
           >
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
@@ -1141,7 +1141,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
-                      className="page-content PageContent-ny9bj0-0 gQGCbx"
+                      className="page-content PageContent-ny9bj0-0 cXwdbF"
                       tabIndex={0}
                     >
                       <div
@@ -1157,7 +1157,7 @@ Array [
                       />
                     </div>
                     <div
-                      className="PrevNextBar__BarWrapper-sc-13m2i12-3 bGqgnM"
+                      className="PrevNextBar__BarWrapper-sc-13m2i12-3 fEZPiF"
                       data-analytics-region="prev-next"
                     >
                       <a
@@ -1210,7 +1210,7 @@ Array [
                 >
                   <summary
                     aria-label="Citation/Attribution"
-                    className="Attribution__AttributionSummary-sc-11isnv6-2 kQnzje Details__Summary-xi326o-2 goqLfs"
+                    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
                   >
                     <svg
                       aria-hidden="true"
@@ -1241,7 +1241,7 @@ Array [
                     </span>
                   </summary>
                   <div
-                    className="Attribution__Content-sc-11isnv6-3 kWSdVm"
+                    className="Attribution__Content-sc-11isnv6-3 SNfN"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "
@@ -1638,7 +1638,7 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitleLink-sc-1avy0c0-3 kTujtd"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
           data-testid="details-link-expanded"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -1657,7 +1657,7 @@ Array [
           Test Book 1
         </a>
         <h1
-          className="BookBanner__BookChapter-sc-1avy0c0-4 zXeYG"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -1675,7 +1675,7 @@ Array [
         className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
       >
         <a
-          className="BookBanner__BookTitleLink-sc-1avy0c0-3 dfDzFf"
+          className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
           data-testid="details-link-collapsed"
           href="/details/books/book-slug-1"
           onClick={[Function]}
@@ -1695,7 +1695,7 @@ Array [
           Test Book 1
         </a>
         <span
-          className="BookBanner__BookChapter-sc-1avy0c0-4 fPGhpm"
+          className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -2711,7 +2711,7 @@ Array [
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 gOywPb"
+            className="ContentPane__Wrapper-sc-6et83r-0 fdjUxJ"
           >
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
@@ -2726,7 +2726,7 @@ Array [
                     className="RedoPadding-sc-1rj2rww-0 gaOlpC"
                   >
                     <div
-                      className="PageContent-ny9bj0-0 gQGCbx"
+                      className="PageContent-ny9bj0-0 cXwdbF"
                       tabIndex={0}
                     >
                       <div
@@ -2816,7 +2816,7 @@ Array [
                 >
                   <summary
                     aria-label="Citation/Attribution"
-                    className="Attribution__AttributionSummary-sc-11isnv6-2 kQnzje Details__Summary-xi326o-2 goqLfs"
+                    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
                   >
                     <svg
                       aria-hidden="true"
@@ -2847,7 +2847,7 @@ Array [
                     </span>
                   </summary>
                   <div
-                    className="Attribution__Content-sc-11isnv6-3 kWSdVm"
+                    className="Attribution__Content-sc-11isnv6-3 SNfN"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "
