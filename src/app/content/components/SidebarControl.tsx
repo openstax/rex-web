@@ -95,7 +95,10 @@ export const CloseToCAndMobileMenuButton = styled((props) => {
 
   return <PlainButton
     {...props}
-    onClick={() => dispatch(actions.closeMobileMenu())}
+    onClick={() => {
+      dispatch(actions.closeMobileMenu());
+      dispatch(actions.resetToc());
+    }}
     aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:close'})}
     >
       <TimesIcon />
