@@ -1126,7 +1126,7 @@ Array [
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 fdjUxJ"
+            className="ContentPane__Wrapper-sc-6et83r-0 urMVj"
           >
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
@@ -2711,7 +2711,7 @@ Array [
           data-testid="centered-content-row"
         >
           <div
-            className="ContentPane__Wrapper-sc-6et83r-0 fdjUxJ"
+            className="ContentPane__Wrapper-sc-6et83r-0 urMVj"
           >
             <div
               className="Content__UndoPadding-sc-1f451g1-2 fNaVCw"
