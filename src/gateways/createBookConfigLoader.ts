@@ -29,12 +29,12 @@ export default () => {
   };
 
   return {
-    getArchiveVersionFromUUID: (): Promise<string | undefined> => {
+    getArchiveVersion: (): Promise<string | undefined> => {
       return cachedArchive ? Promise.resolve(cachedArchive) : loadRemoteBookConfig().then((config) => {
           if (config?.archive) {
             cachedArchive = config.archive;
           }
-          return getArchiveVersionFromUUIDSync();
+          return getArchiveVersionSync();
       });
     },
     getBookVersionFromUUID: (uuid: string): Promise<BookVersion | undefined> => {
@@ -48,5 +48,8 @@ export default () => {
   };
 };
 
-export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => cachedBooks[uuid];
-export const getArchiveVersionFromUUIDSync = (): string | undefined => cachedArchive;
+export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => ({
+  ...cachedBooks[uuid],
+  archiveOverride: cachedBooks[uuid].archiveOverride || getArchiveVersionSync(),
+});
+export const getArchiveVersionSync = (): string | undefined => cachedArchive;
