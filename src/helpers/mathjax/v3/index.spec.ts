@@ -1,4 +1,5 @@
-import { startMathJax, typesetMath } from '.';
+import { Node } from '@openstax/types/lib.dom';
+import { filterMathNodes, startMathJax, typesetMath } from '.';
 
 const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
 
@@ -21,6 +22,22 @@ afterEach(() => {
 });
 
 describe('typesetMath', () => {
+  it('does nothing if mathjax is not loaded', async() => {
+    if (!document) {
+      expect(document).toBeTruthy();
+      return;
+    }
+
+    delete window?.MathJax;
+    const element = document.createElement('div');
+    expect(() => {
+      const typeset = typesetMath(element);
+      expect(typeset).toBeInstanceOf(Promise);
+    }).not.toThrowError();
+
+    await debounce();
+  });
+
   it('does nothing for elements with no math', async() => {
     if (!document || !window) {
       expect(document).toBeTruthy();
@@ -147,14 +164,43 @@ describe('startMathJax', () => {
   });
 
   it('configs mathjax', () => {
-    if (!window) {
+    if (!document || !window) {
+      expect(document).toBeTruthy();
       expect(window).toBeTruthy();
       return;
     }
 
+    delete window.MathJax;
+
     startMathJax();
 
+    expect(document.head.innerHTML).toMatch(/mathjax.+js/);
     expect(window.MathJax.startup.ready).toBeInstanceOf(Function);
+    expect(window.MathJax.startup.typeset).toBe(false);
+    expect(window.MathJax.tex).toBeInstanceOf(Object);
+
+    const combineDefaults = jest.fn();
+
+    window.MathJax._ = {
+      components: {
+        global: {
+          combineDefaults: combineDefaults,
+        }
+      },
+      input: {
+        mathml: {
+          FindMathML: {
+            FindMathML: jest.fn(),
+          }
+        }
+      }
+    }
+
+    const defaultReady = jest.fn();
+    window.MathJax.startup.defaultReady = defaultReady;
+    window.MathJax.startup.ready();
+
+    expect(defaultReady).toHaveBeenCalled();
   });
 
   describe('outside the browser', () => {
@@ -178,5 +224,28 @@ describe('startMathJax', () => {
 
       expect(message).toBe('BUG: Window is undefined');
     });
+  });
+});
+
+describe('filterMathNodes', () => {
+  it('filters out assistive mml nodes', () => {
+    if (!document) {
+      expect(document).toBeTruthy();
+      return;
+    }
+
+    const node1 = document.createElement('div');
+    node1.setAttribute('data-math', 'formula1');
+    const assistiveNode = document.createElement('mjx-assistive-mml');
+    const node2 = document.createElement('div');
+    node2.setAttribute('data-math', 'formula1');
+    assistiveNode.appendChild(node2);
+
+    const nodes: Set<Node> = new Set();
+    nodes.add(node1);
+    nodes.add(node2);
+
+    const newSet = filterMathNodes(nodes);
+    expect(Array.from(newSet)).toEqual([node1]);
   });
 });

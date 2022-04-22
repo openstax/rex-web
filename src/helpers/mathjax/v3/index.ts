@@ -48,6 +48,15 @@ const _typesetMath = async(root: Element, windowImpl: Window = assertWindow()) =
   });
 };
 
+const filterMathNodes = (set: Set<Node>) => {
+  for (const node of set.values()) {
+    if (node.parentNode?.nodeName === 'MJX-ASSISTIVE-MML') {
+      set.delete(node);
+    }
+  }
+  return set;
+}
+
 // The following should be called once and configures MathJax.
 const startMathJax = () => {
   const window = assertWindow();
@@ -65,12 +74,7 @@ const startMathJax = () => {
 
         class MyFindMathML extends FindMathML {
           public processMath(set: Set<Node>) {
-            for (const node of set.values()) {
-              if (node.parentNode?.nodeName === 'MJX-ASSISTIVE-MML') {
-                set.delete(node);
-              }
-            }
-            return super.processMath(set);
+            return super.processMath(filterMathNodes(set));
           }
         }
 
@@ -91,6 +95,7 @@ const startMathJax = () => {
 };
 
 export {
+  filterMathNodes,
   typesetMath,
   startMathJax,
 };
