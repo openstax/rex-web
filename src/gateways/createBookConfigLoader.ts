@@ -50,6 +50,6 @@ export default () => {
 
 export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => ({
   ...cachedBooks[uuid],
-  archiveOverride: cachedBooks[uuid].archiveOverride || `/apps/archive/${cachedArchive}`,
+  archiveOverride: cachedBooks[uuid]?.archiveOverride || `/apps/archive/${cachedArchive}`,
 });
 export const getArchiveVersionSync = (): string | undefined => cachedArchive;
