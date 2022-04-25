@@ -202,11 +202,11 @@ describe('startMathJax', () => {
       input: {
         mathml: {
           FindMathML: {
-            FindMathML
-          }
-        }
-      }
-    }
+            FindMathML,
+          },
+        },
+      },
+    };
 
     const defaultReady = jest.fn();
     MathJax.startup.defaultReady = defaultReady;
