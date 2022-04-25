@@ -36,7 +36,7 @@ const getTypesetDocument = memoize((root, windowImpl) => {
 });
 getTypesetDocument.cache = new WeakMap();
 
-const _typesetMath = async(root: Element, windowImpl: Window = assertWindow()) => {
+const _typesetMath = async(root: Element, windowImpl: Window) => {
   // Search document for math and [data-math] elements and then typeset them
   const nodes = findLatexNodes(root);
   if (findUnprocessedMath(root).length) {

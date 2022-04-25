@@ -174,14 +174,26 @@ describe('startMathJax', () => {
 
     startMathJax();
 
+    const { MathJax } = window;
+
     expect(document.head.innerHTML).toMatch(/mathjax.+js/);
-    expect(window.MathJax.startup.ready).toBeInstanceOf(Function);
-    expect(window.MathJax.startup.typeset).toBe(false);
-    expect(window.MathJax.tex).toBeInstanceOf(Object);
+    expect(MathJax.startup.ready).toBeInstanceOf(Function);
+    expect(MathJax.startup.typeset).toBe(false);
+    expect(MathJax.tex).toBeInstanceOf(Object);
 
-    const combineDefaults = jest.fn();
+    let calledSuper = false;
 
-    window.MathJax._ = {
+    const combineDefaults = (_: object, __: string, defaults: any) => {
+      MathJax.config = { mml: { FindMathML: defaults.FindMathML } }
+    }
+
+    class FindMathML {
+      public processMath() {
+        calledSuper = true;
+      }
+    }
+
+    MathJax._ = {
       components: {
         global: {
           combineDefaults: combineDefaults,
@@ -190,17 +202,19 @@ describe('startMathJax', () => {
       input: {
         mathml: {
           FindMathML: {
-            FindMathML: jest.fn(),
+            FindMathML
           }
         }
       }
     }
 
     const defaultReady = jest.fn();
-    window.MathJax.startup.defaultReady = defaultReady;
-    window.MathJax.startup.ready();
+    MathJax.startup.defaultReady = defaultReady;
+    MathJax.startup.ready();
 
     expect(defaultReady).toHaveBeenCalled();
+    MathJax.config.mml.FindMathML.processMath([]);
+    expect(calledSuper).toBe(true);
   });
 
   describe('outside the browser', () => {
