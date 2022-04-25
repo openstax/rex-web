@@ -36,9 +36,8 @@ if (window.top === window.self) {
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
-const cachedArchiveUrl = getArchiveUrlSync();
 const archiveUrl = config.REACT_APP_ARCHIVE_URL_OVERRIDE ||
-  assertDefined(cachedArchiveUrl, 'archive url must be defined');
+  assertDefined(getArchiveUrlSync(), 'archive url must be defined');
 
 const osWebUrl = assertDefined(config.REACT_APP_OS_WEB_API_URL, 'REACT_APP_OS_WEB_API_URL must be defined');
 const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');
