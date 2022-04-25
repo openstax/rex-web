@@ -55,7 +55,7 @@ const filterMathNodes = (set: Set<Node>) => {
     }
   }
   return set;
-}
+};
 
 // The following should be called once and configures MathJax.
 const startMathJax = () => {

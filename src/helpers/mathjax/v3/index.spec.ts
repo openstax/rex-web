@@ -184,8 +184,8 @@ describe('startMathJax', () => {
     let calledSuper = false;
 
     const combineDefaults = (_: object, __: string, defaults: any) => {
-      MathJax.config = { mml: { FindMathML: defaults.FindMathML } }
-    }
+      MathJax.config = { mml: { FindMathML: defaults.FindMathML } };
+    };
 
     class FindMathML {
       public processMath() {
@@ -196,8 +196,8 @@ describe('startMathJax', () => {
     MathJax._ = {
       components: {
         global: {
-          combineDefaults: combineDefaults,
-        }
+          combineDefaults,
+        },
       },
       input: {
         mathml: {
