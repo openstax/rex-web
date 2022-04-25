@@ -109,11 +109,14 @@ const Card = (props: CardProps) => {
   }
 
   const onRemove = () => {
+    console.log('on remove');
     if (props.data) {
       props.remove(props.data, {
         locationFilterId,
         pageId: page.id,
       });
+    } else {
+      console.log('else');
     }
   };
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
@@ -151,7 +154,7 @@ const Card = (props: CardProps) => {
         note={annotation}
         focus={props.focus}
         onEdit={() => setEditing(true)}
-      /> : <EditCard
+      /> : (editing ? <EditCard
         {...commonProps}
         locationFilterId={locationFilterId}
         hasUnsavedHighlight={hasUnsavedHighlight}
@@ -160,7 +163,7 @@ const Card = (props: CardProps) => {
         setAnnotationChangesPending={props.setAnnotationChangesPending}
         onCancel={() => setEditing(false)}
         data={props.data}
-      />
+      /> : null)
     }
   </div>;
 };
