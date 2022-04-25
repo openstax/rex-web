@@ -114,7 +114,7 @@ const Card = (props: CardProps) => {
         locationFilterId,
         pageId: page.id,
       });
-    };
+    }
   };
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
