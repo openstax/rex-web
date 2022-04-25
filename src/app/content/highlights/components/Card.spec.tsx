@@ -244,22 +244,6 @@ describe('Card', () => {
     }));
   });
 
-  it('noops when remove is called but there isn\'t anything to remove', () => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(focusHighlight(highlight.id));
-    const component = renderer.create(<TestContainer store={store}>
-      <Card {...cardProps} />
-    </TestContainer>, {createNodeMock});
-
-    dispatch.mockClear();
-
-    const picker = component.root.findByProps({ 'mock-edit': true });
-    picker.props.onRemove();
-
-    expect(dispatch).not.toHaveBeenCalled();
-  });
-
   it('creates when DisplayNote calls onCreate', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));

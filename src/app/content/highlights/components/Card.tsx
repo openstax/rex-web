@@ -146,6 +146,9 @@ const Card = (props: CardProps) => {
     shouldFocusCard: props.shouldFocusCard,
   };
 
+  console.log(editing, style, annotation);
+  console.log('which card will render? ', !editing && style && annotation ? 'display' : 'edit');
+
   return <div onClick={focusCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
@@ -154,7 +157,7 @@ const Card = (props: CardProps) => {
         note={annotation}
         focus={props.focus}
         onEdit={() => setEditing(true)}
-      /> : (editing ? <EditCard
+      /> : (style || annotation ? <EditCard
         {...commonProps}
         locationFilterId={locationFilterId}
         hasUnsavedHighlight={hasUnsavedHighlight}
