@@ -13,7 +13,7 @@ interface ReleaseJsonStructure {
 }
 
 let cachedBooks = { ...BOOKS };
-let cachedArchive = REACT_APP_ARCHIVE_URL;
+let cachedArchiveUrl = REACT_APP_ARCHIVE_URL;
 
 export default () => {
   const loadRemoteBookConfig = () => {
@@ -30,9 +30,9 @@ export default () => {
 
   return {
     getArchiveUrl: (): Promise<string | undefined> => {
-      return cachedArchive ? Promise.resolve(cachedArchive) : loadRemoteBookConfig().then((config) => {
+      return cachedArchiveUrl ? Promise.resolve(cachedArchiveUrl) : loadRemoteBookConfig().then((config) => {
           if (config?.archiveUrl) {
-            cachedArchive = config.archiveUrl;
+            cachedArchiveUrl = config.archiveUrl;
           }
           return getArchiveUrlSync();
       });
@@ -48,5 +48,5 @@ export default () => {
   };
 };
 
-export const getArchiveUrlSync = (): string | undefined => cachedArchive;
+export const getArchiveUrlSync = (): string | undefined => cachedArchiveUrl;
 export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => cachedBooks[uuid];
