@@ -109,15 +109,12 @@ const Card = (props: CardProps) => {
   }
 
   const onRemove = () => {
-    console.log('on remove');
     if (props.data) {
       props.remove(props.data, {
         locationFilterId,
         pageId: page.id,
       });
-    } else {
-      console.log('else');
-    }
+    };
   };
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
@@ -145,9 +142,6 @@ const Card = (props: CardProps) => {
     ref: element,
     shouldFocusCard: props.shouldFocusCard,
   };
-
-  console.log(editing, style, annotation);
-  console.log('which card will render? ', !editing && style && annotation ? 'display' : 'edit');
 
   return <div onClick={focusCard} data-testid='card'>
     {
