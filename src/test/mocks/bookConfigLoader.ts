@@ -2,15 +2,15 @@ import createBookConfigLoader from '../../gateways/createBookConfigLoader';
 import { book } from './archiveLoader';
 
 const localBookConfig = {
-  [book.id]: { defaultVersion: book.version, archiveOverride: 'codeversion' },
+  [book.id]: { defaultVersion: book.version },
 };
 
 export default (): ReturnType<typeof createBookConfigLoader> => {
   const resolveBookVersion = (uuid: string) => localBookConfig[uuid];
-  const resolveArchiveVersion = (uuid: string) => localBookConfig[uuid].archiveOverride;
+  const resolveArchiveVersion = () => 'codeversion';
 
-  const mockGetArchiveVersion = jest.fn((uuid: string) => {
-    const archiveVersion = resolveArchiveVersion(uuid);
+  const mockGetArchiveUrl = jest.fn(() => {
+    const archiveVersion = resolveArchiveVersion();
     return archiveVersion
       ? Promise.resolve(archiveVersion)
       : Promise.resolve(undefined);
@@ -24,7 +24,7 @@ export default (): ReturnType<typeof createBookConfigLoader> => {
   });
 
   return {
-    getArchiveVersion: (uuid: string) => mockGetArchiveVersion(uuid),
+    getArchiveUrl: () => mockGetArchiveUrl(),
     getBookVersionFromUUID: (uuid: string) => mockGetBookVersionFromUUID(uuid),
   };
 };

@@ -51,7 +51,7 @@ let networkTime = 0;
 
 async function renderManifest() {
   writeAssetFile('/rex/release.json', JSON.stringify({
-    archive: REACT_APP_ARCHIVE,
+    archiveUrl: REACT_APP_ARCHIVE_URL,
     books: BOOKS,
     code: CODE_VERSION,
     id: RELEASE_ID,

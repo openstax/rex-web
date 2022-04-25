@@ -1,4 +1,4 @@
-import { REACT_APP_ARCHIVE } from '../config';
+import { REACT_APP_ARCHIVE_URL } from '../config';
 import BOOKS from '../config.books';
 import { acceptStatus } from '../helpers/fetch';
 import Sentry, { Severity } from '../helpers/Sentry';
@@ -6,14 +6,14 @@ import Sentry, { Severity } from '../helpers/Sentry';
 type BookVersion = typeof BOOKS[0];
 
 interface ReleaseJsonStructure {
-  archive: string;
+  archiveUrl: string;
   books: typeof BOOKS;
   code: string;
   id: string;
 }
 
 let cachedBooks = { ...BOOKS };
-let cachedArchive = REACT_APP_ARCHIVE;
+let cachedArchive = REACT_APP_ARCHIVE_URL;
 
 export default () => {
   const loadRemoteBookConfig = () => {
@@ -21,7 +21,7 @@ export default () => {
     return fetch(url)
       .then(acceptStatus(200, (status, message) => new Error(`Error response from "${url}" ${status}: ${message}`)))
       .then((response) => response.json() as Promise<ReleaseJsonStructure>)
-      .then((response) => response && {books: response.books, archive: response.archive})
+      .then((response) => response && {books: response.books, archiveUrl: response.archiveUrl})
       .catch((e) => {
         Sentry.captureException(e, Severity.Warning);
         return Promise.resolve(undefined);
@@ -29,12 +29,12 @@ export default () => {
   };
 
   return {
-    getArchiveVersion: (): Promise<string | undefined> => {
+    getArchiveUrl: (): Promise<string | undefined> => {
       return cachedArchive ? Promise.resolve(cachedArchive) : loadRemoteBookConfig().then((config) => {
-          if (config?.archive) {
-            cachedArchive = config.archive;
+          if (config?.archiveUrl) {
+            cachedArchive = config.archiveUrl;
           }
-          return getArchiveVersionSync();
+          return getArchiveUrlSync();
       });
     },
     getBookVersionFromUUID: (uuid: string): Promise<BookVersion | undefined> => {
@@ -48,8 +48,8 @@ export default () => {
   };
 };
 
+export const getArchiveUrlSync = (): string | undefined => cachedArchive;
 export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => ({
   ...cachedBooks[uuid],
-  archiveOverride: cachedBooks[uuid]?.archiveOverride || `/apps/archive/${cachedArchive}`,
+  archiveOverride: cachedBooks[uuid]?.archiveOverride || cachedArchive,
 });
-export const getArchiveVersionSync = (): string | undefined => cachedArchive;
