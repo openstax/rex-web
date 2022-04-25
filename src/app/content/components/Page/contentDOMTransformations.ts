@@ -113,6 +113,7 @@ function wrapSolutions(document: Document, rootEl: HTMLElement, intl: IntlShape)
 function expandSolutionForFragment(document: Document) {
   // Auto expand a solution that contains the anchor the URL fragment points to
   const id = typeof(window) !== 'undefined' && window.location.hash.substr(1);
+
   if (id) {
     expandClosestSolution(document.getElementById(id) as HTMLElement);
   }
