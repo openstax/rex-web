@@ -64,10 +64,6 @@ const Card = (props: CardProps) => {
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const services = useServices();
 
-  React.useEffect(() => {
-    console.log('highlight removed? ', highlightRemoved);
-  }, [highlightRemoved]);
-
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
