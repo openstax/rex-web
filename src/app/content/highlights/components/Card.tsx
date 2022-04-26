@@ -59,6 +59,7 @@ const Card = (props: CardProps) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
+  const [highlightRemoved, setHighlightRemoved] = React.useState<boolean>(false);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const services = useServices();
@@ -110,6 +111,7 @@ const Card = (props: CardProps) => {
 
   const onRemove = () => {
     if (props.data) {
+      setHighlightRemoved(true);
       props.remove(props.data, {
         locationFilterId,
         pageId: page.id,
@@ -119,6 +121,7 @@ const Card = (props: CardProps) => {
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
   const onCreate = (isDefaultColor: boolean) => {
+    setHighlightRemoved(false);
     props.create({
       ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
@@ -143,7 +146,7 @@ const Card = (props: CardProps) => {
     shouldFocusCard: props.shouldFocusCard,
   };
 
-  return <div onClick={focusCard} data-testid='card'>
+  return !highlightRemoved ? <div onClick={focusCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
@@ -151,7 +154,7 @@ const Card = (props: CardProps) => {
         note={annotation}
         focus={props.focus}
         onEdit={() => setEditing(true)}
-      /> : (style || annotation ? <EditCard
+      /> : <EditCard
         {...commonProps}
         locationFilterId={locationFilterId}
         hasUnsavedHighlight={hasUnsavedHighlight}
@@ -160,9 +163,9 @@ const Card = (props: CardProps) => {
         setAnnotationChangesPending={props.setAnnotationChangesPending}
         onCancel={() => setEditing(false)}
         data={props.data}
-      /> : null)
+      />
     }
-  </div>;
+  </div> : null;
 };
 
 // tslint:disable-next-line: variable-name
