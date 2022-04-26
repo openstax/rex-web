@@ -64,6 +64,10 @@ const Card = (props: CardProps) => {
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const services = useServices();
 
+  React.useEffect(() => {
+    console.log('highlight removed? ', highlightRemoved);
+  }, [highlightRemoved]);
+
   const { isActive, highlight: { id }, focus } = props;
 
   const focusCard = React.useCallback(async() => {
@@ -121,7 +125,6 @@ const Card = (props: CardProps) => {
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
   const onCreate = (isDefaultColor: boolean) => {
-    setHighlightRemoved(false);
     props.create({
       ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
