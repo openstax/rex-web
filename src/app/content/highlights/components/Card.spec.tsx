@@ -260,174 +260,174 @@ describe('Card', () => {
     expect(dispatch).not.toHaveBeenCalled();
   });
 
-  // it('creates when DisplayNote calls onCreate', () => {
-  //   store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-  //   store.dispatch(receivePage({...page, references: []}));
-  //   store.dispatch(receiveHighlights({
-  //     highlights: [
-  //       {
-  //         annotation: '',
-  //         color: highlightStyles[0].label,
-  //         id: highlight.id,
-  //       },
-  //     ] as HighlightData[],
-  //     pageId: '123',
-  //   }));
-  //   store.dispatch(focusHighlight(highlight.id));
+  it('creates when DisplayNote calls onCreate', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          annotation: '',
+          color: highlightStyles[0].label,
+          id: highlight.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
 
-  //   dispatch.mockClear();
+    dispatch.mockClear();
 
-  //   const locationFilters = highlightLocationFilters(store.getState());
-  //   const location = getHighlightLocationFilterForPage(locationFilters, page);
-  //   expect(location).toBeDefined();
+    const locationFilters = highlightLocationFilters(store.getState());
+    const location = getHighlightLocationFilterForPage(locationFilters, page);
+    expect(location).toBeDefined();
 
-  //   const component = renderer.create(<TestContainer store={store}>
-  //     <Card {...cardProps} />
-  //   </TestContainer>, {createNodeMock});
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} />
+    </TestContainer>, {createNodeMock});
 
-  //   const editcard = component.root.findByType(EditCard);
-  //   renderer.act(() => {
-  //     editcard.props.onCreate();
-  //   });
+    const editcard = component.root.findByType(EditCard);
+    renderer.act(() => {
+      editcard.props.onCreate();
+    });
 
-  //   expect(dispatch).toHaveBeenCalledWith(createHighlight({
-  //     ...highlight.serialize().getApiPayload(),
-  //     scopeId: 'testbook1-uuid',
-  //     sourceId: 'testbook1-testpage1-uuid',
-  //     sourceMetadata: {bookVersion: '1.0'},
-  //     sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
-  //   }, {
-  //     locationFilterId: location!.id,
-  //     pageId: page.id,
-  //   }));
-  // });
+    expect(dispatch).toHaveBeenCalledWith(createHighlight({
+      ...highlight.serialize().getApiPayload(),
+      scopeId: 'testbook1-uuid',
+      sourceId: 'testbook1-testpage1-uuid',
+      sourceMetadata: {bookVersion: '1.0'},
+      sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+    }, {
+      locationFilterId: location!.id,
+      pageId: page.id,
+    }));
+  });
 
-  // it('renders null if highlight doen\'t have range', () => {
-  //   (highlight as any).range = undefined;
+  it('renders null if highlight doen\'t have range', () => {
+    (highlight as any).range = undefined;
 
-  //   const component = renderer.create(<TestContainer store={store}>
-  //     <Card {...cardProps} />
-  //   </TestContainer>, {createNodeMock});
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} />
+    </TestContainer>, {createNodeMock});
 
-  //   expect(() => component.root.findByType(EditCard)).toThrow();
-  // });
+    expect(() => component.root.findByType(EditCard)).toThrow();
+  });
 
-  // it('renders null if highlight doen\'t have range and its focused', () => {
-  //   (highlight as any).range = undefined;
-  //   store.dispatch(receiveHighlights({
-  //     highlights: [
-  //       {
-  //         color: highlightStyles[0].label,
-  //         id: highlightData.id,
-  //       },
-  //     ] as HighlightData[],
-  //     pageId: '123',
-  //   }));
-  //   store.dispatch(focusHighlight(highlight.id));
+  it('renders null if highlight doen\'t have range and its focused', () => {
+    (highlight as any).range = undefined;
+    store.dispatch(receiveHighlights({
+      highlights: [
+        {
+          color: highlightStyles[0].label,
+          id: highlightData.id,
+        },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+    store.dispatch(focusHighlight(highlight.id));
 
-  //   const component = renderer.create(<TestContainer store={store}>
-  //     <Card {...cardProps} />
-  //   </TestContainer>, {createNodeMock});
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} />
+    </TestContainer>, {createNodeMock});
 
-  //   expect(() => component.root.findByType(EditCard)).toThrow();
-  // });
+    expect(() => component.root.findByType(EditCard)).toThrow();
+  });
 
-  // it('renders null if locationFilter wasn\'t found', () => {
-  //   store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-  //   store.dispatch(receivePage({...page, id: 'not-in-book', references: []}));
+  it('renders null if locationFilter wasn\'t found', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, id: 'not-in-book', references: []}));
 
-  //   const component = renderer.create(<TestContainer store={store}>
-  //     <Card {...cardProps} />
-  //   </TestContainer>, {createNodeMock});
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} />
+    </TestContainer>, {createNodeMock});
 
-  //   expect(() => component.root.findByType(EditCard)).toThrow();
-  // });
+    expect(() => component.root.findByType(EditCard)).toThrow();
+  });
 
-  // it('focuses on click only if it is not already focused', () => {
-  //   store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-  //   store.dispatch(receivePage({...page, references: []}));
-  //   store.dispatch(receiveHighlights({
-  //     highlights: [
-  //       { id: highlightData.id, annotation: 'asd' },
-  //     ] as HighlightData[],
-  //     pageId: '123',
-  //   }));
+  it('focuses on click only if it is not already focused', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        { id: highlightData.id, annotation: 'asd' },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
 
-  //   const component = renderer.create(<TestContainer store={store}>
-  //     <Card {...cardProps} />
-  //   </TestContainer>, {createNodeMock});
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} />
+    </TestContainer>, {createNodeMock});
 
-  //   expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
 
-  //   const card = component.root.findByProps({ 'data-testid': 'card' });
-  //   renderer.act(() => {
-  //     card.props.onClick();
-  //   });
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    renderer.act(() => {
+      card.props.onClick();
+    });
 
-  //   expect(dispatch).toHaveBeenCalledWith(focusHighlight(highlightData.id));
+    expect(dispatch).toHaveBeenCalledWith(focusHighlight(highlightData.id));
 
-  //   dispatch.mockClear();
+    dispatch.mockClear();
 
-  //   renderer.act(() => {
-  //     card.props.onClick();
-  //   });
+    renderer.act(() => {
+      card.props.onClick();
+    });
 
-  //   expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
-  // });
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
+  });
 
-  // it('displays confirm dialog when there are unsaved changes and user clicks on another card', async() => {
-  //   store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-  //   store.dispatch(receivePage({...page, references: []}));
-  //   store.dispatch(receiveHighlights({
-  //     highlights: [
-  //       { id: highlightData.id, annotation: 'asd' },
-  //     ] as HighlightData[],
-  //     pageId: '123',
-  //   }));
+  it('displays confirm dialog when there are unsaved changes and user clicks on another card', async() => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        { id: highlightData.id, annotation: 'asd' },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
 
-  //   store.dispatch(setAnnotationChangesPending(true));
+    store.dispatch(setAnnotationChangesPending(true));
 
-  //   const component = renderer.create(<TestContainer store={store}>
-  //     <Card {...cardProps} isActive={false} />
-  //   </TestContainer>, {createNodeMock});
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} isActive={false} />
+    </TestContainer>, {createNodeMock});
 
-  //   const card = component.root.findByProps({ 'data-testid': 'card' });
-  //   await renderer.act(async() => {
-  //     card.props.onClick();
-  //   });
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    await renderer.act(async() => {
+      card.props.onClick();
+    });
 
-  //   expect(showConfirmation).toHaveBeenCalled();
-  // });
+    expect(showConfirmation).toHaveBeenCalled();
+  });
 
-  // it('scroll highlight into view if it is active', () => {
-  //   store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-  //   store.dispatch(receivePage({...page, references: []}));
-  //   const firstElement = assertDocument().createElement('span');
-  //   // Do not add secondElement to the document for full scrollIntoView coverage
-  //   const secondElement = assertDocument().createElement('span');
-  //   const cardElement = assertDocument().createElement('div');
-  //   assertWindow().document.body.append(firstElement);
-  //   assertWindow().document.body.append(cardElement);
-  //   store.dispatch(receiveHighlights({
-  //     highlights: [
-  //       { id: highlight.id, annotation: 'asd' },
-  //     ] as HighlightData[],
-  //     pageId: '123',
-  //   }));
+  it('scroll highlight into view if it is active', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    const firstElement = assertDocument().createElement('span');
+    // Do not add secondElement to the document for full scrollIntoView coverage
+    const secondElement = assertDocument().createElement('span');
+    const cardElement = assertDocument().createElement('div');
+    assertWindow().document.body.append(firstElement);
+    assertWindow().document.body.append(cardElement);
+    store.dispatch(receiveHighlights({
+      highlights: [
+        { id: highlight.id, annotation: 'asd' },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
 
-  //   const spyScrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
+    const spyScrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
 
-  //   highlight.elements = [firstElement, secondElement];
+    highlight.elements = [firstElement, secondElement];
 
-  //   renderer.create(<TestContainer store={store}>
-  //     <Card {...cardProps} />
-  //   </TestContainer>, { createNodeMock: () => cardElement });
+    renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} />
+    </TestContainer>, { createNodeMock: () => cardElement });
 
-  //   renderer.act(() => {
-  //     store.dispatch(focusHighlight(highlight.id));
-  //   });
+    renderer.act(() => {
+      store.dispatch(focusHighlight(highlight.id));
+    });
 
-  //   expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, [secondElement, cardElement]);
-  // });
+    expect(spyScrollIntoView).toHaveBeenCalledWith(firstElement, [secondElement, cardElement]);
+  });
 
 });
