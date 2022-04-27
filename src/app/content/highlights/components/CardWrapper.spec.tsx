@@ -52,10 +52,11 @@ jest.mock('resize-observer-polyfill', () => ({
   default: jest.fn().mockImplementation(() => {
     usesResizeObserverPolyfill = true;
     return {
+      disconnect: jest.fn(),
       observe: jest.fn(),
       unobserve: jest.fn(),
-      disconnect: jest.fn(),
-    }}),
+    };
+  }),
 }));
 
 describe('CardWrapper', () => {
@@ -436,7 +437,7 @@ describe('CardWrapper', () => {
   });
 
   describe('ResizeObserver polyfill', () => {
-    it('loads', async () => {
+    it('loads', () => {
       renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[]} />
         </Provider>);
