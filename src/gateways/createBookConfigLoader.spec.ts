@@ -126,11 +126,11 @@ describe('bookConfigLoader', () => {
 
     const archiveUrl = await bookConfigLoader.getArchiveUrl();
     expect(fetch).not.toHaveBeenCalledWith('/rex/release.json');
-    expect(archiveUrl).toEqual('/apps/archive/test-url');
+    expect(archiveUrl).toEqual('/apps/archive/codeversion');
   });
 
   it('fetches archiveUrl synchronously from cache', () => {
     const archiveUrl = getArchiveUrlSync();
-    expect(archiveUrl).toEqual('/apps/archive/test-url');
+    expect(archiveUrl).toEqual('/apps/archive/codeversion');
   });
 });
