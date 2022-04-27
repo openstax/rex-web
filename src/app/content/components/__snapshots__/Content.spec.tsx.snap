@@ -368,7 +368,7 @@ Array [
               id="nudge-study-tools"
             >
               <button
-                aria-label="My highlights"
+                aria-label="Highlights"
                 className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 jsNcNX"
                 data-analytics-label="My highlights"
                 onClick={[Function]}
@@ -425,7 +425,7 @@ Array [
                 <span
                   className="HighlightButton__MyHighlightsText-fxks7p-1 jMJqQm"
                 >
-                  My highlights
+                  Highlights
                 </span>
               </button>
             </div>
@@ -1955,7 +1955,7 @@ Array [
               id="nudge-study-tools"
             >
               <button
-                aria-label="My highlights"
+                aria-label="Highlights"
                 className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 jsNcNX"
                 data-analytics-label="My highlights"
                 onClick={[Function]}
@@ -2012,7 +2012,7 @@ Array [
                 <span
                   className="HighlightButton__MyHighlightsText-fxks7p-1 jMJqQm"
                 >
-                  My highlights
+                  Highlights
                 </span>
               </button>
             </div>
