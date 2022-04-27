@@ -1,4 +1,3 @@
-import { REACT_APP_ARCHIVE_URL } from '../config';
 import BOOKS from '../config.books';
 import { acceptStatus } from '../helpers/fetch';
 import Sentry, { Severity } from '../helpers/Sentry';
@@ -13,7 +12,7 @@ interface ReleaseJsonStructure {
 }
 
 let cachedBooks = { ...BOOKS };
-let cachedArchiveUrl = REACT_APP_ARCHIVE_URL;
+let cachedArchiveUrl: string;
 
 export default () => {
   const loadRemoteBookConfig = () => {
