@@ -49,8 +49,9 @@ jest.mock('./cardUtils', () => ({
 let usesResizeObserverPolyfill = false;
 jest.mock('resize-observer-polyfill', () => ({
   __esModule: true,
-  default: jest.fn().mockImplementation(() => {
+  default: jest.fn().mockImplementation((callback) => {
     usesResizeObserverPolyfill = true;
+    callback();
     return {
       disconnect: jest.fn(),
       observe: jest.fn(),
