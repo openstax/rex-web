@@ -69,4 +69,30 @@ describe('SimpleMessageProvider', () => {
 
     expect(loaded).toBe(true);
   });
+
+  it('defaults to en if browser locale is not supported', async() => {
+    jest.spyOn(assertWindow().navigator, 'language', 'get').mockReturnValueOnce('jp');
+    let loaded = false;
+
+    jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
+      shouldPolyfill: () => true,
+    }));
+    jest.doMock('@formatjs/intl-pluralrules/locale-data/en', () => {
+      loaded = true;
+    });
+
+    SimpleMessageProvider = require('../messages/SimpleMessageProvider').default;
+
+    const component = renderer.create(<Provider store={store}>
+      <SimpleMessageProvider />
+    </Provider>);
+
+    component.update(<Provider store={store}>
+      <SimpleMessageProvider />
+    </Provider>);
+
+    await runHooksAsync(renderer);
+
+    expect(loaded).toBe(true);
+  });
 });
