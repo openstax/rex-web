@@ -37,7 +37,7 @@ describe('ErrorBoundary', () => {
       .create(<TestContainer>
           <ErrorBoundary><Buggy /></ErrorBoundary>
         </TestContainer>
-      )
+    );
 
     expect(tree.toJSON()).toMatchSnapshot();
     expect(consoleError).toHaveBeenCalledWith(
