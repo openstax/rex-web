@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
-import ErrorBoundary from './ErrorBoundary';
-import { assertWindow } from '../../utils/browser-assertions';
 import createIntl from '../../messages/createIntl';
 import { availableLocaleOrDefault } from '../../messages/utils';
+import { assertWindow } from '../../utils/browser-assertions';
+import ErrorBoundary from './ErrorBoundary';
 
 // tslint:disable-next-line:variable-name
 const OuterErrorBoundary = (props: { children?: React.ReactNode }) => {
