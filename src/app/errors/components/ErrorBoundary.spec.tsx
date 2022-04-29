@@ -14,16 +14,17 @@ const Buggy = () => {
   throw new Error('this is a bug');
 };
 
-const rejectionEvent = new CustomEvent('unhandledrejection', { cancelable: true });
-Object.defineProperty(rejectionEvent, 'reason', { value: 'a bug' });
-
 describe('ErrorBoundary', () => {
   let consoleError: jest.SpyInstance;
+  let rejectionEvent: CustomEvent;
 
   beforeEach(() => {
     consoleError = jest
       .spyOn(console, 'error')
       .mockImplementation((msg) => msg);
+
+    rejectionEvent = new CustomEvent('unhandledrejection', { cancelable: true });
+    Object.defineProperty(rejectionEvent, 'reason', { value: 'a bug' });
   });
 
   afterEach(() => {
@@ -37,13 +38,14 @@ describe('ErrorBoundary', () => {
           <ErrorBoundary><Buggy /></ErrorBoundary>
         </TestContainer>
       )
-      .toJSON();
 
-    expect(tree).toMatchSnapshot();
+    expect(tree.toJSON()).toMatchSnapshot();
     expect(consoleError).toHaveBeenCalledWith(
       expect.stringMatching(/error occurred in the <Buggy> component/)
     );
     expect(Sentry.captureException).toHaveBeenCalled();
+
+    tree.unmount();
   });
 
   it('captures unhandled rejected promises', () => {
@@ -55,17 +57,7 @@ describe('ErrorBoundary', () => {
     expect(tree).toMatchSnapshot();
     expect(rejectionEvent.defaultPrevented).toBe(true);
     expect(Sentry.captureException).toHaveBeenCalled();
-  });
-
-  it('removes handlers for unhandled rejected promises', () => {
-    const tree = renderer.create(<TestContainer>
-      <ErrorBoundary handlePromiseRejection>test</ErrorBoundary>
-    </TestContainer>);
 
     tree.unmount();
-
-    assertWindow().dispatchEvent(rejectionEvent);
-    expect(rejectionEvent.defaultPrevented).toBe(false);
-    expect(Sentry.captureException).not.toHaveBeenCalled();
   });
 });
