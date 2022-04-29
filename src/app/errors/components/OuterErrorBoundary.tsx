@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
-import ErrorBoundary from '../errors/components/ErrorBoundary';
-import { assertWindow } from '../utils/browser-assertions';
-import createIntl from './createIntl';
+import ErrorBoundary from './ErrorBoundary';
+import { assertWindow } from '../../utils/browser-assertions';
+import createIntl from '../../messages/createIntl';
+import { availableLocaleOrDefault } from '../../messages/utils';
 
 // tslint:disable-next-line:variable-name
-const SimpleMessageProvider = (props: { children?: React.ReactNode }) => {
+const OuterErrorBoundary = (props: { children?: React.ReactNode }) => {
   const [intl, setIntl] = useState<IntlShape | null>(null);
 
   useEffect(() => {
     const setUpIntl = async() => {
-      let language = (assertWindow().navigator.language || 'en').substring(0, 2);
-      if (!['en', 'es', 'pl'].includes(language)) {
-        language = 'en';
-      }
+      let language = assertWindow().navigator.language;
+      language = availableLocaleOrDefault(language.substring(0, 2));
       const intlObject = await createIntl(language);
+
       setIntl(intlObject);
     };
 
@@ -34,4 +34,4 @@ const SimpleMessageProvider = (props: { children?: React.ReactNode }) => {
   );
 };
 
-export default SimpleMessageProvider;
+export default OuterErrorBoundary;

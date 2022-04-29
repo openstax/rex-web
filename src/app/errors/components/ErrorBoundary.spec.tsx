@@ -56,4 +56,16 @@ describe('ErrorBoundary', () => {
     expect(rejectionEvent.defaultPrevented).toBe(true);
     expect(Sentry.captureException).toHaveBeenCalled();
   });
+
+  it('removes handlers for unhandled rejected promises', () => {
+    const tree = renderer.create(<TestContainer>
+      <ErrorBoundary handlePromiseRejection>test</ErrorBoundary>
+    </TestContainer>);
+
+    tree.unmount();
+
+    assertWindow().dispatchEvent(rejectionEvent);
+    expect(rejectionEvent.defaultPrevented).toBe(false);
+    expect(Sentry.captureException).not.toHaveBeenCalled();
+  });
 });
