@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
+import ErrorBoundary from '../errors/components/ErrorBoundary';
 import { assertWindow } from '../utils/browser-assertions';
 import createIntl from './createIntl';
 
@@ -20,9 +21,15 @@ const SimpleMessageProvider = (props: { children?: React.ReactNode }) => {
     setUpIntl();
   }, []);
 
-  return intl && (
+  if (!intl) {
+    return <>{props.children}</>;
+  }
+
+  return (
     <RawIntlProvider value={intl}>
-      {props.children}
+      <ErrorBoundary handlePromiseRejection>
+        {props.children}
+      </ErrorBoundary>
     </RawIntlProvider>
   );
 };

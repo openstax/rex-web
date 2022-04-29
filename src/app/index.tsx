@@ -114,15 +114,13 @@ export default (options: AppOptions) => {
   const container = () => (
     <Provider store={store}>
       <SimpleMessageProvider>
-        <ErrorBoundary handlePromiseRejection>
-          <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
-            <MessageProvider>
-              <ErrorBoundary>
-                <navigation.components.NavigationProvider routes={routes} />
-              </ErrorBoundary>
-            </MessageProvider>
-          </Services.Provider>
-        </ErrorBoundary>
+        <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
+          <MessageProvider>
+            <ErrorBoundary>
+              <navigation.components.NavigationProvider routes={routes} />
+            </ErrorBoundary>
+          </MessageProvider>
+        </Services.Provider>
       </SimpleMessageProvider>
     </Provider>
   );
