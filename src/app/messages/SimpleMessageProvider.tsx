@@ -20,11 +20,7 @@ const SimpleMessageProvider = (props: { children?: React.ReactNode }) => {
     setUpIntl();
   }, []);
 
-  if (!intl) {
-    return <>{props.children}</>;
-  }
-
-  return (
+  return intl && (
     <RawIntlProvider value={intl}>
       {props.children}
     </RawIntlProvider>
