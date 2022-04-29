@@ -114,7 +114,7 @@ export default (options: AppOptions) => {
   const container = () => (
     <Provider store={store}>
       <SimpleMessageProvider>
-        <ErrorBoundary handlePromiseRejection={true}>
+        <ErrorBoundary handlePromiseRejection>
           <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
             <MessageProvider>
               <ErrorBoundary>

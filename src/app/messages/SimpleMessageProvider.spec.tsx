@@ -71,7 +71,7 @@ describe('SimpleMessageProvider', () => {
   });
 
   it('defaults to en if browser locale is not supported', async() => {
-    jest.spyOn(assertWindow().navigator, 'language', 'get').mockReturnValueOnce('jp');
+    jest.spyOn(assertWindow().navigator, 'language', 'get').mockReturnValueOnce('ja');
     let loaded = false;
 
     jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({

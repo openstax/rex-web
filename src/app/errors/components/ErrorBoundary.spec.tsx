@@ -48,7 +48,7 @@ describe('ErrorBoundary', () => {
 
   it('captures unhandled rejected promises', () => {
     const tree = renderer.create(<TestContainer>
-      <ErrorBoundary>test</ErrorBoundary>
+      <ErrorBoundary handlePromiseRejection>test</ErrorBoundary>
     </TestContainer>);
 
     assertWindow().dispatchEvent(rejectionEvent);
