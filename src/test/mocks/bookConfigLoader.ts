@@ -7,14 +7,6 @@ const localBookConfig = {
 
 export default (): ReturnType<typeof createBookConfigLoader> => {
   const resolveBookVersion = (uuid: string) => localBookConfig[uuid];
-  const resolveArchiveVersion = () => 'codeversion';
-
-  const mockGetArchiveUrl = jest.fn(() => {
-    const archiveVersion = resolveArchiveVersion();
-    return archiveVersion
-      ? Promise.resolve(archiveVersion)
-      : Promise.resolve(undefined);
-  });
 
   const mockGetBookVersionFromUUID = jest.fn((uuid: string) => {
     const bookVersion = resolveBookVersion(uuid);
@@ -24,7 +16,6 @@ export default (): ReturnType<typeof createBookConfigLoader> => {
   });
 
   return {
-    getArchiveUrl: () => mockGetArchiveUrl(),
     getBookVersionFromUUID: (uuid: string) => mockGetBookVersionFromUUID(uuid),
   };
 };

@@ -79,58 +79,21 @@ describe('bookConfigLoader', () => {
     expect(bookVersion).toBe(undefined);
   });
 
-  it('returns undefined if couldnt find archiveUrl', async() => {
-    (global as any).fetch = mockFetch(200, {
-      books: {
-        'test-book-uuid-2': {
-          defaultVersion: 'test-book-version-2',
-        },
-      },
-      code: 'test',
-      id: 'test',
-    });
-
-    const archiveUrl = await bookConfigLoader.getArchiveUrl();
-    expect(fetch).toHaveBeenCalledWith('/rex/release.json');
-    expect(archiveUrl).toBe(undefined);
-  });
-
   it('fetches archiveUrl from release.json', async() => {
     (global as any).fetch = mockFetch(200, {
       archiveUrl: '/apps/archive/test-url',
       books: {
-        'test-book-uuid-2': {
-          defaultVersion: 'test-book-version-2',
+        'test-book-uuid-3': {
+          defaultVersion: 'test-book-version-3',
         },
       },
       code: 'test',
       id: 'test',
     });
 
-    const archiveUrl = await bookConfigLoader.getArchiveUrl();
+    await bookConfigLoader.getBookVersionFromUUID('test-book-uuid-3');
+    const archiveUrl = getArchiveUrlSync();
     expect(fetch).toHaveBeenCalledWith('/rex/release.json');
     expect(archiveUrl).toEqual('/apps/archive/test-url');
-  });
-
-  it('fetches archiveUrl from cache', async() => {
-    (global as any).fetch = mockFetch(200, {
-      archiveUrl: '/apps/archive/test-url',
-      books: {
-        'test-book-uuid-2': {
-          defaultVersion: 'test-book-version-2',
-        },
-      },
-      code: 'test',
-      id: 'test',
-    });
-
-    const archiveUrl = await bookConfigLoader.getArchiveUrl();
-    expect(fetch).not.toHaveBeenCalledWith('/rex/release.json');
-    expect(archiveUrl).toEqual('/apps/archive/codeversion');
-  });
-
-  it('fetches archiveUrl synchronously from cache', () => {
-    const archiveUrl = getArchiveUrlSync();
-    expect(archiveUrl).toEqual('/apps/archive/codeversion');
   });
 });

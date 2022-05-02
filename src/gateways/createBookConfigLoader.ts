@@ -29,18 +29,11 @@ export default () => {
   };
 
   return {
-    getArchiveUrl: (): Promise<string | undefined> => {
-      return cachedArchiveUrl ? Promise.resolve(cachedArchiveUrl) : loadRemoteBookConfig().then((config) => {
-          if (config?.archiveUrl) {
-            cachedArchiveUrl = config.archiveUrl;
-          }
-          return getArchiveUrlSync();
-      });
-    },
     getBookVersionFromUUID: (uuid: string): Promise<BookVersion | undefined> => {
       return cachedBooks[uuid] ? Promise.resolve(cachedBooks[uuid]) : loadRemoteBookConfig().then((config) => {
-        if (config?.books) {
+        if (config?.books && config?.archiveUrl) {
           cachedBooks = config.books;
+          cachedArchiveUrl = config.archiveUrl;
         }
         return getBookVersionFromUUIDSync(uuid);
       });
