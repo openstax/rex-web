@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import { runHooks } from '../../../../test/utils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
 import { assertWindow } from '../../../utils/browser-assertions';
@@ -43,6 +44,20 @@ jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
 jest.mock('./cardUtils', () => ({
   ...jest.requireActual('./cardUtils'),
   getHighlightOffset: jest.fn(() => ({ top: 100, bottom: 100 })),
+}));
+
+let usesResizeObserverPolyfill = false;
+jest.mock('resize-observer-polyfill', () => ({
+  __esModule: true,
+  default: jest.fn().mockImplementation((callback) => {
+    usesResizeObserverPolyfill = true;
+    callback();
+    return {
+      disconnect: jest.fn(),
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+    };
+  }),
 }));
 
 describe('CardWrapper', () => {
@@ -420,5 +435,17 @@ describe('CardWrapper', () => {
     });
 
     expect(highlight.focus).not.toHaveBeenCalled();
+  });
+
+  describe('ResizeObserver polyfill', () => {
+    it('loads', () => {
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[]} />
+        </Provider>);
+
+      runHooks(renderer);
+
+      expect(usesResizeObserverPolyfill).toBe(true);
+    });
   });
 });
