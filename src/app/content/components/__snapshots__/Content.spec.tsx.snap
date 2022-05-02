@@ -291,7 +291,7 @@ Array [
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 hBGnvm"
+              className="SidebarControl__ToCButton-sdjc7-1 cYxBwy"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -328,7 +328,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 ibeoGO"
+              className="SidebarControl__ToCButton-sdjc7-1 bMRCaL"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -369,7 +369,7 @@ Array [
             >
               <button
                 aria-label="Highlights"
-                className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 jsNcNX"
+                className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 jmEvVU"
                 data-analytics-label="My highlights"
                 onClick={[Function]}
               >
@@ -1878,7 +1878,7 @@ Array [
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 hBGnvm"
+              className="SidebarControl__ToCButton-sdjc7-1 cYxBwy"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -1915,7 +1915,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 ibeoGO"
+              className="SidebarControl__ToCButton-sdjc7-1 bMRCaL"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -1956,7 +1956,7 @@ Array [
             >
               <button
                 aria-label="Highlights"
-                className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 jsNcNX"
+                className="styled__PlainButton-sc-1119auh-0 HighlightButton__MyHighlightsWrapper-fxks7p-0 jmEvVU"
                 data-analytics-label="My highlights"
                 onClick={[Function]}
               >

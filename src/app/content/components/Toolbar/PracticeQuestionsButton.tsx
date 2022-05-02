@@ -21,7 +21,7 @@ import { toolbarDefaultButton, toolbarDefaultText } from './styled';
 export const StyledPracticeQuestionsButton = styled(ContentLink)`
   ${toolbarDefaultButton}
   text-decoration: none;
-  padding: 0 10px;
+  padding: 0;
   width: 100%;
   color: ${toolbarIconColor.base};
 
