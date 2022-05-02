@@ -121,7 +121,7 @@ export const TOCControl = ({ message, children, ...props }: React.PropsWithChild
   >
     <TocIcon />
     <ToCButtonText>
-      {useIntl().formatMessage({ id: 'i18n:toc:title' })}
+      {useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
     </ToCButtonText>
     {children}
   </ToCButton>;

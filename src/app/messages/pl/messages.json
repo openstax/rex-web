@@ -156,6 +156,7 @@
   "i18n:studyguides:popup:using-this-guide:alt": "Ilustracja przedstawia strukturę Kompendium. Pierwszy element w każdym bloku to podsumowanie, wyjaśnienie albo wzbogacenie najważniejszych treści. Drugi element jest wzięty bezpośrednio z książki. Etykieta z kolorem dostosowanym do treści znajduje się po lewej stronie.",
   "i18n:studyguides:popup:using-this-guide:close:aria-label": "Zamyka ilustrację opisującą strukturę Kompendium.",
   "i18n:toc:title": "Spis treści",
+  "i18n:toolbar:toc:text": "Spis treści",
   "i18n:toc:toggle:closed": "Kliknij, żeby przejść do spisu treści",
   "i18n:toc:toggle:opened": "Kliknij, żeby zamknąć spis treści",
   "i18n:toolbar:buy-book:aria-label:text": "Kup książkę",
