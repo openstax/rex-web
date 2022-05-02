@@ -44,7 +44,7 @@ const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};
   border: none;
-  padding: 0 10px;
+  padding: 0;
   overflow: visible;
   cursor: pointer;
 

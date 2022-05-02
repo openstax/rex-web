@@ -20,7 +20,7 @@ interface Props {
 const MyHighlightsWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
   height: auto;
-  padding: 0 10px;
+  padding: 0;
 
   > svg {
     ${toolbarIconStyles}

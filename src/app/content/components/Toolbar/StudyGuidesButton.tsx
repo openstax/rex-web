@@ -13,7 +13,7 @@ import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled'
 export const StudyGuidesWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
   height: auto;
-  padding: 0 10px;
+  padding: 0;
 `;
 
 // tslint:disable-next-line:variable-name
