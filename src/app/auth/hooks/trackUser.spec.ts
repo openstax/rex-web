@@ -21,7 +21,7 @@ describe('trackUser', () => {
     mockGa = jest.fn<UniversalAnalytics.ga, []>();
     window.ga = mockGa;
     client.setTrackingIds(['foo']);
-    user = {firstName: 'test', isNotGdprLocation: true, uuid: 'a_uuid'};
+    user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'a_uuid'};
     jest.resetAllMocks();
   });
 
