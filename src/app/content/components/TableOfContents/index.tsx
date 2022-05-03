@@ -1,9 +1,9 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../types';
-import { resetToc } from '../../actions';
+import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
@@ -11,7 +11,10 @@ import { ArchiveTree, Book, Page, State } from '../../types';
 import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
+import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
+import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
+import { ToCHeaderText } from './styled';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -38,7 +41,7 @@ export class TableOfContents extends Component<SidebarProps> {
   public render() {
     const {isOpen, book} = this.props;
 
-    return <SidebarBody isOpen={isOpen} ref={this.sidebar}>
+    return <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
       {this.renderTocHeader()}
       {book && this.renderToc(book)}
     </SidebarBody>;
@@ -115,9 +118,16 @@ export class TableOfContents extends Component<SidebarProps> {
     {this.renderChildren(book, node)}
   </Styled.NavDetails>;
 
-  private renderTocHeader = () => <Styled.ToCHeader data-testid='tocheader'>
-    <Styled.SidebarHeaderButton><Styled.TimesIcon /></Styled.SidebarHeaderButton>
-  </Styled.ToCHeader>;
+  private renderTocHeader = () => {
+    return <Styled.ToCHeader data-testid='tocheader'>
+      <TOCBackButton><LeftArrow /></TOCBackButton>
+      <FormattedMessage id='i18n:toc:title'>
+        {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
+      </FormattedMessage>
+      <CloseToCAndMobileMenuButton />
+      <TOCCloseButton><TimesIcon /></TOCCloseButton>
+    </Styled.ToCHeader>;
+  };
 
   private renderToc = (book: Book) => this.renderChildren(book, book.tree);
 }
@@ -128,6 +138,9 @@ export default connect(
     isOpen: selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
-    onNavigate: () => dispatch(resetToc()),
+    onNavigate: () => {
+      dispatch(closeMobileMenu());
+      dispatch(resetToc());
+    },
   })
 )(TableOfContents);

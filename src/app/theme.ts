@@ -106,7 +106,7 @@ const color = {
 
 const mobileSmallBreak = 30; // 480px
 const mobileMediumBreak = 50; // 800px
-const mobileBreak = 75; // 1200 px
+const mobileBreak = 75; // 1200px
 const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
 const mobileMediumQuery = `(max-width: ${mobileMediumBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
@@ -148,10 +148,13 @@ export default {
     'highlightInlineCard',
     'contentNotifications',
     'searchSidebar',
-    'toolbar',
+    'topbar',
     'overlay',
     'sidebar',
+    'toolbar',
     'navbar',
+    'mobileMenu',
+    'sidebarMobileMedium',
     'highlightSummaryPopup',
     'highlightsHelpInfoMobile',
     'nudgeOverlay',

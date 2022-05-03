@@ -7,22 +7,23 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import ContentLink from '../../components/ContentLink';
 import { modalQueryParameterName } from '../../constants';
 import { modalUrlName } from '../../practiceQuestions/constants';
-import { hasPracticeQuestions, practiceQuestionsEnabled } from '../../practiceQuestions/selectors';
+import {
+  hasPracticeQuestions,
+  isPracticeQuestionsOpen,
+  practiceQuestionsEnabled
+} from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
 import { toolbarIconColor } from '../constants';
-import { buttonMinWidth } from './styled';
+import { toolbarIconStyles } from './iconStyles';
 import { toolbarDefaultButton, toolbarDefaultText } from './styled';
 
-// TODO: refactor the styling of Toolbar ContentLinks
 // tslint:disable-next-line:variable-name
-export const StyledContentLink = styled(ContentLink)`
+export const StyledPracticeQuestionsButton = styled(ContentLink)`
   ${toolbarDefaultButton}
   text-decoration: none;
   padding: 0;
-  align-items: center;
+  width: 100%;
   color: ${toolbarIconColor.base};
-  height: 100%;
-  min-width: ${buttonMinWidth};
 
   :hover,
   :focus {
@@ -32,20 +33,21 @@ export const StyledContentLink = styled(ContentLink)`
 
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsIcon = styled.img`
-  padding: 0.2rem;
+  ${toolbarIconStyles}
 `;
 
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsText = styled.span`
   ${toolbarDefaultText}
-  font-size: 1.8rem;
-  line-height: 2.9rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
 `;
 
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsButton = () => {
   const intl = useIntl();
   const isEnabled = useSelector(practiceQuestionsEnabled);
+  const isPracticeQOpen = useSelector(isPracticeQuestionsOpen);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
   const hasPracticeQs = useSelector(hasPracticeQuestions);
   const { book, page } = useSelector(bookAndPage);
@@ -54,15 +56,16 @@ const PracticeQuestionsButton = () => {
 
   const text = intl.formatMessage({id: 'i18n:toolbar:practice-questions:button:text'});
 
-  return <StyledContentLink
+  return <StyledPracticeQuestionsButton
     book={book}
     page={page}
     queryParams={{ [modalQueryParameterName]: modalUrlName }}
     onClick={trackOpenClose}
-    aria-label={text}>
+    aria-label={text}
+    isActive={isPracticeQOpen}>
     <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
     <PracticeQuestionsText>{text}</PracticeQuestionsText>
-  </StyledContentLink>;
+  </StyledPracticeQuestionsButton>;
 };
 
 export default PracticeQuestionsButton;
