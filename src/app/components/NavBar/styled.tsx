@@ -59,6 +59,10 @@ export const DropdownContainer = styled.div`
   ${fadeInAnimation}
   overflow: visible;
   position: relative;
+  height: 100%;
+  ${theme.breakpoints.mobile(css`
+    height: auto;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -140,9 +144,27 @@ export const Link = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-export const DropdownToggle = styled.span`
-  ${navElementStyle}
+export const DropdownToggle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  line-height: 1.6rem;
+  font-size: 1.4rem;
+  color: ${theme.color.white};
+  background-color: #007297;
   cursor: pointer;
+  margin-top: 1.25rem;
+
+  :hover {
+    box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.3);
+  }
+
+  ${theme.breakpoints.mobile(css`
+    margin-top: 0;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -173,7 +195,7 @@ export const DropdownList = styled.ul`
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.base};
-  top: calc(100% - 0.4rem);
+  top: 100%;
   right: 0;
   border-top: 0.4rem solid ${theme.color.primary.green.base};
 
@@ -227,6 +249,7 @@ const overlayShown = css`
 // tslint:disable-next-line:variable-name
 export const DropdownOverlay = styled.div`
   overflow: visible;
+  margin-bottom: 0.8rem;
   ${theme.breakpoints.mobile(css`
     background: ${Color(theme.color.neutral.base).alpha(0).string()};
     transition: background 200ms;
@@ -239,6 +262,7 @@ export const DropdownOverlay = styled.div`
     height: 0;
     width: 0;
     overflow: hidden;
+    margin-bottom: 0;
 
     &:focus,
     &.focus-within,
