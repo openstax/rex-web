@@ -46,13 +46,14 @@ describe('bookConfigLoader', () => {
     });
 
     const bookVersion = await bookConfigLoader.getBookVersionFromUUID('test-book-uuid-2');
+    const archiveUrl = getArchiveUrlSync();
     expect(fetch).toHaveBeenCalledWith('/rex/release.json');
+    expect(archiveUrl).toEqual('/apps/archive/test-url');
     expect(bookVersion).toEqual({ defaultVersion: 'test-book-version-2' });
   });
 
   it('returns undefined if couldnt find bookVersion for desired uuid', async() => {
     (global as any).fetch = mockFetch(200, {
-      archiveUrl: '/apps/archive/test-url',
       books: {
         'test-book-uuid-2': {
           defaultVersion: 'test-book-version-2',
@@ -77,23 +78,5 @@ describe('bookConfigLoader', () => {
       new Error('Error response from "/rex/release.json" 500: unexpected error'), 'warning'
     );
     expect(bookVersion).toBe(undefined);
-  });
-
-  it('fetches archiveUrl from release.json', async() => {
-    (global as any).fetch = mockFetch(200, {
-      archiveUrl: '/apps/archive/test-url',
-      books: {
-        'test-book-uuid-3': {
-          defaultVersion: 'test-book-version-3',
-        },
-      },
-      code: 'test',
-      id: 'test',
-    });
-
-    await bookConfigLoader.getBookVersionFromUUID('test-book-uuid-3');
-    const archiveUrl = getArchiveUrlSync();
-    expect(fetch).toHaveBeenCalledWith('/rex/release.json');
-    expect(archiveUrl).toEqual('/apps/archive/test-url');
   });
 });
