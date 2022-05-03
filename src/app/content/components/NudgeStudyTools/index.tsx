@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import htmlMessage from '../../../components/htmlMessage';
-import { onEsc, useMatchMobileQuery } from '../../../reactUtils';
+import { onEsc, useMatchMobileMediumQuery } from '../../../reactUtils';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { showNudgeStudyTools } from '../../selectors';
@@ -13,8 +13,7 @@ import {
   studyGuidesEnabled as studyGuidesEnabledSelector,
   totalCountsPerPage as totalCountsPerPageSelector,
 } from '../../studyGuides/selectors';
-import arrowDesktop from './assets/arrowDesktop.svg';
-import arrowMobile from './assets/arrowMobile.svg';
+import arrow from './assets/arrow.svg';
 import {
   ClickBlocker,
   NudgeArrow,
@@ -40,7 +39,7 @@ const NudgeStudyTools = () => {
   const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const document = assertDocument();
   const wrapperRef = React.useRef<HTMLElement>(null);
-  const isMobile = useMatchMobileQuery();
+  const isMobile = useMatchMobileMediumQuery();
   const positions = usePositions(isMobile);
   const dispatch = useDispatch();
   const [addOnEscListener, removeOnEscListener] = onEsc(
@@ -77,7 +76,7 @@ const NudgeStudyTools = () => {
 
   return <NudgeWrapper data-analytics-region='Nudge Study Tools'>
     <NudgeArrow
-      src={isMobile ? arrowMobile : arrowDesktop}
+      src={arrow}
       alt=''
       top={positions.arrowTopOffset}
       left={positions.arrowLeft}
@@ -97,7 +96,7 @@ const NudgeStudyTools = () => {
       data-testid={`nudge-${hasStudyGuides ? 'with-sg' : 'only-hl'}`}
       aria-label={formatMessage({id: ariaLabelKey})}
       top={positions.contentWrapperTopOffset}
-      right={positions.contentWrapperRight}
+      left={positions.contentWrapperLeft}
     >
       <NudgeContent>
         <NudgeHeading />

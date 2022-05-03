@@ -1,16 +1,19 @@
-export const arrowDesktopHeight = 13;
+export const arrowDesktopHeight = 11.5;
 export const arrowDesktopWidth = 15;
 export const arrowMobileHeight = 6.2;
 export const arrowMobileWidth = 5.2;
-export const arrowLeftMargin = 1;
-export const arrowTopMargin = 1;
+export const arrowRightMargin = 1;
+export const arrowTopMargin = 1.6;
 
-export const closeButtonDistanceFromContent = 4;
+export const closeButtonSize = 4;
+export const closeButtonDistanceFromContent = 1.6;
 export const closeButtonMobileMargin = 3;
 
-export const contentMarginTop = 1;
+export const contentMarginTop = 1.6;
+export const contentMarginLeft = 1;
+export const contentWidth = 69;
 
-export const spotlightPadding = 1;
+export const mobileSpotlightPadding = .6;
 
 export const cookieNudge = {
   // How many times nuge was shown
@@ -32,3 +35,4 @@ export const timeIntervalBetweenShowingNudgeInMs = 4 * 7 * 24 * 60 * 60 * 1000;
 export const nudgeStudyToolsShowLimit = 3;
 // Id of the element which should be highlighted
 export const nudgeStudyToolsTargetId = 'nudge-study-tools';
+export const mobileNudgeStudyToolsTargetId = 'mobile-menu-button';
