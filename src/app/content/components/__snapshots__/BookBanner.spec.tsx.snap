@@ -3,7 +3,7 @@
 exports[`BookBanner outside browser renders 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
@@ -40,7 +40,7 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
@@ -83,7 +83,7 @@ Array [
 exports[`BookBanner without unsaved changes renders correctly when you pass a page and book 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
@@ -120,7 +120,7 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
@@ -163,7 +163,7 @@ Array [
 exports[`BookBanner without unsaved changes renders correctly without osweb data 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
@@ -187,7 +187,7 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
@@ -216,7 +216,7 @@ Array [
 exports[`BookBanner without unsaved changes renders correctly without pageNode 1`] = `
 Array [
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
@@ -245,7 +245,7 @@ Array [
     </div>
   </div>,
   <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+    className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
@@ -279,12 +279,12 @@ Array [
 
 exports[`BookBanner without unsaved changes renders empty state with no page or book 1`] = `
 <div
-  className="BookBanner__BarWrapper-sc-1avy0c0-5 blPrsP"
+  className="BookBanner__BarWrapper-sc-1avy0c0-5 hctrAS"
 />
 `;
 
 exports[`BookBanner without unsaved changes wrapper transition matches snapshot 1`] = `
 <div
-  className="BookBanner__BarWrapper-sc-1avy0c0-5 bYEYED"
+  className="BookBanner__BarWrapper-sc-1avy0c0-5 fCtEKD"
 />
 `;

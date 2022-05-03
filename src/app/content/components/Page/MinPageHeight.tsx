@@ -5,15 +5,15 @@ import { desktopAttributionHeight, mobileAttributionHeight } from '../Attributio
 import {
   bookBannerDesktopBigHeight,
   bookBannerMobileBigHeight,
-  toolbarDesktopHeight,
-  toolbarMobileHeight
+  topbarDesktopHeight,
+  topbarMobileHeight,
 } from '../constants';
 
 const minDesktopContentSize =
-  navDesktopHeight + bookBannerDesktopBigHeight + toolbarDesktopHeight + desktopAttributionHeight;
+  navDesktopHeight + bookBannerDesktopBigHeight + topbarDesktopHeight + desktopAttributionHeight;
 
 const minMobileContentSize =
-  navMobileHeight + bookBannerMobileBigHeight + toolbarMobileHeight + mobileAttributionHeight;
+  navMobileHeight + bookBannerMobileBigHeight + topbarMobileHeight + mobileAttributionHeight;
 
 export default styled.div`
   @media screen {
