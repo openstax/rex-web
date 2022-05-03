@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import theme from '../../../theme';
-import { OpenSidebarControl } from '../SidebarControl';
+import { StyledOpenTOCControl } from '../SidebarControl';
 
 // tslint:disable-next-line: variable-name
 const PageNotFoundWrapper = styled.div`
@@ -46,7 +46,7 @@ const PageNotFound = () => <PageNotFoundWrapper>
         {(msg) => msg}
       </FormattedMessage>
     </span>
-    <OpenSidebarControl hideMobileText={false}/>
+    <StyledOpenTOCControl />
   </PageNotFoundText>
 </PageNotFoundWrapper>;
 
