@@ -1,48 +1,54 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { LayoutBody } from '../../components/Layout';
 import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
-import { searchResultsBarDesktopWidth, sidebarTransitionTime } from './constants';
+import * as contentSelectors from '../selectors';
+import { contentWrapperMaxWidth, verticalNavbarMaxWidth } from './constants';
 
 export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
   hasQuery: boolean;
-  searchResultsOpen: boolean;
+  verticalNavOpen: boolean;
   className?: string;
 }
 
 // tslint:disable-next-line:variable-name
 export const Wrapper = styled(
-  ({hasQuery, searchResultsOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
-    <LayoutBody {...props}>
-      {searchResultsOpen && <ScrollLock overlay={false} mobileOnly={true} />}
+  ({hasQuery, verticalNavOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
+    <ContentLayoutBody {...props}>
+      {verticalNavOpen && <ScrollLock overlay={false} mediumScreensOnly={true} />}
       {children}
-    </LayoutBody>
+    </ContentLayoutBody>
 )`
   position: relative; /* for sidebar overlay */
   overflow: visible; /* so sidebar position: sticky works */
-  transition: margin-left ${sidebarTransitionTime}ms;
 
   @media screen {
-    flex: 1;
-    ${(props: {hasQuery: boolean}) => !!props.hasQuery && css`
-      margin-left: ${searchResultsBarDesktopWidth}rem;
-    `}
-
     ${theme.breakpoints.mobile(css`
       margin-left: 0;
     `)}
   }
 `;
 
+// tslint:disable-next-line:variable-name
+const ContentLayoutBody = styled.div`
+  width: 100%;
+  max-width: ${contentWrapperMaxWidth + verticalNavbarMaxWidth * 2}rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 8rem auto auto;
+  ${theme.breakpoints.mobileMedium(css`
+    grid-template-columns: 100%;
+  `)}
+`;
+
 export default connect(
   (state: AppState) => ({
     hasQuery: !!selectSearch.query(state),
-    searchResultsOpen: selectSearch.searchResultsOpen(state),
+    verticalNavOpen: contentSelectors.mobileMenuOpen(state) || selectSearch.searchResultsOpen(state),
   })
 )(Wrapper);

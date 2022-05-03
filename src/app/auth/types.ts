@@ -1,5 +1,6 @@
 export interface User {
   firstName: string;
+  lastName: string;
   uuid: string;
   isNotGdprLocation: boolean;
 }
