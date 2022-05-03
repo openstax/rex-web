@@ -600,7 +600,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="print"
-        className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 DFaYK styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+        className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 dhzxTr styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
         data-analytics-label="print"
         data-testid="print"
         disabled={true}
@@ -619,7 +619,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           />
         </svg>
         <span
-          className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
+          className="styled__PrintOptions-sc-1119auh-2 iCecXY"
         >
           Print
         </span>
@@ -647,7 +647,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             />
           </svg>
           <span
-            className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 gvyQvY"
+            className="UsingThisGuideButton__UsingThisGuideText-bu0xmw-3 dKabOj"
           >
             Using This Guide
           </span>

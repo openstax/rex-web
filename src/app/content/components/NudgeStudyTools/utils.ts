@@ -8,19 +8,20 @@ import { page as pageSelector } from '../../selectors';
 import { hasStudyGuides } from '../../studyGuides/selectors';
 import {
   arrowDesktopHeight,
-  arrowDesktopWidth,
-  arrowLeftMargin,
-  arrowMobileHeight,
-  arrowMobileWidth,
+  arrowRightMargin,
   arrowTopMargin,
   closeButtonDistanceFromContent,
+  closeButtonSize,
+  contentMarginLeft,
   contentMarginTop,
+  contentWidth,
   cookieNudge,
   daysUntilCookieExpires,
+  mobileNudgeStudyToolsTargetId,
+  mobileSpotlightPadding,
   nudgeStudyToolsMinPageLimit,
   nudgeStudyToolsShowLimit,
   nudgeStudyToolsTargetId,
-  spotlightPadding,
   timeIntervalBetweenShowingNudgeInMs,
 } from './constants';
 
@@ -29,7 +30,7 @@ interface Positions {
   arrowTopOffset: number;
   closeButtonLeft: number;
   closeButtonTopOffset: number;
-  contentWrapperRight: number;
+  contentWrapperLeft: number;
   contentWrapperTopOffset: number;
   spotlightHeight: number;
   spotlightLeftOffset: number;
@@ -37,38 +38,34 @@ interface Positions {
   spotlightWidth: number;
 }
 
-export const getPositions = (target: HTMLElement, isMobile: boolean, windowWidth: number): Positions => {
-  const { top, left, right, height, width } = getBoundingRectOfNudgeTarget(target);
-  const padding = remsToPx(spotlightPadding);
-  const spotlightTopOffset = top - padding;
-  const spotlightLeftOffset = left - padding;
-  const spotlightHeight = height + (padding * 2);
-  const spotlightWidth = width + (padding * 2);
-  const arrowTopOffset = spotlightTopOffset + spotlightHeight + remsToPx(arrowTopMargin);
-  // right edge of arrow image should be on the middle of the spotlight (adjusted for a margin)
-  const centerPoint = spotlightLeftOffset + (spotlightWidth / 2);
-  const arrowWidth = remsToPx(isMobile ? arrowMobileWidth : arrowDesktopWidth);
-  const arrowLeft = centerPoint - arrowWidth + remsToPx(arrowLeftMargin);
+export const getPositions = (target: HTMLElement, isMobile: boolean): Positions => {
+  const padding = remsToPx(mobileSpotlightPadding);
+  const { top, left, height, width } = getBoundingRectOfNudgeTarget(target);
+  const spotlightLeftOffset = left - (isMobile ? padding : 0);
+  const spotlightWidth = width + (isMobile ? padding * 2 : 0);
+  const arrowTopOffset = top + height + remsToPx(arrowTopMargin);
+  // left edge of arrow image should be on the middle of the spotlight (adjusted for a margin)
+  const arrowLeft = spotlightLeftOffset + (spotlightWidth / 2) - remsToPx(arrowRightMargin);
 
   const contentWrapperTopOffset = arrowTopOffset
-    + remsToPx(isMobile ? arrowMobileHeight : arrowDesktopHeight)
+    + remsToPx(arrowDesktopHeight)
     + remsToPx(contentMarginTop);
-  // additional margin is added to prevent cutting off the close button
-  const additionalRightMargin = windowWidth - left - spotlightWidth < remsToPx(4) && !isMobile ? remsToPx(4) : 0;
-  const contentWrapperRight = windowWidth - right - padding + additionalRightMargin;
-  const closeButtonLeft = left + spotlightWidth - additionalRightMargin;
-  const closeButtonTopOffset = contentWrapperTopOffset - remsToPx(closeButtonDistanceFromContent);
+  const contentWrapperLeft = spotlightLeftOffset + spotlightWidth + remsToPx(contentMarginLeft);
+  const closeButtonLeft = contentWrapperLeft + remsToPx(contentWidth) + remsToPx(closeButtonDistanceFromContent);
+  const closeButtonTopOffset = contentWrapperTopOffset
+    - remsToPx(closeButtonSize)
+    - remsToPx(closeButtonDistanceFromContent);
 
   return {
     arrowLeft,
     arrowTopOffset,
     closeButtonLeft,
     closeButtonTopOffset,
-    contentWrapperRight,
+    contentWrapperLeft,
     contentWrapperTopOffset,
-    spotlightHeight,
+    spotlightHeight: height,
     spotlightLeftOffset,
-    spotlightTopOffset,
+    spotlightTopOffset: top,
     spotlightWidth,
   };
 };
@@ -102,13 +99,15 @@ export const usePositions = (isMobile: boolean) => {
 
   React.useEffect(() => {
     const document = assertDocument();
-    const target = document.querySelector(`#${nudgeStudyToolsTargetId}`) as HTMLElement | null;
+    const target = document.querySelector(
+      `#${isMobile ? mobileNudgeStudyToolsTargetId : nudgeStudyToolsTargetId}`
+    ) as HTMLElement | null;
     if (target) {
       // Make sure that we calculate positions with body overflow set to hidden
       // because it causes scrollbar to hide which results in different positions.
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
-      setPositions(getPositions(target, isMobile, windowWidth));
+      setPositions(getPositions(target, isMobile));
 
       // Resets to the value from before calculations. We want this style change to be handled
       // directly in the component.
