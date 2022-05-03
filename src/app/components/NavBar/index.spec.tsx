@@ -27,7 +27,7 @@ describe('content', () => {
     let user: User;
 
     beforeEach(() => {
-      user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
+      user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid'};
       store = createTestStore();
       NavBar = require('.').default;
     });
