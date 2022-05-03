@@ -38,7 +38,7 @@ def test_message_when_search_yields_no_results(
 
     # WHEN: they search for a term that yields no results
     if content.is_desktop:
-        content.toolbar.search_for(search_term)
+        content.topbar.search_for(search_term)
     else:
         content.mobile_search_toolbar.search_for(search_term)
 
@@ -58,7 +58,7 @@ def test_message_when_search_yields_no_results(
     # For mobile resolution, click on the search icon to close the search
     # sidebar/navigate back to content page
     if content.is_mobile:
-        content.toolbar.click_search_icon()
+        content.topbar.click_search_icon()
     # For desktop, close search sidebar
     else:
         content.search_sidebar.close_search_sidebar()
@@ -84,12 +84,12 @@ def test_scroll_position_when_search_yields_no_results(
     search_term = "".join(choice(digits + ascii_letters) for i in range(25))
 
     if content.is_desktop:
-        content.toolbar.search_for(search_term)
+        content.topbar.search_for(search_term)
     else:
         content.mobile_search_toolbar.search_for(search_term)
         # For mobile resolution, click on the search icon to close the search
         # sidebar/navigate back to content page
-        content.toolbar.click_search_icon()
+        content.topbar.click_search_icon()
 
     # THEN: Scroll position of content is not changed after search
     scroll_position_after_search = content.scroll_position
@@ -127,7 +127,7 @@ def test_scroll_position_when_search_yields_no_results(
 def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug, page_slug):
     # GIVEN: Book page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    toolbar = content.toolbar
+    topbar = content.topbar
     mobile = content.mobile_search_toolbar
     toc_sidebar = content.sidebar
     search_sidebar = content.search_sidebar
@@ -136,8 +136,8 @@ def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug
     search_term = get_search_term(book_slug)
 
     if content.is_desktop:
-        toolbar.search_for(search_term)
-
+        topbar.search_for(search_term)
+    
     if content.is_mobile:
         mobile.search_for(search_term)
 
@@ -162,6 +162,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         book.notification.got_it()
 
     toolbar = book.toolbar
+    topbar = book.topbar
     mobile = book.mobile_search_toolbar
     toc_sidebar = book.sidebar
     search_sidebar = book.search_sidebar
@@ -169,7 +170,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
 
     if book.is_desktop:
         # WHEN: Search sidebar is displayed with search results
-        toolbar.search_for(search_term)
+        topbar.search_for(search_term)
         assert search_sidebar.search_results_present
 
         # AND: Search term is focussed in the content page
@@ -187,7 +188,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         assert toc_sidebar.is_displayed
 
         # AND search string stays in the search box
-        assert toolbar.search_term_displayed_in_search_textbox == search_term
+        assert topbar.search_term_displayed_in_search_textbox == search_term
 
         # AND Content page stays in the same location
         scroll_position_after_closing_search_sidebar = book.scroll_position
@@ -228,8 +229,8 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         )
 
         # AND search string still stays in the search box
-        assert toolbar.search_term_displayed_in_search_textbox == search_term
-
+        assert topbar.search_term_displayed_in_search_textbox == search_term
+    
     if book.is_mobile:
         # WHEN: Search sidebar is displayed with search results
         mobile.search_for(search_term)
@@ -247,6 +248,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         mobile.click_back_to_search_results_button()
 
         # AND: TOC is opened
+        topbar.click_mobile_menu_button()
         toolbar.click_toc_toggle_button()
 
         # THEN: Search sidebar disappears
@@ -277,7 +279,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         )
 
         # AND: search string still stays in the search box
-        toolbar.click_search_icon()
+        topbar.click_search_icon()
         assert mobile.search_term_displayed_in_search_textbox == search_term
 
 
@@ -294,31 +296,31 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
     while book.notification_present:
         book.notification.got_it()
 
-    toolbar = book.toolbar
+    topbar = book.topbar
     mobile = book.mobile_search_toolbar
     search_sidebar = book.search_sidebar
     search_term = get_search_term(book_slug)
 
     if book.is_desktop:
         # AND: Search results are displayed in search sidebar
-        book.toolbar.search_for(search_term)
+        topbar.search_for(search_term)
         assert search_sidebar.search_results_present
 
         search_result_scroll_position = book.scroll_position
 
         # WHEN: Close search sidebar
-        book.search_sidebar.close_search_sidebar()
+        search_sidebar.close_search_sidebar()
 
         # THEN: Search sidebar is closed
         assert search_sidebar.search_results_not_displayed
 
         # AND: Search string in the search  textbox is still visible
-        assert toolbar.search_term_displayed_in_search_textbox == search_term
+        assert topbar.search_term_displayed_in_search_textbox == search_term
 
         # AND: User stays in the same location in the book content as before closing the sidebar
         scroll_position_after_closing_search_sidebar = book.scroll_position
         assert scroll_position_after_closing_search_sidebar == search_result_scroll_position
-
+    
     if book.is_mobile:
         # AND: Search results are displayed in search sidebar
         mobile.search_for(search_term)
@@ -331,7 +333,7 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
         assert search_sidebar.search_results_not_displayed
 
         # AND search string in the search input box is still visible
-        book.toolbar.click_search_icon()
+        topbar.click_search_icon()
         assert mobile.search_term_displayed_in_search_textbox == search_term
 
 
@@ -348,25 +350,25 @@ def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
     while book.notification_present:
         book.notification.got_it()
 
-    toolbar = book.toolbar
+    topbar = book.topbar
     mobile = book.mobile_search_toolbar
     search_sidebar = book.search_sidebar
     search_term = get_search_term(book_slug)
 
     if book.is_desktop:
         # AND: Search sidebar is open
-        book.toolbar.search_for(search_term)
+        topbar.search_for(search_term)
         assert search_sidebar.search_results_present
 
         # WHEN: Click X in the search textbox
-        toolbar.click_search_textbox_x()
+        topbar.click_search_textbox_x()
 
         # THEN: Search string is cleared from the search textbox
-        assert toolbar.search_term_displayed_in_search_textbox == ""
+        assert topbar.search_term_displayed_in_search_textbox == ""
 
         # AND: Search sidebar is still open
         assert search_sidebar.search_results_present
-
+    
     if book.is_mobile:
         # AND: Search sidebar is open
         mobile.search_for(search_term)
@@ -408,7 +410,7 @@ def test_search_results(selenium, base_url, page_slug):
         rkt_results_expected_value = expected_rkt_search_results_total(book_slug)
 
         # AND: Search sidebar is open
-        book.toolbar.search_for(search_term)
+        book.topbar.search_for(search_term)
         try:
             assert search_sidebar.search_results_present
         except TimeoutException:

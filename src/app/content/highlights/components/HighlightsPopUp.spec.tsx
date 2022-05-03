@@ -47,7 +47,7 @@ describe('MyHighlights button and PopUp', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
-    user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
+    user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid'};
 
     dispatch = jest.spyOn(store, 'dispatch');
   });
