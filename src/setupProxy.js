@@ -29,7 +29,6 @@ const { default: createArchiveLoader } = require('./gateways/createArchiveLoader
 const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
 const getArchiveUrl = () => REACT_APP_ARCHIVE_URL;
-
 const archiveLoader = createArchiveLoader(getArchiveUrl, {
   archivePrefix: ARCHIVE_URL
 });
