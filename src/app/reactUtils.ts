@@ -156,15 +156,15 @@ export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boole
   React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
 };
 
-export const useMatchMobileQuery = () => {
-  const matchMedia = assertWindow().matchMedia(theme.breakpoints.mobileQuery);
-  const [isMobile, setIsMobile] = React.useState(matchMedia.matches);
+const useMatchMediaQuery = (mediaQuery: string) => {
+  const matchMedia = assertWindow().matchMedia(mediaQuery);
+  const [matches, setMatches] = React.useState(matchMedia.matches);
 
   const listener = React.useCallback((e: MediaQueryListEvent) => {
     if (e.matches) {
-      setIsMobile(true);
+      setMatches(true);
     } else {
-      setIsMobile(false);
+      setMatches(false);
     }
   }, []);
 
@@ -183,8 +183,11 @@ export const useMatchMobileQuery = () => {
     };
   }, [listener, matchMedia]);
 
-  return isMobile;
+  return matches;
 };
+
+export const useMatchMobileMediumQuery = () => useMatchMediaQuery(theme.breakpoints.mobileMediumQuery);
+export const useMatchMobileQuery = () => useMatchMediaQuery(theme.breakpoints.mobileQuery);
 
 export const useDebouncedWindowSize = () => {
   const window = assertWindow();

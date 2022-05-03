@@ -207,7 +207,7 @@ describe('content', () => {
     expect(pageComponent).toBeDefined();
   });
 
-  it('renders with ToC in null state', () => {
+  it('renders with ToC open in null state', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
@@ -268,7 +268,7 @@ describe('content', () => {
 
     renderer.act(() => {
       component.root
-        .findByProps({ 'aria-label': 'Click to close the Table of Contents' })
+        .findAllByProps({ 'aria-label': 'Click to close the Table of Contents' })[0]
         .props.onClick();
     });
 

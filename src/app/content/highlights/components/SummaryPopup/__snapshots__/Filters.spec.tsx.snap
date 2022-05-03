@@ -408,7 +408,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     </div>
     <button
       aria-label="print"
-      className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 iIYjST styled__PrintOptWrapper-sc-1119auh-1 kbtaBS"
+      className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jcbTdL styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -427,7 +427,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         />
       </svg>
       <span
-        className="styled__PrintOptions-sc-1119auh-2 bRCGrc"
+        className="styled__PrintOptions-sc-1119auh-2 iCecXY"
       >
         Print
       </span>
