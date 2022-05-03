@@ -4,23 +4,22 @@ import styled, { css } from 'styled-components/macro';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
-  toolbarDesktopHeight,
-  toolbarMobileHeight,
-  toolbarMobileSearchWrapperHeight
+  toolbarMobileSearchWrapperHeight,
+  topbarDesktopHeight,
+  topbarMobileHeight
 } from '../../../content/components/constants';
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { groupedToastNotifications } from '../../../notifications/selectors';
 import theme from '../../../theme';
 import { mobileToolbarOpen as mobileToolbarOpenSelector } from '../../search/selectors';
 
-export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + toolbarDesktopHeight;
+export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
-  ? bookBannerMobileMiniHeight + toolbarMobileHeight + toolbarMobileSearchWrapperHeight
-  : bookBannerMobileMiniHeight + toolbarMobileHeight;
+  ? bookBannerMobileMiniHeight + topbarMobileHeight + toolbarMobileSearchWrapperHeight
+  : bookBannerMobileMiniHeight + topbarMobileHeight;
 
 // tslint:disable-next-line:variable-name
 export const ToastContainerWrapper = styled.div`
-  width: 100%;
   position: sticky;
   overflow: visible;
   z-index: ${theme.zIndex.contentNotifications - 1};

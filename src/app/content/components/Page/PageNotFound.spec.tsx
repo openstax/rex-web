@@ -5,7 +5,7 @@ import TestContainer from '../../../../test/TestContainer';
 import { Store } from '../../../types';
 import { openToc } from '../../actions';
 import { tocOpen } from '../../selectors';
-import { SidebarControl } from '../SidebarControl';
+import { StyledOpenTOCControl } from '../SidebarControl';
 import PageNotFound from './PageNotFound';
 
 describe('PageNotFound', () => {
@@ -22,7 +22,7 @@ describe('PageNotFound', () => {
 
     expect(root.findByProps({ id: 'i18n:page-not-found:heading' })).toBeTruthy();
     expect(root.findByProps({ id: 'i18n:page-not-found:text-before-button' })).toBeTruthy();
-    expect(root.findByType(SidebarControl)).toBeTruthy();
+    expect(root.findByType(StyledOpenTOCControl)).toBeTruthy();
   });
 
   it('opens toc when clicking on the button', () => {
