@@ -9,7 +9,7 @@ import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
-import createBookConfigLoader, { getArchiveUrlSync } from './gateways/createBookConfigLoader';
+import createBookConfigLoader, { getArchiveUrl } from './gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from './gateways/createBuyPrintConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
@@ -36,8 +36,9 @@ if (window.top === window.self) {
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
-const archiveUrl = config.REACT_APP_ARCHIVE_URL_OVERRIDE ||
-  assertDefined(getArchiveUrlSync(), 'archive url must be defined');
+const archiveUrl = config.REACT_APP_ARCHIVE_URL_OVERRIDE
+  ? () => assertDefined(config.REACT_APP_ARCHIVE_URL_OVERRIDE, 'REACT_APP_ARCHIVE_URL_OVERRIDE must be defined')
+  : getArchiveUrl;
 
 const osWebUrl = assertDefined(config.REACT_APP_OS_WEB_API_URL, 'REACT_APP_OS_WEB_API_URL must be defined');
 const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');

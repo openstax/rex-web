@@ -28,7 +28,9 @@ const { default: prepareRedirects } = require('../script/utils/prepareRedirects'
 const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
 const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
-const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+const getArchiveUrl = () => REACT_APP_ARCHIVE_URL;
+
+const archiveLoader = createArchiveLoader(getArchiveUrl, {
   archivePrefix: ARCHIVE_URL
 });
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);

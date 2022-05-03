@@ -41,5 +41,5 @@ export default () => {
   };
 };
 
-export const getArchiveUrlSync = (): string | undefined => cachedArchiveUrl;
+export const getArchiveUrl = (): string => cachedArchiveUrl;
 export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => cachedBooks[uuid];

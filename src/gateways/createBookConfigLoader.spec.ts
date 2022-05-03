@@ -1,6 +1,6 @@
 import { AppServices } from '../app/types';
 import Sentry from '../helpers/Sentry';
-import { getArchiveUrlSync } from './createBookConfigLoader';
+import { getArchiveUrl } from './createBookConfigLoader';
 
 jest.mock('../helpers/Sentry');
 
@@ -46,7 +46,7 @@ describe('bookConfigLoader', () => {
     });
 
     const bookVersion = await bookConfigLoader.getBookVersionFromUUID('test-book-uuid-2');
-    const archiveUrl = getArchiveUrlSync();
+    const archiveUrl = getArchiveUrl();
     expect(fetch).toHaveBeenCalledWith('/rex/release.json');
     expect(archiveUrl).toEqual('/apps/archive/test-url');
     expect(bookVersion).toEqual({ defaultVersion: 'test-book-version-2' });

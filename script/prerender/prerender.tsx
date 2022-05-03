@@ -5,7 +5,7 @@ import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
-import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
+import createBookConfigLoader, { getArchiveUrl } from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
 import { BuyPrintResponse } from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
@@ -62,7 +62,7 @@ async function renderManifest() {
 async function render() {
   await Loadable.preloadAll();
   const port = await portfinder.getPortPromise();
-  const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+  const archiveLoader = createArchiveLoader(getArchiveUrl, {
     appPrefix: '',
     archivePrefix: `http://localhost:${port}`,
     bookCache: createDiskCache<string, ArchiveBook>('archive-books'),
