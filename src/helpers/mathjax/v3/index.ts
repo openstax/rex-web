@@ -45,6 +45,7 @@ const _typesetMath = async(root: Element, windowImpl: Window) => {
 
   return windowImpl.MathJax.typesetPromise(nodes).then(() => {
     markLatexNodesRendered(nodes);
+    getTypesetDocument.cache.delete(root);
   });
 };
 
