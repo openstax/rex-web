@@ -1,6 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LabsCTA renders cta 1`] = `
+exports[`LabsCTA renders \`null\` when selector is false 1`] = `null`;
+
+exports[`LabsCTA renders cta when selector is true 1`] = `
 <div
   className="LabsCall__LabsCallWrapper-d86l90-1 bcbaHX"
   data-async-content={true}

@@ -101,36 +101,38 @@ const LabsCTA = () => {
     return null;
   }
 
-  return <LabsCallWrapper data-async-content>
-    <LabsCallHeader>
-      <Column>
-        <LabsLogo src={icon} role='img' alt='' />
+  return (
+    <LabsCallWrapper data-async-content>
+      <LabsCallHeader>
+        <Column>
+          <LabsLogo src={icon} role='img' alt='' />
+        </Column>
+        <Column maxWidth={17}>
+          <LabsText size={'h2'}>Do you know how you learn best?</LabsText>
+        </Column>
+      </LabsCallHeader>
+      <Column flex>
+        <LabsText size={'text'}>
+          Kinetic by OpenStax offers access to innovative study tools designed
+          to help you maximize your learning potential.
+        </LabsText>
       </Column>
-      <Column maxWidth={17}>
-        <LabsText size={'h2'}>Do you know how you learn best?</LabsText>
+      <Column last>
+        <LabsCallLink
+          component={<a href='/kinetic/'>
+            <FormattedMessage id='i18n:toolbar:labs-cta:link'>
+              {(msg) => msg}
+            </FormattedMessage>
+          </a>}
+          data-analytics-label='kinetic-banner'
+          variant='primary'
+          size='large'
+          target='_blank'
+          rel='noopener'
+        />
       </Column>
-    </LabsCallHeader>
-    <Column flex>
-      <LabsText size={'text'}>
-        Kinetic by OpenStax offers access to innovative study tools designed
-        to help you maximize your learning potential.
-      </LabsText>
-    </Column>
-    <Column last>
-      <LabsCallLink
-        component={<a href='/kinetic/'>
-          <FormattedMessage id='i18n:toolbar:labs-cta:link'>
-            {(msg) => msg}
-          </FormattedMessage>
-        </a>}
-        data-analytics-label='kinetic-banner'
-        variant='primary'
-        size='large'
-        target='_blank'
-        rel='noopener'
-      />
-    </Column>
-  </LabsCallWrapper>
+    </LabsCallWrapper>
+  );
 };
 
 export default LabsCTA;
