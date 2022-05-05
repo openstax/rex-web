@@ -10,4 +10,3 @@ export const searchButtonStyle = createSelector(
   localState,
   (featureFlags) => featureFlags.searchButton || null
 );
-
