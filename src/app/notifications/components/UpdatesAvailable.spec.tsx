@@ -49,7 +49,9 @@ describe('UpdatesAvailable', () => {
     'doesn\'t cause an error if the serviceWorker and/or readyPromise change after rendering',
     async() => {
       let component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
-      window!.navigator.serviceWorker.ready = Promise.resolve(sw);
+      Object.defineProperty(window!.navigator, 'serviceWorker', {
+        configurable: true, value: { ready: Promise.resolve(sw) },
+      });
       // wait for useEffect()
       await new Promise((resolve) => setImmediate(resolve));
       // wait for the ready Promise
