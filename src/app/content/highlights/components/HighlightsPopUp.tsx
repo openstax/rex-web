@@ -115,7 +115,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
       tabIndex='-1'
       data-testid='highlights-popup-wrapper'
       scrollLockProps={{
-        mobileOnly: false,
+        mediumScreensOnly: false,
         onClick: closeAndTrack('overlay'),
         overlay: true,
         zIndex: theme.zIndex.highlightSummaryPopup,

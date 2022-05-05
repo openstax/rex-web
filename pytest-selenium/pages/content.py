@@ -44,6 +44,7 @@ class Content(Page):
     _body_locator = (By.CSS_SELECTOR, "body")
     _book_section_content_locator = (By.CSS_SELECTOR, "[class*=MinPageHeight]")
     _error_modal_locator = (By.CSS_SELECTOR, ".error-modal")
+    _full_page_nudge_locator = (By.CSS_SELECTOR, "[data-analytics-region='Nudge Study Tools']")
     _main_content_locator = (By.CSS_SELECTOR, "h1")
     _modal_root_locator = (By.CSS_SELECTOR, "[class*=PopupWrapper]")
     _next_locator = (By.CSS_SELECTOR, "[aria-label='Next Page']")
@@ -114,6 +115,17 @@ class Content(Page):
         """
         error_modal = self.find_element(*self._error_modal_locator)
         return self.Error(self, error_modal)
+
+    @property
+    def full_page_nudge(self) -> Content.FullPageNudge:
+        """Access the highlighting/study guide full page nudge.
+
+        :return: the highlighting/study guide full page nudge
+        :rtype: Content.FullPageNudge
+
+        """
+        full_page_nudge = self.find_element(*self._full_page_nudge_locator)
+        return self.FullPageNudge(self, full_page_nudge)
 
     @property
     def mobile_search_toolbar(self) -> Content.MobileSearchToolbar:
@@ -305,6 +317,10 @@ class Content(Page):
         return self.ToolBar(self)
 
     @property
+    def topbar(self) -> Content.TopBar:
+        return self.TopBar(self)
+
+    @property
     def window_height(self) -> int:
         return int(self.height(self.sidebar.root)) + self.sidebar_height_offset
 
@@ -365,6 +381,14 @@ class Content(Page):
                 return False
             sleep(0.25)
             return self.error_shown(repeat - 1)
+
+    def full_page_nudge_displayed(self) -> bool:
+        """Return true if highlighting/study guide nudge is displayed"""
+
+        try:
+            return bool(self.full_page_nudge)
+        except NoSuchElementException:
+            return False
 
     def scroll_over_content_overlay(self):
         """Touch and scroll starting at on_element, moving by an offset.
@@ -1654,6 +1678,20 @@ class Content(Page):
             self.wait.until(expected.staleness_of(self.root))
             return self.page
 
+    class FullPageNudge(Region):
+        """Full page highlighting/study guide nudge."""
+
+        _close_icon_locator = (By.CSS_SELECTOR, "[class*='NudgeCloseIcon']")
+
+        @property
+        def close_icon(self) -> WebElement:
+            """Return the close icon in the full page nudge."""
+            return self.find_element(*self._close_icon_locator)
+
+        def click_close_icon(self):
+            """Clicks the close icon in the full page nudge."""
+            Utilities.click_option(self.driver, element=self.close_icon)
+
     class MobileSearchToolbar(Region):
         _search_textbox_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-search-input']")
         _back_to_results_locator = (By.CSS_SELECTOR, "[data-testid='back-to-search-results']")
@@ -1697,19 +1735,19 @@ class Content(Page):
             """Clicks the X in search textbox, mobile view."""
             Utilities.click_option(self.driver, element=self.search_textbox_x)
 
-        def search_for(self, search_term: str) -> SearchSidebar:
+        def search_for(self, search_term: str) -> Content.SideBar:
             """Search for a term/query in mobile resolution.
 
             :param str search_term: search_term defined in the test
             :return: search sidebar region with the search results
             :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
 
-            Click the search icon in the toolbar
+            Click the search icon in the topbar
             Enter the search term in the search textbox and hit Enter/Return
             Search results display in the search sidebar.
 
             """
-            self.page.toolbar.click_search_icon()
+            self.page.topbar.click_search_icon()
             self.search_textbox.send_keys(search_term)
             self.offscreen_click(self.search_textbox)
             self.page.search_sidebar.wait_for_region_to_display()
@@ -1923,16 +1961,82 @@ class Content(Page):
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )
 
+    class TopBar(Region):
+
+        _root_locator = (By.CSS_SELECTOR, "[data-testid='topbar']")
+
+        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
+        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
+        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
+
+        _mobile_menu_button_locator = (By.CSS_SELECTOR, "[aria-label='Click to open menu']")
+
+        @property
+        def search_button(self) -> WebElement:
+            """Return the desktop view search icon within the search box."""
+            return self.find_element(*self._search_button_desktop_locator)
+
+        @property
+        def search_button_mobile(self) -> WebElement:
+            """Return the search icon in mobile view."""
+            return self.find_element(*self._search_button_mobile_locator)
+
+        @property
+        def search_term_displayed_in_search_textbox(self):
+            """Return the search term in desktop view."""
+            return self.search_textbox.get_attribute("value")
+
+        @property
+        def search_textbox(self) -> WebElement:
+            """Return the search textbox in desktop view."""
+            return self.find_element(*self._search_textbox_desktop_locator)
+
+        @property
+        def search_textbox_x(self) -> WebElement:
+            """Return the search textbox X in desktop view."""
+            return self.find_element(*self._search_textbox_x_locator)
+
+        @property
+        def mobile_menu_button(self) -> WebElement:
+            """Return the mobile menu button in mobile view."""
+            return self.find_element(*self._mobile_menu_button_locator)
+
+        def click_search_icon(self) -> WebElement:
+            """Clicks the search icon in mobile view."""
+            self.offscreen_click(self.search_button_mobile)
+
+        def click_search_textbox_x(self) -> WebElement:
+            """Clicks the X in search textbox, desktop view."""
+            return self.offscreen_click(self.search_textbox_x)
+
+        def search_for(self, search_term: str) -> Content.SideBar:
+            """Search for a term/query in desktop resolution.
+
+            :param str search_term: search_term defined in the test
+            :return: search sidebar region with the search results
+            :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
+
+            Enter the search term in the search textbox and hit Enter/Return
+            Search results display in the search sidebar.
+
+            """
+            self.search_textbox.send_keys(search_term)
+            self.offscreen_click(self.search_button)
+            self.page.search_sidebar.wait_for_region_to_display()
+            sleep(1.0)
+            return self.page.search_sidebar
+
+        def click_mobile_menu_button(self) -> WebElement:
+            """Clicks the mobile menu button in mobile view."""
+            self.offscreen_click(self.mobile_menu_button)
+
     class ToolBar(Region):
 
         _root_locator = (By.CSS_SELECTOR, "[data-testid='toolbar']")
 
         _my_highlights_button_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
         _practice_button_locator = (By.CSS_SELECTOR, "[class*=PracticeQuestions]")
-        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
-        _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
-        _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
-        _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
         _study_guides_button_locator = (By.CSS_SELECTOR, "[class*=StudyGuides]")
         _toc_toggle_button_locator = (By.CSS_SELECTOR, "[aria-label*='open the Table of Contents']")
 
@@ -1968,31 +2072,6 @@ class Content(Page):
             raise ContentError("Practice not available")
 
         @property
-        def search_button(self) -> WebElement:
-            """Return the desktop view search icon within the search box."""
-            return self.find_element(*self._search_button_desktop_locator)
-
-        @property
-        def search_button_mobile(self) -> WebElement:
-            """Return the search icon in mobile view."""
-            return self.find_element(*self._search_button_mobile_locator)
-
-        @property
-        def search_term_displayed_in_search_textbox(self):
-            """Return the search term in desktop view."""
-            return self.search_textbox.get_attribute("value")
-
-        @property
-        def search_textbox(self) -> WebElement:
-            """Return the search textbox in desktop view."""
-            return self.find_element(*self._search_textbox_desktop_locator)
-
-        @property
-        def search_textbox_x(self) -> WebElement:
-            """Return the search textbox X in desktop view."""
-            return self.find_element(*self._search_textbox_x_locator)
-
-        @property
         def study_guides_available(self) -> bool:
             """Return True if a Study Guide is available for the book.
 
@@ -2022,14 +2101,6 @@ class Content(Page):
         @property
         def toc_toggle_button(self) -> WebElement:
             return self.find_element(*self._toc_toggle_button_locator)
-
-        def click_search_icon(self) -> WebElement:
-            """Clicks the search icon in mobile view."""
-            self.offscreen_click(self.search_button_mobile)
-
-        def click_search_textbox_x(self) -> WebElement:
-            """Clicks the X in search textbox, desktop view."""
-            return self.offscreen_click(self.search_textbox_x)
 
         def click_toc_toggle_button(self) -> Content.SideBar:
             """Clicks the TOC toggle button."""
@@ -2061,23 +2132,6 @@ class Content(Page):
                 root_selector=self._pop_up_wrapper_root_selector,
                 modal=Practice,
             )
-
-        def search_for(self, search_term: str) -> Content.SideBar:
-            """Search for a term/query in desktop resolution.
-
-            :param str search_term: search_term defined in the test
-            :return: search sidebar region with the search results
-            :rtype: :py:class:`~regions.search_sidebar.SearchSidebar`
-
-            Enter the search term in the search textbox and hit Enter/Return
-            Search results display in the search sidebar.
-
-            """
-            self.search_textbox.send_keys(search_term)
-            self.offscreen_click(self.search_button)
-            self.page.search_sidebar.wait_for_region_to_display()
-            sleep(1.0)
-            return self.page.search_sidebar
 
         def study_guides(self) -> StudyGuide:
             """Click the Study guides button.
