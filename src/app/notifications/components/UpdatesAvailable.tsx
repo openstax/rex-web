@@ -21,12 +21,16 @@ const UpdatesAvailable = ({className}: {className?: string}) => {
 
   useEffect(() => {
     readyPromise?.then((registration) => {
-      findAndInstallServiceWorkerUpdate(registration, () => setSw(registration));
+      // check that the readyPromise hasn't changed
+      if (assertWindow().navigator.serviceWorker?.ready === readyPromise) {
+        findAndInstallServiceWorkerUpdate(registration, () => setSw(registration));
+      }
     });
   }, [readyPromise]);
 
-  // if the readyPromise exists, wait for it
-  // otherwise, call activateSwAndReload() with undefined to force a reload instead
+  // if the readyPromise exists, wait for it before rendering
+  // if it doesn't exist, we render anyway and in that case
+  // onClick() calls activateSwAndReload(undefined) to reload without waiting
   if (readyPromise && !sw) {
     return null;
   }
