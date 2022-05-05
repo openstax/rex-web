@@ -10,3 +10,8 @@ export const searchButtonStyle = createSelector(
   localState,
   (featureFlags) => featureFlags.searchButton || null
 );
+
+export const kineticBannerEnabled = createSelector(
+  localState,
+  (featureFlags) => featureFlags.kineticEnabled
+);

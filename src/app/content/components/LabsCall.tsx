@@ -1,8 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import icon from '../../../assets/kinetic.svg';
 import Button from '../../components/Button';
+import { kineticBannerEnabled } from '../../featureFlags/selectors';
 import theme from '../../theme';
 import { disablePrint } from './utils/disablePrint';
 
@@ -92,8 +94,14 @@ const LabsCallLink = styled(Button)`
 `;
 
 // tslint:disable-next-line: variable-name
-const LabsCTA = () =>
-  <LabsCallWrapper data-async-content>
+const LabsCTA = () => {
+  const enabled = useSelector(kineticBannerEnabled);
+
+  if (!enabled) {
+    return null;
+  }
+
+  return <LabsCallWrapper data-async-content>
     <LabsCallHeader>
       <Column>
         <LabsLogo src={icon} role='img' alt='' />
@@ -122,6 +130,7 @@ const LabsCTA = () =>
         rel='noopener'
       />
     </Column>
-  </LabsCallWrapper>;
+  </LabsCallWrapper>
+};
 
 export default LabsCTA;
