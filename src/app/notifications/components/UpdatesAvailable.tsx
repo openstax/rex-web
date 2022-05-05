@@ -1,5 +1,5 @@
 import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
   activateSwAndReload,
@@ -16,17 +16,19 @@ import { Body, Group, Header, P } from './Card';
 
 // tslint:disable-next-line:variable-name
 const UpdatesAvailable = ({className}: {className?: string}) => {
-  const serviceWorkerContainer = assertWindow().navigator.serviceWorker;
+  const readyPromise = assertWindow().navigator.serviceWorker?.ready;
   const [sw, setSw] = useState<ServiceWorkerRegistration | undefined>(undefined);
 
-  if (serviceWorkerContainer) {
-    serviceWorkerContainer.ready.then((registration) => {
+  useEffect(() => {
+    readyPromise?.then((registration) => {
       findAndInstallServiceWorkerUpdate(registration, () => setSw(registration));
     });
+  }, [readyPromise]);
 
-    if (!sw) {
-      return null;
-    }
+  // if the readyPromise exists, wait for it
+  // otherwise, call activateSwAndReload() with undefined to force a reload instead
+  if (readyPromise && !sw) {
+    return null;
   }
 
   return <Body className={className}>

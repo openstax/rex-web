@@ -34,6 +34,9 @@ describe('UpdatesAvailable', () => {
 
   it('reloads on click', async() => {
     const component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
+    // wait for useEffect()
+    await new Promise((resolve) => setImmediate(resolve));
+    // wait for the ready Promise
     await new Promise((resolve) => setImmediate(resolve));
     component.root.findByType('button').props.onClick();
     expect(reload).toHaveBeenCalled();
