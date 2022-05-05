@@ -10,7 +10,9 @@ import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResu
 import { treeWithoutUnits, treeWithUnits } from '../../../test/trees';
 import { assertDocument } from '../../utils';
 import { ArchivePage, LinkedArchiveTree } from '../types';
+import { SearchScrollTarget } from './types';
 import {
+  findSearchResultHit,
   generateKeyTermExcerpt,
   getFirstResult,
   getFormattedSearchResults,
@@ -291,5 +293,49 @@ describe('generateKeyTermExcerpt', () => {
       )).toMatchInlineSnapshot((
         `"sample definition with more than 115 characters sample definition with more than 115 characters sample ..."`
       ));
+  });
+});
+
+describe('findSearchResultHit', () => {
+  const anchor = 'fs-123';
+  const results = [
+    makeSearchResultHit({
+      book: mockArchive.book,
+      highlights: ['asdf foo … <strong>asdf</strong>'],
+      page: mockArchive.page,
+      sourceId: anchor,
+    }),
+    makeSearchResultHit({
+      book: mockArchive.book,
+      highlights: ['asdf foo … <strong>asdf</strong>'],
+      page: mockArchive.page,
+      sourceId: 'fs-456',
+    }),
+    makeSearchResultHit({
+      book: mockArchive.book,
+      highlights: ['ghjk bar … <strong>ghjk</strong>'],
+      page: mockArchive.lastPage,
+      sourceId: anchor, // intentionally use identical anchor on different page
+    }),
+  ];
+  const target: SearchScrollTarget = { type: 'search', index: 0, elementId: anchor };
+
+  it('matches a page and element', () => {
+    let match = findSearchResultHit(results, target, mockArchive.page.id);
+    expect(match?.source.pageId).toMatch(mockArchive.page.id);
+    expect(match?.source.elementId).toEqual(anchor);
+
+    match = findSearchResultHit(results, target, mockArchive.lastPage.id);
+    expect(match?.source.pageId).toMatch(mockArchive.lastPage.id);
+  });
+
+  it('matches an element without a page', () => {
+    // Without a page, it should find the first element match
+    let match = findSearchResultHit(results, target);
+    expect(match?.source.pageId).toBe(results[0].source.pageId);
+    expect(match?.source.elementId).toEqual(results[0].source.elementId);
+
+    match = findSearchResultHit(results, {...target, elementId: results[1].source.elementId});
+    expect(match?.source.elementId).toEqual(results[1].source.elementId);
   });
 });
