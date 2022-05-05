@@ -93,7 +93,7 @@ const LabsCallLink = styled(Button)`
 
 // tslint:disable-next-line: variable-name
 const LabsCTA = () =>
-  <LabsCallWrapper>
+  <LabsCallWrapper data-experiment={false}>
     <LabsCallHeader>
       <Column>
         <LabsLogo src={icon} role='img' alt='' />
