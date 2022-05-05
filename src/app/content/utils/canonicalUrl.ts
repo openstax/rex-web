@@ -33,7 +33,7 @@ export async function getCanonicalUrlParams(
   let canonicalBook;
   let treeSection;
 
-  while (!done) {
+  while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
       const version = assertDefined(
         getBookVersionFromUUIDSync(id),
