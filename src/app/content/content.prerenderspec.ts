@@ -25,6 +25,7 @@ describe('content', () => {
         '[data-testid="user-nav"]',
         '[data-testid="nav-login"]',
         '[data-experiment]',
+        '[data-async-content]',
       ].forEach((selector) => {
         root.querySelectorAll(selector).forEach((element) => {
           element.remove();
