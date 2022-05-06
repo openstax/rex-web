@@ -72,6 +72,7 @@ describe('registerPageView', () => {
     it('does not register a page view if pathname and modal query are unchanged', async() => {
       await hook(action);
       expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/'});
+      mockGa.mockReset();
       await hook(action);
       expect(mockGa).not.toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/'});
     });
