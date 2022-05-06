@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LabsCTA renders \`null\` when selector is false 1`] = `null`;
+
+exports[`LabsCTA renders cta when selector is true 1`] = `
+<div
+  className="LabsCall__LabsCallWrapper-d86l90-1 bcbaHX"
+  data-async-content={true}
+>
+  <div
+    className="LabsCall__LabsCallHeader-d86l90-3 sNaCK"
+  >
+    <div
+      className="LabsCall__Column-d86l90-2 deeNsF"
+    >
+      <img
+        alt=""
+        className="LabsCall__LabsLogo-d86l90-0 dPyHAM"
+        role="img"
+        src="kinetic.svg"
+      />
+    </div>
+    <div
+      className="LabsCall__Column-d86l90-2 gqXLzN"
+    >
+      <div
+        className="LabsCall__LabsText-d86l90-4 cjnDlO"
+        size="h2"
+      >
+        Do you know how you learn best?
+      </div>
+    </div>
+  </div>
+  <div
+    className="LabsCall__Column-d86l90-2 hGpelF"
+  >
+    <div
+      className="LabsCall__LabsText-d86l90-4 hPIBGI"
+      size="text"
+    >
+      Kinetic by OpenStax offers access to innovative study tools designed to help you maximize your learning potential.
+    </div>
+  </div>
+  <div
+    className="LabsCall__Column-d86l90-2 kFNwm"
+  >
+    <a
+      className="Button-ayg7nk-0 LabsCall__LabsCallLink-d86l90-5 imqIKp"
+      data-analytics-label="kinetic-banner"
+      href="/kinetic/"
+      rel="noopener"
+      target="_blank"
+    >
+      Explore Kinetic
+    </a>
+  </div>
+</div>
+`;
