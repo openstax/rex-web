@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import icon from '../../../assets/kinetic.svg';
 import Button from '../../components/Button';
-import { kineticBannerVariant } from '../../featureFlags/selectors';
+import { kineticBannerEnabled } from '../../featureFlags/selectors';
 import theme from '../../theme';
 import { disablePrint } from './utils/disablePrint';
 
@@ -14,7 +14,7 @@ const LabsLogo = styled.img`
 `;
 
 // tslint:disable-next-line: variable-name
-const LabsCTAWrapper = styled.div`
+const LabsCallWrapper = styled.div`
   width: 100%;
   max-width: 82.5rem;
   margin: 0 auto 1.6rem;
@@ -55,7 +55,7 @@ const Column = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const LabsCTAHeader = styled.div`
+const LabsCallHeader = styled.div`
   display: flex;
   flex-direction: row;
   ${theme.breakpoints.mobileMedium(css`
@@ -73,11 +73,7 @@ const LabsText = styled.div`
   font-size: ${(props) => props.size}rem;
   font-weight: ${(props) => props.weight};
   line-height: ${(props) => props.lineHeight}rem;
-  ${(props) => props.size === 'h1' ? css`
-      font-size: 1.4rem;
-      font-weight: 500;
-      line-height: 1.6rem;
-    ` : props.size === 'h2' ? css`
+  ${(props) => props.size === 'h2' ? css`
       font-size: 2rem;
       font-weight: 500;
       line-height: 2.4rem;
@@ -93,88 +89,36 @@ const LabsText = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const LabsCTALink = styled(Button)`
+const LabsCallLink = styled(Button)`
   background-color: #6922ea;
 `;
 
-const variants = [
-  [
-    {
-      maxWidth: 17,
-      text: [
-        {text: 'Kinetic by OpenStax:', size: 'h1'},
-        {text: 'Expand Your Learning Potential', size: 'h2'},
-      ],
-    },
-    {
-      text: [
-        {
-          size: 'text',
-          text: 'Explore innovative study tools designed to help you discover how you learn best.',
-        },
-      ],
-    },
-  ],
-  [
-    {
-      maxWidth: 17,
-      text: [
-        {text: 'Do you know how you learn best?', size: 'h2'},
-      ],
-    },
-    {
-      text: [
-        {
-          size: 'text',
-          text: 'Kinetic by OpenStax offers access to innovative study tools designed' +
-                ' to help you maximize your learning potential.',
-        },
-      ],
-    },
-  ],
-  [
-    {
-      maxWidth: 25,
-      text: [
-        {text: 'Kinetic by OpenStax:', size: 'h1'},
-        {text: 'A brighter future for digital education starts here.', size: 'h2'},
-      ],
-    },
-    {
-      text: [
-        {
-          size: 'text',
-          text: 'See how you can help us create better online learning tools optimized to help everyone grow.',
-        },
-      ],
-    },
-  ],
-];
-
 // tslint:disable-next-line: variable-name
 const LabsCTA = () => {
-  const variant = useSelector(kineticBannerVariant);
-  const config = typeof variant === 'number' && variants[variant];
+  const enabled = useSelector(kineticBannerEnabled);
 
-  if (!config) {
+  if (!enabled) {
     return null;
   }
 
   return (
-    <LabsCTAWrapper data-experiment={true}>
-      <LabsCTAHeader>
+    <LabsCallWrapper data-async-content>
+      <LabsCallHeader>
         <Column>
           <LabsLogo src={icon} role='img' alt='' />
         </Column>
-        <Column maxWidth={config[0].maxWidth}>
-          {config[0].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
+        <Column maxWidth={17}>
+          <LabsText size={'h2'}>Do you know how you learn best?</LabsText>
         </Column>
-      </LabsCTAHeader>
+      </LabsCallHeader>
       <Column flex>
-        {config[1].text.map(({text, ...params}, j) => <LabsText {...params} key={j}> {text}</LabsText>)}
+        <LabsText size={'text'}>
+          Kinetic by OpenStax offers access to innovative study tools designed
+          to help you maximize your learning potential.
+        </LabsText>
       </Column>
       <Column last>
-        <LabsCTALink
+        <LabsCallLink
           component={<a href='/kinetic/'>
             <FormattedMessage id='i18n:toolbar:labs-cta:link'>
               {(msg) => msg}
@@ -187,7 +131,7 @@ const LabsCTA = () => {
           rel='noopener'
         />
       </Column>
-    </LabsCTAWrapper>
+    </LabsCallWrapper>
   );
 };
 
