@@ -8,6 +8,7 @@ import * as contentSelectors from '../../selectors';
 import { State } from '../../types';
 
 export const isVerticalNavOpenConnector = connect((state: AppState) => ({
+  isDesktopSearchOpen: !!searchSelectors.query(state),
   isTocOpen: contentSelectors.tocOpen(state),
   isVerticalNavOpen: searchSelectors.searchResultsOpen(state) || contentSelectors.tocOpen(state),
 }));
@@ -22,6 +23,6 @@ export const styleWhenTocClosed = (closedStyle: FlattenSimpleInterpolation) => c
 export const styleWhenSidebarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
   ${(props: {isVerticalNavOpen: State['tocOpen']}) =>
     props.isVerticalNavOpen === null && theme.breakpoints.mobile(closedStyle)}
-  ${(props: {isVerticalNavOpen: State['tocOpen']}) =>
-    props.isVerticalNavOpen === false && closedStyle}
+  ${(props: {isDesktopSearchOpen: boolean; isVerticalNavOpen: State['tocOpen']}) =>
+    props.isDesktopSearchOpen === false && props.isVerticalNavOpen === false && closedStyle}
 `;

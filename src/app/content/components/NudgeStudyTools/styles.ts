@@ -150,7 +150,7 @@ export const ClickBlocker = styled.div`
   height: 100%;
   pointer-events: all;
   background-color: ${theme.color.black};
-  opacity: 0.8;
+  opacity: 0.9;
 
   grid-area: ${({area}: ClickBlockerProps) => area};
 `;
