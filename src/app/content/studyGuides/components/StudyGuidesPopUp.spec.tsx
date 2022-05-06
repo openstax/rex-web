@@ -48,7 +48,7 @@ describe('Study Guides button and PopUp', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
-    user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
+    user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid'};
 
     // book, page, and enabled FF needed for modal to open.
     store.dispatch(receiveBook(book));

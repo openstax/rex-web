@@ -25,6 +25,7 @@ describe('content', () => {
         '[data-testid="user-nav"]',
         '[data-testid="nav-login"]',
         '[data-experiment]',
+        '[data-async-content]',
       ].forEach((selector) => {
         root.querySelectorAll(selector).forEach((element) => {
           element.remove();
@@ -33,9 +34,11 @@ describe('content', () => {
 
       // these attributes are intended to be changed on page load
       [
+        ['[data-testid="toolbar"]', 'style'],
         ['[data-testid="toc"]', 'style'],
         ['[data-testid="search-results-sidebar"]', 'style'],
         ['[data-testid="loader"] path', 'style'],
+        ['[data-testid="centered-content-row"]', 'style'],
         // img src is changed from data:image/svg+xml;base64... to static path
         ['[data-testid="navbar"] img', 'src'],
         // caused by DynamicContentStyles component

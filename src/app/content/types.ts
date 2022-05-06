@@ -38,6 +38,7 @@ export type Params = {
 
 export interface State {
   tocOpen: boolean | null;
+  mobileMenuOpen: boolean;
   pageNotFoundId: string | null;
   params: Params | null;
   practiceQuestions: PracticeQuestionsState;

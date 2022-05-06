@@ -59,6 +59,7 @@ const Card = (props: CardProps) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
+  const [highlightRemoved, setHighlightRemoved] = React.useState<boolean>(false);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const services = useServices();
@@ -110,6 +111,7 @@ const Card = (props: CardProps) => {
 
   const onRemove = () => {
     if (props.data) {
+      setHighlightRemoved(true);
       props.remove(props.data, {
         locationFilterId,
         pageId: page.id,
@@ -143,7 +145,7 @@ const Card = (props: CardProps) => {
     shouldFocusCard: props.shouldFocusCard,
   };
 
-  return <div onClick={focusCard} data-testid='card'>
+  return !highlightRemoved ? <div onClick={focusCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
@@ -162,7 +164,7 @@ const Card = (props: CardProps) => {
         data={props.data}
       />
     }
-  </div>;
+  </div> : null;
 };
 
 // tslint:disable-next-line: variable-name
