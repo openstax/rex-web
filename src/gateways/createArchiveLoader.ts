@@ -50,9 +50,9 @@ export default (getArchivePath: () => string, options: Options = {}) => {
     ...options,
   };
 
-  const contentUrlBase = (host: string, path: string, bookId: string) => disablePerBookPinning
-    ? `${host}${path}`
-    : `${host}${getBookVersionFromUUIDSync(bookId)?.archiveOverride || path}`;
+  const contentUrlBase = (host: string, archivePath: string, bookId: string) => disablePerBookPinning
+    ? `${host}${archivePath}`
+    : `${host}${getBookVersionFromUUIDSync(bookId)?.archiveOverride || archivePath}`;
   const contentUrl = (host: string, path: string, bookId: string, ref: string) =>
     `${contentUrlBase(host, path, bookId)}/contents/${ref}.json`;
 
