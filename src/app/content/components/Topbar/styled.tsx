@@ -277,6 +277,9 @@ export const MobileSearchWrapper = styled.div`
     padding-left: ${verticalNavbarMaxWidth}rem;
     display: block;
   `)}
+  ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen && css`
+    display: none;
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -304,10 +307,18 @@ export const InnerText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SeachResultsTextButton = styled(PlainButton)`
+export const SearchResultsTextButton = styled(PlainButton)`
   ${textRegularStyle}
   ${decoratedLinkStyle}
   display: flex;
   overflow: visible;
   min-width: auto;
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseSearchResultsTextButton = styled(SearchResultsTextButton)`
+  display: none;
+  ${theme.breakpoints.mobileMedium(css`
+    display: block;
+  `)}
 `;

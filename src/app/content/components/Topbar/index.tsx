@@ -133,20 +133,21 @@ class Topbar extends React.Component<Props, State> {
           }
         </Styled.SearchInputWrapper>
       </Styled.SearchPrintWrapper>
-      {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
+      <Styled.MobileSearchWrapper mobileToolbarOpen={this.props.mobileToolbarOpen}>
         <Styled.Hr />
         <Styled.MobileSearchContainer>
           {showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-              {(msg) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
+              {(msg) => <Styled.SearchResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
                 <Styled.LeftArrow /><Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.SeachResultsTextButton>}
+              </Styled.SearchResultsTextButton>}
             </FormattedMessage>}
           {!showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-              {(msg) => <Styled.SeachResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
-                <Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.SeachResultsTextButton>}
+              {(msg: string) =>
+                <Styled.CloseSearchResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
+                  <Styled.InnerText>{msg}</Styled.InnerText>
+                </Styled.CloseSearchResultsTextButton>}
             </FormattedMessage>}
           <Styled.SearchInputWrapper
             action='#'
@@ -176,7 +177,7 @@ class Topbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
         </Styled.MobileSearchContainer>
-      </Styled.MobileSearchWrapper>}
+      </Styled.MobileSearchWrapper>
     </Styled.TopBarWrapper>;
   }
 }
