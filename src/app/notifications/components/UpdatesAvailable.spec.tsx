@@ -72,9 +72,8 @@ describe('UpdatesAvailable', () => {
     expect(component!.root.findAllByType('button').length).toBe(1);
   });
 
-  it(
-    'doesn\'t error or render if the serviceWorker or readyPromise change after render(), then the old readyPromise is resolved',
-    async() => {
+  it('doesn\'t render if the serviceWorker or readyPromise change after render(),\
+      then the old readyPromise is resolved', async() => {
       let component: ReactTestRenderer;
 
       // wait for useEffect()
@@ -87,7 +86,7 @@ describe('UpdatesAvailable', () => {
         // replace the readyPromise before useEffect()
         Object.defineProperty(window!.navigator, 'serviceWorker', {
           configurable: true, value: {
-            ready: Promise.resolve(sw)
+            ready: Promise.resolve(sw),
           },
         });
       });
@@ -107,9 +106,8 @@ describe('UpdatesAvailable', () => {
     }
   );
 
-  it(
-    'doesn\'t error or render if the serviceWorker or readyPromise change after useEffect(), then the old readyPromise is resolved',
-    async() => {
+  it('doesn\'t render if the serviceWorker or readyPromise change after useEffect(),\
+      then the old readyPromise is resolved', async() => {
       let component: ReactTestRenderer;
 
       // wait for useEffect()
