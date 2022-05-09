@@ -13,7 +13,7 @@ export const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`
 export type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
 
 export const renderAndSaveSitemap = async(
-  saveFile: (path: string, contents: string) => void,
+  saveFile: (path: string, contents: string) => Promise<unknown>,
   slug: string,
   urls: SitemapItemOptions[]
 ) => {
@@ -27,7 +27,7 @@ export const renderAndSaveSitemap = async(
 };
 
 export const renderAndSaveSitemapIndex = async(
-  saveFile: (path: string, contents: string) => void,
+  saveFile: (path: string, contents: string) => Promise<unknown>,
   urls: SitemapItemOptions[]
 ) => {
   const sitemapIndex = sitemap.buildSitemapIndex({ urls });
@@ -44,6 +44,10 @@ export const renderAndSaveSitemapIndex = async(
 // Multi-instance code cannot store an array of sitemaps in memory and then use it across instances
 const sitemaps: SitemapItemOptions[] = [];
 
+const writeAssetFileAsync = async(filepath: string, contents: string) => {
+  return writeAssetFile(filepath, contents);
+};
+
 export const renderSitemap = async(filename: string, urls: SitemapItemOptions[]) => {
   const lastmod = flow(
     map<SitemapItemOptions, (string | undefined)>(get('lastmod')),
@@ -51,7 +55,7 @@ export const renderSitemap = async(filename: string, urls: SitemapItemOptions[])
     max
   )(urls);
 
-  const filePath = await renderAndSaveSitemap(writeAssetFile, filename, urls);
+  const filePath = await renderAndSaveSitemap(writeAssetFileAsync, filename, urls);
 
   const url = `https://openstax.org${filePath}`;
 
@@ -59,5 +63,5 @@ export const renderSitemap = async(filename: string, urls: SitemapItemOptions[])
 };
 
 export const renderSitemapIndex = async() => {
-  return renderAndSaveSitemapIndex(writeAssetFile, sitemaps);
+  return renderAndSaveSitemapIndex(writeAssetFileAsync, sitemaps);
 };
