@@ -21,6 +21,7 @@ import { isHighlightScrollTarget } from '../../highlights/guards';
 import * as selectHighlights from '../../highlights/selectors';
 import { HighlightData } from '../../highlights/types';
 import * as select from '../../selectors';
+import { expandClosestSolution } from '../../utils/domUtils';
 import attachHighlight from '../utils/attachHighlight';
 import { erase, highlightData, insertPendingCardInOrder, isUnknownHighlightData, updateStyle } from './highlightUtils';
 
@@ -118,6 +119,7 @@ const createHighlighter = (
     onFocusOut: () => onFocusOutHighlight(highlightManagerServices.getProp()),
     onSelect: (...args) => onSelectHighlight({ ...highlightManagerServices, highlighter}, appServices, ...args),
     skipIDsBy: /^(\d+$|term)/,
+    snapCode: true,
     snapMathJax: true,
     snapTableRows: true,
     snapWords: true,
@@ -194,6 +196,8 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
         && toFocus.id === scrollTargetHighlight.id
         && toFocus.id !== focusedId
         && toFocus.id !== scrollTargetHighlightIdThatWasHandled) {
+        // If selected highlight is in the collapsed solution then expand it
+        expandClosestSolution(toFocus.elements[0] as HTMLElement);
         focus(toFocus.id);
         (toFocus.elements[0] as HTMLElement).scrollIntoView();
         scrollTargetHighlightIdThatWasHandled = scrollTargetHighlight.id;

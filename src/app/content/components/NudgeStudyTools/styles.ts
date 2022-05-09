@@ -4,7 +4,7 @@ import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
 import theme from '../../../theme';
 import { remsToPx } from '../../../utils';
-import { arrowDesktopHeight, arrowMobileHeight, closeButtonMobileMargin } from './constants';
+import { arrowDesktopHeight, closeButtonMobileMargin, closeButtonSize, contentWidth } from './constants';
 
 // tslint:disable-next-line: variable-name
 export const NudgeWrapper = styled.div`
@@ -14,17 +14,17 @@ export const NudgeWrapper = styled.div`
 // tslint:disable-next-line: variable-name
 export const NudgeContentWrapper = styled.div`
   position: fixed;
+  width: ${contentWidth};
   z-index: ${theme.zIndex.nudgeOverlay + 1};
   outline: none;
-  ${(props: { top: number, right: number }) => `
+  ${(props: { top: number, left: number }) => `
     top: ${props.top}px;
-    right: ${props.right}px;
+    left: ${props.left}px;
   `}
-  ${theme.breakpoints.mobile(css`
-    right: auto;
+  ${theme.breakpoints.mobileMedium(css`
+    left: auto;
     width: 100%;
-    text-align: center;
-    padding: 0 2rem;
+    padding: 0 1.6rem;
   `)}
 `;
 
@@ -38,7 +38,7 @@ const NudgeHeadingStyles = styled.h2`
   font-size: 3.6rem;
   line-height: 1.1;
   letter-spacing: -1.4px;
-  margin: 0 0 1.7rem 0;
+  margin: 0 0 1.6rem 0;
   color: ${theme.color.text.white};
   overflow: hidden;
 
@@ -48,7 +48,7 @@ const NudgeHeadingStyles = styled.h2`
     white-space: nowrap;
   }
 
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     font-size: 2.4rem;
   `)}
 `;
@@ -65,11 +65,10 @@ export const NudgeTextStyles = styled.div`
   color: ${theme.color.text.white};
   max-width: 690px;
   overflow: hidden;
-  ${theme.breakpoints.mobile(css`
+  ${theme.breakpoints.mobileMedium(css`
     max-width: 100%;
     font-size: 1.6rem;
     line-height: 1.4;
-    padding: 0 2rem;
   `)}
 `;
 
@@ -83,9 +82,6 @@ export const NudgeArrow = styled.img`
     top: ${props.top}px;
     left: ${props.left}px;
   `}
-  ${theme.breakpoints.mobile(css`
-    height: ${arrowMobileHeight}rem;
-  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -102,8 +98,8 @@ export const NudgeCloseButton = styled(PlainButton)`
     top: ${props.top}px;
     left: ${props.left}px;
   `}
-  width: 4rem;
-  height: 4rem;
+  width: ${remsToPx(closeButtonSize)}px;
+  height: ${remsToPx(closeButtonSize)}px;
   padding: 1rem;
   border-radius: 50%;
   border: 1px solid ${theme.color.white};
@@ -157,4 +153,9 @@ export const ClickBlocker = styled.div`
   opacity: 0.9;
 
   grid-area: ${({area}: ClickBlockerProps) => area};
+`;
+
+// tslint:disable-next-line: variable-name
+export const NudgeElementTarget = styled.div`
+  display: contents;
 `;

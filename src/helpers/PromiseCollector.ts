@@ -7,8 +7,8 @@ export default class PromiseCollector {
 
   public add(promise: Promise<any>): void {
     this._promises.push(promise);
-
-    promise.then(() => {
+    // ignore thrown errors because we are forking to remove from the collection
+    promise.catch(() => null).finally(() => {
       this._promises.splice(this._promises.indexOf(promise), 1);
     });
   }

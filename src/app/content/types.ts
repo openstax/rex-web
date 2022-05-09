@@ -48,6 +48,7 @@ export type ContentRoute = Route<Params, {} | ContentRouteState>;
 // Not related to ContentRouteState above
 export interface State {
   tocOpen: boolean | null;
+  mobileMenuOpen: boolean;
   pageNotFoundId: string | null;
   params: Params | null;
   practiceQuestions: PracticeQuestionsState;

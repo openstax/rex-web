@@ -1,6 +1,7 @@
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { assertNotNull } from '../../../utils';
+import { expandClosestSolution } from '../../utils/domUtils';
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
@@ -12,6 +13,7 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   tweakFigures(rootEl);
   fixLists(rootEl);
   wrapSolutions(document, rootEl, intl);
+  expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, intl);
   setLinksAttributes(rootEl);
 };
@@ -19,7 +21,8 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
 function removeDocumentTitle(rootEl: HTMLElement) {
   rootEl.querySelectorAll([
     'h1[data-type="document-title"]',
-    'h2[data-type="document-title"]',
+    'h2[data-type="document-title"]:not([data-rex-keep="true"])',
+    'h3[data-type="document-subtitle"]',
     'div[data-type="document-title"]',
   ].join(',')).forEach((el) => el.remove());
 }
@@ -105,6 +108,15 @@ function wrapSolutions(document: Document, rootEl: HTMLElement, intl: IntlShape)
     `;
     el.replaceWith(detailsEl);
   });
+}
+
+function expandSolutionForFragment(document: Document) {
+  // Auto expand a solution that contains the anchor the URL fragment points to
+  const id = typeof(window) !== 'undefined' && window.location.hash.substr(1);
+
+  if (id) {
+    expandClosestSolution(document.getElementById(id) as HTMLElement);
+  }
 }
 
 function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape) {

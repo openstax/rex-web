@@ -9,30 +9,29 @@ import theme from '../../theme';
 import { AppState } from '../../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQuestionsPopup';
-import SearchResultsSidebar from '../search/components/SearchResultsSidebar';
 import { mobileToolbarOpen } from '../search/selectors';
 import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
+import CenteredContentRow from './CenteredContentRow';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
-  mainContentBackground,
   scrollOffset,
-  sidebarDesktopWidth,
   sidebarTransitionTime,
-  toolbarDesktopHeight,
   toolbarMobileExpandedHeight,
-  toolbarMobileHeight
+  topbarDesktopHeight,
+  topbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
-import TableOfContents from './TableOfContents';
-import Toolbar from './Toolbar';
-import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
+
+import Navigation from './Navigation';
+import Topbar from './Topbar';
+import { isVerticalNavOpenConnector } from './utils/sidebar';
 import Wrapper from './Wrapper';
 
 // tslint:disable-next-line:variable-name
@@ -50,68 +49,44 @@ const Background = styled.div`
 const ContentNotifications = styled(Notifications)`
   &&& {
     z-index: ${theme.zIndex.contentNotifications};
-    top: ${bookBannerDesktopMiniHeight + toolbarDesktopHeight}rem;
+    top: ${bookBannerDesktopMiniHeight + topbarDesktopHeight}rem;
     ${theme.breakpoints.mobile(css`
       top: ${({mobileExpanded}: {mobileExpanded: boolean}) => mobileExpanded
           ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
-          : bookBannerMobileMiniHeight + toolbarMobileHeight
+          : bookBannerMobileMiniHeight + topbarMobileHeight
       }rem;
     `)}
   }
 `;
 
 // tslint:disable-next-line:variable-name
-const CenteredContentRow = styled.div`
-  overflow: visible; /* so sidebar position: sticky works */
-  margin: 0 auto;
-  max-width: ${contentWrapperMaxWidth}rem;
-
-  @media screen {
-    min-height: 100%;
-    display: flex;
-    flex-direction: row;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-const UndoPadding = isOpenConnector(styled.div`
+const UndoPadding = styled.div`
   @media screen {
     overflow: visible;
     min-height: 100%;
     display: flex;
     flex-direction: column;
-    margin-right: -${theme.padding.page.desktop}rem;
-    ${theme.breakpoints.mobile(css`
-      margin: 0 -${theme.padding.page.mobile}rem;
-    `)}
-
-    ${styleWhenSidebarClosed(css`
-      margin-left: -${theme.padding.page.desktop}rem;
-      ${theme.breakpoints.mobile(css`
-        margin-left: -${theme.padding.page.mobile}rem;
-      `)}
-    `)}
   }
-`);
+`;
 
 // tslint:disable-next-line:variable-name
-const MainContentWrapper = isOpenConnector(styled.div`
+const MainContentWrapper = isVerticalNavOpenConnector(styled.div`
   @media screen {
     flex: 1;
     display: flex;
     flex-direction: column;
     overflow: visible;
-    background-color: ${mainContentBackground};
     transition: max-width ${sidebarTransitionTime}ms;
     width: 100%;
-    max-width: ${contentWrapperMaxWidth - sidebarDesktopWidth}rem;
+    margin: 0 auto;
+    padding-left: 0;
     ${theme.breakpoints.mobile(css`
+      padding-left: 0;
       max-width: ${contentWrapperMaxWidth}rem;
     `)}
-    ${styleWhenSidebarClosed(css`
+    ${(props) => (props.isVerticalNavOpen === false) && `
       max-width: ${contentWrapperMaxWidth}rem;
-      margin: 0 auto;
-    `)}
+    `}
   }
 `);
 
@@ -119,7 +94,7 @@ const MainContentWrapper = isOpenConnector(styled.div`
 const OuterWrapper = styled.div`
   @media screen {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow: visible;
   }
 `;
@@ -169,12 +144,12 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   <ScrollOffset
     desktopOffset={
       bookBannerDesktopMiniHeight
-      + toolbarDesktopHeight
+      + topbarDesktopHeight
       + scrollOffset
     }
     mobileOffset={
       bookBannerMobileMiniHeight
-      + (mobileExpanded ? toolbarMobileExpandedHeight : toolbarMobileHeight)
+      + (mobileExpanded ? toolbarMobileExpandedHeight : topbarMobileHeight)
       + scrollOffset
     }
   />
@@ -185,19 +160,18 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       <StudyguidesPopUp />
       <PracticeQuestionsPopup />
       <NudgeStudyTools />
-      <Toolbar />
       <OuterWrapper>
-        <SearchResultsSidebar/>
+        <Topbar />
         <Wrapper>
+          <Navigation />
           <CenteredContentRow>
-            <TableOfContents />
             <ContentPane>
               <UndoPadding>
                 <MainContentWrapper>
                   <ContentNotifications mobileExpanded={mobileExpanded} />
                   <Page />
                   <Attribution />
-                  <Footer/>
+                  <Footer />
                 </MainContentWrapper>
               </UndoPadding>
             </ContentPane>

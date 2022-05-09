@@ -39,6 +39,12 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Precalculus */ ['fd53eae1-fa23-47c7-bb1b-972349835c3c', {}],
     /* Algebra & Trigonometry 2e */ ['eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e', {}],
   ],
+  /* Anatomy & Physiology */ '14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22': [
+    /* Anatomy & Physiology 2e */ ['4fd99458-6fdf-49bc-8688-a6dc17a1268d', {}],
+  ],
+  /* Astronomy */ '2e737be8-ea65-48c3-aa0a-9f35b4c6a966': [
+    /* Astronomy 2e */ ['4c29f9e5-a53d-42c0-bdb5-091990527d79', {}],
+  ],
   /* Principles of Macroeconomics 2e */ '27f59064-990e-48f1-b604-5188b9086c29': [
     /* Principles of Economics 2e */['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
   ],

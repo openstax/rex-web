@@ -4,6 +4,8 @@ import { defaultTheme } from './components/constants';
 import { hasOSWebData } from './guards';
 import { getIdFromPageParam } from './utils';
 import {
+  archiveTreeSectionIsChapter,
+  findArchiveTreeNode,
   findArchiveTreeNodeByPageParam,
   prevNextBookPage,
 } from './utils/archiveTreeUtils';
@@ -16,6 +18,11 @@ export const localState = createSelector(
 export const tocOpen = createSelector(
   localState,
   (state) => !state.search.query && state.tocOpen
+);
+
+export const mobileMenuOpen = createSelector(
+  localState,
+  (state) => state.mobileMenuOpen
 );
 
 export const book = createSelector(
@@ -91,6 +98,12 @@ export const bookAndPage = createSelector(
   book,
   page,
   (selectedBook, selectedPage) => ({book: selectedBook, page: selectedPage})
+);
+
+export const firstChapter = createSelector(
+  book,
+  (selectedBook) =>
+  selectedBook && selectedBook.tree && findArchiveTreeNode(archiveTreeSectionIsChapter, selectedBook.tree)
 );
 
 export const prevNextPage = createSelector(

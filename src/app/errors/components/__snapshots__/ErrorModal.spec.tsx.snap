@@ -2,7 +2,7 @@
 
 exports[`ErrorModal matches snapshot 1`] = `
 <div
-  className="error-modal styles__ModalWrapper-sc-1gxqzoa-6 bfHzdf"
+  className="error-modal styles__ModalWrapper-sc-1gxqzoa-6 hrzvjm"
 >
   <div
     className="styles__CardWrapper-sc-1gxqzoa-7 llgsuk"
@@ -62,7 +62,7 @@ exports[`ErrorModal matches snapshot 1`] = `
           dangerouslySetInnerHTML={
             Object {
               "__html": "
-  We're not quite sure what went wrong. Refresh the page. If this doesn't solve
+  We're not quite sure what went wrong. Restart your browser. If this doesn't solve
   the problem, visit our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a>.
 ",
             }
@@ -90,7 +90,7 @@ exports[`ErrorModal matches snapshot 1`] = `
 
 exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
 <div
-  className="error-modal styles__ModalWrapper-sc-1gxqzoa-6 bfHzdf"
+  className="error-modal styles__ModalWrapper-sc-1gxqzoa-6 hrzvjm"
 >
   <div
     className="styles__CardWrapper-sc-1gxqzoa-7 llgsuk"
@@ -150,7 +150,7 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
           dangerouslySetInnerHTML={
             Object {
               "__html": "
-  We're not quite sure what went wrong. Refresh the page. If this doesn't solve
+  We're not quite sure what went wrong. Restart your browser. If this doesn't solve
   the problem, visit our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a>.
 ",
             }
