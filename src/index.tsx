@@ -114,8 +114,6 @@ loadOptimize(window, app.store);
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
   .then((registration) => {
-    app.services.serviceWorker = registration;
-
     if (!window.navigator.serviceWorker.controller) {
       return;
     }
