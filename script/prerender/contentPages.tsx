@@ -127,7 +127,7 @@ export const getStats = () => {
 
 export async function renderAndSavePage(
   services: AppOptions['services'],
-  savePage: (uri: string, content: string) => void,
+  savePage: (uri: string, content: string) => Promise<unknown>,
   code: number,
   serializedMatch: SerializedPageMatch
 ) {
@@ -145,7 +145,7 @@ export async function renderAndSavePage(
 // Note: savePageAsset(), makeRenderPage() and prepareBooks()
 // are used only by the single-instance prerender code
 
-function savePageAsset(url: string, html: string) {
+async function savePageAsset(url: string, html: string) {
   if (assetDirectoryExists(url)) {
     writeAssetFile(path.join(url, 'index.html'), html);
   } else {
