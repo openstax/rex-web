@@ -5,6 +5,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
+import { useServices } from '../../../context/Services';
 import { AppState, Dispatch } from '../../../types';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import ColorFilter from '../../components/popUp/ColorFilter';
@@ -14,9 +15,10 @@ import PrintButton from '../../components/popUp/PrintButton';
 import { FiltersChange } from '../../components/popUp/types';
 import { SummaryFiltersUpdate } from '../../highlights/types';
 import { LinkedArchiveTreeNode } from '../../types';
-import { printStudyGuides, updateSummaryFilters } from '../actions';
+import { printStudyGuides } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
+import { updateQueryFromFilterChange } from '../utils';
 import { cookieUTG } from './UsingThisGuide/constants';
 import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
 import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
@@ -48,9 +50,6 @@ const ConnectedChapterFilter = connect(
     locationFilters: selectors.studyGuidesLocationFilters(state),
     locationFiltersWithContent: selectors.studyGuidesLocationFiltersWithContent(state),
     selectedLocationFilters: selectors.summaryLocationFilters(state),
-  }),
-  (dispatch: Dispatch) => ({
-    setFilters: (change: FiltersChange<LinkedArchiveTreeNode>) => dispatch(updateSummaryFilters({ locations: change })),
   })
 )(ChapterFilter);
 
@@ -72,10 +71,6 @@ const ConnectedColorFilter = connect(
   (state: AppState) => ({
     colorFiltersWithContent: selectors.highlightColorFiltersWithContent(state),
     selectedColorFilters: selectors.summaryColorFilters(state),
-  }),
-  (dispatch: Dispatch) => ({
-    updateSummaryFilters: (change: FiltersChange<HighlightColorEnum>) =>
-      dispatch(updateSummaryFilters({ colors: change })),
   })
 )(StyledColorFilter);
 
@@ -85,9 +80,6 @@ const ConnectedFilterList = connect(
     locationFilters: selectors.studyGuidesLocationFilters(state),
     selectedColorFilters: selectors.summaryColorFilters(state),
     selectedLocationFilters: selectors.summaryLocationFilters(state),
-  }),
-  (dispatch: Dispatch) => ({
-    setFilters: (change: SummaryFiltersUpdate) => dispatch(updateSummaryFilters(change)),
   })
 )(FiltersList);
 
@@ -118,9 +110,12 @@ const ConnectedPrintButton = connect(
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
   const [isUTGopen, setUTGopen] = React.useState(!Cookies.get(cookieUTG));
+  const services = useServices();
+  const { dispatch } = services;
+  const state = services.getState();
 
   const toggleUsingThisGuide = () => {
-    setUTGopen((state) => !state);
+    setUTGopen((toggleState) => !toggleState);
   };
 
   return <Filters>
@@ -130,7 +125,12 @@ export default () => {
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
         dataAnalyticsLabel='Filter study guides by Chapter'
       >
-        <ConnectedChapterFilter disabled={userLoggedOut} multiselect={true} />
+        <ConnectedChapterFilter
+          disabled={userLoggedOut}
+          multiselect={true}
+          setFilters={(change: FiltersChange<LinkedArchiveTreeNode>) =>
+            updateQueryFromFilterChange(dispatch, state, { locations: change })}
+        />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'
@@ -141,6 +141,8 @@ export default () => {
           disabled={userLoggedOut}
           styles={highlightStyles}
           labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
+          updateSummaryFilters={(change: FiltersChange<HighlightColorEnum>) =>
+            updateQueryFromFilterChange(dispatch, state, { colors: change })}
         />
       </FilterDropdown>
       <RightButtonsWrapper>
@@ -158,6 +160,7 @@ export default () => {
       colorLabelKey={(color: HighlightColorEnum) => `i18n:studyguides:popup:filters:${color}`}
       chapterAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:chapter'}
       chapterDataAnalyticsLabel={(splitTitle: string) => `Remove breadcrumb for chapter ${splitTitle}`}
+      setFilters={(change: SummaryFiltersUpdate) => updateQueryFromFilterChange(dispatch, state, change)}
     />}
   </Filters>;
 };

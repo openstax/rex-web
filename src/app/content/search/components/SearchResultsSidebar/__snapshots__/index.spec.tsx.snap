@@ -3,21 +3,21 @@
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 cDnEFJ"
+  className="styled__SearchResultsBar-as3fh1-4 dZOFAN"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div>
     <div
-      className="styled__CloseIconWrapper-as3fh1-21 fQdWHv"
+      className="styled__CloseIconWrapper-as3fh1-21 iexFlJ"
     >
       <button
-        className="styled__CloseIconButton-as3fh1-20 hTNMDN"
+        className="styled__CloseIconButton-as3fh1-20 esHwCd"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="styled__CloseIcon-as3fh1-1 gsCQGC"
+          className="styled__CloseIcon-as3fh1-1 ldilTB"
           focusable="false"
           height="15px"
           version="1.1"
@@ -47,7 +47,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
       </button>
     </div>
     <div
-      className="styled__SearchQuery-as3fh1-8 dHObjQ"
+      className="styled__SearchQuery-as3fh1-7 dkZmAk"
     >
       <div
         className="styled__SearchQueryAlignment-as3fh1-19 kImcBZ"
@@ -68,29 +68,29 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 cDnEFJ"
+  className="styled__SearchResultsBar-as3fh1-4 dZOFAN"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
-    className="styled__SearchResultsTopBar-as3fh1-5 gWCuVB"
+    className="styled__SearchResultsTopBar-as3fh1-9 kQLqPC"
   >
     <div
-      className="styled__SearchResultsHeader-as3fh1-6 tKnMq"
+      className="styled__SearchResultsHeader-as3fh1-5 bEjFko"
     >
       <span
-        className="styled__SearchResultsHeaderTitle-as3fh1-7 hcjHXF"
+        className="styled__SearchResultsHeaderTitle-as3fh1-6 dopeqz"
       >
         Search results
       </span>
       <button
-        className="styled__CloseIconButton-as3fh1-20 hTNMDN"
+        className="styled__CloseIconButton-as3fh1-20 esHwCd"
         data-testid="close-search"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="styled__CloseIcon-as3fh1-1 gsCQGC"
+          className="styled__CloseIcon-as3fh1-1 ldilTB"
           focusable="false"
           height="15px"
           version="1.1"
@@ -120,13 +120,13 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       </button>
     </div>
     <div
-      className="styled__SearchQueryWrapper-as3fh1-9 ikvDao"
+      className="styled__SearchQueryWrapper-as3fh1-8 bvmymb"
     >
       <div
-        className="styled__SearchQuery-as3fh1-8 dHObjQ"
+        className="styled__SearchQuery-as3fh1-7 dkZmAk"
       >
         <img
-          className="styled__SearchIconInsideBar-as3fh1-0 edHBGg"
+          className="styled__SearchIconInsideBar-as3fh1-0 jQstdG"
           src="search-icon-v2.svg"
         />
         <div
@@ -222,7 +222,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
             tabIndex={0}
           >
             <div
-              className="styled__SearchBarSummaryContainer-as3fh1-12 hyZoUB"
+              className="styled__SearchBarSummaryContainer-as3fh1-12 flPUZN"
               tabIndex={-1}
             >
               <svg
@@ -266,7 +266,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
               className="styled__NavItem-as3fh1-18 FQWqZ"
             >
               <div
-                className="styled__LinkWrapper-as3fh1-16 eLXzky"
+                className="styled__LinkWrapper-as3fh1-16 cDbWkv"
               >
                 <div
                   className="styled__SearchResultsLink-as3fh1-14 hPsLTj"
@@ -308,29 +308,29 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 cDnEFJ"
+  className="styled__SearchResultsBar-as3fh1-4 dZOFAN"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
   <div
-    className="styled__SearchResultsTopBar-as3fh1-5 gWCuVB"
+    className="styled__SearchResultsTopBar-as3fh1-9 kQLqPC"
   >
     <div
-      className="styled__SearchResultsHeader-as3fh1-6 tKnMq"
+      className="styled__SearchResultsHeader-as3fh1-5 bEjFko"
     >
       <span
-        className="styled__SearchResultsHeaderTitle-as3fh1-7 hcjHXF"
+        className="styled__SearchResultsHeaderTitle-as3fh1-6 dopeqz"
       >
         Search results
       </span>
       <button
-        className="styled__CloseIconButton-as3fh1-20 hTNMDN"
+        className="styled__CloseIconButton-as3fh1-20 esHwCd"
         data-testid="close-search"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="styled__CloseIcon-as3fh1-1 gsCQGC"
+          className="styled__CloseIcon-as3fh1-1 ldilTB"
           focusable="false"
           height="15px"
           version="1.1"
@@ -360,13 +360,13 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       </button>
     </div>
     <div
-      className="styled__SearchQueryWrapper-as3fh1-9 ikvDao"
+      className="styled__SearchQueryWrapper-as3fh1-8 bvmymb"
     >
       <div
-        className="styled__SearchQuery-as3fh1-8 dHObjQ"
+        className="styled__SearchQuery-as3fh1-7 dkZmAk"
       >
         <img
-          className="styled__SearchIconInsideBar-as3fh1-0 edHBGg"
+          className="styled__SearchIconInsideBar-as3fh1-0 jQstdG"
           src="search-icon-v2.svg"
         />
         <div
@@ -393,7 +393,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         className="styled__NavItem-as3fh1-18 FQWqZ"
       >
         <div
-          className="styled__LinkWrapper-as3fh1-16 eLXzky"
+          className="styled__LinkWrapper-as3fh1-16 cDbWkv"
         >
           <div
             className="styled__SearchResultsLink-as3fh1-14 hPsLTj"
@@ -436,7 +436,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             tabIndex={0}
           >
             <div
-              className="styled__SearchBarSummaryContainer-as3fh1-12 hyZoUB"
+              className="styled__SearchBarSummaryContainer-as3fh1-12 flPUZN"
               tabIndex={-1}
             >
               <svg
@@ -481,7 +481,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             >
               <div
                 aria-label="Current Page"
-                className="styled__LinkWrapper-as3fh1-16 eLXzky"
+                className="styled__LinkWrapper-as3fh1-16 cDbWkv"
               >
                 <div
                   className="styled__SearchResultsLink-as3fh1-14 hPsLTj"
@@ -527,7 +527,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             tabIndex={0}
           >
             <div
-              className="styled__SearchBarSummaryContainer-as3fh1-12 hyZoUB"
+              className="styled__SearchBarSummaryContainer-as3fh1-12 flPUZN"
               tabIndex={-1}
             >
               <svg
@@ -571,7 +571,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               className="styled__NavItem-as3fh1-18 FQWqZ"
             >
               <div
-                className="styled__LinkWrapper-as3fh1-16 eLXzky"
+                className="styled__LinkWrapper-as3fh1-16 cDbWkv"
               >
                 <div
                   className="styled__SearchResultsLink-as3fh1-14 hPsLTj"
@@ -613,7 +613,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 cDnEFJ"
+  className="styled__SearchResultsBar-as3fh1-4 dZOFAN"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
@@ -622,15 +622,15 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
     className="styled__LoadingWrapper-as3fh1-22 gbYqll"
   >
     <div
-      className="styled__CloseIconWrapper-as3fh1-21 fQdWHv"
+      className="styled__CloseIconWrapper-as3fh1-21 iexFlJ"
     >
       <button
-        className="styled__CloseIconButton-as3fh1-20 hTNMDN"
+        className="styled__CloseIconButton-as3fh1-20 esHwCd"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="styled__CloseIcon-as3fh1-1 gsCQGC"
+          className="styled__CloseIcon-as3fh1-1 ldilTB"
           focusable="false"
           height="15px"
           version="1.1"

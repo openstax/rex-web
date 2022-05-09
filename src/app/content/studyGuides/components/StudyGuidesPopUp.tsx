@@ -44,7 +44,7 @@ const StudyguidesPopUp = () => {
       tabIndex='-1'
       data-testid='studyguides-popup-wrapper'
       scrollLockProps={{
-        mobileOnly: false,
+        mediumScreensOnly: false,
         onClick: closeAndTrack('overlay'),
         overlay: true,
         zIndex: theme.zIndex.highlightSummaryPopup,

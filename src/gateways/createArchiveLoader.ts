@@ -1,9 +1,10 @@
 import { ArchiveBook, ArchiveContent, ArchivePage } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
 import { ifUndefined } from '../app/fpUtils';
-import BOOKS from '../config.books';
+import { ArchiveBookMissingError } from '../app/utils';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
+import { getBookVersionFromUUIDSync } from './createBookConfigLoader';
 
 interface Options {
   /*
@@ -51,12 +52,13 @@ export default (archivePath: string, options: Options = {}) => {
 
   const contentUrlBase = (host: string, bookId: string) => disablePerBookPinning
     ? `${host}${archivePath}`
-    : `${host}${BOOKS[bookId]?.archiveOverride || archivePath}`;
+    : `${host}${getBookVersionFromUUIDSync(bookId)?.archiveOverride || archivePath}`;
   const contentUrl = (host: string, bookId: string, ref: string) =>
     `${contentUrlBase(host, bookId)}/contents/${ref}.json`;
 
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
-    .then(acceptStatus(200, (status, message) => `Error response from archive "${fetchUrl}" ${status}: ${message}`))
+    .then(acceptStatus(200, (status, message) =>
+      new ArchiveBookMissingError(`Error response from archive "${fetchUrl}" ${status}: ${message}`)))
     .then((response) => response.json() as Promise<T>);
 
   const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) => (bookId: string, id: string) => {

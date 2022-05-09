@@ -11,9 +11,7 @@ export const searchButtonStyle = createSelector(
   (featureFlags) => featureFlags.searchButton || null
 );
 
-export const kineticBannerVariant = createSelector(
+export const kineticBannerEnabled = createSelector(
   localState,
-  (featureFlags) => featureFlags.kineticEnabled && typeof featureFlags.kineticBanner === 'number'
-    ? featureFlags.kineticBanner
-    : false
+  (featureFlags) => featureFlags.kineticEnabled
 );

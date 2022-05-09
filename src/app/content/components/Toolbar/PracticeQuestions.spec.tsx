@@ -13,7 +13,7 @@ import { receiveBook, receivePage } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import * as selectors from '../../practiceQuestions/selectors';
 import { formatBookData } from '../../utils';
-import PracticeQuestionsButton, { StyledContentLink } from './PracticeQuestionsButton';
+import PracticeQuestionsButton, { StyledPracticeQuestionsButton } from './PracticeQuestionsButton';
 
 jest.mock('../../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../../test/mocks/archiveLoader').book;
@@ -71,7 +71,7 @@ describe('practice questions button', () => {
     const component = renderer.create(render());
 
     renderer.act(() => {
-      const button = component.root.findByType(StyledContentLink);
+      const button = component.root.findByType(StyledPracticeQuestionsButton);
       button.props.onClick();
     });
 

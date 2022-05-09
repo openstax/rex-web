@@ -129,6 +129,14 @@ body {
     text-decoration-style: double;
   }
 
+  span[data-screenreader-only="true"] {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+
   sup {
     top: -.5em;
   }

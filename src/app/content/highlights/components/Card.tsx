@@ -34,6 +34,7 @@ export interface CardProps {
   book: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
   isActive: boolean;
+  lastActive: number;
   isTocOpen: boolean;
   hasQuery: boolean;
   highlighter: Highlighter;
@@ -58,6 +59,7 @@ const Card = (props: CardProps) => {
   const annotation = props.data && props.data.annotation;
   const element = React.useRef<HTMLElement>(null);
   const [editing, setEditing] = React.useState<boolean>(!annotation);
+  const [highlightRemoved, setHighlightRemoved] = React.useState<boolean>(false);
   const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const services = useServices();
@@ -73,13 +75,13 @@ const Card = (props: CardProps) => {
   useFocusIn(element, true, focusCard);
 
   React.useEffect(() => {
-    if (!props.isActive) {
+    if (!props.lastActive) {
       setEditing(false);
     } else {
       scrollHighlightIntoView(props.highlight, element);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, props.isActive]);
+  }, [element, props.lastActive]);
 
   React.useEffect(() => {
     if (annotation) {
@@ -109,6 +111,7 @@ const Card = (props: CardProps) => {
 
   const onRemove = () => {
     if (props.data) {
+      setHighlightRemoved(true);
       props.remove(props.data, {
         locationFilterId,
         pageId: page.id,
@@ -142,7 +145,7 @@ const Card = (props: CardProps) => {
     shouldFocusCard: props.shouldFocusCard,
   };
 
-  return <div onClick={focusCard} data-testid='card'>
+  return !highlightRemoved ? <div onClick={focusCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
@@ -161,7 +164,7 @@ const Card = (props: CardProps) => {
         data={props.data}
       />
     }
-  </div>;
+  </div> : null;
 };
 
 // tslint:disable-next-line: variable-name
@@ -176,6 +179,7 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isActive: selectHighlights.focused(state) === ownProps.highlight.id,
     isTocOpen: contentSelect.tocOpen(state),
+    lastActive: (selectHighlights.focused(state) === ownProps.highlight.id) && selectHighlights.lastFocused(state),
   }),
   (dispatch: Dispatch) => ({
     blur: flow(clearFocusedHighlight, dispatch),
