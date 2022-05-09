@@ -14,12 +14,9 @@ import {
     bookBannerDesktopMiniHeight,
     bookBannerMobileMiniHeight,
     searchResultsBarDesktopWidth,
-    searchResultsBarMobileWidth,
-    searchSidebarTopOffset,
     sidebarTransitionTime,
     toolbarIconColor,
     topbarDesktopHeight,
-    topbarMobileHeight,
     verticalNavbarMaxWidth,
   } from '../../../components/constants';
 import ContentLinkComponent from '../../../components/ContentLink';
@@ -106,7 +103,6 @@ export const SearchResultsBar = styled.div`
   grid-area: 1 / 2 / auto / 3;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
-  margin-top: -${topbarDesktopHeight}rem;
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
@@ -120,21 +116,13 @@ export const SearchResultsBar = styled.div`
     animation: ${sidebarHideAnimation} ${sidebarTransitionTime}ms forwards;
   `)}
   ${theme.breakpoints.mobile(css`
-    width: ${searchResultsBarMobileWidth}rem;
-    top: ${bookBannerMobileMiniHeight}rem;
-    left: ${verticalNavbarMaxWidth}rem;
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
-    max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
-  `)}
-
-  ${theme.breakpoints.mobileMedium(css`
     grid-column: 1 / -1;
-    z-index: ${theme.zIndex.searchSidebar};
-    left: 0;
+    left: ${verticalNavbarMaxWidth}rem;
     width: 100%;
-    margin-top: 0;
-    top: ${searchSidebarTopOffset}rem;
-    max-height: calc(100vh - ${bookBannerMobileMiniHeight + topbarMobileHeight}rem);
+    top: ${bookBannerMobileMiniHeight}rem;
+    max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
+    padding-left: ${verticalNavbarMaxWidth}rem;
   `)}
 
   > ${NavWrapper} {

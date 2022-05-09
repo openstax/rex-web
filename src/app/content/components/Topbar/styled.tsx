@@ -14,7 +14,6 @@ import {
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
   mobileSearchContainerMargin,
-  sidebarDesktopWidth,
   sidebarTransitionTime,
   toolbarHrHeight,
   toolbarIconColor,
@@ -120,12 +119,12 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
       vertical-align: middle;
     }
 
-    ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
+    ${(props) => props.desktop && theme.breakpoints.mobile(css`
       display: none;
     `)}
     ${(props) => props.mobile && css`
       display: none;
-      ${theme.breakpoints.mobileMedium(css`
+      ${theme.breakpoints.mobile(css`
         display: block;
         height: 100%;
       `)}
@@ -185,7 +184,7 @@ export const SearchInputWrapper = styled.form`
       box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
     }
 
-    ${theme.breakpoints.mobileMedium(css`
+    ${theme.breakpoints.mobile(css`
       margin-right: 0;
       height: 100%;
       overflow: hidden;
@@ -220,7 +219,7 @@ export const SearchInput = styled(({ desktop, mobile, ...props }) =>
         color: ${theme.color.text.label};
       }
 
-      ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
+      ${(props) => props.desktop && theme.breakpoints.mobile(css`
         display: none;
       `)}
     `;
@@ -237,16 +236,14 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   overflow: visible;
   background-color: ${theme.color.neutral.base};
   transition: padding-left ${sidebarTransitionTime}ms;
-  ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen || props.isDesktopSearchOpen) && `
-    padding-left: ${sidebarDesktopWidth}rem;
-  `}
   ${theme.breakpoints.mobile(css`
-    padding-left: ${verticalNavbarMaxWidth}rem;
+    display: none;
   `)}
   ${theme.breakpoints.mobileMedium(css`
+    display: flex;
+    padding: 0 6px;
     height: ${topbarMobileHeight}rem;
     justify-content: space-between;
-    padding: 0 6px;
     transition: none;
     ${SearchInputWrapper} {
       border: none;
@@ -263,7 +260,7 @@ export const MobileSearchContainer = styled.div`
   margin-top: ${mobileSearchContainerMargin}rem;
   margin-bottom: ${mobileSearchContainerMargin}rem;
   height: ${toolbarSearchInputMobileHeight}rem;
-  ${theme.breakpoints.mobileMedium(css`
+  ${theme.breakpoints.mobile(css`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -276,7 +273,8 @@ export const MobileSearchWrapper = styled.div`
   height: ${toolbarMobileSearchWrapperHeight}rem;
   background-color: ${theme.color.neutral.base};
   ${shadow}
-  ${theme.breakpoints.mobileMedium(css`
+  ${theme.breakpoints.mobile(css`
+    padding-left: ${verticalNavbarMaxWidth}rem;
     display: block;
   `)}
 `;
@@ -287,7 +285,7 @@ export const Hr = styled.hr`
   border-top: ${toolbarHrHeight}rem solid #efeff1;
   display: none;
   margin: 0;
-  ${theme.breakpoints.mobileMedium(css`
+  ${theme.breakpoints.mobile(css`
     display: block;
   `)}
 `;
