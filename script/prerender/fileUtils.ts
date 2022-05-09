@@ -3,6 +3,7 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { fromContainerMetadata } from '@aws-sdk/credential-providers';
 import flow from 'lodash/fp/flow';
+import once from 'lodash/once';
 import path from 'path';
 import { assertDefined } from '../../src/app/utils';
 import createCache, { Cache } from '../../src/helpers/createCache';
@@ -48,8 +49,6 @@ export const createDiskCache = <K extends string, V>(prefix: string): Cache<K, V
   };
 };
 
-let s3Client: S3Client | undefined;
-
 // Generates a release path for a file without a leading /, used when uploading the release to S3
 function prefixReleasePath(filepath: string) {
   let basePath = assertDefined(process.env.PUBLIC_URL, 'PUBLIC_URL environment variable not set');
@@ -57,17 +56,16 @@ function prefixReleasePath(filepath: string) {
   return `${basePath}${filepath}`;
 }
 
+const getS3Client = once(async() => {
+  console.log('Fetching container credentials');
+  const credentials = await fromContainerMetadata();
+
+  console.log('Initializing S3 client');
+  return new S3Client({ credentials, region: process.env.BUCKET_REGION });
+});
+
 async function writeS3File(key: string, contents: string, contentType: string) {
-  if (!s3Client) {
-    // We explicitly pass credentials to the S3 Client only once
-    // so it'll not try to load them over and over
-
-    console.log('Fetching container credentials');
-    const credentials = await fromContainerMetadata();
-
-    console.log('Initializing S3 client');
-    s3Client = new S3Client({ credentials, region: process.env.BUCKET_REGION });
-  }
+  const s3Client = await getS3Client();
 
   console.log(`Writing s3 file: /${key}`);
   return s3Client.send(new PutObjectCommand({
