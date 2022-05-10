@@ -122,7 +122,6 @@ export const SearchResultsBar = styled.div`
     width: 100%;
     top: ${bookBannerMobileMiniHeight}rem;
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
-    padding-left: ${verticalNavbarMaxWidth}rem;
   `)}
 
   > ${NavWrapper} {

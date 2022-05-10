@@ -14,6 +14,7 @@ import {
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
   mobileSearchContainerMargin,
+  sidebarDesktopWidth,
   sidebarTransitionTime,
   toolbarHrHeight,
   toolbarIconColor,
@@ -236,6 +237,9 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   overflow: visible;
   background-color: ${theme.color.neutral.base};
   transition: padding-left ${sidebarTransitionTime}ms;
+  ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen) && `
+    padding-left: ${sidebarDesktopWidth}rem;
+  `}
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
@@ -280,6 +284,9 @@ export const MobileSearchWrapper = styled.div`
   ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen && css`
     display: none;
   `}
+  ${theme.breakpoints.mobileMedium(css`
+    padding-left: 0;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
