@@ -23,7 +23,6 @@ import {
   toolbarSearchInputMobileHeight,
   topbarDesktopHeight,
   topbarMobileHeight,
-  verticalNavbarMaxWidth
 } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
@@ -278,7 +277,6 @@ export const MobileSearchWrapper = styled.div`
   background-color: ${theme.color.neutral.base};
   ${shadow}
   ${theme.breakpoints.mobile(css`
-    padding-left: ${verticalNavbarMaxWidth}rem;
     display: block;
   `)}
   ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen && css`
