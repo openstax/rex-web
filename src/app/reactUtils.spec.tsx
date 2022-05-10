@@ -343,6 +343,26 @@ describe('useMatchMobileQuery', () => {
     expect(mock.removeEventListener).toHaveBeenCalled();
   });
 
+  it('adds and removes deprecated listeners on older browsers', () => {
+    const mock = {
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    } as any as MediaQueryList;
+
+    jest.spyOn(assertWindow(), 'matchMedia')
+      .mockImplementation(() => mock);
+
+    const component = renderer.create(<Component/>);
+
+    runHooks(renderer);
+
+    expect(mock.addListener).toHaveBeenCalled();
+
+    component.unmount();
+
+    expect(mock.removeListener).toHaveBeenCalled();
+  });
+
   it('updates on listener calls', () => {
     const mock = {
       addEventListener: jest.fn(),

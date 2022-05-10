@@ -50,7 +50,7 @@ describe('Show my highlights', () => {
 
   beforeEach(() => {
     store = createTestStore();
-    user = {firstName: 'test', isNotGdprLocation: true, uuid: 'some_uuid'};
+    user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid'};
 
     highlight1 = createMockHighlight('asdf');
     highlight2 = createMockHighlight('lkjh');
