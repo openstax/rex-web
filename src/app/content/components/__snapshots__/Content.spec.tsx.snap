@@ -3,14 +3,14 @@
 exports[`content matches snapshot 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 bkbyvj"
+    className="HiddenLink-wwwegq-0 iBdUsP"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
   <a
-    className="HiddenLink-wwwegq-0 bkbyvj"
+    className="HiddenLink-wwwegq-0 iBdUsP"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
@@ -20,7 +20,7 @@ Array [
     Go to accessibility page
   </a>,
   <div
-    className="styled__BarWrapper-sc-3syvnw-12 gAhLPK"
+    className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
     data-analytics-region="openstax-navbar"
   >
     <div
@@ -43,7 +43,7 @@ Array [
     className="Content__Background-sc-1f451g1-0 gEoQaE"
   >
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
       data-analytics-region="book-banner-expanded"
       data-testid="bookbanner"
     >
@@ -80,7 +80,7 @@ Array [
       </div>
     </div>
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
       data-analytics-region="book-banner-collapsed"
       data-testid="bookbanner-collapsed"
     >
@@ -121,11 +121,11 @@ Array [
       className="Content__OuterWrapper-sc-1f451g1-4 gyejSp"
     >
       <div
-        className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
+        className="styled__TopBarWrapper-sc-12dq39v-0 bCyMWo"
         data-testid="topbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-12dq39v-9 cmhJLF"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 gRzQIN"
         >
           <div
             className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -152,7 +152,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 fypUzO"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 bDojwS"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -168,7 +168,7 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-12dq39v-3 cWAPrW styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-12dq39v-3 dAFIlk styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
               data-experiment={true}
               data-testid="mobile-toggle"
@@ -202,7 +202,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-12dq39v-3 hexqmK styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-experiment={true}
               value="Search"
             >
@@ -233,12 +233,54 @@ Array [
             </button>
           </form>
         </div>
+        <div
+          className="styled__MobileSearchWrapper-sc-12dq39v-11 eqNQRZ"
+        >
+          <hr
+            className="styled__Hr-sc-12dq39v-12 iJYKyP"
+          />
+          <div
+            className="styled__MobileSearchContainer-sc-12dq39v-10 jOfHLI"
+          >
+            <button
+              className="styled__PlainButton-sc-1119auh-0 styled__SearchResultsTextButton-sc-12dq39v-15 styled__CloseSearchResultsTextButton-sc-12dq39v-16 pZDRZ"
+              data-testid="close-search-results"
+              onClick={[Function]}
+            >
+              <div
+                className="styled__InnerText-sc-12dq39v-14 fahaRL"
+              >
+                Close
+              </div>
+            </button>
+            <form
+              action="#"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 bDojwS"
+              data-experiment={true}
+              data-testid="mobile-search"
+              onSubmit={[Function]}
+            >
+              <input
+                aria-label="Search this book"
+                autoFocus={true}
+                className="styled__SearchInput-sc-12dq39v-8 bHFdA"
+                data-testid="mobile-search-input"
+                onChange={[Function]}
+                placeholder="Search this book"
+                type="search"
+                value=""
+              />
+              
+              
+            </form>
+          </div>
+        </div>
       </div>
       <div
         className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 fRDSoc"
       >
         <div
-          className="styled__ToolbarWrapper-sc-1119auh-4 FSENt"
+          className="styled__ToolbarWrapper-sc-1119auh-4 euJYQz"
           data-analytics-region="toolbar"
           data-testid="toolbar"
         >
@@ -458,7 +500,7 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 epWWiK"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 jwGPmf"
           data-analytics-region="toc"
           data-testid="toc"
         >
@@ -1590,14 +1632,14 @@ Array [
 exports[`content renders empty state 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 bkbyvj"
+    className="HiddenLink-wwwegq-0 iBdUsP"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
   <a
-    className="HiddenLink-wwwegq-0 bkbyvj"
+    className="HiddenLink-wwwegq-0 iBdUsP"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
@@ -1607,7 +1649,7 @@ Array [
     Go to accessibility page
   </a>,
   <div
-    className="styled__BarWrapper-sc-3syvnw-12 gAhLPK"
+    className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
     data-analytics-region="openstax-navbar"
   >
     <div
@@ -1630,7 +1672,7 @@ Array [
     className="Content__Background-sc-1f451g1-0 gEoQaE"
   >
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-5 ehTbbS"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
       data-analytics-region="book-banner-expanded"
       data-testid="bookbanner"
     >
@@ -1667,7 +1709,7 @@ Array [
       </div>
     </div>
     <div
-      className="BookBanner__BarWrapper-sc-1avy0c0-5 iMlpSa"
+      className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
       data-analytics-region="book-banner-collapsed"
       data-testid="bookbanner-collapsed"
     >
@@ -1708,11 +1750,11 @@ Array [
       className="Content__OuterWrapper-sc-1f451g1-4 gyejSp"
     >
       <div
-        className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
+        className="styled__TopBarWrapper-sc-12dq39v-0 bCyMWo"
         data-testid="topbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-12dq39v-9 cmhJLF"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 gRzQIN"
         >
           <div
             className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -1739,7 +1781,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 fypUzO"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 bDojwS"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -1755,7 +1797,7 @@ Array [
             />
             <button
               aria-label="Search this book"
-              className="styled__SearchButton-sc-12dq39v-3 cWAPrW styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-12dq39v-3 dAFIlk styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-analytics-label="Search this book"
               data-experiment={true}
               data-testid="mobile-toggle"
@@ -1789,7 +1831,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-12dq39v-3 hexqmK styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-experiment={true}
               value="Search"
             >
@@ -1820,12 +1862,54 @@ Array [
             </button>
           </form>
         </div>
+        <div
+          className="styled__MobileSearchWrapper-sc-12dq39v-11 eqNQRZ"
+        >
+          <hr
+            className="styled__Hr-sc-12dq39v-12 iJYKyP"
+          />
+          <div
+            className="styled__MobileSearchContainer-sc-12dq39v-10 jOfHLI"
+          >
+            <button
+              className="styled__PlainButton-sc-1119auh-0 styled__SearchResultsTextButton-sc-12dq39v-15 styled__CloseSearchResultsTextButton-sc-12dq39v-16 pZDRZ"
+              data-testid="close-search-results"
+              onClick={[Function]}
+            >
+              <div
+                className="styled__InnerText-sc-12dq39v-14 fahaRL"
+              >
+                Close
+              </div>
+            </button>
+            <form
+              action="#"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 bDojwS"
+              data-experiment={true}
+              data-testid="mobile-search"
+              onSubmit={[Function]}
+            >
+              <input
+                aria-label="Search this book"
+                autoFocus={true}
+                className="styled__SearchInput-sc-12dq39v-8 bHFdA"
+                data-testid="mobile-search-input"
+                onChange={[Function]}
+                placeholder="Search this book"
+                type="search"
+                value=""
+              />
+              
+              
+            </form>
+          </div>
+        </div>
       </div>
       <div
         className="Wrapper-m6kdbg-0 bwERCu Wrapper__ContentLayoutBody-m6kdbg-1 fRDSoc"
       >
         <div
-          className="styled__ToolbarWrapper-sc-1119auh-4 FSENt"
+          className="styled__ToolbarWrapper-sc-1119auh-4 euJYQz"
           data-analytics-region="toolbar"
           data-testid="toolbar"
         >
@@ -2045,7 +2129,7 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 epWWiK"
+          className="wrapper__SidebarBody-sc-1nl0jy-0 jwGPmf"
           data-analytics-region="toc"
           data-testid="toc"
         >
