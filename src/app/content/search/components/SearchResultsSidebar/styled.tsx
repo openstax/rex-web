@@ -14,6 +14,7 @@ import {
     bookBannerDesktopMiniHeight,
     bookBannerMobileMiniHeight,
     searchResultsBarDesktopWidth,
+    searchSidebarTopOffset,
     sidebarTransitionTime,
     toolbarIconColor,
     topbarDesktopHeight,
@@ -118,10 +119,17 @@ export const SearchResultsBar = styled.div`
   ${theme.breakpoints.mobile(css`
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
     grid-column: 1 / -1;
-    left: ${verticalNavbarMaxWidth}rem;
-    width: 100%;
+    margin-left: ${verticalNavbarMaxWidth}rem;
+    margin-top: 0;
+    width: calc(100% - ${verticalNavbarMaxWidth}rem);
     top: ${bookBannerMobileMiniHeight}rem;
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
+    z-index: ${theme.zIndex.sidebar};
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    top: ${searchSidebarTopOffset}rem;
+    margin-left: 0;
+    width: 100%;
   `)}
 
   > ${NavWrapper} {

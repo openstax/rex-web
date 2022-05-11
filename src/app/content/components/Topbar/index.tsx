@@ -90,7 +90,6 @@ class Topbar extends React.Component<Props, State> {
     };
 
     const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
-
     const newButtonEnabled = !!this.props.searchButtonColor;
 
     return <Styled.TopBarWrapper data-testid='topbar'>
