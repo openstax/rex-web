@@ -22,10 +22,11 @@ import {
   toolbarSearchInputHeight,
   toolbarSearchInputMobileHeight,
   topbarDesktopHeight,
+  topbarMobileHeight,
   verticalNavbarMaxWidth,
 } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
-import { barPadding, PlainButton } from '../Toolbar/styled';
+import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { disablePrint } from '../utils/disablePrint';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
@@ -242,6 +243,18 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
+  ${theme.breakpoints.mobileMedium(css`
+    display: flex;
+    height: ${topbarMobileHeight}rem;
+    justify-content: space-between;
+    padding: 0 6px;
+    transition: none;
+    ${SearchInputWrapper} {
+      border: none;
+      border-radius: 0;
+      width: ${buttonMinWidth};
+    }
+  `)}
   ${shadow}
 `);
 
@@ -264,16 +277,13 @@ export const MobileSearchWrapper = styled.div`
   height: ${toolbarMobileSearchWrapperHeight}rem;
   background-color: ${theme.color.neutral.base};
   ${shadow}
-  ${(props) => !props.mobileToolbarOpen && theme.breakpoints.mobile(css`
-    display: none;
-  `)}
   ${theme.breakpoints.mobile(css`
     padding-left: ${verticalNavbarMaxWidth}rem;
     display: block;
   `)}
   ${theme.breakpoints.mobileMedium(css`
     padding-left: 0;
-=  `)}
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name
