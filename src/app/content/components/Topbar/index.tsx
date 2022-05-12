@@ -158,10 +158,14 @@ class Topbar extends React.Component<Props, State> {
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
               onChange={onChange} value={this.state.query} />
+            {!this.state.formSubmitted && !newButtonEnabled &&
+              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+            }
             {
               this.state.query && newButtonEnabled && <Styled.CloseButtonNew
                 type='button'
                 onClick={onClear}
+                formSubmitted={this.state.formSubmitted}
                 data-testid='mobile-clear-search'
               >
                 <Styled.CloseIcon />
@@ -171,6 +175,7 @@ class Topbar extends React.Component<Props, State> {
               this.state.query && !newButtonEnabled && <Styled.CloseButton
                 type='button'
                 onClick={onClear}
+                formSubmitted={this.state.formSubmitted}
                 data-testid='mobile-clear-search'
               />
             }

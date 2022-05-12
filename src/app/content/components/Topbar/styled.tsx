@@ -120,7 +120,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
       vertical-align: middle;
     }
 
-    ${(props) => props.desktop && theme.breakpoints.mobile(css`
+    ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
       display: none;
     `)}
     ${(props) => props.mobile && css`
@@ -139,6 +139,10 @@ export const CloseButton = styled(
     > svg {
       ${closeIconStyles}
     }
+
+    ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
+      display: none;
+    `)}
 
     ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
       display: none;
@@ -186,10 +190,9 @@ export const SearchInputWrapper = styled.form`
     }
 
     ${theme.breakpoints.mobile(css`
-      margin-right: 0;
       height: 100%;
+      margin-right: 0;
       overflow: hidden;
-      width: 100%;
       ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
         background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
 
@@ -197,6 +200,9 @@ export const SearchInputWrapper = styled.form`
           ${applySearchIconColor(props.colorSchema)};
         }
       `}
+    `)}
+    ${theme.breakpoints.mobileMedium(css`
+        width: 100%;
     `)}
   `;
 
@@ -266,8 +272,11 @@ export const MobileSearchContainer = styled.div`
   height: ${toolbarSearchInputMobileHeight}rem;
   ${theme.breakpoints.mobile(css`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    justify-content: space-between;
   `)}
 `;
 
