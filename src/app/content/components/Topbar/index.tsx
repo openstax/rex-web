@@ -132,7 +132,7 @@ class Topbar extends React.Component<Props, State> {
           }
         </Styled.SearchInputWrapper>
       </Styled.SearchPrintWrapper>
-      {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
+      <Styled.MobileSearchWrapper mobileToolbarOpen={this.props.mobileToolbarOpen}>
         <Styled.Hr />
         <Styled.MobileSearchContainer>
           {showBackToSearchResults &&
@@ -176,7 +176,7 @@ class Topbar extends React.Component<Props, State> {
             }
           </Styled.SearchInputWrapper>
         </Styled.MobileSearchContainer>
-      </Styled.MobileSearchWrapper>}
+      </Styled.MobileSearchWrapper>
     </Styled.TopBarWrapper>;
   }
 }

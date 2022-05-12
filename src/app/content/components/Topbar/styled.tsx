@@ -283,6 +283,7 @@ export const MobileSearchWrapper = styled.div`
   `)}
   ${theme.breakpoints.mobileMedium(css`
     padding-left: 0;
+    display: ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen ? 'block' : 'none'};
   `)}
 `;
 
