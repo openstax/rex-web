@@ -312,7 +312,7 @@ export const InnerText = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SearchResultsTextButton = styled(PlainButton)`
+export const SeachResultsTextButton = styled(PlainButton)`
   ${textRegularStyle}
   ${decoratedLinkStyle}
   display: flex;
@@ -321,7 +321,7 @@ export const SearchResultsTextButton = styled(PlainButton)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const CloseSearchResultsTextButton = styled(SearchResultsTextButton)`
+export const CloseSearchResultsTextButton = styled(SeachResultsTextButton)`
   display: none;
   ${theme.breakpoints.mobileMedium(css`
     display: block;

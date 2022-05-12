@@ -138,9 +138,9 @@ class Topbar extends React.Component<Props, State> {
         <Styled.MobileSearchContainer>
           {showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-              {(msg) => <Styled.SearchResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
+              {(msg) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
                 <Styled.LeftArrow /><Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.SearchResultsTextButton>}
+              </Styled.SeachResultsTextButton>}
             </FormattedMessage>}
           {!showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
