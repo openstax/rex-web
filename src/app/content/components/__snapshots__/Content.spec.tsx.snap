@@ -152,7 +152,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 bDojwS"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 ccoSPi"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -202,7 +202,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-12dq39v-3 hexqmK styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-experiment={true}
               value="Search"
             >
@@ -240,7 +240,7 @@ Array [
             className="styled__Hr-sc-12dq39v-12 iJYKyP"
           />
           <div
-            className="styled__MobileSearchContainer-sc-12dq39v-10 jOfHLI"
+            className="styled__MobileSearchContainer-sc-12dq39v-10 chAmXd"
           >
             <button
               className="styled__PlainButton-sc-1119auh-0 styled__SeachResultsTextButton-sc-12dq39v-15 styled__CloseSearchResultsTextButton-sc-12dq39v-16 pZDRZ"
@@ -255,7 +255,7 @@ Array [
             </button>
             <form
               action="#"
-              className="styled__SearchInputWrapper-sc-12dq39v-7 bDojwS"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 ccoSPi"
               data-experiment={true}
               data-testid="mobile-search"
               onSubmit={[Function]}
@@ -270,6 +270,36 @@ Array [
                 type="search"
                 value=""
               />
+              <button
+                className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+                data-experiment={true}
+                value="Search"
+              >
+                <svg
+                  aria-hidden="true"
+                  height="18px"
+                  version="1.1"
+                  viewBox="0 0 18 18"
+                  width="18px"
+                >
+                  <g
+                    fill="none"
+                    fillRule="evenodd"
+                    stroke="none"
+                    strokeWidth="1"
+                  >
+                    <g
+                      fill="currentColor"
+                      fillRule="nonzero"
+                      transform="translate(-938.000000, -206.000000)"
+                    >
+                      <path
+                        d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </button>
               
               
             </form>
@@ -1781,7 +1811,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 bDojwS"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 ccoSPi"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -1831,7 +1861,7 @@ Array [
               </svg>
             </button>
             <button
-              className="styled__SearchButton-sc-12dq39v-3 hexqmK styled__PlainButton-sc-1119auh-0 kPdLbJ"
+              className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
               data-experiment={true}
               value="Search"
             >
@@ -1869,7 +1899,7 @@ Array [
             className="styled__Hr-sc-12dq39v-12 iJYKyP"
           />
           <div
-            className="styled__MobileSearchContainer-sc-12dq39v-10 jOfHLI"
+            className="styled__MobileSearchContainer-sc-12dq39v-10 chAmXd"
           >
             <button
               className="styled__PlainButton-sc-1119auh-0 styled__SeachResultsTextButton-sc-12dq39v-15 styled__CloseSearchResultsTextButton-sc-12dq39v-16 pZDRZ"
@@ -1884,7 +1914,7 @@ Array [
             </button>
             <form
               action="#"
-              className="styled__SearchInputWrapper-sc-12dq39v-7 bDojwS"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 ccoSPi"
               data-experiment={true}
               data-testid="mobile-search"
               onSubmit={[Function]}
@@ -1899,6 +1929,36 @@ Array [
                 type="search"
                 value=""
               />
+              <button
+                className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+                data-experiment={true}
+                value="Search"
+              >
+                <svg
+                  aria-hidden="true"
+                  height="18px"
+                  version="1.1"
+                  viewBox="0 0 18 18"
+                  width="18px"
+                >
+                  <g
+                    fill="none"
+                    fillRule="evenodd"
+                    stroke="none"
+                    strokeWidth="1"
+                  >
+                    <g
+                      fill="currentColor"
+                      fillRule="nonzero"
+                      transform="translate(-938.000000, -206.000000)"
+                    >
+                      <path
+                        d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </button>
               
               
             </form>
