@@ -23,7 +23,7 @@ import {
   toolbarSearchInputMobileHeight,
   topbarDesktopHeight,
   topbarMobileHeight,
-  verticalNavbarMaxWidth,
+  verticalNavbarMaxWidth
 } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';

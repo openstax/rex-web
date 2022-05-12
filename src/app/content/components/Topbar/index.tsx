@@ -90,6 +90,7 @@ class Topbar extends React.Component<Props, State> {
     };
 
     const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
+
     const newButtonEnabled = !!this.props.searchButtonColor;
 
     return <Styled.TopBarWrapper data-testid='topbar'>
@@ -143,10 +144,9 @@ class Topbar extends React.Component<Props, State> {
             </FormattedMessage>}
           {!showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-              {(msg: string) =>
-                <Styled.CloseSearchResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
-                  <Styled.InnerText>{msg}</Styled.InnerText>
-                </Styled.CloseSearchResultsTextButton>}
+              {(msg) => <Styled.CloseSearchResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
+                <Styled.InnerText>{msg}</Styled.InnerText>
+              </Styled.CloseSearchResultsTextButton>}
             </FormattedMessage>}
           <Styled.SearchInputWrapper
             action='#'
