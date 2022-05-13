@@ -30,6 +30,7 @@ export interface PagePropTypes {
   services: AppServices & MiddlewareAPI;
   addToast: typeof addToast;
   systemQueryParams: SystemQueryParams;
+  textSize: number;
 }
 
 export default connect(
@@ -45,6 +46,7 @@ export default connect(
     scrollToTopOrHash: mapStateToScrollToTopOrHashProp(state),
     searchHighlights: mapStateToSearchHighlightProp(state),
     systemQueryParams: selectNavigation.systemQueryParameters(state),
+    textSize: select.textSize(state),
   }),
   (dispatch) => ({
     addToast: flow(addToast, dispatch),

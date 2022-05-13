@@ -30,3 +30,5 @@ export const receivePageNotFoundId = createStandardAction('Content/receivePageNo
 
 export const openNudgeStudyTools = createStandardAction('Content/openNudgeStudyTools')();
 export const closeNudgeStudyTools = createStandardAction('Content/closeNudgeStudyTools')();
+
+export const setTextSize = createStandardAction('Content/setTextSize')<number>();

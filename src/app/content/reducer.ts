@@ -18,6 +18,8 @@ import searchReducer, {initialState as initialSearchState } from './search/reduc
 import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
 import { State } from './types';
 
+const storedTextSize = window && window.localStorage.getItem('textSize');
+
 export const initialState = {
   buyPrint: null,
   highlights: initialHighlightState,
@@ -31,6 +33,7 @@ export const initialState = {
   showNudgeStudyTools: null,
   studyGuides: initialStudyGuidesState,
   tocOpen: null,
+  textSize: storedTextSize ? parseInt(storedTextSize) : 0,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -127,6 +130,9 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(openStudyGuides):
     case getType(actions.closeNudgeStudyTools): {
       return {...state, showNudgeStudyTools: false };
+    }
+    case getType(actions.setTextSize): {
+      return {...state, textSize: action.payload };
     }
     default:
       return state;

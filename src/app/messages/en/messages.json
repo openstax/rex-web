@@ -192,5 +192,7 @@
   "i18n:toolbar:studyguides:button:text": "Guides",
   "i18n:toolbar:studyguides:popup:button:back-to-top": "Go back to top",
   "i18n:toolbar:studyguides:popup:close-button:aria-label": "Close Study Guides",
-  "i18n:toolbar:studyguides:popup:heading": "Study Guide"
+  "i18n:toolbar:studyguides:popup:heading": "Study Guide",
+  "i18n:toolbar:textresizer:button:aria-label": "Change text size",
+  "i18n:toolbar:textresizer:popup:heading": "Text size"
 }

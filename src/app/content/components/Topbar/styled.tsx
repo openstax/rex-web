@@ -16,6 +16,8 @@ import {
   mobileSearchContainerMargin,
   sidebarDesktopWidth,
   sidebarTransitionTime,
+  textResizerMaxValue,
+  textResizerMinValue,
   toolbarHrHeight,
   toolbarIconColor,
   toolbarMobileSearchWrapperHeight,
@@ -25,6 +27,7 @@ import {
   topbarMobileHeight,
   verticalNavbarMaxWidth
 } from '../constants';
+import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
@@ -163,6 +166,15 @@ export const CloseButtonNew = styled.button`
     height: 2.2rem;
     width: 2.2rem;
   `;
+
+// @TODO: Rename
+export const SearchInputWrapperWrapper = styled.div`
+  margin-left: 8rem;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+`;
 
 // tslint:disable-next-line:variable-name
 export const SearchInputWrapper = styled.form`
@@ -312,4 +324,88 @@ export const SeachResultsTextButton = styled(PlainButton)`
   display: flex;
   overflow: visible;
   min-width: auto;
+`;
+
+
+export const TextResizerDropdown = styled(FilterDropdown)`
+`;
+
+const thumbCss = css`
+  background: white;
+  height: 1.5rem;
+  width: 0.7rem;
+  border: 1px solid ${theme.color.primary.gray.base};
+  border-radius: 1px;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,0.04), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+`;
+
+
+export const TextResizerMenu = styled.div`
+  color: ${theme.color.primary.gray.base};
+
+  && {
+    background: #fff;
+    padding: 2rem;
+    right: 0;
+    left: auto;
+    top: calc(100% - 1px);
+  }
+
+  text-align: left;
+  font-weight: bold;
+
+  .controls {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: #f1f1f1;
+      background-image: linear-gradient(
+        ${({bookTheme}: {bookTheme: BookWithOSWebData['theme']}) => theme.color.primary[bookTheme].base},
+        ${({bookTheme}: {bookTheme: BookWithOSWebData['theme']}) => theme.color.primary[bookTheme].base}
+      );
+      background-size: ${({textSize}) => css`calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%) 100%`};
+      background-repeat: no-repeat;
+      overflow: visible;
+      height: 0.4rem;
+      margin: 8px 0;
+    }
+
+    input[type='range']::-webkit-slider-runnable-track,
+    input[type='range']::-moz-range-track {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      box-shadow: none;
+      border: none;
+      background: transparent;
+      height: 0.2rem;
+      background: repeating-linear-gradient(
+        to right,
+        rgba(0,0,0,0),
+        rgba(0,0,0,0) 19%,
+        #fff 19%,
+        #fff 20%,
+        rgba(0,0,0,0) 20%,
+        rgba(0,0,0,0) 20%
+      );
+    }
+
+
+    input[type='range']::-moz-range-thumb {
+      ${thumbCss}
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      ${thumbCss}
+      width: 0.8rem;
+    }
+  }
+`;
+
+export const TextResizerChangeButton = styled(PlainButton)`
 `;

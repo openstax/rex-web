@@ -10,6 +10,7 @@ import kineticEnabled from './kineticEnabled';
 import locationChangeBody from './locationChange';
 import receiveContentBody from './receiveContent';
 import receivePageNotFoundId from './receivePageNotFoundId';
+import storeTextSize from './storeTextSize';
 
 export default [
   ...searchHooks,
@@ -20,4 +21,5 @@ export default [
   routeHook(routes.content, locationChangeBody),
   actionHook(actions.receivePage, receiveContentBody),
   actionHook(actions.receivePage, kineticEnabled),
+  actionHook(actions.setTextSize, storeTextSize),
 ];

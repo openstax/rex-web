@@ -51,6 +51,7 @@ export interface State {
   page?: Page;
   references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
+  textSize: number;
 }
 
 export interface PageReferenceMap extends PageReference {

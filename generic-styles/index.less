@@ -17,6 +17,10 @@
 @screen-sm-min:         @screen-sm;
 @screen-xs-max:         (@screen-sm-min - 1);
 
+:root {
+  --content-text-scale: 1;
+}
+
 body {
   font-size: @font-size-base;
   -webkit-print-color-adjust: exact;
@@ -38,8 +42,29 @@ body {
     src: url('../../static/fonts/ibm-plex-sans-v9-latin-regular.woff2') format('woff2'), url('../../static/fonts/ibm-plex-sans-v9-latin-regular.woff') format('woff');
   }
 
-  font-size: 1.6rem;
-  line-height: 2.3rem;
+  &[data-text-size="-2"] {
+    --content-text-scale: .75;
+  }
+
+  &[data-text-size="-1"] {
+    --content-text-scale: .9;
+  }
+
+  &[data-text-size="1"] {
+    --content-text-scale: 1.25;
+  }
+
+  &[data-text-size="2"] {
+    --content-text-scale: 1.5;
+  }
+
+  &[data-text-size="3"] {
+    --content-text-scale: 2;
+  }
+
+  font-size: calc(1.6rem * var(--content-text-scale));
+  line-height: calc(2.3rem * var(--content-text-scale));
+
 
   // gray is used for text color
   @gray: #424242;
@@ -144,13 +169,13 @@ body {
     bottom: -.25em;
   }
   h2{
-    font-size: 3.2rem;
+    font-size: calc(3.2rem * var(--content-text-scale));
   }
   h3 {
-    font-size: 2.4rem;
+    font-size: calc(2.4rem * var(--content-text-scale));
   }
   h4 {
-    font-size: 1.8rem;
+    font-size: calc(1.8rem * var(--content-text-scale));
   }
   sub, sup {
     font-size: 75%;
@@ -159,7 +184,7 @@ body {
     vertical-align: baseline;
   }
   .os-figure .os-caption-container {
-    line-height: 1.7rem;
+    line-height: calc(1.7rem * var(--content-text-scale));
   }
   .os-glossary-container {
     dt {

@@ -13,7 +13,7 @@ import TestContainer from '../../../../test/TestContainer';
 import * as Services from '../../../context/Services';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { openMobileMenu } from '../../actions';
+import { openMobileMenu, toggleTextResizer } from '../../actions';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -23,7 +23,7 @@ import {
 } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
-import { CloseButtonNew, MenuButton, SearchButton } from './styled';
+import { CloseButtonNew, MenuButton, SearchButton, TextResizerMenu, TextResizerMenuButton } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -334,5 +334,24 @@ describe('mobile menu button', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(openMobileMenu());
+  });
+});
+
+describe('text resizer', () => {
+  let store: Store;
+
+  beforeEach(() => {
+    store = createTestStore();
+  });
+
+  it('opens menu when clicking menu button', () => {
+    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    expect(component.root.findByType(TextResizerMenuButton).props.isOpen).toBe(false);
+
+    renderer.act(() => {
+      component.root.findByType(TextResizerMenuButton).props.onClick({ preventDefault: jest.fn() });
+    });
+
+    expect(component.root.findByType(TextResizerMenuButton).props.isOpen).toBe(true);
   });
 });
