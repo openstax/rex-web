@@ -8,7 +8,7 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="manifest" href="/dist/assets/manifest.json">
 
     <!-- Google Tag Manager -->
     <script>
@@ -38,7 +38,6 @@
     </script>
     <!-- End Google Optimize -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML-full&delayStartupUntil=configured" async></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -79,7 +78,7 @@
       s.src = '//js.pulseinsights.com/surveys.js';
       var f = d.getElementsByTagName('script')[0];
       f.parentNode.insertBefore(s, f);
-      
+
       pi('identify', 'PI-16384954');
       pi('get', 'surveys');
       })();
