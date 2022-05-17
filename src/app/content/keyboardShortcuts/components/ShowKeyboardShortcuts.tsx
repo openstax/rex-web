@@ -6,7 +6,7 @@ import theme from '../../../theme';
 import { PopupBody } from '../../styles/PopupStyles';
 
 // tslint:disable-next-line:variable-name
-const ShowKeyboardShortcutsStyle = styled(PopupBody)`
+const ShowKeyboardShortcutsBody = styled(PopupBody)`
   background-color: ${theme.color.neutral.darker};
   color: ${theme.color.text.default};
   font-size: 1.6rem;
@@ -19,64 +19,76 @@ const ShowKeyboardShortcutsStyle = styled(PopupBody)`
 `;
 
 // tslint:disable-next-line: variable-name
-const ShortcutsHeadingStyle = styled.div`
+const ShortcutsHeading = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
-    line-height: 3rem;
+  line-height: 3rem;
   ${theme.breakpoints.mobile(css`
     font-size: 1.6rem;
     line-height: 2.5rem;
   `)}
 `;
 
-export const ShortcutsHeading = ({msgKey}: {msgKey: string}) => (
-  <ShortcutsHeadingStyle>
+const ShortcutsHeadingWrapper = ({msgKey}: {msgKey: string}) => (
+  <ShortcutsHeading>
     <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
       {(msg) => msg}
     </FormattedMessage>
-  </ShortcutsHeadingStyle>
+  </ShortcutsHeading>
 );
 
-export const ShortcutsCard = styled.div`
+const ShortcutsCard = styled.div`
   background-color: ${theme.color.white};
   border: 1px solid ${theme.color.neutral.darkest};
   margin: 2rem 0;
-  padding: 1.6rem 3.2rem;
+  padding: 2.4rem;
   ${theme.breakpoints.mobile(css`
     margin: 1.6rem 0;
+    padding: 0.8rem;
   `)}
 `;
 
-const ShortcutStyle = styled.div`
-  align-items: center;
-  display: flex;
-  align-items: center;
-  margin: 1.6rem 0;
-  width: 100%;
+const ShortcutRow = styled.div``;
+
+const ShortcutBlock = styled.div`
+  display: inline-block;
+  margin: 0.8rem;
+  min-width: 17.6rem;
+  vertical-align: middle;
+  ${theme.breakpoints.mobile(css`
+    display: block;
+  `)}
 `;
 
-export const ShortcutKeyStyle = styled.span`
+const ShortcutKey = styled.span`
   background-color: ${theme.color.neutral.darker};
   border: 1px solid ${theme.color.neutral.formBorder};
   border-radius: 3px;
+  display: inline-block;
+  font-weight: bold;
   padding: 0.4rem 1.2rem 0.3rem;
+  vertical-align: middle;
 `;
 
 // Using the index as the key is not ideal but this content is static so it shouldn't matter
 export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
-  <ShortcutStyle>
-    {keys.map<React.ReactNode>(
-      (k, index) => <ShortcutKeyStyle key={index}>
-        <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:keys:${k}`}>
-          {(msg) => msg}
-        </FormattedMessage>
-      </ShortcutKeyStyle>
-    ).reduce((prev, curr) => [prev, ' + ', curr])}
+  <ShortcutRow>
+    <ShortcutBlock>
+      {keys.map<React.ReactNode>(
+        (k, index) => <ShortcutKey key={index}>
+          <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:keys:${k}`}>
+            {(msg) => msg}
+          </FormattedMessage>
+        </ShortcutKey>
+      ).reduce((prev, curr) => [prev, ' + ', curr])}
+    </ShortcutBlock>
 
-    <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
-      {(msg) => msg}
-    </FormattedMessage>
-  </ShortcutStyle>
+    <ShortcutBlock>
+      <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
+        {(msg) => msg}
+      </FormattedMessage>
+    </ShortcutBlock>
+  </ShortcutRow>
 );
 
 export const CaretMessageStyle = styled.div``;
@@ -87,11 +99,11 @@ export const CaretMessage = htmlMessage(
 
 // tslint:disable-next-line: variable-name
 const ShowKeyboardShortcuts = () => (
-  <ShowKeyboardShortcutsStyle
+  <ShowKeyboardShortcutsBody
     data-testid='show-keyboard-shortcuts-body'
     data-analytics-region='KS popup'
   >
-    <ShortcutsHeading msgKey="sub-heading"/>
+    <ShortcutsHeadingWrapper msgKey="sub-heading"/>
 
     <ShortcutsCard>
       <Shortcut keys={["shift", "?"]} msgKey="open-menu"/>
@@ -103,7 +115,7 @@ const ShowKeyboardShortcuts = () => (
       <Shortcut keys={["enter"]} msgKey="save-or-cancel"/>
     </ShortcutsCard>
 
-    <ShortcutsHeading msgKey="creating-highlights-and-notes"/>
+    <ShortcutsHeadingWrapper msgKey="creating-highlights-and-notes"/>
 
     <CaretMessage/>
 
@@ -115,7 +127,7 @@ const ShowKeyboardShortcuts = () => (
       <Shortcut keys={["space"]} msgKey="select-highlight-color"/>
       <Shortcut keys={["enter"]} msgKey="save-or-cancel"/>
     </ShortcutsCard>
-  </ShowKeyboardShortcutsStyle>
+  </ShowKeyboardShortcutsBody>
 );
 
 export default ShowKeyboardShortcuts;
