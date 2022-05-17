@@ -19,7 +19,7 @@ const ShowKeyboardShortcutsBody = styled(PopupBody)`
 `;
 
 // tslint:disable-next-line: variable-name
-const ShortcutsHeading = styled.div`
+const ShortcutsHeadingDiv = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
   line-height: 3rem;
@@ -29,14 +29,16 @@ const ShortcutsHeading = styled.div`
   `)}
 `;
 
-const ShortcutsHeadingWrapper = ({msgKey}: {msgKey: string}) => (
-  <ShortcutsHeading>
+// tslint:disable-next-line: variable-name
+export const ShortcutsHeading = ({msgKey}: {msgKey: string}) => (
+  <ShortcutsHeadingDiv>
     <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
       {(msg) => msg}
     </FormattedMessage>
-  </ShortcutsHeading>
+  </ShortcutsHeadingDiv>
 );
 
+// tslint:disable-next-line: variable-name
 const ShortcutsCard = styled.div`
   background-color: ${theme.color.white};
   border: 1px solid ${theme.color.neutral.darkest};
@@ -48,8 +50,7 @@ const ShortcutsCard = styled.div`
   `)}
 `;
 
-const ShortcutRow = styled.div``;
-
+// tslint:disable-next-line: variable-name
 const ShortcutBlock = styled.div`
   display: inline-block;
   margin: 0.8rem;
@@ -60,7 +61,8 @@ const ShortcutBlock = styled.div`
   `)}
 `;
 
-const ShortcutKey = styled.span`
+// tslint:disable-next-line: variable-name
+export const ShortcutKey = styled.span`
   background-color: ${theme.color.neutral.darker};
   border: 1px solid ${theme.color.neutral.formBorder};
   border-radius: 3px;
@@ -70,9 +72,9 @@ const ShortcutKey = styled.span`
   vertical-align: middle;
 `;
 
-// Using the index as the key is not ideal but this content is static so it shouldn't matter
+// tslint:disable-next-line: variable-name
 export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
-  <ShortcutRow>
+  <div>
     <ShortcutBlock>
       {keys.map<React.ReactNode>(
         (k, index) => <ShortcutKey key={index}>
@@ -88,13 +90,17 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
         {(msg) => msg}
       </FormattedMessage>
     </ShortcutBlock>
-  </ShortcutRow>
+  </div>
 );
 
-export const CaretMessageStyle = styled.div``;
+// tslint:disable-next-line: variable-name
+export const CaretMessageDiv = styled.div`
+  /* Nothing here at the moment */
+`;
 
+// tslint:disable-next-line: variable-name
 export const CaretMessage = htmlMessage(
-  'i18n:a11y:keyboard-shortcuts:caret-extension', CaretMessageStyle
+  'i18n:a11y:keyboard-shortcuts:caret-extension', CaretMessageDiv
 );
 
 // tslint:disable-next-line: variable-name
@@ -103,29 +109,29 @@ const ShowKeyboardShortcuts = () => (
     data-testid='show-keyboard-shortcuts-body'
     data-analytics-region='KS popup'
   >
-    <ShortcutsHeadingWrapper msgKey="sub-heading"/>
+    <ShortcutsHeading msgKey='sub-heading'/>
 
     <ShortcutsCard>
-      <Shortcut keys={["shift", "?"]} msgKey="open-menu"/>
-      <Shortcut keys={["tab"]} msgKey="move-forward"/>
-      <Shortcut keys={["shift", "tab"]} msgKey="move-backward"/>
-      <Shortcut keys={["h"]} msgKey="move-focus-in-out"/>
-      <Shortcut keys={["tab"]} msgKey="move-through-note-editing"/>
-      <Shortcut keys={["space"]} msgKey="select-highlight-color"/>
-      <Shortcut keys={["enter"]} msgKey="save-or-cancel"/>
+      <Shortcut keys={['shift', '?']} msgKey='open-menu'/>
+      <Shortcut keys={['tab']} msgKey='move-forward'/>
+      <Shortcut keys={['shift', 'tab']} msgKey='move-backward'/>
+      <Shortcut keys={['h']} msgKey='move-focus-in-out'/>
+      <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
+      <Shortcut keys={['space']} msgKey='select-highlight-color'/>
+      <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
     </ShortcutsCard>
 
-    <ShortcutsHeadingWrapper msgKey="creating-highlights-and-notes"/>
+    <ShortcutsHeading msgKey='creating-highlights-and-notes'/>
 
     <CaretMessage/>
 
     <ShortcutsCard>
-      <Shortcut keys={["arrows"]} msgKey="move-forward"/>
-      <Shortcut keys={["shift", "arrows"]} msgKey="move-backward"/>
-      <Shortcut keys={["h"]} msgKey="move-focus-in-out"/>
-      <Shortcut keys={["tab"]} msgKey="move-through-note-editing"/>
-      <Shortcut keys={["space"]} msgKey="select-highlight-color"/>
-      <Shortcut keys={["enter"]} msgKey="save-or-cancel"/>
+      <Shortcut keys={['arrows']} msgKey='move-forward'/>
+      <Shortcut keys={['shift', 'arrows']} msgKey='move-backward'/>
+      <Shortcut keys={['h']} msgKey='move-focus-in-out'/>
+      <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
+      <Shortcut keys={['space']} msgKey='select-highlight-color'/>
+      <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
     </ShortcutsCard>
   </ShowKeyboardShortcutsBody>
 );

@@ -1,9 +1,9 @@
 import { createStandardAction } from 'typesafe-actions';
 import * as highlightingActions from './highlights/actions';
+import * as keyboardShortcutsActions from './keyboardShortcuts/actions';
 import * as practiceQuestionsActions from './practiceQuestions/actions';
 import * as searchActions from './search/actions';
 import * as studyGuidesActions from './studyGuides/actions';
-import * as keyboardShortcutsActions from './keyboardShortcuts/actions';
 import { ArchivePage, Book, Params, State } from './types';
 
 export const search = searchActions;

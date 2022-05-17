@@ -21,8 +21,8 @@ const OpenKeyboardShortcutsMenuLink = () => {
   };
 
   return <FormattedMessage id='i18n:a11y:keyboard-shortcuts:menu'>
-    {(txt) => <HiddenLink onClick={openKeyboardShortcutsMenu} href="">{txt}</HiddenLink>}
-  </FormattedMessage>
+    {(txt) => <HiddenLink onClick={openKeyboardShortcutsMenu} href=''>{txt}</HiddenLink>}
+  </FormattedMessage>;
 };
 
 export default class AccessibilityButtonsWrapper extends Component {

@@ -152,7 +152,7 @@ export const onKeyHandler = (
   isEnabled: boolean,
   cb: () => void
 ) => () => {
-  let el = (element && element.current) || assertDocument();
+  const el = (element && element.current) || assertDocument();
 
   const [addEvListener, removeEvListener] = onKey(config, el, cb);
   if (isEnabled) {

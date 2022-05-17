@@ -10,7 +10,6 @@ import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
 import { content } from '../../routes';
-import { nextQuestion } from '../actions';
 import * as ksSelectors from '../selectors';
 import KeyboardShortcutsPopup from './KeyboardShortcutsPopup';
 

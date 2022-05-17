@@ -10,7 +10,7 @@ describe('isKeyboardShortcutsOpen', () => {
   });
 
   it('returns false if doesnt have a query', () => {
-    const rootState = ({navigation: {},} as any) as AppState;
+    const rootState = ({ navigation: {} } as any) as AppState;
 
     expect(selectors.isKeyboardShortcutsOpen(rootState)).toBe(false);
   });

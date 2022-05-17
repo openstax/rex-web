@@ -5,12 +5,10 @@ import { book } from '../../../../test/mocks/archiveLoader';
 import TestContainer from '../../../../test/TestContainer';
 import { Card } from '../../../components/Modal/styles';
 import { Store } from '../../../types';
-import { assertDefined } from '../../../utils';
 import { receiveBook } from '../../actions';
-import { content } from '../../routes';
 import ShowKeyboardShortcuts, {
   Shortcut,
-  ShortcutKeyStyle,
+  ShortcutKey,
   ShortcutsHeading,
 } from './ShowKeyboardShortcuts';
 
@@ -33,6 +31,6 @@ describe('ShowKeyboardShortcuts', () => {
     expect(() => component.root.findByType(ShortcutsHeading)).not.toThrow();
     expect(() => component.root.findByType(Card)).not.toThrow();
     expect(() => component.root.findByType(Shortcut)).not.toThrow();
-    expect(() => component.root.findByType(ShortcutKeyStyle)).not.toThrow();
+    expect(() => component.root.findByType(ShortcutKey)).not.toThrow();
   });
 });
