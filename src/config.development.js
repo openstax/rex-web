@@ -27,7 +27,7 @@ module.exports = {
 
   REACT_APP_ARCHIVE_URL_OVERRIDE,
   ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://dev.openstax.org',
-  OS_WEB_URL: process.env.OS_WEB_URL || 'https://cms-dev.openstax.org',
+  OS_WEB_URL: process.env.OS_WEB_URL || 'https://dev.openstax.org',
   HIGHLIGHTS_URL: 'https://highlights-hl-40b2567.sandbox.openstax.org',
   
   SEARCH_URL: 'https://search-os-a6c9b00.sandbox.openstax.org',
