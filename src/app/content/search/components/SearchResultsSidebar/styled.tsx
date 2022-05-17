@@ -126,6 +126,7 @@ export const SearchResultsBar = styled.div`
     height: calc(100vh - ${navMobileHeight + bookBannerMobileMiniHeight}rem);
     max-height: calc(100vh - ${bookBannerMobileMiniHeight}rem);
   `)}
+
   ${theme.breakpoints.mobileMedium(css`
     grid-column: 1 / -1;
     z-index: ${theme.zIndex.sidebar};
