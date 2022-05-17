@@ -13,6 +13,7 @@ export const sidebarMobileWidth = 30.4;
 export const sidebarTransitionTime = 300;
 
 export const searchResultsBarDesktopWidth = 37.5;
+export const searchResultsBarMobileWidth = 33.8;
 
 export const toolbarIconColor = theme.color.primary.gray;
 

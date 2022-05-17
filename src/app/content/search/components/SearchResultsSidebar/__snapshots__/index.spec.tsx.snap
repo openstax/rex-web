@@ -3,7 +3,7 @@
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 evyymW"
+  className="styled__SearchResultsBar-as3fh1-4 gSIGuG"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
@@ -68,7 +68,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 evyymW"
+  className="styled__SearchResultsBar-as3fh1-4 gSIGuG"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
@@ -308,7 +308,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 evyymW"
+  className="styled__SearchResultsBar-as3fh1-4 gSIGuG"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
@@ -613,7 +613,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 evyymW"
+  className="styled__SearchResultsBar-as3fh1-4 gSIGuG"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
