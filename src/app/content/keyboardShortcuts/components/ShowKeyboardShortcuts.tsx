@@ -73,6 +73,7 @@ const ShortcutRow = styled.div`
 const ShortcutBlock = styled.div`
   display: table-cell;
   min-width: 16rem;
+  vertical-align: middle;
   ${theme.breakpoints.mobile(css`
     display: block;
     margin: 0.8rem;
