@@ -5,18 +5,15 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
-import { push } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
-import { assertNotNull, assertWindow } from '../../../utils';
+import { assertDocument, assertNotNull } from '../../../utils';
 import { content } from '../../routes';
+import { closeKeyboardShortcutsMenu, openKeyboardShortcutsMenu } from '../actions';
 import * as ksSelectors from '../selectors';
 import KeyboardShortcutsPopup from './KeyboardShortcutsPopup';
 
-// this is a hack because useEffect is currently not called
-// when using jsdom? https://github.com/facebook/react/issues/14050
-// seems to work better in react-test-renderer but
-// i need the ref here
+// hack copied from practiceQuestions popup spec
 jest.mock('react', () => {
   const react = (jest as any).requireActual('react');
   return { ...react, useEffect: react.useLayoutEffect };
@@ -49,7 +46,7 @@ describe('KeyboardShortcuts', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
-    container = assertWindow().document.createElement('div');
+    container = assertDocument().createElement('div');
     dispatch = jest.spyOn(store, 'dispatch');
   });
 
@@ -90,6 +87,22 @@ describe('KeyboardShortcuts', () => {
     expect(focus).toHaveBeenCalled();
   });
 
+  it('tracks analytics and adds modal-url when clicking shift + ?', async() => {
+    const track = jest.spyOn(services.analytics.openCloseKeyboardShortcuts, 'track');
+    jest.spyOn(ksSelectors, 'isKeyboardShortcutsOpen').mockReturnValue(false);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
+
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <KeyboardShortcutsPopup />
+    </TestContainer>);
+    expect(node).toBeNull();
+
+    assertDocument().dispatchEvent(new KeyboardEvent('keydown', {key: '?', shiftKey: true}));
+
+    expect(track).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalledWith(openKeyboardShortcutsMenu());
+  });
+
   it('tracks analytics and removes modal-url when clicking x icon', () => {
     const track = jest.spyOn(services.analytics.openCloseKeyboardShortcuts, 'track');
     jest.spyOn(ksSelectors, 'isKeyboardShortcutsOpen').mockReturnValue(true);
@@ -105,7 +118,7 @@ describe('KeyboardShortcuts', () => {
     });
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(closeKeyboardShortcutsMenu());
   });
 
   it('tracks analytics and removes modal-url when clicking esc', async() => {
@@ -119,10 +132,10 @@ describe('KeyboardShortcuts', () => {
 
     const element = assertNotNull(node.querySelector('[data-testid=\'keyboard-shortcuts-popup-wrapper\']'), '');
 
-    element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
+    element.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'}));
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(closeKeyboardShortcutsMenu());
   });
 
   it('tracks analytics and removes modal-url on overlay click', async() => {
@@ -136,7 +149,7 @@ describe('KeyboardShortcuts', () => {
 
     const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
 
-    const event = assertWindow().document.createEvent('MouseEvents');
+    const event = assertDocument().createEvent('MouseEvents');
     event.initEvent('click', true, true);
     const preventDefault = event.preventDefault = jest.fn();
 
@@ -144,6 +157,6 @@ describe('KeyboardShortcuts', () => {
     ReactTestUtils.Simulate.click(element, {preventDefault}); // this checks for react onClick prop
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(closeKeyboardShortcutsMenu());
   });
 });

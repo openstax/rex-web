@@ -19,6 +19,13 @@ Array [
   >
     Go to accessibility page
   </a>,
+  <a
+    className="HiddenLink-wwwegq-0 bkbyvj"
+    href=""
+    onClick={[Function]}
+  >
+    Keyboard shortcuts menu
+  </a>,
   <div
     className="styled__BarWrapper-sc-3syvnw-12 gAhLPK"
     data-analytics-region="openstax-navbar"
@@ -1605,6 +1612,13 @@ Array [
     }
   >
     Go to accessibility page
+  </a>,
+  <a
+    className="HiddenLink-wwwegq-0 bkbyvj"
+    href=""
+    onClick={[Function]}
+  >
+    Keyboard shortcuts menu
   </a>,
   <div
     className="styled__BarWrapper-sc-3syvnw-12 gAhLPK"

@@ -94,7 +94,7 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
 );
 
 // tslint:disable-next-line: variable-name
-export const CaretMessageDiv = styled.div`
+const CaretMessageDiv = styled.div`
   /* Nothing here at the moment */
 `;
 

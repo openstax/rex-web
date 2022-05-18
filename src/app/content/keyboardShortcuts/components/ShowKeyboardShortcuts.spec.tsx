@@ -3,14 +3,9 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { book } from '../../../../test/mocks/archiveLoader';
 import TestContainer from '../../../../test/TestContainer';
-import { Card } from '../../../components/Modal/styles';
 import { Store } from '../../../types';
 import { receiveBook } from '../../actions';
-import ShowKeyboardShortcuts, {
-  Shortcut,
-  ShortcutKey,
-  ShortcutsHeading,
-} from './ShowKeyboardShortcuts';
+import ShowKeyboardShortcuts from './ShowKeyboardShortcuts';
 
 describe('ShowKeyboardShortcuts', () => {
   let store: Store;
@@ -28,9 +23,6 @@ describe('ShowKeyboardShortcuts', () => {
 
     const component = renderer.create(render());
 
-    expect(() => component.root.findByType(ShortcutsHeading)).not.toThrow();
-    expect(() => component.root.findByType(Card)).not.toThrow();
-    expect(() => component.root.findByType(Shortcut)).not.toThrow();
-    expect(() => component.root.findByType(ShortcutKey)).not.toThrow();
+    expect(component.toJSON()).toMatchSnapshot();
   });
 });
