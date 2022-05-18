@@ -1,15 +1,15 @@
-import createTestStore from '../../test/createTestStore';
-import { reactAndFriends, resetModules, runHooksAsync } from '../../test/utils';
-import { Store } from '../types';
-import { assertWindow } from '../utils/browser-assertions';
+import createTestStore from '../../../test/createTestStore';
+import { reactAndFriends, resetModules, runHooksAsync } from '../../../test/utils';
+import { Store } from '../../types';
+import { assertWindow } from '../../utils/browser-assertions';
 
 // tslint:disable: variable-name
-describe('SimpleMessageProvider', () => {
+describe('OuterErrorBoundary', () => {
   let Provider: ReturnType<typeof reactAndFriends>['Provider'];
   let React: ReturnType<typeof reactAndFriends>['React'];
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let store: Store;
-  let SimpleMessageProvider: any;
+  let OuterErrorBoundary: any;
 
   beforeEach(async() => {
     resetModules();
@@ -29,14 +29,14 @@ describe('SimpleMessageProvider', () => {
       loaded = true;
     });
 
-    SimpleMessageProvider = require('../messages/SimpleMessageProvider').default;
+    OuterErrorBoundary = require('./OuterErrorBoundary').default;
 
     const component = renderer.create(<Provider store={store}>
-      <SimpleMessageProvider />
+      <OuterErrorBoundary />
     </Provider>);
 
     component.update(<Provider store={store}>
-      <SimpleMessageProvider />
+      <OuterErrorBoundary><span></span></OuterErrorBoundary>
     </Provider>);
 
     await runHooksAsync(renderer);
@@ -55,14 +55,40 @@ describe('SimpleMessageProvider', () => {
       loaded = true;
     });
 
-    SimpleMessageProvider = require('../messages/SimpleMessageProvider').default;
+    OuterErrorBoundary = require('./OuterErrorBoundary').default;
 
     const component = renderer.create(<Provider store={store}>
-      <SimpleMessageProvider />
+      <OuterErrorBoundary />
     </Provider>);
 
     component.update(<Provider store={store}>
-      <SimpleMessageProvider />
+      <OuterErrorBoundary><span></span></OuterErrorBoundary>
+    </Provider>);
+
+    await runHooksAsync(renderer);
+
+    expect(loaded).toBe(true);
+  });
+
+  it('defaults to en if browser locale is not supported', async() => {
+    jest.spyOn(assertWindow().navigator, 'language', 'get').mockReturnValueOnce('ja');
+    let loaded = false;
+
+    jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
+      shouldPolyfill: () => true,
+    }));
+    jest.doMock('@formatjs/intl-pluralrules/locale-data/en', () => {
+      loaded = true;
+    });
+
+    OuterErrorBoundary = require('./OuterErrorBoundary').default;
+
+    const component = renderer.create(<Provider store={store}>
+      <OuterErrorBoundary />
+    </Provider>);
+
+    component.update(<Provider store={store}>
+      <OuterErrorBoundary><span></span></OuterErrorBoundary>
     </Provider>);
 
     await runHooksAsync(renderer);
