@@ -147,7 +147,6 @@ export default {
   zIndex: [
     'highlightInlineCard',
     'contentNotifications',
-    'searchSidebar',
     'topbar',
     'overlay',
     'sidebar',
