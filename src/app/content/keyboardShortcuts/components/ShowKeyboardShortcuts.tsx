@@ -43,7 +43,8 @@ const ShortcutsCard = styled.div`
   background-color: ${theme.color.white};
   border: 1px solid ${theme.color.neutral.darkest};
   margin: 2rem 0;
-  padding: 2.4rem;
+  padding: 1.6rem 0;
+  width: 100%;
   ${theme.breakpoints.mobile(css`
     margin: 1.6rem 0;
     padding: 0.8rem;
@@ -51,13 +52,30 @@ const ShortcutsCard = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const ShortcutBlock = styled.div`
-  display: inline-block;
-  margin: 0.8rem;
-  min-width: 17.6rem;
-  vertical-align: middle;
+const ShortcutsTable = styled.div`
+  border-collapse: separate;
+  border-spacing: 3.2rem 1.6rem;
+  display: table;
   ${theme.breakpoints.mobile(css`
     display: block;
+  `)}
+`;
+
+// tslint:disable-next-line: variable-name
+const ShortcutRow = styled.div`
+  display: table-row;
+  ${theme.breakpoints.mobile(css`
+    display: block;
+  `)}
+`;
+
+// tslint:disable-next-line: variable-name
+const ShortcutBlock = styled.div`
+  display: table-cell;
+  min-width: 16rem;
+  ${theme.breakpoints.mobile(css`
+    display: block;
+    margin: 0.8rem;
   `)}
 `;
 
@@ -74,7 +92,7 @@ export const ShortcutKey = styled.span`
 
 // tslint:disable-next-line: variable-name
 export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
-  <div>
+  <ShortcutRow>
     <ShortcutBlock>
       {keys.map<React.ReactNode>(
         (k, index) => <ShortcutKey key={index}>
@@ -90,7 +108,7 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
         {(msg) => msg}
       </FormattedMessage>
     </ShortcutBlock>
-  </div>
+  </ShortcutRow>
 );
 
 // tslint:disable-next-line: variable-name
@@ -112,13 +130,15 @@ const ShowKeyboardShortcuts = () => (
     <ShortcutsHeading msgKey='sub-heading'/>
 
     <ShortcutsCard>
-      <Shortcut keys={['shift', '?']} msgKey='open-menu'/>
-      <Shortcut keys={['tab']} msgKey='move-forward'/>
-      <Shortcut keys={['shift', 'tab']} msgKey='move-backward'/>
-      <Shortcut keys={['h']} msgKey='move-focus-in-out'/>
-      <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
-      <Shortcut keys={['space']} msgKey='select-highlight-color'/>
-      <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
+      <ShortcutsTable>
+        <Shortcut keys={['shift', '?']} msgKey='open-menu'/>
+        <Shortcut keys={['tab']} msgKey='move-forward'/>
+        <Shortcut keys={['shift', 'tab']} msgKey='move-backward'/>
+        <Shortcut keys={['h']} msgKey='move-focus-in-out'/>
+        <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
+        <Shortcut keys={['space']} msgKey='select-highlight-color'/>
+        <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
+      </ShortcutsTable>
     </ShortcutsCard>
 
     <ShortcutsHeading msgKey='creating-highlights-and-notes'/>
@@ -126,12 +146,14 @@ const ShowKeyboardShortcuts = () => (
     <CaretMessage/>
 
     <ShortcutsCard>
-      <Shortcut keys={['arrows']} msgKey='move-forward'/>
-      <Shortcut keys={['shift', 'arrows']} msgKey='move-backward'/>
-      <Shortcut keys={['h']} msgKey='move-focus-in-out'/>
-      <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
-      <Shortcut keys={['space']} msgKey='select-highlight-color'/>
-      <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
+      <ShortcutsTable>
+        <Shortcut keys={['arrows']} msgKey='move-forward'/>
+        <Shortcut keys={['shift', 'arrows']} msgKey='move-backward'/>
+        <Shortcut keys={['h']} msgKey='move-focus-in-out'/>
+        <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
+        <Shortcut keys={['space']} msgKey='select-highlight-color'/>
+        <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
+      </ShortcutsTable>
     </ShortcutsCard>
   </ShowKeyboardShortcutsBody>
 );
