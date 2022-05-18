@@ -2,7 +2,7 @@
 
 exports[`content in browser matches snapshot for logged out 1`] = `
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 gAhLPK"
+  className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
   data-analytics-region="openstax-navbar"
 >
   <div
@@ -34,7 +34,7 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 
 exports[`content in browser matches snapshot for null state 1`] = `
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 gAhLPK"
+  className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
   data-analytics-region="openstax-navbar"
 >
   <div
@@ -57,7 +57,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
 
 exports[`content in browser when logged in matches snapshot 1`] = `
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 gAhLPK"
+  className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
   data-analytics-region="openstax-navbar"
 >
   <div
