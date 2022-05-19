@@ -129,7 +129,7 @@ export const SearchResultsBar = styled.div`
 
   ${theme.breakpoints.mobileMedium(css`
     grid-column: 1 / -1;
-    z-index: ${theme.zIndex.searchSidebar};
+    z-index: ${theme.zIndex.sidebar};
     left: 0;
     width: 100%;
     margin-top: 0;
