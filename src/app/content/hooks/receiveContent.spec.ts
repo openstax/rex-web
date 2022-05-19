@@ -216,7 +216,7 @@ describe('setHead hook', () => {
 
     it('returns the current book when the book does not have a canonical book entry', async() => {
       const pageId = page.id;
-      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId, book.version);
       expect(x).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'test-page-1'}});
     });
 
@@ -224,7 +224,7 @@ describe('setHead hook', () => {
       const bookId = book.id;
       const pageId = page.id;
       CANONICAL_MAP[bookId] = [ [bookId, {}] ];
-      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+      const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId, book.version);
       expect(x).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'test-page-1'}});
     });
 
@@ -238,7 +238,7 @@ describe('setHead hook', () => {
       const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNodeById')
         .mockReturnValueOnce(node);
 
-      const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+      const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId, book.version);
 
       expect(spy).toHaveBeenCalledWith(book.tree, 'new-id');
       expect(res).toEqual({book: {slug: 'book-slug-1'}, page: {slug: 'new-id'}});
@@ -255,7 +255,8 @@ describe('setHead hook', () => {
         helpers.archiveLoader,
         helpers.osWebLoader,
         book,
-        pageId
+        pageId,
+        book.version
       )).rejects.toThrow(`could not load cms data for book: ${bookId}`);
     });
 
