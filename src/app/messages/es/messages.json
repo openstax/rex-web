@@ -176,6 +176,7 @@
   "i18n:studyguides:popup:using-this-guide:alt": "La imagen presenta la estructura de las guías de estudio. El primer elemento de cada bloque resume, aclara o enriquece el contenido clave. El segundo elemento se toma directamente del libro. En el lado izquierdo, hay una etiqueta de color según el contenido.",
   "i18n:studyguides:popup:using-this-guide:close:aria-label": "Cierre la imagen que describe la estructura de las guías de estudio.",
   "i18n:toc:title": "Índice",
+  "i18n:toolbar:toc:text": "Índice",
   "i18n:toc:toggle:closed": "Haga clic para abrir el índice",
   "i18n:toc:toggle:opened": "Haga clic para cerrar el índice",
   "i18n:toolbar:buy-book:aria-label:text": "Comprar libro",
