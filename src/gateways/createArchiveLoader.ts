@@ -64,18 +64,17 @@ export default (getArchivePath: () => string, options: Options = {}) => {
       new ArchiveBookMissingError(`Error response from archive "${fetchUrl}" ${status}: ${message}`)))
     .then((response) => response.json() as Promise<T>);
 
-  const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) =>
-    (bookId: string, id: string) => {
-      const cached = cache.get(id);
-      if (cached) {
-        return Promise.resolve(cached);
-      }
+  const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) => (bookId: string, id: string) => {
+    const cached = cache.get(id);
+    if (cached) {
+      return Promise.resolve(cached);
+    }
 
-      return archiveFetch<C>(contentUrl(archivePrefix, bookId, id))
-        .then((response) => {
-          cache.set(id, response);
-          return response;
-        });
+    return archiveFetch<C>(contentUrl(archivePrefix, bookId, id))
+      .then((response) => {
+        cache.set(id, response);
+        return response;
+      });
   };
 
   const bookLoader = contentsLoader<ArchiveBook>(bookCache);
