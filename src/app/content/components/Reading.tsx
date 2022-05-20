@@ -78,16 +78,20 @@ export default () => {
 
     const prev = previousId ? findArchiveTreeNodeById(book.tree, previousId)! : undefined;
     const next = nextId ? findArchiveTreeNodeById(book.tree, nextId)! : undefined;
-    const finished = next ? undefined : typeof redirect === 'string' ? redirect : undefined;
 
-    return prev || next || finished ? {prev, next, finished} : undefined;
-  }, [sectionsArray, page, book, redirect]);
+    return prev || next ? {prev, next} : undefined;
+  }, [sectionsArray, page, book]);
 
   return <AccessibilityButtonsWrapper>
     <ErrorModal />
     <ErrorBoundary>
       <Page>
-        {prevNext ? <PrevNextBar book={book} prevNext={prevNext} /> : null}
+        {prevNext
+          ? <PrevNextBar book={book} prevNext={prevNext} />
+          : typeof redirect === 'string'
+            ? <a href={redirect}>finished reading</a>
+            : null
+        }
       </Page>
     </ErrorBoundary>
   </AccessibilityButtonsWrapper>;
