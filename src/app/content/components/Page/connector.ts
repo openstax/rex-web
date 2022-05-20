@@ -51,5 +51,9 @@ export default connect(
     contentLinks: mapDispatchToContentLinkProp(dispatch),
     highlights: mapDispatchToHighlightProp(dispatch),
   }),
-  merge
+  (stateProps, dispatchProps, ownProps) => ({
+    // the subscopes need to be deep merged
+    ...merge(stateProps, dispatchProps),
+    ...ownProps,
+  })
 );

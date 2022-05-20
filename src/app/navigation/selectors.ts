@@ -43,9 +43,15 @@ export const match = createSelector(
 export const systemQueryParameters = createSelector(
   query,
   (navQuery) => pickBy(isDefined, {
+    'activity': navQuery.activity, // used by assignable view
     'archive': navQuery.archive,
+    'attempt': navQuery.attempt, // used by assignable view
     'content-style': navQuery['content-style'],
     'mathjax-version': navQuery['mathjax-version'],
+    'mode': navQuery.mode, // used by assignable view
+    'parent': navQuery.parent, // used by assignable view
+    'redirect': navQuery.redirect, // used by assignable view
+    'sections': navQuery.sections, // used by assignable view
   })
 );
 

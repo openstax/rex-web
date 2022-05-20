@@ -52,6 +52,17 @@ const HidingContentLink = styled(HidingContentLinkComponent)`
 `;
 
 // tslint:disable-next-line:variable-name
+const RegularLink = styled.a`
+  ${decoratedLinkStyle}
+  ${(props) => props.side === 'left' && theme.breakpoints.mobile(css`
+    margin-left: -0.8rem;
+  `)}
+  ${(props) => props.side === 'right' && theme.breakpoints.mobile(css`
+    margin-right: -0.8rem;
+  `)}
+`;
+
+// tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   ${disablePrint}
   ${textRegularStyle}
@@ -82,11 +93,12 @@ interface PropTypes {
   prevNext: null | {
     prev?: ArchiveTreeSection;
     next?: ArchiveTreeSection;
+    finished?: string;
   };
 }
 
 // tslint:disable-next-line:variable-name
-const PrevNextBar = ({book, prevNext}: PropTypes) => {
+export const PrevNextBar = ({book, prevNext}: PropTypes) => {
   const { formatMessage } = useIntl();
 
   if (!prevNext) {
@@ -106,17 +118,28 @@ const PrevNextBar = ({book, prevNext}: PropTypes) => {
       </FormattedMessage>
     </HidingContentLink>
 
-    <HidingContentLink side='right'
-      book={book}
-      page={prevNext.next}
-      aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
-      data-analytics-label='next'
-    >
-      <FormattedMessage id='i18n:prevnext:next:text'>
-        {(msg) => msg}
-      </FormattedMessage>
-      <RightArrow />
-    </HidingContentLink>
+    {prevNext.finished
+      ? <RegularLink side='right'
+        href={prevNext.finished}
+        aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
+      >
+        <FormattedMessage id='i18n:prevnext:next:text'>
+          {(msg) => msg}
+        </FormattedMessage>
+        <RightArrow />
+      </RegularLink>
+      : <HidingContentLink side='right'
+        book={book}
+        page={prevNext.next}
+        aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
+        data-analytics-label='next'
+      >
+        <FormattedMessage id='i18n:prevnext:next:text'>
+          {(msg) => msg}
+        </FormattedMessage>
+        <RightArrow />
+      </HidingContentLink>
+    }
   </BarWrapper>;
 };
 

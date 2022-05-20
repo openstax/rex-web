@@ -14,6 +14,7 @@ import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
+import BuyBook from './BuyBook';
 import CenteredContentRow from './CenteredContentRow';
 import {
   bookBannerDesktopMiniHeight,
@@ -26,8 +27,10 @@ import {
   topbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
+import LabsCTA from './LabsCall';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
+import PrevNextBar from './PrevNextBar';
 
 import Navigation from './Navigation';
 import Topbar from './Topbar';
@@ -169,7 +172,11 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
               <UndoPadding>
                 <MainContentWrapper>
                   <ContentNotifications mobileExpanded={mobileExpanded} />
-                  <Page />
+                  <Page>
+                    <PrevNextBar />
+                    <LabsCTA />
+                    <BuyBook />
+                  </Page>
                   <Attribution />
                   <Footer />
                 </MainContentWrapper>

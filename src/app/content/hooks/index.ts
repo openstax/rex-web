@@ -18,6 +18,7 @@ export default [
   ...practiceQuestionsHooks,
   receivePageNotFoundId,
   routeHook(routes.content, locationChangeBody),
+  routeHook(routes.createReading, locationChangeBody),
   actionHook(actions.receivePage, receiveContentBody),
   actionHook(actions.receivePage, kineticEnabled),
 ];

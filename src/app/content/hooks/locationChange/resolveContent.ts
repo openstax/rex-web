@@ -127,6 +127,9 @@ const resolvePage = async(
   book: Book,
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>
 ) => {
+  if (!match.params.page) {
+    return;
+  }
   const {dispatch, getState} = services;
   const state = getState();
   const pageId = match.state && 'pageUid' in match.state

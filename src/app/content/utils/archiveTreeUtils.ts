@@ -136,6 +136,27 @@ export const prevNextBookPage = (
   };
 };
 
+export const getTitleStringFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveTreeSection): string => {
+  const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
+  const container = domNode.getElementById('container');
+
+  const extra = container.querySelector<HTMLSpanElement>('.os-part-text');
+  const divider = container.querySelector<HTMLSpanElement>('.os-divider');
+  const number = container.querySelector<HTMLSpanElement>('.os-number');
+  const section = findArchiveTreeNodeById(book.tree, node.id);
+
+  if (section && archiveTreeSectionIsUnit(section)) {
+    if (number) { number.remove(); }
+    if (divider) { divider.remove(); }
+  } else if (section && archiveTreeSectionIsPage(section) && extra && /appendix/i.test(extra.innerHTML)) {
+    divider.innerHTML = ' | ';
+  }
+
+  if (extra) { extra.remove(); }
+
+  return container.innerText;
+};
+
 export const getTitleFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveTreeSection): string => {
   const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
   const container = domNode.getElementById('container');
