@@ -30,9 +30,9 @@ export async function getCanonicalUrlParams(
   let canonicalBook;
   let treeSection;
 
-  // if no length that means book was found in books list; that's the only case we want null
   while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
+      console.log('loaded id, map id: ', book.id, id);
       const version = assertDefined(
         getBookVersionFromUUIDSync(id),
         `We've already filtered out books that are not in the BOOK configuration`

@@ -45,6 +45,15 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* Astronomy */ '2e737be8-ea65-48c3-aa0a-9f35b4c6a966': [
     /* Astronomy 2e */ ['4c29f9e5-a53d-42c0-bdb5-091990527d79', {}],
   ],
+  /* Test */ '175c88b6-f89b-4eba-9514-bc45e2139a1d': [
+    ['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
+  ],
+  /* Test 2 */ 'bc498e1f-efe9-43a0-8dea-d3569ad09a82': [
+    ['c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e', {}],
+  ],
+  /* Test 3 */ 'c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e': [
+    ['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
+  ],
   /* Principles of Macroeconomics 2e */ '27f59064-990e-48f1-b604-5188b9086c29': [
     /* Principles of Economics 2e */['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
   ],
