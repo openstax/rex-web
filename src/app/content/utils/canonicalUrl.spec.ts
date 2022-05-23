@@ -3,6 +3,7 @@ import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book, page } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { resetModules } from '../../../test/utils';
 import { setHead } from '../../head/actions';
 import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
