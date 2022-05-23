@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {v4 as uuid } from 'uuid';
 import * as selectAuth from '../../auth/selectors';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
+import Button from '../../components/Button';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import ErrorModal from '../../errors/components/ErrorModal';
 import * as selectNavigation from '../../navigation/selectors';
@@ -88,8 +89,10 @@ export default () => {
       <Page>
         {prevNext
           ? <PrevNextBar book={book} prevNext={prevNext} />
-          : typeof redirect === 'string'
-            ? <a href={redirect}>finished reading</a>
+          : null
+        }
+        {!prevNext?.next && typeof redirect === 'string'
+            ? <Button component={<a href={redirect}>finished reading</a>} variant='primary' size='large' />
             : null
         }
       </Page>

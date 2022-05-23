@@ -28,6 +28,7 @@ export default () => {
         config: {sections, page: sections[0], mode: 'assignable'},
         description: 'Read and take notes',
         id,
+        integration: {xapi: true, navigation: true},
         iri: `http://openstax.org/activities/readings/${id}`,
         resources: [
           ...sections.map((section: string) => {
@@ -38,6 +39,8 @@ export default () => {
               orn: `org.openstax.activities.readings.${book.id}:${stripIdVersion(sectionNode.id)}`,
             };
           }),
+          // hypothetical additional tags that can be derived from the content somehow
+          // indicating the type of content or topics covered in these sections
           {
             label: 'Cool Science Topic 1',
             orn: `org.openstax.content.topics.science.science-topic-1`,
