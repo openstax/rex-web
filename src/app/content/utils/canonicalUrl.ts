@@ -25,14 +25,15 @@ export async function getCanonicalUrlParams(
 };
 
   let canonicalMap = getCanonicalMap(book.id);
+  const mapsChecked = [];
   let canonicalPageId;
   let done = false;
   let canonicalBook;
   let treeSection;
 
   while (canonicalMap.length && !done) {
+    mapsChecked.push(canonicalMap);
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
-      console.log('loaded id, map id: ', book.id, id);
       const version = assertDefined(
         getBookVersionFromUUIDSync(id),
         `We've already filtered out books that are not in the BOOK configuration`
@@ -44,6 +45,10 @@ export async function getCanonicalUrlParams(
 
       if (!useCurrentBookAsCanonical) {
         const newMap = getCanonicalMap(canonicalBook.id);
+        // throw if the new map has already been checked
+        if (mapsChecked.find((map) => isEqual(map, newMap))) {
+          throw new Error(`Loop encountered in map for ${canonicalBook.id}`);
+        }
         // stop when we run out of canonical maps to check
         done = !newMap.length || isEqual(canonicalMap, newMap);
         canonicalMap = newMap;

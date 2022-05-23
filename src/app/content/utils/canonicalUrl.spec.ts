@@ -16,7 +16,31 @@ jest.mock('../../../config.books', () => ({
   'testbook1-uuid': {
     defaultVersion: '1.0',
   },
+  'testbook2-uuid': {
+    defaultVersion: '1.0',
+  },
+  'testbook3-uuid': {
+    defaultVersion: '1.0',
+  },
 }));
+
+const mockBook = {
+  abstract: '',
+  id: 'testbook2-uuid',
+  language: 'en',
+  license: {name: '', version: '', url: ''},
+  revised: '2012-06-21',
+  title: 'newbook',
+  tree: {
+    contents: [],
+    id: 'testbook2-uuid@0',
+    slug: 'newbook',
+    title: 'newbook',
+  },
+  version: '1.0',
+};
+
+const mockOtherBook = {...mockBook, id: 'testbook3-uuid'};
 
 describe('getCanonicalURL', () => {
   let getCanonicalUrlParams: typeof import ('../utils/canonicalUrl').getCanonicalUrlParams;
@@ -111,6 +135,20 @@ describe('getCanonicalURL', () => {
       book,
       pageId
     )).rejects.toThrow(`could not load cms data for book: ${bookId}`);
+  });
+
+  it('throws if infinite loop found in map', async() => {
+    helpers.archiveLoader.mockBook(mockBook);
+    helpers.archiveLoader.mockBook(mockOtherBook);
+
+    const bookId = book.id;
+    const pageId = page.id;
+    CANONICAL_MAP[bookId] = [['testbook2-uuid', {}]];
+    CANONICAL_MAP['testbook2-uuid'] = [['testbook3-uuid', {}]];
+    CANONICAL_MAP['testbook3-uuid'] = [['testbook2-uuid', {}]];
+
+    await expect(getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId))
+      .rejects.toThrowErrorMatchingInlineSnapshot(`"Loop encountered in map for testbook3-uuid"`);
   });
 
   it('doesn\'t add link when canonical is null', async() => {
