@@ -12,6 +12,12 @@ import { formatBookData } from '../utils';
 import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
 
+jest.mock('../../../config.books', () => ({
+  'testbook1-uuid': {
+    defaultVersion: '1.0',
+  },
+}));
+
 describe('getCanonicalURL', () => {
   let getCanonicalUrlParams: typeof import ('../utils/canonicalUrl').getCanonicalUrlParams;
   const combinedBook = formatBookData(book, mockCmsBook);
@@ -32,20 +38,28 @@ describe('getCanonicalURL', () => {
       getState: store.getState,
     };
 
-    hook = require('./receiveContent').default(helpers);
+    hook = require('../hooks/receiveContent').default(helpers);
   });
 
   it('returns the current book when the book does not have a canonical book entry', async() => {
     const pageId = page.id;
-    const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId, book.version);
+    const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
     expect(x).toEqual({ book: { slug: 'book-slug-1' }, page: { slug: 'test-page-1' } });
   });
 
-  it('finds a canonical book for a page', async() => {
+  it('finds itself as canonical book for a page', async() => {
     const bookId = book.id;
     const pageId = page.id;
     CANONICAL_MAP[bookId] = [[bookId, {}]];
-    const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId, book.version);
+    const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+    expect(x).toEqual({ book: { slug: 'book-slug-1' }, page: { slug: 'test-page-1' } });
+  });
+
+  it('finds another book as canonical book for a page', async() => {
+    const bookId = book.id;
+    const pageId = page.id;
+    CANONICAL_MAP[bookId] = [[bookId, {}]];
+    const x = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
     expect(x).toEqual({ book: { slug: 'book-slug-1' }, page: { slug: 'test-page-1' } });
   });
 
@@ -59,10 +73,29 @@ describe('getCanonicalURL', () => {
     const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNodeById')
       .mockReturnValueOnce(node);
 
-    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId, book.version);
+    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
 
     expect(spy).toHaveBeenCalledWith(book.tree, 'new-id');
     expect(res).toEqual({ book: { slug: 'book-slug-1' }, page: { slug: 'new-id' } });
+  });
+
+  it('returns null when the book does not exist in the books list', async() => {
+    const newBook = {...book, id: 'foo'};
+    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, newBook, page.id);
+    expect(res).toEqual(null);
+  });
+
+  it('uses current page if page not found in map', async() => {
+    const bookId = book.id;
+    const pageId = page.id;
+    CANONICAL_MAP[bookId] = [[bookId, {}]];
+
+    const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNodeById');
+
+    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+
+    expect(spy).toHaveBeenCalledWith(book.tree, 'testbook1-testpage1-uuid');
+    expect(res).toEqual({ book: { slug: 'book-slug-1' }, page: { slug: 'test-page-1' } });
   });
 
   it('throws if canonical book is missing cms data', async() => {
@@ -76,8 +109,7 @@ describe('getCanonicalURL', () => {
       helpers.archiveLoader,
       helpers.osWebLoader,
       book,
-      pageId,
-      book.version
+      pageId
     )).rejects.toThrow(`could not load cms data for book: ${bookId}`);
   });
 
