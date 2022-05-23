@@ -16,7 +16,6 @@ const mockBookConfig = {
 jest.doMock('../../../config.books', () => mockBookConfig);
 
 describe('setHead hook', () => {
-  let getCanonicalUrlParams: typeof import ('../utils/canonicalUrl').getCanonicalUrlParams;
   const combinedBook = formatBookData(book, mockCmsBook);
   let hook: ReturnType<typeof import ('./receiveContent').default>;
   let store: Store;
@@ -24,7 +23,6 @@ describe('setHead hook', () => {
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
 
   beforeEach(() => {
-    getCanonicalUrlParams = require('../utils/canonicalUrl').getCanonicalUrlParams;
     store = createTestStore();
 
     dispatch = jest.spyOn(store, 'dispatch');
