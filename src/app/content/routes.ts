@@ -1,10 +1,9 @@
 import pathToRegexp from 'path-to-regexp';
 import Loadable from 'react-loadable';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../../config';
-import { Route } from '../navigation/types';
 import { findPathForParams, getUrlRegexParams, injectParamsToBaseUrl } from '../navigation/utils';
 import { assertDefined } from '../utils';
-import { Params } from './types';
+import { ContentRoute, Params } from './types';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
 const base = '/books/:book/pages/:page';
@@ -14,13 +13,7 @@ const contentPaths = injectParamsToBaseUrl(base, {
   page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
 });
 
-type State = {} | {
-  bookUid: string;
-  bookVersion: string;
-  pageUid: string;
-};
-
-export const content: Route<Params, State> = {
+export const content: ContentRoute = {
   component: Loadable({
     loader: () => import(/* webpackChunkName: "Content" */ './components/Content'),
     loading: () => null,
