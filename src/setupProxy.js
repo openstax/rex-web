@@ -145,11 +145,18 @@ function accountsProxy(app) {
     cookieDomainRewrite: "",
     onProxyRes: (pres, req, res) => {
       delete pres.headers['x-frame-options']
-      delete pres.headers['referrer-policy']
     },
     onProxyReq: (preq, req, res) => {
       preq.setHeader('X-Forwarded-Host', req.headers.host);
     }
+  }));
+}
+
+function assignmentsProxy(app) {
+  app.use(proxy('/activities', {
+    target: 'https://assignments-prototype-1.assignments.sandbox.openstax.org',
+    changeOrigin: true,
+    autoRewrite: true,
   }));
 }
 
@@ -233,6 +240,7 @@ async function setupProxy(app) {
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
 
   archiveProxy(app);
+  assignmentsProxy(app);
   accountsProxy(app);
   searchProxy(app);
   highlightsProxy(app);
