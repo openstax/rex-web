@@ -104,13 +104,15 @@ class Topbar extends React.Component<Props, State> {
       this.props.setTextSize(value);
     };
 
-    const onDecreaseTextSize = () => {
+    const onDecreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
+      e.preventDefault();
       const newValue = this.props.textSize - 1;
       if (newValue < textResizerMinValue) { return; }
       this.props.setTextSize(newValue);
     };
 
-    const onIncreaseTextSize = () => {
+    const onIncreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
+      e.preventDefault();
       const newValue = this.props.textSize + 1;
       if (newValue > textResizerMaxValue) { return; }
       this.props.setTextSize(newValue);

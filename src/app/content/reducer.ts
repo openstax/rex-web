@@ -18,7 +18,7 @@ import searchReducer, {initialState as initialSearchState } from './search/reduc
 import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
 import { State } from './types';
 
-const storedTextSize = window && window.localStorage.getItem('textSize');
+const storedTextSize = typeof window !== 'undefined' && window.localStorage.getItem('textSize');
 
 export const initialState = {
   buyPrint: null,

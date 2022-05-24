@@ -10,10 +10,11 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../../test/reactutils';
 import { makeSearchResults } from '../../../../test/searchResults';
 import TestContainer from '../../../../test/TestContainer';
+import { DropdownToggle } from '../../../components/NavBar/styled';
 import * as Services from '../../../context/Services';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { openMobileMenu, toggleTextResizer } from '../../actions';
+import { openMobileMenu, setTextSize } from '../../actions';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -23,7 +24,7 @@ import {
 } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
-import { CloseButtonNew, MenuButton, SearchButton, TextResizerMenu, TextResizerMenuButton } from './styled';
+import { CloseButtonNew, MenuButton, SearchButton, TextResizerChangeButton, TextResizerDropdown, TextResizerMenu } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -339,19 +340,51 @@ describe('mobile menu button', () => {
 
 describe('text resizer', () => {
   let store: Store;
+  let dispatch: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
+    dispatch = jest.spyOn(store, 'dispatch');
   });
 
   it('opens menu when clicking menu button', () => {
     const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
-    expect(component.root.findByType(TextResizerMenuButton).props.isOpen).toBe(false);
+    expect(component.root.findAllByType(TextResizerMenu)).toEqual([]);
 
     renderer.act(() => {
-      component.root.findByType(TextResizerMenuButton).props.onClick({ preventDefault: jest.fn() });
+      component.root.findByType(TextResizerDropdown)
+        .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(component.root.findByType(TextResizerMenuButton).props.isOpen).toBe(true);
+    expect(component.root.findByType(TextResizerMenu)).toBeDefined();
+    expect(component).toMatchSnapshot();
   });
+
+  it('changes the text size', () => {
+    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+
+    renderer.act(() => {
+      component.root.findByType(TextResizerDropdown)
+        .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
+    });
+
+    renderer.act(() => {
+      component.root.findAllByType(TextResizerChangeButton)[0].props.onClick({ preventDefault: jest.fn()  });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setTextSize(-1));
+
+    renderer.act(() => {
+      component.root.findAllByType(TextResizerChangeButton)[1].props.onClick({ preventDefault: jest.fn()  });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setTextSize(0));
+
+    renderer.act(() => {
+      component.root.findAllByType(TextResizerChangeButton)[1].props.onClick({ preventDefault: jest.fn()  });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setTextSize(1));
+  });
+
 });

@@ -255,4 +255,32 @@ describe('content reducer', () => {
     const stateAfterClose = reducer(initialState, actions.closeNudgeStudyTools());
     expect(stateAfterClose.showNudgeStudyTools).toEqual(false);
   });
+
+  describe('textSize', () => {
+    let localStorageSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      localStorageSpy = jest.spyOn(assertWindow().localStorage.__proto__, 'getItem');
+      jest.resetModules();
+    });
+
+    it('defaults to 0 if not set in localStorage', () => {
+      require('./reducer');
+      expect(initialState.textSize).toEqual(0);
+      expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
+    });
+
+    it('uses the value stored in localStorage', () => {
+      localStorageSpy.mockReturnValue(2);
+      const state = require('./reducer').initialState;
+      expect(state.textSize).toEqual(2);
+      expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
+    });
+
+     it('updates the state', () => {
+      expect(initialState.textSize).toEqual(0);
+      const stateAfterUpdate = reducer(initialState, actions.setTextSize(3));
+      expect(stateAfterUpdate.textSize).toEqual(3);
+    });
+  });
 });

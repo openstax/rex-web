@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`text resizer opens menu when clicking menu button 1`] = `
+<div
+  className="styled__TopBarWrapper-sc-12dq39v-0 bpFSVr"
+  data-testid="topbar"
+>
+  <div
+    className="styled__SearchPrintWrapper-sc-12dq39v-10 NXYse"
+  >
+    <div
+      className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
+      id="mobile-menu-button"
+    >
+      <button
+        aria-label="Click to open menu"
+        className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          className="styled__HamburgerIcon-sc-12dq39v-1 fKwlfW StyledIconBase-sc-bdy9j4 cCvWXa"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 448 512"
+        >
+          <path
+            d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+            fill="currentColor"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      className="styled__SearchInputWrapperWrapper-sc-12dq39v-7 bcuxLY"
+    >
+      <form
+        className="styled__SearchInputWrapper-sc-12dq39v-8 dxHkBd"
+        data-experiment={true}
+        data-testid="desktop-search"
+        onSubmit={[Function]}
+      >
+        <input
+          aria-label="Search this book"
+          className="styled__SearchInput-sc-12dq39v-9 caxrVp"
+          data-testid="desktop-search-input"
+          onChange={[Function]}
+          placeholder="Search this book"
+          type="search"
+          value=""
+        />
+        <button
+          aria-label="Search this book"
+          className="styled__SearchButton-sc-12dq39v-3 cWAPrW styled__PlainButton-sc-1119auh-0 kPdLbJ"
+          data-analytics-label="Search this book"
+          data-experiment={true}
+          data-testid="mobile-toggle"
+          onClick={[Function]}
+          type="button"
+          value="Search"
+        >
+          <svg
+            aria-hidden="true"
+            height="18px"
+            version="1.1"
+            viewBox="0 0 18 18"
+            width="18px"
+          >
+            <g
+              fill="none"
+              fillRule="evenodd"
+              stroke="none"
+              strokeWidth="1"
+            >
+              <g
+                fill="currentColor"
+                fillRule="nonzero"
+                transform="translate(-938.000000, -206.000000)"
+              >
+                <path
+                  d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                />
+              </g>
+            </g>
+          </svg>
+        </button>
+        <button
+          className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+          data-experiment={true}
+          value="Search"
+        >
+          <svg
+            aria-hidden="true"
+            height="18px"
+            version="1.1"
+            viewBox="0 0 18 18"
+            width="18px"
+          >
+            <g
+              fill="none"
+              fillRule="evenodd"
+              stroke="none"
+              strokeWidth="1"
+            >
+              <g
+                fill="currentColor"
+                fillRule="nonzero"
+                transform="translate(-938.000000, -206.000000)"
+              >
+                <path
+                  d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                />
+              </g>
+            </g>
+          </svg>
+        </button>
+      </form>
+    </div>
+    <div
+      className="styled__TextResizerDropdown-sc-12dq39v-17 bBWYac Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+    >
+      <button
+        aria-label="Change text size"
+        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        data-analytics-label=""
+        onClick={[Function]}
+      >
+        <div
+          tabIndex={-1}
+        >
+          <img
+            aria-hidden="true"
+            src="text-size.svg"
+          />
+        </div>
+      </button>
+      <div
+        className="styled__TextResizerMenu-sc-12dq39v-18 TBgMM"
+        tabIndex={0}
+      >
+        Text size
+        <div
+          className="controls"
+        >
+          <button
+            className="styled__PlainButton-sc-1119auh-0 styled__TextResizerChangeButton-sc-12dq39v-19 joztXM"
+            onClick={[Function]}
+          >
+            <img
+              aria-hidden="true"
+              src="text-size-decrease.svg"
+            />
+          </button>
+          <input
+            max={3}
+            min={-2}
+            onChange={[Function]}
+            step="1"
+            type="range"
+            value={0}
+          />
+          <button
+            className="styled__PlainButton-sc-1119auh-0 styled__TextResizerChangeButton-sc-12dq39v-19 joztXM"
+            onClick={[Function]}
+          >
+            <img
+              aria-hidden="true"
+              src="text-size-increase.svg"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
