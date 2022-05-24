@@ -39,6 +39,7 @@ import { SerializedBookMatch, SerializedPageMatch } from './contentRoutes';
 import createRedirects from './createRedirects';
 import './logUnhandledRejectionsAndExit';
 import renderManifest from './renderManifest';
+import { SitemapPayload } from './sitemap';
 
 const {
   ARCHIVE_URL,
@@ -58,11 +59,9 @@ const MAX_CONCURRENT_BOOKS = 5;
 // This is insurance in case this process gets stuck or crashes without deleting the workers stack
 const PRERENDER_TIMEOUT_SECONDS = 1800;
 
-// Abort the build if the workers stack is not created within this many seconds
-const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 120;
-
-// Stack deletion needs an extra minute per SQS queue to be deleted
-const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECONDS + 120;
+// Abort the build if the workers stack is not created/deleted within this many seconds
+const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 300;
+const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECONDS;
 
 const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
 const BUCKET_REGION = process.env.BUCKET_REGION || 'us-east-1';
@@ -70,12 +69,10 @@ const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
 const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
 
 // Docker does not accept forward slashes in the image tag
-const PRERENDER_IMAGE_TAG = `${RELEASE_ID.replace(/\//g, '-')}-prerender`;
+const IMAGE_TAG = process.env.IMAGE_TAG || `${RELEASE_ID.replace(/\//g, '-')}`;
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
-
-export type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
 
 type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
@@ -97,7 +94,7 @@ async function createWorkersStack() {
   // The argument to randomBytes() just has to be large enough
   // so that we still have 16 characters left after removing all +, / and =
   const buildId = randomBytes(24).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 16);
-  const workersStackName = `rex-${PRERENDER_IMAGE_TAG}-workers-${buildId}`;
+  const workersStackName = `rex-${IMAGE_TAG}-prerender-workers-${buildId}`;
 
   console.log(`Creating ${workersStackName} stack...`);
 
@@ -116,8 +113,8 @@ async function createWorkersStack() {
         ParameterValue: CODE_VERSION,
       },
       {
-        ParameterKey: 'PrerenderImageTag',
-        ParameterValue: PRERENDER_IMAGE_TAG,
+        ParameterKey: 'ImageTag',
+        ParameterValue: IMAGE_TAG,
       },
       {
         ParameterKey: 'PublicUrl',

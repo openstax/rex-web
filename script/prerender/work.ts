@@ -16,7 +16,12 @@ import {
 import { cpus } from 'os';
 import path from 'path';
 import { Worker } from 'worker_threads';
+import { assertDefined } from '../../src/app/utils';
 import './logUnhandledRejectionsAndExit';
+
+// Thread timeout = MAX_HEARTBEATS * 15 seconds
+// The timeout must be long enough to render the slowest page, otherwise builds will never finish
+const MAX_HEARTBEATS = 20;
 
 console.log(`Bucket: ${process.env.BUCKET_NAME} (${process.env.BUCKET_REGION})`);
 
@@ -28,6 +33,128 @@ const receiveMessageCommand = new ReceiveMessageCommand({
   MaxNumberOfMessages: 10,
   QueueUrl: process.env.WORK_QUEUE_URL,
 });
+
+// Typescript shenanigans so filter() returns the correct type for the return value of allSettled()
+// https://stackoverflow.com/a/65479695
+type FulfilledPromiseResult<Type> = {
+  status: 'fulfilled';
+  value: Type;
+};
+type RejectedPromiseResult = {
+  status: 'rejected';
+  reason: Error;
+};
+type PromiseResult<Type> = FulfilledPromiseResult<Type> | RejectedPromiseResult;
+
+// ES2020 has Promise.allSettled()
+// Adapted from https://github.com/amrayn/allsettled-polyfill/blob/master/index.js
+function allSettled<Type>(promises: Array<Promise<Type>>) {
+  return Promise.all(
+    promises.map(
+      (p) => p.then(
+        (value: Type) => ({ status: 'fulfilled', value } as FulfilledPromiseResult<Type>)
+      ).catch(
+        (reason: Error) => ({ status: 'rejected', reason } as RejectedPromiseResult)
+      )
+    )
+  );
+}
+
+function isFulfilledPromiseResult<Type>(
+  promiseResult: PromiseResult<Type>
+): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
+
+// Changes the SQS VisibilityTimeout for the given ReceiptHandles to the given number of seconds
+async function changeReceiptHandlesVisibility(receiptHandles: string[], visibilityTimeout: number) {
+  // We use Promise.allSettled() here to prevent failing all messages
+  // in case one or more messages have already been deleted by other workers
+  return allSettled(
+    receiptHandles.map(async(receiptHandle) => sqsClient.send(
+      new ChangeMessageVisibilityCommand({
+        QueueUrl: process.env.WORK_QUEUE_URL,
+        ReceiptHandle: receiptHandle,
+        VisibilityTimeout: visibilityTimeout,
+      })
+    ))
+  );
+}
+
+// To be used with setInterval() with a delay of around 15000
+// Extends the SQS VisibilityTimeout for the given Message ReceiptHandles
+// We keep the VisibilityTimeout low to ensure messages can be quickly
+// picked up by other workers if this worker crashes
+// We limit the maximum number of heartbeats so messages will eventually timeout, become visible,
+// and be picked up by a different worker if one of our threads gets stuck
+function makeSQSHeartbeat(receiptHandles: string[]) {
+  let numHeartbeats = 0;
+
+  return async() => {
+    numHeartbeats += 1;
+
+    if (numHeartbeats > MAX_HEARTBEATS) {
+      // We don't currently track which threads are processing this batch or other batches,
+      // so we just stop sending the heartbeat and log the error,
+      // but make no attempt to interrupt any of them
+      console.error(
+        `Did not finish processing ${receiptHandles.length} messages within ${
+        MAX_HEARTBEATS} heartbeats (current: #${numHeartbeats})`
+      );
+    } else {
+      console.log(`Sending SQS heartbeat #${numHeartbeats} for ${receiptHandles.length} messages`);
+
+      return changeReceiptHandlesVisibility(receiptHandles, 30);
+    }
+  };
+}
+
+// Starts the SQS heartbeat interval
+// Returns a callback to be called when all work promises have settled that will cancel the
+// heartbeat interval, delete successful messages and force failed messages to become visible
+function handleSQSMessages(messages: Message[]) {
+  const receiptHandles = messages.map((message) => assertDefined(
+    message.ReceiptHandle,
+    '[SQS] [ReceiveMessage] Unexpected response: message missing ReceiptHandle key'
+  ));
+
+  const sqsHeartbeat = makeSQSHeartbeat(receiptHandles);
+  const heartbeatInterval = setInterval(sqsHeartbeat, 15000);
+
+  return async(results: Array<PromiseResult<string>>) => {
+    // Stop sending SQS heartbeats
+    clearInterval(heartbeatInterval);
+
+    // Check which messages succeeded
+    const successfulHandles = results.filter(isFulfilledPromiseResult).map((res) => res.value);
+
+    const numSuccesses = successfulHandles.length;
+    const numFailures = results.length - numSuccesses;
+
+    console.log(`Result: ${numSuccesses} successes and ${numFailures} failures`);
+
+    if (numSuccesses > 0) {
+      // Delete only the successful messages
+      // The Id only has to be unique within this request, it has no other meaning
+      const successfulEntries = successfulHandles.map(
+        (handle, index) => ({ Id: index.toString(), ReceiptHandle: handle })
+      );
+
+      await sqsClient.send(new DeleteMessageBatchCommand({
+        Entries: successfulEntries,
+        QueueUrl: process.env.WORK_QUEUE_URL,
+      }));
+    }
+
+    if (numFailures > 0) {
+      // Mark failures as visible so another worker can immediately retry them without waiting
+      // Since we don't get values from rejected promises, we compute the array difference instead
+      // For larger arrays, creating Sets and using Set.has() would be faster,
+      // but since these arrays have at most 10 elements, Array.includes() wins here
+      const failedHandles = receiptHandles.filter((handle) => !successfulHandles.includes(handle));
+
+      await changeReceiptHandlesVisibility(failedHandles, 0);
+    }
+  };
+}
 
 // We wrap the worker class instead of extending,
 // because trying to extend a native class leads to a Babel error
@@ -63,8 +190,8 @@ class SQSWorker {
       if (code !== 0) { pushWorker(new SQSWorker()); }
     });
 
-    // This should not happen as we log unhandled rejections and exit
-    // but just in case we missed something, we also log them
+    // This should not happen as the thread run() function is async and we log unhandled rejections
+    // and exit, but it's here just in case we make changes in the future and miss something
     this.worker.on('error', console.error);
 
     // This would only happen if there were unserializable objects in the worker message JSON
@@ -119,89 +246,8 @@ async function popWorker() {
   }
 }
 
-// Extends the SQS VisibilityTimeout for the given messages
-async function sqsHeartbeat(messages: Message[]) {
-  console.log(`Sending SQS heartbeat for ${messages.length} messages`);
-
-  messages.forEach(async(message) => {
-    try {
-      await sqsClient.send(new ChangeMessageVisibilityCommand({
-        QueueUrl: process.env.WORK_QUEUE_URL,
-        ReceiptHandle: message.ReceiptHandle,
-        VisibilityTimeout: 30,
-      }));
-    } catch (error) {
-      console.error(error.message, error.stack);
-      // Even if one message got deleted,
-      // we should not abort the work and continue trying to send the heartbeat for the others
-    }
-  });
-}
-
 // Having a few more worker threads than CPUs seemed to help keep CPU utilization high
 for (const _undefined of Array(Math.ceil(1.5 * cpus().length))) { pushWorker(new SQSWorker()); }
-
-// Typescript shenanigans so filter() returns the correct type for the return value of allSettled()
-// https://stackoverflow.com/a/65479695
-type FulfilledPromiseResult<Type> = {
-  status: 'fulfilled';
-  value: Type;
-};
-type RejectedPromiseResult = {
-  status: 'rejected';
-  reason: Error;
-};
-type PromiseResult<Type> = FulfilledPromiseResult<Type> | RejectedPromiseResult;
-
-function isFulfilledPromiseResult<Type>(
-  promiseResult: PromiseResult<Type>
-): promiseResult is FulfilledPromiseResult<Type> { return promiseResult.status === 'fulfilled'; }
-
-// ES2020 has Promise.allSettled()
-// Adapted from https://github.com/amrayn/allsettled-polyfill/blob/master/index.js
-function allSettled<Type>(promises: Array<Promise<Type>>) {
-  return Promise.all(
-    promises.map(
-      (p) => p.then(
-        (value: Type) => ({ status: 'fulfilled', value } as FulfilledPromiseResult<Type>)
-      ).catch(
-        (reason: Error) => ({ status: 'rejected', reason } as RejectedPromiseResult)
-      )
-    )
-  );
-}
-
-function makeHandleSettledPromises(heartbeatInterval: number) {
-  return async(results: Array<PromiseResult<string>>) => {
-    // Stop the heartbeat interval
-    clearInterval(heartbeatInterval);
-
-    // Check which messages succeeded
-    // The Id only has to be unique within this request, it has no other meaning
-    const successfulEntries = results.filter(isFulfilledPromiseResult).map(
-      (result, index) => ({ Id: index.toString(), ReceiptHandle: result.value })
-    );
-
-    const numSuccesses = successfulEntries.length;
-    const numResults = results.length;
-
-    if (numSuccesses === 0) {
-      console.log(`Received ${numResults} failures and no successes`);
-
-      // Nothing to delete, so just return
-      return;
-    }
-
-    console.log(`Received ${numSuccesses} successes and ${
-      numResults - numSuccesses} failures; deleting succesful messages`);
-
-    // Delete only the successful messages
-    return sqsClient.send(new DeleteMessageBatchCommand({
-      Entries: successfulEntries,
-      QueueUrl: process.env.WORK_QUEUE_URL,
-    }));
-  };
-}
 
 async function work() {
   while (true) {
@@ -219,47 +265,29 @@ async function work() {
       continue;
     }
 
-    /*
-      The VisibilityTimeout for the work queue is fairly short (30 seconds) so errors
-      (for example, connection errors) can be retried by another worker without waiting too long.
+    // Handles SQS operational details, like heartbeats, deleting messages, and message visibility
+    // Returns a callback to be executed after all work promises have settled
+    const handleSettledPromises = handleSQSMessages(messages);
 
-      However, since some of the index pages take 10 minutes or more to render, the worker has to
-      send periodic heartbeats to SQS to keep the VisibilityTimeout for messages that are being
-      worked on.
-      If the visibility timeout expires, the delete message command won't actually delete the
-      message at the end and the build will never finish.
-
-      The SQS heartbeat interval is cleared when all messages in a batch are either rendered or
-      error out, allowing the VisibilityTimeout to expire and the errors to be retried by another
-      worker.
-    */
-
-    // The delay here should be about half of the VisibilityTimeout
-    const heartbeatInterval = setInterval(sqsHeartbeat, 15000, messages);
-
-    // Send 1 message to each worker
     // We want to make sure we don't read more messages than we have available workers,
-    // so this loop must block when waiting for a worker
+    // so this loop must block when waiting for a worker (cannot use messages.map())
     const workPromises: Array<Promise<string>> = [];
     for (const message of messages) {
       // Get an available worker or wait for one
       const worker = await popWorker();
 
-      // Begin work
+      // Send 1 message to each worker
       workPromises.push(worker.startWork(message));
     }
 
-    const handleSettledPromises = makeHandleSettledPromises(heartbeatInterval);
-
-    // Wait for the work on all messages to be done, then delete the successful ones
-    // allSettled() (Promise.allSettled in ES2020) always succeeds and returns an array of objects
+    // allSettled() (Promise.allSettled() in ES2020) always succeeds and returns an array of objects
     // that specify which promises in the iterable argument succeeded and which failed
     // We use then() instead of await to avoid having to wait for all threads to be done at once
     // This way the threads that are already done can start work on the next 10 messages
     allSettled(workPromises).then(handleSettledPromises);
   }
 
-  // Code here would never be reached, as the loop above never terminates
+  // Code here would be unreachable, as the loop above never terminates
 }
 
 work();

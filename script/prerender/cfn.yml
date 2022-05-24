@@ -29,8 +29,8 @@ Parameters:
     Type: String
     ConstraintDescription: Must be a valid Rex Release ID
 
-  PrerenderImageTag:
-    Description: Prerender Docker container image tag, for example "v4-${someHash}-prerender"
+  ImageTag:
+    Description: Prerender Docker container image tag, for example "v4-${someHash}"
     Type: String
     AllowedPattern: ^[_0-9A-Za-z][-_.0-9A-Za-z]{0,127}$
     ConstraintDescription: >-
@@ -93,7 +93,7 @@ Resources:
             - Name: WORK_REGION
               Value: !Ref AWS::Region
           Image: !Sub
-            - ${URI}:${PrerenderImageTag}
+            - ${URI}:${ImageTag}
             - URI: !ImportValue RexWebECRRepositoryURI
           LogConfiguration:
             LogDriver: awslogs
