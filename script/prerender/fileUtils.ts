@@ -1,5 +1,11 @@
+// tslint:disable:no-console
+
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { fromContainerMetadata } from '@aws-sdk/credential-providers';
 import flow from 'lodash/fp/flow';
+import once from 'lodash/once';
 import path from 'path';
+import { assertDefined } from '../../src/app/utils';
 import createCache, { Cache } from '../../src/helpers/createCache';
 import { directoryExists, readFile, writeFile } from '../../src/helpers/fileUtils';
 
@@ -42,3 +48,43 @@ export const createDiskCache = <K extends string, V>(prefix: string): Cache<K, V
     },
   };
 };
+
+// Generates a release path for a file without a leading /, used when uploading the release to S3
+function prefixReleasePath(filepath: string) {
+  let basePath = assertDefined(process.env.PUBLIC_URL, 'PUBLIC_URL environment variable not set');
+  if (basePath[0] === '/') { basePath = basePath.slice(1); }
+  return `${basePath}${filepath}`;
+}
+
+const getS3Client = once(async() => {
+  console.log('Fetching container credentials');
+  const credentials = await fromContainerMetadata();
+
+  console.log('Initializing S3 client');
+  return new S3Client({ credentials, region: process.env.BUCKET_REGION });
+});
+
+async function writeS3File(key: string, contents: string, contentType: string) {
+  const s3Client = await getS3Client();
+
+  console.log(`Writing s3 file: /${key}`);
+  return s3Client.send(new PutObjectCommand({
+    Body: contents,
+    Bucket: process.env.BUCKET_NAME,
+    CacheControl: 'max-age=0',
+    ContentType: contentType,
+    Key: key,
+  }));
+}
+
+async function writeS3ReleaseFile(filepath: string, contents: string, contentType: string) {
+  return writeS3File(prefixReleasePath(filepath), contents, contentType);
+}
+
+export async function writeS3ReleaseHtmlFile(filepath: string, contents: string) {
+  return writeS3ReleaseFile(filepath, contents, 'text/html');
+}
+
+export async function writeS3ReleaseXmlFile(filepath: string, contents: string) {
+  return writeS3ReleaseFile(filepath, contents, 'text/xml');
+}

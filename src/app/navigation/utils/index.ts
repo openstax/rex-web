@@ -8,10 +8,9 @@ import pathToRegexp, { Key, parse } from 'path-to-regexp';
 import queryString, { OutputParams } from 'query-string';
 import querystring from 'querystring';
 import { Dispatch } from 'redux';
-import { isPlainObject } from '../guards';
-import { pathTokenIsKey } from '../navigation/guards';
-import { actionHook } from '../utils';
-import * as actions from './actions';
+import { pathTokenIsKey } from '../../navigation/guards';
+import { actionHook } from '../../utils';
+import * as actions from '../actions';
 import {
   AnyMatch,
   AnyRoute,
@@ -21,7 +20,9 @@ import {
   RouteHookBody,
   RouteState,
   ScrollTarget
-} from './types';
+} from '../types';
+
+export * from './scrollTarget';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "Array.includes" */ 'mdn-polyfills/Array.prototype.includes');
@@ -140,35 +141,6 @@ export const getQueryForParam = (
   }
 
   return queryString.stringify(values);
-};
-
-export const isScrollTarget = (
-  object: { [key: string]: any }
-): object is ScrollTarget => {
-  if (
-    !object.elementId
-    || typeof object.elementId !== 'string'
-    || typeof object.type !== 'string'
-  ) { return false; }
-  return true;
-};
-
-export const getScrollTargetFromQuery = (
-  query: OutputParams,
-  hash: string
-): ScrollTarget | null => {
-  if (!hash || !query.target || Array.isArray(query.target)) { return null; }
-  let parsed: any;
-  try {
-    parsed = JSON.parse(decodeURIComponent(query.target));
-  } catch {
-    return null;
-  }
-  if (isPlainObject(parsed)) {
-    (parsed as {[key: string]: any}).elementId = hash.replace('#', '');
-    if (isScrollTarget(parsed)) { return parsed; }
-  }
-  return null;
 };
 
 export const createNavigationOptions = (
