@@ -143,6 +143,9 @@ function accountsProxy(app) {
     changeOrigin: true,
     autoRewrite: true,
     cookieDomainRewrite: "",
+    onProxyRes: (pres, req, res) => {
+      delete pres.headers['X-Frame-Options']
+    },
     onProxyReq: (preq, req, res) => {
       preq.setHeader('X-Forwarded-Host', req.headers.host);
     }
