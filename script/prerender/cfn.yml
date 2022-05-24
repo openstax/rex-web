@@ -1,0 +1,221 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: Rex prerender EC2 spot instance workers
+
+Parameters:
+
+  BucketName:
+    Description: Name of the bucket to store the prerendering output files in
+    Type: String
+    ConstraintDescription: Must be an existing S3 bucket
+
+  BucketRegion:
+    Description: AWS Region of the above bucket
+    Type: String
+    ConstraintDescription: Must be a valid AWS region name
+
+  CodeVersion:
+    Description: Code version to use, for example the Rex git commit hash
+    Type: String
+    ConstraintDescription: Must be a valid Rex code version
+
+  PublicUrl:
+    Description: Public URL to use, for example "/rex/releases/${ReleaseId}"
+    Type: String
+    ConstraintDescription: Must be a path starting with /
+
+  ReleaseId:
+    Description: Release ID to use, for example "v4/${someHash}"
+    Type: String
+    ConstraintDescription: Must be a valid Rex Release ID
+
+  ImageTag:
+    Description: Prerender Docker container image tag, for example "v4-${someHash}"
+    Type: String
+    AllowedPattern: ^[_0-9A-Za-z][-_.0-9A-Za-z]{0,127}$
+    ConstraintDescription: >-
+      Up to 128 letters, digits, underscores, periods or dashes; cannot start with a period or dash
+
+  ValidUntil:
+    Description: Timestamp for when the EC2 Fleet request expires (prerendering timeout)
+    Type: String
+    AllowedPattern: ^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$
+    ConstraintDescription: Must be a timestamp in the YYYY-MM-DDTHH:MM:SSZ format
+
+Resources:
+
+  Cluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub ${AWS::StackName}-cluster
+
+  DeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      KmsMasterKeyId: alias/aws/sqs
+      QueueName: !Sub ${AWS::StackName}-dlq
+      ReceiveMessageWaitTimeSeconds: 20
+      VisibilityTimeout: 0
+
+  WorkQueue:
+    Type: AWS::SQS::Queue
+    DependsOn: Cluster # workaround for Cluster deletion to work properly
+    Properties:
+      KmsMasterKeyId: alias/aws/sqs
+      QueueName: !Sub ${AWS::StackName}-work-queue
+      ReceiveMessageWaitTimeSeconds: 20
+      RedriveAllowPolicy: '{"redrivePermission": "denyAll"}'
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt DeadLetterQueue.Arn
+        maxReceiveCount: 5
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - Command:
+            - prerender:work
+          EntryPoint:
+            - yarn
+          Environment:
+            - Name: BUCKET_NAME
+              Value: !Ref BucketName
+            - Name: BUCKET_REGION
+              Value: !Ref BucketRegion
+            - Name: PUBLIC_URL
+              Value: !Ref PublicUrl
+            - Name: REACT_APP_CODE_VERSION
+              Value: !Ref CodeVersion
+            - Name: REACT_APP_RELEASE_ID
+              Value: !Ref ReleaseId
+            - Name: WORK_QUEUE_URL
+              Value: !Ref WorkQueue
+            - Name: WORK_REGION
+              Value: !Ref AWS::Region
+          Image: !Sub
+            - ${URI}:${ImageTag}
+            - URI: !ImportValue RexWebECRRepositoryURI
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-create-group: true
+              awslogs-group: /rex/prerender
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: workers
+              mode: non-blocking
+          MemoryReservation: 1024
+          Name: !Sub ${AWS::StackName}-task-definition
+      Family: Prerendering
+      NetworkMode: host
+      TaskRoleArn: !ImportValue RexPrerenderWorkersContainerRoleName
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref Cluster
+      EnableECSManagedTags: true
+      EnableExecuteCommand: true
+      LaunchType: EC2
+      PropagateTags: SERVICE
+      SchedulingStrategy: DAEMON
+      ServiceName: Prerendering
+      TaskDefinition: !Ref TaskDefinition
+
+  LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateData:
+        BlockDeviceMappings:
+          - DeviceName: /dev/xvda
+            Ebs:
+              Encrypted: true
+              VolumeType: gp3
+        IamInstanceProfile:
+          Name: !ImportValue RexPrerenderWorkersInstanceProfileName
+        ImageId: >-
+          {{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}
+        InstanceInitiatedShutdownBehavior: terminate
+        # Having less, larger instances is generally cheaper due to lower EBS costs
+        # However, our main thread code seems to struggle to keep all the worker threads busy
+        # on instances larger than c6i.2xlarge
+        # We would probably need to add multiple queuing threads for the larger instances
+        InstanceType: c6i.2xlarge
+        SecurityGroupIds:
+          - !ImportValue RexPrerenderWorkersSecurityGroupID
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-instance
+              - Key: Project
+                Value: Unified
+              - Key: Application
+                Value: Rex Prerender
+              - Key: Environment
+                Value: production
+          - ResourceType: volume
+            Tags:
+              - Key: Name
+                Value: !Sub ${AWS::StackName}-volume
+              - Key: Project
+                Value: Unified
+              - Key: Application
+                Value: Rex Prerender
+              - Key: Environment
+                Value: production
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash -eu
+
+            set -o pipefail
+
+            # Need to increase vm.max_map_count for larger instances to avoid memory errors in node
+            # Value should be 1 per 128kB of total memory
+            sysctl vm.max_map_count=$(awk '/MemTotal/ { printf "%d", $2/128 }' /proc/meminfo)
+
+            cat <<EOF >> /etc/ecs/ecs.config
+            ECS_CLUSTER=${Cluster}
+            ECS_CONTAINER_INSTANCE_PROPAGATE_TAGS_FROM=ec2_instance
+            EOF
+      LaunchTemplateName: !Sub ${AWS::StackName}-launch-template
+
+  Fleet:
+    Type: AWS::EC2::EC2Fleet
+    Properties:
+      LaunchTemplateConfigs:
+        - LaunchTemplateSpecification:
+            LaunchTemplateId: !Ref LaunchTemplate
+            Version: !GetAtt LaunchTemplate.LatestVersionNumber
+          Overrides:
+            - SubnetId: !Sub
+                - ${Subnet1}, ${Subnet2}, ${Subnet3}
+                - Subnet1: !ImportValue RexPrerenderWorkersSubnet1ID
+                  Subnet2: !ImportValue RexPrerenderWorkersSubnet2ID
+                  Subnet3: !ImportValue RexPrerenderWorkersSubnet3ID
+      ReplaceUnhealthyInstances: true
+      TagSpecifications:
+        - ResourceType: fleet
+          Tags:
+            - Key: Name
+              Value: !Sub ${AWS::StackName}-fleet
+            - Key: Project
+              Value: Unified
+            - Key: Application
+              Value: Rex Prerender
+            - Key: Environment
+              Value: production
+      TargetCapacitySpecification:
+        DefaultTargetCapacityType: spot
+        TotalTargetCapacity: 8
+      TerminateInstancesWithExpiration: true
+      ValidUntil: !Ref ValidUntil
+
+Outputs:
+
+  WorkQueueUrl:
+    Description: The work queue's SQS endpoint URL
+    Value: !Ref WorkQueue
+
+  DeadLetterQueueUrl:
+    Description: The dead letter queue's SQS endpoint URL
+    Value: !Ref DeadLetterQueue
