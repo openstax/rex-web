@@ -2,7 +2,7 @@ import { pickBy } from 'lodash/fp';
 import { createSelector } from 'reselect';
 import { isDefined } from '../guards';
 import * as parentSelectors from '../selectors';
-import { getScrollTargetFromQuery } from './utils';
+import { getScrollTargetFromQuery } from './utils/scrollTarget';
 
 export const localState = createSelector(
   parentSelectors.localState,

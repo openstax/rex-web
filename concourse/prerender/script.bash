@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -euxo pipefail
 
 destination=$(pwd)/release
 
@@ -9,10 +9,8 @@ source build-configs/config.env
 # shellcheck disable=SC2046
 export $(cut -d= -f1 build-configs/config.env)
 
-cd rex-web
+cd /code
 
-yarn install
-yarn build:clean
-yarn prerender
+yarn "prerender:$PRERENDER_MODE"
 
 cp -r build/* "$destination"
