@@ -158,6 +158,11 @@ function assignmentsProxy(app) {
     changeOrigin: true,
     autoRewrite: true,
   }));
+  app.use(proxy('/apps/assignments/api/', {
+    target: 'https://assignments-prototype-1-api.assignments.sandbox.openstax.org',
+    changeOrigin: true,
+    autoRewrite: true,
+  }));
 }
 
 function searchProxy(app) {
