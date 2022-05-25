@@ -2,13 +2,15 @@
 platform: linux
 
 inputs:
-- name: rex-web
 - name: build-configs
 outputs:
 - name: release
 
-caches:
-- path: rex-web/node_modules
+params:
+  AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
+  AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
+  BUCKET_NAME: ((prod-unified-s3-bucket))
+  PRERENDER_MODE: ((prerender-mode))
 
 run:
-  path: rex-web/concourse/prerender/script.bash
+  path: /code/concourse/prerender/script.bash

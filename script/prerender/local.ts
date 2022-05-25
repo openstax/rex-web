@@ -3,7 +3,6 @@ import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
 import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
 import config from '../../src/config';
-import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
@@ -24,18 +23,17 @@ import {
   stats
 } from './contentPages';
 import createRedirects from './createRedirects';
-import { createDiskCache, writeAssetFile } from './fileUtils';
+import { createDiskCache } from './fileUtils';
+import renderManifest from './renderManifest';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
-  CODE_VERSION,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_ARCHIVE_URL,
   REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_SEARCH_URL,
-  RELEASE_ID,
 } = config;
 
 let networkTime = 0;
@@ -47,17 +45,6 @@ let networkTime = 0;
       return response;
     });
 };
-
-async function renderManifest() {
-  writeAssetFile('/rex/release.json', JSON.stringify({
-    archiveUrl: REACT_APP_ARCHIVE_URL,
-    books: BOOKS,
-    code: CODE_VERSION,
-    id: RELEASE_ID,
-  }, null, 2));
-
-  writeAssetFile('/rex/config.json', JSON.stringify(config, null, 2));
-}
 
 async function render() {
   await Loadable.preloadAll();
@@ -96,10 +83,10 @@ async function render() {
   const books = await prepareBooks(archiveLoader, osWebLoader);
 
   for (const book of books) {
-    const bookPages = await prepareBookPages(book);
+    const bookPages = prepareBookPages(book);
     const sitemap = await renderPages(renderHelpers, bookPages);
 
-    renderSitemap(book.slug, sitemap);
+    await renderSitemap(book.slug, sitemap);
   }
 
   await renderSitemapIndex();
