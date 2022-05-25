@@ -30,22 +30,7 @@ body {
   -webkit-print-color-adjust: exact;
 }
 
-#main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
-  @import "./content-baked.less";
-
-  @font-face {
-    font-family: 'IBM Plex Sans';
-    font-style: italic;
-    font-weight: 400;
-    src: url('../../static/fonts/ibm-plex-sans-v9-latin-italic.woff2') format('woff2'), url('../../static/fonts/ibm-plex-sans-v9-latin-italic.woff') format('woff');
-  }
-  @font-face {
-    font-family: 'IBM Plex Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../../static/fonts/ibm-plex-sans-v9-latin-regular.woff2') format('woff2'), url('../../static/fonts/ibm-plex-sans-v9-latin-regular.woff') format('woff');
-  }
-
+#main-content, .content-excerpt {
   &[data-text-size="-2"] {
     --content-text-scale: .75;
   }
@@ -64,6 +49,23 @@ body {
 
   &[data-text-size="3"] {
     --content-text-scale: 2;
+  }
+}
+
+#main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
+  @import "./content-baked.less";
+
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    font-style: italic;
+    font-weight: 400;
+    src: url('../../static/fonts/ibm-plex-sans-v9-latin-italic.woff2') format('woff2'), url('../../static/fonts/ibm-plex-sans-v9-latin-italic.woff') format('woff');
+  }
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../static/fonts/ibm-plex-sans-v9-latin-regular.woff2') format('woff2'), url('../../static/fonts/ibm-plex-sans-v9-latin-regular.woff') format('woff');
   }
 
   .content-font-size(1.6rem);
