@@ -336,7 +336,10 @@ const thumbCss = css`
   width: 0.7rem;
   border: 1px solid ${theme.color.primary.gray.base};
   border-radius: 1px;
-  box-shadow: 0 2px 1px -1px rgba(0,0,0,0.04), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+  box-shadow:
+    0 2px 1px -1px rgba(0, 0, 0, 0.04),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
 `;
 
 
@@ -345,7 +348,7 @@ export const TextResizerMenu = styled.div`
 
   && {
     background: #fff;
-    padding: 2rem;
+    padding: 1.6rem;
     right: 0;
     left: auto;
     top: calc(100% - 1px);
@@ -357,48 +360,37 @@ export const TextResizerMenu = styled.div`
   .controls {
     display: flex;
     align-items: center;
-    margin-top: 1.5rem;
+    margin-top: 1.2rem;
 
     input {
-      -webkit-appearance: none;
+      -webkit-appearance: none; /* stylelint-disable property-no-vendor-prefix */
       -moz-appearance: none;
       background: #f1f1f1;
-      background-image: linear-gradient(
-        ${({bookTheme}: {bookTheme: BookWithOSWebData['theme']}) => theme.color.primary[bookTheme].base},
-        ${({bookTheme}: {bookTheme: BookWithOSWebData['theme']}) => theme.color.primary[bookTheme].base}
-      );
-      background-size: ${({textSize}) => css`calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%) 100%`};
+      ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme && css`
+        background-image: linear-gradient(${theme.color.primary[props.bookTheme].base}, ${theme.color.primary[props.bookTheme].base});
+      `}
+      background-size: ${({textSize}) => `calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%) 100%`};
       background-repeat: no-repeat;
       overflow: visible;
       height: 0.4rem;
       margin: 8px 0;
     }
 
-    input[type='range']::-webkit-slider-runnable-track,
-    input[type='range']::-moz-range-track {
+    input[type="range"]::-webkit-slider-runnable-track,
+    input[type="range"]::-moz-range-track {
       -webkit-appearance: none;
       -moz-appearance: none;
       box-shadow: none;
       border: none;
-      background: transparent;
       height: 0.2rem;
-      background: repeating-linear-gradient(
-        to right,
-        rgba(0,0,0,0),
-        rgba(0,0,0,0) 19%,
-        #fff 19%,
-        #fff 20%,
-        rgba(0,0,0,0) 20%,
-        rgba(0,0,0,0) 20%
-      );
+      background: repeating-linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 19%, #fff 19%, #fff 20%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 20%);
     }
 
-
-    input[type='range']::-moz-range-thumb {
+    input[type="range"]::-moz-range-thumb {
       ${thumbCss}
     }
 
-    input[type='range']::-webkit-slider-thumb {
+    input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       ${thumbCss}
