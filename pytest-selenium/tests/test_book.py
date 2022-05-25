@@ -317,7 +317,7 @@ def test_search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
 
     if book.is_desktop:
         # WHEN: Search is performed
-        toolbar.search_for(search_term)
+        book.topbar.search_for(search_term)
 
         # THEN: Search sidebar is displayed with results
         assert search_sidebar.search_results_present
