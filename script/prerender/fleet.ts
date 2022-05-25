@@ -32,6 +32,7 @@ import { assertDefined } from '../../src/app/utils';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import { getArchiveUrl } from '../../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
 import { globalMinuteCounter, prepareBookPages } from './contentPages';
@@ -78,7 +79,7 @@ type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
 type SitemapIndexTask = { payload: SerializedBookMatch[], type: 'sitemapIndex' };
 
-const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+const archiveLoader = createArchiveLoader(getArchiveUrl, {
   appPrefix: '',
   archivePrefix: ARCHIVE_URL,
 });
