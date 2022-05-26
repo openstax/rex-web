@@ -2,6 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc, useOnKey } from '../../../reactUtils';
 import theme from '../../../theme';
@@ -11,6 +12,11 @@ import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
 import { closeKeyboardShortcutsMenu, openKeyboardShortcutsMenu } from '../actions';
 import * as ksSelectors from '../selectors';
 import ShowKeyboardShortcuts from './ShowKeyboardShortcuts';
+
+// tslint:disable-next-line:variable-name
+const StyledModal = styled(Modal)`
+  max-width: 92.8rem;
+`;
 
 // tslint:disable-next-line: variable-name
 const KeyboardShortcutsPopup = () => {
@@ -42,7 +48,7 @@ const KeyboardShortcutsPopup = () => {
   }, [isKeyboardShortcutsOpen]);
 
   return isKeyboardShortcutsOpen ?
-    <Modal
+    <StyledModal
       ref={popUpRef}
       tabIndex='-1'
       data-testid='keyboard-shortcuts-popup-wrapper'
@@ -67,7 +73,7 @@ const KeyboardShortcutsPopup = () => {
         </CloseIconWrapper>
       </Header>
       <ShowKeyboardShortcuts />
-    </Modal>
+    </StyledModal>
   : null;
 };
 

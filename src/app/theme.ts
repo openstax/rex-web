@@ -154,6 +154,7 @@ export default {
     'navbar',
     'mobileMenu',
     'sidebarMobileMedium',
+    'keyboardShortcutsPopup',
     'highlightSummaryPopup',
     'highlightsHelpInfoMobile',
     'nudgeOverlay',
