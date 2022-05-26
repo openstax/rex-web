@@ -23,6 +23,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
 
     toolbar = content.toolbar
+    topbar = content.topbar
     sidebar = content.sidebar
     toc = content.sidebar.toc
     font = utility.FontProperties()
@@ -40,7 +41,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
         sidebar.header.click_toc_toggle_button()
 
         # THEN: The sidebar area has been closed
-        assert not sidebar.header.is_displayed
+        assert not sidebar.is_displayed
 
         # WHEN: The toc button on the toolbar is clicked
         toolbar.click_toc_toggle_button()
@@ -55,6 +56,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
         assert not sidebar.header.is_displayed
 
         # WHEN: The toc button on the toolbar is clicked
+        topbar.click_mobile_menu_button()
         toolbar.click_toc_toggle_button()
 
         # THEN: The sidebar area is opened
@@ -122,11 +124,13 @@ def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug
 
     # GIVEN: The page_slug is opened in mobile resolution
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    topbar = content.topbar
     toolbar = content.toolbar
     sidebar = content.sidebar
     toc = sidebar.toc
 
     # AND: The TOC is opened
+    topbar.click_mobile_menu_button()
     toolbar.click_toc_toggle_button()
 
     # WHEN: The page in the TOC is clicked
