@@ -3,14 +3,14 @@
 exports[`Home matches snapshot 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 iBdUsP"
+    className="HiddenLink-wwwegq-0 bkbyvj"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
   <a
-    className="HiddenLink-wwwegq-0 iBdUsP"
+    className="HiddenLink-wwwegq-0 bkbyvj"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
