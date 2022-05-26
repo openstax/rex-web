@@ -19,6 +19,7 @@ interface Props {
   children: ReactNode;
   recordError: typeof recordError;
   stack: string[];
+  handlePromiseRejection?: boolean;
 }
 
 interface State {
@@ -57,13 +58,13 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    if (typeof(window) !== 'undefined') {
+    if (typeof(window) !== 'undefined' && this.props.handlePromiseRejection) {
       window.addEventListener('unhandledrejection', this.handleRejection);
     }
   }
 
   public componentWillUnmount() {
-    if (typeof(window) !== 'undefined') {
+    if (typeof(window) !== 'undefined' && this.props.handlePromiseRejection) {
       window.removeEventListener('unhandledrejection', this.handleRejection);
     }
   }

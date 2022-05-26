@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd rex-web
+cd /code
 
 if [ "$GITHUB_USERNAME" != "" ] && [ "$GITHUB_PASSWORD" != "" ]; then
   git config --global user.email "$GITHUB_USERNAME"
@@ -10,8 +10,6 @@ fi
 
 # this is here so the creds don't get pasted to the output
 set -e; if [ -n "$DEBUG" ]; then set -x; fi
-
-yarn
 
 approved_books_default_branch=$(curl -s https://api.github.com/repos/openstax/content-manager-approved-books | jq -r .default_branch)
 rex_default_branch=$(curl -s https://api.github.com/repos/openstax/rex-web | jq -r .default_branch)
