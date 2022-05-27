@@ -128,7 +128,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
     `)}
     ${(props) => props.mobile && css`
       display: none;
-      ${theme.breakpoints.mobileMedium(css`
+      ${theme.breakpoints.mobile(css`
         display: block;
         height: 100%;
       `)}
@@ -142,6 +142,10 @@ export const CloseButton = styled(
     > svg {
       ${closeIconStyles}
     }
+
+    ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
+      display: none;
+    `)}
 
     ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
       display: none;
@@ -189,11 +193,10 @@ export const SearchInputWrapper = styled.form`
       box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
     }
 
-    ${theme.breakpoints.mobileMedium(css`
-      margin-right: 0;
+    ${theme.breakpoints.mobile(css`
       height: 100%;
+      margin-right: 0;
       overflow: hidden;
-      width: 100%;
       ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
         background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
 
@@ -201,6 +204,9 @@ export const SearchInputWrapper = styled.form`
           ${applySearchIconColor(props.colorSchema)};
         }
       `}
+    `)}
+    ${theme.breakpoints.mobileMedium(css`
+        width: 100%;
     `)}
   `;
 
@@ -241,13 +247,14 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   overflow: visible;
   background-color: ${theme.color.neutral.base};
   transition: padding-left ${sidebarTransitionTime}ms;
-  ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen) && `
+  ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen || props.isDesktopSearchOpen) && `
     padding-left: ${sidebarDesktopWidth}rem;
   `}
   ${theme.breakpoints.mobile(css`
-    padding-left: ${verticalNavbarMaxWidth}rem;
+    display: none;
   `)}
   ${theme.breakpoints.mobileMedium(css`
+    display: flex;
     height: ${topbarMobileHeight}rem;
     justify-content: space-between;
     padding: 0 6px;
@@ -267,10 +274,13 @@ export const MobileSearchContainer = styled.div`
   margin-top: ${mobileSearchContainerMargin}rem;
   margin-bottom: ${mobileSearchContainerMargin}rem;
   height: ${toolbarSearchInputMobileHeight}rem;
-  ${theme.breakpoints.mobileMedium(css`
+  ${theme.breakpoints.mobile(css`
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    justify-content: space-between;
   `)}
 `;
 
@@ -280,8 +290,13 @@ export const MobileSearchWrapper = styled.div`
   height: ${toolbarMobileSearchWrapperHeight}rem;
   background-color: ${theme.color.neutral.base};
   ${shadow}
-  ${theme.breakpoints.mobileMedium(css`
+  ${theme.breakpoints.mobile(css`
+    padding-left: ${verticalNavbarMaxWidth}rem;
     display: block;
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    padding-left: 0;
+    display: ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen ? 'block' : 'none'};
   `)}
 `;
 
@@ -291,7 +306,7 @@ export const Hr = styled.hr`
   border-top: ${toolbarHrHeight}rem solid #efeff1;
   display: none;
   margin: 0;
-  ${theme.breakpoints.mobileMedium(css`
+  ${theme.breakpoints.mobile(css`
     display: block;
   `)}
 `;
@@ -430,4 +445,12 @@ export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props
   &:first-child {
     margin-left: -0.8rem;
   }
+`;
+
+// tslint:disable-next-line:variable-name
+export const CloseSearchResultsTextButton = styled(SeachResultsTextButton)`
+  display: none;
+  ${theme.breakpoints.mobileMedium(css`
+    display: block;
+  `)}
 `;

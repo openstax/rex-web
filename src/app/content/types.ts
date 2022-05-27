@@ -1,5 +1,5 @@
 import { BuyPrintResponse } from '../../gateways/createBuyPrintConfigLoader';
-import { RouteParams, RouteState } from '../navigation/types';
+import { Route, RouteParams, RouteState } from '../navigation/types';
 import { State as HighlightState } from './highlights/types';
 import { State as PracticeQuestionsState } from './practiceQuestions/types';
 import { content } from './routes';
@@ -31,11 +31,21 @@ type VersionedUuidParams = UuidParams & {
   version: string;
 };
 
+// Really could be ContentParams, but the content route is currently the only route in Rex
 export type Params = {
   book: SlugParams | VersionedSlugParams | VersionedUuidParams;
   page: SlugParams | UuidParams;
 };
 
+export type ContentRouteState = {
+  bookUid: string;
+  bookVersion: string;
+  pageUid: string;
+};
+
+export type ContentRoute = Route<Params, {} | ContentRouteState>;
+
+// Not related to ContentRouteState above
 export interface State {
   tocOpen: boolean | null;
   mobileMenuOpen: boolean;

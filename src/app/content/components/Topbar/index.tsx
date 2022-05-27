@@ -196,7 +196,7 @@ class Topbar extends React.Component<Props, State> {
         </Styled.TextResizerDropdown>
 
       </Styled.SearchPrintWrapper>
-      {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
+      <Styled.MobileSearchWrapper mobileToolbarOpen={this.props.mobileToolbarOpen}>
         <Styled.Hr />
         <Styled.MobileSearchContainer>
           {showBackToSearchResults &&
@@ -207,41 +207,44 @@ class Topbar extends React.Component<Props, State> {
             </FormattedMessage>}
           {!showBackToSearchResults &&
             <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-              {(msg) => <Styled.SeachResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
+              {(msg) => <Styled.CloseSearchResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
                 <Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.SeachResultsTextButton>}
-           </FormattedMessage>}
-
-            <Styled.SearchInputWrapper
-              action='#'
-              onSubmit={onSearchSubmit}
-              data-testid='mobile-search'
-              data-experiment
-              colorSchema={this.props.searchButtonColor}
-            >
-              <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
-                autoFocus
-                onChange={onSearchChange} value={this.state.query} />
-              {
-                this.state.query && newButtonEnabled && <Styled.CloseButtonNew
-                  type='button'
-                  onClick={onSearchClear}
-                  data-testid='mobile-clear-search'
-                >
-                  <Styled.CloseIcon />
-                </Styled.CloseButtonNew>
-              }
-              {
-                this.state.query && !newButtonEnabled && <Styled.CloseButton
-                  type='button'
-                  onClick={onSearchClear}
-                  data-testid='mobile-clear-search'
-                />
-              }
-            </Styled.SearchInputWrapper>
-
+              </Styled.CloseSearchResultsTextButton>}
+            </FormattedMessage>}
+          <Styled.SearchInputWrapper
+            action='#'
+            onSubmit={onSearchSubmit}
+            data-testid='mobile-search'
+            data-experiment
+            colorSchema={this.props.searchButtonColor}
+          >
+            <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
+              autoFocus
+              onChange={onSearchChange} value={this.state.query} />
+            {!this.state.formSubmitted && !newButtonEnabled &&
+              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+            }
+            {
+              this.state.query && newButtonEnabled && <Styled.CloseButtonNew
+                type='button'
+                onClick={onSearchClear}
+                formSubmitted={this.state.formSubmitted}
+                data-testid='mobile-clear-search'
+              >
+                <Styled.CloseIcon />
+              </Styled.CloseButtonNew>
+            }
+            {
+              this.state.query && !newButtonEnabled && <Styled.CloseButton
+                type='button'
+                onClick={onSearchClear}
+                formSubmitted={this.state.formSubmitted}
+                data-testid='mobile-clear-search'
+              />
+            }
+          </Styled.SearchInputWrapper>
         </Styled.MobileSearchContainer>
-      </Styled.MobileSearchWrapper>}
+      </Styled.MobileSearchWrapper>
     </Styled.TopBarWrapper>;
   }
 }

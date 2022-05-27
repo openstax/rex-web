@@ -24,7 +24,7 @@ import {
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
 import { textResizerMaxValue, textResizerMinValue } from '../constants';
-import { CloseButtonNew, MenuButton, SearchButton, TextResizerChangeButton, TextResizerDropdown, TextResizerMenu } from './styled';
+import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerDropdown, TextResizerMenu } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -54,17 +54,18 @@ describe('search', () => {
   it('opens and closes mobile interface', () => {
     const component = render();
     const findById = makeFindByTestId(component.root);
+    const mobileSearch = component.root.findByType(MobileSearchWrapper);
 
     const event = makeEvent();
 
     renderer.act(() => {
       findById('mobile-toggle').props.onClick(event);
     });
-    expect(() => findById('mobile-search')).not.toThrow();
+    expect(mobileSearch.props.mobileToolbarOpen).toBe(true);
     renderer.act(() => {
       findById('mobile-toggle').props.onClick(event);
     });
-    expect(() => findById('mobile-search')).toThrow();
+    expect(mobileSearch.props.mobileToolbarOpen).toBe(false);
     expect(event.preventDefault).toHaveBeenCalledTimes(2);
   });
 
