@@ -114,7 +114,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </form>
     <div
-      className="styled__TextResizerDropdown-sc-12dq39v-16 ihovQ Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="styled__TextResizerDropdown-sc-12dq39v-16 gytMwn Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
     >
       <button
         aria-label="Change text size"
