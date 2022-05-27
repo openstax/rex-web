@@ -143,6 +143,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           <button
             aria-label="Decrease text size"
             className="styled__TextResizerChangeButton-sc-12dq39v-18 bnDoWe styled__PlainButton-sc-1119auh-0 kPdLbJ"
+            data-test-id="decrease-text-size"
             onClick={[Function]}
           >
             <img
@@ -152,6 +153,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
             />
           </button>
           <input
+            data-test-id="change-text-size"
             max={3}
             min={-2}
             onChange={[Function]}
@@ -162,6 +164,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           <button
             aria-label="Increase text size"
             className="styled__TextResizerChangeButton-sc-12dq39v-18 bnDoWe styled__PlainButton-sc-1119auh-0 kPdLbJ"
+            data-test-id="increase-text-size"
             onClick={[Function]}
           >
             <img

@@ -176,11 +176,19 @@ class Topbar extends React.Component<Props, State> {
           <Styled.TextResizerMenu tabIndex={0} bookTheme={this.props.bookTheme} textSize={this.props.textSize}>
             <FormattedMessage id='i18n:toolbar:textresizer:popup:heading' />
             <div className='controls'>
-              <Styled.TextResizerChangeButton onClick={onDecreaseTextSize} ariaLabelId='i18n:toolbar:textresizer:button:decrease:aria-label'>
+              <Styled.TextResizerChangeButton
+                onClick={onDecreaseTextSize}
+                ariaLabelId='i18n:toolbar:textresizer:button:decrease:aria-label'
+                data-test-id='decrease-text-size'
+              >
                 <img aria-hidden='true' src={decreaseTextSizeIcon} alt='' />
               </Styled.TextResizerChangeButton>
-              <input type='range' step='1' min={textResizerMinValue} max={textResizerMaxValue} onChange={onChangeTextSize} value={this.props.textSize} />
-              <Styled.TextResizerChangeButton onClick={onIncreaseTextSize} ariaLabelId='i18n:toolbar:textresizer:button:increase:aria-label'>
+              <input type='range' step='1' min={textResizerMinValue} max={textResizerMaxValue} onChange={onChangeTextSize} value={this.props.textSize} data-test-id='change-text-size' />
+              <Styled.TextResizerChangeButton
+                onClick={onIncreaseTextSize}
+                ariaLabelId='i18n:toolbar:textresizer:button:increase:aria-label'
+                data-test-id='increase-text-size'
+              >
                 <img aria-hidden='true' src={increaseTextSizeIcon} alt='' />
               </Styled.TextResizerChangeButton>
             </div>
