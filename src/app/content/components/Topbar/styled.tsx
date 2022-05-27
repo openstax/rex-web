@@ -322,12 +322,23 @@ export const TextResizerDropdown = styled(FilterDropdown)`
   margin-left: auto;
   z-index: 3;
 
-  > button > div {
-    padding: 2rem 1.3rem;
+  > button {
+    max-height: 5.2rem;
+
+    > div {
+      padding: 2rem 1.3rem;
+    }
   }
 
   ${theme.breakpoints.mobileMedium(css`
     margin-left: 0;
+    > button {
+      max-height: 4.6rem;
+
+      > div {
+        padding: 0.9rem 1.5rem;
+      }
+    }
   `)}
 `;
 
