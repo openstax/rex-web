@@ -137,30 +137,30 @@ class Topbar extends React.Component<Props, State> {
         >
 
           <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
-                              onChange={onSearchChange}
-                              value={this.state.query} />
+            onChange={onSearchChange}
+            value={this.state.query} />
           <Styled.SearchButton mobile
-                               type='button'
-                               ariaLabelId='i18n:toolbar:search:toggle'
-                               data-analytics-label='Search this book'
-                               data-testid='mobile-toggle'
-                               data-experiment
-                               onClick={toggleMobile}
-                               colorSchema={this.props.searchButtonColor}
+            type='button'
+            ariaLabelId='i18n:toolbar:search:toggle'
+            data-analytics-label='Search this book'
+            data-testid='mobile-toggle'
+            data-experiment
+            onClick={toggleMobile}
+            colorSchema={this.props.searchButtonColor}
           />
           {!this.state.formSubmitted && !newButtonEnabled &&
-           <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+            <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           }
           {this.state.formSubmitted && !newButtonEnabled &&
-           <Styled.CloseButton desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search' />
+            <Styled.CloseButton desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search' />
           }
           {this.state.formSubmitted && newButtonEnabled &&
-           <Styled.CloseButtonNew desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search'>
-             <Styled.CloseIcon />
-           </Styled.CloseButtonNew>
+            <Styled.CloseButtonNew desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search'>
+              <Styled.CloseIcon />
+            </Styled.CloseButtonNew>
           }
           {newButtonEnabled &&
-           <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+            <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           }
         </Styled.SearchInputWrapper>
 
@@ -233,7 +233,7 @@ class Topbar extends React.Component<Props, State> {
             </Styled.SearchInputWrapper>
 
         </Styled.MobileSearchContainer>
-        </Styled.MobileSearchWrapper>}
+      </Styled.MobileSearchWrapper>}
     </Styled.TopBarWrapper>;
   }
 }
