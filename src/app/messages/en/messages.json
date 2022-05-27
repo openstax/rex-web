@@ -194,5 +194,7 @@
   "i18n:toolbar:studyguides:popup:close-button:aria-label": "Close Study Guides",
   "i18n:toolbar:studyguides:popup:heading": "Study Guide",
   "i18n:toolbar:textresizer:button:aria-label": "Change text size",
+  "i18n:toolbar:textresizer:button:decrease:aria-label": "Decrease text size",
+  "i18n:toolbar:textresizer:button:increase:aria-label": "Increase text size",
   "i18n:toolbar:textresizer:popup:heading": "Text size"
 }

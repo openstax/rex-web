@@ -127,65 +127,65 @@ class Topbar extends React.Component<Props, State> {
         <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
           <Styled.MenuButton type='button' onClick={openMenu}/>
         </NudgeElementTarget>
-        <Styled.SearchInputWrapperWrapper>
-          <Styled.SearchInputWrapper
-            active={this.props.mobileToolbarOpen}
-            onSubmit={onSearchSubmit}
-            data-testid='desktop-search'
-            data-experiment
-            colorSchema={this.props.searchButtonColor}
-          >
-            <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
-                                onChange={onSearchChange}
-                                value={this.state.query} />
-            <Styled.SearchButton mobile
-                                 type='button'
-                                 ariaLabelId='i18n:toolbar:search:toggle'
-                                 data-analytics-label='Search this book'
-                                 data-testid='mobile-toggle'
-                                 data-experiment
-                                 onClick={toggleMobile}
-                                 colorSchema={this.props.searchButtonColor}
-            />
-            {!this.state.formSubmitted && !newButtonEnabled &&
-             <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
-            }
-            {this.state.formSubmitted && !newButtonEnabled &&
-             <Styled.CloseButton desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search' />
-            }
-            {this.state.formSubmitted && newButtonEnabled &&
-             <Styled.CloseButtonNew desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search'>
-               <Styled.CloseIcon />
-             </Styled.CloseButtonNew>
-            }
-            {newButtonEnabled &&
-             <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
-            }
-          </Styled.SearchInputWrapper>
-        </Styled.SearchInputWrapperWrapper>
 
-      <Styled.TextResizerDropdown
-        transparentTab={false}
-        showLabel={false}
-        showAngleIcon={false}
-        toggleChildren={<img aria-hidden="true" src={textSizeIcon} />}
-        label='i18n:toolbar:textresizer:button:aria-label'
-        ariaLabelId='i18n:toolbar:textresizer:button:aria-label'
-        dataAnalyticsLabel=''
-      >
-        <Styled.TextResizerMenu tabIndex={0} bookTheme={this.props.bookTheme} textSize={this.props.textSize}>
-          <FormattedMessage id='i18n:toolbar:textresizer:popup:heading' />
-          <div className="controls">
-            <Styled.TextResizerChangeButton onClick={onDecreaseTextSize}>
-              <img aria-hidden="true" src={decreaseTextSizeIcon} />
-            </Styled.TextResizerChangeButton>
-            <input type="range" step="1" min={textResizerMinValue} max={textResizerMaxValue} onChange={onChangeTextSize} value={this.props.textSize} />
-            <Styled.TextResizerChangeButton onClick={onIncreaseTextSize}>
-              <img aria-hidden="true" src={increaseTextSizeIcon} />
-            </Styled.TextResizerChangeButton>
-          </div>
-        </Styled.TextResizerMenu>
-      </Styled.TextResizerDropdown>
+        <Styled.SearchInputWrapper
+          active={this.props.mobileToolbarOpen}
+          onSubmit={onSearchSubmit}
+          data-testid='desktop-search'
+          data-experiment
+          colorSchema={this.props.searchButtonColor}
+        >
+
+          <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
+                              onChange={onSearchChange}
+                              value={this.state.query} />
+          <Styled.SearchButton mobile
+                               type='button'
+                               ariaLabelId='i18n:toolbar:search:toggle'
+                               data-analytics-label='Search this book'
+                               data-testid='mobile-toggle'
+                               data-experiment
+                               onClick={toggleMobile}
+                               colorSchema={this.props.searchButtonColor}
+          />
+          {!this.state.formSubmitted && !newButtonEnabled &&
+           <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+          }
+          {this.state.formSubmitted && !newButtonEnabled &&
+           <Styled.CloseButton desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search' />
+          }
+          {this.state.formSubmitted && newButtonEnabled &&
+           <Styled.CloseButtonNew desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search'>
+             <Styled.CloseIcon />
+           </Styled.CloseButtonNew>
+          }
+          {newButtonEnabled &&
+           <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+          }
+        </Styled.SearchInputWrapper>
+
+        <Styled.TextResizerDropdown
+          transparentTab={false}
+          showLabel={false}
+          showAngleIcon={false}
+          toggleChildren={<img aria-hidden='true' alt='' src={textSizeIcon} />}
+          label='i18n:toolbar:textresizer:button:aria-label'
+          ariaLabelId='i18n:toolbar:textresizer:button:aria-label'
+          dataAnalyticsLabel=''
+        >
+          <Styled.TextResizerMenu tabIndex={0} bookTheme={this.props.bookTheme} textSize={this.props.textSize}>
+            <FormattedMessage id='i18n:toolbar:textresizer:popup:heading' />
+            <div className='controls'>
+              <Styled.TextResizerChangeButton onClick={onDecreaseTextSize} ariaLabelId='i18n:toolbar:textresizer:button:decrease:aria-label'>
+                <img aria-hidden='true' src={decreaseTextSizeIcon} alt='' />
+              </Styled.TextResizerChangeButton>
+              <input type='range' step='1' min={textResizerMinValue} max={textResizerMaxValue} onChange={onChangeTextSize} value={this.props.textSize} />
+              <Styled.TextResizerChangeButton onClick={onIncreaseTextSize} ariaLabelId='i18n:toolbar:textresizer:button:increase:aria-label'>
+                <img aria-hidden='true' src={increaseTextSizeIcon} alt='' />
+              </Styled.TextResizerChangeButton>
+            </div>
+          </Styled.TextResizerMenu>
+        </Styled.TextResizerDropdown>
 
       </Styled.SearchPrintWrapper>
       {this.props.mobileToolbarOpen && <Styled.MobileSearchWrapper>
@@ -204,37 +204,33 @@ class Topbar extends React.Component<Props, State> {
               </Styled.SeachResultsTextButton>}
            </FormattedMessage>}
 
-        <Styled.SearchInputWrapperWrapper>
-
-          <Styled.SearchInputWrapper
-            action='#'
-            onSubmit={onSearchSubmit}
-            data-testid='mobile-search'
-            data-experiment
-            colorSchema={this.props.searchButtonColor}
-          >
-            <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
-              autoFocus
-              onChange={onSearchChange} value={this.state.query} />
-            {
-              this.state.query && newButtonEnabled && <Styled.CloseButtonNew
-                type='button'
-                onClick={onSearchClear}
-                data-testid='mobile-clear-search'
-              >
-                <Styled.CloseIcon />
-              </Styled.CloseButtonNew>
-            }
-            {
-              this.state.query && !newButtonEnabled && <Styled.CloseButton
-                type='button'
-                onClick={onSearchClear}
-                data-testid='mobile-clear-search'
-              />
-            }
-       </Styled.SearchInputWrapper>
-
-        </Styled.SearchInputWrapperWrapper>
+            <Styled.SearchInputWrapper
+              action='#'
+              onSubmit={onSearchSubmit}
+              data-testid='mobile-search'
+              data-experiment
+              colorSchema={this.props.searchButtonColor}
+            >
+              <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
+                autoFocus
+                onChange={onSearchChange} value={this.state.query} />
+              {
+                this.state.query && newButtonEnabled && <Styled.CloseButtonNew
+                  type='button'
+                  onClick={onSearchClear}
+                  data-testid='mobile-clear-search'
+                >
+                  <Styled.CloseIcon />
+                </Styled.CloseButtonNew>
+              }
+              {
+                this.state.query && !newButtonEnabled && <Styled.CloseButton
+                  type='button'
+                  onClick={onSearchClear}
+                  data-testid='mobile-clear-search'
+                />
+              }
+            </Styled.SearchInputWrapper>
 
         </Styled.MobileSearchContainer>
         </Styled.MobileSearchWrapper>}

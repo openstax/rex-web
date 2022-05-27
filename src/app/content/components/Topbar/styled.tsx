@@ -167,17 +167,9 @@ export const CloseButtonNew = styled.button`
     width: 2.2rem;
   `;
 
-// @TODO: Rename
-export const SearchInputWrapperWrapper = styled.div`
-  margin-left: 8rem;
-  display: flex;
-  align-items: center;
-  flex: 1;
-  justify-content: center;
-`;
-
 // tslint:disable-next-line:variable-name
 export const SearchInputWrapper = styled.form`
+    margin-left: auto;
     display: flex;
     align-items: center;
     margin-right: 2rem;
@@ -326,8 +318,17 @@ export const SeachResultsTextButton = styled(PlainButton)`
   min-width: auto;
 `;
 
-
 export const TextResizerDropdown = styled(FilterDropdown)`
+  margin-left: auto;
+  z-index: 3;
+
+  > button > div {
+    padding: 2rem 1.3rem;
+  }
+
+  ${theme.breakpoints.mobileMedium(css`
+    margin-left: 0;
+  `)}
 `;
 
 const thumbCss = css`
@@ -348,7 +349,7 @@ export const TextResizerMenu = styled.div`
 
   && {
     background: #fff;
-    padding: 1.6rem;
+    padding: 1.6rem 0.8rem 1.6rem 1.6rem;
     right: 0;
     left: auto;
     top: calc(100% - 1px);
@@ -360,7 +361,7 @@ export const TextResizerMenu = styled.div`
   .controls {
     display: flex;
     align-items: center;
-    margin-top: 1.2rem;
+    margin-top: 0.5rem;
 
     input {
       -webkit-appearance: none; /* stylelint-disable property-no-vendor-prefix */
@@ -373,7 +374,8 @@ export const TextResizerMenu = styled.div`
       background-repeat: no-repeat;
       overflow: visible;
       height: 0.4rem;
-      margin: 8px 0;
+      width: 12rem;
+      margin: 0.8rem 0.7rem;
     }
 
     input[type="range"]::-webkit-slider-runnable-track,
@@ -399,5 +401,22 @@ export const TextResizerMenu = styled.div`
   }
 `;
 
-export const TextResizerChangeButton = styled(PlainButton)`
+export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props }) => {
+  const intl = useIntl();
+
+  return <PlainButton
+    {...props}
+    {...ariaLabelId
+      ? {
+        'aria-label': intl.formatMessage({ id: ariaLabelId }),
+      }
+      : {}
+    }
+  >
+    {children}
+  </PlainButton>;
+})`
+  &:first-child {
+    margin-left: -0.8rem;
+  }
 `;
