@@ -26,7 +26,7 @@ export async function getCanonicalUrlParams(
 
   let canonicalMap = getCanonicalMap(book.id);
   const mapsChecked = [];
-  let canonicalPageId;
+  let canonicalPageId = pageId;
   let done = false;
   let canonicalBook;
   let treeSection;
@@ -40,7 +40,7 @@ export async function getCanonicalUrlParams(
       ).defaultVersion;
       const useCurrentBookAsCanonical = book.id === id  && hasOSWebData(book);
       canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id, version);
-      canonicalPageId = CANONICAL_PAGES_MAP[pageId] || pageId;
+      canonicalPageId = CANONICAL_PAGES_MAP[pageId] || canonicalPageId;
       treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 
       if (!useCurrentBookAsCanonical) {
