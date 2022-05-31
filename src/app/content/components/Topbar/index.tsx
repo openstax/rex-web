@@ -72,7 +72,7 @@ class Topbar extends React.Component<Props, State> {
     };
 
     const onSearchClear = (e: React.FormEvent) => {
-      if (e) { e.preventDefault(); }
+      e.preventDefault();
       this.setState({ query: '', formSubmitted: false });
     };
 
