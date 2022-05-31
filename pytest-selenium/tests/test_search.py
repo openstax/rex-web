@@ -137,7 +137,7 @@ def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug
 
     if content.is_desktop:
         topbar.search_for(search_term)
-    
+
     if content.is_mobile:
         mobile.search_for(search_term)
 
@@ -164,7 +164,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
     toolbar = book.toolbar
     topbar = book.topbar
     mobile = book.mobile_search_toolbar
-    toc_sidebar = book.sidebar
+    toc_sidebar = book.sidebar.header
     search_sidebar = book.search_sidebar
     search_term = get_search_term(book_slug)
 
@@ -208,7 +208,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         )
 
         # WHEN TOC is closed
-        toc_sidebar.header.click_toc_toggle_button()
+        toc_sidebar.click_toc_toggle_button()
         scroll_position_after_closing_toc = book.scroll_position
 
         # THEN search sidebar does not re-appear
@@ -230,7 +230,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
 
         # AND search string still stays in the search box
         assert topbar.search_term_displayed_in_search_textbox == search_term
-    
+
     if book.is_mobile:
         # WHEN: Search sidebar is displayed with search results
         mobile.search_for(search_term)
@@ -258,7 +258,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         assert toc_sidebar.is_displayed
 
         #  WHEN: TOC is closed
-        toc_sidebar.header.click_toc_toggle_button()
+        toc_sidebar.click_toc_toggle_button()
 
         # THEN search sidebar does not re-appear
         assert search_sidebar.search_results_not_displayed
@@ -320,7 +320,7 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
         # AND: User stays in the same location in the book content as before closing the sidebar
         scroll_position_after_closing_search_sidebar = book.scroll_position
         assert scroll_position_after_closing_search_sidebar == search_result_scroll_position
-    
+
     if book.is_mobile:
         # AND: Search results are displayed in search sidebar
         mobile.search_for(search_term)
@@ -368,7 +368,7 @@ def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
 
         # AND: Search sidebar is still open
         assert search_sidebar.search_results_present
-    
+
     if book.is_mobile:
         # AND: Search sidebar is open
         mobile.search_for(search_term)
@@ -452,12 +452,11 @@ def test_open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug
     while book.notification_present:
         book.notification.got_it()
 
-    toolbar = book.toolbar
     search_sidebar = book.search_sidebar
     search_term = get_search_term(book_slug)
 
     # AND: Search sidebar is displayed with search results
-    toolbar.search_for(search_term)
+    book.topbar.search_for(search_term)
     assert search_sidebar.search_results_present
     page_url_with_search_results = search_sidebar.chapter_results[9].get_attribute("href")
 
@@ -477,7 +476,7 @@ def test_open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug
     book.assert_search_term_is_highlighted_in_content_page(search_term)
 
     # AND: Search string stays in the search box as in the first window
-    assert rex.toolbar.search_term_displayed_in_search_textbox == search_term
+    assert rex.topbar.search_term_displayed_in_search_textbox == search_term
 
     # AND: Total search results is same as in first window
     assert rex.search_sidebar.chapter_search_result_total == 13
@@ -498,12 +497,11 @@ def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slu
         book.notification.got_it()
 
     # WHEN: Search is performed
-    toolbar = book.toolbar
     search_sidebar = book.search_sidebar
     search_term = "phospholipid bilayer"
 
     # AND: Search sidebar is displayed with search results
-    toolbar.search_for(search_term)
+    book.topbar.search_for(search_term)
     sleep(0.5)
     assert search_sidebar.search_results_present
 

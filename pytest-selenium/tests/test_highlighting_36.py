@@ -294,7 +294,7 @@ def test_search_term_colored_within_a_highlight(
         raise ValueError("No (10+) search phrase found in the paragraph")
     phrase = phrase.group(0)
     if book.is_desktop:
-        book.toolbar.search_for(phrase)
+        book.topbar.search_for(phrase)
     else:
         book.mobile_search_toolbar.search_for(phrase)
     search_results = book.search_sidebar.search_results(phrase)
@@ -350,7 +350,7 @@ def test_user_highlight_over_search_term_highlight(
     if phrase is None:
         raise ValueError("No (10+) search phrase found in the paragraph")
     phrase = phrase.group(0)
-    book.toolbar.search_for(phrase)
+    book.topbar.search_for(phrase)
     search_results = book.search_sidebar.search_results(phrase)
     if not search_results:
         raise ValueError("No search results found")
@@ -1267,7 +1267,7 @@ def test_open_note_card_after_searching_for_term_in_highlight(
         raise ValueError("No (10+) search phrase found in the paragraph")
     phrase = phrase.group(0)
     if book.is_desktop:
-        book.toolbar.search_for(phrase)
+        book.topbar.search_for(phrase)
     else:
         book.mobile_search_toolbar.search_for(phrase)
     search_results = book.search_sidebar.search_results(phrase)
