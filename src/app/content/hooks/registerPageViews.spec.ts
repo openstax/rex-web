@@ -55,21 +55,21 @@ describe('registerPageView', () => {
     hook = registerPageView(helpers);
   });
 
-  it('registers a page view if pathname unchanged and modal query changed', async () => {
+  it('registers a page view if pathname unchanged and modal query changed', async() => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({});
 
     await hook(action);
     expect(mockGa).toHaveBeenCalledWith('tfoo.send', { hitType: 'pageview', page: '/' });
   });
 
-  it('registers a page view if pathname changed', async () => {
+  it('registers a page view if pathname changed', async() => {
     jest.spyOn(selectNavigation, 'pathname').mockReturnValue('foo');
 
     await hook(action);
     expect(mockGa).toHaveBeenCalledWith('tfoo.send', { hitType: 'pageview', page: 'foo' });
   });
 
-  it('does not register a page view if pathname and modal query are unchanged', async () => {
+  it('does not register a page view if pathname and modal query are unchanged', async() => {
     await hook(action);
     expect(mockGa).toHaveBeenCalledWith('tfoo.send', { hitType: 'pageview', page: '/' });
     mockGa.mockReset();
