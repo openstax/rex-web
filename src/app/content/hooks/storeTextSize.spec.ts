@@ -25,6 +25,14 @@ describe('storeTextSize', () => {
     hook = storeTextSize(helpers);
   });
 
+  it('noops without window', async() => {
+    const { window } = global;
+    delete global.window;
+    await hook(store.dispatch(setTextSize(3)));
+    global.window = window;
+    expect(assertWindow().localStorage.setItem).not.toHaveBeenCalled();
+  });
+
   it('uses localstorage', async() => {
     await hook(store.dispatch(setTextSize(3)));
     expect(assertWindow().localStorage.setItem).toHaveBeenCalledWith('textSize', '3');
