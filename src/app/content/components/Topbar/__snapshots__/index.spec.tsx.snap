@@ -132,7 +132,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </div>
       </button>
       <div
-        className="styled__TextResizerMenu-sc-12dq39v-17 fgiAGZ"
+        className="styled__TextResizerMenu-sc-12dq39v-17 iYkhch"
         tabIndex={0}
       >
         Text size
