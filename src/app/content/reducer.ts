@@ -32,8 +32,8 @@ export const initialState = {
   search: initialSearchState,
   showNudgeStudyTools: null,
   studyGuides: initialStudyGuidesState,
+  textSize: storedTextSize ? parseInt(storedTextSize, 10) : 0,
   tocOpen: null,
-  textSize: storedTextSize ? parseInt(storedTextSize) : 0,
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {

@@ -85,27 +85,26 @@ type FilterDropdownProps = {
   dataAnalyticsLabel: string;
   showAngleIcon?: boolean;
   toggleChildren?: JSX.Element;
+  onToggle?: (e: React.FormEvent) => void;
 } & Partial<TabHiddenDropdownProps>;
 
 // tslint:disable-next-line:variable-name
 export const FilterDropdown = ({label, showLabel, ariaLabelId, dataAnalyticsLabel, toggleChildren, children, ...props}:
-React.PropsWithChildren<FilterDropdownProps>) => {
-  return (
-    <Dropdown
-      toggle={<Toggle
-              label={useIntl().formatMessage({id: label})}
-              showLabel={showLabel}
-              toggleChildren={toggleChildren}
-              ariaLabelId={ariaLabelId}
-              data-analytics-label={dataAnalyticsLabel}
-              showAngleIcon={props.showAngleIcon} />}
-      transparentTab={false}
-      {...props}
-    >
-      {children}
-    </Dropdown>)
-}
-;
+React.PropsWithChildren<FilterDropdownProps>) => (
+  <Dropdown
+    toggle={<Toggle
+      label={useIntl().formatMessage({ id: label })}
+      showLabel={showLabel}
+      toggleChildren={toggleChildren}
+      ariaLabelId={ariaLabelId}
+      data-analytics-label={dataAnalyticsLabel}
+      showAngleIcon={props.showAngleIcon} />}
+    transparentTab={false}
+    {...props}
+  >
+    {children}
+  </Dropdown>
+);
 
 // tslint:disable-next-line: variable-name
 export const FiltersTopBar = styled.div`

@@ -277,7 +277,7 @@ describe('content reducer', () => {
       expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
     });
 
-     it('updates the state', () => {
+    it('updates the state', () => {
       expect(initialState.textSize).toEqual(0);
       const stateAfterUpdate = reducer(initialState, actions.setTextSize(3));
       expect(stateAfterUpdate.textSize).toEqual(3);

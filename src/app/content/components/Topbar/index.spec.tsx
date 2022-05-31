@@ -24,7 +24,7 @@ import {
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
 import { textResizerMaxValue, textResizerMinValue } from '../constants';
-import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerDropdown, TextResizerMenu } from './styled';
+import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerMenu } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -353,7 +353,7 @@ describe('text resizer', () => {
     expect(component.root.findAllByType(TextResizerMenu)).toEqual([]);
 
     renderer.act(() => {
-      component.root.findByType(TextResizerDropdown)
+      component.root.findByProps({ 'data-testid': 'text-resizer' })
         .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
     });
 
@@ -365,24 +365,24 @@ describe('text resizer', () => {
     const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
 
     renderer.act(() => {
-      component.root.findByType(TextResizerDropdown)
+      component.root.findByProps({ 'data-testid': 'text-resizer' })
         .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
     });
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-test-id': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn()  });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(-1));
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-test-id': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn()  });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(0));
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-test-id': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn()  });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(1));
@@ -390,7 +390,8 @@ describe('text resizer', () => {
     dispatch.mockReset();
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-test-id': 'change-text-size' }).props.onChange({ currentTarget: { value: '3' } });
+      component.root.findByProps({ 'data-testid': 'change-text-size' })
+        .props.onChange({ currentTarget: { value: '3' } });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(3));
@@ -402,18 +403,20 @@ describe('text resizer', () => {
     const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
 
     renderer.act(() => {
-      component.root.findByType(TextResizerDropdown)
+      component.root.findByProps({ 'data-testid': 'text-resizer' })
         .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
     });
 
+    expect(dispatch).toHaveBeenLastCalledWith(clearSearch());
+
     renderer.act(() => {
-      component.root.findByProps({ 'data-test-id': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn() });
+      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMaxValue + 1));
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-test-id': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
+      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(textResizerMaxValue - 1));
@@ -424,10 +427,10 @@ describe('text resizer', () => {
     });
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-test-id': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
+      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMinValue - 1));
   });
 
 });

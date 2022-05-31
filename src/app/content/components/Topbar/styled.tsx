@@ -271,6 +271,7 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
 // tslint:disable-next-line:variable-name
 export const MobileSearchContainer = styled.div`
   ${barPadding}
+  overflow: visible;
   margin-top: ${mobileSearchContainerMargin}rem;
   margin-bottom: ${mobileSearchContainerMargin}rem;
   height: ${toolbarSearchInputMobileHeight}rem;
@@ -287,6 +288,7 @@ export const MobileSearchContainer = styled.div`
 // tslint:disable-next-line:variable-name
 export const MobileSearchWrapper = styled.div`
   display: none;
+  overflow: visible;
   height: ${toolbarMobileSearchWrapperHeight}rem;
   background-color: ${theme.color.neutral.base};
   ${shadow}
@@ -333,6 +335,7 @@ export const SeachResultsTextButton = styled(PlainButton)`
   min-width: auto;
 `;
 
+// tslint:disable-next-line:variable-name
 export const TextResizerDropdown = styled(FilterDropdown)`
   margin-left: auto;
   z-index: 3;
@@ -341,7 +344,7 @@ export const TextResizerDropdown = styled(FilterDropdown)`
     max-height: 5.2rem;
 
     > div {
-      padding: 2rem 1.3rem;
+      padding: 1.5rem 1.3rem;
     }
   }
 
@@ -354,6 +357,8 @@ export const TextResizerDropdown = styled(FilterDropdown)`
         padding: 0.9rem 1.5rem;
       }
     }
+
+    display: ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen ? 'none' : 'block'};
   `)}
 `;
 
@@ -369,7 +374,7 @@ const thumbCss = css`
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
 `;
 
-
+// tslint:disable-next-line:variable-name
 export const TextResizerMenu = styled.div`
   color: ${theme.color.primary.gray.base};
 
@@ -394,9 +399,15 @@ export const TextResizerMenu = styled.div`
       -moz-appearance: none;
       background: #f1f1f1;
       ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme && css`
-        background-image: linear-gradient(${theme.color.primary[props.bookTheme].base}, ${theme.color.primary[props.bookTheme].base});
+        background-image:
+          linear-gradient(${theme.color.primary[props.bookTheme].base}, ${theme.color.primary[props.bookTheme].base});
       `}
-      background-size: ${({textSize}) => `calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%) 100%`};
+      background-size:
+        ${({textSize}) => `
+          calc(
+            (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
+          ) 100%
+        `};
       background-repeat: no-repeat;
       overflow: visible;
       height: 0.4rem;
@@ -411,7 +422,18 @@ export const TextResizerMenu = styled.div`
       box-shadow: none;
       border: none;
       height: 0.2rem;
-      background: repeating-linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 19%, #fff 19%, #fff 20%, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 20%);
+      ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme && css`
+        background:
+          repeating-linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0),
+            rgba(0, 0, 0, 0) 19%,
+            ${theme.color.primary[props.bookTheme].foreground} 19%,
+            ${theme.color.primary[props.bookTheme].foreground} 20%,
+            rgba(0, 0, 0, 0) 20%,
+            rgba(0, 0, 0, 0) 20%
+          );
+      `}
     }
 
     input[type="range"]::-moz-range-thumb {
@@ -427,6 +449,7 @@ export const TextResizerMenu = styled.div`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props }) => {
   const intl = useIntl();
 

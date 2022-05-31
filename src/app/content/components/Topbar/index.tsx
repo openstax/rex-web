@@ -10,7 +10,7 @@ import {
   clearSearch,
   openMobileToolbar,
   openSearchResultsMobile,
-  requestSearch,
+  requestSearch
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
@@ -18,9 +18,7 @@ import { textResizerMaxValue, textResizerMinValue } from '../constants';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
-import textSizeIcon from '../../../../assets/text-size.svg';
-import increaseTextSizeIcon from '../../../../assets/text-size-increase.svg';
-import decreaseTextSizeIcon from '../../../../assets/text-size-decrease.svg';
+import { TextResizer } from './TextResizer';
 
 interface Props {
   search: typeof requestSearch;
@@ -74,7 +72,7 @@ class Topbar extends React.Component<Props, State> {
     };
 
     const onSearchClear = (e: React.FormEvent) => {
-      e.preventDefault();
+      if (e) { e.preventDefault(); }
       this.setState({ query: '', formSubmitted: false });
     };
 
@@ -99,7 +97,7 @@ class Topbar extends React.Component<Props, State> {
 
     const onChangeTextSize = (e: React.FormEvent<HTMLInputElement>) => {
       const target = (e as any).currentTarget;
-      const value = parseInt(target.value);
+      const value = parseInt(target.value, 10);
 
       this.props.setTextSize(value);
     };
@@ -123,9 +121,11 @@ class Topbar extends React.Component<Props, State> {
     const newButtonEnabled = !!this.props.searchButtonColor;
 
     return <Styled.TopBarWrapper data-testid='topbar'>
+      {/* mobileMedium is smaller (800px) than mobile (1200px) */}
+      {/* Only hides on .mobile breakpoint, shows on desktop and .mobileMedium */}
       <Styled.SearchPrintWrapper>
         <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
-          <Styled.MenuButton type='button' onClick={openMenu}/>
+          <Styled.MenuButton type='button' onClick={openMenu} />
         </NudgeElementTarget>
 
         <Styled.SearchInputWrapper
@@ -135,7 +135,6 @@ class Topbar extends React.Component<Props, State> {
           data-experiment
           colorSchema={this.props.searchButtonColor}
         >
-
           <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
             onChange={onSearchChange}
             value={this.state.query} />
@@ -163,39 +162,18 @@ class Topbar extends React.Component<Props, State> {
             <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           }
         </Styled.SearchInputWrapper>
-
-        <Styled.TextResizerDropdown
-          transparentTab={false}
-          showLabel={false}
-          showAngleIcon={false}
-          toggleChildren={<img aria-hidden='true' alt='' src={textSizeIcon} />}
-          label='i18n:toolbar:textresizer:button:aria-label'
-          ariaLabelId='i18n:toolbar:textresizer:button:aria-label'
-          dataAnalyticsLabel=''
-        >
-          <Styled.TextResizerMenu tabIndex={0} bookTheme={this.props.bookTheme} textSize={this.props.textSize}>
-            <FormattedMessage id='i18n:toolbar:textresizer:popup:heading' />
-            <div className='controls'>
-              <Styled.TextResizerChangeButton
-                onClick={onDecreaseTextSize}
-                ariaLabelId='i18n:toolbar:textresizer:button:decrease:aria-label'
-                data-test-id='decrease-text-size'
-              >
-                <img aria-hidden='true' src={decreaseTextSizeIcon} alt='' />
-              </Styled.TextResizerChangeButton>
-              <input type='range' step='1' min={textResizerMinValue} max={textResizerMaxValue} onChange={onChangeTextSize} value={this.props.textSize} data-test-id='change-text-size' />
-              <Styled.TextResizerChangeButton
-                onClick={onIncreaseTextSize}
-                ariaLabelId='i18n:toolbar:textresizer:button:increase:aria-label'
-                data-test-id='increase-text-size'
-              >
-                <img aria-hidden='true' src={increaseTextSizeIcon} alt='' />
-              </Styled.TextResizerChangeButton>
-            </div>
-          </Styled.TextResizerMenu>
-        </Styled.TextResizerDropdown>
-
+        <TextResizer
+          bookTheme={this.props.bookTheme}
+          onChangeTextSize={onChangeTextSize}
+          onDecreaseTextSize={onDecreaseTextSize}
+          onIncreaseTextSize={onIncreaseTextSize}
+          textSize={this.props.textSize}
+          onToggle={this.props.clearSearch}
+          data-testid='text-resizer'
+        />
       </Styled.SearchPrintWrapper>
+
+      {/* Hides on desktop, shows on .mobile, sometimes on .mobileMedium IF mobileToolbarOpen is true */}
       <Styled.MobileSearchWrapper mobileToolbarOpen={this.props.mobileToolbarOpen}>
         <Styled.Hr />
         <Styled.MobileSearchContainer>
@@ -243,6 +221,15 @@ class Topbar extends React.Component<Props, State> {
               />
             }
           </Styled.SearchInputWrapper>
+          <TextResizer
+            bookTheme={this.props.bookTheme}
+            onChangeTextSize={onChangeTextSize}
+            onDecreaseTextSize={onDecreaseTextSize}
+            onIncreaseTextSize={onIncreaseTextSize}
+            textSize={this.props.textSize}
+            mobileToolbarOpen={this.props.mobileToolbarOpen}
+            data-testid='mobile-text-resizer'
+          />
         </Styled.MobileSearchContainer>
       </Styled.MobileSearchWrapper>
     </Styled.TopBarWrapper>;
@@ -251,12 +238,12 @@ class Topbar extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
+    bookTheme: selectContent.bookTheme(state),
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     query: selectSearch.query(state),
     searchButtonColor: selectSearch.searchButtonColor(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
-    bookTheme: selectContent.bookTheme(state),
     textSize: selectContent.textSize(state),
   }),
   (dispatch: Dispatch) => ({
