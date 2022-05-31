@@ -455,11 +455,10 @@ export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props
 
   return <PlainButton
     {...props}
-    {...ariaLabelId
-      ? {
+    {...ariaLabelId &&
+      {
         'aria-label': intl.formatMessage({ id: ariaLabelId }),
       }
-      : {}
     }
   >
     {children}
