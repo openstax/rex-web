@@ -45,7 +45,6 @@ export const systemQueryParameters = createSelector(
   (navQuery) => pickBy(isDefined, {
     'archive': navQuery.archive,
     'content-style': navQuery['content-style'],
-    'mathjax-version': navQuery['mathjax-version'],
   })
 );
 
