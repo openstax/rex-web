@@ -1,9 +1,14 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+import * as redux from 'react-redux';
+import renderer from 'react-test-renderer';
+import * as analytics from '../../helpers/analytics';
 import { expectError, renderToDom } from '../../test/reactutils';
 import TestContainer from '../../test/TestContainer';
+import { openKeyboardShortcutsMenu } from '../content/keyboardShortcuts/actions';
 import AccessibilityButtonsWrapper from './AccessibilityButtonsWrapper';
+import HiddenLink from './HiddenLink';
 import MainContent from './MainContent';
 
 describe('AccessibilityButtonsWrapper', () => {
@@ -60,5 +65,34 @@ describe('AccessibilityButtonsWrapper', () => {
 
             expect(spyFocus).toHaveBeenCalledTimes(1);
         }
+    });
+
+    it('opens the Keyboard Shortcuts Menu when that link is clicked', () => {
+        const dispatch = jest.fn();
+        const spyRedux = jest.spyOn(redux, 'useDispatch').mockImplementation(() => dispatch);
+
+        const trackOpenCloseKS = jest.fn();
+        const spyAnalytics = jest.spyOn(analytics, 'useAnalyticsEvent').mockImplementation(
+          () => trackOpenCloseKS
+        );
+
+        const {root} = renderer.create(<TestContainer>
+          <AccessibilityButtonsWrapper/>
+        </TestContainer>);
+
+        expect(spyRedux).toHaveBeenCalledTimes(1);
+
+        expect(spyAnalytics).toHaveBeenCalledTimes(1);
+        expect(spyAnalytics).toHaveBeenCalledWith('openCloseKeyboardShortcuts');
+
+        const preventDefault = jest.fn();
+        root.findAllByType(HiddenLink)[2].props.onClick({preventDefault});
+
+        expect(preventDefault).toHaveBeenCalledTimes(1);
+
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledWith(openKeyboardShortcutsMenu());
+
+        expect(trackOpenCloseKS).toHaveBeenCalledTimes(1);
     });
 });

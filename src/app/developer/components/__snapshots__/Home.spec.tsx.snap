@@ -3,14 +3,14 @@
 exports[`Home matches snapshot 1`] = `
 Array [
   <a
-    className="HiddenLink-wwwegq-0 iBdUsP"
+    className="HiddenLink-wwwegq-0 bkbyvj"
     href="#main-content"
     onClick={[Function]}
   >
     Skip to Content
   </a>,
   <a
-    className="HiddenLink-wwwegq-0 iBdUsP"
+    className="HiddenLink-wwwegq-0 bkbyvj"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
@@ -18,6 +18,13 @@ Array [
     }
   >
     Go to accessibility page
+  </a>,
+  <a
+    className="HiddenLink-wwwegq-0 bkbyvj"
+    href=""
+    onClick={[Function]}
+  >
+    Keyboard shortcuts menu
   </a>,
   <div
     className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
