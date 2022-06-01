@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import htmlMessage from '../../../components/htmlMessage';
-import { onEsc, useMatchMobileMediumQuery } from '../../../reactUtils';
+import { onKey, useMatchMobileMediumQuery } from '../../../reactUtils';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
 import { showNudgeStudyTools } from '../../selectors';
@@ -42,7 +42,8 @@ const NudgeStudyTools = () => {
   const isMobile = useMatchMobileMediumQuery();
   const positions = usePositions(isMobile);
   const dispatch = useDispatch();
-  const [addOnEscListener, removeOnEscListener] = onEsc(
+  const [addOnEscListener, removeOnEscListener] = onKey(
+    {key: 'Escape'},
     document.body,
     () => dispatch(closeNudgeStudyTools())
   );
