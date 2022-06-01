@@ -39,7 +39,7 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
   const intl = await createIntl(locale);
   const title = createTitle(page, book, intl);
   const description = getPageDescription(services, intl, book, page);
-  const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id, book.version);
+  const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
 
