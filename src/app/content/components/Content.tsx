@@ -8,6 +8,7 @@ import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
+import KeyboardShortcutsPopup from '../keyboardShortcuts/components/KeyboardShortcutsPopup';
 import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQuestionsPopup';
 import { mobileToolbarOpen } from '../search/selectors';
 import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
@@ -157,6 +158,7 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
     <BookBanner />
     <ErrorBoundary>
       <HighlightsPopUp />
+      <KeyboardShortcutsPopup />
       <StudyguidesPopUp />
       <PracticeQuestionsPopup />
       <NudgeStudyTools />
