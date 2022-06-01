@@ -1956,7 +1956,7 @@ class Content(Page):
                 return self.find_element(*self._toc_toggle_button_locator)
 
             def click_toc_toggle_button(self) -> WebElement:
-                self.offscreen_click(self.toc_toggle_button)
+                Utilities.click_option(self.driver, element=self.toc_toggle_button)
                 return self.wait.until(
                     expected.invisibility_of_element_located(self.toc_toggle_button)
                 )

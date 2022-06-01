@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const versionFile = 'rex-web/.git/ref';
 const booksFile = 'rex-web/src/config.books.json';
 const envFile = 'build-configs/config.env';
+const unquotedEnvFile = 'build-configs/unquoted-config.env';
 const commitFile = 'build-configs/commit.txt';
 const releaseFile = 'build-configs/release-id.txt';
 const imageFile = 'build-configs/image-tag.txt';
@@ -49,6 +50,13 @@ Promise.all([
   fs.writeFile(
     envFile,
     Object.entries(args).reduce((result, [key, value]) => [...result, `${key}="${value.replace(/"/g, '\\"')}"`], []).join("\n"),
+    handleErr
+  );
+
+  console.log('Generating unquoted env file...');
+  fs.writeFile(
+    unquotedEnvFile,
+    Object.entries(args).reduce((result, [key, value]) => [...result, `${key}=${value}`], []).join("\n"),
     handleErr
   );
 
