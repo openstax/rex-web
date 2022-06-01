@@ -101,6 +101,7 @@ getTypesetDocument.cache = new WeakMap();
 // It's called by components like HTML after they're rendered
 const typesetMath = (root: Element, windowImpl = window) => {
   // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
+
   if (windowImpl && windowImpl.MathJax && windowImpl.MathJax.Hub && root.querySelector(COMBINED_MATH_SELECTOR)) {
     return getTypesetDocument(root, windowImpl)();
   }
@@ -113,13 +114,6 @@ const typesetMath = (root: Element, windowImpl = window) => {
 // `...MathJax.js?config=TeX-MML-AM_HTMLorMML-full&amp;delayStartupUntil=configured`
 function startMathJax() {
   const window = assertWindow();
-  const document = window.document;
-
-  const script = document.createElement('script');
-  const path = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js';
-  script.src = `${path}?config=TeX-MML-AM_HTMLorMML-full&delayStartupUntil=configured`;
-  script.async = true;
-  document.head.appendChild(script);
 
   const configuredCallback = () => {
     // there doesn't seem to be a config option for this
