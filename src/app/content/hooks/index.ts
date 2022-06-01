@@ -2,6 +2,7 @@ import { routeHook } from '../../navigation/utils';
 import { actionHook } from '../../utils';
 import * as actions from '../actions';
 import highlightHooks from '../highlights/hooks';
+import keyboardShortcutsHooks from '../keyboardShortcuts/hooks';
 import practiceQuestionsHooks from '../practiceQuestions/hooks';
 import * as routes from '../routes';
 import searchHooks from '../search/hooks';
@@ -15,6 +16,7 @@ import storeTextSize from './storeTextSize';
 export default [
   ...searchHooks,
   ...highlightHooks,
+  ...keyboardShortcutsHooks,
   ...studyGuidesHooks,
   ...practiceQuestionsHooks,
   receivePageNotFoundId,
