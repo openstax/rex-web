@@ -243,7 +243,7 @@ describe('useOnDOMEvent', () => {
   });
 });
 
-describe('onEscHandler', () => {
+describe('onKeyHandler', () => {
   let ref: React.RefObject<HTMLElement>;
   let htmlElement: HTMLElement;
   let addEventListener: jest.SpyInstance;
@@ -259,17 +259,17 @@ describe('onEscHandler', () => {
   });
 
   it('registers event listener', () => {
-    utils.onEscHandler(ref, true, () => null)();
+    utils.onKeyHandler({key: 'Escape'}, ref, true, () => null)();
     expect(addEventListener).toHaveBeenCalled();
   });
 
   it('doesn\'t register event listener when ref.current doesn\'t exist', () => {
-    utils.onEscHandler({ current: null }, true, () => null)();
+    utils.onKeyHandler({key: 'Escape'}, { current: null }, true, () => null)();
     expect(addEventListener).not.toHaveBeenCalled();
   });
 
   it('removes event listener', () => {
-    const removeEvListener = utils.onEscHandler(ref, true, () => null)();
+    const removeEvListener = utils.onKeyHandler({key: 'Escape'}, ref, true, () => null)();
     expect(removeEvListener).toBeDefined();
     removeEvListener!();
     expect(removeEventListener).toHaveBeenCalled();
@@ -278,7 +278,7 @@ describe('onEscHandler', () => {
   it('clicking Escape invokes callback', () => {
     const window = assertWindow();
     const cb = jest.fn();
-    utils.onEscHandler(ref, true, cb)();
+    utils.onKeyHandler({key: 'Escape'}, ref, true, cb)();
 
     const keyboardEvent = new KeyboardEvent('keydown', {
       bubbles: true,
@@ -295,7 +295,7 @@ describe('onEscHandler', () => {
   it('clicking other button doesn\'t invokes callback', () => {
     const window = assertWindow();
     const cb = jest.fn();
-    utils.onEscHandler(ref, true, cb)();
+    utils.onKeyHandler({key: 'Escape'}, ref, true, cb)();
 
     const keyboardEvent = new KeyboardEvent('keydown', {
       bubbles: true,
