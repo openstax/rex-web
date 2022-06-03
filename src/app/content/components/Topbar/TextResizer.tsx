@@ -26,6 +26,7 @@ export const TextResizer = (props: Props) => {
       toggleChildren={<img aria-hidden='true' alt='' src={textSizeIcon} />}
       label='i18n:toolbar:textresizer:button:aria-label'
       ariaLabelId='i18n:toolbar:textresizer:button:aria-label'
+      dataAnalyticsLabel='Change text size'
       {...props}
     >
       <Styled.TextResizerMenu tabIndex={0} bookTheme={props.bookTheme} textSize={props.textSize}>
