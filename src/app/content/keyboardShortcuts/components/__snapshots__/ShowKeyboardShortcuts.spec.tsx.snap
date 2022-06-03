@@ -191,7 +191,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
         >
-          Move forward through book page elements, highlights and notes
+          Move focus through each line of text
         </div>
       </div>
       <div
@@ -215,7 +215,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
         >
-          Move backward through book page elements, highlights and notes
+          Select text
         </div>
       </div>
       <div
@@ -233,61 +233,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
         >
-          Move focus into and out of a note
-        </div>
-      </div>
-      <div
-        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
-      >
-        <div
-          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
-        >
-          <span
-            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
-          >
-            Tab
-          </span>
-        </div>
-        <div
-          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
-        >
-          Move through note editing options
-        </div>
-      </div>
-      <div
-        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
-      >
-        <div
-          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
-        >
-          <span
-            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
-          >
-            Space
-          </span>
-        </div>
-        <div
-          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
-        >
-          Select a different highlight color
-        </div>
-      </div>
-      <div
-        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
-      >
-        <div
-          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
-        >
-          <span
-            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
-          >
-            Enter
-          </span>
-        </div>
-        <div
-          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
-        >
-          Save or Cancel note edits
+          Create a highlight or note after selecting text
         </div>
       </div>
     </div>
