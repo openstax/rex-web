@@ -59,12 +59,14 @@ export async function getCanonicalUrlParams(
   }
 
   // use current page if page not found in canonical book
-  if (!treeSection) {
+  if (canonicalMap.length && !treeSection) {
     treeSection = findArchiveTreeNodeById(book.tree, pageId);
     canonicalBook = book;
   }
-  const pageInBook = assertDefined(treeSection?.slug, 'Expected page to have slug.');
-  return {book: {slug: (canonicalBook as BookWithOSWebData).slug}, page: {slug: pageInBook}};
+  if (treeSection) {
+    const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
+    return {book: {slug: (canonicalBook as BookWithOSWebData).slug}, page: {slug: pageInBook}};
+  }
 
   return null;
 }
