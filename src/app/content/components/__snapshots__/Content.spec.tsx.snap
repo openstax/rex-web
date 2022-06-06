@@ -245,6 +245,7 @@ Array [
             <button
               aria-label="Change text size"
               className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+              data-analytics-label="Change text size"
               onClick={[Function]}
             >
               <div
@@ -335,6 +336,7 @@ Array [
               <button
                 aria-label="Change text size"
                 className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+                data-analytics-label="Change text size"
                 onClick={[Function]}
               >
                 <div
@@ -1950,6 +1952,7 @@ Array [
             <button
               aria-label="Change text size"
               className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+              data-analytics-label="Change text size"
               onClick={[Function]}
             >
               <div
@@ -2040,6 +2043,7 @@ Array [
               <button
                 aria-label="Change text size"
                 className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+                data-analytics-label="Change text size"
                 onClick={[Function]}
               >
                 <div
