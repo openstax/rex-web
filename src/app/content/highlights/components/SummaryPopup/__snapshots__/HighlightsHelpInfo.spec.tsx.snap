@@ -4,7 +4,7 @@ exports[`HighlightsHelpInfo matches snapshot when hidden 1`] = `null`;
 
 exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
 <div
-  className="sc-bdVaJa fDtqjm"
+  className="sc-bdVaJa KamJP"
   data-analytics-region="Mobile MH help info"
 >
   <span
