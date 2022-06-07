@@ -32,7 +32,6 @@ import { assertDefined } from '../../src/app/utils';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
-import { getArchiveUrl } from '../../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
 import { globalMinuteCounter, prepareBookPages } from './contentPages';
@@ -46,6 +45,7 @@ const {
   ARCHIVE_URL,
   CODE_VERSION,
   OS_WEB_URL,
+  REACT_APP_ARCHIVE_URL,
   REACT_APP_OS_WEB_API_URL,
   RELEASE_ID,
 } = config;
@@ -78,7 +78,7 @@ type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
 type SitemapIndexTask = { payload: SerializedBookMatch[], type: 'sitemapIndex' };
 
-const archiveLoader = createArchiveLoader(getArchiveUrl, {
+const archiveLoader = createArchiveLoader(() => REACT_APP_ARCHIVE_URL, {
   appPrefix: '',
   archivePrefix: ARCHIVE_URL,
 });

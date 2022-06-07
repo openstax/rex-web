@@ -15,7 +15,7 @@ import { matchPathname } from '../../src/app/navigation/utils';
 import { assertDefined, assertNotNull, assertObject, assertString } from '../../src/app/utils';
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
-import createBookConfigLoader, { getArchiveUrl } from '../../src/gateways/createBookConfigLoader';
+import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
@@ -47,6 +47,7 @@ const {
   HIGHLIGHTS_URL,
   OS_WEB_URL,
   REACT_APP_ACCOUNTS_URL,
+  REACT_APP_ARCHIVE_URL,
   REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
@@ -116,7 +117,7 @@ async function makeTaskFunctionsMap() {
 
   await Loadable.preloadAll();
 
-  const archiveLoader = createArchiveLoader(getArchiveUrl, {
+  const archiveLoader = createArchiveLoader(() => REACT_APP_ARCHIVE_URL, {
     appPrefix: '',
     archivePrefix: ARCHIVE_URL,
   });
