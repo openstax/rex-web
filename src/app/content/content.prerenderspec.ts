@@ -167,6 +167,19 @@ describe('content', () => {
         },
         savedAt: expect.anything(),
       },
+      {
+        command: {
+          name: 'send',
+          payload: {
+            eventAction: 'open',
+            eventCategory: 'Nudge Study Tools',
+            eventLabel: '/books/book-slug-1/pages/3-test-page-4',
+            hitType: 'event',
+            transport: 'beacon'
+          },
+        },
+        savedAt: expect.anything(),
+      },
     ]);
   });
 });
