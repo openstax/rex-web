@@ -4043,10 +4043,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@openstax/event-capture-client@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.2.3.tgz#8491af0fcc5680c2b705153c6a373ca10187091e"
-  integrity sha512-MsLaDshx2/cBE60ay6kzDeHsjmY1oemPW+Ye65lf4e9UFkW1h5mVFQ+ZnHGkngbNihn/RbX1/1RmA56g03+OsQ==
+"@openstax/event-capture-client@1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.2.4.tgz#64b6744f42d755bbee0a98e6ab5ae57e396b967d"
+  integrity sha512-yDX0LDzbWlu4KHwVHqpCgyUewZv2HT1yTO0Hnu8xUIGsOV7ZbxEr5eSj5q8h2XGS9k4x6iv6e2TLrt/jFlWBrA==
   dependencies:
     uuid "^8.3.2"
 
