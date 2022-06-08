@@ -135,6 +135,7 @@ describe('content', () => {
     );
 
     await page.click('a[data-analytics-label="next"]');
+    await finishRender(page);
 
     const pendingEvents = await page.evaluate(() =>
       window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
