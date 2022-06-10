@@ -20,8 +20,6 @@ export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
   return event;
 };
 
-export const Severity = Sentry.Severity;
-
 export default {
 
   initializeWithMiddleware(): Middleware {
@@ -57,7 +55,7 @@ export default {
     return typeof(window) !== 'undefined' && config.SENTRY_ENABLED;
   },
 
-  captureException(error: any, level: Sentry.Severity = Severity.Error) {
+  captureException(error: any, level: Sentry.SeverityLevel = 'error') {
     if (!error) {
       return;
     }
@@ -78,22 +76,22 @@ export default {
     }
   },
 
-  captureMessage(message: string, level: Sentry.Severity) {
+  captureMessage(message: string, level: Sentry.SeverityLevel) {
     if (this.isEnabled) {
       Sentry.captureMessage(message, level);
     }
   },
 
   log(message: string) {
-    this.captureMessage(message, Severity.Log);
+    this.captureMessage(message, 'log');
   },
 
   warn(message: string) {
-    this.captureMessage(message, Severity.Warning);
+    this.captureMessage(message, 'warning');
   },
 
   error(message: string) {
-    this.captureMessage(message, Severity.Error);
+    this.captureMessage(message, 'error');
   },
 
 };

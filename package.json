@@ -8,8 +8,8 @@
     "@openstax/event-capture-client": "1.2.4",
     "@openstax/highlighter": "1.13.0",
     "@openstax/open-search-client": "0.1.0-build.7",
-    "@sentry/browser": "6.0.2",
-    "@sentry/integrations": "^6.0.2",
+    "@sentry/browser": "7.1.1",
+    "@sentry/integrations": "7.1.1",
     "color": "^3.1.2",
     "details-element-polyfill": "^2.3.1",
     "flat": "^5.0.0",
@@ -180,7 +180,7 @@
     "yargs": "^13.2.4"
   },
   "resolutions": {
-    "@sentry/browser": "5.6.1"
+    "@sentry/browser": "7.1.1"
   },
   "jest": {
     "testEnvironment": "jsdom",

@@ -3,7 +3,7 @@ import { recordSentryMessage } from '../app/errors/actions';
 import { Store } from '../app/types';
 import config from '../config';
 import createTestStore from '../test/createTestStore';
-import Sentry, { onBeforeSend, Severity } from './Sentry';
+import Sentry, { onBeforeSend } from './Sentry';
 
 jest.unmock('./Sentry');
 jest.mock('../config', () => ({
@@ -58,9 +58,9 @@ describe('Sentry error logging', () => {
     Sentry.initializeWithMiddleware()(store);
     const err = new Error('this is bad');
     Sentry.captureException(err);
-    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: Severity.Error });
-    Sentry.captureException(err, Severity.Warning);
-    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: Severity.Warning });
+    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: 'error' });
+    Sentry.captureException(err, 'warning');
+    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: 'warning' });
     Sentry.log('logged');
     expect(SentryLibrary.captureMessage).toHaveBeenCalledWith('logged', 'log');
   });
@@ -105,10 +105,10 @@ describe('Sentry error logging', () => {
 
     expect(spyConsoleInfo).not.toHaveBeenCalled();
 
-    Sentry.captureException(new Error('asdf'), Severity.Info);
+    Sentry.captureException(new Error('asdf'), 'info');
     expect(spyConsoleInfo).toHaveBeenCalledWith('asdf');
 
-    Sentry.captureException('qwer', Severity.Info);
+    Sentry.captureException('qwer', 'info');
     expect(spyConsoleInfo).toHaveBeenCalledWith('qwer');
   });
 
@@ -122,10 +122,10 @@ describe('Sentry error logging', () => {
 
     expect(spyConsoleWarn).not.toHaveBeenCalled();
 
-    Sentry.captureException(new Error('asdf'), Severity.Warning);
+    Sentry.captureException(new Error('asdf'), 'warning');
     expect(spyConsoleWarn).toHaveBeenCalledWith('asdf');
 
-    Sentry.captureException('qwer', Severity.Warning);
+    Sentry.captureException('qwer', 'warning');
     expect(spyConsoleWarn).toHaveBeenCalledWith('qwer');
   });
 
