@@ -14,11 +14,26 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const ContentStyles = styled(DynamicContentStyles)`
   outline: none;
-  &[data-text-size="-2"] { --content-text-scale: .75;  }
-  &[data-text-size="-1"] { --content-text-scale: .9;   }
-  &[data-text-size="1"]  { --content-text-scale: 1.25; }
-  &[data-text-size="2"]  { --content-text-scale: 1.5;  }
-  &[data-text-size="3"]  { --content-text-scale: 2;    }
+
+  &[data-text-size="-2"] {
+    --content-text-scale: 0.75;
+  }
+
+  &[data-text-size="-1"] {
+    --content-text-scale: 0.9;
+  }
+
+  &[data-text-size="1"] {
+    --content-text-scale: 1.25;
+  }
+
+  &[data-text-size="2"] {
+    --content-text-scale: 1.5;
+  }
+
+  &[data-text-size="3"] {
+    --content-text-scale: 2;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
