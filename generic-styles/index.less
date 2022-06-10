@@ -30,28 +30,6 @@ body {
   -webkit-print-color-adjust: exact;
 }
 
-#main-content, .content-excerpt {
-  &[data-text-size="-2"] {
-    --content-text-scale: .75;
-  }
-
-  &[data-text-size="-1"] {
-    --content-text-scale: .9;
-  }
-
-  &[data-text-size="1"] {
-    --content-text-scale: 1.25;
-  }
-
-  &[data-text-size="2"] {
-    --content-text-scale: 1.5;
-  }
-
-  &[data-text-size="3"] {
-    --content-text-scale: 2;
-  }
-}
-
 #main-content:not([data-dynamic-style="true"]), .content-excerpt:not([data-dynamic-style="true"]) {
   @import "./content-baked.less";
 
