@@ -1,0 +1,47 @@
+{
+  "name": "rex",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "ci-coverage": "nyc --reporter=lcov npx playwright test tests/code --project=\"Desktop Chrome\"",
+    "coverage": "nyc npx playwright test tests/code --project=\"Desktop Chrome\" --retries 1",
+    "coverage-all": "nyc npx playwright test tests/code --retries 1",
+    "debug": "PWDEBUG=console npx playwright test",
+    "lint": "eslint '**/**/*.{js,ts,tsx}' --quiet --fix",
+    "test": "npx playwright test tests/kinetic --workers 5"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@playwright/test": "^1.17.2",
+    "@types/faker": "5.5.9",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "axios": "^0.25.0",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "faker": "5.5.3",
+    "nyc": "^15.1.0",
+    "prettier": "^2.5.1",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "npm": "^8.3.1",
+    "playwright": "^1.17.2"
+  }
+}
