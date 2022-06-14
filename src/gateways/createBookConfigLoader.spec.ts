@@ -1,5 +1,6 @@
 import { AppServices } from '../app/types';
 import Sentry from '../helpers/Sentry';
+import { getArchiveUrl } from './createBookConfigLoader';
 
 jest.mock('../helpers/Sentry');
 
@@ -34,6 +35,7 @@ describe('bookConfigLoader', () => {
 
   it('fetches bookVersion from release.json if failed to find it in local config', async() => {
     (global as any).fetch = mockFetch(200, {
+      archiveUrl: '/apps/archive/test-url',
       books: {
         'test-book-uuid-2': {
           defaultVersion: 'test-book-version-2',
@@ -44,7 +46,9 @@ describe('bookConfigLoader', () => {
     });
 
     const bookVersion = await bookConfigLoader.getBookVersionFromUUID('test-book-uuid-2');
+    const archiveUrl = getArchiveUrl();
     expect(fetch).toHaveBeenCalledWith('/rex/release.json');
+    expect(archiveUrl).toEqual('/apps/archive/test-url');
     expect(bookVersion).toEqual({ defaultVersion: 'test-book-version-2' });
   });
 
