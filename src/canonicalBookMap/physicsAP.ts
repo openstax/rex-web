@@ -4,8 +4,8 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
-  /* College Physics for AP Courses 1e */ 'ca344e2d-6731-43cd-b851-a7b3aa0b37aa': [
-    /* College Physics for AP Courses 2e */ ['636cbfd9-4e37-4575-83ab-9dec9029ca4e', {
+  /* College Physics for AP Courses 1e */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': [
+    /* College Physics for AP Courses 2e */ ['ADD_NEW_BOOK_UUID_HERE', {
       /* Physics: An Introduction to the same module in 2e */
       '2f8a5d38-00d5-4c53-8df5-01294fb5a764': '39256206-03b0-4396-abb6-75e6ee5e3c7b',
       /* Physical Quantities and Units to the same module in 2e */
