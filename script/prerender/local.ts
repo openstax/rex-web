@@ -49,7 +49,7 @@ let networkTime = 0;
 async function render() {
   await Loadable.preloadAll();
   const port = await portfinder.getPortPromise();
-  const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+  const archiveLoader = createArchiveLoader(() => REACT_APP_ARCHIVE_URL, {
     appPrefix: '',
     archivePrefix: `http://localhost:${port}`,
     bookCache: createDiskCache<string, ArchiveBook>('archive-books'),
