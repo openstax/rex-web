@@ -78,7 +78,7 @@ type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
 type SitemapIndexTask = { payload: SerializedBookMatch[], type: 'sitemapIndex' };
 
-const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+const archiveLoader = createArchiveLoader(() => REACT_APP_ARCHIVE_URL, {
   appPrefix: '',
   archivePrefix: ARCHIVE_URL,
 });
