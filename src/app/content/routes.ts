@@ -7,7 +7,7 @@ import * as selectNavigation from '../navigation/selectors';
 import { Route } from '../navigation/types';
 import { findPathForParams, getUrlRegexParams, injectParamsToBaseUrl } from '../navigation/utils';
 import { assertDefined } from '../utils';
-import { Params } from './types';
+import { ContentRoute, Params } from './types';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
 const base = '/books/:book/pages/:page';
@@ -16,12 +16,6 @@ const contentPaths = injectParamsToBaseUrl(base, {
   book: [`book_uuid(${MATCH_UUID})@:book_version`, 'book_slug@:book_version', 'book_slug'],
   page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
 });
-
-type State = {} | {
-  bookUid: string;
-  bookVersion: string;
-  pageUid: string;
-};
 
 // tslint:disable-next-line:variable-name
 const ReadingContent = Loadable({
@@ -46,7 +40,7 @@ const ContentMode = () => {
   ;
 };
 
-export const content: Route<Params, State> = {
+export const content: ContentRoute = {
   component: ContentMode,
   getSearch: (_params: Params): string => REACT_APP_ARCHIVE_URL_OVERRIDE
     ? `archive=${REACT_APP_ARCHIVE_URL_OVERRIDE}`

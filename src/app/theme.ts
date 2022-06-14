@@ -147,7 +147,6 @@ export default {
   zIndex: [
     'highlightInlineCard',
     'contentNotifications',
-    'searchSidebar',
     'topbar',
     'overlay',
     'sidebar',
@@ -155,6 +154,7 @@ export default {
     'navbar',
     'mobileMenu',
     'sidebarMobileMedium',
+    'keyboardShortcutsPopup',
     'highlightSummaryPopup',
     'highlightsHelpInfoMobile',
     'nudgeOverlay',
