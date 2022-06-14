@@ -2,6 +2,7 @@
 
 exports[`Prerender sanity tests has a release manifest 1`] = `
 "{
+  \\"archiveUrl\\": \\"/apps/archive/codeversion\\",
   \\"books\\": {
     \\"testbook1-uuid\\": {
       \\"defaultVersion\\": \\"1.0\\"
