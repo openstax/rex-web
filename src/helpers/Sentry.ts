@@ -1,5 +1,5 @@
-import * as Sentry from '@sentry/react';
 import * as Integrations from '@sentry/integrations';
+import * as Sentry from '@sentry/react';
 import { recordSentryMessage } from '../app/errors/actions';
 import { Middleware, MiddlewareAPI } from '../app/types';
 import config from '../config';
@@ -42,8 +42,8 @@ export default {
       });
       IS_INITIALIZED = true;
 
-      return next => action => {
-        return next(action)
+      return (next) => (action) => {
+        return next(action);
       };
     };
   },
