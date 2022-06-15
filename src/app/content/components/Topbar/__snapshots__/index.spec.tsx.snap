@@ -2,7 +2,7 @@
 
 exports[`text resizer opens menu when clicking menu button 1`] = `
 <div
-  className="styled__TopBarWrapper-sc-12dq39v-0 hTNbAz"
+  className="styled__TopBarWrapper-sc-12dq39v-0 dsFHOZ"
   data-testid="topbar"
 >
   <div
