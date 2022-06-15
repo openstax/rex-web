@@ -14,7 +14,7 @@ interface Props {
 // tslint:disable-next-line:variable-name
 const ContentStyles = styled(DynamicContentStyles)`
   outline: none;
-  ${(props: {textSize: number}) => css`
+  ${(props: {textSize?: number}) => props.textSize && css`
     --content-text-scale: ${textResizerValueMap.get(props.textSize)};
   `}
 `;
