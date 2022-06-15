@@ -69,9 +69,9 @@ export const TopBarWrapper = styled.div`
   `)}
 
   ${theme.breakpoints.mobileMedium(css`
+    // Make sure toolbar dropdowns float over search results
     z-index: calc(${theme.zIndex.sidebar} + 1);
   `)}
-
 
   ${disablePrint}
 `;
