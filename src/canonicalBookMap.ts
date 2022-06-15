@@ -305,7 +305,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
       /* 2.4 Chemical Formulas to the same module in 2e */
       '594e5009-d70c-4101-ae18-4154ff1c7ffd': '9d7d0989-f579-4047-9023-8048341af5de',
       /* 3.0 Introduction to the same module in 2e */
-      'fc7f7fc6-4d9f-4956-a5a7-3092ac72182e': '9a3bd412-d571-4c1f-a985-06fbfc32bfbd',
+      'fc7f7fc6-4d9f-4956-a5a7-3092ac72182e': 'fc7f7fc6-4d9f-4956-a5a7-3092ac72182e',
       /* 3.1 Electromagnetic Energy to the same module in 2e */
       'd96495d5-09fe-4702-959f-d39a243c2612': '41ea6265-62bd-4d5d-b62f-efc9dea99210',
       /* 3.6 The Periodic Table to the same module in 2e */
@@ -329,7 +329,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
       /* 8.3 Stoichiometry of Gaseous Substances, Mixtures, and Reactions to the same module in 2e */
       '184a65b2-1f3f-49dc-bf1d-7d4a12d21ae9': '15f67dd0-8548-4ac0-875f-f5cbf789ee94',
       /* 9.0 Introduction to the same module in 2e */
-      'ee59d5c7-6a07-464c-9e56-b99ffdf874ea': 'b86288d5-f029-45ac-a301-2320aa86cb5b',
+      'ee59d5c7-6a07-464c-9e56-b99ffdf874ea': 'cf0ef76c-34fd-4905-a755-a28d0e4a5d1a',
       /* 9.4 Strengths of Ionic and Covalent Bonds to the same module in 2e */
       '2b8e2876-209c-449d-9f2c-abbd73900c8b': 'd9a2a6fa-520e-4317-a0c5-56da7bece584',
       /* 12.4 Free Energy to the same module in 2e */
