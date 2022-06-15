@@ -1,6 +1,7 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
+import { textResizerValueMap } from '../content/components/constants';
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Consumer } from '../context/SkipToContent';
 import { mergeRefs } from '../utils';
@@ -10,30 +11,13 @@ interface Props {
   className?: string;
   dangerouslySetInnerHTML?: { __html: string; };
 }
-
 // tslint:disable-next-line:variable-name
 const ContentStyles = styled(DynamicContentStyles)`
   outline: none;
 
-  &[data-text-size="-2"] {
-    --content-text-scale: 0.75;
-  }
-
-  &[data-text-size="-1"] {
-    --content-text-scale: 0.9;
-  }
-
-  &[data-text-size="1"] {
-    --content-text-scale: 1.25;
-  }
-
-  &[data-text-size="2"] {
-    --content-text-scale: 1.5;
-  }
-
-  &[data-text-size="3"] {
-    --content-text-scale: 2;
-  }
+  ${(props: {textSize?: number}) => props.textSize && css`
+    --content-text-scale: ${textResizerValueMap.get(props.textSize)};
+  `};
 `;
 
 // tslint:disable-next-line:variable-name

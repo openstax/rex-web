@@ -150,7 +150,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         className='page-content'
         ref={this.container}
         dangerouslySetInnerHTML={{ __html: html}}
-        data-text-size={this.props.textSize}
+        textSize={this.props.textSize}
       />
       <PrevNextBar />
       <LabsCTA />
