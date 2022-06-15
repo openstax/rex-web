@@ -309,7 +309,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
       /* 3.1 Electromagnetic Energy to the same module in 2e */
       'd96495d5-09fe-4702-959f-d39a243c2612': '41ea6265-62bd-4d5d-b62f-efc9dea99210',
       /* 3.6 The Periodic Table to the same module in 2e */
-      '4d73981f-76cf-43a3-b932-9f68fdf3abf6': 'dff91a60-20dc-4c42-9824-1c616ee6a1c6',
+      '4d73981f-76cf-43a3-b932-9f68fdf3abf6': '601be624-33cb-45bb-beb8-d069264fae07',
       /* 3.7 Molecular and Ionic Compounds to the same module in 2e */
       'b832199d-447d-4c4b-b05b-af31e4297fa6': 'f1c0d0db-2d56-4a2f-b6cb-2bf649278669',
       /* 4.1 Ionic Bonding to the same module in 2e */
