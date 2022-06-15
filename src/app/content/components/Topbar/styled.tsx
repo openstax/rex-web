@@ -68,6 +68,11 @@ export const TopBarWrapper = styled.div`
     top: ${bookBannerMobileMiniHeight}rem;
   `)}
 
+  ${theme.breakpoints.mobileMedium(css`
+    z-index: calc(${theme.zIndex.sidebar} + 1);
+  `)}
+
+
   ${disablePrint}
 `;
 

@@ -85,7 +85,6 @@ type FilterDropdownProps = {
   dataAnalyticsLabel: string;
   showAngleIcon?: boolean;
   toggleChildren?: JSX.Element;
-  onToggle?: (e: React.FormEvent) => void;
 } & Partial<TabHiddenDropdownProps>;
 
 // tslint:disable-next-line:variable-name

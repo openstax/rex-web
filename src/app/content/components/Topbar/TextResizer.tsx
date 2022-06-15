@@ -11,7 +11,6 @@ interface Props {
   onChangeTextSize: (e: React.FormEvent<HTMLInputElement>) => void;
   onDecreaseTextSize: (e: React.FormEvent<HTMLInputElement>) => void;
   onIncreaseTextSize: (e: React.FormEvent<HTMLInputElement>) => void;
-  onToggle?: () => void;
   textSize: number;
   mobileToolbarOpen?: boolean;
 }

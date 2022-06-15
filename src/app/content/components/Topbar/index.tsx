@@ -168,7 +168,6 @@ class Topbar extends React.Component<Props, State> {
           onDecreaseTextSize={onDecreaseTextSize}
           onIncreaseTextSize={onIncreaseTextSize}
           textSize={this.props.textSize}
-          onToggle={this.props.clearSearch}
           data-testid='text-resizer'
         />
       </Styled.SearchPrintWrapper>

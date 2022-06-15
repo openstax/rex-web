@@ -407,8 +407,6 @@ describe('text resizer', () => {
         .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).toHaveBeenLastCalledWith(clearSearch());
-
     renderer.act(() => {
       component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn() });
     });
