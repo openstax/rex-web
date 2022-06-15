@@ -4116,7 +4116,7 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@sentry/browser@7.1.1", "@sentry/browser@^5.0.0":
+"@sentry/browser@7.1.1":
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.1.1.tgz#2d1fe4a81e0d9679aa73c5ae69a0958e4e42b422"
   integrity sha512-5AQvStZ+nOP/yxsBmeMZpeGLVtuOgnCNvswKd/c1CJwNw7bDmCE4TQeNKp1C3Gb7lSdBk8ViwUKn0ZpoVQ5MTw==
@@ -4153,6 +4153,17 @@
     "@sentry/types" "7.1.1"
     "@sentry/utils" "7.1.1"
     localforage "^1.8.1"
+    tslib "^1.9.3"
+
+"@sentry/react@7.1.1":
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-7.1.1.tgz#13d63384d1a8c916b96ea79b74fc419ba967fb6a"
+  integrity sha512-Z7cZvXHIWxg7OhOSy4InhrRgQPRNtHsyOkIAHkgwW32JYOGTg1HdqQ5mFUxQLejhU/YqsxVjTK4CI58FATykLw==
+  dependencies:
+    "@sentry/browser" "7.1.1"
+    "@sentry/types" "7.1.1"
+    "@sentry/utils" "7.1.1"
+    hoist-non-react-statics "^3.3.2"
     tslib "^1.9.3"
 
 "@sentry/types@7.1.1":
@@ -4678,14 +4689,6 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
-
-"@types/redux-sentry-middleware@^0.1.0":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@types/redux-sentry-middleware/-/redux-sentry-middleware-0.1.2.tgz#64fb3d63df41e633d53bcbbfac3f49cf3dc9a1ef"
-  integrity sha512-cTrRRJxSrzoMznvreNHrg1izy/cjUghFGXDqQI+6di3BvnjBqcI1mTrU/QVKPf/P7Sk/TNyY7c2IQaYK0Q3Acw==
-  dependencies:
-    "@sentry/browser" "^5.0.0"
-    redux "^4.0.0"
 
 "@types/resolve@0.0.8":
   version "0.0.8"
@@ -15386,11 +15389,6 @@ redent@^2.0.0:
   dependencies:
     indent-string "^3.0.0"
     strip-indent "^2.0.0"
-
-redux-sentry-middleware@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/redux-sentry-middleware/-/redux-sentry-middleware-0.2.2.tgz#79140377b4fa6a606797cb2a13cc1b8ab7d68cec"
-  integrity sha512-SOxNkPNgU+zZT6cW4XV1+B2IpWrVXW4yuFHzOJvVjHn4yRV71nAj0Clj6XjhD0K2TKUxvwmjLn01mDL2RarMUQ==
 
 redux@^4.0.0, redux@^4.0.1:
   version "4.0.1"

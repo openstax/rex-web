@@ -8,6 +8,7 @@ import {
 } from 'redux';
 import { AnyAction, AppState, Store } from '../app/types';
 import config from '../config';
+import Sentry from './Sentry';
 
 interface Options {
   reducer: Reducer<AppState, AnyAction>;
@@ -27,6 +28,10 @@ export default function({middleware, reducer, initialState}: Options): Store {
   const enhancers = [
     applyMiddleware(...middleware),
   ];
+
+  if (Sentry.shouldCollectErrors) {
+    enhancers.push(Sentry.createReduxEnhancer());
+  }
 
   const enhancer = composeEnhancers<StoreEnhancerStoreCreator<{}, {}>>(...enhancers);
   const store = createStore(reducer, initialState, enhancer);

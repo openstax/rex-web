@@ -1,6 +1,5 @@
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/react';
 import * as Integrations from '@sentry/integrations';
-import createSentryMiddleware from 'redux-sentry-middleware';
 import { recordSentryMessage } from '../app/errors/actions';
 import { Middleware, MiddlewareAPI } from '../app/types';
 import config from '../config';
@@ -43,8 +42,14 @@ export default {
       });
       IS_INITIALIZED = true;
 
-      return createSentryMiddleware(Sentry)(store);
+      return next => action => {
+        return next(action)
+      };
     };
+  },
+
+  createReduxEnhancer() {
+    return Sentry.createReduxEnhancer({});
   },
 
   get isEnabled() {
