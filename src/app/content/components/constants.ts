@@ -53,3 +53,4 @@ export const textResizerValueMap = new Map([[-2, 0.75], [-1, 0.9], [0, 1], [1, 1
 export const textResizerValues = Array.from(textResizerValueMap.keys());
 export const textResizerMinValue = textResizerValues[0];
 export const textResizerMaxValue = textResizerValues[textResizerValues.length - 1];
+export const textResizerStorageKey = 'textSize';
