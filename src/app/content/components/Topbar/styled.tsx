@@ -379,13 +379,25 @@ const thumbCss = css`
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
 `;
 
+const tickMarkCss = css`
+  background: repeating-linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 19%,
+    #fff 19%,
+    #fff 20%,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0) 20%
+  );
+`;
+
 // tslint:disable-next-line:variable-name
 export const TextResizerMenu = styled.div`
   color: ${theme.color.primary.gray.base};
 
   && {
     background: #fff;
-    padding: 1.6rem 0.8rem 1.6rem 1.6rem;
+    padding: 1.6rem 0.8rem 0 1.6rem;
     right: 0;
     left: auto;
     top: calc(100% - 1px);
@@ -397,7 +409,10 @@ export const TextResizerMenu = styled.div`
   .controls {
     display: flex;
     align-items: center;
-    margin-top: 0.5rem;
+
+    > button {
+      min-height: 45px;
+    }
 
     input {
       -webkit-appearance: none; /* stylelint-disable property-no-vendor-prefix */
@@ -427,18 +442,12 @@ export const TextResizerMenu = styled.div`
       box-shadow: none;
       border: none;
       height: 0.2rem;
-      ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme && css`
-        background:
-          repeating-linear-gradient(
-            to right,
-            rgba(0, 0, 0, 0),
-            rgba(0, 0, 0, 0) 19%,
-            ${theme.color.primary[props.bookTheme].foreground} 19%,
-            ${theme.color.primary[props.bookTheme].foreground} 20%,
-            rgba(0, 0, 0, 0) 20%,
-            rgba(0, 0, 0, 0) 20%
-          );
-      `}
+      ${tickMarkCss}
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 0.2rem;
+      ${tickMarkCss}
     }
 
     input[type="range"]::-moz-range-thumb {
@@ -450,6 +459,7 @@ export const TextResizerMenu = styled.div`
       appearance: none;
       ${thumbCss}
       width: 0.8rem;
+      margin-top: -6px;
     }
   }
 `;
