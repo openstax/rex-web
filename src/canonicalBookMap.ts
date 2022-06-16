@@ -360,6 +360,12 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
   ],
+  /* University Physics Vol. 1 */ 'd50f6e32-0fda-46ef-a362-9bd36ca7c97d': [
+    /* University Physics Vol. 3 */ ['af275420-6050-4707-995c-57b9cc13c358', {}],
+  ],
+  /* University Physics Vol. 2 */ '7a0f9770-1c44-4acd-9920-1cd9a99f2a1e': [
+    /* University Physics Vol. 3 */ ['af275420-6050-4707-995c-57b9cc13c358', {}],
+  ],
 };
 
 export type CanonicalBookMap = ObjectLiteral<Array<[string, ObjectLiteral<string | undefined>]> | undefined>;
