@@ -15,9 +15,11 @@ import {
   contentWrapperMaxWidth,
   mobileSearchContainerMargin,
   sidebarDesktopWidth,
+  sidebarDesktopWithToolbarWidth,
   sidebarTransitionTime,
   textResizerMaxValue,
   textResizerMinValue,
+  toolbarButtonWidth,
   toolbarHrHeight,
   toolbarIconColor,
   toolbarMobileSearchWrapperHeight,
@@ -27,6 +29,7 @@ import {
   topbarMobileHeight,
   verticalNavbarMaxWidth
 } from '../constants';
+import { contentWrapperAndNavWidthBreakpoint, contentWrapperWidthBreakpoint } from '../ContentPane';
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
@@ -181,7 +184,7 @@ export const SearchInputWrapper = styled.form`
     margin-left: auto;
     display: flex;
     align-items: center;
-    margin-right: 2rem;
+    margin-right: -${toolbarButtonWidth}rem;
     position: relative;
     color: ${toolbarIconColor.base};
     border: solid 0.1rem;
@@ -200,7 +203,6 @@ export const SearchInputWrapper = styled.form`
 
     ${theme.breakpoints.mobile(css`
       height: 100%;
-      margin-right: 0;
       overflow: hidden;
       ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
         background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
@@ -211,7 +213,8 @@ export const SearchInputWrapper = styled.form`
       `}
     `)}
     ${theme.breakpoints.mobileMedium(css`
-        width: 100%;
+      width: 100%;
+      margin-right: 0;
     `)}
   `;
 
@@ -254,6 +257,14 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   transition: padding-left ${sidebarTransitionTime}ms;
   ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen || props.isDesktopSearchOpen) && `
     padding-left: ${sidebarDesktopWidth}rem;
+
+    @media screen and ${contentWrapperAndNavWidthBreakpoint} {
+      padding-left: calc(${sidebarDesktopWithToolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2);
+    }
+
+    @media screen and ${contentWrapperWidthBreakpoint} {
+      padding-left: ${sidebarDesktopWithToolbarWidth}rem;
+    }
   `}
   ${theme.breakpoints.mobile(css`
     display: none;
