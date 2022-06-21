@@ -6,7 +6,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   data-testid="topbar"
 >
   <div
-    className="styled__SearchPrintWrapper-sc-12dq39v-9 gNqBLE"
+    className="styled__SearchPrintWrapper-sc-12dq39v-9 dcsRfj"
   >
     <div
       className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -33,7 +33,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </div>
     <form
-      className="styled__SearchInputWrapper-sc-12dq39v-7 eGxDzk"
+      className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
       data-experiment={true}
       data-testid="desktop-search"
       onSubmit={[Function]}
@@ -114,7 +114,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </form>
     <div
-      className="styled__TextResizerDropdown-sc-12dq39v-16 fPmtGb Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
     >
       <button
         aria-label="Change text size"
@@ -133,16 +133,20 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </div>
       </button>
       <div
-        className="styled__TextResizerMenu-sc-12dq39v-17 iYkhch"
+        className="styled__TextResizerMenu-sc-12dq39v-17 eDJseE"
         tabIndex={0}
       >
-        Text size
+        <label
+          id="text-resizer-label"
+        >
+          Text size
+        </label>
         <div
           className="controls"
         >
           <button
             aria-label="Decrease text size"
-            className="styled__TextResizerChangeButton-sc-12dq39v-18 bnDoWe styled__PlainButton-sc-1119auh-0 kPdLbJ"
+            className="styled__TextResizerChangeButton-sc-12dq39v-18 hPlFJJ styled__PlainButton-sc-1119auh-0 kPdLbJ"
             data-testid="decrease-text-size"
             onClick={[Function]}
           >
@@ -153,6 +157,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
             />
           </button>
           <input
+            aria-labelledby="text-resizer-label"
             data-testid="change-text-size"
             max={3}
             min={-2}
@@ -163,7 +168,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           />
           <button
             aria-label="Increase text size"
-            className="styled__TextResizerChangeButton-sc-12dq39v-18 bnDoWe styled__PlainButton-sc-1119auh-0 kPdLbJ"
+            className="styled__TextResizerChangeButton-sc-12dq39v-18 hPlFJJ styled__PlainButton-sc-1119auh-0 kPdLbJ"
             data-testid="increase-text-size"
             onClick={[Function]}
           >
@@ -199,7 +204,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
       <form
         action="#"
-        className="styled__SearchInputWrapper-sc-12dq39v-7 eGxDzk"
+        className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
         data-experiment={true}
         data-testid="mobile-search"
         onSubmit={[Function]}
@@ -248,7 +253,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         
       </form>
       <div
-        className="styled__TextResizerDropdown-sc-12dq39v-16 fPmtGb Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+        className="styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
       >
         <button
           aria-label="Change text size"

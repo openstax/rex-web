@@ -132,7 +132,7 @@ Array [
         data-testid="topbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-12dq39v-9 gNqBLE"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 dcsRfj"
         >
           <div
             className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -159,7 +159,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 eGxDzk"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -240,7 +240,7 @@ Array [
             </button>
           </form>
           <div
-            className="styled__TextResizerDropdown-sc-12dq39v-16 fPmtGb Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+            className="styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
           >
             <button
               aria-label="Change text size"
@@ -282,7 +282,7 @@ Array [
             </button>
             <form
               action="#"
-              className="styled__SearchInputWrapper-sc-12dq39v-7 eGxDzk"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
               data-experiment={true}
               data-testid="mobile-search"
               onSubmit={[Function]}
@@ -331,7 +331,7 @@ Array [
               
             </form>
             <div
-              className="styled__TextResizerDropdown-sc-12dq39v-16 fPmtGb Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+              className="styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
             >
               <button
                 aria-label="Change text size"
@@ -1838,7 +1838,7 @@ Array [
         data-testid="topbar"
       >
         <div
-          className="styled__SearchPrintWrapper-sc-12dq39v-9 gNqBLE"
+          className="styled__SearchPrintWrapper-sc-12dq39v-9 dcsRfj"
         >
           <div
             className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -1865,7 +1865,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 eGxDzk"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -1946,7 +1946,7 @@ Array [
             </button>
           </form>
           <div
-            className="styled__TextResizerDropdown-sc-12dq39v-16 fPmtGb Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+            className="styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
           >
             <button
               aria-label="Change text size"
@@ -1988,7 +1988,7 @@ Array [
             </button>
             <form
               action="#"
-              className="styled__SearchInputWrapper-sc-12dq39v-7 eGxDzk"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
               data-experiment={true}
               data-testid="mobile-search"
               onSubmit={[Function]}
@@ -2037,7 +2037,7 @@ Array [
               
             </form>
             <div
-              className="styled__TextResizerDropdown-sc-12dq39v-16 fPmtGb Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+              className="styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
             >
               <button
                 aria-label="Change text size"
