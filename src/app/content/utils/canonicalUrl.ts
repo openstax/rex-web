@@ -39,8 +39,8 @@ export async function getCanonicalUrlParams(
         `We've already filtered out books that are not in the BOOK configuration`
       ).defaultVersion;
       canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
-      canonicalPageId = CANONICAL_PAGES_MAP[pageId] || canonicalPageId;
-      treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId) || treeSection;
+      canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
+      treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 
       // check canonical book for its own map
       const newMap = getCanonicalMap(canonicalBook.id);
