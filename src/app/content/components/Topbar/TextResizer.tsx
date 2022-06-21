@@ -29,7 +29,7 @@ export const TextResizer = (props: Props) => {
       {...props}
     >
       <Styled.TextResizerMenu tabIndex={0} bookTheme={props.bookTheme} textSize={props.textSize}>
-        <FormattedMessage id='i18n:toolbar:textresizer:popup:heading' />
+        <label id='text-resizer-label'><FormattedMessage id='i18n:toolbar:textresizer:popup:heading' /></label>
         <div className='controls'>
           <Styled.TextResizerChangeButton
             onClick={props.onDecreaseTextSize}
@@ -46,6 +46,7 @@ export const TextResizer = (props: Props) => {
             onChange={props.onChangeTextSize}
             value={props.textSize}
             data-testid='change-text-size'
+            aria-labelledby='text-resizer-label'
           />
           <Styled.TextResizerChangeButton
             onClick={props.onIncreaseTextSize}

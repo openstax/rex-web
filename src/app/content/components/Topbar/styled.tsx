@@ -360,7 +360,7 @@ export const TextResizerDropdown = styled(FilterDropdown)`
     max-height: 5.2rem;
 
     > div {
-      padding: 1.5rem 1.3rem;
+      padding: 1.5rem;
     }
   }
 
@@ -408,7 +408,6 @@ export const TextResizerMenu = styled.div`
 
   && {
     background: #fff;
-    padding: 1.6rem 0.8rem 0 1.6rem;
     right: 0;
     left: auto;
     top: calc(100% - 1px);
@@ -417,12 +416,18 @@ export const TextResizerMenu = styled.div`
   text-align: left;
   font-weight: bold;
 
+  label {
+    padding: 1.6rem 1.6rem 0;
+    display: block;
+  }
+
   .controls {
     display: flex;
     align-items: center;
 
     > button {
-      min-height: 45px;
+      height: 4rem;
+      width: 4.8rem;
     }
 
     input {
@@ -490,9 +495,7 @@ export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props
     {children}
   </PlainButton>;
 })`
-  &:first-child {
-    margin-left: -0.8rem;
-  }
+  margin: 0.2rem 0.6rem;
 `;
 
 // tslint:disable-next-line:variable-name
