@@ -38,8 +38,7 @@ export async function getCanonicalUrlParams(
         getBookVersionFromUUIDSync(id),
         `We've already filtered out books that are not in the BOOK configuration`
       ).defaultVersion;
-      const useCurrentBookAsCanonical = book.id === id  && hasOSWebData(book);
-      canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id, version);
+      canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
       canonicalPageId = CANONICAL_PAGES_MAP[pageId] || canonicalPageId;
       treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId) || treeSection;
 
@@ -60,7 +59,6 @@ export async function getCanonicalUrlParams(
     canonicalBook = book;
   }
   if (treeSection) {
-    console.log('tree section: ', (canonicalBook as BookWithOSWebData).slug);
     const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
     return {book: {slug: (canonicalBook as BookWithOSWebData).slug}, page: {slug: pageInBook}};
   }
