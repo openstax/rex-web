@@ -51,7 +51,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
           });
       }
     }
-  }, [disable, queryParams]);
+  }, [currentBook, disable, queryParams]);
 
   return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps} ref={ref}>
     {children}
