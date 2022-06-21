@@ -109,6 +109,7 @@ describe('Page', () => {
     store = createTestStore({
       content: {
         ...initialState,
+        textSize: 0,
         book: formatBookData(book, mockCmsBook),
         page,
       },

@@ -133,7 +133,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </div>
       </button>
       <div
-        className="styled__TextResizerMenu-sc-12dq39v-17 eDJseE"
+        className="styled__TextResizerMenu-sc-12dq39v-17 deAhgb"
         tabIndex={0}
       >
         <label
@@ -164,7 +164,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
             onChange={[Function]}
             step="1"
             type="range"
-            value={0}
+            value={null}
           />
           <button
             aria-label="Increase text size"

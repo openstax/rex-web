@@ -7,6 +7,7 @@ import { syncSearch } from '../../search/hooks';
 import { loadStudyGuides } from '../../studyGuides/hooks';
 import initializeIntl from '../intlHook';
 import registerPageView from '../registerPageView';
+import { loadStoredTextSize } from '../storeTextSize';
 import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent from './resolveContent';
 
@@ -24,6 +25,7 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
       loadStudyGuides(services)(),
       loadPracticeQuestions(services)(),
       initializeIntl(services)(),
+      loadStoredTextSize(services)(),
     ]);
   };
 };

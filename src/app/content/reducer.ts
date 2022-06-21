@@ -11,15 +11,12 @@ import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
-import { textResizerStorageKey } from './components/constants';
 import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
 import practiceQuestionsReducer, {initialState as initialPracticeQuestionsState } from './practiceQuestions/reducer';
 import { content } from './routes';
 import searchReducer, {initialState as initialSearchState } from './search/reducer';
 import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
 import { State } from './types';
-
-const storedTextSize = typeof window !== 'undefined' && window.localStorage.getItem(textResizerStorageKey);
 
 export const initialState = {
   buyPrint: null,
@@ -33,7 +30,7 @@ export const initialState = {
   search: initialSearchState,
   showNudgeStudyTools: null,
   studyGuides: initialStudyGuidesState,
-  textSize: storedTextSize ? parseInt(storedTextSize, 10) : 0,
+  textSize: null,
   tocOpen: null,
 };
 
