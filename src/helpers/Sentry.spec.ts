@@ -1,4 +1,4 @@
-import * as SentryLibrary from '@sentry/browser';
+import * as SentryLibrary from '@sentry/react';
 import { recordSentryMessage } from '../app/errors/actions';
 import { Store } from '../app/types';
 import config from '../config';
@@ -12,8 +12,8 @@ jest.mock('../config', () => ({
   SENTRY_ENABLED: false,
 }));
 
-jest.mock('@sentry/browser', () => ({
-  ...(jest as any).requireActual('@sentry/browser'),
+jest.mock('@sentry/react', () => ({
+  ...(jest as any).requireActual('@sentry/react'),
   captureException: jest.fn(),
   captureMessage: jest.fn(),
   configureScope: jest.fn(),
