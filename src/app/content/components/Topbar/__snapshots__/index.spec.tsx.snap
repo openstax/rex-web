@@ -6,7 +6,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
   data-testid="topbar"
 >
   <div
-    className="styled__SearchPrintWrapper-sc-12dq39v-9 dcsRfj"
+    className="styled__SearchPrintWrapper-sc-12dq39v-9 dHOmyE"
   >
     <div
       className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
@@ -195,7 +195,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   data-testid="topbar"
 >
   <div
-    className="styled__SearchPrintWrapper-sc-12dq39v-9 dcsRfj"
+    className="styled__SearchPrintWrapper-sc-12dq39v-9 dHOmyE"
   >
     <div
       className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"

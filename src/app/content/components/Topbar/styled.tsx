@@ -15,7 +15,6 @@ import {
   contentWrapperMaxWidth,
   mobileSearchContainerMargin,
   sidebarDesktopWidth,
-  sidebarDesktopWithToolbarWidth,
   sidebarTransitionTime,
   textResizerMaxValue,
   textResizerMinValue,
@@ -29,7 +28,7 @@ import {
   topbarMobileHeight,
   verticalNavbarMaxWidth
 } from '../constants';
-import { contentWrapperAndNavWidthBreakpoint, contentWrapperWidthBreakpoint } from '../ContentPane';
+import { contentWrapperBreakpointStyles } from '../ContentPane';
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
@@ -257,14 +256,7 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   transition: padding-left ${sidebarTransitionTime}ms;
   ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen || props.isDesktopSearchOpen) && `
     padding-left: ${sidebarDesktopWidth}rem;
-
-    @media screen and ${contentWrapperAndNavWidthBreakpoint} {
-      padding-left: calc(${sidebarDesktopWithToolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2);
-    }
-
-    @media screen and ${contentWrapperWidthBreakpoint} {
-      padding-left: ${sidebarDesktopWithToolbarWidth}rem;
-    }
+    ${contentWrapperBreakpointStyles}
   `}
   ${theme.breakpoints.mobile(css`
     display: none;
