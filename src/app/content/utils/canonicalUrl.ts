@@ -41,20 +41,16 @@ export async function getCanonicalUrlParams(
       const useCurrentBookAsCanonical = book.id === id  && hasOSWebData(book);
       canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id, version);
       canonicalPageId = CANONICAL_PAGES_MAP[pageId] || canonicalPageId;
-      treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
+      treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId) || treeSection;
 
-      if (!useCurrentBookAsCanonical) {
-        const newMap = getCanonicalMap(canonicalBook.id);
-        // stop when we run out of canonical maps to check
-        done = !newMap.length || isEqual(canonicalMap, newMap);
-        // throw if the new map has already been checked
-        if (!done && mapsChecked.find((map) => isEqual(map, newMap))) {
-          throw new Error(`Loop encountered in map for ${canonicalBook.id}`);
-        }
-        canonicalMap = newMap;
-        break;
+      // check canonical book for its own map
+      const newMap = getCanonicalMap(canonicalBook.id);
+      done = !newMap.length || isEqual(canonicalMap, newMap);
+      // throw if the new map has already been checked
+      if (!done && mapsChecked.find((map) => isEqual(map, newMap))) {
+        throw new Error(`Loop encountered in map for ${canonicalBook.id}`);
       }
-      done = true;
+      canonicalMap = newMap;
     }
   }
 
@@ -64,6 +60,7 @@ export async function getCanonicalUrlParams(
     canonicalBook = book;
   }
   if (treeSection) {
+    console.log('tree section: ', (canonicalBook as BookWithOSWebData).slug);
     const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
     return {book: {slug: (canonicalBook as BookWithOSWebData).slug}, page: {slug: pageInBook}};
   }
