@@ -109,6 +109,7 @@ describe('Page', () => {
         ...initialState,
         book: formatBookData(book, mockCmsBook),
         page,
+        textSize: 0,
       },
     });
     dispatch = jest.spyOn(store, 'dispatch');
