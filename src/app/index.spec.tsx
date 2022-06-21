@@ -51,9 +51,13 @@ describe('create app', () => {
     const initializeWithMiddleware = jest.spyOn(mockedSentry, 'initializeWithMiddleware');
     initializeWithMiddleware.mockReturnValue(mockedSentry.initializeWithMiddleware);
 
+    const createReduxEnhancer = jest.spyOn(mockedSentry, 'createReduxEnhancer');
+    createReduxEnhancer.mockReturnValue(mockedSentry.createReduxEnhancer);
+
     createApp = require('./index').default;
     createApp({services});
     expect(initializeWithMiddleware).toHaveBeenCalled();
+    expect(createReduxEnhancer).toHaveBeenCalled();
   });
 
   describe('outside the browser', () => {
