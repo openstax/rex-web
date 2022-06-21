@@ -2,7 +2,7 @@ import { performance } from 'perf_hooks'
 import { ElementHandle, expect } from '@playwright/test'
 import test from '../../src/fixtures/base'
 import { closeExtras, randomChoice, sleep } from '../../src/utilities/utilities'
-import { accountsUserSignup } from '../kinetic/helpers'
+import { accountsUserSignup } from '../rex-test/helpers'
 
 test('sleep timer using the default parameter', async () => {
   const startingTime = performance.now()
