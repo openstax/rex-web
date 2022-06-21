@@ -1,7 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../test/createTestStore';
+import { book as archiveBook } from '../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import TestContainer from '../../test/TestContainer';
+import { receiveBook } from '../content/actions';
+import { formatBookData } from '../content/utils';
 import { locationChange } from '../navigation/actions';
 import DynamicContentStyles, { WithStyles } from './DynamicContentStyles';
 
@@ -17,7 +21,7 @@ describe('DynamicContentStyles', () => {
     </DynamicContentStyles>;
   });
 
-  it('fetches styles', async() => {
+  it('fetches styles in content-style param', async() => {
     store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
     const spyFetch = jest.spyOn(globalThis, 'fetch')
       .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
@@ -47,6 +51,30 @@ describe('DynamicContentStyles', () => {
 
     // Don't call fetch again for the same url
     expect(spyFetch).toHaveBeenCalledTimes(2);
+    spyFetch.mockClear();
+  });
+
+  it('fetches style in book\'s style_href field', async() => {
+    const book = formatBookData(archiveBook, mockCmsBook);
+    book.id = '2d941ab9-ac5b-4eb8-b21c-965d36a4f296';
+    book.style_href = 'file3.css';
+    store.dispatch(receiveBook(book));
+    const spyFetch = jest.spyOn(globalThis, 'fetch')
+      .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
+
+    const componenet = renderer.create(<TestContainer store={store}>
+      <Component />
+    </TestContainer>);
+
+    // tslint:disable-next-line: no-empty
+    await renderer.act(async() => {});
+
+    expect(spyFetch).toHaveBeenCalledTimes(1);
+
+    const withStyles = componenet.root.findByType(WithStyles);
+    expect(withStyles.props.styles).toEqual('.cool { color: red; }');
+    expect(spyFetch).toHaveBeenCalledWith('file3.css');
+
     spyFetch.mockClear();
   });
 

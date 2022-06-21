@@ -147,6 +147,8 @@ export interface ArchiveBook {
     version: string;
   };
   revised: string;
+  style_href?: string;
+  style_name?: string;
 }
 
 export interface ArchivePage {

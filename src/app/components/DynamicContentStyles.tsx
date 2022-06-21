@@ -1,8 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { book } from '../content/selectors';
 import { query } from '../navigation/selectors';
 import { assertDefined } from '../utils/assertions';
+
+// Currently only Organizational Behavior
+const bookIdsWithDynamicStyles = [ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296' ];
 
 // tslint:disable-next-line: variable-name
 export const WithStyles = styled.div`
@@ -22,6 +26,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
 ) => {
   const queryParams = useSelector(query);
   const [styles, setStyles] = React.useState('');
+  const currentBook = useSelector(book);
 
   React.useEffect(() => {
     if (disable) {
@@ -29,7 +34,10 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
       return;
     }
 
-    const cssfileUrl = queryParams['content-style'];
+    let cssfileUrl = queryParams['content-style'];
+    if (!cssfileUrl && currentBook && bookIdsWithDynamicStyles.includes(currentBook.id)) {
+      cssfileUrl = currentBook.style_href;
+    }
     if (cssfileUrl && typeof cssfileUrl === 'string') {
       if (cacheStyles.has(cssfileUrl)) {
         setStyles(assertDefined(cacheStyles.get(cssfileUrl), `we've just checked for this`));
@@ -37,7 +45,8 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
         fetch(cssfileUrl)
           .then((res) => res.text())
           .then((data) => {
-            cacheStyles.set(cssfileUrl, data);
+            // we are inside an "if" that checks that cssfileUrl is defined and a string
+            cacheStyles.set(cssfileUrl as string, data);
             setStyles(data);
           });
       }
