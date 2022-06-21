@@ -1,7 +1,7 @@
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
 import { setTextSize } from '../actions';
-import { textSize } from '../selectors';
 import { textResizerDefaultValue, textResizerStorageKey } from '../components/constants';
+import { textSize } from '../selectors';
 
 export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => async() => {
   const { getState, dispatch } = services;

@@ -10,7 +10,7 @@ import DynamicContentStyles from './DynamicContentStyles';
 interface Props {
   className?: string;
   dangerouslySetInnerHTML?: { __html: string; };
-  textSize: number | null;
+  textSize?: number;
 }
 // tslint:disable-next-line:variable-name
 const ContentStyles = styled(DynamicContentStyles)`

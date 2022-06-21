@@ -346,6 +346,14 @@ describe('text resizer', () => {
   beforeEach(() => {
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
+    store.dispatch(setTextSize(0));
+  });
+
+  it('does not render if textSize is null', () => {
+    store.dispatch((setTextSize as any)(null));
+    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    expect(component.root.findAllByType(TextResizerMenu)).toEqual([]);
+    expect(component).toMatchSnapshot();
   });
 
   it('opens menu when clicking menu button', () => {

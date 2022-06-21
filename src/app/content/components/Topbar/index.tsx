@@ -14,7 +14,7 @@ import {
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
-import { textResizerMaxValue, textResizerMinValue } from '../constants';
+import { textResizerDefaultValue, textResizerMaxValue, textResizerMinValue } from '../constants';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
@@ -32,7 +32,7 @@ interface Props {
   hasSearchResults: boolean;
   searchButtonColor: string | null;
   bookTheme: string;
-  textSize: number;
+  textSize: number | null;
   setTextSize: (size: number) => void;
 }
 
@@ -104,14 +104,14 @@ class Topbar extends React.Component<Props, State> {
 
     const onDecreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
       e.preventDefault();
-      const newValue = this.props.textSize - 1;
+      const newValue = (this.props.textSize || textResizerDefaultValue) - 1;
       if (newValue < textResizerMinValue) { return; }
       this.props.setTextSize(newValue);
     };
 
     const onIncreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
       e.preventDefault();
-      const newValue = this.props.textSize + 1;
+      const newValue = (this.props.textSize || textResizerDefaultValue) + 1;
       if (newValue > textResizerMaxValue) { return; }
       this.props.setTextSize(newValue);
     };

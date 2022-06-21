@@ -11,12 +11,13 @@ interface Props {
   onChangeTextSize: (e: React.FormEvent<HTMLInputElement>) => void;
   onDecreaseTextSize: (e: React.FormEvent<HTMLInputElement>) => void;
   onIncreaseTextSize: (e: React.FormEvent<HTMLInputElement>) => void;
-  textSize: number;
+  textSize: number | null;
   mobileToolbarOpen?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
 export const TextResizer = (props: Props) => {
+  if (props.textSize === null) { return null; }
   return (
     <Styled.TextResizerDropdown
       transparentTab={false}
