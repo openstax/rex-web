@@ -36,9 +36,7 @@ const Wrapper = styled.div`
     overflow: visible;
     background-color: ${mainContentBackground};
     padding-left: ${sidebarDesktopWidth}rem;
-
     ${contentWrapperBreakpointStyles}
-
     ${theme.breakpoints.mobile(css`
       padding-left: 0;
     `)}
