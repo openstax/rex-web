@@ -33,6 +33,7 @@ import * as searchUtils from '../search/utils';
 import * as select from '../selectors';
 import { PageReferenceError, PageReferenceMap } from '../types';
 import { formatBookData } from '../utils';
+import { textResizerDefaultValue } from './constants';
 import ConnectedPage, { PageComponent } from './Page';
 import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
@@ -111,7 +112,7 @@ describe('Page', () => {
         ...initialState,
         book: formatBookData(book, mockCmsBook),
         page,
-        textSize: 0,
+        textSize: textResizerDefaultValue,
       },
     });
     state = store.getState();

@@ -29,6 +29,7 @@ import {
 import * as requestDeleteHighlightHook from '../highlights/hooks/requestDeleteHighlight';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
+import { textResizerDefaultValue } from './constants';
 import ConnectedPage from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
 
@@ -109,7 +110,7 @@ describe('Page', () => {
         ...initialState,
         book: formatBookData(book, mockCmsBook),
         page,
-        textSize: 0,
+        textSize: textResizerDefaultValue,
       },
     });
     dispatch = jest.spyOn(store, 'dispatch');
