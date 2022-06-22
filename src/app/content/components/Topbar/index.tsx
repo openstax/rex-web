@@ -127,8 +127,6 @@ class Topbar extends React.Component<Props, State> {
     const newButtonEnabled = !!this.props.searchButtonColor;
 
     return <Styled.TopBarWrapper data-testid='topbar'>
-      {/* mobileMedium is smaller (800px) than mobile (1200px) */}
-      {/* Only hides on .mobile breakpoint, shows on desktop and .mobileMedium */}
       <Styled.SearchPrintWrapper>
         <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
           <Styled.MenuButton type='button' onClick={openMenu} />
@@ -178,7 +176,6 @@ class Topbar extends React.Component<Props, State> {
         />
       </Styled.SearchPrintWrapper>
 
-      {/* Hides on desktop, shows on .mobile, sometimes on .mobileMedium IF mobileToolbarOpen is true */}
       <Styled.MobileSearchWrapper mobileToolbarOpen={this.props.mobileToolbarOpen}>
         <Styled.Hr />
         <Styled.MobileSearchContainer>
