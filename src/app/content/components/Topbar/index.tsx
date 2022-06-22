@@ -14,7 +14,13 @@ import {
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
-import { textResizerDefaultValue, textResizerMaxValue, textResizerMinValue } from '../constants';
+import {
+  textResizerDefaultValue,
+  textResizerMaxValue,
+  textResizerMinValue,
+  TextResizerValue,
+  textResizerValues
+} from '../constants';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
@@ -33,7 +39,7 @@ interface Props {
   searchButtonColor: string | null;
   bookTheme: string;
   textSize: number | null;
-  setTextSize: (size: number) => void;
+  setTextSize: (size: TextResizerValue) => void;
 }
 
 interface State {
@@ -97,23 +103,23 @@ class Topbar extends React.Component<Props, State> {
 
     const onChangeTextSize = (e: React.FormEvent<HTMLInputElement>) => {
       const target = (e as any).currentTarget;
-      const value = parseInt(target.value, 10);
-
+      const value = parseInt(target.value, 10) as TextResizerValue;
+      if (!textResizerValues.includes(value)) { return; }
       this.props.setTextSize(value);
     };
 
     const onDecreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
       e.preventDefault();
-      const newValue = (this.props.textSize || textResizerDefaultValue) - 1;
+      const newValue = ((this.props.textSize || textResizerDefaultValue) - 1);
       if (newValue < textResizerMinValue) { return; }
-      this.props.setTextSize(newValue);
+      this.props.setTextSize(newValue as TextResizerValue);
     };
 
     const onIncreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
       e.preventDefault();
-      const newValue = (this.props.textSize || textResizerDefaultValue) + 1;
+      const newValue = ((this.props.textSize || textResizerDefaultValue) + 1);
       if (newValue > textResizerMaxValue) { return; }
-      this.props.setTextSize(newValue);
+      this.props.setTextSize(newValue as TextResizerValue);
     };
 
     const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;

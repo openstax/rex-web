@@ -50,9 +50,11 @@ export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + v
 
 export const defaultTheme = 'blue' as BookWithOSWebData['theme'];
 
-export const textResizerValueMap = new Map([[-2, 0.75], [-1, 0.9], [0, 1], [1, 1.25], [2, 1.5], [3, 2]]);
-export const textResizerValues = Array.from(textResizerValueMap.keys());
+export const textResizerValues = [-2, -1, 0, 1, 2, 3] as const;
+export type TextResizerValue = typeof textResizerValues[number];
+const textResizerScales = [0.75, 0.9, 1, 1.25, 1.5, 2] as const;
+export const textResizerValueMap = new Map(textResizerValues.map((v, i) => [v, textResizerScales[i]]));
 export const textResizerMinValue = textResizerValues[0];
 export const textResizerMaxValue = textResizerValues[textResizerValues.length - 1];
-export const textResizerDefaultValue = 0;
+export const textResizerDefaultValue = textResizerValues[2];
 export const textResizerStorageKey = 'textSize';

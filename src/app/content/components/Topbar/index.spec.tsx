@@ -419,13 +419,13 @@ describe('text resizer', () => {
       component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMaxValue + 1));
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize((textResizerMaxValue + 1) as any));
 
     renderer.act(() => {
       component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).toHaveBeenCalledWith(setTextSize(textResizerMaxValue - 1));
+    expect(dispatch).toHaveBeenCalledWith(setTextSize((textResizerMaxValue - 1 as any)));
 
     renderer.act(() => {
       store.dispatch(setTextSize(textResizerMinValue));
@@ -436,7 +436,28 @@ describe('text resizer', () => {
       component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMinValue - 1));
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize((textResizerMinValue - 1 as any)));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'change-text-size' })
+        .props.onChange({ currentTarget: { value: textResizerMaxValue + 1 } });
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMaxValue + 1 as any));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'change-text-size' })
+        .props.onChange({ currentTarget: { value: textResizerMinValue - 1 } });
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMinValue - 1 as any));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'change-text-size' })
+        .props.onChange({ currentTarget: { value: 'invalid' } });
+    });
+
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
 });

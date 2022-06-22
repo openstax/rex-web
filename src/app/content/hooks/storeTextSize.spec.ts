@@ -3,7 +3,7 @@ import createTestStore from '../../../test/createTestStore';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils/browser-assertions';
 import { setTextSize } from '../actions';
-import { textResizerDefaultValue } from '../components/constants';
+import { textResizerDefaultValue, textResizerMaxValue, textResizerMinValue } from '../components/constants';
 import storeTextSize, { loadStoredTextSize } from './storeTextSize';
 
 describe('storeTextSize', () => {
@@ -45,9 +45,18 @@ describe('loadStoredTextSize', () => {
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   let store: Store;
   let storeDispatch: jest.SpyInstance;
+  const invalidValues = {
+    'above boundary': textResizerMaxValue + 1,
+    'below boundary': textResizerMinValue - 1,
+    'empty string': '',
+    'NaN': {},
+    'null': null,
+  };
+  const mockLocalStorage =
+    (value: any) => assertWindow().localStorage.__proto__.getItem = jest.fn().mockReturnValue(value);
 
   beforeEach(() => {
-    assertWindow().localStorage.__proto__.getItem = jest.fn().mockReturnValue(2);
+    mockLocalStorage(2);
 
     store = createTestStore();
     storeDispatch = jest.spyOn(store, 'dispatch');
@@ -81,5 +90,14 @@ describe('loadStoredTextSize', () => {
     expect(storeDispatch).toHaveBeenCalledWith(setTextSize(textResizerDefaultValue));
 
     global.window = window;
+  });
+
+  Object.entries(invalidValues).map((entry) => {
+    it(`uses the default if loaded value is ${entry[0]}`, async() => {
+      mockLocalStorage(entry[1]);
+      await hook();
+      expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
+      expect(storeDispatch).toHaveBeenCalledWith(setTextSize(textResizerDefaultValue));
+    });
   });
 });

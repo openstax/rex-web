@@ -1,13 +1,18 @@
 import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
 import { setTextSize } from '../actions';
-import { textResizerDefaultValue, textResizerStorageKey } from '../components/constants';
+import {
+  textResizerDefaultValue,
+  textResizerStorageKey,
+  TextResizerValue,
+  textResizerValues
+} from '../components/constants';
 import { textSize } from '../selectors';
 
 export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => async() => {
   const { getState, dispatch } = services;
   const state = getState();
   let storedTextSize;
-  let value = textResizerDefaultValue;
+  let value: TextResizerValue = textResizerDefaultValue;
 
   if (state.content.textSize !== null) {
     return;
@@ -18,7 +23,10 @@ export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => asy
   }
 
   if (storedTextSize) {
-    value = parseInt(storedTextSize, 10);
+    const parsedValue = parseInt(storedTextSize, 10) as TextResizerValue;
+    if (!isNaN(parsedValue) && textResizerValues.includes(parsedValue)) {
+      value = parsedValue;
+    }
   }
 
   dispatch(setTextSize(value));
