@@ -159,7 +159,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 bHZhxZ"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -282,7 +282,7 @@ Array [
             </button>
             <form
               action="#"
-              className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 bHZhxZ"
               data-experiment={true}
               data-testid="mobile-search"
               onSubmit={[Function]}
@@ -1865,7 +1865,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 bHZhxZ"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -1988,7 +1988,7 @@ Array [
             </button>
             <form
               action="#"
-              className="styled__SearchInputWrapper-sc-12dq39v-7 hmbMpO"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 bHZhxZ"
               data-experiment={true}
               data-testid="mobile-search"
               onSubmit={[Function]}

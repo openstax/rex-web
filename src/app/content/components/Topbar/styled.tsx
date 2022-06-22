@@ -180,42 +180,44 @@ export const CloseButtonNew = styled.button`
 
 // tslint:disable-next-line:variable-name
 export const SearchInputWrapper = styled.form`
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    margin-right: -${toolbarButtonWidth}rem;
-    position: relative;
-    color: ${toolbarIconColor.base};
-    border: solid 0.1rem;
-    border-radius: 0.2rem;
-    width: 38rem;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  margin-right: -${toolbarButtonWidth}rem;
+  position: relative;
+  color: ${toolbarIconColor.base};
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+  width: 38rem;
 
-    &:focus-within {
-      border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
-      box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
-    }
+  &:last-child { margin-right: auto; } // On desktop, center if no other controls to the right
 
-    &.focus-within {
-      border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
-      box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
-    }
+  &:focus-within {
+    border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
+    box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
+  }
 
-    ${theme.breakpoints.mobile(css`
-      height: 100%;
-      overflow: hidden;
-      ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
-        background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
+  &.focus-within {
+    border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
+    box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
+  }
 
-        ${SearchButton} {
-          ${applySearchIconColor(props.colorSchema)};
-        }
-      `}
-    `)}
-    ${theme.breakpoints.mobileMedium(css`
-      width: 100%;
-      margin-right: 0;
-    `)}
-  `;
+  ${theme.breakpoints.mobile(css`
+    height: 100%;
+    overflow: hidden;
+    ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
+      background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
+
+      ${SearchButton} {
+        ${applySearchIconColor(props.colorSchema)};
+      }
+    `}
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    width: 100%;
+    &, &:last-child { margin-right: 0; }
+  `)}
+`;
 
 // tslint:disable-next-line:variable-name
 export const SearchInput = styled(({ desktop, mobile, ...props }) =>
