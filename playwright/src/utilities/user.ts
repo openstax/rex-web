@@ -1,4 +1,4 @@
-// import faker from 'faker'
+import faker from 'faker'
 import { Page } from '@playwright/test'
 import { checkRestmail, getPin } from './restmail'
 import { closeExtras } from './utilities'
@@ -6,6 +6,7 @@ import { closeExtras } from './utilities'
 class Student {
   first: string
   last: string
+  initials: string
   id: string
   username: string
   email: string
@@ -14,6 +15,7 @@ class Student {
   constructor(domain = 'restmail.net', log = false) {
     this.first = faker.name.firstName()
     this.last = faker.name.lastName()
+    this.initials = `${this.first[0]}${this.last[0]}`
     this.id = this.genRandomHex(5)
     this.username = `${this.first}.${this.last}.${this.id}`.toLowerCase()
     this.email = `${this.username}@${domain}`
@@ -85,13 +87,19 @@ async function userSignIn(page: Page, student: Student): Promise<Student> {
   return student
 }
 
-async function webUserSignup(page: Page, url: string, student: Student = new Student()): Promise<Student> {
+async function webUserSignup(page: Page, url: string, mobile = false, student: Student = new Student()): Promise<Student> {
   /* istanbul ignore else */
   if (url) {
     await page.goto(url)
     await closeExtras(page)
   }
-  await Promise.all([page.waitForNavigation(), page.click('text=Log in')])
+  if (mobile) {
+    await page.click('.expand')
+    await Promise.all([page.waitForNavigation(), page.click('.mobile >> text=Log in')])
+  }
+  else {
+    await Promise.all([page.waitForNavigation(), page.click('.desktop >> text=Log in')])
+  }
   return accountsUserSignup(page, null, student)
 }
 

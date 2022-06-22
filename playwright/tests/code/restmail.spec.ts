@@ -114,7 +114,7 @@ test('RestMail received mail from Accounts', async ({ accountsBaseURL, page }) =
   await page.fill('[placeholder="Password"]', student.password)
   await page.check('#signup_terms_accepted')
   await page.click('text=Continue')
-  expect(page.url()).toBe(`${accountsBaseURL}/i/signup/student/email_verification_form`)
+  expect(page.url()).toBe(`${accountsBaseURL}/signup/student/email_verification_form`)
   const messages = await checkRestmail(student.username)
   expect(messages).toHaveLength(1)
 })

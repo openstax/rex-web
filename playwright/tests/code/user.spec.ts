@@ -34,13 +34,13 @@ test('student sign up from Accounts', async ({ accountsBaseURL, page }) => {
   const student = await accountsUserSignup(page, accountsBaseURL)
   const accountName = await page.textContent('#name')
   const email = await page.textContent('.verified .value')
-  expect(page.url()).toBe(`${accountsBaseURL}/i/profile`)
+  expect(page.url()).toBe(`${accountsBaseURL}/profile`)
   expect(accountName).toBe(`${student.first} ${student.last}`)
   expect(email).toBe(student.email)
 })
 
-test('student sign up from Web', async ({ webBaseURL, page }) => {
-  const student = await webUserSignup(page, webBaseURL)
+test('student sign up from Web', async ({ webBaseURL, page, isMobile }) => {
+  const student = await webUserSignup(page, webBaseURL, isMobile)
   const menuName = await page.textContent('[id^="menulabel-Hi "]')
   expect(page.url()).toBe(`${webBaseURL}/`)
   expect(menuName).toBe(`Hi ${student.first}`)
@@ -51,7 +51,7 @@ test('student sign up from REx', async ({ webBaseURL, page }) => {
   const student = await rexUserSignup(page, collegeAlgebraURL)
   const menuName = await page.textContent('[data-testid=user-nav-toggle]')
   expect(page.url()).toBe(collegeAlgebraURL)
-  expect(menuName).toBe(`Hi ${student.first}`)
+  expect(menuName).toBe(`${student.initials}`)
 })
 
 test('Accounts user sign in', async ({ accountsBaseURL, page }) => {
@@ -59,7 +59,7 @@ test('Accounts user sign in', async ({ accountsBaseURL, page }) => {
   const student = await accountsUserSignup(page)
   await page.click('text=Log out')
   const returnedStudent = await userSignIn(page, student)
-  expect(page.url()).toBe(`${accountsBaseURL}/i/profile`)
+  expect(page.url()).toBe(`${accountsBaseURL}/profile`)
   expect(returnedStudent.username).toBe(student.username)
   const name = await page.locator('#name').textContent()
   expect(name).toBe(`${student.first} ${student.last}`)
