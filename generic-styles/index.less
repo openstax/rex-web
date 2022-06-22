@@ -21,6 +21,10 @@
   font-size: calc(@size * var(--content-text-scale));
 }
 
+.content-line-height(@size) {
+  line-height: calc(@size * var(--content-text-scale));
+}
+
 :root {
   --content-text-scale: 1;
 }
@@ -47,7 +51,7 @@ body {
   }
 
   .content-font-size(1.6rem);
-  line-height: calc(2.3rem * var(--content-text-scale));
+  .content-line-height(2.3rem);
 
   // gray is used for text color
   @gray: #424242;
@@ -153,11 +157,11 @@ body {
   }
   h2 {
     .content-font-size(3.2rem);
-    line-height: calc(3.5rem * var(--content-text-scale));
+    .content-line-height(3.5rem);
   }
   h3 {
     .content-font-size(2.4rem);
-    line-height: calc(2.3rem * var(--content-text-scale));
+    .content-line-height(2.3rem);
   }
   h4 {
     .content-font-size(1.8rem);
@@ -169,7 +173,7 @@ body {
     vertical-align: baseline;
   }
   .os-figure .os-caption-container {
-    line-height: calc(1.7rem * var(--content-text-scale));
+    .content-line-height(1.7rem);
   }
   .os-glossary-container {
     dt {
