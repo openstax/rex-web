@@ -44,19 +44,19 @@ describe('create app', () => {
     expect(createMemoryHistory).not.toHaveBeenCalled();
   });
 
-  it('adds sentry middleware when enabled', () => {
+  it('adds sentry enhancer when enabled', () => {
     const mockedSentry = require('../helpers/Sentry').default;
     mockedSentry.shouldCollectErrors = true;
 
-    const initializeWithMiddleware = jest.spyOn(mockedSentry, 'initializeWithMiddleware');
-    initializeWithMiddleware.mockReturnValue(mockedSentry.initializeWithMiddleware);
+    const initialize = jest.spyOn(mockedSentry, 'initialize');
+    initialize.mockReturnValue(mockedSentry.initialize);
 
     const createReduxEnhancer = jest.spyOn(mockedSentry, 'createReduxEnhancer');
-    createReduxEnhancer.mockReturnValue(mockedSentry.createReduxEnhancer);
+    createReduxEnhancer.mockImplementation(() => (next: any) => (action: any) => next(action));
 
     createApp = require('./index').default;
     createApp({services});
-    expect(initializeWithMiddleware).toHaveBeenCalled();
+    expect(initialize).toHaveBeenCalled();
     expect(createReduxEnhancer).toHaveBeenCalled();
   });
 
@@ -101,10 +101,10 @@ describe('create app', () => {
         RELEASE_ID: '1234',
         SENTRY_ENABLED: false,
       }));
-      const initializeWithMiddleware = jest.spyOn(require('../helpers/Sentry').default, 'initializeWithMiddleware');
+      const initialize = jest.spyOn(require('../helpers/Sentry').default, 'initialize');
       createApp = require('./index').default;
       createApp({services});
-      expect(initializeWithMiddleware).not.toHaveBeenCalled();
+      expect(initialize).not.toHaveBeenCalled();
     });
 
     it('doesn\'t add sentry middleware when it is enabled', () => {
@@ -113,10 +113,10 @@ describe('create app', () => {
         RELEASE_ID: '1234',
         SENTRY_ENABLED: true,
       }));
-      const initializeWithMiddleware = jest.spyOn(require('../helpers/Sentry').default, 'initializeWithMiddleware');
+      const initialize = jest.spyOn(require('../helpers/Sentry').default, 'initialize');
       createApp = require('./index').default;
       createApp({services});
-      expect(initializeWithMiddleware).not.toHaveBeenCalled();
+      expect(initialize).not.toHaveBeenCalled();
     });
   });
 

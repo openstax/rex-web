@@ -17,6 +17,7 @@ jest.mock('@sentry/react', () => ({
   captureException: jest.fn(),
   captureMessage: jest.fn(),
   configureScope: jest.fn(),
+  createReduxEnhancer: jest.fn(),
   init: jest.fn(),
 }));
 
@@ -41,8 +42,8 @@ describe('Sentry error logging', () => {
     Sentry.captureException(new Error('test'));
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
 
-    const middleware = Sentry.initializeWithMiddleware()(store);
-    expect(middleware).toBeDefined();
+    Sentry.initialize(store);
+    expect(Sentry.isEnabled).toBe(true);
 
     expect(SentryLibrary.init).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -53,9 +54,14 @@ describe('Sentry error logging', () => {
     );
   });
 
+  it('wraps and configs createReduxEnhancer', () => {
+    Sentry.createReduxEnhancer();
+    expect(SentryLibrary.createReduxEnhancer).toHaveBeenCalledWith({});
+  });
+
   it('forwards log calls to sentry', () => {
     config.SENTRY_ENABLED = true;
-    Sentry.initializeWithMiddleware()(store);
+    Sentry.initialize(store);
     const err = new Error('this is bad');
     Sentry.captureException(err);
     expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: 'error' });
@@ -67,7 +73,7 @@ describe('Sentry error logging', () => {
 
   it('skips logging when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware()(store);
+    Sentry.initialize(store);
     expect(Sentry.isEnabled).toBe(false);
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
 
@@ -81,7 +87,7 @@ describe('Sentry error logging', () => {
 
   it('logs to console when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initialize(store);
 
     const spyConsoleError = jest.spyOn(console, 'error')
       .mockImplementationOnce(jest.fn)
@@ -97,7 +103,7 @@ describe('Sentry error logging', () => {
 
   it('logs to (info) console when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initialize(store);
 
     const spyConsoleInfo = jest.spyOn(console, 'info')
       .mockImplementation(jest.fn())
@@ -114,7 +120,7 @@ describe('Sentry error logging', () => {
 
   it('logs to (warn) console when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initialize(store);
 
     const spyConsoleWarn = jest.spyOn(console, 'warn')
       .mockImplementation(jest.fn())
@@ -131,7 +137,7 @@ describe('Sentry error logging', () => {
 
   it('noops on undefined', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initialize(store);
 
     const spyConsoleError = jest.spyOn(console, 'error')
       .mockImplementationOnce(jest.fn)

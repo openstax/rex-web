@@ -1,7 +1,7 @@
 import * as Integrations from '@sentry/integrations';
 import * as Sentry from '@sentry/react';
 import { recordSentryMessage } from '../app/errors/actions';
-import { Middleware, MiddlewareAPI } from '../app/types';
+import { Store } from '../app/types';
 import config from '../config';
 
 let IS_INITIALIZED = false;
@@ -9,7 +9,7 @@ let IS_INITIALIZED = false;
 // This should be removed when Sentry team solve this issue: https://github.com/getsentry/sentry/issues/16012
 const normalize = (id: string): string => id.replace('/', '-');
 
-export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
+export const onBeforeSend = (store: Store) => (event: Sentry.Event) => {
   const { event_id } = event;
 
   if (event_id)  {
@@ -20,32 +20,25 @@ export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
 };
 
 export default {
-
-  initializeWithMiddleware(): Middleware {
-    return (store) => {
-      Sentry.init({
-        allowUrls: [
-          /localhost/,
-          /openstax.org/,
-          /https?:\/\/rex-web(.*)?\.herokuapp\.com/,
-        ],
-        beforeSend: onBeforeSend(store),
-        dist: normalize(config.RELEASE_ID),
-        dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
-        environment: config.DEPLOYED_ENV,
-        integrations: [
-          new Integrations.ExtraErrorData(),
-          new Integrations.Dedupe(),
-        ],
-        release: normalize(`rex@${config.RELEASE_ID}`),
-        tracesSampleRate: 0.1,
-      });
-      IS_INITIALIZED = true;
-
-      return (next) => (action) => {
-        return next(action);
-      };
-    };
+  initialize(store: Store) {
+    Sentry.init({
+      allowUrls: [
+        /localhost/,
+        /openstax.org/,
+        /https?:\/\/rex-web(.*)?\.herokuapp\.com/,
+      ],
+      beforeSend: onBeforeSend(store),
+      dist: normalize(config.RELEASE_ID),
+      dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
+      environment: config.DEPLOYED_ENV,
+      integrations: [
+        new Integrations.ExtraErrorData(),
+        new Integrations.Dedupe(),
+      ],
+      release: normalize(`rex@${config.RELEASE_ID}`),
+      tracesSampleRate: 0.1,
+    });
+    IS_INITIALIZED = true;
   },
 
   createReduxEnhancer() {
