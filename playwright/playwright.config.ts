@@ -40,8 +40,8 @@ const config: PlaywrightTestConfig = {
     },
   ],
   reporter: [['list'], ['json', { outputFile: 'test-results/results.json' }]],
-  retries: 1,
-  timeout: 180000,
+  retries: 0,
+  timeout: 60000,
   use: {
     baseURL: BASE_URL ? BASE_URL : 'https://staging.openstax.org',
     launchOptions: {
