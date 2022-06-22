@@ -1,3 +1,4 @@
+import { locationChange } from '../../navigation/actions';
 import { routeHook } from '../../navigation/utils';
 import { actionHook } from '../../utils';
 import * as actions from '../actions';
@@ -11,7 +12,7 @@ import kineticEnabled from './kineticEnabled';
 import locationChangeBody from './locationChange';
 import receiveContentBody from './receiveContent';
 import receivePageNotFoundId from './receivePageNotFoundId';
-import storeTextSize from './storeTextSize';
+import storeTextSize, { loadStoredTextSize } from './storeTextSize';
 
 export default [
   ...searchHooks,
@@ -24,4 +25,5 @@ export default [
   actionHook(actions.receivePage, receiveContentBody),
   actionHook(actions.receivePage, kineticEnabled),
   actionHook(actions.setTextSize, storeTextSize),
+  actionHook(locationChange, loadStoredTextSize),
 ];
