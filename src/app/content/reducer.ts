@@ -152,7 +152,6 @@ function reduceReceiveBook(state: State, action: ActionType<typeof actions.recei
     'publish_date',
     'revised',
     'style_href',
-    'style_name',
     'amazon_link',
     'book_state',
     'language',

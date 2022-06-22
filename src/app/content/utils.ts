@@ -80,7 +80,6 @@ const pickArchiveFields = (archiveBook: ArchiveBook) => ({
   license: archiveBook.license,
   revised: archiveBook.revised,
   style_href: archiveBook.style_href,
-  style_name: archiveBook.style_name,
   title: archiveBook.title,
   tree: {
     ...archiveBook.tree,
