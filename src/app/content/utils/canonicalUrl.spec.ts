@@ -10,7 +10,6 @@ import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
 import { LinkedArchiveTreeSection } from '../types';
 import { formatBookData } from '../utils';
-import * as utils from '../utils';
 import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
 
