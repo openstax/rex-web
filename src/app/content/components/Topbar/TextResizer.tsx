@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import decreaseTextSizeIcon from '../../../../assets/text-size-decrease.svg';
 import increaseTextSizeIcon from '../../../../assets/text-size-increase.svg';
 import textSizeIcon from '../../../../assets/text-size.svg';
-import { textResizerMaxValue, textResizerMinValue } from '../constants';
+import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import * as Styled from './styled';
 
 interface Props {

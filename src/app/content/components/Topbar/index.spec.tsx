@@ -14,6 +14,7 @@ import * as Services from '../../../context/Services';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openMobileMenu, setTextSize } from '../../actions';
+import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -23,7 +24,6 @@ import {
 } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
-import { textResizerMaxValue, textResizerMinValue } from '../constants';
 import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerMenu } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);

@@ -7,6 +7,13 @@ import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openMobileMenu, setTextSize } from '../../actions';
 import {
+  textResizerDefaultValue,
+  textResizerMaxValue,
+  textResizerMinValue,
+  TextResizerValue,
+  textResizerValues
+} from '../../constants';
+import {
   clearSearch,
   openMobileToolbar,
   openSearchResultsMobile,
@@ -14,13 +21,6 @@ import {
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
-import {
-  textResizerDefaultValue,
-  textResizerMaxValue,
-  textResizerMinValue,
-  TextResizerValue,
-  textResizerValues
-} from '../constants';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';

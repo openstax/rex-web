@@ -5,7 +5,7 @@ import {
   textResizerStorageKey,
   TextResizerValue,
   textResizerValues
-} from '../components/constants';
+} from '../constants';
 import { textSize } from '../selectors';
 
 export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => async() => {

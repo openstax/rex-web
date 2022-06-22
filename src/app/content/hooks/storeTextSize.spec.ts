@@ -3,7 +3,7 @@ import createTestStore from '../../../test/createTestStore';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils/browser-assertions';
 import { setTextSize } from '../actions';
-import { textResizerDefaultValue, textResizerMaxValue, textResizerMinValue } from '../components/constants';
+import { textResizerDefaultValue, textResizerMaxValue, textResizerMinValue } from '../constants';
 import storeTextSize, { loadStoredTextSize } from './storeTextSize';
 
 describe('storeTextSize', () => {
@@ -56,8 +56,6 @@ describe('loadStoredTextSize', () => {
     (value: any) => assertWindow().localStorage.__proto__.getItem = jest.fn().mockReturnValue(value);
 
   beforeEach(() => {
-    mockLocalStorage(2);
-
     store = createTestStore();
     storeDispatch = jest.spyOn(store, 'dispatch');
 
@@ -71,12 +69,14 @@ describe('loadStoredTextSize', () => {
   });
 
   it('loads the value from localStorage', async() => {
+    mockLocalStorage(2);
     await hook();
     expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
     expect(storeDispatch).toHaveBeenCalledWith(setTextSize(2));
   });
 
   it('noops if textSize is already set', async() => {
+    mockLocalStorage(2);
     store.dispatch(setTextSize(3));
     await hook();
     expect(assertWindow().localStorage.getItem).not.toHaveBeenCalled();

@@ -8,6 +8,7 @@ import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
 import { decoratedLinkStyle, textRegularStyle, textStyle } from '../../../components/Typography';
 import theme from '../../../theme';
+import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import { BookWithOSWebData } from '../../types';
 import {
   bookBannerDesktopMiniHeight,
@@ -16,8 +17,6 @@ import {
   mobileSearchContainerMargin,
   sidebarDesktopWidth,
   sidebarTransitionTime,
-  textResizerMaxValue,
-  textResizerMinValue,
   toolbarButtonWidth,
   toolbarHrHeight,
   toolbarIconColor,

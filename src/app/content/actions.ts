@@ -1,5 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
-import { TextResizerValue } from './components/constants';
+import { TextResizerValue } from './constants';
 import * as highlightingActions from './highlights/actions';
 import * as keyboardShortcutsActions from './keyboardShortcuts/actions';
 import * as practiceQuestionsActions from './practiceQuestions/actions';
