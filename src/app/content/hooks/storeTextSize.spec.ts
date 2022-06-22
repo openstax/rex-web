@@ -46,10 +46,10 @@ describe('loadStoredTextSize', () => {
   let store: Store;
   let storeDispatch: jest.SpyInstance;
   const invalidValues = {
+    'NaN': {},
     'above boundary': textResizerMaxValue + 1,
     'below boundary': textResizerMinValue - 1,
     'empty string': '',
-    'NaN': {},
     'null': null,
   };
   const mockLocalStorage =
