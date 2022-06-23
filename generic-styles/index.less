@@ -17,6 +17,18 @@
 @screen-sm-min:         @screen-sm;
 @screen-xs-max:         (@screen-sm-min - 1);
 
+.content-font-size(@size) {
+  font-size: calc(@size * var(--content-text-scale));
+}
+
+.content-line-height(@size) {
+  line-height: calc(@size * var(--content-text-scale));
+}
+
+:root {
+  --content-text-scale: 1;
+}
+
 body {
   font-size: @font-size-base;
   -webkit-print-color-adjust: exact;
@@ -38,8 +50,8 @@ body {
     src: url('../../static/fonts/ibm-plex-sans-v9-latin-regular.woff2') format('woff2'), url('../../static/fonts/ibm-plex-sans-v9-latin-regular.woff') format('woff');
   }
 
-  font-size: 1.6rem;
-  line-height: 2.3rem;
+  .content-font-size(1.6rem);
+  .content-line-height(2.3rem);
 
   // gray is used for text color
   @gray: #424242;
@@ -48,7 +60,7 @@ body {
     color: #027EB5;
     cursor: pointer;
     text-decoration: underline;
-  
+
     &:hover {
       color: #0064A0;
     }
@@ -70,7 +82,7 @@ body {
     &.student-sample {
       border-left: 0.2rem solid #005F9A;
     }
-    
+
     &.annotation-text {
       color: #156851;
       font-style: italic;
@@ -99,7 +111,7 @@ body {
     &.linguistic-icon {
       background: url('../../static/icons/cosmos-linguistic.svg');
     }
-    
+
     &.culture-icon {
       background: url('../../static/icons/cosmos-culture.svg');
     }
@@ -143,14 +155,16 @@ body {
   sub {
     bottom: -.25em;
   }
-  h2{
-    font-size: 3.2rem;
+  h2 {
+    .content-font-size(3.2rem);
+    .content-line-height(3.5rem);
   }
   h3 {
-    font-size: 2.4rem;
+    .content-font-size(2.4rem);
+    .content-line-height(2.3rem);
   }
   h4 {
-    font-size: 1.8rem;
+    .content-font-size(1.8rem);
   }
   sub, sup {
     font-size: 75%;
@@ -159,7 +173,7 @@ body {
     vertical-align: baseline;
   }
   .os-figure .os-caption-container {
-    line-height: 1.7rem;
+    .content-line-height(1.7rem);
   }
   .os-glossary-container {
     dt {

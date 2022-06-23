@@ -30,6 +30,7 @@ export const initialState = {
   search: initialSearchState,
   showNudgeStudyTools: null,
   studyGuides: initialStudyGuidesState,
+  textSize: null,
   tocOpen: null,
 };
 
@@ -127,6 +128,9 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(openStudyGuides):
     case getType(actions.closeNudgeStudyTools): {
       return {...state, showNudgeStudyTools: false };
+    }
+    case getType(actions.setTextSize): {
+      return {...state, textSize: action.payload };
     }
     default:
       return state;
