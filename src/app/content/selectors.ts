@@ -113,3 +113,8 @@ export const prevNextPage = createSelector(
     ? prevNextBookPage(selectedBook, selectedPage.id)
     : null
 );
+
+export const textSize = createSelector(
+  localState,
+  (state) => state.textSize
+);
