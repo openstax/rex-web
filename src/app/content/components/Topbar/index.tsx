@@ -38,7 +38,7 @@ interface Props {
   hasSearchResults: boolean;
   searchButtonColor: string | null;
   bookTheme: string;
-  textSize: number | null;
+  textSize: TextResizerValue | null;
   setTextSize: (size: TextResizerValue) => void;
 }
 

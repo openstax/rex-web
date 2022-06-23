@@ -5,6 +5,7 @@ import * as selectNavigation from '../../../navigation/selectors';
 import { addToast } from '../../../notifications/actions';
 import { AppServices, AppState, MiddlewareAPI } from '../../../types';
 import { merge } from '../../../utils';
+import { TextResizerValue } from '../../constants';
 import { mobileToolbarOpen, query } from '../../search/selectors';
 import * as select from '../../selectors';
 import { State, SystemQueryParams } from '../../types';
@@ -30,7 +31,7 @@ export interface PagePropTypes {
   services: AppServices & MiddlewareAPI;
   addToast: typeof addToast;
   systemQueryParams: SystemQueryParams;
-  textSize: number;
+  textSize: TextResizerValue;
 }
 
 export default connect(
