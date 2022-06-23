@@ -37,7 +37,7 @@ const hookBody: ActionHookBody<typeof setTextSize> = (services) => async() => {
   const state = getState();
   const value = textSize(state);
 
-  if (typeof window !== 'undefined' && value) {
+  if (typeof window !== 'undefined' && value !== null) {
     window.localStorage.setItem(textResizerStorageKey, value.toString());
   }
 };

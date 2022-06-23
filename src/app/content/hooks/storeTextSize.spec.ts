@@ -38,6 +38,11 @@ describe('storeTextSize', () => {
     await hook(store.dispatch(setTextSize(3)));
     expect(assertWindow().localStorage.setItem).toHaveBeenCalledWith('textSize', '3');
   });
+
+  it('checks value presence with an explicit null check', async() => {
+    await hook(store.dispatch(setTextSize(0)));
+    expect(assertWindow().localStorage.setItem).toHaveBeenCalledWith('textSize', '0');
+  });
 });
 
 describe('loadStoredTextSize', () => {
