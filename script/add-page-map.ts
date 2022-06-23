@@ -1,20 +1,26 @@
-import fs from 'fs';
 import fetch from 'node-fetch';
 import path from 'path';
-import { CANONICAL_MAP } from '../src/canonicalBookMap';
-import pageMap from './ap-physics-pagemap-2.json';
+import argv from 'yargs';
+import { readFile, writeFile } from '../src/helpers/fileUtils';
 
 (global as any).fetch = fetch;
 
-const addPageMap = (file: any) => {
-  const updatedCanonicalMap = { ...CANONICAL_MAP };
-  const changedIds = file.filter((row: {[key: string]: string}) => row.FIELD2 !== row.FIELD3);
-  let stringified = '';
+const addPageMap = () => {
+  const args = argv.string('mapPath').argv as any as {
+    mapPath: string,
+    bookSlug: string,
+  };
+
+  const mapFile = readFile(args.mapPath);
+  const parsedMap = JSON.parse(mapFile);
+
+  const changedIds = parsedMap.filter((row: {[key: string]: string}) => row.moduleId !== row.canonicalId);
+  let mapString = '';
   changedIds.forEach((row: {[key: string]: string}) => {
-      stringified += `/* ${row.FIELD1} to the same module in 2e */\n'${row.FIELD2}': '${row.FIELD3}',\n`;
+    mapString += `/* ${row.module} to the same module */\n'${row.moduleId}': '${row.canonicalId}',\n`;
     });
-  const mapFile = path.resolve(__dirname, '../src/canonicalBookMap/physicsAP.ts');
-  fs.writeFileSync(mapFile, `{${stringified}}`, 'utf8');
+  const newMap = path.resolve(__dirname, `../src/canonicalBookMap/${args.bookSlug}.ts`);
+  writeFile(newMap, mapString);
 };
 
-addPageMap(pageMap);
+addPageMap();
