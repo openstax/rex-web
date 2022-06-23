@@ -4,6 +4,7 @@ import createTestStore from '../../test/createTestStore';
 import { book as archiveBook } from '../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import TestContainer from '../../test/TestContainer';
+import { runHooksAsync } from '../../test/utils';
 import { receiveBook } from '../content/actions';
 import { formatBookData } from '../content/utils';
 import { locationChange } from '../navigation/actions';
@@ -30,8 +31,7 @@ describe('DynamicContentStyles', () => {
       <Component />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync(renderer);
 
     expect(spyFetch).toHaveBeenCalledTimes(1);
 
@@ -56,7 +56,7 @@ describe('DynamicContentStyles', () => {
 
   it('fetches style in book\'s style_href field', async() => {
     const book = formatBookData(archiveBook, mockCmsBook);
-    book.id = '2d941ab9-ac5b-4eb8-b21c-965d36a4f296';
+    book.id = 'testbook1-uuid';
     book.style_href = 'file3.css';
     store.dispatch(receiveBook(book));
     const spyFetch = jest.spyOn(globalThis, 'fetch')
@@ -66,8 +66,7 @@ describe('DynamicContentStyles', () => {
       <Component />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync(renderer);
 
     expect(spyFetch).toHaveBeenCalledTimes(1);
 

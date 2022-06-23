@@ -1,12 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import BOOKS from '../../config.books';
 import { book } from '../content/selectors';
 import { query } from '../navigation/selectors';
 import { assertDefined } from '../utils/assertions';
-
-// Currently only Organizational Behavior
-const bookIdsWithDynamicStyles = [ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296' ];
 
 // tslint:disable-next-line: variable-name
 export const WithStyles = styled.div`
@@ -35,8 +33,11 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
     }
 
     let cssfileUrl = queryParams['content-style'];
-    if (!cssfileUrl && currentBook && bookIdsWithDynamicStyles.includes(currentBook.id)) {
-      cssfileUrl = currentBook.style_href;
+    if (!cssfileUrl && currentBook) {
+      const bookConfig = BOOKS[currentBook.id];
+      if (bookConfig && bookConfig.dynamicStyles) {
+        cssfileUrl = currentBook.style_href;
+      }
     }
     if (cssfileUrl && typeof cssfileUrl === 'string') {
       if (cacheStyles.has(cssfileUrl)) {
