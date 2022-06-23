@@ -128,13 +128,14 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   public render() {
+    const pageIsReady = this.props.page && this.props.textSize !== null;
     return <MinPageHeight>
       <this.highlightManager.CardList />
       <PageToasts />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()
-          : this.props.page
+          : pageIsReady
             ? this.renderContent()
             : this.renderLoading()}
       </RedoPadding>
@@ -150,6 +151,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         className='page-content'
         ref={this.container}
         dangerouslySetInnerHTML={{ __html: html}}
+        textSize={this.props.textSize}
       />
       <PrevNextBar />
       <LabsCTA />
