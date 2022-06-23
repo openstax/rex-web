@@ -9,7 +9,7 @@
     "coverage-all": "nyc npx playwright test tests/code --retries 1",
     "debug": "PWDEBUG=console npx playwright test",
     "lint": "eslint '**/**/*.{js,ts,tsx}' --quiet --fix",
-    "test": "npx playwright test tests/kinetic --workers 5"
+    "test": "npx playwright test tests/rex-test --workers 1"
   },
   "keywords": [],
   "author": "",

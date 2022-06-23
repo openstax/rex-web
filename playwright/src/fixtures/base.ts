@@ -3,13 +3,11 @@ import { test as base } from '@playwright/test'
 
 type BaseURL = {
   accountsBaseURL: string
-  kineticBaseURL: string
   webBaseURL: string
 }
 
 const INSTANCE = process.env.INSTANCE
 const ACCOUNTS = process.env.ACCOUNTS_BASE_URL
-const KINETIC = process.env.KINETIC_BASE_URL
 const WEB = process.env.WEB_BASE_URL
 const production = ['prod', 'Prod', 'PROD', 'production', 'Production', 'PRODUCTION']
 
@@ -27,19 +25,7 @@ const test = base.extend<BaseURL>({
       await use('https://staging.openstax.org/accounts')
     }
   },
-  kineticBaseURL: async ({}, use) => {
-    if (INSTANCE) {
-      if (production.includes(INSTANCE)) {
-        await use(`https://kinetic.openstax.org`)
-      } else {
-        await use(`https://${INSTANCE}.kinetic.openstax.org`)
-      }
-    } else if (KINETIC) {
-      await use(KINETIC.endsWith('/') ? KINETIC.slice(0, KINETIC.length - 1) : KINETIC)
-    } else {
-      await use('https://staging.kinetic.openstax.org')
-    }
-  },
+
   webBaseURL: async ({}, use) => {
     if (INSTANCE) {
       if (production.includes(INSTANCE)) {
