@@ -2,7 +2,7 @@
 
 exports[`text resizer does not render if textSize is null 1`] = `
 <div
-  className="styled__TopBarWrapper-sc-12dq39v-0 dsFHOZ"
+  className="styled__TopBarWrapper-sc-12dq39v-0 aQNQa"
   data-testid="topbar"
 >
   <div
@@ -191,7 +191,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
 
 exports[`text resizer opens menu when clicking menu button 1`] = `
 <div
-  className="styled__TopBarWrapper-sc-12dq39v-0 dsFHOZ"
+  className="styled__TopBarWrapper-sc-12dq39v-0 aQNQa"
   data-testid="topbar"
 >
   <div
