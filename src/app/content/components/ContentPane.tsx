@@ -19,7 +19,15 @@ import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/side
 export const contentWrapperWidthBreakpoint = '(max-width: ' + remsToEms(contentWrapperMaxWidth) + 'em)';
 export const contentWrapperAndNavWidthBreakpoint =
   '(max-width: ' + remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2) + 'em)';
+export const contentWrapperBreakpointStyles = `
+  @media screen and ${contentWrapperAndNavWidthBreakpoint} {
+    padding-left: calc(${sidebarDesktopWithToolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2);
+  }
 
+  @media screen and ${contentWrapperWidthBreakpoint} {
+    padding-left: ${sidebarDesktopWithToolbarWidth}rem;
+  }
+`;
 // tslint:disable-next-line:variable-name
 const Wrapper = styled.div`
   @media screen {
@@ -28,15 +36,7 @@ const Wrapper = styled.div`
     overflow: visible;
     background-color: ${mainContentBackground};
     padding-left: ${sidebarDesktopWidth}rem;
-
-    @media screen and ${contentWrapperAndNavWidthBreakpoint} {
-      padding-left: calc(${sidebarDesktopWithToolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2);
-    }
-
-    @media screen and ${contentWrapperWidthBreakpoint} {
-      padding-left: ${sidebarDesktopWithToolbarWidth}rem;
-    }
-
+    ${contentWrapperBreakpointStyles}
     ${theme.breakpoints.mobile(css`
       padding-left: 0;
     `)}

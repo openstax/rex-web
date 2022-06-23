@@ -213,5 +213,9 @@
   "i18n:toolbar:studyguides:button:text": "Kompendia",
   "i18n:toolbar:studyguides:popup:button:back-to-top": "Idź na górę",
   "i18n:toolbar:studyguides:popup:close-button:aria-label": "Zamknij Kompendia",
-  "i18n:toolbar:studyguides:popup:heading": "Kompendium"
+  "i18n:toolbar:studyguides:popup:heading": "Kompendium",
+  "i18n:toolbar:textresizer:button:aria-label": "Zmień rozmiar tekstu",
+  "i18n:toolbar:textresizer:button:decrease:aria-label": "Zmniejsz rozmiar tekstu",
+  "i18n:toolbar:textresizer:button:increase:aria-label": "Zwiększ rozmiar tekstu",
+  "i18n:toolbar:textresizer:popup:heading": "Rozmiar tekstu"
 }
