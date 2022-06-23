@@ -6,7 +6,7 @@ If you have cloned this project already then you can skip this, otherwise you'll
 # Run the tests
 ---
 
-*Testing requires access to [git](https://git-scm.com/downloads), [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm), and (for simple testing) [Docker](https://docs.docker.com/engine/install/).*
+*Testing requires access to [git](https://git-scm.com/downloads), [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).*
 
 ### Clone the test repo
 
