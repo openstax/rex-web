@@ -11,7 +11,6 @@ import macroeconomics from './canonicalBookMap/macroeconomics';
 import macroeconomicsAP from './canonicalBookMap/macroeconomicsAP';
 import microeconomics from './canonicalBookMap/microeconomics';
 import microeconomicsAP from './canonicalBookMap/microeconomicsAP';
-import physicsAP from './canonicalBookMap/physicsAP';
 import preAlgebra from './canonicalBookMap/preAlgebra';
 import sociology from './canonicalBookMap/sociology';
 
@@ -27,7 +26,6 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ...microeconomics,
   ...microeconomicsAP,
   ...macroeconomicsAP,
-  ...physicsAP,
   ...preAlgebra,
   ...sociology,
   /* Algebra & Trigonometry 2e */ 'eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e' : [
