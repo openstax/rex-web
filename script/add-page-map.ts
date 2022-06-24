@@ -24,6 +24,7 @@ const addPageMap = () => {
   };
 
   if (!mapPath || !bookSlug || !bookId || !canonicalBookId) {
+    // tslint:disable-next-line: no-console
     console.log('Mapping failed. Missing one or more arguments.');
     process.exit(1);
   }
@@ -42,6 +43,7 @@ const addPageMap = () => {
   mapString += `    }],\n  ],\n} as CanonicalBookMap;\n`;
   const newMap = path.resolve(__dirname, `../src/canonicalBookMap/${bookSlug}.ts`);
   writeFile(newMap, mapString);
+  // tslint:disable-next-line: no-console
   console.log('Mapping complete. Make sure to import new map to canonicalBookMap.ts');
 };
 
