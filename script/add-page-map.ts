@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import path from 'path';
 import argv from 'yargs';
-import { CANONICAL_MAP } from '../src/canonicalBookMap';
 import { readFile, writeFile } from '../src/helpers/fileUtils';
 
 (global as any).fetch = fetch;
 
+// requires a JSON file with three keys: moduleTitle, moduleID, canonicalID
 const addPageMap = () => {
   const {
     mapPath,
@@ -37,7 +37,7 @@ const addPageMap = () => {
 
   changedIds.forEach((row: {[key: string]: string}) => {
     // tslint:disable-next-line: max-line-length
-    mapString += `      /* ${row.module} to the same module in ${canonicalBookTitle} */\n      '${row.moduleId}': '${row.canonicalId}',\n`;
+    mapString += `      /* ${row.moduleTitle} to the same module in ${canonicalBookTitle} */\n      '${row.moduleId}': '${row.canonicalId}',\n`;
   });
   mapString += `    }],\n  ],\n} as CanonicalBookMap;\n`;
   const newMap = path.resolve(__dirname, `../src/canonicalBookMap/${bookSlug}.ts`);
