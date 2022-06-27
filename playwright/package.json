@@ -4,9 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ci-coverage": "nyc --reporter=lcov npx playwright test tests/code --project=\"Desktop Chrome\"",
-    "coverage": "nyc npx playwright test tests/code --project=\"Desktop Chrome\" --retries 1",
-    "coverage-all": "nyc npx playwright test tests/code --retries 1",
     "debug": "PWDEBUG=console npx playwright test",
     "lint": "eslint '**/**/*.{js,ts,tsx}' --quiet --fix",
     "test": "npx playwright test tests/rex-test --workers 1"
