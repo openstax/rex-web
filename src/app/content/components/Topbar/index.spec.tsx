@@ -13,7 +13,8 @@ import TestContainer from '../../../../test/TestContainer';
 import * as Services from '../../../context/Services';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { openMobileMenu } from '../../actions';
+import { openMobileMenu, setTextSize } from '../../actions';
+import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -23,7 +24,7 @@ import {
 } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
-import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton } from './styled';
+import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerMenu } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -336,4 +337,127 @@ describe('mobile menu button', () => {
 
     expect(dispatch).toHaveBeenCalledWith(openMobileMenu());
   });
+});
+
+describe('text resizer', () => {
+  let store: Store;
+  let dispatch: jest.SpyInstance;
+
+  beforeEach(() => {
+    store = createTestStore();
+    dispatch = jest.spyOn(store, 'dispatch');
+    store.dispatch(setTextSize(0));
+  });
+
+  it('does not render if textSize is null', () => {
+    store.dispatch((setTextSize as any)(null));
+    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    expect(component.root.findAllByType(TextResizerMenu)).toEqual([]);
+    expect(component).toMatchSnapshot();
+  });
+
+  it('opens menu when clicking menu button', () => {
+    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    expect(component.root.findAllByType(TextResizerMenu)).toEqual([]);
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'text-resizer' })
+        .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
+    });
+
+    expect(component.root.findByType(TextResizerMenu)).toBeDefined();
+    expect(component).toMatchSnapshot();
+  });
+
+  it('changes the text size with buttons', () => {
+    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'text-resizer' })
+        .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
+    });
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setTextSize(-1));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setTextSize(0));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setTextSize(1));
+
+    dispatch.mockReset();
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'change-text-size' })
+        .props.onChange({ currentTarget: { value: '3' } });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setTextSize(3));
+  });
+
+  it('keeps values within bounds', () => {
+    store.dispatch(setTextSize(textResizerMaxValue));
+    dispatch.mockClear();
+    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'text-resizer' })
+        .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
+    });
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn() });
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize((textResizerMaxValue + 1) as any));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
+    });
+
+    expect(dispatch).toHaveBeenCalledWith(setTextSize((textResizerMaxValue - 1 as any)));
+
+    renderer.act(() => {
+      store.dispatch(setTextSize(textResizerMinValue));
+      dispatch.mockClear();
+    });
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize((textResizerMinValue - 1 as any)));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'change-text-size' })
+        .props.onChange({ currentTarget: { value: textResizerMaxValue + 1 } });
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMaxValue + 1 as any));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'change-text-size' })
+        .props.onChange({ currentTarget: { value: textResizerMinValue - 1 } });
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMinValue - 1 as any));
+
+    renderer.act(() => {
+      component.root.findByProps({ 'data-testid': 'change-text-size' })
+        .props.onChange({ currentTarget: { value: 'invalid' } });
+    });
+
+    expect(dispatch).not.toHaveBeenCalled();
+  });
+
 });
