@@ -11,9 +11,9 @@ const combinedBook = {
 };
 
 describe('generateBookPageSpreadsheet', () => {
-  it('works', () => {
+  it('works', async() => {
     const intl = createIntl();
-    expect(generateBookPageSpreadsheet(combinedBook, intl))
+    expect(await generateBookPageSpreadsheet(combinedBook, intl))
       .toMatchInlineSnapshot(`
       "\\"Test Book 1\\",\\"\\",\\"Test Page 1\\",\\"https://openstax.org/books/3f6e0e03-46ac-485e-a737-ab3690d0b879@1.0/pages/test-page-1\\"
       \\"Test Book 1\\",\\"Ch. 1\\",\\"Introduction to Science and the Realm of Physics, Physical Quantities, and Units\\",\\"https://openstax.org/books/3f6e0e03-46ac-485e-a737-ab3690d0b879@1.0/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\"
