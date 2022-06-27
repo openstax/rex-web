@@ -7,7 +7,7 @@ defaults:
     working-directory: playwright
 
 jobs:
-  test:
+  Test:
     runs-on: ubuntu-latest
 
     steps:
