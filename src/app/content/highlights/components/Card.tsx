@@ -13,6 +13,7 @@ import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
+import { getPipelineVersionFromBook } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
   clearFocusedHighlight,
@@ -125,7 +126,10 @@ const Card = (props: CardProps) => {
       ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
       sourceId: page.id,
-      sourceMetadata: {bookVersion: book.version},
+      sourceMetadata: {
+        bookVersion: book.version,
+        pipelineVersion: getPipelineVersionFromBook(book),
+      },
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
       isDefaultColor,

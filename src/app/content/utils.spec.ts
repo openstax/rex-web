@@ -350,3 +350,28 @@ describe('getIdFromPageParam', () => {
     expect(getIdFromPageParam(null)).toEqual('');
   });
 });
+
+describe('getPipelineVersionFromBook', () => {
+  let book: Book;
+
+  beforeEach(() => {
+    book = cloneDeep({
+      tree: {
+        contents: [
+          {
+            id: 'pagelongid@1',
+            slug: 'preface',
+            title: '<span class="os-text">Preface</span>',
+          },
+        ],
+        id: 'booklongid@1',
+        slug: 'book-slug',
+        title: 'book',
+      },
+    }) as Book;
+  });
+
+  it('gets the configured archive version', () => {
+    expect(getPipelineVersionFromBook(book)).toEqual('TODO');
+  });
+});
