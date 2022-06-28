@@ -255,4 +255,21 @@ describe('content reducer', () => {
     const stateAfterClose = reducer(initialState, actions.closeNudgeStudyTools());
     expect(stateAfterClose.showNudgeStudyTools).toEqual(false);
   });
+
+  describe('setTextSize', () => {
+    beforeEach(() => {
+      jest.resetModules();
+    });
+
+    it('defaults to null', () => {
+      require('./reducer');
+      expect(initialState.textSize).toEqual(null);
+    });
+
+    it('updates the state', () => {
+      expect(initialState.textSize).toEqual(null);
+      const stateAfterUpdate = reducer(initialState, actions.setTextSize(3));
+      expect(stateAfterUpdate.textSize).toEqual(3);
+    });
+  });
 });

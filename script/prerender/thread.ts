@@ -117,7 +117,7 @@ async function makeTaskFunctionsMap() {
 
   await Loadable.preloadAll();
 
-  const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+  const archiveLoader = createArchiveLoader(() => REACT_APP_ARCHIVE_URL, {
     appPrefix: '',
     archivePrefix: ARCHIVE_URL,
   });

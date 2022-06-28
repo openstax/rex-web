@@ -42,12 +42,15 @@ def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    topbar = book.topbar
+
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click a table of contents link
     if book.is_mobile:
+        topbar.click_mobile_menu_button()
         book.toolbar.click_toc_toggle_button()
         new_events += 1
     event_action = book.sidebar.toc.next_section_page_slug

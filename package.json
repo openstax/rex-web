@@ -5,7 +5,7 @@
   "dependencies": {
     "@craco/craco": "^6.1.2",
     "@formatjs/intl-pluralrules": "^4.0.6",
-    "@openstax/event-capture-client": "1.2.3",
+    "@openstax/event-capture-client": "1.3.0",
     "@openstax/highlighter": "1.13.0",
     "@openstax/open-search-client": "0.1.0-build.7",
     "@sentry/browser": "6.0.2",

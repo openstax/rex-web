@@ -4043,10 +4043,10 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@openstax/event-capture-client@1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.2.3.tgz#8491af0fcc5680c2b705153c6a373ca10187091e"
-  integrity sha512-MsLaDshx2/cBE60ay6kzDeHsjmY1oemPW+Ye65lf4e9UFkW1h5mVFQ+ZnHGkngbNihn/RbX1/1RmA56g03+OsQ==
+"@openstax/event-capture-client@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@openstax/event-capture-client/-/event-capture-client-1.3.0.tgz#702feb2961f070e9d9a0b323f7f3fb5d8505ba07"
+  integrity sha512-zpk+gyc8TH4AHGwE/ly0zTgX2W4PKGSg/2SErJOvQmnEgc+rt+hNaZhnzM5jFvsalS0bxl4OivitqKuiL4XWqw==
   dependencies:
     uuid "^8.3.2"
 
@@ -8693,9 +8693,9 @@ events@^3.0.0:
   integrity sha512-/46HWwbfCX2xTawVfkKLGxMifJYQBWMwY1mjywRtb4c9x8l5NP3KoJtnIOiL1hfdRkIuYhETxQlo62IF8tcnlg==
 
 eventsource@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/eventsource/-/eventsource-1.0.7.tgz#8fbc72c93fcd34088090bc0a4e64f4b5cee6d8d0"
-  integrity sha512-4Ln17+vVT0k8aWq+t/bF5arcS3EpT9gYtW66EPacdj/mAFevznsnyoHLPy2BA8gbIQeIHoPsvwmfBftfcG//BQ==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/eventsource/-/eventsource-1.1.1.tgz#4544a35a57d7120fba4fa4c86cb4023b2c09df2f"
+  integrity sha512-qV5ZC0h7jYIAOhArFJgSfdyz6rALJyb270714o7ZtNnw2WSJ+eexhKtE0O8LYPRsHZHf2osHKZBxGPvm3kPkCA==
   dependencies:
     original "^1.0.0"
 

@@ -41,6 +41,7 @@ describe('content', () => {
         ['[data-testid="centered-content-row"]', 'style'],
         // img src is changed from data:image/svg+xml;base64... to static path
         ['[data-testid="navbar"] img', 'src'],
+        ['[data-testid="topbar"] img', 'src'],
         // caused by DynamicContentStyles component
         ['#main-content', 'class'],
       ].forEach(([selector, attribute]) => {
@@ -134,6 +135,7 @@ describe('content', () => {
     );
 
     await page.click('a[data-analytics-label="next"]');
+    await finishRender(page);
 
     const pendingEvents = await page.evaluate(() =>
       window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
@@ -143,29 +145,30 @@ describe('content', () => {
       (event: any) => !initialEvents.find(equals(event))
     );
 
-    expect(newEvents).toContainEqual({
-      command: {
-        name: 'send',
-        payload: {
-          eventAction: 'next',
-          eventCategory: 'REX Link (prev-next)',
-          eventLabel: '/books/book-slug-1/pages/2-test-page-3',
-          hitType: 'event',
-          transport: 'beacon',
+    expect(newEvents).toMatchObject([
+      {
+        command: {
+          name: 'send',
+          payload: {
+            eventAction: 'next',
+            eventCategory: 'REX Link (prev-next)',
+            eventLabel: '/books/book-slug-1/pages/2-test-page-3',
+            hitType: 'event',
+            transport: 'beacon',
+          },
         },
+        savedAt: expect.anything(),
       },
-      savedAt: expect.anything(),
-    });
-
-    expect(newEvents).toContainEqual({
-      command: {
-        name: 'send',
-        payload: {
-          hitType: 'pageview',
-          page: '/books/book-slug-1/pages/3-test-page-4',
+      {
+        command: {
+          name: 'send',
+          payload: {
+            hitType: 'pageview',
+            page: '/books/book-slug-1/pages/3-test-page-4',
+          },
         },
+        savedAt: expect.anything(),
       },
-      savedAt: expect.anything(),
-    });
+    ]);
   });
 });
