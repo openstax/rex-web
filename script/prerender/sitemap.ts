@@ -8,7 +8,7 @@ import sitemap, { SitemapItemOptions } from 'sitemap';
 import { SerializedPageMatch } from './contentRoutes';
 import { writeAssetFile } from './fileUtils';
 
-export const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`;
+export const sitemapPath = (pathName: string) => `https://openstax.org/rex/sitemaps/${pathName}.xml`;
 
 export type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
 
