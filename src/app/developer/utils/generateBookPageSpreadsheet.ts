@@ -1,4 +1,8 @@
 import { IntlShape } from 'react-intl';
+import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../../../config';
+import createArchiveLoader from '../../../gateways/createArchiveLoader';
+import { getArchiveUrl } from '../../../gateways/createBookConfigLoader';
+import createOSWebLoader from '../../../gateways/createOSWebLoader';
 import { content as contentRoute } from '../../content/routes';
 import { ArchiveBook, LinkedArchiveTree, LinkedArchiveTreeSection } from '../../content/types';
 import {
@@ -9,10 +13,6 @@ import {
 import { getCanonicalUrlParams } from '../../content/utils/canonicalUrl';
 import { getParentPrefix } from '../../content/utils/seoUtils';
 import { getBookPageUrlAndParams } from '../../content/utils/urlUtils';
-import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../../../config';
-import createArchiveLoader from '../../../gateways/createArchiveLoader';
-import { getArchiveUrl } from '../../../gateways/createBookConfigLoader';
-import createOSWebLoader from '../../../gateways/createOSWebLoader';
 
 const domParser = new DOMParser();
 
@@ -35,16 +35,11 @@ const getPageRow = (book: ArchiveBook, intl: IntlShape) => {
     const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, section.id);
     const canonicalUrl = canonical && contentRoute.getUrl(canonical);
 
-    const chapter = section.parent ?
-      (archiveTreeSectionIsChapter(section.parent) ? section.parent : undefined) :
-      undefined;
+    const chapter = section.parent && archiveTreeSectionIsChapter(section.parent) ?
+      section.parent : undefined;
     const unit = chapter ?
-      (chapter.parent ?
-        (archiveTreeSectionIsUnit(chapter.parent) ? chapter.parent : undefined) :
-        undefined) :
-      (section.parent ?
-        (archiveTreeSectionIsUnit(section.parent) ? section.parent : undefined) :
-        undefined);
+      (chapter.parent && archiveTreeSectionIsUnit(chapter.parent) ? chapter.parent : undefined) :
+      (section.parent && archiveTreeSectionIsUnit(section.parent) ? section.parent : undefined);
 
     return [
       book.title,
@@ -56,7 +51,7 @@ const getPageRow = (book: ArchiveBook, intl: IntlShape) => {
       stripTags(section.title),
       section.slug,
       `https://openstax.org${url}`,
-      `https://openstax.org${canonicalUrl}`,
+      canonicalUrl ? `https://openstax.org${canonicalUrl}` : '',
     ].map(csvQuote).join(',');
   };
 };
@@ -74,5 +69,5 @@ export const generateBookPageSpreadsheet = async(book: ArchiveBook, intl: IntlSh
     'Page URL',
     'Canonical URL',
   ].map(csvQuote).join(','),
-  ...(await Promise.all(findTreePages(book.tree).map(getPageRow(book, intl))))
+  ...(await Promise.all(findTreePages(book.tree).map(getPageRow(book, intl)))),
 ].join(`\n`);
