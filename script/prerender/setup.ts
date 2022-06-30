@@ -26,15 +26,24 @@ ignoreStyles(DEFAULT_EXTENSIONS, (mod, filename) => {
     // If we find a style
     return noOp();
   } else {
-    const bn = path.basename(filename).replace(/(\.\w{3})$/, '');
+    const fileRegex = path.basename(filename).replace(/\.(\w{3})$/, `\\.\\w{8}\\.$1`);
     const dir = '/static/media';
-    // TODO - make this better
-    const fileName = fs.readdirSync(path.resolve(__dirname, '../../build' + dir))
-      .find((name) => name.indexOf(bn) !== -1);
+    const fileNames = fs.readdirSync(path.resolve(__dirname, '../../build' + dir))
+      .filter((name) => name.match(new RegExp(fileRegex)));
 
-    if (fileName) {
+    /*
+     * CRA configures these media files be output with the [hash] token, which is a content
+     * hash mixed in with a build id, so they're busted on every build. it may be better to
+     * override the config to use [contenthash], but thats not really straightforward even using
+     * craco, so we're hacking it here by ignoring the hash. the hack will work as long as we don't
+     * have any assets with the same name (that would normally be differentated by the hash), so we
+     * bail if that is the case.
+     * */
+    if (fileNames.length > 1) {
+      throw new Error(`more than one file matching ${fileRegex} found in build, can't differentiate them, failing`);
+    } else if (fileNames.length > 0) {
       // file exists in build folder, refrence it by url here
-      mod.exports = `${process.env.PUBLIC_URL || ''}${dir}/${fileName}`;
+      mod.exports = `${process.env.PUBLIC_URL || ''}${dir}/${fileNames[0]}`;
     } else {
       // file doesn't exist in build folder, assume it is an inlined image
       // and inline it again here
