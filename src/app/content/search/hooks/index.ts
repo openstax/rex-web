@@ -1,7 +1,5 @@
 import isEqual from 'lodash/fp/isEqual';
 import queryString from 'query-string';
-import { REACT_APP_ARCHIVE } from '../../../../config';
-import BOOKS from '../../../../config.books';
 import { push, replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
@@ -11,6 +9,7 @@ import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
+import { getBookPipelineVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
@@ -28,7 +27,7 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     return;
   }
 
-  const pipeline = BOOKS[book.id]?.archiveOverride?.replace(/^\/apps\/archive\//, '') || REACT_APP_ARCHIVE;
+  const pipeline = getBookPipelineVersion(book);
 
   const results = await services.searchClient.search({
     books: [`${pipeline}/${book.id}@${book.version}`],

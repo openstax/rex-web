@@ -5,13 +5,25 @@ import {
   getContentPageReferences,
   getIdFromPageParam,
   getPageIdFromUrlParam,
+  getBookPipelineVersion,
   parseContents,
   stripIdVersion,
   toRelativeUrl,
 } from './utils';
 
+const oldPipelineVersion = '20220101.111111';
+const newPipelineVersion = '20220101.222222';
+
 jest.mock('../../config.books', () => ({
   '13ac107a-f15f-49d2-97e8-60ab2e3b519c': { defaultVersion: '29.7' },
+  '9d8df601-4f12-4ac1-8224-b450bf739e5f': {
+    archiveOverride: `/apps/archive/${oldPipelineVersion}`,
+    defaultVersion: '1',
+  },
+}));
+
+jest.mock('../../config', () => ({
+  REACT_APP_ARCHIVE: newPipelineVersion,
 }));
 
 describe('stripIdVersion', () => {
@@ -354,24 +366,13 @@ describe('getIdFromPageParam', () => {
 describe('getPipelineVersionFromBook', () => {
   let book: Book;
 
-  beforeEach(() => {
-    book = cloneDeep({
-      tree: {
-        contents: [
-          {
-            id: 'pagelongid@1',
-            slug: 'preface',
-            title: '<span class="os-text">Preface</span>',
-          },
-        ],
-        id: 'booklongid@1',
-        slug: 'book-slug',
-        title: 'book',
-      },
-    }) as Book;
+  it('gets the configured archive version', () => {
+    book = { id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c' } as ArchiveBook;
+    expect(getBookPipelineVersion(book)).toEqual(newPipelineVersion);
   });
 
-  it('gets the configured archive version', () => {
-    expect(getPipelineVersionFromBook(book)).toEqual('TODO');
+  it('gets the overriden archive version', () => {
+    book = { id: '9d8df601-4f12-4ac1-8224-b450bf739e5f' } as ArchiveBook;
+    expect(getBookPipelineVersion(book)).toEqual(oldPipelineVersion);
   });
 });
