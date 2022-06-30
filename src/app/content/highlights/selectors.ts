@@ -129,8 +129,8 @@ export const summaryFilters = createSelector(
   defaultFilters,
   (selected, defaults) => ({
     ...defaults,
-    ...(selected.colors.length && {colors: selected.colors}),
-    ...(selected.locationIds.length && {locationIds: selected.locationIds}),
+    ...(selected.colors && {colors: selected.colors}),
+    ...(selected.locationIds && {locationIds: selected.locationIds}),
   })
 );
 

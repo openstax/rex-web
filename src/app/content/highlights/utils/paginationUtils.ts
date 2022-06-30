@@ -101,10 +101,10 @@ export const filterCountsPerSourceByLocationFilter = (
 };
 
 export const filterCountsPerSourceByColorFilter = (
-  colorFilters: SummaryFilters['colors'],
-  counts: CountsPerSource
+  colorFilters?: SummaryFilters['colors'],
+  counts?: CountsPerSource
 ) => flow(
-  mapValues(pick(colorFilters)),
+  colorFilters ? mapValues(pick(colorFilters)) : [],
   pickBy(not(isEmpty))
 )(counts) as CountsPerSource;
 

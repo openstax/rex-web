@@ -16,8 +16,8 @@ export type OrderedSummaryHighlights = Array<{
 }>;
 
 export interface SummaryFilters {
-  locationIds: string[];
-  colors: HighlightColorEnum[];
+  locationIds?: string[];
+  colors?: HighlightColorEnum[];
 }
 
 export interface SummaryFiltersUpdate {

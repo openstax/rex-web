@@ -8,10 +8,8 @@ import ColorFilter from '../../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../../components/popUp/Filters';
 import FiltersList from '../../../components/popUp/FiltersList';
 import PrintButton from '../../../components/popUp/PrintButton';
-import { FiltersChange } from '../../../components/popUp/types';
 import { highlightStyles } from '../../../constants';
-import { LinkedArchiveTreeNode } from '../../../types';
-import { printSummaryHighlights, updateSummaryFilters } from '../../actions';
+import { printSummaryHighlights } from '../../actions';
 import * as select from '../../selectors';
 
 // tslint:disable-next-line:variable-name
@@ -20,9 +18,6 @@ export const ConnectedChapterFilter = connect(
     locationFilters: select.highlightLocationFilters(state),
     locationFiltersWithContent: select.highlightLocationFiltersWithContent(state),
     selectedLocationFilters: select.summaryLocationFilters(state),
-  }),
-  (dispatch: Dispatch) => ({
-    setFilters: (change: FiltersChange<LinkedArchiveTreeNode>) => dispatch(updateSummaryFilters({ locations: change })),
   })
 )(ChapterFilter);
 
@@ -31,10 +26,6 @@ export const ConnectedColorFilter = connect(
   (state: AppState) => ({
     colorFiltersWithContent: select.highlightColorFiltersWithContent(state),
     selectedColorFilters: select.summaryColorFilters(state),
-  }),
-  (dispatch: Dispatch) => ({
-    updateSummaryFilters: (change: FiltersChange<HighlightColorEnum>) =>
-      dispatch(updateSummaryFilters({ colors: change })),
   })
 )(ColorFilter);
 
@@ -44,9 +35,6 @@ export const ConnectedFilterList = connect(
     locationFilters: select.highlightLocationFilters(state),
     selectedColorFilters: select.summaryColorFilters(state),
     selectedLocationFilters: select.summaryLocationFilters(state),
-  }),
-  (dispatch: Dispatch) => ({
-    setFilters: flow(updateSummaryFilters, dispatch),
   })
 )(FiltersList);
 

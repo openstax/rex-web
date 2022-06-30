@@ -6,18 +6,18 @@ const updateSummaryFilters = (filters: SummaryFilters, update: Partial<SummaryFi
 
   if (colorsChange) {
     if (colorsChange.remove.length) {
-      newFilters.colors = newFilters.colors.filter((color) => !colorsChange.remove.includes(color));
+      newFilters.colors = newFilters.colors?.filter((color) => !colorsChange.remove.includes(color));
     }
-    newFilters.colors = Array.from(new Set([...newFilters.colors, ...colorsChange.new]));
+    newFilters.colors = Array.from(new Set([...newFilters.colors || [], ...colorsChange.new]));
   }
 
   if (locationsChange) {
     if (locationsChange.remove.length) {
-      newFilters.locationIds = newFilters.locationIds.filter(
+      newFilters.locationIds = newFilters.locationIds?.filter(
         (id) => !locationsChange.remove.find((location) => id === location.id));
     }
     newFilters.locationIds = Array.from(
-      new Set([...newFilters.locationIds, ...locationsChange.new.map((location) => location.id)])
+      new Set([...newFilters.locationIds || [], ...locationsChange.new.map((location) => location.id)])
     );
   }
 

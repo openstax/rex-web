@@ -4,12 +4,11 @@ import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../.
 import { actionHook } from '../../../utils';
 import { summaryPageSize } from '../../constants';
 import { book as bookSelector } from '../../selectors';
+import * as actions from '../actions';
 import {
   loadMoreSummaryHighlights,
   receiveSummaryHighlights,
-  setSummaryFilters,
   toggleSummaryHighlightsLoading,
-  updateSummaryFilters
 } from '../actions';
 import { HighlightPopupLoadError } from '../errors';
 import * as select from '../selectors';
@@ -43,12 +42,15 @@ export const loadMore = async(services: MiddlewareAPI & AppServices, pageSize?: 
 export type LoadMoreResponse = ReturnType<typeof loadMore>;
 
 export const hookBody: ActionHookBody<
-  typeof setSummaryFilters |
-  typeof loadMoreSummaryHighlights |
-  typeof updateSummaryFilters
+  typeof loadMoreSummaryHighlights
 > =
   (services) => async() => {
-    const filters = select.summaryFilters(services.getState());
+    const state = services.getState();
+    const summaryIsOpen = select.myHighlightsOpen(state);
+
+    if (!summaryIsOpen) { return; }
+
+    services.dispatch(actions.toggleSummaryHighlightsLoading(true));
 
     let highlights: Unpromisify<LoadMoreResponse>;
 
@@ -57,12 +59,10 @@ export const hookBody: ActionHookBody<
     } catch (error) {
       services.dispatch(toggleSummaryHighlightsLoading(false));
       throw ensureApplicationErrorType(error, new HighlightPopupLoadError({ destination: 'myHighlights' }));
-    }
+    } 
 
     const {formattedHighlights, pagination} = highlights;
-    services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination, filters}));
+    services.dispatch(receiveSummaryHighlights(formattedHighlights, {pagination}));
   };
 
 export const loadMoreHook = actionHook(loadMoreSummaryHighlights, hookBody);
-export const setSummaryFiltersHook = actionHook(setSummaryFilters, hookBody);
-export const updateFiltersHook = actionHook(updateSummaryFilters, hookBody);

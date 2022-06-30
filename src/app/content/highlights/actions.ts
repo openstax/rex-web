@@ -6,7 +6,6 @@ import {
   HighlightData,
   NewHighlightPayload,
   SummaryFilters,
-  SummaryFiltersUpdate,
   SummaryHighlights,
   SummaryHighlightsPagination,
 } from './types';
@@ -52,12 +51,6 @@ export const printSummaryHighlights = createStandardAction('Content/Highlights/S
 export const toggleSummaryHighlightsLoading = createStandardAction('Content/Highlights/Summary/loading')<boolean>();
 
 export const loadMoreSummaryHighlights = createStandardAction('Content/Highlights/Summary/loadMore')();
-export const setSummaryFilters = createStandardAction('Content/Highlights/Summary/setFilters')<
-  Partial<SummaryFilters>
->();
-export const updateSummaryFilters = createStandardAction('Content/Highlights/Summary/updateFilters')<
-  Partial<SummaryFiltersUpdate>
->();
 export const receiveSummaryHighlights = createStandardAction('Content/Highlights/Summary/receiveHighlights')<
   SummaryHighlights,
   {

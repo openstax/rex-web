@@ -25,6 +25,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(locationChange): {
       const hasModalQuery = action.payload.query[modalQueryParameterName] === modalUrlName;
       const {colors, locationIds} = getFiltersFromQuery(action.payload.query);
+      console.log('reducer filters - ', state.summary.filters, colors, locationIds);
 
       return {
         ...state,

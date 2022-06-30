@@ -28,7 +28,7 @@ export const initialState: State = {
     pageId: null,
   },
   summary: {
-    filters: {colors: [], locationIds: []},
+    filters: {},
     highlights: null,
     loading: false,
     open: false,
@@ -53,8 +53,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           ...state.summary,
           filters: {
             ...state.summary.filters,
-            ...(colors.length && {colors}),
-            ...(locationIds.length && {locationIds}),
+            ...(colors && {colors}),
+            ...(locationIds && {locationIds}),
           },
           open: hasModalQuery,
         },

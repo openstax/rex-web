@@ -204,11 +204,11 @@ export const updateSummaryHighlightsDependOnFilters = (
   const { colors, locationIds } = filters;
 
   // If highlight's chapter is not in summary filters stop here...
-  if (!locationIds.includes(locationFilterId)) { return summaryHighlights; }
+  if (!locationIds || !locationIds.includes(locationFilterId)) { return summaryHighlights; }
 
   // If highlight's color has changed and it's no longer in filters
   // remove this highlight from summary highlights...
-  if (!colors.includes(color)) {
+  if (!colors || !colors.includes(color)) {
     return removeSummaryHighlight(summaryHighlights, {
       id: updatedHighlight.id,
       locationFilterId,
