@@ -12,7 +12,6 @@
  */
 import * as fs from 'fs';
 import ignoreStyles, { DEFAULT_EXTENSIONS, noOp } from 'ignore-styles';
-import md5File from 'md5-file';
 import mime from 'mime';
 import * as path from 'path';
 
@@ -27,14 +26,15 @@ ignoreStyles(DEFAULT_EXTENSIONS, (mod, filename) => {
     // If we find a style
     return noOp();
   } else {
-    // If we find an image
-    const hash = md5File.sync(filename).slice(0, 8);
-    const bn = path.basename(filename).replace(/(\.\w{3})$/, `.${hash}$1`);
-    const filePath = `/static/media/${bn}`;
+    const bn = path.basename(filename).replace(/(\.\w{3})$/, '');
+    const dir = '/static/media';
+    // TODO - make this better
+    const fileName = fs.readdirSync(path.resolve(__dirname, '../../build' + dir))
+      .find((name) => name.indexOf(bn) !== -1);
 
-    if (fs.existsSync(path.resolve(__dirname, '../../build', filePath.replace(/^\//, '')))) {
+    if (fileName) {
       // file exists in build folder, refrence it by url here
-      mod.exports = `${process.env.PUBLIC_URL || ''}${filePath}`;
+      mod.exports = `${process.env.PUBLIC_URL || ''}${dir}/${fileName}`;
     } else {
       // file doesn't exist in build folder, assume it is an inlined image
       // and inline it again here
