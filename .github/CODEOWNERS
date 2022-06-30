@@ -3,3 +3,5 @@
 src/config.books.json @openstax/rex-content
 
 pytest-selenium/ @openstax/unified-integration-testing
+
+playwright/ @openstax/unified-integration-testing
