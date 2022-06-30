@@ -1,9 +1,9 @@
-import * as SentryLibrary from '@sentry/browser';
+import * as SentryLibrary from '@sentry/react';
 import { recordSentryMessage } from '../app/errors/actions';
 import { Store } from '../app/types';
 import config from '../config';
 import createTestStore from '../test/createTestStore';
-import Sentry, { onBeforeSend, Severity } from './Sentry';
+import Sentry, { onBeforeSend } from './Sentry';
 
 jest.unmock('./Sentry');
 jest.mock('../config', () => ({
@@ -12,11 +12,12 @@ jest.mock('../config', () => ({
   SENTRY_ENABLED: false,
 }));
 
-jest.mock('@sentry/browser', () => ({
-  ...(jest as any).requireActual('@sentry/browser'),
+jest.mock('@sentry/react', () => ({
+  ...(jest as any).requireActual('@sentry/react'),
   captureException: jest.fn(),
   captureMessage: jest.fn(),
   configureScope: jest.fn(),
+  createReduxEnhancer: jest.fn(),
   init: jest.fn(),
 }));
 
@@ -41,8 +42,8 @@ describe('Sentry error logging', () => {
     Sentry.captureException(new Error('test'));
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
 
-    const middleware = Sentry.initializeWithMiddleware()(store);
-    expect(middleware).toBeDefined();
+    Sentry.initialize(store);
+    expect(Sentry.isEnabled).toBe(true);
 
     expect(SentryLibrary.init).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -53,21 +54,26 @@ describe('Sentry error logging', () => {
     );
   });
 
+  it('wraps and configs createReduxEnhancer', () => {
+    Sentry.createReduxEnhancer();
+    expect(SentryLibrary.createReduxEnhancer).toHaveBeenCalledWith({});
+  });
+
   it('forwards log calls to sentry', () => {
     config.SENTRY_ENABLED = true;
-    Sentry.initializeWithMiddleware()(store);
+    Sentry.initialize(store);
     const err = new Error('this is bad');
     Sentry.captureException(err);
-    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: Severity.Error });
-    Sentry.captureException(err, Severity.Warning);
-    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: Severity.Warning });
+    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: 'error' });
+    Sentry.captureException(err, 'warning');
+    expect(SentryLibrary.captureException).toHaveBeenCalledWith(err, { level: 'warning' });
     Sentry.log('logged');
     expect(SentryLibrary.captureMessage).toHaveBeenCalledWith('logged', 'log');
   });
 
   it('skips logging when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware()(store);
+    Sentry.initialize(store);
     expect(Sentry.isEnabled).toBe(false);
     expect(SentryLibrary.captureException).not.toHaveBeenCalled();
 
@@ -81,7 +87,7 @@ describe('Sentry error logging', () => {
 
   it('logs to console when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initialize(store);
 
     const spyConsoleError = jest.spyOn(console, 'error')
       .mockImplementationOnce(jest.fn)
@@ -97,7 +103,7 @@ describe('Sentry error logging', () => {
 
   it('logs to (info) console when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initialize(store);
 
     const spyConsoleInfo = jest.spyOn(console, 'info')
       .mockImplementation(jest.fn())
@@ -105,16 +111,16 @@ describe('Sentry error logging', () => {
 
     expect(spyConsoleInfo).not.toHaveBeenCalled();
 
-    Sentry.captureException(new Error('asdf'), Severity.Info);
+    Sentry.captureException(new Error('asdf'), 'info');
     expect(spyConsoleInfo).toHaveBeenCalledWith('asdf');
 
-    Sentry.captureException('qwer', Severity.Info);
+    Sentry.captureException('qwer', 'info');
     expect(spyConsoleInfo).toHaveBeenCalledWith('qwer');
   });
 
   it('logs to (warn) console when not enabled', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initialize(store);
 
     const spyConsoleWarn = jest.spyOn(console, 'warn')
       .mockImplementation(jest.fn())
@@ -122,16 +128,16 @@ describe('Sentry error logging', () => {
 
     expect(spyConsoleWarn).not.toHaveBeenCalled();
 
-    Sentry.captureException(new Error('asdf'), Severity.Warning);
+    Sentry.captureException(new Error('asdf'), 'warning');
     expect(spyConsoleWarn).toHaveBeenCalledWith('asdf');
 
-    Sentry.captureException('qwer', Severity.Warning);
+    Sentry.captureException('qwer', 'warning');
     expect(spyConsoleWarn).toHaveBeenCalledWith('qwer');
   });
 
   it('noops on undefined', () => {
     config.SENTRY_ENABLED = false;
-    Sentry.initializeWithMiddleware();
+    Sentry.initialize(store);
 
     const spyConsoleError = jest.spyOn(console, 'error')
       .mockImplementationOnce(jest.fn)
