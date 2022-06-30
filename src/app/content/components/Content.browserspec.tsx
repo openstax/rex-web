@@ -36,6 +36,7 @@ describe('Content', () => {
 
         await navigate(page, TEST_PAGE_URL);
         await finishRender(page);
+        await new Promise((resolve) => setTimeout(resolve, 10000));
 
         // scrolling on initial load doesn't work on the dev build
         if (process.env.SERVER_MODE === 'built') {
