@@ -88,6 +88,10 @@ app.services.promiseCollector.calm().then(() => {
 if (window.__PRELOADED_STATE__) {
   Loadable.preloadReady()
     .then(() => {
+      // during pre-rendering this happens in src/app/content/hooks/intlHook.ts
+      // it would be nice to consolodate this logic, but in hydration we don't necessarily
+      // want to wait for promiseCollector.calm() before rendering _anything_, so there are some
+      // discrepancies in the flow that make the logic annoying.
       const locale = currentLocale(app.store.getState());
       return locale ? createIntl(locale) : null;
     })
