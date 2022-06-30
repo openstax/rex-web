@@ -2,10 +2,8 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
-import notLoggedImage1Full from '../../../../assets/My_Highlights_page_empty_1.png';
 import notLoggedImage1 from '../../../../assets/My_Highlights_page_empty_1_360x256.png';
 import notLoggedImage1Retina from '../../../../assets/My_Highlights_page_empty_1_720x512.png';
-import notLoggedImage2Full from '../../../../assets/My_Highlights_page_empty_2.png';
 import notLoggedImage2 from '../../../../assets/My_Highlights_page_empty_2_360x256.png';
 import notLoggedImage2Retina from '../../../../assets/My_Highlights_page_empty_2_720x512.png';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
@@ -73,13 +71,13 @@ const LoginForHighlights = () => {
       <Styled.ImagesGrid>
         <Styled.ImageWrapper>
           <Styled.FirstImage src={notLoggedImage1} srcSet={
-            `${notLoggedImage1} 1x, ${notLoggedImage1Retina} 2x, ${notLoggedImage1Full} 1524w`
+            `${notLoggedImage1} 1x, ${notLoggedImage1Retina} 2x`
           } />
           <BlueNote />
         </Styled.ImageWrapper>
         <Styled.ImageWrapper>
           <Styled.SecondImage src={notLoggedImage2} srcSet={
-            `${notLoggedImage2} 1x, ${notLoggedImage2Retina} 2x, ${notLoggedImage2Full} 2762w`
+            `${notLoggedImage2} 1x, ${notLoggedImage2Retina} 2x`
           } />
           <GreenNote />
         </Styled.ImageWrapper>
