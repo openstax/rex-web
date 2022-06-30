@@ -1,4 +1,5 @@
 import { locationChange } from '../../navigation/actions';
+import * as navigationActions from '../../navigation/actions';
 import { routeHook } from '../../navigation/utils';
 import { actionHook } from '../../utils';
 import * as actions from '../actions';
@@ -23,6 +24,7 @@ export default [
   receivePageNotFoundId,
   routeHook(routes.content, locationChangeBody),
   actionHook(actions.receivePage, receiveContentBody),
+  actionHook(navigationActions.locationChange, receiveContentBody),
   actionHook(actions.receivePage, kineticEnabled),
   actionHook(actions.setTextSize, storeTextSize),
   actionHook(locationChange, loadStoredTextSize),
