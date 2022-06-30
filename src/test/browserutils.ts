@@ -56,6 +56,8 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 };
 
 export const finishRender = async(target: puppeteer.Page) => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await target.waitFor('body[data-rex-loaded="true"]');
   const screenshot = (): Buffer => target.screenshot() as unknown as Buffer;
 
   let lastScreen: Buffer | undefined;
@@ -70,6 +72,8 @@ export const finishRender = async(target: puppeteer.Page) => {
     await new Promise((resolve) => setTimeout(resolve, 300));
     lastScreen = newScreen;
   }
+
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
 };
 
 export const scrollDown = (target: puppeteer.Page) => target.evaluate(() => {
