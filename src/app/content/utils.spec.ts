@@ -2,13 +2,13 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import { resetModules } from '../../test/utils';
 import { ArchiveBook, ArchivePage, ArchiveTree, Book } from './types';
 import {
+  getBookPipelineVersion,
   getContentPageReferences,
   getIdFromPageParam,
   getPageIdFromUrlParam,
-  getBookPipelineVersion,
   parseContents,
   stripIdVersion,
-  toRelativeUrl,
+  toRelativeUrl
 } from './utils';
 
 const oldPipelineVersion = '20220101.111111';
