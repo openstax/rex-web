@@ -7,7 +7,7 @@ import { closeMyHighlights, openMyHighlights } from '../actions';
 import { modalUrlName } from '../constants';
 import createHighlight from './createHighlight';
 import { initializeMyHighlightsSummaryHook } from './initializeMyHighlightsSummary';
-import { loadMoreHook, setSummaryFiltersHook, updateFiltersHook } from './loadMore';
+import { loadMoreHook } from './loadMore';
 import loadHighlights from './locationChange';
 import { openMyHighlightsHook } from './openMyHighlights';
 import { printHighlightsHook } from './printHighlights';
@@ -23,8 +23,6 @@ export default [
   requestDeleteHighlight,
   updateHighlight,
   initializeMyHighlightsSummaryHook,
-  setSummaryFiltersHook,
-  updateFiltersHook,
   openMyHighlightsHook,
   printHighlightsHook,
   loadMoreHook,
