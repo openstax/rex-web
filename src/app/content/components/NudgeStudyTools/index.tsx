@@ -75,7 +75,7 @@ const NudgeStudyTools = () => {
     ? 'i18n:nudge:study-tools:aria-label:with-study-guides'
     : 'i18n:nudge:study-tools:aria-label:only-highlighting';
 
-  return <NudgeWrapper data-analytics-region='Nudge Study Tools'>
+  return <NudgeWrapper data-analytics-region='Nudge Study Tools' data-async-content>
     <NudgeArrow
       src={arrow}
       alt=''
