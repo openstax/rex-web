@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
+import createIntl from './app/messages/createIntl';
+import { currentLocale } from './app/messages/selectors';
 import { updateAvailable } from './app/notifications/actions';
 import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
@@ -84,9 +86,19 @@ app.services.promiseCollector.calm().then(() => {
 });
 
 if (window.__PRELOADED_STATE__) {
-  Loadable.preloadReady().then(() => {
-    ReactDOM.hydrate(<app.container />, document.getElementById('root'), doneRendering);
-  });
+  Loadable.preloadReady()
+    .then(() => {
+      // during pre-rendering this happens in src/app/content/hooks/intlHook.ts
+      // it would be nice to consolodate this logic, but in hydration we don't necessarily
+      // want to wait for promiseCollector.calm() before rendering _anything_, so there are some
+      // discrepancies in the flow that make the logic annoying.
+      const locale = currentLocale(app.store.getState());
+      return locale ? createIntl(locale) : null;
+    })
+    .then((intl) => {
+      app.services.intl.current = intl;
+      ReactDOM.hydrate(<app.container />, document.getElementById('root'), doneRendering);
+    });
 } else {
   ReactDOM.render(<app.container />, document.getElementById('root'), doneRendering);
 }
