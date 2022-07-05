@@ -21,7 +21,7 @@ Array [
   </a>,
   <a
     className="HiddenLink-wwwegq-0 bkbyvj"
-    href=""
+    href="#"
     onClick={[Function]}
   >
     Keyboard shortcuts menu
@@ -1727,7 +1727,7 @@ Array [
   </a>,
   <a
     className="HiddenLink-wwwegq-0 bkbyvj"
-    href=""
+    href="#"
     onClick={[Function]}
   >
     Keyboard shortcuts menu
