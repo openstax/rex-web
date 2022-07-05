@@ -360,8 +360,8 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
   ],
-    /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': [
-  /* College Physics 2e */ ['a31df062-930a-4f46-8953-605711e6d204', {}],
+  /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': [
+    /* College Physics 2e */ ['a31df062-930a-4f46-8953-605711e6d204', {}],
   ],
 };
 
