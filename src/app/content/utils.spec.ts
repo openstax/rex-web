@@ -363,7 +363,7 @@ describe('getIdFromPageParam', () => {
   });
 });
 
-describe('getPipelineVersionFromBook', () => {
+describe('getBookPipelineVersion', () => {
   let book: Book;
 
   it('gets the configured archive version', () => {
