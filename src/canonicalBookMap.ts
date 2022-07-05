@@ -359,7 +359,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
-  ],
+  ]
 };
 
 export type CanonicalBookMap = ObjectLiteral<Array<[string, ObjectLiteral<string | undefined>]> | undefined>;

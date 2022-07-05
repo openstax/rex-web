@@ -4,6 +4,9 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
+  /* College Physics for AP Courses 2e */ 'fc65697b-5a9e-4dfe-ac03-035129f7be28': [
+    /* College Physics 2e */ ['a31df062-930a-4f46-8953-605711e6d204', {}],
+  ],
   /* College Physics for AP Courses 1e */ '8d04a686-d5e8-4798-a27d-c608e4d0e187': [
     /* College Physics for AP Courses 2e */ ['fc65697b-5a9e-4dfe-ac03-035129f7be28', {
       /* Physics: An Introduction to the same module in 2e */
