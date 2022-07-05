@@ -21,7 +21,8 @@ const OpenKeyboardShortcutsMenuLink = () => {
   };
 
   return <FormattedMessage id='i18n:a11y:keyboard-shortcuts:menu'>
-    {(txt) => <HiddenLink onClick={openKeyboardShortcutsMenu} href=''>{txt}</HiddenLink>}
+    {/* TODO - use url based modal control */}
+    {(txt) => <HiddenLink onClick={openKeyboardShortcutsMenu} href='#'>{txt}</HiddenLink>}
   </FormattedMessage>;
 };
 
@@ -38,7 +39,7 @@ export default class AccessibilityButtonsWrapper extends Component {
           {(href) => <HiddenLink href={href}>{txt}</HiddenLink>}
         </FormattedMessage>}
       </FormattedMessage>
-      <OpenKeyboardShortcutsMenuLink/>
+      <OpenKeyboardShortcutsMenuLink />
       {this.props.children}
     </Provider>;
   }

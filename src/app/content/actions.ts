@@ -1,4 +1,5 @@
 import { createStandardAction } from 'typesafe-actions';
+import { TextResizerValue } from './constants';
 import * as highlightingActions from './highlights/actions';
 import * as keyboardShortcutsActions from './keyboardShortcuts/actions';
 import * as practiceQuestionsActions from './practiceQuestions/actions';
@@ -32,3 +33,5 @@ export const receivePageNotFoundId = createStandardAction('Content/receivePageNo
 
 export const openNudgeStudyTools = createStandardAction('Content/openNudgeStudyTools')();
 export const closeNudgeStudyTools = createStandardAction('Content/closeNudgeStudyTools')();
+
+export const setTextSize = createStandardAction('Content/setTextSize')<TextResizerValue>();

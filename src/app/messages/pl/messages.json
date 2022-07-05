@@ -9,7 +9,7 @@
   "i18n:a11y:keyboard-shortcuts:open-menu": "Wywołaj menu skrótów klawiszowych",
   "i18n:a11y:keyboard-shortcuts:move-forward": "Przejdź do przodu przez elementy strony książki, zakreślenia i notatki",
   "i18n:a11y:keyboard-shortcuts:move-backward": "Przejdź do tyłu przez elementy strony książki, zakreślenia i notatki",
-  "i18n:a11y:keyboard-shortcuts:move-focus-in-out": "Przenieś ostrość do i z notatki",
+  "i18n:a11y:keyboard-shortcuts:move-focus-in-out": "Aktywuj lub dezaktywuj notatkę",
   "i18n:a11y:keyboard-shortcuts:move-through-note-editing": "Przemieść się po opcjach edycji notatki",
   "i18n:a11y:keyboard-shortcuts:select-highlight-color": "Wybierz inny kolor zakreślenia",
   "i18n:a11y:keyboard-shortcuts:save-or-cancel": "Zachowaj albo odrzuć zmiany w notatce",
@@ -213,5 +213,9 @@
   "i18n:toolbar:studyguides:button:text": "Kompendia",
   "i18n:toolbar:studyguides:popup:button:back-to-top": "Idź na górę",
   "i18n:toolbar:studyguides:popup:close-button:aria-label": "Zamknij Kompendia",
-  "i18n:toolbar:studyguides:popup:heading": "Kompendium"
+  "i18n:toolbar:studyguides:popup:heading": "Kompendium",
+  "i18n:toolbar:textresizer:button:aria-label": "Zmień rozmiar tekstu",
+  "i18n:toolbar:textresizer:button:decrease:aria-label": "Zmniejsz rozmiar tekstu",
+  "i18n:toolbar:textresizer:button:increase:aria-label": "Zwiększ rozmiar tekstu",
+  "i18n:toolbar:textresizer:popup:heading": "Rozmiar tekstu"
 }
