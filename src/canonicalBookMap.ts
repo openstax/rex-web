@@ -360,6 +360,29 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
   ],
+  /* Principles of Accounting Vol. 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': [
+    /* Principles of Accounting Vol. 1 */ ['9ab4ba6d-1e48-486d-a2de-38ae1617ca84', {}],
+  ],
+  /* University Physics Vol. 2 */ '7a0f9770-1c44-4acd-9920-1cd9a99f2a1e': [
+    /* University Physics Vol. 1 */ ['d50f6e32-0fda-46ef-a362-9bd36ca7c97d', {}],
+  ],
+  /* University Physics Vol. 3 */ 'af275420-6050-4707-995c-57b9cc13c358': [
+    /* University Physics Vol. 1 */ ['d50f6e32-0fda-46ef-a362-9bd36ca7c97d', {}],
+  ],
+  /* Calculus Vol. 2 */ '1d39a348-071f-4537-85b6-c98912458c3c': [
+    /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
+  ],
+  /* Calculus Vol. 3 */ 'a31cd793-2162-4e9e-acb5-6e6bbd76a5fa': [
+    /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
+    /* Calculus Vol. 2 */ ['1d39a348-071f-4537-85b6-c98912458c3c', {}],
+  ],
+  /* Cálculo Vol. 2 */ '8079f22f-c0a0-43ed-bb35-871d8d9743f3': [
+    /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
+  ],
+  /* Cálculo Vol. 3 */ '21b1d0df-a716-4205-8e86-0d0787b2c991': [
+    /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
+    /* Cálculo Vol. 2 */ ['8079f22f-c0a0-43ed-bb35-871d8d9743f3', {}],
+  ],
 };
 
 export type CanonicalBookMap = ObjectLiteral<Array<[string, ObjectLiteral<string | undefined>]> | undefined>;
