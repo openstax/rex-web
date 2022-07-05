@@ -143,5 +143,5 @@ export const loadPageContent = async(loader: ReturnType<AppServices['archiveLoad
 
 export const getBookPipelineVersion = (book: Book): string => {
   const url = BOOKS[book.id]?.archiveOverride || getArchiveUrl();
-  return url.replace(/^\/apps\/archive\//, '')
+  return url.replace(/^\/apps\/archive\//, '');
 };
