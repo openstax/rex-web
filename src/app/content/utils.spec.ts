@@ -23,7 +23,7 @@ jest.mock('../../config.books', () => ({
 }));
 
 jest.mock('../../config', () => ({
-  REACT_APP_ARCHIVE: newPipelineVersion,
+  REACT_APP_ARCHIVE_URL: `/apps/archive/${newPipelineVersion}`,
 }));
 
 describe('stripIdVersion', () => {
