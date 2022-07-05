@@ -9,6 +9,10 @@ export const book = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/codeversion/contents/testbook1-shortid.json'), 'utf8')
 ) as ArchiveBook;
 
+export const bookWithUnits = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/codeversion/contents/testbook1-units.json'), 'utf8')
+) as ArchiveBook;
+
 export const page = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/codeversion/contents/testbook1-shortid:testpage1-shortid.json'), 'utf8')
 ) as ArchivePage;
