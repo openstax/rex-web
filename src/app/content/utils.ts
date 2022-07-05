@@ -1,5 +1,4 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
-import { REACT_APP_ARCHIVE } from '../../config';
 import BOOKS from '../../config.books';
 import { getArchiveUrl } from '../../gateways/createBookConfigLoader';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
