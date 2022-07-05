@@ -81,7 +81,7 @@ function makeSitemapTask(services: AppOptions['services']) {
     );
     const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async(page) => {
       const archivePage = await getArchivePage(services, page);
-      return getSitemapItemOptions(archivePage, matchPathname(page));
+      return getSitemapItemOptions(archivePage, decodeURI(matchPathname(page)));
     });
     return renderAndSaveSitemap(
       writeS3ReleaseXmlFile,
