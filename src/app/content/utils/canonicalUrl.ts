@@ -57,7 +57,7 @@ export async function getCanonicalUrlParams(
       if (!done && mapsChecked.find((map) => isEqual(map, newMap))) {
         throw new Error(`Loop encountered in map for ${canonicalBook.id}`);
       }
-      canonicalMap = newMap;
+      done = true;
     }
   }
 
