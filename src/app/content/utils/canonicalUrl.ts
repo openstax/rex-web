@@ -42,7 +42,13 @@ export async function getCanonicalUrlParams(
       canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
       treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 
-      // check canonical book for its own map
+      // end loop if page found and no page map exists for canonical book
+      if (treeSection && !CANONICAL_MAP[canonicalBook.id]) {
+        done = true;
+        break;
+      }
+
+      // use map for canonical book if it exists
       const newMap = getCanonicalMap(canonicalBook.id);
       done = !newMap.length || isEqual(canonicalMap, newMap);
       // throw if the new map has already been checked
