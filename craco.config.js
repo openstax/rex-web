@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     plugins: [{
@@ -23,6 +24,12 @@ module.exports = {
                     process.exit(1);
                   }
                 }
+
+                webpackConfig.plugins.push(
+                  new webpack.optimize.LimitChunkCountPlugin({
+                    maxChunks: 15
+                  })
+                )
 
                 return webpackConfig;
               }

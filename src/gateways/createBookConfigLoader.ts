@@ -1,7 +1,7 @@
 import { REACT_APP_ARCHIVE_URL } from '../config';
 import BOOKS from '../config.books';
 import { acceptStatus } from '../helpers/fetch';
-import Sentry, { Severity } from '../helpers/Sentry';
+import Sentry from '../helpers/Sentry';
 
 type BookVersion = typeof BOOKS[0];
 
@@ -23,7 +23,7 @@ export default () => {
       .then((response) => response.json() as Promise<ReleaseJsonStructure>)
       .then((response) => response && {books: response.books, archiveUrl: response.archiveUrl})
       .catch((e) => {
-        Sentry.captureException(e, Severity.Warning);
+        Sentry.captureException(e, 'warning');
         return Promise.resolve(undefined);
       });
   };

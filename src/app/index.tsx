@@ -1,6 +1,7 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { StoreEnhancer } from 'redux';
 import analytics from '../helpers/analytics';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
@@ -90,7 +91,7 @@ export default (options: AppOptions) => {
 
   const reducer = createReducer(history);
 
-  const services = {
+  const services: AppServices = {
     ...defaultServices(),
     ...options.services,
     history,
@@ -101,15 +102,22 @@ export default (options: AppOptions) => {
     ...hooks.map((hook) => hook(services)),
   ];
 
+  const enhancers: StoreEnhancer[] = [];
+
   if (Sentry.shouldCollectErrors) {
-    middleware.push(Sentry.initializeWithMiddleware());
+    enhancers.push(Sentry.createReduxEnhancer());
   }
 
   const store = createStore({
+    enhancers,
     initialState,
     middleware,
     reducer,
   });
+
+  if (Sentry.shouldCollectErrors) {
+    Sentry.initialize(store);
+  }
 
   const container = () => (
     <Provider store={store}>

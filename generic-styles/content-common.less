@@ -69,7 +69,7 @@ figure {
 
   > figcaption {
     padding: 1rem;
-    font-size: 1.3rem;
+    .content-font-size(1.3rem);
   }
 
   // do not wrap this in a .media so it applies to editing in Aloha
@@ -161,7 +161,7 @@ figure[data-orient="vertical"] {
 }
 
 .footnote {
-  font-size: 1rem;
+  .content-font-size(1rem);
 }
 
 [data-type="footnote-ref"] {
@@ -183,7 +183,7 @@ figure[data-orient="vertical"] {
       top: 1.5rem;
       left: 1.5rem;
       color: @gray;
-      font-size: 1.7rem;
+      .content-font-size(1.7rem);
       font-weight: bold;
       letter-spacing: 0.1rem;
       text-transform: uppercase;
@@ -234,7 +234,7 @@ figure[data-orient="vertical"] {
   }
   .title(note) {
     color: @gray;
-    font-size: 1.5rem;
+    .content-font-size(1.5rem);
     letter-spacing: 0.1rem;
     text-transform: uppercase;
   }
@@ -284,14 +284,16 @@ figure[data-orient="vertical"] {
 }
 
 blockquote {
-  font-size: @base-font;
+  .content-font-size(@base-font);
 }
 
 .mixin-exercise() {
   [data-type="problem"],
   [data-type="solution"],
+  [data-type="exercise-question"],
   .problem,
-  .solution {
+  .solution,
+  .exercise-question {
     padding: 0.5em 1em;
   }
 
@@ -362,9 +364,10 @@ blockquote {
 
 [data-type="example"],
 [data-type="exercise"],
+[data-type="injected-exercise"],
 .example,
-.exercise {
-
+.exercise,
+.injected-exercise {
   .mixin-exercise();
 }
 
@@ -386,7 +389,7 @@ table {
 
   caption {
     margin-top: 0.5rem;
-    font-size: 1.3rem;
+    .content-font-size(1.3rem);
     text-align: left;
     caption-side: bottom;
 
@@ -397,7 +400,7 @@ table {
 
     > .title {
       display: block;
-      font-size: 1.8rem;
+      .content-font-size(1.8rem);
       font-weight: bold;
 
       &::before {

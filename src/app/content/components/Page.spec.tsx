@@ -25,6 +25,7 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
+import { textResizerDefaultValue } from '../constants';
 import { receiveHighlights } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
@@ -111,6 +112,7 @@ describe('Page', () => {
         ...initialState,
         book: formatBookData(book, mockCmsBook),
         page,
+        textSize: textResizerDefaultValue,
       },
     });
     state = store.getState();
