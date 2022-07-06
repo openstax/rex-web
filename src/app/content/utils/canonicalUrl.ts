@@ -29,7 +29,7 @@ export async function getCanonicalUrlParams(
   let canonicalPageId = pageId;
   let done = false;
   let canonicalBook;
-  let treeSection;
+  let canonicalBookWithPage;
 
   while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
@@ -40,9 +40,15 @@ export async function getCanonicalUrlParams(
       ).defaultVersion;
       canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
       canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
-      treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
+      const treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
+      if (!treeSection && canonicalBookWithPage) {
+        done = true;
+        break;
+      } else if (treeSection) {
+        canonicalBookWithPage = {canonicalBook, treeSection};
+      }
 
-      // check canonical book for its own map
+      // use canonical book's map
       const newMap = getCanonicalMap(canonicalBook.id);
       done = !newMap.length || isEqual(canonicalMap, newMap);
       // throw if the new map has already been checked
@@ -53,14 +59,14 @@ export async function getCanonicalUrlParams(
     }
   }
 
-  // use current page if page not found in canonical book
-  if (!treeSection && canonicalMap.length) {
-    treeSection = findArchiveTreeNodeById(book.tree, pageId);
-    canonicalBook = book;
+  // use current page if no canonical was found
+  if (!canonicalBookWithPage && canonicalMap.length) {
+    const treeSection = findArchiveTreeNodeById(book.tree, pageId);
+    canonicalBookWithPage = {canonicalBook: book, treeSection};
   }
-  if (treeSection) {
-    const pageInBook = assertDefined(treeSection.slug, 'Expected page to have slug.');
-    return {book: {slug: (canonicalBook as BookWithOSWebData).slug}, page: {slug: pageInBook}};
+  if (canonicalBookWithPage && canonicalBookWithPage.treeSection) {
+    const pageInBook = assertDefined(canonicalBookWithPage.treeSection.slug, 'Expected page to have slug.');
+    return {book: {slug: (canonicalBookWithPage.canonicalBook as BookWithOSWebData).slug}, page: {slug: pageInBook}};
   }
 
   return null;
