@@ -38,18 +38,23 @@ export async function getCanonicalUrlParams(
         getBookVersionFromUUIDSync(id),
         `We've already filtered out books that are not in the BOOK configuration`
       ).defaultVersion;
-      canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
-      canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
+      const useCurrentBookAsCanonical = book.id === id  && hasOSWebData(book);
+      canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id, version);
+      canonicalPageId = CANONICAL_PAGES_MAP[pageId] || canonicalPageId;
       treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 
-      // check canonical book for its own map
-      const newMap = getCanonicalMap(canonicalBook.id);
-      done = !newMap.length || isEqual(canonicalMap, newMap);
-      // throw if the new map has already been checked
-      if (!done && mapsChecked.find((map) => isEqual(map, newMap))) {
-        throw new Error(`Loop encountered in map for ${canonicalBook.id}`);
+      if (!useCurrentBookAsCanonical) {
+        const newMap = getCanonicalMap(canonicalBook.id);
+        // stop when we run out of canonical maps to check
+        done = !newMap.length || isEqual(canonicalMap, newMap);
+        // throw if the new map has already been checked
+        if (!done && mapsChecked.find((map) => isEqual(map, newMap))) {
+          throw new Error(`Loop encountered in map for ${canonicalBook.id}`);
+        }
+        canonicalMap = newMap;
+        break;
       }
-      canonicalMap = newMap;
+      done = true;
     }
   }
 
