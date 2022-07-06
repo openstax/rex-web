@@ -124,8 +124,10 @@ class Content(Page):
         :rtype: Content.FullPageNudge
 
         """
-        full_page_nudge = self.find_element(*self._full_page_nudge_locator)
-        return self.FullPageNudge(self, full_page_nudge)
+        if not self.error_shown():
+            full_page_nudge_root = self.find_element(*self._full_page_nudge_locator)
+            return self.FullPageNudge(self, full_page_nudge_root)
+        raise ContentError(f"Error modal displayed: {self.error.heading}")
 
     @property
     def mobile_search_toolbar(self) -> Content.MobileSearchToolbar:
@@ -383,13 +385,11 @@ class Content(Page):
             sleep(0.25)
             return self.error_shown(repeat - 1)
 
+    @property
     def full_page_nudge_displayed(self) -> bool:
         """Return true if highlighting/study guide nudge is displayed"""
-
-        try:
-            return bool(self.full_page_nudge)
-        except NoSuchElementException:
-            return False
+        sleep(0.25)
+        return bool(self.find_elements(*self._full_page_nudge_locator))
 
     def scroll_over_content_overlay(self):
         """Touch and scroll starting at on_element, moving by an offset.

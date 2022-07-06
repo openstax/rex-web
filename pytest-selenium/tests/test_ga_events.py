@@ -44,6 +44,8 @@ def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page
     store_events(selenium, base_url)
     topbar = book.topbar
 
+    if book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -96,6 +98,8 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, bo
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -143,6 +147,8 @@ def test_user_clicks_the_previous_and_next_page_link_ga_events(
     # GIVEN: a user viewing a book that is not the first book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -276,6 +282,8 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     # GIVEN: a user viewing a book page and the ToC is open
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     if book.is_mobile:
@@ -336,6 +344,8 @@ def test_click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
     # GIVEN: a user viewing a book page with a figure link
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -440,6 +450,8 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     # AND:   searched the book for a term
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     search = book.mobile_search_toolbar if book.is_mobile else book.toolbar
@@ -570,6 +582,8 @@ def test_banner_book_title_click_ga_event(selenium, base_url, book_slug, page_sl
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -647,6 +661,8 @@ def test_openstax_logo_click_ga_event(selenium, base_url, book_slug, page_slug):
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -695,6 +711,8 @@ def test_log_in_click_ga_event(selenium, base_url, book_slug, page_slug):
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -852,6 +870,8 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
@@ -905,6 +925,8 @@ def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -1314,6 +1336,8 @@ def test_inline_highlighting_login_nudge_ga_event(selenium, base_url, book_slug,
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -1457,6 +1481,8 @@ def test_study_guide_chapter_tag_ga_event(selenium, base_url, book_slug, page_sl
     # GIVEN: a user viewing a book study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     guide = book.toolbar.study_guides()
@@ -1498,6 +1524,8 @@ def test_study_guide_cta_sign_up_ga_event(selenium, base_url, book_slug, page_sl
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
@@ -1550,6 +1578,8 @@ def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -1612,6 +1642,8 @@ def test_sg_close_using_overlay_click_ga_event(selenium, base_url, book_slug, pa
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
@@ -1663,6 +1695,8 @@ def test_sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slu
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
@@ -1712,6 +1746,8 @@ def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
@@ -1776,6 +1812,8 @@ def test_study_guide_log_in_link_ga_event(selenium, base_url, book_slug, page_sl
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
@@ -1919,6 +1957,8 @@ def test_practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
     # GIVEN: a user viewing a book page with practice questions
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     initial_events = len(Utilities.get_analytics_queue(selenium))
@@ -1978,6 +2018,8 @@ def test_continue_to_questions_button_ga_event(selenium, base_url, book_slug, pa
     # GIVEN: a user viewing the practice modal for a page without questions
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2019,6 +2061,8 @@ def test_submit_practice_question_answer_ga_event(selenium, base_url, book_slug,
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2063,6 +2107,8 @@ def test_practice_question_finish_section_button_ga_event(selenium, base_url, bo
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2116,6 +2162,8 @@ def test_practice_show_answer_button_ga_event(selenium, base_url, book_slug, pag
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2167,6 +2215,8 @@ def test_skip_practice_question_ga_event(selenium, base_url, book_slug, page_slu
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2207,6 +2257,8 @@ def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, boo
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2237,14 +2289,18 @@ def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, boo
 def test_close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ESC key hit."""
     # SETUP:
-    event_action = "esc"
-    event_category = "REX Practice questions (close PQ popup)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
-    new_events = 1
+    key_press_event_action = "esc"
+    key_press_event_category = "REX Practice questions (close PQ popup)"
+    key_press_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    page_view_type = "pageview"
+    page_view_page = key_press_event_label
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     book.toolbar.practice()
@@ -2253,20 +2309,29 @@ def test_close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug,
     # WHEN:  they hit the escape key
     (ActionChains(selenium).send_keys(Keys.ESCAPE).perform())
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "esc",
     #          eventCategory: "REX Practice questions (close PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    key_press_event = events[-1]
+    key_press_event = events[-2]
+    page_view_event = events[-1]
     assert (
         "eventAction" in key_press_event
         and "eventCategory" in key_press_event
         and "eventLabel" in key_press_event
     ), "Not viewing the correct GA event"
-    assert event_action in key_press_event["eventAction"]
-    assert key_press_event["eventCategory"] == event_category
-    assert key_press_event["eventLabel"] == event_label
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
+    assert key_press_event_action in key_press_event["eventAction"]
+    assert key_press_event["eventCategory"] == key_press_event_category
+    assert key_press_event["eventLabel"] == key_press_event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
     assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
@@ -2291,6 +2356,8 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2303,39 +2370,39 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
     #        { eventAction: "Click to close Practice Questions modal",
     #          eventCategory: "REX Button",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    #        { hitType: "pageview",
-    #          page: "/books/{book_slug}/pages/{page_slug}" }
     # AND:   the correct Google Analytics button events are queued
     #        { eventAction: "button",
     #          eventCategory: "REX Practice questions (close PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
     close_event = events[-3]
-    page_view_event = events[-2]
     assert (
         "eventAction" in close_event
         and "eventCategory" in close_event
         and "eventLabel" in close_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
-    ), "Not viewing the correct GA event (pageview)"
     assert close_event_action in close_event["eventAction"]
     assert close_event["eventCategory"] == close_event_category
     assert close_event["eventLabel"] == close_event_label
-    assert page_view_event["hitType"] == page_view_type
-    assert page_view_event["page"] == page_view_page
 
-    button_event = events[-1]
+    button_event = events[-2]
+    page_view_event = events[-1]
     assert (
         "eventAction" in button_event
         and "eventCategory" in button_event
         and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
     assert button_event_action in button_event["eventAction"]
     assert button_event["eventCategory"] == button_event_category
     assert button_event["eventLabel"] == button_event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
     assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
@@ -2353,6 +2420,8 @@ def test_practice_read_link_ga_event(selenium, base_url, book_slug, page_slug):
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2395,6 +2464,8 @@ def test_pq_continue_to_next_section_button_click_ga_event(
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2448,6 +2519,8 @@ def test_practice_filter_ga_events(selenium, base_url, book_slug, page_slug):
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -2536,11 +2609,15 @@ def test_start_practice_ga_event(selenium, base_url, book_slug, page_slug):
 def user_setup(driver, base_url, book_slug, page_slug):
     """Setup a new user for use in Goggle Analytics event tests."""
     book = Content(driver, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     book.navbar.click_login()
     Signup(driver).register()
     book.wait_for_page_to_load()
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
