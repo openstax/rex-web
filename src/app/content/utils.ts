@@ -1,6 +1,5 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
-import BOOKS from '../../config.books';
-import { getArchiveUrl } from '../../gateways/createBookConfigLoader';
+import { getArchiveUrl, getBookVersionFromUUIDSync } from '../../gateways/createBookConfigLoader';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { isDefined } from '../guards';
 import { AppServices } from '../types';
@@ -141,6 +140,6 @@ export const loadPageContent = async(loader: ReturnType<AppServices['archiveLoad
 };
 
 export const getBookPipelineVersion = (book: Book): string => {
-  const url = BOOKS[book.id]?.archiveOverride || getArchiveUrl();
+  const url = getBookVersionFromUUIDSync(book.id)?.archiveOverride || getArchiveUrl();
   return url.replace(/^\/apps\/archive\//, '');
 };
