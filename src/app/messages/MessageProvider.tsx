@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { IntlShape, RawIntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
-import { book as bookSelector } from '../content/selectors';
 import { useServices } from '../context/Services';
-import { match as matchSelector } from '../navigation/selectors';
 import { assertDocument } from '../utils/browser-assertions';
 import createIntl from './createIntl';
+import { currentLocale } from './selectors';
 
 // tslint:disable-next-line:variable-name
 const MessageProvider = (props: { children?: React.ReactNode }) => {
-  const book = useSelector(bookSelector);
-  const route = useSelector(matchSelector)?.route;
   const services = useServices();
   const [intl, setIntl] = useState<IntlShape | null>(services.intl.current);
-
-  const bookLocale = React.useMemo(() => {
-    return route?.locale || book?.language;
-  }, [book, route]);
+  const bookLocale = useSelector(currentLocale);
 
   useEffect(() => {
     if (!bookLocale) {

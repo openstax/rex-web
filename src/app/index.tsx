@@ -91,7 +91,7 @@ export default (options: AppOptions) => {
 
   const reducer = createReducer(history);
 
-  const services = {
+  const services: AppServices = {
     ...defaultServices(),
     ...options.services,
     history,

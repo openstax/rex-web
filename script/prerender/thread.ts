@@ -81,7 +81,7 @@ function makeSitemapTask(services: AppOptions['services']) {
     );
     const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async(page) => {
       const archivePage = await getArchivePage(services, page);
-      return getSitemapItemOptions(archivePage, matchPathname(page));
+      return getSitemapItemOptions(archivePage, decodeURI(matchPathname(page)));
     });
     return renderAndSaveSitemap(
       writeS3ReleaseXmlFile,
@@ -100,7 +100,7 @@ function makeSitemapIndexTask(services: AppOptions['services']) {
     );
     const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
       const archiveBook = await getArchiveBook(services, book);
-      return getSitemapItemOptions(archiveBook, sitemapPath(book.params.book.slug));
+      return getSitemapItemOptions(archiveBook, `https://openstax.org${sitemapPath(book.params.book.slug)}`);
     });
     return renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, items);
   };

@@ -2,6 +2,7 @@ import { getBookVersionFromUUIDSync } from '../../../gateways/createBookConfigLo
 import { setHead } from '../../head/actions';
 import { Link } from '../../head/types';
 import createIntl from '../../messages/createIntl';
+import { locationChange } from '../../navigation/actions';
 import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
@@ -15,7 +16,7 @@ import { createTitle, getPageDescription } from '../utils/seoUtils';
 
 const escapeQuotes = (text: string) => text.replace(/"/g, '&quot;');
 
-const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
+const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (services) => async() => {
   const { getState, dispatch, archiveLoader, osWebLoader } = services;
 
   const state = getState();

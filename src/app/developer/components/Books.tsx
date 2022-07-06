@@ -33,8 +33,8 @@ const BookLI = styled.li`
   }
 `;
 
-export const exportBookHandler = (book: Book, intl: IntlShape) => () => {
-  downloadFile(`${book.title}.csv`, generateBookPageSpreadsheet(book, intl));
+export const exportBookHandler = (book: Book, intl: IntlShape) => async() => {
+  downloadFile(`${book.title}.csv`, await generateBookPageSpreadsheet(book, intl));
 };
 
 // tslint:disable-next-line:variable-name

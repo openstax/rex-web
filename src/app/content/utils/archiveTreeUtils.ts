@@ -26,7 +26,7 @@ export function flattenArchiveTree(tree: LinkedArchiveTree): Array<LinkedArchive
   // Cache is disabled for testing
   /* istanbul ignore next */
   if (CACHED_FLATTENED_TREES.has(tree.id)) {
-    return assertDefined(CACHED_FLATTENED_TREES.get(tree.id), `we've already checkf for .has(tree.id)`);
+    return assertDefined(CACHED_FLATTENED_TREES.get(tree.id), `we've already checked for .has(tree.id)`);
   }
   const flattened = [tree, ...flatten(tree.contents.map((section) =>
     flatten(isArchiveTree(section)

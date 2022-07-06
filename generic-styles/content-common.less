@@ -290,8 +290,10 @@ blockquote {
 .mixin-exercise() {
   [data-type="problem"],
   [data-type="solution"],
+  [data-type="exercise-question"],
   .problem,
-  .solution {
+  .solution,
+  .exercise-question {
     padding: 0.5em 1em;
   }
 
@@ -362,9 +364,10 @@ blockquote {
 
 [data-type="example"],
 [data-type="exercise"],
+[data-type="injected-exercise"],
 .example,
-.exercise {
-
+.exercise,
+.injected-exercise {
   .mixin-exercise();
 }
 
