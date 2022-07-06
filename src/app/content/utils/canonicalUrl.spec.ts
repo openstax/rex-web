@@ -8,6 +8,7 @@ import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
 import { receiveBook, receivePage } from '../actions';
 import { content } from '../routes';
+import { LinkedArchiveTreeSection } from '../types';
 import { formatBookData } from '../utils';
 import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
@@ -240,5 +241,53 @@ describe('getCanonicalURL', () => {
     expect(spy).toHaveBeenCalledWith(mockOtherBook.tree, 'testbook3-page');
 
     expect(res).toHaveProperty('page', { slug: 'testbook3-page' });
+  });
+
+  it('finds canonical page in the deepest canonical book', async() => {
+    helpers.archiveLoader.mockBook(mockBook);
+    helpers.archiveLoader.mockBook(mockOtherBook);
+
+    const bookId = book.id;
+    const pageId = page.id;
+
+    CANONICAL_MAP[bookId] = [['testbook2-uuid', { [pageId]: 'testbook2-page' }]];
+    CANONICAL_MAP['testbook2-uuid'] = [['testbook3-uuid', {'testbook2-page': 'testbook3-page'}]];
+    CANONICAL_MAP['testbook3-uuid'] = [['testbook3-uuid', {}]];
+
+    const node = archiveUtils.findArchiveTreeNodeById(book.tree, pageId);
+    const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNodeById')
+      .mockReturnValueOnce({ ...node, slug: 'testbook2-page' } as LinkedArchiveTreeSection)
+      .mockReturnValue({ ...node, slug: 'testbook3-page' } as LinkedArchiveTreeSection);
+
+    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+
+    expect(spy).toHaveBeenCalledWith(mockBook.tree, 'testbook2-page');
+    expect(spy).toHaveBeenCalledWith(mockOtherBook.tree, 'testbook3-page');
+
+    expect(res).toHaveProperty('page', { slug: 'testbook3-page' });
+  });
+
+  it('finds the deepest canonical page', async() => {
+    helpers.archiveLoader.mockBook(mockBook);
+    helpers.archiveLoader.mockBook(mockOtherBook);
+
+    const bookId = book.id;
+    const pageId = page.id;
+
+    CANONICAL_MAP[bookId] = [['testbook2-uuid', { [pageId]: 'testbook2-page' }]];
+    CANONICAL_MAP['testbook2-uuid'] = [['testbook3-uuid', {'testbook2-page': 'testbook3-page'}]];
+    CANONICAL_MAP['testbook3-uuid'] = [['testbook3-uuid', {}]];
+
+    const node = archiveUtils.findArchiveTreeNodeById(book.tree, pageId);
+    const spy = jest.spyOn(archiveUtils, 'findArchiveTreeNodeById')
+      .mockReturnValueOnce({ ...node, slug: 'testbook2-page' } as LinkedArchiveTreeSection)
+      .mockReturnValue(undefined);
+
+    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+
+    expect(spy).toHaveBeenCalledWith(mockBook.tree, 'testbook2-page');
+    expect(spy).toHaveBeenCalledWith(mockOtherBook.tree, 'testbook3-page');
+
+    expect(res).toHaveProperty('page', { slug: 'testbook2-page' });
   });
 });
