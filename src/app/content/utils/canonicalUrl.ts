@@ -41,8 +41,7 @@ export async function getCanonicalUrlParams(
       canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
       canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
       const treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
-
-      // use the most recent canonical page if none is found in current book
+      // use the most recent canonical page found if none is found in current book
       if (!treeSection && canonicalBookWithPage) {
         done = true;
         break;
@@ -57,7 +56,7 @@ export async function getCanonicalUrlParams(
       if (!done && mapsChecked.find((map) => isEqual(map, newMap))) {
         throw new Error(`Loop encountered in map for ${canonicalBook.id}`);
       }
-      done = true;
+      canonicalMap = newMap;
     }
   }
 
