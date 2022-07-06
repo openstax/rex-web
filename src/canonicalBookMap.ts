@@ -11,6 +11,7 @@ import macroeconomics from './canonicalBookMap/macroeconomics';
 import macroeconomicsAP from './canonicalBookMap/macroeconomicsAP';
 import microeconomics from './canonicalBookMap/microeconomics';
 import microeconomicsAP from './canonicalBookMap/microeconomicsAP';
+import physicsAP from './canonicalBookMap/physicsAP';
 import preAlgebra from './canonicalBookMap/preAlgebra';
 import sociology from './canonicalBookMap/sociology';
 
@@ -26,6 +27,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ...microeconomics,
   ...microeconomicsAP,
   ...macroeconomicsAP,
+  ...physicsAP,
   ...preAlgebra,
   ...sociology,
   /* Algebra & Trigonometry 2e */ 'eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e' : [
@@ -357,6 +359,9 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
     /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
+  ],
+  /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': [
+    /* College Physics 2e */ ['a31df062-930a-4f46-8953-605711e6d204', {}],
   ],
 };
 
