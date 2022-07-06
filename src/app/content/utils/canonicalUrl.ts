@@ -48,7 +48,7 @@ export async function getCanonicalUrlParams(
         break;
       }
 
-      // use map for canonical book if it exists
+      // use canonical book's map
       const newMap = getCanonicalMap(canonicalBook.id);
       done = !newMap.length || isEqual(canonicalMap, newMap);
       // throw if the new map has already been checked
