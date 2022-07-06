@@ -1,10 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import config from '../../config';
 import BOOKS from '../../config.books';
 import { book } from '../content/selectors';
+import { fromRelativeUrl, isAbsoluteUrl } from '../content/utils/urlUtils';
 import { query } from '../navigation/selectors';
 import { assertDefined } from '../utils/assertions';
+
+const { REACT_APP_ARCHIVE_URL } = config;
 
 // tslint:disable-next-line: variable-name
 export const WithStyles = styled.div`
@@ -22,8 +26,8 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   { children, disable, ...otherProps }: React.PropsWithChildren<DynamicContentStylesProps>,
   ref
 ) => {
-  const queryParams = useSelector(query);
   const [styles, setStyles] = React.useState('');
+  const queryParams = useSelector(query);
   const currentBook = useSelector(book);
 
   React.useEffect(() => {
@@ -33,12 +37,19 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
     }
 
     let cssfileUrl = queryParams['content-style'];
-    if (!cssfileUrl && currentBook) {
+
+    if (!cssfileUrl && currentBook && currentBook.style_href) {
       const bookConfig = BOOKS[currentBook.id];
       if (bookConfig && bookConfig.dynamicStyles) {
         cssfileUrl = currentBook.style_href;
+
+        if (!isAbsoluteUrl(cssfileUrl)) {
+          const archiveUrl = `${bookConfig.archiveOverride || REACT_APP_ARCHIVE_URL}/`;
+          cssfileUrl = fromRelativeUrl(archiveUrl, cssfileUrl);
+        }
       }
     }
+
     if (cssfileUrl && typeof cssfileUrl === 'string') {
       if (cacheStyles.has(cssfileUrl)) {
         setStyles(assertDefined(cacheStyles.get(cssfileUrl), `we've just checked for this`));

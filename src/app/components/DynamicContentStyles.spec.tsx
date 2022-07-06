@@ -72,7 +72,7 @@ describe('DynamicContentStyles', () => {
 
     const withStyles = componenet.root.findByType(WithStyles);
     expect(withStyles.props.styles).toEqual('.cool { color: red; }');
-    expect(spyFetch).toHaveBeenCalledWith('file3.css');
+    expect(spyFetch).toHaveBeenCalledWith('/apps/archive/codeversion/file3.css');
 
     spyFetch.mockClear();
   });
@@ -92,7 +92,7 @@ describe('DynamicContentStyles', () => {
     spyFetch.mockClear();
   });
 
-  it('noops if disabled is passed', async() => {
+  it('noops if disable is passed', async() => {
     store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
     const spyFetch = jest.spyOn(globalThis, 'fetch')
       .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
