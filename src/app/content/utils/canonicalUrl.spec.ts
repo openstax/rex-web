@@ -267,7 +267,7 @@ describe('getCanonicalURL', () => {
     expect(res).toHaveProperty('page', { slug: 'testbook3-page' });
   });
 
-  it('finds the deepest canonical page', async() => {
+  it('finds canonical page when page is not found in deepest book', async() => {
     helpers.archiveLoader.mockBook(mockBook);
     helpers.archiveLoader.mockBook(mockOtherBook);
 
