@@ -1,0 +1,17 @@
+[
+  {
+    "bookId": "ee7ce46b-0972-4b2c-bc6e-8998c785cd57",
+    "pageId": "f85181aa-b981-4c9b-8419-1c8211ff09db",
+    "pathname": "/books/writing-guide/pages/1-unit-introduction"
+  },
+  {
+    "bookId": "ee7ce46b-0972-4b2c-bc6e-8998c785cd57",
+    "pageId": "f0cccdf3-f00f-4721-acb4-b8bba1a6cb36",
+    "pathname": "/books/writing-guide/pages/2-unit-introduction"
+  },
+  {
+    "bookId": "ee7ce46b-0972-4b2c-bc6e-8998c785cd57",
+    "pageId": "46e5f602-9eeb-41c8-bb83-33e0f191454d",
+    "pathname": "/books/writing-guide/pages/3-unit-introduction"
+  }
+]
