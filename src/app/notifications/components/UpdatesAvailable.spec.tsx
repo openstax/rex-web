@@ -1,40 +1,135 @@
+import { ReactTestRenderer } from 'react-test-renderer';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 
 describe('UpdatesAvailable', () => {
-  const reloadBackup = window!.location.reload;
+  const locationBackup = window!.location;
+  const serviceWorkerBackup = window!.navigator.serviceWorker;
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer']; // tslint:disable-line:variable-name
   let UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
-  let serviceWorkerNeedsUpdate: jest.SpyInstance;
-  let reload: jest.SpyInstance;
+  const sw = { update: () => Promise.resolve() };
+  let resolveReadyPromise: (sw: { update: () => Promise<void> }) => void;
 
   beforeEach(() => {
-    reload = jest.fn();
     Object.defineProperty(window, 'location', {
-      value: { reload },
+      configurable: true, value: { reload: jest.fn() },
+    });
+    Object.defineProperty(window!.navigator, 'serviceWorker', {
+      configurable: true, value: { ready: new Promise((resolve) => resolveReadyPromise = resolve) },
     });
     resetModules();
     ({React, renderer, TestContainer} = reactAndFriends());
     UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
-    serviceWorkerNeedsUpdate = jest.spyOn(require('../../../helpers/applicationUpdates'), 'serviceWorkerNeedsUpdate');
   });
 
   afterEach(() => {
     Object.defineProperty(window, 'location', {
-      value: { reload: reloadBackup },
+      configurable: true, value: locationBackup,
+    });
+    Object.defineProperty(window!.navigator, 'serviceWorker', {
+      configurable: true, value: serviceWorkerBackup,
     });
   });
 
-  it('reloads on click', () => {
-    const component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
-    component.root.findByType('button').props.onClick();
-    expect(reload).toHaveBeenCalled();
+  it('reloads on click', async() => {
+    let component: ReactTestRenderer;
+    // wait for useEffect()
+    renderer.act(() => {
+      component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
+    });
+    // resolve the readyPromise
+    renderer.act(() => resolveReadyPromise(sw));
+    // wait for the component to re-render
+    await new Promise((resolve) => setImmediate(resolve));
+    component!.root.findByType('button').props.onClick();
+    expect(window!.location.reload).toHaveBeenCalled();
   });
 
-  it('doesn\'t render until reload is ready', () => {
-    serviceWorkerNeedsUpdate.mockReturnValue(true);
-    const component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
-    expect(component.root.findAllByType('button').length).toBe(0);
+  it('doesn\'t render until the serviceWorker is ready', async() => {
+    let component: ReactTestRenderer;
+    // wait for useEffect()
+    renderer.act(() => {
+      component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
+    });
+    // wait for the component to re-render
+    await new Promise((resolve) => setImmediate(resolve));
+    expect(component!.root.findAllByType('button').length).toBe(0);
   });
+
+  it('renders immediately if the browser does not support serviceWorkers', async() => {
+    Object.defineProperty(window!.navigator, 'serviceWorker', {
+      configurable: true, value: undefined,
+    });
+
+    let component: ReactTestRenderer;
+    // wait for useEffect()
+    renderer.act(() => {
+      component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
+    });
+    // wait for the component to re-render
+    await new Promise((resolve) => setImmediate(resolve));
+    expect(component!.root.findAllByType('button').length).toBe(1);
+  });
+
+  it('doesn\'t render if the serviceWorker or readyPromise change after render(),\
+      then the old readyPromise is resolved', async() => {
+      let component: ReactTestRenderer;
+
+      // wait for useEffect()
+      await renderer.act(async() => {
+        component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
+
+        // wait for the component to render
+        await new Promise((resolve) => setImmediate(resolve));
+
+        // replace the readyPromise before useEffect()
+        Object.defineProperty(window!.navigator, 'serviceWorker', {
+          configurable: true, value: {
+            ready: Promise.resolve(sw),
+          },
+        });
+      });
+
+      // resolve the readyPromise
+      renderer.act(() => resolveReadyPromise(sw));
+      // wait for the component to re-render
+      await new Promise((resolve) => setImmediate(resolve));
+      expect(component!.root.findAllByType('button').length).toBe(0);
+
+      renderer.act(() => {
+        component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
+      });
+      // wait for the component to render
+      await new Promise((resolve) => setImmediate(resolve));
+      expect(component!.root.findAllByType('button').length).toBe(1);
+    }
+  );
+
+  it('doesn\'t render if the serviceWorker or readyPromise change after useEffect(),\
+      then the old readyPromise is resolved', async() => {
+      let component: ReactTestRenderer;
+
+      // wait for useEffect()
+      renderer.act(() => {
+        component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
+      });
+      // replace the readyPromise after useEffect()
+      Object.defineProperty(window!.navigator, 'serviceWorker', {
+        configurable: true, value: { ready: Promise.resolve(sw) },
+      });
+      // resolve the readyPromise
+      renderer.act(() => resolveReadyPromise(sw));
+      // wait for the component to re-render
+      await new Promise((resolve) => setImmediate(resolve));
+      expect(component!.root.findAllByType('button').length).toBe(0);
+
+      renderer.act(() => {
+        component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
+      });
+      // wait for the component to render
+      await new Promise((resolve) => setImmediate(resolve));
+      expect(component!.root.findAllByType('button').length).toBe(1);
+    }
+  );
 });

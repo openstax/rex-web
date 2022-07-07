@@ -52,7 +52,8 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     return; // book changed while query was in the air
   }
 
-  const searchResultHit = meta && meta.searchScrollTarget && findSearchResultHit(results, meta.searchScrollTarget);
+  const searchResultHit = meta && meta.searchScrollTarget &&
+    findSearchResultHit(results, meta.searchScrollTarget, state?.content?.page?.id);
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
     : getFirstResult(book, payload);
@@ -129,7 +130,8 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async() =
   const scrollTarget = selectNavigation.scrollTarget(state);
   const searchScrollTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? scrollTarget : null;
   const searchHits = select.hits(state);
-  const targettedHit = searchScrollTarget && findSearchResultHit(searchHits, searchScrollTarget);
+  const targettedHit = searchScrollTarget &&
+    findSearchResultHit(searchHits, searchScrollTarget, state?.content?.page?.id);
   const navigationSelectedResult = targettedHit && searchScrollTarget
     ? { result: targettedHit, highlight: searchScrollTarget.index }
     : null;

@@ -20,9 +20,7 @@ interface Props {
 const MyHighlightsWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
   height: auto;
-  ${(props: { practiceQuestionsEnabled: boolean }) => {
-    if (props.practiceQuestionsEnabled) { return `margin-right: 0;`; }
-  }}
+  padding: 0;
 
   > svg {
     ${toolbarIconStyles}
@@ -32,12 +30,12 @@ const MyHighlightsWrapper = styled(PlainButton)`
 // tslint:disable-next-line:variable-name
 const MyHighlightsText = styled.span`
   ${toolbarDefaultText}
-  font-size: 1.8rem;
-  line-height: 2.9rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightButton = ({ openMyHighlights }: Props) => {
+const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
   const practiceQuestionsEnabled = useSelector(practiceQuestionsEnabledSelector);
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
@@ -49,6 +47,7 @@ const HighlightButton = ({ openMyHighlights }: Props) => {
   const text = useIntl().formatMessage({id: 'i18n:toolbar:highlights:text'});
 
   return <MyHighlightsWrapper
+    isActive={myHighlightsOpen}
     onClick={() => openHighlightsSummary()}
     aria-label={text}
     data-analytics-label='My highlights'

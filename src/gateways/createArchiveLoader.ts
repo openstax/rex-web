@@ -44,15 +44,18 @@ const defaultOptions = () => ({
   pageCache: createCache<string, ArchivePage>({maxRecords: 20}),
 });
 
-export default (archivePath: string, options: Options = {}) => {
+export default (getArchivePath: () => string, options: Options = {}) => {
   const {pageCache, bookCache, appPrefix, archivePrefix, disablePerBookPinning} = {
     ...defaultOptions(),
     ...options,
   };
 
-  const contentUrlBase = (host: string, bookId: string) => disablePerBookPinning
-    ? `${host}${archivePath}`
-    : `${host}${getBookVersionFromUUIDSync(bookId)?.archiveOverride || archivePath}`;
+  const contentUrlBase = (host: string, bookId: string) => {
+    const archivePath = getArchivePath();
+    return disablePerBookPinning
+      ? `${host}${archivePath}`
+      : `${host}${getBookVersionFromUUIDSync(bookId)?.archiveOverride || archivePath}`;
+  };
   const contentUrl = (host: string, bookId: string, ref: string) =>
     `${contentUrlBase(host, bookId)}/contents/${ref}.json`;
 

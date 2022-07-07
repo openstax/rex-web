@@ -20,7 +20,7 @@ describe('sessionStarted', () => {
 
       result.getEventCapturePayload();
 
-      expect(factory).toHaveBeenCalledWith();
+      expect(factory).toHaveBeenCalledWith({releaseId: 'test'});
     });
   });
 });

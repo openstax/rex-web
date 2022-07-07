@@ -12,7 +12,7 @@ import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
-import { openToc, receiveBook, receivePage } from '../actions';
+import { openToc, receiveBook, receivePage, setTextSize } from '../actions';
 import { content } from '../routes';
 import { openMobileToolbar } from '../search/actions';
 import { formatBookData } from '../utils';
@@ -57,6 +57,8 @@ describe('content', () => {
         },
       })
     );
+    store.dispatch(setTextSize(0));
+
     services = {
       ...createTestServices(),
       dispatch: store.dispatch,
@@ -207,7 +209,7 @@ describe('content', () => {
     expect(pageComponent).toBeDefined();
   });
 
-  it('renders with ToC in null state', () => {
+  it('renders with ToC open in null state', () => {
     store.dispatch(receiveBook(bookState));
 
     const component = renderer.create(
@@ -268,7 +270,7 @@ describe('content', () => {
 
     renderer.act(() => {
       component.root
-        .findByProps({ 'aria-label': 'Click to close the Table of Contents' })
+        .findAllByProps({ 'aria-label': 'Click to close the Table of Contents' })[0]
         .props.onClick();
     });
 

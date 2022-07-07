@@ -1,6 +1,7 @@
 /** @jest-environment puppeteer */
 import { Page } from 'puppeteer';
 import { finishRender, navigate, setDesktopViewport, setMobileViewport } from '../../../test/browserutils';
+import { cookieNudge } from './NudgeStudyTools/constants';
 
 const TEST_PAGE_NAME = 'test-page-for-generic-styles';
 const TEST_ANCHOR = 'term103';
@@ -9,9 +10,17 @@ const TEST_CASES: { [testCase: string]: (target: Page) => Promise<void> } = {
   Desktop: setDesktopViewport, Mobile: setMobileViewport,
 };
 const EXPECTED_SCROLL_TOPS: { [testCase: string]: number[] } = {
-  Desktop: [242, 90, 122, 242, 365, 668, 761, 1262, 1606],
+  Desktop: [242, 90, 122, 242, 365, 668, 761, 1263, 1607],
   Mobile: [239, 66, 96, 239, 523, 1263, 1402, 1751, 2118],
 };
+
+beforeAll(async() => {
+  await page.setCookie({
+    domain: 'localhost',
+    name: cookieNudge.date,
+    value: new Date().toString(),
+  });
+});
 
 describe('Content', () => {
   for (const testCase of Object.keys(TEST_CASES)) {
