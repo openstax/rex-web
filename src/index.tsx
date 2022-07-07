@@ -4,12 +4,14 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
+import createIntl from './app/messages/createIntl';
+import { currentLocale } from './app/messages/selectors';
 import { updateAvailable } from './app/notifications/actions';
 import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
-import createBookConfigLoader from './gateways/createBookConfigLoader';
+import createBookConfigLoader, { getArchiveUrl } from './gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from './gateways/createBuyPrintConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
@@ -36,8 +38,9 @@ if (window.top === window.self) {
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
-const archiveUrl = config.REACT_APP_ARCHIVE_URL_OVERRIDE ||
-  assertDefined(config.REACT_APP_ARCHIVE_URL, 'REACT_APP_ARCHIVE_URL must be defined');
+const archiveUrl = config.REACT_APP_ARCHIVE_URL_OVERRIDE
+  ? () => assertDefined(config.REACT_APP_ARCHIVE_URL_OVERRIDE, 'REACT_APP_ARCHIVE_URL_OVERRIDE must be defined')
+  : getArchiveUrl;
 
 const osWebUrl = assertDefined(config.REACT_APP_OS_WEB_API_URL, 'REACT_APP_OS_WEB_API_URL must be defined');
 const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');
@@ -83,9 +86,19 @@ app.services.promiseCollector.calm().then(() => {
 });
 
 if (window.__PRELOADED_STATE__) {
-  Loadable.preloadReady().then(() => {
-    ReactDOM.hydrate(<app.container />, document.getElementById('root'), doneRendering);
-  });
+  Loadable.preloadReady()
+    .then(() => {
+      // during pre-rendering this happens in src/app/content/hooks/intlHook.ts
+      // it would be nice to consolodate this logic, but in hydration we don't necessarily
+      // want to wait for promiseCollector.calm() before rendering _anything_, so there are some
+      // discrepancies in the flow that make the logic annoying.
+      const locale = currentLocale(app.store.getState());
+      return locale ? createIntl(locale) : null;
+    })
+    .then((intl) => {
+      app.services.intl.current = intl;
+      ReactDOM.hydrate(<app.container />, document.getElementById('root'), doneRendering);
+    });
 } else {
   ReactDOM.render(<app.container />, document.getElementById('root'), doneRendering);
 }
@@ -113,8 +126,6 @@ loadOptimize(window, app.store);
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
   .then((registration) => {
-    app.services.serviceWorker = registration;
-
     if (!window.navigator.serviceWorker.controller) {
       return;
     }

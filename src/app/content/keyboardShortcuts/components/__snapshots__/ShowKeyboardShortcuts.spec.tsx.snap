@@ -1,0 +1,242 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
+<div
+  className="PopupStyles__PopupBody-w0z1hl-2 ShowKeyboardShortcuts__ShowKeyboardShortcutsBody-sc-12dalxo-0 eGlfQX"
+  data-analytics-region="KS popup"
+  data-testid="show-keyboard-shortcuts-body"
+>
+  <div
+    className="ShowKeyboardShortcuts__ShortcutsHeadingDiv-sc-12dalxo-1 pcTDQ"
+  >
+    Using a Keyboard for Navigation
+  </div>
+  <div
+    className="ShowKeyboardShortcuts__ShortcutsCard-sc-12dalxo-2 goyzXO"
+  >
+    <div
+      className="ShowKeyboardShortcuts__ShortcutsTable-sc-12dalxo-3 grHFdD"
+    >
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Shift
+          </span>
+           + 
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            ?
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Pull up keyboard shortcuts menu
+        </div>
+      </div>
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Tab
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Move forward through book page elements, highlights and notes
+        </div>
+      </div>
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Shift
+          </span>
+           + 
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Tab
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Move backward through book page elements, highlights and notes
+        </div>
+      </div>
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            h
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Move focus into and out of a note
+        </div>
+      </div>
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Tab
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Move through note editing options
+        </div>
+      </div>
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Space
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Select a different highlight color
+        </div>
+      </div>
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Enter
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Save or Cancel note edits
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="ShowKeyboardShortcuts__ShortcutsHeadingDiv-sc-12dalxo-1 pcTDQ"
+  >
+    Creating Highlights and Notes with a Keyboard
+  </div>
+  <div
+    className="ShowKeyboardShortcuts__CaretMessageDiv-sc-12dalxo-7 dCQGYV"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "This functionality requires the use of a <strong>Caret Browsing extension</strong>, which enables you to browse and select the text of web pages using arrow keys.",
+      }
+    }
+  />
+  <div
+    className="ShowKeyboardShortcuts__ShortcutsCard-sc-12dalxo-2 goyzXO"
+  >
+    <div
+      className="ShowKeyboardShortcuts__ShortcutsTable-sc-12dalxo-3 grHFdD"
+    >
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Arrows
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Move focus through each line of text
+        </div>
+      </div>
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Shift
+          </span>
+           + 
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            Arrows
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Select text
+        </div>
+      </div>
+      <div
+        className="ShowKeyboardShortcuts__ShortcutRow-sc-12dalxo-4 iaCHkf"
+      >
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          <span
+            className="ShowKeyboardShortcuts__ShortcutKey-sc-12dalxo-6 kUZwXn"
+          >
+            h
+          </span>
+        </div>
+        <div
+          className="ShowKeyboardShortcuts__ShortcutBlock-sc-12dalxo-5 fkJiLz"
+        >
+          Create a highlight or note after selecting text
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

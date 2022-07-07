@@ -4,48 +4,67 @@ import styled, { css } from 'styled-components/macro';
 import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
+import { remsToEms } from '../../utils';
 import { closeToc } from '../actions';
 import { State } from '../types';
 import {
+  contentWrapperMaxWidth,
+  mainContentBackground,
   sidebarDesktopWidth,
-  sidebarMobileWidth,
-  sidebarTransitionTime,
+  sidebarDesktopWithToolbarWidth,
+  verticalNavbarMaxWidth,
 } from './constants';
-import { isOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
+import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
+export const contentWrapperWidthBreakpoint = '(max-width: ' + remsToEms(contentWrapperMaxWidth) + 'em)';
+export const contentWrapperAndNavWidthBreakpoint =
+  '(max-width: ' + remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2) + 'em)';
+export const contentWrapperBreakpointStyles = `
+  @media screen and ${contentWrapperAndNavWidthBreakpoint} {
+    padding-left: calc(${sidebarDesktopWithToolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2);
+  }
+
+  @media screen and ${contentWrapperWidthBreakpoint} {
+    padding-left: ${sidebarDesktopWithToolbarWidth}rem;
+  }
+`;
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div<{isOpen: State['tocOpen']}>`
+const Wrapper = styled.div`
   @media screen {
     flex: 1;
     width: 100%;
     overflow: visible;
-    transition: margin-left ${sidebarTransitionTime}ms;
-    ${styleWhenSidebarClosed(css`
-      margin-left: -${sidebarDesktopWidth}rem;
+    background-color: ${mainContentBackground};
+    padding-left: ${sidebarDesktopWidth}rem;
+    ${contentWrapperBreakpointStyles}
+    ${theme.breakpoints.mobile(css`
+      padding-left: 0;
     `)}
 
-    ${theme.breakpoints.mobile(css`
-      margin-left: -${sidebarMobileWidth}rem;
+    ${styleWhenSidebarClosed(css`
+      padding-left: 0 !important;
     `)}
   }
 `;
 
 interface Props {
-  isOpen: State['tocOpen'];
+  isDesktopSearchOpen: boolean;
+  isVerticalNavOpen: State['tocOpen'];
   onClick: () => void;
 }
 
 // tslint:disable-next-line:variable-name
-const ContentPane = ({isOpen, onClick, children}: React.PropsWithChildren<Props>) => <Wrapper isOpen={isOpen}>
-  {isOpen &&
-    <ScrollLock
-      onClick={onClick}
-      mobileOnly={true}
-      overlay={true}
-      zIndex={theme.zIndex.overlay}
-    />}
-  {children}
-</Wrapper>;
+const ContentPane = ({ isDesktopSearchOpen, isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
+  <Wrapper isVerticalNavOpen={isVerticalNavOpen} isDesktopSearchOpen={isDesktopSearchOpen}>
+      {isVerticalNavOpen &&
+        <ScrollLock
+          onClick={onClick}
+          mediumScreensOnly={true}
+          overlay={true}
+          zIndex={theme.zIndex.overlay}
+      />}
+    {children}
+  </Wrapper>;
 
 const dispatchConnector = connect(
   () => ({}),
@@ -54,4 +73,4 @@ const dispatchConnector = connect(
   })
 );
 
-export default isOpenConnector(dispatchConnector(ContentPane));
+export default isVerticalNavOpenConnector(dispatchConnector(ContentPane));

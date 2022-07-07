@@ -1,5 +1,7 @@
 import { createStandardAction } from 'typesafe-actions';
+import { TextResizerValue } from './constants';
 import * as highlightingActions from './highlights/actions';
+import * as keyboardShortcutsActions from './keyboardShortcuts/actions';
 import * as practiceQuestionsActions from './practiceQuestions/actions';
 import * as searchActions from './search/actions';
 import * as studyGuidesActions from './studyGuides/actions';
@@ -9,10 +11,14 @@ export const search = searchActions;
 export const highlighting = highlightingActions;
 export const studyGuides = studyGuidesActions;
 export const practiceQuestions = practiceQuestionsActions;
+export const keyboardShortcuts = keyboardShortcutsActions;
 
 export const openToc = createStandardAction('Content/openToc')<void>();
 export const closeToc = createStandardAction('Content/closeToc')<void>();
 export const resetToc = createStandardAction('Content/resetToc')<void>();
+
+export const openMobileMenu = createStandardAction('Content/openMobileMenu')<void>();
+export const closeMobileMenu = createStandardAction('Content/closeMobileMenu')<void>();
 
 export const receiveBuyPrintConfig = createStandardAction('Content/receiveBuyPrintConfig')<State['buyPrint']>();
 
@@ -27,3 +33,5 @@ export const receivePageNotFoundId = createStandardAction('Content/receivePageNo
 
 export const openNudgeStudyTools = createStandardAction('Content/openNudgeStudyTools')();
 export const closeNudgeStudyTools = createStandardAction('Content/closeNudgeStudyTools')();
+
+export const setTextSize = createStandardAction('Content/setTextSize')<TextResizerValue>();

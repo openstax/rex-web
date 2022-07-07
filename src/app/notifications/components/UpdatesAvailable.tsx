@@ -1,12 +1,12 @@
+import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
   activateSwAndReload,
   findAndInstallServiceWorkerUpdate,
-  serviceWorkerNeedsUpdate
 } from '../../../helpers/applicationUpdates';
 import Button, { ButtonGroup } from '../../components/Button';
-import { useServices } from '../../context/Services';
+import { assertWindow } from '../../utils';
 import { Body, Group, Header, P } from './Card';
 
 /*
@@ -16,15 +16,22 @@ import { Body, Group, Header, P } from './Card';
 
 // tslint:disable-next-line:variable-name
 const UpdatesAvailable = ({className}: {className?: string}) => {
-  const sw = useServices().serviceWorker;
-  const [readyToReload, setReadyToReload] = useState<boolean>(!serviceWorkerNeedsUpdate(sw));
+  const readyPromise = assertWindow().navigator.serviceWorker?.ready;
+  const [sw, setSw] = useState<ServiceWorkerRegistration | undefined>(undefined);
 
   useEffect(() => {
-    findAndInstallServiceWorkerUpdate(sw, () => setReadyToReload(true));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    readyPromise?.then((registration) => {
+      // check that the readyPromise hasn't changed
+      if (assertWindow().navigator.serviceWorker?.ready === readyPromise) {
+        findAndInstallServiceWorkerUpdate(registration, () => setSw(registration));
+      }
+    });
+  }, [readyPromise]);
 
-  if (!readyToReload) {
+  // if the readyPromise exists, wait for it before rendering
+  // if it doesn't exist, we render anyway and in that case
+  // onClick() calls activateSwAndReload(undefined) to reload without waiting
+  if (readyPromise && !sw) {
     return null;
   }
 

@@ -1,5 +1,5 @@
 # this dockerfile is not for production, its for QA and CI
-FROM debian:buster as utils
+FROM debian:buster AS utils
 
 # general utils
 RUN apt-get update && apt-get install -y \
@@ -33,11 +33,12 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | b
   NVM_DIR="$HOME/.nvm" && . $HOME/.nvm/nvm.sh && \
   cd && nvm install && \
   npm install -g yarn && \
-  ln -s $(dirname $(which node)) /usr/local/node-bin
+  mv $(dirname $(dirname $(which node))) /usr/local/node && \
+  rm -r "$NVM_DIR"
 
-ENV PATH /usr/local/node-bin:$PATH
+ENV PATH /usr/local/node/bin:$PATH
 
-from utils as CI
+FROM utils AS ci
 
 # shellcheck (apt version is very old)
 # includes crazy hack around some linking issue from https://github.com/koalaman/shellcheck/issues/1053#issuecomment-357816927
@@ -94,3 +95,30 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 FROM utils AS release
+
+# Docker trickery so we can reuse the yarn install layer until package.json or yarn.lock change
+COPY package.json yarn.lock /code/
+WORKDIR /code
+RUN yarn install
+
+COPY . /code
+
+ARG BOOKS
+ENV BOOKS=${BOOKS}
+
+ARG IMAGE_TAG
+ENV IMAGE_TAG=${IMAGE_TAG}
+
+ARG PUBLIC_URL
+ENV PUBLIC_URL=${PUBLIC_URL}
+
+ARG REACT_APP_CODE_VERSION
+ENV REACT_APP_CODE_VERSION=${REACT_APP_CODE_VERSION}
+
+ARG REACT_APP_RELEASE_ID
+ENV REACT_APP_RELEASE_ID=${REACT_APP_RELEASE_ID}
+
+ARG REACT_APP_ENV
+ENV REACT_APP_ENV=${REACT_APP_ENV}
+
+RUN yarn build:clean

@@ -2,6 +2,7 @@
 import {
   checkLighthouse,
   desktopWidth,
+  finishRender,
   h1Content,
   navigate,
 } from '../../test/browserutils';
@@ -12,9 +13,18 @@ const TEST_LONG_PAGE_NAME = '2-test-page-3';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_LONG_PAGE_URL = `/books/book-slug-1/pages/${TEST_LONG_PAGE_NAME}`;
 
+beforeAll(async() => {
+  await page.setCookie({
+    domain: 'localhost',
+    name: cookieNudge.date,
+    value: new Date().toString(),
+  });
+});
+
 describe('content', () => {
   it('has SkipToContent link as the first tabbed-to element', async() => {
     await navigate(page, TEST_LONG_PAGE_URL);
+    await finishRender(page);
     await page.keyboard.press('Tab');
 
     const isSkipToContentSelected = await page.evaluate(() => {
@@ -30,10 +40,6 @@ describe('content', () => {
   });
 
   it('a11y lighthouse check', async() => {
-    await page.setCookie({
-      name: cookieNudge.date,
-      value: new Date().toString(),
-    });
     await checkLighthouse(browser, TEST_LONG_PAGE_URL);
   });
 
