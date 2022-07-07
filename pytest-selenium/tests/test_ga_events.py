@@ -779,7 +779,7 @@ def test_new_highlight_ga_event(selenium, base_url, book_slug, page_slug):
     assert highlight_event["eventAction"] == highlight_event_action
     assert highlight_event["eventCategory"] == highlight_event_category
     assert highlight_event["eventLabel"] == highlight_event_label
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621346")
@@ -830,7 +830,7 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
     assert delete_event["eventAction"] == event_action
     assert delete_event["eventCategory"] == event_category
     assert delete_event["eventLabel"] == event_label
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621347")
@@ -881,7 +881,7 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
     assert delete_event["eventAction"] == event_action
     assert delete_event["eventCategory"] == event_category
     assert delete_event["eventLabel"] == event_label
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621348")
@@ -957,7 +957,7 @@ def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
     assert log_in_event["eventLabel"] == log_in_event_label
     assert unload_event["eventAction"] == unload_event_action
     assert unload_event["eventCategory"] == unload_event_category
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621349")
@@ -1009,7 +1009,7 @@ def test_cancel_highlight_delete_ga_event(selenium, base_url, book_slug, page_sl
     assert cancel_event["eventAction"] == cancel_event_action
     assert cancel_event["eventCategory"] == cancel_event_category
     assert cancel_event["eventLabel"] == cancel_event_label
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621350")
@@ -1061,7 +1061,7 @@ def test_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
     assert delete_event["eventAction"] == event_action
     assert delete_event["eventCategory"] == event_category
     assert delete_event["eventLabel"] == event_label
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621351", "C621352")
@@ -1134,7 +1134,7 @@ def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
     assert color_confirmation["eventAction"] == color_confirmation_action
     assert color_confirmation["eventCategory"] == color_confirmation_category
     assert color_confirmation["eventLabel"] == color_confirmation_label
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621353", "C621354")
@@ -1203,7 +1203,7 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
     assert color_confirmation["eventAction"] == color_confirmation_action
     assert color_confirmation["eventCategory"] == color_confirmation_category
     assert color_confirmation["eventLabel"] == color_confirmation_label
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621355")
@@ -1253,7 +1253,7 @@ def test_change_highlight_color_ga_event(selenium, base_url, book_slug, page_slu
     assert color_change_event["eventAction"] == color_change_event_action
     assert color_change_event["eventCategory"] == color_change_event_category
     assert color_change_event["eventLabel"] == color_change_event_label
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"  # noqa
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C597671")
