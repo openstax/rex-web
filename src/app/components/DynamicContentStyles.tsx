@@ -26,6 +26,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const [styles, setStyles] = React.useState('');
   const queryParams = useSelector(query);
   const currentBook = useSelector(book);
+  const bookConfig = currentBook && getBookVersionFromUUIDSync(currentBook.id);
 
   React.useEffect(() => {
     if (disable) {
@@ -35,15 +36,12 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
 
     let cssfileUrl = queryParams['content-style'];
 
-    if (!cssfileUrl && currentBook && currentBook.style_href) {
-      const bookConfig = getBookVersionFromUUIDSync(currentBook.id);
-      if (bookConfig && bookConfig.dynamicStyles) {
-        cssfileUrl = currentBook.style_href;
+    if (!cssfileUrl && bookConfig?.dynamicStyles && currentBook?.style_href) {
+      cssfileUrl = currentBook.style_href;
 
-        if (!isAbsoluteUrl(cssfileUrl)) {
-          const archiveUrl = `${bookConfig.archiveOverride || getArchiveUrl()}/`;
-          cssfileUrl = fromRelativeUrl(archiveUrl, cssfileUrl);
-        }
+      if (!isAbsoluteUrl(cssfileUrl)) {
+        const archiveUrl = `${bookConfig.archiveOverride || getArchiveUrl()}/`;
+        cssfileUrl = fromRelativeUrl(archiveUrl, cssfileUrl);
       }
     }
 
@@ -60,7 +58,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
           });
       }
     }
-  }, [currentBook, disable, queryParams]);
+  }, [disable, queryParams, bookConfig, currentBook]);
 
   return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps} ref={ref}>
     {children}

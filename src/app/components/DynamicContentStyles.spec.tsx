@@ -27,7 +27,7 @@ describe('DynamicContentStyles', () => {
     const spyFetch = jest.spyOn(globalThis, 'fetch')
       .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
 
-    const componenet = renderer.create(<TestContainer store={store}>
+    const component = renderer.create(<TestContainer store={store}>
       <Component />
     </TestContainer>);
 
@@ -35,7 +35,7 @@ describe('DynamicContentStyles', () => {
 
     expect(spyFetch).toHaveBeenCalledTimes(1);
 
-    const withStyles = componenet.root.findByType(WithStyles);
+    const withStyles = component.root.findByType(WithStyles);
     expect(withStyles.props.styles).toEqual('.cool { color: red; }');
     expect(spyFetch).toHaveBeenCalledWith('file.css');
 
@@ -62,7 +62,7 @@ describe('DynamicContentStyles', () => {
     const spyFetch = jest.spyOn(globalThis, 'fetch')
       .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
 
-    const componenet = renderer.create(<TestContainer store={store}>
+    const component = renderer.create(<TestContainer store={store}>
       <Component />
     </TestContainer>);
 
@@ -70,9 +70,34 @@ describe('DynamicContentStyles', () => {
 
     expect(spyFetch).toHaveBeenCalledTimes(1);
 
-    const withStyles = componenet.root.findByType(WithStyles);
+    const withStyles = component.root.findByType(WithStyles);
     expect(withStyles.props.styles).toEqual('.cool { color: red; }');
     expect(spyFetch).toHaveBeenCalledWith('/apps/archive/codeversion/file3.css');
+
+    spyFetch.mockClear();
+  });
+
+  it('also works with absolute style URLs', async() => {
+    const book = formatBookData(archiveBook, mockCmsBook);
+    book.id = 'testbook1-uuid';
+    book.style_href = 'https://openstax.org/apps/archive/codeversion/file3.css';
+    store.dispatch(receiveBook(book));
+    const spyFetch = jest.spyOn(globalThis, 'fetch')
+      .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Component />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    expect(spyFetch).toHaveBeenCalledTimes(1);
+
+    const withStyles = component.root.findByType(WithStyles);
+    expect(withStyles.props.styles).toEqual('.cool { color: red; }');
+    expect(spyFetch).toHaveBeenCalledWith(
+      'https://openstax.org/apps/archive/codeversion/file3.css'
+    );
 
     spyFetch.mockClear();
   });
