@@ -83,10 +83,8 @@ export const reduceReferences = (
     if (reference) {
       // references may contain PageReferenceError only if UNLIMITED_CONTENT is set to true
       if (isPageReferenceError(reference)) {
-        // console.log(`Reference Error found: ${href}`); // tslint:disable-line:no-console
         reducePageReferenceError(a);
       } else {
-        // console.log(`Reference found: ${href}`); // tslint:disable-line:no-console
         reduceReference(reference, currentPath, a, options);
       }
     }

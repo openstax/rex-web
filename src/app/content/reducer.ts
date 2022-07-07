@@ -22,6 +22,7 @@ export const initialState = {
   buyPrint: null,
   highlights: initialHighlightState,
   loading: {},
+  mobileMenuOpen: false,
   pageNotFoundId: null,
   params: null,
   practiceQuestions: initialPracticeQuestionsState,
@@ -29,6 +30,7 @@ export const initialState = {
   search: initialSearchState,
   showNudgeStudyTools: null,
   studyGuides: initialStudyGuidesState,
+  textSize: null,
   tocOpen: null,
 };
 
@@ -75,6 +77,10 @@ function reduceContent(state: State, action: AnyAction) {
       return {...state, tocOpen: false};
     case getType(actions.resetToc):
       return {...state, tocOpen: null};
+    case getType(actions.openMobileMenu):
+      return {...state, mobileMenuOpen: true, showNudgeStudyTools: false};
+    case getType(actions.closeMobileMenu):
+      return {...state, mobileMenuOpen: false};
     case getType(actions.requestBook):
       return {...state, loading: {...state.loading, book: action.payload}};
     case getType(actions.receiveBook): {
@@ -122,6 +128,9 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(openStudyGuides):
     case getType(actions.closeNudgeStudyTools): {
       return {...state, showNudgeStudyTools: false };
+    }
+    case getType(actions.setTextSize): {
+      return {...state, textSize: action.payload };
     }
     default:
       return state;

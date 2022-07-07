@@ -128,6 +128,7 @@ export const AnswerInput = styled.input`
   height: 0;
 `;
 
+// tslint:disable: declaration-block-no-duplicate-properties
 // tslint:disable-next-line: variable-name
 export const AnswerBlock = styled.label`
   padding: 1rem 2.4rem;

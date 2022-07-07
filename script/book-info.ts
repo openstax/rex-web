@@ -1,8 +1,9 @@
 import fetch from 'node-fetch';
 import { argv } from 'yargs';
-import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL } from '../src/config';
+import { ARCHIVE_URL } from '../src/config';
 import BOOKS from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import { getArchiveUrl } from '../src/gateways/createBookConfigLoader';
 
 const {
   field,
@@ -12,7 +13,7 @@ const {
 
 (global as any).fetch = fetch;
 
-const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+const archiveLoader = createArchiveLoader(getArchiveUrl, {
   archivePrefix: ARCHIVE_URL,
 });
 
