@@ -20,6 +20,11 @@ export const tocOpen = createSelector(
   (state) => !state.search.query && state.tocOpen
 );
 
+export const mobileMenuOpen = createSelector(
+  localState,
+  (state) => state.mobileMenuOpen
+);
+
 export const book = createSelector(
   localState,
   (state) => state.book
@@ -107,4 +112,9 @@ export const prevNextPage = createSelector(
   (selectedBook, selectedPage) => selectedBook && selectedPage
     ? prevNextBookPage(selectedBook, selectedPage.id)
     : null
+);
+
+export const textSize = createSelector(
+  localState,
+  (state) => state.textSize
 );

@@ -1,6 +1,7 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { StoreEnhancer } from 'redux';
 import analytics from '../helpers/analytics';
 import createStore from '../helpers/createStore';
 import FontCollector from '../helpers/FontCollector';
@@ -13,10 +14,10 @@ import * as Services from './context/Services';
 import * as developer from './developer';
 import * as errors from './errors';
 import ErrorBoundary from './errors/components/ErrorBoundary';
+import OuterErrorBoundary from './errors/components/OuterErrorBoundary';
 import * as featureFlags from './featureFlags';
 import * as head from './head';
 import MessageProvider from './messages/MessageProvider';
-import SimpleMessageProvider from './messages/SimpleMessageProvider';
 import * as navigation from './navigation';
 import { AnyMatch } from './navigation/types';
 import { matchPathname } from './navigation/utils';
@@ -90,7 +91,7 @@ export default (options: AppOptions) => {
 
   const reducer = createReducer(history);
 
-  const services = {
+  const services: AppServices = {
     ...defaultServices(),
     ...options.services,
     history,
@@ -101,29 +102,34 @@ export default (options: AppOptions) => {
     ...hooks.map((hook) => hook(services)),
   ];
 
+  const enhancers: StoreEnhancer[] = [];
+
   if (Sentry.shouldCollectErrors) {
-    middleware.push(Sentry.initializeWithMiddleware());
+    enhancers.push(Sentry.createReduxEnhancer());
   }
 
   const store = createStore({
+    enhancers,
     initialState,
     middleware,
     reducer,
   });
 
+  if (Sentry.shouldCollectErrors) {
+    Sentry.initialize(store);
+  }
+
   const container = () => (
     <Provider store={store}>
-      <SimpleMessageProvider>
-        <ErrorBoundary>
-          <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
-            <MessageProvider>
-              <ErrorBoundary>
-                <navigation.components.NavigationProvider routes={routes} />
-              </ErrorBoundary>
-            </MessageProvider>
-          </Services.Provider>
-        </ErrorBoundary>
-      </SimpleMessageProvider>
+      <OuterErrorBoundary>
+        <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
+          <MessageProvider>
+            <ErrorBoundary>
+              <navigation.components.NavigationProvider routes={routes} />
+            </ErrorBoundary>
+          </MessageProvider>
+        </Services.Provider>
+      </OuterErrorBoundary>
     </Provider>
   );
 

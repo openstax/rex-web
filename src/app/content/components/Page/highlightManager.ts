@@ -119,6 +119,7 @@ const createHighlighter = (
     onFocusOut: () => onFocusOutHighlight(highlightManagerServices.getProp()),
     onSelect: (...args) => onSelectHighlight({ ...highlightManagerServices, highlighter}, appServices, ...args),
     skipIDsBy: /^(\d+$|term)/,
+    snapCode: true,
     snapMathJax: true,
     snapTableRows: true,
     snapWords: true,

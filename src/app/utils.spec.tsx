@@ -227,6 +227,19 @@ describe('assertString', () => {
   });
 });
 
+describe('assertObject', () => {
+  it('returns value', () => {
+    const obj = {test: true};
+    expect(utils.assertObject(obj, 'error')).toBe(obj);
+  });
+
+  it('throws when not an object', () => {
+    expect(() =>
+      utils.assertObject('foo', 'error')
+    ).toThrowErrorMatchingInlineSnapshot(`"error"`);
+  });
+});
+
 describe('assertDocument', () => {
   it('returns value', () => {
     expect(utils.assertDocument()).toBe(document);

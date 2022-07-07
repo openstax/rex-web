@@ -193,9 +193,14 @@ export const highlightResults = (
 
 export const findSearchResultHit = (
   results: SearchResultHit[],
-  target: SearchScrollTarget
+  target: SearchScrollTarget,
+  pageId?: string
 ): SearchResultHit | undefined => {
-  return results.find((result) => result.source.elementId === target.elementId);
+  return results.find((result) =>
+    pageId ?
+    stripIdVersion(result.source.pageId) === pageId && result.source.elementId === target.elementId :
+    result.source.elementId === target.elementId
+  );
 };
 
 export const matchKeyTermHit = (hit: SearchResultHit) =>

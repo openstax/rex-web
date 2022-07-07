@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { SearchResult } from '@openstax/open-search-client';
-import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLDetailsElement, HTMLElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -25,6 +25,7 @@ import { AppServices, AppState, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import * as actions from '../actions';
 import { receivePage } from '../actions';
+import { textResizerDefaultValue } from '../constants';
 import { receiveHighlights } from '../highlights/actions';
 import { initialState } from '../reducer';
 import * as routes from '../routes';
@@ -50,6 +51,11 @@ jest.mock('../../domUtils', () => ({
   // remove cast to any when the jest type is updated to include requireActual()
   ...(jest as any).requireActual('../../domUtils'),
   scrollTo: jest.fn(),
+}));
+
+jest.mock('../../reactUtils', () => ({
+  ...(jest as any).requireActual('../../reactUtils'),
+  useMatchMobileQuery: jest.fn(),
 }));
 
 const makeClickEvent = () => {
@@ -106,6 +112,7 @@ describe('Page', () => {
         ...initialState,
         book: formatBookData(book, mockCmsBook),
         page,
+        textSize: textResizerDefaultValue,
       },
     });
     state = store.getState();
@@ -420,6 +427,42 @@ describe('Page', () => {
         expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
         Object.defineProperty(button, 'parentElement', {value: null, writable: true});
         expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+      });
+
+      it('is automatically expanded if it contains a link anchor', async() => {
+        if (!window) {
+          return expect(window).toBeTruthy();
+        }
+
+        window.location.hash = 'paragraph';
+        await htmlHelper(`
+          <div data-type="exercise">
+            <div data-type="solution">
+              <p id="paragraph">answer</p>
+            </div>
+          </div>
+        `);
+
+        const details = pageElement.querySelector('[data-type="solution"]') as HTMLDetailsElement;
+        expect(details.open).toBe(true);
+      });
+
+      it('is not expanded if it does not contain the link anchor', async() => {
+        if (!window) {
+          return expect(window).toBeTruthy();
+        }
+
+        window.location.hash = 'notfound';
+        await htmlHelper(`
+          <div data-type="exercise">
+            <div data-type="solution">
+              <p id="paragraph">answer</p>
+            </div>
+          </div>
+        `);
+
+        const details = pageElement.querySelector('[data-type="solution"]') as HTMLDetailsElement;
+        expect(details.open).toBe(false);
       });
     });
 

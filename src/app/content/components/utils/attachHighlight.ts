@@ -1,5 +1,5 @@
 import Highlighter, { Highlight, SerializedHighlight } from '@openstax/highlighter';
-import Sentry, { Severity } from '../../../../helpers/Sentry';
+import Sentry from '../../../../helpers/Sentry';
 
 const attachHighlight = <T extends Highlight | SerializedHighlight>(
   highlight: T,
@@ -18,7 +18,7 @@ const attachHighlight = <T extends Highlight | SerializedHighlight>(
   if (!attachedHighlight || !attachedHighlight.isAttached()) {
     Sentry.captureException(
       new Error(errorMsg ?  errorMsg(highlight) : `Highlight with id: ${highlight.id} has not been attached.`),
-      Severity.Warning
+      'warning'
     );
     attachedHighlight = undefined;
   }

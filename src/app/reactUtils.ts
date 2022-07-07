@@ -1,4 +1,4 @@
-import { Element, FocusEvent, HTMLElement,
+import { Document, Element, FocusEvent, HTMLElement,
   HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
@@ -116,6 +116,12 @@ export const useTimeout = (delay: number, callback: () => void) => {
   return reset;
 };
 
+export type OnKeyConfig = {key: string, shiftKey?: boolean};
+
+function isKeyboardEvent(event: Event): event is KeyboardEvent {
+  return 'key' in event;
+}
+
 /**
  * This function will return array where first item is a function which will set
  * event listener for given element and second item is a function which will remove
@@ -123,11 +129,12 @@ export const useTimeout = (delay: number, callback: () => void) => {
  *
  * This function can be used in React class components.
  */
-export const onEsc = (
-  element: HTMLElement, cb: () => void
+export const onKey = (
+  config: OnKeyConfig, element: HTMLElement | Document, cb: () => void
 ): [() => void, () => void] => {
-  const handler = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
+  const handler = (e: Event) => {
+    if (isKeyboardEvent(e) && e.key === config.key &&
+        (typeof config.shiftKey === 'undefined' || e.shiftKey === config.shiftKey)) {
       e.stopPropagation();
       cb();
     }
@@ -139,11 +146,15 @@ export const onEsc = (
   ];
 };
 
-export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => () => {
-  const el = element && element.current;
-  if (!el) { return; }
+export const onKeyHandler = (
+  config: OnKeyConfig,
+  element: React.RefObject<HTMLElement> | null,
+  isEnabled: boolean,
+  cb: () => void
+) => () => {
+  const el = (element && element.current) || assertDocument();
 
-  const [addEvListener, removeEvListener] = onEsc(el, cb);
+  const [addEvListener, removeEvListener] = onKey(config, el, cb);
   if (isEnabled) {
     addEvListener();
   }
@@ -151,30 +162,52 @@ export const onEscHandler = (element: React.RefObject<HTMLElement>, isEnabled: b
   return removeEvListener;
 };
 
-export const useOnEsc = (element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
+export const useOnKey = (
+  config: OnKeyConfig,
+  element: React.RefObject<HTMLElement> | null,
+  isEnabled: boolean,
+  cb: () => void
+) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(onEscHandler(element, isEnabled, cb), [element, isEnabled, cb]);
+  React.useEffect(onKeyHandler(config, element, isEnabled, cb), [config, element, isEnabled, cb]);
 };
 
-export const useMatchMobileQuery = () => {
-  const matchMedia = assertWindow().matchMedia(theme.breakpoints.mobileQuery);
-  const [isMobile, setIsMobile] = React.useState(matchMedia.matches);
+export const useOnEsc = (
+  element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void
+) => useOnKey({key: 'Escape'}, element, isEnabled, cb);
+
+const useMatchMediaQuery = (mediaQuery: string) => {
+  const matchMedia = assertWindow().matchMedia(mediaQuery);
+  const [matches, setMatches] = React.useState(matchMedia.matches);
 
   const listener = React.useCallback((e: MediaQueryListEvent) => {
     if (e.matches) {
-      setIsMobile(true);
+      setMatches(true);
     } else {
-      setIsMobile(false);
+      setMatches(false);
     }
   }, []);
 
   React.useEffect(() => {
-    matchMedia.addEventListener('change', listener);
-    return () => { matchMedia.removeEventListener('change', listener); };
+    if (typeof matchMedia.addEventListener === 'function') {
+      matchMedia.addEventListener('change', listener);
+    } else {
+      matchMedia.addListener(listener);
+    }
+    return () => {
+      if (typeof matchMedia.removeEventListener === 'function') {
+        matchMedia.removeEventListener('change', listener);
+      } else {
+        matchMedia.removeListener(listener);
+      }
+    };
   }, [listener, matchMedia]);
 
-  return isMobile;
+  return matches;
 };
+
+export const useMatchMobileMediumQuery = () => useMatchMediaQuery(theme.breakpoints.mobileMediumQuery);
+export const useMatchMobileQuery = () => useMatchMediaQuery(theme.breakpoints.mobileQuery);
 
 export const useDebouncedWindowSize = () => {
   const window = assertWindow();

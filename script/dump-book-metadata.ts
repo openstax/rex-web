@@ -4,15 +4,16 @@ import { formatBookData } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getPageDescription, getParentPrefix } from '../src/app/content/utils/seoUtils';
 import createIntl from '../src/app/messages/createIntl';
-import { ARCHIVE_URL, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
+import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import allBooks from '../src/config.books.json';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import { getArchiveUrl } from '../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 
 (global as any).fetch = fetch;
 const domParser = new DOMParser();
 
-const archiveLoader = createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+const archiveLoader = createArchiveLoader(getArchiveUrl, {
   archivePrefix: ARCHIVE_URL,
 });
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);

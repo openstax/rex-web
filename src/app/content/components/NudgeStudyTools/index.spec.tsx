@@ -18,7 +18,7 @@ import * as contentSelect from '../../selectors';
 import { openStudyGuides, receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
 import * as studyGuidesSelect from '../../studyGuides/selectors';
 import NudgeStudyTools from './';
-import arrowMobile from './assets/arrowMobile.svg';
+import arrow from './assets/arrow.svg';
 import { NudgeArrow, NudgeBackground, NudgeCloseButton,
   NudgeContentWrapper, NudgeWrapper } from './styles';
 import * as utils from './utils';
@@ -32,7 +32,7 @@ describe('NudgeStudyTools', () => {
     arrowTopOffset: 245,
     closeButtonLeft: 1500,
     closeButtonTopOffset: 345,
-    contentWrapperRight: -486,
+    contentWrapperLeft: -486,
     contentWrapperTopOffset: 385,
     spotlightHeight: 45,
     spotlightLeftOffset: 1190,
@@ -169,7 +169,7 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
 
-    jest.spyOn(reactUtils, 'useMatchMobileQuery')
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
     jest.spyOn(utils, 'usePositions')
@@ -188,8 +188,8 @@ describe('NudgeStudyTools', () => {
     });
 
     renderer.act(() => {
-      const arrow = component.root.findByType(NudgeArrow);
-      expect(arrow.props.src).toEqual(arrowMobile);
+      const nudgeArrow = component.root.findByType(NudgeArrow);
+      expect(nudgeArrow.props.src).toEqual(arrow);
       const button = component.root.findByType(NudgeCloseButton);
       button.props.onClick();
     });
@@ -305,7 +305,7 @@ describe('NudgeStudyTools', () => {
     store.dispatch(openNudgeStudyTools());
 
     jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
-    const onEscSpy = jest.spyOn(reactUtils, 'onEsc');
+    const onKeySpy = jest.spyOn(reactUtils, 'onKey');
 
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -318,12 +318,12 @@ describe('NudgeStudyTools', () => {
     expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
 
     renderer.act(() => {
-      onEscSpy.mock.calls[0][1]();
+      onKeySpy.mock.calls[0][2]();
     });
 
     runHooks(renderer);
 
     expect(() => component.root.findByType(NudgeContentWrapper)).toThrow();
-    onEscSpy.mockClear();
+    onKeySpy.mockClear();
   });
 });

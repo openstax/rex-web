@@ -63,14 +63,10 @@ export const Dropdown: React.FunctionComponent<{user: User, currentPath: string}
 };
 
 // tslint:disable-next-line:variable-name
-const DropdownToggle: SFC<{user: User}> = ({user}) =>
-  <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
-    {(msg) => <Styled.DropdownToggle tabIndex='0' data-testid='user-nav-toggle'>
-      {msg}
-      <Styled.DownIcon aria-hidden='true' />
-      <Styled.HamburgerIcon ariaHidden='true' />
-    </Styled.DropdownToggle>}
-  </FormattedMessage>;
+const DropdownToggle: SFC<{user: User}> = ({user: { firstName, lastName }}) => {
+  const initials = (firstName[0] + lastName[0]).toUpperCase();
+  return <Styled.DropdownToggle tabIndex='0' data-testid='user-nav-toggle'>{initials}</Styled.DropdownToggle>;
+};
 
 // tslint:disable-next-line:variable-name
 const LoggedInState: SFC<{user: User, currentPath: string}> = ({user, currentPath}) =>
