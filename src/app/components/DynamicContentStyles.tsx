@@ -1,14 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import config from '../../config';
-import BOOKS from '../../config.books';
+import { getArchiveUrl, getBookVersionFromUUIDSync } from '../../gateways/createBookConfigLoader';
 import { book } from '../content/selectors';
 import { fromRelativeUrl, isAbsoluteUrl } from '../content/utils/urlUtils';
 import { query } from '../navigation/selectors';
 import { assertDefined } from '../utils/assertions';
-
-const { REACT_APP_ARCHIVE_URL } = config;
 
 // tslint:disable-next-line: variable-name
 export const WithStyles = styled.div`
@@ -39,12 +36,12 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
     let cssfileUrl = queryParams['content-style'];
 
     if (!cssfileUrl && currentBook && currentBook.style_href) {
-      const bookConfig = BOOKS[currentBook.id];
+      const bookConfig = getBookVersionFromUUIDSync(currentBook.id);
       if (bookConfig && bookConfig.dynamicStyles) {
         cssfileUrl = currentBook.style_href;
 
         if (!isAbsoluteUrl(cssfileUrl)) {
-          const archiveUrl = `${bookConfig.archiveOverride || REACT_APP_ARCHIVE_URL}/`;
+          const archiveUrl = `${bookConfig.archiveOverride || getArchiveUrl()}/`;
           cssfileUrl = fromRelativeUrl(archiveUrl, cssfileUrl);
         }
       }
