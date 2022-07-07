@@ -2,6 +2,7 @@
 # flake8: noqa
 import random
 import re
+from time import sleep
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -155,7 +156,7 @@ def test_user_clicks_the_previous_and_next_page_link_ga_events(
 
     # WHEN:  they click the 'Previous' link
     #        (use a script because we need the events before the page changes)
-    events = selenium.execute_script(
+    selenium.execute_script(
         ACTION_SCRIPT.format(selector=label.format(label=previous_event_action))
     )
     book.wait.until(
@@ -168,6 +169,8 @@ def test_user_clicks_the_previous_and_next_page_link_ga_events(
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     #        { hitType: "pageview",
     #          page: "/books/{book_slug}/pages/{page_slug}" }
+    sleep(1.0)
+    events = Utilities.get_analytics_queue(selenium)
     next_event_label = "/".join([""] + selenium.current_url.split("/")[3:])
     previous_page_view_page = next_event_label
     transition_event = events[-2]
@@ -190,7 +193,7 @@ def test_user_clicks_the_previous_and_next_page_link_ga_events(
 
     # WHEN:  they click the 'Next' link
     #        (use a script because we need the events before the page changes)
-    events = selenium.execute_script(
+    selenium.execute_script(
         ACTION_SCRIPT.format(selector=label.format(label=next_event_action))
     )
 
@@ -200,6 +203,8 @@ def test_user_clicks_the_previous_and_next_page_link_ga_events(
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     #        { hitType: "pageview",
     #          page: "/books/{book_slug}/pages/{page_slug}" }
+    sleep(1.0)
+    events = Utilities.get_analytics_queue(selenium)
     transition_event = events[-2]
     transition_pageview_event = events[-1]
     assert (
@@ -337,9 +342,7 @@ def test_click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
     figure_link_action = None  # Not yet known, uses the anchor reference
     figure_link_category = "REX Link"
     figure_link_label = f"/books/{book_slug}/pages/{page_slug}"
-    new_events = 2
-    page_view_type = "pageview"
-    page_view_page = figure_link_label
+    new_events = 1
 
     # GIVEN: a user viewing a book page with a figure link
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -359,25 +362,16 @@ def test_click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
     #        { eventAction: "{figure reference}",
     #          eventCategory: "REX Link",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    #        { hitType: "pageview",
-    #          page: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    link_click_event = events[-2]
-    page_view_event = events[-1]
+    link_click_event = events[-1]
     assert (
         "eventAction" in link_click_event
         and "eventCategory" in link_click_event
         and "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
-    ), "Not viewing the correct GA event (pageview)"
     assert link_click_event["eventAction"] == page_slug + figure_link_action
     assert link_click_event["eventCategory"] == figure_link_category
     assert link_click_event["eventLabel"] == figure_link_label
-    assert page_view_event["hitType"] == page_view_type
-    assert page_view_event["page"] == page_view_page
     assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
@@ -1608,8 +1602,8 @@ def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
     assert open_study_guide_event["eventCategory"] == open_event_category
     assert open_study_guide_event["eventLabel"] == open_event_label
 
-    page_view_event = events[-2]
-    button_event = events[-1]
+    button_event = events[-2]
+    page_view_event = events[-1]
     assert(
         "hitType" in page_view_event
         and "page" in page_view_event
@@ -2249,10 +2243,12 @@ def test_skip_practice_question_ga_event(selenium, base_url, book_slug, page_slu
 def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the overlay is clicked."""
     # SETUP:
-    event_action = "overlay"
-    event_category = "REX Practice questions (close PQ popup)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
-    new_events = 1
+    click_event_action = "overlay"
+    click_event_category = "REX Practice questions (close PQ popup)"
+    click_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    page_view_type = "pageview"
+    page_view_page = click_event_label
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -2272,15 +2268,22 @@ def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, boo
     #          eventCategory: "REX Practice questions (close PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    click_event = events[-1]
+    click_event = events[-2]
+    page_view_event = events[-1]
     assert (
         "eventAction" in click_event
         and "eventCategory" in click_event
         and "eventLabel" in click_event
     ), "Not viewing the correct GA event"
-    assert event_action in click_event["eventAction"]
-    assert click_event["eventCategory"] == event_category
-    assert click_event["eventLabel"] == event_label
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
+    assert click_event_action in click_event["eventAction"]
+    assert click_event["eventCategory"] == click_event_category
+    assert click_event["eventLabel"] == click_event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
     assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
