@@ -292,6 +292,7 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     while book.notification_present:
         book.notification.got_it()
     if book.is_mobile:
+        book.topbar.click_mobile_menu_button()
         book.toolbar.click_toc_toggle_button()
     initial_events = len(Utilities.get_analytics_queue(selenium))
 
@@ -430,11 +431,9 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     key_term_page_view_page = f"/books/{book_slug}/pages/{page_slug[0:2]}key-terms"
     key_term_page_view_type = "pageview"
     mobile_search_action = "Search this book"
-    mobile_search_category = "REX Button (toolbar)"
+    mobile_search_category = "REX Button"
     mobile_search_label = excerpt_event_label
-    new_events = 2
-    page_view_page = excerpt_event_label
-    page_view_type = key_term_page_view_type
+    new_events = 1
     search_event_action = "inverse proportionality"
     search_event_category = "REX search"
     search_event_label = book_slug
@@ -448,7 +447,7 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
         book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
-    search = book.mobile_search_toolbar if book.is_mobile else book.toolbar
+    search = book.mobile_search_toolbar if book.is_mobile else book.topbar
     initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they search for a term
@@ -462,13 +461,12 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     #          page: "/books/{book_slug}/pages/{page_slug}" }
     # Note: a toolbar search event is added for mobile
     #        { eventAction: "Search this book",
-    #          eventCategory: "REX Button (toolbar)",
+    #          eventCategory: "REX Button",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
     if book.is_mobile:
-        toolbar_event = events[-3]
-    search_event = events[-2]
-    page_view_event = events[-1]
+        toolbar_event = events[-2]
+    search_event = events[-1]
     if book.is_mobile:
         assert (
             "eventAction" in toolbar_event
@@ -483,15 +481,9 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
         and "eventCategory" in search_event
         and "eventLabel" in search_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
-    ), "Not viewing the correct GA event (pageview)"
     assert search_event["eventAction"] == search_event_action
     assert search_event["eventCategory"] == search_event_category
     assert search_event["eventLabel"] == search_event_label
-    assert page_view_event["hitType"] == page_view_type
-    assert page_view_event["page"] == page_view_page
     assert(
         len(events) == initial_events + new_events + (1 if book.is_mobile else 0)
     ), "Wrong number of GA events found"
@@ -509,22 +501,15 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     #        { hitType: "pageview",
     #          page: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    link_click_event = events[-2]
-    page_view_event = events[-1]
+    link_click_event = events[-1]
     assert (
         "eventAction" in link_click_event
         and "eventCategory" in link_click_event
         and "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
-    ), "Not viewing the correct GA event (pageview)"
     assert link_click_event["eventAction"] == excerpt_event_action
     assert link_click_event["eventCategory"] == excerpt_event_category
     assert link_click_event["eventLabel"] == excerpt_event_label
-    assert page_view_event["hitType"] == page_view_type
-    assert page_view_event["page"] == page_view_page
     assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
     # WHEN:  they click on a search excerpt from related key term results
@@ -557,7 +542,7 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     assert related_key_term_click_event["eventLabel"] == key_term_event_label
     assert page_view_event["hitType"] == key_term_page_view_type
     assert page_view_event["page"] == key_term_page_view_page
-    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
+    assert len(events) == initial_events + (new_events + 1), "Wrong number of GA events found"
 
 
 @markers.test_case("C621369")
