@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
+import { assertDocument, assertWindow } from '../app/utils';
 
 // JSDom logs to console.error when an Error is thrown.
 // Disable the console just in this instance, and re-enable after.
@@ -63,3 +64,21 @@ export const makeInputEvent = (value: string) => ({
   currentTarget: {value},
   preventDefault: jest.fn(),
 });
+
+export const dispatchKeyDownEvent = ({
+  key, element = undefined, shiftKey = false, target = undefined, window = undefined
+}: {
+  key: string,
+  element?: Document | HTMLElement,
+  shiftKey?: boolean,
+  target?: HTMLElement,
+  window?: Window,
+}) => {
+  const keyboardEvent = new KeyboardEvent('keydown', {
+    bubbles: true, cancelable: true, key, shiftKey: !!shiftKey, view: (window || assertWindow())
+  });
+  if (target) {
+    Object.defineProperty(keyboardEvent, 'target', { value: target });
+  }
+  (element || assertDocument()).dispatchEvent(keyboardEvent);
+};
