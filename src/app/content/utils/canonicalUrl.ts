@@ -60,7 +60,7 @@ export async function getCanonicalUrlParams(
     }
   }
 
-  // canonical to self if no canonical page was found
+  // use current page as canonical if page not found in canonical book
   if (!canonicalBookWithPage && canonicalMap.length) {
     const treeSection = findArchiveTreeNodeById(book.tree, pageId);
     canonicalBookWithPage = {canonicalBook: book, treeSection};
