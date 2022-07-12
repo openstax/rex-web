@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
-import { dispatchKeyDownEvent } from '../../../../test/reactUtils';
+import { dispatchKeyDownEvent } from '../../../../test/reactutils';
 import { runHooks } from '../../../../test/utils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
@@ -225,6 +225,7 @@ describe('CardWrapper', () => {
   });
 
   it('handles useKeyCombination - focus highlight in the content', () => {
+    const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
     container.appendChild(highlightElement);
@@ -251,6 +252,7 @@ describe('CardWrapper', () => {
   });
 
   it('handles useKeyCombination - focus card and then handles useFocusLost - unfocus card', () => {
+    const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
     container.appendChild(highlightElement);
@@ -282,7 +284,7 @@ describe('CardWrapper', () => {
     const elementOutside = document.createElement('span');
 
     renderer.act(() => {
-      dispatchFocusOutEvent(window, cardWrapperElement, elementOutside);
+      dispatchFocusOutEvent(assertWindow(), cardWrapperElement, elementOutside);
     });
 
     renderer.act(() => {
@@ -295,6 +297,7 @@ describe('CardWrapper', () => {
     'handles useKeyCombination - noop if trigerred in element that we dont support '
     + 'or with another key combination',
     () => {
+    const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
     container.appendChild(highlightElement);
@@ -338,6 +341,7 @@ describe('CardWrapper', () => {
   });
 
   it('handles useKeyCombination - noop if focusedHighlight is undefined', () => {
+    const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
     container.appendChild(highlightElement);
@@ -362,6 +366,7 @@ describe('CardWrapper', () => {
   });
 
   it('handles useKeyCombination - noop if event.target is undefined', () => {
+    const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
     container.appendChild(highlightElement);
@@ -388,6 +393,7 @@ describe('CardWrapper', () => {
   });
 
   it('handles useKeyCombination - noop if element.current is undefined', () => {
+    const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
     container.appendChild(highlightElement);

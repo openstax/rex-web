@@ -1,9 +1,8 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import { assertDocument, assertWindow } from '../app/utils';
 
 // JSDom logs to console.error when an Error is thrown.
 // Disable the console just in this instance, and re-enable after.
@@ -66,19 +65,19 @@ export const makeInputEvent = (value: string) => ({
 });
 
 export const dispatchKeyDownEvent = ({
-  key, element = undefined, shiftKey = false, target = undefined, window = undefined
+  element, key, shiftKey = false, target, view,
 }: {
   key: string,
   element?: Document | HTMLElement,
   shiftKey?: boolean,
   target?: HTMLElement,
-  window?: Window,
+  view?: Window,
 }) => {
   const keyboardEvent = new KeyboardEvent('keydown', {
-    bubbles: true, cancelable: true, key, shiftKey: !!shiftKey, view: (window || assertWindow())
+    bubbles: true, cancelable: true, key, shiftKey, view: (view || window),
   });
   if (target) {
     Object.defineProperty(keyboardEvent, 'target', { value: target });
   }
-  (element || assertDocument()).dispatchEvent(keyboardEvent);
+  (element || window!.document).dispatchEvent(keyboardEvent);
 };

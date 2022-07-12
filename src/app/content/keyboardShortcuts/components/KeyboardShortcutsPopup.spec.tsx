@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
@@ -112,7 +113,7 @@ describe('KeyboardShortcuts', () => {
 
     const { node } = renderToDom(<TestContainer services={services} store={store}>
       <KeyboardShortcutsPopup />
-      <input type="search"/>
+      <input type='search'/>
     </TestContainer>);
 
     dispatchKeyDownEvent({key: '?', shiftKey: true, target: node});
@@ -152,9 +153,11 @@ describe('KeyboardShortcuts', () => {
 
     expect(track).not.toHaveBeenCalled();
 
-    const element = assertNotNull(node.querySelector('[data-testid=\'keyboard-shortcuts-popup-wrapper\']'), '');
+    const element: HTMLElement = assertNotNull(
+      node.querySelector('[data-testid=\'keyboard-shortcuts-popup-wrapper\']'), ''
+    );
 
-    dispatchKeyDownEvent({element: element, key: 'Escape'});
+    dispatchKeyDownEvent({element, key: 'Escape'});
 
     expect(track).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(closeKeyboardShortcutsMenu());
