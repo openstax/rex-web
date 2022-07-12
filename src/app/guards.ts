@@ -24,11 +24,13 @@ const inputTypesWithoutTextInput: Array<string | null> = [
   'button', 'checkbox', 'hidden', 'image', 'radio', 'reset', 'submit',
 ];
 
+const contenteditableEnabledValues: Array<string | null> = [ '', 'true' ];
+
 export const isTextInputHtmlElement = (thing: any): thing is dom.HTMLElement =>
   isHtmlElement(thing) && (
     thing.tagName === 'TEXTAREA' || (
       thing.tagName === 'INPUT' && !inputTypesWithoutTextInput.includes(thing.getAttribute('type'))
-    ) || ['', 'true'].includes(thing.getAttribute('contenteditable'))
+    ) || contenteditableEnabledValues.includes(thing.getAttribute('contenteditable'))
   )
 ;
 
