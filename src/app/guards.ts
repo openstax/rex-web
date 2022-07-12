@@ -25,10 +25,11 @@ const inputTypesWithoutTextInput: Array<string | null> = [
 ];
 
 export const isTextInputHtmlElement = (thing: any): thing is dom.HTMLElement =>
-  isHtmlElement(thing)
-  && (thing.tagName === 'TEXTAREA'
-  || (thing.tagName === 'INPUT'
-  && !inputTypesWithoutTextInput.includes(thing.getAttribute('type'))))
+  isHtmlElement(thing) && (
+    thing.tagName === 'TEXTAREA' || (
+      thing.tagName === 'INPUT' && !inputTypesWithoutTextInput.includes(thing.getAttribute('type'))
+    ) || ['', 'true'].includes(thing.getAttribute('contenteditable'))
+  )
 ;
 
 export const isPlainObject = (thing: any): thing is {} =>
