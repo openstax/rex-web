@@ -409,11 +409,11 @@ def test_close_nudge_using_x_icon(selenium, base_url, book_slug, page_slug):
     # AND: Full page nudge is displayed on 2nd page load
     book.reload()
     book.click_next_link()
-    assert book.full_page_nudge_displayed()
+    assert book.full_page_nudge_displayed
 
     # WHEN: Click x icon in the full page nudge
     nudge = book.full_page_nudge
     nudge.click_close_icon()
 
     # THEN: Full page nudge is closed
-    assert not book.full_page_nudge_displayed()
+    assert not book.full_page_nudge_displayed

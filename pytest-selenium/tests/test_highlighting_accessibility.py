@@ -1085,13 +1085,13 @@ def test_close_nudge_using_Esc(selenium, base_url, book_slug, page_slug):
     # AND: Full page nudge is displayed on 2nd page load
     book.reload()
     book.click_next_link()
-    assert book.full_page_nudge_displayed()
+    assert book.full_page_nudge_displayed
 
     # WHEN: Hit Esc
     (ActionChains(selenium).send_keys(Keys.ESCAPE).perform())
 
     # THEN: Full page nudge is closed
-    assert not book.full_page_nudge_displayed()
+    assert not book.full_page_nudge_displayed
 
 
 @markers.test_case("C608132")
@@ -1114,10 +1114,10 @@ def test_close_nudge_using_keyboard_navigation(selenium, base_url, book_slug, pa
     # AND: Full page nudge is displayed on 2nd page load
     book.reload()
     book.click_next_link()
-    assert book.full_page_nudge_displayed()
+    assert book.full_page_nudge_displayed
 
     # WHEN: Hit Tab and Return
     (ActionChains(selenium).send_keys(Keys.TAB).send_keys(Keys.RETURN).perform())
 
     # THEN: Full page nudge is closed
-    assert not book.full_page_nudge_displayed()
+    assert not book.full_page_nudge_displayed
