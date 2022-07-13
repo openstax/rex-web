@@ -5,7 +5,7 @@ import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules, runHooksAsync } from '../../test/utils';
 import { receiveBook } from '../content/actions';
 import { formatBookData } from '../content/utils';
-import { MiddlewareAPI, Store } from '../types';
+import { AppServices, MiddlewareAPI, Store } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -16,7 +16,7 @@ describe('MessageProvider', () => {
   let Services: ReturnType<typeof reactAndFriends>['Services'];
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let store: Store;
-  let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let services: AppServices & MiddlewareAPI;
   let MessageProvider: any;
 
   beforeEach(async() => {
@@ -72,8 +72,44 @@ describe('MessageProvider', () => {
       delete (Intl as any).PluralRules.polyfilled;
     });
 
+    it('doesn\'t load if intl is already provided', async() => {
+      let loaded = false;
+
+      jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
+        shouldPolyfill: () => true,
+      }));
+
+      jest.doMock('@formatjs/intl-pluralrules/polyfill', () => {
+        loaded = true;
+      });
+
+      MessageProvider = require('../messages/MessageProvider').default;
+
+      renderer.act(() => {
+        store.dispatch(receiveBook(book));
+      });
+
+      const component = renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider />
+        </Services.Provider>
+      </Provider>
+      );
+
+      component.update(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider />
+        </Services.Provider>
+      </Provider>);
+
+      await runHooksAsync(renderer);
+
+      expect(loaded).toBe(false);
+    });
+
     it('loads polyfill', async() => {
       let loaded = false;
+      services.intl.current = null;
 
       jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
         shouldPolyfill: () => true,
@@ -109,6 +145,7 @@ describe('MessageProvider', () => {
 
     it('loads data', async() => {
       let loaded = false;
+      services.intl.current = null;
 
       jest.doMock('@formatjs/intl-pluralrules/should-polyfill', () => ({
         shouldPolyfill: () => true,
