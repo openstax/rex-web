@@ -1,4 +1,5 @@
 /** @jest-environment puppeteer */
+import { mkdirSync } from 'fs';
 import { Page } from 'puppeteer';
 import { finishRender, navigate, setDesktopViewport, setMobileViewport } from '../../../test/browserutils';
 import { cookieNudge } from './NudgeStudyTools/constants';
@@ -22,6 +23,27 @@ beforeAll(async() => {
   });
 });
 
+const testScroll = async(testCase: string, index: number) => {
+  const scrollTop = await page.evaluate('document.documentElement.scrollTop');
+
+  try {
+    expect(scrollTop).toEqual(EXPECTED_SCROLL_TOPS[testCase][index]);
+  } catch(error) {
+    try {
+      mkdirSync('__diff_output__');
+    } catch(err) {
+      if (err.code !== 'EEXIST') {
+        throw err;
+      }
+    }
+
+    await page.screenshot(
+      {path: `__diff_output__/scroll_failure_${testCase}_${index}.png`, type: 'png'}
+    );
+    throw error;
+  }
+}
+
 describe('Content', () => {
   for (const testCase of Object.keys(TEST_CASES)) {
     describe(testCase, () => {
@@ -32,16 +54,13 @@ describe('Content', () => {
       });
 
       it('scrolls correctly to all elements', async() => {
-        const expectedScrollTops = EXPECTED_SCROLL_TOPS[testCase];
-
         await navigate(page, TEST_PAGE_URL);
         await finishRender(page);
 
         // scrolling on initial load doesn't work on the dev build
         if (process.env.SERVER_MODE === 'built') {
           // Loading page with anchor
-          const anchorScrollTop = await page.evaluate('document.documentElement.scrollTop');
-          expect(anchorScrollTop).toEqual(expectedScrollTops[0]);
+          await testScroll(testCase, 0);
         }
 
         // Clicking links
@@ -50,8 +69,7 @@ describe('Content', () => {
           await link.click();
           await finishRender(page);
 
-          const linkScrollTop = await page.evaluate('document.documentElement.scrollTop');
-          expect(linkScrollTop).toEqual(expectedScrollTops[index + 1]);
+          await testScroll(testCase, index + 1);
         }
 
         await new Promise((resolve) => setTimeout(resolve, 2000));
