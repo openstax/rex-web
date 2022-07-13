@@ -6,6 +6,7 @@ import { content } from '../../src/app/content/routes';
 import { ArchiveTreeNode, BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
 import { flattenArchiveTree, stripIdVersion } from '../../src/app/content/utils';
 import {
+  archiveTreeSectionIsPage,
   disableArchiveTreeCaching,
   findArchiveTreeNodeById,
   findDefaultBookPage
@@ -31,7 +32,7 @@ const updateRedirectsData = async(
   const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
 
-  const formatSection = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
+  const formatSection = (section: LinkedArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
     bookId: allowBookRedirect ? newBook.id : currentBook.id,
     pageId: newSection?.id ? stripIdVersion(newSection.id) : section.id,
     pathname: decodeURI(
@@ -79,6 +80,10 @@ const updateRedirectsData = async(
       const redirectSection = (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
         || findDefaultBookPage(newBook);
 
+      // section has to be page a this ponit
+      if (!archiveTreeSectionIsPage(section)) {
+        console.log('not a pa;ge: ', section);
+      }
       redirects.push(formatSection(section, redirectSection));
     }
   }
