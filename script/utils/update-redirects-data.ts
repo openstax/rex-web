@@ -31,9 +31,12 @@ const updateRedirectsData = async(
   const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
 
-  const formatSection = (section: LinkedArchiveTreeNode | ArchiveTreeNode, pageId?: string) => ({
+  const formatSection = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
+    // to book CHECK
     bookId: allowBookRedirect ? newBook.id : currentBook.id,
-    pageId: pageId || section.id,
+    // to page CHECK
+    pageId: newSection?.id || section.id,
+    //from book
     pathname: decodeURI(
       content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
     ),
@@ -79,7 +82,7 @@ const updateRedirectsData = async(
       const redirectSection = (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
         || findDefaultBookPage(newBook);
 
-      redirects.push(formatSection(redirectSection));
+      redirects.push(formatSection(section, redirectSection));
     }
   }
 
