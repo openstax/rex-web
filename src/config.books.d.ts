@@ -1,6 +1,7 @@
 export interface BookVersionConfig {
   defaultVersion: string;
   archiveOverride?: string;
+  retired?: boolean;
 }
 
 interface Books {

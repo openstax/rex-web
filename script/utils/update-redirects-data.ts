@@ -3,16 +3,24 @@ import { isEqual } from 'lodash/fp';
 import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
-import { BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
+import { ArchiveTreeNode, BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
 import { flattenArchiveTree } from '../../src/app/content/utils';
-import { disableArchiveTreeCaching } from '../../src/app/content/utils/archiveTreeUtils';
-
+import {
+  disableArchiveTreeCaching,
+  findArchiveTreeNodeById,
+  findDefaultBookPage
+} from '../../src/app/content/utils/archiveTreeUtils';
+import { CANONICAL_MAP } from '../../src/canonicalBookMap';
 disableArchiveTreeCaching();
 
 const redirectsPath = path.resolve(__dirname, '../../data/redirects/');
 
-const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookWithOSWebData) => {
-  if (currentBook.id !== newBook.id) {
+const updateRedirectsData = async(
+    currentBook: BookWithOSWebData,
+    newBook: BookWithOSWebData,
+    allowBookRedirect?: boolean
+  ) => {
+  if (currentBook.id !== newBook.id && !allowBookRedirect) {
     throw new Error(
       `updateRedirects requires two instances of the same book, `
       + `but you've passed ${currentBook.id} and ${newBook.id}`);
@@ -23,12 +31,13 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
   const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
 
-  const formatSection = (section: LinkedArchiveTreeNode) => ({
+  const formatSection = (section: LinkedArchiveTreeNode | ArchiveTreeNode, pageId?: string) => ({
     bookId: currentBook.id,
-    pageId: section.id,
+    pageId: pageId || section.id,
     pathname: decodeURI(
       content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
     ),
+    ...(allowBookRedirect && {redirectBookId: newBook.id}),
   });
 
   const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
@@ -64,6 +73,14 @@ const updateRedirectsData = async(currentBook: BookWithOSWebData, newBook: BookW
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
+    } else if (allowBookRedirect) {
+      // if redirecting a book but no page match found, check for a canonical page then fall back to default book page
+      const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
+      const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
+      const redirectSection = (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
+        || findDefaultBookPage(newBook);
+
+      redirects.push(formatSection(redirectSection));
     }
   }
 
