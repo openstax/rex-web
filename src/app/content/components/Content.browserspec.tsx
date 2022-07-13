@@ -28,10 +28,10 @@ const testScroll = async(testCase: string, index: number) => {
 
   try {
     expect(scrollTop).toEqual(EXPECTED_SCROLL_TOPS[testCase][index]);
-  } catch(error) {
+  } catch (error) {
     try {
       mkdirSync('__diff_output__');
-    } catch(err) {
+    } catch (err) {
       if (err.code !== 'EEXIST') {
         throw err;
       }
@@ -42,7 +42,7 @@ const testScroll = async(testCase: string, index: number) => {
     );
     throw error;
   }
-}
+};
 
 describe('Content', () => {
   for (const testCase of Object.keys(TEST_CASES)) {
