@@ -4,7 +4,7 @@ import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { content } from '../../src/app/content/routes';
 import { ArchiveTreeNode, BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
-import { flattenArchiveTree } from '../../src/app/content/utils';
+import { flattenArchiveTree, stripIdVersion } from '../../src/app/content/utils';
 import {
   disableArchiveTreeCaching,
   findArchiveTreeNodeById,
@@ -32,11 +32,8 @@ const updateRedirectsData = async(
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
 
   const formatSection = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
-    // to book CHECK
     bookId: allowBookRedirect ? newBook.id : currentBook.id,
-    // to page CHECK
-    pageId: newSection?.id || section.id,
-    //from book
+    pageId: newSection?.id ? stripIdVersion(newSection.id) : section.id,
     pathname: decodeURI(
       content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
     ),
