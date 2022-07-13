@@ -81,6 +81,7 @@ const updateRedirectsData = async(
         || findDefaultBookPage(newBook);
 
       // section has to be page a this ponit
+      console.log('new section? ', newSection);
       if (!archiveTreeSectionIsPage(section)) {
         console.log('not a pa;ge: ', section);
       }
