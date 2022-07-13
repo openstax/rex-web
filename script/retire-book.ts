@@ -57,4 +57,8 @@ const retireBook = async() => {
   console.log('Books config updated.');
 };
 
-export default retireBook;
+retireBook()
+  .catch((e) => {
+    console.error('an error has prevented the upgrade from completing', e);
+    process.exit(1);
+  });

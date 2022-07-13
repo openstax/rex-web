@@ -32,12 +32,11 @@ const updateRedirectsData = async(
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
 
   const formatSection = (section: LinkedArchiveTreeNode | ArchiveTreeNode, pageId?: string) => ({
-    bookId: currentBook.id,
+    bookId: allowBookRedirect ? newBook.id : currentBook.id,
     pageId: pageId || section.id,
     pathname: decodeURI(
       content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
     ),
-    ...(allowBookRedirect && {redirectBookId: newBook.id}),
   });
 
   const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
@@ -69,7 +68,7 @@ const updateRedirectsData = async(
       countNewRedirections++;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
-    } else if (!newSection && matchSlug(section.slug) === undefined && !matchException) {
+    } else if (!newSection && matchSlug(section.slug) === undefined && !matchException && !allowBookRedirect) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
