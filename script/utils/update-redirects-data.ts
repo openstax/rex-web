@@ -31,7 +31,10 @@ const updateRedirectsData = async(
   const redirects: RedirectsData = fs.existsSync(redirectsBookPath) ? await import(redirectsBookPath) : [];
 
   const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
-  const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
+  const currentSections = flatCurrentTree.filter(archiveTreeSectionIsPage);
+  const flatNewTree = allowBookRedirect
+    ? flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id)
+    : flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
 
   const formatSection = (section: LinkedArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
     bookId: allowBookRedirect ? newBook.id : currentBook.id,
@@ -53,7 +56,7 @@ const updateRedirectsData = async(
   ];
 
   let countNewRedirections = 0;
-  for (const section of flatCurrentTree) {
+  for (const section of currentSections) {
     const newSection = flatNewTree.find(matchSection(section));
     const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
     const matchException =
@@ -75,7 +78,7 @@ const updateRedirectsData = async(
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
-    } else if (allowBookRedirect && archiveTreeSectionIsPage(section)) {
+    } else if (allowBookRedirect) {
       // if redirecting a book but no page match found, check for a canonical page
       const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
       const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
