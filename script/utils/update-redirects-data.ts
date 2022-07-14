@@ -22,7 +22,8 @@ const updateRedirectsData = async(
     newBook: BookWithOSWebData,
     allowBookRedirect?: boolean
   ) => {
-  if (currentBook.id !== newBook.id && !allowBookRedirect) {
+  const booksAreDifferent = currentBook.id !== newBook.id;
+  if (booksAreDifferent && !allowBookRedirect) {
     throw new Error(
       `updateRedirects requires two instances of the same book, `
       + `but you've passed ${currentBook.id} and ${newBook.id}`);
@@ -32,17 +33,17 @@ const updateRedirectsData = async(
 
   const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
   const currentSections = flatCurrentTree.filter(archiveTreeSectionIsPage);
-  const flatNewTree = allowBookRedirect
+  const flatNewTree = booksAreDifferent
     ? flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id)
     : flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
 
   const formatSection = (section: LinkedArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
-    bookId: allowBookRedirect ? newBook.id : currentBook.id,
+    bookId: booksAreDifferent ? newBook.id : currentBook.id,
     pageId: newSection?.id ? stripIdVersion(newSection.id) : section.id,
     pathname: decodeURI(
       content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
     ),
-    ...(allowBookRedirect && {query: `?${messageQueryParameterName}=retired`}),
+    ...(booksAreDifferent && {query: `?${messageQueryParameterName}=retired`}),
   });
 
   const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
@@ -77,12 +78,12 @@ const updateRedirectsData = async(
     } else if (
       !newSection && matchSlug(section.slug) === undefined
       && !matchException
-      && currentBook.id === newBook.id
+      && !booksAreDifferent
     ) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
-    } else if (currentBook.id !== newBook.id && !redirects.find(matchRedirect(section))) {
+    } else if (booksAreDifferent && !redirects.find(matchRedirect(section))) {
       // if redirecting a book but no page match found, check for a canonical page
       const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
       const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
