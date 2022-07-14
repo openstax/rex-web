@@ -50,8 +50,8 @@ const retireBook = async() => {
     ),
   ]);
 
-  const redirects = await updateRedirectsData(currentBook, newBook, true).then(() => {
-    console.log(`Updated ${redirects} redirects.`);
+  await updateRedirectsData(currentBook, newBook, true).then((res) => {
+    console.log(`Updated ${res} redirects.`);
   });
 
   updatedBooksConfig[args.retiredBook].retired = true;
