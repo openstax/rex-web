@@ -9,3 +9,13 @@ describe('isDefined', () => {
     expect(guards.isDefined('asdf')).toBe(true);
   });
 });
+
+describe('isKeyOf', () => {
+  it('detects key of', () => {
+    expect(guards.isKeyOf({foo: 'asdf'}, 'foo')).toBe(true);
+  });
+
+  it('detects not key of', () => {
+    expect(guards.isKeyOf({foo: 'asdf'}, 'asdf')).toBe(false);
+  });
+});
