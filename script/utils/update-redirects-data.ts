@@ -74,15 +74,19 @@ const updateRedirectsData = async(
       countNewRedirections++;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
-    } else if (!newSection && matchSlug(section.slug) === undefined && !matchException && !allowBookRedirect) {
+    } else if (
+      !newSection && matchSlug(section.slug) === undefined
+      && !matchException
+      && currentBook.id !== newBook.id
+    ) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
-    } else if (allowBookRedirect) {
+    } else if (currentBook.id === newBook.id && !redirects.find(matchRedirect(section))) {
       // if redirecting a book but no page match found, check for a canonical page
       const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
       const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
-      // if no canonical bpage, fall back to default book page
+      // if no canonical page, fall back to default book page
       const redirectSection = (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
         || findDefaultBookPage(newBook);
 
