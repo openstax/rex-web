@@ -1,7 +1,12 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import { book as archiveBook } from '../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { MiddlewareAPI, Store } from '../../types';
-import { receivePageNotFoundId } from '../actions';
+import { receiveBook, receivePageNotFoundId } from '../actions';
+import { formatBookData } from '../utils';
+
+const book = formatBookData(archiveBook, mockCmsBook);
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -64,5 +69,17 @@ describe('receivePageNotFoundId hook', () => {
     await hook(receivePageNotFoundId('asdf'));
 
     expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
+  });
+
+  it('throws if redirect is not found and book is retired', async() => {
+    store.dispatch(receiveBook(book));
+    const spy = jest.spyOn(helpers.bookConfigLoader, 'getBookVersionFromUUID');
+    spy.mockReturnValue(Promise.resolve({defaultVersion: book.version, retired: true}));
+
+    (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
+
+    await expect(
+      hook(receivePageNotFoundId('asdf'))
+    ).rejects.toThrow(`Could not resolve uuid: ${book.id}`);
   });
 });
