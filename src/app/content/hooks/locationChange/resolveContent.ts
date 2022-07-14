@@ -132,8 +132,9 @@ const resolvePage = async(
   const pageId = match.state && 'pageUid' in match.state
     ? match.state.pageUid
     : getPageIdFromUrlParam(book, match.params.page);
+  const bookConfig = getBookVersionFromUUIDSync(book.id);
 
-  if (!pageId) {
+  if (!pageId || bookConfig?.retired) {
     dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
     return;
   }
