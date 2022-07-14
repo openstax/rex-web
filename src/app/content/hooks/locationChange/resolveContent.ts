@@ -135,6 +135,7 @@ const resolvePage = async(
   const bookConfig = getBookVersionFromUUIDSync(book.id);
 
   if (!pageId || bookConfig?.retired) {
+    console.log('id: ', getIdFromPageParam(match.params.page));
     dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
     return;
   }

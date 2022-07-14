@@ -138,7 +138,8 @@
     "defaultVersion": "ebc5beb"
   },
   "5bcc0e59-7345-421d-8507-a1e4608685e8": {
-    "defaultVersion": "a7f9edc"
+    "defaultVersion": "a7f9edc",
+    "retired": true
   },
   "02776133-d49d-49cb-bfaa-67c7f61b25a1": {
     "defaultVersion": "eb2e29d"
@@ -157,7 +158,8 @@
   },
   "afe4332a-c97f-4fc4-be27-4e4d384a32d8": {
     "defaultVersion": "18.2",
-    "archiveOverride": "/apps/archive/20210713.205645"
+    "archiveOverride": "/apps/archive/20210713.205645",
+    "retired": true
   },
   "4061c832-098e-4b3c-a1d9-7eb593a2cb31": {
     "defaultVersion": "444e84e"
