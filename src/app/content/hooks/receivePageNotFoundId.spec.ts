@@ -71,6 +71,18 @@ describe('receivePageNotFoundId hook', () => {
     expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
   });
 
+  it('calls history.replace if redirect is found and book is retired', async() => {
+    store.dispatch(receiveBook(book));
+    const spy = jest.spyOn(helpers.bookConfigLoader, 'getBookVersionFromUUID');
+    spy.mockReturnValue(Promise.resolve({defaultVersion: book.version, retired: true}));
+
+    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'redirected' }]);
+
+    await hook(receivePageNotFoundId('asdf'));
+
+    expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
+  });
+
   it('throws if redirect is not found and book is retired', async() => {
     store.dispatch(receiveBook(book));
     const spy = jest.spyOn(helpers.bookConfigLoader, 'getBookVersionFromUUID');
