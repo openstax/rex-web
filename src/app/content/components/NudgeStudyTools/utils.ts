@@ -6,6 +6,7 @@ import { useDebouncedWindowSize, useOnScrollTopOffset } from '../../../reactUtil
 import { assertDocument, remsToPx } from '../../../utils';
 import { page as pageSelector } from '../../selectors';
 import { hasStudyGuides } from '../../studyGuides/selectors';
+import { Page } from '../../types';
 import {
   arrowDesktopHeight,
   arrowRightMargin,
@@ -168,13 +169,14 @@ export const setNudgeStudyToolsCookies = () => {
 export const useIncrementPageCounter = () => {
   const page = useSelector(pageSelector);
   const [counter, updateCounter] = useState<number>(getPageCounterCookie());
+  const pageRef = React.useRef<Page>();
 
   React.useEffect(() => {
-    if (page && counter <= nudgeStudyToolsMinPageLimit) {
+    if (page && page !== pageRef.current && counter <= nudgeStudyToolsMinPageLimit) {
+      pageRef.current = page;
       updateCounter(incrementPageCounterCookie());
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, updateCounter, counter]);
 
   return counter;
 };
