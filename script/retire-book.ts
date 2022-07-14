@@ -50,9 +50,8 @@ const retireBook = async() => {
     ),
   ]);
 
-  await updateRedirectsData(currentBook, newBook, true).then((res) => {
-    console.log(`Updated ${res} redirects.`);
-  });
+  const count = await updateRedirectsData(currentBook, newBook, true);
+  console.log(`Updated ${count} redirects.`);
 
   updatedBooksConfig[args.retiredBook].retired = true;
   fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');

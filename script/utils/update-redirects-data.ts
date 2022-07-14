@@ -82,6 +82,7 @@ const updateRedirectsData = async(
         || findDefaultBookPage(newBook);
 
       redirects.push(formatSection(section, redirectSection));
+      countNewRedirections++;
     }
   }
 
