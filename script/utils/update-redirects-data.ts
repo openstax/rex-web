@@ -77,12 +77,12 @@ const updateRedirectsData = async(
     } else if (
       !newSection && matchSlug(section.slug) === undefined
       && !matchException
-      && currentBook.id !== newBook.id
+      && currentBook.id === newBook.id
     ) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
-    } else if (currentBook.id === newBook.id && !redirects.find(matchRedirect(section))) {
+    } else if (currentBook.id !== newBook.id && !redirects.find(matchRedirect(section))) {
       // if redirecting a book but no page match found, check for a canonical page
       const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
       const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
