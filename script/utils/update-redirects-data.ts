@@ -2,6 +2,7 @@ import fs from 'fs';
 import { isEqual } from 'lodash/fp';
 import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
+import { messageQueryParameterName } from '../../src/app/content/constants';
 import { content } from '../../src/app/content/routes';
 import { ArchiveTreeNode, BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
 import { flattenArchiveTree, stripIdVersion } from '../../src/app/content/utils';
@@ -38,6 +39,7 @@ const updateRedirectsData = async(
     pathname: decodeURI(
       content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
     ),
+    ...(allowBookRedirect && {query: `?${messageQueryParameterName}=retired`}),
   });
 
   const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
