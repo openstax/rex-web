@@ -32,6 +32,7 @@ function processAppMessages(state: State, action: ActionType<typeof actions.rece
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
+    case getType(actions.retiredBookRedirect):
     case getType(actions.updateAvailable):
     case getType(actions.acceptCookies):
       return state.modalNotifications.find(({type}) => type === action.type)

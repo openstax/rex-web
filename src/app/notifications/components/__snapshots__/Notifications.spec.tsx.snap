@@ -1,39 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Notifications matches snapshot 1`] = `
-<div
-  className="Card__Body-sc-1o7sacr-2 kVpfjE"
->
-  <div>
-    <div
-      className="Card__Group-sc-1o7sacr-0 jzDffS"
-    >
-      <div
-        className="Card__Header-sc-1o7sacr-3 jGwlNH"
-      >
-        Updates Available
-      </div>
-      <p
-        className="Card__P-sc-1o7sacr-1 bKishz"
-      >
-        Click below to use the most recent version of this software.
-      </p>
-    </div>
-    <div
-      className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
-    >
-      <button
-        className="Button-ayg7nk-0 fFJxez"
-        onClick={[Function]}
-      >
-        Update
-      </button>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Notifications matches snapshot 2`] = `
+exports[`Notifications matches snapshot for acceptCookies 1`] = `
 <div
   className="Card__Body-sc-1o7sacr-2 kVpfjE"
 >
@@ -69,7 +36,7 @@ exports[`Notifications matches snapshot 2`] = `
 </div>
 `;
 
-exports[`Notifications matches snapshot 3`] = `
+exports[`Notifications matches snapshot for appMessage 1`] = `
 <div
   className="Card__Body-sc-1o7sacr-2 kVpfjE"
 >
@@ -105,4 +72,73 @@ exports[`Notifications matches snapshot 3`] = `
 </div>
 `;
 
+exports[`Notifications matches snapshot for retiredBookRedirect 1`] = `
+<div
+  className="Card__Body-sc-1o7sacr-2 kVpfjE"
+>
+  <div>
+    <div
+      className="Card__Group-sc-1o7sacr-0 jzDffS"
+    >
+      <div
+        className="Card__Header-sc-1o7sacr-3 jGwlNH"
+      >
+        New Edition
+      </div>
+      <p
+        className="Card__P-sc-1o7sacr-1 bKishz"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "You tried to access an old edition of this resource. You have been redirected to the newest edition.",
+          }
+        }
+      />
+      <div
+        className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+      >
+        <button
+          className="Button-ayg7nk-0 fFJxez"
+          onClick={[Function]}
+        >
+          Got it!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Notifications matches snapshot for unknown notification 1`] = `null`;
+
+exports[`Notifications matches snapshot for updateAvailable 1`] = `
+<div
+  className="Card__Body-sc-1o7sacr-2 kVpfjE"
+>
+  <div>
+    <div
+      className="Card__Group-sc-1o7sacr-0 jzDffS"
+    >
+      <div
+        className="Card__Header-sc-1o7sacr-3 jGwlNH"
+      >
+        Updates Available
+      </div>
+      <p
+        className="Card__P-sc-1o7sacr-1 bKishz"
+      >
+        Click below to use the most recent version of this software.
+      </p>
+    </div>
+    <div
+      className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+    >
+      <button
+        className="Button-ayg7nk-0 fFJxez"
+        onClick={[Function]}
+      >
+        Update
+      </button>
+    </div>
+  </div>
+</div>
+`;
