@@ -33,12 +33,10 @@ const updateRedirectsData = async(
 
   const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
   const currentSections = flatCurrentTree.filter(archiveTreeSectionIsPage);
-  const flatNewTree = booksAreDifferent
-    ? flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id)
-    : flattenArchiveTree(newBook.tree).filter((section) => section.id !== currentBook.id);
+  const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id);
 
-  const formatSection = (section: LinkedArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
-    bookId: booksAreDifferent ? newBook.id : currentBook.id,
+  const formatSection = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
+    bookId: newBook.id,
     pageId: newSection?.id ? stripIdVersion(newSection.id) : section.id,
     pathname: decodeURI(
       content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
@@ -46,7 +44,16 @@ const updateRedirectsData = async(
     ...(booksAreDifferent && {query: `?${messageQueryParameterName}=retired`}),
   });
 
-  const matchRedirect = (section: LinkedArchiveTreeNode) => isEqual(formatSection(section));
+  const getRedirectTargetSection = (section: LinkedArchiveTreeNode) => {
+    // first check for a canonical page
+    const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
+    const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
+    // fall back to default book page
+    return (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
+      || findDefaultBookPage(newBook);
+  };
+
+  const matchRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => isEqual(formatSection(section).pathname);
   const matchSection = (section: LinkedArchiveTreeNode) => (node: LinkedArchiveTreeNode) => section.id === node.id;
 
   const allowedDeletions = [
@@ -60,7 +67,7 @@ const updateRedirectsData = async(
   for (const section of currentSections) {
     const newSection = flatNewTree.find(matchSection(section));
     const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
-    const matchException =
+    const isAllowedDeletion =
       allowedDeletions.find((allowed) => allowed.id === section.id && allowed.slug === section.slug);
 
     if (newSection && newSection.slug !== section.slug && !redirects.find(matchRedirect(section))) {
@@ -75,17 +82,20 @@ const updateRedirectsData = async(
       countNewRedirections++;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
-    } else if (!newSection && matchSlug(section.slug) === undefined && !matchException && !booksAreDifferent) {
+    } else if (!newSection && matchSlug(section.slug) === undefined && !isAllowedDeletion && !booksAreDifferent) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
-    } else if (booksAreDifferent && !redirects.find(matchRedirect(section))) {
-      // if redirecting a book but no page match found, check for a canonical page
-      const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
-      const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
-      // if no canonical page, fall back to default book page
-      const redirectSection = (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
-        || findDefaultBookPage(newBook);
+    // below condition is specific to retiring books
+    } else if (booksAreDifferent && !isAllowedDeletion && !redirects.find(matchRedirect(section))) {
+      const redirectSection = getRedirectTargetSection(section);
+
+      if (redirects.find(matchRedirect(redirectSection))) {
+        throw new Error(
+          `updateRedirects found a circular redirect between sections with slugs ${
+          section.slug} and ${redirectSection.slug} in book ${newBook.id}`
+        );
+      }
 
       redirects.push(formatSection(section, redirectSection));
       countNewRedirections++;

@@ -2,7 +2,7 @@ import isEqual from 'lodash/fp/isEqual';
 import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
 import { getBookVersionFromUUIDSync } from '../../../../gateways/createBookConfigLoader';
 import { Match } from '../../../navigation/types';
-import { AppServices, MiddlewareAPI } from '../../../types';
+import { AppServices, Dispatch, MiddlewareAPI } from '../../../types';
 import { assertDefined, BookNotFoundError } from '../../../utils';
 import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPage } from '../../actions';
 import { hasOSWebData } from '../../guards';
@@ -36,9 +36,18 @@ const getBookResponse = async(
   osWebLoader: AppServices['osWebLoader'],
   archiveLoader: AppServices['archiveLoader'],
   loader: ReturnType<AppServices['archiveLoader']['book']>,
+  dispatch: Dispatch,
+  bookId: string,
   bookSlug?: string
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]>  => {
   const osWebBook = bookSlug ? await osWebLoader.getBookFromSlug(bookSlug) : undefined;
+
+  const bookConfig = getBookVersionFromUUIDSync(bookId);
+  // if (bookConfig?.retired && !UNLIMITED_CONTENT) {
+  if (bookConfig?.retired) {
+    dispatch(receivePageNotFoundId(null));
+  }
+
   const archiveBook = await loader.load();
   const newBook = formatBookData(archiveBook, osWebBook);
   return [newBook, archiveLoader.book(newBook.id, newBook.version)];
@@ -62,11 +71,11 @@ const resolveBook = async(
 
   if (!isEqual((match.params.book), select.loadingBook(state))) {
     dispatch(requestBook(match.params.book));
-    const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
+    const response = await getBookResponse(osWebLoader, archiveLoader, loader, dispatch, bookId, bookSlug);
     dispatch(receiveBook(response[0]));
     return response;
   } else {
-    return await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
+    return await getBookResponse(osWebLoader, archiveLoader, loader, dispatch, bookId, bookSlug);
   }
 };
 
@@ -132,9 +141,8 @@ const resolvePage = async(
   const pageId = match.state && 'pageUid' in match.state
     ? match.state.pageUid
     : getPageIdFromUrlParam(book, match.params.page);
-  const bookConfig = getBookVersionFromUUIDSync(book.id);
 
-  if (!pageId || bookConfig?.retired) {
+  if (!pageId) {
     dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
     return;
   }
