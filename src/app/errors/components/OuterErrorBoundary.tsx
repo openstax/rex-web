@@ -6,8 +6,8 @@ import { assertWindow } from '../../utils/browser-assertions';
 import ErrorBoundary from './ErrorBoundary';
 
 // tslint:disable-next-line:variable-name
-const OuterErrorBoundary = (props: { children?: React.ReactNode }) => {
-  const [intl, setIntl] = useState<IntlShape | null>(null);
+const OuterErrorBoundary = (props: React.PropsWithChildren<{ intl: IntlShape | null }>) => {
+  const [intl, setIntl] = useState<IntlShape | null>(props.intl);
 
   useEffect(() => {
     const setUpIntl = async() => {
@@ -18,11 +18,13 @@ const OuterErrorBoundary = (props: { children?: React.ReactNode }) => {
       setIntl(intlObject);
     };
 
-    setUpIntl();
-  }, []);
+    if (!intl) {
+      setUpIntl();
+    }
+  }, [intl]);
 
   if (!intl) {
-    return <>{props.children}</>;
+    return null;
   }
 
   return (
