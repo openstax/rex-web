@@ -17,7 +17,6 @@ export const receivePageNotFoundIdHookBody: ActionHookBody<typeof receivePageNot
 
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
-
       services.history.replace(to);
       return;
     }
