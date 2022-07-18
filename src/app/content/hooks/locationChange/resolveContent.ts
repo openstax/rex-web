@@ -73,9 +73,6 @@ const resolveBook = async(
   if (!isEqual((match.params.book), select.loadingBook(state))) {
     dispatch(requestBook(match.params.book));
     const response = await getBookResponse(osWebLoader, archiveLoader, loader, dispatch, bookId, bookSlug);
-    if (!response) {
-      return Promise.reject();
-    }
     dispatch(receiveBook(response[0]));
     return response;
   } else {
