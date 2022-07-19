@@ -55,6 +55,7 @@ const retireBook = async() => {
   console.log(`Updated ${count} redirects.`);
 
   updatedBooksConfig[args.retiredBook].retired = true;
+  delete updatedBooksConfig[args.retiredBook].archiveOverride;
   fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   console.log('Books config updated.');
 };
