@@ -56,9 +56,9 @@ const updateRedirectsData = async(
   });
 
   const getRedirectTargetSection = (
-    section: LinkedArchiveTreeNode,
-    newSection?: LinkedArchiveTreeSection | LinkedArchiveTree
+    section: LinkedArchiveTreeNode
   ) => {
+    const newSection = flatNewTree.find(matchSection(section));
     if (newSection && newSection.slug !== section.slug && !redirects.find(matchRedirect(section))) {
       return newSection;
     // remove `else` to enable legitimately removing pages from books
@@ -80,8 +80,7 @@ const updateRedirectsData = async(
 
   let countNewRedirections = 0;
   for (const section of currentSections) {
-    const newSection = flatNewTree.find(matchSection(section));
-    const redirectTarget = getRedirectTargetSection(section, newSection);
+    const redirectTarget = getRedirectTargetSection(section);
 
     if (redirectTarget) {
       if (redirects.find(matchRedirect(redirectTarget))) {
