@@ -4,7 +4,7 @@ import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { messageQueryParameterName } from '../../src/app/content/constants';
 import { content } from '../../src/app/content/routes';
-import { ArchiveTreeNode, BookWithOSWebData, LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection } from '../../src/app/content/types';
+import { ArchiveTreeNode, BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
 import { flattenArchiveTree, stripIdVersion } from '../../src/app/content/utils';
 import {
   archiveTreeSectionIsPage,
