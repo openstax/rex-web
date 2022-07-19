@@ -280,7 +280,8 @@ describe('locationChange', () => {
       }
 
       expect(message).toEqual(
-        'BUG: "Test Book 1 / this page has cross link that directs to missing page"'
+        // tslint:disable-next-line: max-line-length
+        'Error while resolving content: Error: BUG: "Test Book 1 / this page has cross link that directs to missing page"'
         + ' referenced "thisiddoes-not7-exis-t567-88f393fother"'
         + ', but it could not be found in any configured books.'
       );
@@ -307,8 +308,9 @@ describe('locationChange', () => {
       }
 
       expect(message).toEqual(
-        'BUG: "Test Book 1 / this page has cross link that directs to missing page" referenced '
-        + '"thisiddoes-not7-exis-t567-88f393fother"'
+        // tslint:disable-next-line: max-line-length
+        'Error while resolving content: Error: BUG: "Test Book 1 / this page has cross link that directs to missing page"'
+        + ' referenced "thisiddoes-not7-exis-t567-88f393fother"'
         + `, archive thought it would be in "${mockOtherBook.id}", but it wasn't`
       );
     });
