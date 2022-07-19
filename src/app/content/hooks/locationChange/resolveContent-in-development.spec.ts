@@ -279,6 +279,23 @@ describe('locationChange', () => {
       expect(referenceBook).toEqual(undefined);
     });
 
+    it('noops if book is retired', async() => {
+      jest.mock('../../../../config.books', () => {
+        const mockBook = (jest as any).requireActual(
+          '../../../../test/mocks/archiveLoader'
+        ).book;
+        return {
+          [mockBook.id]: { defaultVersion: mockBook.version, retired: true },
+        };
+      });
+
+      helpers.archiveLoader.mockBook(book);
+      helpers.archiveLoader.mockPage(book, page, testPage);
+
+      await hook(helpers, match);
+      expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
+    });
+
     describe('getBookInformation', () => {
       it('do not throw and handle reference with undefined version', async() => {
         const reference = {
