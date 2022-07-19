@@ -1,6 +1,6 @@
 import { locationChange } from '../../../navigation/actions';
 import { RouteHookBody } from '../../../navigation/types';
-import { BookNotFoundError } from '../../../utils';
+import { BookNotLoadedError } from '../../../utils';
 import { loadHighlights } from '../../highlights/hooks';
 import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
 import { content } from '../../routes';
@@ -19,7 +19,7 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
     try {
       await resolveContent(services, action.match);
     } catch (error) {
-      if (error instanceof BookNotFoundError) {
+      if (error instanceof BookNotLoadedError) {
         return;
       }
       throw new Error(`Error while resolving content: ${error}`);

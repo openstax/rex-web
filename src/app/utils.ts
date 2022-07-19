@@ -191,3 +191,6 @@ export class BookNotFoundError extends ApplicationError {}
 
 // tslint:disable-next-line: max-classes-per-file
 export class ArchiveBookMissingError extends ApplicationError {}
+
+// tslint:disable-next-line: max-classes-per-file
+export class BookNotLoadedError extends ApplicationError {}

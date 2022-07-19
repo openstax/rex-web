@@ -3,7 +3,7 @@ import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
 import { getBookVersionFromUUIDSync } from '../../../../gateways/createBookConfigLoader';
 import { Match } from '../../../navigation/types';
 import { AppServices, Dispatch, MiddlewareAPI } from '../../../types';
-import { assertDefined, BookNotFoundError } from '../../../utils';
+import { assertDefined, BookNotFoundError, BookNotLoadedError } from '../../../utils';
 import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPage } from '../../actions';
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
@@ -25,7 +25,7 @@ export default async(
   const [book, loader] = await resolveBook(services, match) || [];
 
   if (!book) {
-    throw new Error('Book was not loaded');
+    throw new BookNotLoadedError(`Could not resolve book`);
   }
 
   const page = book && loader ? await resolvePage(services, match, book, loader) : undefined;
