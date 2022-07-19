@@ -49,7 +49,7 @@ const getBookResponse = async(
   const osWebBook = bookSlug ? await osWebLoader.getBookFromSlug(bookSlug) : undefined;
 
   const bookConfig = getBookVersionFromUUIDSync(bookId);
-  if (bookConfig?.retired) {
+  if (bookConfig?.retired && !UNLIMITED_CONTENT) {
     dispatch(receivePageNotFoundId({pageId: getIdFromPageParam(match.params.page), bookId}));
     return;
   }
