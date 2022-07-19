@@ -14,20 +14,21 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
 
   return async(action) => {
-    const response = await resolveContent(services, action.match);
-    if (!response) {
+    await resolveContent(services, action.match)
+    .then(() => {
+      Promise.all([
+        boundRegisterPageView(action),
+        syncSearch(services)(action),
+        loadBuyPrintConfig(services)(),
+        loadHighlights(services)(locationChange(action)),
+        loadStudyGuides(services)(),
+        loadPracticeQuestions(services)(),
+        initializeIntl(services)(),
+      ]);
+    })
+    .catch(() => {
       return;
-    }
-
-    await Promise.all([
-      boundRegisterPageView(action),
-      syncSearch(services)(action),
-      loadBuyPrintConfig(services)(),
-      loadHighlights(services)(locationChange(action)),
-      loadStudyGuides(services)(),
-      loadPracticeQuestions(services)(),
-      initializeIntl(services)(),
-    ]);
+    });
   };
 };
 

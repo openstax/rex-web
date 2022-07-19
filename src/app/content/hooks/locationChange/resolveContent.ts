@@ -23,13 +23,18 @@ export default async(
   match: Match<typeof content>
 ) => {
   const [book, loader] = await resolveBook(services, match) || [];
+
+  if (!book) {
+    throw new Error('Book was not loaded');
+  }
+
   const page = book && loader ? await resolvePage(services, match, book, loader) : undefined;
 
   if (!hasOSWebData(book) && APP_ENV === 'production') {
     throw new Error('books without cms data are only supported outside production');
   }
 
-  return book && page ? {book, page} : undefined;
+  return book && page;
 };
 
 const getBookResponse = async(
