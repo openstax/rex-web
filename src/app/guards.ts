@@ -20,6 +20,20 @@ export const isHtmlElement = (thing: any): thing is dom.HTMLElement =>
   && (thing as any).title !== undefined
 ;
 
+const inputTypesWithoutTextInput: Array<string | null> = [
+  'button', 'checkbox', 'hidden', 'image', 'radio', 'reset', 'submit',
+];
+
+const contenteditableEnabledValues: Array<string | null> = [ '', 'true' ];
+
+export const isTextInputHtmlElement = (thing: any): thing is dom.HTMLElement =>
+  isHtmlElement(thing) && (
+    thing.tagName === 'TEXTAREA' || (
+      thing.tagName === 'INPUT' && !inputTypesWithoutTextInput.includes(thing.getAttribute('type'))
+    ) || contenteditableEnabledValues.includes(thing.getAttribute('contenteditable'))
+  )
+;
+
 export const isPlainObject = (thing: any): thing is {} =>
   thing instanceof Object && thing.__proto__.constructor === Object;
 
@@ -28,3 +42,6 @@ export const isWindow = (thing: any): thing is Window =>
 
 export const isHtmlElementWithHighlight = (thing: any): thing is dom.HTMLElement =>
   isHtmlElement(thing) && thing.hasAttribute('data-highlight-id');
+
+export const isKeyOf = <O extends {[key: string]: any}>(obj: O, thing: any): thing is keyof O =>
+  typeof thing === 'string' && thing in obj;
