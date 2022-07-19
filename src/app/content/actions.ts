@@ -5,7 +5,7 @@ import * as keyboardShortcutsActions from './keyboardShortcuts/actions';
 import * as practiceQuestionsActions from './practiceQuestions/actions';
 import * as searchActions from './search/actions';
 import * as studyGuidesActions from './studyGuides/actions';
-import { ArchivePage, Book, Params, State } from './types';
+import { ArchivePage, Book, PageNotFoundParams, Params, State } from './types';
 
 export const search = searchActions;
 export const highlighting = highlightingActions;
@@ -29,7 +29,7 @@ export const requestPage = createStandardAction('Content/requestPage')<Params['p
 export const receivePage = createStandardAction('Content/receivePage')<
   ArchivePage & {references: State['references']}
 >();
-export const receivePageNotFoundId = createStandardAction('Content/receivePageNotFoundId')<string | null>();
+export const receivePageNotFoundId = createStandardAction('Content/receivePageNotFoundId')<PageNotFoundParams>();
 
 export const openNudgeStudyTools = createStandardAction('Content/openNudgeStudyTools')();
 export const closeNudgeStudyTools = createStandardAction('Content/closeNudgeStudyTools')();

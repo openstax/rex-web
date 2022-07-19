@@ -22,31 +22,32 @@ export default async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ) => {
-  const [book, loader] = await resolveBook(services, match);
-  const page = await resolvePage(services, match, book, loader);
+  const [book, loader] = await resolveBook(services, match) || [];
+  const page = book && loader ? await resolvePage(services, match, book, loader) : undefined;
 
   if (!hasOSWebData(book) && APP_ENV === 'production') {
     throw new Error('books without cms data are only supported outside production');
   }
 
-  return {book, page};
+  return book && page ? {book, page} : undefined;
 };
 
 const getBookResponse = async(
   osWebLoader: AppServices['osWebLoader'],
   archiveLoader: AppServices['archiveLoader'],
   loader: ReturnType<AppServices['archiveLoader']['book']>,
+  match: Match<typeof content>,
   dispatch: Dispatch,
   bookId: string,
   bookSlug?: string
-): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]>  => {
+): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>] | void>  => {
   const osWebBook = bookSlug ? await osWebLoader.getBookFromSlug(bookSlug) : undefined;
 
   const bookConfig = getBookVersionFromUUIDSync(bookId);
-  // if (bookConfig?.retired && !UNLIMITED_CONTENT) {
+  console.log('book config: ', bookConfig)
   if (bookConfig?.retired) {
-    dispatch(receivePageNotFoundId(null));
-    return Promise.reject();
+    dispatch(receivePageNotFoundId({pageId: getIdFromPageParam(match.params.page), bookId}));
+    return;
   }
 
   const archiveBook = await loader.load();
@@ -57,7 +58,7 @@ const getBookResponse = async(
 const resolveBook = async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
-): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
+): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>] | void> => {
   const {dispatch, getState, archiveLoader, osWebLoader} = services;
   const [bookSlug, bookId, bookVersion] = await resolveBookReference(services, match);
 
@@ -72,11 +73,13 @@ const resolveBook = async(
 
   if (!isEqual((match.params.book), select.loadingBook(state))) {
     dispatch(requestBook(match.params.book));
-    const response = await getBookResponse(osWebLoader, archiveLoader, loader, dispatch, bookId, bookSlug);
-    dispatch(receiveBook(response[0]));
-    return response;
+    const response = await getBookResponse(osWebLoader, archiveLoader, loader, match, dispatch, bookId, bookSlug);
+    if (response) {
+      dispatch(receiveBook(response[0]));
+      return response;
+    }
   } else {
-    return await getBookResponse(osWebLoader, archiveLoader, loader, dispatch, bookId, bookSlug);
+    return await getBookResponse(osWebLoader, archiveLoader, loader, match, dispatch, bookId, bookSlug);
   }
 };
 
@@ -144,7 +147,7 @@ const resolvePage = async(
     : getPageIdFromUrlParam(book, match.params.page);
 
   if (!pageId) {
-    dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
+    dispatch(receivePageNotFoundId({pageId: getIdFromPageParam(match.params.page), bookId: book.id}));
     return;
   }
 

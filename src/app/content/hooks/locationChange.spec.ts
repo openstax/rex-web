@@ -148,7 +148,7 @@ describe('locationChange', () => {
 
     await hook(payload);
 
-    expect(dispatch).toHaveBeenCalledWith(actions.receivePageNotFoundId('garbage'));
+    expect(dispatch).toHaveBeenCalledWith(actions.receivePageNotFoundId({pageId: 'garbage', bookId: book.id}));
   });
 
   it('loads book details from osweb', async() => {

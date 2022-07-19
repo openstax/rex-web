@@ -44,6 +44,11 @@ export type ContentRouteState = {
   pageUid: string;
 };
 
+export type PageNotFoundParams = {
+  pageId: string;
+  bookId: string;
+};
+
 export type ContentRoute = Route<Params, {} | ContentRouteState>;
 
 // Not related to ContentRouteState above

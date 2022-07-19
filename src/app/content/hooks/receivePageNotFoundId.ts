@@ -1,15 +1,13 @@
 import { Redirects } from '../../../../data/redirects/types';
-import * as contentSelect from '../../content/selectors';
 import { ActionHookBody } from '../../types';
 import { actionHook, BookNotFoundError } from '../../utils';
 import { receivePageNotFoundId } from '../actions';
 
 export const receivePageNotFoundIdHookBody: ActionHookBody<typeof receivePageNotFoundId> = (
   services
-) => async() => {
-  const state = services.getState();
-  const book = contentSelect.book(state);
-  const bookConfig = book ? await services.bookConfigLoader.getBookVersionFromUUID(book.id) : undefined;
+) => async(action) => {
+  const { bookId } = action.payload;
+  const bookConfig = bookId ? await services.bookConfigLoader.getBookVersionFromUUID(bookId) : undefined;
 
   const redirects: Redirects = await fetch('/rex/redirects.json')
     .then((res) => res.json())
@@ -22,7 +20,7 @@ export const receivePageNotFoundIdHookBody: ActionHookBody<typeof receivePageNot
     }
   }
   if (bookConfig?.retired) {
-    return Promise.reject(new BookNotFoundError(`Could not resolve uuid: ${book?.id}`));
+    return Promise.reject(new BookNotFoundError(`Could not resolve uuid: ${bookId}`));
   }
 };
 

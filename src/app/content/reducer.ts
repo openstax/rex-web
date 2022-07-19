@@ -93,7 +93,7 @@ function reduceContent(state: State, action: AnyAction) {
     }
     case getType(actions.receivePageNotFoundId): {
       const loading = omit('page', state.loading);
-      return {...omit(['page', 'references'], state), loading, pageNotFoundId: action.payload};
+      return {...omit(['page', 'references'], state), loading, pageNotFoundId: action.payload.pageId};
     }
     case getType(actions.receiveBuyPrintConfig): {
       return {...state, buyPrint: action.payload};

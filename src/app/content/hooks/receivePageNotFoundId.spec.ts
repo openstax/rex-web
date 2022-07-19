@@ -50,7 +50,7 @@ describe('receivePageNotFoundId hook', () => {
   it('checks for redirects when receivePageNotFoundId is dispatched and noops if path wasn\'t found', async() => {
     (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
 
-    await hook(receivePageNotFoundId('asdf'));
+    await hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}));
 
     expect(historyReplaceSpy).not.toHaveBeenCalled();
   });
@@ -58,7 +58,7 @@ describe('receivePageNotFoundId hook', () => {
   it('noops if fetch fails', async() => {
     (globalThis as any).fetch = mockFetch(undefined, 'error');
 
-    await hook(receivePageNotFoundId('asdf'));
+    await hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}));
 
     expect(historyReplaceSpy).not.toHaveBeenCalled();
   });
@@ -66,7 +66,7 @@ describe('receivePageNotFoundId hook', () => {
   it('calls history.replace if redirect is found', async() => {
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'redirected' }]);
 
-    await hook(receivePageNotFoundId('asdf'));
+    await hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}));
 
     expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
   });
@@ -78,7 +78,7 @@ describe('receivePageNotFoundId hook', () => {
 
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'redirected' }]);
 
-    await hook(receivePageNotFoundId('asdf'));
+    await hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}));
 
     expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
   });
@@ -91,7 +91,7 @@ describe('receivePageNotFoundId hook', () => {
     (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
 
     await expect(
-      hook(receivePageNotFoundId('asdf'))
+      hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}))
     ).rejects.toThrow(`Could not resolve uuid: ${book.id}`);
   });
 });

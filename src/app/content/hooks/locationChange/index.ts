@@ -14,7 +14,10 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
 
   return async(action) => {
-    await resolveContent(services, action.match);
+    const response = await resolveContent(services, action.match);
+    if (!response) {
+      return;
+    }
 
     await Promise.all([
       boundRegisterPageView(action),
