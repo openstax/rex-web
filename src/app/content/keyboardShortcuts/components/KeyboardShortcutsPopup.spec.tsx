@@ -1,9 +1,10 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { renderToDom } from '../../../../test/reactutils';
+import { dispatchKeyDownEvent, renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
@@ -50,7 +51,7 @@ describe('KeyboardShortcuts', () => {
     dispatch = jest.spyOn(store, 'dispatch');
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
@@ -97,10 +98,28 @@ describe('KeyboardShortcuts', () => {
     </TestContainer>);
     expect(node).toBeNull();
 
-    assertDocument().dispatchEvent(new KeyboardEvent('keydown', {key: '?', shiftKey: true}));
+    expect(track).not.toHaveBeenCalled();
+
+    dispatchKeyDownEvent({key: '?', shiftKey: true});
 
     expect(track).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(openKeyboardShortcutsMenu());
+  });
+
+  it('does not interfere with text entry', async() => {
+    const track = jest.spyOn(services.analytics.openCloseKeyboardShortcuts, 'track');
+    jest.spyOn(ksSelectors, 'isKeyboardShortcutsOpen').mockReturnValue(false);
+    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
+
+    const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <KeyboardShortcutsPopup />
+      <input type='search'/>
+    </TestContainer>);
+
+    dispatchKeyDownEvent({key: '?', shiftKey: true, target: node});
+
+    expect(track).not.toHaveBeenCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it('tracks analytics and removes modal-url when clicking x icon', () => {
@@ -111,6 +130,8 @@ describe('KeyboardShortcuts', () => {
     const component = renderer.create(<TestContainer services={services} store={store}>
       <KeyboardShortcutsPopup />
     </TestContainer>, { createNodeMock: () => container });
+
+    expect(track).not.toHaveBeenCalled();
 
     renderer.act(() => {
       const closeButton = component.root.findByProps({ 'data-testid': 'close-keyboard-shortcuts-popup' });
@@ -130,9 +151,13 @@ describe('KeyboardShortcuts', () => {
       <KeyboardShortcutsPopup />
     </TestContainer>);
 
-    const element = assertNotNull(node.querySelector('[data-testid=\'keyboard-shortcuts-popup-wrapper\']'), '');
+    expect(track).not.toHaveBeenCalled();
 
-    element.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'}));
+    const element: HTMLElement = assertNotNull(
+      node.querySelector('[data-testid=\'keyboard-shortcuts-popup-wrapper\']'), ''
+    );
+
+    dispatchKeyDownEvent({element, key: 'Escape'});
 
     expect(track).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(closeKeyboardShortcutsMenu());
@@ -146,6 +171,8 @@ describe('KeyboardShortcuts', () => {
     const { node } = renderToDom(<TestContainer services={services} store={store}>
       <KeyboardShortcutsPopup />
     </TestContainer>);
+
+    expect(track).not.toHaveBeenCalled();
 
     const element = assertNotNull(node.querySelector('[data-testid=\'scroll-lock-overlay\']'), '');
 
