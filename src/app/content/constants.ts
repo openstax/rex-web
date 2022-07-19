@@ -9,7 +9,6 @@ export const maxResourcesPerFetch = 10;
 export const summaryPageSize = 20;
 export const loadMoreDistanceFromBottom = 50;
 
-export const messageQueryParameterName = 'message';
 export const modalQueryParameterName = 'modal';
 export const colorFilterQueryParameterName = 'colors';
 export const locationIdsFilterQueryParameterName = 'locationIds';

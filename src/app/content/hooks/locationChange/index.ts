@@ -1,6 +1,5 @@
 import { locationChange } from '../../../navigation/actions';
 import { RouteHookBody } from '../../../navigation/types';
-import { BookNotLoadedError } from '../../../utils';
 import { loadHighlights } from '../../highlights/hooks';
 import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
 import { content } from '../../routes';
@@ -15,15 +14,7 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
 
   return async(action) => {
-
-    try {
-      await resolveContent(services, action.match);
-    } catch (error) {
-      if (error instanceof BookNotLoadedError) {
-        return;
-      }
-      throw new Error(`Error while resolving content: ${error}`);
-    }
+    await resolveContent(services, action.match);
 
     await Promise.all([
       boundRegisterPageView(action),
