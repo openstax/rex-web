@@ -35,14 +35,18 @@ const updateRedirectsData = async(
   const currentSections = flatCurrentTree.filter(archiveTreeSectionIsPage);
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id);
 
-  const formatSection = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection?: ArchiveTreeNode) => ({
+  const formatRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection: ArchiveTreeNode) => ({
     bookId: newBook.id,
-    pageId: newSection?.id ? stripIdVersion(newSection.id) : section.id,
+    pageId: stripIdVersion(newSection.id),
     pathname: decodeURI(
       content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
     ),
     ...(booksAreDifferent && {query: `?${messageQueryParameterName}=retired`}),
   });
+
+  const formatRedirectSource = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => decodeURI(
+    content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
+  );
 
   const getRedirectTargetSection = (section: LinkedArchiveTreeNode) => {
     // first check for a canonical page
@@ -53,7 +57,7 @@ const updateRedirectsData = async(
       || findDefaultBookPage(newBook);
   };
 
-  const matchRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => isEqual(formatSection(section).pathname);
+  const matchRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => isEqual(formatRedirectSource(section));
   const matchSection = (section: LinkedArchiveTreeNode) => (node: LinkedArchiveTreeNode) => section.id === node.id;
 
   const allowedDeletions = [
@@ -78,7 +82,7 @@ const updateRedirectsData = async(
         );
       }
 
-      redirects.push(formatSection(section));
+      redirects.push(formatRedirect(section, newSection));
       countNewRedirections++;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
@@ -97,7 +101,7 @@ const updateRedirectsData = async(
         );
       }
 
-      redirects.push(formatSection(section, redirectSection));
+      redirects.push(formatRedirect(section, redirectSection));
       countNewRedirections++;
     }
   }
