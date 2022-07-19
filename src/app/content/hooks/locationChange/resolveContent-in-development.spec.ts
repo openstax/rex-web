@@ -280,6 +280,7 @@ describe('locationChange', () => {
     });
 
     it('noops if book is retired', async() => {
+
       jest.mock('../../../../config.books', () => {
         return {
           '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0', retired: true },

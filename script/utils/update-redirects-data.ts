@@ -4,7 +4,7 @@ import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { messageQueryParameterName } from '../../src/app/content/constants';
 import { content } from '../../src/app/content/routes';
-import { ArchiveTreeNode, BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
+import { ArchiveTreeNode, BookWithOSWebData, LinkedArchiveTree, LinkedArchiveTreeNode, LinkedArchiveTreeSection } from '../../src/app/content/types';
 import { flattenArchiveTree, stripIdVersion } from '../../src/app/content/utils';
 import {
   archiveTreeSectionIsPage,
@@ -35,55 +35,32 @@ const updateRedirectsData = async(
   const currentSections = flatCurrentTree.filter(archiveTreeSectionIsPage);
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id);
 
-  const formatRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection: ArchiveTreeNode) => ({
-    bookId: newBook.id,
-    pageId: stripIdVersion(newSection.id),
-    pathname: decodeURI(
-      content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
-    ),
-    ...(booksAreDifferent && {query: `?${messageQueryParameterName}=retired`}),
-  });
+  const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
+  const matchRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => isEqual(formatRedirectSource(section));
+  const matchSection = (section: LinkedArchiveTreeNode) => (node: LinkedArchiveTreeNode) => section.id === node.id;
+
+  const allowedDeletions: Array<{id: string, slug: string}> = [];
+
+  const isAllowedDeletion = (section: LinkedArchiveTreeNode) =>
+    allowedDeletions.find((allowed) => allowed.id === section.id && allowed.slug === section.slug);
 
   const formatRedirectSource = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => decodeURI(
     content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
   );
 
-  const getRedirectTargetSection = (section: LinkedArchiveTreeNode) => {
-    // first check for a canonical page
-    const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
-    const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
-    // fall back to default book page
-    return (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
-      || findDefaultBookPage(newBook);
-  };
+  const formatRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection: ArchiveTreeNode) => ({
+    bookId: newBook.id,
+    pageId: stripIdVersion(newSection.id),
+    pathname: formatRedirectSource(section),
+    ...(booksAreDifferent && {query: `?${messageQueryParameterName}=retired`}),
+  });
 
-  const matchRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => isEqual(formatRedirectSource(section));
-  const matchSection = (section: LinkedArchiveTreeNode) => (node: LinkedArchiveTreeNode) => section.id === node.id;
-
-  const allowedDeletions = [
-    {
-      id: 'c96816d3-855a-59a3-b2eb-1628764de0ea',
-      slug: 'chapter-11',
-    },
-  ];
-
-  let countNewRedirections = 0;
-  for (const section of currentSections) {
-    const newSection = flatNewTree.find(matchSection(section));
-    const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
-    const isAllowedDeletion =
-      allowedDeletions.find((allowed) => allowed.id === section.id && allowed.slug === section.slug);
-
+  const getRedirectTargetSection = (
+    section: LinkedArchiveTreeNode,
+    newSection?: LinkedArchiveTreeSection | LinkedArchiveTree
+  ) => {
     if (newSection && newSection.slug !== section.slug && !redirects.find(matchRedirect(section))) {
-      if (redirects.find(matchRedirect(newSection))) {
-        throw new Error(
-          `updateRedirects found a circular redirect between sections with slugs ${
-          section.slug} and ${newSection.slug} in book ${newBook.id}`
-        );
-      }
-
-      redirects.push(formatRedirect(section, newSection));
-      countNewRedirections++;
+      return newSection;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
     } else if (!newSection && matchSlug(section.slug) === undefined && !isAllowedDeletion && !booksAreDifferent) {
@@ -92,16 +69,28 @@ const updateRedirectsData = async(
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
     // below condition is specific to retiring books
     } else if (booksAreDifferent && !isAllowedDeletion && !redirects.find(matchRedirect(section))) {
-      const redirectSection = getRedirectTargetSection(section);
+      // first check for a canonical page
+      const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
+      const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
+      // fall back to default book page
+      return (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
+        || findDefaultBookPage(newBook);
+    }
+  };
 
-      if (redirects.find(matchRedirect(redirectSection))) {
+  let countNewRedirections = 0;
+  for (const section of currentSections) {
+    const newSection = flatNewTree.find(matchSection(section));
+    const redirectTarget = getRedirectTargetSection(section, newSection);
+
+    if (redirectTarget) {
+      if (redirects.find(matchRedirect(redirectTarget))) {
         throw new Error(
           `updateRedirects found a circular redirect between sections with slugs ${
-          section.slug} and ${redirectSection.slug} in book ${newBook.id}`
+          section.slug} and ${redirectTarget.slug} in book ${newBook.id}`
         );
       }
-
-      redirects.push(formatRedirect(section, redirectSection));
+      redirects.push(formatRedirect(section, redirectTarget));
       countNewRedirections++;
     }
   }
