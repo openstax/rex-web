@@ -1,12 +1,7 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import { book as archiveBook } from '../../../test/mocks/archiveLoader';
-import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { MiddlewareAPI, Store } from '../../types';
-import { receiveBook, receivePageNotFoundId } from '../actions';
-import { formatBookData } from '../utils';
-
-const book = formatBookData(archiveBook, mockCmsBook);
+import { receivePageNotFoundId } from '../actions';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -50,7 +45,7 @@ describe('receivePageNotFoundId hook', () => {
   it('checks for redirects when receivePageNotFoundId is dispatched and noops if path wasn\'t found', async() => {
     (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
 
-    await hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}));
+    await hook(receivePageNotFoundId('asdf'));
 
     expect(historyReplaceSpy).not.toHaveBeenCalled();
   });
@@ -58,7 +53,7 @@ describe('receivePageNotFoundId hook', () => {
   it('noops if fetch fails', async() => {
     (globalThis as any).fetch = mockFetch(undefined, 'error');
 
-    await hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}));
+    await hook(receivePageNotFoundId('asdf'));
 
     expect(historyReplaceSpy).not.toHaveBeenCalled();
   });
@@ -66,32 +61,8 @@ describe('receivePageNotFoundId hook', () => {
   it('calls history.replace if redirect is found', async() => {
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'redirected' }]);
 
-    await hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}));
+    await hook(receivePageNotFoundId('asdf'));
 
     expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
-  });
-
-  it('calls history.replace if redirect is found and book is retired', async() => {
-    store.dispatch(receiveBook(book));
-    const spy = jest.spyOn(helpers.bookConfigLoader, 'getBookVersionFromUUID');
-    spy.mockReturnValue(Promise.resolve({defaultVersion: book.version, retired: true}));
-
-    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'redirected' }]);
-
-    await hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}));
-
-    expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
-  });
-
-  it('throws if redirect is not found and book is retired', async() => {
-    store.dispatch(receiveBook(book));
-    const spy = jest.spyOn(helpers.bookConfigLoader, 'getBookVersionFromUUID');
-    spy.mockReturnValue(Promise.resolve({defaultVersion: book.version, retired: true}));
-
-    (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
-
-    await expect(
-      hook(receivePageNotFoundId({pageId: 'asdf', bookId: book.id}))
-    ).rejects.toThrow(`Could not resolve uuid: ${book.id}`);
   });
 });
