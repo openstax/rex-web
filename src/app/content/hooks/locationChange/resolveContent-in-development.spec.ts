@@ -211,7 +211,7 @@ describe('locationChange', () => {
 
       match.state = {
         bookUid: testUUID,
-        version: testVersion,
+        bookVersion: testVersion,
       };
 
       mockUUIDBook();
