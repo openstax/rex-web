@@ -25,10 +25,22 @@ export default async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ) => {
-  const [book, loader] = await resolveBook(services, match);
-  const page = await resolvePage(services, match, book, loader);
+  const [book, loader] = await resolveBook(services, match).catch(async(e) => {
+    // if we have any problems loading the requested book, check for a redirect
+    // error is only thrown when the redirect isn't found
+    if (!(e instanceof BookNotFoundError) || !(await processBrowserRedirect(services))) {
+      throw e;
+    }
 
-  if (!hasOSWebData(book) && APP_ENV === 'production') {
+    // it was a problem loading the book and the redirect was successful. this causes
+    // a locationChange with the new url and this hook will be fired again, we need to
+    // noop the rest of the content processing for this run
+    return [undefined, undefined];
+  });
+
+  const page = book && loader ? await resolvePage(services, match, book, loader) : undefined;
+
+  if (book && !hasOSWebData(book) && APP_ENV === 'production') {
     throw new Error('books without cms data are only supported outside production');
   }
 
@@ -117,8 +129,7 @@ export const resolveBookReference = async(
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
       ).defaultVersion;
 
-  if (!UNLIMITED_CONTENT && (await getBookConfig())?.retired && !(await processBrowserRedirect(services))) {
-    // error is only thrown when the redirect cannot be processed, otherwise we would have reidrected by now
+  if (!UNLIMITED_CONTENT && (await getBookConfig())?.retired) {
     throw new BookNotFoundError(`tried to load retired book: ${bookSlug}`);
   }
 
