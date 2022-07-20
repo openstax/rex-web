@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { isEqual } from 'lodash/fp';
 import path from 'path';
 import { RedirectsData } from '../../data/redirects/types';
 import { messageQueryParameterName } from '../../src/app/content/constants';
