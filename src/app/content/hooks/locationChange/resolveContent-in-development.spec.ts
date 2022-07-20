@@ -20,13 +20,13 @@ const mockBook = (jest as any).requireActual(
   '../../../../test/mocks/archiveLoader'
 ).book;
 
-BOOKS[mockBook.id] = { defaultVersion: mockBook.version };
-BOOKS['13ac107a-f15f-49d2-97e8-60ab2e3abcde'] = { defaultVersion: '1.0' };
-
 const testBookSlug = 'book-slug-1';
 const testUUID = '13ac107a-f15f-49d2-97e8-60ab2e3abcde';
 const testVersion = '1.0';
 const testPage = 'test-page-1';
+
+BOOKS[mockBook.id] = { defaultVersion: mockBook.version };
+BOOKS[testUUID] = { defaultVersion: '1.0' };
 
 describe('locationChange', () => {
   let store: Store;
@@ -279,7 +279,7 @@ describe('locationChange', () => {
     });
 
     it('noops if book is retired', async() => {
-      BOOKS['13ac107a-f15f-49d2-97e8-60ab2e3abcde'] = { defaultVersion: '1.0', retired: true };
+      helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0', retired: true };
 
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
       match.params = {

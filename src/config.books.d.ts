@@ -4,7 +4,7 @@ export interface BookVersionConfig {
   retired?: boolean;
 }
 
-interface Books {
+export interface Books {
   [key: string]: BookVersionConfig;
 }
 
