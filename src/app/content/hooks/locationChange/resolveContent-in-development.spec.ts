@@ -282,19 +282,17 @@ describe('locationChange', () => {
       BOOKS['13ac107a-f15f-49d2-97e8-60ab2e3abcde'] = { defaultVersion: '1.0', retired: true };
 
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
-      const versionedUuidParams = {
+      match.params = {
         book: {
           uuid: testUUID,
           version: testVersion,
         },
         page: {
-          slug: (match.params.page as SlugParams).slug,
+          slug: testPage,
         },
-      } as Params;
+      };
 
       mockUUIDBook();
-
-      match.params = versionedUuidParams;
 
       await hook(helpers, match);
       expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
