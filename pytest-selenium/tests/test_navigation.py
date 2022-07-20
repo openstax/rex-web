@@ -1,4 +1,3 @@
-import pytest
 from pages.content import Content
 from tests import markers
 
@@ -12,10 +11,12 @@ def test_previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = content.toolbar
     toc = content.sidebar.toc
+    topbar = content.topbar
 
     # confirm first page is selected
     if not toc.first_section.is_active:
         if content.is_mobile:
+            topbar.click_mobile_menu_button()
             toolbar.click_toc_toggle_button()
         toc.first_section.click()
 
@@ -35,10 +36,12 @@ def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug)
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     toolbar = content.toolbar
     toc = content.sidebar.toc
+    topbar = content.topbar
 
     # confirm last page is selected
     if not toc.last_section.is_active:
         if content.is_mobile:
+            topbar.click_mobile_menu_button()
             toolbar.click_toc_toggle_button()
         toc.last_section.click()
 

@@ -146,10 +146,11 @@ def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
     toolbar = book.toolbar
     sidebar = book.sidebar
     toc = book.sidebar.toc
+    topbar = book.topbar
 
     # WHEN: Rex 404 page is displayed
     expected_error = (
-        "Uh oh, we can't find the page you requested." "Try another page in theTable of contents"
+        "Uh oh, we can't find the page you requested." "Try another page in theContents"
     )
     assert book.content.page_error_displayed
     assert book.content.page_error == expected_error
@@ -178,6 +179,7 @@ def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
         assert not sidebar.header.is_displayed
 
         # AND: TOC toggle works
+        topbar.click_mobile_menu_button()
         toolbar.click_toc_toggle_button()
         assert sidebar.header.is_displayed
         sidebar.header.click_toc_toggle_button()
