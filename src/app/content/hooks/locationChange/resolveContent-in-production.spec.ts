@@ -161,8 +161,8 @@ describe('locationChange', () => {
 
       mockUUIDBook();
 
-      await expect(hook(helpers, match))
-        .rejects.toThrowErrorMatchingInlineSnapshot(`"tried to load retired book: book-slug-1"`);
+      await expect(hook(helpers, match)).rejects
+        .toThrowErrorMatchingInlineSnapshot(`"tried to load retired book: book-slug-1"`);
       expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
     });
 
