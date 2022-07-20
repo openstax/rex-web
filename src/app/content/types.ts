@@ -1,5 +1,6 @@
 import { BuyPrintResponse } from '../../gateways/createBuyPrintConfigLoader';
 import { Route, RouteParams, RouteState } from '../navigation/types';
+import { TextResizerValue } from './constants';
 import { State as HighlightState } from './highlights/types';
 import { State as PracticeQuestionsState } from './practiceQuestions/types';
 import { content } from './routes';
@@ -61,6 +62,7 @@ export interface State {
   page?: Page;
   references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
+  textSize: TextResizerValue | null;
 }
 
 export interface PageReferenceMap extends PageReference {

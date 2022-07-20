@@ -4,6 +4,7 @@ import {
   createStore,
   Middleware,
   Reducer,
+  StoreEnhancer,
   StoreEnhancerStoreCreator
 } from 'redux';
 import { AnyAction, AppState, Store } from '../app/types';
@@ -12,10 +13,11 @@ import config from '../config';
 interface Options {
   reducer: Reducer<AppState, AnyAction>;
   middleware: Middleware[];
+  enhancers: StoreEnhancer[];
   initialState?: Partial<AppState>;
 }
 
-export default function({middleware, reducer, initialState}: Options): Store {
+export default function({middleware, enhancers, reducer, initialState}: Options): Store {
   const composeEnhancers = (
     config.DEBUG
     && typeof window !== 'undefined'
@@ -24,12 +26,13 @@ export default function({middleware, reducer, initialState}: Options): Store {
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
-  const enhancers = [
+  const _enhancers = [
     applyMiddleware(...middleware),
+    ...enhancers,
   ];
 
-  const enhancer = composeEnhancers<StoreEnhancerStoreCreator<{}, {}>>(...enhancers);
-  const store = createStore(reducer, initialState, enhancer);
+  const _enhancer = composeEnhancers<StoreEnhancerStoreCreator<{}, {}>>(..._enhancers);
+  const store = createStore(reducer, initialState, _enhancer);
 
   return store;
 }

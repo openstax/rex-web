@@ -1,8 +1,7 @@
-import * as Sentry from '@sentry/browser';
 import * as Integrations from '@sentry/integrations';
-import createSentryMiddleware from 'redux-sentry-middleware';
+import * as Sentry from '@sentry/react';
 import { recordSentryMessage } from '../app/errors/actions';
-import { Middleware, MiddlewareAPI } from '../app/types';
+import { Store } from '../app/types';
 import config from '../config';
 
 let IS_INITIALIZED = false;
@@ -10,7 +9,7 @@ let IS_INITIALIZED = false;
 // This should be removed when Sentry team solve this issue: https://github.com/getsentry/sentry/issues/16012
 const normalize = (id: string): string => id.replace('/', '-');
 
-export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
+export const onBeforeSend = (store: Store) => (event: Sentry.Event) => {
   const { event_id } = event;
 
   if (event_id)  {
@@ -20,33 +19,30 @@ export const onBeforeSend = (store: MiddlewareAPI) => (event: Sentry.Event) => {
   return event;
 };
 
-export const Severity = Sentry.Severity;
-
 export default {
+  initialize(store: Store) {
+    Sentry.init({
+      allowUrls: [
+        /localhost/,
+        /openstax.org/,
+        /https?:\/\/rex-web(.*)?\.herokuapp\.com/,
+      ],
+      beforeSend: onBeforeSend(store),
+      dist: normalize(config.RELEASE_ID),
+      dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
+      environment: config.DEPLOYED_ENV,
+      integrations: [
+        new Integrations.ExtraErrorData(),
+        new Integrations.Dedupe(),
+      ],
+      release: normalize(`rex@${config.RELEASE_ID}`),
+      tracesSampleRate: 0.1,
+    });
+    IS_INITIALIZED = true;
+  },
 
-  initializeWithMiddleware(): Middleware {
-    return (store) => {
-      Sentry.init({
-        allowUrls: [
-          /localhost/,
-          /openstax.org/,
-          /https?:\/\/rex-web(.*)?\.herokuapp\.com/,
-        ],
-        beforeSend: onBeforeSend(store),
-        dist: normalize(config.RELEASE_ID),
-        dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
-        environment: config.DEPLOYED_ENV,
-        integrations: [
-          new Integrations.ExtraErrorData(),
-          new Integrations.Dedupe(),
-        ],
-        release: normalize(`rex@${config.RELEASE_ID}`),
-        tracesSampleRate: 0.1,
-      });
-      IS_INITIALIZED = true;
-
-      return createSentryMiddleware(Sentry)(store);
-    };
+  createReduxEnhancer() {
+    return Sentry.createReduxEnhancer({});
   },
 
   get isEnabled() {
@@ -57,7 +53,7 @@ export default {
     return typeof(window) !== 'undefined' && config.SENTRY_ENABLED;
   },
 
-  captureException(error: any, level: Sentry.Severity = Severity.Error) {
+  captureException(error: any, level: Sentry.SeverityLevel = 'error') {
     if (!error) {
       return;
     }
@@ -78,22 +74,22 @@ export default {
     }
   },
 
-  captureMessage(message: string, level: Sentry.Severity) {
+  captureMessage(message: string, level: Sentry.SeverityLevel) {
     if (this.isEnabled) {
       Sentry.captureMessage(message, level);
     }
   },
 
   log(message: string) {
-    this.captureMessage(message, Severity.Log);
+    this.captureMessage(message, 'log');
   },
 
   warn(message: string) {
-    this.captureMessage(message, Severity.Warning);
+    this.captureMessage(message, 'warning');
   },
 
   error(message: string) {
-    this.captureMessage(message, Severity.Error);
+    this.captureMessage(message, 'error');
   },
 
 };

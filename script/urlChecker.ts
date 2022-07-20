@@ -12,6 +12,7 @@ import { getBookPageUrlAndParams, getUrlParamForPageId } from '../src/app/conten
 import { assertDefined } from '../src/app/utils';
 import config from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import { getArchiveUrl } from '../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
 import progressBar from './utils/progressBar';
@@ -106,7 +107,7 @@ const getUrl = (book: Book) => useUnversionedUrls
   : (treeSection: LinkedArchiveTreeSection) => getBookPageUrlAndParams(book, treeSection).url;
 
 async function checkUrls() {
-  const archiveLoader = createArchiveLoader(config.REACT_APP_ARCHIVE_URL, {
+  const archiveLoader = createArchiveLoader(getArchiveUrl, {
     archivePrefix: archiveUrl ? archiveUrl : rootUrl,
   });
   const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);

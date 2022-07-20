@@ -12,7 +12,7 @@
 
 import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 import { assertWindow } from './app/utils';
-import Sentry, { Severity } from './helpers/Sentry';
+import Sentry from './helpers/Sentry';
 // tslint:disable:no-console
 
 const window = assertWindow();
@@ -30,15 +30,15 @@ const isLocalhost = Boolean(
 
 export function register(): Promise<ServiceWorkerRegistration> {
   if (!('serviceWorker' in navigator)) {
-    Sentry.captureException(new Error('Service worker not supported'), Severity.Warning);
+    Sentry.captureException(new Error('Service worker not supported'), 'warning');
     return Promise.reject();
   }
   if (process.env.NODE_ENV !== 'production') {
-    Sentry.captureException(new Error('Service worker disabled outside production'), Severity.Info);
+    Sentry.captureException(new Error('Service worker disabled outside production'), 'info');
     return Promise.reject();
   }
   if (process.env.REACT_APP_ENV === 'test') {
-    Sentry.captureException(new Error('service worker disabled in testing'), Severity.Info);
+    Sentry.captureException(new Error('service worker disabled in testing'), 'info');
     return Promise.reject();
   }
 

@@ -270,7 +270,10 @@ const transformDataVer2 = (data: ApprovedBooksAndVersionsVer2) => {
         if (version.commit_sha.length > 7) {
           sha = version.commit_sha.substr(0, 7);
         }
-        if (!configuredBooks[book.uuid] || configuredBooks[book.uuid].defaultVersion !== sha) {
+        if (configuredBooks[book.uuid] && configuredBooks[book.uuid].defaultVersion === sha) {
+          // we are not interested in the currentVersion or any book versions older than that
+          delete results[book.uuid];
+        } else {
           results[book.uuid] = sha;
         }
       }

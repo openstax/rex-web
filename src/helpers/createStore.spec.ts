@@ -24,6 +24,7 @@ describe('createStore', () => {
 
     it('composes without devtools if they\'re not defined', () => {
       createStore({
+        enhancers: [],
         initialState: {} as AppState,
         middleware: [],
         reducer: () => ({} as AppState),
@@ -39,6 +40,7 @@ describe('createStore', () => {
       const devtools = jest.spyOn(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
 
       createStore({
+        enhancers: [],
         initialState: {} as AppState,
         middleware: [],
         reducer: () => ({} as AppState),
@@ -65,6 +67,7 @@ describe('createStore', () => {
 
     it('composes without devtools', () => {
       createStore({
+        enhancers: [],
         initialState: {} as AppState,
         middleware: [],
         reducer: () => ({} as AppState),
@@ -80,6 +83,7 @@ describe('createStore', () => {
       const devtools = jest.spyOn(window, '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__');
 
       createStore({
+        enhancers: [],
         initialState: {} as AppState,
         middleware: [],
         reducer: () => ({} as AppState),

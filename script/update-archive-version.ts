@@ -10,6 +10,7 @@ import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB
 import ArchiveUrlConfig from '../src/config.archive-url';
 import BOOKS_CONFIG from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
+import { getArchiveUrl } from '../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import updateRedirectsData from './utils/update-redirects-data';
 
@@ -49,14 +50,16 @@ async function updateArchiveAndContentVersions() {
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
   const currentBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(REACT_APP_ARCHIVE_URL, {
+    createArchiveLoader(getArchiveUrl, {
       archivePrefix: ARCHIVE_URL,
     }),
     osWebLoader
   );
 
+  const getNewArchiveUrl = () => newArchiveUrl;
+
   const newBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(newArchiveUrl, {
+    createArchiveLoader(getNewArchiveUrl, {
       archivePrefix: ARCHIVE_URL,
       disablePerBookPinning: true,
     }),

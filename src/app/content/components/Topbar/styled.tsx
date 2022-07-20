@@ -8,6 +8,7 @@ import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
 import { decoratedLinkStyle, textRegularStyle, textStyle } from '../../../components/Typography';
 import theme from '../../../theme';
+import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import { BookWithOSWebData } from '../../types';
 import {
   bookBannerDesktopMiniHeight,
@@ -16,6 +17,7 @@ import {
   mobileSearchContainerMargin,
   sidebarDesktopWidth,
   sidebarTransitionTime,
+  toolbarButtonWidth,
   toolbarHrHeight,
   toolbarIconColor,
   toolbarMobileSearchWrapperHeight,
@@ -25,6 +27,8 @@ import {
   topbarMobileHeight,
   verticalNavbarMaxWidth
 } from '../constants';
+import { contentWrapperBreakpointStyles } from '../ContentPane';
+import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
@@ -63,6 +67,11 @@ export const TopBarWrapper = styled.div`
   z-index: ${theme.zIndex.topbar}; /* stay above book content */
   ${theme.breakpoints.mobile(css`
     top: ${bookBannerMobileMiniHeight}rem;
+  `)}
+
+  ${theme.breakpoints.mobileMedium(css`
+    // Make sure toolbar dropdowns float over search results
+    z-index: ${theme.zIndex.sidebar + 1};
   `)}
 
   ${disablePrint}
@@ -170,41 +179,44 @@ export const CloseButtonNew = styled.button`
 
 // tslint:disable-next-line:variable-name
 export const SearchInputWrapper = styled.form`
-    display: flex;
-    align-items: center;
-    margin-right: 2rem;
-    position: relative;
-    color: ${toolbarIconColor.base};
-    border: solid 0.1rem;
-    border-radius: 0.2rem;
-    width: 38rem;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  margin-right: -${toolbarButtonWidth}rem;
+  position: relative;
+  color: ${toolbarIconColor.base};
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+  width: 38rem;
 
-    &:focus-within {
-      border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
-      box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
-    }
+  &:last-child { margin-right: auto; } // On desktop, center if no other controls to the right
 
-    &.focus-within {
-      border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
-      box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
-    }
+  &:focus-within {
+    border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
+    box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
+  }
 
-    ${theme.breakpoints.mobile(css`
-      height: 100%;
-      margin-right: 0;
-      overflow: hidden;
-      ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
-        background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
+  &.focus-within {
+    border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
+    box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
+  }
 
-        ${SearchButton} {
-          ${applySearchIconColor(props.colorSchema)};
-        }
-      `}
-    `)}
-    ${theme.breakpoints.mobileMedium(css`
-        width: 100%;
-    `)}
-  `;
+  ${theme.breakpoints.mobile(css`
+    height: 100%;
+    overflow: hidden;
+    ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
+      background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
+
+      ${SearchButton} {
+        ${applySearchIconColor(props.colorSchema)};
+      }
+    `}
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    width: 100%;
+    &, &:last-child { margin-right: 0; }
+  `)}
+`;
 
 // tslint:disable-next-line:variable-name
 export const SearchInput = styled(({ desktop, mobile, ...props }) =>
@@ -245,6 +257,7 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   transition: padding-left ${sidebarTransitionTime}ms;
   ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen || props.isDesktopSearchOpen) && `
     padding-left: ${sidebarDesktopWidth}rem;
+    ${contentWrapperBreakpointStyles}
   `}
   ${theme.breakpoints.mobile(css`
     display: none;
@@ -267,6 +280,7 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
 // tslint:disable-next-line:variable-name
 export const MobileSearchContainer = styled.div`
   ${barPadding}
+  overflow: visible;
   margin-top: ${mobileSearchContainerMargin}rem;
   margin-bottom: ${mobileSearchContainerMargin}rem;
   height: ${toolbarSearchInputMobileHeight}rem;
@@ -283,6 +297,7 @@ export const MobileSearchContainer = styled.div`
 // tslint:disable-next-line:variable-name
 export const MobileSearchWrapper = styled.div`
   display: none;
+  overflow: visible;
   height: ${toolbarMobileSearchWrapperHeight}rem;
   background-color: ${theme.color.neutral.base};
   ${shadow}
@@ -327,6 +342,153 @@ export const SeachResultsTextButton = styled(PlainButton)`
   display: flex;
   overflow: visible;
   min-width: auto;
+`;
+
+// tslint:disable-next-line:variable-name
+export const TextResizerDropdown = styled(FilterDropdown)`
+  margin-left: auto;
+  z-index: 3;
+
+  > button {
+    max-height: 5.2rem;
+
+    > div {
+      padding: 1.5rem;
+    }
+  }
+
+  ${theme.breakpoints.mobileMedium(css`
+    margin-left: 0;
+    > button {
+      max-height: 4.6rem;
+
+      > div {
+        padding: 0.9rem 1.5rem;
+      }
+    }
+
+    display: ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen ? 'none' : 'block'};
+  `)}
+`;
+
+const thumbCss = css`
+  background: white;
+  height: 1.5rem;
+  width: 0.7rem;
+  border: 1px solid ${theme.color.primary.gray.base};
+  border-radius: 1px;
+  box-shadow:
+    0 2px 1px -1px rgba(0, 0, 0, 0.04),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+`;
+
+const tickMarkCss = css`
+  background: repeating-linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 19%,
+    #fff 19%,
+    #fff 20%,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0) 20%
+  );
+`;
+
+// tslint:disable-next-line:variable-name
+export const TextResizerMenu = styled.div`
+  color: ${theme.color.primary.gray.base};
+
+  && {
+    background: #fff;
+    right: 0;
+    left: auto;
+    top: calc(100% - 1px);
+  }
+
+  text-align: left;
+  font-weight: bold;
+
+  label {
+    padding: 1.6rem 1.6rem 0;
+    display: block;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+
+    > button {
+      height: 4rem;
+      width: 4.8rem;
+    }
+
+    input {
+      -webkit-appearance: none; /* stylelint-disable property-no-vendor-prefix */
+      -moz-appearance: none;
+      background: #f1f1f1;
+      ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme && css`
+        background-image:
+          linear-gradient(${theme.color.primary[props.bookTheme].base}, ${theme.color.primary[props.bookTheme].base});
+      `}
+      background-size:
+        ${({textSize}) => `
+          calc(
+            (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
+          ) 100%
+        `};
+      background-repeat: no-repeat;
+      overflow: visible;
+      height: 0.4rem;
+      width: 12rem;
+      margin: 0.8rem 0.7rem;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track,
+    input[type="range"]::-moz-range-track {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      box-shadow: none;
+      border: none;
+      height: 0.2rem;
+      ${tickMarkCss}
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 0.2rem;
+      ${tickMarkCss}
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      ${thumbCss}
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      ${thumbCss}
+      width: 0.8rem;
+      margin-top: -6px;
+    }
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props }) => {
+  const intl = useIntl();
+
+  return <PlainButton
+    {...props}
+    {...ariaLabelId &&
+      {
+        'aria-label': intl.formatMessage({ id: ariaLabelId }),
+      }
+    }
+  >
+    {children}
+  </PlainButton>;
+})`
+  margin: 0.2rem 0.6rem;
 `;
 
 // tslint:disable-next-line:variable-name

@@ -30,16 +30,20 @@ export const AngleIcon = styled(AngleDown)`
 
 interface ToggleProps {
   label: string;
+  showLabel: boolean;
+  toggleChildren?: JSX.Element;
   isOpen: boolean;
   ariaLabelId: string;
+  showAngleIcon: boolean;
 }
 // tslint:disable-next-line:variable-name
 const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
-  ({label, isOpen, ariaLabelId, ...props}, ref) => (
+  ({label, isOpen, ariaLabelId, showAngleIcon = true, showLabel = true, toggleChildren, ...props}, ref) => (
     <PlainButton ref={ref} {...props} aria-label={useIntl().formatMessage({id: ariaLabelId}, {filter: label})}>
       <div tabIndex={-1}>
-        {label}
-        <AngleIcon direction={isOpen ? 'up' : 'down'} />
+        {showLabel && label}
+        {toggleChildren}
+        {showAngleIcon && <AngleIcon direction={isOpen ? 'up' : 'down'} />}
       </div>
     </PlainButton>
   )
@@ -76,23 +80,30 @@ const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
 
 type FilterDropdownProps = {
   label: string;
+  showLabel?: boolean;
   ariaLabelId: string;
   dataAnalyticsLabel: string;
+  showAngleIcon?: boolean;
+  toggleChildren?: JSX.Element;
 } & Partial<TabHiddenDropdownProps>;
 
 // tslint:disable-next-line:variable-name
-export const FilterDropdown = ({label, ariaLabelId, dataAnalyticsLabel, children, ...props}:
-  React.PropsWithChildren<FilterDropdownProps>) =>
-    <Dropdown
-      toggle={<Toggle
-        label={useIntl().formatMessage({id: label})}
-        ariaLabelId={ariaLabelId}
-        data-analytics-label={dataAnalyticsLabel}/>}
-      transparentTab={false}
-      {...props}
-    >
-      {children}
-    </Dropdown>;
+export const FilterDropdown = ({label, showLabel, ariaLabelId, dataAnalyticsLabel, toggleChildren, children, ...props}:
+React.PropsWithChildren<FilterDropdownProps>) => (
+  <Dropdown
+    toggle={<Toggle
+      label={useIntl().formatMessage({ id: label })}
+      showLabel={showLabel}
+      toggleChildren={toggleChildren}
+      ariaLabelId={ariaLabelId}
+      data-analytics-label={dataAnalyticsLabel}
+      showAngleIcon={props.showAngleIcon} />}
+    transparentTab={false}
+    {...props}
+  >
+    {children}
+  </Dropdown>
+);
 
 // tslint:disable-next-line: variable-name
 export const FiltersTopBar = styled.div`

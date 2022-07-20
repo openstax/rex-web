@@ -5,17 +5,26 @@ import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
-import { openMobileMenu } from '../../actions';
+import { openMobileMenu, setTextSize } from '../../actions';
+import {
+  textResizerDefaultValue,
+  textResizerMaxValue,
+  textResizerMinValue,
+  TextResizerValue,
+  textResizerValues
+} from '../../constants';
 import {
   clearSearch,
   openMobileToolbar,
   openSearchResultsMobile,
-  requestSearch,
+  requestSearch
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
+import * as selectContent from '../../selectors';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
+import { TextResizer } from './TextResizer';
 
 interface Props {
   search: typeof requestSearch;
@@ -28,6 +37,9 @@ interface Props {
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
   searchButtonColor: string | null;
+  bookTheme: string;
+  textSize: TextResizerValue | null;
+  setTextSize: (size: TextResizerValue) => void;
 }
 
 interface State {
@@ -53,7 +65,7 @@ class Topbar extends React.Component<Props, State> {
       this.props.openMobileMenu();
     };
 
-    const onSubmit = (e: React.FormEvent) => {
+    const onSearchSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
       if (this.state.query) {
@@ -65,7 +77,7 @@ class Topbar extends React.Component<Props, State> {
       }
     };
 
-    const onClear = (e: React.FormEvent) => {
+    const onSearchClear = (e: React.FormEvent) => {
       e.preventDefault();
       this.setState({ query: '', formSubmitted: false });
     };
@@ -85,8 +97,29 @@ class Topbar extends React.Component<Props, State> {
       this.props.openSearchResults();
     };
 
-    const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
       this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
+    };
+
+    const onChangeTextSize = (e: React.FormEvent<HTMLInputElement>) => {
+      const target = (e as any).currentTarget;
+      const value = parseInt(target.value, 10) as TextResizerValue;
+      if (!textResizerValues.includes(value)) { return; }
+      this.props.setTextSize(value);
+    };
+
+    const onDecreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      const newValue = ((this.props.textSize || textResizerDefaultValue) - 1);
+      if (newValue < textResizerMinValue) { return; }
+      this.props.setTextSize(newValue as TextResizerValue);
+    };
+
+    const onIncreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      const newValue = ((this.props.textSize || textResizerDefaultValue) + 1);
+      if (newValue > textResizerMaxValue) { return; }
+      this.props.setTextSize(newValue as TextResizerValue);
     };
 
     const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
@@ -96,17 +129,18 @@ class Topbar extends React.Component<Props, State> {
     return <Styled.TopBarWrapper data-testid='topbar'>
       <Styled.SearchPrintWrapper>
         <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
-          <Styled.MenuButton type='button' onClick={openMenu}/>
+          <Styled.MenuButton type='button' onClick={openMenu} />
         </NudgeElementTarget>
+
         <Styled.SearchInputWrapper
           active={this.props.mobileToolbarOpen}
-          onSubmit={onSubmit}
+          onSubmit={onSearchSubmit}
           data-testid='desktop-search'
           data-experiment
           colorSchema={this.props.searchButtonColor}
         >
           <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
-            onChange={onChange}
+            onChange={onSearchChange}
             value={this.state.query} />
           <Styled.SearchButton mobile
             type='button'
@@ -121,10 +155,10 @@ class Topbar extends React.Component<Props, State> {
             <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           }
           {this.state.formSubmitted && !newButtonEnabled &&
-            <Styled.CloseButton desktop type='button' onClick={onClear} data-testid='desktop-clear-search' />
+            <Styled.CloseButton desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search' />
           }
           {this.state.formSubmitted && newButtonEnabled &&
-            <Styled.CloseButtonNew desktop type='button' onClick={onClear} data-testid='desktop-clear-search'>
+            <Styled.CloseButtonNew desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search'>
               <Styled.CloseIcon />
             </Styled.CloseButtonNew>
           }
@@ -132,7 +166,16 @@ class Topbar extends React.Component<Props, State> {
             <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           }
         </Styled.SearchInputWrapper>
+        <TextResizer
+          bookTheme={this.props.bookTheme}
+          onChangeTextSize={onChangeTextSize}
+          onDecreaseTextSize={onDecreaseTextSize}
+          onIncreaseTextSize={onIncreaseTextSize}
+          textSize={this.props.textSize}
+          data-testid='text-resizer'
+        />
       </Styled.SearchPrintWrapper>
+
       <Styled.MobileSearchWrapper mobileToolbarOpen={this.props.mobileToolbarOpen}>
         <Styled.Hr />
         <Styled.MobileSearchContainer>
@@ -150,21 +193,21 @@ class Topbar extends React.Component<Props, State> {
             </FormattedMessage>}
           <Styled.SearchInputWrapper
             action='#'
-            onSubmit={onSubmit}
+            onSubmit={onSearchSubmit}
             data-testid='mobile-search'
             data-experiment
             colorSchema={this.props.searchButtonColor}
           >
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
-              onChange={onChange} value={this.state.query} />
+              onChange={onSearchChange} value={this.state.query} />
             {!this.state.formSubmitted && !newButtonEnabled &&
               <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
             }
             {
               this.state.query && newButtonEnabled && <Styled.CloseButtonNew
                 type='button'
-                onClick={onClear}
+                onClick={onSearchClear}
                 formSubmitted={this.state.formSubmitted}
                 data-testid='mobile-clear-search'
               >
@@ -174,12 +217,21 @@ class Topbar extends React.Component<Props, State> {
             {
               this.state.query && !newButtonEnabled && <Styled.CloseButton
                 type='button'
-                onClick={onClear}
+                onClick={onSearchClear}
                 formSubmitted={this.state.formSubmitted}
                 data-testid='mobile-clear-search'
               />
             }
           </Styled.SearchInputWrapper>
+          <TextResizer
+            bookTheme={this.props.bookTheme}
+            onChangeTextSize={onChangeTextSize}
+            onDecreaseTextSize={onDecreaseTextSize}
+            onIncreaseTextSize={onIncreaseTextSize}
+            textSize={this.props.textSize}
+            mobileToolbarOpen={this.props.mobileToolbarOpen}
+            data-testid='mobile-text-resizer'
+          />
         </Styled.MobileSearchContainer>
       </Styled.MobileSearchWrapper>
     </Styled.TopBarWrapper>;
@@ -188,11 +240,13 @@ class Topbar extends React.Component<Props, State> {
 
 export default connect(
   (state: AppState) => ({
+    bookTheme: selectContent.bookTheme(state),
     hasSearchResults: selectSearch.hasResults(state),
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     query: selectSearch.query(state),
     searchButtonColor: selectSearch.searchButtonColor(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
+    textSize: selectContent.textSize(state),
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),
@@ -200,5 +254,6 @@ export default connect(
     openMobileToolbar: flow(openMobileToolbar, dispatch),
     openSearchResults: flow(openSearchResultsMobile, dispatch),
     search: flow(requestSearch, dispatch),
+    setTextSize: flow(setTextSize, dispatch),
   })
 )(Topbar);

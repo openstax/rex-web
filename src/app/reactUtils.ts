@@ -2,7 +2,7 @@ import { Document, Element, FocusEvent, HTMLElement,
   HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
-import { isElement, isWindow } from './guards';
+import { isElement, isTextInputHtmlElement, isWindow } from './guards';
 import theme from './theme';
 import { assertDefined, assertDocument, assertWindow } from './utils';
 
@@ -134,7 +134,8 @@ export const onKey = (
 ): [() => void, () => void] => {
   const handler = (e: Event) => {
     if (isKeyboardEvent(e) && e.key === config.key &&
-        (typeof config.shiftKey === 'undefined' || e.shiftKey === config.shiftKey)) {
+        (typeof config.shiftKey === 'undefined' || e.shiftKey === config.shiftKey) &&
+        (!isTextInputHtmlElement(e.target))) {
       e.stopPropagation();
       cb();
     }

@@ -1,0 +1,23 @@
+name: Playwright
+
+on: [pull_request]
+
+defaults:
+  run:
+    working-directory: playwright
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14
+      env:
+        BASE_URL: ${{ github.event.inputs.base_url }}
+    - run: npm ci
+    - run: npx playwright install-deps
+    - run: npx playwright install
+    - run: npm run test

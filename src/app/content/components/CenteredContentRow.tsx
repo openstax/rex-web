@@ -22,7 +22,6 @@ const Wrapper = styled.div<{verticalNavOpen: State['tocOpen']}>`
   `)}
 
   @media screen {
-    min-height: 100%;
     display: flex;
     flex-direction: row;
   }

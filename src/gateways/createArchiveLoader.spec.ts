@@ -8,6 +8,7 @@ const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
 
 describe('archiveLoader', () => {
   const fetchBackup = fetch;
+  const url = () => 'url';
 
   afterEach(() => {
     resetModules();
@@ -21,32 +22,32 @@ describe('archiveLoader', () => {
       });
 
       it('requests data from archive url for book', () => {
-        require('./createArchiveLoader').default('url').book('coolid', 'version').load();
+        require('./createArchiveLoader').default(url).book('coolid', 'version').load();
         expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version.json');
       });
 
       it('uses pinned archive path for book', () => {
         require('../config.books').pinnedbook = {archiveOverride: 'other', defaultVersion: 'unused'};
-        require('./createArchiveLoader').default('url').book('pinnedbook', 'version').load();
+        require('./createArchiveLoader').default(url).book('pinnedbook', 'version').load();
         expect(fetch).toHaveBeenCalledWith('other/contents/pinnedbook@version.json');
       });
 
       it('ignores pinned archive path for book when disablePerBookPinning is passed', () => {
         require('../config.books').pinnedbook = {archiveOverride: 'other', defaultVersion: 'unused'};
-        require('./createArchiveLoader').default('url', {disablePerBookPinning: true})
+        require('./createArchiveLoader').default(url, {disablePerBookPinning: true})
           .book('pinnedbook', 'version').load();
         expect(fetch).not.toHaveBeenCalledWith('other/contents/pinnedbook@version.json');
         expect(fetch).toHaveBeenCalledWith('url/contents/pinnedbook@version.json');
       });
 
       it('requests data from archive url for page', () => {
-        require('./createArchiveLoader').default('url').book('coolid', 'version').page('coolpageid').load();
+        require('./createArchiveLoader').default(url).book('coolid', 'version').page('coolpageid').load();
 
         expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version:coolpageid.json');
       });
 
       it('returns cached book data', async() => {
-        const archiveLoader = require('./createArchiveLoader').default('url');
+        const archiveLoader = require('./createArchiveLoader').default(url);
         const one = await archiveLoader.book('coolid', 'version').load();
         const two = archiveLoader.book('coolid', 'version').cached();
 
@@ -55,7 +56,7 @@ describe('archiveLoader', () => {
       });
 
       it('returns cached page data', async() => {
-        const archiveLoader = require('./createArchiveLoader').default('url');
+        const archiveLoader = require('./createArchiveLoader').default(url);
         const one = await archiveLoader.book('coolid', 'version').page('coolpageid').load();
         const two = archiveLoader.book('coolid', 'version').page('coolpageid').cached();
 
@@ -64,18 +65,18 @@ describe('archiveLoader', () => {
       });
 
       it('returns versioned book data', async() => {
-        require('./createArchiveLoader').default('url').book('coolid', 'version').load();
+        require('./createArchiveLoader').default(url).book('coolid', 'version').load();
         expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version.json');
       });
 
       it('returns versioned page data', async() => {
-        await require('./createArchiveLoader').default('url').book('coolid', 'version').page('pageid').load();
+        await require('./createArchiveLoader').default(url).book('coolid', 'version').page('pageid').load();
 
         expect(fetch).toHaveBeenCalledWith('url/contents/coolid@version:pageid.json');
       });
 
       it('memoizes requests', async() => {
-        const archiveLoader = require('./createArchiveLoader').default('url');
+        const archiveLoader = require('./createArchiveLoader').default(url);
         await archiveLoader.book('coolid', 'version').load();
         await archiveLoader.book('coolid2', 'version').load();
         await archiveLoader.book('coolid', 'version').load();
@@ -87,7 +88,7 @@ describe('archiveLoader', () => {
       });
 
       it('returns original content url', async() => {
-        expect(require('./createArchiveLoader').default('url').book('coolid', 'version').page('pageid').url())
+        expect(require('./createArchiveLoader').default(url).book('coolid', 'version').page('pageid').url())
           .toEqual('url/contents/coolid@version:pageid.json');
       });
     });
@@ -97,7 +98,7 @@ describe('archiveLoader', () => {
       let error: Error | null = null;
 
       try {
-        await require('./createArchiveLoader').default('url').book('coolid', 'version').load();
+        await require('./createArchiveLoader').default(url).book('coolid', 'version').load();
       } catch (e) {
         error = e;
       }

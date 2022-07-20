@@ -19,12 +19,13 @@ import { scrollTarget } from '../../navigation/selectors';
 import { AppServices, MiddlewareAPI, Store } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { receivePage } from '../actions';
+import { textResizerDefaultValue } from '../constants';
 import {
   clearFocusedHighlight,
   focusHighlight,
   receiveDeleteHighlight,
   receiveHighlights,
-  requestDeleteHighlight,
+  requestDeleteHighlight
 } from '../highlights/actions';
 import * as requestDeleteHighlightHook from '../highlights/hooks/requestDeleteHighlight';
 import { initialState } from '../reducer';
@@ -109,6 +110,7 @@ describe('Page', () => {
         ...initialState,
         book: formatBookData(book, mockCmsBook),
         page,
+        textSize: textResizerDefaultValue,
       },
     });
     dispatch = jest.spyOn(store, 'dispatch');
