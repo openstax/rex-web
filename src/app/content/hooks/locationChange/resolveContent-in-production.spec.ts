@@ -142,5 +142,25 @@ describe('locationChange', () => {
       await expect(resolveContentUtils.getBookInformation(helpers, reference))
         .rejects.toThrow(`book version wasn't specified for book ${reference.bookId}`);
     });
+
+    it('noops if book is retired', async() => {
+      BOOKS['13ac107a-f15f-49d2-97e8-60ab2e3abcde'] = { defaultVersion: '1.0', retired: true };
+
+      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+      match.params = {
+        book: {
+          uuid: testUUID,
+          version: testVersion,
+        },
+        page: {
+          slug: testPage,
+        },
+      };
+
+      mockUUIDBook();
+
+      await hook(helpers, match);
+      expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
+    });
   });
 });

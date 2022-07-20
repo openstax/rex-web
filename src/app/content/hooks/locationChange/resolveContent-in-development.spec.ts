@@ -1,4 +1,3 @@
-import BOOKS from '../../../../config.books';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
@@ -15,13 +14,15 @@ jest.mock('../../../../config', () => ({
   APP_ENV: 'development',
   UNLIMITED_CONTENT: true,
 }));
-
-const mockBook = (jest as any).requireActual(
-  '../../../../test/mocks/archiveLoader'
-).book;
-
-BOOKS[mockBook.id] = { defaultVersion: mockBook.version };
-BOOKS['13ac107a-f15f-49d2-97e8-60ab2e3abcde'] = { defaultVersion: '1.0' };
+jest.mock('../../../../config.books', () => {
+  const mockBook = (jest as any).requireActual(
+    '../../../../test/mocks/archiveLoader'
+  ).book;
+  return {
+    [mockBook.id]: { defaultVersion: mockBook.version },
+    '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0' },
+  };
+});
 
 const testBookSlug = 'book-slug-1';
 const testUUID = '13ac107a-f15f-49d2-97e8-60ab2e3abcde';
@@ -276,26 +277,6 @@ describe('locationChange', () => {
 
       expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith(book.id);
       expect(referenceBook).toEqual(undefined);
-    });
-
-    it('noops if book is retired', async() => {
-      BOOKS['13ac107a-f15f-49d2-97e8-60ab2e3abcde'] = { defaultVersion: '1.0', retired: true };
-
-      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
-      match.params = {
-        book: {
-          uuid: testUUID,
-          version: testVersion,
-        },
-        page: {
-          slug: testPage,
-        },
-      };
-
-      mockUUIDBook();
-
-      await hook(helpers, match);
-      expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
     });
 
     describe('getBookInformation', () => {

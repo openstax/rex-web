@@ -63,12 +63,16 @@ const updateRedirectsData = async(
       return newSection;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
-    } else if (!newSection && matchSlug(section.slug) === undefined && !isAllowedDeletion && !booksAreDifferent) {
+    } else if (
+      !newSection && matchSlug(section.slug) === undefined
+      && !isAllowedDeletion(section)
+      && !booksAreDifferent
+    ) {
       throw new Error(
         `updateRedirects prohibits removing pages from a book, `
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
     // below condition is specific to retiring books
-    } else if (booksAreDifferent && !isAllowedDeletion && !redirects.find(matchRedirect(section))) {
+    } else if (booksAreDifferent && !isAllowedDeletion(section) && !redirects.find(matchRedirect(section))) {
       // first check for a canonical page
       const canonicalPageMap = CANONICAL_MAP[currentBook.id]?.find((pageMap) => pageMap[0] === newBook.id) || [];
       const canonicalPageId = canonicalPageMap[1] && canonicalPageMap[1][section.id];
