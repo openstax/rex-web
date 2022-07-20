@@ -196,7 +196,7 @@ describe('locationChange', () => {
       expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, testVersion);
     });
 
-    it('gets uuid and version from state if not found in nav params', async() => {
+    it('gets uuid and version from match state if not found in nav params', async() => {
       helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0' };
       helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
 
