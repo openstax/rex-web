@@ -1,11 +1,12 @@
+import { Books } from '../../config.books';
 import createBookConfigLoader from '../../gateways/createBookConfigLoader';
 import { book } from './archiveLoader';
 
-const localBookConfig = {
+const localBookConfig: Books = {
   [book.id]: { defaultVersion: book.version },
 };
 
-export default (): ReturnType<typeof createBookConfigLoader> => {
+export default () => {
   const resolveBookVersion = (uuid: string) => localBookConfig[uuid];
 
   const mockGetBookVersionFromUUID = jest.fn((uuid: string) => {
@@ -15,7 +16,12 @@ export default (): ReturnType<typeof createBookConfigLoader> => {
       : Promise.resolve(undefined);
   });
 
-  return {
+  const mock: ReturnType<typeof createBookConfigLoader> = {
     getBookVersionFromUUID: (uuid: string) => mockGetBookVersionFromUUID(uuid),
+  };
+
+  return {
+    ...mock,
+    localBookConfig,
   };
 };
