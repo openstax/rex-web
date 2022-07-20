@@ -1,4 +1,3 @@
-import BOOKS from '../../../../config.books';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
@@ -9,13 +8,21 @@ import * as routes from '../../routes';
 import { Params, SlugParams } from '../../types';
 import * as resolveContentUtils from './resolveContent';
 
+const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
+  if (error) {
+    reject(error);
+  }
+  resolve({ json: () => new Promise((res) => res(valueToReturn)) });
+});
+
+jest.mock('../../../../config', () => ({
+  APP_ENV: 'production',
+  UNLIMITED_CONTENT: false,
+}));
+
 const testUUID = '13ac107a-f15f-49d2-97e8-60ab2e3abcde';
 const testVersion = '1.0';
 const testPage = 'test-page-1';
-
-const mockBook = (jest as any).requireActual(
-  '../../../../test/mocks/archiveLoader'
-).book;
 
 describe('locationChange', () => {
   let store: Store;
@@ -137,11 +144,13 @@ describe('locationChange', () => {
     });
 
     it('noops if book is retired', async() => {
+      (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
       helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0', retired: true };
-
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+
       match.params = {
         book: {
+          slug: 'book-slug-1',
           uuid: testUUID,
           version: testVersion,
         },
@@ -152,8 +161,36 @@ describe('locationChange', () => {
 
       mockUUIDBook();
 
-      await hook(helpers, match);
+      await expect(hook(helpers, match))
+        .rejects.toThrowErrorMatchingInlineSnapshot(`"tried to load retired book: book-slug-1"`);
       expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
+    });
+
+    it('returns undefined if book is retired and redirected', async() => {
+      (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
+      helpers.history.location = { pathname: 'asd' } as any;
+      helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0', retired: true };
+
+      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+      match.params = {
+        book: {
+          slug: 'book-slug-1',
+          uuid: testUUID,
+          version: testVersion,
+        },
+        page: {
+          slug: testPage,
+        },
+      };
+
+      mockUUIDBook();
+
+      await expect(hook(helpers, match)).resolves.toMatchInlineSnapshot(`
+        Object {
+          "book": undefined,
+          "page": undefined,
+        }
+      `);
     });
   });
 });
