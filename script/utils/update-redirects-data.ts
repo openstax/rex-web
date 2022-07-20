@@ -36,7 +36,8 @@ const updateRedirectsData = async(
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id);
 
   const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
-  const matchRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => isEqual(formatRedirectSource(section));
+  const matchRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => (redirect: {pathname: string}) =>
+    redirect.pathname === formatRedirectSource(section);
   const matchSection = (section: LinkedArchiveTreeNode) => (node: LinkedArchiveTreeNode) => section.id === node.id;
 
   const allowedDeletions: Array<{id: string, slug: string}> = [];
