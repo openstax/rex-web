@@ -1,7 +1,7 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { retiredBookRedirect } from '../actions';
-import { addQueryNotifications } from './addQueryNotification';
+import { addQueryNotificationsBody } from './addQueryNotification';
 
 describe('addQueryNotification', () => {
 
@@ -20,7 +20,7 @@ describe('addQueryNotification', () => {
     };
     const dispatchSpy = jest.spyOn(services, 'dispatch');
 
-    addQueryNotifications(services);
+    addQueryNotificationsBody(services)({} as any);
     await Promise.resolve();
 
     expect(dispatchSpy).toHaveBeenCalledWith(retiredBookRedirect());
@@ -33,7 +33,7 @@ describe('addQueryNotification', () => {
     };
     const dispatchSpy = jest.spyOn(services, 'dispatch');
 
-    addQueryNotifications(services);
+    addQueryNotificationsBody(services)({} as any);
     await Promise.resolve();
 
     expect(dispatchSpy).not.toHaveBeenCalled();

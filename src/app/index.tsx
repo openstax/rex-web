@@ -48,7 +48,6 @@ export const routes = Object.values({
 
 const init = [
   ...Object.values(auth.init),
-  ...Object.values(notifications.init),
 ];
 
 const hooks = [
