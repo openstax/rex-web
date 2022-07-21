@@ -1,9 +1,11 @@
 import isEqual from 'lodash/fp/isEqual';
+import once from 'lodash/fp/once';
 import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
 import { getBookVersionFromUUIDSync } from '../../../../gateways/createBookConfigLoader';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
-import { assertDefined, BookNotFoundError } from '../../../utils';
+import { BookNotFoundError } from '../../../utils';
+import { assertDefined } from '../../../utils/assertions';
 import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPage } from '../../actions';
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
@@ -16,16 +18,29 @@ import {
   getPageIdFromUrlParam,
 } from '../../utils';
 import { archiveTreeContainsNode, archiveTreeSectionIsBook } from '../../utils/archiveTreeUtils';
+import { processBrowserRedirect } from '../../utils/processBrowserRedirect';
 import { getUrlParamForPageId, getUrlParamsForBook } from '../../utils/urlUtils';
 
 export default async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ) => {
-  const [book, loader] = await resolveBook(services, match);
-  const page = await resolvePage(services, match, book, loader);
+  const [book, loader] = await resolveBook(services, match).catch(async(e) => {
+    // if we have any problems loading the requested book, check for a redirect
+    // error is only thrown when the redirect isn't found
+    if (!(e instanceof BookNotFoundError) || !(await processBrowserRedirect(services))) {
+      throw e;
+    }
 
-  if (!hasOSWebData(book) && APP_ENV === 'production') {
+    // it was a problem loading the book and the redirect was successful. this causes
+    // a locationChange with the new url and this hook will be fired again, we need to
+    // noop the rest of the content processing for this run
+    return [undefined, undefined];
+  });
+
+  const page = book && loader ? await resolvePage(services, match, book, loader) : undefined;
+
+  if (book && !hasOSWebData(book) && APP_ENV === 'production') {
     throw new Error('books without cms data are only supported outside production');
   }
 
@@ -41,6 +56,7 @@ const getBookResponse = async(
   const osWebBook = bookSlug ? await osWebLoader.getBookFromSlug(bookSlug) : undefined;
   const archiveBook = await loader.load();
   const newBook = formatBookData(archiveBook, osWebBook);
+
   return [newBook, archiveLoader.book(newBook.id, newBook.version)];
 };
 
@@ -71,9 +87,10 @@ const resolveBook = async(
 };
 
 export const resolveBookReference = async(
-  {osWebLoader, bookConfigLoader, getState}: AppServices & MiddlewareAPI,
+  services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ): Promise<[string | undefined, string, string]> => {
+  const {osWebLoader, bookConfigLoader, getState} = services;
   const state = getState();
   const currentBook = select.book(state);
 
@@ -89,20 +106,36 @@ export const resolveBookReference = async(
 
   const bookUid  = 'uuid' in match.params.book
     ? match.params.book.uuid
-    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book.slug
-      ? currentBook.id
-      : await osWebLoader.getBookIdFromSlug(match.params.book.slug);
+    : match.state && 'bookUid' in match.state
+      ? match.state.bookUid
+      : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book.slug
+        ? currentBook.id
+        : await osWebLoader.getBookIdFromSlug(match.params.book.slug);
 
   if (!bookUid) {
     throw new BookNotFoundError(`Could not resolve uuid for slug: ${bookSlug}`);
   }
 
+  // depending on the type of route match, this might get called 0, 1, or 2 times, so
+  // we don't want to pre-fetch it unnecessarily and we don't want to double tap it twice
+  // in a row, so we leave it as a function and use `once` here.
+  const getBookConfig = once(() => bookConfigLoader.getBookVersionFromUUID(bookUid));
+
   const bookVersion = 'version' in match.params.book
     ? match.params.book.version
-    : assertDefined(
-        await bookConfigLoader.getBookVersionFromUUID(bookUid),
+    : match.state && 'bookVersion' in match.state
+      ? match.state.bookVersion
+      : assertDefined(await getBookConfig(),
         `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
       ).defaultVersion;
+
+  if (!UNLIMITED_CONTENT && (await getBookConfig())?.retired) {
+    throw new BookNotFoundError(`tried to load retired book: ${bookSlug}`);
+  }
+
+  if (!bookVersion) {
+    throw new BookNotFoundError(`Could not resolve version for book: ${bookUid}`);
+  }
 
   return [bookSlug, bookUid, bookVersion];
 };

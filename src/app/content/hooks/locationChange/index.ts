@@ -14,7 +14,11 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
 
   return async(action) => {
-    await resolveContent(services, action.match);
+    // this hook guarantees that a book is loaded for the logic below
+    // missing page is ok, that shows the toc with a page not found placeholder
+    if ((await resolveContent(services, action.match)).book === undefined) {
+      return;
+    }
 
     await Promise.all([
       boundRegisterPageView(action),
