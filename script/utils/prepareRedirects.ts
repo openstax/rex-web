@@ -27,7 +27,7 @@ const prepareRedirects = async(
   for (const fileName of redirectsDataFiles) {
     const bookRedirects: RedirectsData = await import(fileName);
 
-    for (const { bookId, pageId, pathname } of bookRedirects) {
+    for (const { bookId, pageId, pathname, query } of bookRedirects) {
       const configForBook: { defaultVersion: string } | undefined = BOOKS[bookId];
 
       if (!configForBook) {
@@ -47,7 +47,7 @@ const prepareRedirects = async(
 
       redirects.push({
         from: pathname,
-        to: decodeURI(content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } })),
+        to: decodeURI(content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } })) + (query || ''),
       });
     }
   }
