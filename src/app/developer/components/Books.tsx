@@ -37,7 +37,7 @@ export const exportBookHandler = (book: Book, intl: IntlShape) => async() => {
   downloadFile(`${book.title}.csv`, await generateBookPageSpreadsheet(book, intl));
 };
 
-const notRetiredbooks = Object.entries(BOOKS).filter(([, book]) => book.retired === undefined);
+const notRetiredbooks = Object.entries(BOOKS).filter(([, book]) => !book.retired);
 
 // tslint:disable-next-line:variable-name
 const Books = () => {
