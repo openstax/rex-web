@@ -182,7 +182,7 @@ export const prepareBooks = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
 ): Promise<BookWithOSWebData[]> => {
-  const bookConfigs = Object.entries(BOOKS).filter(([, book]) => book.retired === undefined);
+  const bookConfigs = Object.entries(BOOKS).filter(([, book]) => !book.retired);
   return Promise.all(bookConfigs.map(async([bookId, {defaultVersion}]) => {
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
     return await bookLoader(bookId, defaultVersion);
