@@ -1,4 +1,5 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
+import { getArchiveUrl, getBookVersionFromUUIDSync } from '../../gateways/createBookConfigLoader';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { isDefined } from '../guards';
 import { AppServices } from '../types';
@@ -12,15 +13,15 @@ import {
   BookWithOSWebData,
   Params,
   SlugParams,
-  UuidParams,
+  UuidParams
 } from './types';
 import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';
 
 export { findDefaultBookPage, flattenArchiveTree } from './utils/archiveTreeUtils';
-export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
-export { stripIdVersion } from './utils/idUtils';
 export { scrollSidebarSectionIntoView } from './utils/domUtils';
+export { stripIdVersion } from './utils/idUtils';
+export { getBookPageUrlAndParams, getPageIdFromUrlParam, getUrlParamForPageId, toRelativeUrl } from './utils/urlUtils';
 
 export interface ContentPageRefencesType {
   bookId: string;
@@ -136,4 +137,9 @@ export const getIdFromPageParam = (param: Params['page'] | null) => {
 export const loadPageContent = async(loader: ReturnType<AppServices['archiveLoader']['book']>, pageId: string) => {
   const page = await loader.page(pageId).load();
   return page.content;
+};
+
+export const getBookPipelineVersion = (book: Book): string => {
+  const url = getBookVersionFromUUIDSync(book.id)?.archiveOverride || getArchiveUrl();
+  return url.replace(/^\/apps\/archive\//, '');
 };
