@@ -48,8 +48,8 @@ def test_keyboard_navigation_for_my_highlights_button_on_content_page(
 
     # WHEN: they select the search bar, tab twice and hit the return key
     (ActionChains(selenium)
-        .click(book.toolbar.search_textbox)
-        .send_keys(Keys.TAB * 2)
+        .click(book.topbar.search_textbox)
+        .send_keys(Keys.TAB * 4)
         .send_keys(Keys.RETURN)
         .perform())
 
@@ -71,8 +71,8 @@ def test_keyboard_navigation_for_my_highlights_button_on_content_page(
 
     # WHEN: they select the search bar, tab twice and hit the enter key
     (ActionChains(selenium)
-        .click(book.toolbar.search_textbox)
-        .send_keys(Keys.TAB * 2)
+        .click(book.topbar.search_textbox)
+        .send_keys(Keys.TAB * 4)
         .send_keys(Keys.ENTER)
         .perform())
 
