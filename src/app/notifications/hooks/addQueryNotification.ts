@@ -1,13 +1,15 @@
 import { isKeyOf } from '../../guards';
+import { locationChange } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
-import { Initializer } from '../../types';
+import { ActionHookBody } from '../../types';
+import { actionHook } from '../../utils';
 import { retiredBookRedirect } from '../actions';
 
 const possibleNotifications = {
   retired: retiredBookRedirect,
 };
 
-export const addQueryNotifications: Initializer = async({dispatch, getState}) => {
+export const addQueryNotificationsBody: ActionHookBody<typeof locationChange> = ({dispatch, getState}) => () => {
   if (typeof(document) === 'undefined') {
     return;
   }
@@ -19,3 +21,5 @@ export const addQueryNotifications: Initializer = async({dispatch, getState}) =>
     dispatch(possibleNotifications[query.message]());
   }
 };
+
+export const addQueryNotifications = actionHook(locationChange, addQueryNotificationsBody);
