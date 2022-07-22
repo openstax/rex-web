@@ -139,18 +139,6 @@ class Signup(Page):
 
     _finish_button_locator = _next_button_locator
 
-    @property
-    def _use_new_accounts_flow(self) -> bool:
-        """Return True if the new Accounts flow tag is found.
-
-        :return: ``True`` if any elements have "newflow" in their ID
-        :rtype: bool
-
-        """
-        WebDriverWait(self.driver, 1).until(
-            expect.visibility_of_element_located(self._new_accounts_flow_locator))
-        return bool(self.find_elements(*self._new_accounts_flow_locator))
-
     def complete(self):
         """Complete the new user account setup flow."""
         button = self.find_element(*self._finish_button_locator)
@@ -189,16 +177,11 @@ class Signup(Page):
         first_name_field.send_keys(first_name)
         last_name_field = self.find_element(*self._last_name_input_locator)
         last_name_field.send_keys(last_name)
-        if self._use_new_accounts_flow:
-            email_field = self.find_element(*self._email_signup_input_locator)
-            email_field.send_keys(email)
-            password_field = self.find_element(
-                *self._password_select_input_locator)
-            password_field.send_keys(password)
-        else:
-            school_name_field = self.find_element(
-                *self._school_name_input_locator)
-            school_name_field.send_keys(school)
+        email_field = self.find_element(*self._email_signup_input_locator)
+        email_field.send_keys(email)
+        password_field = self.find_element(
+            *self._password_select_input_locator)
+        password_field.send_keys(password)
         i_agree_checkbox = self.find_element(
             *self._accept_policies_checkbox_locator)
         Utilities.click_option(self.driver, element=i_agree_checkbox)
@@ -217,18 +200,11 @@ class Signup(Page):
 
         """
         name, password, school, email = self.registration_setup()
-
         self.sign_up()
         self.select_role(email.address)
-        if self._use_new_accounts_flow:
-            self.enter_user_info(*name, school, email.address, password)
-            self.confirm_email(email)
-            self.complete()
-        else:
-            self.confirm_email(email)
-            self.select_password(password)
-            self.enter_user_info(*name, school, email.address, password)
-
+        self.enter_user_info(*name, school, email.address, password)
+        self.confirm_email(email)
+        self.complete()
         if return_password:
             return (name, email, password)
         return (name, email)
@@ -273,22 +249,11 @@ class Signup(Page):
         :param str email: the user's email address
 
         """
-        if self._use_new_accounts_flow:
-            as_a_student_button = self.find_element(
-                *self._as_a_student_button_locator)
-            Utilities.click_option(self.driver, element=as_a_student_button)
-            return
-        # old flow
-        role_menu = Select(self.find_element(*self._user_select_role_locator))
-        role_menu.select_by_visible_text("Student")
-        email_field = self.find_element(*self._email_signup_input_locator)
-        email_field.send_keys(email)
-        next_button = self.find_element(*self._next_button_locator)
-        Utilities.click_option(self.driver, element=next_button)
+        as_a_student_button = self.find_element(*self._as_a_student_button_locator)
+        Utilities.click_option(self.driver, element=as_a_student_button)
 
     def sign_up(self):
         """Click the sign up link."""
-
         WebDriverWait(self.driver, 1).until(
             expect.visibility_of_element_located(self._signup_link_or_tab_locator))
         signup_link = self.find_element(*self._signup_link_or_tab_locator)
