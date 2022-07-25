@@ -5,9 +5,6 @@ import memoize from 'lodash/fp/memoize';
 import WeakMap from 'weak-map';
 import { assertWindow } from '../app/utils';
 
-const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner
-const MATH_MARKER_INLINE = '\u200b\u200b\u200b'; // zero-width space
-
 const MATH_RENDERED_CLASS = 'math-rendered';
 const MATH_DATA_SELECTOR = `[data-math]:not(.${MATH_RENDERED_CLASS})`;
 const MATH_ML_SELECTOR   = `math:not(.${MATH_RENDERED_CLASS})`;
@@ -24,43 +21,12 @@ const MATHJAX_CONFIG = {
       left: '', right: 0, visibility: 'hidden',
     },
   },
-  tex2jax: {
-    displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]],
-    inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]],
-  },
 };
 
 const findProcessedMath = (root: Element): Element[] => Array.from(root.querySelectorAll('.MathJax math'));
 const findUnprocessedMath = (root: Element): Element[] => {
   const processedMath = findProcessedMath(root);
   return Array.from(root.querySelectorAll('math')).filter((node) => processedMath.indexOf(node) === -1);
-};
-
-const findLatexNodes = (root: Element): Element[] => {
-  const latexNodes: Element[] = [];
-  for (const node of Array.from(root.querySelectorAll(MATH_DATA_SELECTOR))) {
-    const formula = node.getAttribute('data-math');
-    // divs should be rendered as a block, others inline
-    if (node.tagName.toLowerCase() === 'div') {
-      node.textContent = `${MATH_MARKER_BLOCK}${formula}${MATH_MARKER_BLOCK}`;
-    } else {
-      node.textContent = `${MATH_MARKER_INLINE}${formula}${MATH_MARKER_INLINE}`;
-    }
-    latexNodes.push(node);
-  }
-
-  return latexNodes;
-};
-
-const typesetLatexNodes = (latexNodes: Element[], windowImpl: Window) => () => {
-  if (isEmpty(latexNodes)) {
-    return;
-  }
-
-  windowImpl.MathJax.Hub.Queue(
-    () => windowImpl.MathJax.Hub.Typeset(latexNodes),
-    markLatexNodesRendered(latexNodes)
-  );
 };
 
 const typesetMathMLNodes = (root: Element, windowImpl: Window) => () => {
@@ -76,21 +42,9 @@ const typesetMathMLNodes = (root: Element, windowImpl: Window) => () => {
   );
 };
 
-const markLatexNodesRendered = (latexNodes: Element[]) => () => {
-  // Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
-  // uses className += instead of classList because IE
-  const result = [];
-  for (const node of latexNodes) {
-    result.push(node.className += ` ${MATH_RENDERED_CLASS}`);
-  }
-};
-
 // Search document for math and [data-math] elements and then typeset them
 function typesetDocument(root: Element, windowImpl: Window) {
-  const latexNodes = findLatexNodes(root);
-
   windowImpl.MathJax.Hub.Queue(
-    typesetLatexNodes(latexNodes, windowImpl),
     typesetMathMLNodes(root, windowImpl)
   );
 }
@@ -98,7 +52,7 @@ function typesetDocument(root: Element, windowImpl: Window) {
 const resolveOrWait = (root: Element, resolve: () => void, remainingTries = 5) => {
   if (
     remainingTries > 0
-    && (findLatexNodes(root).length || findUnprocessedMath(root).length)
+    && (findUnprocessedMath(root).length)
   ) {
     setTimeout(() => {
       resolveOrWait(root, resolve, remainingTries - 1);
@@ -140,7 +94,7 @@ const typesetMath = (root: Element, windowImpl = window) => {
 
 // The following should be called once and configures MathJax.
 // Assumes the script to load MathJax is of the form:
-// `...MathJax.js?config=TeX-MML-AM_HTMLorMML-full&amp;delayStartupUntil=configured`
+// `...MathJax.js?config=MML-full&delayStartupUntil=configured`
 function startMathJax() {
   const window = assertWindow();
   const configuredCallback = () => {
