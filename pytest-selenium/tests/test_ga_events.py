@@ -2,6 +2,7 @@
 # flake8: noqa
 import random
 import re
+from time import sleep
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -12,6 +13,9 @@ from pages.content import Content
 from tests import markers
 from utils.utility import Color, Highlight, Utilities
 
+
+# GA queue:
+# __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands().map(x => x.command.payload);
 ACTION_SCRIPT = (
     'document.querySelector("{selector}").click(); '
     "return __APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()"
@@ -27,39 +31,59 @@ ACTION_SCRIPT = (
 @markers.test_case("C591502")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when a TOC link is clicked."""
+    """The page submits the correct GA events when a TOC link is clicked."""
     # SETUP:
     event_action = None
     event_category = "REX Link (toc)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    page_view_type = "pageview"
+    page_view_page = None
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
     topbar = book.topbar
 
+    if book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click a table of contents link
     if book.is_mobile:
         topbar.click_mobile_menu_button()
         book.toolbar.click_toc_toggle_button()
+        new_events += 1
     event_action = book.sidebar.toc.next_section_page_slug
     book.sidebar.toc.view_next_section()
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "{page_slug}",
     #          eventCategory: "REX Link (toc)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    toc_link_event = Utilities.get_analytics_queue(selenium, -2)
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    toc_link_event = events[-2]
+    page_view_event = events[-1]
+    page_view_page = "/".join([""] + selenium.current_url.split("/")[3:])
     assert (
         "eventAction" in toc_link_event
         and "eventCategory" in toc_link_event
         and "eventLabel" in toc_link_event
-    ), "Not viewing the correct GA event"
+    ), "Not viewing the correct GA event (eventAction)"
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
     assert toc_link_event["eventAction"] == event_action
     assert toc_link_event["eventCategory"] == event_category
     assert toc_link_event["eventLabel"] == event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C591503")
@@ -70,11 +94,16 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, bo
     event_action = "buy-book"
     event_category = "REX Link"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the 'Order a print copy' button
     book.order_a_print_copy(remain_on_page=True)
@@ -83,71 +112,101 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, bo
     #        { eventAction: "buy-book",
     #          eventCategory: "REX Link (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    last_event = events[-1]
     assert (
         "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
     ), "Not viewing the correct GA event"
     assert last_event["eventAction"] == event_action
     assert last_event["eventCategory"] == event_category
     assert last_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621361", "C621362")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-2-the-scientific-methods")])
-def test_user_clicks_the_previous_and_next_page_links_ga_events(
+def test_user_clicks_the_previous_and_next_page_link_ga_events(
     selenium, base_url, book_slug, page_slug
 ):
-    """The page submits the correct GA event when the page link is clicked."""
+    """The page submits the correct GA events when the page links are clicked."""
     # SETUP:
     label = "[data-analytics-label={label}]"
     load_script = 'return document.querySelector("[data-analytics-label={label}]");'
     next_event_action = "next"
     next_event_category = "REX Link (prev-next)"
-    next_event_label = None  # Not yet known
+    next_event_label = None
+    next_page_view_type = "pageview"
+    next_page_view_page = f"/books/{book_slug}/pages/{page_slug}"
+    next_link_events = 2
     previous_event_action = "prev"
     previous_event_category = next_event_category
-    previous_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    previous_event_label = next_page_view_page
+    previous_page_view_type = "pageview"
+    previous_page_view_page = None
+    previous_link_events = 2
 
     # GIVEN: a user viewing a book that is not the first book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the 'Previous' link
     #        (use a script because we need the events before the page changes)
-    events = selenium.execute_script(
+    selenium.execute_script(
         ACTION_SCRIPT.format(selector=label.format(label=previous_event_action))
     )
     book.wait.until(
         lambda _: book.driver.execute_script(load_script.format(label=next_event_action))
     )
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "prev",
     #          eventCategory: "REX Link (prev-next)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
+    sleep(1.0)
+    events = Utilities.get_analytics_queue(selenium)
     next_event_label = "/".join([""] + selenium.current_url.split("/")[3:])
+    previous_page_view_page = next_event_label
     transition_event = events[-2]
+    transition_pageview_event = events[-1]
     assert (
         "eventAction" in transition_event
         and "eventCategory" in transition_event
         and "eventLabel" in transition_event
     ), "Not viewing the correct GA event"
+    assert(
+        "hitType" in transition_pageview_event
+        and "page" in transition_pageview_event
+    ), "Not viewing the correct GA event (pageview)"
     assert transition_event["eventAction"] == previous_event_action
     assert transition_event["eventCategory"] == previous_event_category
     assert transition_event["eventLabel"] == previous_event_label
+    assert transition_pageview_event["hitType"] == next_page_view_type
+    assert transition_pageview_event["page"] == previous_page_view_page
+    assert len(events) == initial_events + previous_link_events, "Wrong number of GA events found"
 
     # WHEN:  they click the 'Next' link
     #        (use a script because we need the events before the page changes)
-    events = selenium.execute_script(
+    selenium.execute_script(
         ACTION_SCRIPT.format(selector=label.format(label=next_event_action))
     )
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "next",
     #          eventCategory: "REX Link (prev-next)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
+    sleep(1.0)
+    events = Utilities.get_analytics_queue(selenium)
     transition_event = events[-2]
+    transition_pageview_event = events[-1]
     assert (
         "eventAction" in transition_event
         and "eventCategory" in transition_event
@@ -156,20 +215,30 @@ def test_user_clicks_the_previous_and_next_page_links_ga_events(
     assert transition_event["eventAction"] == next_event_action
     assert transition_event["eventCategory"] == next_event_category
     assert transition_event["eventLabel"] == next_event_label
+    assert transition_pageview_event["hitType"] == next_page_view_type
+    assert transition_pageview_event["page"] == next_page_view_page
+    assert (
+        len(events) == initial_events + previous_link_events + next_link_events
+    ), "Wrong number of GA events found"
 
 
 @markers.test_case("C621363")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_user_logout_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when a user logs out."""
+    """The page submits the correct GA events when a user logs out."""
     # SETUP:
-    event_action = f"/accounts/logout?r=/books/{book_slug}/pages/{page_slug}"
-    event_category = "REX Link (openstax-navbar)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    log_out_event_action = f"/accounts/logout?r=/books/{book_slug}/pages/{page_slug}"
+    log_out_event_category = "REX Link (openstax-navbar)"
+    log_out_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     selector = "a[href*=logout]"
+    unload_event_action = f"/books/{book_slug}/pages/{page_slug}"
+    unload_event_category = "REX unload"
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the user menu
     # AND:   click the 'Log out' menu link
@@ -177,19 +246,29 @@ def test_user_logout_ga_event(selenium, base_url, book_slug, page_slug):
 
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
-    # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "/accounts/logout?r=/books/{book_slug}/pages/{page_slug}",  # NOQA
+    # THEN:  the correct Google Analytics events are queued
+    #        { eventAction: "/accounts/logout?r=/books/{book_slug}/pages/{page_slug}",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}"
+    #          eventCategory: "REX unload" }
     log_out_event = events[-2]
+    unload_event = events[-1]
     assert (
         "eventAction" in log_out_event
         and "eventCategory" in log_out_event
         and "eventLabel" in log_out_event
-    ), "Not viewing the correct GA event"
-    assert log_out_event["eventAction"] == event_action
-    assert log_out_event["eventCategory"] == event_category
-    assert log_out_event["eventLabel"] == event_label
+    ), "Not viewing the correct GA event (log out)"
+    assert log_out_event["eventAction"] == log_out_event_action
+    assert log_out_event["eventCategory"] == log_out_event_category
+    assert log_out_event["eventLabel"] == log_out_event_label
+    assert (
+        "eventAction" in unload_event
+        and "eventCategory" in unload_event
+    ), "Not viewing the correct GA event (unload)"
+    assert unload_event["eventAction"] == unload_event_action
+    assert unload_event["eventCategory"] == unload_event_category
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621364", "C621366")
@@ -200,16 +279,22 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     close_event_action = "Click to close the Table of Contents"
     close_event_category = "REX Button (toc)"
     close_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     open_event_action = "Click to open the Table of Contents"
     open_event_category = "REX Button (toolbar)"
     open_event_label = close_event_label
 
     # GIVEN: a user viewing a book page and the ToC is open
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     if book.is_mobile:
+        book.topbar.click_mobile_menu_button()
         book.toolbar.click_toc_toggle_button()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they close the table of contents
     book.sidebar.header.click_toc_toggle_button()
@@ -218,13 +303,15 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     #        { eventAction: "Click to close the Table of Contents",
     #          eventCategory: "REX Button (toc)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    toc_close_event = Utilities.get_analytics_queue(selenium, -1)
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in toc_close_event
+        and "eventCategory" in toc_close_event
+        and "eventLabel" in toc_close_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == close_event_action
-    assert last_event["eventCategory"] == close_event_category
-    assert last_event["eventLabel"] == close_event_label
+    assert toc_close_event["eventAction"] == close_event_action
+    assert toc_close_event["eventCategory"] == close_event_category
+    assert toc_close_event["eventLabel"] == close_event_label
 
     # WHEN:  they open the table of contents
     book.toolbar.click_toc_toggle_button()
@@ -233,13 +320,17 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
     #        { eventAction: "Click to open the Table of Contents",
     #          eventCategory: "REX Button (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    toc_open_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in toc_open_event
+        and "eventCategory" in toc_open_event
+        and "eventLabel" in toc_open_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == open_event_action
-    assert last_event["eventCategory"] == open_event_category
-    assert last_event["eventLabel"] == open_event_label
+    assert toc_open_event["eventAction"] == open_event_action
+    assert toc_open_event["eventCategory"] == open_event_category
+    assert toc_open_event["eventLabel"] == open_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621365")
@@ -249,33 +340,40 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
 def test_click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a figure link is clicked."""
     # SETUP:
-    event_action = None  # Not yet known, uses the anchor reference
-    event_category = "REX Link"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    figure_link_action = None  # Not yet known, uses the anchor reference
+    figure_link_category = "REX Link"
+    figure_link_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a user viewing a book page with a figure link
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the figure link
     link = random.choice(book.content.figure_links)
-    event_action = f'#{link.get_attribute("href").split("#")[-1]}'
+    figure_link_action = f'#{link.get_attribute("href").split("#")[-1]}'
     Utilities.click_option(selenium, element=link)
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "{figure reference}",
     #          eventCategory: "REX Link",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    link_click_event = Utilities.get_analytics_queue(selenium, -2)
+    events = Utilities.get_analytics_queue(selenium)
+    link_click_event = events[-1]
     assert (
         "eventAction" in link_click_event
         and "eventCategory" in link_click_event
         and "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
-    assert link_click_event["eventAction"] == page_slug + event_action
-    assert link_click_event["eventCategory"] == event_category
-    assert link_click_event["eventLabel"] == event_label
+    assert link_click_event["eventAction"] == page_slug + figure_link_action
+    assert link_click_event["eventCategory"] == figure_link_category
+    assert link_click_event["eventLabel"] == figure_link_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621367")
@@ -286,10 +384,13 @@ def test_account_profile_menu_bar_click_ga_event(selenium, base_url, book_slug, 
     event_action = "/accounts/profile"
     event_category = "REX Link (openstax-navbar)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
     selector = "a[href*=profile]"
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click their name in the nav bar
     # AND:   click the 'Account Profile' link
@@ -301,13 +402,16 @@ def test_account_profile_menu_bar_click_ga_event(selenium, base_url, book_slug, 
     #        { eventAction: "/accounts/profile",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = events[-1]
+    profile_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in profile_event
+        and "eventCategory" in profile_event
+        and "eventLabel" in profile_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert profile_event["eventAction"] == event_action
+    assert profile_event["eventCategory"] == event_category
+    assert profile_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C545852", "C642893", "C642894")
@@ -316,11 +420,20 @@ def test_account_profile_menu_bar_click_ga_event(selenium, base_url, book_slug, 
     [("physics", "1-3-the-language-of-physics-physical-quantities-and-units")],
 )
 def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA events when a search excerpt is clicked."""
     # SETUP:
-    excerpt_event_action = None  # Not yet known, uses the search result link
+    excerpt_event_action = None
     excerpt_event_category = "REX Link (content-search-results)"
     excerpt_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    key_term_event_action = None
+    key_term_event_category = "REX Link (kt-search-results)"
+    key_term_event_label = excerpt_event_label
+    key_term_page_view_page = f"/books/{book_slug}/pages/{page_slug[0:2]}key-terms"
+    key_term_page_view_type = "pageview"
+    mobile_search_action = "Search this book"
+    mobile_search_category = "REX Button"
+    mobile_search_label = excerpt_event_label
+    new_events = 1
     search_event_action = "inverse proportionality"
     search_event_category = "REX search"
     search_event_label = book_slug
@@ -329,18 +442,40 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     # GIVEN: a user viewing a book page
     # AND:   searched the book for a term
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
-    search = book.mobile_search_toolbar if book.is_mobile else book.toolbar
+    search = book.mobile_search_toolbar if book.is_mobile else book.topbar
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they search for a term
     search_results = search.search_for(search_term).chapter_results
 
-    # THEN:  the correct Google Analytics search link event is queued
+    # THEN:  the correct Google Analytics search link events are queued
     #        { eventAction: "{search term}",
     #          eventCategory: "REX Search",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    search_event = Utilities.get_analytics_queue(selenium, -2)
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
+    # Note: a toolbar search event is added for mobile
+    #        { eventAction: "Search this book",
+    #          eventCategory: "REX Button",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    if book.is_mobile:
+        toolbar_event = events[-2]
+    search_event = events[-1]
+    if book.is_mobile:
+        assert (
+            "eventAction" in toolbar_event
+            and "eventCategory" in toolbar_event
+            and "eventLabel" in toolbar_event
+        ), "Not viewing the correct GA event"
+        assert toolbar_event["eventAction"] == mobile_search_action
+        assert toolbar_event["eventCategory"] == mobile_search_category
+        assert toolbar_event["eventLabel"] == mobile_search_label
     assert (
         "eventAction" in search_event
         and "eventCategory" in search_event
@@ -349,17 +484,24 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     assert search_event["eventAction"] == search_event_action
     assert search_event["eventCategory"] == search_event_category
     assert search_event["eventLabel"] == search_event_label
+    assert(
+        len(events) == initial_events + new_events + (1 if book.is_mobile else 0)
+    ), "Wrong number of GA events found"
 
     # WHEN:  they click on a search excerpt from chapter results
+    initial_events = len(Utilities.get_analytics_queue(selenium))
     link = random.choice(search_results)
     excerpt_event_action = link.get_attribute("href").split("/")[-1]
     Utilities.click_option(selenium, element=link)
 
-    # THEN:  the correct Google Analytics search link event is queued
+    # THEN:  the correct Google Analytics search link events are queued
     #        { eventAction: "{new page slug}",
     #          eventCategory: "REX Link (content-search-results)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    link_click_event = Utilities.get_analytics_queue(selenium, -2)
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    link_click_event = events[-1]
     assert (
         "eventAction" in link_click_event
         and "eventCategory" in link_click_event
@@ -368,60 +510,89 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     assert link_click_event["eventAction"] == excerpt_event_action
     assert link_click_event["eventCategory"] == excerpt_event_category
     assert link_click_event["eventLabel"] == excerpt_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
     # WHEN:  they click on a search excerpt from related key term results
+    initial_events = len(Utilities.get_analytics_queue(selenium))
     rkt_search_results = book.search_sidebar.rkt_results
     link = random.choice(rkt_search_results)
-    excerpt_event_action = link.get_attribute("href").split("/")[-1]
+    key_term_event_action = link.get_attribute("href").split("/")[-1]
     Utilities.click_option(selenium, element=link)
 
-    # THEN:  the correct Google Analytics search link event is queued
+    # THEN:  the correct Google Analytics search link events are queued
     #        { eventAction: "{new page slug}",
     #          eventCategory: "REX Link (kt-search-results)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    rkt_excerpt_event_category = "REX Link (kt-search-results)"
-    link_click_event = Utilities.get_analytics_queue(selenium, -2)
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    related_key_term_click_event = events[-2]
+    page_view_event = events[-1]
     assert (
-        "eventAction" in link_click_event
-        and "eventCategory" in link_click_event
-        and "eventLabel" in link_click_event
+        "eventAction" in related_key_term_click_event
+        and "eventCategory" in related_key_term_click_event
+        and "eventLabel" in related_key_term_click_event
     ), "Not viewing the correct GA event"
-    assert link_click_event["eventAction"] == excerpt_event_action
-    assert link_click_event["eventCategory"] == rkt_excerpt_event_category
-    assert link_click_event["eventLabel"] == excerpt_event_label
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
+    assert related_key_term_click_event["eventAction"] == key_term_event_action
+    assert related_key_term_click_event["eventCategory"] == key_term_event_category
+    assert related_key_term_click_event["eventLabel"] == key_term_event_label
+    assert page_view_event["hitType"] == key_term_page_view_type
+    assert page_view_event["page"] == key_term_page_view_page
+    assert len(events) == initial_events + (new_events + 1), "Wrong number of GA events found"
 
 
 @markers.test_case("C621369")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_banner_book_title_click_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when the book title is clicked."""
+    """The page submits the correct GA events when the book title is clicked."""
     # SETUP:
-    event_action = f"/details/books/{book_slug}"
-    event_category = "REX Link (book-banner-collapsed)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    click_event_action = f"/details/books/{book_slug}"
+    click_event_category = "REX Link (book-banner-collapsed)"
+    click_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     selector = "a[data-testid=details-link-collapsed]"
+    unload_event_action = click_event_label
+    unload_event_category = "REX unload"
 
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click on the banner book title
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "/details/books/{book_slug}",
     #          eventCategory: "REX Link (book-banner-collapsed)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "/details/books/{book_slug}",
+    #          eventCategory: "REX Link unload" }
     link_click_event = events[-2]
+    unload_event = events[-1]
     assert (
         "eventAction" in link_click_event
         and "eventCategory" in link_click_event
         and "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
-    assert link_click_event["eventAction"] == event_action
-    assert link_click_event["eventCategory"] == event_category
-    assert link_click_event["eventLabel"] == event_label
+    assert (
+        "eventAction" in unload_event
+        and "eventCategory" in unload_event
+    ), "Not viewing the correct GA event"
+    assert link_click_event["eventAction"] == click_event_action
+    assert link_click_event["eventCategory"] == click_event_category
+    assert link_click_event["eventLabel"] == click_event_label
+    assert unload_event["eventAction"] == unload_event_action
+    assert unload_event["eventCategory"] == unload_event_category
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621370")
@@ -434,6 +605,7 @@ def test_view_book_online_link_ga_event(selenium, base_url, book_slug, page_slug
     event_action = "open"
     event_category = "Webview {book_slug} REX"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a user viewing an OSWeb book details page
 
@@ -455,82 +627,122 @@ def test_view_book_online_link_ga_event(selenium, base_url, book_slug, page_slug
 @markers.test_case("C621371")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_openstax_logo_click_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when a user clicks the logo."""
+    """The page submits the correct GA events when a user clicks the logo."""
     # SETUP:
-    event_action = "/"
-    event_category = "REX Link (openstax-navbar)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    click_event_action = "/"
+    click_event_category = "REX Link (openstax-navbar)"
+    click_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     selector = "a[href='/']"
+    unload_event_action = click_event_label
+    unload_event_category = "REX unload"
 
     # GIVEN: a user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click on the OpenStax logo in the nav bar
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "/",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}",
+    #          eventCategory: "REX unload" }
     logo_click_event = events[-2]
+    unload_event = events[-1]
     assert (
         "eventAction" in logo_click_event
         and "eventCategory" in logo_click_event
         and "eventLabel" in logo_click_event
     ), "Not viewing the correct GA event"
-    assert logo_click_event["eventAction"] == event_action
-    assert logo_click_event["eventCategory"] == event_category
-    assert logo_click_event["eventLabel"] == event_label
+    assert (
+        "eventAction" in unload_event
+        and "eventCategory" in unload_event
+    ), "Not viewing the correct GA event"
+    assert logo_click_event["eventAction"] == click_event_action
+    assert logo_click_event["eventCategory"] == click_event_category
+    assert logo_click_event["eventLabel"] == click_event_label
+    assert unload_event["eventAction"] == unload_event_action
+    assert unload_event["eventCategory"] == unload_event_category
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621372")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_log_in_click_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when ."""
+    """The page submits the correct GA events when the log in link is clicked."""
     # SETUP:
-    event_action = "login"
-    event_category = "REX Link (openstax-navbar)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    log_in_click_event_action = "login"
+    log_in_click_event_category = "REX Link (openstax-navbar)"
+    log_in_click_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     selector = "a[href*=login]"
+    unload_event_action = log_in_click_event_label
+    unload_event_category = "REX unload"
 
     # GIVEN: a non-logged in user viewing a book page that is scrolled down
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the 'Log in' link in the nav bar
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "/accounts/login",
     #          eventCategory: "REX Link (openstax-navbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}",
+    #          eventCategory: "REX unload" }
     log_in_event = events[-2]
+    unload_event = events[-1]
     assert (
         "eventAction" in log_in_event
         and "eventCategory" in log_in_event
         and "eventLabel" in log_in_event
     ), "Not viewing the correct GA event"
-    assert log_in_event["eventAction"] == event_action
-    assert log_in_event["eventCategory"] == event_category
-    assert log_in_event["eventLabel"] == event_label
+    assert (
+        "eventAction" in unload_event
+        and "eventCategory" in unload_event
+    ), "Not viewing the correct GA event"
+    assert log_in_event["eventAction"] == log_in_click_event_action
+    assert log_in_event["eventCategory"] == log_in_click_event_category
+    assert log_in_event["eventLabel"] == log_in_click_event_label
+    assert unload_event["eventAction"] == unload_event_action
+    assert unload_event["eventCategory"] == unload_event_category
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C597377")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_new_highlight_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when content is selected."""
+    """The page submits the correct GA events when content is selected."""
     # SETUP:
     color = Highlight.random_color()
-    event_action = str(color)
-    event_category = "REX highlighting (inline create)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    highlight_event_action = str(color)
+    highlight_event_category = "REX highlighting (inline create)"
+    highlight_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    select_event_action = "show create"
+    select_event_category = "REX highlighting - show create"
+    select_event_label = highlight_event_label
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they create a new highlight
     while not book.content.highlight_count:
@@ -541,17 +753,33 @@ def test_new_highlight_ga_event(selenium, base_url, book_slug, page_slug):
         except NoSuchElementException:
             pass
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
+    #        { eventAction: "show create",
+    #          eventCategory: "REX highlighting - show create",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     #        { eventAction: "{color}",
     #          eventCategory: "REX highlighting (inline create)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    show_create_box_event = events[-2]
+    highlight_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in show_create_box_event
+        and "eventCategory" in show_create_box_event
+        and "eventLabel" in show_create_box_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert (
+        "eventAction" in highlight_event
+        and "eventCategory" in highlight_event
+        and "eventLabel" in highlight_event
+    ), "Not viewing the correct GA event"
+    assert show_create_box_event["eventAction"] == select_event_action
+    assert show_create_box_event["eventCategory"] == select_event_category
+    assert show_create_box_event["eventLabel"] == select_event_label
+    assert highlight_event["eventAction"] == highlight_event_action
+    assert highlight_event["eventCategory"] == highlight_event_category
+    assert highlight_event["eventLabel"] == highlight_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621346")
@@ -566,9 +794,11 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
     event_action = str(color)
     event_category = "REX highlighting (delete-inline-highlight)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     # WHEN:  they create a new highlight
     # AND:   click the highlight color again
@@ -582,6 +812,7 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.toggle_color(color)
 
@@ -589,13 +820,17 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
     #        { eventAction: "{color}",
     #          eventCategory: "REX highlighting (delete-inline-highlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    delete_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in delete_event
+        and "eventCategory" in delete_event
+        and "eventLabel" in delete_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert delete_event["eventAction"] == event_action
+    assert delete_event["eventCategory"] == event_category
+    assert delete_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621347")
@@ -609,9 +844,13 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
     event_action = "cancel"
     event_category = "REX Button (highlighting-login)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
@@ -624,6 +863,7 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
             color=None,
             close_box=False,
         )
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.cancel()
 
@@ -631,13 +871,17 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
     #        { eventAction: "cancel",
     #          eventCategory: "REX Button (highlighting-login)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    delete_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in delete_event
+        and "eventCategory" in delete_event
+        and "eventLabel" in delete_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert delete_event["eventAction"] == event_action
+    assert delete_event["eventCategory"] == event_category
+    assert delete_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621348")
@@ -646,17 +890,25 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
 def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when using the inline 'Log in'."""
     # SETUP:
-    event_action = "login"
-    event_category = "REX Link (highlighting-login)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
-    event_unload_action = event_label
-    event_unload_category = "REX unload"
+    log_in_event_action = "login"
+    log_in_event_category = "REX Link (highlighting-login)"
+    log_in_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 3
     selector = "[data-testid=confirm]"
+    show_log_in_event_action = "show login"
+    show_log_in_event_category = "REX highlighting - show login"
+    show_log_in_event_label = log_in_event_label
+    unload_event_action = log_in_event_label
+    unload_event_category = "REX unload"
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they select some text
     # AND:   click the 'Log in' button on the log in nudge
@@ -671,31 +923,41 @@ def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
     # use a script because we need the events before the page changes
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
+    #        { eventAction: "show login",
+    #          eventCategory: "REX highlighting - show login",
+    #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     #        { eventAction: "login",
     #          eventCategory: "REX Link (highlighting-login)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    # AND:   the page unload Google Analytics event is queued
     #        { eventAction: "/books/{book_slug}/pages/{page_slug}",
     #          eventCategory: "REX unload" }
-    second_to_last_event = events[-2]
+    show_log_in_event = events[-3]
+    log_in_event = events[-2]
+    unload_event = events[-1]
     assert (
-        "eventAction" in second_to_last_event
-        and "eventCategory" in second_to_last_event
-        and "eventLabel" in second_to_last_event
+        "eventAction" in show_log_in_event
+        and "eventCategory" in show_log_in_event
+        and "eventLabel" in show_log_in_event
     ), "Not viewing the correct GA event"
-    assert second_to_last_event["eventAction"] == event_action
-    assert second_to_last_event["eventCategory"] == event_category
-    assert second_to_last_event["eventLabel"] == event_label
-
-    last_event = events[-1]
     assert (
-        "eventAction" in last_event
-        and "eventCategory" in last_event
-        and "eventLabel" not in last_event
+        "eventAction" in log_in_event
+        and "eventCategory" in log_in_event
+        and "eventLabel" in log_in_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_unload_action
-    assert last_event["eventCategory"] == event_unload_category
+    assert (
+        "eventAction" in unload_event
+        and "eventCategory" in unload_event
+    ), "Not viewing the correct GA event"
+    assert show_log_in_event["eventAction"] == show_log_in_event_action
+    assert show_log_in_event["eventCategory"] == show_log_in_event_category
+    assert show_log_in_event["eventLabel"] == show_log_in_event_label
+    assert log_in_event["eventAction"] == log_in_event_action
+    assert log_in_event["eventCategory"] == log_in_event_category
+    assert log_in_event["eventLabel"] == log_in_event_label
+    assert unload_event["eventAction"] == unload_event_action
+    assert unload_event["eventCategory"] == unload_event_category
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621349")
@@ -704,13 +966,15 @@ def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
 def test_cancel_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when hl deletion is cancelled."""
     # SETUP:
-    event_action = "cancel"
-    event_category = "REX Button (confirm-delete-inline-highlight)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    cancel_event_action = "cancel"
+    cancel_event_category = "REX Button (confirm-delete-inline-highlight)"
+    cancel_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
     note = Utilities.random_string(length=36)
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     # WHEN:  they create a new highlight with a note
     # AND:   open the highlight context menu and click the 'Delete' link
@@ -725,22 +989,27 @@ def test_cancel_highlight_delete_ga_event(selenium, base_url, book_slug, page_sl
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.delete_note()
 
     book.content.highlight_box.cancel()
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "cancel",
     #          eventCategory: "REX Button (confirm-delete-inline-highlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    cancel_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in cancel_event
+        and "eventCategory" in cancel_event
+        and "eventLabel" in cancel_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert cancel_event["eventAction"] == cancel_event_action
+    assert cancel_event["eventCategory"] == cancel_event_category
+    assert cancel_event["eventLabel"] == cancel_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621350")
@@ -749,17 +1018,19 @@ def test_cancel_highlight_delete_ga_event(selenium, base_url, book_slug, page_sl
 def test_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a highlight is deleted."""
     # SETUP:
-    event_action = "cancel"
+    event_action = "delete"
     event_category = "REX Button (confirm-delete-inline-highlight)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
     note = Utilities.random_string(length=36)
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     # WHEN:  they create a new highlight with a note
     # AND:   open the highlight context menu and click the 'Delete' link
-    # AND:   click the 'Cancel' button
+    # AND:   click the 'Delete' button
     while not book.content.highlight_count:
         try:
             book.content.highlight(
@@ -770,22 +1041,27 @@ def test_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.delete_note()
 
-    book.content.highlight_box.cancel()
+    book.content.highlight_box.confirm_deletion()
 
     # THEN:  the correct Google Analytics event is queued
-    #        { eventAction: "cancel",
+    #        { eventAction: "delete",
     #          eventCategory: "REX Button (confirm-delete-inline-highlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    delete_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in delete_event
+        and "eventCategory" in delete_event
+        and "eventLabel" in delete_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert delete_event["eventAction"] == event_action
+    assert delete_event["eventCategory"] == event_category
+    assert delete_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621351", "C621352")
@@ -795,17 +1071,19 @@ def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when existing note is edited."""
     # SETUP:
     color = Highlight.random_color()
-    first_event_action = "save"
-    first_event_category = "REX Button (edit-note)"
-    first_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    color_confirmation_action = str(color)
+    color_confirmation_category = "REX highlighting (inline edit note)"
+    color_confirmation_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     note_one = Utilities.random_string(length=16)
     note_two = Utilities.random_string(length=28)
-    second_event_action = str(color)
-    second_event_category = "REX highlighting (inline edit note)"
-    second_event_label = first_event_label
+    save_event_action = "save"
+    save_event_category = "REX Button (edit-note)"
+    save_event_label = color_confirmation_label
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     # WHEN:  they create a new highlight with a note
     # AND:   open the highlight context menu and click the 'Edit' link
@@ -821,6 +1099,7 @@ def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.edit_note()
 
@@ -836,23 +1115,26 @@ def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
     #          eventCategory: "REX highlighting (inline edit note)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    second_to_last_event = events[-2]
+    save_note_event = events[-2]
     assert (
-        "eventAction" in second_to_last_event
-        and "eventCategory" in second_to_last_event
-        and "eventLabel" in second_to_last_event
+        "eventAction" in save_note_event
+        and "eventCategory" in save_note_event
+        and "eventLabel" in save_note_event
     ), "Not viewing the correct GA event"
-    assert second_to_last_event["eventAction"] == first_event_action
-    assert second_to_last_event["eventCategory"] == first_event_category
-    assert second_to_last_event["eventLabel"] == first_event_label
+    assert save_note_event["eventAction"] == save_event_action
+    assert save_note_event["eventCategory"] == save_event_category
+    assert save_note_event["eventLabel"] == save_event_label
 
-    last_event = events[-1]
+    color_confirmation = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in color_confirmation
+        and "eventCategory" in color_confirmation
+        and "eventLabel" in color_confirmation
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == second_event_action
-    assert last_event["eventCategory"] == second_event_category
-    assert last_event["eventLabel"] == second_event_label
+    assert color_confirmation["eventAction"] == color_confirmation_action
+    assert color_confirmation["eventCategory"] == color_confirmation_category
+    assert color_confirmation["eventLabel"] == color_confirmation_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621353", "C621354")
@@ -862,16 +1144,18 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
     """The page submits the correct GA event when note added to a highlight."""
     # SETUP:
     color = Highlight.random_color()
-    first_event_action = "save"
-    first_event_category = "REX Button (edit-note)"
-    first_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    color_confirmation_action = str(color)
+    color_confirmation_category = "REX highlighting (inline add note)"
+    color_confirmation_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     note = Utilities.random_string(length=30)
-    second_event_action = str(color)
-    second_event_category = "REX highlighting (inline add note)"
-    second_event_label = first_event_label
+    save_event_action = "save"
+    save_event_category = "REX Button (edit-note)"
+    save_event_label = color_confirmation_label
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     # WHEN:  they create a new highlight without a note
     # AND:   add the note and click the 'Save' button
@@ -886,6 +1170,7 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     book.content.highlight_box.note = note
     book.content.highlight_box.save()
@@ -899,23 +1184,26 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
     #          eventCategory: "REX highlighting (inline add note)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    second_to_last_event = events[-2]
+    save_note_event = events[-2]
     assert (
-        "eventAction" in second_to_last_event
-        and "eventCategory" in second_to_last_event
-        and "eventLabel" in second_to_last_event
+        "eventAction" in save_note_event
+        and "eventCategory" in save_note_event
+        and "eventLabel" in save_note_event
     ), "Not viewing the correct GA event"
-    assert second_to_last_event["eventAction"] == first_event_action
-    assert second_to_last_event["eventCategory"] == first_event_category
-    assert second_to_last_event["eventLabel"] == first_event_label
+    assert save_note_event["eventAction"] == save_event_action
+    assert save_note_event["eventCategory"] == save_event_category
+    assert save_note_event["eventLabel"] == save_event_label
 
-    last_event = events[-1]
+    color_confirmation = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in color_confirmation
+        and "eventCategory" in color_confirmation
+        and "eventLabel" in color_confirmation
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == second_event_action
-    assert last_event["eventCategory"] == second_event_category
-    assert last_event["eventLabel"] == second_event_label
+    assert color_confirmation["eventAction"] == color_confirmation_action
+    assert color_confirmation["eventCategory"] == color_confirmation_category
+    assert color_confirmation["eventLabel"] == color_confirmation_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621355")
@@ -924,14 +1212,16 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
 def test_change_highlight_color_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a hl color is changed."""
     # SETUP:
-    changed_color = Color.PURPLE
-    event_action = str(changed_color)
-    event_category = "REX highlighting (inline edit)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_color = Color.PURPLE
+    color_change_event_action = str(new_color)
+    color_change_event_category = "REX highlighting (inline edit)"
+    color_change_event_label = f"/books/{book_slug}/pages/{page_slug}"
     initial_color = Color.PINK
+    new_events = 1
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     # WHEN:  they create a new highlight
     # AND:   click the new highlight color button
@@ -945,20 +1235,25 @@ def test_change_highlight_color_ga_event(selenium, base_url, book_slug, page_slu
             )
         except NoSuchElementException:
             pass
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
-    book.content.highlight_box.toggle_color(changed_color)
+    book.content.highlight_box.toggle_color(new_color)
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "{color}",
     #          eventCategory: "REX highlighting (inline edit)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    color_change_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in color_change_event
+        and "eventCategory" in color_change_event
+        and "eventLabel" in color_change_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert color_change_event["eventAction"] == color_change_event_action
+    assert color_change_event["eventCategory"] == color_change_event_category
+    assert color_change_event["eventLabel"] == color_change_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C597671")
@@ -970,9 +1265,12 @@ def test_select_text_ga_event(selenium, base_url, book_slug, page_slug):
     event_action = "show create"
     event_category = "REX highlighting - show create"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they select some text
     while not book.content.highlight_boxes:
@@ -990,13 +1288,17 @@ def test_select_text_ga_event(selenium, base_url, book_slug, page_slug):
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     assert book.content.highlight_boxes, "No highlight box found"
 
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    text_select_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in text_select_event
+        and "eventCategory" in text_select_event
+        and "eventLabel" in text_select_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert text_select_event["eventAction"] == event_action
+    assert text_select_event["eventCategory"] == event_category
+    assert text_select_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C597672")
@@ -1008,11 +1310,16 @@ def test_inline_highlighting_login_nudge_ga_event(selenium, base_url, book_slug,
     event_action = "show login"
     event_category = "REX highlighting - show login"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they select some text
     while not book.content.highlight_boxes:
@@ -1030,13 +1337,17 @@ def test_inline_highlighting_login_nudge_ga_event(selenium, base_url, book_slug,
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     assert book.content.highlight_box.login_overlay_present, "Log in not seen"
 
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    log_in_nudge_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in log_in_nudge_event
+        and "eventCategory" in log_in_nudge_event
+        and "eventLabel" in log_in_nudge_event
     ), "Not viewing the correct GA event"
-    assert last_event["eventAction"] == event_action
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert log_in_nudge_event["eventAction"] == event_action
+    assert log_in_nudge_event["eventCategory"] == event_category
+    assert log_in_nudge_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C615600")
@@ -1053,12 +1364,14 @@ def test_go_to_highlight_ga_event(selenium, base_url, book_slug, page_slug):
     event_category = "REX Link (MH gotohighlight)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
     event_action = f"{event_label}?target="
+    new_events = 1
 
     # GIVEN: a logged in user viewing a book page
     # AND:   one or more highlights are present on the page
     # AND:   the 'My Highlights and Notes' window is open
     # AND:   the context menu is open for a highlight
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     while not book.content.highlight_count:
         try:
@@ -1072,6 +1385,7 @@ def test_go_to_highlight_ga_event(selenium, base_url, book_slug, page_slug):
 
     highlight = my_highlights.highlights.edit_highlight
     highlight[0].toggle_menu()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click to 'Go to highlight' link
     highlight[0].go_to_highlight()
@@ -1081,13 +1395,17 @@ def test_go_to_highlight_ga_event(selenium, base_url, book_slug, page_slug):
     #        { eventAction: "/books/{book_slug}/pages/{page_slug}?target=...",
     #          eventCategory: "REX Link (MH gotohighlight)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    highlight_link_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in highlight_link_event
+        and "eventCategory" in highlight_link_event
+        and "eventLabel" in highlight_link_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in highlight_link_event["eventAction"]
+    assert highlight_link_event["eventCategory"] == event_category
+    assert highlight_link_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 # ----------------- #
@@ -1109,6 +1427,7 @@ def test_title_and_meta_page_tags_for_seo(selenium, base_url, book_slug):
 
     # GIVEN: a user
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=starting_page).open()
+    store_events(selenium, base_url)
 
     for section in range(4):
         # WHEN:  they open a book page
@@ -1136,12 +1455,17 @@ def test_study_guide_chapter_tag_ga_event(selenium, base_url, book_slug, page_sl
     event_action = "Filter study guides by Chapter"
     event_category = "REX Button (SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a user viewing a book study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     guide = book.toolbar.study_guides()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they open click the 'Chapter' filter drop down
     guide.toolbar.chapter.click()
@@ -1150,67 +1474,94 @@ def test_study_guide_chapter_tag_ga_event(selenium, base_url, book_slug, page_sl
     #        { eventAction: "Filter study guides by Chapter",
     #          eventCategory: "REX Button (SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    chapter_filter_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in chapter_filter_event
+        and "eventCategory" in chapter_filter_event
+        and "eventLabel" in chapter_filter_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in chapter_filter_event["eventAction"]
+    assert chapter_filter_event["eventCategory"] == event_category
+    assert chapter_filter_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C607438")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
 def test_study_guide_cta_sign_up_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when sign up link is clicked."""
+    """The page submits the correct GA events when sign up link is clicked."""
     # SETUP:
-    event_action = "signup"
-    event_category = "REX Link (SG popup)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    sign_up_link_event_action = "signup"
+    sign_up_link_event_category = "REX Link (SG popup)"
+    sign_up_link_event_label = f"/books/{book_slug}/pages/{page_slug}"
     selector = "[data-analytics-label=signup]"
+    unload_event_action = sign_up_link_event_label
+    unload_event_category = "REX unload"
 
     # GIVEN: a non-logged in user viewing a book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
     # WHEN:  they open the study guide
     # AND:   click the 'Sign Up' button
     book.toolbar.study_guides()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "signup",
     #          eventCategory: "REX Link (SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}",
+    #          eventCategory: "REX unload" }
     sign_up_link_event = events[-2]
+    unload_event = events[-1]
     assert (
         "eventAction" in sign_up_link_event
         and "eventCategory" in sign_up_link_event
         and "eventLabel" in sign_up_link_event
     ), "Not viewing the correct GA event"
-    assert event_action in sign_up_link_event["eventAction"]
-    assert sign_up_link_event["eventCategory"] == event_category
-    assert sign_up_link_event["eventLabel"] == event_label
+    assert (
+        "eventAction" in unload_event and "eventCategory" in unload_event
+    ), "Not viewing the correct GA event"
+    assert sign_up_link_event["eventAction"] == sign_up_link_event_action
+    assert sign_up_link_event["eventCategory"] == sign_up_link_event_category
+    assert sign_up_link_event["eventLabel"] == sign_up_link_event_label
+    assert unload_event["eventAction"] == unload_event_action
+    assert unload_event["eventCategory"] == unload_event_category
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C605716", "C621330")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
 def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when the study guide is opened."""
+    """The page submits the correct GA events when the study guide is opened."""
     # SETUP:
     button_event_action = "button"
     button_event_category = "REX Study guides (open SG popup)"
     button_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 3
     open_event_action = "Study guides"
     open_event_category = "REX Button (toolbar)"
     open_event_label = button_event_label
+    page_view_page = button_event_label
+    page_view_type = "pageview"
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they open the study guide
     book.toolbar.study_guides()
@@ -1219,7 +1570,9 @@ def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
     #        { eventAction: "Study guides",
     #          eventCategory: "REX Button (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    # AND:   the correct button Google Analytics event is queued
+    # AND:   the correct button Google Analytics events are queued
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
     #        { eventAction: "button",
     #          eventCategory: "REX Study guides (open SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
@@ -1234,15 +1587,23 @@ def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
     assert open_study_guide_event["eventCategory"] == open_event_category
     assert open_study_guide_event["eventLabel"] == open_event_label
 
-    button_event = events[-1]
+    button_event = events[-2]
+    page_view_event = events[-1]
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
     assert (
         "eventAction" in button_event
         and "eventCategory" in button_event
         and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
     assert button_event_action in button_event["eventAction"]
     assert button_event["eventCategory"] == button_event_category
     assert button_event["eventLabel"] == button_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621326")
@@ -1253,15 +1614,22 @@ def test_sg_close_using_overlay_click_ga_event(selenium, base_url, book_slug, pa
     event_action = "overlay"
     event_category = "REX Study guides (close SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    page_view_type = "pageview"
+    page_view_page = event_label
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
     # WHEN:  they open the study guide
     # AND:   click on the content overlay
     guide = book.toolbar.study_guides()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     (ActionChains(selenium).move_to_element_with_offset(guide.overlay, 5, 5).click().perform())
 
@@ -1269,13 +1637,26 @@ def test_sg_close_using_overlay_click_ga_event(selenium, base_url, book_slug, pa
     #        { eventAction: "overlay",
     #          eventCategory: "REX Study guides (close SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -2)
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    overlay_event = events[-2]
+    page_view_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in overlay_event
+        and "eventCategory" in overlay_event
+        and "eventLabel" in overlay_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
+    assert event_action in overlay_event["eventAction"]
+    assert overlay_event["eventCategory"] == event_category
+    assert overlay_event["eventLabel"] == event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621327")
@@ -1286,15 +1667,22 @@ def test_sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slu
     event_action = "esc"
     event_category = "REX Study guides (close SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    page_view_type = "pageview"
+    page_view_page = event_label
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
     # WHEN:  they open the study guide
     # AND:   hit the escape key
     book.toolbar.study_guides()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     (ActionChains(selenium).send_keys(Keys.ESCAPE).perform())
 
@@ -1302,7 +1690,9 @@ def test_sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slu
     #        { eventAction: "esc",
     #          eventCategory: "REX Study guides (close SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    esc_key_event = Utilities.get_analytics_queue(selenium, -2)
+    events = Utilities.get_analytics_queue(selenium)
+    esc_key_event = events[-2]
+    page_view_event = events[-1]
     assert (
         "eventAction" in esc_key_event
         and "eventCategory" in esc_key_event
@@ -1311,6 +1701,9 @@ def test_sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slu
     assert event_action in esc_key_event["eventAction"]
     assert esc_key_event["eventCategory"] == event_category
     assert esc_key_event["eventLabel"] == event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621328", "C621329")
@@ -1325,15 +1718,22 @@ def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, 
     close_event_action = "Close Study Guides"
     close_event_category = "REX Button"
     close_event_label = button_event_label
+    new_events = 3
+    page_view_type = "pageview"
+    page_view_page = button_event_label
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
     # WHEN:  they open the study guide
     # AND:   click the escape key
     guide = book.toolbar.study_guides()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     guide.header.close()
 
@@ -1345,6 +1745,8 @@ def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, 
     #        { eventAction: "button",
     #          eventCategory: "REX Study guides (close SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
     close_event = events[-3]
     assert (
@@ -1357,50 +1759,73 @@ def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, 
     assert close_event["eventLabel"] == close_event_label
 
     button_event = events[-2]
+    page_view_event = events[-1]
     assert (
         "eventAction" in button_event
         and "eventCategory" in button_event
         and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
     assert button_event_action in button_event["eventAction"]
     assert button_event["eventCategory"] == button_event_category
     assert button_event["eventLabel"] == button_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621331")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
 def test_study_guide_log_in_link_ga_event(selenium, base_url, book_slug, page_slug):
-    """The page submits the correct GA event when SG log in link is clicked."""
+    """The page submits the correct GA events when SG log in link is clicked."""
     # SETUP:
-    event_action = "login"
-    event_category = "REX Link (SG popup)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    log_in_event_action = "login"
+    log_in_event_category = "REX Link (SG popup)"
+    log_in_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
     selector = "[class*=StudyGuides] [data-analytics-label=login]"
+    unload_event_action = log_in_event_label
+    unload_event_category = "REX unload"
 
     # GIVEN: a user viewing a book page with a study guide
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
 
     # WHEN:  they open the study guide
     # AND:   click the 'Log in' link
     book.toolbar.study_guides()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     events = selenium.execute_script(ACTION_SCRIPT.format(selector=selector))
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "login",
     #          eventCategory: "REX Link (SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { eventAction: "/books/{book_slug}/pages/{page_slug}",
+    #          eventCategory: "REX unload" }
     log_in_link_event = events[-2]
+    unload_event = events[-1]
     assert (
         "eventAction" in log_in_link_event
         and "eventCategory" in log_in_link_event
         and "eventLabel" in log_in_link_event
-    ), "Not viewing the correct GA event"
-    assert event_action in log_in_link_event["eventAction"]
-    assert log_in_link_event["eventCategory"] == event_category
-    assert log_in_link_event["eventLabel"] == event_label
+    ), "Not viewing the correct GA event (log in link)"
+    assert(
+        "eventAction" in unload_event
+        and "eventCategory" in unload_event
+    ), "Not viewing the correct GA event (unload)"
+    assert log_in_event_action in log_in_link_event["eventAction"]
+    assert log_in_link_event["eventCategory"] == log_in_event_category
+    assert log_in_link_event["eventLabel"] == log_in_event_label
+    assert unload_event["eventAction"] == unload_event_action
+    assert unload_event["eventCategory"] == unload_event_category
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621333")
@@ -1411,9 +1836,11 @@ def test_study_guide_remove_chapter_filter_ga_event(selenium, base_url, book_slu
     event_action = "Remove breadcrumb for chapter {number} {name}"
     event_category = "REX Button (SG popup)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     # WHEN:  they open the study guide
     # AND:   remove a chapter filter
@@ -1421,19 +1848,25 @@ def test_study_guide_remove_chapter_filter_ga_event(selenium, base_url, book_slu
 
     chapter = guide.toolbar.active_filters[0]
     event_action = event_action.format(number=chapter.number, name=chapter.name)
+
+    initial_events = len(Utilities.get_analytics_queue(selenium))
     chapter.remove_filter()
 
     # THEN:  the correct Google Analytics event is queued
     #        { eventAction: "Remove breadcrumb for chapter {number} {name}",
     #          eventCategory: "REX Button (SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    filter_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in filter_event
+        and "eventCategory" in filter_event
+        and "eventLabel" in filter_event
     ), "Not viewing the correct GA event"
-    assert event_action.lower() in last_event["eventAction"].lower()
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action.lower() in filter_event["eventAction"].lower()
+    assert filter_event["eventCategory"] == event_category
+    assert filter_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C609711")
@@ -1444,15 +1877,18 @@ def test_using_this_guide_ga_event(selenium, base_url, book_slug, page_slug):
     event_action = "button"
     event_category = "REX Study guides (open UTG)"
     event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 1
 
     # GIVEN: a logged in user viewing a book page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
 
     # WHEN:  they open the study guide
     # AND:   open the 'Using this guide' banner
     guide = book.toolbar.study_guides()
     if guide.toolbar.guide_is_open:
         guide.toolbar.help_guide.close()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     using_this_guide = guide.toolbar.using_this_guide()
 
@@ -1461,13 +1897,16 @@ def test_using_this_guide_ga_event(selenium, base_url, book_slug, page_slug):
     #          eventCategory: "REX Study guides (open UTG)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
-    last_event = events[-1]
+    guide_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in guide_event
+        and "eventCategory" in guide_event
+        and "eventLabel" in guide_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in guide_event["eventAction"]
+    assert guide_event["eventCategory"] == event_category
+    assert guide_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
     # WHEN:  they close the 'Using this guide' banner
     using_this_guide.close()
@@ -1490,11 +1929,18 @@ def test_practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
     link_event_action = f"{page_slug}?modal=PQ"
     link_event_category = "REX Link (toolbar)"
     link_event_label = button_event_label
+    new_events = 3
+    page_view_type = "pageview"
+    page_view_page = button_event_label
 
     # GIVEN: a user viewing a book page with practice questions
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the 'Practice' toolbar button
     book.toolbar.practice()
@@ -1503,10 +1949,12 @@ def test_practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
     #        { eventAction: "{page_slug}?modal=PQ",
     #          eventCategory: "REX Link (toolbar)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    # AND:   the correct button Google Analytics event is queued
+    # AND:   the correct button Google Analytics events are queued
     #        { eventAction: "button",
     #          eventCategory: "REX Study guides (close SG popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
     link_event = events[-3]
     assert (
@@ -1517,14 +1965,22 @@ def test_practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
     assert link_event["eventLabel"] == link_event_label
 
     button_event = events[-2]
+    page_view_event = events[-1]
     assert (
         "eventAction" in button_event
         and "eventCategory" in button_event
         and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
     assert button_event_action in button_event["eventAction"]
     assert button_event["eventCategory"] == button_event_category
     assert button_event["eventLabel"] == button_event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621317")
@@ -1535,14 +1991,19 @@ def test_continue_to_questions_button_ga_event(selenium, base_url, book_slug, pa
     event_action = "Continue (Empty Screen)"
     event_category = "REX Button (PQ popup)"
     event_label = None
+    new_events = 1
     re_title = re.compile(r"(?:Ch\.\ \d{1,2})?(\ ?.*)(?:\ \-\ .*){1}")
 
     # GIVEN: a user viewing the practice modal for a page without questions
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
     event_label = re_title.match(book.page_title).groups()[0]
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the 'Continue' button
     practice.content._continue()
@@ -1551,13 +2012,17 @@ def test_continue_to_questions_button_ga_event(selenium, base_url, book_slug, pa
     #        { eventAction: "Continue (Empty Screen)",
     #          eventCategory: "REX Button (PQ popup)",
     #          eventLabel: "{page_title}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    button_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in button_event
+        and "eventCategory" in button_event
+        and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in button_event["eventAction"]
+    assert button_event["eventCategory"] == event_category
+    assert button_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621318")
@@ -1570,9 +2035,13 @@ def test_submit_practice_question_answer_ga_event(selenium, base_url, book_slug,
     event_action = "Submit"
     event_category = "REX Button (PQ popup)"
     event_label = None
+    new_events = 1
 
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1583,6 +2052,7 @@ def test_submit_practice_question_answer_ga_event(selenium, base_url, book_slug,
     # AND:   click the 'Submit' button
     answer = random.choice(practice.content.answers)
     answer.select()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     practice.content.submit()
 
@@ -1590,13 +2060,17 @@ def test_submit_practice_question_answer_ga_event(selenium, base_url, book_slug,
     #        { eventAction: "Submit",
     #          eventCategory: "REX Button (PQ popup)",
     #          eventLabel: "{section page title}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    button_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in button_event
+        and "eventCategory" in button_event
+        and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in button_event["eventAction"]
+    assert button_event["eventCategory"] == event_category
+    assert button_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621319")
@@ -1607,9 +2081,13 @@ def test_practice_question_finish_section_button_ga_event(selenium, base_url, bo
     event_action = "Finish"
     event_category = "REX Button (PQ popup)"
     event_label = None
+    new_events = 1
 
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1626,6 +2104,7 @@ def test_practice_question_finish_section_button_ga_event(selenium, base_url, bo
             practice.content._next()
         except NoSuchElementException:
             break
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     practice.content.finish()
 
@@ -1633,13 +2112,17 @@ def test_practice_question_finish_section_button_ga_event(selenium, base_url, bo
     #        { eventAction: "Finish",
     #          eventCategory: "REX Button (PQ popup)",
     #          eventLabel: "{section page title}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    button_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in button_event
+        and "eventCategory" in button_event
+        and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in button_event["eventAction"]
+    assert button_event["eventCategory"] == event_category
+    assert button_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621320")
@@ -1653,9 +2136,13 @@ def test_practice_show_answer_button_ga_event(selenium, base_url, book_slug, pag
     event_action = "Show answer"
     event_category = "REX Button (PQ popup)"
     event_label = None
+    new_events = 1
 
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1668,6 +2155,7 @@ def test_practice_show_answer_button_ga_event(selenium, base_url, book_slug, pag
         answer.select()
         practice.content.submit()
         try:
+            initial_events = len(Utilities.get_analytics_queue(selenium))
             practice.content.show_answer()
             break
         except NoSuchElementException:
@@ -1678,13 +2166,17 @@ def test_practice_show_answer_button_ga_event(selenium, base_url, book_slug, pag
     #        { eventAction: "Show answer",
     #          eventCategory: "REX Button (PQ popup)",
     #          eventLabel: "{section page title}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    button_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in button_event
+        and "eventCategory" in button_event
+        and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in button_event["eventAction"]
+    assert button_event["eventCategory"] == event_category
+    assert button_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621321")
@@ -1697,13 +2189,18 @@ def test_skip_practice_question_ga_event(selenium, base_url, book_slug, page_slu
     event_action = "Skip"
     event_category = "REX Button (PQ popup)"
     event_label = None
+    new_events = 1
 
     # GIVEN: a student viewing a practice question
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
     practice.content.start_now()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the 'Skip' link
     practice.content.skip()
@@ -1713,13 +2210,17 @@ def test_skip_practice_question_ga_event(selenium, base_url, book_slug, page_slu
     #        { eventAction: "Skip",
     #          eventCategory: "REX Button (PQ popup)",
     #          eventLabel: "{section page title}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    skip_link_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in skip_link_event
+        and "eventCategory" in skip_link_event
+        and "eventLabel" in skip_link_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in skip_link_event["eventAction"]
+    assert skip_link_event["eventCategory"] == event_category
+    assert skip_link_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621322")
@@ -1727,15 +2228,22 @@ def test_skip_practice_question_ga_event(selenium, base_url, book_slug, page_slu
 def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the overlay is clicked."""
     # SETUP:
-    event_action = "overlay"
-    event_category = "REX Practice questions (close PQ popup)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    click_event_action = "overlay"
+    click_event_category = "REX Practice questions (close PQ popup)"
+    click_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    page_view_type = "pageview"
+    page_view_page = click_event_label
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the overlay outside the modal
     (ActionChains(selenium).move_to_element_with_offset(practice.overlay, 5, 5).click().perform())
@@ -1744,13 +2252,24 @@ def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, boo
     #        { eventAction: "overlay",
     #          eventCategory: "REX Practice questions (close PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    click_event = events[-2]
+    page_view_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in click_event
+        and "eventCategory" in click_event
+        and "eventLabel" in click_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
+    assert click_event_action in click_event["eventAction"]
+    assert click_event["eventCategory"] == click_event_category
+    assert click_event["eventLabel"] == click_event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621323")
@@ -1758,30 +2277,50 @@ def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, boo
 def test_close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ESC key hit."""
     # SETUP:
-    event_action = "esc"
-    event_category = "REX Practice questions (close PQ popup)"
-    event_label = f"/books/{book_slug}/pages/{page_slug}"
+    key_press_event_action = "esc"
+    key_press_event_category = "REX Practice questions (close PQ popup)"
+    key_press_event_label = f"/books/{book_slug}/pages/{page_slug}"
+    new_events = 2
+    page_view_type = "pageview"
+    page_view_page = key_press_event_label
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     book.toolbar.practice()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they hit the escape key
     (ActionChains(selenium).send_keys(Keys.ESCAPE).perform())
 
-    # THEN:  the correct Google Analytics event is queued
+    # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "esc",
     #          eventCategory: "REX Practice questions (close PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
+    events = Utilities.get_analytics_queue(selenium)
+    key_press_event = events[-2]
+    page_view_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in key_press_event
+        and "eventCategory" in key_press_event
+        and "eventLabel" in key_press_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
+    assert key_press_event_action in key_press_event["eventAction"]
+    assert key_press_event["eventCategory"] == key_press_event_category
+    assert key_press_event["eventLabel"] == key_press_event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621324")
@@ -1798,24 +2337,33 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
     close_event_action = "Click to close Practice Questions modal"
     close_event_category = "REX Button"
     close_event_label = button_event_label
+    new_events = 3
+    page_view_type = "pageview"
+    page_view_page = button_event_label
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the close 'x' button
     practice.close()
 
-    # THEN:  the correct Google Analytics close event is queued
+    # THEN:  the correct Google Analytics close events are queued
     #        { eventAction: "Click to close Practice Questions modal",
     #          eventCategory: "REX Button",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    # AND:   the correct Google Analytics button event is queued
+    # AND:   the correct Google Analytics button events are queued
     #        { eventAction: "button",
     #          eventCategory: "REX Practice questions (close PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
+    #        { hitType: "pageview",
+    #          page: "/books/{book_slug}/pages/{page_slug}" }
     events = Utilities.get_analytics_queue(selenium)
     close_event = events[-3]
     assert (
@@ -1827,15 +2375,23 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
     assert close_event["eventCategory"] == close_event_category
     assert close_event["eventLabel"] == close_event_label
 
-    button_event = events[-1]
+    button_event = events[-2]
+    page_view_event = events[-1]
     assert (
         "eventAction" in button_event
         and "eventCategory" in button_event
         and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
+    assert(
+        "hitType" in page_view_event
+        and "page" in page_view_event
+    ), "Not viewing the correct GA event (pageview)"
     assert button_event_action in button_event["eventAction"]
     assert button_event["eventCategory"] == button_event_category
     assert button_event["eventLabel"] == button_event_label
+    assert page_view_event["hitType"] == page_view_type
+    assert page_view_event["page"] == page_view_page
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C621325")
@@ -1846,13 +2402,18 @@ def test_practice_read_link_ga_event(selenium, base_url, book_slug, page_slug):
     event_action = "Go to link"
     event_category = "REX Link (PQ popup)"
     event_label = None
+    new_events = 1
     selector = "[data-analytics-label='Go to link']"
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they click the read link
     event_label = f"{practice.content.number} {practice.content.title}"
@@ -1862,13 +2423,17 @@ def test_practice_read_link_ga_event(selenium, base_url, book_slug, page_slug):
     #        { eventAction: "Go to link",
     #          eventCategory: "REX Link (PQ popup)",
     #          eventLabel: "/books/{book_slug}/pages/{page_slug}" }
-    last_event = events[-1]
+    events = Utilities.get_analytics_queue(selenium)
+    read_link_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in read_link_event
+        and "eventCategory" in read_link_event
+        and "eventLabel" in read_link_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] in event_label
+    assert event_action in read_link_event["eventAction"]
+    assert read_link_event["eventCategory"] == event_category
+    assert read_link_event["eventLabel"] in event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C622245")
@@ -1882,9 +2447,13 @@ def test_pq_continue_to_next_section_button_click_ga_event(
     event_action = "Continue (Final Screen)"
     event_category = "REX Button (PQ popup)"
     event_label = None
+    new_events = 1
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
@@ -1900,6 +2469,7 @@ def test_pq_continue_to_next_section_button_click_ga_event(
             practice.content._next()
         except NoSuchElementException:
             practice.content.finish()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     event_label = f"{practice.content.number} {practice.content.title}"
     practice.content._continue()
@@ -1908,13 +2478,17 @@ def test_pq_continue_to_next_section_button_click_ga_event(
     #        { eventAction: "Continue (Final Screen)",
     #          eventCategory: "REX Button (PQ popup)",
     #          eventLabel: "{section page title}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    button_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in button_event
+        and "eventCategory" in button_event
+        and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in button_event["eventAction"]
+    assert button_event["eventCategory"] == event_category
+    assert button_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C622246")
@@ -1928,14 +2502,19 @@ def test_practice_filter_ga_events(selenium, base_url, book_slug, page_slug):
     filter_section_event_action = None
     filter_section_event_category = "REX Button (PQ popup)"
     filter_section_event_label = None
+    new_events = 2
 
     # GIVEN: a student viewing the practice question modal
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    store_events(selenium, base_url)
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     practice = book.toolbar.practice()
     filter_menu_event_label = f"{practice.content.number} {practice.content.title}"
     filter_section_event_label = filter_menu_event_label
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     # WHEN:  they select a different section filter
     filters = practice.filters.toggle()
@@ -1970,6 +2549,7 @@ def test_practice_filter_ga_events(selenium, base_url, book_slug, page_slug):
     assert filter_section_event_action in selection_event["eventAction"]
     assert selection_event["eventCategory"] == filter_section_event_category
     assert selection_event["eventLabel"] == filter_section_event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 @markers.test_case("C620825")
@@ -1982,15 +2562,18 @@ def test_start_practice_ga_event(selenium, base_url, book_slug, page_slug):
     event_action = "Start now"
     event_category = "REX Button (PQ popup)"
     event_label = None
+    new_events = 1
 
     # GIVEN: a logged in user viewing a numbered section page
     book = user_setup(selenium, base_url, book_slug, page_slug)
+    store_events(selenium, base_url)
     event_label, _, _ = book.titles
     event_label = event_label.split(" - ")[0]
 
     # WHEN:  they click the 'Practice' button
     # AND:   click the 'Start now' button
     practice = book.toolbar.practice()
+    initial_events = len(Utilities.get_analytics_queue(selenium))
 
     practice.content.start_now()
 
@@ -1998,27 +2581,54 @@ def test_start_practice_ga_event(selenium, base_url, book_slug, page_slug):
     #        { eventAction: "Start now",
     #          eventCategory: "REX Button (PQ popup)",
     #          eventLabel: "{page title}" }
-    last_event = Utilities.get_analytics_queue(selenium, -1)
+    events = Utilities.get_analytics_queue(selenium)
+    button_event = events[-1]
     assert (
-        "eventAction" in last_event and "eventCategory" in last_event and "eventLabel" in last_event
+        "eventAction" in button_event
+        and "eventCategory" in button_event
+        and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert event_action in last_event["eventAction"]
-    assert last_event["eventCategory"] == event_category
-    assert last_event["eventLabel"] == event_label
+    assert event_action in button_event["eventAction"]
+    assert button_event["eventCategory"] == event_category
+    assert button_event["eventLabel"] == event_label
+    assert len(events) == initial_events + new_events, "Wrong number of GA events found"
 
 
 def user_setup(driver, base_url, book_slug, page_slug):
     """Setup a new user for use in Goggle Analytics event tests."""
     book = Content(driver, base_url, book_slug=book_slug, page_slug=page_slug).open()
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     book.navbar.click_login()
     Signup(driver).register()
     book.wait_for_page_to_load()
+    while book.full_page_nudge_displayed:
+        book.full_page_nudge.click_close_icon()
     while book.notification_present:
         book.notification.got_it()
     book.content.show_solutions()
     return book
+
+
+def print_queue(events):
+    """Print the current GA event queue with relative indices."""
+    print("\n")
+    for index, event in enumerate(events):
+        position = -1 * len(events) + index
+        _type = event.get("hitType", "     ")
+        print(f'{position: <3} : [{_type: <8}] : {event}')
+
+
+def store_events(driver, base_url):
+    """Store GA event queue on Staging instances."""
+    if "staging" in base_url:
+        driver.add_cookie({
+            "name": "ANALYTICS_OPT_OUT",
+            "value": "1",
+            "domain": ".openstax.org"
+        })
 
 
 def switch_tab(driver):
