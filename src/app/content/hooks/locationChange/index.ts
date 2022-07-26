@@ -16,17 +16,15 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
   return async(action) => {
     await resolveContent(services, action.match);
 
-    if (action.match.route.name === 'Content') {
-      await Promise.all([
-        boundRegisterPageView(action),
-        syncSearch(services)(action),
-        loadBuyPrintConfig(services)(),
-        loadHighlights(services)(locationChange(action)),
-        loadStudyGuides(services)(),
-        loadPracticeQuestions(services)(),
-        initializeIntl(services)(),
-      ]);
-    }
+    await Promise.all([
+      boundRegisterPageView(action),
+      syncSearch(services)(action),
+      loadBuyPrintConfig(services)(),
+      loadHighlights(services)(locationChange(action)),
+      loadStudyGuides(services)(),
+      loadPracticeQuestions(services)(),
+      initializeIntl(services)(),
+    ]);
   };
 };
 

@@ -22,8 +22,10 @@ export default [
   ...studyGuidesHooks,
   ...practiceQuestionsHooks,
   receivePageNotFoundId,
+  /*
+   * clears meta on locationChange, in case the new route doesn't call setHead
+   * */
   routeHook(routes.content, locationChangeBody),
-  routeHook(routes.createReading, locationChangeBody),
   /*
    * sets metadata based on the loaded content
    */

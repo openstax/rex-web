@@ -190,7 +190,7 @@ function osWebApiProxy(app) {
 }
 
 function osWebProxy(app) {
-  app.use(proxy((path) => !path.match(/^\/((books\/.*)|static.*|errors.*|rex.*|manifest.json|precache-manifest.*|index.html|\/)?$/) , {
+  app.use(proxy((path) => !path.match(/^\/((books\/.*)|(apps\/rex\/.*)|static.*|errors.*|rex.*|manifest.json|precache-manifest.*|index.html|\/)?$/) , {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));

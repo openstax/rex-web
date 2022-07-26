@@ -4,18 +4,37 @@ import Loadable from 'react-loadable';
 import { useSelector } from 'react-redux';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../../config';
 import * as selectNavigation from '../navigation/selectors';
-import { Route } from '../navigation/types';
 import { findPathForParams, getUrlRegexParams, injectParamsToBaseUrl } from '../navigation/utils';
 import { assertDefined } from '../utils';
 import { ContentRoute, Params } from './types';
 
 const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}';
-const base = '/books/:book/pages/:page';
+const prerenderedBase = '/books/:book/pages/:page';
+const dynamicBase = '/apps/rex' + prerenderedBase;
 
-const contentPaths = injectParamsToBaseUrl(base, {
-  book: [`book_uuid(${MATCH_UUID})@:book_version`, 'book_slug@:book_version', 'book_slug'],
-  page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
-});
+const contentPaths = [
+  ...injectParamsToBaseUrl(prerenderedBase, {
+    // switch this after a transition period starting with CORGI using the `dynamicBase` url on its previews
+    book: [
+      `book_uuid(${MATCH_UUID})@:book_version`,
+      'book_slug@:book_contentVersion',
+      'book_slug@:book_contentVersion\\::book_archiveVersion',
+      'book_slug',
+    ],
+    page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
+    // book: ['book_slug'],
+    // page: ['page_slug'],
+  }),
+  ...injectParamsToBaseUrl(dynamicBase, {
+    book: [
+      `book_uuid(${MATCH_UUID})@:book_version`,
+      'book_slug@:book_contentVersion',
+      'book_slug@:book_contentVersion\\::book_archiveVersion',
+      'book_slug',
+    ],
+    page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
+  }),
+];
 
 // tslint:disable-next-line:variable-name
 const ReadingContent = Loadable({
@@ -54,25 +73,4 @@ export const content: ContentRoute = {
   },
   name: 'Content',
   paths: contentPaths,
-};
-
-const createReadingPaths = injectParamsToBaseUrl('/books/:book/create-reading', {
-  book: [`book_uuid(${MATCH_UUID})@:book_version`, 'book_slug@:book_version', 'book_slug'],
-});
-export const createReading: Route<Pick<Params, 'book'>> = {
-  component: Loadable({
-    loader: () => import(/* webpackChunkName: "Content" */ './components/CreateReading'),
-    loading: () => null,
-    modules: ['CreateReading'],
-  }),
-  getUrl: (params: Pick<Params, 'book'>): string => {
-    const parsedParams = getUrlRegexParams(params);
-    const path = assertDefined(findPathForParams(parsedParams, createReadingPaths),
-      'Invalid parameters for content path'
-    );
-
-    return pathToRegexp.compile(path)(parsedParams);
-  },
-  name: 'CreateReading',
-  paths: createReadingPaths,
 };

@@ -33,9 +33,9 @@ export const getUrlParamsForBook = (
   if ('slug' in book && book.slug && bookVersionFromConfig) {
     return book.version === bookVersionFromConfig.defaultVersion
       ? {slug: book.slug}
-      : {slug: book.slug, version: book.version};
+      : {slug: book.slug, contentVersion: book.version};
   } else {
-    return {uuid: book.id, version: book.version};
+    return {uuid: book.id, contentVersion: book.version};
   }
 };
 

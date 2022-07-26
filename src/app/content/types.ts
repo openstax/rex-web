@@ -21,16 +21,16 @@ export type SystemQueryParams = {
 export type SlugParams = {
   slug: string;
 };
-type VersionedSlugParams = SlugParams & {
-  version: string;
+export type VersionParams = {
+  contentVersion: string;
+  archiveVersion?: string;
 };
+type VersionedSlugParams = SlugParams & VersionParams;
 
 export type UuidParams = {
   uuid: string;
 };
-type VersionedUuidParams = UuidParams & {
-  version: string;
-};
+type VersionedUuidParams = UuidParams & VersionParams;
 
 // Really could be ContentParams, but the content route is currently the only route in Rex
 export type Params = {

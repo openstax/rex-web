@@ -50,50 +50,58 @@ export default (getArchivePath: () => string, options: Options = {}) => {
     ...options,
   };
 
-  const contentUrlBase = (host: string, bookId: string) => {
-    const archivePath = getArchivePath();
-    return disablePerBookPinning
-      ? `${host}${archivePath}`
-      : `${host}${getBookVersionFromUUIDSync(bookId)?.archiveOverride || archivePath}`;
-  };
-  const contentUrl = (host: string, bookId: string, ref: string) =>
-    `${contentUrlBase(host, bookId)}/contents/${ref}.json`;
+  const getArchivePathWithOverride = (pipeline: string | undefined, bookId: string) =>
+    pipeline
+      ? `/apps/archive/${pipeline}`
+      : disablePerBookPinning
+        ? getArchivePath()
+        : (getBookVersionFromUUIDSync(bookId)?.archiveOverride || getArchivePath())
+    ;
+
+  const buildCacheKey = (archivePath: string, contentRef: string) => `${archivePath}:${contentRef}`;
+
+  const contentUrl = (host: string, archivePath: string, ref: string) =>
+    `${host}${archivePath}/contents/${ref}.json`;
 
   const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
     .then(acceptStatus(200, (status, message) =>
       new ArchiveBookMissingError(`Error response from archive "${fetchUrl}" ${status}: ${message}`)))
     .then((response) => response.json() as Promise<T>);
 
-  const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) => (bookId: string, id: string) => {
-    const cached = cache.get(id);
-    if (cached) {
-      return Promise.resolve(cached);
-    }
+  const contentsLoader = <C extends ArchiveContent>(cache: Cache<string, C>) =>
+    (archivePath: string, contentRef: string) => {
+      const cacheKey = buildCacheKey(archivePath, contentRef);
+      const cached = cache.get(cacheKey);
+      if (cached) {
+        return Promise.resolve(cached);
+      }
 
-    return archiveFetch<C>(contentUrl(archivePrefix, bookId, id))
-      .then((response) => {
-        cache.set(id, response);
-        return response;
-      });
-  };
+      return archiveFetch<C>(contentUrl(archivePrefix, archivePath, contentRef))
+        .then((response) => {
+          cache.set(cacheKey, response);
+          return response;
+        });
+    };
 
   const bookLoader = contentsLoader<ArchiveBook>(bookCache);
   const pageLoader = contentsLoader<ArchivePage>(pageCache);
 
   return {
     book: (bookId: string, bookVersion: string) => {
-      const bookRef = `${stripIdVersion(bookId)}@${bookVersion}`;
+      const [contentVersion, pipelineVersion] = bookVersion.split(':');
+      const archivePath = getArchivePathWithOverride(pipelineVersion, bookId);
+      const bookRef = `${stripIdVersion(bookId)}@${contentVersion}`;
 
       return {
-        cached: () => bookCache.get(bookRef),
-        load: () => bookLoader(bookId, bookRef),
+        cached: () => bookCache.get(buildCacheKey(archivePath, bookRef)),
+        load: () => bookLoader(archivePath, bookRef),
 
         page: (pageId: string) => {
           const bookAndPageRef = `${bookRef}:${pageId}`;
           return {
-            cached: () => pageCache.get(bookAndPageRef),
-            load: () => pageLoader(bookId, bookAndPageRef),
-            url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), bookId, bookAndPageRef),
+            cached: () => pageCache.get(buildCacheKey(archivePath, bookAndPageRef)),
+            load: () => pageLoader(archivePath, bookAndPageRef),
+            url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), archivePath, bookAndPageRef),
           };
         },
       };
