@@ -7,9 +7,10 @@ class BasePage{
     }
 
     // Open a Rex page with base url
-    async navigate(){
-        await this.page.goto('/books/business-ethics/pages/preface')
+    async open(path: string){
+        await this.page.goto(path)
     }
 }
 
 module.exports = BasePage;
+

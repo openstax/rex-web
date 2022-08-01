@@ -1,10 +1,11 @@
 // Keyboard Shortcuts modal locators and functions
 
+import { Locator } from 'playwright';
 import BasePage from './Base.page';
 
 class KsmodalPage extends BasePage {
-    ksModal: string;
-    ksModalCloseIcon: string;
+    ksModal: Locator;
+    ksModalCloseIcon: Locator;
     
     constructor(page){
         super(page);
@@ -21,3 +22,4 @@ class KsmodalPage extends BasePage {
 }
 
 module.exports = KsmodalPage;
+
