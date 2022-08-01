@@ -17,8 +17,7 @@ const {
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
-  REACT_APP_OS_WEB_API_URL,
-  REACT_APP_ARCHIVE_URL,
+  REACT_APP_OS_WEB_API_URL
 } = require('./config');
 const requireBabelConfig = require('./babel-config');
 
@@ -28,8 +27,7 @@ const { default: prepareRedirects } = require('../script/utils/prepareRedirects'
 const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
 const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
-const getArchiveUrl = () => REACT_APP_ARCHIVE_URL;
-const archiveLoader = createArchiveLoader(getArchiveUrl, {
+const archiveLoader = createArchiveLoader({
   archivePrefix: ARCHIVE_URL
 });
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);

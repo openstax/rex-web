@@ -11,7 +11,7 @@ import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
-import createBookConfigLoader, { getArchiveUrl } from './gateways/createBookConfigLoader';
+import createBookConfigLoader from './gateways/createBookConfigLoader';
 import createBuyPrintConfigLoader from './gateways/createBuyPrintConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
 import createOSWebLoader from './gateways/createOSWebLoader';
@@ -38,10 +38,6 @@ if (window.top === window.self) {
   console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // tslint:disable-line:no-console
 }
 
-const archiveUrl = config.REACT_APP_ARCHIVE_URL_OVERRIDE
-  ? () => assertDefined(config.REACT_APP_ARCHIVE_URL_OVERRIDE, 'REACT_APP_ARCHIVE_URL_OVERRIDE must be defined')
-  : getArchiveUrl;
-
 const osWebUrl = assertDefined(config.REACT_APP_OS_WEB_API_URL, 'REACT_APP_OS_WEB_API_URL must be defined');
 const accountsUrl = assertDefined(config.REACT_APP_ACCOUNTS_URL, 'REACT_APP_ACCOUNTS_URL must be defined');
 const searchUrl = assertDefined(config.REACT_APP_SEARCH_URL, 'REACT_APP_SEARCH_URL must be defined');
@@ -55,9 +51,7 @@ const mainContent = document.getElementById('main-content');
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
-    archiveLoader: createArchiveLoader(archiveUrl, {
-      disablePerBookPinning: !!config.REACT_APP_ARCHIVE_URL_OVERRIDE,
-    }),
+    archiveLoader: createArchiveLoader(),
     bookConfigLoader: createBookConfigLoader(),
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
     config,

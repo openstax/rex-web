@@ -1,5 +1,4 @@
 import { APP_ENV } from '../../../config';
-import { getBookVersionFromUUIDSync } from '../../../gateways/createBookConfigLoader';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
@@ -10,7 +9,7 @@ export function bookDetailsUrl(book: BookWithOSWebData) {
 }
 
 export const getBookPageUrlAndParams = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>,
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'booksConfig'> & Partial<{slug: string}>,
   page: Pick<Page, 'id' | 'title'>
 ) => {
   const params: Params = {
@@ -27,15 +26,18 @@ export const getBookPageUrlAndParams = (
 };
 
 export const getUrlParamsForBook = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'booksConfig'> & Partial<{slug: string}>
 ): Params['book'] => {
-  const bookVersionFromConfig = getBookVersionFromUUIDSync(book.id);
+  // TODO - handle archiveVersion
+  // TODO - only use this if the book was loaded with an override? look at route somehow?
+  const bookVersionFromConfig = book.booksConfig.books[book.id]?.defaultVersion;
+
   if ('slug' in book && book.slug && bookVersionFromConfig) {
-    return book.version === bookVersionFromConfig.defaultVersion
+    return book.contentVersion === bookVersionFromConfig
       ? {slug: book.slug}
-      : {slug: book.slug, contentVersion: book.version};
+      : {slug: book.slug, contentVersion: book.contentVersion};
   } else {
-    return {uuid: book.id, contentVersion: book.version};
+    return {uuid: book.id, contentVersion: book.contentVersion};
   }
 };
 

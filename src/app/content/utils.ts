@@ -1,5 +1,5 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
-import { getArchiveUrl, getBookVersionFromUUIDSync } from '../../gateways/createBookConfigLoader';
+import { BooksConfig } from '../../gateways/createBookConfigLoader';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { isDefined } from '../guards';
 import { AppServices } from '../types';
@@ -13,7 +13,8 @@ import {
   BookWithOSWebData,
   Params,
   SlugParams,
-  UuidParams
+  UuidParams,
+  VersionedArchiveBookWithConfig
 } from './types';
 import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';
@@ -74,7 +75,11 @@ export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveT
   return contents;
 };
 
-const pickArchiveFields = (archiveBook: ArchiveBook) => ({
+const pickArchiveFields = (archiveBook: VersionedArchiveBookWithConfig) => ({
+  archivePath: archiveBook.archivePath,
+  archiveVersion: archiveBook.archiveVersion,
+  booksConfig: archiveBook.booksConfig,
+  contentVersion: archiveBook.contentVersion,
   id: archiveBook.id,
   language: archiveBook.language,
   license: archiveBook.license,
@@ -84,16 +89,15 @@ const pickArchiveFields = (archiveBook: ArchiveBook) => ({
     ...archiveBook.tree,
     contents: parseContents(archiveBook, archiveBook.tree.contents),
   },
-  version: archiveBook.version,
 });
 
 export const formatBookData = <O extends OSWebBook | undefined>(
-  archiveBook: ArchiveBook,
+  archiveBook: VersionedArchiveBookWithConfig,
   osWebBook: O
-): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
+): O extends OSWebBook ? BookWithOSWebData : VersionedArchiveBookWithConfig => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return pickArchiveFields(archiveBook) as ArchiveBook as any;
+    return pickArchiveFields(archiveBook) as VersionedArchiveBookWithConfig as any;
   }
   return {
     ...pickArchiveFields(archiveBook),
@@ -110,15 +114,24 @@ export const formatBookData = <O extends OSWebBook | undefined>(
 
 export const makeUnifiedBookLoader = (
   archiveLoader: AppServices['archiveLoader'],
-  osWebLoader: AppServices['osWebLoader']
-) => async(bookId: string, bookVersion: string) => {
-  const bookLoader = archiveLoader.book(bookId, bookVersion);
-  const osWebBook = await osWebLoader.getBookFromId(bookId);
+  osWebLoader: AppServices['osWebLoader'],
+  // TODO - think about this
+  // the purpose of the second format is for passing a book in, like "make the loader for books in relation
+  // to this other book" but that might not work correctly right now because we only want to specify the
+  // archive version if it is an override
+  options: { archiveVersion?: string; config: BooksConfig } | {archiveVersion: string; booksConfig: BooksConfig}
+) => async(bookOptions: {bookId: string, contentVersion?: string}) => {
+  const bookLoader =  archiveLoader.book({
+    ...bookOptions,
+    archiveVersion: options.archiveVersion,
+    config: 'booksConfig' in options ? options.booksConfig : options.config,
+  });
+  const osWebBook = await osWebLoader.getBookFromId(bookOptions.bookId);
   const archiveBook = await bookLoader.load();
   const book = formatBookData(archiveBook, osWebBook);
 
   if (!hasOSWebData(book)) {
-    throw new Error(`could not load cms data for book: ${bookId}`);
+    throw new Error(`could not load cms data for book: ${bookOptions.bookId}`);
   }
 
   return book;
@@ -137,9 +150,4 @@ export const getIdFromPageParam = (param: Params['page'] | null) => {
 export const loadPageContent = async(loader: ReturnType<AppServices['archiveLoader']['book']>, pageId: string) => {
   const page = await loader.page(pageId).load();
   return page.content;
-};
-
-export const getBookPipelineVersion = (book: Book): string => {
-  const url = getBookVersionFromUUIDSync(book.id)?.archiveOverride || getArchiveUrl();
-  return url.replace(/^\/apps\/archive\//, '');
 };

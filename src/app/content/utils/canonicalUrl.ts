@@ -14,7 +14,8 @@ export async function getCanonicalUrlParams(
   book: Book,
   pageId: string
 ) {
-  const getBook = makeUnifiedBookLoader(archiveLoader, osWebLoader);
+  // TODO - the thing
+  const getBook = makeUnifiedBookLoader(archiveLoader, osWebLoader, book);
 
   const getCanonicalMap = (bookId: string) => {
     const bookDefaultMap = [[bookId, {}]] as Array<[string, ObjectLiteral<undefined>]>;
@@ -34,12 +35,8 @@ export async function getCanonicalUrlParams(
   while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
       mapsChecked.push(canonicalMap);
-      const version = assertDefined(
-        getBookVersionFromUUIDSync(id),
-        `We've already filtered out books that are not in the BOOK configuration`
-      ).defaultVersion;
       const useCurrentBookAsCanonical = book.id === id  && hasOSWebData(book);
-      canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id, version);
+      canonicalBook = useCurrentBookAsCanonical ? book : await getBook({bookId: id});
       canonicalPageId = CANONICAL_PAGES_MAP[pageId] || canonicalPageId;
       treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 

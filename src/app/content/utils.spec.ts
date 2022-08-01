@@ -362,17 +362,3 @@ describe('getIdFromPageParam', () => {
     expect(getIdFromPageParam(null)).toEqual('');
   });
 });
-
-describe('getBookPipelineVersion', () => {
-  let book: Book;
-
-  it('gets the configured archive version', () => {
-    book = { id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c' } as ArchiveBook;
-    expect(getBookPipelineVersion(book)).toEqual(newPipelineVersion);
-  });
-
-  it('gets the overriden archive version', () => {
-    book = { id: '9d8df601-4f12-4ac1-8224-b450bf739e5f' } as ArchiveBook;
-    expect(getBookPipelineVersion(book)).toEqual(oldPipelineVersion);
-  });
-});

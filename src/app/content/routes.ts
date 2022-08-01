@@ -16,7 +16,7 @@ const contentPaths = [
   ...injectParamsToBaseUrl(prerenderedBase, {
     // switch this after a transition period starting with CORGI using the `dynamicBase` url on its previews
     book: [
-      `book_uuid(${MATCH_UUID})@:book_version`,
+      `book_uuid(${MATCH_UUID})@:book_contentVersion`,
       'book_slug@:book_contentVersion',
       'book_slug@:book_contentVersion\\::book_archiveVersion',
       'book_slug',
@@ -27,7 +27,7 @@ const contentPaths = [
   }),
   ...injectParamsToBaseUrl(dynamicBase, {
     book: [
-      `book_uuid(${MATCH_UUID})@:book_version`,
+      `book_uuid(${MATCH_UUID})@:book_contentVersion`,
       'book_slug@:book_contentVersion',
       'book_slug@:book_contentVersion\\::book_archiveVersion',
       'book_slug',

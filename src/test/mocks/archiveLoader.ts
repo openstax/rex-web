@@ -2,8 +2,9 @@
 import fs from 'fs';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
-import { ArchiveBook, ArchivePage } from '../../app/content/types';
+import { ArchiveBook, ArchivePage, VersionedArchiveBookWithConfig } from '../../app/content/types';
 import { findArchiveTreeNodeById } from '../../app/content/utils/archiveTreeUtils';
+import { BookOptions, splitStandardArchivePath } from '../../gateways/createArchiveLoader';
 
 export const book = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/codeversion/contents/testbook1-shortid.json'), 'utf8')
@@ -48,13 +49,25 @@ export default () => {
   const localBooks = cloneDeep(books);
   const localBookPages = cloneDeep(bookPages);
 
-  const resolveBook = (bookId: string, bookVersion: string) => localBooks[`${bookId}@${bookVersion}`];
+  const decorateArchiveBook = (options: BookOptions, result?: ArchiveBook | undefined): VersionedArchiveBookWithConfig | undefined => result ? {
+    ...result,
+    archivePath: options.archiveVersion
+      ? `/apps/archive/${options.archiveVersion}`
+      : (options.config.books[result.id]?.archiveOverride || options.config.archiveUrl),
+    archiveVersion: options.archiveVersion
+      ? options.archiveVersion
+      : splitStandardArchivePath(options.config.books[result.id]?.archiveOverride || options.config.archiveUrl)[1] as string,
+    booksConfig: options.config,
+    contentVersion: result.version,
+  } : undefined;
 
-  const loadBook = jest.fn((bookId, bookVersion) => {
-    const bookData = resolveBook(bookId, bookVersion);
+  const resolveBook = (options: BookOptions) => decorateArchiveBook(options, localBooks[`${options.bookId}@${options.contentVersion}`]);
+
+  const loadBook = jest.fn((options: BookOptions) => {
+    const bookData = resolveBook(options);
     return bookData
       ? Promise.resolve(bookData)
-      : Promise.reject(new Error(`failed to load book data ${bookId}@${bookVersion}`))
+      : Promise.reject(new Error(`failed to load book data ${options.bookId}@${options.contentVersion}`))
     ;
   });
   const loadPage = jest.fn((bookId, bookVersion, pageId) => {
@@ -62,8 +75,8 @@ export default () => {
     const pageData = pages && pages[pageId];
     return pageData ? Promise.resolve(pageData) : Promise.reject();
   });
-  const cachedBook = jest.fn((bookId, bookVersion): ArchiveBook | undefined => {
-    return resolveBook(bookId, bookVersion);
+  const cachedBook = jest.fn((options: BookOptions) => {
+    return resolveBook(options);
   });
   const cachedPage = jest.fn((bookId, bookVersion, pageId): ArchivePage | undefined => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
@@ -71,13 +84,23 @@ export default () => {
   });
 
   return {
-    book: (bookId: string, bookVersion: string | undefined) => ({
-      cached: () => cachedBook(bookId, bookVersion),
-      load: () => loadBook(bookId, bookVersion),
+    book: (options: BookOptions) => ({
+      cached: () => cachedBook(options),
+      load: () => loadBook(options),
 
       page: (pageId: string) => ({
-        cached: () => cachedPage(bookId, bookVersion, pageId),
-        load: () => loadPage(bookId, bookVersion, pageId),
+        cached: () => cachedPage(options.bookId, options.contentVersion, pageId),
+        load: () => loadPage(options.bookId, options.contentVersion, pageId),
+        url: () => '/someUrl',
+      }),
+    }),
+    forBook: (source: VersionedArchiveBookWithConfig) => ({
+      cached: () => cachedBook({config: source.booksConfig, bookId: source.id, archiveVersion: source.archiveVersion}),
+      load: () => loadBook({config: source.booksConfig, bookId: source.id, archiveVersion: source.archiveVersion}),
+
+      page: (pageId: string) => ({
+        cached: () => cachedPage(source.id, source.contentVersion, pageId),
+        load: () => loadPage(source.id, source.contentVersion, pageId),
         url: () => '/someUrl',
       }),
     }),

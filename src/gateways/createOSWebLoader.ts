@@ -34,7 +34,7 @@ interface Options {
 }
 
 const defaultOptions = () => ({
-  cache: createCache<string, OSWebBook | undefined>({maxRecords: 5}),
+  cache: createCache<string, OSWebBook | undefined>({maxRecords: 10}),
 });
 
 export default (prefix: string, options: Options = {}) => {
