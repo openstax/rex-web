@@ -1,19 +1,27 @@
 import { test, expect} from '@playwright/test';
-import KsmodalPage from './Ksmodal.page';
-import BasePage from './Base.page';
+import KsmodalPage from '../../src/fixtures/Ksmodal.page';
+import BasePage from '../../src/fixtures/Base.page';
 
-test('open keyboard shortcut modal using keyboard @testrail id: C651124', async ({ page }) => {
+test('open keyboard shortcut modal using keyboard @testrail id: C651124', async ({ browserName, page }) => {
   
   // GIVEN: Open Rex page
   const BookPage = new BasePage(page);
   const path = '/books/business-ethics/pages/preface';
   await BookPage.open(path);
-
+ 
   // AND: Tab 3 times and hit Enter
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Tab')
-  await page.keyboard.press('Tab')
+  if (browserName === "webkit"){
+  await page.keyboard.press('Alt+Tab');
+  await page.keyboard.press('Alt+Tab');
+  await page.keyboard.press('Alt+Tab');
+  await page.keyboard.press('Alt+Enter')
+  }
+  else { 
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
+  await page.keyboard.press('Tab');
   await page.keyboard.press('Enter');
+  }
 
   // THEN: The KS modal is open
   await expect(page).toHaveURL('/books/business-ethics/pages/preface?modal=KS');
