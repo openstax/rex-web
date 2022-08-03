@@ -4,9 +4,8 @@ import path from 'path';
 import argv from 'yargs';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
 import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
-import BOOKS from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
-import { getArchiveUrl } from '../src/gateways/createBookConfigLoader';
+import { getBooksConfigSync } from '../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import updateRedirectsData from './utils/update-redirects-data';
 
@@ -18,6 +17,7 @@ const args = argv.string('bookId').argv as any as {
 };
 
 const retireBook = async() => {
+  const booksConfig = getBooksConfigSync();
   const {retiredBook, redirectBook} = args;
 
   if (!retiredBook || !redirectBook) {
@@ -26,7 +26,7 @@ const retireBook = async() => {
   }
 
   console.log('Preparing to retire book.');
-  const updatedBooksConfig = { ...BOOKS };
+  const updatedBooksConfig = { ...booksConfig.books };
 
   if (!updatedBooksConfig[retiredBook]) {
     console.log(`Book with id ${retiredBook} not found in config. No books were retired.`);
@@ -39,16 +39,16 @@ const retireBook = async() => {
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
   const bookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(getArchiveUrl, {
+    createArchiveLoader({
       archivePrefix: ARCHIVE_URL,
     }),
-    osWebLoader
+    osWebLoader,
+    {booksConfig}
   );
 
   const [currentBook, newBook] = await Promise.all([
-    bookLoader(retiredBook, BOOKS[retiredBook].defaultVersion),
-    bookLoader(redirectBook, BOOKS[redirectBook].defaultVersion
-    ),
+    bookLoader(retiredBook),
+    bookLoader(redirectBook),
   ]);
 
   const count = await updateRedirectsData(currentBook, newBook, true);

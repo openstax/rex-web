@@ -114,8 +114,8 @@ export const makeUnifiedBookLoader = (
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader'],
   loadOptions: ArchiveLoadOptions
-) => async(bookId: string) => {
-  const bookLoader =  archiveLoader.book(bookId, loadOptions);
+) => async(bookId: string, versions?: Pick<ArchiveLoadOptions, 'contentVersion' | 'archiveVersion'>) => {
+  const bookLoader =  archiveLoader.book(bookId, {...loadOptions, ...versions});
   const osWebBook = await osWebLoader.getBookFromId(bookId);
   const archiveBook = await bookLoader.load();
   const book = formatBookData(archiveBook, osWebBook);

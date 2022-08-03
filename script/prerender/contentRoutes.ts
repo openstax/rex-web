@@ -1,7 +1,15 @@
 import { AppOptions } from '../../src/app';
 import { content } from '../../src/app/content/routes';
-import { ContentRoute, ContentRouteState, SlugParams } from '../../src/app/content/types';
+import { ContentRoute, SlugParams } from '../../src/app/content/types';
 import { Match, Route } from '../../src/app/navigation/types';
+import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
+
+interface ContentRouteState {
+  bookUid: string;
+  pageUid: string;
+}
+
+const booksConfig = getBooksConfigSync();
 
 // Can't use Omit<Params, 'page'> because we need SlugParams and not UuidParams
 type BookParams = { book: SlugParams; };
@@ -22,9 +30,9 @@ export async function getArchiveBook(services: AppOptions['services'], match: Se
     throw new Error('match state wasn\'t defined, it should have been');
   }
 
-  const {bookUid, bookVersion} = match.state;
+  const {bookUid} = match.state;
 
-  return services.archiveLoader.book(bookUid, bookVersion).load();
+  return services.archiveLoader.book(bookUid, {booksConfig}).load();
 }
 
 export async function getArchivePage(services: AppOptions['services'], match: SerializedPageMatch) {
@@ -32,7 +40,7 @@ export async function getArchivePage(services: AppOptions['services'], match: Se
     throw new Error('match state wasn\'t defined, it should have been');
   }
 
-  const {bookUid, bookVersion, pageUid} = match.state;
+  const {bookUid, pageUid} = match.state;
 
-  return services.archiveLoader.book(bookUid, bookVersion).page(pageUid).load();
+  return services.archiveLoader.book(bookUid, {booksConfig}).page(pageUid).load();
 }

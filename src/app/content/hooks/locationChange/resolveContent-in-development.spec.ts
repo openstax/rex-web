@@ -49,9 +49,17 @@ describe('locationChange', () => {
 
   const mockOtherBook = {
     abstract: '',
+    archiveVersion: '/test/archive-vesrion',
+    contentVersion: '0',
     id: '13ac107a-f15f-49d2-97e8-60ab2e3other',
     language: 'en',
     license: {name: '', version: '', url: ''},
+    loadOptions: {
+      booksConfig: {
+        archiveUrl: '/test/archive-version',
+        books: {'13ac107a-f15f-49d2-97e8-60ab2e3other': {defaultVersion: '0'}},
+      },
+    },
     revised: '2012-06-21',
     title: 'newbook',
     tree: {
@@ -139,8 +147,8 @@ describe('locationChange', () => {
       mockUUIDBook();
       match.params = {
         book: {
+          contentVersion: testVersion,
           uuid: testUUID,
-          version: testVersion,
         },
         page: {
           slug: testPage,
@@ -159,7 +167,7 @@ describe('locationChange', () => {
         ...match.params,
         book: {
           ...match.params.book,
-          version: 'asdf',
+          contentVersion: 'asdf',
         },
       } as Params;
 
@@ -181,8 +189,8 @@ describe('locationChange', () => {
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
       const versionedUuidParams = {
         book: {
+          contentVersion: testVersion,
           uuid: testUUID,
-          version: testVersion,
         },
         page: {
           slug: (match.params.page as SlugParams).slug,
@@ -202,8 +210,8 @@ describe('locationChange', () => {
 
       match.params = {
         book: {
+          contentVersion: testVersion,
           slug: 'book-slug-1',
-          version: testVersion,
         },
         page: {
           slug: testPage,
@@ -257,7 +265,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
 
       match.params = {
-        book: {uuid: mockOtherBook.id, version: '1.0'},
+        book: {uuid: mockOtherBook.id, contentVersion: '1.0'},
         page: {slug: 'page-in-a-new-book'},
       };
 
@@ -309,7 +317,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asda'));
 
       match.params = {
-        book: {uuid: book.id, version: '1.0'},
+        book: {uuid: book.id, contentVersion: '1.0'},
         page: {slug: 'asd'},
       };
 
@@ -332,9 +340,9 @@ describe('locationChange', () => {
 
       match.params = {
         book: {
+          contentVersion: '',
           slug: 'book-slug-1',
           uuid: testUUID,
-          version: '',
         },
         page: {
           slug: testPage,
@@ -359,7 +367,7 @@ describe('locationChange', () => {
 
         helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asd'));
 
-        const bookInfo = await resolveContentUtils.getBookInformation(helpers, reference);
+        const bookInfo = await resolveContentUtils.getBookInformation(book, helpers, reference);
 
         expect(bookInfo).toEqual(undefined);
       });

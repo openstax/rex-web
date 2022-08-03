@@ -23,7 +23,7 @@ import { AnyMatch } from '../../src/app/navigation/types';
 import { matchPathname } from '../../src/app/navigation/utils';
 import { AppServices, AppState } from '../../src/app/types';
 import { assertDefined } from '../../src/app/utils';
-import BOOKS from '../../src/config.books';
+import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
 import FontCollector from '../../src/helpers/FontCollector';
 import { deserializePageMatch, getArchivePage, SerializedPageMatch } from './contentRoutes';
 import { assetDirectoryExists, readAssetFile, writeAssetFile } from './fileUtils';
@@ -49,13 +49,14 @@ export function prepareContentPage(
     },
     state: {
       bookUid: book.id,
-      bookVersion: book.version,
       pageUid: pageId,
     },
   };
 
   return action;
 }
+
+const booksConfig = getBooksConfigSync();
 
 const indexHtml = readAssetFile('index.html');
 
@@ -182,10 +183,10 @@ export const prepareBooks = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
 ): Promise<BookWithOSWebData[]> => {
-  const bookConfigs = Object.entries(BOOKS).filter(([, book]) => !book.retired);
-  return Promise.all(bookConfigs.map(async([bookId, {defaultVersion}]) => {
-    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
-    return await bookLoader(bookId, defaultVersion);
+  const bookConfigs = Object.entries(booksConfig.books).filter(([, book]) => !book.retired);
+  return Promise.all(bookConfigs.map(async([bookId]) => {
+    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig});
+    return await bookLoader(bookId);
   }));
 };
 

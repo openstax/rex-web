@@ -2,8 +2,8 @@ import https from 'https';
 import fetch from 'node-fetch';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { AppServices } from '../../src/app/types';
-import { assertDefined } from '../../src/app/utils';
-import BOOKS from '../../src/config.books';
+import { tuple } from '../../src/app/utils';
+import { BooksConfig } from '../../src/gateways/createBookConfigLoader';
 
 export async function findBooks({
   rootUrl,
@@ -19,10 +19,8 @@ export async function findBooks({
   bookVersion?: string,
 }) {
   // Get the book config whether the server is prerendered or dev mode
-  const bookConfig: typeof BOOKS = await fetch(`${rootUrl}/rex/release.json`)
-    .then((response) => response.json())
-    .then((json) => json.books)
-    .catch(() => BOOKS)
+  const booksConfig = await fetch(`${rootUrl}/rex/release.json`)
+    .then((response) => response.json() as Promise<BooksConfig>)
   ;
 
   // this hackery makes it not care about self signed certificates
@@ -31,12 +29,12 @@ export async function findBooks({
   });
   (global as any).fetch = (url: any, options: any) => fetch(url, {...options, agent});
 
-  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
+  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig});
 
   const bookInfo = bookId
-    ? [{id: bookId, version: bookVersion || assertDefined(bookConfig[bookId], '').defaultVersion}]
-    : Object.entries(bookConfig).map(([id, {defaultVersion}]) => ({id, version: defaultVersion}))
+    ? [tuple(bookId, bookVersion ? {contentVersion: bookVersion} : undefined)]
+    : Object.entries(booksConfig.books).map(([id]) => tuple(id, undefined))
   ;
 
-  return await Promise.all(bookInfo.map(({id, version}) => bookLoader(id, version)));
+  return await Promise.all(bookInfo.map(([id, versions]) => bookLoader(id, versions)));
 }

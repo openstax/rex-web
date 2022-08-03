@@ -69,11 +69,6 @@ describe('contentLinkHandler', () => {
             slug: 'page-title',
           },
         },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       },
       {
         match: link2,
@@ -84,11 +79,6 @@ describe('contentLinkHandler', () => {
           page: {
             slug: 'page-title',
           },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
         },
       }];
 
@@ -114,17 +104,12 @@ describe('contentLinkHandler', () => {
         match: link,
         params: {
           book: {
+            contentVersion: book.version,
             uuid: book.id,
-            version: book.version,
           },
           page: {
             slug: 'page-title',
           },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
         },
       }];
 
@@ -149,11 +134,6 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       }, expect.anything());
     });
 
@@ -170,11 +150,6 @@ describe('contentLinkHandler', () => {
             slug: 'page-title',
           },
         },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       }];
 
       const event = {
@@ -197,11 +172,6 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       }, expect.anything());
     });
 
@@ -213,17 +183,12 @@ describe('contentLinkHandler', () => {
         match: link,
         params: {
           book: {
+            contentVersion: book.version,
             uuid: book.id,
-            version: book.version,
           },
           page: {
             uuid: pageId,
           },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
         },
       }];
 
@@ -248,11 +213,6 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       }, expect.anything());
     });
 
@@ -293,11 +253,6 @@ describe('contentLinkHandler', () => {
             slug: 'page-title',
           },
         },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       }];
 
       const event = {
@@ -335,11 +290,6 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       }, expect.anything());
     });
   });
@@ -366,17 +316,12 @@ describe('contentLinkHandler', () => {
         match: link,
         params: {
           book: {
+            contentVersion: book.version,
             uuid: book.id,
-            version: book.version,
           },
           page: {
             slug: 'page-title',
           },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
         },
       }];
 

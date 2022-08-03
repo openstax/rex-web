@@ -1,8 +1,7 @@
 import cloneDeep from 'lodash/fp/cloneDeep';
 import { resetModules } from '../../test/utils';
-import { ArchiveBook, ArchivePage, ArchiveTree, Book } from './types';
+import { ArchiveBook, ArchivePage, ArchiveTree, Book, VersionedArchiveBookWithConfig } from './types';
 import {
-  getBookPipelineVersion,
   getContentPageReferences,
   getIdFromPageParam,
   getPageIdFromUrlParam,
@@ -37,12 +36,27 @@ describe('stripIdVersion', () => {
 });
 
 describe('getContentPageReferences', () => {
-  let book: ArchiveBook;
+  let book: VersionedArchiveBookWithConfig;
   let page: ArchivePage;
 
   beforeEach(() => {
     book = {
+      archiveVersion: '/test/archive-url',
+      contentVersion: '1',
       id: 'booklongid',
+      language: 'en',
+      license: {
+        name: '',
+        url: '',
+        version: '1.0',
+      },
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive-url',
+          books: {booklongid: {defaultVersion: '1'}},
+        },
+      },
+      revised: '',
       title: 'book',
       tree: {
         contents: [
@@ -52,9 +66,12 @@ describe('getContentPageReferences', () => {
             title: '<span class="os-text">Preface</span>',
           },
         ],
+        id: 'booklongid',
+        slug: 'unused-archive-slug',
+        title: 'book',
       },
       version: '1',
-    } as ArchiveBook;
+    } as VersionedArchiveBookWithConfig;
 
     page = {
       abstract: '',
@@ -183,7 +200,7 @@ describe('getPageIdFromUrlParam', () => {
   let book: Book;
 
   beforeEach(() => {
-    book = cloneDeep({
+    book = {
       tree: {
         contents: [
           {
@@ -196,7 +213,7 @@ describe('getPageIdFromUrlParam', () => {
         slug: 'book-slug',
         title: 'book',
       },
-    }) as Book;
+    } as Book;
   });
 
   it('finds id for simple param', () => {

@@ -43,9 +43,17 @@ describe('locationChange', () => {
 
   const mockOtherBook = {
     abstract: '',
+    archiveVersion: '/test/archive-vesrion',
+    contentVersion: '0',
     id: '13ac107a-f15f-49d2-97e8-60ab2e3other',
     language: 'en',
     license: {name: '', version: '', url: ''},
+    loadOptions: {
+      booksConfig: {
+        archiveUrl: '/test/archive-version',
+        books: {'13ac107a-f15f-49d2-97e8-60ab2e3other': {defaultVersion: '0'}},
+      },
+    },
     revised: '2012-06-21',
     title: 'newbook',
     tree: {
@@ -99,8 +107,8 @@ describe('locationChange', () => {
 
       const versionedUuidParams = {
         book: {
+          contentVersion: testVersion,
           uuid: testUUID,
-          version: testVersion,
         },
         page: {
           slug: (match.params.page as SlugParams).slug,
@@ -116,7 +124,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asda'));
 
       match.params = {
-        book: {uuid: book.id, version: '1.0'},
+        book: {uuid: book.id, contentVersion: '1.0'},
         page: {slug: 'asd'},
       };
 
@@ -139,7 +147,7 @@ describe('locationChange', () => {
         pageId: 'asd',
       };
 
-      await expect(resolveContentUtils.getBookInformation(helpers, reference))
+      await expect(resolveContentUtils.getBookInformation(book, helpers, reference))
         .rejects.toThrow(`book version wasn't specified for book ${reference.bookId}`);
     });
 
@@ -150,9 +158,9 @@ describe('locationChange', () => {
 
       match.params = {
         book: {
+          contentVersion: testVersion,
           slug: 'book-slug-1',
           uuid: testUUID,
-          version: testVersion,
         },
         page: {
           slug: testPage,
@@ -174,9 +182,9 @@ describe('locationChange', () => {
       helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
       match.params = {
         book: {
+          contentVersion: testVersion,
           slug: 'book-slug-1',
           uuid: testUUID,
-          version: testVersion,
         },
         page: {
           slug: testPage,

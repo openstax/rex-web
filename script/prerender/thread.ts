@@ -47,7 +47,6 @@ const {
   HIGHLIGHTS_URL,
   OS_WEB_URL,
   REACT_APP_ACCOUNTS_URL,
-  REACT_APP_ARCHIVE_URL,
   REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
@@ -117,7 +116,7 @@ async function makeTaskFunctionsMap() {
 
   await Loadable.preloadAll();
 
-  const archiveLoader = createArchiveLoader(() => REACT_APP_ARCHIVE_URL, {
+  const archiveLoader = createArchiveLoader({
     appPrefix: '',
     archivePrefix: ARCHIVE_URL,
   });

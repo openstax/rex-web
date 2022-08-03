@@ -32,6 +32,7 @@ import { assertDefined } from '../../src/app/utils';
 import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
+import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
 import { globalMinuteCounter, prepareBookPages } from './contentPages';
@@ -45,7 +46,6 @@ const {
   ARCHIVE_URL,
   CODE_VERSION,
   OS_WEB_URL,
-  REACT_APP_ARCHIVE_URL,
   REACT_APP_OS_WEB_API_URL,
   RELEASE_ID,
 } = config;
@@ -78,12 +78,13 @@ type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
 type SitemapIndexTask = { payload: SerializedBookMatch[], type: 'sitemapIndex' };
 
-const archiveLoader = createArchiveLoader(() => REACT_APP_ARCHIVE_URL, {
+const booksConfig = getBooksConfigSync();
+const archiveLoader = createArchiveLoader({
   appPrefix: '',
   archivePrefix: ARCHIVE_URL,
 });
 const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
-const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
+const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig});
 
 const timeoutDate = new Date(1000 * PRERENDER_TIMEOUT_SECONDS + new Date().getTime());
 
@@ -223,7 +224,7 @@ function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
     // Don't have the book title yet at this point
     console.log(`Loading book ${bookId}@${defaultVersion}`);
 
-    const book = await bookLoader(bookId, defaultVersion);
+    const book = await bookLoader(bookId);
 
     console.log(`[${book.title}] Book loaded; preparing pages`);
 

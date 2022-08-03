@@ -46,7 +46,7 @@ describe('content reducer', () => {
   });
 
   it('reduces requestBook', () => {
-    const newState = reducer(initialState, actions.requestBook({uuid: 'bookId', version: '3'}));
+    const newState = reducer(initialState, actions.requestBook({uuid: 'bookId', contentVersion: '3'}));
 
     expect(newState.loading.book!).toEqual({uuid: 'bookId', version: '3'});
   });

@@ -83,11 +83,6 @@ const references: Array<PageReferenceMap | PageReferenceError> = [
         slug: 'page-title',
       },
     },
-    state: {
-      bookUid: 'book',
-      bookVersion: 'version',
-      pageUid: 'page',
-    },
   },
   {
     match: 'cross-book-reference-error',
