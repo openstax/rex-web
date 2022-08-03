@@ -48,10 +48,10 @@ const Books = () => {
   const {archiveLoader, osWebLoader} = services;
 
   useEffect(() => {
-    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {config: getBooksConfigSync()});
+    const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig: getBooksConfigSync()});
 
     for (const [bookId] of notRetiredbooks) {
-      bookLoader({bookId}).then((bookData) => {
+      bookLoader(bookId).then((bookData) => {
         setBooks((state) => state.map((data) => data[0] === bookId ? [data[0], data[1], bookData] : data));
       });
     }

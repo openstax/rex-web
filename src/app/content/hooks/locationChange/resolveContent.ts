@@ -1,6 +1,5 @@
 import isEqual from 'lodash/fp/isEqual';
 import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
-import { BookOptions } from '../../../../gateways/createArchiveLoader';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { BookNotFoundError } from '../../../utils';
@@ -8,7 +7,7 @@ import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPa
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { ArchivePage, Book, PageReferenceError, PageReferenceMap } from '../../types';
+import { ArchiveLoadOptions, ArchivePage, Book, PageReferenceError, PageReferenceMap } from '../../types';
 import {
   formatBookData,
   getContentPageReferences,
@@ -61,14 +60,15 @@ const resolveBook = async(
   match: Match<typeof content>
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
   const {dispatch, getState, archiveLoader, osWebLoader} = services;
-  const bookOptions = await resolveBookReference(services, match);
+  const {bookId, ...loadOptions} = await resolveBookReference(services, match);
 
-  const loader = archiveLoader.book(bookOptions);
+  const loader = archiveLoader.book(bookId, loadOptions);
   const state = getState();
   const bookState = select.book(state);
 
-  // TODO really this should check the other variables like content and archive versions
-  const book = bookState && bookState.id === bookOptions.bookId ? bookState : undefined;
+  const book = bookState && bookState.id === bookId && isEqual(bookState.loadOptions, loadOptions)
+    ? bookState
+    : undefined;
 
   if (book) {
     return [book, loader];
@@ -87,7 +87,7 @@ const resolveBook = async(
 export const resolveBookReference = async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
-): Promise<BookOptions> => {
+): Promise<ArchiveLoadOptions & {bookId: string}> => {
   const {osWebLoader, bookConfigLoader, getState} = services;
   const state = getState();
   const currentBook = select.book(state);
@@ -102,7 +102,7 @@ export const resolveBookReference = async(
     throw new BookNotFoundError(`Could not resolve uuid for params: ${JSON.stringify(match.params.book)}`);
   }
 
-  const config = await bookConfigLoader.getOrReloadConfigForBook(bookId);
+  const booksConfig = await bookConfigLoader.getOrReloadConfigForBook(bookId);
 
   const contentVersion = 'contentVersion' in match.params.book
     ? match.params.book.contentVersion
@@ -112,14 +112,15 @@ export const resolveBookReference = async(
     ? match.params.book.archiveVersion
     : undefined;
 
-  if (!UNLIMITED_CONTENT && config.books[bookId]?.retired) {
+  // extra logic here to bail on retired books before even trying to load them.
+  if (!UNLIMITED_CONTENT && booksConfig.books[bookId]?.retired) {
     throw new BookNotFoundError(`tried to load retired book: ${bookId}`);
   }
 
   return {
     archiveVersion,
     bookId,
-    config,
+    booksConfig,
     contentVersion,
   };
 };
@@ -171,18 +172,10 @@ export const getBookInformation = async(
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
   const osWebBook =  await services.osWebLoader.getBookFromId(reference.bookId);
-  const archiveBook = await services.archiveLoader.book({
-    // TODO - note that this may not really be correct. we definitely want to be passing
-    // the config through, but we only want to specify the archive version here if it was
-    // originally provided as an override (via path or query param). if we omit it here we're just
-    // trusting the config, and since the config is the same as was used to load the original book
-    // that should be safe. that would allow for things like pinned archive per book to work
-    // correctly.
-    archiveVersion: sourceBook.archiveVersion,
-    bookId: reference.bookId,
-    config: sourceBook.booksConfig,
-    contentVersion: reference.bookVersion,
-  }).load();
+
+  // TODO - ContentPageRefencesType includes a content version, but i'm not sure if its possible for it to be
+  // populated anymore. its being ignored here, something should be reconciled
+  const archiveBook = await services.archiveLoader.fromBook(sourceBook, reference.bookId).load();
 
   if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
     return {osWebBook, archiveBook};

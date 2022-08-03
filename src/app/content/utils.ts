@@ -1,15 +1,14 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
-import { BooksConfig } from '../../gateways/createBookConfigLoader';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { isDefined } from '../guards';
 import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
 import {
   ArchiveBook,
+  ArchiveLoadOptions,
   ArchivePage,
   ArchiveTree,
   ArchiveTreeNode,
-  Book,
   BookWithOSWebData,
   Params,
   SlugParams,
@@ -58,7 +57,7 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   return matches;
 }
 
-export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
+export const parseContents = (book: ArchiveBook, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {
     subtree.title = getTitleFromArchiveNode(book, subtree);
     if (isArchiveTree(subtree)) {
@@ -76,13 +75,12 @@ export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveT
 };
 
 const pickArchiveFields = (archiveBook: VersionedArchiveBookWithConfig) => ({
-  archivePath: archiveBook.archivePath,
   archiveVersion: archiveBook.archiveVersion,
-  booksConfig: archiveBook.booksConfig,
   contentVersion: archiveBook.contentVersion,
   id: archiveBook.id,
   language: archiveBook.language,
   license: archiveBook.license,
+  loadOptions: archiveBook.loadOptions,
   revised: archiveBook.revised,
   title: archiveBook.title,
   tree: {
@@ -115,23 +113,15 @@ export const formatBookData = <O extends OSWebBook | undefined>(
 export const makeUnifiedBookLoader = (
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader'],
-  // TODO - think about this
-  // the purpose of the second format is for passing a book in, like "make the loader for books in relation
-  // to this other book" but that might not work correctly right now because we only want to specify the
-  // archive version if it is an override
-  options: { archiveVersion?: string; config: BooksConfig } | {archiveVersion: string; booksConfig: BooksConfig}
-) => async(bookOptions: {bookId: string, contentVersion?: string}) => {
-  const bookLoader =  archiveLoader.book({
-    ...bookOptions,
-    archiveVersion: options.archiveVersion,
-    config: 'booksConfig' in options ? options.booksConfig : options.config,
-  });
-  const osWebBook = await osWebLoader.getBookFromId(bookOptions.bookId);
+  loadOptions: ArchiveLoadOptions
+) => async(bookId: string) => {
+  const bookLoader =  archiveLoader.book(bookId, loadOptions);
+  const osWebBook = await osWebLoader.getBookFromId(bookId);
   const archiveBook = await bookLoader.load();
   const book = formatBookData(archiveBook, osWebBook);
 
   if (!hasOSWebData(book)) {
-    throw new Error(`could not load cms data for book: ${bookOptions.bookId}`);
+    throw new Error(`could not load cms data for book: ${bookId}`);
   }
 
   return book;

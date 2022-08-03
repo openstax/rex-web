@@ -142,13 +142,15 @@ export interface ArchiveBook {
   revised: string;
 }
 
-export type VersionedArchiveBookWithConfig = ArchiveBook
-  & Required<VersionParams> & {
-    explicitVersion: boolean;
-    archivePath: string;
-    booksConfig: BooksConfig;
-  }
-;
+export interface ArchiveLoadOptions {
+  contentVersion?: string;
+  archiveVersion?: string;
+  booksConfig: BooksConfig;
+}
+
+export type VersionedArchiveBookWithConfig = ArchiveBook & Required<VersionParams> & {
+  loadOptions: ArchiveLoadOptions;
+};
 
 export interface ArchivePage {
   abstract: string | null;

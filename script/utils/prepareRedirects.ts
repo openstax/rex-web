@@ -20,7 +20,7 @@ const prepareRedirects = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
 ) => {
-  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {config: getBooksConfigSync()});
+  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig: getBooksConfigSync()});
 
   const redirects: Array<{ from: string, to: string }> = [];
 
@@ -28,7 +28,7 @@ const prepareRedirects = async(
     const bookRedirects: RedirectsData = await import(fileName);
 
     for (const { bookId, pageId, pathname, query } of bookRedirects) {
-      const { tree, slug: bookSlug } = await bookLoader({bookId});
+      const { tree, slug: bookSlug } = await bookLoader(bookId);
       const page = findArchiveTreeNodeById(tree, pageId);
 
       if (!page) {

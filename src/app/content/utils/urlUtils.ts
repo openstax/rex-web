@@ -9,7 +9,7 @@ export function bookDetailsUrl(book: BookWithOSWebData) {
 }
 
 export const getBookPageUrlAndParams = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'booksConfig'> & Partial<{slug: string}>,
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'loadOptions'> & Partial<{slug: string}>,
   page: Pick<Page, 'id' | 'title'>
 ) => {
   const params: Params = {
@@ -26,18 +26,30 @@ export const getBookPageUrlAndParams = (
 };
 
 export const getUrlParamsForBook = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'booksConfig'> & Partial<{slug: string}>
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'loadOptions'> & Partial<{slug: string}>
 ): Params['book'] => {
-  // TODO - handle archiveVersion
-  // TODO - only use this if the book was loaded with an override? look at route somehow?
-  const bookVersionFromConfig = book.booksConfig.books[book.id]?.defaultVersion;
 
-  if ('slug' in book && book.slug && bookVersionFromConfig) {
-    return book.contentVersion === bookVersionFromConfig
-      ? {slug: book.slug}
-      : {slug: book.slug, contentVersion: book.contentVersion};
+  const versionParams = book.loadOptions.contentVersion && book.loadOptions.archiveVersion
+    ? {
+      archiveVersion: book.loadOptions.archiveVersion,
+      contentVersion: book.loadOptions.contentVersion,
+    }
+    : book.loadOptions.contentVersion
+      ? {contentVersion: book.loadOptions.contentVersion}
+      : {}
+  ;
+
+  if ('slug' in book && book.slug) {
+    return {
+      ...versionParams,
+      slug: book.slug,
+    };
   } else {
-    return {uuid: book.id, contentVersion: book.contentVersion};
+    return {
+      contentVersion: book.contentVersion,
+      ...versionParams,
+      uuid: book.id,
+    };
   }
 };
 

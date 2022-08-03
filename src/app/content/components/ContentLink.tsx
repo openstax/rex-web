@@ -61,9 +61,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
 
-  // TODO - from here we should decide to use either versioned params or standard params
-  // based on what is currently in the url, this would prevent issues where the new books
-  // config is loaded and all the links suddenly start using versioned paths in prod
   const {url, params} = getBookPageUrlAndParams(book, page);
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);

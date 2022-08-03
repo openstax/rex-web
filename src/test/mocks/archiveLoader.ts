@@ -2,17 +2,42 @@
 import fs from 'fs';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
-import { ArchiveBook, ArchivePage, VersionedArchiveBookWithConfig } from '../../app/content/types';
+import { ArchiveBook, ArchiveLoadOptions, ArchivePage, VersionedArchiveBookWithConfig } from '../../app/content/types';
 import { findArchiveTreeNodeById } from '../../app/content/utils/archiveTreeUtils';
-import { BookOptions, splitStandardArchivePath } from '../../gateways/createArchiveLoader';
+import { Books } from '../../config.books';
+import { splitStandardArchivePath } from '../../gateways/createArchiveLoader';
+import { BooksConfig } from '../../gateways/createBookConfigLoader';
 
-export const book = JSON.parse(
+const decorateArchiveBook = (options: ArchiveLoadOptions, result: ArchiveBook): VersionedArchiveBookWithConfig => ({
+  ...result,
+  archiveVersion: options.archiveVersion
+    ? options.archiveVersion
+    : splitStandardArchivePath(options.booksConfig.books[result.id]?.archiveOverride || options.booksConfig.archiveUrl)[1] as string,
+  contentVersion: result.version,
+  loadOptions: options,
+});
+
+const mockBooks: Books = {
+  'testbook1-units': {
+    defaultVersion: '1.0',
+  },
+  'testbook1-uuid': {
+    defaultVersion: '1.0',
+  },
+};
+
+const booksConfig: BooksConfig = {
+  archiveUrl: '/test/archive-url',
+  books: mockBooks,
+};
+
+export const book = decorateArchiveBook({booksConfig}, JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/codeversion/contents/testbook1-shortid.json'), 'utf8')
-) as ArchiveBook;
+) as ArchiveBook);
 
-export const bookWithUnits = JSON.parse(
+export const bookWithUnits = decorateArchiveBook({booksConfig}, JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/codeversion/contents/testbook1-units.json'), 'utf8')
-) as ArchiveBook;
+) as ArchiveBook);
 
 export const page = JSON.parse(
   fs.readFileSync(path.resolve(__dirname, '../fixtures/apps/archive/codeversion/contents/testbook1-shortid:testpage1-shortid.json'), 'utf8')
@@ -49,25 +74,15 @@ export default () => {
   const localBooks = cloneDeep(books);
   const localBookPages = cloneDeep(bookPages);
 
-  const decorateArchiveBook = (options: BookOptions, result?: ArchiveBook | undefined): VersionedArchiveBookWithConfig | undefined => result ? {
-    ...result,
-    archivePath: options.archiveVersion
-      ? `/apps/archive/${options.archiveVersion}`
-      : (options.config.books[result.id]?.archiveOverride || options.config.archiveUrl),
-    archiveVersion: options.archiveVersion
-      ? options.archiveVersion
-      : splitStandardArchivePath(options.config.books[result.id]?.archiveOverride || options.config.archiveUrl)[1] as string,
-    booksConfig: options.config,
-    contentVersion: result.version,
-  } : undefined;
+  const resolveBook = (bookId: string, options: ArchiveLoadOptions) => localBooks[`${bookId}@${options.contentVersion}`]
+    ? decorateArchiveBook(options, localBooks[`${bookId}@${options.contentVersion}`])
+    : undefined;
 
-  const resolveBook = (options: BookOptions) => decorateArchiveBook(options, localBooks[`${options.bookId}@${options.contentVersion}`]);
-
-  const loadBook = jest.fn((options: BookOptions) => {
-    const bookData = resolveBook(options);
+  const loadBook = jest.fn((bookId: string, options: ArchiveLoadOptions) => {
+    const bookData = resolveBook(bookId, options);
     return bookData
       ? Promise.resolve(bookData)
-      : Promise.reject(new Error(`failed to load book data ${options.bookId}@${options.contentVersion}`))
+      : Promise.reject(new Error(`failed to load book data ${bookId}@${options.contentVersion}`))
     ;
   });
   const loadPage = jest.fn((bookId, bookVersion, pageId) => {
@@ -75,8 +90,8 @@ export default () => {
     const pageData = pages && pages[pageId];
     return pageData ? Promise.resolve(pageData) : Promise.reject();
   });
-  const cachedBook = jest.fn((options: BookOptions) => {
-    return resolveBook(options);
+  const cachedBook = jest.fn((bookId: string, options: ArchiveLoadOptions) => {
+    return resolveBook(bookId, options);
   });
   const cachedPage = jest.fn((bookId, bookVersion, pageId): ArchivePage | undefined => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
@@ -84,23 +99,33 @@ export default () => {
   });
 
   return {
-    book: (options: BookOptions) => ({
-      cached: () => cachedBook(options),
-      load: () => loadBook(options),
+    book: (bookId: string, options: ArchiveLoadOptions) => ({
+      cached: () => cachedBook(bookId, options),
+      load: () => loadBook(bookId, options),
 
       page: (pageId: string) => ({
-        cached: () => cachedPage(options.bookId, options.contentVersion, pageId),
-        load: () => loadPage(options.bookId, options.contentVersion, pageId),
+        cached: () => cachedPage(bookId, options.contentVersion, pageId),
+        load: () => loadPage(bookId, options.contentVersion, pageId),
         url: () => '/someUrl',
       }),
     }),
     forBook: (source: VersionedArchiveBookWithConfig) => ({
-      cached: () => cachedBook({config: source.booksConfig, bookId: source.id, archiveVersion: source.archiveVersion}),
-      load: () => loadBook({config: source.booksConfig, bookId: source.id, archiveVersion: source.archiveVersion}),
+      cached: () => cachedBook(source.id, source.loadOptions),
+      load: () => loadBook(source.id, source.loadOptions),
 
       page: (pageId: string) => ({
         cached: () => cachedPage(source.id, source.contentVersion, pageId),
         load: () => loadPage(source.id, source.contentVersion, pageId),
+        url: () => '/someUrl',
+      }),
+    }),
+    fromBook: (source: VersionedArchiveBookWithConfig, bookId: string) => ({
+      cached: () => cachedBook(bookId, source.loadOptions),
+      load: () => loadBook(bookId, source.loadOptions),
+
+      page: (pageId: string) => ({
+        cached: () => cachedPage(bookId, source.contentVersion, pageId),
+        load: () => loadPage(bookId, source.contentVersion, pageId),
         url: () => '/someUrl',
       }),
     }),

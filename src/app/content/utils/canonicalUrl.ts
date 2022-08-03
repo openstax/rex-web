@@ -1,6 +1,5 @@
 import { isEqual } from 'lodash/fp';
 import { CANONICAL_MAP, ObjectLiteral } from '../../../canonicalBookMap';
-import { getBookVersionFromUUIDSync } from '../../../gateways/createBookConfigLoader';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { hasOSWebData } from '../guards';
@@ -14,15 +13,14 @@ export async function getCanonicalUrlParams(
   book: Book,
   pageId: string
 ) {
-  // TODO - the thing
-  const getBook = makeUnifiedBookLoader(archiveLoader, osWebLoader, book);
+  const getBook = makeUnifiedBookLoader(archiveLoader, osWebLoader, book.loadOptions);
 
   const getCanonicalMap = (bookId: string) => {
     const bookDefaultMap = [[bookId, {}]] as Array<[string, ObjectLiteral<undefined>]>;
     return ([
       ...(CANONICAL_MAP[bookId] || bookDefaultMap),
       // use the current book if no map is found
-    ]).filter(([id]) => !!getBookVersionFromUUIDSync(id));
+    ]).filter(([id]) => !!book.loadOptions.booksConfig.books[id]);
 };
 
   let canonicalMap = getCanonicalMap(book.id);
@@ -36,7 +34,7 @@ export async function getCanonicalUrlParams(
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
       mapsChecked.push(canonicalMap);
       const useCurrentBookAsCanonical = book.id === id  && hasOSWebData(book);
-      canonicalBook = useCurrentBookAsCanonical ? book : await getBook({bookId: id});
+      canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id);
       canonicalPageId = CANONICAL_PAGES_MAP[pageId] || canonicalPageId;
       treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 

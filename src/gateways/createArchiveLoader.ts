@@ -1,11 +1,16 @@
-import { ArchiveBook, ArchiveContent, ArchivePage, VersionedArchiveBookWithConfig } from '../app/content/types';
+import {
+  ArchiveBook,
+  ArchiveContent,
+  ArchiveLoadOptions,
+  ArchivePage,
+  VersionedArchiveBookWithConfig
+} from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
 import { ifUndefined } from '../app/fpUtils';
 import { ArchiveBookMissingError, BookNotFoundError, tuple } from '../app/utils';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../config';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
-import { BooksConfig } from './createBookConfigLoader';
 
 interface Options {
   /*
@@ -44,13 +49,6 @@ const defaultOptions = () => ({
   pageCache: createCache<string, ArchivePage>({maxRecords: 20}),
 });
 
-export interface BookOptions {
-  bookId: string;
-  contentVersion?: string;
-  archiveVersion?: string;
-  config: BooksConfig;
-}
-
 /*
  * if an archive path matches `/apps/archive/123.123` (or similar)
  * this splits the pipeline version from the archive path. for
@@ -58,7 +56,7 @@ export interface BookOptions {
  */
 export const splitStandardArchivePath = (archivePathInput: string) => {
   const [, archivePath, , archiveVersion] = archivePathInput.match(/^(\/apps\/archive(-preview)?\/(.*?))\/?$/i)
-    || tuple(undefined, archivePathInput);
+    || tuple(undefined, archivePathInput, undefined, undefined);
 
   return tuple(archivePath, archiveVersion);
 };
@@ -90,17 +88,20 @@ export default (options: Options = {}) => {
    * handle that
    *
    */
-  const getArchivePathAndVersionForBook = (bookOptions: BookOptions) =>
+  const getArchivePathAndVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
     REACT_APP_ARCHIVE_URL_OVERRIDE
-      ? bookOptions.archiveVersion
-        ? tuple(REACT_APP_ARCHIVE_URL_OVERRIDE, bookOptions.archiveVersion)
+      ? loadOptions.archiveVersion
+        ? tuple(
+          `${REACT_APP_ARCHIVE_URL_OVERRIDE.replace(/\/+$/, '')}/${loadOptions.archiveVersion}`,
+          loadOptions.archiveVersion
+        )
         : splitStandardArchivePath(REACT_APP_ARCHIVE_URL_OVERRIDE)
-      : bookOptions.archiveVersion
+      : loadOptions.archiveVersion
         // it would be better if the config had the path base separate
-        ? tuple(`/apps/archive/${bookOptions.archiveVersion}`, bookOptions.archiveVersion)
+        ? tuple(`/apps/archive/${loadOptions.archiveVersion}`, loadOptions.archiveVersion)
         : splitStandardArchivePath(disablePerBookPinning
-          ? bookOptions.config.archiveUrl
-          : (bookOptions.config.books[bookOptions.bookId]?.archiveOverride || bookOptions.config.archiveUrl)
+          ? loadOptions.booksConfig.archiveUrl
+          : (loadOptions.booksConfig.books[bookId]?.archiveOverride || loadOptions.booksConfig.archiveUrl)
         )
     ;
 
@@ -113,10 +114,10 @@ export default (options: Options = {}) => {
   const contentUrl = (host: string, archivePath: string, ref: string) =>
     `${host}${archivePath}/contents/${ref}.json`;
 
-  const getContentVersionForBook = (bookOptions: BookOptions) =>
-    bookOptions.contentVersion
-      ? bookOptions.contentVersion
-      : bookOptions.config.books[bookOptions.bookId]?.defaultVersion;
+  const getContentVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
+    loadOptions.contentVersion
+      ? loadOptions.contentVersion
+      : loadOptions.booksConfig.books[bookId]?.defaultVersion;
 
   const buildCacheKey = (archivePath: string, contentRef: string) => `${archivePath}:${contentRef}`;
 
@@ -142,35 +143,34 @@ export default (options: Options = {}) => {
     };
 
   const versionParamsDecorator = (
+    loadOptions: ArchiveLoadOptions,
     archivePath: string,
-    archiveVersion: string | undefined,
-    explicitVersion: boolean,
-    config: BooksConfig
+    archiveVersion: string | undefined
   ) => {
     return (book: ArchiveBook): VersionedArchiveBookWithConfig => ({
       ...book,
-      archivePath,
       archiveVersion: archiveVersion || archivePath,
-      booksConfig: config,
       contentVersion: book.version,
-      explicitVersion,
+      loadOptions,
     });
   };
 
   const bookLoader = contentsLoader<ArchiveBook, VersionedArchiveBookWithConfig>(bookCache);
   const pageLoader = contentsLoader<ArchivePage, ArchivePage>(pageCache);
 
-  // REMINDER TO ME: you've handled the query param being whatever it may be, but still need
-  // to work on differentiating between explicitly set versions and choosing when to specify them
-  // when calling loader.book
   const bookInterface = (
     bookId: string,
-    contentVersion: string,
-    archivePath: string,
-    archiveVersion: string | undefined,
-    explicitVersion: boolean,
-    config: BooksConfig
+    loadOptions: ArchiveLoadOptions
   ) => {
+    // there are situations where `archiveVersion` will be unknown, its only for tracking, the
+    // `archivePath` is whats actually used for loading things
+    const [archivePath, archiveVersion] = getArchivePathAndVersionForBook(bookId, loadOptions);
+    const contentVersion = getContentVersionForBook(bookId, loadOptions);
+
+    if (!contentVersion) {
+      throw new BookNotFoundError(`Could not resolve version for book: ${bookId}`);
+    }
+
     const bookRef = `${stripIdVersion(bookId)}@${contentVersion}`;
 
     return {
@@ -178,9 +178,8 @@ export default (options: Options = {}) => {
       load: () => bookLoader(
         archivePath,
         bookRef,
-        versionParamsDecorator(archivePath, archiveVersion, explicitVersion, config)
+        versionParamsDecorator(loadOptions, archivePath, archiveVersion)
       ),
-
       page: (pageId: string) => {
         const bookAndPageRef = `${bookRef}:${pageId}`;
         return {
@@ -192,43 +191,31 @@ export default (options: Options = {}) => {
     };
   };
 
-  const bookGetter = (bookOptions: BookOptions) => {
-    const [archivePath, archiveVersion] = getArchivePathAndVersionForBook(bookOptions);
-    const contentVersion = getContentVersionForBook(bookOptions);
-
-    if (!contentVersion) {
-      throw new BookNotFoundError(`Could not resolve version for book: ${bookOptions.bookId}`);
-    }
-
+  const bookGetter = (bookId: string, loadOptions: ArchiveLoadOptions) => {
     return bookInterface(
-      bookOptions.bookId,
-      contentVersion,
-      archivePath,
-      archiveVersion,
-      !!(bookOptions.contentVersion || bookOptions.archiveVersion),
-      bookOptions.config
+      bookId,
+      loadOptions
     );
   };
 
   return {
     book: bookGetter,
+    /*
+     * creates a new loader for the given book using the same params
+     * used to load this data.
+     */
     forBook: (book: VersionedArchiveBookWithConfig) => bookInterface(
       book.id,
-      book.contentVersion,
-      book.archivePath,
-      book.archiveVersion,
-      book.explicitVersion,
-      book.booksConfig
+      book.loadOptions
     ),
-    fromBook: (source: VersionedArchiveBookWithConfig, bookId: string) => source.explicitVersion ? bookInterface(
+    /*
+     * creates a new loader for a different book using the same params
+     * use dto load this data. (to ensure that the intended reference is
+     * resolved correctly, for cross book references like links or canonicals.
+     */
+    fromBook: (source: VersionedArchiveBookWithConfig, bookId: string) => bookInterface(
       bookId,
-       // necesary to do cross book links when viewing a specific content version.
-      // is this safe to do for canonical links?
-      source.contentVersion,
-      source.archivePath,
-      source.archiveVersion,
-      source.explicitVersion,
-      source.booksConfig
-    ) : bookGetter({bookId, config: source.booksConfig}),
+      source.loadOptions
+    ),
   };
 };

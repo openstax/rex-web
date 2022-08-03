@@ -4,11 +4,11 @@ import { isDefined } from '../../guards';
 import { assertDefined } from '../../utils';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
+  ArchiveBook,
   ArchiveTree,
   ArchiveTreeNode,
   ArchiveTreeSection,
   ArchiveTreeSectionType,
-  Book,
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
@@ -136,7 +136,7 @@ export const prevNextBookPage = (
   };
 };
 
-export const getTitleStringFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveTreeSection): string => {
+export const getTitleStringFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
   const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
   const container = domNode.getElementById('container');
 
@@ -157,7 +157,7 @@ export const getTitleStringFromArchiveNode = (book: Book, node: ArchiveTree | Ar
   return container.innerText;
 };
 
-export const getTitleFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveTreeSection): string => {
+export const getTitleFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
   const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
   const container = domNode.getElementById('container');
 
