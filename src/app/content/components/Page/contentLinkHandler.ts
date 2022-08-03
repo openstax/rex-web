@@ -98,12 +98,12 @@ export const reduceReferences = (
 
 const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap | PageReferenceError) =>
   isPageReferenceError(ref)
-  ? false
-  : content.getUrl(ref.params) === pathname
-    && (
-      ('slug' in ref.params.book && hasOSWebData(book) && ref.params.book.slug === book.slug)
-      || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
-    );
+    ? false
+    : content.getUrl(ref.params) === pathname
+      && (
+        ('slug' in ref.params.book && hasOSWebData(book) && ref.params.book.slug === book.slug)
+        || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
+      );
 
 // tslint:disable-next-line: max-line-length
 export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices & MiddlewareAPI) =>
@@ -155,7 +155,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       defer(() => navigate({
         params: reference.params,
         route: content,
-        state: {},
       }, {hash, search: searchString}));
     } else {
       // defer to allow other handlers to execute before nav happens
