@@ -22,7 +22,7 @@ describe('content route', () => {
 
     it('for book slug with version and page slug', () => {
       content = require('./routes').content;
-      const url = content.getUrl({book: {slug: 'book', version: 'asdf'}, page: {slug: 'page'}});
+      const url = content.getUrl({book: {slug: 'book', contentVersion: 'asdf'}, page: {slug: 'page'}});
       expect(url).toEqual('/books/book@asdf/pages/page');
     });
 
@@ -30,8 +30,8 @@ describe('content route', () => {
       content = require('./routes').content;
       const url = content.getUrl({
         book: {
+          contentVersion: '1.0',
           uuid: longID,
-          version: '1.0',
         },
         page: {
           slug: 'page',
@@ -47,7 +47,7 @@ describe('content route', () => {
 
     it('for book slug with version and page uuid', () => {
       content = require('./routes').content;
-      const url = content.getUrl({book: {slug: 'book', version: 'asdf'}, page: {uuid: longID}});
+      const url = content.getUrl({book: {slug: 'book', contentVersion: 'asdf'}, page: {uuid: longID}});
       expect(url).toEqual('/books/book@asdf/pages/longidin-vali-dfor-mat1-111111111111');
     });
 
@@ -55,8 +55,8 @@ describe('content route', () => {
       content = require('./routes').content;
       const url = content.getUrl({
         book: {
+          contentVersion: '1.0',
           uuid: longID,
-          version: '1.0',
         },
         page: {
           uuid: longID,
