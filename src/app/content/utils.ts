@@ -48,6 +48,9 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
 
       return {
         bookId: bookId || book.id,
+        // TODO - cross book links no longer have versions in them ever, and
+        // putting the same book version here isn't really necessary, so we
+        // should consider removing the version from the references payload
         bookVersion: bookVersion || (!bookId ? book.version : undefined),
         match: matchPath,
         pageId: (pageId && stripIdVersion(pageId)) || page.id,

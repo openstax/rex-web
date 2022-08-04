@@ -172,10 +172,14 @@ export const getBookInformation = async(
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
   const osWebBook =  await services.osWebLoader.getBookFromId(reference.bookId);
+  const archiveBook = await services.archiveLoader.fromBook(sourceBook, reference.bookId).load()
+    .catch((e) => {
+      if (UNLIMITED_CONTENT) {
+        return undefined;
+      }
 
-  // TODO - ContentPageRefencesType includes a content version, but i'm not sure if its possible for it to be
-  // populated anymore. its being ignored here, something should be reconciled
-  const archiveBook = await services.archiveLoader.fromBook(sourceBook, reference.bookId).load();
+      throw e;
+    });
 
   if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
     return {osWebBook, archiveBook};

@@ -4,6 +4,7 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
 import { ArchiveBook, ArchiveLoadOptions, ArchivePage, VersionedArchiveBookWithConfig } from '../../app/content/types';
 import { findArchiveTreeNodeById } from '../../app/content/utils/archiveTreeUtils';
+import { BookNotFoundError } from '../../app/utils';
 import { Books } from '../../config.books';
 import { splitStandardArchivePath } from '../../gateways/createArchiveLoader';
 import { BooksConfig } from '../../gateways/createBookConfigLoader';
@@ -74,18 +75,27 @@ export default () => {
   const localBooks = cloneDeep(books);
   const localBookPages = cloneDeep(bookPages);
 
-  const resolveBook = (bookId: string, options: ArchiveLoadOptions) => localBooks[`${bookId}@${options.contentVersion}`]
-    ? decorateArchiveBook(options, localBooks[`${bookId}@${options.contentVersion}`])
-    : undefined;
+  const resolveBook = (bookId: string, options: ArchiveLoadOptions) => {
+    const version = options.contentVersion !== undefined
+        ? options.contentVersion
+        : options.booksConfig.books[bookId]?.defaultVersion;
 
-  const loadBook = jest.fn((bookId: string, options: ArchiveLoadOptions) => {
+    if (!version) {
+      throw new BookNotFoundError(`Could not resolve version for book: ${bookId}`);
+    }
+    return localBooks[`${bookId}@${version}`]
+      ? decorateArchiveBook(options, localBooks[`${bookId}@${version}`])
+      : undefined;
+  };
+
+  const loadBook = jest.fn(async(bookId: string, options: ArchiveLoadOptions) => {
     const bookData = resolveBook(bookId, options);
     return bookData
       ? Promise.resolve(bookData)
       : Promise.reject(new Error(`failed to load book data ${bookId}@${options.contentVersion}`))
     ;
   });
-  const loadPage = jest.fn((bookId, bookVersion, pageId) => {
+  const loadPage = jest.fn(async(bookId, bookVersion, pageId) => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     const pageData = pages && pages[pageId];
     return pageData ? Promise.resolve(pageData) : Promise.reject();

@@ -1,28 +1,18 @@
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
-import { resetModules } from '../../../../test/utils';
 import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as actions from '../../actions';
 import * as routes from '../../routes';
 import { Book, Params, SlugParams } from '../../types';
-import { loadContentReference, resolveBookReference } from './resolveContent';
 import * as resolveContentUtils from './resolveContent';
 
+jest.mock('../../utils/processBrowserRedirect');
 jest.mock('../../../../config', () => ({
   APP_ENV: 'development',
   UNLIMITED_CONTENT: true,
 }));
-jest.mock('../../../../config.books', () => {
-  const mockBook = (jest as any).requireActual(
-    '../../../../test/mocks/archiveLoader'
-  ).book;
-  return {
-    [mockBook.id]: { defaultVersion: mockBook.version },
-    '13ac107a-f15f-49d2-97e8-60ab2e3abcde': { defaultVersion: '1.0' },
-  };
-});
 
 const testBookSlug = 'book-slug-1';
 const testUUID = '13ac107a-f15f-49d2-97e8-60ab2e3abcde';
@@ -57,7 +47,7 @@ describe('locationChange', () => {
     loadOptions: {
       booksConfig: {
         archiveUrl: '/test/archive-version',
-        books: {'13ac107a-f15f-49d2-97e8-60ab2e3other': {defaultVersion: '0'}},
+        books: {},
       },
     },
     revised: '2012-06-21',
@@ -80,7 +70,6 @@ describe('locationChange', () => {
   };
 
   beforeEach(() => {
-    resetModules();
     store = createTestStore();
     helpers = {
       ...createTestServices(),
@@ -89,6 +78,8 @@ describe('locationChange', () => {
     };
 
     dispatch = jest.spyOn(helpers, 'dispatch');
+
+    helpers.bookConfigLoader.localBookConfig[testUUID] = {defaultVersion: testVersion};
 
     match = {
       params: {
@@ -113,6 +104,9 @@ describe('locationChange', () => {
       helpers.archiveLoader.mock.loadBook.mockImplementation(
         () => new Promise((resolve) => setTimeout(() => resolve(book), 100))
       );
+      helpers.archiveLoader.mock.loadPage.mockImplementation(
+        () => new Promise((resolve) => setTimeout(() => resolve(page), 100))
+      );
 
       await Promise.all([
         hook(helpers, match),
@@ -127,6 +121,13 @@ describe('locationChange', () => {
     });
 
     it('doesn\'t load page if its already loading', async() => {
+      helpers.archiveLoader.mock.loadBook.mockImplementation(
+        () => new Promise((resolve) => setTimeout(() => resolve(book), 100))
+      );
+      helpers.archiveLoader.mock.loadPage.mockImplementation(
+        () => new Promise((resolve) => setTimeout(() => resolve(page), 100))
+      );
+
       await Promise.all([
         hook(helpers, match),
         hook(helpers, match),
@@ -159,7 +160,7 @@ describe('locationChange', () => {
 
       const getBookSlugFromId = jest.spyOn(helpers.osWebLoader, 'getBookSlugFromId');
 
-      expect(getBookSlugFromId).toHaveBeenCalledTimes(1);
+      expect(getBookSlugFromId).toHaveBeenCalledTimes(0);
     });
 
     it('uses param version if there is one', async() => {
@@ -182,7 +183,9 @@ describe('locationChange', () => {
         version: 'asdf',
       }, page, testPage);
       await hook(helpers, match);
-      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', 'asdf');
+      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', expect.objectContaining({
+        contentVersion: 'asdf',
+      }));
     });
 
     it('uses uuid if present', async() => {
@@ -201,63 +204,17 @@ describe('locationChange', () => {
 
       match.params = versionedUuidParams;
       await hook(helpers, match);
-      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, testVersion);
-    });
-
-    it('gets uuid from match state if not found in nav params', async() => {
-      helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0' };
-      helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
-
-      match.params = {
-        book: {
-          contentVersion: testVersion,
-          slug: 'book-slug-1',
-        },
-        page: {
-          slug: testPage,
-        },
-      };
-
-      match.state = {
-        bookUid: testUUID,
-      };
-
-      mockUUIDBook();
-
-      await hook(helpers, match);
-      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, testVersion);
-    });
-
-    it('gets version from match state if not found in nav params', async() => {
-      helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0' };
-      helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
-
-      match.params = {
-        book: {
-          slug: 'book-slug-1',
-          uuid: testUUID,
-        },
-        page: {
-          slug: testPage,
-        },
-      };
-
-      match.state = {
-        bookVersion: testVersion,
-      };
-
-      mockUUIDBook();
-
-      await hook(helpers, match);
-      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, testVersion);
+      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, expect.objectContaining({
+        contentVersion: testVersion,
+      }));
     });
 
     it('throws if there is no uuid', async() => {
       helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
 
       await expect(
-        resolveBookReference(helpers, match)
-      ).rejects.toThrow(`Could not resolve uuid for slug: ${testBookSlug}`);
+        resolveContentUtils.resolveBookReference(helpers, match)
+      ).rejects.toThrow(`Could not resolve uuid for params: {"slug":"${testBookSlug}"}`);
     });
 
     it('do not allow content links outside of BOOKS config and do not throw if not found', async() => {
@@ -299,20 +256,6 @@ describe('locationChange', () => {
       expect(bookOrReferenceLoadingError).toEqual(undefined);
     });
 
-    it('resolves link with book version in reference', async() => {
-      const reference = {
-        bookId: 'newbookid',
-        bookVersion: '0',
-        match: 'ajhd',
-        pageId: mockPageInOtherBook.id,
-      };
-
-      await resolveExternalBookReference(helpers, mockOtherBook, mockPageInOtherBook, reference);
-
-      expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith(reference.bookId);
-      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(reference.bookId, reference.bookVersion);
-    });
-
     it('returns undefined if book wasnt found', async() => {
       helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asda'));
 
@@ -336,12 +279,11 @@ describe('locationChange', () => {
     });
 
     it('throws if no book version found', async() => {
-      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+      helpers.osWebLoader.getBookFromId.mockImplementation(() => Promise.resolve(undefined) as any);
 
       match.params = {
         book: {
           contentVersion: '',
-          slug: 'book-slug-1',
           uuid: testUUID,
         },
         page: {
@@ -375,11 +317,8 @@ describe('locationChange', () => {
 
     describe('loadContentReference', () => {
       it('returns undefined when resolveExternalBookReference returns ReferenceLoadingerror', async() => {
-        jest.spyOn(resolveContentUtils, 'resolveExternalBookReference')
-          .mockResolvedValue(undefined);
-
         const reference = { match: 'asd', pageId: 'asd', bookId: 'asd', bookVersion: 'asd' };
-        expect(await loadContentReference(helpers, book, page, reference)).toEqual({
+        expect(await resolveContentUtils.loadContentReference(helpers, book, page, reference)).toEqual({
           match: reference.match,
           type: 'error',
         });

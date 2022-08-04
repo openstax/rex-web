@@ -115,7 +115,7 @@ export default (options: Options = {}) => {
     `${host}${archivePath}/contents/${ref}.json`;
 
   const getContentVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
-    loadOptions.contentVersion
+    loadOptions.contentVersion !== undefined
       ? loadOptions.contentVersion
       : loadOptions.booksConfig.books[bookId]?.defaultVersion;
 
