@@ -1,11 +1,12 @@
 import { test, expect} from '@playwright/test';
-import KsmodalPage from '../../src/fixtures/Ksmodal.page';
-import BasePage from '../../src/fixtures/Base.page';
+import { KsModal } from '../../src/fixtures/Ksmodal';
+import { ContentPage } from '../../src/fixtures/Content.page';
 
-test('open keyboard shortcut modal using keyboard @testrail id: C651124', async ({ browserName, page }) => {
+
+test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   
   // GIVEN: Open Rex page
-  const BookPage = new BasePage(page);
+  let BookPage = new ContentPage(page);
   const path = '/books/business-ethics/pages/preface';
   await BookPage.open(path);
  
@@ -26,37 +27,38 @@ test('open keyboard shortcut modal using keyboard @testrail id: C651124', async 
   // THEN: The KS modal is open
   await expect(page).toHaveURL('/books/business-ethics/pages/preface?modal=KS');
 
-  const ksModal = page.locator('data-testid=keyboard-shortcuts-popup-wrapper')
-  await expect(ksModal).toBeVisible();
+  let Modal = new KsModal(page);
+  await expect(Modal.ksModal).toBeVisible();
 
   // WHEN: Hit Esc key
-  await ksModal.press('Escape');
+  await Modal.ksModal.press('Escape');
 
   // THEN: The KS modal is closed
   await expect(page).toHaveURL('/books/business-ethics/pages/preface');
-  await expect(ksModal).toBeHidden();
+  await expect(Modal.ksModal).toBeHidden();
 });  
 
 
-test('open keyboard test @testrail id: C651123', async ({ page }) => {
+test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }) => {
   
   // GIVEN: Open Rex page
-  const ksmodalPage = new KsmodalPage(page);
+  let BookPage = new ContentPage(page);
   const path = '/books/organizational-behavior/pages/preface';
-  await ksmodalPage.open(path);
+  await BookPage.open(path);
   
   // AND: Open KS modal using Shift+? keys
   await page.keyboard.press('Shift+?');
 
   // THEN: The KS modal is open
-  await expect(ksmodalPage.ksModal).toBeVisible();
+  let ksModal = new KsModal(page);
+  await expect(ksModal.ksModal).toBeVisible();
   await expect(page).toHaveURL('/books/organizational-behavior/pages/preface?modal=KS');
 
   // WHEN: Close the KS modal using X icon
-  await ksmodalPage.closeKsModal();
+  await ksModal.closeKsModal();
 
   // THEN: The KS modal is closed
-  await expect(ksmodalPage.ksModal).toBeHidden();
+  await expect(ksModal.ksModal).toBeHidden();
   await expect(page).toHaveURL('/books/organizational-behavior/pages/preface');
 });
 
