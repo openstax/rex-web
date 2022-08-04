@@ -155,6 +155,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       defer(() => navigate({
         params: reference.params,
         route: content,
+        state: {},
       }, {hash, search: searchString}));
     } else {
       // defer to allow other handlers to execute before nav happens
