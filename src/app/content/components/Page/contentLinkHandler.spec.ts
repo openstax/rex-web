@@ -147,6 +147,7 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
+        state: {},
       }, expect.anything());
     });
 
@@ -185,6 +186,7 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
+        state: {},
       }, expect.anything());
     });
 
@@ -226,6 +228,7 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
+        state: {},
       }, expect.anything());
     });
 
@@ -303,6 +306,7 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
+        state: {},
       }, expect.anything());
     });
   });
