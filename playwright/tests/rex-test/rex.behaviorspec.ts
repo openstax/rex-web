@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { KsModal } from '../../src/fixtures/Ksmodal'
-import { ContentPage } from '../../src/fixtures/Content.page'
+import { ContentPage, KsModal } from './helpers'
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
