@@ -75,10 +75,14 @@ export default () => {
   const localBooks = cloneDeep(books);
   const localBookPages = cloneDeep(bookPages);
 
-  const resolveBook = (bookId: string, options: ArchiveLoadOptions) => {
-    const version = options.contentVersion !== undefined
+  const getBookVersion = (bookId: string, options: ArchiveLoadOptions) =>
+    options.contentVersion !== undefined
         ? options.contentVersion
-        : options.booksConfig.books[bookId]?.defaultVersion;
+        : options.booksConfig.books[bookId]?.defaultVersion
+  ;
+
+  const resolveBook = (bookId: string, options: ArchiveLoadOptions) => {
+    const version = getBookVersion(bookId, options);
 
     if (!version) {
       throw new BookNotFoundError(`Could not resolve version for book: ${bookId}`);
@@ -114,8 +118,8 @@ export default () => {
       load: () => loadBook(bookId, options),
 
       page: (pageId: string) => ({
-        cached: () => cachedPage(bookId, options.contentVersion, pageId),
-        load: () => loadPage(bookId, options.contentVersion, pageId),
+        cached: () => cachedPage(bookId, getBookVersion(bookId, options), pageId),
+        load: () => loadPage(bookId, getBookVersion(bookId, options), pageId),
         url: () => '/someUrl',
       }),
     }),
@@ -124,8 +128,8 @@ export default () => {
       load: () => loadBook(source.id, source.loadOptions),
 
       page: (pageId: string) => ({
-        cached: () => cachedPage(source.id, source.contentVersion, pageId),
-        load: () => loadPage(source.id, source.contentVersion, pageId),
+        cached: () => cachedPage(source.id, getBookVersion(source.id, source.loadOptions), pageId),
+        load: () => loadPage(source.id, getBookVersion(source.id, source.loadOptions), pageId),
         url: () => '/someUrl',
       }),
     }),
@@ -134,8 +138,8 @@ export default () => {
       load: () => loadBook(bookId, source.loadOptions),
 
       page: (pageId: string) => ({
-        cached: () => cachedPage(bookId, source.contentVersion, pageId),
-        load: () => loadPage(bookId, source.contentVersion, pageId),
+        cached: () => cachedPage(bookId, getBookVersion(bookId, source.loadOptions), pageId),
+        load: () => loadPage(bookId, getBookVersion(bookId, source.loadOptions), pageId),
         url: () => '/someUrl',
       }),
     }),

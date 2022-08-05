@@ -14,7 +14,7 @@ import {
   getIdFromPageParam,
   getPageIdFromUrlParam,
 } from '../../utils';
-import { archiveTreeContainsNode, archiveTreeSectionIsBook } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
 import { processBrowserRedirect } from '../../utils/processBrowserRedirect';
 import { getUrlParamForPageId, getUrlParamsForBook } from '../../utils/urlUtils';
 
@@ -181,7 +181,7 @@ export const getBookInformation = async(
       throw e;
     });
 
-  if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
+  if (archiveBook) {
     return {osWebBook, archiveBook};
   }
 
@@ -196,19 +196,15 @@ export const resolveExternalBookReference = async(
 ) => {
   const bookInformation = await getBookInformation(book, services, reference);
 
-  // Don't throw an error if reference couldn't be loaded when UNLIMITED_CONTENT is truthy
-  // It will be processed in contentLinkHandler.ts
-  if (UNLIMITED_CONTENT && !bookInformation) {
+  // Don't throw an error if reference couldn't be loaded, it will be processed in contentLinkHandler.ts
+  // this only happens when UNLIMITED_CONTENT is truthy
+  if (!bookInformation) {
     return bookInformation;
   }
 
   const error = (message: string) => new Error(
     `BUG: "${book.title} / ${page.title}" referenced "${reference.pageId}", ${message}`
   );
-
-  if (!bookInformation) {
-    throw error('but it could not be found in any configured books.');
-  }
 
   const referencedBook = formatBookData(bookInformation.archiveBook, bookInformation.osWebBook);
 
