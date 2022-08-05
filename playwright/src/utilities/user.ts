@@ -87,7 +87,12 @@ async function userSignIn(page: Page, student: Student): Promise<Student> {
   return student
 }
 
-async function webUserSignup(page: Page, url: string, mobile = false, student: Student = new Student()): Promise<Student> {
+async function webUserSignup(
+  page: Page,
+  url: string,
+  mobile = false,
+  student: Student = new Student(),
+): Promise<Student> {
   /* istanbul ignore else */
   if (url) {
     await page.goto(url)
@@ -96,8 +101,7 @@ async function webUserSignup(page: Page, url: string, mobile = false, student: S
   if (mobile) {
     await page.click('.expand')
     await Promise.all([page.waitForNavigation(), page.click('.mobile >> text=Log in')])
-  }
-  else {
+  } else {
     await Promise.all([page.waitForNavigation(), page.click('.desktop >> text=Log in')])
   }
   return accountsUserSignup(page, null, student)
