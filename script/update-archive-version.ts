@@ -78,8 +78,8 @@ async function updateArchiveAndContentVersions() {
   }
 
   const bookEntries = updatePipeline
-    // updating pipeline, check redirects for every book
-    ? Object.entries(BOOKS_CONFIG)
+    // updating pipeline, check redirects for every book that is not retired
+    ? Object.entries(BOOKS_CONFIG).filter(([, book]) => !book.retired)
     // updating content, check redirects for updated books (not new books)
     : booksToUpdate.filter(([bookId]) => !!BOOKS_CONFIG[bookId])
   ;
