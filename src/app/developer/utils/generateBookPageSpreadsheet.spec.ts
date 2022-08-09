@@ -5,17 +5,17 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { formatBookData } from '../../content/utils';
 import { generateBookPageSpreadsheet } from './generateBookPageSpreadsheet';
 
-jest.mock('../../../config.books', () => ({
-  '3f6e0e03-46ac-485e-a737-ab3690d0b879': {
-    defaultVersion: '1.0',
-  },
-}));
-
 describe('generateBookPageSpreadsheet', () => {
   it('works with units and a canonical url map', async() => {
     const combinedBook = {
       ...formatBookData(bookWithUnits, mockCmsBook),
       id: '3f6e0e03-46ac-485e-a737-ab3690d0b879',
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive',
+          books: {'3f6e0e03-46ac-485e-a737-ab3690d0b879': {defaultVersion: bookWithUnits.version}},
+        },
+      },
     };
     const services = createTestServices();
     expect(await generateBookPageSpreadsheet(combinedBook, services))
@@ -38,8 +38,14 @@ describe('generateBookPageSpreadsheet', () => {
 
   it('works without units or a canonical url map', async() => {
     const combinedBook = {
-      ...formatBookData(book, mockCmsBook),
+      ...formatBookData(book, undefined),
       id: 'e0ae033d-c34b-4518-8872-906ceb0b25b7',
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive',
+          books: {},
+        },
+      },
     };
     const services = createTestServices();
     expect(await generateBookPageSpreadsheet(combinedBook, services))
