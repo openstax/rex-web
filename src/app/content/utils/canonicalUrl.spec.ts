@@ -251,7 +251,7 @@ describe('getCanonicalURL', () => {
     CANONICAL_MAP['testbook3-uuid'] = [['testbook3-uuid', {}]];
 
     const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
-    
+
     expect(res).toHaveProperty('page', { slug: 'testbook3-page1' });
   });
 
