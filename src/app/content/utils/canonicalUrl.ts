@@ -31,7 +31,7 @@ export async function getCanonicalUrlParams(
   let canonicalBook;
   let canonicalBookWithPage;
 
-  while (canonicalMap.length && !done) {
+  mapsArrayLoop: while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
       mapsChecked.push(canonicalMap);
       const version = assertDefined(
@@ -43,8 +43,7 @@ export async function getCanonicalUrlParams(
       const treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
       // use the most recent canonical page found if none is found in current canonical book
       if (!treeSection && canonicalBookWithPage) {
-        done = true;
-        break;
+        break mapsArrayLoop;
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
       }
