@@ -90,6 +90,7 @@ const pickArchiveFields = (archiveBook: VersionedArchiveBookWithConfig) => ({
     ...archiveBook.tree,
     contents: parseContents(archiveBook, archiveBook.tree.contents),
   },
+  version: archiveBook.version,
 });
 
 export const formatBookData = <O extends OSWebBook | undefined>(

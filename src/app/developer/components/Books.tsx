@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/macro';
-import BOOKS from '../../../config.books';
 import { BookVersionConfig } from '../../../config.books';
 import { getBooksConfigSync } from '../../../gateways/createBookConfigLoader';
 import { DotMenuDropdown, DotMenuDropdownList } from '../../components/DotMenu';
@@ -37,20 +36,20 @@ export const exportBookHandler = (book: Book, services: AppServices) => async() 
   downloadFile(`${book.title}.csv`, await generateBookPageSpreadsheet(book, services));
 };
 
-const notRetiredbooks = Object.entries(BOOKS).filter(([, book]) => !book.retired);
+const notRetiredbooks = () => Object.entries(getBooksConfigSync().books).filter(([, book]) => !book.retired);
 
 // tslint:disable-next-line:variable-name
 const Books = () => {
   const [books, setBooks] = useState<
     Array<[string, BookVersionConfig] | [string, BookVersionConfig, Book]>
-  >(notRetiredbooks);
+  >(notRetiredbooks());
   const services = useServices();
   const {archiveLoader, osWebLoader} = services;
 
   useEffect(() => {
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig: getBooksConfigSync()});
 
-    for (const [bookId] of notRetiredbooks) {
+    for (const [bookId] of notRetiredbooks()) {
       bookLoader(bookId).then((bookData) => {
         setBooks((state) => state.map((data) => data[0] === bookId ? [data[0], data[1], bookData] : data));
       });
