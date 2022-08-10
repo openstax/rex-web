@@ -37,9 +37,6 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
-    /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
-    /* Precalculus */ ['fd53eae1-fa23-47c7-bb1b-972349835c3c', {}],
-    /* Algebra & Trigonometry 2e */ ['eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e', {}],
   ],
   /* Anatomy & Physiology */ '14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22': [
     /* Anatomy & Physiology 2e */ ['4fd99458-6fdf-49bc-8688-a6dc17a1268d', {}],
@@ -357,7 +354,6 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ],
   /* Precalculus */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c' : [
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
-    /* College Algebra */ ['9b08c294-057f-4201-9f48-5d6ad992740d', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
   ],
   /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': [
