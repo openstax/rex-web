@@ -8,6 +8,7 @@ import * as select from '../selectors';
 import { ModalNotification } from '../types';
 import AcceptCookies from './AcceptCookies';
 import AppMessage from './AppMessage';
+import RetiredBookRedirect from './RetiredBookRedirect';
 import UpdatesAvailable from './UpdatesAvailable';
 
 interface Props {
@@ -20,6 +21,9 @@ const renderNotificationModal = (
   className?: string
 ) => {
   switch (notification.type) {
+    case getType(actions.retiredBookRedirect): {
+      return <RetiredBookRedirect notification={notification} className={className} />;
+    }
     case getType(actions.updateAvailable): {
       return <UpdatesAvailable className={className} />;
     }

@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import TestContainer from '../../../test/TestContainer';
 import { Store } from '../../types';
-import { acceptCookies, receiveMessages, updateAvailable } from '../actions';
+import { acceptCookies, receiveMessages, retiredBookRedirect, updateAvailable } from '../actions';
 import ConnectedNotifications from './Notifications';
 
 describe('Notifications', () => {
@@ -13,7 +13,18 @@ describe('Notifications', () => {
     store = createTestStore();
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot for retiredBookRedirect', () => {
+    store.dispatch(retiredBookRedirect());
+
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedNotifications />
+    </TestContainer>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot for updateAvailable', () => {
     store.dispatch(updateAvailable());
 
     const component = renderer.create(<TestContainer store={store}>
@@ -24,7 +35,7 @@ describe('Notifications', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot for acceptCookies', () => {
     store.dispatch(acceptCookies());
 
     const component = renderer.create(<TestContainer store={store}>
@@ -35,7 +46,7 @@ describe('Notifications', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot for appMessage', () => {
     store.dispatch(receiveMessages([{
       dismissable: false,
       end_at: null,

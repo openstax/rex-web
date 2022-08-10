@@ -196,6 +196,54 @@ describe('locationChange', () => {
       expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, testVersion);
     });
 
+    it('gets uuid from match state if not found in nav params', async() => {
+      helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0' };
+      helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      match.params = {
+        book: {
+          slug: 'book-slug-1',
+          version: testVersion,
+        },
+        page: {
+          slug: testPage,
+        },
+      };
+
+      match.state = {
+        bookUid: testUUID,
+      };
+
+      mockUUIDBook();
+
+      await hook(helpers, match);
+      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, testVersion);
+    });
+
+    it('gets version from match state if not found in nav params', async() => {
+      helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0' };
+      helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      match.params = {
+        book: {
+          slug: 'book-slug-1',
+          uuid: testUUID,
+        },
+        page: {
+          slug: testPage,
+        },
+      };
+
+      match.state = {
+        bookVersion: testVersion,
+      };
+
+      mockUUIDBook();
+
+      await hook(helpers, match);
+      expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith(testUUID, testVersion);
+    });
+
     it('throws if there is no uuid', async() => {
       helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
 
@@ -277,6 +325,27 @@ describe('locationChange', () => {
 
       expect(helpers.osWebLoader.getBookFromId).toHaveBeenCalledWith(book.id);
       expect(referenceBook).toEqual(undefined);
+    });
+
+    it('throws if no book version found', async() => {
+      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+
+      match.params = {
+        book: {
+          slug: 'book-slug-1',
+          uuid: testUUID,
+          version: '',
+        },
+        page: {
+          slug: testPage,
+        },
+      };
+
+      mockUUIDBook();
+
+      await expect(hook(helpers, match)).rejects.toThrowErrorMatchingInlineSnapshot(
+        `"Could not resolve version for book: 13ac107a-f15f-49d2-97e8-60ab2e3abcde"`
+      );
     });
 
     describe('getBookInformation', () => {

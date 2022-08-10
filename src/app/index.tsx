@@ -91,7 +91,7 @@ export default (options: AppOptions) => {
 
   const reducer = createReducer(history);
 
-  const services = {
+  const services: AppServices = {
     ...defaultServices(),
     ...options.services,
     history,
@@ -121,7 +121,7 @@ export default (options: AppOptions) => {
 
   const container = () => (
     <Provider store={store}>
-      <OuterErrorBoundary>
+      <OuterErrorBoundary intl={services.intl.current}>
         <Services.Provider value={{ dispatch: store.dispatch, getState: store.getState, ...services }}>
           <MessageProvider>
             <ErrorBoundary>

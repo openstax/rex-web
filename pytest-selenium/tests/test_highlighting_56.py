@@ -14,18 +14,13 @@ HAS_INDICATOR = (
     "return window.getComputedStyle(arguments[0], ':after')"
     ".getPropertyValue('opacity') == '0.8';"
 )
-XPATH_SEARCH = (
-    "//span[contains(text(),'{term}') and contains(@class,'highlight')]"
-)
+XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'highlight')]"
 
 
 @markers.test_case("C602210")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "4-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "4-introduction")])
 @markers.smoke_test
 def test_modal_for_unsaved_notes_appears_on_clicking_another_highlight(
     selenium, base_url, book_slug, page_slug
@@ -92,10 +87,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_another_highlight(
 @markers.test_case("C602211")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
 def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
     selenium, base_url, book_slug, page_slug
 ):
@@ -170,10 +162,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
 @markers.test_case("C606115")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
 def test_modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
     selenium, base_url, book_slug, page_slug
 ):
@@ -248,10 +237,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
 @markers.test_case("C606116")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
 def test_modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
     selenium, base_url, book_slug, page_slug
 ):
@@ -326,10 +312,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
 @markers.test_case("C602213")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "1-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
 def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
     selenium, base_url, book_slug, page_slug
 ):
@@ -401,10 +384,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
 @markers.test_case("C602209")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("organizational-behavior", "2-introduction")]
-)
+@markers.parametrize("book_slug, page_slug", [("organizational-behavior", "2-introduction")])
 def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
     selenium, base_url, book_slug, page_slug
 ):
@@ -473,17 +453,14 @@ def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
 @markers.test_case("C602219")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("chemistry-atoms-first-2e", "preface")]
-)
+@markers.parametrize("book_slug, page_slug", [("chemistry-atoms-first-2e", "preface")])
 def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & selecting search result in same page."""
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    toolbar = book.toolbar
+    topbar = book.topbar
     search_sidebar = book.search_sidebar
 
     while book.notification_present:
@@ -497,7 +474,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
 
     # AND: Search results are displayed in sidebar
     search_term = get_search_term(book_slug)
-    toolbar.search_for(search_term)
+    topbar.search_for(search_term)
     book.wait_for_page_to_load()
     search_results = search_sidebar.search_results(search_term)
 
@@ -548,17 +525,14 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
 @markers.test_case("C606118")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("microbiology", "preface")]
-)
+@markers.parametrize("book_slug, page_slug", [("microbiology", "preface")])
 def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_page(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & selecting search result in different page."""
     # GIVEN: Login book page
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
-    toolbar = book.toolbar
+    topbar = book.topbar
     search_sidebar = book.search_sidebar
 
     while book.notification_present:
@@ -572,7 +546,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_pag
 
     # AND: Search results are displayed in sidebar
     search_term = get_search_term(book_slug)
-    toolbar.search_for(search_term)
+    topbar.search_for(search_term)
     book.wait_for_page_to_load()
     search_results = search_sidebar.search_results(search_term)
 
@@ -638,10 +612,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_pag
 @markers.test_case("C602212")
 @markers.desktop_only
 @markers.highlighting
-@markers.parametrize(
-    "book_slug, page_slug",
-    [("astronomy", "1-6-a-tour-of-the-universe")]
-)
+@markers.parametrize("book_slug, page_slug", [("astronomy", "1-6-a-tour-of-the-universe")])
 def test_modal_for_unsaved_notes_appears_on_clicking_content_links(
     selenium, base_url, book_slug, page_slug
 ):

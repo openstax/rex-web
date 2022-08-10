@@ -28,6 +28,8 @@ describe('locationChange', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let payload: {location: Location, match: Match<typeof routes.content>};
   let hook = require('./locationChange').default;
+  let contentHook: typeof import ('./locationChange/resolveContent');
+  let intlHook: typeof import ('./intlHook');
 
   beforeEach(() => {
     resetModules();
@@ -58,6 +60,8 @@ describe('locationChange', () => {
     };
 
     hook = (require('./locationChange').default)(helpers);
+    contentHook = require('./locationChange/resolveContent');
+    intlHook = require('./intlHook');
   });
 
   it('loads book', async() => {
@@ -166,6 +170,15 @@ describe('locationChange', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     await hook(payload);
     expect(helpers.osWebLoader.getBookIdFromSlug).not.toHaveBeenCalled();
+  });
+
+  it('noops if no book is loaded', async() => {
+    const intlSpy = jest.spyOn(intlHook, 'default');
+    const contentHookSpy = jest.spyOn(contentHook, 'default');
+    contentHookSpy.mockReturnValue(Promise.resolve({book: undefined, page: undefined}));
+
+    await hook(payload);
+    expect(intlSpy).not.toHaveBeenCalled();
   });
 
   describe('cross book references', () => {
