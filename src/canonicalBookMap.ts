@@ -372,15 +372,15 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
   ],
   /* Calculus Vol. 3 */ 'a31cd793-2162-4e9e-acb5-6e6bbd76a5fa': [
-    /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
     /* Calculus Vol. 2 */ ['1d39a348-071f-4537-85b6-c98912458c3c', {}],
+    /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
   ],
   /* Cálculo Vol. 2 */ '8079f22f-c0a0-43ed-bb35-871d8d9743f3': [
     /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
   ],
   /* Cálculo Vol. 3 */ '21b1d0df-a716-4205-8e86-0d0787b2c991': [
-    /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
     /* Cálculo Vol. 2 */ ['8079f22f-c0a0-43ed-bb35-871d8d9743f3', {}],
+    /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
   ],
 };
 
