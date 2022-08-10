@@ -167,13 +167,11 @@ def test_license_details(selenium, base_url, page_slug):
             "principles-financial-accounting",
             "principles-managerial-accounting",
         ):
-            license_name_expected = (
-                "Creative Commons Attribution-NonCommercial-ShareAlike License 4.0"
-            )
+            license_name_expected = "Creative Commons Attribution-NonCommercial-ShareAlike License"
             license_url_expected = "http://creativecommons.org/licenses/by-nc-sa/4.0/"
 
         else:
-            license_name_expected = "Creative Commons Attribution License 4.0"
+            license_name_expected = "Creative Commons Attribution License"
             license_url_expected = "http://creativecommons.org/licenses/by/4.0/"
 
         # WHEN: The attribution section is expanded

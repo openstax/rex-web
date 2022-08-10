@@ -1,33 +1,57 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
+import { ContentPage, KsModal } from './helpers'
 
-test('open rex page', async ({ page }) => {
-    await page.goto('https://staging.openstax.org/books/physics/pages/preface');
-    expect(page.url()).toBe('https://staging.openstax.org/books/physics/pages/preface');
-  });
+test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/business-ethics/pages/preface'
+  await BookPage.open(path)
 
+  // AND: Tab 3 times and hit Enter
+  if (browserName === 'webkit') {
+    await page.keyboard.press('Alt+Tab')
+    await page.keyboard.press('Alt+Tab')
+    await page.keyboard.press('Alt+Tab')
+    await page.keyboard.press('Alt+Enter')
+  } else {
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Enter')
+  }
 
+  // THEN: The KS modal is open
+  await expect(page).toHaveURL('/books/business-ethics/pages/preface?modal=KS')
 
-test('open keyboard shortcut modal', async ({ page }) => {
-  await page.goto('https://staging.openstax.org/books/business-ethics/pages/preface');
- 
-  // Press Tab
-  await page.locator('body').press('Tab');
+  const Modal = new KsModal(page)
+  await expect(Modal.ksModal).toBeVisible()
 
-  // Press Tab
-  await page.locator('text=Skip to Content').press('Tab');
-  // Press Tab
-  await page.locator('text=Go to accessibility page').press('Tab');
+  // WHEN: Hit Esc key
+  await Modal.ksModal.press('Escape')
 
-    // Press Enter
-    await page.locator('text=Keyboard shortcuts menu').press('Enter');
+  // THEN: The KS modal is closed
+  await expect(page).toHaveURL('/books/business-ethics/pages/preface')
+  await expect(Modal.ksModal).toBeHidden()
+})
 
-  // await Promise.all([
-  //   page.waitForNavigation(/*{ url: 'https://staging.openstax.org/books/business-ethics/pages/preface?modal=KS' }*/),
-  // ]);
+test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/organizational-behavior/pages/preface'
+  await BookPage.open(path)
 
-  await expect(page).toHaveURL('https://staging.openstax.org/books/business-ethics/pages/preface?modal=KS');
-  
-  // Click [data-testid="close-keyboard-shortcuts-popup"]
-  await page.locator('[data-testid="close-keyboard-shortcuts-popup"]').click();
-  await expect(page).toHaveURL('https://staging.openstax.org/books/business-ethics/pages/preface');
-});  
+  // AND: Open KS modal using Shift+? keys
+  await page.keyboard.press('Shift+?')
+
+  // THEN: The KS modal is open
+  const ksModal = new KsModal(page)
+  await expect(ksModal.ksModal).toBeVisible()
+  await expect(page).toHaveURL('/books/organizational-behavior/pages/preface?modal=KS')
+
+  // WHEN: Close the KS modal using X icon
+  await ksModal.closeKsModal()
+
+  // THEN: The KS modal is closed
+  await expect(ksModal.ksModal).toBeHidden()
+  await expect(page).toHaveURL('/books/organizational-behavior/pages/preface')
+})

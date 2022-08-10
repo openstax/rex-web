@@ -182,7 +182,8 @@ export const prepareBooks = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
 ): Promise<BookWithOSWebData[]> => {
-  return Promise.all(Object.entries(BOOKS).map(async([bookId, {defaultVersion}]) => {
+  const bookConfigs = Object.entries(BOOKS).filter(([, book]) => !book.retired);
+  return Promise.all(bookConfigs.map(async([bookId, {defaultVersion}]) => {
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
     return await bookLoader(bookId, defaultVersion);
   }));
@@ -239,10 +240,13 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, links, modu
    */
   const extractAssets = () => Object.keys(assetManifest.files)
     .filter((asset) =>
-      // chunks requested by react-loadable
-      modules.indexOf(asset.replace('.js', '')) > -1
+      (
+        // chunks requested by react-loadable
+        modules.indexOf(asset.replace('.js', '')) > -1
+        // webpack will have put some of the chunks in the index.html, don't re-add those
+        && html.indexOf(`src="${assetManifest.files[asset]}"`) === -1
       // all numbered chunks
-      || asset.match(/static\/js\/[0-9]+.[0-9a-z]+.chunk.js$/)
+      ) || asset.match(/static\/js\/[0-9]+.[0-9a-z]+.chunk.js$/)
     )
     .map((k) => assetManifest.files[k]);
 
