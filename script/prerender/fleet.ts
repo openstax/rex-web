@@ -286,7 +286,8 @@ async function queueWork(workQueueUrl: string) {
 
   console.log(`Loading and queuing books in batches of ${MAX_CONCURRENT_BOOKS}`);
 
-  const books = await asyncPool(MAX_CONCURRENT_BOOKS, Object.entries(BOOKS), prepareAndQueueBook);
+  const bookConfigs = Object.entries(BOOKS).filter(([, book]) => !book.retired);
+  const books = await asyncPool(MAX_CONCURRENT_BOOKS, bookConfigs, prepareAndQueueBook);
 
   stats.sitemaps = books.length;
 

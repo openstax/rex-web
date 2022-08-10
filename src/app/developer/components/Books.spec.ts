@@ -5,7 +5,7 @@ import * as generateBookPageSpreadsheetModule from '../utils/generateBookPageSpr
 import { exportBookHandler } from './Books';
 
 describe('export book', () => {
-  it('works', () => {
+  it('works', async() => {
     const downloadFile = jest.spyOn(downloadFileModule, 'downloadFile');
     const generateBookPageSpreadsheet = jest.spyOn(generateBookPageSpreadsheetModule, 'generateBookPageSpreadsheet');
 
@@ -14,9 +14,9 @@ describe('export book', () => {
     const handler = exportBookHandler(book, intl);
 
     const spreadsheet = 'spreadsheet';
-    generateBookPageSpreadsheet.mockImplementation(() => spreadsheet);
+    generateBookPageSpreadsheet.mockImplementation(async() => spreadsheet);
 
-    handler();
+    await handler();
 
     expect(generateBookPageSpreadsheet).toHaveBeenCalled();
     expect(downloadFile).toHaveBeenCalledWith('Test Book 1.csv', spreadsheet);

@@ -12,7 +12,6 @@
  */
 import * as fs from 'fs';
 import ignoreStyles, { DEFAULT_EXTENSIONS, noOp } from 'ignore-styles';
-import md5File from 'md5-file';
 import mime from 'mime';
 import * as path from 'path';
 
@@ -27,14 +26,24 @@ ignoreStyles(DEFAULT_EXTENSIONS, (mod, filename) => {
     // If we find a style
     return noOp();
   } else {
-    // If we find an image
-    const hash = md5File.sync(filename).slice(0, 8);
-    const bn = path.basename(filename).replace(/(\.\w{3})$/, `.${hash}$1`);
-    const filePath = `/static/media/${bn}`;
+    const fileRegex = path.basename(filename).replace(/\.(\w{3})$/, `\\.\\w{8}\\.$1`);
+    const dir = '/static/media';
+    const fileNames = fs.readdirSync(path.resolve(__dirname, '../../build' + dir))
+      .filter((name) => name.match(new RegExp(fileRegex)));
 
-    if (fs.existsSync(path.resolve(__dirname, '../../build', filePath.replace(/^\//, '')))) {
+    /*
+     * CRA configures these media files be output with the [hash] token, which is a content
+     * hash mixed in with a build id, so they're busted on every build. it may be better to
+     * override the config to use [contenthash], but thats not really straightforward even using
+     * craco, so we're hacking it here by ignoring the hash. the hack will work as long as we don't
+     * have any assets with the same name (that would normally be differentated by the hash), so we
+     * bail if that is the case.
+     * */
+    if (fileNames.length > 1) {
+      throw new Error(`more than one file matching ${fileRegex} found in build, can't differentiate them, failing`);
+    } else if (fileNames.length > 0) {
       // file exists in build folder, refrence it by url here
-      mod.exports = `${process.env.PUBLIC_URL || ''}${filePath}`;
+      mod.exports = `${process.env.PUBLIC_URL || ''}${dir}/${fileNames[0]}`;
     } else {
       // file doesn't exist in build folder, assume it is an inlined image
       // and inline it again here

@@ -56,6 +56,7 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 };
 
 export const finishRender = async(target: puppeteer.Page) => {
+  await target.waitFor('body[data-rex-loaded="true"]');
   const screenshot = (): Buffer => target.screenshot() as unknown as Buffer;
 
   let lastScreen: Buffer | undefined;

@@ -33,22 +33,24 @@ const BookLI = styled.li`
   }
 `;
 
-export const exportBookHandler = (book: Book, intl: IntlShape) => () => {
-  downloadFile(`${book.title}.csv`, generateBookPageSpreadsheet(book, intl));
+export const exportBookHandler = (book: Book, intl: IntlShape) => async() => {
+  downloadFile(`${book.title}.csv`, await generateBookPageSpreadsheet(book, intl));
 };
+
+const notRetiredbooks = Object.entries(BOOKS).filter(([, book]) => !book.retired);
 
 // tslint:disable-next-line:variable-name
 const Books = () => {
   const [books, setBooks] = useState<
     Array<[string, BookVersionConfig] | [string, BookVersionConfig, Book]>
-  >(Object.entries(BOOKS));
+  >(notRetiredbooks);
   const {archiveLoader, osWebLoader} = useServices();
   const intl = useIntl();
 
   useEffect(() => {
     const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader);
 
-    for (const [bookId, {defaultVersion}] of Object.entries(BOOKS)) {
+    for (const [bookId, {defaultVersion}] of notRetiredbooks) {
       bookLoader(bookId, defaultVersion).then((bookData) => {
         setBooks((state) => state.map((data) => data[0] === bookId ? [data[0], data[1], bookData] : data));
       });

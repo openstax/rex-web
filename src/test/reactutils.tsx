@@ -1,4 +1,4 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
@@ -63,3 +63,21 @@ export const makeInputEvent = (value: string) => ({
   currentTarget: {value},
   preventDefault: jest.fn(),
 });
+
+export const dispatchKeyDownEvent = ({
+  element, key, shiftKey = false, target, view,
+}: {
+  key: string,
+  element?: Document | HTMLElement,
+  shiftKey?: boolean,
+  target?: HTMLElement,
+  view?: Window,
+}) => {
+  const keyboardEvent = new KeyboardEvent('keydown', {
+    bubbles: true, cancelable: true, key, shiftKey, view: (view || window),
+  });
+  if (target) {
+    Object.defineProperty(keyboardEvent, 'target', { value: target });
+  }
+  (element || window!.document).dispatchEvent(keyboardEvent);
+};
