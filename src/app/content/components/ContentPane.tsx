@@ -12,7 +12,6 @@ import {
   mainContentBackground,
   sidebarDesktopWidth,
   sidebarDesktopWithToolbarWidth,
-  sidebarTransitionTime,
   verticalNavbarMaxWidth,
 } from './constants';
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
