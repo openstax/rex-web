@@ -9,7 +9,7 @@ import { mergeRefs } from '../utils';
 import DynamicContentStyles from './DynamicContentStyles';
 
 interface Props {
-  book?: State['book'];
+  book: State['book'];
   className?: string;
   dangerouslySetInnerHTML?: { __html: string; };
   textSize?: TextResizerValue;
