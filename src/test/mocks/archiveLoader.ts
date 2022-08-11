@@ -74,11 +74,12 @@ export default () => {
     book: (bookId: string, bookVersion: string | undefined) => ({
       cached: () => cachedBook(bookId, bookVersion),
       load: () => loadBook(bookId, bookVersion),
+      url: () => '/bookUrl',
 
       page: (pageId: string) => ({
         cached: () => cachedPage(bookId, bookVersion, pageId),
         load: () => loadPage(bookId, bookVersion, pageId),
-        url: () => '/someUrl',
+        url: () => '/pageUrl',
       }),
     }),
     mock: { loadBook, loadPage, cachedBook, cachedPage },

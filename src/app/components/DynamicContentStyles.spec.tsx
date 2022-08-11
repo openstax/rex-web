@@ -17,7 +17,7 @@ describe('DynamicContentStyles', () => {
 
   beforeEach(() => {
     store = createTestStore();
-    Component = (props: { disable?: boolean }) => <DynamicContentStyles disable={props.disable}>
+    Component = (props: { disable?: boolean }) => <DynamicContentStyles book={archiveBook} disable={props.disable}>
       some text
     </DynamicContentStyles>;
   });

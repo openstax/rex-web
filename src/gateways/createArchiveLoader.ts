@@ -87,6 +87,7 @@ export default (getArchivePath: () => string, options: Options = {}) => {
       return {
         cached: () => bookCache.get(bookRef),
         load: () => bookLoader(bookId, bookRef),
+        url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), bookId, bookRef),
 
         page: (pageId: string) => {
           const bookAndPageRef = `${bookRef}:${pageId}`;

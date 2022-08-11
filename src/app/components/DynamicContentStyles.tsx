@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getArchiveUrl, getBookVersionFromUUIDSync } from '../../gateways/createBookConfigLoader';
-import { book } from '../content/selectors';
+import { getBookVersionFromUUIDSync } from '../../gateways/createBookConfigLoader';
+import { State } from '../content/types';
 import { fromRelativeUrl, isAbsoluteUrl } from '../content/utils/urlUtils';
+import { useServices } from '../context/Services';
 import { query } from '../navigation/selectors';
 import { assertDefined } from '../utils/assertions';
 
@@ -15,18 +16,19 @@ export const WithStyles = styled.div`
 const cacheStyles = new Map<string, string>();
 
 interface DynamicContentStylesProps extends React.HTMLAttributes<HTMLDivElement> {
+  book: State['book'];
   disable?: boolean;
 }
 
 // tslint:disable-next-line: variable-name
 const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesProps>((
-  { children, disable, ...otherProps }: React.PropsWithChildren<DynamicContentStylesProps>,
+  { book, children, disable, ...otherProps }: React.PropsWithChildren<DynamicContentStylesProps>,
   ref
 ) => {
   const [styles, setStyles] = React.useState('');
+  const { archiveLoader } = useServices();
+  const bookConfig = book && getBookVersionFromUUIDSync(book.id);
   const queryParams = useSelector(query);
-  const currentBook = useSelector(book);
-  const bookConfig = currentBook && getBookVersionFromUUIDSync(currentBook.id);
 
   React.useEffect(() => {
     if (disable) {
@@ -36,12 +38,12 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
 
     let cssfileUrl = queryParams['content-style'];
 
-    if (!cssfileUrl && bookConfig?.dynamicStyles && currentBook?.style_href) {
-      cssfileUrl = currentBook.style_href;
+    if (!cssfileUrl && bookConfig?.dynamicStyles && book?.style_href) {
+      cssfileUrl = book.style_href;
 
       if (!isAbsoluteUrl(cssfileUrl)) {
-        const archiveUrl = `${bookConfig.archiveOverride || getArchiveUrl()}/`;
-        cssfileUrl = fromRelativeUrl(archiveUrl, cssfileUrl);
+        const contentUrl = archiveLoader.book(book.id, book.version).url();
+        cssfileUrl = fromRelativeUrl(contentUrl, cssfileUrl);
       }
     }
 
@@ -58,7 +60,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
           });
       }
     }
-  }, [disable, queryParams, bookConfig, currentBook]);
+  }, [archiveLoader, book, bookConfig, disable, queryParams]);
 
   return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps} ref={ref}>
     {children}
