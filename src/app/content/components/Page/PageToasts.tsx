@@ -6,6 +6,7 @@ import {
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
   contentWrapperMaxWidthInEm,
+  contentWrapperMaxWidthWithNavbarInEm,
   toolbarMobileSearchWrapperHeight,
   topbarDesktopHeight,
   topbarMobileHeight,
@@ -28,7 +29,7 @@ export const ToastContainerWrapper = styled.div`
   z-index: ${theme.zIndex.contentNotifications - 1};
   top: ${desktopSearchFailureTop}rem;
 
-  @media screen and (max-width: 90em) {
+  @media screen and (max-width: ${contentWrapperMaxWidthWithNavbarInEm}) {
     max-width: calc(100vw - ((100vw - ${contentWrapperMaxWidth}rem) / 2) - ${verticalNavbarMaxWidth}rem);
     left: calc(100vw - (100vw - ((100vw - ${contentWrapperMaxWidth}rem) / 2) - ${verticalNavbarMaxWidth}rem));
   }
