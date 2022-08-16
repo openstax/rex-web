@@ -6,6 +6,14 @@
 @import "./content-common.less";
 @import "./_make-block.less";
 
+.visual-hide() {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
 h1,
 h2,
 h3,
@@ -640,4 +648,12 @@ figure {
 // FIXME: hiding in baked books until a fix is made on CNX
 .not-converted-yet {
   visibility: hidden;
+}
+
+@media screen {
+  [data-media~=screenreader] {
+    .visual-hide();
+  }
+
+  [data-media]:not([data-media~=screen],[data-media~=screenreader]) { display: none }
 }
