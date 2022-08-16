@@ -657,3 +657,7 @@ figure {
 
   [data-media]:not([data-media~=screen],[data-media~=screenreader]) { display: none }
 }
+
+@media print {
+  [data-media]:not([data-media~=print]) { display: none }
+}
