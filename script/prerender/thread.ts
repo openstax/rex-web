@@ -12,7 +12,7 @@ import asyncPool from 'tiny-async-pool';
 import { parentPort } from 'worker_threads';
 import { AppOptions } from '../../src/app';
 import { matchPathname } from '../../src/app/navigation/utils';
-import { assertDefined, assertNotNull, assertObject, assertString } from '../../src/app/utils';
+import { assertDefined, assertNotNull, assertObject, assertString, tuple } from '../../src/app/utils';
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
@@ -74,13 +74,16 @@ function makeSitemapTask(services: AppOptions['services']) {
       payload.pages, `Sitemap task payload.pages is not an object: ${payload}`
     );
     const pages = pagesArray.map(
-      (page: SerializedPageMatch, index: number) => deserializePageMatch(
-        assertObject(page, `Sitemap task payload.pages[${index}] is not an object: ${pagesArray}`)
+      (page: SerializedPageMatch, index: number) => tuple(
+        page,
+        deserializePageMatch(
+          assertObject(page, `Sitemap task payload.pages[${index}] is not an object: ${pagesArray}`)
+        )
       )
     );
-    const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async(page) => {
-      const archivePage = await getArchivePage(services, page);
-      return getSitemapItemOptions(archivePage, decodeURI(matchPathname(page)));
+    const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, pages, async([serialized, deserialized]) => {
+      const archivePage = await getArchivePage(services, serialized);
+      return getSitemapItemOptions(archivePage, decodeURI(matchPathname(deserialized)));
     });
     return renderAndSaveSitemap(
       writeS3ReleaseXmlFile,
