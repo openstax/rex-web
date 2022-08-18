@@ -10,7 +10,7 @@ export default function getCleanContent(
   archiveLoader: AppServices['archiveLoader'],
   transformer: (content: string) => string = identity
 ) {
-  const bookLoader = book ? archiveLoader.forBook(book) : undefined;
+  const bookLoader = book && page && archiveLoader.forBook(book);
   const cachedPage = bookLoader && page && bookLoader.page(page.id).cached();
   const contentUrl = bookLoader && page && bookLoader.page(page.id).url();
 

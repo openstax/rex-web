@@ -1,3 +1,4 @@
+import pick from 'lodash/fp/pick';
 import { APP_ENV } from '../../../config';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
@@ -28,16 +29,7 @@ export const getBookPageUrlAndParams = (
 export const getUrlParamsForBook = (
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'loadOptions'> & Partial<{slug: string}>
 ): Params['book'] => {
-
-  const versionParams = book.loadOptions.contentVersion && book.loadOptions.archiveVersion
-    ? {
-      archiveVersion: book.loadOptions.archiveVersion,
-      contentVersion: book.loadOptions.contentVersion,
-    }
-    : book.loadOptions.contentVersion
-      ? {contentVersion: book.loadOptions.contentVersion}
-      : {}
-  ;
+  const versionParams = pick(['contentVersion', 'archiveVersion'], book.loadOptions);
 
   if ('slug' in book && book.slug) {
     return {
