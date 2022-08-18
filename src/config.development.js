@@ -1,6 +1,8 @@
 const query = require('query-string');
 
-// DEPRECATED: use the archive option of the book version in the path param
+// NOTE: for a specific archive version, prefer using the path param. use
+// this argument to use a completely different archive, such as archive-preview
+// or localhost
 const REACT_APP_ARCHIVE_URL_OVERRIDE = typeof(window) === 'undefined'
   ? undefined
   : query.parse(window.location.search).archive
