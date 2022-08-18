@@ -1,9 +1,6 @@
 import pathToRegexp from 'path-to-regexp';
-import React from 'react';
 import Loadable from 'react-loadable';
-import { useSelector } from 'react-redux';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../../config';
-import * as selectNavigation from '../navigation/selectors';
 import { findPathForParams, getUrlRegexParams, injectParamsToBaseUrl } from '../navigation/utils';
 import { assertDefined } from '../utils';
 import { ContentRoute, Params } from './types';
@@ -12,6 +9,15 @@ const MATCH_UUID = '[\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12}
 const prerenderedBase = '/books/:book/pages/:page';
 const dynamicBase = '/apps/rex' + prerenderedBase;
 
+/*
+ * this is in a transition phase. we are moving all of the more dynamic routing
+ * under a different url prefix, so anything not under that new url prefix
+ * should literally match one of the pre-rendered files.
+ *
+ * once this change is released, all places that use the dynamic routing (CORGI for one)
+ * need to be updated with the new url base, then the first section of the route path
+ * config can be removed
+ */
 const contentPaths = [
   ...injectParamsToBaseUrl(prerenderedBase, {
     // switch this after a transition period starting with CORGI using the `dynamicBase` url on its previews
@@ -45,24 +51,8 @@ const ReadingContent = Loadable({
   modules: ['Content'],
 });
 
-// tslint:disable-next-line:variable-name
-const AssignableContent = Loadable({
-  loader: () => import(/* webpackChunkName: "Content" */ './components/Reading'),
-  loading: () => null,
-  modules: ['Reading'],
-});
-
-// tslint:disable-next-line:variable-name
-const ContentMode = () => {
-  const query = useSelector(selectNavigation.query);
-  return query.mode === 'assignable'
-    ? React.createElement(AssignableContent)
-    : React.createElement(ReadingContent)
-  ;
-};
-
 export const content: ContentRoute = {
-  component: ContentMode,
+  component: ReadingContent,
   getSearch: (_params: Params): string => REACT_APP_ARCHIVE_URL_OVERRIDE
     ? `archive=${REACT_APP_ARCHIVE_URL_OVERRIDE}`
     : ''
