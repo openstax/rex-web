@@ -1,7 +1,9 @@
+import { Element } from '@openstax/types/lib.dom';
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
 import { isDefined } from '../../guards';
 import { assertDefined } from '../../utils';
+import { assertNotNull } from '../../utils/assertions';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
   ArchiveBook,
@@ -136,7 +138,7 @@ export const prevNextBookPage = (
   };
 };
 
-export const getTitleStringFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
+const getTitleNodeFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): Element => {
   const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
   const container = domNode.getElementById('container');
 
@@ -154,28 +156,18 @@ export const getTitleStringFromArchiveNode = (book: ArchiveBook, node: ArchiveTr
 
   if (extra) { extra.remove(); }
 
-  return container.innerText;
+  return container;
+};
+
+export const getTitleStringFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
+  return assertNotNull(
+    getTitleNodeFromArchiveNode(book, node).textContent,
+    `could not generate title string for node: ${book.id}:${node.id}`
+  );
 };
 
 export const getTitleFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
-  const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
-  const container = domNode.getElementById('container');
-
-  const extra = container.querySelector<HTMLSpanElement>('.os-part-text');
-  const divider = container.querySelector<HTMLSpanElement>('.os-divider');
-  const number = container.querySelector<HTMLSpanElement>('.os-number');
-  const section = findArchiveTreeNodeById(book.tree, node.id);
-
-  if (section && archiveTreeSectionIsUnit(section)) {
-    if (number) { number.remove(); }
-    if (divider) { divider.remove(); }
-  } else if (section && archiveTreeSectionIsPage(section) && extra && /appendix/i.test(extra.innerHTML)) {
-    divider.innerHTML = ' | ';
-  }
-
-  if (extra) { extra.remove(); }
-
-  return container.innerHTML;
+  return getTitleNodeFromArchiveNode(book, node).innerHTML;
 };
 
 export const archiveTreeSectionIsBook = (

@@ -52,4 +52,3 @@ export default () => {
 
 export const getBooksConfigSync = () => cachedConfig;
 export const getArchiveUrl = (): string => cachedConfig.archiveUrl;
-export const getBookVersionFromUUIDSync = (uuid: string): BookVersion | undefined => cachedConfig.books[uuid];
