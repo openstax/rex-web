@@ -151,19 +151,6 @@ function accountsProxy(app) {
   }));
 }
 
-function assignmentsProxy(app) {
-  app.use(proxy('/activities', {
-    target: 'https://assignments-prototype-1.assignments.sandbox.openstax.org',
-    changeOrigin: true,
-    autoRewrite: true,
-  }));
-  app.use(proxy('/apps/assignments/api/', {
-    target: 'https://assignments-prototype-1-api.assignments.sandbox.openstax.org',
-    changeOrigin: true,
-    autoRewrite: true,
-  }));
-}
-
 function searchProxy(app) {
   app.use(proxy(REACT_APP_SEARCH_URL, {
     target: SEARCH_URL,
@@ -244,7 +231,6 @@ async function setupProxy(app) {
   if (!OS_WEB_URL) { throw new Error('OS_WEB_URL configuration must be defined'); }
 
   archiveProxy(app);
-  assignmentsProxy(app);
   accountsProxy(app);
   searchProxy(app);
   highlightsProxy(app);
