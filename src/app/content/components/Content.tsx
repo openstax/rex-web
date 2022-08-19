@@ -108,15 +108,6 @@ const OuterWrapper = styled.div`
  * - the content wrapper must behave the same way as the navs in order to get
  *   the sidebar in the right place to line up with the button in the toolbar.
  *
- * - the white background must then have negative margin to undo the default
- *   padding so that it can get to the edge of the screen on small windows.
- *
- * - the white background can't be on the whole wrapper, because it is fixed
- *   width on large screens, and then it wouldn't go to the edge on small ones.
- *
- * - transitioning the white background from full width to fixed width, while
- *   matching the container boundaries of the navbars, is complicated.
- *
  * - the default padding is duplicated inside the white margin for small
  *   screen behavior, but it cant affect the notifications or attribution,
  *   so there is another container for that.
