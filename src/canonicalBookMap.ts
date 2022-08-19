@@ -35,7 +35,6 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
   ],
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
-    /* Algebra & Trigonometry 2e */ ['eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e', {}],
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
   ],
@@ -358,6 +357,29 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ],
   /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': [
     /* College Physics 2e */ ['a31df062-930a-4f46-8953-605711e6d204', {}],
+  ],
+  /* Principles of Accounting Vol. 2 */ '920d1c8a-606c-4888-bfd4-d1ee27ce1795': [
+    /* Principles of Accounting Vol. 1 */ ['9ab4ba6d-1e48-486d-a2de-38ae1617ca84', {}],
+  ],
+  /* University Physics Vol. 2 */ '7a0f9770-1c44-4acd-9920-1cd9a99f2a1e': [
+    /* University Physics Vol. 1 */ ['d50f6e32-0fda-46ef-a362-9bd36ca7c97d', {}],
+  ],
+  /* University Physics Vol. 3 */ 'af275420-6050-4707-995c-57b9cc13c358': [
+    /* University Physics Vol. 1 */ ['d50f6e32-0fda-46ef-a362-9bd36ca7c97d', {}],
+  ],
+  /* Calculus Vol. 2 */ '1d39a348-071f-4537-85b6-c98912458c3c': [
+    /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
+  ],
+  /* Calculus Vol. 3 */ 'a31cd793-2162-4e9e-acb5-6e6bbd76a5fa': [
+    /* Calculus Vol. 2 */ ['1d39a348-071f-4537-85b6-c98912458c3c', {}],
+    /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
+  ],
+  /* Cálculo Vol. 2 */ '8079f22f-c0a0-43ed-bb35-871d8d9743f3': [
+    /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
+  ],
+  /* Cálculo Vol. 3 */ '21b1d0df-a716-4205-8e86-0d0787b2c991': [
+    /* Cálculo Vol. 2 */ ['8079f22f-c0a0-43ed-bb35-871d8d9743f3', {}],
+    /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
   ],
 };
 
