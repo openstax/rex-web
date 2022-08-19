@@ -18,7 +18,7 @@ export const WithStyles = styled.div`
 const cacheStyles = new Map<string, string>();
 
 const getCssFileUrl = (
-  book: State['book'], queryParams: OutputParams, archiveLoader: AppServices['archiveLoader']
+  queryParams: OutputParams, book: State['book'], archiveLoader: AppServices['archiveLoader']
 ) => {
   if (queryParams['content-style']) {
     return queryParams['content-style'];
@@ -49,7 +49,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const [styles, setStyles] = React.useState('');
   const queryParams = useSelector(query);
   const { archiveLoader } = useServices();
-  const cssfileUrl = getCssFileUrl(book, queryParams, archiveLoader);
+  const cssfileUrl = getCssFileUrl(queryParams, book, archiveLoader);
 
   React.useEffect(() => {
     if (disable) {
