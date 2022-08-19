@@ -1,3 +1,4 @@
+import { OutputParams } from 'query-string';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -6,6 +7,7 @@ import { State } from '../content/types';
 import { fromRelativeUrl, isAbsoluteUrl } from '../content/utils/urlUtils';
 import { useServices } from '../context/Services';
 import { query } from '../navigation/selectors';
+import { AppServices } from '../types';
 import { assertDefined } from '../utils/assertions';
 
 // tslint:disable-next-line: variable-name
@@ -14,6 +16,25 @@ export const WithStyles = styled.div`
 `;
 
 const cacheStyles = new Map<string, string>();
+
+const getCssFileUrl = (
+  book: State['book'], queryParams: OutputParams, archiveLoader: AppServices['archiveLoader']
+) => {
+  if (queryParams['content-style']) {
+    return queryParams['content-style'];
+  } else if (book) {
+    const bookConfig = getBookVersionFromUUIDSync(book.id);
+
+    if (bookConfig?.dynamicStyles && book.style_href) {
+      if (isAbsoluteUrl(book.style_href)) {
+        return book.style_href;
+      } else {
+        const contentUrl = archiveLoader.book(book.id, book.version).url();
+        return fromRelativeUrl(contentUrl, book.style_href);
+      }
+    }
+  }
+};
 
 interface DynamicContentStylesProps extends React.HTMLAttributes<HTMLDivElement> {
   book: State['book'];
@@ -26,25 +47,14 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   ref
 ) => {
   const [styles, setStyles] = React.useState('');
-  const { archiveLoader } = useServices();
-  const bookConfig = book && getBookVersionFromUUIDSync(book.id);
   const queryParams = useSelector(query);
+  const { archiveLoader } = useServices();
+  const cssfileUrl = getCssFileUrl(book, queryParams, archiveLoader);
 
   React.useEffect(() => {
     if (disable) {
       setStyles('');
       return;
-    }
-
-    let cssfileUrl = queryParams['content-style'];
-
-    if (!cssfileUrl && bookConfig?.dynamicStyles && book?.style_href) {
-      cssfileUrl = book.style_href;
-
-      if (!isAbsoluteUrl(cssfileUrl)) {
-        const contentUrl = archiveLoader.book(book.id, book.version).url();
-        cssfileUrl = fromRelativeUrl(contentUrl, cssfileUrl);
-      }
     }
 
     if (cssfileUrl && typeof cssfileUrl === 'string') {
@@ -54,13 +64,12 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
         fetch(cssfileUrl)
           .then((res) => res.text())
           .then((data) => {
-            // we are inside an "if" that checks that cssfileUrl is defined and a string
-            cacheStyles.set(cssfileUrl as string, data);
+            cacheStyles.set(cssfileUrl, data);
             setStyles(data);
           });
       }
     }
-  }, [archiveLoader, book, bookConfig, disable, queryParams]);
+  }, [cssfileUrl, disable]);
 
   return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps} ref={ref}>
     {children}
