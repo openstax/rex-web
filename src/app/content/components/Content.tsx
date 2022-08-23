@@ -19,9 +19,7 @@ import CenteredContentRow from './CenteredContentRow';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
-  contentWrapperMaxWidth,
   scrollOffset,
-  sidebarTransitionTime,
   toolbarMobileExpandedHeight,
   topbarDesktopHeight,
   topbarMobileHeight
@@ -32,7 +30,6 @@ import Page from './Page';
 
 import Navigation from './Navigation';
 import Topbar from './Topbar';
-import { isVerticalNavOpenConnector } from './utils/sidebar';
 import Wrapper from './Wrapper';
 
 // tslint:disable-next-line:variable-name
@@ -61,35 +58,14 @@ const ContentNotifications = styled(Notifications)`
 `;
 
 // tslint:disable-next-line:variable-name
-const UndoPadding = styled.div`
-  @media screen {
-    overflow: visible;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-const MainContentWrapper = isVerticalNavOpenConnector(styled.div`
-  @media screen {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
-    transition: max-width ${sidebarTransitionTime}ms;
-    width: 100%;
-    margin: 0 auto;
-    padding-left: 0;
-    ${theme.breakpoints.mobile(css`
-      padding-left: 0;
-      max-width: ${contentWrapperMaxWidth}rem;
-    `)}
-    ${(props) => (props.isVerticalNavOpen === false) && `
-      max-width: ${contentWrapperMaxWidth}rem;
-    `}
-  }
-`);
+// const UndoPadding = styled.div`
+//   @media screen {
+//     overflow: visible;
+//     min-height: 100%;
+//     display: flex;
+//     flex-direction: column;
+//   }
+// `;
 
 // tslint:disable-next-line:variable-name
 const OuterWrapper = styled.div`
@@ -108,23 +84,11 @@ const OuterWrapper = styled.div`
  * - the content wrapper must behave the same way as the navs in order to get
  *   the sidebar in the right place to line up with the button in the toolbar.
  *
- * - the default padding is duplicated inside the white margin for small
- *   screen behavior, but it cant affect the notifications or attribution,
- *   so there is another container for that.
- *
- * - the extra container for the padding inside the white margin can't go away
- *   because it is necessary to hide the overflow of items on the Page, and contain
- *   the margins of the Page, which must be overflow: visible.
- *
  * - when the sidebar is closed the white wrapper behaves more or less the same
  *   as the default wrapper, but when the sidebar is open it only needs
  *   padding/margin on the right, because the sidebar already puts the left
  *   side in the right place, and you don't want a gap between the sidebar
  *   and the content.
- *
- * - a bunch of these containers could be combined, except that then the
- *   transitions break because you're combining things that need to be
- *   fixed with things that need to be animated.
  *
  * - the whole layout depends on using max-width to resolve when the
  *   margins should and should not be applied, and changing margins
@@ -159,14 +123,12 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
           <Navigation />
           <CenteredContentRow>
             <ContentPane>
-              <UndoPadding>
-                <MainContentWrapper>
-                  <ContentNotifications mobileExpanded={mobileExpanded} />
-                  <Page />
-                  <Attribution />
-                  <Footer />
-                </MainContentWrapper>
-              </UndoPadding>
+              {/* <UndoPadding> */}
+                <ContentNotifications mobileExpanded={mobileExpanded} />
+                <Page />
+                <Attribution />
+                <Footer />
+              {/* </UndoPadding> */}
             </ContentPane>
           </CenteredContentRow>
         </Wrapper>
