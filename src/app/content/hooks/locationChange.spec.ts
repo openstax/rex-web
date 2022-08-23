@@ -72,7 +72,7 @@ describe('locationChange', () => {
     await hook(payload);
     expect(dispatch).toHaveBeenCalledWith(actions.requestBook({slug: 'book-slug-1'}));
     expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', expect.objectContaining({
-      contentVersion: undefined,
+      booksConfig: expect.anything(),
     }));
   });
 
@@ -80,9 +80,7 @@ describe('locationChange', () => {
     helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(book.id));
     store.dispatch(receiveBook(formatBookData(
       {...book, loadOptions: {
-        archiveVersion: undefined,
         booksConfig: helpers.bookConfigLoader.localBookAndArchiveConfig,
-        contentVersion: undefined,
       }},
       {...mockCmsBook, meta: {slug: 'book-slug-1'}}))
     );
