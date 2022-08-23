@@ -33,7 +33,7 @@ import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { disablePrint } from '../utils/disablePrint';
-import { isVerticalNavOpenConnector } from '../utils/sidebar';
+import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from '../utils/sidebar';
 
 const hideSearchChrome = css`
   appearance: textfield;
@@ -255,10 +255,11 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   overflow: visible;
   background-color: ${theme.color.neutral.base};
   transition: padding-left ${sidebarTransitionTime}ms;
-  ${(props) => (props.isVerticalNavOpen === null || props.isVerticalNavOpen || props.isDesktopSearchOpen) && `
-    padding-left: ${sidebarDesktopWidth}rem;
-    ${contentWrapperBreakpointStyles}
-  `}
+  padding-left: ${sidebarDesktopWidth}rem;
+  ${contentWrapperBreakpointStyles}
+  ${styleWhenSidebarClosed(css`
+      padding-left: 0 !important;
+  `)}
   ${theme.breakpoints.mobile(css`
     display: none;
   `)}
