@@ -35,8 +35,7 @@ export async function findBooks({
 
   const bookInfo = bookId
     ? [{id: bookId, version: bookVersion || assertDefined(bookConfig[bookId], '').defaultVersion}]
-    : Object.entries(bookConfig)
-      .map(([id, {defaultVersion}]) => ({id, version: defaultVersion}))
+    : Object.entries(bookConfig).map(([id, {defaultVersion}]) => ({id, version: defaultVersion}))
   ;
 
   return await Promise.all(bookInfo.map(({id, version}) => bookLoader(id, version)));
