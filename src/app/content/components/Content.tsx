@@ -58,16 +58,6 @@ const ContentNotifications = styled(Notifications)`
 `;
 
 // tslint:disable-next-line:variable-name
-// const UndoPadding = styled.div`
-//   @media screen {
-//     overflow: visible;
-//     min-height: 100%;
-//     display: flex;
-//     flex-direction: column;
-//   }
-// `;
-
-// tslint:disable-next-line:variable-name
 const OuterWrapper = styled.div`
   @media screen {
     display: flex;
@@ -76,25 +66,6 @@ const OuterWrapper = styled.div`
   }
 `;
 
-/*
- * this layout is a mess for these reasons:
- * - the navs must have the default padding inside their containers so their
- *   backgrounds go to the edge of the window.
- *
- * - the content wrapper must behave the same way as the navs in order to get
- *   the sidebar in the right place to line up with the button in the toolbar.
- *
- * - when the sidebar is closed the white wrapper behaves more or less the same
- *   as the default wrapper, but when the sidebar is open it only needs
- *   padding/margin on the right, because the sidebar already puts the left
- *   side in the right place, and you don't want a gap between the sidebar
- *   and the content.
- *
- * - the whole layout depends on using max-width to resolve when the
- *   margins should and should not be applied, and changing margins
- *   all over the place, all of which means that a disturbing number
- *   of things need to know when the sidebar is open/closed.
- */
 // tslint:disable-next-line:variable-name
 const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   <ScrollOffset
@@ -123,12 +94,10 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
           <Navigation />
           <CenteredContentRow>
             <ContentPane>
-              {/* <UndoPadding> */}
-                <ContentNotifications mobileExpanded={mobileExpanded} />
-                <Page />
-                <Attribution />
-                <Footer />
-              {/* </UndoPadding> */}
+              <ContentNotifications mobileExpanded={mobileExpanded} />
+              <Page />
+              <Attribution />
+              <Footer />
             </ContentPane>
           </CenteredContentRow>
         </Wrapper>
