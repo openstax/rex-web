@@ -17,13 +17,8 @@ export const getBookPageUrlAndParams = (
     book: getUrlParamsForBook(book),
     page: getUrlParamForPageId(book, page.id),
   };
-  const state = {
-    bookUid: book.id,
-    bookVersion: book.version,
-    pageUid: stripIdVersion(page.id),
-  };
 
-  return {params, state, url: contentRoute.getUrl(params)};
+  return {params, url: contentRoute.getUrl(params)};
 };
 
 export const getUrlParamsForBook = (

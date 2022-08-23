@@ -118,10 +118,10 @@ export const resolveBookReference = async(
   }
 
   return {
-    archiveVersion,
+    ...(archiveVersion !== undefined ? {archiveVersion} : {}),
+    ...(contentVersion !== undefined ? {contentVersion} : {}),
     bookId,
     booksConfig,
-    contentVersion,
   };
 };
 

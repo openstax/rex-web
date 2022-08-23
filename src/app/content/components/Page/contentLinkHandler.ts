@@ -21,7 +21,6 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   currentPath: selectNavigation.pathname(state),
   focusedHighlight: focused(state),
   hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
-  locationState: selectNavigation.locationState(state),
   page: select.page(state),
   persistentQueryParams: selectNavigation.persistentQueryParameters(state),
   references: select.contentReferences(state),
@@ -114,7 +113,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       book,
       page,
       currentPath,
-      locationState,
       focusedHighlight,
       hasUnsavedHighlight,
     } = getProps();
@@ -162,11 +160,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       defer(() => navigate({
         params: getBookPageUrlAndParams(book, page).params,
         route: content,
-        state: {
-          ...locationState,
-          ...getBookPageUrlAndParams(book, page).state,
-
-        },
+        state: {},
       }, {hash, search: searchString}));
     }
   };

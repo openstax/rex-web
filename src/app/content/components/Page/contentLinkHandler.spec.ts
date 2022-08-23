@@ -51,7 +51,6 @@ describe('contentLinkHandler', () => {
       currentPath: '/asdf',
       focusedHighlight: '',
       hasUnsavedHighlight: false,
-      locationState: {} as any,
       navigate: jest.fn(),
       page,
       persistentQueryParams: {},
