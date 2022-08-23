@@ -9,11 +9,6 @@ export const localState = createSelector(
   (parentState) => parentState.navigation
 );
 
-export const locationState = createSelector(
-  localState,
-  (state) => state.state
-);
-
 export const pathname = createSelector(
   localState,
   (state) => state.pathname

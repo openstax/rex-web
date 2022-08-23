@@ -23,7 +23,6 @@ export interface PagePropTypes {
   className?: string;
   mobileToolbarOpen: boolean;
   contentLinks: ContentLinkProp;
-  locationState: ReturnType<typeof selectNavigation.locationState>;
   query: string | null;
   scrollToTopOrHash: ReturnType<typeof mapStateToScrollToTopOrHashProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
