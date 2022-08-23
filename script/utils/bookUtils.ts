@@ -36,7 +36,6 @@ export async function findBooks({
   const bookInfo = bookId
     ? [{id: bookId, version: bookVersion || assertDefined(bookConfig[bookId], '').defaultVersion}]
     : Object.entries(bookConfig)
-      .filter(([, book]) => !book.retired)
       .map(([id, {defaultVersion}]) => ({id, version: defaultVersion}))
   ;
 
