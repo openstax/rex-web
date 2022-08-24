@@ -194,16 +194,10 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
   }
 
-  private scrollHandler = () => {
-    lazyResources.checkLazyResources();
-  };
-
   private listenersOn() {
     this.listenersOff();
 
-    if (typeof(document) !== 'undefined') {
-      document.addEventListener('scroll', this.scrollHandler);
-    }
+    lazyResources.addScrollHandler();
 
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
@@ -213,9 +207,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   private listenersOff() {
-    if (typeof(document) !== 'undefined') {
-      document.removeEventListener('scroll', this.scrollHandler);
-    }
+    lazyResources.removeScrollHandler();
 
     const removeIfExists = (el: HTMLElement) => {
       const handler = this.clickListeners.get(el);

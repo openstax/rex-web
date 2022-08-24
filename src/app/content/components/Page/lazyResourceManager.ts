@@ -27,3 +27,15 @@ export const checkLazyResources = () => {
     }
   });
 };
+
+export const addScrollHandler = () => {
+  if (typeof(document) !== 'undefined') {
+    document.addEventListener('scroll', checkLazyResources);
+  }
+};
+
+export const removeScrollHandler = () => {
+  if (typeof(document) !== 'undefined') {
+    document.removeEventListener('scroll', checkLazyResources);
+  }
+};

@@ -126,7 +126,8 @@ export const scrollIntoView = (elementToScroll: HTMLElement, otherElements?: HTM
   }
 };
 
-/* this only works if the element is in the body scrollable, not another scrollable */
+// https://stackoverflow.com/a/7557433/14809536
+/* this only works if the element is in the body scrollable, not a nested scrollable */
 export const elementIsVisibleInWindow = (element: Element) => {
   if (typeof(window) === 'undefined')  {
     return false;
@@ -137,8 +138,8 @@ export const elementIsVisibleInWindow = (element: Element) => {
   return (
     rect.bottom >= 0
     && rect.right >= 0
-    && rect.top <= (window.innerHeight || element.ownerDocument.documentElement.clientHeight)
-    && rect.left <= (window.innerWidth || element.ownerDocument.documentElement.clientWidth)
+    && rect.top <= window.innerHeight
+    && rect.left <= window.innerWidth
   );
 };
 
