@@ -47,6 +47,13 @@ export const ToastContainerWrapper = styled.div`
   `)}
 `;
 
+/*
+ *  positioning the toast is complicated within the grid layout because the toast is sticky
+ *  and there is no container that perfectly spans the distance between the nav bar and the
+ *  end of the content wrapper (white bg) between certain viewports (1200px and 1440px)
+ *  when the nav is closed.
+ */
+
 // tslint:disable-next-line:variable-name
 const PageToasts = () => {
   const toasts = useSelector(groupedToastNotifications).page;
