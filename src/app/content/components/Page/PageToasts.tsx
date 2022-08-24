@@ -48,10 +48,13 @@ export const ToastContainerWrapper = styled.div`
 `;
 
 /*
- *  positioning the toast is complicated within the grid layout because the toast is sticky
- *  and there is no container that perfectly spans the distance between the nav bar and the
- *  end of the content wrapper (white bg) between certain viewports (1200px and 1440px)
- *  when the nav is closed.
+ *  positioning the toast is complicated because the toast is sticky and there is no container
+ *  that perfectly spans the distance between the nav bar and the end of the content wrapper
+ *  (white bg) between certain viewports (1200px and 1440px) when the nav is closed.
+ *
+ *  ideally this issue would be solved by adjusting the max-width of CenteredContentRow and
+ *  adjusting the padding on ContentPane accordingly but this introduces conflicts with the
+ *  grid layout.
  */
 
 // tslint:disable-next-line:variable-name
