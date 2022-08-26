@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
-import { ContentPage, KsModal } from './helpers'
+import { ContentPage, KsModal, rexUserSignup } from './helpers'
+
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
@@ -55,3 +56,15 @@ test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }
   await expect(ksModal.ksModal).toBeHidden()
   await expect(page).toHaveURL('/books/organizational-behavior/pages/preface')
 })
+
+test('signup', async ({ browserName, page }) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/business-ethics/pages/preface'
+  await BookPage.open(path)
+
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/business-ethics/pages/preface')
+
+})
+
