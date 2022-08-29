@@ -430,6 +430,12 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* University Physics Vol. 3 */ 'af275420-6050-4707-995c-57b9cc13c358': [
     /* University Physics Vol. 1 */ ['d50f6e32-0fda-46ef-a362-9bd36ca7c97d', {}],
   ],
+  /* Física Universitaria volumen 2 */ 'da02605d-6d69-447c-a9b9-caf06dc4f413': [
+    /* Física universitaria volumen 1 */ ['175c88b6-f89b-4eba-9514-bc45e2139a1d', {}],
+  ],
+  /* Física universitaria volumen 3 */ 'b647a9b9-7631-45a1-a8e7-5acc3a44fc01': [
+    /* Física universitaria volumen 1 */ ['175c88b6-f89b-4eba-9514-bc45e2139a1d', {}],
+  ],
   /* Calculus Vol. 2 */ '1d39a348-071f-4537-85b6-c98912458c3c': [
     /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
   ],
