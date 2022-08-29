@@ -5,8 +5,6 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
-  contentWrapperMaxWidthInEm,
-  contentWrapperMaxWidthWithNavbarInEm,
   toolbarMobileSearchWrapperHeight,
   topbarDesktopHeight,
   topbarMobileHeight,
@@ -16,6 +14,7 @@ import ToastNotifications from '../../../notifications/components/ToastNotificat
 import { groupedToastNotifications } from '../../../notifications/selectors';
 import theme from '../../../theme';
 import { mobileToolbarOpen as mobileToolbarOpenSelector } from '../../search/selectors';
+import { contentWrapperAndNavWidthBreakpoint, contentWrapperWidthBreakpoint } from '../ContentPane';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
@@ -29,12 +28,12 @@ export const ToastContainerWrapper = styled.div`
   z-index: ${theme.zIndex.contentNotifications - 1};
   top: ${desktopSearchFailureTop}rem;
 
-  @media screen and (max-width: ${contentWrapperMaxWidthWithNavbarInEm}) {
+  @media screen and ${contentWrapperAndNavWidthBreakpoint} {
     max-width: calc(100vw - ((100vw - ${contentWrapperMaxWidth}rem) / 2) - ${verticalNavbarMaxWidth}rem);
     left: calc(100vw - (100vw - ((100vw - ${contentWrapperMaxWidth}rem) / 2) - ${verticalNavbarMaxWidth}rem));
   }
 
-  @media screen and (max-width: ${contentWrapperMaxWidthInEm}) {
+  @media screen and ${contentWrapperWidthBreakpoint} {
     max-width: calc(100vw - ${verticalNavbarMaxWidth}rem);
     left: ${verticalNavbarMaxWidth}rem;
   }
