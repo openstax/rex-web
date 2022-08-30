@@ -32,7 +32,13 @@ const mockBook = {
   revised: '2012-06-21',
   title: 'newbook',
   tree: {
-    contents: [],
+    contents: [
+      {
+        id: 'testbook2-page1',
+        slug: 'testbook2-page1',
+        title: '<span class=\"os-text\">Test Page 1</span>',
+      },
+    ],
     id: 'testbook2-uuid@0',
     slug: 'newbook',
     title: 'newbook',
@@ -40,7 +46,22 @@ const mockBook = {
   version: '1.0',
 };
 
-const mockOtherBook = {...mockBook, id: 'testbook3-uuid'};
+const mockOtherBook = {
+  ...mockBook,
+  id: 'testbook3-uuid',
+  tree: {
+    contents: [
+      {
+        id: 'testbook3-page1',
+        slug: 'testbook3-page1',
+        title: '<span class=\"os-text\">Test Page 1</span>',
+      },
+    ],
+    id: 'testbook3-uuid@0',
+    slug: 'newbook',
+    title: 'newbook',
+  },
+};
 
 describe('getCanonicalURL', () => {
   let getCanonicalUrlParams: typeof import ('../utils/canonicalUrl').getCanonicalUrlParams;
@@ -216,5 +237,53 @@ describe('getCanonicalURL', () => {
       ]),
       title: expect.anything(),
     }));
+  });
+
+  it('finds the deepest canonical page', async() => {
+    helpers.archiveLoader.mockBook(mockBook);
+    helpers.archiveLoader.mockBook(mockOtherBook);
+
+    const bookId = book.id;
+    const pageId = page.id;
+
+    CANONICAL_MAP[bookId] = [['testbook2-uuid', { [pageId]: 'testbook2-page1' }]];
+    CANONICAL_MAP['testbook2-uuid'] = [['testbook3-uuid', {'testbook2-page1': 'testbook3-page1'}]];
+    CANONICAL_MAP['testbook3-uuid'] = [['testbook3-uuid', {}]];
+
+    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+
+    expect(res).toHaveProperty('page', { slug: 'testbook3-page1' });
+  });
+
+  it('finds canonical page in the deepest canonical book', async() => {
+    helpers.archiveLoader.mockBook(mockBook);
+    helpers.archiveLoader.mockBook(mockOtherBook);
+
+    const bookId = book.id;
+    const pageId = page.id;
+
+    CANONICAL_MAP[bookId] = [['testbook2-uuid', { [pageId]: 'testbook2-page1' }]];
+    CANONICAL_MAP['testbook2-uuid'] = [['testbook3-uuid', {'testbook2-page1': 'testbook3-page1'}]];
+    CANONICAL_MAP['testbook3-uuid'] = [['testbook3-uuid', {}]];
+
+    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+
+    expect(res).toHaveProperty('page', { slug: 'testbook3-page1' });
+  });
+
+  it('finds canonical page when page is not found in deepest book', async() => {
+    helpers.archiveLoader.mockBook(mockBook);
+    helpers.archiveLoader.mockBook(mockOtherBook);
+
+    const bookId = book.id;
+    const pageId = page.id;
+
+    CANONICAL_MAP[bookId] = [['testbook2-uuid', { [pageId]: 'testbook2-page1' }]];
+    CANONICAL_MAP['testbook2-uuid'] = [['testbook3-uuid', {'testbook2-page1': 'testbook3-page2'}]];
+    CANONICAL_MAP['testbook3-uuid'] = [['testbook3-uuid', {}]];
+
+    const res = await getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId);
+
+    expect(res).toHaveProperty('page', { slug: 'testbook2-page1' });
   });
 });
