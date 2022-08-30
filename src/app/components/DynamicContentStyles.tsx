@@ -49,7 +49,6 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const [styles, setStyles] = React.useState('');
   const queryParams = useSelector(query);
   const { archiveLoader } = useServices();
-  const cssfileUrl = getCssFileUrl(queryParams, book, archiveLoader);
 
   React.useEffect(() => {
     if (disable) {
@@ -57,6 +56,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
       return;
     }
 
+    const cssfileUrl = getCssFileUrl(queryParams, book, archiveLoader);
     if (cssfileUrl && typeof cssfileUrl === 'string') {
       if (cacheStyles.has(cssfileUrl)) {
         setStyles(assertDefined(cacheStyles.get(cssfileUrl), `we've just checked for this`));
@@ -69,7 +69,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
           });
       }
     }
-  }, [cssfileUrl, disable]);
+  }, [archiveLoader, book, disable, queryParams]);
 
   return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps} ref={ref}>
     {children}
