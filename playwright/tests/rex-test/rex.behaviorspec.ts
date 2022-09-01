@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { ContentPage, KsModal, rexUserSignup } from './helpers'
+import { ContentPage, KsModal, rexUserSignup, rexUserSignout } from './helpers'
 
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
@@ -66,5 +66,6 @@ test('signup', async ({ browserName, page }) => {
   await rexUserSignup(page)
   await expect(page).toHaveURL('/books/business-ethics/pages/preface')
 
+  await rexUserSignout(page)
 })
 

@@ -80,6 +80,11 @@ async function rexUserSignup(page: Page, url: string, student: Student = new Stu
   await closeExtras(page)
 }
 
+async function rexUserSignout(page: Page) {
+  await page.click('[data-testid="user-nav-toggle"]')
+  await Promise.all([page.click('text=Log out'), page.waitForNavigation()])
+}
+
 async function userSignIn(page: Page, student: Student): Promise<Student> {
   await page.click('text=log in')
   await page.fill('[placeholder="me@myemail.com"]', student.email)
@@ -108,4 +113,4 @@ async function webUserSignup(
   return accountsUserSignup(page, null, student)
 }
 
-export { Student, accountsUserSignOut, accountsUserSignup, rexUserSignup, userSignIn, webUserSignup }
+export { Student, accountsUserSignOut, accountsUserSignup, rexUserSignup, userSignIn, webUserSignup, rexUserSignout }
