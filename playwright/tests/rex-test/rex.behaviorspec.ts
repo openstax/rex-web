@@ -67,5 +67,6 @@ test('signup', async ({ browserName, page }) => {
   await expect(page).toHaveURL('/books/business-ethics/pages/preface')
 
   await rexUserSignout(page)
+  await expect(page.locator('[data-testid="nav-login"]')).toContainText("Log in");
 })
 
