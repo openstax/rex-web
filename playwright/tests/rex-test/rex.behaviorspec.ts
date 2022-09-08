@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { ContentPage, KsModal, rexUserSignup, rexUserSignout } from './helpers'
+import { ContentPage, KsModal, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
@@ -60,13 +60,30 @@ test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }
 test('signup', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/business-ethics/pages/preface'
+  const path = '/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought'
   await BookPage.open(path)
 
   await rexUserSignup(page)
-  await expect(page).toHaveURL('/books/business-ethics/pages/preface')
+  await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
+  sleep(10000)
+  const paragraph =  page.locator('id=eip-692')
+  const boundary = await paragraph.boundingBox() 
+  
+  await page.mouse.move(boundary.x, boundary.y);
+  await page.mouse.down()
+  await page.mouse.move(boundary.width + boundary.x, boundary.y)
+  await page.mouse.move(boundary.width + boundary.x, boundary.y + boundary.height)
+  await page.mouse.move(boundary.x, boundary.y + boundary.height)
+  await page.mouse.up()
+  
+  sleep(8000)
+  
+  await page.waitForTimeout(3);
+  
+  sleep(8000)
 
-  await rexUserSignout(page)
-  await expect(page.locator('[data-testid="nav-login"]')).toContainText("Log in");
+
+  // await rexUserSignout(page)
+  // await expect(page.locator('[data-testid="nav-login"]')).toContainText("Log in");
 })
 
