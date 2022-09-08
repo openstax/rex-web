@@ -435,6 +435,7 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ],
   /* Física universitaria volumen 3 */ 'b647a9b9-7631-45a1-a8e7-5acc3a44fc01': [
     /* Física universitaria volumen 1 */ ['175c88b6-f89b-4eba-9514-bc45e2139a1d', {}],
+  ],
   /* Fizyka dla szkół wyższych. Tom 2 */ '16ab5b96-4598-45f9-993c-b8d78d82b0c6': [
     /* Fizyka dla szkół wyższych. Tom 1 */['4eaa8f03-88a8-485a-a777-dd3602f6c13e', {}],
   ],
