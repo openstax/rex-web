@@ -79,6 +79,7 @@ const pickArchiveFields = (archiveBook: ArchiveBook) => ({
   language: archiveBook.language,
   license: archiveBook.license,
   revised: archiveBook.revised,
+  style_href: archiveBook.style_href,
   title: archiveBook.title,
   tree: {
     ...archiveBook.tree,
