@@ -58,6 +58,7 @@ test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }
 })
 
 test('signup', async ({ browserName, page }) => {
+
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought'
@@ -66,17 +67,17 @@ test('signup', async ({ browserName, page }) => {
   await rexUserSignup(page)
   await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
   sleep(10000)
-  const paragraph =  page.locator('id=eip-692')
-  const boundary = await paragraph.boundingBox() 
-  
-  await page.mouse.move(boundary.x, boundary.y);
-  await page.mouse.down()
-  await page.mouse.move(boundary.width + boundary.x, boundary.y)
-  await page.mouse.move(boundary.width + boundary.x, boundary.y + boundary.height)
-  await page.mouse.move(boundary.x, boundary.y + boundary.height)
-  await page.mouse.up()
+
+  await BookPage.selecttext()
+
+  const notecard = page.locator("form[data-highlight-card='true']")
+  const blue =  notecard.locator("input[name='blue']")
+  await notecard.click()
+  // await blue.click()
+  await blue.setChecked(true)
   
   sleep(8000)
+  page.pause()
   
   await page.waitForTimeout(3);
   
