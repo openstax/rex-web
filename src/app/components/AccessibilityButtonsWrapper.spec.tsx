@@ -4,6 +4,7 @@ import ReactTestUtils from 'react-dom/test-utils';
 import * as redux from 'react-redux';
 import renderer from 'react-test-renderer';
 import * as analytics from '../../helpers/analytics';
+import { book } from '../../test/mocks/archiveLoader';
 import { expectError, renderToDom } from '../../test/reactutils';
 import TestContainer from '../../test/TestContainer';
 import { openKeyboardShortcutsMenu } from '../content/keyboardShortcuts/actions';
@@ -24,7 +25,7 @@ describe('AccessibilityButtonsWrapper', () => {
 
     it('fails when main is not wrapped in a AccessibilityButtonsWrapper', () => {
         const breaks = () => renderToDom(<TestContainer>
-          <MainContent/>
+          <MainContent book={book}/>
         </TestContainer>);
         expectError('BUG: MainContent must be inside AccessibilityButtonsWrapper', breaks);
     });
@@ -32,7 +33,7 @@ describe('AccessibilityButtonsWrapper', () => {
     it('succeeds when main content is provided', () => {
         const {node} = renderToDom(<TestContainer>
             <AccessibilityButtonsWrapper>
-              <MainContent/>
+              <MainContent book={book}/>
             </AccessibilityButtonsWrapper>
         </TestContainer>);
 
@@ -43,7 +44,7 @@ describe('AccessibilityButtonsWrapper', () => {
     it('scrolls and moves focus to mainContent when clicked (a11y)', () => {
         const {node, tree} = renderToDom(<TestContainer>
           <AccessibilityButtonsWrapper>
-              <MainContent/>
+              <MainContent book={book}/>
           </AccessibilityButtonsWrapper>
         </TestContainer>);
 
