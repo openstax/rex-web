@@ -9,17 +9,24 @@
 import {
   CloudFormationClient,
   CreateStackCommand,
+  CreateStackCommandOutput,
   DeleteStackCommand,
+  DeleteStackCommandOutput,
   DescribeStacksCommand,
+  DescribeStacksCommandOutput,
   Output,
   waitUntilStackCreateComplete,
   waitUntilStackDeleteComplete,
 } from '@aws-sdk/client-cloudformation';
 import {
   GetQueueAttributesCommand,
+  GetQueueAttributesResult,
   ReceiveMessageCommand,
+  ReceiveMessageResult,
   SendMessageBatchCommand,
+  SendMessageBatchResult,
   SendMessageCommand,
+  SendMessageResult,
   SQSClient,
 } from '@aws-sdk/client-sqs';
 import { randomBytes } from 'crypto';
@@ -55,6 +62,9 @@ assertDefined(RELEASE_ID, 'REACT_APP_RELEASE_ID environment variable must be set
 // Increasing this too much can lead to connection issues and greater memory usage in the manager
 const MAX_CONCURRENT_BOOKS = 5;
 
+// Retry EPROTO errors in requests this many times
+const MAX_ATTEMPTS = 5;
+
 // The worker fleet is automatically terminated after this many seconds
 // This is insurance in case this process gets stuck or crashes without deleting the workers stack
 const PRERENDER_TIMEOUT_SECONDS = 1800;
@@ -89,6 +99,69 @@ const timeoutDate = new Date(1000 * PRERENDER_TIMEOUT_SECONDS + new Date().getTi
 
 console.log(`Prerender timeout set to ${timeoutDate}`);
 
+async function sendWithRetries(
+  client: CloudFormationClient, command: CreateStackCommand
+): Promise<CreateStackCommandOutput>;
+async function sendWithRetries(
+  client: CloudFormationClient, command: DeleteStackCommand
+): Promise<DeleteStackCommandOutput>;
+async function sendWithRetries(
+  client: CloudFormationClient, command: DescribeStacksCommand
+): Promise<DescribeStacksCommandOutput>;
+async function sendWithRetries(
+  client: SQSClient, command: GetQueueAttributesCommand
+): Promise<GetQueueAttributesResult>;
+async function sendWithRetries(
+  client: SQSClient, command: ReceiveMessageCommand
+): Promise<ReceiveMessageResult>;
+async function sendWithRetries(
+  client: SQSClient, command: SendMessageBatchCommand
+): Promise<SendMessageBatchResult>;
+async function sendWithRetries(
+  client: SQSClient, command: SendMessageCommand
+): Promise<SendMessageResult>;
+async function sendWithRetries<C extends CreateStackCommand | DeleteStackCommand |
+DescribeStacksCommand | GetQueueAttributesCommand | ReceiveMessageCommand |
+SendMessageBatchCommand | SendMessageCommand, R extends CreateStackCommandOutput |
+DeleteStackCommandOutput | DescribeStacksCommandOutput | GetQueueAttributesResult |
+ReceiveMessageResult | SendMessageBatchResult | SendMessageResult>(
+  client: { send: (command: C) => Promise<R> }, command: C
+): Promise<R> {
+  let attempt = 1;
+  while (true) {
+    try {
+      // return await is required here to catch the error
+      return await client.send(command);
+    } catch (error) {
+      if (attempt >= MAX_ATTEMPTS || error.code !== 'EPROTO') {
+        throw error;
+      }
+
+      attempt++;
+    }
+  }
+}
+
+async function callWithRetries<A, B, R>(func: (a: A) => Promise<R>, a: A): Promise<R>;
+async function callWithRetries<A, B, R>(func: (a: A, b: B) => Promise<R>, a: A, b: B): Promise<R>;
+async function callWithRetries<A, B, R>(
+  func: (a: A, b?: B) => Promise<R>, a: A, b?: B
+): Promise<R> {
+  let attempt = 1;
+  while (true) {
+    try {
+      // return await is required here to catch the error
+      return await (b === undefined ? func(a) : func(a, b));
+    } catch (error) {
+      if (attempt >= MAX_ATTEMPTS || error.code !== 'EPROTO') {
+        throw error;
+      }
+
+      attempt++;
+    }
+  }
+}
+
 async function createWorkersStack() {
   // Generate a 16 alphanum char random build ID, used to keep the stack and resource names unique
   // The argument to randomBytes() just has to be large enough
@@ -98,7 +171,7 @@ async function createWorkersStack() {
 
   console.log(`Creating ${workersStackName} stack...`);
 
-  await cfnClient.send(new CreateStackCommand({
+  await sendWithRetries(cfnClient, new CreateStackCommand({
     Parameters: [
       {
         ParameterKey: 'BucketName',
@@ -147,9 +220,9 @@ async function createWorkersStack() {
 async function deleteWorkersStack(workersStackName: string) {
   console.log(`Deleting ${workersStackName} stack...`);
 
-  await cfnClient.send(new DeleteStackCommand({StackName: workersStackName}));
+  await sendWithRetries(cfnClient, new DeleteStackCommand({StackName: workersStackName}));
 
-  return waitUntilStackDeleteComplete(
+  return callWithRetries(waitUntilStackDeleteComplete,
     {
       client: cfnClient,
       maxDelay: 10,
@@ -181,7 +254,7 @@ function findOutputValue(outputs: Output[], key: string) {
 async function getQueueUrls(workersStackName: string) {
   // This wait is here and not in createWorkersStack()
   // so we can cleanup properly if there's a failure during stack creation
-  await waitUntilStackCreateComplete(
+  await callWithRetries(waitUntilStackCreateComplete,
     {
       client: cfnClient,
       maxDelay: 10,
@@ -193,8 +266,8 @@ async function getQueueUrls(workersStackName: string) {
 
   console.log('Retrieving queue URLs');
 
-  const describeStacksResult = await cfnClient.send(
-    new DescribeStacksCommand({StackName: workersStackName})
+  const describeStacksResult = await sendWithRetries(
+    cfnClient, new DescribeStacksCommand({StackName: workersStackName})
   );
 
   const stacks = assertDefined(
@@ -223,7 +296,7 @@ function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
     // Don't have the book title yet at this point
     console.log(`Loading book ${bookId}@${defaultVersion}`);
 
-    const book = await bookLoader(bookId, defaultVersion);
+    const book = await callWithRetries(bookLoader, bookId, defaultVersion);
 
     console.log(`[${book.title}] Book loaded; preparing pages`);
 
@@ -236,13 +309,15 @@ function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
     for (const pageBatch of chunk(10, pages)) {
       // If the entire request fails, this command will throw and be caught at the end of this file
       // However, we also need to check if only some of the messages failed
-      const sendMessageBatchResult = await sqsClient.send(new SendMessageBatchCommand({
-        Entries: pageBatch.map((page, batchIndex) => ({
-          Id: batchIndex.toString(),
-          MessageBody: JSON.stringify({ payload: page, type: 'page' } as PageTask),
-        })),
-        QueueUrl: workQueueUrl,
-      }));
+      const sendMessageBatchResult = await sendWithRetries(
+        sqsClient, new SendMessageBatchCommand({
+          Entries: pageBatch.map((page, batchIndex) => ({
+            Id: batchIndex.toString(),
+            MessageBody: JSON.stringify({ payload: page, type: 'page' } as PageTask),
+          })),
+          QueueUrl: workQueueUrl,
+        })
+      );
 
       const failedMessages = sendMessageBatchResult.Failed || [];
       const numFailures = failedMessages.length;
@@ -262,7 +337,7 @@ function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
 
     console.log(`[${book.title}] All ${numBookPages} book pages queued`);
 
-    await sqsClient.send(new SendMessageCommand({
+    await sendWithRetries(sqsClient, new SendMessageCommand({
       MessageBody: JSON.stringify(
         { payload: { pages, slug: book.slug }, type: 'sitemap' } as SitemapTask
       ),
@@ -295,7 +370,7 @@ async function queueWork(workQueueUrl: string) {
     `All ${stats.pages} page prerendering jobs and all ${stats.sitemaps} sitemap jobs queued`
   );
 
-  await sqsClient.send(new SendMessageCommand({
+  await sendWithRetries(sqsClient, new SendMessageCommand({
     MessageBody: JSON.stringify({ payload: books, type: 'sitemapIndex' } as SitemapIndexTask),
     QueueUrl: workQueueUrl,
   }));
@@ -336,7 +411,7 @@ async function waitUntilWorkDone(
     QueueUrl: workQueueUrl,
   });
   while (true) {
-    const getQueueAttributesResult = await sqsClient.send(getQueueAttributesCommand);
+    const getQueueAttributesResult = await sendWithRetries(sqsClient, getQueueAttributesCommand);
     const attributes = assertDefined(
       getQueueAttributesResult.Attributes,
       '[SQS] [GetQueueAttributes] Unexpected response: missing Attributes key'
@@ -365,7 +440,7 @@ async function waitUntilWorkDone(
   // Ensure that the dead letter queue is also empty
   // Since we are the only consumer of the dead letter queue, we use long polling to check
   // that it is empty rather than waiting another minute and checking the queue attributes
-  const receiveDLQMessageResult = await sqsClient.send(new ReceiveMessageCommand({
+  const receiveDLQMessageResult = await sendWithRetries(sqsClient, new ReceiveMessageCommand({
     MaxNumberOfMessages: 10,
     QueueUrl: deadLetterQueueUrl,
   }));
