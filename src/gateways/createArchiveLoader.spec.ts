@@ -87,6 +87,11 @@ describe('archiveLoader', () => {
         expect(fetch).toHaveBeenCalledTimes(3);
       });
 
+      it('returns original book url', async() => {
+        expect(require('./createArchiveLoader').default(url).book('coolid', 'version').url())
+          .toEqual('url/contents/coolid@version.json');
+      });
+
       it('returns original content url', async() => {
         expect(require('./createArchiveLoader').default(url).book('coolid', 'version').page('pageid').url())
           .toEqual('url/contents/coolid@version:pageid.json');
