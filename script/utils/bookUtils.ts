@@ -33,7 +33,9 @@ export async function findBooks({
 
   const bookInfo = bookId
     ? [tuple(bookId, bookVersion ? {contentVersion: bookVersion} : undefined)]
-    : Object.entries(booksConfig.books).map(([id]) => tuple(id, undefined))
+    : Object.entries(booksConfig)
+      .filter(([, book]) => !book.retired)
+      .map(([id]) => tuple(id, undefined))
   ;
 
   return await Promise.all(bookInfo.map(([id, versions]) => bookLoader(id, versions)));
