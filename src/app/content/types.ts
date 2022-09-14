@@ -140,6 +140,7 @@ export interface ArchiveBook {
     version: string;
   };
   revised: string;
+  style_href?: string;
 }
 
 export interface ArchiveLoadOptions {

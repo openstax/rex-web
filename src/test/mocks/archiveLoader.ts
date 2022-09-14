@@ -116,31 +116,34 @@ export default () => {
     book: (bookId: string, options: ArchiveLoadOptions) => ({
       cached: () => cachedBook(bookId, options),
       load: () => loadBook(bookId, options),
+      url: () => '/apps/archive/codeversion/content/bookref',
 
       page: (pageId: string) => ({
         cached: () => cachedPage(bookId, getBookVersion(bookId, options), pageId),
         load: () => loadPage(bookId, getBookVersion(bookId, options), pageId),
-        url: () => '/someUrl',
+        url: () => '/apps/archive/codeversion/content/pageref',
       }),
     }),
     forBook: (source: VersionedArchiveBookWithConfig) => ({
       cached: () => cachedBook(source.id, source.loadOptions),
       load: () => loadBook(source.id, source.loadOptions),
+      url: () => '/apps/archive/codeversion/content/bookref',
 
       page: (pageId: string) => ({
         cached: () => cachedPage(source.id, getBookVersion(source.id, source.loadOptions), pageId),
         load: () => loadPage(source.id, getBookVersion(source.id, source.loadOptions), pageId),
-        url: () => '/someUrl',
+        url: () => '/apps/archive/codeversion/content/pageref',
       }),
     }),
     fromBook: (source: VersionedArchiveBookWithConfig, bookId: string) => ({
       cached: () => cachedBook(bookId, source.loadOptions),
       load: () => loadBook(bookId, source.loadOptions),
+      url: () => '/apps/archive/codeversion/content/bookref',
 
       page: (pageId: string) => ({
         cached: () => cachedPage(bookId, getBookVersion(bookId, source.loadOptions), pageId),
         load: () => loadPage(bookId, getBookVersion(bookId, source.loadOptions), pageId),
-        url: () => '/someUrl',
+        url: () => '/apps/archive/codeversion/content/pageref',
       }),
     }),
     mock: { loadBook, loadPage, cachedBook, cachedPage },

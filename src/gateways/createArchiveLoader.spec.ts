@@ -160,6 +160,15 @@ describe('archiveLoader', () => {
         expect(fetch).toHaveBeenCalledTimes(3);
       });
 
+      it('returns original book url', async() => {
+        const booksConfig = {
+          archiveUrl: '/test/archive',
+          books: {coolid: {defaultVersion: 'version'}},
+        };
+        expect(createArchiveLoader().book('coolid', {booksConfig}).url())
+          .toEqual('/test/archive/contents/coolid@version.json');
+      });
+
       it('returns original content url', async() => {
         expect(createArchiveLoader().book('coolid', {
           booksConfig: {archiveUrl: '/test/archive', books: {coolid: {defaultVersion: 'version'}}},

@@ -188,6 +188,7 @@ export default (options: Options = {}) => {
           url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), archivePath, bookAndPageRef),
         };
       },
+      url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), archivePath, bookRef),
     };
   };
 
