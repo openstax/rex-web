@@ -21,19 +21,35 @@ class ContentPage {
     await this.page.context().addCookies([{name:"nudge_study_guides_date", value:current_date, url: this.page.url()}])
   }
 
+  // Highlight selected text
+  async highlightText(){
+    await this.selectText()
+    const blue =  this.page.locator('[aria-label="Apply blue highlight"]')
+    await blue.click()
+  }
+
+  async highlightCount(): Promise<number> {
+    this.page.locator(".highlight").first().waitFor();
+    // await this.page.waitForSelector(".highlight")
+    console.log(await this.page.locator(".highlight").count())
+    // const x = this.page.locator(".highlight").count()
+    // console.log(x)
+    return 
+  }
+
+
   // Select text
-  async selecttext(){
-    this.paragraph =  this.page.locator('id=eip-692')
+  async selectText(){
+    this.paragraph =  this.page.locator('id=eip-535')
     const boundary = await this.paragraph.boundingBox() 
-    
     await this.page.mouse.move(boundary.x, boundary.y);
     await this.page.mouse.down()
     await this.page.mouse.move(boundary.width + boundary.x, boundary.y)
     await this.page.mouse.move(boundary.width + boundary.x, boundary.y + boundary.height)
     await this.page.mouse.move(boundary.x, boundary.y + boundary.height)
     await this.page.mouse.up()
-
   }
 }
 
 export { ContentPage }
+

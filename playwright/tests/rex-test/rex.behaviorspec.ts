@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { count } from 'console'
 import { ContentPage, KsModal, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
 
@@ -57,31 +58,25 @@ test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }
   await expect(page).toHaveURL('/books/organizational-behavior/pages/preface')
 })
 
-test('signup', async ({ browserName, page }) => {
+test('signup and highlight', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'test only desktop resolution')
 
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought'
   await BookPage.open(path)
 
+  // AND: Signup as a new user
   await rexUserSignup(page)
   await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
-  sleep(10000)
 
-  await BookPage.selecttext()
+  // WHEN: Highlight some text
+  await BookPage.highlightText()
 
-  const notecard = page.locator("form[data-highlight-card='true']")
-  const blue =  notecard.locator("input[name='blue']")
-  await notecard.click()
-  // await blue.click()
-  await blue.setChecked(true)
-  
-  sleep(8000)
-  page.pause()
-  
-  await page.waitForTimeout(3);
-  
-  sleep(8000)
+  // THEN:
+  console.log(BookPage.highlightCount())
+
+
 
 
   // await rexUserSignout(page)
