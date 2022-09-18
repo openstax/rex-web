@@ -73,13 +73,16 @@ test('signup and highlight', async ({ page, isMobile }) => {
   // WHEN: Highlight some text
   await BookPage.highlightText()
 
-  // THEN:
-  console.log(BookPage.highlightCount())
+  // THEN: Text is highlighted
+  let highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(1)
 
+  // WHEN: Log out the user
+  await rexUserSignout(page)
+  await expect(page.locator('[data-testid="nav-login"]')).toContainText("Log in");
 
-
-
-  // await rexUserSignout(page)
-  // await expect(page.locator('[data-testid="nav-login"]')).toContainText("Log in");
+  // THEN: The highlight is removed from the page
+  highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(0)
 })
 

@@ -2,12 +2,17 @@
 import { Locator, Page } from 'playwright'
 
 class ContentPage {
+  blue: Locator
   page: Page
   paragraph: Locator
+  highlight: Locator
   constructor(page: Page) {
     this.page = page
-    
+    this.blue = page.locator('[aria-label="Apply blue highlight"]')
+    this.highlight = this.page.locator(".highlight")
+
   }
+
 
   // Open a Rex page with base url
   async open(path: string) {
@@ -24,17 +29,13 @@ class ContentPage {
   // Highlight selected text
   async highlightText(){
     await this.selectText()
-    const blue =  this.page.locator('[aria-label="Apply blue highlight"]')
-    await blue.click()
+    await this.blue.click()
   }
 
-  async highlightCount(): Promise<number> {
-    this.page.locator(".highlight").first().waitFor();
-    // await this.page.waitForSelector(".highlight")
-    console.log(await this.page.locator(".highlight").count())
-    // const x = this.page.locator(".highlight").count()
-    // console.log(x)
-    return 
+  // Total number of highlights in a page
+  async highlightCount(){
+    let highlightcount = await this.highlight.count()
+    return highlightcount
   }
 
 
