@@ -43,12 +43,14 @@ class ContentPage {
   async selectText(){
     this.paragraph =  this.page.locator('id=eip-535')
     const boundary = await this.paragraph.boundingBox() 
-    await this.page.mouse.move(boundary.x, boundary.y);
-    await this.page.mouse.down()
-    await this.page.mouse.move(boundary.width + boundary.x, boundary.y)
-    await this.page.mouse.move(boundary.width + boundary.x, boundary.y + boundary.height)
-    await this.page.mouse.move(boundary.x, boundary.y + boundary.height)
-    await this.page.mouse.up()
+    if (boundary) {
+      await this.page.mouse.move(boundary.x, boundary.y);
+      await this.page.mouse.down()
+      await this.page.mouse.move(boundary.width + boundary.x, boundary.y)
+      await this.page.mouse.move(boundary.width + boundary.x, boundary.y + boundary.height)
+      await this.page.mouse.move(boundary.x, boundary.y + boundary.height)
+      await this.page.mouse.up()
+    }
   }
 }
 
