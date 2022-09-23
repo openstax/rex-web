@@ -72,7 +72,7 @@ async function accountsUserSignup(page: Page, url = '', student: Student = new S
   return student
 }
 
-async function rexUserSignup(page: Page, url: string, student: Student = new Student()): Promise<Student> {
+async function rexUserSignup(page: Page, url?: string, student: Student = new Student()): Promise<Student> {
   /* istanbul ignore else */
   if (url) await page.goto(url)
   await page.click('[data-testid="nav-login"]')

@@ -59,7 +59,7 @@ test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }
 })
 
 test('signup and highlight', async ({ page, isMobile }) => {
-  test.skip(isMobile, 'test only desktop resolution')
+  test.skip(isMobile as boolean, 'test only desktop resolution')
 
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
