@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test'
 import { count } from 'console'
 import { ContentPage, KsModal, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
-
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
@@ -79,10 +78,9 @@ test('signup and highlight', async ({ page, isMobile }) => {
 
   // WHEN: Log out the user
   await rexUserSignout(page)
-  await expect(page.locator('[data-testid="nav-login"]')).toContainText("Log in");
+  await expect(page.locator('[data-testid="nav-login"]')).toContainText('Log in')
 
   // THEN: The highlight is removed from the page
   highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(0)
 })
-
