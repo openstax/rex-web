@@ -9,7 +9,6 @@ import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
-import { getBookPipelineVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
@@ -27,10 +26,8 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     return;
   }
 
-  const pipeline = getBookPipelineVersion(book);
-
   const results = await services.searchClient.search({
-    books: [`${pipeline}/${book.id}@${book.version}`],
+    books: [`${book.archiveVersion}/${book.id}@${book.contentVersion}`],
     indexStrategy: 'i1',
     q: payload,
     searchStrategy: 's1',

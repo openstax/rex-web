@@ -183,6 +183,8 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
   };
 };
 
+export const tuple = <A extends any[]>(...args: A) => args;
+
 // tslint:disable-next-line: max-classes-per-file
 export class UnauthenticatedError extends ApplicationError {}
 
