@@ -86,7 +86,7 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const PrevNextBar = ({book, prevNext}: PropTypes) => {
+export const PrevNextBar = ({book, prevNext}: PropTypes) => {
   const { formatMessage } = useIntl();
 
   if (!prevNext) {

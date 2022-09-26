@@ -63,8 +63,8 @@ describe('DynamicContentStyles', () => {
 
   it('fetches style in book\'s style_href field', async() => {
     const book = formatBookData(archiveBook, mockCmsBook);
-    book.id = 'testbook1-uuid';
     book.style_href = '../resources/styles/file3.css';
+    book.loadOptions.booksConfig.books[book.id].dynamicStyles = true;
     store.dispatch(receiveBook(book));
 
     const component = renderer.create(<TestContainer store={store}>
@@ -82,8 +82,8 @@ describe('DynamicContentStyles', () => {
 
   it('also works with absolute style URLs', async() => {
     const book = formatBookData(archiveBook, mockCmsBook);
-    book.id = 'testbook1-uuid';
     book.style_href = 'https://openstax.org/apps/archive/codeversion/file3.css';
+    book.loadOptions.booksConfig.books[book.id].dynamicStyles = true;
     store.dispatch(receiveBook(book));
 
     const component = renderer.create(<TestContainer store={store}>

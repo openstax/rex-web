@@ -1,14 +1,16 @@
+import { Element } from '@openstax/types/lib.dom';
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
 import { isDefined } from '../../guards';
 import { assertDefined } from '../../utils';
+import { assertNotNull } from '../../utils/assertions';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
+  ArchiveBook,
   ArchiveTree,
   ArchiveTreeNode,
   ArchiveTreeSection,
   ArchiveTreeSectionType,
-  Book,
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
@@ -136,7 +138,7 @@ export const prevNextBookPage = (
   };
 };
 
-export const getTitleFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveTreeSection): string => {
+const getTitleNodeFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): Element => {
   const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
   const container = domNode.getElementById('container');
 
@@ -154,7 +156,18 @@ export const getTitleFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveT
 
   if (extra) { extra.remove(); }
 
-  return container.innerHTML;
+  return container;
+};
+
+export const getTitleStringFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
+  return assertNotNull(
+    getTitleNodeFromArchiveNode(book, node).textContent,
+    `could not generate title string for node: ${book.id}:${node.id}`
+  );
+};
+
+export const getTitleFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
+  return getTitleNodeFromArchiveNode(book, node).innerHTML;
 };
 
 export const archiveTreeSectionIsBook = (

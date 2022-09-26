@@ -60,6 +60,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ignoreModal,
     ...anchorProps
   } = props;
+
   const {url, params} = getBookPageUrlAndParams(book, page);
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);

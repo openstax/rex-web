@@ -84,6 +84,8 @@ export const mockBook = {
     version: '1.0',
   },
   version: '1.0',
+  contentVersion: '1.0',
+  archiveVersion: '/test/archive-url',
   revised: '',
   slug: 'js-book',
   tree: {
@@ -131,5 +133,13 @@ export const mockBook = {
       },
       eobPage,
     ],
+  },
+  loadOptions: {
+    booksConfig: {
+      archiveUrl: '/test/archive-url',
+      books: {
+        15: { defaultVersion: '1.0' },
+      },
+    },
   },
 };
