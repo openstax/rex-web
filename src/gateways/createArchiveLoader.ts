@@ -3,7 +3,6 @@ import {
   ArchiveContent,
   ArchiveLoadOptions,
   ArchivePage,
-  ArchiveResource,
   VersionedArchiveBookWithConfig
 } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
@@ -42,14 +41,14 @@ interface Options {
 
   bookCache?: Cache<string, VersionedArchiveBookWithConfig>;
   pageCache?: Cache<string, ArchivePage>;
-  resourceCache?: Cache<string, ArchiveResource>;
+  resourceCache?: Cache<string, string>;
 }
 
 const defaultOptions = () => ({
   archivePrefix: '',
   bookCache: createCache<string, VersionedArchiveBookWithConfig>({maxRecords: 20}),
   pageCache: createCache<string, ArchivePage>({maxRecords: 20}),
-  resourceCache: createCache<string, ArchiveResource>({maxRecords: 20}),
+  resourceCache: createCache<string, string>({maxRecords: 20}),
 });
 
 /*
