@@ -89,9 +89,9 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       if (onClick) {
         onClick();
+      } else {
+        navigate(navigationMatch, options);
       }
-
-      navigate(navigationMatch, options);
     }}
     href={URL}
     {...anchorProps}

@@ -79,6 +79,8 @@ const BarWrapper = styled.div`
 
 interface PropTypes {
   book?: Book;
+  onPrevious?: () => void;
+  onNext?: () => void;
   prevNext: null | {
     prev?: ArchiveTreeSection;
     next?: ArchiveTreeSection;
@@ -86,7 +88,7 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-export const PrevNextBar = ({book, prevNext}: PropTypes) => {
+export const PrevNextBar = ({book, prevNext, onPrevious, onNext}: PropTypes) => {
   const { formatMessage } = useIntl();
 
   if (!prevNext) {
@@ -97,6 +99,7 @@ export const PrevNextBar = ({book, prevNext}: PropTypes) => {
     <HidingContentLink side='left'
       book={book}
       page={prevNext.prev}
+      onClick={onPrevious}
       aria-label={formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
       data-analytics-label='prev'
     >
@@ -109,6 +112,7 @@ export const PrevNextBar = ({book, prevNext}: PropTypes) => {
     <HidingContentLink side='right'
       book={book}
       page={prevNext.next}
+      onClick={onNext}
       aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
       data-analytics-label='next'
     >
