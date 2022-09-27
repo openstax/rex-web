@@ -24,7 +24,6 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
       boundRegisterPageView(action),
       syncSearch(services)(action),
       loadBuyPrintConfig(services)(),
-      loadHighlights(services)(locationChange(action)),
       loadStudyGuides(services)(),
       loadPracticeQuestions(services)(),
       initializeIntl(services)(),
