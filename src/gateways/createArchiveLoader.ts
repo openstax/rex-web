@@ -3,6 +3,7 @@ import {
   ArchiveContent,
   ArchiveLoadOptions,
   ArchivePage,
+  ArchiveResource,
   VersionedArchiveBookWithConfig
 } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
@@ -41,12 +42,14 @@ interface Options {
 
   bookCache?: Cache<string, VersionedArchiveBookWithConfig>;
   pageCache?: Cache<string, ArchivePage>;
+  resourceCache?: Cache<string, ArchiveResource>;
 }
 
 const defaultOptions = () => ({
   archivePrefix: '',
   bookCache: createCache<string, VersionedArchiveBookWithConfig>({maxRecords: 20}),
   pageCache: createCache<string, ArchivePage>({maxRecords: 20}),
+  resourceCache: createCache<string, ArchiveResource>({maxRecords: 20}),
 });
 
 /*
@@ -62,7 +65,7 @@ export const splitStandardArchivePath = (archivePathInput: string) => {
 };
 
 export default (options: Options = {}) => {
-  const {pageCache, bookCache, appPrefix, archivePrefix, disablePerBookPinning} = {
+  const {pageCache, bookCache, resourceCache, appPrefix, archivePrefix, disablePerBookPinning} = {
     ...defaultOptions(),
     ...options,
   };
@@ -88,7 +91,24 @@ export default (options: Options = {}) => {
    * handle that
    *
    */
-  const getArchivePathAndVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
+  const getArchivePathAndVersion = (loadOptions: ArchiveLoadOptions, bookId?: string) =>
+    REACT_APP_ARCHIVE_URL_OVERRIDE
+      ? loadOptions.archiveVersion
+        ? tuple(
+          `${REACT_APP_ARCHIVE_URL_OVERRIDE.replace(/\/+$/, '')}/${loadOptions.archiveVersion}`,
+          loadOptions.archiveVersion
+        )
+        : splitStandardArchivePath(REACT_APP_ARCHIVE_URL_OVERRIDE)
+      : loadOptions.archiveVersion
+        // it would be better if the config had the path base separate
+        ? tuple(`/apps/archive/${loadOptions.archiveVersion}`, loadOptions.archiveVersion)
+        : splitStandardArchivePath(disablePerBookPinning || !bookId
+          ? loadOptions.booksConfig.archiveUrl
+          : (loadOptions.booksConfig.books[bookId]?.archiveOverride || loadOptions.booksConfig.archiveUrl)
+        )
+    ;
+
+  const getArchivePathForResource = (bookId: string, loadOptions: ArchiveLoadOptions) =>
     REACT_APP_ARCHIVE_URL_OVERRIDE
       ? loadOptions.archiveVersion
         ? tuple(
@@ -114,6 +134,9 @@ export default (options: Options = {}) => {
   const contentUrl = (host: string, archivePath: string, ref: string) =>
     `${host}${archivePath}/contents/${ref}.json`;
 
+  const resourceUrl = (host: string, archivePath: string, ref: string) =>
+    `${host}${archivePath}/resources/${ref}`;
+
   const getContentVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
     loadOptions.contentVersion !== undefined
       ? loadOptions.contentVersion
@@ -126,21 +149,22 @@ export default (options: Options = {}) => {
       new ArchiveBookMissingError(`Error response from archive "${fetchUrl}" ${status}: ${message}`)))
     .then((response) => response.json() as Promise<T>);
 
-  const contentsLoader = <C extends ArchiveContent, R>(cache: Cache<string, R>) =>
-    (archivePath: string, contentRef: string, decorator: (result: C) => R) => {
-      const cacheKey = buildCacheKey(archivePath, contentRef);
-      const cached = cache.get(cacheKey);
-      if (cached) {
-        return Promise.resolve(cached);
-      }
+  const contentsLoader = <C extends ArchiveContent, R>(
+    cache: Cache<string, R>, urlFn: (host: string, archivePath: string, ref: string) => string
+  ) => (archivePath: string, contentRef: string, decorator: (result: C) => R) => {
+    const cacheKey = buildCacheKey(archivePath, contentRef);
+    const cached = cache.get(cacheKey);
+    if (cached) {
+      return Promise.resolve(cached);
+    }
 
-      return archiveFetch<C>(contentUrl(archivePrefix, archivePath, contentRef))
-        .then(decorator)
-        .then((response) => {
-          cache.set(cacheKey, response);
-          return response;
-        });
-    };
+    return archiveFetch<C>(urlFn(archivePrefix, archivePath, contentRef))
+      .then(decorator)
+      .then((response) => {
+        cache.set(cacheKey, response);
+        return response;
+      });
+  };
 
   const versionParamsDecorator = (
     loadOptions: ArchiveLoadOptions,
@@ -155,16 +179,19 @@ export default (options: Options = {}) => {
     });
   };
 
-  const bookLoader = contentsLoader<ArchiveBook, VersionedArchiveBookWithConfig>(bookCache);
-  const pageLoader = contentsLoader<ArchivePage, ArchivePage>(pageCache);
+  const bookLoader = contentsLoader<ArchiveBook, VersionedArchiveBookWithConfig>(
+    bookCache, contentUrl
+  );
+  const pageLoader = contentsLoader<ArchivePage, ArchivePage>(pageCache, contentUrl);
+  const resourceLoader = contentsLoader<ArchivePage, ArchivePage>(resourceCache, resourceUrl);
 
-  const bookInterface = (
+  const bookGetter = (
     bookId: string,
     loadOptions: ArchiveLoadOptions
   ) => {
     // there are situations where `archiveVersion` will be unknown, its only for tracking, the
     // `archivePath` is whats actually used for loading things
-    const [archivePath, archiveVersion] = getArchivePathAndVersionForBook(bookId, loadOptions);
+    const [archivePath, archiveVersion] = getArchivePathAndVersion(loadOptions, bookId);
     const contentVersion = getContentVersionForBook(bookId, loadOptions);
 
     if (!contentVersion) {
@@ -192,11 +219,19 @@ export default (options: Options = {}) => {
     };
   };
 
-  const bookGetter = (bookId: string, loadOptions: ArchiveLoadOptions) => {
-    return bookInterface(
-      bookId,
-      loadOptions
-    );
+  const resourceGetter = (
+    resourceId: string,
+    loadOptions: ArchiveLoadOptions
+  ) => {
+    // there are situations where `archiveVersion` will be unknown, its only for tracking, the
+    // `archivePath` is whats actually used for loading things
+    const [archivePath, archiveVersion] = getArchivePathAndVersion(loadOptions);
+
+    return {
+      cached: () => resourceCache.get(buildCacheKey(archivePath, resourceId)),
+      load: () => resourceLoader(archivePath, resourceId, (resource) => resource),
+      url: () => resourceUrl(ifUndefined(appPrefix, archivePrefix), archivePath, resourceId),
+    };
   };
 
   return {
@@ -205,7 +240,7 @@ export default (options: Options = {}) => {
      * creates a new loader for the given book using the same params
      * used to load this data.
      */
-    forBook: (book: VersionedArchiveBookWithConfig) => bookInterface(
+    forBook: (book: VersionedArchiveBookWithConfig) => bookGetter(
       book.id,
       book.loadOptions
     ),
@@ -214,9 +249,10 @@ export default (options: Options = {}) => {
      * use dto load this data. (to ensure that the intended reference is
      * resolved correctly, for cross book references like links or canonicals.
      */
-    fromBook: (source: VersionedArchiveBookWithConfig, bookId: string) => bookInterface(
+    fromBook: (source: VersionedArchiveBookWithConfig, bookId: string) => bookGetter(
       bookId,
       source.loadOptions
     ),
+    resource: resourceGetter,
   };
 };
