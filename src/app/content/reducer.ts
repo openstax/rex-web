@@ -132,6 +132,9 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.setTextSize): {
       return {...state, textSize: action.payload };
     }
+    case getType(actions.setStylesUrl): {
+      return {...state, stylesUrl: action.payload };
+    }
     default:
       return state;
   }

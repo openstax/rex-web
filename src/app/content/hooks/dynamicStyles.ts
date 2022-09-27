@@ -26,7 +26,7 @@ const getCssFileUrl = (
   }
 };
 
-const hookBody: ActionHookBody<typeof receiveBook> = (services) => () => {
+const hookBody: ActionHookBody<typeof receiveBook> = (services) => async() => {
   const { getState, dispatch, archiveLoader } = services;
 
   const state = getState();
@@ -41,7 +41,9 @@ const hookBody: ActionHookBody<typeof receiveBook> = (services) => () => {
   const stylesUrl = getCssFileUrl(queryParams, book, archiveLoader);
 
   if (stylesUrl) {
-    dispatch(setStylesUrl(styles));
+    // Load the styles so they are cached
+    await archiveLoader.resource(stylesUrl).load();
+    dispatch(setStylesUrl(stylesUrl));
   }
 };
 
