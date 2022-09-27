@@ -162,7 +162,11 @@ describe('ContentLink', () => {
 
       const event = await click(component);
 
-      expect(dispatch).not.toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(push({
+        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        route: content,
+        state: { },
+      }));
       expect(event.preventDefault).toHaveBeenCalled();
       expect(clickSpy).toHaveBeenCalled();
     });
