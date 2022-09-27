@@ -81,6 +81,8 @@ interface PropTypes {
   book?: Book;
   onPrevious?: () => void;
   onNext?: () => void;
+  handlePrevious?: () => void;
+  handleNext?: () => void;
   prevNext: null | {
     prev?: ArchiveTreeSection;
     next?: ArchiveTreeSection;
@@ -88,7 +90,7 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-export const PrevNextBar = ({book, prevNext, onPrevious, onNext}: PropTypes) => {
+export const PrevNextBar = ({book, prevNext, ...props}: PropTypes) => {
   const { formatMessage } = useIntl();
 
   if (!prevNext) {
@@ -99,7 +101,8 @@ export const PrevNextBar = ({book, prevNext, onPrevious, onNext}: PropTypes) => 
     <HidingContentLink side='left'
       book={book}
       page={prevNext.prev}
-      onClick={onPrevious}
+      onClick={props.onPrevious}
+      handleClick={props.handlePrevious}
       aria-label={formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
       data-analytics-label='prev'
     >
@@ -112,7 +115,8 @@ export const PrevNextBar = ({book, prevNext, onPrevious, onNext}: PropTypes) => 
     <HidingContentLink side='right'
       book={book}
       page={prevNext.next}
-      onClick={onNext}
+      onClick={props.onNext}
+      handleClick={props.handleNext}
       aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
       data-analytics-label='next'
     >

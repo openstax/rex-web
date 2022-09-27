@@ -81,8 +81,8 @@ export default () => {
           ? <PrevNextBar
             book={book}
             prevNext={prevNext}
-            onPrevious={() => setCurrentSectionIndex(Math.max(0, currentSectionIndex - 1))}
-            onNext={() => setCurrentSectionIndex(Math.min(sections.length - 1, currentSectionIndex + 1))}
+            handlePrevious={() => setCurrentSectionIndex(Math.max(0, currentSectionIndex - 1))}
+            handleNext={() => setCurrentSectionIndex(Math.min(sections.length - 1, currentSectionIndex + 1))}
           />
           : null
         }
