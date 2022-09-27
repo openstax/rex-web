@@ -195,6 +195,17 @@ describe('assigned route', () => {
     });
 
     it('renders loading state (for loadable component)', async() => {
+      app.store.dispatch(locationChange({
+        action: 'PUSH',
+        location: {
+          hash: '',
+          pathname: '/apps/rex/assigned/123456',
+          search: `?book=${book.id}&section=${page.id}`,
+          state: {},
+        },
+        match,
+      }));
+
       const tree = renderer.create(<app.container />);
 
       expect(tree.toJSON()).toMatchSnapshot();
