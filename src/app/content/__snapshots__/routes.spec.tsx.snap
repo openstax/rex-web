@@ -53,4 +53,6 @@ Array [
 ]
 `;
 
+exports[`assigned route route renders renders loading state (for loadable component) 1`] = `null`;
+
 exports[`content route route renders renders a component 1`] = `null`;

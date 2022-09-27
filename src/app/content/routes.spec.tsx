@@ -5,6 +5,7 @@ import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../test/utils';
 import { locationChange } from '../navigation/actions';
 import { Match } from '../navigation/types';
+import { AppServices } from '../types';
 
 const longID = 'longidin-vali-dfor-mat1-111111111111';
 
@@ -169,6 +170,9 @@ describe('assigned route', () => {
 
   describe('route renders', () => {
     let preloadAll: any;
+    let services: AppServices;
+    let app: any;
+    let match: Match<typeof assigned>;
 
     beforeEach(() => {
       resetModules();
@@ -176,10 +180,7 @@ describe('assigned route', () => {
       preloadAll = require('react-loadable').preloadAll;
       assigned = require('./routes').assigned;
       createApp = require('../index').default;
-    });
-
-    it('renders a component', async() => {
-      const services = createTestServices();
+      services = createTestServices();
 
       jest.spyOn(services.highlightClient, 'getHighlights').mockReturnValue(
         Promise.resolve({
@@ -188,19 +189,21 @@ describe('assigned route', () => {
         })
       );
 
-      const params = {
-        activityId: book.id,
-      };
+      const params = {activityId: book.id};
+      match = {params, route: assigned, state: {}};
+      app = createApp({services});
+    });
 
-      const match: Match<typeof assigned> = {
-        params,
-        route: assigned,
-        state: {},
-      };
+    it('renders loading state (for loadable component)', async() => {
+      const tree = renderer.create(<app.container />);
 
-      const app = createApp({
-        services,
-      });
+      expect(tree.toJSON()).toMatchSnapshot();
+
+      tree.unmount();
+    });
+
+    it('renders a component', async() => {
+      await preloadAll();
 
       app.store.dispatch(locationChange({
         action: 'PUSH',
@@ -212,8 +215,6 @@ describe('assigned route', () => {
         },
         match,
       }));
-
-      await preloadAll();
 
       const tree = renderer.create(<app.container />);
 
