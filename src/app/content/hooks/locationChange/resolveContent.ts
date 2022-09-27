@@ -22,7 +22,7 @@ export default async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ) => {
-  const [book, loader] = await resolveBook(services, match).catch(async(e) => {
+  const [book, loader] = await resolveBook(services, match.params.book).catch(async(e) => {
     // if we have any problems loading the requested book, check for a redirect
     // error is only thrown when the redirect isn't found
     if (!(e instanceof BookNotFoundError) || !(await processBrowserRedirect(services))) {
@@ -55,12 +55,12 @@ const getBookResponse = async(
   return [newBook, loader];
 };
 
-const resolveBook = async(
+export const resolveBook = async(
   services: AppServices & MiddlewareAPI,
-  match: Match<typeof content>
+  bookParam: Match<typeof content>['params']['book']
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
   const {dispatch, getState, archiveLoader, osWebLoader} = services;
-  const {bookId, ...loadOptions} = await resolveBookReference(services, match);
+  const {bookId, ...loadOptions} = await resolveBookReference(services, bookParam);
 
   const loader = archiveLoader.book(bookId, loadOptions);
   const state = getState();
@@ -74,8 +74,8 @@ const resolveBook = async(
     return [book, loader];
   }
 
-  if (!isEqual(match.params.book, select.loadingBook(state))) {
-    dispatch(requestBook(match.params.book));
+  if (!isEqual(bookParam, select.loadingBook(state))) {
+    dispatch(requestBook(bookParam));
     const response = await getBookResponse(osWebLoader, loader);
     dispatch(receiveBook(response[0]));
     return response;
@@ -86,30 +86,30 @@ const resolveBook = async(
 
 export const resolveBookReference = async(
   services: AppServices & MiddlewareAPI,
-  match: Match<typeof content>
+  bookParam: Match<typeof content>['params']['book']
 ): Promise<ArchiveLoadOptions & {bookId: string}> => {
   const {osWebLoader, bookConfigLoader, getState} = services;
   const state = getState();
   const currentBook = select.book(state);
 
-  const bookId  = 'uuid' in match.params.book
-    ? match.params.book.uuid
-    : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book.slug
+  const bookId  = 'uuid' in bookParam
+    ? bookParam.uuid
+    : currentBook && hasOSWebData(currentBook) && currentBook.slug === bookParam.slug
       ? currentBook.id
-      : await osWebLoader.getBookIdFromSlug(match.params.book.slug);
+      : await osWebLoader.getBookIdFromSlug(bookParam.slug);
 
   if (!bookId) {
-    throw new BookNotFoundError(`Could not resolve uuid for params: ${JSON.stringify(match.params.book)}`);
+    throw new BookNotFoundError(`Could not resolve uuid for params: ${JSON.stringify(bookParam)}`);
   }
 
   const booksConfig = await bookConfigLoader.getOrReloadConfigForBook(bookId);
 
-  const contentVersion = 'contentVersion' in match.params.book
-    ? match.params.book.contentVersion
+  const contentVersion = 'contentVersion' in bookParam
+    ? bookParam.contentVersion
     : undefined;
 
-  const archiveVersion = 'archiveVersion' in match.params.book
-    ? match.params.book.archiveVersion
+  const archiveVersion = 'archiveVersion' in bookParam
+    ? bookParam.archiveVersion
     : undefined;
 
   // extra logic here to bail on retired books before even trying to load them.
@@ -125,14 +125,14 @@ export const resolveBookReference = async(
   };
 };
 
-const loadPage = async(
+export const loadPage = async(
   services: AppServices & MiddlewareAPI,
-  match: Match<typeof content>,
+  pageParam: Match<typeof content>['params']['page'],
   book: Book,
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   pageId: string
 ) => {
-  services.dispatch(requestPage(match.params.page));
+  services.dispatch(requestPage(pageParam));
   return await bookLoader.page(pageId).load()
     .then(loadContentReferences(services, book))
     .then((pageData) => services.dispatch(receivePage(pageData)) && pageData)
@@ -159,7 +159,7 @@ const resolvePage = async(
   if (pageState && pageState.id === pageId) {
     return pageState;
   } else if (!isEqual(loadingPage, match.params.page)) {
-    return await loadPage(services, match, book, bookLoader, pageId);
+    return await loadPage(services, match.params.page, book, bookLoader, pageId);
   }
 };
 

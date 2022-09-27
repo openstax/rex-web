@@ -125,17 +125,23 @@ interface Sections {
   next?: LinkedArchiveTreeSection | undefined;
 }
 
+export const getPrevNext = (
+  sections: LinkedArchiveTreeSection[],
+  pageId: string
+): Sections => {
+  const index = sections.findIndex(nodeMatcher(pageId));
+
+  return {
+    next: sections[index + 1],
+    prev: sections[index - 1],
+  };
+};
+
 export const prevNextBookPage = (
   book: {tree: ArchiveTree},
   pageId: string
 ): Sections => {
-  const flattenTree = findTreePages(book.tree);
-  const index = flattenTree.findIndex(nodeMatcher(pageId));
-
-  return {
-    next: flattenTree[index + 1],
-    prev: flattenTree[index - 1],
-  };
+  return getPrevNext(findTreePages(book.tree), pageId);
 };
 
 const getTitleNodeFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): Element => {
