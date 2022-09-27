@@ -9,6 +9,7 @@ import { stripIdVersion } from '../app/content/utils';
 import { ifUndefined } from '../app/fpUtils';
 import { ArchiveBookMissingError, BookNotFoundError, tuple } from '../app/utils';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../config';
+import { isAbsoluteUrl } from '../content/utils/urlUtils';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
@@ -133,8 +134,8 @@ export default (options: Options = {}) => {
   const contentUrl = (host: string, archivePath: string, ref: string) =>
     `${host}${archivePath}/contents/${ref}.json`;
 
-  const resourceUrl = (host: string, archivePath: string, ref: string) =>
-    `${host}${archivePath}/resources/${ref}`;
+  const resourceUrl = (host: string, archivePath: string, ref: string) => isAbsoluteUrl(ref) ?
+    ref : `${host}${archivePath}/resources/${ref}`;
 
   const getContentVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
     loadOptions.contentVersion !== undefined
