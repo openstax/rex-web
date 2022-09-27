@@ -188,7 +188,7 @@ Array [
                   Assigned
                 </h3>
                 path: 
-                /apps/rex/assigned/:activity
+                /apps/rex/assigned/:activityId
                 <br />
               </div>
               <div>

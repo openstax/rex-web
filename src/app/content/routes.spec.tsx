@@ -3,6 +3,7 @@ import createTestStore from '../../test/createTestStore';
 import { book, page } from '../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../test/utils';
+import { locationChange } from '../navigation/actions';
 import { Match } from '../navigation/types';
 
 const longID = 'longidin-vali-dfor-mat1-111111111111';
@@ -150,6 +151,109 @@ describe('content route', () => {
       }));
       jest.doMock('../../config.books', () => mockBookConfig);
       expect(require('./routes').content.getSearch()).toEqual('archive=some-content');
+    });
+  });
+});
+
+describe('assigned route', () => {
+  let assigned: any;
+  let React: any; // tslint:disable-line:variable-name
+  let renderer: any;
+  let createApp: any;
+
+  it('renders url', () => {
+    assigned = require('./routes').assigned;
+    const url = assigned.getUrl({activityId: 'coolid'});
+    expect(url).toEqual('/apps/rex/assigned/coolid');
+  });
+
+  describe('route renders', () => {
+    let preloadAll: any;
+
+    beforeEach(() => {
+      resetModules();
+      ({React, renderer} = reactAndFriends());
+      preloadAll = require('react-loadable').preloadAll;
+      assigned = require('./routes').assigned;
+      createApp = require('../index').default;
+    });
+
+    it('renders a component', async() => {
+      const services = createTestServices();
+
+      jest.spyOn(services.highlightClient, 'getHighlights').mockReturnValue(
+        Promise.resolve({
+          data: [],
+          meta: {count: 0, page: 1, perPage: 200, totalCount: 0},
+        })
+      );
+
+      const params = {
+        activityId: book.id,
+      };
+
+      const match: Match<typeof assigned> = {
+        params,
+        route: assigned,
+        state: {},
+      };
+
+      const app = createApp({
+        services,
+      });
+
+      app.store.dispatch(locationChange({
+        action: 'PUSH',
+        location: {
+          hash: '',
+          pathname: '/apps/rex/assigned/123456',
+          search: `?book=${book.id}&section=${page.id}`,
+          state: {},
+        },
+        match,
+      }));
+
+      await preloadAll();
+
+      const tree = renderer.create(<app.container />);
+
+      await renderer.act(async() => {
+        await app.services.promiseCollector.calm();
+      });
+
+      expect(tree.toJSON()).toMatchSnapshot();
+
+      tree.unmount();
+    });
+  });
+
+  describe('getSearch', () => {
+    const mockBookConfig = {
+      [book.id]: {defaultVersion: book.version},
+    } as {[key: string]: {defaultVersion: string}};
+
+    it('doesnt set archive url on getSearch when there is only a default archive url', () => {
+      resetModules();
+      jest.doMock('../../config', () => ({REACT_APP_ARCHIVE_URL: 'some-content'}));
+      jest.doMock('../../config.books', () => mockBookConfig);
+      expect(require('./routes').assigned.getSearch()).toEqual('');
+    });
+
+    it('sets archive url on getSearch when there is an archive url override and no default', () => {
+      resetModules();
+      jest.doMock('../../config', () => ({REACT_APP_ARCHIVE_URL_OVERRIDE: 'some-content'}));
+      jest.doMock('../../config.books', () => mockBookConfig);
+      expect(require('./routes').assigned.getSearch()).toEqual('archive=some-content');
+    });
+
+    it('sets archive url on getSearch when there is an archive url override and a default', () => {
+      resetModules();
+      jest.doMock('../../config', () => ({
+        REACT_APP_ARCHIVE_URL: 'asdf',
+        REACT_APP_ARCHIVE_URL_OVERRIDE: 'some-content',
+      }));
+      jest.doMock('../../config.books', () => mockBookConfig);
+      expect(require('./routes').assigned.getSearch()).toEqual('archive=some-content');
     });
   });
 });

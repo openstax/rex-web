@@ -70,7 +70,7 @@ export const content: ContentRoute = {
   paths: contentPaths,
 };
 
-const assignedPath = dynamicPrefix + '/assigned/:activity';
+const assignedPath = dynamicPrefix + '/assigned/:activityId';
 
 // tslint:disable-next-line:variable-name
 const AssignedContent = Loadable({
