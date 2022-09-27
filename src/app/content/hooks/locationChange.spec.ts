@@ -15,12 +15,12 @@ import { formatBookData } from '../utils';
 
 const mockBook = {...book, id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c', version: '29.7'};
 
-describe('locationChange', () => {
+describe('contentRouteHookBody', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let payload: {location: Location, match: Match<typeof routes.content>};
-  let hook = require('./locationChange').default;
+  let hook = require('./locationChange').contentRouteHookBody;
   let contentHook: typeof import ('./locationChange/resolveContent');
   let intlHook: typeof import ('./intlHook');
   let mockBookConfig: {[key: string]: {defaultVersion: string}};
@@ -62,7 +62,7 @@ describe('locationChange', () => {
       },
     };
 
-    hook = (require('./locationChange').default)(helpers);
+    hook = (require('./locationChange').contentRouteHookBody)(helpers);
     contentHook = require('./locationChange/resolveContent');
     intlHook = require('./intlHook');
   });
