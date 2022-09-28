@@ -52,7 +52,7 @@ describe('dynamicStyles', () => {
     await hook(receiveBookAction);
 
     expect(loadResource).toHaveBeenCalledTimes(1);
-    expect(loadResource).toHaveBeenCalledWith(stylesUrl, undefined);
+    expect(loadResource).toHaveBeenCalledWith(stylesUrl);
     expect(dispatch).toHaveBeenCalledWith(setStylesUrl(stylesUrl));
   });
 
@@ -64,7 +64,7 @@ describe('dynamicStyles', () => {
     await hook(receiveBookAction);
 
     expect(loadResource).toHaveBeenCalledTimes(1);
-    expect(loadResource).toHaveBeenCalledWith(stylesUrl, undefined);
+    expect(loadResource).toHaveBeenCalledWith(stylesUrl);
     expect(dispatch).toHaveBeenCalledWith(setStylesUrl(stylesUrl));
   });
 
