@@ -281,11 +281,7 @@ describe('hooks', () => {
         push({
           params: expect.anything(),
           route: content,
-          state: {
-            bookUid: book.id,
-            bookVersion: book.version,
-            pageUid: page.id,
-          },
+          state: { },
         }, {
           hash: hit.source.elementId,
           search,
@@ -308,11 +304,7 @@ describe('hooks', () => {
         replace({
           params: expect.anything(),
           route: content,
-          state: {
-            bookUid: book.id,
-            bookVersion: book.version,
-            pageUid: page.id,
-          },
+          state: { },
         }, {
           hash: hit.source.elementId,
           search,
@@ -335,11 +327,7 @@ describe('hooks', () => {
         replace({
           params: expect.anything(),
           route: content,
-          state: {
-            bookUid: book.id,
-            bookVersion: book.version,
-            pageUid: page.id,
-          },
+          state: { },
         }, {
           search,
         })
@@ -365,11 +353,7 @@ describe('hooks', () => {
         replace({
           params: expect.anything(),
           route: content,
-          state: {
-            bookUid: book.id,
-            bookVersion: book.version,
-            pageUid: page.id,
-          },
+          state: { },
         }, {
           hash: hit2.source.elementId,
           search,

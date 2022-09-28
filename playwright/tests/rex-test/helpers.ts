@@ -8,6 +8,7 @@ import {
   userSignIn,
   webUserSignup,
   accountsUserSignOut,
+  rexUserSignout,
 } from '../../src/utilities/user'
 import { closeExtras, randomChoice, sleep } from '../../src/utilities/utilities'
 import { KsModal } from '../../src/fixtures/ksmodal'
@@ -28,4 +29,5 @@ export {
   test,
   userSignIn,
   webUserSignup,
+  rexUserSignout,
 }

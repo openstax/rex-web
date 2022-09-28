@@ -1,5 +1,5 @@
+import pick from 'lodash/fp/pick';
 import { APP_ENV } from '../../../config';
-import { getBookVersionFromUUIDSync } from '../../../gateways/createBookConfigLoader';
 import { content as contentRoute } from '../routes';
 import { Book, BookWithOSWebData, Page, Params } from '../types';
 import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archiveTreeUtils';
@@ -10,32 +10,33 @@ export function bookDetailsUrl(book: BookWithOSWebData) {
 }
 
 export const getBookPageUrlAndParams = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>,
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'loadOptions'> & Partial<{slug: string}>,
   page: Pick<Page, 'id' | 'title'>
 ) => {
   const params: Params = {
     book: getUrlParamsForBook(book),
     page: getUrlParamForPageId(book, page.id),
   };
-  const state = {
-    bookUid: book.id,
-    bookVersion: book.version,
-    pageUid: stripIdVersion(page.id),
-  };
 
-  return {params, state, url: contentRoute.getUrl(params)};
+  return {params, url: contentRoute.getUrl(params)};
 };
 
 export const getUrlParamsForBook = (
-  book: Pick<Book, 'id' | 'tree' | 'title' | 'version'> & Partial<{slug: string}>
+  book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'loadOptions'> & Partial<{slug: string}>
 ): Params['book'] => {
-  const bookVersionFromConfig = getBookVersionFromUUIDSync(book.id);
-  if ('slug' in book && book.slug && bookVersionFromConfig) {
-    return book.version === bookVersionFromConfig.defaultVersion
-      ? {slug: book.slug}
-      : {slug: book.slug, version: book.version};
+  const versionParams = pick(['contentVersion', 'archiveVersion'], book.loadOptions);
+
+  if ('slug' in book && book.slug) {
+    return {
+      ...versionParams,
+      slug: book.slug,
+    };
   } else {
-    return {uuid: book.id, version: book.version};
+    return {
+      contentVersion: book.contentVersion,
+      ...versionParams,
+      uuid: book.id,
+    };
   }
 };
 

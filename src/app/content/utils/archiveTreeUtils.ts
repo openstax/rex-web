@@ -1,14 +1,16 @@
+import { Element } from '@openstax/types/lib.dom';
 import curry from 'lodash/fp/curry';
 import flatten from 'lodash/fp/flatten';
 import { isDefined } from '../../guards';
 import { assertDefined } from '../../utils';
+import { assertNotNull } from '../../utils/assertions';
 import { isArchiveTree, isLinkedArchiveTree, isLinkedArchiveTreeSection } from '../guards';
 import {
+  ArchiveBook,
   ArchiveTree,
   ArchiveTreeNode,
   ArchiveTreeSection,
   ArchiveTreeSectionType,
-  Book,
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
@@ -123,20 +125,26 @@ interface Sections {
   next?: LinkedArchiveTreeSection | undefined;
 }
 
+export const getPrevNext = (
+  sections: LinkedArchiveTreeSection[],
+  pageId: string
+): Sections => {
+  const index = sections.findIndex(nodeMatcher(pageId));
+
+  return {
+    next: sections[index + 1],
+    prev: sections[index - 1],
+  };
+};
+
 export const prevNextBookPage = (
   book: {tree: ArchiveTree},
   pageId: string
 ): Sections => {
-  const flattenTree = findTreePages(book.tree);
-  const index = flattenTree.findIndex(nodeMatcher(pageId));
-
-  return {
-    next: flattenTree[index + 1],
-    prev: flattenTree[index - 1],
-  };
+  return getPrevNext(findTreePages(book.tree), pageId);
 };
 
-export const getTitleFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveTreeSection): string => {
+const getTitleNodeFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): Element => {
   const domNode = domParser.parseFromString(`<div id="container">${node.title}</div>`, 'text/html');
   const container = domNode.getElementById('container');
 
@@ -154,7 +162,18 @@ export const getTitleFromArchiveNode = (book: Book, node: ArchiveTree | ArchiveT
 
   if (extra) { extra.remove(); }
 
-  return container.innerHTML;
+  return container;
+};
+
+export const getTitleStringFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
+  return assertNotNull(
+    getTitleNodeFromArchiveNode(book, node).textContent,
+    `could not generate title string for node: ${book.id}:${node.id}`
+  );
+};
+
+export const getTitleFromArchiveNode = (book: ArchiveBook, node: ArchiveTree | ArchiveTreeSection): string => {
+  return getTitleNodeFromArchiveNode(book, node).innerHTML;
 };
 
 export const archiveTreeSectionIsBook = (
