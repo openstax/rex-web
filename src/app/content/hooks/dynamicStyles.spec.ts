@@ -56,9 +56,21 @@ describe('dynamicStyles', () => {
     expect(dispatch).toHaveBeenCalledWith(setStylesUrl(stylesUrl));
   });
 
-  it('fetches style in book\'s style_href field', async() => {
+  it('fetches relative style url in book\'s style_href field', async() => {
     const stylesUrl = '/apps/archive/codeversion/resources/styles/test-styles.css';
     const receiveBookAction = receiveBook(combinedBook);
+    store.dispatch(receiveBookAction);
+
+    await hook(receiveBookAction);
+
+    expect(loadResource).toHaveBeenCalledTimes(1);
+    expect(loadResource).toHaveBeenCalledWith(stylesUrl);
+    expect(dispatch).toHaveBeenCalledWith(setStylesUrl(stylesUrl));
+  });
+
+  it('fetches absolute style url in book\'s style_href field', async() => {
+    const stylesUrl = 'https://openstax.org/apps/archive/codeversion/resources/styles/test-styles.css';
+    const receiveBookAction = receiveBook({...combinedBook, style_href: stylesUrl});
     store.dispatch(receiveBookAction);
 
     await hook(receiveBookAction);

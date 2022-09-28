@@ -22,7 +22,7 @@ describe('DynamicContentStyles', () => {
   });
 
   it('sets styles and data-dynamic-style if stylesUrl is in the store and styles are cached', async() => {
-    store.dispatch(setStylesUrl('../resources/styles/test-styles.css'));
+    store.dispatch(setStylesUrl('/apps/archive/codeversion/resources/styles/test-styles.css'));
 
     const component = renderer.create(<TestContainer store={store}>
       <Component book={book} />
@@ -44,10 +44,22 @@ describe('DynamicContentStyles', () => {
   });
 
   it('does not set styles and data-dynamic-style if disable is passed', async() => {
-    store.dispatch(setStylesUrl('styles/test-style.css'));
+    store.dispatch(setStylesUrl('/apps/archive/codeversion/resources/styles/test-styles.css'));
 
     const component = renderer.create(<TestContainer store={store}>
       <Component book={book} disable={true} />
+    </TestContainer>);
+
+    const withStyles = component.root.findByType(WithStyles);
+    expect(withStyles.props.styles).toEqual('');
+    expect(withStyles.props['data-dynamic-style']).toBe(false);
+  });
+
+  it('does not set styles and data-dynamic-style if style is not cached', async() => {
+    store.dispatch(setStylesUrl('/apps/archive/codeversion/resources/styles/uncached-styles.css'));
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
     </TestContainer>);
 
     const withStyles = component.root.findByType(WithStyles);

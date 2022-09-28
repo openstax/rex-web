@@ -72,7 +72,7 @@ const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
 };
 
 const resources: {[key: string]: string} = {
-  ['../resources/styles/test-styles.css']: '.cool { color: red; }',
+    '/apps/archive/codeversion/resources/styles/test-styles.css': '.cool { color: red; }',
 };
 
 export default () => {
@@ -98,7 +98,7 @@ export default () => {
   };
 
   const resolveResource = (resourceId: string) => {
-    return localResources[resourceId];
+    return localResources[resourceId.replace('https://openstax.org', '')];
   };
 
   const loadBook = jest.fn(async(bookId: string, options: ArchiveLoadOptions) => {
@@ -111,10 +111,11 @@ export default () => {
   const loadPage = jest.fn(async(bookId, bookVersion, pageId) => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     const pageData = pages && pages[pageId];
-    return pageData ? Promise.resolve(pageData) : Promise.reject();
+    return pageData ? Promise.resolve(pageData) : Promise.reject(new Error(`failed to load page data ${pageId}`));
   });
   const loadResource = jest.fn(async(resourceId: string) => {
-    return Promise.resolve(resolveResource(resourceId));
+    const resourceData = resolveResource(resourceId);
+    return resourceData ? Promise.resolve(resourceData) : Promise.reject(new Error(`failed to load resource data ${resourceId}`));
   });
   const cachedBook = jest.fn((bookId: string, options: ArchiveLoadOptions) => {
     return resolveBook(bookId, options);

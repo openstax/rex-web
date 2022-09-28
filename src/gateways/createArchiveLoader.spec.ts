@@ -262,6 +262,13 @@ describe('archiveLoader', () => {
         expect(fetch).toHaveBeenCalledWith('/test/archive/resources/coolid');
       });
 
+      it('works with absolute urls', () => {
+        const booksConfig = {archiveUrl: '/test/archive', books: {coolid: {defaultVersion: 'version'}}};
+        const url = 'https://openstax.org/apps/archive/codeversion/resources/coolid';
+        createArchiveLoader().resource(url, {booksConfig}).load();
+        expect(fetch).toHaveBeenCalledWith(url);
+      });
+
       it('returns cached resource data', async() => {
         (global as any).fetch = mockFetch(200, {version: 'version', id: 'coolid'});
         const archiveLoader = createArchiveLoader();

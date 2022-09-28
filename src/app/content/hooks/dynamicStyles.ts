@@ -3,16 +3,16 @@ import { query as querySelector } from '../../navigation/selectors';
 import { ActionHookBody, AppServices } from '../../types';
 import { receiveBook, setStylesUrl } from '../actions';
 import { book as bookSelector, loadingBook as loadingBookSelector } from '../selectors';
-import { State } from '../types';
+import { Book } from '../types';
 import { fromRelativeUrl, isAbsoluteUrl } from '../utils/urlUtils';
 
 const getCssFileUrl = (
-  queryParams: OutputParams, book: State['book'], archiveLoader: AppServices['archiveLoader']
+  queryParams: OutputParams, book: Book, archiveLoader: AppServices['archiveLoader']
 ) => {
   // The type of queryParams['content-style'] could also be string[] but we don't want that
   if (queryParams['content-style'] && typeof queryParams['content-style'] === 'string') {
     return queryParams['content-style'];
-  } else if (book) {
+  } else {
     const dynamicStylesEnabled = book.loadOptions.booksConfig.books[book.id]?.dynamicStyles;
 
     if (dynamicStylesEnabled && book.style_href) {
