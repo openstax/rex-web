@@ -1,23 +1,20 @@
 import isEqual from 'lodash/fp/isEqual';
-import once from 'lodash/fp/once';
 import { APP_ENV, UNLIMITED_CONTENT } from '../../../../config';
-import { getBookVersionFromUUIDSync } from '../../../../gateways/createBookConfigLoader';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../../types';
 import { BookNotFoundError } from '../../../utils';
-import { assertDefined } from '../../../utils/assertions';
 import { receiveBook, receivePage, receivePageNotFoundId, requestBook, requestPage } from '../../actions';
 import { hasOSWebData } from '../../guards';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { ArchivePage, Book, PageReferenceError, PageReferenceMap } from '../../types';
+import { ArchiveLoadOptions, ArchivePage, Book, PageReferenceError, PageReferenceMap } from '../../types';
 import {
   formatBookData,
   getContentPageReferences,
   getIdFromPageParam,
   getPageIdFromUrlParam,
 } from '../../utils';
-import { archiveTreeContainsNode, archiveTreeSectionIsBook } from '../../utils/archiveTreeUtils';
+import { archiveTreeContainsNode } from '../../utils/archiveTreeUtils';
 import { processBrowserRedirect } from '../../utils/processBrowserRedirect';
 import { getUrlParamForPageId, getUrlParamsForBook } from '../../utils/urlUtils';
 
@@ -25,7 +22,7 @@ export default async(
   services: AppServices & MiddlewareAPI,
   match: Match<typeof content>
 ) => {
-  const [book, loader] = await resolveBook(services, match).catch(async(e) => {
+  const [book, loader] = await resolveBook(services, match.params.book).catch(async(e) => {
     // if we have any problems loading the requested book, check for a redirect
     // error is only thrown when the redirect isn't found
     if (!(e instanceof BookNotFoundError) || !(await processBrowserRedirect(services))) {
@@ -49,105 +46,93 @@ export default async(
 
 const getBookResponse = async(
   osWebLoader: AppServices['osWebLoader'],
-  archiveLoader: AppServices['archiveLoader'],
-  loader: ReturnType<AppServices['archiveLoader']['book']>,
-  bookSlug?: string
+  loader: ReturnType<AppServices['archiveLoader']['book']>
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]>  => {
-  const osWebBook = bookSlug ? await osWebLoader.getBookFromSlug(bookSlug) : undefined;
   const archiveBook = await loader.load();
+  const osWebBook = await osWebLoader.getBookFromId(archiveBook.id);
   const newBook = formatBookData(archiveBook, osWebBook);
 
-  return [newBook, archiveLoader.book(newBook.id, newBook.version)];
+  return [newBook, loader];
 };
 
-const resolveBook = async(
+export const resolveBook = async(
   services: AppServices & MiddlewareAPI,
-  match: Match<typeof content>
+  bookParam: Match<typeof content>['params']['book']
 ): Promise<[Book, ReturnType<AppServices['archiveLoader']['book']>]> => {
   const {dispatch, getState, archiveLoader, osWebLoader} = services;
-  const [bookSlug, bookId, bookVersion] = await resolveBookReference(services, match);
+  const {bookId, ...loadOptions} = await resolveBookReference(services, bookParam);
 
-  const loader = archiveLoader.book(bookId, bookVersion);
+  const loader = archiveLoader.book(bookId, loadOptions);
   const state = getState();
   const bookState = select.book(state);
-  const book = bookState && bookState.id === bookId ? bookState : undefined;
+
+  const book = bookState && bookState.id === bookId && isEqual(bookState.loadOptions, loadOptions)
+    ? bookState
+    : undefined;
 
   if (book) {
     return [book, loader];
   }
 
-  if (!isEqual((match.params.book), select.loadingBook(state))) {
-    dispatch(requestBook(match.params.book));
-    const response = await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
+  if (!isEqual(bookParam, select.loadingBook(state))) {
+    dispatch(requestBook(bookParam));
+    const response = await getBookResponse(osWebLoader, loader);
     dispatch(receiveBook(response[0]));
     return response;
   } else {
-    return await getBookResponse(osWebLoader, archiveLoader, loader, bookSlug);
+    return await getBookResponse(osWebLoader, loader);
   }
 };
 
 export const resolveBookReference = async(
   services: AppServices & MiddlewareAPI,
-  match: Match<typeof content>
-): Promise<[string | undefined, string, string]> => {
+  bookParam: Match<typeof content>['params']['book']
+): Promise<ArchiveLoadOptions & {bookId: string}> => {
   const {osWebLoader, bookConfigLoader, getState} = services;
   const state = getState();
   const currentBook = select.book(state);
 
-  const bookSlug = 'slug' in match.params.book
-    ? match.params.book.slug
-    : currentBook && hasOSWebData(currentBook) && currentBook.id === match.params.book.uuid
-      ? currentBook.slug
-      : await osWebLoader.getBookSlugFromId(match.params.book.uuid);
+  const bookId  = 'uuid' in bookParam
+    ? bookParam.uuid
+    : currentBook && hasOSWebData(currentBook) && currentBook.slug === bookParam.slug
+      ? currentBook.id
+      : await osWebLoader.getBookIdFromSlug(bookParam.slug);
 
-  if (match.state && 'bookUid' in match.state && match.state.bookVersion) {
-    return [bookSlug, match.state.bookUid,  match.state.bookVersion];
+  if (!bookId) {
+    throw new BookNotFoundError(`Could not resolve uuid for params: ${JSON.stringify(bookParam)}`);
   }
 
-  const bookUid  = 'uuid' in match.params.book
-    ? match.params.book.uuid
-    : match.state && 'bookUid' in match.state
-      ? match.state.bookUid
-      : currentBook && hasOSWebData(currentBook) && currentBook.slug === match.params.book.slug
-        ? currentBook.id
-        : await osWebLoader.getBookIdFromSlug(match.params.book.slug);
+  const booksConfig = await bookConfigLoader.getOrReloadConfigForBook(bookId);
 
-  if (!bookUid) {
-    throw new BookNotFoundError(`Could not resolve uuid for slug: ${bookSlug}`);
+  const contentVersion = 'contentVersion' in bookParam
+    ? bookParam.contentVersion
+    : undefined;
+
+  const archiveVersion = 'archiveVersion' in bookParam
+    ? bookParam.archiveVersion
+    : undefined;
+
+  // extra logic here to bail on retired books before even trying to load them.
+  if (!UNLIMITED_CONTENT && booksConfig.books[bookId]?.retired) {
+    throw new BookNotFoundError(`tried to load retired book: ${bookId}`);
   }
 
-  // depending on the type of route match, this might get called 0, 1, or 2 times, so
-  // we don't want to pre-fetch it unnecessarily and we don't want to double tap it twice
-  // in a row, so we leave it as a function and use `once` here.
-  const getBookConfig = once(() => bookConfigLoader.getBookVersionFromUUID(bookUid));
-
-  const bookVersion = 'version' in match.params.book
-    ? match.params.book.version
-    : match.state && 'bookVersion' in match.state
-      ? match.state.bookVersion
-      : assertDefined(await getBookConfig(),
-        `BUG: ${bookSlug} (${bookUid}) is not in BOOKS configuration`
-      ).defaultVersion;
-
-  if (!UNLIMITED_CONTENT && (await getBookConfig())?.retired) {
-    throw new BookNotFoundError(`tried to load retired book: ${bookSlug}`);
-  }
-
-  if (!bookVersion) {
-    throw new BookNotFoundError(`Could not resolve version for book: ${bookUid}`);
-  }
-
-  return [bookSlug, bookUid, bookVersion];
+  return {
+    ...(archiveVersion !== undefined ? {archiveVersion} : {}),
+    ...(contentVersion !== undefined ? {contentVersion} : {}),
+    bookId,
+    booksConfig,
+  };
 };
 
-const loadPage = async(
+export const loadPage = async(
   services: AppServices & MiddlewareAPI,
-  match: Match<typeof content>,
+  pageParam: Match<typeof content>['params']['page'],
   book: Book,
   bookLoader: ReturnType<AppServices['archiveLoader']['book']>,
   pageId: string
 ) => {
-  services.dispatch(requestPage(match.params.page));
+  services.dispatch(requestPage(pageParam));
   return await bookLoader.page(pageId).load()
     .then(loadContentReferences(services, book))
     .then((pageData) => services.dispatch(receivePage(pageData)) && pageData)
@@ -162,9 +147,7 @@ const resolvePage = async(
 ) => {
   const {dispatch, getState} = services;
   const state = getState();
-  const pageId = match.state && 'pageUid' in match.state
-    ? match.state.pageUid
-    : getPageIdFromUrlParam(book, match.params.page);
+  const pageId = getPageIdFromUrlParam(book, match.params.page);
 
   if (!pageId) {
     dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
@@ -176,43 +159,26 @@ const resolvePage = async(
   if (pageState && pageState.id === pageId) {
     return pageState;
   } else if (!isEqual(loadingPage, match.params.page)) {
-    return await loadPage(services, match, book, bookLoader, pageId);
+    return await loadPage(services, match.params.page, book, bookLoader, pageId);
   }
-};
-
-const getInputReferenceInfo = (bookId: string, inputVersion?: string) => {
-  const bookVersionFromConfig = getBookVersionFromUUIDSync(bookId);
-  const defaultVersion = bookVersionFromConfig && bookVersionFromConfig.defaultVersion;
-  const bookVersion = inputVersion ? inputVersion : defaultVersion;
-  return {bookId, bookVersion};
 };
 
 export const getBookInformation = async(
+  sourceBook: Book,
   services: AppServices & MiddlewareAPI,
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
-  const { bookId, bookVersion } = getInputReferenceInfo(reference.bookId, reference.bookVersion);
-
-  if (!bookVersion && UNLIMITED_CONTENT) {
-    return undefined;
-  }
-
-  const osWebBook =  await services.osWebLoader.getBookFromId(bookId);
-
-  if (!bookVersion) {
-    throw new Error(`book version wasn't specified for book ${bookId}`);
-  }
-
-  const archiveBook = await services.archiveLoader.book(bookId, bookVersion)
-    .load()
+  const osWebBook =  await services.osWebLoader.getBookFromId(reference.bookId);
+  const archiveBook = await services.archiveLoader.fromBook(sourceBook, reference.bookId).load()
     .catch((e) => {
       if (UNLIMITED_CONTENT) {
         return undefined;
       }
+
       throw e;
     });
 
-  if (archiveBook && archiveTreeSectionIsBook(archiveBook.tree)) {
+  if (archiveBook) {
     return {osWebBook, archiveBook};
   }
 
@@ -225,21 +191,17 @@ export const resolveExternalBookReference = async(
   page: ArchivePage,
   reference: ReturnType<typeof getContentPageReferences>[number]
 ) => {
-  const bookInformation = await getBookInformation(services, reference);
+  const bookInformation = await getBookInformation(book, services, reference);
 
-  // Don't throw an error if reference couldn't be loaded when UNLIMITED_CONTENT is truthy
-  // It will be processed in contentLinkHandler.ts
-  if (UNLIMITED_CONTENT && !bookInformation) {
+  // Don't throw an error if reference couldn't be loaded, it will be processed in contentLinkHandler.ts
+  // this only happens when UNLIMITED_CONTENT is truthy
+  if (!bookInformation) {
     return bookInformation;
   }
 
   const error = (message: string) => new Error(
     `BUG: "${book.title} / ${page.title}" referenced "${reference.pageId}", ${message}`
   );
-
-  if (!bookInformation) {
-    throw error('but it could not be found in any configured books.');
-  }
 
   const referencedBook = formatBookData(bookInformation.archiveBook, bookInformation.osWebBook);
 
@@ -272,11 +234,6 @@ export const loadContentReference = async(
     params: {
       book: getUrlParamsForBook(targetBook),
       page: getUrlParamForPageId(targetBook, reference.pageId),
-    },
-    state: {
-      bookUid: targetBook.id,
-      bookVersion: targetBook.version,
-      pageUid: reference.pageId,
     },
   };
 };

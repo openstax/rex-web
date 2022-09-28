@@ -63,7 +63,7 @@ describe('ContentLink', () => {
       expect(dispatch).toHaveBeenCalledWith(push({
         params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
-        state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
+        state: { },
       }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
@@ -83,11 +83,7 @@ describe('ContentLink', () => {
       expect(dispatch).toHaveBeenCalledWith(push({
         params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
-        state: {
-          bookUid: 'testbook1-uuid',
-          bookVersion: '1.0',
-          pageUid: 'testbook1-testpage1-uuid',
-        },
+        state: { },
       }, { search: 'query=asdf' }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
@@ -107,11 +103,7 @@ describe('ContentLink', () => {
       expect(dispatch).toHaveBeenCalledWith(push({
         params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
-        state: {
-          bookUid: 'testbook1-uuid',
-          bookVersion: '1.0',
-          pageUid: 'testbook1-testpage1-uuid',
-        },
+        state: { },
       }, { search: `query=${mockSearch.query}` }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
@@ -134,11 +126,7 @@ describe('ContentLink', () => {
       expect(dispatch).toHaveBeenCalledWith(push({
         params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
-        state: {
-          bookUid: 'testbook1-uuid',
-          bookVersion: '1.0',
-          pageUid: 'testbook1-testpage1-uuid',
-        },
+        state: { },
       }, {
         hash: `#${scrollTarget.elementId}`,
         search: queryString.stringify({
@@ -161,7 +149,7 @@ describe('ContentLink', () => {
       expect(dispatch).toHaveBeenCalledWith(push({
         params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
-        state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
+        state: { },
       }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
@@ -177,7 +165,7 @@ describe('ContentLink', () => {
       expect(dispatch).toHaveBeenCalledWith(push({
         params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
         route: content,
-        state: { bookUid: 'testbook1-uuid', bookVersion: '1.0', pageUid: 'testbook1-testpage1-uuid' },
+        state: { },
       }));
       expect(event.preventDefault).toHaveBeenCalled();
       expect(clickSpy).toHaveBeenCalled();

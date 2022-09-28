@@ -16,6 +16,7 @@ import {
   getArchiveTreeSectionNumber,
   getArchiveTreeSectionTitle,
   getArchiveTreeSectionType,
+  getTitleStringFromArchiveNode,
   nodeHasId,
   splitTitleParts,
 } from './archiveTreeUtils';
@@ -216,5 +217,13 @@ describe('nodeHasId', () => {
 
   it('return false if node does not have id', () => {
     expect(nodeHasId('some-id', node)).toEqual(false);
+  });
+});
+
+describe('getTitleStringFromArchiveNode', () => {
+  it('gets a string', () => {
+    expect(getTitleStringFromArchiveNode(book, makeArchiveSection(
+      '<span class="os-number">4</span> <span class="os-text">foobar</span>'
+    ))).toBe('4 foobar');
   });
 });

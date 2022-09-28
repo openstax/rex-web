@@ -1,5 +1,6 @@
+import { BooksConfig } from '../../gateways/createBookConfigLoader';
 import { BuyPrintResponse } from '../../gateways/createBuyPrintConfigLoader';
-import { Route, RouteParams, RouteState } from '../navigation/types';
+import { Route, RouteParams } from '../navigation/types';
 import { TextResizerValue } from './constants';
 import { State as HighlightState } from './highlights/types';
 import { State as PracticeQuestionsState } from './practiceQuestions/types';
@@ -21,32 +22,25 @@ export type SystemQueryParams = {
 export type SlugParams = {
   slug: string;
 };
-type VersionedSlugParams = SlugParams & {
-  version: string;
+export type VersionParams = {
+  contentVersion: string;
+  archiveVersion?: string;
 };
+type VersionedSlugParams = SlugParams & VersionParams;
 
 export type UuidParams = {
   uuid: string;
 };
-type VersionedUuidParams = UuidParams & {
-  version: string;
-};
+type VersionedUuidParams = UuidParams & VersionParams;
 
 // Really could be ContentParams, but the content route is currently the only route in Rex
 export type Params = {
-  book: SlugParams | VersionedSlugParams | VersionedUuidParams;
+  book: SlugParams | VersionedSlugParams | VersionedUuidParams | UuidParams;
   page: SlugParams | UuidParams;
 };
 
-export type ContentRouteState = {
-  bookUid: string;
-  bookVersion: string;
-  pageUid: string;
-};
+export type ContentRoute = Route<Params>;
 
-export type ContentRoute = Route<Params, {} | ContentRouteState>;
-
-// Not related to ContentRouteState above
 export interface State {
   tocOpen: boolean | null;
   mobileMenuOpen: boolean;
@@ -75,11 +69,10 @@ export interface PageReferenceError {
 }
 
 export interface PageReference {
-  state: RouteState<typeof content>;
   params: RouteParams<typeof content>;
 }
 
-export interface BookWithOSWebData extends ArchiveBook {
+export interface BookWithOSWebData extends VersionedArchiveBookWithConfig {
   book_state: 'coming_soon' | 'deprecated' | 'live' | 'new_edition_available' | 'retired';
   theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'orange' | 'red';
   slug: string;
@@ -102,7 +95,7 @@ export interface BookWithOSWebData extends ArchiveBook {
   }>;
 }
 
-export type Book = BookWithOSWebData | ArchiveBook;
+export type Book = BookWithOSWebData | VersionedArchiveBookWithConfig;
 
 export interface Page {
   abstract: string | null;
@@ -149,6 +142,16 @@ export interface ArchiveBook {
   revised: string;
   style_href?: string;
 }
+
+export interface ArchiveLoadOptions {
+  contentVersion?: string;
+  archiveVersion?: string;
+  booksConfig: BooksConfig;
+}
+
+export type VersionedArchiveBookWithConfig = ArchiveBook & Required<VersionParams> & {
+  loadOptions: ArchiveLoadOptions;
+};
 
 export interface ArchivePage {
   abstract: string | null;

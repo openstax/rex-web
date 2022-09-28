@@ -1,16 +1,17 @@
-import { locationChange } from '../../../navigation/actions';
+import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
-import { loadHighlights } from '../../highlights/hooks';
+import { assertString } from '../../../utils/assertions';
 import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
-import { content } from '../../routes';
+import { assigned, content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
 import { loadStudyGuides } from '../../studyGuides/hooks';
 import initializeIntl from '../intlHook';
 import registerPageView from '../registerPageView';
 import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent from './resolveContent';
+import { resolveBook } from './resolveContent';
 
-const hookBody: RouteHookBody<typeof content> = (services) => {
+export const contentRouteHookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
 
   return async(action) => {
@@ -24,7 +25,6 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
       boundRegisterPageView(action),
       syncSearch(services)(action),
       loadBuyPrintConfig(services)(),
-      loadHighlights(services)(locationChange(action)),
       loadStudyGuides(services)(),
       loadPracticeQuestions(services)(),
       initializeIntl(services)(),
@@ -32,4 +32,17 @@ const hookBody: RouteHookBody<typeof content> = (services) => {
   };
 };
 
-export default hookBody;
+export const assignedRouteHookBody: RouteHookBody<typeof assigned> = (services) => {
+  const boundRegisterPageView = registerPageView(services);
+
+  return async(action) => {
+    const query = selectNavigation.query(services.getState());
+
+    await resolveBook(services, {uuid: assertString(query.book, 'book must be a string')});
+
+    await Promise.all([
+      boundRegisterPageView(action),
+      initializeIntl(services)(),
+    ]);
+  };
+};

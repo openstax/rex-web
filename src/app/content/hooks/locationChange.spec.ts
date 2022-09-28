@@ -14,34 +14,40 @@ import { SlugParams } from '../types';
 import { formatBookData } from '../utils';
 
 const mockBook = {...book, id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c', version: '29.7'};
+let store: Store;
+let dispatch: jest.SpyInstance;
+let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+let intlHook: typeof import ('./intlHook');
+let mockBookConfig: {[key: string]: {defaultVersion: string}};
+let contentHook: typeof import ('./locationChange/resolveContent');
 
-const mockBookConfig = {
- [book.id]: {defaultVersion: book.version},
- [mockBook.id]: {defaultVersion: mockBook.version},
-} as {[key: string]: {defaultVersion: string}};
+beforeEach(() => {
+  resetModules();
+  store = createTestStore();
 
-jest.doMock('../../../config.books', () => mockBookConfig);
+  helpers = {
+    ...createTestServices(),
+    dispatch: store.dispatch,
+    getState: store.getState,
+  };
 
-describe('locationChange', () => {
-  let store: Store;
-  let dispatch: jest.SpyInstance;
-  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  mockBookConfig = {
+   [book.id]: {defaultVersion: book.version},
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  };
+
+  Object.assign(helpers.bookConfigLoader.localBookConfig, mockBookConfig);
+  dispatch = jest.spyOn(helpers, 'dispatch');
+  contentHook = require('./locationChange/resolveContent');
+  intlHook = require('./intlHook');
+});
+
+describe('contentRouteHookBody', () => {
   let payload: {location: Location, match: Match<typeof routes.content>};
-  let hook = require('./locationChange').default;
-  let contentHook: typeof import ('./locationChange/resolveContent');
-  let intlHook: typeof import ('./intlHook');
+  let hook = require('./locationChange').contentRouteHookBody;
 
   beforeEach(() => {
-    resetModules();
-    store = createTestStore();
-
-    helpers = {
-      ...createTestServices(),
-      dispatch: store.dispatch,
-      getState: store.getState,
-    };
-
-    dispatch = jest.spyOn(helpers, 'dispatch');
+    helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(book.id));
 
     payload = {
       location: {} as Location,
@@ -59,25 +65,33 @@ describe('locationChange', () => {
       },
     };
 
-    hook = (require('./locationChange').default)(helpers);
-    contentHook = require('./locationChange/resolveContent');
-    intlHook = require('./intlHook');
+    hook = (require('./locationChange').contentRouteHookBody)(helpers);
   });
 
   it('loads book', async() => {
+    helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(book.id));
     await hook(payload);
     expect(dispatch).toHaveBeenCalledWith(actions.requestBook({slug: 'book-slug-1'}));
-    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
+    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', expect.objectContaining({
+      booksConfig: expect.anything(),
+    }));
   });
 
   it('doesn\'t load book if its already loaded', async() => {
-    store.dispatch(receiveBook(formatBookData(book, {...mockCmsBook, meta: {slug: 'book'}})));
+    helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(book.id));
+    store.dispatch(receiveBook(formatBookData(
+      {...book, loadOptions: {
+        booksConfig: helpers.bookConfigLoader.localBookAndArchiveConfig,
+      }},
+      {...mockCmsBook, meta: {slug: 'book-slug-1'}}))
+    );
     await hook(payload);
-    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook({slug: 'book'}));
+    expect(dispatch).not.toHaveBeenCalledWith(actions.requestBook({slug: 'book-slug-1'}));
     expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
   });
 
   it('loads page', async() => {
+    helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(book.id));
     await hook(payload);
     expect(dispatch).toHaveBeenCalledWith(actions.requestPage({slug: 'test-page-1'}));
     expect(helpers.archiveLoader.mock.loadPage)
@@ -85,6 +99,7 @@ describe('locationChange', () => {
   });
 
   it('doesn\'t load page if its already loaded', async() => {
+    helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(book.id));
     store.dispatch(receivePage({...page, references: []}));
 
     await hook(payload);
@@ -94,37 +109,21 @@ describe('locationChange', () => {
     expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalledWith('pagelongid', expect.anything());
   });
 
-  it('loads more specific data when available', async() => {
-    payload.match.state = {
-      bookUid: 'testbook1-uuid',
-      bookVersion: '1.0',
-      pageUid: 'testbook1-testpage1-uuid',
-    };
-
-    await hook(payload);
-    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', '1.0');
-    expect(helpers.archiveLoader.mock.loadPage)
-      .toHaveBeenCalledWith('testbook1-uuid', '1.0', 'testbook1-testpage1-uuid');
-  });
-
   it('loads a page with a content reference', async() => {
+    helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(book.id));
     helpers.archiveLoader.mockBook(mockBook);
-    helpers.archiveLoader.mockPage(mockBook, {
+    helpers.archiveLoader.mockPage(book, {
       abstract: '',
       // tslint:disable-next-line: max-line-length
       content: `some <a href="./${mockBook.id}@${mockBook.version}:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> content`,
       id: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       revised: '2018-07-30T15:58:45Z',
-      slug: 'mock-slug',
+      slug: 'rando-page',
       title: 'qwerqewrqwer',
     }, 'rando-page');
 
-    (payload.match.params.page as SlugParams).slug = 'rando-page';
-
-    payload.match.state = {
-      bookUid: mockBook.id,
-      bookVersion: mockBook.version,
-      pageUid: '99d38770-49c7-49d3-b567-88f393ffb4fe',
+    payload.match.params.page = {
+      slug: 'rando-page',
     };
 
     await hook(payload);
@@ -138,11 +137,6 @@ describe('locationChange', () => {
         page: {
           slug: 'rando-page',
         },
-      },
-      state: {
-        bookUid: mockBook.id,
-        bookVersion: mockBook.version,
-        pageUid: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       },
     }]})}));
   });
@@ -184,6 +178,7 @@ describe('locationChange', () => {
   describe('cross book references', () => {
     const mockOtherBook = {
       abstract: '',
+      contentVersion: '0',
       id: '13ac107a-f15f-49d2-97e8-60ab2e3other',
       language: 'en',
       license: {name: '', version: '', url: ''},
@@ -218,34 +213,30 @@ describe('locationChange', () => {
       publish_date: '2012-06-21',
     };
 
-    mockBookConfig[mockOtherBook.id] = {defaultVersion: mockOtherBook.version};
-    jest.doMock('../../../config.books', () => mockBookConfig);
-
     beforeEach(() => {
-      helpers.archiveLoader.mockBook(mockBook);
       helpers.archiveLoader.mockBook(mockOtherBook);
       helpers.archiveLoader.mockPage(mockOtherBook, mockPageInOtherBook, 'page-in-a-new-book');
 
+      helpers.bookConfigLoader.localBookConfig[mockOtherBook.id] = {defaultVersion: mockOtherBook.version};
+
+      helpers.archiveLoader.mockBook(mockBook);
       helpers.archiveLoader.mockPage(mockBook, {
         abstract: '',
         // tslint:disable-next-line: max-line-length
         content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.version}:${mockPageInOtherBook.id}.xhtml"></a> content`,
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
-        slug: 'mock-slug',
+        slug: 'page-referencing-different-book',
         title: 'page referencing different book',
       }, 'page-referencing-different-book');
 
-      (payload.match.params.page as SlugParams).slug = 'page referencing different book';
-
-      payload.match.state = {
-        bookUid: mockBook.id,
-        bookVersion: mockBook.version,
-        pageUid: 'pageid',
+      payload.match.params.page = {
+        slug: 'page-referencing-different-book',
       };
     });
 
     it('load', async() => {
+      helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(mockBook.id));
       helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
 
       await hook(payload);
@@ -262,41 +253,7 @@ describe('locationChange', () => {
             slug: 'page-in-a-new-book',
           },
         },
-        state: {
-          bookUid: mockOtherBook.id,
-          bookVersion: mockOtherBook.version,
-          pageUid: mockPageInOtherBook.id,
-        },
       }]})}));
-    });
-
-    it('error when archive returend book without valid tree', async() => {
-      helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
-      const garbageBook = { ...mockOtherBook, id: '13ac107a-f15f-49d2-97e8-garbageother', tree: null } as any;
-      helpers.archiveLoader.mockBook(garbageBook);
-      helpers.archiveLoader.mock.loadPage.mockResolvedValue({
-        abstract: '',
-        // tslint:disable-next-line: max-line-length
-        content: `some <a href="./${garbageBook.id}@${garbageBook.version}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
-        id: 'pageid',
-        revised: '2018-07-30T15:58:45Z',
-        slug: 'mock-slug',
-        title: 'this page has cross link that directs to missing page',
-      });
-
-      let message: string | undefined;
-
-      try {
-        await hook(payload);
-      } catch (e) {
-        message = e.message;
-      }
-
-      expect(message).toEqual(
-        'BUG: "Test Book 1 / this page has cross link that directs to missing page"'
-        + ' referenced "thisiddoes-not7-exis-t567-88f393fother"'
-        + ', but it could not be found in any configured books.'
-      );
     });
 
     it('error when archive returns a book that doesn\'t actually contain the page', async() => {
@@ -304,7 +261,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mock.loadPage.mockResolvedValue({
         abstract: '',
         // tslint:disable-next-line: max-line-length
-        content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.version}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
+        content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.contentVersion}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
         slug: 'mock-slug',
@@ -325,5 +282,48 @@ describe('locationChange', () => {
         + `, archive thought it would be in "${mockOtherBook.id}", but it wasn't`
       );
     });
+  });
+});
+
+describe('assignedRouteHookBody', () => {
+  let payload: {location: Location, match: Match<typeof routes.assigned>};
+  let hook = require('./locationChange').assignedRouteHookBody;
+  let selectQuerySpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    payload = {
+      location: {} as Location,
+      match: {
+        params: {
+          activityId: 'cool reading',
+        },
+        route: routes.assigned,
+        state: {},
+      },
+    };
+
+    selectQuerySpy = jest.spyOn(require('../../navigation/selectors'), 'query');
+
+    selectQuerySpy.mockReturnValue({book: 'testbook1-uuid'});
+
+    hook = (require('./locationChange').assignedRouteHookBody)(helpers);
+  });
+
+  it('loads book', async() => {
+    await hook(payload);
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({uuid: 'testbook1-uuid'}));
+    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', expect.objectContaining({
+      booksConfig: expect.anything(),
+    }));
+  });
+
+  it('calls intl', async() => {
+    const intlSpy = jest.spyOn(intlHook, 'default');
+    await hook(payload);
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({uuid: 'testbook1-uuid'}));
+    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', expect.objectContaining({
+      booksConfig: expect.anything(),
+    }));
+    expect(intlSpy).toHaveBeenCalled();
   });
 });

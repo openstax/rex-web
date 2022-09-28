@@ -162,7 +162,10 @@ describe('setHead hook', () => {
     it('dispatches sethead with robots:noindex tag if book is not default', async() => {
       store.dispatch(receiveBook({
         ...combinedBook,
-        version: 'somerandoversion',
+        loadOptions: {
+          ...combinedBook.loadOptions,
+          contentVersion: 'rando',
+        },
       }));
       store.dispatch(receivePage({
         ...page,
