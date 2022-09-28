@@ -72,11 +72,17 @@ async function accountsUserSignup(page: Page, url = '', student: Student = new S
   return student
 }
 
-async function rexUserSignup(page: Page, url: string, student: Student = new Student()): Promise<Student> {
+async function rexUserSignup(page: Page, url?: string, student: Student = new Student()): Promise<Student> {
   /* istanbul ignore else */
   if (url) await page.goto(url)
   await page.click('[data-testid="nav-login"]')
-  return accountsUserSignup(page, null, student)
+  await accountsUserSignup(page, null, student)
+  await closeExtras(page)
+}
+
+async function rexUserSignout(page: Page) {
+  await page.click('[data-testid="user-nav-toggle"]')
+  await Promise.all([page.click('text=Log out'), page.waitForNavigation()])
 }
 
 async function userSignIn(page: Page, student: Student): Promise<Student> {
@@ -107,4 +113,4 @@ async function webUserSignup(
   return accountsUserSignup(page, null, student)
 }
 
-export { Student, accountsUserSignOut, accountsUserSignup, rexUserSignup, userSignIn, webUserSignup }
+export { Student, accountsUserSignOut, accountsUserSignup, rexUserSignup, userSignIn, webUserSignup, rexUserSignout }

@@ -30,7 +30,7 @@ const SearchResultHits = ({
 
   React.useEffect(() => {
     const keyTermsHits = hits.filter(isKeyTermHit);
-    const loader = archiveLoader.book(book.id, book.version);
+    const loader = archiveLoader.forBook(book);
 
     const getKeyTermsPages = async() => {
       keyTermsHits.forEach(async(hit) => {

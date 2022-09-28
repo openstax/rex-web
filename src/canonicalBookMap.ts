@@ -288,6 +288,9 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* Introductory Business Statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': [
     /* Introductory Statistics */ ['30189442-6998-4686-ac05-ed152b91b9de', {}],
   ],
+  /* Introducción a la estadística empresarial */ 'f346fe75-ae39-4d11-ad32-d80c03df58cb': [
+    /* Introducción a la estadística */ ['e53d6c8b-fd9e-4a28-8930-c564ca6fd77d', {}],
+  ],
   /* Chemistry: Atoms First 2e */ 'd9b85ee6-c57f-4861-8208-5ddf261e9c5f' : [
     /* Chemistry 2e */ ['7fccc9cf-9b71-44f6-800b-f9457fd64335', {
       /* Preface to the same module in 2e */
@@ -348,6 +351,66 @@ export const CANONICAL_MAP: CanonicalBookMap = {
       '40651eeb-28e7-4577-9bf7-d42282ec6ae5': 'a6400a57-a040-4768-8222-61705d4fff83',
     }],
   ],
+  /* Química: Comenzando con los átomos 2ed */ '9702782f-fd50-4310-92ac-d29d39065419' : [
+    /* Química 2ed */ ['462aa3f1-d65d-4cd9-a5ee-3214f95769b8', {
+      /* Prefacio to the same module in 2ed */
+      '541d7d79-a70e-42c2-b765-d55586648390': '138634ed-6ed0-4edb-b13d-b78d388028b0',
+      /* 2.0 Introducción to the same module in 2ed */
+      '1cb2b2cb-c17a-4cee-b972-13ebc03f7627': 'b49c3d38-7dfb-4979-ba45-12fdd44f2cc8',
+      /* 2.1 Las primeras ideas de la teoría atómica to the same module in 2ed */
+      'ebfab4d3-9644-41b8-80fc-a67ba47c0f57': '3c9c47d2-06f5-42b3-ba17-2248cc3dd7a9',
+      /* 2.2 Evolución de la teoría atómica to the same module in 2ed */
+      'c3dccc36-8ede-466f-b216-f05018a4e088': 'bd29edc8-a139-456b-bc95-cee49b2fa5b1',
+      /* 2.3 Estructura atómica y simbolismo to the same module in 2ed */
+      '77398b85-782d-4a36-b0a6-a0959dbf9c60': 'e82ac421-e027-4ba2-8c34-2b8bdde7f3dc',
+      /* 2.4 Fórmulas químicas to the same module in 2ed */
+      '594e5009-d70c-4101-ae18-4154ff1c7ffd': '9d7d0989-f579-4047-9023-8048341af5de',
+      /* 3.0 Introducción to the same module in 2ed */
+      'fc7f7fc6-4d9f-4956-a5a7-3092ac72182e': 'fc7f7fc6-4d9f-4956-a5a7-3092ac72182e',
+      /* 3.1 Energía electromagnética to the same module in 2ed */
+      'd96495d5-09fe-4702-959f-d39a243c2612': '41ea6265-62bd-4d5d-b62f-efc9dea99210',
+      /* 3.6 La tabla periódica to the same module in 2ed */
+      '4d73981f-76cf-43a3-b932-9f68fdf3abf6': '601be624-33cb-45bb-beb8-d069264fae07',
+      /* 3.7 Compuestos iónicos y moleculares to the same module in 2ed */
+      'b832199d-447d-4c4b-b05b-af31e4297fa6': 'f1c0d0db-2d56-4a2f-b6cb-2bf649278669',
+      /* 4.1 Enlace iónico to the same module in 2ed */
+      '15fcaa15-d7e8-4c4b-a448-20ea312b13ff': '30abf24f-5db5-4f44-b275-62908b3f1f4b',
+      /* 4.3 Nomenclatura química to the same module in 2e */
+      'af022e7e-64ba-4771-aca4-0cde75b66925': 'dc382342-b6fe-42b8-9f76-4acc4d8246ce',
+      /* 5.0 Introducción to the same module in 2ed */
+      '5ed46911-a4b7-4944-b746-f224f5031db4': 'cb3e22a8-dfda-4ded-ab42-823c0ff96e1d',
+      /* 5.1 Teoría de enlace de valencia to the same module in 2ed */
+      '74586eeb-8131-4a48-b32a-d285cbfba707': '2b690768-dca5-4bbd-9780-22bc32852476',
+      /* 5.4 Teoría de los orbitales moleculares to the same module in 2ed */
+      '58805a0c-1013-44b7-837a-878cece9de6b': '4f90d5f4-c612-4a78-9240-635035f8433e',
+      /* 6.1 Fórmula de masa to the same module in 2ed */
+      'd5516242-4416-4339-adc7-5a7461140d6d': 'daaceb82-341e-496e-a8b9-acd8fa32d9f7',
+      /* 6.2 Determinación de fórmulas empíricas y moleculares to the same module in 2ed */
+      '3c929abd-8cc0-4267-a017-a508815dac43': 'a4d0d6e1-b161-4cfd-ab54-23632839d0df',
+      /* 8.3 Estequiometría de sustancias gaseosas, mezclas y reacciones to the same module in 2ed */
+      '184a65b2-1f3f-49dc-bf1d-7d4a12d21ae9': '15f67dd0-8548-4ac0-875f-f5cbf789ee94',
+      /* 9.0 Introducción to the same module in 2ed */
+      'ee59d5c7-6a07-464c-9e56-b99ffdf874ea': 'cf0ef76c-34fd-4905-a755-a28d0e4a5d1a',
+      /* 9.4 Fuerza de los enlaces iónicos y covalentes to the same module in 2ed */
+      '2b8e2876-209c-449d-9f2c-abbd73900c8b': 'd9a2a6fa-520e-4317-a0c5-56da7bece584',
+      /* 12.4 Energía libre to the same module in 2ed */
+      '48d01599-d83d-494a-9d7f-b64e72f7d3e2': 'b1b4bf7c-8c27-4637-9fde-10b0ad5e9ad6',
+      /* 13.0 Introducción to the same module in 2ed */
+      '4c2a35c8-ed8c-429c-9e49-25e0d3003bdc': '907ae180-6648-46e3-9f76-1c2f7919bbe4',
+      /* 13.1 Equilibrio químico to the same module in 2ed */
+      '5ba4be2f-b0d1-4b87-a65c-ddd234dda79e': '50ab1072-cc18-4529-96d7-87efc091087f',
+      /* 13.2 Constantes de equilibrio to the same module in 2ed */
+      '7ce6feca-8547-47b6-9b12-f4b32969da5b': '6fc48d99-000f-479e-9ea2-9527d41ffcb8',
+      /* 13.3 Equilibrios cambiantes: el principio de Le Châtelier to the same module in 2ed */
+      '023b68f9-1ea7-45cf-9911-25c1af3aa3ad': '7bc903b2-d341-4fc3-a205-02850547461e',
+      /* 13.4 Cálculos de equilibrio to the same module in 2ed */
+      '37feaf08-2a93-4dbe-84c4-140d213f9b5c': '353391e0-9913-4452-9f83-38f57233275a',
+      /* 17.0 Introducción to the same module in 2ed */
+      '9d111d7d-7cb8-4688-9cd2-46774c477da9': 'b451b1e5-82ab-48c4-8275-37628dd79df7',
+      /* 17.7 Catálisis to the same module in 2ed */
+      '40651eeb-28e7-4577-9bf7-d42282ec6ae5': 'a6400a57-a040-4768-8222-61705d4fff83',
+    }],
+  ],
   /* Precalculus 2e */ 'f021395f-fd63-46cd-ab95-037c6f051730' : [
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
   ],
@@ -366,6 +429,18 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   ],
   /* University Physics Vol. 3 */ 'af275420-6050-4707-995c-57b9cc13c358': [
     /* University Physics Vol. 1 */ ['d50f6e32-0fda-46ef-a362-9bd36ca7c97d', {}],
+  ],
+  /* Física Universitaria volumen 2 */ 'da02605d-6d69-447c-a9b9-caf06dc4f413': [
+    /* Física universitaria volumen 1 */ ['175c88b6-f89b-4eba-9514-bc45e2139a1d', {}],
+  ],
+  /* Física universitaria volumen 3 */ 'b647a9b9-7631-45a1-a8e7-5acc3a44fc01': [
+    /* Física universitaria volumen 1 */ ['175c88b6-f89b-4eba-9514-bc45e2139a1d', {}],
+  ],
+  /* Fizyka dla szkół wyższych. Tom 2 */ '16ab5b96-4598-45f9-993c-b8d78d82b0c6': [
+    /* Fizyka dla szkół wyższych. Tom 1 */['4eaa8f03-88a8-485a-a777-dd3602f6c13e', {}],
+  ],
+  /* Fizyka dla szkół wyższych. Tom 3 */ 'bb62933e-f20a-4ffc-90aa-97b36c296c3e': [
+    /* Fizyka dla szkół wyższych. Tom 1 */['4eaa8f03-88a8-485a-a777-dd3602f6c13e', {}],
   ],
   /* Calculus Vol. 2 */ '1d39a348-071f-4537-85b6-c98912458c3c': [
     /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],

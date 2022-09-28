@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import portfinder from 'portfinder';
 import Loadable from 'react-loadable';
-import { ArchiveBook, ArchivePage } from '../../src/app/content/types';
+import { ArchivePage, VersionedArchiveBookWithConfig } from '../../src/app/content/types';
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
@@ -29,7 +29,6 @@ import { renderSitemap, renderSitemapIndex } from './sitemap';
 
 const {
   REACT_APP_ACCOUNTS_URL,
-  REACT_APP_ARCHIVE_URL,
   REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
@@ -49,10 +48,10 @@ let networkTime = 0;
 async function render() {
   await Loadable.preloadAll();
   const port = await portfinder.getPortPromise();
-  const archiveLoader = createArchiveLoader(() => REACT_APP_ARCHIVE_URL, {
+  const archiveLoader = createArchiveLoader({
     appPrefix: '',
     archivePrefix: `http://localhost:${port}`,
-    bookCache: createDiskCache<string, ArchiveBook>('archive-books'),
+    bookCache: createDiskCache<string, VersionedArchiveBookWithConfig>('archive-books'),
     pageCache: createDiskCache<string, ArchivePage>('archive-pages'),
   });
   const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`, {

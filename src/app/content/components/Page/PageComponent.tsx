@@ -8,10 +8,7 @@ import { toastMessageKeys } from '../../../notifications/components/ToastNotific
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
-import BuyBook from '../BuyBook';
-import LabsCTA from '../LabsCall';
 import PageToasts from '../Page/PageToasts';
-import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
@@ -148,14 +145,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     return <React.Fragment>
       <PageContent
         key='main-content'
+        book={this.props.book}
         className='page-content'
         ref={this.container}
         dangerouslySetInnerHTML={{ __html: html}}
         textSize={this.props.textSize}
       />
-      <PrevNextBar />
-      <LabsCTA />
-      <BuyBook />
+      {this.props.children}
     </React.Fragment>;
   };
 

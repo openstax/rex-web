@@ -6,7 +6,6 @@ import { Match } from '../../../navigation/types';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as routes from '../../routes';
 import { Params, SlugParams } from '../../types';
-import * as resolveContentUtils from './resolveContent';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -43,9 +42,17 @@ describe('locationChange', () => {
 
   const mockOtherBook = {
     abstract: '',
+    archiveVersion: '/test/archive-vesrion',
+    contentVersion: '0',
     id: '13ac107a-f15f-49d2-97e8-60ab2e3other',
     language: 'en',
     license: {name: '', version: '', url: ''},
+    loadOptions: {
+      booksConfig: {
+        archiveUrl: '/test/archive-version',
+        books: {'13ac107a-f15f-49d2-97e8-60ab2e3other': {defaultVersion: '0'}},
+      },
+    },
     revised: '2012-06-21',
     title: 'newbook',
     tree: {
@@ -94,13 +101,13 @@ describe('locationChange', () => {
 
   describe('in production', () => {
     it('throws if book is missing cms data in production', async() => {
-      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+      helpers.osWebLoader.getBookFromId.mockResolvedValue(undefined as any);
       mockUUIDBook();
 
       const versionedUuidParams = {
         book: {
+          contentVersion: testVersion,
           uuid: testUUID,
-          version: testVersion,
         },
         page: {
           slug: (match.params.page as SlugParams).slug,
@@ -116,7 +123,7 @@ describe('locationChange', () => {
       helpers.archiveLoader.mock.loadBook.mockRejectedValue(new Error('asda'));
 
       match.params = {
-        book: {uuid: book.id, version: '1.0'},
+        book: {uuid: book.id, contentVersion: '1.0'},
         page: {slug: 'asd'},
       };
 
@@ -131,28 +138,14 @@ describe('locationChange', () => {
         .rejects.toThrow('asda');
     });
 
-    it('getBookInformation throws if reference doesn\'t specify bookVersion', async() => {
-      const reference = {
-        bookId: 'asd',
-        bookVersion: undefined,
-        match: 'ajhd',
-        pageId: 'asd',
-      };
-
-      await expect(resolveContentUtils.getBookInformation(helpers, reference))
-        .rejects.toThrow(`book version wasn't specified for book ${reference.bookId}`);
-    });
-
     it('noops if book is retired', async() => {
       (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
       helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0', retired: true };
-      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
+      helpers.osWebLoader.getBookIdFromSlug.mockResolvedValue(testUUID);
 
       match.params = {
         book: {
           slug: 'book-slug-1',
-          uuid: testUUID,
-          version: testVersion,
         },
         page: {
           slug: testPage,
@@ -162,7 +155,7 @@ describe('locationChange', () => {
       mockUUIDBook();
 
       await expect(hook(helpers, match)).rejects
-        .toThrowErrorMatchingInlineSnapshot(`"tried to load retired book: book-slug-1"`);
+        .toThrowErrorMatchingInlineSnapshot(`"tried to load retired book: ${testUUID}"`);
       expect(helpers.archiveLoader.mock.loadBook).not.toHaveBeenCalled();
     });
 
@@ -170,13 +163,11 @@ describe('locationChange', () => {
       (globalThis as any).fetch = mockFetch([{ from: 'asd', to: 'asd' }]);
       helpers.history.location = { pathname: 'asd' } as any;
       helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0', retired: true };
+      helpers.osWebLoader.getBookIdFromSlug.mockResolvedValue(testUUID);
 
-      helpers.osWebLoader.getBookSlugFromId.mockImplementation(() => Promise.resolve(undefined) as any);
       match.params = {
         book: {
           slug: 'book-slug-1',
-          uuid: testUUID,
-          version: testVersion,
         },
         page: {
           slug: testPage,

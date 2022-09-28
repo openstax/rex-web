@@ -83,11 +83,6 @@ const references: Array<PageReferenceMap | PageReferenceError> = [
         slug: 'page-title',
       },
     },
-    state: {
-      bookUid: 'book',
-      bookVersion: 'version',
-      pageUid: 'page',
-    },
   },
   {
     match: 'cross-book-reference-error',
@@ -560,11 +555,7 @@ describe('Page', () => {
         },
       },
       route: routes.content,
-      state: {
-        bookUid: 'book',
-        bookVersion: 'version',
-        pageUid: 'page',
-      },
+      state: {},
     }, {
       hash: '',
       search: '',
@@ -624,17 +615,13 @@ describe('Page', () => {
       params: {
         book: {
           slug: 'book-slug-1',
-        } ,
+        },
         page: {
           slug: 'page-title',
         },
       },
       route: routes.content,
-      state: {
-        bookUid: 'book',
-        bookVersion: 'version',
-        pageUid: 'page',
-      },
+      state: {},
     }, {
       hash: '',
       search: '',

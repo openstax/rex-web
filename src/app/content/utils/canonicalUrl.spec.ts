@@ -12,7 +12,7 @@ import { formatBookData } from '../utils';
 import * as archiveUtils from '../utils/archiveTreeUtils';
 import * as seoUtils from '../utils/seoUtils';
 
-jest.mock('../../../config.books', () => ({
+const mockBookConfig = {
   'testbook1-uuid': {
     defaultVersion: '1.0',
   },
@@ -22,7 +22,7 @@ jest.mock('../../../config.books', () => ({
   'testbook3-uuid': {
     defaultVersion: '1.0',
   },
-}));
+};
 
 const mockBook = {
   abstract: '',
@@ -161,6 +161,8 @@ describe('getCanonicalURL', () => {
   it('throws if infinite loop found in map', async() => {
     helpers.archiveLoader.mockBook(mockBook);
     helpers.archiveLoader.mockBook(mockOtherBook);
+
+    Object.assign(book.loadOptions.booksConfig.books, mockBookConfig);
 
     const bookId = book.id;
     const pageId = page.id;

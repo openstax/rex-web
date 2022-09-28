@@ -139,23 +139,7 @@ function reduceContent(state: State, action: AnyAction) {
 
 function reduceReceiveBook(state: State, action: ActionType<typeof actions.receiveBook>) {
   const loading = omit(['book'], state.loading);
-  const book = pick([
-    'id',
-    'title',
-    'version',
-    'tree',
-    'theme',
-    'slug',
-    'license',
-    'authors',
-    'promote_image',
-    'publish_date',
-    'revised',
-    'amazon_link',
-    'book_state',
-    'language',
-  ], action.payload);
-  return {...state, loading, book};
+  return {...state, loading, book: action.payload};
 }
 
 function reduceReceivePage(state: State, action: ActionType<typeof actions.receivePage>) {

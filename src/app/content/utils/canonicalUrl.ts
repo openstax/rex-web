@@ -1,6 +1,5 @@
 import { isEqual } from 'lodash/fp';
 import { CANONICAL_MAP, ObjectLiteral } from '../../../canonicalBookMap';
-import { getBookVersionFromUUIDSync } from '../../../gateways/createBookConfigLoader';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
 import { hasOSWebData } from '../guards';
@@ -14,14 +13,14 @@ export async function getCanonicalUrlParams(
   book: Book,
   pageId: string
 ) {
-  const getBook = makeUnifiedBookLoader(archiveLoader, osWebLoader);
+  const getBook = makeUnifiedBookLoader(archiveLoader, osWebLoader, book.loadOptions);
 
   const getCanonicalMap = (bookId: string) => {
     const bookDefaultMap = [[bookId, {}]] as Array<[string, ObjectLiteral<undefined>]>;
     return ([
       ...(CANONICAL_MAP[bookId] || bookDefaultMap),
       // use the current book if no map is found
-    ]).filter(([id]) => !!getBookVersionFromUUIDSync(id));
+    ]).filter(([id]) => !!book.loadOptions.booksConfig.books[id]);
 };
 
   let canonicalMap = getCanonicalMap(book.id);
@@ -34,13 +33,11 @@ export async function getCanonicalUrlParams(
   mapsArrayLoop: while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
       mapsChecked.push(canonicalMap);
-      const version = assertDefined(
-        getBookVersionFromUUIDSync(id),
-        `We've already filtered out books that are not in the BOOK configuration`
-      ).defaultVersion;
-      canonicalBook = book.id === id  && hasOSWebData(book) ? book : await getBook(id, version);
+      const useCurrentBookAsCanonical = book.id === id && hasOSWebData(book);
+      canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id);
       canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
       const treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
+
       // use the most recent canonical page found if none is found in current canonical book
       if (!treeSection && canonicalBookWithPage) {
         break mapsArrayLoop;

@@ -78,7 +78,8 @@
     "defaultVersion": "09a50de"
   },
   "2d941ab9-ac5b-4eb8-b21c-965d36a4f296": {
-    "defaultVersion": "1ea8668"
+    "defaultVersion": "1ea8668",
+    "dynamicStyles": true
   },
   "cce64fde-f448-43b8-ae88-27705cceb0da": {
     "defaultVersion": "d5c2009"
@@ -227,13 +228,13 @@
     "defaultVersion": "cc1b9af"
   },
   "4eaa8f03-88a8-485a-a777-dd3602f6c13e": {
-    "defaultVersion": "204eda1"
+    "defaultVersion": "0cd082f"
   },
   "16ab5b96-4598-45f9-993c-b8d78d82b0c6": {
-    "defaultVersion": "204eda1"
+    "defaultVersion": "0cd082f"
   },
   "bb62933e-f20a-4ffc-90aa-97b36c296c3e": {
-    "defaultVersion": "204eda1"
+    "defaultVersion": "0cd082f"
   },
   "052b8372-0c5e-4ff6-8fd3-326377e9e91f": {
     "defaultVersion": "f62a6fe"
@@ -248,13 +249,13 @@
     "defaultVersion": "da492e7"
   },
   "4fd99458-6fdf-49bc-8688-a6dc17a1268d": {
-    "defaultVersion": "9af501a"
+    "defaultVersion": "6c4f0f5"
   },
   "52f5163f-a7e1-4545-b0fa-8001df262ca9": {
     "defaultVersion": "ea84f53"
   },
   "89060098-2918-4037-8ebe-d90622d7a6bf": {
-    "defaultVersion": "83e0892"
+    "defaultVersion": "6dafb19"
   },
   "9702782f-fd50-4310-92ac-d29d39065419": {
     "defaultVersion": "9b2eeca"
@@ -266,12 +267,12 @@
     "defaultVersion": "a49276a"
   },
   "fc65697b-5a9e-4dfe-ac03-035129f7be28": {
-    "defaultVersion": "cbbaf2b"
+    "defaultVersion": "9388979"
   },
   "a31df062-930a-4f46-8953-605711e6d204": {
-    "defaultVersion": "cbbaf2b"
+    "defaultVersion": "9388979"
   },
   "c9cbc0aa-3afa-448b-8048-3ca2e0ee2f6a": {
-    "defaultVersion": "b2feb56"
+    "defaultVersion": "8f6c5ff"
   }
 }

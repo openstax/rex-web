@@ -2,7 +2,7 @@ import { ElementHandle, Page } from '@playwright/test'
 
 async function closeExtras(page: Page, retries = 5): Promise<void> {
   try {
-    await page.click('text=Got it!', { timeout: 500 })
+    await page.click('text=Got it!')
   } catch (error) {}
   try {
     await page.click('lower-sticky-note-content > .put-away', { timeout: 500 })
