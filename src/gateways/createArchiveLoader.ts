@@ -108,23 +108,6 @@ export default (options: Options = {}) => {
         )
     ;
 
-  const getArchivePathForResource = (bookId: string, loadOptions: ArchiveLoadOptions) =>
-    REACT_APP_ARCHIVE_URL_OVERRIDE
-      ? loadOptions.archiveVersion
-        ? tuple(
-          `${REACT_APP_ARCHIVE_URL_OVERRIDE.replace(/\/+$/, '')}/${loadOptions.archiveVersion}`,
-          loadOptions.archiveVersion
-        )
-        : splitStandardArchivePath(REACT_APP_ARCHIVE_URL_OVERRIDE)
-      : loadOptions.archiveVersion
-        // it would be better if the config had the path base separate
-        ? tuple(`/apps/archive/${loadOptions.archiveVersion}`, loadOptions.archiveVersion)
-        : splitStandardArchivePath(disablePerBookPinning
-          ? loadOptions.booksConfig.archiveUrl
-          : (loadOptions.booksConfig.books[bookId]?.archiveOverride || loadOptions.booksConfig.archiveUrl)
-        )
-    ;
-
   /*
    * in the browser we assume that `host`, which comes from one of the prefix arguments,
    * will definitely be `''`, in this way a REACT_APP_ARCHIVE_URL_OVERRIDE that is passed
@@ -149,7 +132,7 @@ export default (options: Options = {}) => {
       new ArchiveBookMissingError(`Error response from archive "${fetchUrl}" ${status}: ${message}`)))
     .then((response) => response.json() as Promise<T>);
 
-  const contentsLoader = <C extends ArchiveContent, R>(
+  const contentsLoader = <C extends ArchiveContent | string, R>(
     cache: Cache<string, R>, urlFn: (host: string, archivePath: string, ref: string) => string
   ) => (archivePath: string, contentRef: string, decorator: (result: C) => R) => {
     const cacheKey = buildCacheKey(archivePath, contentRef);
@@ -183,7 +166,7 @@ export default (options: Options = {}) => {
     bookCache, contentUrl
   );
   const pageLoader = contentsLoader<ArchivePage, ArchivePage>(pageCache, contentUrl);
-  const resourceLoader = contentsLoader<ArchivePage, ArchivePage>(resourceCache, resourceUrl);
+  const resourceLoader = contentsLoader<string, string>(resourceCache, resourceUrl);
 
   const bookGetter = (
     bookId: string,
@@ -225,7 +208,7 @@ export default (options: Options = {}) => {
   ) => {
     // there are situations where `archiveVersion` will be unknown, its only for tracking, the
     // `archivePath` is whats actually used for loading things
-    const [archivePath, archiveVersion] = getArchivePathAndVersion(loadOptions);
+    const [archivePath, _archiveVersion] = getArchivePathAndVersion(loadOptions);
 
     return {
       cached: () => resourceCache.get(buildCacheKey(archivePath, resourceId)),

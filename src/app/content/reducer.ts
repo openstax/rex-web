@@ -30,6 +30,7 @@ export const initialState = {
   search: initialSearchState,
   showNudgeStudyTools: null,
   studyGuides: initialStudyGuidesState,
+  stylesUrl: null,
   textSize: null,
   tocOpen: null,
 };

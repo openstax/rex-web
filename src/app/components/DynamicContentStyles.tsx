@@ -20,12 +20,10 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   { book, children, disable, ...otherProps }: React.PropsWithChildren<DynamicContentStylesProps>,
   ref
 ) => {
-  let styles = '';
-  if (!disable) {
-    const { archiveLoader } = useServices();
-    const stylesUrl = useSelector(stylesUrlSelector);
-    styles = archiveLoader.resource(stylesUrl).cached() || '';
-  }
+  const { archiveLoader } = useServices();
+  const stylesUrl = useSelector(stylesUrlSelector);
+  const styles = disable || !book || !stylesUrl ?
+    '' : archiveLoader.resource(stylesUrl, book.loadOptions).cached() || '';
 
   return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps} ref={ref}>
     {children}

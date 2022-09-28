@@ -1,4 +1,3 @@
-import { Location } from 'history';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { book } from '../../../test/mocks/archiveLoader';
@@ -7,11 +6,11 @@ import { resetModules } from '../../../test/utils';
 import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
 import { receiveBook, requestBook, setStylesUrl } from '../actions';
-import * as routes from '../routes';
+import { BookWithOSWebData } from '../types';
 import { formatBookData } from '../utils';
 
 describe('dynamicStyles', () => {
-  let combinedBook: ReturnType<typeof formatBookData>;
+  let combinedBook: BookWithOSWebData;
   let hook: ReturnType<typeof import ('./dynamicStyles').default>;
   let store: Store;
   let loadResource: jest.SpyInstance;
@@ -91,18 +90,18 @@ describe('dynamicStyles', () => {
   });
 
   it('noops if book is not yet loaded', async() => {
-    const receiveBookAction = receiveBook(undefined);
+    const receiveBookAction = receiveBook(combinedBook);
 
-    store.dispatch(receiveBookAction);
+    // We don't call store.dispatch(receiveBookAction) in this test
 
     await hook(receiveBookAction);
 
     expect(loadResource).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
 
-    store.dispatch(requestBook(combinedBook));
+    store.dispatch(requestBook({slug: combinedBook.slug}));
 
-    await hook(receiveBook(combinedBook));
+    await hook(receiveBookAction);
 
     expect(loadResource).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();

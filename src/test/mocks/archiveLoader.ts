@@ -97,7 +97,7 @@ export default () => {
       : undefined;
   };
 
-  const resolveResource = (resourceId: string, options: ArchiveLoadOptions) => {
+  const resolveResource = (resourceId: string) => {
     return localResources[resourceId];
   };
 
@@ -113,9 +113,8 @@ export default () => {
     const pageData = pages && pages[pageId];
     return pageData ? Promise.resolve(pageData) : Promise.reject();
   });
-  const loadResource = jest.fn(async(resourceId: string, options: ArchiveLoadOptions) => {
-    const resourceData = resolveResource(resourceId, options);
-    return Promise.resolve(resolveResource(resourceId, options));
+  const loadResource = jest.fn(async(resourceId: string) => {
+    return Promise.resolve(resolveResource(resourceId));
   });
   const cachedBook = jest.fn((bookId: string, options: ArchiveLoadOptions) => {
     return resolveBook(bookId, options);
@@ -124,8 +123,8 @@ export default () => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     return pages && pages[pageId];
   });
-  const cachedResource = jest.fn((resourceId: string, options: ArchiveLoadOptions) => {
-    return resolveResource(resourceId, options);
+  const cachedResource = jest.fn((resourceId: string) => {
+    return resolveResource(resourceId);
   });
 
   return {
@@ -162,11 +161,6 @@ export default () => {
         url: () => '/apps/archive/codeversion/content/pageref',
       }),
     }),
-    resource: (resourceId: string, options: ArchiveLoadOptions) => ({
-      cached: () => cachedResource(resourceId, options),
-      load: () => loadResource(resourceId, options),
-      url: () => '/apps/archive/codeversion/resources/resourceref',
-    }),
     mock: { loadBook, loadPage, loadResource, cachedBook, cachedPage, cachedResource },
     mockBook: (newBook: ArchiveBook) => {
       localBooks[`${newBook.id}@${newBook.version}`] = newBook;
@@ -184,5 +178,10 @@ export default () => {
         });
       }
     },
+    resource: (resourceId: string, _options: ArchiveLoadOptions) => ({
+      cached: () => cachedResource(resourceId),
+      load: () => loadResource(resourceId),
+      url: () => '/apps/archive/codeversion/resources/resourceref',
+    }),
   };
 };
