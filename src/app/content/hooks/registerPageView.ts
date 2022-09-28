@@ -1,10 +1,9 @@
 import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
 import * as selectNavigation from '../../navigation/selectors';
-import { RouteHookBody } from '../../navigation/types';
+import { AnyRoute, RouteHookBody } from '../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../types';
-import { content } from '../routes';
 
-export const hookBody: RouteHookBody<typeof content> = (services: MiddlewareAPI & AppServices) => {
+export const hookBody: RouteHookBody<AnyRoute> = (services: MiddlewareAPI & AppServices) => {
   let lastTrackedLocation: any;
 
   return async(action) => {
