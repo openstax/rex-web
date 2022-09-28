@@ -27,7 +27,8 @@ interface Props {
     title: string;
   };
   currentBook: Book | undefined;
-  onClick?: () => void;
+  onClick?: () => void; // this one gets called before navigation
+  handleClick?: () => void; // this one gets called instead of navigation
   navigate: typeof push;
   currentPath: string;
   hasUnsavedHighlight: boolean;
@@ -52,6 +53,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     scrollTarget,
     navigate,
     onClick,
+    handleClick,
     children,
     myForwardedRef,
     hasUnsavedHighlight,
@@ -91,7 +93,11 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         onClick();
       }
 
-      navigate(navigationMatch, options);
+      if (handleClick) {
+        handleClick();
+      } else {
+        navigate(navigationMatch, options);
+      }
     }}
     href={URL}
     {...anchorProps}

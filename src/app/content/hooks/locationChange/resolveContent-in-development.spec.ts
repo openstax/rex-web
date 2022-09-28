@@ -240,7 +240,7 @@ describe('locationChange', () => {
       helpers.osWebLoader.getBookIdFromSlug.mockImplementation(() => Promise.resolve(undefined) as any);
 
       await expect(
-        resolveContentUtils.resolveBookReference(helpers, match)
+        resolveContentUtils.resolveBookReference(helpers, match.params.book)
       ).rejects.toThrow(`Could not resolve uuid for params: {"slug":"${testBookSlug}"}`);
     });
 
