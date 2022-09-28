@@ -128,13 +128,15 @@ export default (options: Options = {}) => {
 
   const buildCacheKey = (archivePath: string, contentRef: string) => `${archivePath}:${contentRef}`;
 
-  const archiveFetch = <T>(fetchUrl: string) => fetch(fetchUrl)
+  const archiveFetch = <T>(fetchUrl: string, json = true): Promise<T> => fetch(fetchUrl)
     .then(acceptStatus(200, (status, message) =>
       new ArchiveBookMissingError(`Error response from archive "${fetchUrl}" ${status}: ${message}`)))
-    .then((response) => response.json() as Promise<T>);
+    .then((response) => json ? response.json() : response.text());
 
   const contentsLoader = <C extends ArchiveContent | string, R>(
-    cache: Cache<string, R>, urlFn: (host: string, archivePath: string, ref: string) => string
+    cache: Cache<string, R>,
+    urlFn: (host: string, archivePath: string, ref: string) => string,
+    json = true
   ) => (archivePath: string, contentRef: string, decorator: (result: C) => R) => {
     const cacheKey = buildCacheKey(archivePath, contentRef);
     const cached = cache.get(cacheKey);
@@ -142,7 +144,7 @@ export default (options: Options = {}) => {
       return Promise.resolve(cached);
     }
 
-    return archiveFetch<C>(urlFn(archivePrefix, archivePath, contentRef))
+    return archiveFetch<C>(urlFn(archivePrefix, archivePath, contentRef), json)
       .then(decorator)
       .then((response) => {
         cache.set(cacheKey, response);
@@ -167,7 +169,7 @@ export default (options: Options = {}) => {
     bookCache, contentUrl
   );
   const pageLoader = contentsLoader<ArchivePage, ArchivePage>(pageCache, contentUrl);
-  const resourceLoader = contentsLoader<string, string>(resourceCache, resourceUrl);
+  const resourceLoader = contentsLoader<string, string>(resourceCache, resourceUrl, false);
 
   const bookGetter = (
     bookId: string,
