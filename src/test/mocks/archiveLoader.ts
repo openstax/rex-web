@@ -4,10 +4,13 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
 import { ArchiveBook, ArchiveLoadOptions, ArchivePage, VersionedArchiveBookWithConfig } from '../../app/content/types';
 import { findArchiveTreeNodeById } from '../../app/content/utils/archiveTreeUtils';
+import { isAbsolutePath, isAbsoluteUrl } from '../../app/content/utils/urlUtils';
 import { BookNotFoundError } from '../../app/utils';
 import { Books } from '../../config.books';
 import { splitStandardArchivePath } from '../../gateways/createArchiveLoader';
 import { BooksConfig } from '../../gateways/createBookConfigLoader';
+
+const appPrefix = 'https://localhost:3000';
 
 const decorateArchiveBook = (options: ArchiveLoadOptions, result: ArchiveBook): VersionedArchiveBookWithConfig => ({
   ...result,
@@ -72,7 +75,7 @@ const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
 };
 
 const resources: {[key: string]: string} = {
-    '/apps/archive/codeversion/resources/styles/test-styles.css': '.cool { color: red; }',
+  [`${appPrefix}/apps/archive/codeversion/resources/styles/test-styles.css`]: '.cool { color: red; }',
 };
 
 export default () => {
@@ -97,9 +100,14 @@ export default () => {
       : undefined;
   };
 
-  const resolveResource = (resourceId: string) => {
-    return localResources[resourceId.replace('https://openstax.org', '')];
-  };
+  const resourceUrl = (resourceRef: string, options: ArchiveLoadOptions) =>
+    isAbsoluteUrl(resourceRef) ?
+      resourceRef : isAbsolutePath(resourceRef) ?
+        `${appPrefix}${resourceRef}` :
+        `${appPrefix}${options.booksConfig.archiveUrl}/resources/${resourceRef}`;
+
+  const resolveResource = (resourceRef: string, options: ArchiveLoadOptions) =>
+    localResources[resourceUrl(resourceRef, options)];
 
   const loadBook = jest.fn(async(bookId: string, options: ArchiveLoadOptions) => {
     const bookData = resolveBook(bookId, options);
@@ -113,9 +121,9 @@ export default () => {
     const pageData = pages && pages[pageId];
     return pageData ? Promise.resolve(pageData) : Promise.reject(new Error(`failed to load page data ${pageId}`));
   });
-  const loadResource = jest.fn(async(resourceId: string) => {
-    const resourceData = resolveResource(resourceId);
-    return resourceData ? Promise.resolve(resourceData) : Promise.reject(new Error(`failed to load resource data ${resourceId}`));
+  const loadResource = jest.fn(async(resourceRef: string, options: ArchiveLoadOptions) => {
+    const resourceData = resolveResource(resourceRef, options);
+    return resourceData ? Promise.resolve(resourceData) : Promise.reject(new Error(`failed to load resource data ${resourceRef}`));
   });
   const cachedBook = jest.fn((bookId: string, options: ArchiveLoadOptions) => {
     return resolveBook(bookId, options);
@@ -124,8 +132,8 @@ export default () => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     return pages && pages[pageId];
   });
-  const cachedResource = jest.fn((resourceId: string) => {
-    return resolveResource(resourceId);
+  const cachedResource = jest.fn((resourceRef: string, options: ArchiveLoadOptions) => {
+    return resolveResource(resourceRef, options);
   });
 
   return {
@@ -179,9 +187,9 @@ export default () => {
         });
       }
     },
-    resource: (resourceId: string, _options: ArchiveLoadOptions) => ({
-      cached: () => cachedResource(resourceId),
-      load: () => loadResource(resourceId),
+    resource: (resourceRef: string, options: ArchiveLoadOptions) => ({
+      cached: () => cachedResource(resourceRef, options),
+      load: () => loadResource(resourceRef, options),
       url: () => '/apps/archive/codeversion/resources/resourceref',
     }),
   };

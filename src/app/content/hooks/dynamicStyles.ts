@@ -1,14 +1,12 @@
 import { OutputParams } from 'query-string';
 import { query as querySelector } from '../../navigation/selectors';
-import { ActionHookBody, AppServices } from '../../types';
+import { ActionHookBody } from '../../types';
 import { receiveBook, setStylesUrl } from '../actions';
 import { book as bookSelector, loadingBook as loadingBookSelector } from '../selectors';
 import { Book } from '../types';
 import { fromRelativeUrl, isAbsoluteUrl } from '../utils/urlUtils';
 
-const getCssFileUrl = (
-  queryParams: OutputParams, book: Book, archiveLoader: AppServices['archiveLoader']
-) => {
+const getStylesUrl = (queryParams: OutputParams, book: Book) => {
   // The type of queryParams['content-style'] could also be string[] but we don't want that
   if (queryParams['content-style'] && typeof queryParams['content-style'] === 'string') {
     return queryParams['content-style'];
@@ -16,12 +14,7 @@ const getCssFileUrl = (
     const dynamicStylesEnabled = book.loadOptions.booksConfig.books[book.id]?.dynamicStyles;
 
     if (dynamicStylesEnabled && book.style_href) {
-      if (isAbsoluteUrl(book.style_href)) {
-        return book.style_href;
-      } else {
-        const contentUrl = archiveLoader.forBook(book).url();
-        return fromRelativeUrl(contentUrl, book.style_href);
-      }
+      return book.style_href;
     }
   }
 };
@@ -38,13 +31,16 @@ const hookBody: ActionHookBody<typeof receiveBook> = (services) => async() => {
     return;
   }
 
-  const stylesUrl = getCssFileUrl(query, book, archiveLoader);
+  const stylesUrl = getStylesUrl(query, book);
 
   if (stylesUrl) {
-    // Load the styles so they are cached
-    await archiveLoader.resource(stylesUrl, book.loadOptions).load();
+    const absoluteStylesUrl = isAbsoluteUrl(stylesUrl) ?
+      stylesUrl : fromRelativeUrl(archiveLoader.forBook(book).url(), stylesUrl);
 
-    dispatch(setStylesUrl(stylesUrl));
+    // Load the styles so they are cached
+    await archiveLoader.resource(absoluteStylesUrl, book.loadOptions).load();
+
+    dispatch(setStylesUrl(absoluteStylesUrl));
   }
 };
 

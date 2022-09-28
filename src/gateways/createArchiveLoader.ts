@@ -6,7 +6,7 @@ import {
   VersionedArchiveBookWithConfig
 } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
-import { isAbsoluteUrl } from '../app/content/utils/urlUtils';
+import { isAbsolutePath, isAbsoluteUrl } from '../app/content/utils/urlUtils';
 import { ifUndefined } from '../app/fpUtils';
 import { ArchiveBookMissingError, BookNotFoundError, tuple } from '../app/utils';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../config';
@@ -117,8 +117,9 @@ export default (options: Options = {}) => {
   const contentUrl = (host: string, archivePath: string, ref: string) =>
     `${host}${archivePath}/contents/${ref}.json`;
 
+  // Allow loading absolute and relative paths as those could be passed to the content-styles param
   const resourceUrl = (host: string, archivePath: string, ref: string) => isAbsoluteUrl(ref) ?
-    ref : `${host}${archivePath}/resources/${ref}`;
+    ref : isAbsolutePath(ref) ? `${host}${ref}` : `${host}${archivePath}/resources/${ref}`;
 
   const getContentVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
     loadOptions.contentVersion !== undefined
