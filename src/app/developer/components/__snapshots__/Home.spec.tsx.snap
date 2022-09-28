@@ -185,6 +185,16 @@ Array [
                 <h3
                   className="headings__H3-sc-1xfiggv-2 dxSanG"
                 >
+                  Assigned
+                </h3>
+                path: 
+                /apps/rex/assigned/:activityId
+                <br />
+              </div>
+              <div>
+                <h3
+                  className="headings__H3-sc-1xfiggv-2 dxSanG"
+                >
                   NotFound
                 </h3>
                 path: 

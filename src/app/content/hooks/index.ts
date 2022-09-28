@@ -10,7 +10,7 @@ import * as routes from '../routes';
 import searchHooks from '../search/hooks';
 import studyGuidesHooks from '../studyGuides/hooks';
 import kineticEnabled from './kineticEnabled';
-import locationChangeBody from './locationChange';
+import { assignedRouteHookBody, contentRouteHookBody } from './locationChange';
 import receiveContentBody from './receiveContent';
 import receivePageNotFoundId from './receivePageNotFoundId';
 import storeTextSize, { loadStoredTextSize } from './storeTextSize';
@@ -25,7 +25,8 @@ export default [
   /*
    * clears meta on locationChange, in case the new route doesn't call setHead
    * */
-  routeHook(routes.content, locationChangeBody),
+  routeHook(routes.content, contentRouteHookBody),
+  routeHook(routes.assigned, assignedRouteHookBody),
   /*
    * sets metadata based on the loaded content
    */

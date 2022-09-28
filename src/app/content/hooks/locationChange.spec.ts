@@ -14,36 +14,39 @@ import { SlugParams } from '../types';
 import { formatBookData } from '../utils';
 
 const mockBook = {...book, id: '13ac107a-f15f-49d2-97e8-60ab2e3b519c', version: '29.7'};
+let store: Store;
+let dispatch: jest.SpyInstance;
+let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+let intlHook: typeof import ('./intlHook');
+let mockBookConfig: {[key: string]: {defaultVersion: string}};
+let contentHook: typeof import ('./locationChange/resolveContent');
 
-describe('locationChange', () => {
-  let store: Store;
-  let dispatch: jest.SpyInstance;
-  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+beforeEach(() => {
+  resetModules();
+  store = createTestStore();
+
+  helpers = {
+    ...createTestServices(),
+    dispatch: store.dispatch,
+    getState: store.getState,
+  };
+
+  mockBookConfig = {
+   [book.id]: {defaultVersion: book.version},
+   [mockBook.id]: {defaultVersion: mockBook.version},
+  };
+
+  Object.assign(helpers.bookConfigLoader.localBookConfig, mockBookConfig);
+  dispatch = jest.spyOn(helpers, 'dispatch');
+  contentHook = require('./locationChange/resolveContent');
+  intlHook = require('./intlHook');
+});
+
+describe('contentRouteHookBody', () => {
   let payload: {location: Location, match: Match<typeof routes.content>};
-  let hook = require('./locationChange').default;
-  let contentHook: typeof import ('./locationChange/resolveContent');
-  let intlHook: typeof import ('./intlHook');
-  let mockBookConfig: {[key: string]: {defaultVersion: string}};
+  let hook = require('./locationChange').contentRouteHookBody;
 
   beforeEach(() => {
-    resetModules();
-    store = createTestStore();
-
-    helpers = {
-      ...createTestServices(),
-      dispatch: store.dispatch,
-      getState: store.getState,
-    };
-
-    mockBookConfig = {
-     [book.id]: {defaultVersion: book.version},
-     [mockBook.id]: {defaultVersion: mockBook.version},
-    };
-
-    Object.assign(helpers.bookConfigLoader.localBookConfig, mockBookConfig);
-
-    dispatch = jest.spyOn(helpers, 'dispatch');
-
     helpers.osWebLoader.getBookIdFromSlug.mockReturnValue(Promise.resolve(book.id));
 
     payload = {
@@ -62,9 +65,7 @@ describe('locationChange', () => {
       },
     };
 
-    hook = (require('./locationChange').default)(helpers);
-    contentHook = require('./locationChange/resolveContent');
-    intlHook = require('./intlHook');
+    hook = (require('./locationChange').contentRouteHookBody)(helpers);
   });
 
   it('loads book', async() => {
@@ -281,5 +282,48 @@ describe('locationChange', () => {
         + `, archive thought it would be in "${mockOtherBook.id}", but it wasn't`
       );
     });
+  });
+});
+
+describe('assignedRouteHookBody', () => {
+  let payload: {location: Location, match: Match<typeof routes.assigned>};
+  let hook = require('./locationChange').assignedRouteHookBody;
+  let selectQuerySpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    payload = {
+      location: {} as Location,
+      match: {
+        params: {
+          activityId: 'cool reading',
+        },
+        route: routes.assigned,
+        state: {},
+      },
+    };
+
+    selectQuerySpy = jest.spyOn(require('../../navigation/selectors'), 'query');
+
+    selectQuerySpy.mockReturnValue({book: 'testbook1-uuid'});
+
+    hook = (require('./locationChange').assignedRouteHookBody)(helpers);
+  });
+
+  it('loads book', async() => {
+    await hook(payload);
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({uuid: 'testbook1-uuid'}));
+    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', expect.objectContaining({
+      booksConfig: expect.anything(),
+    }));
+  });
+
+  it('calls intl', async() => {
+    const intlSpy = jest.spyOn(intlHook, 'default');
+    await hook(payload);
+    expect(dispatch).toHaveBeenCalledWith(actions.requestBook({uuid: 'testbook1-uuid'}));
+    expect(helpers.archiveLoader.mock.loadBook).toHaveBeenCalledWith('testbook1-uuid', expect.objectContaining({
+      booksConfig: expect.anything(),
+    }));
+    expect(intlSpy).toHaveBeenCalled();
   });
 });
