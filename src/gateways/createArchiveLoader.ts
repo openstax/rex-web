@@ -6,10 +6,10 @@ import {
   VersionedArchiveBookWithConfig
 } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
+import { isAbsoluteUrl } from '../app/content/utils/urlUtils';
 import { ifUndefined } from '../app/fpUtils';
 import { ArchiveBookMissingError, BookNotFoundError, tuple } from '../app/utils';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../config';
-import { isAbsoluteUrl } from '../content/utils/urlUtils';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
