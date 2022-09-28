@@ -208,7 +208,7 @@ export default (options: Options = {}) => {
   ) => {
     // there are situations where `archiveVersion` will be unknown, its only for tracking, the
     // `archivePath` is whats actually used for loading things
-    const [archivePath, _archiveVersion] = getArchivePathAndVersion(loadOptions);
+    const [archivePath] = getArchivePathAndVersion(loadOptions);
 
     return {
       cached: () => resourceCache.get(buildCacheKey(archivePath, resourceId)),
