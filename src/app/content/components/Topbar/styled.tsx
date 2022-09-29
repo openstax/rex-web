@@ -357,7 +357,10 @@ export const TextResizerDropdown = styled(FilterDropdown)`
     }
   }
 
-  ${(props: {mobileVariant: boolean}) => props.mobileVariant !== false && theme.breakpoints.mobileMedium(css`
+  ${(props: {
+    mobileVariant: boolean,
+    mobileToolbarOpen: boolean
+  }) => props.mobileVariant !== false && theme.breakpoints.mobileMedium(css`
     margin-left: 0;
     > button {
       max-height: 4.6rem;
@@ -367,7 +370,7 @@ export const TextResizerDropdown = styled(FilterDropdown)`
       }
     }
 
-    display: ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen ? 'none' : 'block'};
+    display: ${props.mobileToolbarOpen ? 'none' : 'block'};
   `)}
 `;
 

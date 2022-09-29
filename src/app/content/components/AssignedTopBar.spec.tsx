@@ -1,16 +1,16 @@
 import React from 'react';
 import { RawIntlProvider } from 'react-intl';
+import * as redux from 'react-redux';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { LinkedArchiveTreeSection } from '../types';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import * as Services from '../../context/Services';
 import createIntl from '../../messages/createIntl';
 import { MiddlewareAPI, Store } from '../../types';
-import { AssignedTopBar } from './AssignedTopBar';
-import * as redux from 'react-redux';
 import { setTextSize } from '../actions';
+import { LinkedArchiveTreeSection } from '../types';
+import { AssignedTopBar } from './AssignedTopBar';
 
 describe('AssignedTopBar', () => {
   let store: Store;

@@ -9,14 +9,9 @@ import { applyBookTextColor } from '../components/utils/applyBookTextColor';
 import { disablePrint } from '../components/utils/disablePrint';
 import { BookWithOSWebData } from '../types';
 import {
-  mobileMarginSides,
+  headerHeight, mobileMarginSides,
   mobileMarginTopBottom,
-  mobilePaddingSides,
-  headerHeight,
-  popupPadding,
-  popupHeaderZIndex,
-  popupBodyPadding,
-  topBottomMargin
+  mobilePaddingSides, popupBodyPadding, popupHeaderZIndex, popupPadding, topBottomMargin
 } from './PopupConstants';
 
 export * from './PopupConstants';

@@ -1,12 +1,13 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import theme from '../../theme';
-import { LinkedArchiveTreeSection } from '../types';
-import { TextResizer } from './Topbar/TextResizer';
 import { setTextSize } from '../actions';
 import * as selectContent from '../selectors';
-import { useSelector, useDispatch } from 'react-redux';
+import { LinkedArchiveTreeSection } from '../types';
+import { TextResizer } from './Topbar/TextResizer';
 
+// tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   position: sticky;
   top: 0;
@@ -18,12 +19,12 @@ const TopBar = styled.div`
   z-index: ${theme.zIndex.topbar};
 `;
 
+// tslint:disable-next-line:variable-name
 const StyledSectionTitle = styled.h2`
   font-size: 1.8rem;
   line-height: 2.1rem;
   letter-spacing: 0.03px;
   margin-left: 1.6rem;
-
   ${theme.breakpoints.mobile(css`
     white-space: nowrap;
     overflow: hidden;
@@ -31,6 +32,7 @@ const StyledSectionTitle = styled.h2`
   `)}
 `;
 
+// tslint:disable-next-line:variable-name
 export const AssignedTopBar = (props: {
   section: LinkedArchiveTreeSection;
 }) => {
@@ -52,4 +54,4 @@ export const AssignedTopBar = (props: {
       />
     </TopBar>
   );
-}
+};
