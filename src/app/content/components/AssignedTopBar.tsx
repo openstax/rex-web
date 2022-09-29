@@ -35,7 +35,7 @@ export const AssignedTopBar = (props: {
 
   return (
     <TopBar>
-      <StyledSectionTitle dangerouslySetInnerHTML={{ __html:  props.section.title }} />
+      <StyledSectionTitle dangerouslySetInnerHTML={{ __html:  props.section?.title }} />
       <TextResizer
         bookTheme={bookTheme}
         setTextSize={(value) => dispatch(setTextSize(value))}
