@@ -133,7 +133,7 @@ export default (options: Options = {}) => {
 
   const buildCacheKey = (archivePath: string, contentRef: string) => `${archivePath}:${contentRef}`;
 
-  const archiveFetch = <T>(fetchUrl: string, json = true): Promise<T> => fetch(fetchUrl)
+  const archiveFetch = <T>(fetchUrl: string, json: boolean): Promise<T> => fetch(fetchUrl)
     .then(acceptStatus(200, (status, message) =>
       new ArchiveBookMissingError(`Error response from archive "${fetchUrl}" ${status}: ${message}`)))
     .then((response) => json ? response.json() : response.text());
