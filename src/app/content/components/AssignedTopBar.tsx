@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../../theme';
 import { LinkedArchiveTreeSection } from '../types';
 import { TextResizer } from './Topbar/TextResizer';
@@ -23,6 +23,12 @@ const StyledSectionTitle = styled.h2`
   line-height: 2.1rem;
   letter-spacing: 0.03px;
   margin-left: 1.6rem;
+
+  ${theme.breakpoints.mobile(css`
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  `)}
 `;
 
 export const AssignedTopBar = (props: {

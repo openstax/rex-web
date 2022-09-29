@@ -30,7 +30,7 @@ Array [
     className="sc-bwzfXH jAipNc"
   >
     <h2
-      className="sc-htpNat jSGJbY"
+      className="sc-htpNat dnOVon"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<span class=\\"os-text\\">Test Page 1</span>",

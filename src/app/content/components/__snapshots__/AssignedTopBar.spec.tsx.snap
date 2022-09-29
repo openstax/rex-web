@@ -5,7 +5,7 @@ exports[`AssignedTopBar renders 1`] = `
   className="sc-bdVaJa bniZMO"
 >
   <h2
-    className="sc-bwzfXH eYsZzo"
+    className="sc-bwzfXH jKnDXS"
     dangerouslySetInnerHTML={
       Object {
         "__html": "1.1 Section Title",
