@@ -71,14 +71,15 @@ export default () => {
   const sections = useAssignedSections();
   const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
   const prevNext = usePrevNext(sections);
+  const section = sections[currentSectionIndex];
 
-  useLoadSection(sections[currentSectionIndex]);
+  useLoadSection(section);
 
   return <AccessibilityButtonsWrapper>
     <ErrorModal />
     <ErrorBoundary>
+      <AssignedTopBar section={section} />
       <Page>
-        <AssignedTopBar bookTheme='blue' />
         {prevNext
           ? <PrevNextBar
             book={book}

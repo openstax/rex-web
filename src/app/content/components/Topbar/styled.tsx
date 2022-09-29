@@ -357,7 +357,7 @@ export const TextResizerDropdown = styled(FilterDropdown)`
     }
   }
 
-  ${theme.breakpoints.mobileMedium(css`
+  ${(props: {mobileVariant: boolean}) => props.mobileVariant !== false && theme.breakpoints.mobileMedium(css`
     margin-left: 0;
     > button {
       max-height: 4.6rem;

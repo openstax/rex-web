@@ -6,13 +6,7 @@ import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openMobileMenu, setTextSize } from '../../actions';
-import {
-  textResizerDefaultValue,
-  textResizerMaxValue,
-  textResizerMinValue,
-  TextResizerValue,
-  textResizerValues
-} from '../../constants';
+import { TextResizerValue } from '../../constants';
 import {
   clearSearch,
   openMobileToolbar,
@@ -101,27 +95,6 @@ class Topbar extends React.Component<Props, State> {
       this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
     };
 
-    const onChangeTextSize = (e: React.FormEvent<HTMLInputElement>) => {
-      const target = (e as any).currentTarget;
-      const value = parseInt(target.value, 10) as TextResizerValue;
-      if (!textResizerValues.includes(value)) { return; }
-      this.props.setTextSize(value);
-    };
-
-    const onDecreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      const newValue = ((this.props.textSize || textResizerDefaultValue) - 1);
-      if (newValue < textResizerMinValue) { return; }
-      this.props.setTextSize(newValue as TextResizerValue);
-    };
-
-    const onIncreaseTextSize = (e: React.FormEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      const newValue = ((this.props.textSize || textResizerDefaultValue) + 1);
-      if (newValue > textResizerMaxValue) { return; }
-      this.props.setTextSize(newValue as TextResizerValue);
-    };
-
     const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
 
     const newButtonEnabled = !!this.props.searchButtonColor;
@@ -168,10 +141,8 @@ class Topbar extends React.Component<Props, State> {
         </Styled.SearchInputWrapper>
         <TextResizer
           bookTheme={this.props.bookTheme}
-          onChangeTextSize={onChangeTextSize}
-          onDecreaseTextSize={onDecreaseTextSize}
-          onIncreaseTextSize={onIncreaseTextSize}
           textSize={this.props.textSize}
+          setTextSize={this.props.setTextSize}
           data-testid='text-resizer'
         />
       </Styled.SearchPrintWrapper>
@@ -225,10 +196,8 @@ class Topbar extends React.Component<Props, State> {
           </Styled.SearchInputWrapper>
           <TextResizer
             bookTheme={this.props.bookTheme}
-            onChangeTextSize={onChangeTextSize}
-            onDecreaseTextSize={onDecreaseTextSize}
-            onIncreaseTextSize={onIncreaseTextSize}
             textSize={this.props.textSize}
+            setTextSize={this.props.setTextSize}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
             data-testid='mobile-text-resizer'
           />
