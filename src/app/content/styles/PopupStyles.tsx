@@ -9,17 +9,17 @@ import { applyBookTextColor } from '../components/utils/applyBookTextColor';
 import { disablePrint } from '../components/utils/disablePrint';
 import { BookWithOSWebData } from '../types';
 import {
-  mobileMarginSides,
-  mobileMarginTopBottom,
-  mobilePaddingSides
+   mobileMarginSides,
+   mobileMarginTopBottom,
+   mobilePaddingSides,
+   headerHeight,
+   popupPadding,
+   popupHeaderZIndex,
+   popupBodyPadding,
+   topBottomMargin
 } from './PopupConstants';
 
-export const desktopPopupWidth = 74.4;
-export const popupPadding = 3.2;
-export const popupBodyPadding = 2.4;
-export const headerHeight = 7.2;
-export const topBottomMargin = headerHeight + popupBodyPadding;
-export const popupHeaderZIndex = 5;
+export * from './PopupConstants';
 
 const swapColors = ({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => {
   const color = theme.color.primary[colorSchema];
