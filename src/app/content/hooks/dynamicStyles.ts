@@ -4,7 +4,6 @@ import { ActionHookBody } from '../../types';
 import { receiveBook, setStylesUrl } from '../actions';
 import { book as bookSelector, loadingBook as loadingBookSelector } from '../selectors';
 import { Book } from '../types';
-import { fromRelativeUrl, isAbsoluteUrl } from '../utils/urlUtils';
 
 const getStylesUrl = (queryParams: OutputParams, book: Book) => {
   // The type of queryParams['content-style'] could also be string[] but we don't want that
@@ -34,13 +33,10 @@ const hookBody: ActionHookBody<typeof receiveBook> = (services) => async() => {
   const stylesUrl = getStylesUrl(query, book);
 
   if (stylesUrl) {
-    const absoluteStylesUrl = isAbsoluteUrl(stylesUrl) ?
-      stylesUrl : fromRelativeUrl(archiveLoader.forBook(book).url(), stylesUrl);
-
     // Load the styles so they are cached
-    await archiveLoader.resource(absoluteStylesUrl, book.loadOptions).load();
+    await archiveLoader.forBook(book).resource(stylesUrl).load();
 
-    dispatch(setStylesUrl(absoluteStylesUrl));
+    dispatch(setStylesUrl(stylesUrl));
   }
 };
 

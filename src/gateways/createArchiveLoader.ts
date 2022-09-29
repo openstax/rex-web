@@ -6,7 +6,7 @@ import {
   VersionedArchiveBookWithConfig
 } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
-import { isAbsolutePath, isAbsoluteUrl } from '../app/content/utils/urlUtils';
+import { fromRelativeUrl, isAbsoluteUrl } from '../app/content/utils/urlUtils';
 import { ifUndefined } from '../app/fpUtils';
 import { ArchiveBookMissingError, BookNotFoundError, tuple } from '../app/utils';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../config';
@@ -91,7 +91,7 @@ export default (options: Options = {}) => {
    * handle that
    *
    */
-  const getArchivePathAndVersion = (loadOptions: ArchiveLoadOptions, bookId?: string) =>
+  const getArchivePathAndVersion = (bookId: string, loadOptions: ArchiveLoadOptions) =>
     REACT_APP_ARCHIVE_URL_OVERRIDE
       ? loadOptions.archiveVersion
         ? tuple(
@@ -118,8 +118,13 @@ export default (options: Options = {}) => {
     `${host}${archivePath}/contents/${ref}.json`;
 
   // Allow loading absolute and relative paths as those could be passed to the content-styles param
-  const resourceUrl = (host: string, archivePath: string, ref: string) => isAbsoluteUrl(ref) ?
-    ref : isAbsolutePath(ref) ? `${host}${ref}` : `${host}${archivePath}/resources/${ref}`;
+  const makeResourceUrl = (bookRef: string) => (
+    host: string, archivePath: string, resourceRef: string
+  ) => isAbsoluteUrl(resourceRef) ?
+         resourceRef :
+         /^\.{0,2}\//.test(resourceRef) ? // Absolute path or relative path starting with ./ or ../
+           fromRelativeUrl(contentUrl(host, archivePath, bookRef), resourceRef) :
+           `${host}${archivePath}/resources/${resourceRef}`;
 
   const getContentVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
     loadOptions.contentVersion !== undefined
@@ -169,7 +174,6 @@ export default (options: Options = {}) => {
     bookCache, contentUrl
   );
   const pageLoader = contentsLoader<ArchivePage, ArchivePage>(pageCache, contentUrl);
-  const resourceLoader = contentsLoader<string, string>(resourceCache, resourceUrl, false);
 
   const bookGetter = (
     bookId: string,
@@ -177,7 +181,7 @@ export default (options: Options = {}) => {
   ) => {
     // there are situations where `archiveVersion` will be unknown, its only for tracking, the
     // `archivePath` is whats actually used for loading things
-    const [archivePath, archiveVersion] = getArchivePathAndVersion(loadOptions, bookId);
+    const [archivePath, archiveVersion] = getArchivePathAndVersion(bookId, loadOptions);
     const contentVersion = getContentVersionForBook(bookId, loadOptions);
 
     if (!contentVersion) {
@@ -185,6 +189,9 @@ export default (options: Options = {}) => {
     }
 
     const bookRef = `${stripIdVersion(bookId)}@${contentVersion}`;
+
+    const resourceUrl = makeResourceUrl(bookRef);
+    const resourceLoader = contentsLoader<string, string>(resourceCache, resourceUrl, false);
 
     return {
       cached: () => bookCache.get(buildCacheKey(archivePath, bookRef)),
@@ -201,22 +208,12 @@ export default (options: Options = {}) => {
           url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), archivePath, bookAndPageRef),
         };
       },
+      resource: (resourceRef: string) => ({
+        cached: () => resourceCache.get(buildCacheKey(archivePath, resourceRef)),
+        load: () => resourceLoader(archivePath, resourceRef, (resource) => resource),
+        url: () => resourceUrl(ifUndefined(appPrefix, archivePrefix), archivePath, resourceRef),
+      }),
       url: () => contentUrl(ifUndefined(appPrefix, archivePrefix), archivePath, bookRef),
-    };
-  };
-
-  const resourceGetter = (
-    resourceId: string,
-    loadOptions: ArchiveLoadOptions
-  ) => {
-    // there are situations where `archiveVersion` will be unknown, its only for tracking, the
-    // `archivePath` is whats actually used for loading things
-    const [archivePath] = getArchivePathAndVersion(loadOptions);
-
-    return {
-      cached: () => resourceCache.get(buildCacheKey(archivePath, resourceId)),
-      load: () => resourceLoader(archivePath, resourceId, (resource) => resource),
-      url: () => resourceUrl(ifUndefined(appPrefix, archivePrefix), archivePath, resourceId),
     };
   };
 
@@ -239,6 +236,5 @@ export default (options: Options = {}) => {
       bookId,
       source.loadOptions
     ),
-    resource: resourceGetter,
   };
 };
