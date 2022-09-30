@@ -11,7 +11,11 @@ import { TextResizer } from './Topbar/TextResizer';
 // tslint:disable-next-line:variable-name
 const StyledTopBarWrapper = styled(TopBarWrapper)`
   ${shadow}
-  & { top: 0; }
+
+  && {
+    top: 0;
+  }
+
   background: #fff;
   color: ${theme.color.text.default};
   display: flex;
