@@ -5,18 +5,16 @@ import theme from '../../theme';
 import { setTextSize } from '../actions';
 import * as selectContent from '../selectors';
 import { LinkedArchiveTreeSection } from '../types';
+import { shadow, TopBarWrapper } from './Topbar/styled';
 import { TextResizer } from './Topbar/TextResizer';
 
 // tslint:disable-next-line:variable-name
-const TopBar = styled.div`
-  position: sticky;
-  top: 0;
-  overflow: visible;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+const StyledTopBarWrapper = styled(TopBarWrapper)`
+  ${shadow}
+  & { top: 0; }
   background: #fff;
   color: ${theme.color.text.default};
   display: flex;
-  z-index: ${theme.zIndex.topbar};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -42,7 +40,7 @@ export const AssignedTopBar = (props: {
   const dispatch = useDispatch();
 
   return (
-    <TopBar>
+    <StyledTopBarWrapper>
       <StyledSectionTitle dangerouslySetInnerHTML={{ __html:  props.section?.title }} />
       <TextResizer
         bookTheme={bookTheme}
@@ -52,6 +50,6 @@ export const AssignedTopBar = (props: {
         mobileToolbarOpen={false}
         mobileVariant={false}
       />
-    </TopBar>
+    </StyledTopBarWrapper>
   );
 };

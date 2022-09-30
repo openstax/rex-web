@@ -2,7 +2,7 @@
 
 exports[`AssignedTopBar renders 1`] = `
 <div
-  className="sc-bdVaJa bniZMO"
+  className="styled__TopBarWrapper-sc-12dq39v-0 sc-bdVaJa jpDiSL"
 >
   <h2
     className="sc-bwzfXH jNfaKd"

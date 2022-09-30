@@ -53,7 +53,7 @@ const closeIconStyles = css`
   color: #cdcdcd;
 `;
 
-const shadow = css`
+export const shadow = css`
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 `;
 
