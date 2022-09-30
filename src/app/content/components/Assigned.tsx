@@ -1,5 +1,7 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components/macro';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import Button from '../../components/Button';
 import { useServices } from '../../context/Services';
@@ -13,8 +15,17 @@ import * as selectContent from '../selectors';
 import { ArchiveTreeSection, LinkedArchiveTreeSection } from '../types';
 import { findTreePages, getPrevNext, nodeMatcher } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
+import Attribution from './Attribution';
+import { contentTextWidth } from './constants';
 import Page from './Page';
 import { PrevNextBar } from './PrevNextBar';
+
+// tslint:disable-next-line: variable-name
+const StyledButton = styled(Button)`
+  width: 100%;
+  max-width: ${contentTextWidth}rem;
+  margin: 0 auto;
+`;
 
 const useLoadSection = (currentSection: ArchiveTreeSection | undefined) => {
   const services = useServices();
@@ -87,10 +98,13 @@ export default () => {
           : null
         }
         {!prevNext?.next && typeof redirect === 'string'
-            ? <Button component={<a href={redirect}>finished reading</a>} variant='primary' size='large' />
-            : null
+          ? (<FormattedMessage id='i18n:assigned:button:continue'>
+              {(msg) => <StyledButton component={<a href={redirect}>{msg}</a>} variant='primary' size='large' />}
+            </FormattedMessage>)
+          : null
         }
       </Page>
+      <Attribution />
     </ErrorBoundary>
   </AccessibilityButtonsWrapper>;
 };
