@@ -13,6 +13,7 @@ import * as selectContent from '../selectors';
 import { ArchiveTreeSection, LinkedArchiveTreeSection } from '../types';
 import { findTreePages, getPrevNext, nodeMatcher } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
+import Attribution from './Attribution';
 import Page from './Page';
 import { PrevNextBar } from './PrevNextBar';
 
@@ -91,6 +92,7 @@ export default () => {
             : null
         }
       </Page>
+      <Attribution />
     </ErrorBoundary>
   </AccessibilityButtonsWrapper>;
 };
