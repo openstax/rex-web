@@ -16,7 +16,7 @@ const StyledTopBarWrapper = styled(TopBarWrapper)`
     top: 0;
   }
 
-  background: #fff;
+  background-color: ${theme.color.neutral.base};
   color: ${theme.color.text.default};
   display: flex;
 `;
