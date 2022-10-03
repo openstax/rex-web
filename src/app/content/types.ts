@@ -57,7 +57,7 @@ export interface State {
   references: Array<PageReferenceMap | PageReferenceError>;
   buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
   textSize: TextResizerValue | null;
-  stylesUrl: string | null;
+  bookStylesUrl: string | null;
 }
 
 export interface PageReferenceMap extends PageReference {

@@ -4,7 +4,7 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
 import { ArchiveBook, ArchiveLoadOptions, ArchivePage, VersionedArchiveBookWithConfig } from '../../app/content/types';
 import { findArchiveTreeNodeById } from '../../app/content/utils/archiveTreeUtils';
-import { fromRelativeUrl, isAbsoluteUrl } from '../../app/content/utils/urlUtils';
+import { fromRelativeUrl } from '../../app/content/utils/urlUtils';
 import { BookNotFoundError } from '../../app/utils';
 import { Books } from '../../config.books';
 import { splitStandardArchivePath } from '../../gateways/createArchiveLoader';

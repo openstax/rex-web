@@ -1,10 +1,8 @@
-import { OutputParams } from 'query-string';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { bookStylesUrl as bookStylesUrlSelector } from '../content/selectors';
 import { State } from '../content/types';
-import { fromRelativeUrl, isAbsoluteUrl } from '../content/utils/urlUtils';
 import { useServices } from '../context/Services';
 import { query } from '../navigation/selectors';
 import { AppServices } from '../types';
@@ -18,10 +16,10 @@ export const WithStyles = styled.div`
 const cacheStyles = new Map<string, string>();
 
 const getStyles = (
-  disable: boolean,
+  disable: boolean | undefined,
   queryStyles: string,
   book: State['book'],
-  bookStylesUrl: string,
+  bookStylesUrl: string | null,
   archiveLoader: AppServices['archiveLoader']
 ): string => {
   if (!disable) {

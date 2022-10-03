@@ -3,7 +3,6 @@ import createTestStore from '../../../test/createTestStore';
 import { book } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../test/utils';
-import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
 import { receiveBook, requestBook, setBookStylesUrl } from '../actions';
 import { BookWithOSWebData } from '../types';
