@@ -117,14 +117,11 @@ export default (options: Options = {}) => {
   const contentUrl = (host: string, archivePath: string, ref: string) =>
     `${host}${archivePath}/contents/${ref}.json`;
 
-  // Allow loading absolute and relative paths as those could be passed to the content-styles param
+  // Note: this currently only handles resource urls relative to the book's url
+  // Used by the book's style_href urls, which are always relative to the book's url
   const makeResourceUrl = (bookRef: string) => (
     host: string, archivePath: string, resourceRef: string
-  ) => isAbsoluteUrl(resourceRef) ?
-         resourceRef :
-         /^\.{0,2}\//.test(resourceRef) ? // Absolute path or relative path starting with ./ or ../
-           fromRelativeUrl(contentUrl(host, archivePath, bookRef), resourceRef) :
-           `${host}${archivePath}/resources/${resourceRef}`;
+  ) => fromRelativeUrl(contentUrl(host, archivePath, bookRef), resourceRef);
 
   const getContentVersionForBook = (bookId: string, loadOptions: ArchiveLoadOptions) =>
     loadOptions.contentVersion !== undefined

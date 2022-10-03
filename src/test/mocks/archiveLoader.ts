@@ -76,7 +76,7 @@ const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
 };
 
 const resources: {[key: string]: string} = {
-  [`${baseUrl}/resources/styles/test-styles.css`]: '.cool { color: red; }',
+  [`${baseUrl}/resources/styles/test-styles.css`]: '.cool { color: blue; }',
 };
 
 export default () => {
@@ -102,11 +102,7 @@ export default () => {
   };
 
   const resourceUrl = (resourceRef: string) =>
-    isAbsoluteUrl(resourceRef) ?
-      resourceRef :
-      /^\.{0,2}\//.test(resourceRef) ? // Absolute path or relative path starting with ./ or ../
-        fromRelativeUrl(`${baseUrl}/content/bookref.json`, resourceRef) :
-        `${baseUrl}/resources/${resourceRef}`;
+    fromRelativeUrl(`${baseUrl}/content/bookref.json`, resourceRef);
 
   const resolveResource = (resourceRef: string) =>
     localResources[resourceUrl(resourceRef)];

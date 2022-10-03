@@ -5,7 +5,7 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { resetModules } from '../../../test/utils';
 import { locationChange } from '../../navigation/actions';
 import { MiddlewareAPI, Store } from '../../types';
-import { receiveBook, requestBook, setStylesUrl } from '../actions';
+import { receiveBook, requestBook, setBookStylesUrl } from '../actions';
 import { BookWithOSWebData } from '../types';
 import { formatBookData } from '../utils';
 
@@ -38,24 +38,6 @@ describe('dynamicStyles', () => {
     hook = (require('./dynamicStyles').default)(helpers);
   });
 
-  it('fetches styles in content-style param', async() => {
-    const stylesUrl = 'https://localhost:3000/apps/archive/codeversion/resources/styles/test-styles.css';
-    store.dispatch(locationChange({
-      action: 'REPLACE',
-      location: {
-        search: `?content-style=${stylesUrl}`,
-      },
-    } as any));
-    const receiveBookAction = receiveBook(combinedBook);
-    store.dispatch(receiveBookAction);
-
-    await hook(receiveBookAction);
-
-    expect(loadResource).toHaveBeenCalledTimes(1);
-    expect(loadResource).toHaveBeenCalledWith(stylesUrl);
-    expect(dispatch).toHaveBeenCalledWith(setStylesUrl(stylesUrl));
-  });
-
   it('fetches relative style url in book\'s style_href field', async() => {
     const stylesUrl = '../resources/styles/test-styles.css';
     const receiveBookAction = receiveBook(combinedBook);
@@ -65,19 +47,7 @@ describe('dynamicStyles', () => {
 
     expect(loadResource).toHaveBeenCalledTimes(1);
     expect(loadResource).toHaveBeenCalledWith(stylesUrl);
-    expect(dispatch).toHaveBeenCalledWith(setStylesUrl(stylesUrl));
-  });
-
-  it('fetches absolute style url in book\'s style_href field', async() => {
-    const stylesUrl = 'https://localhost:3000/apps/archive/codeversion/resources/styles/test-styles.css';
-    const receiveBookAction = receiveBook({...combinedBook, style_href: stylesUrl});
-    store.dispatch(receiveBookAction);
-
-    await hook(receiveBookAction);
-
-    expect(loadResource).toHaveBeenCalledTimes(1);
-    expect(loadResource).toHaveBeenCalledWith(stylesUrl);
-    expect(dispatch).toHaveBeenCalledWith(setStylesUrl(stylesUrl));
+    expect(dispatch).toHaveBeenCalledWith(setBookStylesUrl(stylesUrl));
   });
 
   it('noops if no content-style param and (no style_href in book or dynamicStyles is false)', async() => {

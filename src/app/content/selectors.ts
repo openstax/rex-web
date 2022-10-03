@@ -119,7 +119,7 @@ export const textSize = createSelector(
   (state) => state.textSize
 );
 
-export const stylesUrl = createSelector(
+export const bookStylesUrl = createSelector(
   localState,
-  (state) => state.stylesUrl
+  (state) => state.bookStylesUrl
 );

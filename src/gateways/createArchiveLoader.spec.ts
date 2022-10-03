@@ -262,7 +262,7 @@ describe('archiveLoader', () => {
       it('requests data from archive url for resource', () => {
         const archiveUrl = '/test/archive';
         const booksConfig = {archiveUrl, books: {bookId: {defaultVersion: 'version'}}};
-        archiveLoader.book('bookId', {booksConfig}).resource('coolid').load();
+        archiveLoader.book('bookId', {booksConfig}).resource('../resources/coolid').load();
         expect(fetch).toHaveBeenCalledWith(`${archivePrefix}${archiveUrl}/resources/coolid`);
       });
 
@@ -273,19 +273,12 @@ describe('archiveLoader', () => {
         expect(fetch).toHaveBeenCalledWith(`${archivePrefix}${url}`);
       });
 
-      it('works with absolute urls', () => {
-        const booksConfig = {archiveUrl: '/test/archive', books: {bookId: {defaultVersion: 'version'}}};
-        const url = 'https://localhost:3000/apps/archive/codeversion/resources/coolid';
-        archiveLoader.book('bookId', {booksConfig}).resource(url).load();
-        expect(fetch).toHaveBeenCalledWith(url);
-      });
-
       it('returns cached resource data', async() => {
         (global as any).fetch = mockFetch(200, {version: 'version', id: 'coolid'});
         const booksConfig = {archiveUrl: '/test/archive', books: {bookId: {defaultVersion: 'version'}}};
         const bookLoader = createArchiveLoader(options).book('bookId', {booksConfig});
-        const one = await bookLoader.resource('coolid').load();
-        const two = bookLoader.resource('coolid').cached();
+        const one = await bookLoader.resource('../resources/coolid').load();
+        const two = bookLoader.resource('../resources/coolid').cached();
 
         expect(fetch).toHaveBeenCalledTimes(1);
         expect(two).toBe(one);
@@ -299,7 +292,7 @@ describe('archiveLoader', () => {
             books: {bookId: {defaultVersion: 'version'}},
           },
         };
-        archiveLoader.book('bookId', loadOptions).resource('coolid').load();
+        archiveLoader.book('bookId', loadOptions).resource('../resources/coolid').load();
         expect(fetch).toHaveBeenCalledWith(`${archivePrefix}/apps/archive/otherversion/resources/coolid`);
       });
 
@@ -309,12 +302,12 @@ describe('archiveLoader', () => {
           books: {bookId: {defaultVersion: 'version'}},
         };
         const bookLoader = createArchiveLoader(options).book('bookId', {booksConfig});
-        await bookLoader.resource('coolid').load();
-        await bookLoader.resource('coolid2').load();
-        await bookLoader.resource('coolid').load();
-        await bookLoader.resource('coolid1').load();
-        await bookLoader.resource('coolid').load();
-        await bookLoader.resource('coolid2').load();
+        await bookLoader.resource('../resources/coolid').load();
+        await bookLoader.resource('../resources/coolid2').load();
+        await bookLoader.resource('../resources/coolid').load();
+        await bookLoader.resource('../resources/coolid1').load();
+        await bookLoader.resource('../resources/coolid').load();
+        await bookLoader.resource('../resources/coolid2').load();
 
         expect(fetch).toHaveBeenCalledTimes(3);
       });
@@ -324,7 +317,7 @@ describe('archiveLoader', () => {
           archiveUrl: '/test/archive',
           books: {bookId: {defaultVersion: 'version'}},
         };
-        expect(archiveLoader.book('bookId', {booksConfig}).resource('coolid').url())
+        expect(archiveLoader.book('bookId', {booksConfig}).resource('../resources/coolid').url())
           .toEqual(`${archivePrefix}/test/archive/resources/coolid`);
       });
 
@@ -343,7 +336,7 @@ describe('archiveLoader', () => {
         it('uses override', () => {
           const archiveUrl = '/test/archive';
           const booksConfig = {archiveUrl, books: {bookId: {defaultVersion: 'version'}}};
-          createArchiveLoader(options).book('bookId', {booksConfig}).resource('coolid').load();
+          createArchiveLoader(options).book('bookId', {booksConfig}).resource('../resources/coolid').load();
 
           expect(fetch).toHaveBeenCalledWith(`${archivePrefix}/apps/archive/coolarchive/resources/coolid`);
         });
@@ -359,7 +352,7 @@ describe('archiveLoader', () => {
         };
 
         try {
-          await createArchiveLoader(options).book('bookId', {booksConfig}).resource('coolid').load();
+          await createArchiveLoader(options).book('bookId', {booksConfig}).resource('../resources/coolid').load();
         } catch (e) {
           error = e;
         }

@@ -1,22 +1,6 @@
-import { OutputParams } from 'query-string';
-import { query as querySelector } from '../../navigation/selectors';
 import { ActionHookBody } from '../../types';
-import { receiveBook, setStylesUrl } from '../actions';
+import { receiveBook, setBookStylesUrl } from '../actions';
 import { book as bookSelector, loadingBook as loadingBookSelector } from '../selectors';
-import { Book } from '../types';
-
-const getStylesUrl = (queryParams: OutputParams, book: Book) => {
-  // The type of queryParams['content-style'] could also be string[] but we don't want that
-  if (queryParams['content-style'] && typeof queryParams['content-style'] === 'string') {
-    return queryParams['content-style'];
-  } else {
-    const dynamicStylesEnabled = book.loadOptions.booksConfig.books[book.id]?.dynamicStyles;
-
-    if (dynamicStylesEnabled && book.style_href) {
-      return book.style_href;
-    }
-  }
-};
 
 const hookBody: ActionHookBody<typeof receiveBook> = (services) => async() => {
   const { getState, dispatch, archiveLoader } = services;
@@ -24,20 +8,16 @@ const hookBody: ActionHookBody<typeof receiveBook> = (services) => async() => {
   const state = getState();
   const book = bookSelector(state);
   const loadingBook = loadingBookSelector(state);
-  const query = querySelector(state);
 
-  if (loadingBook || !book) {
+  if (loadingBook || !book || !book.style_href ||
+      !book.loadOptions.booksConfig.books[book.id]?.dynamicStyles) {
     return;
   }
 
-  const stylesUrl = getStylesUrl(query, book);
+  // Load the styles so they are cached
+  await archiveLoader.forBook(book).resource(book.style_href).load();
 
-  if (stylesUrl) {
-    // Load the styles so they are cached
-    await archiveLoader.forBook(book).resource(stylesUrl).load();
-
-    dispatch(setStylesUrl(stylesUrl));
-  }
+  dispatch(setBookStylesUrl(book.style_href));
 };
 
 export default hookBody;
