@@ -54,8 +54,10 @@ describe('Home', () => {
       <Home />
     </TestContainer>);
 
-    // defer promises...
-    await new Promise((resolve) => setTimeout(resolve, 1));
+    await renderer.act(async() => {
+      // defer promises...
+      await new Promise((resolve) => setTimeout(resolve, 1));
+    });
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
