@@ -9,6 +9,7 @@ import practiceQuestionsHooks from '../practiceQuestions/hooks';
 import * as routes from '../routes';
 import searchHooks from '../search/hooks';
 import studyGuidesHooks from '../studyGuides/hooks';
+import dynamicStyles from './dynamicStyles';
 import kineticEnabled from './kineticEnabled';
 import { assignedRouteHookBody, contentRouteHookBody } from './locationChange';
 import receiveContentBody from './receiveContent';
@@ -40,4 +41,5 @@ export default [
   actionHook(actions.receivePage, kineticEnabled),
   actionHook(actions.setTextSize, storeTextSize),
   actionHook(locationChange, loadStoredTextSize),
+  actionHook(actions.receiveBook, dynamicStyles),
 ];
