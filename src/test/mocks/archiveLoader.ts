@@ -4,10 +4,14 @@ import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';
 import { ArchiveBook, ArchiveLoadOptions, ArchivePage, VersionedArchiveBookWithConfig } from '../../app/content/types';
 import { findArchiveTreeNodeById } from '../../app/content/utils/archiveTreeUtils';
+import { fromRelativeUrl } from '../../app/content/utils/urlUtils';
 import { BookNotFoundError } from '../../app/utils';
 import { Books } from '../../config.books';
 import { splitStandardArchivePath } from '../../gateways/createArchiveLoader';
 import { BooksConfig } from '../../gateways/createBookConfigLoader';
+
+const appPrefix = 'https://localhost:3000';
+const baseUrl = `${appPrefix}/apps/archive/codeversion`;
 
 const decorateArchiveBook = (options: ArchiveLoadOptions, result: ArchiveBook): VersionedArchiveBookWithConfig => ({
   ...result,
@@ -71,9 +75,14 @@ const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
   },
 };
 
+const resources: {[key: string]: string} = {
+  [`${baseUrl}/resources/styles/test-styles.css`]: '.cool { color: blue; }',
+};
+
 export default () => {
   const localBooks = cloneDeep(books);
   const localBookPages = cloneDeep(bookPages);
+  const localResources = cloneDeep(resources);
 
   const getBookVersion = (bookId: string, options: ArchiveLoadOptions) =>
     options.contentVersion !== undefined
@@ -92,6 +101,12 @@ export default () => {
       : undefined;
   };
 
+  const resourceUrl = (resourceRef: string) =>
+    fromRelativeUrl(`${baseUrl}/content/bookref.json`, resourceRef);
+
+  const resolveResource = (resourceRef: string) =>
+    localResources[resourceUrl(resourceRef)];
+
   const loadBook = jest.fn(async(bookId: string, options: ArchiveLoadOptions) => {
     const bookData = resolveBook(bookId, options);
     return bookData
@@ -102,8 +117,13 @@ export default () => {
   const loadPage = jest.fn(async(bookId, bookVersion, pageId) => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     const pageData = pages && pages[pageId];
-    return pageData ? Promise.resolve(pageData) : Promise.reject();
+    return pageData ? Promise.resolve(pageData) : Promise.reject(new Error(`failed to load page data ${pageId}`));
   });
+  const loadResource = jest.fn(async(resourceRef: string) => {
+    const resourceData = resolveResource(resourceRef);
+    return resourceData ? Promise.resolve(resourceData) : Promise.reject(new Error(`failed to load resource data ${resourceRef}`));
+  });
+
   const cachedBook = jest.fn((bookId: string, options: ArchiveLoadOptions) => {
     return resolveBook(bookId, options);
   });
@@ -111,42 +131,30 @@ export default () => {
     const pages = localBookPages[`${bookId}@${bookVersion}`];
     return pages && pages[pageId];
   });
+  const cachedResource = jest.fn(resolveResource);
+
+  const makeBook = (bookId: string, options: ArchiveLoadOptions) => ({
+    cached: () => cachedBook(bookId, options),
+    load: () => loadBook(bookId, options),
+    url: () => '/apps/archive/codeversion/content/bookref',
+
+    page: (pageId: string) => ({
+      cached: () => cachedPage(bookId, getBookVersion(bookId, options), pageId),
+      load: () => loadPage(bookId, getBookVersion(bookId, options), pageId),
+      url: () => '/apps/archive/codeversion/content/pageref',
+    }),
+    resource: (resourceRef: string) => ({
+      cached: () => cachedResource(resourceRef),
+      load: () => loadResource(resourceRef),
+      url: () => '/apps/archive/codeversion/resources/resourceref',
+    }),
+  });
 
   return {
-    book: (bookId: string, options: ArchiveLoadOptions) => ({
-      cached: () => cachedBook(bookId, options),
-      load: () => loadBook(bookId, options),
-      url: () => '/apps/archive/codeversion/content/bookref',
-
-      page: (pageId: string) => ({
-        cached: () => cachedPage(bookId, getBookVersion(bookId, options), pageId),
-        load: () => loadPage(bookId, getBookVersion(bookId, options), pageId),
-        url: () => '/apps/archive/codeversion/content/pageref',
-      }),
-    }),
-    forBook: (source: VersionedArchiveBookWithConfig) => ({
-      cached: () => cachedBook(source.id, source.loadOptions),
-      load: () => loadBook(source.id, source.loadOptions),
-      url: () => '/apps/archive/codeversion/content/bookref',
-
-      page: (pageId: string) => ({
-        cached: () => cachedPage(source.id, getBookVersion(source.id, source.loadOptions), pageId),
-        load: () => loadPage(source.id, getBookVersion(source.id, source.loadOptions), pageId),
-        url: () => '/apps/archive/codeversion/content/pageref',
-      }),
-    }),
-    fromBook: (source: VersionedArchiveBookWithConfig, bookId: string) => ({
-      cached: () => cachedBook(bookId, source.loadOptions),
-      load: () => loadBook(bookId, source.loadOptions),
-      url: () => '/apps/archive/codeversion/content/bookref',
-
-      page: (pageId: string) => ({
-        cached: () => cachedPage(bookId, getBookVersion(bookId, source.loadOptions), pageId),
-        load: () => loadPage(bookId, getBookVersion(bookId, source.loadOptions), pageId),
-        url: () => '/apps/archive/codeversion/content/pageref',
-      }),
-    }),
-    mock: { loadBook, loadPage, cachedBook, cachedPage },
+    book: makeBook,
+    forBook: (source: VersionedArchiveBookWithConfig) => makeBook(source.id, source.loadOptions),
+    fromBook: (source: VersionedArchiveBookWithConfig, bookId: string) => makeBook(bookId, source.loadOptions),
+    mock: { cachedBook, cachedPage, cachedResource, loadBook, loadPage, loadResource },
     mockBook: (newBook: ArchiveBook) => {
       localBooks[`${newBook.id}@${newBook.version}`] = newBook;
       localBookPages[`${newBook.id}@${newBook.version}`] = {};

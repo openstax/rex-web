@@ -19,6 +19,7 @@ import studyGuidesReducer, {initialState as initialStudyGuidesState } from './st
 import { State } from './types';
 
 export const initialState = {
+  bookStylesUrl: null,
   buyPrint: null,
   highlights: initialHighlightState,
   loading: {},
@@ -131,6 +132,9 @@ function reduceContent(state: State, action: AnyAction) {
     }
     case getType(actions.setTextSize): {
       return {...state, textSize: action.payload };
+    }
+    case getType(actions.setBookStylesUrl): {
+      return {...state, bookStylesUrl: action.payload };
     }
     default:
       return state;
