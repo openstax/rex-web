@@ -11,7 +11,6 @@ import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader
 import createMockHighlight from '../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
-// import { resetModules } from '../../../test/utils';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
@@ -93,7 +92,6 @@ describe('Page', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    // resetModules();
     jest.clearAllMocks();
 
     UntypedHighlighter.prototype.eraseAll = jest.fn();
