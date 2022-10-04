@@ -1,9 +1,8 @@
-import { OutputParams } from 'query-string';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { bookStylesUrl as bookStylesUrlSelector } from '../content/selectors';
 import { State } from '../content/types';
-import { fromRelativeUrl, isAbsoluteUrl } from '../content/utils/urlUtils';
 import { useServices } from '../context/Services';
 import { query } from '../navigation/selectors';
 import { AppServices } from '../types';
@@ -16,23 +15,27 @@ export const WithStyles = styled.div`
 
 const cacheStyles = new Map<string, string>();
 
-const getCssFileUrl = (
-  queryParams: OutputParams, book: State['book'], archiveLoader: AppServices['archiveLoader']
-) => {
-  if (queryParams['content-style']) {
-    return queryParams['content-style'];
-  } else if (book) {
-    const dynamicStylesEnabled = book.loadOptions.booksConfig.books[book.id]?.dynamicStyles;
-
-    if (dynamicStylesEnabled && book.style_href) {
-      if (isAbsoluteUrl(book.style_href)) {
-        return book.style_href;
-      } else {
-        const contentUrl = archiveLoader.forBook(book).url();
-        return fromRelativeUrl(contentUrl, book.style_href);
+const getStyles = (
+  disable: boolean | undefined,
+  queryStyles: string,
+  book: State['book'],
+  bookStylesUrl: string | null,
+  archiveLoader: AppServices['archiveLoader']
+): string => {
+  if (!disable) {
+    if (queryStyles) {
+      // Query param styles have higher priority and override book styles
+      return queryStyles;
+    } else if (book && bookStylesUrl) {
+      // The dynamicStyles hook already checked that the book config had dynamicStyles enabled
+      const cachedStyles = archiveLoader.forBook(book).resource(bookStylesUrl).cached();
+      if (cachedStyles) {
+        return cachedStyles;
       }
     }
   }
+
+  return '';
 };
 
 interface DynamicContentStylesProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -45,30 +48,36 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   { book, children, disable, ...otherProps }: React.PropsWithChildren<DynamicContentStylesProps>,
   ref
 ) => {
-  const [styles, setStyles] = React.useState('');
+  const [queryStyles, setQueryStyles] = React.useState('');
   const queryParams = useSelector(query);
-  const { archiveLoader } = useServices();
 
+  // This effect sets the styles for the query param only
+  // Book styles use a hook instead, because effects don't work during pre-rendering
+  // (and we don't need query styles during pre-rendering)
   React.useEffect(() => {
     if (disable) {
-      setStyles('');
+      setQueryStyles('');
       return;
     }
 
-    const cssfileUrl = getCssFileUrl(queryParams, book, archiveLoader);
+    const cssfileUrl = queryParams['content-style'];
     if (cssfileUrl && typeof cssfileUrl === 'string') {
       if (cacheStyles.has(cssfileUrl)) {
-        setStyles(assertDefined(cacheStyles.get(cssfileUrl), `we've just checked for this`));
+        setQueryStyles(assertDefined(cacheStyles.get(cssfileUrl), `we've just checked for this`));
       } else {
         fetch(cssfileUrl)
           .then((res) => res.text())
           .then((data) => {
             cacheStyles.set(cssfileUrl, data);
-            setStyles(data);
+            setQueryStyles(data);
           });
       }
     }
-  }, [archiveLoader, book, disable, queryParams]);
+  }, [disable, queryParams]);
+
+  const { archiveLoader } = useServices();
+  const bookStylesUrl = useSelector(bookStylesUrlSelector);
+  const styles = getStyles(disable, queryStyles, book, bookStylesUrl, archiveLoader);
 
   return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps} ref={ref}>
     {children}
