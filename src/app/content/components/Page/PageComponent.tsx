@@ -126,7 +126,6 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public render() {
     const pageIsReady = this.props.page && this.props.textSize !== null;
-
     return <MinPageHeight>
       <this.highlightManager.CardList />
       <PageToasts />
@@ -218,13 +217,12 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOn();
 
     const promise = typesetMath(container, assertWindow());
+    this.props.services.promiseCollector.add(promise);
     this.processing.push(promise);
 
-    const finishPromise = promise.then(() => {
+    return promise.then(() => {
       this.processing = this.processing.filter((p) => p !== promise);
     });
-    this.props.services.promiseCollector.add(finishPromise);
-    return finishPromise;
   }
 
   private getRunId(): number {
