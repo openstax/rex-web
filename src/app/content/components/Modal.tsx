@@ -10,7 +10,7 @@ interface ModalWithScrollLockProps extends StyledComponentProps<'div', {}, {}, '
 }
 
 // tslint:disable-next-line: variable-name
-const ModalWithScrollLock = React.forwardRef(
+const ModalWithScrollLock = React.forwardRef<HTMLDivElement, ModalWithScrollLockProps>(
   ({ children, scrollLockProps, ...props }: ModalWithScrollLockProps, ref) => {
   return createPortal(
     <PopupWrapper>
