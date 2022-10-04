@@ -3,7 +3,6 @@ import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
@@ -46,11 +45,6 @@ jest.mock('../../domUtils', () => ({
 }));
 
 jest.mock('@openstax/highlighter');
-
-UntypedHighlighter.prototype.eraseAll = jest.fn();
-UntypedHighlighter.prototype.erase = jest.fn();
-UntypedHighlighter.prototype.highlight = jest.fn();
-const getHighlightsSpy = UntypedHighlighter.prototype.getHighlights = jest.fn();
 
 // tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
@@ -100,9 +94,13 @@ describe('Page', () => {
 
   beforeEach(() => {
     // resetModules();
-    // jest.resetAllMocks();
+    jest.clearAllMocks();
 
-    getHighlightsSpy.mockReturnValue([]);
+    UntypedHighlighter.prototype.eraseAll = jest.fn();
+    UntypedHighlighter.prototype.erase = jest.fn();
+    UntypedHighlighter.prototype.highlight = jest.fn();
+    UntypedHighlighter.prototype.clearFocusedStyles = jest.fn();
+    UntypedHighlighter.prototype.getHighlights = jest.fn(() => ([]));
 
     // scrollIntoView is not implemented in jsdom
     (assertWindow() as any).HTMLElement.prototype.scrollIntoView = () => jest.fn();
@@ -178,7 +176,7 @@ describe('Page', () => {
     );
     fromApiResponse.mockImplementation((highlight) => highlight);
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(locationChange({
         action: 'REPLACE',
         location: { hash: 'hash-of-scroll-target', search: mockScrollTarget },
@@ -201,11 +199,11 @@ describe('Page', () => {
       mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }
     );
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(actionData);
     });
 
-    renderer.act(() => {
+    act(() => {
       requestDeleteHighlightHook.hookBody(
         {...services, getState: store.getState, dispatch: store.dispatch}
       )(actionData);
@@ -214,7 +212,6 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(mockHighlights[0], expect.anything()));
     expect(spyReplaceState).toHaveBeenCalledWith(null, '', window.location.origin + window.location.pathname);
     expect(scrollTarget(store.getState())).toEqual(null);
-    jest.resetAllMocks();
   });
 
   // tslint:disable-next-line: max-line-length
@@ -248,7 +245,7 @@ describe('Page', () => {
     );
     fromApiResponse.mockImplementation((highlight) => highlight);
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(locationChange({
         action: 'REPLACE',
         location: { hash: 'hash-of-scroll-target', search: mockScrollTarget },
@@ -263,14 +260,14 @@ describe('Page', () => {
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalled();
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(clearFocusedHighlight());
     });
 
     // page lifecycle hooks
     await Promise.resolve();
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(focusHighlight(mockHighlights[1].id));
     });
 
@@ -281,7 +278,7 @@ describe('Page', () => {
     expect(spyHSTScrollIntoView).toHaveBeenCalledTimes(1);
   });
 
-  it.only('handle multiple mathjax promises and call highlightManager.update only once', async() => {
+  it('handle multiple mathjax promises and call highlightManager.update only once', async() => {
     jest.useFakeTimers();
 
     const mathjaxQueue: Array<() => any> = [];
@@ -299,9 +296,6 @@ describe('Page', () => {
 
     expect(spyTypesetMath).toHaveBeenCalledTimes(1);
 
-    // page lifecycle hooks
-    await Promise.resolve();
-
     const mockHighlights = [createMockHighlight()] as any[];
 
     Highlighter.mock.instances[1].getHighlights.mockReturnValue(mockHighlights);
@@ -315,43 +309,20 @@ describe('Page', () => {
       store.dispatch(receivePage({...pageWithRefereces, id: 'asdas', references}));
     });
 
-    await act(async() => {
-      await Promise.resolve();
-    });
-    // page lifecycle hooks
-    await Promise.resolve();
-    await Promise.resolve();
-    await Promise.resolve();
-
     // highlightManager.update is called recursivelly after every 100ms to check if typesetting has ended
     // we call this for test coverage
     jest.advanceTimersByTime(120);
 
-    await act(async() => {
-      await Promise.resolve();
-      await services.promiseCollector.calm();
+    act(() => {
+      store.dispatch(receivePage({...pageWithRefereces, id: 'other', references}));
     });
-    // page lifecycle hooks
-    await Promise.resolve();
-    await Promise.resolve();
-    await Promise.resolve();
 
     act(() => {
-      // store.dispatch(receivePage({...pageWithRefereces, id: 'other', references}));
+      store.dispatch(receivePage({...pageWithRefereces, references}));
     });
-
-    // page lifecycle hooks
-    await Promise.resolve();
-
-    act(() => {
-      // store.dispatch(receivePage({...pageWithRefereces, references}));
-    });
-
-    // page lifecycle hooks
-    await Promise.resolve();
 
     // initial load + 3 page changes
-    expect(spyTypesetMath).toHaveBeenCalledTimes(2);
+    expect(spyTypesetMath).toHaveBeenCalledTimes(4);
 
     // clearFocusedStyles is called once per highlightManager.update - it wasn't called yet because
     // it is waiting for typestting to finish
@@ -362,18 +333,12 @@ describe('Page', () => {
 
     // first function in mathjaxQueue is typesetDocument function and the second is typesetDocumentPromise
     expect(mathjaxQueue.length).toEqual(2);
+
     // call typesetDocumentPromise
-    console.log(mathjaxQueue);
-
-    act(() => {
-      console.log('before math');
+    await act(async() => {
       mathjaxQueue[1]();
-      // // page lifecycle hooks
-      console.log('after math');
+      await services.promiseCollector.calm();
     });
-
-    await Promise.resolve();
-    await Promise.resolve();
 
     // We've updated highlighter only once even that we had 4 page rerenders
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(1);

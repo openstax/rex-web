@@ -228,7 +228,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
       setListHighlights = setHighlights;
       setListPendingHighlight = setInnerPendingHighlight;
 
-      console.log('rerender');
       return React.createElement(CardWrapper, {
         container,
         highlighter: listHighlighter,
@@ -275,7 +274,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
         clearPendingHighlight();
       }
 
-      console.log('in here');
       if (addedOrRemoved || newHighlights.length > 0 || removedHighlights.length > 0) {
         setListHighlights(highlighter.getOrderedHighlights());
         return true;
