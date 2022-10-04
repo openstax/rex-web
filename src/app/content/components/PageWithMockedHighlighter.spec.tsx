@@ -1,6 +1,7 @@
 import UntypedHighlighter, { SerializedHighlight as UntypedSerializedHighlight } from '@openstax/highlighter';
 import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
@@ -11,7 +12,7 @@ import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader
 import createMockHighlight from '../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
-import { resetModules } from '../../../test/utils';
+// import { resetModules } from '../../../test/utils';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
@@ -49,6 +50,7 @@ jest.mock('@openstax/highlighter');
 UntypedHighlighter.prototype.eraseAll = jest.fn();
 UntypedHighlighter.prototype.erase = jest.fn();
 UntypedHighlighter.prototype.highlight = jest.fn();
+const getHighlightsSpy = UntypedHighlighter.prototype.getHighlights = jest.fn();
 
 // tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
@@ -97,8 +99,10 @@ describe('Page', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    resetModules();
-    jest.resetAllMocks();
+    // resetModules();
+    // jest.resetAllMocks();
+
+    getHighlightsSpy.mockReturnValue([]);
 
     // scrollIntoView is not implemented in jsdom
     (assertWindow() as any).HTMLElement.prototype.scrollIntoView = () => jest.fn();
@@ -277,7 +281,7 @@ describe('Page', () => {
     expect(spyHSTScrollIntoView).toHaveBeenCalledTimes(1);
   });
 
-  it('handle multiple mathjax promises and call highlightManager.update only once', async() => {
+  it.only('handle multiple mathjax promises and call highlightManager.update only once', async() => {
     jest.useFakeTimers();
 
     const mathjaxQueue: Array<() => any> = [];
@@ -307,33 +311,47 @@ describe('Page', () => {
     );
     fromApiResponse.mockImplementation((highlight) => highlight);
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(receivePage({...pageWithRefereces, id: 'asdas', references}));
     });
 
+    await act(async() => {
+      await Promise.resolve();
+    });
     // page lifecycle hooks
+    await Promise.resolve();
+    await Promise.resolve();
     await Promise.resolve();
 
     // highlightManager.update is called recursivelly after every 100ms to check if typesetting has ended
     // we call this for test coverage
     jest.advanceTimersByTime(120);
 
-    renderer.act(() => {
-      store.dispatch(receivePage({...pageWithRefereces, id: 'other', references}));
+    await act(async() => {
+      await Promise.resolve();
+      await services.promiseCollector.calm();
+    });
+    // page lifecycle hooks
+    await Promise.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
+
+    act(() => {
+      // store.dispatch(receivePage({...pageWithRefereces, id: 'other', references}));
     });
 
     // page lifecycle hooks
     await Promise.resolve();
 
-    renderer.act(() => {
-      store.dispatch(receivePage({...pageWithRefereces, references}));
+    act(() => {
+      // store.dispatch(receivePage({...pageWithRefereces, references}));
     });
 
     // page lifecycle hooks
     await Promise.resolve();
 
     // initial load + 3 page changes
-    expect(spyTypesetMath).toHaveBeenCalledTimes(4);
+    expect(spyTypesetMath).toHaveBeenCalledTimes(2);
 
     // clearFocusedStyles is called once per highlightManager.update - it wasn't called yet because
     // it is waiting for typestting to finish
@@ -345,9 +363,15 @@ describe('Page', () => {
     // first function in mathjaxQueue is typesetDocument function and the second is typesetDocumentPromise
     expect(mathjaxQueue.length).toEqual(2);
     // call typesetDocumentPromise
-    mathjaxQueue[1]();
+    console.log(mathjaxQueue);
 
-    // // page lifecycle hooks
+    act(() => {
+      console.log('before math');
+      mathjaxQueue[1]();
+      // // page lifecycle hooks
+      console.log('after math');
+    });
+
     await Promise.resolve();
     await Promise.resolve();
 

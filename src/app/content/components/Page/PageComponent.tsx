@@ -86,7 +86,9 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
 
     // Wait for the mathjax promise set by postProcess from previous or current componentDidUpdate call.
+    console.log('before', this.processing);
     await Promise.all(this.processing);
+    console.log('after', this.processing);
 
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
@@ -95,6 +97,8 @@ export default class PageComponent extends Component<PagePropTypes> {
     if (!this.shouldUpdateHighlightManagers(prevProps, this.props, runId)) {
       return;
     }
+
+    console.log('after after');
 
     const highlightsAddedOrRemoved = this.highlightManager.update(prevProps.highlights, {
       onSelect: this.onHighlightSelect,
@@ -126,6 +130,8 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public render() {
     const pageIsReady = this.props.page && this.props.textSize !== null;
+
+    console.log('rendering main page');
     return <MinPageHeight>
       <this.highlightManager.CardList />
       <PageToasts />
@@ -217,12 +223,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOn();
 
     const promise = typesetMath(container, assertWindow());
-    this.props.services.promiseCollector.add(promise);
     this.processing.push(promise);
 
-    return promise.then(() => {
+    const finishPromise = promise.then(() => {
       this.processing = this.processing.filter((p) => p !== promise);
     });
+    this.props.services.promiseCollector.add(finishPromise);
+    return finishPromise;
   }
 
   private getRunId(): number {
