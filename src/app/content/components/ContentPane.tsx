@@ -12,6 +12,7 @@ import {
   mainContentBackground,
   sidebarDesktopWidth,
   sidebarDesktopWithToolbarWidth,
+  sidebarTransitionTime,
   verticalNavbarMaxWidth,
 } from './constants';
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
@@ -36,6 +37,7 @@ const Wrapper = styled.div`
     overflow: visible;
     background-color: ${mainContentBackground};
     padding-left: ${sidebarDesktopWidth}rem;
+    transition: padding-left ${sidebarTransitionTime}ms ease-in-out;
     ${contentWrapperBreakpointStyles}
     ${theme.breakpoints.mobile(css`
       padding-left: 0;
