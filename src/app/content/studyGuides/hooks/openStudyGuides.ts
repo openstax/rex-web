@@ -5,6 +5,7 @@ import { AnyMatch } from '../../../navigation/types';
 import { getQueryForParam } from '../../../navigation/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
+import { closeMobileMenu } from '../../actions';
 import { loadMoreStudyGuides, openStudyGuides } from '../actions';
 import * as select from '../selectors';
 
@@ -29,6 +30,8 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
       services.dispatch(loadMoreStudyGuides());
     }
   }
+
+  services.dispatch(closeMobileMenu());
 };
 
 export const openStudyGuidesHook = actionHook(openStudyGuides, hookBody);
