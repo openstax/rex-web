@@ -129,6 +129,7 @@ export default styled(MainContent)`
   @media screen {
     .search-highlight {
       font-weight: bold;
+
       ${SELF_AND_CHILD_MATH_SELECTOR} {
         background-color: #ffea00;
       }
