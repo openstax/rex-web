@@ -128,7 +128,9 @@ export default styled(MainContent)`
       background-color: #ffea00;
 
       &.focus {
-        background-color: #ff9e4b;
+        &, & .math {
+          background-color: #ff9e4b;
+        }
 
         .search-highlight {
           background-color: unset;
