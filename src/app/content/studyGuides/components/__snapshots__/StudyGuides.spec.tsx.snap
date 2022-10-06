@@ -45,7 +45,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="blue"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB DynamicContentStyles__WithStyles-sc-4n87od-0 dDJtWC"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
@@ -69,7 +69,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="green"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB DynamicContentStyles__WithStyles-sc-4n87od-0 dDJtWC"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -93,7 +93,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="pink"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB DynamicContentStyles__WithStyles-sc-4n87od-0 dDJtWC"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -117,7 +117,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="purple"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB DynamicContentStyles__WithStyles-sc-4n87od-0 dDJtWC"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -139,7 +139,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color={null}
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB DynamicContentStyles__WithStyles-sc-4n87od-0 dDJtWC"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -189,7 +189,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="blue"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB DynamicContentStyles__WithStyles-sc-4n87od-0 dDJtWC"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -213,7 +213,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="green"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB sc-bdVaJa ibTDPh"
+            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB DynamicContentStyles__WithStyles-sc-4n87od-0 dDJtWC"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",

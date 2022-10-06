@@ -74,7 +74,7 @@ describe('DynamicContentStyles', () => {
     expect(withStyles.props['data-dynamic-style']).toBe(true);
   });
 
-  it('does not set styles and data-dynamic-style if bookStylesUrl is not cached', async() => {
+  it('does not set styles but sets data-dynamic-style if bookStylesUrl is not cached', async() => {
     store.dispatch(setBookStylesUrl('../resources/styles/uncached-styles.css'));
 
     const component = renderer.create(<TestContainer store={store}>
@@ -85,7 +85,8 @@ describe('DynamicContentStyles', () => {
 
     const withStyles = component.root.findByType(WithStyles);
     expect(withStyles.props.styles).toEqual('');
-    expect(withStyles.props['data-dynamic-style']).toBe(false);
+    // This is set to true so hydration works
+    expect(withStyles.props['data-dynamic-style']).toBe(true);
   });
 
   it('does not set styles and data-dynamic-style if disable is passed', async() => {
