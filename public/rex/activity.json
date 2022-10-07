@@ -10,7 +10,7 @@
   ],
   "activities":{
     "reading":{
-      "launch":{"url":"https://localhost:3001/apps/rex/assigned/:id","navigation":true,"xapi":false},
+      "launch":{"url":"https://rex-web-assignment-inte-gurl3e.herokuapp.com/apps/rex/assigned/:id","navigation":true,"xapi":false},
       "objectIRI":"https://openstax.org/orn/reading/:id",
       "objectTypeIRI":"http://id.tincanapi.com/activitytype/school-assignment"
     },
