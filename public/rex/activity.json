@@ -13,6 +13,11 @@
       "launch":{"url":"https://localhost:3001/apps/rex/assigned/:id","navigation":true,"xapi":false},
       "objectIRI":"https://openstax.org/orn/reading/:id",
       "objectTypeIRI":"http://id.tincanapi.com/activitytype/school-assignment"
+    },
+    "youtube_video":{
+      "launch":{"url":"https://www.youtube.com/watch/:id","navigation":false,"xapi":false},
+      "objectIRI":"https://openstax.org/orn/video/youtube/:id",
+      "objectTypeIRI":"http://adlnet.gov/expapi/activities/media"
     }
   }
 }
