@@ -15,7 +15,7 @@
       "objectTypeIRI":"http://id.tincanapi.com/activitytype/school-assignment"
     },
     "youtube_video":{
-      "launch":{"url":"https://www.youtube.com/watch/:id","navigation":false,"xapi":false},
+      "launch":{"url":"https://www.youtube.com/embed/:id","navigation":false,"xapi":false},
       "objectIRI":"https://openstax.org/orn/video/youtube/:id",
       "objectTypeIRI":"http://adlnet.gov/expapi/activities/media"
     }
