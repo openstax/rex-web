@@ -105,6 +105,6 @@ export default () => {
         }
       </Page>
       <Attribution />
-    </ErrorBoundary>;
-  </AccessibilityButtonsWrapper > ;
+    </ErrorBoundary>
+  </AccessibilityButtonsWrapper>;
 };
