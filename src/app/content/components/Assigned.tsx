@@ -78,7 +78,7 @@ const usePrevNext = (sections: LinkedArchiveTreeSection[]) => {
 
 export default () => {
   const book = useSelector(selectContent.book);
-  const {redirect} = useSelector(selectNavigation.query);
+  const {return_url} = useSelector(selectNavigation.query);
   const sections = useAssignedSections();
   const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
   const prevNext = usePrevNext(sections);
@@ -100,9 +100,9 @@ export default () => {
           />
           : null
         }
-        {!prevNext?.next && typeof redirect === 'string'
+        {!prevNext?.next && typeof return_url === 'string'
           ? (<FormattedMessage id='i18n:assigned:button:continue'>
-              {(msg) => <StyledButton component={<a href={redirect}>{msg}</a>} variant='primary' size='large' />}
+              {(msg) => <StyledButton component={<a href={return_url}>{msg}</a>} variant='primary' size='large' />}
             </FormattedMessage>)
           : null
         }

@@ -121,7 +121,7 @@ describe('Assigned', () => {
 
   it('goes to next', async() => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({
-      redirect: '/cool/redirect',
+      return_url: '/cool/redirect',
       section: [page.id, shortPage.id],
     });
     jest.spyOn(selectContent, 'book')
