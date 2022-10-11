@@ -18,6 +18,10 @@ export const contentTextStyle = css`
   }
 `;
 
+// Search and key term highlights need to target .math as well,
+// otherwise math elements won't have full height background color
+const SELF_AND_CHILD_MATH_SELECTOR = '&, & .math';
+
 export default styled(MainContent)`
   ${contentTextStyle}
   overflow: visible;
@@ -125,10 +129,15 @@ export default styled(MainContent)`
   @media screen {
     .search-highlight {
       font-weight: bold;
-      background-color: #ffea00;
+
+      ${SELF_AND_CHILD_MATH_SELECTOR} {
+        background-color: #ffea00;
+      }
 
       &.focus {
-        background-color: #ff9e4b;
+        ${SELF_AND_CHILD_MATH_SELECTOR} {
+          background-color: #ff9e4b;
+        }
 
         .search-highlight {
           background-color: unset;
