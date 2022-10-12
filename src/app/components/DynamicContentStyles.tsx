@@ -1,6 +1,8 @@
+import postcss from 'postcss';
+import postcssNested from 'postcss-nested';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import { createGlobalStyle } from 'styled-components/macro';
 import { bookStylesUrl as bookStylesUrlSelector } from '../content/selectors';
 import { State } from '../content/types';
 import { useServices } from '../context/Services';
@@ -9,8 +11,12 @@ import { AppServices } from '../types';
 import { assertDefined } from '../utils/assertions';
 
 // tslint:disable-next-line: variable-name
-export const WithStyles = styled.div`
-  ${(props: { styles: string }) => props.styles}
+export const ScopedGlobalStyle = createGlobalStyle`
+  ${(props: { styles: string }) => postcss(postcssNested).process(`
+    [data-dynamic-style="true"] {
+      ${props.styles}
+    }
+  `).css}
 `;
 
 const cacheStyles = new Map<string, string>();
@@ -78,9 +84,18 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
   const bookStylesUrl = useSelector(bookStylesUrlSelector);
   const [dataDynamicStyle, styles] = getStyles(disable, queryStyles, book, bookStylesUrl, archiveLoader);
 
-  return <WithStyles styles={styles} data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
-    {children}
-  </WithStyles>;
+  if (styles) {
+    return <>
+      <ScopedGlobalStyle styles={styles}/>
+      <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
+        {children}
+      </div>
+    </>;
+  } else {
+    return <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
+      {children}
+    </div>;
+  }
 });
 
 export default DynamicContentStyles;

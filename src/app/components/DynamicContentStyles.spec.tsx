@@ -7,7 +7,7 @@ import { runHooksAsync } from '../../test/utils';
 import { setBookStylesUrl } from '../content/actions';
 import { State } from '../content/types';
 import { locationChange } from '../navigation/actions';
-import DynamicContentStyles, { WithStyles } from './DynamicContentStyles';
+import DynamicContentStyles, { ScopedGlobalStyle } from './DynamicContentStyles';
 
 describe('DynamicContentStyles', () => {
   // tslint:disable-next-line: variable-name
@@ -40,11 +40,10 @@ describe('DynamicContentStyles', () => {
     await runHooksAsync(renderer);
 
     expect(spyFetch).toHaveBeenCalledTimes(1);
-
-    const withStyles = component.root.findByType(WithStyles);
-    expect(withStyles.props.styles).toEqual('.cool { color: red; }');
-    expect(withStyles.props['data-dynamic-style']).toBe(true);
     expect(spyFetch).toHaveBeenCalledWith('file.css');
+
+    const globalStyle = component.root.findByType(ScopedGlobalStyle);
+    expect(globalStyle.props.styles).toEqual('.cool { color: red; }');
 
     await renderer.act(async() => {
       store.dispatch(locationChange({ location: { search: 'content-style=file2.css' } } as any));
@@ -69,9 +68,8 @@ describe('DynamicContentStyles', () => {
 
     await runHooksAsync(renderer);
 
-    const withStyles = component.root.findByType(WithStyles);
-    expect(withStyles.props.styles).toEqual('.cool { color: blue; }');
-    expect(withStyles.props['data-dynamic-style']).toBe(true);
+    const globalStyle = component.root.findByType(ScopedGlobalStyle);
+    expect(globalStyle.props.styles).toEqual('.cool { color: blue; }');
   });
 
   it('does not set styles but sets data-dynamic-style if bookStylesUrl is not cached', async() => {
@@ -83,10 +81,9 @@ describe('DynamicContentStyles', () => {
 
     await runHooksAsync(renderer);
 
-    const withStyles = component.root.findByType(WithStyles);
-    expect(withStyles.props.styles).toEqual('');
-    // This is set to true so hydration works
-    expect(withStyles.props['data-dynamic-style']).toBe(true);
+    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
+      'No instances found with node type: "GlobalStyleComponent"'
+    );
   });
 
   it('does not set styles and data-dynamic-style if disable is passed', async() => {
@@ -98,9 +95,9 @@ describe('DynamicContentStyles', () => {
 
     await runHooksAsync(renderer);
 
-    const withStyles = component.root.findByType(WithStyles);
-    expect(withStyles.props.styles).toEqual('');
-    expect(withStyles.props['data-dynamic-style']).toBe(false);
+    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
+      'No instances found with node type: "GlobalStyleComponent"'
+    );
   });
 
   it('does not set styles and data-dynamic-style if store and query params not set', async() => {
@@ -110,8 +107,8 @@ describe('DynamicContentStyles', () => {
 
     await runHooksAsync(renderer);
 
-    const withStyles = component.root.findByType(WithStyles);
-    expect(withStyles.props.styles).toEqual('');
-    expect(withStyles.props['data-dynamic-style']).toBe(false);
+    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
+      'No instances found with node type: "GlobalStyleComponent"'
+    );
   });
 });
