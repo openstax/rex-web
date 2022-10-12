@@ -70,7 +70,7 @@ test('signup and highlight', async ({ page, isMobile }) => {
   await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
 
   // WHEN: Highlight some text
-  await BookPage.highlightText()
+  await BookPage.highlightText('green')
 
   // THEN: Text is highlighted
   let highlightcount = await BookPage.highlightCount()

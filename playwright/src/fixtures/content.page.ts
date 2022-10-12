@@ -3,12 +3,21 @@ import { Locator, Page } from 'playwright'
 
 class ContentPage {
   blue: Locator
+  green: Locator
+  pink: Locator
+  purple: Locator
+  yellow: Locator
   page: Page
   paragraph: Locator
   highlight: Locator
+  colorlocator: any
   constructor(page: Page) {
     this.page = page
-    this.blue = page.locator('[aria-label="Apply blue highlight"]')
+    this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
+    this.green = this.page.locator('[aria-label="Apply green highlight"]')
+    this.pink = this.page.locator('[aria-label="Apply pink highlight"]')
+    this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
+    this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
   }
 
@@ -28,10 +37,28 @@ class ContentPage {
       .addCookies([{ name: 'nudge_study_guides_date', value: current_date, url: this.page.url() }])
   }
 
+  // Return locator of the color
+  async colorLocator(color: string) {
+    if (color === 'blue') {
+      return this.blue
+    } else if (color === 'green') {
+      return this.green
+    } else if (color === 'pink') {
+      return this.pink
+    } else if (color === 'purple') {
+      return this.purple
+    } else if (color === 'yellow') {
+      return this.yellow
+    } else if (color === '') {
+      return this.yellow
+    }
+  }
+
   // Highlight selected text
-  async highlightText() {
+  async highlightText(color: string) {
     await this.selectText()
-    await this.blue.click()
+    this.colorlocator = await this.colorLocator(color)
+    await this.colorlocator.click()
   }
 
   // Total number of highlights in a page
