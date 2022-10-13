@@ -252,15 +252,17 @@ def test_attribution_behavior_in_rex_404_page(selenium, base_url, book_slug, pag
     # WHEN: Rex 404 page is displayed
     assert book.content.page_error_displayed
 
-    # THEN: Attribution can be expanded
-    attribution.click_attribution_link()
+    # THEN: Attribution section is not present
+    try:
+        assert not attribution.root.is_displayed()
+    except NoSuchElementException:
+        pass
+    
+    # AND: The "previous" link should be hidden
+    assert not book.previous_link_is_displayed
 
-    # AND: Clicking book url link in attribution works
-    attribution.click_book_url()
-    assert toc.sections[1].is_active
-
-    # AND: Rex 404 page is not displayed
-    assert not book.content.page_error_displayed
+    # AND: The "next" link should be hidden
+    assert not book.next_link_is_displayed
 
 
 @markers.test_case("C619385")
