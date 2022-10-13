@@ -152,7 +152,7 @@ def test_license_details(selenium, base_url, page_slug):
     for book_slug in list(book_slugs):
 
         # GIVEN: Book page is loaded
-        book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+        book = Content(selenium, base_url, book_slug=book_slug, page_slug=get_default_page(book_slug)).open()
         attribution = book.attribution
 
         # Skip any notification/nudge popups
