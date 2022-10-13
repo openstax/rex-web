@@ -177,7 +177,6 @@ describe('archiveLoader', () => {
       });
 
       describe('with archive override', () => {
-
         beforeEach(() => {
           jest.doMock('../config', () => ({
             ...jest.requireActual('../config'),
@@ -242,6 +241,125 @@ describe('archiveLoader', () => {
         if (error) {
           expect(error.message).toEqual(
             'Error response from archive "/test/archive/contents/coolid@version.json" 404: not found'
+          );
+        } else {
+          expect(error).toBeTruthy();
+        }
+      });
+    });
+  });
+
+  describe('resource loader', () => {
+    const archivePrefix = 'https://localhost:3000';
+    const options = {archivePrefix};
+    const archiveLoader = createArchiveLoader(options);
+
+    describe('when successful', () => {
+      beforeEach(() => {
+        (global as any).fetch = mockFetch(200, {some: 'data'});
+      });
+
+      it('requests data from archive url for resource', () => {
+        const archiveUrl = '/test/archive';
+        const booksConfig = {archiveUrl, books: {bookId: {defaultVersion: 'version'}}};
+        archiveLoader.book('bookId', {booksConfig}).resource('../resources/coolid').load();
+        expect(fetch).toHaveBeenCalledWith(`${archivePrefix}${archiveUrl}/resources/coolid`);
+      });
+
+      it('works with absolute paths', () => {
+        const booksConfig = {archiveUrl: '/test/archive', books: {bookId: {defaultVersion: 'version'}}};
+        const url = '/apps/archive/codeversion/resources/coolid';
+        archiveLoader.book('bookId', {booksConfig}).resource(url).load();
+        expect(fetch).toHaveBeenCalledWith(`${archivePrefix}${url}`);
+      });
+
+      it('returns cached resource data', async() => {
+        (global as any).fetch = mockFetch(200, {version: 'version', id: 'coolid'});
+        const booksConfig = {archiveUrl: '/test/archive', books: {bookId: {defaultVersion: 'version'}}};
+        const bookLoader = createArchiveLoader(options).book('bookId', {booksConfig});
+        const one = await bookLoader.resource('../resources/coolid').load();
+        const two = bookLoader.resource('../resources/coolid').cached();
+
+        expect(fetch).toHaveBeenCalledTimes(1);
+        expect(two).toBe(one);
+      });
+
+      it('returns alternate archive version', () => {
+        const loadOptions = {
+          archiveVersion: 'otherversion',
+          booksConfig: {
+            archiveUrl: '/test/archive',
+            books: {bookId: {defaultVersion: 'version'}},
+          },
+        };
+        archiveLoader.book('bookId', loadOptions).resource('../resources/coolid').load();
+        expect(fetch).toHaveBeenCalledWith(`${archivePrefix}/apps/archive/otherversion/resources/coolid`);
+      });
+
+      it('memoizes requests', async() => {
+        const booksConfig = {
+          archiveUrl: '/test/archive',
+          books: {bookId: {defaultVersion: 'version'}},
+        };
+        const bookLoader = createArchiveLoader(options).book('bookId', {booksConfig});
+        await bookLoader.resource('../resources/coolid').load();
+        await bookLoader.resource('../resources/coolid2').load();
+        await bookLoader.resource('../resources/coolid').load();
+        await bookLoader.resource('../resources/coolid1').load();
+        await bookLoader.resource('../resources/coolid').load();
+        await bookLoader.resource('../resources/coolid2').load();
+
+        expect(fetch).toHaveBeenCalledTimes(3);
+      });
+
+      it('returns original resource url', () => {
+        const booksConfig = {
+          archiveUrl: '/test/archive',
+          books: {bookId: {defaultVersion: 'version'}},
+        };
+        expect(archiveLoader.book('bookId', {booksConfig}).resource('../resources/coolid').url())
+          .toEqual(`${archivePrefix}/test/archive/resources/coolid`);
+      });
+
+      describe('with archive override', () => {
+        beforeEach(() => {
+          jest.doMock('../config', () => ({
+            ...jest.requireActual('../config'),
+            REACT_APP_ARCHIVE_URL_OVERRIDE: '/apps/archive/coolarchive',
+          }));
+        });
+
+        afterEach(() => {
+          jest.unmock('../config');
+        });
+
+        it('uses override', () => {
+          const archiveUrl = '/test/archive';
+          const booksConfig = {archiveUrl, books: {bookId: {defaultVersion: 'version'}}};
+          createArchiveLoader(options).book('bookId', {booksConfig}).resource('../resources/coolid').load();
+
+          expect(fetch).toHaveBeenCalledWith(`${archivePrefix}/apps/archive/coolarchive/resources/coolid`);
+        });
+      });
+    });
+
+    describe('returns error', () => {
+      it('when resource 404s', async() => {
+        (global as any).fetch = mockFetch(404, 'not found');
+        let error: Error | null = null;
+        const booksConfig = {
+          archiveUrl: '/test/archive', books: {bookId: {defaultVersion: 'version'}},
+        };
+
+        try {
+          await createArchiveLoader(options).book('bookId', {booksConfig}).resource('../resources/coolid').load();
+        } catch (e) {
+          error = e;
+        }
+
+        if (error) {
+          expect(error.message).toEqual(
+            `Error response from archive "${archivePrefix}/test/archive/resources/coolid" 404: not found`
           );
         } else {
           expect(error).toBeTruthy();

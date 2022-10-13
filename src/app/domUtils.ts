@@ -126,6 +126,23 @@ export const scrollIntoView = (elementToScroll: HTMLElement, otherElements?: HTM
   }
 };
 
+// https://stackoverflow.com/a/7557433/14809536
+/* this only works if the element is in the body scrollable, not a nested scrollable */
+export const elementIsVisibleInWindow = (element: Element) => {
+  if (typeof(window) === 'undefined')  {
+    return false;
+  }
+
+  const rect = element.getBoundingClientRect();
+
+  return (
+    rect.bottom >= 0
+    && rect.right >= 0
+    && rect.top <= window.innerHeight
+    && rect.left <= window.innerWidth
+  );
+};
+
 export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {
   app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), focus);
   app.store.dispatch(receivePageFocus(focus));

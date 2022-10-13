@@ -31,6 +31,12 @@ export default {
       dist: normalize(config.RELEASE_ID),
       dsn: 'https://d2a5f17c9d8f40369446ea0cfaf21e73@o484761.ingest.sentry.io/5538506',
       environment: config.DEPLOYED_ENV,
+      ignoreErrors: [
+        // https://github.com/getsentry/sentry-javascript/issues/3440#issuecomment-1233146122
+        /^Non-Error promise rejection captured with value: Object Not Found Matching Id:\d+$/,
+        // https://stackoverflow.com/a/50387233/14809536
+        /^ResizeObserver loop limit exceeded$/,
+      ],
       integrations: [
         new Integrations.ExtraErrorData(),
         new Integrations.Dedupe(),

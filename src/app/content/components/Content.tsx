@@ -20,9 +20,7 @@ import CenteredContentRow from './CenteredContentRow';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
-  contentWrapperMaxWidth,
   scrollOffset,
-  sidebarTransitionTime,
   toolbarMobileExpandedHeight,
   topbarDesktopHeight,
   topbarMobileHeight
@@ -35,7 +33,6 @@ import PrevNextBar from './PrevNextBar';
 
 import Navigation from './Navigation';
 import Topbar from './Topbar';
-import { isVerticalNavOpenConnector } from './utils/sidebar';
 import Wrapper from './Wrapper';
 
 // tslint:disable-next-line:variable-name
@@ -64,37 +61,6 @@ const ContentNotifications = styled(Notifications)`
 `;
 
 // tslint:disable-next-line:variable-name
-const UndoPadding = styled.div`
-  @media screen {
-    overflow: visible;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-const MainContentWrapper = isVerticalNavOpenConnector(styled.div`
-  @media screen {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
-    transition: max-width ${sidebarTransitionTime}ms;
-    width: 100%;
-    margin: 0 auto;
-    padding-left: 0;
-    ${theme.breakpoints.mobile(css`
-      padding-left: 0;
-      max-width: ${contentWrapperMaxWidth}rem;
-    `)}
-    ${(props) => (props.isVerticalNavOpen === false) && `
-      max-width: ${contentWrapperMaxWidth}rem;
-    `}
-  }
-`);
-
-// tslint:disable-next-line:variable-name
 const OuterWrapper = styled.div`
   @media screen {
     display: flex;
@@ -103,46 +69,6 @@ const OuterWrapper = styled.div`
   }
 `;
 
-/*
- * this layout is a mess for these reasons:
- * - the navs must have the default padding inside their containers so their
- *   backgrounds go to the edge of the window.
- *
- * - the content wrapper must behave the same way as the navs in order to get
- *   the sidebar in the right place to line up with the button in the toolbar.
- *
- * - the white background must then have negative margin to undo the default
- *   padding so that it can get to the edge of the screen on small windows.
- *
- * - the white background can't be on the whole wrapper, because it is fixed
- *   width on large screens, and then it wouldn't go to the edge on small ones.
- *
- * - transitioning the white background from full width to fixed width, while
- *   matching the container boundaries of the navbars, is complicated.
- *
- * - the default padding is duplicated inside the white margin for small
- *   screen behavior, but it cant affect the notifications or attribution,
- *   so there is another container for that.
- *
- * - the extra container for the padding inside the white margin can't go away
- *   because it is necessary to hide the overflow of items on the Page, and contain
- *   the margins of the Page, which must be overflow: visible.
- *
- * - when the sidebar is closed the white wrapper behaves more or less the same
- *   as the default wrapper, but when the sidebar is open it only needs
- *   padding/margin on the right, because the sidebar already puts the left
- *   side in the right place, and you don't want a gap between the sidebar
- *   and the content.
- *
- * - a bunch of these containers could be combined, except that then the
- *   transitions break because you're combining things that need to be
- *   fixed with things that need to be animated.
- *
- * - the whole layout depends on using max-width to resolve when the
- *   margins should and should not be applied, and changing margins
- *   all over the place, all of which means that a disturbing number
- *   of things need to know when the sidebar is open/closed.
- */
 // tslint:disable-next-line:variable-name
 const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   <ScrollOffset
@@ -171,18 +97,14 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
           <Navigation />
           <CenteredContentRow>
             <ContentPane>
-              <UndoPadding>
-                <MainContentWrapper>
-                  <ContentNotifications mobileExpanded={mobileExpanded} />
-                  <Page>
-                    <PrevNextBar />
-                    <LabsCTA />
-                    <BuyBook />
-                  </Page>
-                  <Attribution />
-                  <Footer />
-                </MainContentWrapper>
-              </UndoPadding>
+              <ContentNotifications mobileExpanded={mobileExpanded} />
+              <Page>
+                <PrevNextBar />
+                <LabsCTA />
+                <BuyBook />
+              </Page>
+              <Attribution />
+              <Footer />
             </ContentPane>
           </CenteredContentRow>
         </Wrapper>
