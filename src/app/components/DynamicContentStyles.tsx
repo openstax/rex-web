@@ -1,5 +1,3 @@
-import postcss from 'postcss';
-import postcssNested from 'postcss-nested';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { createGlobalStyle } from 'styled-components/macro';
@@ -12,11 +10,9 @@ import { assertDefined } from '../utils/assertions';
 
 // tslint:disable-next-line: variable-name
 export const ScopedGlobalStyle = createGlobalStyle`
-  ${(props: { styles: string }) => postcss(postcssNested).process(`
-    [data-dynamic-style="true"] {
-      ${props.styles}
-    }
-  `).css}
+  [data-dynamic-style="true"] {
+    ${(props: { styles: string }) => props.styles}
+  }
 `;
 
 const cacheStyles = new Map<string, string>();
