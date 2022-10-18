@@ -227,7 +227,9 @@ describe('GoogleAnalyticsClient', () => {
     });
 
     it('calls with category and action', async() => {
-      client.trackEvent('some_event', 'category', 'action');
+      client.trackEventPayload({
+        eventCategory: 'category', eventAction: 'action'
+      }, 'some_event');
       expect(mockGtag).toHaveBeenCalledWith('event', 'some_event', {
         send_to: 'foo',
         event_action: 'action',
@@ -237,7 +239,9 @@ describe('GoogleAnalyticsClient', () => {
     });
 
     it('calls with category, action, and label', async() => {
-      client.trackEvent('some_event', 'category', 'action', 'label');
+      client.trackEventPayload({
+        eventCategory: 'category', eventAction: 'action', eventLabel: 'label'
+      }, 'some_event');
       expect(mockGtag).toHaveBeenCalledWith('event', 'some_event', {
         send_to: 'foo',
         event_action: 'action',
@@ -248,7 +252,9 @@ describe('GoogleAnalyticsClient', () => {
     });
 
     it('calls with category, action, label, and value', async() => {
-      client.trackEvent('some_event', 'category', 'action', 'label', 42);
+      client.trackEventPayload({
+        eventCategory: 'category', eventAction: 'action', eventLabel: 'label', eventValue: 42
+      }, 'some_event');
       expect(mockGtag).toHaveBeenCalledWith('event', 'some_event', {
         send_to: 'foo',
         event_action: 'action',
@@ -260,7 +266,9 @@ describe('GoogleAnalyticsClient', () => {
     });
 
     it('calls with category, action, label, value and non-interaction', async() => {
-      client.trackEvent('some_event', 'category', 'action', 'label', 42, true);
+      client.trackEventPayload({
+        eventCategory: 'category', eventAction: 'action', eventLabel: 'label', eventValue: 42, nonInteraction: true
+      }, 'some_event');
       expect(mockGtag).toHaveBeenCalledWith('event', 'some_event', {
         send_to: 'foo',
         event_action: 'action',

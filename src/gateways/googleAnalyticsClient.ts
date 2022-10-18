@@ -6,6 +6,14 @@ import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
 import { trackingIsDisabled } from '../helpers/analytics';
 
+interface LegacyEventPayload {
+  eventCategory: string;
+  eventAction: string;
+  eventLabel?: string;
+  eventValue?: number;
+  nonInteraction?: boolean;
+}
+
 interface EventPayload extends Gtag.EventParams {
   event_action?: string;
   non_interaction?: boolean;
@@ -146,25 +154,19 @@ class GoogleAnalyticsClient {
     this.gaProxy({ name: 'event', eventName: 'page_view', payload: { page_path: path }});
   }
 
-  public trackEventPayload(eventName: string, payload: EventPayload) {
-    this.gaProxy({ name: 'event', eventName, payload: payload });
-  }
+  public trackEventPayload(payload: LegacyEventPayload, eventName?: string) {
+    // TODO should this be different from eventCategory and what should the fallback be if so
+    eventName = eventName || payload.eventCategory || 'event';
 
-  public trackEvent(
-    eventName: string,
-    event_category?: string,
-    event_action?: string,
-    event_label?: string,
-    value?: number,
-    non_interaction?: boolean
-  ) {
-    this.trackEventPayload(eventName, {
-      event_action,
-      event_category,
-      event_label,
-      value,
-      non_interaction,
-    });
+    const eventPayload: EventPayload = {
+      event_category: payload.eventCategory,
+      event_action: payload.eventAction,
+      event_label: payload.eventLabel,
+      value: payload.eventValue,
+      non_interaction: payload.nonInteraction,
+    }
+
+    this.gaProxy({ name: 'event', eventName, payload: eventPayload });
   }
 
   public setTagIds(ids: string[]) {
