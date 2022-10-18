@@ -6,24 +6,24 @@ import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
 import { trackingIsDisabled } from '../helpers/analytics';
 
-interface PageView {
-  hitType: 'pageview';
-  page: string;
+interface EventPayload extends Gtag.EventParams {
+  event_action?: string;
+  non_interaction?: boolean;
+  queue_time?: number;
 }
 
-interface Event {
-  hitType: 'event';
-  eventCategory: string;
-  eventAction: string;
-  eventLabel?: string;
-  eventValue?: number;
-  nonInteraction?: boolean;
-  transport: 'beacon';
+interface EventCommand {
+  name: 'event';
+  eventName: string;
+  payload: EventPayload;
 }
 
-interface SendCommand {
-  name: 'send';
-  payload: PageView | Event;
+interface PageViewCommand extends EventCommand {
+  name: 'event';
+  eventName: 'page_view';
+  payload: EventPayload & {
+    page_path: string;
+  }
 }
 
 interface SetCommand {
@@ -32,8 +32,7 @@ interface SetCommand {
 }
 
 interface SetPayload {
-  userId?: string | undefined;
-  dimension3?: string | undefined;
+  referringHostname?: string | undefined;
   campaignSource?: string | undefined;
   campaignMedium?: string | undefined;
   campaignName?: string | undefined;
@@ -42,7 +41,16 @@ interface SetPayload {
   campaignContent?: string | undefined;
 }
 
-type Command = SetCommand | SendCommand;
+interface ConfigCommand {
+  name: 'config';
+  payload: Gtag.ConfigParams & {
+    user_id?: string;
+    send_page_view?: boolean;
+    groups?: string;
+  }
+}
+
+type Command = SetCommand | EventCommand | PageViewCommand | ConfigCommand;
 
 interface Query {[key: string]: string; }
 
@@ -99,7 +107,7 @@ export const campaignFromQuery: (query: Query) => SetPayload = flow(
 );
 
 class GoogleAnalyticsClient {
-  private trackerNames: string[] = [];
+  private tagIds: string[] = [];
   private pendingCommands: PendingCommand[] = [];
 
   public gaProxy(command: Command) {
@@ -108,7 +116,7 @@ class GoogleAnalyticsClient {
     }
 
     if (this.isReadyForCommands()) {
-      this.commandEachTracker(command);
+      this.executeCommand(command);
     } else {
       this.saveCommandForLater(command);
     }
@@ -119,62 +127,57 @@ class GoogleAnalyticsClient {
   }
 
   public setUserId(id: string) {
-    this.gaProxy({name: 'set', payload: {userId: id}});
+    // https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id#set_user_id
+    this.gaProxy({ name: 'config', payload: { user_id: id }});
   }
 
   public setCustomDimensionForSession() {
-    this.gaProxy({name: 'set', payload: {
-      dimension3: referringHostName(assertWindow())},
+    this.gaProxy({ name: 'set', payload: {
+      referringHostname: referringHostName(assertWindow())},
     });
   }
 
   public unsetUserId() {
-    this.gaProxy({name: 'set', payload: {userId: undefined}});
+    this.gaProxy({ name: 'config', payload: { 'user_id': undefined } });
   }
 
   public trackPageView(path: string, query = {}) {
-    this.gaProxy({name: 'set', payload: campaignFromQuery(query)});
-
-    this.gaProxy({name: 'send', payload: {
-      hitType: 'pageview',
-      page: path,
-    }});
+    this.gaProxy({ name: 'set', payload: campaignFromQuery(query) });
+    this.gaProxy({ name: 'event', eventName: 'page_view', payload: { page_path: path }});
   }
 
-  public trackEventPayload(payload: Omit<Event, 'hitType' | 'transport'>) {
-    this.gaProxy({name: 'send', payload: {
-      ...payload,
-      hitType: 'event',
-      transport: 'beacon',
-    }});
+  public trackEventPayload(eventName: string, payload: EventPayload) {
+    this.gaProxy({ name: 'event', eventName, payload: payload });
   }
 
   public trackEvent(
-    eventCategory: string,
-    eventAction: string,
-    eventLabel?: string,
-    eventValue?: number,
-    nonInteraction?: boolean
+    eventName: string,
+    event_category?: string,
+    event_action?: string,
+    event_label?: string,
+    value?: number,
+    non_interaction?: boolean
   ) {
-    this.trackEventPayload({
-      eventAction,
-      eventCategory,
-      eventLabel,
-      eventValue,
-      nonInteraction,
+    this.trackEventPayload(eventName, {
+      event_action,
+      event_category,
+      event_label,
+      value,
+      non_interaction,
     });
   }
 
-  public setTrackingIds(ids: string[]) {
+  public setTagIds(ids: string[]) {
     // Ignore tracking ID changes for the moment
-    if (this.trackerNames.length > 0 || trackingIsDisabled()) { return; }
+    if (this.tagIds.length > 0 || trackingIsDisabled()) { return; }
 
     for (const id of ids) {
-      // Build a tracker for each ID, use the ID as the basis of the
-      // tracker name (must be alphanumeric)
-      const trackerName = 't' + id.replace( /[^a-z0-9]+/ig, '' );
-      this.trackerNames.push(trackerName);
-      this.ga('create', id, 'auto', trackerName);
+      this.tagIds.push(id);
+      this.gtag('config', id, {
+        'send_page_view': false,
+        'transport_type': 'beacon',
+        'custom_map': { 'dimension3': 'referringHostname' },
+      });
     }
 
     this.flushPendingCommands();
@@ -186,30 +189,36 @@ class GoogleAnalyticsClient {
 
   private flushPendingCommands() {
     for (const pendingCommand of this.pendingCommands) {
-      this.commandEachTracker(pendingCommand.command, pendingCommand.queueTime());
+      this.executeCommand(pendingCommand.command, pendingCommand.queueTime());
     }
     this.pendingCommands = [];
   }
 
-  private commandEachTracker(command: Command, queueTime: number = 0) {
-    for (const trackerName of this.trackerNames) {
-      this.ga(trackerName + '.set', 'queueTime', queueTime);
-      this.ga(trackerName + '.' + command.name, command.payload);
+  private executeCommand(command: Command, queueTime: number = 0) {
+    for (const tagId of this.tagIds) {
+      command.payload = {...command.payload, 'queue_time': queueTime };
+      if (command.name === 'event') {
+        this.gtag('event', command.eventName, { ...command.payload, send_to: tagId });
+      } else if (command.name === 'set') {
+        this.gtag('set', { ...command.payload, send_to: tagId });
+      } else {
+        this.gtag(command.name, tagId, command.payload);
+      }
     }
   }
 
   private isReadyForCommands() {
-    return (this.trackerNames.length > 0 && !trackingIsDisabled());
+    return (this.tagIds.length > 0 && !trackingIsDisabled());
   }
 
-  // The real, low-level Google Analytics function
-  private ga(commandName: string, ...params: any[]) {
-    return assertWindow().ga(commandName, ...params);
+  // The real, low-level Google Analytics gtag function
+  private gtag(commandName: string, ...params: any[]) {
+    return assertWindow().gtag(commandName, ...params);
   }
 
 }
 
 const singleton = new GoogleAnalyticsClient();
-
+(window as any).gac = singleton;
 export { GoogleAnalyticsClient };
 export default singleton;
