@@ -63,14 +63,14 @@ describe('GoogleAnalyticsClient', () => {
         client.setTagIds(['foo', 'bar']);
 
         expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
+          custom_map: { dimension3: 'referringHostname' },
           send_page_view: false,
           transport_type: 'beacon',
-          custom_map: { dimension3: 'referringHostname' }
         });
         expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
+          custom_map: { dimension3: 'referringHostname' },
           send_page_view: false,
           transport_type: 'beacon',
-          custom_map: { dimension3: 'referringHostname' }
         });
         expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: 'jimbo', queue_time: expect.any(Number) });
         expect(mockGtag).toHaveBeenCalledWith('config', 'bar', { user_id: 'jimbo', queue_time: expect.any(Number) });
@@ -82,8 +82,8 @@ describe('GoogleAnalyticsClient', () => {
         client.setTagIds(['foo']);
         client.setUserId('jimbo');
         expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
-          user_id : 'jimbo',
           queue_time: expect.any(Number),
+          user_id : 'jimbo',
         });
       });
     });
@@ -133,9 +133,9 @@ describe('GoogleAnalyticsClient', () => {
 
         client.setTagIds(['foo']);
         expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
-          send_to: 'foo', page_path: '/some/path', queue_time: expect.any(Number)
+          page_path: '/some/path', queue_time: expect.any(Number), send_to: 'foo',
         });
-        expect(mockGtag.mock.calls[1][2]['queue_time']).toBeGreaterThanOrEqual(sleepMs);
+        expect(mockGtag.mock.calls[1][2].queue_time).toBeGreaterThanOrEqual(sleepMs);
 
         expect(client.getPendingCommands().length).toBe(0);
       });
@@ -159,8 +159,16 @@ describe('GoogleAnalyticsClient', () => {
       it('sends them right away to all trackers', async() => {
         client.setTagIds(['foo', 'bar']);
         client.trackPageView('/some/path');
-        expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', { send_to: 'foo', page_path: '/some/path', 'queue_time': 0 });
-        expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', { send_to: 'bar', page_path: '/some/path', 'queue_time': 0 });
+        expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
+          page_path: '/some/path',
+          queue_time: 0,
+          send_to: 'foo',
+        });
+        expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
+          page_path: '/some/path',
+          queue_time: 0,
+          send_to: 'bar',
+        });
       });
 
       it('doesn\'t send them if trackingIsDisabled is true', async() => {
@@ -184,7 +192,7 @@ describe('GoogleAnalyticsClient', () => {
           campaignMedium: 'unset',
           campaignSource: 'source',
           queue_time: 0,
-          send_to: 'foo'
+          send_to: 'foo',
         });
       });
     });
@@ -196,14 +204,14 @@ describe('GoogleAnalyticsClient', () => {
       it('configs tags using the underlying gtag function', async() => {
         client.setTagIds(['foo', 'bar']);
         expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
+          custom_map: { dimension3: 'referringHostname' },
           send_page_view: false,
           transport_type: 'beacon',
-          custom_map: { dimension3: 'referringHostname' },
         });
         expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
+          custom_map: { dimension3: 'referringHostname' },
           send_page_view: false,
           transport_type: 'beacon',
-          custom_map: { dimension3: 'referringHostname' },
         });
       });
     });
@@ -228,55 +236,58 @@ describe('GoogleAnalyticsClient', () => {
 
     it('calls with category and action', async() => {
       client.trackEventPayload({
-        eventCategory: 'category', eventAction: 'action'
-      }, 'some_event');
-      expect(mockGtag).toHaveBeenCalledWith('event', 'some_event', {
-        send_to: 'foo',
-        event_action: 'action',
+        eventAction: 'action', eventCategory: 'category',
+      });
+      expect(mockGtag).toHaveBeenCalledWith('event', 'action', {
         event_category: 'category',
         queue_time: 0,
+        send_to: 'foo',
       });
     });
 
     it('calls with category, action, and label', async() => {
       client.trackEventPayload({
-        eventCategory: 'category', eventAction: 'action', eventLabel: 'label'
-      }, 'some_event');
-      expect(mockGtag).toHaveBeenCalledWith('event', 'some_event', {
-        send_to: 'foo',
-        event_action: 'action',
+        eventAction: 'action', eventCategory: 'category', eventLabel: 'label',
+      });
+      expect(mockGtag).toHaveBeenCalledWith('event', 'action', {
         event_category: 'category',
         event_label: 'label',
         queue_time: 0,
+        send_to: 'foo',
       });
     });
 
     it('calls with category, action, label, and value', async() => {
       client.trackEventPayload({
-        eventCategory: 'category', eventAction: 'action', eventLabel: 'label', eventValue: 42
-      }, 'some_event');
-      expect(mockGtag).toHaveBeenCalledWith('event', 'some_event', {
-        send_to: 'foo',
-        event_action: 'action',
+        eventAction: 'action',
+        eventCategory: 'category',
+        eventLabel: 'label',
+        eventValue: 42,
+      });
+      expect(mockGtag).toHaveBeenCalledWith('event', 'action', {
         event_category: 'category',
         event_label: 'label',
-        value: 42,
         queue_time: 0,
+        send_to: 'foo',
+        value: 42,
       });
     });
 
     it('calls with category, action, label, value and non-interaction', async() => {
       client.trackEventPayload({
-        eventCategory: 'category', eventAction: 'action', eventLabel: 'label', eventValue: 42, nonInteraction: true
-      }, 'some_event');
-      expect(mockGtag).toHaveBeenCalledWith('event', 'some_event', {
-        send_to: 'foo',
-        event_action: 'action',
+        eventAction: 'action',
+        eventCategory: 'category',
+        eventLabel: 'label',
+        eventValue: 42,
+        nonInteraction: true,
+      });
+      expect(mockGtag).toHaveBeenCalledWith('event', 'action', {
         event_category: 'category',
         event_label: 'label',
-        value: 42,
         non_interaction: true,
         queue_time: 0,
+        send_to: 'foo',
+        value: 42,
       });
     });
   });

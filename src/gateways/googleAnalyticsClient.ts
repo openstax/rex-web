@@ -15,7 +15,6 @@ interface LegacyEventPayload {
 }
 
 interface EventPayload extends Gtag.EventParams {
-  event_action?: string;
   non_interaction?: boolean;
   queue_time?: number;
 }
@@ -31,7 +30,7 @@ interface PageViewCommand extends EventCommand {
   eventName: 'page_view';
   payload: EventPayload & {
     page_path: string;
-  }
+  };
 }
 
 interface SetCommand {
@@ -55,7 +54,7 @@ interface ConfigCommand {
     user_id?: string;
     send_page_view?: boolean;
     groups?: string;
-  }
+  };
 }
 
 type Command = SetCommand | EventCommand | PageViewCommand | ConfigCommand;
@@ -146,7 +145,7 @@ class GoogleAnalyticsClient {
   }
 
   public unsetUserId() {
-    this.gaProxy({ name: 'config', payload: { 'user_id': undefined } });
+    this.gaProxy({ name: 'config', payload: { user_id: undefined } });
   }
 
   public trackPageView(path: string, query = {}) {
@@ -154,19 +153,15 @@ class GoogleAnalyticsClient {
     this.gaProxy({ name: 'event', eventName: 'page_view', payload: { page_path: path }});
   }
 
-  public trackEventPayload(payload: LegacyEventPayload, eventName?: string) {
-    // TODO should this be different from eventCategory and what should the fallback be if so
-    eventName = eventName || payload.eventCategory || 'event';
-
+  public trackEventPayload(payload: LegacyEventPayload) {
     const eventPayload: EventPayload = {
       event_category: payload.eventCategory,
-      event_action: payload.eventAction,
       event_label: payload.eventLabel,
-      value: payload.eventValue,
       non_interaction: payload.nonInteraction,
-    }
+      value: payload.eventValue,
+    };
 
-    this.gaProxy({ name: 'event', eventName, payload: eventPayload });
+    this.gaProxy({ name: 'event', eventName: payload.eventAction, payload: eventPayload });
   }
 
   public setTagIds(ids: string[]) {
@@ -176,9 +171,9 @@ class GoogleAnalyticsClient {
     for (const id of ids) {
       this.tagIds.push(id);
       this.gtag('config', id, {
-        'send_page_view': false,
-        'transport_type': 'beacon',
-        'custom_map': { 'dimension3': 'referringHostname' },
+        custom_map: { dimension3: 'referringHostname' },
+        send_page_view: false,
+        transport_type: 'beacon',
       });
     }
 
@@ -198,7 +193,7 @@ class GoogleAnalyticsClient {
 
   private executeCommand(command: Command, queueTime: number = 0) {
     for (const tagId of this.tagIds) {
-      command.payload = {...command.payload, 'queue_time': queueTime };
+      command.payload = {...command.payload, queue_time: queueTime };
       if (command.name === 'event') {
         this.gtag('event', command.eventName, { ...command.payload, send_to: tagId });
       } else if (command.name === 'set') {
@@ -221,6 +216,6 @@ class GoogleAnalyticsClient {
 }
 
 const singleton = new GoogleAnalyticsClient();
-(window as any).gac = singleton;
+
 export { GoogleAnalyticsClient };
 export default singleton;
