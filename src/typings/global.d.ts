@@ -65,6 +65,6 @@ declare global {
   var URL: dom.URLConstructor | undefined;
   // tslint:disable-next-line:variable-name
   var DOMParser: dom.DOMParserConstructor;
-  var KeyboardEvent: dom.KeyboardEventConstructor
-  var ResizeObserver: dom.ResizeObserverConstructor
+  var KeyboardEvent: dom.KeyboardEventConstructor;
+  var ResizeObserver: dom.ResizeObserverConstructor;
 }
