@@ -9,6 +9,7 @@ class ContentPage {
   yellow: Locator
   page: Page
   paragraph: Locator
+  para: Locator
   highlight: Locator
   colorlocator: any
   constructor(page: Page) {
@@ -67,7 +68,40 @@ class ContentPage {
     return highlightcount
   }
 
-  // Select text
+  // List of highlights in a page
+  // async highlights() {
+  //   await this.page.locator('.highlight').first().waitFor()
+  //   const h = this.page.locator('.highlight')
+  //   console.log(h.count())
+  //   return
+  // }
+ 
+  // color of the highlight in the content page
+  async highlight_id() {
+    const paragraph = await this.paragraphs()
+    const paragraphString = this.paragraph.toString()
+    const paralocator = paragraphString.split("@");
+    if (paralocator.length !== 2) { throw Error("susupect that this is not a locator"); }
+    if (paralocator[0] !== "Locator") { throw Error("did not find locator"); }
+    const highlight_id = await this.page.getAttribute(`${paralocator[1]} .highlight`, 'data-highlight-id')
+    return highlight_id
+  }
+
+  // content highlight color
+  async highlightColor(highlight_id) {
+    const color = await this.page.getAttribute(`${highlight_id}`, 'class')
+    console.log(color)
+  } 
+
+
+
+  // Select paragraph
+  async paragraphs() {
+    this.paragraph = this.page.locator('p[id=eip-535]')
+    return
+  }
+
+  // Select text in the paragraph
   async selectText() {
     this.paragraph = this.page.locator('id=eip-535')
     const boundary = await this.paragraph.boundingBox()

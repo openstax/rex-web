@@ -75,6 +75,16 @@ test('signup and highlight', async ({ page, isMobile }) => {
   // THEN: Text is highlighted
   let highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(1)
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+  await delay(3000)
+
+  // AND: Highlighted color in the content page is green
+  let highlight_id = await BookPage.highlight_id()
+  console.log(highlight_id)
+
+  // content highlighted in green
+  let highlightColor = await BookPage.highlightColor(highlight_id)
+  console.log(highlightColor)
 
   // WHEN: Log out the user
   await rexUserSignout(page)
