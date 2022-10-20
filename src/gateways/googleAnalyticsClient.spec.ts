@@ -191,8 +191,6 @@ describe('GoogleAnalyticsClient', () => {
         expect(mockGtag).toHaveBeenCalledWith('set', {
           campaignMedium: 'unset',
           campaignSource: 'source',
-          queue_time: 0,
-          send_to: 'foo',
         });
       });
     });

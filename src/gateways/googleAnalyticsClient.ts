@@ -6,7 +6,7 @@ import pickBy from 'lodash/fp/pickBy';
 import { assertWindow, referringHostName } from '../app/utils';
 import { trackingIsDisabled } from '../helpers/analytics';
 
-interface LegacyEventPayload {
+interface EventPayload {
   eventCategory: string;
   eventAction: string;
   eventLabel?: string;
@@ -14,7 +14,7 @@ interface LegacyEventPayload {
   nonInteraction?: boolean;
 }
 
-interface EventPayload extends Gtag.EventParams {
+interface GtagEventPayload extends Gtag.EventParams {
   non_interaction?: boolean;
   queue_time?: number;
 }
@@ -22,13 +22,13 @@ interface EventPayload extends Gtag.EventParams {
 interface EventCommand {
   name: 'event';
   eventName: string;
-  payload: EventPayload;
+  payload: GtagEventPayload;
 }
 
 interface PageViewCommand extends EventCommand {
   name: 'event';
   eventName: 'page_view';
-  payload: EventPayload & {
+  payload: GtagEventPayload & {
     page_path: string;
   };
 }
@@ -153,8 +153,8 @@ class GoogleAnalyticsClient {
     this.gaProxy({ name: 'event', eventName: 'page_view', payload: { page_path: path }});
   }
 
-  public trackEventPayload(payload: LegacyEventPayload) {
-    const eventPayload: EventPayload = {
+  public trackEventPayload(payload: EventPayload) {
+    const eventPayload: GtagEventPayload = {
       event_category: payload.eventCategory,
       event_label: payload.eventLabel,
       non_interaction: payload.nonInteraction,
@@ -192,12 +192,15 @@ class GoogleAnalyticsClient {
   }
 
   private executeCommand(command: Command, queueTime: number = 0) {
+    if (command.name === 'set') {
+      this.gtag('set', command.payload);
+      return;
+    }
+
     for (const tagId of this.tagIds) {
       command.payload = {...command.payload, queue_time: queueTime };
       if (command.name === 'event') {
         this.gtag('event', command.eventName, { ...command.payload, send_to: tagId });
-      } else if (command.name === 'set') {
-        this.gtag('set', { ...command.payload, send_to: tagId });
       } else {
         this.gtag(command.name, tagId, command.payload);
       }
