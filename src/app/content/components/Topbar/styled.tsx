@@ -53,7 +53,7 @@ const closeIconStyles = css`
   color: #cdcdcd;
 `;
 
-const shadow = css`
+export const shadow = css`
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 `;
 
@@ -358,7 +358,10 @@ export const TextResizerDropdown = styled(FilterDropdown)`
     }
   }
 
-  ${theme.breakpoints.mobileMedium(css`
+  ${(props: {
+    mobileVariant: boolean,
+    mobileToolbarOpen: boolean
+  }) => props.mobileVariant !== false && theme.breakpoints.mobileMedium(css`
     margin-left: 0;
     > button {
       max-height: 4.6rem;
@@ -368,7 +371,7 @@ export const TextResizerDropdown = styled(FilterDropdown)`
       }
     }
 
-    display: ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen ? 'none' : 'block'};
+    display: ${props.mobileToolbarOpen ? 'none' : 'block'};
   `)}
 `;
 

@@ -15,6 +15,7 @@ import * as selectContent from '../selectors';
 import { ArchiveTreeSection, LinkedArchiveTreeSection } from '../types';
 import { findTreePages, getPrevNext, nodeMatcher } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
+import { AssignedTopBar } from './AssignedTopBar';
 import Attribution from './Attribution';
 import { contentTextWidth } from './constants';
 import Page from './Page';
@@ -81,12 +82,14 @@ export default () => {
   const sections = useAssignedSections();
   const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
   const prevNext = usePrevNext(sections);
+  const section = sections[currentSectionIndex];
 
-  useLoadSection(sections[currentSectionIndex]);
+  useLoadSection(section);
 
   return <AccessibilityButtonsWrapper>
     <ErrorModal />
     <ErrorBoundary>
+      <AssignedTopBar section={section} />
       <Page>
         {prevNext
           ? <PrevNextBar
