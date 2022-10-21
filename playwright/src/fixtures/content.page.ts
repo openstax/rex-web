@@ -68,32 +68,28 @@ class ContentPage {
     return highlightcount
   }
 
-  // List of highlights in a page
-  // async highlights() {
-  //   await this.page.locator('.highlight').first().waitFor()
-  //   const h = this.page.locator('.highlight')
-  //   console.log(h.count())
-  //   return
-  // }
- 
-  // color of the highlight in the content page
+  // Return the highlight id from content page
   async highlight_id() {
     const paragraph = await this.paragraphs()
-    const paragraphString = this.paragraph.toString()
-    const paralocator = paragraphString.split("@");
-    if (paralocator.length !== 2) { throw Error("susupect that this is not a locator"); }
-    if (paralocator[0] !== "Locator") { throw Error("did not find locator"); }
+    const paraLocatorString = this.paragraph.toString()
+    const paralocator = paraLocatorString.split('@')
     const highlight_id = await this.page.getAttribute(`${paralocator[1]} .highlight`, 'data-highlight-id')
     return highlight_id
   }
 
-  // content highlight color
-  async highlightColor(highlight_id) {
-    const color = await this.page.getAttribute(`${highlight_id}`, 'class')
-    console.log(color)
-  } 
-
-
+  // Return color of the highlighted content
+  async contentHighlightColor(highlight_id) {
+    const colorclass = await this.page.getAttribute(`[data-highlight-id="${highlight_id}"]`, 'class')
+    const contentcolor = colorclass.split(' ')
+    const colors = ['blue', 'green', 'pink', 'purple', 'yellow']
+    for (const i of contentcolor) {
+      for (const j of colors) {
+        if (i === j) {
+          return i
+        }
+      }
+    }
+  }
 
   // Select paragraph
   async paragraphs() {
@@ -103,7 +99,7 @@ class ContentPage {
 
   // Select text in the paragraph
   async selectText() {
-    this.paragraph = this.page.locator('id=eip-535')
+    const paragraph = await this.paragraphs()
     const boundary = await this.paragraph.boundingBox()
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
