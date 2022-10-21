@@ -3,7 +3,7 @@ import {
   HTMLButtonElement,
   HTMLDetailsElement,
   HTMLElement,
-  HTMLIFrameElement
+  HTMLIFrameElement,
 } from '@openstax/types/lib.dom';
 import Cookies from 'js-cookie';
 import { findFirstAncestorOrSelf } from '../../app/domUtils';
@@ -30,9 +30,11 @@ export const interactableElementEvents = [
     // using click instead of toggle because `toggle` doesn't bubble
     // keyboard navigation and touch also trigger the click event
     events: ['click'],
-    getStateChange: (details: HTMLDetailsElement) => details.open ? 'close' : 'open',
-    match: (element: any): element is HTMLDetailsElement =>
-      isHtmlElement(element) && element.tagName === 'DETAILS',
+    getStateChange: (summary: HTMLElement) =>
+      (summary.parentElement as HTMLDetailsElement | undefined)?.open ? 'close' : 'open',
+    getTarget: (summary: HTMLElement) => summary.parentElement || undefined,
+    match: (element: any): element is HTMLElement =>
+      isHtmlElement(element) && element.tagName === 'SUMMARY' && element.parentElement?.tagName === 'DETAILS',
   }),
   makeInteractableConfig({
     events: ['click'],
