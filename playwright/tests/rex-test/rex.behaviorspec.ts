@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test'
-import { count } from 'console'
 import { ContentPage, KsModal, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
@@ -70,11 +69,16 @@ test('signup and highlight', async ({ page, isMobile }) => {
   await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
 
   // WHEN: Highlight some text
-  await BookPage.highlightText()
+  await BookPage.highlightText('green')
 
   // THEN: Text is highlighted
   let highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(1)
+
+  // AND: Highlighted color in the content page is green
+  const highlight_id = await BookPage.highlight_id()
+  const highlightColor = await BookPage.contentHighlightColor(highlight_id)
+  expect(highlightColor).toBe('green')
 
   // WHEN: Log out the user
   await rexUserSignout(page)
