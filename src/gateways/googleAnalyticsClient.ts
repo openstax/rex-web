@@ -39,7 +39,7 @@ interface SetCommand {
 }
 
 interface SetPayload {
-  referringHostname?: string | undefined;
+  dimension3?: string | undefined;
   campaignSource?: string | undefined;
   campaignMedium?: string | undefined;
   campaignName?: string | undefined;
@@ -139,8 +139,9 @@ class GoogleAnalyticsClient {
   }
 
   public setCustomDimensionForSession() {
+    console.log('setting custom dimension for session')
     this.gaProxy({ name: 'set', payload: {
-      referringHostname: referringHostName(assertWindow())},
+      dimension3: referringHostName(assertWindow())},
     });
   }
 
@@ -171,7 +172,6 @@ class GoogleAnalyticsClient {
     for (const id of ids) {
       this.tagIds.push(id);
       this.gtag('config', id, {
-        custom_map: { dimension3: 'referringHostname' },
         send_page_view: false,
         transport_type: 'beacon',
       });
