@@ -139,7 +139,6 @@ class GoogleAnalyticsClient {
   }
 
   public setCustomDimensionForSession() {
-    console.log('setting custom dimension for session')
     this.gaProxy({ name: 'set', payload: {
       dimension3: referringHostName(assertWindow())},
     });

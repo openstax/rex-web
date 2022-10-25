@@ -63,12 +63,10 @@ describe('GoogleAnalyticsClient', () => {
         client.setTagIds(['foo', 'bar']);
 
         expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
-          custom_map: { dimension3: 'referringHostname' },
           send_page_view: false,
           transport_type: 'beacon',
         });
         expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
-          custom_map: { dimension3: 'referringHostname' },
           send_page_view: false,
           transport_type: 'beacon',
         });
@@ -202,12 +200,10 @@ describe('GoogleAnalyticsClient', () => {
       it('configs tags using the underlying gtag function', async() => {
         client.setTagIds(['foo', 'bar']);
         expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
-          custom_map: { dimension3: 'referringHostname' },
           send_page_view: false,
           transport_type: 'beacon',
         });
         expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
-          custom_map: { dimension3: 'referringHostname' },
           send_page_view: false,
           transport_type: 'beacon',
         });
