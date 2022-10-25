@@ -114,17 +114,16 @@ describe('content', () => {
       window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
     );
 
-    expect(pendingEvents).toContainEqual(
-      {
-        command: {
-          eventName: 'page_view',
-          name: 'event',
-          payload: {
-            page_path: '/books/book-slug-1/pages/2-test-page-3',
-          },
+    expect(pendingEvents).toContainEqual({
+      command: {
+        eventName: 'page_view',
+        name: 'event',
+        payload: {
+          page_path: '/books/book-slug-1/pages/2-test-page-3',
         },
-        savedAt: expect.anything(),
-      });
+      },
+      savedAt: expect.anything(),
+    });
   });
 
   it('triggers google analytics pageview after navigating again', async() => {
