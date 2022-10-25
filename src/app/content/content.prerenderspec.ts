@@ -116,12 +116,12 @@ describe('content', () => {
 
     expect(pendingEvents).toContainEqual({
       command: {
-        name: 'event',
         eventName: 'page_view',
+        name: 'event',
         payload: {
+          event_category: 'REX Link (prev-next)',
+          event_label: '/books/book-slug-1/pages/2-test-page-3',
           page_path: '/books/book-slug-1/pages/2-test-page-3',
-          event_category: "REX Link (prev-next)",
-          event_label: "/books/book-slug-1/pages/2-test-page-3",
         },
       },
       savedAt: expect.anything(),
@@ -150,8 +150,8 @@ describe('content', () => {
     expect(newEvents).toMatchObject([
       {
         command: {
-          name: 'event',
           eventName: 'page_view',
+          name: 'event',
           payload: {
             event_action: 'next',
             event_category: 'REX Link (prev-next)',
@@ -163,8 +163,8 @@ describe('content', () => {
       },
       {
         command: {
-          name: 'event',
           eventName: 'page_view',
+          name: 'event',
           payload: {
             page_path: '/books/book-slug-1/pages/3-test-page-4',
           },
