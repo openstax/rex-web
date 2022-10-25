@@ -120,8 +120,6 @@ describe('content', () => {
           eventName: 'page_view',
           name: 'event',
           payload: {
-            event_category: 'REX Link (prev-next)',
-            event_label: '/books/book-slug-1/pages/2-test-page-3',
             page_path: '/books/book-slug-1/pages/2-test-page-3',
           },
         },
