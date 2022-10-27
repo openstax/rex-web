@@ -4,6 +4,11 @@ import { Locator, Page } from 'playwright'
 class MHModal {
   MHModal: Locator
   MHModalCloseIcon: Locator
+  MHedithighlight: Locator
+  MHaddnote: Locator
+  MHnotebox: Locator
+  MHsavenote: Locator
+  MHcancelnote: Locator
   page: Page
 
   constructor(page: Page) {
@@ -12,6 +17,11 @@ class MHModal {
     //locators for My Highlights modal
     this.MHModal = page.locator('data-testid=highlights-popup-wrapper')
     this.MHModalCloseIcon = page.locator('data-testid=close-highlights-popup')
+    // this.MHedithighlight = page.locator()
+    // this.MHaddnote = page.locator()
+    // this.MHnotebox = page.locator()
+    // this.MHsavenote = page.locator()
+    // this.MHcancelnote = page.locator()
   }
 
   // Close My Highlights modal using x icon
