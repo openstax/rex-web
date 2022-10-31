@@ -61,12 +61,12 @@ test('signup and highlight', async ({ page, isMobile }) => {
 
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought'
+  const path = '/books/introduction-anthropology/pages/6-introduction'
   await BookPage.open(path)
 
   // AND: Signup as a new user
   await rexUserSignup(page)
-  await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
+  // await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
 
   // WHEN: Highlight some text
   await BookPage.highlightText('green')
@@ -87,4 +87,23 @@ test('signup and highlight', async ({ page, isMobile }) => {
   // THEN: The highlight is removed from the page
   highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(0)
+})
+
+
+test('paragraphs', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  // await rexUserSignup(page)
+  // await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
+  sleep(5)
+  // WHEN: Highlight some text
+  let count = await BookPage.paragraphs()
+  console.log(count)
+  expect(count).toBe(1)
 })

@@ -1,5 +1,6 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
+import { sleep } from '../utilities/utilities'
 
 class ContentPage {
   blue: Locator
@@ -12,6 +13,7 @@ class ContentPage {
   para: Locator
   highlight: Locator
   colorlocator: any
+  x: Locator
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -20,6 +22,7 @@ class ContentPage {
     this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
+    this.paragraph = this.page.locator('p[id*=para-00002]')
   }
 
   // Open a Rex page with base url
@@ -93,20 +96,29 @@ class ContentPage {
 
   // Select paragraph
   async paragraphs() {
-    this.paragraph = this.page.locator('p[id=eip-535]')
-    return
+
+    // await this.page.waitForSelector(this.paragraph)
+    // const paragraph = this.page.locator('p[id=eip-535]')
+    const paracount = this.paragraph
+
+
+    // const random = Math.floor(Math.random() * await paracount.count());
+    // console.log(paracount)
+    // console.log(random)
+    return paracount
   }
 
   // Select text in the paragraph
   async selectText() {
     const paragraph = await this.paragraphs()
+    await paragraph.scrollIntoViewIfNeeded()
     const boundary = await this.paragraph.boundingBox()
+    
+    console.log(boundary)
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()
-      await this.page.mouse.move(boundary.width + boundary.x, boundary.y)
-      await this.page.mouse.move(boundary.width + boundary.x, boundary.y + boundary.height)
-      await this.page.mouse.move(boundary.x, boundary.y + boundary.height)
+      await this.page.mouse.move(boundary.width + boundary.x-1, boundary.y + boundary.height-1)
       await this.page.mouse.up()
     }
   }
