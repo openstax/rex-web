@@ -1,8 +1,9 @@
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { locationChange } from '../../../navigation/actions';
+import { page } from '../../../../test/mocks/archiveLoader';
 import { scrollTarget } from '../../../navigation/selectors';
 import { FirstArgumentType, MiddlewareAPI, Store } from '../../../types';
+import { receivePage } from '../../actions';
 import { createHighlight, receiveDeleteHighlight, requestDeleteHighlight } from '../actions';
 import { HighlightData } from '../types';
 
@@ -44,10 +45,7 @@ describe('requestDeleteHighlight', () => {
 
   it('calls receiveDeleteHighlight and clears scroll target', () => {
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: highlight.id })}`;
-    store.dispatch(locationChange({
-      action: 'REPLACE',
-      location: { hash: 'hash-of-scroll-target', search: mockScrollTarget },
-    } as any));
+    store.dispatch(receivePage({...page, references: []}));
 
     expect(scrollTarget(store.getState())).toBeTruthy();
 

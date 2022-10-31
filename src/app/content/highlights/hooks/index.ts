@@ -9,7 +9,7 @@ import { modalUrlName } from '../constants';
 import createHighlight from './createHighlight';
 import { initializeMyHighlightsSummaryHook } from './initializeMyHighlightsSummary';
 import { loadMoreHook, setSummaryFiltersHook, updateFiltersHook } from './loadMore';
-import loadHighlights from './locationChange';
+import loadHighlights from './loadHighlights';
 import { openMyHighlightsHook } from './openMyHighlights';
 import { printHighlightsHook } from './printHighlights';
 import receiveDeleteHighlight from './receiveDeleteHighlight';
