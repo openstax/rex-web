@@ -1,13 +1,55 @@
 {
-  "management":[
-    {
-      "activityMenu":{
-        "icon":null,
-        "label":{"en-US":"Reading"},
-        "description":{"en-US":"OpenStax textbook content."}
-      }
+  "management": {
+    "activities": {
+      "autoSearch": [
+        {
+          "id": {"fn": "uuid"},
+          "title": "Reading",
+          "description": "read",
+          "integration": "rex",
+          "type": "reading",
+          "launchParams": {
+            "book": {"fn": "value", "name": "scope.id"},
+            "section": {
+              "fn": "map",
+              "array": {"fn": "value", "name": "resources"},
+              "map": {"fn": "value", "name": "id"}
+            }
+          }
+        }
+      ]
+    },
+    "support":{
+      "autoSearch": [
+        {
+          "url": {
+            "fn": "template",
+            "template": "/books/[slug]/pages/[default_page_slug]",
+            "parameters": {
+              "[slug]": {"fn": "value", "name": "slug"},
+              "[default_page_slug]": {"fn": "value", "name": "default_page.slug"}
+            }
+          },
+          "icon": "/static/icons/book.svg",
+          "title": "My Textbook",
+          "description": "Browse the textbook."
+        },
+        {
+          "url": {
+            "fn": "template",
+            "template": "/books/[slug]/pages/[default_page_slug]?modal=MH",
+            "parameters": {
+              "[slug]": {"fn": "value", "name": "slug"},
+              "[default_page_slug]": {"fn": "value", "name": "default_page.slug"}
+            }
+          },
+          "icon": "/static/icons/highlights.svg",
+          "title": "My Highlights",
+          "description": "Review the notes and highlights made during reading assignments."
+        }
+      ]
     }
-  ],
+  },
   "activities":{
     "reading":{
       "launch":{"url":"/apps/rex/assigned/:id","navigation":true,"xapi":false},
