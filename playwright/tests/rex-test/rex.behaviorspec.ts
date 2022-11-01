@@ -61,7 +61,7 @@ test('signup and highlight', async ({ page, isMobile }) => {
 
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/introduction-anthropology/pages/6-introduction'
+  const path = '/books/introduction-anthropology/pages/7-introduction'
   await BookPage.open(path)
 
   // AND: Signup as a new user
@@ -104,6 +104,6 @@ test('paragraphs', async ({ page, isMobile }) => {
   sleep(5)
   // WHEN: Highlight some text
   let count = await BookPage.paragraphs()
-  console.log(count)
+  // console.log(count)
   expect(count).toBe(1)
 })

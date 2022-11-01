@@ -22,7 +22,7 @@ class ContentPage {
     this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
-    this.paragraph = this.page.locator('p[id*=para-00002]')
+    this.paragraph = this.page.locator('p[id*=para]')
   }
 
   // Open a Rex page with base url
@@ -96,25 +96,22 @@ class ContentPage {
 
   // Select paragraph
   async paragraphs() {
-
     // await this.page.waitForSelector(this.paragraph)
-    // const paragraph = this.page.locator('p[id=eip-535]')
     const paracount = this.paragraph
-
-
-    // const random = Math.floor(Math.random() * await paracount.count());
-    // console.log(paracount)
-    // console.log(random)
+    const y = Math.floor(Math.random() * await paracount.count());
+    console.log(y)
     return paracount
   }
 
   // Select text in the paragraph
   async selectText() {
     const paragraph = await this.paragraphs()
-    await paragraph.scrollIntoViewIfNeeded()
-    const boundary = await this.paragraph.boundingBox()
-    
-    console.log(boundary)
+    // let names = this.paragraphs()
+    // const paracount = names[0],
+    //       y = names[0];
+    // console.log(paracount)
+    await paragraph.nth(2).scrollIntoViewIfNeeded()
+    const boundary = await paragraph.nth(2).boundingBox()
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()
