@@ -99,19 +99,16 @@ class ContentPage {
     // await this.page.waitForSelector(this.paragraph)
     const paracount = this.paragraph
     const y = Math.floor(Math.random() * await paracount.count());
-    console.log(y)
-    return paracount
+    return [paracount as Locator, y as number] as const
   }
 
   // Select text in the paragraph
   async selectText() {
-    const paragraph = await this.paragraphs()
-    // let names = this.paragraphs()
-    // const paracount = names[0],
-    //       y = names[0];
-    // console.log(paracount)
-    await paragraph.nth(2).scrollIntoViewIfNeeded()
-    const boundary = await paragraph.nth(2).boundingBox()
+    // const paragraph = await this.paragraphs()
+    const names = this.paragraphs()
+    const [locator, number] = await this.paragraphs()
+    await locator.nth(2).scrollIntoViewIfNeeded()
+    const boundary = await locator.nth(2).boundingBox()
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()
