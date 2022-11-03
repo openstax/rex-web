@@ -107,6 +107,7 @@ const color = {
 const mobileSmallBreak = 30; // 480px
 const mobileMediumBreak = 50; // 800px
 const mobileBreak = 75; // 1200px
+const desktopBreak = mobileBreak + .0625; // 1201px
 const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
 const mobileMediumQuery = `(max-width: ${mobileMediumBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
@@ -139,6 +140,11 @@ export default {
         @media ${touchDeviceQuery} {
           ${style}
         }
+      }
+    `,
+    desktop: (style: FlattenSimpleInterpolation) => css`
+      @media screen and (min-width: ${desktopBreak}em) {
+        ${style}
       }
     `,
   },
