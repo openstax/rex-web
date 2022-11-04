@@ -1,3 +1,4 @@
+import { interacted } from '@openstax/event-capture-client/events';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { findFirstAncestorOrSelf } from '../../../app/domUtils';
 import { AppState } from '../../../app/types';
@@ -5,12 +6,16 @@ import { AnalyticsEvent, getAnalyticsRegion } from './event';
 
 export const selector = (_: AppState) => ({});
 
-const getElementStruct = (element: HTMLElement) => ({
-  attributes: Array.from(element.attributes).reduce(
+// helper for ts to figure out the dynamic key names
+const record = <K extends string, V>(key: K, value: V) => ({[key]: value}) as Record<K, V>;
+
+const getElementStruct = <K extends string>(name: K, element: HTMLElement) => ({
+  ...record(`${name}Attributes` as const, Array.from(element.attributes).reduce(
     (result, attribute) => ({...result, [attribute.name]: attribute.value}),
     {} as {[key: string]: string}
-  ),
-  elementType: element.tagName,
+  )),
+  ...record(`${name}Type` as const, element.tagName),
+  ...record(`${name}Id` as const, element.id),
 });
 
 export const track = (
@@ -18,18 +23,17 @@ export const track = (
   element: HTMLElement,
   stateChange?: string
 ): AnalyticsEvent | void => {
-  const region = getAnalyticsRegion(element);
+  const contextRegion = getAnalyticsRegion(element);
   const contextElement = element.parentElement && findFirstAncestorOrSelf(element.parentElement, (search) =>
     search.hasAttribute('data-type') && search.hasAttribute('id') && search.getAttribute('data-type') !== 'page'
   );
 
-  console.log({
-    contextElement: contextElement ? getElementStruct(contextElement) : undefined,
-    region,
-    stateChange,
-    targetElement: getElementStruct(element),
-  });
-
   return {
+    getEventCapturePayload: () => interacted({
+      ...getElementStruct('target', element),
+      ...getElementStruct('context', contextElement || element.ownerDocument.body),
+      contextRegion,
+      contextStateChange: stateChange,
+    }),
   };
 };
