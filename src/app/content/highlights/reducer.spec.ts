@@ -21,9 +21,9 @@ describe('highlight reducer', () => {
 
   it('receivePage - keeps pageId and highlights if called with current pageUid', () => {
     const state = reducer(
-      {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
+      {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: page.id}},
       receivePage({...page, references: []}));
-    expect(state.currentPage.pageId).toEqual('123');
+    expect(state.currentPage.pageId).toEqual(page.id);
     expect(state.currentPage.highlights).toEqual([mockHighlight]);
   });
 
