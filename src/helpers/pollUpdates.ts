@@ -82,7 +82,7 @@ const processGoogleAnalyticsIds = (environmentConfigs: EnvironmentConfigs) => {
   const ids = environmentConfigs.google_analytics;
 
   if (ids && ids.length > 0) {
-    googleAnalyticsClient.setTrackingIds(ids);
+    googleAnalyticsClient.setTagIds(ids);
   }
 };
 const processFeatureFlags = (store: Store, featureFlags: string[] = []) => {

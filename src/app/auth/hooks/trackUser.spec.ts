@@ -11,16 +11,16 @@ declare const window: Window;
 
 describe('trackUser', () => {
   let client: GoogleAnalyticsClient;
-  let mockGa: any;
+  let mockGtag: any;
   const dispatchMock = jest.fn();
   const helpers: any = {dispatch: dispatchMock};
   let user: User;
 
   beforeEach(() => {
     client = googleAnalyticsClient;
-    mockGa = jest.fn<UniversalAnalytics.ga, []>();
-    window.ga = mockGa;
-    client.setTrackingIds(['foo']);
+    mockGtag = jest.fn<Gtag.Gtag, []>();
+    window.gtag = mockGtag;
+    client.setTagIds(['foo']);
     user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'a_uuid'};
     jest.resetAllMocks();
   });
@@ -37,7 +37,7 @@ describe('trackUser', () => {
 
       it('tracks the user', async() => {
         await (trackUserHookBody(helpers))(receiveUser(user));
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: 'a_uuid'});
+        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: 'a_uuid', queue_time: 0 });
       });
 
       it('does not prompt to accept cookies', async() => {
@@ -53,7 +53,7 @@ describe('trackUser', () => {
 
       it('tracks the user', async() => {
         await (trackUserHookBody(helpers))(receiveUser(user));
-        expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: 'a_uuid'});
+        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: 'a_uuid', queue_time: 0 });
       });
 
       it('prompts to accept cookies', async() => {
@@ -74,7 +74,7 @@ describe('trackUser', () => {
 
     it('does not track the user', async() => {
       await (trackUserHookBody(helpers))(receiveUser(user));
-      expect(mockGa).not.toHaveBeenCalled();
+      expect(mockGtag).not.toHaveBeenCalled();
     });
 
     it('does not prompt to accept cookies', async() => {
