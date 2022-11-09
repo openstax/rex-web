@@ -18,6 +18,10 @@ const mockHighlight = {
 } as HighlightData;
 
 describe('highlight reducer', () => {
+  it('sets initial state', () => {
+    const newState = reducer(undefined, {type: 'asdf'} as unknown as AnyAction);
+    expect(newState).toEqual(initialState);
+  });
 
   it('receivePage - keeps pageId and highlights if called with current pageUid', () => {
     const state = reducer(
