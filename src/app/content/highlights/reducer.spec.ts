@@ -2,6 +2,7 @@ import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highligh
 import { page } from '../../../test/mocks/archiveLoader';
 import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
+import { AnyAction } from '../../types';
 import { assertNotNull } from '../../utils';
 import { receivePage } from '../actions';
 import * as actions from './actions';
