@@ -3,9 +3,9 @@ import queryString from 'querystring';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../../test/createTestStore';
-import { book as archiveBook, page as archivePage } from '../../../../../test/mocks/archiveLoader';
+import { book as archiveBook } from '../../../../../test/mocks/archiveLoader';
 import TestContainer from '../../../../../test/TestContainer';
-import { receivePage } from '../../../actions';
+import { locationChange } from '../../../../navigation/actions';
 import { useCreateHighlightLink } from './utils';
 
 jest.mock('../../../utils/urlUtils', () => ({
@@ -34,7 +34,7 @@ describe('createHighlightLink', () => {
   });
 
   it('creates valid link for highlight', () => {
-    store.dispatch(receivePage({...archivePage, references: []}));
+    store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
 
     const data = {
       'content-style': store.getState().navigation.query['content-style'],
