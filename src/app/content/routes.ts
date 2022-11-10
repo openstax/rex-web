@@ -49,9 +49,9 @@ const contentPaths = [
 
 // tslint:disable-next-line:variable-name
 const ReadingContent = Loadable({
-  loader: () => import(/* webpackChunkName: "Content" */ './components/Content'),
+  loader: () => import(/* webpackChunkName: "route-content" */ './components/Content'),
   loading: () => null,
-  modules: ['Content'],
+  modules: ['route-content'],
 });
 
 export const content: ContentRoute = {
@@ -74,9 +74,9 @@ const assignedPath = dynamicPrefix + '/assigned/:activityId';
 
 // tslint:disable-next-line:variable-name
 const AssignedContent = Loadable({
-  loader: () => import(/* webpackChunkName: "Assigned" */ './components/Assigned'),
+  loader: () => import(/* webpackChunkName: "route-assigned" */ './components/Assigned'),
   loading: () => null,
-  modules: ['Assigned'],
+  modules: ['route-assigned'],
 });
 
 export const assigned: Route<{activityId: string}> = {
