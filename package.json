@@ -2,6 +2,9 @@
   "name": "rex-web",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.x"
+  },
   "dependencies": {
     "@craco/craco": "^6.1.2",
     "@formatjs/intl-pluralrules": "^4.0.6",
