@@ -41,10 +41,16 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isVerticalNavOpen: bool
   }
 `;
 
+type CenteredContentRowProps = React.PropsWithChildren<{
+  isTocOpen: State['tocOpen'];
+  isVerticalNavOpen: State['tocOpen'];
+  isDesktopSearchOpen: State['tocOpen'];
+}>;
+
 // tslint:disable-next-line: variable-name
-const CenteredContentRow = (
-  { children, isTocOpen, isVerticalNavOpen, isDesktopSearchOpen }: React.PropsWithChildren<{ isTocOpen: State['tocOpen'], isVerticalNavOpen: State['tocOpen'], isDesktopSearchOpen: State['tocOpen']}>
-) => {
+const CenteredContentRow = ({
+  children, isTocOpen, isVerticalNavOpen, isDesktopSearchOpen
+}: CenteredContentRowProps) => {
   return <Wrapper
     data-testid='centered-content-row'
     isTocOpen={isTocOpen}
