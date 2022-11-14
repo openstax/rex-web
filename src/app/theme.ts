@@ -115,6 +115,11 @@ const touchDeviceQuery = `not all and (pointer: fine), (hover: none)`;
 
 export default {
   breakpoints: {
+    desktop: (style: FlattenSimpleInterpolation) => css`
+      @media screen and (min-width: ${desktopBreak}em) {
+        ${style}
+      }
+    `,
     mobile: (style: FlattenSimpleInterpolation) => css`
       @media screen and ${mobileQuery} {
         ${style}
@@ -140,11 +145,6 @@ export default {
         @media ${touchDeviceQuery} {
           ${style}
         }
-      }
-    `,
-    desktop: (style: FlattenSimpleInterpolation) => css`
-      @media screen and (min-width: ${desktopBreak}em) {
-        ${style}
       }
     `,
   },

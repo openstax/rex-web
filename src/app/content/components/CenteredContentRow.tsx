@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import theme from '../../theme';
 import { AppState } from '../../types';
+import * as searchSelectors from '../search/selectors';
+import { searchResultsOpen } from '../search/selectors';
+import { mobileMenuOpen, tocOpen } from '../selectors';
 import { State } from '../types';
 import { contentWrapperMaxWidth } from './constants';
-import { searchResultsOpen } from '../search/selectors';
-import * as searchSelectors from '../search/selectors';
-import { mobileMenuOpen, tocOpen } from '../selectors';
 import { styleWhenSidebarClosed } from './utils/sidebar';
 
 const collapseGridCss = css`
@@ -19,7 +19,7 @@ const expandGridCss = css`
 `;
 
 // tslint:disable-next-line: variable-name
-const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isVerticalNavOpen: boolean, isDesktopSearchOpen: boolean;}>`
+const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isVerticalNavOpen: boolean, isDesktopSearchOpen: boolean}>`
   ${collapseGridCss}
   grid-row: 1;
   justify-self: center;
@@ -28,12 +28,11 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isVerticalNavOpen: bool
   margin: 0 auto;
   padding-left: 0;
   max-width: ${contentWrapperMaxWidth}rem;
-
   ${styleWhenSidebarClosed(expandGridCss)}
-  // The grid column is not needed at a desktop breakpoint
-  ${props => (props.isTocOpen || props.isTocOpen === null) && theme.breakpoints.desktop(collapseGridCss)}
-  // Invert the above behavior for specific breakpoint
-  ${props => !props.isTocOpen && theme.breakpoints.mobileMedium(collapseGridCss)}
+  ${(props) => (props.isTocOpen || props.isTocOpen === null) &&
+    theme.breakpoints.desktop(collapseGridCss)} /* The grid column is not needed at a desktop breakpoint */
+  ${(props) => !props.isTocOpen &&
+    theme.breakpoints.mobileMedium(collapseGridCss)} /* Invert the above behavior for specific breakpoint */
 
   @media screen {
     display: flex;
@@ -42,14 +41,14 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isVerticalNavOpen: bool
 `;
 
 type CenteredContentRowProps = React.PropsWithChildren<{
+  isDesktopSearchOpen: State['tocOpen'];
   isTocOpen: State['tocOpen'];
   isVerticalNavOpen: State['tocOpen'];
-  isDesktopSearchOpen: State['tocOpen'];
 }>;
 
 // tslint:disable-next-line: variable-name
 const CenteredContentRow = ({
-  children, isTocOpen, isVerticalNavOpen, isDesktopSearchOpen
+  children, isTocOpen, isVerticalNavOpen, isDesktopSearchOpen,
 }: CenteredContentRowProps) => {
   return <Wrapper
     data-testid='centered-content-row'
@@ -63,8 +62,8 @@ const CenteredContentRow = ({
 
 export default connect(
   (state: AppState) => ({
+    isDesktopSearchOpen: !!searchSelectors.query(state),
     isTocOpen: tocOpen(state),
     isVerticalNavOpen: mobileMenuOpen(state) || searchResultsOpen(state),
-    isDesktopSearchOpen: !!searchSelectors.query(state),
   })
 )(CenteredContentRow);
