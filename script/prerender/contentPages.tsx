@@ -227,27 +227,19 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, links, modu
    * (https://facebook.github.io/create-react-app/docs/production-build)
    *
    * Loadable.preloadReady() only waits for the react-loadable chunks,
-   * apparently some of those are triggering the load of some of the
-   * numbered chunks and pre-rendering breaks as it waits for them
-   * to download.
-   *
-   * i'm not aware of any way to tell which ones we need ahead of time
-   * and render script tags for them here, so we're just loading all
-   * the numbered chunks.
-   *
-   * it would probably be better to wait for completion of any chunks
-   * that are requested dynamically, but i'm not seeing a way in
-   * webpack's api to do that.
+   * there is something coming in from one of the numbered chunks that
+   * causes a hydration error/repaint, i'm not sure why or which one
    */
   const extractAssets = () => Object.keys(assetManifest.files)
     .filter((asset) =>
-      (
-        // chunks requested by react-loadable
-        modules.indexOf(asset.replace('.js', '')) > -1
+        (
+          // chunks requested by react-loadable
+          modules.indexOf(asset.replace('.js', '')) > -1
+          // all numbered chunks
+          || asset.match(/static\/js\/[0-9]+.[0-9a-z]+.chunk.js$/)
+        )
         // webpack will have put some of the chunks in the index.html, don't re-add those
         && html.indexOf(`src="${assetManifest.files[asset]}"`) === -1
-      // all numbered chunks
-      ) || asset.match(/static\/js\/[0-9]+.[0-9a-z]+.chunk.js$/)
     )
     .map((k) => assetManifest.files[k]);
 

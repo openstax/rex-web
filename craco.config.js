@@ -25,12 +25,6 @@ module.exports = {
                   }
                 }
 
-                webpackConfig.plugins.push(
-                  new webpack.optimize.LimitChunkCountPlugin({
-                    maxChunks: 100
-                  })
-                )
-
                 return webpackConfig;
               }
         },
