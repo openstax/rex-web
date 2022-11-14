@@ -30,7 +30,7 @@ const Wrapper = styled.div<{isTocOpen: State['tocOpen'], isVerticalNavOpen: bool
   max-width: ${contentWrapperMaxWidth}rem;
 
   ${styleWhenSidebarClosed(expandGridCss)}
-  // The grid column isn't needed at a desktop breakpoint
+  // The grid column is not needed at a desktop breakpoint
   ${props => (props.isTocOpen || props.isTocOpen === null) && theme.breakpoints.desktop(collapseGridCss)}
   // Invert the above behavior for specific breakpoint
   ${props => !props.isTocOpen && theme.breakpoints.mobileMedium(collapseGridCss)}
