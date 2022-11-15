@@ -34,7 +34,7 @@ EOF
 fi
 
 if [ ! -f "$host.pvk" ] || [ ! -f "$host.cer" ]; then
-  cat << EOF > "$project_dir/data/$host.ext"
+  cat << EOF > "$project_dir/data/certs/$host.ext"
 subjectAltName = @alt_names
 extendedKeyUsage = serverAuth
 
