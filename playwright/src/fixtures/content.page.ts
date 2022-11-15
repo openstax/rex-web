@@ -13,7 +13,6 @@ class ContentPage {
   para: Locator
   highlight: Locator
   colorlocator: any
-  x: Locator
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -59,8 +58,8 @@ class ContentPage {
   }
 
   // Highlight selected text
-  async highlightText(color: string) {
-    await this.selectText()
+  async highlightText(color: string, number: number) {
+    await this.selectText(number)
     this.colorlocator = await this.colorLocator(color)
     await this.colorlocator.click()
   }
@@ -72,11 +71,12 @@ class ContentPage {
   }
 
   // Return the highlight id from content page
-  async highlight_id() {
-    const paragraph = await this.paragraphs()
+  async highlight_id(randomnumber) {
     const paraLocatorString = this.paragraph.toString()
     const paralocator = paraLocatorString.split('@')
-    const highlight_id = await this.page.getAttribute(`${paralocator[1]} .highlight`, 'data-highlight-id')
+    const y = paralocator[1]
+    const z = Number(`${randomnumber}`) + 1
+    const highlight_id = await this.page.getAttribute(`${y}:nth-child(${z}) .highlight`, 'data-highlight-id')
     return highlight_id
   }
 
@@ -94,21 +94,16 @@ class ContentPage {
     }
   }
 
-  // Select paragraph
+  // Select a paragraph
   async paragraphs() {
-    // await this.page.waitForSelector(this.paragraph)
     const paracount = this.paragraph
-    const y = Math.floor(Math.random() * await paracount.count());
-    return [paracount as Locator, y as number] as const
+    return (await paracount.count())
   }
 
-  // Select text in the paragraph
-  async selectText() {
-    // const paragraph = await this.paragraphs()
-    const names = this.paragraphs()
-    const [locator, number] = await this.paragraphs()
-    await locator.nth(2).scrollIntoViewIfNeeded()
-    const boundary = await locator.nth(2).boundingBox()
+  // Select text in a paragraph
+  async selectText(number) {
+    await this.paragraph.nth(number).scrollIntoViewIfNeeded()
+    const boundary = await this.paragraph.nth(number).boundingBox()
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()

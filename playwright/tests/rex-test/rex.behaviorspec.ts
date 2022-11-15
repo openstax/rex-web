@@ -66,17 +66,19 @@ test('signup and highlight', async ({ page, isMobile }) => {
 
   // AND: Signup as a new user
   await rexUserSignup(page)
-  // await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
 
   // WHEN: Highlight some text
-  await BookPage.highlightText('green')
+  const paracount = BookPage.paragraphs()
+  const randomnumber = Math.floor(Math.random() * await paracount);
+  await BookPage.highlightText('green', await randomnumber)
 
   // THEN: Text is highlighted
   let highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(1)
 
   // AND: Highlighted color in the content page is green
-  const highlight_id = await BookPage.highlight_id()
+  const highlight_id = await BookPage.highlight_id(randomnumber)
   const highlightColor = await BookPage.contentHighlightColor(highlight_id)
   expect(highlightColor).toBe('green')
 
