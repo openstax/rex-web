@@ -11,6 +11,8 @@ mkdir -p "$project_dir/data"
 
 cd "$project_dir"
 
+# nodejs does not use system certs by default
+# - https://github.com/nodejs/node/issues/39657
 export NODE_EXTRA_CA_CERTS="$shared_certificate_dir/CA.cer"
 export SSL_CRT_FILE="$project_dir/data/certs/${HOST:-localhost}.cer"
 export SSL_KEY_FILE="$project_dir/data/certs/${HOST:-localhost}.pvk"
