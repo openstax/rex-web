@@ -21,6 +21,8 @@ describe('trackUser', () => {
 
     await (untrackUserHookBody(helpers))(receiveLoggedOut());
 
-    expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: undefined, queue_time: 0 });
+    expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
+      queue_time: 0, send_page_view: false, user_id: undefined,
+    });
   });
 });
