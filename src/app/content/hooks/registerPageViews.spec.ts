@@ -13,7 +13,7 @@ declare const window: Window;
 describe('registerPageView', () => {
   let hook: ReturnType<typeof registerPageView>;
   let client: GoogleAnalyticsClient;
-  let mockGtag: any;
+  let mockGa: any;
   let store: Store;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
@@ -42,9 +42,9 @@ describe('registerPageView', () => {
     jest.restoreAllMocks();
     store = createTestStore();
     client = googleAnalyticsClient;
-    mockGtag = jest.fn<Gtag.Gtag, []>();
-    window.gtag = mockGtag;
-    client.setTagIds(['foo']);
+    mockGa = jest.fn<UniversalAnalytics.ga, []>();
+    window.ga = mockGa;
+    client.setTrackingIds(['foo']);
 
     helpers = {
       ...createTestServices(),
@@ -59,37 +59,21 @@ describe('registerPageView', () => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({});
 
     await hook(action);
-    expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
-      page_path: '/',
-      queue_time: expect.any(Number),
-      send_to: 'foo',
-    });
+    expect(mockGa).toHaveBeenCalledWith('tfoo.send', { hitType: 'pageview', page: '/' });
   });
 
   it('registers a page view if pathname changed', async() => {
     jest.spyOn(selectNavigation, 'pathname').mockReturnValue('foo');
 
     await hook(action);
-    expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
-      page_path: 'foo',
-      queue_time: expect.any(Number),
-      send_to: 'foo',
-    });
+    expect(mockGa).toHaveBeenCalledWith('tfoo.send', { hitType: 'pageview', page: 'foo' });
   });
 
   it('does not register a page view if pathname and modal query are unchanged', async() => {
     await hook(action);
-    expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
-      page_path: '/',
-      queue_time: expect.any(Number),
-      send_to: 'foo',
-    });
-    mockGtag.mockReset();
+    expect(mockGa).toHaveBeenCalledWith('tfoo.send', { hitType: 'pageview', page: '/' });
+    mockGa.mockReset();
     await hook(action);
-    expect(mockGtag).not.toHaveBeenCalledWith('event', 'page_view', {
-      page_path: '/',
-      queue_time: expect.any(Number),
-      send_to: 'foo',
-    });
+    expect(mockGa).not.toHaveBeenCalledWith('tfoo.send', { hitType: 'pageview', page: '/' });
   });
 });

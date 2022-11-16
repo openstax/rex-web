@@ -20,14 +20,23 @@
     </script>
     <!-- End Google Tag Manager -->
 
-    <!-- Google tag (gtag.js) - loading the script, but not setting the tracking code which
-         is environment-specific. -->
-    <script async src="https://www.googletagmanager.com/gtag/js"></script>
+    <!-- Google Analytics (loading the script, but not setting the tracking code which
+         is environment-specific -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
     </script>
+    <!-- End Google Analytics -->
+
+    <!-- Google Optmize (declaring gtag helper function) -->
+    <script>
+      function gtag() {
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push(arguments);}
+    </script>
+    <!-- End Google Optimize -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML-full&delayStartupUntil=configured" async></script>
     <!--
@@ -70,7 +79,7 @@
       s.src = '//js.pulseinsights.com/surveys.js';
       var f = d.getElementsByTagName('script')[0];
       f.parentNode.insertBefore(s, f);
-
+      
       pi('identify', 'PI-16384954');
       pi('get', 'surveys');
       })();

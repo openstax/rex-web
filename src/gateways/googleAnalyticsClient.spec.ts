@@ -45,12 +45,12 @@ describe('campaignFromQuery', () => {
 
 describe('GoogleAnalyticsClient', () => {
   let client: GoogleAnalyticsClient;
-  let mockGtag: any;
+  let mockGa: any;
 
   beforeEach(() => {
     client = new GoogleAnalyticsClient();
-    mockGtag = jest.fn<Gtag.Gtag, []>();
-    window.gtag = mockGtag;
+    mockGa = jest.fn<UniversalAnalytics.ga, []>();
+    window.ga = mockGa;
   });
 
   describe('setUserId', () => {
@@ -58,31 +58,18 @@ describe('GoogleAnalyticsClient', () => {
     describe('called before tracking IDs set', () => {
       it('sets it after tracking IDs set', async() => {
         client.setUserId('jimbo');
-        expect(mockGtag).not.toHaveBeenCalled();
-
-        client.setTagIds(['foo', 'bar']);
-
-        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
-          send_page_view: false,
-          transport_type: 'beacon',
-        });
-        expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
-          send_page_view: false,
-          transport_type: 'beacon',
-        });
-        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: 'jimbo', queue_time: expect.any(Number) });
-        expect(mockGtag).toHaveBeenCalledWith('config', 'bar', { user_id: 'jimbo', queue_time: expect.any(Number) });
+        expect(mockGa).not.toHaveBeenCalled();
+        client.setTrackingIds(['foo', 'bar']);
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: 'jimbo'});
+        expect(mockGa).toHaveBeenCalledWith('tbar.set', {userId: 'jimbo'});
       });
     });
 
     describe('called after tracking ID set', () => {
       it('sets it after tracking ID set', async() => {
-        client.setTagIds(['foo']);
+        client.setTrackingIds(['foo']);
         client.setUserId('jimbo');
-        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
-          queue_time: expect.any(Number),
-          user_id : 'jimbo',
-        });
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: 'jimbo'});
       });
     });
 
@@ -92,7 +79,7 @@ describe('GoogleAnalyticsClient', () => {
     describe('called before tracking IDs set', () => {
       it('doesnt call Ga', async() => {
         client.setCustomDimensionForSession();
-        expect(mockGtag).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
       });
     });
 
@@ -109,10 +96,10 @@ describe('GoogleAnalyticsClient', () => {
   describe('unsetUserId', () => {
 
     it('unsets it', async() => {
-      client.setTagIds(['foo', 'bar']);
+      client.setTrackingIds(['foo', 'bar']);
       client.unsetUserId();
-      expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: undefined, queue_time: 0 });
-      expect(mockGtag).toHaveBeenCalledWith('config', 'bar', { user_id: undefined, queue_time: 0 });
+      expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: undefined});
+      expect(mockGa).toHaveBeenCalledWith('tbar.set', {userId: undefined});
     });
 
   });
@@ -120,20 +107,19 @@ describe('GoogleAnalyticsClient', () => {
   describe('trackPageView', () => {
 
     describe('called before tracking ID set', () => {
-      it('saves the commands and sends them after tag IDs set', async() => {
+      it('saves the commands and sends them after tracking IDs set', async() => {
         client.trackPageView('/some/path');
-        expect(mockGtag).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
 
         const sleepMs: number = 5;
         await sleep(sleepMs);
 
         expect(client.getPendingCommands().length).toBe(1);
 
-        client.setTagIds(['foo']);
-        expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
-          page_path: '/some/path', queue_time: expect.any(Number), send_to: 'foo',
-        });
-        expect(mockGtag.mock.calls[1][2].queue_time).toBeGreaterThanOrEqual(sleepMs);
+        client.setTrackingIds(['foo']);
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', expect.any(Number));
+        expect(mockGa.mock.calls[1][2]).toBeGreaterThanOrEqual(sleepMs);
+        expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
 
         expect(client.getPendingCommands().length).toBe(0);
       });
@@ -142,12 +128,12 @@ describe('GoogleAnalyticsClient', () => {
         jest.spyOn(analyticsUtils, 'trackingIsDisabled').mockReturnValueOnce(true);
 
         client.trackPageView('/some/path');
-        expect(mockGtag).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
         expect(client.getPendingCommands().length).toBe(1);
 
-        client.setTagIds(['foo']);
-        expect(mockGtag).not.toHaveBeenCalled();
-        expect(mockGtag).not.toHaveBeenCalled();
+        client.setTrackingIds(['foo']);
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
 
         expect(client.getPendingCommands().length).toBe(1);
       });
@@ -155,133 +141,114 @@ describe('GoogleAnalyticsClient', () => {
 
     describe('called after tracking IDs set', () => {
       it('sends them right away to all trackers', async() => {
-        client.setTagIds(['foo', 'bar']);
+        client.setTrackingIds(['foo', 'bar']);
         client.trackPageView('/some/path');
-        expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
-          page_path: '/some/path',
-          queue_time: 0,
-          send_to: 'foo',
-        });
-        expect(mockGtag).toHaveBeenCalledWith('event', 'page_view', {
-          page_path: '/some/path',
-          queue_time: 0,
-          send_to: 'bar',
-        });
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', 'queueTime', 0);
+        expect(mockGa).toHaveBeenCalledWith('tfoo.send', {hitType: 'pageview', page: '/some/path'});
+        expect(mockGa).toHaveBeenCalledWith('tbar.set', 'queueTime', 0);
+        expect(mockGa).toHaveBeenCalledWith('tbar.send', {hitType: 'pageview', page: '/some/path'});
       });
 
       it('doesn\'t send them if trackingIsDisabled is true', async() => {
         jest.spyOn(analyticsUtils, 'trackingIsDisabled').mockReturnValueOnce(true);
 
-        client.setTagIds(['foo', 'bar']);
+        client.setTrackingIds(['foo', 'bar']);
         client.trackPageView('/some/path');
-        expect(mockGtag).not.toHaveBeenCalled();
-        expect(mockGtag).not.toHaveBeenCalled();
-        expect(mockGtag).not.toHaveBeenCalled();
-        expect(mockGtag).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
+        expect(mockGa).not.toHaveBeenCalled();
       });
     });
 
-    describe('when campaign parameters are provided', () => {
+    describe('when campaign parameters are provided in the query', () => {
       it('sends them', async() => {
-        client.setTagIds(['foo']);
-        mockGtag.mockClear();
+        client.setTrackingIds(['foo']);
         client.trackPageView('/some/path', { utm_source: 'source' });
-        expect(mockGtag).toHaveBeenCalledWith('set', {
-          campaignMedium: 'unset',
-          campaignSource: 'source',
-        });
+        expect(mockGa).toHaveBeenCalledWith('tfoo.set', { campaignMedium: 'unset', campaignSource: 'source' });
       });
     });
   });
 
-  describe('setTagIds', () => {
+  describe('setTrackingIds', () => {
 
     describe('first call', () => {
-      it('configs tags using the underlying gtag function', async() => {
-        client.setTagIds(['foo', 'bar']);
-        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
-          send_page_view: false,
-          transport_type: 'beacon',
-        });
-        expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
-          send_page_view: false,
-          transport_type: 'beacon',
-        });
+      it('creates trackers using the underlying ga function', async() => {
+        client.setTrackingIds(['foo', 'bar']);
+        expect(mockGa).toHaveBeenCalledWith('create', 'foo', 'auto', 'tfoo');
+        expect(mockGa).toHaveBeenCalledWith('create', 'bar', 'auto', 'tbar');
       });
     });
 
     describe('second call', () => {
       beforeEach(() => {
-        client.setTagIds(['foo', 'bar']);
-        mockGtag.mockClear();
+        client.setTrackingIds(['foo', 'bar']);
+        mockGa.mockClear();
       });
 
-      it('ignores tag changes', async() => {
-        client.setTagIds(['xyz']);
-        expect(mockGtag).not.toHaveBeenCalled();
+      it('creates trackers using the underlying ga function', async() => {
+        client.setTrackingIds(['xyz']);
+        expect(mockGa).not.toHaveBeenCalled();
       });
     });
+
+    describe('tracker name alphanumericalizing', () => {
+      it('strips hyphens out of tracking IDs for tracker names', async() => {
+        client.setTrackingIds(['ab--2']);
+        expect(mockGa).toHaveBeenCalledWith('create', 'ab--2', 'auto', 'tab2');
+      });
+    });
+
   });
 
   describe('trackEvent', () => {
     beforeEach(() => {
-      client.setTagIds(['foo']);
+      client.setTrackingIds(['foo']);
     });
 
     it('calls with category and action', async() => {
-      client.trackEventPayload({
-        eventAction: 'action', eventCategory: 'category',
-      });
-      expect(mockGtag).toHaveBeenCalledWith('event', 'action', {
-        event_category: 'category',
-        queue_time: 0,
-        send_to: 'foo',
+      client.trackEvent('category', 'action');
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {
+        eventAction: 'action',
+        eventCategory: 'category',
+        hitType: 'event',
+        transport: 'beacon',
       });
     });
 
     it('calls with category, action, and label', async() => {
-      client.trackEventPayload({
-        eventAction: 'action', eventCategory: 'category', eventLabel: 'label',
-      });
-      expect(mockGtag).toHaveBeenCalledWith('event', 'action', {
-        event_category: 'category',
-        event_label: 'label',
-        queue_time: 0,
-        send_to: 'foo',
+      client.trackEvent('category', 'action', 'label');
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {
+        eventAction: 'action',
+        eventCategory: 'category',
+        eventLabel: 'label',
+        hitType: 'event',
+        transport: 'beacon',
       });
     });
 
     it('calls with category, action, label, and value', async() => {
-      client.trackEventPayload({
+      client.trackEvent('category', 'action', 'label', 42);
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {
         eventAction: 'action',
         eventCategory: 'category',
         eventLabel: 'label',
         eventValue: 42,
-      });
-      expect(mockGtag).toHaveBeenCalledWith('event', 'action', {
-        event_category: 'category',
-        event_label: 'label',
-        queue_time: 0,
-        send_to: 'foo',
-        value: 42,
+        hitType: 'event',
+        transport: 'beacon',
       });
     });
 
     it('calls with category, action, label, value and non-interaction', async() => {
-      client.trackEventPayload({
+      client.trackEvent('category', 'action', 'label', 42, true);
+      expect(mockGa).toHaveBeenCalledWith('tfoo.send', {
         eventAction: 'action',
         eventCategory: 'category',
         eventLabel: 'label',
         eventValue: 42,
+        hitType: 'event',
         nonInteraction: true,
-      });
-      expect(mockGtag).toHaveBeenCalledWith('event', 'action', {
-        event_category: 'category',
-        event_label: 'label',
-        non_interaction: true,
-        queue_time: 0,
-        send_to: 'foo',
-        value: 42,
+        transport: 'beacon',
       });
     });
   });

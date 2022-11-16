@@ -123,7 +123,7 @@ describe('poll updates', () => {
 
     it('initializes google analytics', async() => {
       const mock = jest.fn(() => ({}));
-      googleAnalyticsClient.setTagIds = mock;
+      googleAnalyticsClient.setTrackingIds = mock;
 
       cancel = pollUpdates(store);
       jest.runOnlyPendingTimers();
@@ -201,7 +201,7 @@ describe('poll updates', () => {
         release_id: 'releaseid',
       }));
       const mock = jest.fn(() => ({}));
-      googleAnalyticsClient.setTagIds = mock;
+      googleAnalyticsClient.setTrackingIds = mock;
 
       cancel = pollUpdates(store);
       jest.runOnlyPendingTimers();

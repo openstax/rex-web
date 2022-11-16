@@ -7,13 +7,13 @@ declare const window: Window;
 
 describe('trackUser', () => {
   let client: GoogleAnalyticsClient;
-  let mockGtag: any;
+  let mockGa: any;
 
   beforeEach(() => {
     client = googleAnalyticsClient;
-    mockGtag = jest.fn<Gtag.Gtag, []>();
-    window.gtag = mockGtag;
-    client.setTagIds(['foo']);
+    mockGa = jest.fn<UniversalAnalytics.ga, []>();
+    window.ga = mockGa;
+    client.setTrackingIds(['foo']);
   });
 
   it('stops tracking the user', async() => {
@@ -21,6 +21,6 @@ describe('trackUser', () => {
 
     await (untrackUserHookBody(helpers))(receiveLoggedOut());
 
-    expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: undefined, queue_time: 0 });
+    expect(mockGa).toHaveBeenCalledWith('tfoo.set', {userId: undefined});
   });
 });
