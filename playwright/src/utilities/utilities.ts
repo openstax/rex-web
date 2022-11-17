@@ -28,10 +28,15 @@ function randomChoice(list: ElementHandle[]): ElementHandle {
   return list[option]
 }
 
+function randomNumber(count: Number){
+  const randomnum = Math.floor(Math.random() * count)
+  return randomnum
+}
+
 async function sleep(seconds = 1.0): Promise<unknown> {
   return new Promise((resolve) => {
     setTimeout(resolve, seconds * 1000)
   })
 }
 
-export { closeExtras, randomChoice, sleep }
+export { closeExtras, randomChoice, randomNumber, sleep }

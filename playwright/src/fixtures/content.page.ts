@@ -1,6 +1,5 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
-import { sleep } from '../utilities/utilities'
 
 class ContentPage {
   blue: Locator
@@ -58,8 +57,9 @@ class ContentPage {
   }
 
   // Highlight selected text
-  async highlightText(color: string, number: number) {
-    await this.selectText(number)
+  // param: randomparanumber - paragraph number of the content to be highlioghted
+  async highlightText(color: string, randomparanumber: number) {
+    await this.selectText(randomparanumber)
     this.colorlocator = await this.colorLocator(color)
     await this.colorlocator.click()
   }
@@ -70,40 +70,43 @@ class ContentPage {
     return highlightcount
   }
 
-  // Return the highlight id from content page
-  async highlight_id(randomnumber) {
+  // Return highlight id of the specified paragraph from content page
+  // param: randomparanumber - paragraph number of the highlighted content
+  async highlight_id(randomparanumber: number) {
     const paraLocatorString = this.paragraph.toString()
-    const paralocator = paraLocatorString.split('@')
-    const y = paralocator[1]
-    const z = Number(`${randomnumber}`) + 1
-    const highlight_id = await this.page.getAttribute(`${y}:nth-child(${z}) .highlight`, 'data-highlight-id')
+    const paralocators = paraLocatorString.split('@')
+    const paralocator = paralocators[1]
+    const paranumber = Number(`${randomparanumber}`) + 1
+    const highlight_id = await this.page.getAttribute(`${paralocator}:nth-child(${paranumber}) .highlight`, 'data-highlight-id')
     return highlight_id
   }
 
   // Return color of the highlighted content
-  async contentHighlightColor(highlight_id) {
+  // param: highlight_id - highlight id of the highlighted content
+  async contentHighlightColor(highlight_id: string) {
     const colorclass = await this.page.getAttribute(`[data-highlight-id="${highlight_id}"]`, 'class')
-    const contentcolor = colorclass.split(' ')
+    const contentcolors = colorclass.split(' ')
     const colors = ['blue', 'green', 'pink', 'purple', 'yellow']
-    for (const i of contentcolor) {
-      for (const j of colors) {
-        if (i === j) {
-          return i
+    for (const contentcolor of contentcolors) {
+      for (const color of colors) {
+        if (contentcolor === color) {
+          return contentcolor
         }
       }
     }
   }
 
-  // Select a paragraph
-  async paragraphs() {
+  // Number of paragraphs in the page
+  async paracount() {
     const paracount = this.paragraph
     return (await paracount.count())
   }
 
   // Select text in a paragraph
-  async selectText(number) {
-    await this.paragraph.nth(number).scrollIntoViewIfNeeded()
-    const boundary = await this.paragraph.nth(number).boundingBox()
+  // param: randomparanumber - nth paragraph to be selected
+  async selectText(randomparanumber) {
+    await this.paragraph.nth(randomparanumber).scrollIntoViewIfNeeded()
+    const boundary = await this.paragraph.nth(randomparanumber).boundingBox()
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()
