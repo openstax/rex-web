@@ -212,7 +212,23 @@ export const useMatchMobileQuery = () => useMatchMediaQuery(theme.breakpoints.mo
 
 export const useDebouncedWindowSize = () => {
   const window = assertWindow();
-  const [size] = React.useState([window.innerWidth, window.innerHeight]);
+  const timeout = React.useRef(0);
+  const [size, setSize] = React.useState([window.innerWidth, window.innerHeight]);
+
+  React.useLayoutEffect(() => {
+    const updateSize = () => {
+      clearTimeout(timeout.current);
+      timeout.current = setTimeout(() => {
+        setSize([window.innerWidth, window.innerHeight]);
+      }, 50);
+    };
+    window.addEventListener('resize', updateSize);
+    return () => {
+      clearTimeout(timeout.current);
+      window.removeEventListener('resize', updateSize);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return size;
 };
