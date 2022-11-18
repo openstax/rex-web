@@ -1,3 +1,7 @@
-#!/bin/bash
-openssl s_client -showcerts -connect localhost:3000 </dev/null 2>/dev/null|openssl x509 -outform PEM >/tmp/localhost.pem
-sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain /tmp/localhost.pem 
+#!/usr/bin/env bash
+# spell-checker: ignore pipefail Keychains keychain
+set -euo pipefail; if [ -n "${DEBUG-}" ]; then set -x; fi
+
+shared_certificate_dir=~/.openstax/certs
+
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain "$shared_certificate_dir"/CA.cer
