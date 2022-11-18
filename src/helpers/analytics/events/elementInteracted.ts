@@ -23,7 +23,7 @@ export const track = (
   element: HTMLElement,
   stateChange?: string
 ): AnalyticsEvent | void => {
-  const contextRegion = getAnalyticsRegion(element);
+  const contextRegion = getAnalyticsRegion(element) || undefined;
   const contextElement = element.parentElement && findFirstAncestorOrSelf(element.parentElement, (search) =>
     search.hasAttribute('data-type') && search.hasAttribute('id') && search.getAttribute('data-type') !== 'page'
   );
