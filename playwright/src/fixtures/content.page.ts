@@ -77,7 +77,10 @@ class ContentPage {
     const paralocators = paraLocatorString.split('@')
     const paralocator = paralocators[1]
     const paranumber = Number(`${randomparanumber}`) + 1
-    const highlight_id = await this.page.getAttribute(`${paralocator}:nth-child(${paranumber}) .highlight`, 'data-highlight-id')
+    const highlight_id = await this.page.getAttribute(
+      `${paralocator}:nth-child(${paranumber}) .highlight`,
+      'data-highlight-id',
+    )
     return highlight_id
   }
 
@@ -99,7 +102,7 @@ class ContentPage {
   // Number of paragraphs in the page
   async paracount() {
     const paracount = this.paragraph
-    return (await paracount.count())
+    return await paracount.count()
   }
 
   // Select text in a paragraph
@@ -110,7 +113,7 @@ class ContentPage {
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()
-      await this.page.mouse.move(boundary.width + boundary.x-1, boundary.y + boundary.height-1)
+      await this.page.mouse.move(boundary.width + boundary.x - 1, boundary.y + boundary.height - 1)
       await this.page.mouse.up()
     }
   }

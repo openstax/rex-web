@@ -90,4 +90,3 @@ test('signup and highlight', async ({ page, isMobile }) => {
   highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(0)
 })
-

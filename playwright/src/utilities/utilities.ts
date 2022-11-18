@@ -28,7 +28,7 @@ function randomChoice(list: ElementHandle[]): ElementHandle {
   return list[option]
 }
 
-function randomNumber(count: Number){
+function randomNumber(count: number) {
   const randomnum = Math.floor(Math.random() * count)
   return randomnum
 }
