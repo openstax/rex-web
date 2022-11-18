@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { createGlobalStyle } from 'styled-components/macro';
 import { bookStylesUrl as bookStylesUrlSelector } from '../content/selectors';
 import { State } from '../content/types';
 import { useServices } from '../context/Services';
@@ -9,8 +9,10 @@ import { AppServices } from '../types';
 import { assertDefined } from '../utils/assertions';
 
 // tslint:disable-next-line: variable-name
-export const WithStyles = styled.div`
-  ${(props: { styles: string }) => props.styles}
+export const ScopedGlobalStyle = createGlobalStyle`
+  [data-dynamic-style="true"] {
+    ${(props: { styles: string }) => props.styles}
+  }
 `;
 
 const cacheStyles = new Map<string, string>();
@@ -21,21 +23,20 @@ const getStyles = (
   book: State['book'],
   bookStylesUrl: string | null,
   archiveLoader: AppServices['archiveLoader']
-): string => {
+): [boolean, string] => {
   if (!disable) {
     if (queryStyles) {
       // Query param styles have higher priority and override book styles
-      return queryStyles;
+      return [true, queryStyles];
     } else if (book && bookStylesUrl) {
       // The dynamicStyles hook already checked that the book config had dynamicStyles enabled
-      const cachedStyles = archiveLoader.forBook(book).resource(bookStylesUrl).cached();
-      if (cachedStyles) {
-        return cachedStyles;
-      }
+      // Returning true with a blank string can happen when hydrating
+      // We set data-dynamic-style to true in this case so the HTML remains the same
+      return [true, archiveLoader.forBook(book).resource(bookStylesUrl).cached() || ''];
     }
   }
 
-  return '';
+  return [false, ''];
 };
 
 interface DynamicContentStylesProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -77,11 +78,20 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
 
   const { archiveLoader } = useServices();
   const bookStylesUrl = useSelector(bookStylesUrlSelector);
-  const styles = getStyles(disable, queryStyles, book, bookStylesUrl, archiveLoader);
+  const [dataDynamicStyle, styles] = getStyles(disable, queryStyles, book, bookStylesUrl, archiveLoader);
 
-  return <WithStyles styles={styles} data-dynamic-style={!!styles} {...otherProps} ref={ref}>
-    {children}
-  </WithStyles>;
+  if (styles) {
+    return <>
+      <ScopedGlobalStyle styles={styles}/>
+      <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
+        {children}
+      </div>
+    </>;
+  } else {
+    return <div data-dynamic-style={dataDynamicStyle} {...otherProps} ref={ref}>
+      {children}
+    </div>;
+  }
 });
 
 export default DynamicContentStyles;
