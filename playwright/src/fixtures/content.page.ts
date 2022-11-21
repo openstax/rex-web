@@ -57,6 +57,7 @@ class ContentPage {
   }
 
   // Highlight selected text
+  // param: highlight color
   // param: randomparanumber - paragraph number of the content to be highlioghted
   async highlightText(color: string, randomparanumber: number) {
     await this.selectText(randomparanumber)
@@ -107,7 +108,7 @@ class ContentPage {
 
   // Select text in a paragraph
   // param: randomparanumber - nth paragraph to be selected
-  async selectText(randomparanumber) {
+  async selectText(randomparanumber: number) {
     await this.paragraph.nth(randomparanumber).scrollIntoViewIfNeeded()
     const boundary = await this.paragraph.nth(randomparanumber).boundingBox()
     if (boundary) {
