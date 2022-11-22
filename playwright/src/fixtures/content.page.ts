@@ -20,6 +20,7 @@ class ContentPage {
     this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
+    this.paragraph = this.page.locator('p[id*=para]')
   }
 
   // Open a Rex page with base url
@@ -56,8 +57,10 @@ class ContentPage {
   }
 
   // Highlight selected text
-  async highlightText(color: string) {
-    await this.selectText()
+  // param: highlight color
+  // param: randomparanumber - paragraph number of the content to be highlioghted
+  async highlightText(color: string, randomparanumber: number) {
+    await this.selectText(randomparanumber)
     this.colorlocator = await this.colorLocator(color)
     await this.colorlocator.click()
   }
@@ -68,45 +71,50 @@ class ContentPage {
     return highlightcount
   }
 
-  // Return the highlight id from content page
-  async highlight_id() {
-    const paragraph = await this.paragraphs()
+  // Return highlight id of the specified paragraph from content page
+  // param: randomparanumber - paragraph number of the highlighted content
+  async highlight_id(randomparanumber: number) {
     const paraLocatorString = this.paragraph.toString()
-    const paralocator = paraLocatorString.split('@')
-    const highlight_id = await this.page.getAttribute(`${paralocator[1]} .highlight`, 'data-highlight-id')
+    const paralocators = paraLocatorString.split('@')
+    const paralocator = paralocators[1]
+    const paranumber = Number(`${randomparanumber}`) + 1
+    const highlight_id = await this.page.getAttribute(
+      `${paralocator}:nth-child(${paranumber}) .highlight`,
+      'data-highlight-id',
+    )
     return highlight_id
   }
 
   // Return color of the highlighted content
-  async contentHighlightColor(highlight_id) {
+  // param: highlight_id - highlight id of the highlighted content
+  async contentHighlightColor(highlight_id: string) {
     const colorclass = await this.page.getAttribute(`[data-highlight-id="${highlight_id}"]`, 'class')
-    const contentcolor = colorclass.split(' ')
+    const contentcolors = colorclass.split(' ')
     const colors = ['blue', 'green', 'pink', 'purple', 'yellow']
-    for (const i of contentcolor) {
-      for (const j of colors) {
-        if (i === j) {
-          return i
+    for (const contentcolor of contentcolors) {
+      for (const color of colors) {
+        if (contentcolor === color) {
+          return contentcolor
         }
       }
     }
   }
 
-  // Select paragraph
-  async paragraphs() {
-    this.paragraph = this.page.locator('p[id=eip-535]')
-    return
+  // Number of paragraphs in the page
+  async paracount() {
+    const paracount = this.paragraph
+    return await paracount.count()
   }
 
-  // Select text in the paragraph
-  async selectText() {
-    const paragraph = await this.paragraphs()
-    const boundary = await this.paragraph.boundingBox()
+  // Select text in a paragraph
+  // param: randomparanumber - nth paragraph to be selected
+  async selectText(randomparanumber: number) {
+    await this.paragraph.nth(randomparanumber).scrollIntoViewIfNeeded()
+    const boundary = await this.paragraph.nth(randomparanumber).boundingBox()
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()
-      await this.page.mouse.move(boundary.width + boundary.x, boundary.y)
-      await this.page.mouse.move(boundary.width + boundary.x, boundary.y + boundary.height)
-      await this.page.mouse.move(boundary.x, boundary.y + boundary.height)
+      await this.page.mouse.move(boundary.width + boundary.x - 1, boundary.y + boundary.height - 1)
       await this.page.mouse.up()
     }
   }
