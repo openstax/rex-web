@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { ContentPage, KsModal, rexUserSignup, rexUserSignout, sleep } from './helpers'
+import { ContentPage, KsModal, randomNumber, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
@@ -61,22 +61,24 @@ test('signup and highlight', async ({ page, isMobile }) => {
 
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought'
+  const path = '/books/introduction-anthropology/pages/7-introduction'
   await BookPage.open(path)
 
   // AND: Signup as a new user
   await rexUserSignup(page)
-  await expect(page).toHaveURL('/books/introduction-intellectual-property/pages/1-5-what-the-u-s-patent-system-wrought')
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
 
-  // WHEN: Highlight some text
-  await BookPage.highlightText('green')
+  // WHEN: Highlight any random paragraph
+  const paracount = BookPage.paracount()
+  const randomparanumber = randomNumber(await paracount)
+  await BookPage.highlightText('green', randomparanumber)
 
   // THEN: Text is highlighted
   let highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(1)
 
   // AND: Highlighted color in the content page is green
-  const highlight_id = await BookPage.highlight_id()
+  const highlight_id = await BookPage.highlight_id(randomparanumber)
   const highlightColor = await BookPage.contentHighlightColor(highlight_id)
   expect(highlightColor).toBe('green')
 

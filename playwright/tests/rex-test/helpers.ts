@@ -10,7 +10,7 @@ import {
   accountsUserSignOut,
   rexUserSignout,
 } from '../../src/utilities/user'
-import { closeExtras, randomChoice, sleep } from '../../src/utilities/utilities'
+import { closeExtras, randomChoice, randomNumber, sleep } from '../../src/utilities/utilities'
 import { KsModal } from '../../src/fixtures/ksmodal'
 
 export {
@@ -24,6 +24,7 @@ export {
   closeExtras,
   getPin,
   randomChoice,
+  randomNumber,
   rexUserSignup,
   sleep,
   test,
