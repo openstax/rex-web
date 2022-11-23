@@ -5,9 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
-import { useDrawFocus } from '../../../reactUtils';
 import theme from '../../../theme';
-import { mergeRefs } from '../../../utils';
 import { cardPadding } from '../constants';
 import { cardBorder } from './style';
 
@@ -53,7 +51,7 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
   ref
 ) => {
   return <Overlay
-    ref={mergeRefs(ref, useDrawFocus())}
+    ref={ref}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}
