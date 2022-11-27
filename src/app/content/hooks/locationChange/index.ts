@@ -10,6 +10,7 @@ import registerPageView from '../registerPageView';
 import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent from './resolveContent';
 import { resolveBook } from './resolveContent';
+import { updateHead } from '../receiveContent';
 
 export const contentRouteHookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
@@ -20,6 +21,9 @@ export const contentRouteHookBody: RouteHookBody<typeof content> = (services) =>
     if ((await resolveContent(services, action.match)).book === undefined) {
       return;
     }
+
+    // Ensure page head tags get updated before calling analytics
+    await updateHead(services);
 
     await Promise.all([
       boundRegisterPageView(action),
