@@ -67,7 +67,7 @@ export const updateHead = async(services: MiddlewareAPI & AppServices) => {
 };
 
 const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (services) => {
-  return async () => updateHead(services);
+  return async() => updateHead(services);
 };
 
 export default hookBody;
