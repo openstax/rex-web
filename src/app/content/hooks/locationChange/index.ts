@@ -6,11 +6,10 @@ import { assigned, content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
 import { loadStudyGuides } from '../../studyGuides/hooks';
 import initializeIntl from '../intlHook';
+import { updateHead } from '../receiveContent';
 import registerPageView from '../registerPageView';
 import loadBuyPrintConfig from './buyPrintConfig';
-import resolveContent from './resolveContent';
-import { resolveBook } from './resolveContent';
-import { updateHead } from '../receiveContent';
+import resolveContent, { resolveBook } from './resolveContent';
 
 export const contentRouteHookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
