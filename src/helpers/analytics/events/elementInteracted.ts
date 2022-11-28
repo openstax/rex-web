@@ -25,7 +25,7 @@ export const track = (
 ): AnalyticsEvent | void => {
   const contextRegion = getAnalyticsRegion(element) || undefined;
   const contextElement = element.parentElement && findFirstAncestorOrSelf(element.parentElement, (search) =>
-    search.hasAttribute('data-type') && search.hasAttribute('id') && search.getAttribute('data-type') !== 'page'
+    search.hasAttribute('data-type') && search.hasAttribute('id')
   );
 
   return {
