@@ -1,7 +1,10 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import { page } from '../../../test/mocks/archiveLoader';
 import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
+import { AnyAction } from '../../types';
 import { assertNotNull } from '../../utils';
+import { receivePage } from '../actions';
 import * as actions from './actions';
 import reducer, { initialState } from './reducer';
 import {
@@ -16,30 +19,34 @@ const mockHighlight = {
 } as HighlightData;
 
 describe('highlight reducer', () => {
+  it('sets initial state', () => {
+    const newState = reducer(undefined, {type: 'asdf'} as unknown as AnyAction);
+    expect(newState).toEqual(initialState);
+  });
 
-  it('locationChange - keeps pageId and highlights if called with current pageUid', () => {
+  it('receivePage - keeps pageId and highlights if called with current pageUid', () => {
     const state = reducer(
-      {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
-      locationChange({location: {state: {pageUid: '123'}, search: ''}} as any));
-    expect(state.currentPage.pageId).toEqual('123');
+      {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: page.id}},
+      receivePage({...page, references: []}));
+    expect(state.currentPage.pageId).toEqual(page.id);
     expect(state.currentPage.highlights).toEqual([mockHighlight]);
   });
 
-  it('locationChange - reset pageId and highlights if called with different pageUid', () => {
+  it('receivePage - reset pageId and highlights if called with different pageUid', () => {
     const state = reducer(
       {...initialState, currentPage: {...initialState.currentPage, highlights: [mockHighlight], pageId: '123'}},
-      locationChange({location: {state: {pageUid: 'asdf'}, search: ''}} as any));
+      receivePage({...page, references: []}));
     expect(state.currentPage.pageId).toEqual(null);
     expect(state.currentPage.highlights).toEqual(initialState.currentPage.highlights);
   });
 
-  it('locationChange - reset hasUnsavedHighlight and focused', () => {
+  it('receivePage - reset hasUnsavedHighlight and focused', () => {
     const state = reducer(
       {
         ...initialState,
         currentPage: {...initialState.currentPage, pageId: 'asdf', hasUnsavedHighlight: true, focused: 'asd'},
       },
-      locationChange({location: {state: {pageUid: 'asdf'}, search: ''}} as any));
+      receivePage({...page, references: []}));
     expect(state.currentPage.hasUnsavedHighlight).toEqual(false);
     expect(state.currentPage.focused).toBeUndefined();
   });

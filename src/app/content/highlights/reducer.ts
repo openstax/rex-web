@@ -7,6 +7,7 @@ import { receiveLoggedOut } from '../../auth/actions';
 import { locationChange } from '../../navigation/actions';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
+import { receivePage } from '../actions';
 import { highlightStyles, modalQueryParameterName } from '../constants';
 import * as actions from './actions';
 import { modalUrlName } from './constants';
@@ -47,16 +48,23 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
         && action.payload.action === 'PUSH';
 
-      const currentPageId = state.currentPage.pageId;
-      const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
-        currentPage: currentPageId && actionPageId === currentPageId
-          ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
-          : initialState.currentPage,
+        ...state,
         summary: {
           ...state.summary,
           open: summaryShouldBeOpen,
         },
+      };
+    }
+    case getType(receivePage): {
+      const currentPageId = state.currentPage.pageId;
+      const actionPageId = action.payload.id;
+
+      return {
+        ...state,
+        currentPage: currentPageId && actionPageId === currentPageId
+          ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
+          : initialState.currentPage,
       };
     }
     case getType(actions.createHighlight): {
