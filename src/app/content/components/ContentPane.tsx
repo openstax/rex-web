@@ -30,11 +30,22 @@ export const contentWrapperBreakpointStyles = `
   }
 `;
 // tslint:disable-next-line:variable-name
-const Wrapper = styled.div`
+const Wrapper = styled.div<{verticalNavOpen: State['tocOpen']}>`
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: center;
+  width: 100%;
+  overflow: visible; /* so sidebar position: sticky works */
+  margin: 0 auto;
+  max-width: ${contentWrapperMaxWidth}rem;
+  ${theme.breakpoints.mobile(css`
+    grid-column-start: 2;
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    grid-column: 1 / -1;
+  `)}
+
   @media screen {
-    flex: 1;
-    width: 100%;
-    overflow: visible;
     background-color: ${mainContentBackground};
     padding-left: ${sidebarDesktopWidth}rem;
     transition: padding-left ${sidebarTransitionTime}ms ease-in-out;
@@ -57,7 +68,11 @@ interface Props {
 
 // tslint:disable-next-line:variable-name
 const ContentPane = ({ isDesktopSearchOpen, isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
-  <Wrapper isVerticalNavOpen={isVerticalNavOpen} isDesktopSearchOpen={isDesktopSearchOpen}>
+  <Wrapper
+    isVerticalNavOpen={isVerticalNavOpen}
+    isDesktopSearchOpen={isDesktopSearchOpen}
+    data-testid='centered-content-row'
+  >
       {isVerticalNavOpen &&
         <ScrollLock
           onClick={onClick}
