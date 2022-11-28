@@ -4,7 +4,7 @@ import createIntl from '../../messages/createIntl';
 import { locationChange } from '../../navigation/actions';
 import { pathname } from '../../navigation/selectors';
 import theme from '../../theme';
-import { ActionHookBody, AppServices, MiddlewareAPI } from '../../types';
+import { ActionHookBody } from '../../types';
 import { receivePage } from '../actions';
 import { defaultTheme } from '../components/constants';
 import { hasOSWebData } from '../guards';
@@ -15,7 +15,7 @@ import { createTitle, getPageDescription } from '../utils/seoUtils';
 
 const escapeQuotes = (text: string) => text.replace(/"/g, '&quot;');
 
-export const updateHead = async(services: MiddlewareAPI & AppServices) => {
+const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (services) => async() => {
   const { getState, dispatch, archiveLoader, osWebLoader } = services;
 
   const state = getState();
@@ -64,10 +64,6 @@ export const updateHead = async(services: MiddlewareAPI & AppServices) => {
   }
 
   dispatch(setHead({links, meta, title}));
-};
-
-const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (services) => {
-  return async() => updateHead(services);
 };
 
 export default hookBody;
