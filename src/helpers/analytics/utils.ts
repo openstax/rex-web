@@ -32,9 +32,10 @@ export const interactableElementEvents = [
     events: ['click'],
     getStateChange: (summary: HTMLElement) =>
       (summary.parentElement as HTMLDetailsElement | undefined)?.open ? 'close' : 'open',
-    getTarget: (summary: HTMLElement) => summary.parentElement || undefined,
+    getTarget: (summary: HTMLElement) =>
+      summary.parentElement?.tagName === 'DETAILS' ? summary.parentElement : undefined,
     match: (element: any): element is HTMLElement =>
-      isHtmlElement(element) && element.tagName === 'SUMMARY' && element.parentElement?.tagName === 'DETAILS',
+      isHtmlElement(element) && element.tagName === 'SUMMARY',
   }),
   makeInteractableConfig({
     events: ['click'],
