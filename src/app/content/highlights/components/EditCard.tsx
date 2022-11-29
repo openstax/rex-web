@@ -227,6 +227,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
       confirmMessage='i18n:highlighting:login:link'
       confirmLink={loginLink}
       onCancel={props.onBlur}
+      drawFocus={false}
     />}
   </form>;
 });

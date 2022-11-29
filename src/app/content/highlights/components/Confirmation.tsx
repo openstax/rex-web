@@ -5,7 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
+import { useDrawFocus } from '../../../reactUtils';
 import theme from '../../../theme';
+import { mergeRefs } from '../../../utils';
 import { cardPadding } from '../constants';
 import { cardBorder } from './style';
 
@@ -43,15 +45,17 @@ interface Props {
   onConfirm?: () => void;
   onCancel: () => void;
   always?: () => void;
+  drawFocus?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
 const Confirmation = React.forwardRef<HTMLElement, Props>((
-  {message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props,
+  {message, confirmMessage, confirmLink, always, onCancel, onConfirm, drawFocus = true, ...props}: Props,
   ref
 ) => {
   return <Overlay
-    ref={ref}
+    // Hook call cannot be conditional, so send null ref instead
+    ref={mergeRefs(drawFocus ? ref : null, useDrawFocus())}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}
