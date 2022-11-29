@@ -16,6 +16,10 @@ declare global {
     __APP_ASYNC_HOOKS: PromiseCollector;
     __APP_ANALYTICS: ReturnType<registerGlobalAnalytics>;
 
+    HTMLIFrameElement: {
+      prototype: dom.HTMLIFrameElement;
+      new(): dom.HTMLIFrameElement;
+    };
     HTMLAnchorElement: {
       prototype: dom.HTMLAnchorElement;
       new(): dom.HTMLAnchorElement;
@@ -65,6 +69,8 @@ declare global {
   var URL: dom.URLConstructor | undefined;
   // tslint:disable-next-line:variable-name
   var DOMParser: dom.DOMParserConstructor;
-  var KeyboardEvent: dom.KeyboardEventConstructor
-  var ResizeObserver: dom.ResizeObserverConstructor
+  // tslint:disable-next-line:variable-name
+  var KeyboardEvent: dom.KeyboardEventConstructor;
+  // tslint:disable-next-line:variable-name
+  var ResizeObserver: dom.ResizeObserverConstructor;
 }
