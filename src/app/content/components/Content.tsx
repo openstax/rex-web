@@ -16,7 +16,6 @@ import Footer from './../../components/Footer';
 import Attribution from './Attribution';
 import BookBanner from './BookBanner';
 import BuyBook from './BuyBook';
-import CenteredContentRow from './CenteredContentRow';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -95,18 +94,16 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
         <Topbar />
         <Wrapper>
           <Navigation />
-          <CenteredContentRow>
-            <ContentPane>
-              <ContentNotifications mobileExpanded={mobileExpanded} />
-              <Page>
-                <PrevNextBar />
-                <LabsCTA />
-                <BuyBook />
-              </Page>
-              <Attribution />
-              <Footer />
-            </ContentPane>
-          </CenteredContentRow>
+          <ContentPane>
+            <ContentNotifications mobileExpanded={mobileExpanded} />
+            <Page>
+              <PrevNextBar />
+              <LabsCTA />
+              <BuyBook />
+            </Page>
+            <Attribution />
+            <Footer />
+          </ContentPane>
         </Wrapper>
       </OuterWrapper>
     </ErrorBoundary>
