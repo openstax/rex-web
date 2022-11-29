@@ -69,9 +69,12 @@ export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElem
 
 export const findFirstAncestorOrSelfOfType =
   <T extends {prototype: HTMLElement; new(): HTMLElement}>(node: Node, elementType: T) =>
-    findFirstAncestorOrSelf(node, (el) => el instanceof elementType) as T['prototype'] | void;
+    findFirstAncestorOrSelf(node, (el): el is T => el instanceof elementType) as T['prototype'] | void;
 
-export const findFirstAncestorOrSelf = (node: Node, predicate: (e: HTMLElement) => boolean): HTMLElement | void => {
+export const findFirstAncestorOrSelf = <T = HTMLElement>(
+  node: Node,
+  predicate: ((e: any) => boolean) | ((e: any) => e is T)
+): T | void => {
   if (isHtmlElement(node) && predicate(node)) {
     return node;
   } else if (node.parentElement) {
