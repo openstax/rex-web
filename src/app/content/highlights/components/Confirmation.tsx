@@ -54,7 +54,6 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
   ref
 ) => {
   return <Overlay
-    // Hook call cannot be conditional, so send null ref instead
     ref={mergeRefs(drawFocus ? ref : null, useDrawFocus())}
     tabIndex={-1}
     {...props['data-analytics-region']
