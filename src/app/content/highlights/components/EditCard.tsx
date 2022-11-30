@@ -78,7 +78,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   useOnEsc(element, props.isActive, cancelEditing);
 
   React.useEffect(() => {
-    if (props.data) { return; }
+    if (props.data || !props.isActive) { return; }
     if (authenticated) {
       trackShowCreate();
     } else {
