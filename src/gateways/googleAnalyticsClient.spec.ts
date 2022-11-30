@@ -70,8 +70,12 @@ describe('GoogleAnalyticsClient', () => {
           send_page_view: false,
           transport_type: 'beacon',
         });
-        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: 'jimbo', queue_time: expect.any(Number) });
-        expect(mockGtag).toHaveBeenCalledWith('config', 'bar', { user_id: 'jimbo', queue_time: expect.any(Number) });
+        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
+          queue_time: expect.any(Number), send_page_view: false, user_id: 'jimbo',
+        });
+        expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
+          queue_time: expect.any(Number), send_page_view: false, user_id: 'jimbo',
+        });
       });
     });
 
@@ -81,6 +85,7 @@ describe('GoogleAnalyticsClient', () => {
         client.setUserId('jimbo');
         expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
           queue_time: expect.any(Number),
+          send_page_view: false,
           user_id : 'jimbo',
         });
       });
@@ -111,8 +116,12 @@ describe('GoogleAnalyticsClient', () => {
     it('unsets it', async() => {
       client.setTagIds(['foo', 'bar']);
       client.unsetUserId();
-      expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: undefined, queue_time: 0 });
-      expect(mockGtag).toHaveBeenCalledWith('config', 'bar', { user_id: undefined, queue_time: 0 });
+      expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
+        queue_time: 0, send_page_view: false, user_id: undefined,
+      });
+      expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
+        queue_time: 0, send_page_view: false, user_id: undefined,
+      });
     });
 
   });

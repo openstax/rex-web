@@ -1,3 +1,4 @@
+import { actions } from '../../../navigation';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { assertString } from '../../../utils/assertions';
@@ -6,10 +7,10 @@ import { assigned, content } from '../../routes';
 import { syncSearch } from '../../search/hooks';
 import { loadStudyGuides } from '../../studyGuides/hooks';
 import initializeIntl from '../intlHook';
+import receiveContent from '../receiveContent';
 import registerPageView from '../registerPageView';
 import loadBuyPrintConfig from './buyPrintConfig';
-import resolveContent from './resolveContent';
-import { resolveBook } from './resolveContent';
+import resolveContent, { resolveBook } from './resolveContent';
 
 export const contentRouteHookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
@@ -20,6 +21,9 @@ export const contentRouteHookBody: RouteHookBody<typeof content> = (services) =>
     if ((await resolveContent(services, action.match)).book === undefined) {
       return;
     }
+
+    // Ensure page head tags get updated before calling analytics
+    await receiveContent(services)(actions.locationChange(action));
 
     await Promise.all([
       boundRegisterPageView(action),
