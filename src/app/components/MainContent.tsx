@@ -15,7 +15,7 @@ interface Props {
   textSize?: TextResizerValue;
 }
 // tslint:disable-next-line:variable-name
-const ContentStyles = styled(DynamicContentStyles)`
+const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {...props} />)`
   outline: none;
   ${(props: {textSize: TextResizerValue}) => `
     --content-text-scale: ${textResizerValueMap.get(props.textSize)};
