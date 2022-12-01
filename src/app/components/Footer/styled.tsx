@@ -4,11 +4,10 @@ import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
 import { Twitter } from 'styled-icons/fa-brands/Twitter';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
-import { contentWrapperMaxWidth, toolbarWidth } from '../../content/components/constants';
-import { contentWrapperAndNavWidthBreakpoint } from '../../content/components/ContentPane';
+import { contentWrapperMaxWidth, toolbarWidth, verticalNavbarMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
-
 import theme from '../../theme';
+import { remsToEms } from '../../utils';
 
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
@@ -53,6 +52,9 @@ export const boxed = css`
   padding-right: ${boxedMargin}rem;
   width: 100%;
 `;
+
+const contentWrapperAndNavWidthBreakpoint =
+  '(max-width: ' + remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2) + 'em)';
 
 // tslint:disable-next-line:variable-name
 export const FooterWrapper = styled.footer`
