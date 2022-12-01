@@ -38,7 +38,7 @@ jobs:
   selenium:
     name: Selenium
     runs-on: ubuntu-latest
-    container: python
+    container: python:3.10
     needs: setup
     steps:
     - uses: actions/checkout@v2
