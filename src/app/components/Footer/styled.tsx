@@ -4,8 +4,11 @@ import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
 import { Twitter } from 'styled-icons/fa-brands/Twitter';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
-import { contentWrapperMaxWidth } from '../../content/components/constants';
+import { contentWrapperMaxWidth, toolbarWidth } from '../../content/components/constants';
+import { contentWrapperAndNavWidthBreakpoint } from '../../content/components/ContentPane';
 import { disablePrint } from '../../content/components/utils/disablePrint';
+
+import theme from '../../theme';
 
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
@@ -58,6 +61,13 @@ export const FooterWrapper = styled.footer`
   opacity: 1;
   transition: opacity 0.2s;
   ${disablePrint}
+  ${(props) => props.isVerticalNavOpen === false ? css`
+    @media (min-width: ${theme.breakpoints.desktopBreak}em) and ${contentWrapperAndNavWidthBreakpoint} {
+      padding-left: clamp(
+        0rem, calc(${toolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2), ${toolbarWidth}rem
+      );
+    }
+  ` : ``}
 `;
 
 // tslint:disable-next-line:variable-name

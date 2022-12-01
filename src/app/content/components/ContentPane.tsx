@@ -56,9 +56,6 @@ const Wrapper = styled.div<{verticalNavOpen: State['tocOpen']}>`
 
     ${styleWhenSidebarClosed(css`
       padding-left: 0 !important;
-      @media (min-width: ${theme.breakpoints.desktopBreak}em) and ${contentWrapperAndNavWidthBreakpoint} {
-        grid-column: 2;
-      }
     `)}
   }
 `;
