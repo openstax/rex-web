@@ -1,4 +1,5 @@
 // Content page locators and functions
+import { expect } from '@playwright/test'
 import { Locator, Page } from 'playwright'
 
 class ContentPage {
@@ -47,6 +48,8 @@ class ContentPage {
       return this.green
     } else if (color === 'pink') {
       return this.pink
+      // const pink = await this.page.$('[aria-label="Apply pink highlight"]')
+      // return pink
     } else if (color === 'purple') {
       return this.purple
     } else if (color === 'yellow') {
@@ -58,12 +61,28 @@ class ContentPage {
 
   // Highlight selected text
   // param: highlight color
-  // param: randomparanumber - paragraph number of the content to be highlioghted
+  // param: randomparanumber - paragraph number of the content to be highlighted
   async highlightText(color: string, randomparanumber: number) {
     await this.selectText(randomparanumber)
     this.colorlocator = await this.colorLocator(color)
+    
+    let colorLocatorCount = await this.colorlocator.count()
+    
+    while (colorLocatorCount > 1) {
+    for(let i = 0; i < colorLocatorCount; i++){
+      const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
+        return window.getComputedStyle(e).getPropertyValue("visibility")
+      })
+      if (colorLocatorVisibility === "visible"){
+        await this.colorlocator.nth(i).click()
+        return
+      }
+    }
+  }
     await this.colorlocator.click()
   }
+
+  
 
   // Total number of highlights in a page
   async highlightCount() {
