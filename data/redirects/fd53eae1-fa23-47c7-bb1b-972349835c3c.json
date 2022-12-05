@@ -1,10 +1,5 @@
 [
   {
-    "bookId": "fd53eae1-fa23-47c7-bb1b-972349835c3c",
-    "pageId": "22b551db-3bff-46ef-8450-d1830461fcae",
-    "pathname": "/books/precalculus/pages/7-6-modeling-with-trigonometric-equations"
-  },
-  {
     "bookId": "f021395f-fd63-46cd-ab95-037c6f051730",
     "pageId": "b3f4423d-9598-4fec-8822-df3767e33a9a",
     "pathname": "/books/precalculus/pages/preface",
@@ -963,5 +958,10 @@
     "pageId": "bc43a726-bcbf-4db7-89a0-50d97ab46818",
     "pathname": "/books/precalculus/pages/index",
     "query": "?message=retired"
+  },
+  {
+    "bookId": "fd53eae1-fa23-47c7-bb1b-972349835c3c",
+    "pageId": "22b551db-3bff-46ef-8450-d1830461fcae",
+    "pathname": "/books/precalculus/pages/7-6-modeling-with-trigonometric-equations"
   }
 ]

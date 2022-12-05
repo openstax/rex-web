@@ -1,10 +1,5 @@
 [
   {
-    "bookId": "13ac107a-f15f-49d2-97e8-60ab2e3b519c",
-    "pageId": "ca2be86b-b94f-4af6-8ae3-73ba169cc8df",
-    "pathname": "/books/algebra-and-trigonometry/pages/9-1-solving-trigonometric-equations-with-identities"
-  },
-  {
     "bookId": "eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e",
     "pageId": "aa5bbb11-02e3-444b-903f-df67eead3c88",
     "pathname": "/books/algebra-and-trigonometry/pages/preface",
@@ -1035,5 +1030,10 @@
     "pageId": "9d4f1093-3c28-443e-b771-dbe514ae3e5d",
     "pathname": "/books/algebra-and-trigonometry/pages/index",
     "query": "?message=retired"
+  },
+  {
+    "bookId": "13ac107a-f15f-49d2-97e8-60ab2e3b519c",
+    "pageId": "ca2be86b-b94f-4af6-8ae3-73ba169cc8df",
+    "pathname": "/books/algebra-and-trigonometry/pages/9-1-solving-trigonometric-equations-with-identities"
   }
 ]
