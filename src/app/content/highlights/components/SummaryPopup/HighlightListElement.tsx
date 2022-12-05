@@ -113,7 +113,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const cancelEdit = () => {
     setIsEditing(false);
     modalContext.focusModal();
-  }
+  };
 
   const updateColor = (color: HighlightColorEnum) => {
     dispatch(updateHighlight({
@@ -145,7 +145,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const cancelDelete = () => {
     setIsDeleting(false);
     modalContext.focusModal();
-  }
+  };
 
   return <HighlightOuterWrapper>
     {!isEditing && <ContextMenu
