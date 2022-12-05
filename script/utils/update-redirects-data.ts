@@ -28,15 +28,16 @@ const updateRedirectsData = async(
       + `but you've passed ${currentBook.id} and ${newBook.id}`);
   }
   const redirectsBookPath = path.resolve(redirectsPath, currentBook.id + '.json');
-  const redirects: RedirectsData = fs.existsSync(redirectsBookPath) ? await import(redirectsBookPath) : [];
+  const redirects: RedirectsData = fs.existsSync(redirectsBookPath) ? (await import(redirectsBookPath)).default : [];
 
   const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
   const currentSections = flatCurrentTree.filter(archiveTreeSectionIsPage);
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id);
 
   const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
-  const matchRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => (redirect: {pathname: string}) =>
-    redirect.pathname === formatRedirectSource(section);
+  const matchRedirect = (
+    section: LinkedArchiveTreeNode | ArchiveTreeNode, book: BookWithOSWebData = currentBook
+  ) => (redirect: {pathname: string}) => redirect.pathname === formatRedirectSource(section, book);
   const matchSection = (section: LinkedArchiveTreeNode) => (node: LinkedArchiveTreeNode) => section.id === node.id;
 
   const allowedDeletions: Array<{id: string, slug: string}> = [];
@@ -44,9 +45,9 @@ const updateRedirectsData = async(
   const isAllowedDeletion = (section: LinkedArchiveTreeNode) =>
     allowedDeletions.find((allowed) => allowed.id === section.id && allowed.slug === section.slug);
 
-  const formatRedirectSource = (section: LinkedArchiveTreeNode | ArchiveTreeNode) => decodeURI(
-    content.getUrl({ book: { slug: currentBook.slug }, page: { slug: section.slug } })
-  );
+  const formatRedirectSource = (
+    section: LinkedArchiveTreeNode | ArchiveTreeNode, book: BookWithOSWebData = currentBook
+  ) => decodeURI(content.getUrl({ book: { slug: book.slug }, page: { slug: section.slug } }));
 
   const formatRedirect = (section: LinkedArchiveTreeNode | ArchiveTreeNode, newSection: ArchiveTreeNode) => ({
     bookId: newBook.id,
@@ -59,7 +60,11 @@ const updateRedirectsData = async(
     section: LinkedArchiveTreeNode
   ) => {
     const newSection = flatNewTree.find(matchSection(section));
-    if (newSection && newSection.slug !== section.slug && !redirects.find(matchRedirect(section))) {
+    if (
+      newSection
+      && (newSection.slug !== section.slug || newBook.id !== currentBook.id)
+      && !redirects.find(matchRedirect(section))
+    ) {
       return newSection;
     // remove `else` to enable legitimately removing pages from books
     // only once uuids are guaranteed to be consistent
@@ -87,7 +92,7 @@ const updateRedirectsData = async(
     const redirectTarget = getRedirectTargetSection(section);
 
     if (redirectTarget) {
-      if (redirects.find(matchRedirect(redirectTarget))) {
+      if (redirects.find(matchRedirect(redirectTarget, newBook))) {
         throw new Error(
           `updateRedirects found a circular redirect between sections with slugs ${
           section.slug} and ${redirectTarget.slug} in book ${newBook.id}`
