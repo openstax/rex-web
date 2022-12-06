@@ -28,10 +28,12 @@ const updateRedirectsData = async(
       + `but you've passed ${currentBook.id} and ${newBook.id}`);
   }
   const redirectsBookPath = path.resolve(redirectsPath, currentBook.id + '.json');
-  const redirects: RedirectsData = fs.existsSync(redirectsBookPath) ? (await import(redirectsBookPath)).default : [];
+  const redirects: RedirectsData = fs.existsSync(redirectsBookPath) ? (
+    await import(redirectsBookPath)
+  ).default.reverse() : [];
 
   const flatCurrentTree = flattenArchiveTree(currentBook.tree).filter((section) => section.id !== currentBook.id);
-  const currentSections = flatCurrentTree.filter(archiveTreeSectionIsPage);
+  const currentSections = flatCurrentTree.filter(archiveTreeSectionIsPage).reverse();
   const flatNewTree = flattenArchiveTree(newBook.tree).filter((section) => section.id !== newBook.id);
 
   const matchSlug = (currentPageSlug: string) => flatNewTree.find((newPage) => newPage.slug === currentPageSlug);
@@ -104,7 +106,7 @@ const updateRedirectsData = async(
   }
 
   if (redirects.length > 0) {
-    fs.writeFileSync(redirectsBookPath, JSON.stringify(redirects, undefined, 2) + '\n', 'utf8');
+    fs.writeFileSync(redirectsBookPath, JSON.stringify(redirects.reverse(), undefined, 2) + '\n', 'utf8');
   }
 
   return countNewRedirections;
