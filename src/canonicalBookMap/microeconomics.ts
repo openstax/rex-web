@@ -8,7 +8,7 @@ export default {
     /* Principles of Economics 3e */ ['4c34671f-b057-4918-8796-38ca1b2f4151', {}],
   ],
   /* Principles of Microeconomics 2e */ '5c09762c-b540-47d3-9541-dda1f44f16e5': [
-    /* Principles of Microeconomics 3e */ ['759181db-a886-4a98-8f5c-770a83a78832', {}],
+    /* Principles of Economics 2e */ ['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
   ],
   /* Principles of Microeconomics */ 'ea2f225e-6063-41ca-bcd8-36482e15ef65': [
     /* Principles of Microeconomics 2e */ ['5c09762c-b540-47d3-9541-dda1f44f16e5', {
