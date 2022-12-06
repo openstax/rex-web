@@ -4,6 +4,12 @@
 import { CanonicalBookMap } from '../canonicalBookMap';
 
 export default {
+  /* Principles of Macroeconomics 3e */ 'aff0c733-b223-4dfb-aad6-297bd361bdcf': [
+    /* Principles of Economics 3e */ ['4c34671f-b057-4918-8796-38ca1b2f4151', {}],
+  ],
+  /* Principles of Macroeconomics 2e */ '27f59064-990e-48f1-b604-5188b9086c29': [
+    /* Principles of Macroeconomics 3e */ ['aff0c733-b223-4dfb-aad6-297bd361bdcf', {}],
+  ],
   /* Principles of Macroeconomics 1e */ '4061c832-098e-4b3c-a1d9-7eb593a2cb31': [
     /* Principles of Macroeconomics 2e */ ['27f59064-990e-48f1-b604-5188b9086c29', {
       /* Preface to the same module in 2e */
