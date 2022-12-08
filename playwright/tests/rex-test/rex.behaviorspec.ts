@@ -91,7 +91,6 @@ test('signup and highlight', async ({ page, isMobile }) => {
   expect(highlightcount).toBe(0)
 })
 
-
 test('multiple highlight', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'test only desktop resolution')
 
@@ -113,6 +112,8 @@ test('multiple highlight', async ({ page, isMobile }) => {
   expect(highlightcount).toBe(1)
   sleep(3)
 
+  await BookPage.scrolltotop()
+
   const randomparanumber2 = randomNum(await paracount, randomparanumber)
 
   await BookPage.highlightText('yellow', randomparanumber2)
@@ -120,6 +121,4 @@ test('multiple highlight', async ({ page, isMobile }) => {
   // THEN: Text is highlighted
   highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(2)
-
 })
-

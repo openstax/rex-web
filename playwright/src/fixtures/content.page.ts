@@ -13,6 +13,7 @@ class ContentPage {
   para: Locator
   highlight: Locator
   colorlocator: any
+  body: Locator
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -22,6 +23,7 @@ class ContentPage {
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
     this.paragraph = this.page.locator('p[id*=para]')
+    this.body = this.page.locator('[class*="MinPageHeight"]')
   }
 
   // Open a Rex page with base url
@@ -65,24 +67,22 @@ class ContentPage {
   async highlightText(color: string, randomparanumber: number) {
     await this.selectText(randomparanumber)
     this.colorlocator = await this.colorLocator(color)
-    
-    let colorLocatorCount = await this.colorlocator.count()
-    
+
+    const colorLocatorCount = await this.colorlocator.count()
+
     while (colorLocatorCount > 1) {
-    for(let i = 0; i < colorLocatorCount; i++){
-      const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
-        return window.getComputedStyle(e).getPropertyValue("visibility")
-      })
-      if (colorLocatorVisibility === "visible"){
-        await this.colorlocator.nth(i).click()
-        return
+      for (let i = 0; i < colorLocatorCount; i++) {
+        const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
+          return window.getComputedStyle(e).getPropertyValue('visibility')
+        })
+        if (colorLocatorVisibility === 'visible') {
+          await this.colorlocator.nth(i).click()
+          return
+        }
       }
     }
-  }
     await this.colorlocator.click()
   }
-
-  
 
   // Total number of highlights in a page
   async highlightCount() {
@@ -125,15 +125,22 @@ class ContentPage {
     return await paracount.count()
   }
 
+  async scrolltotop() {
+    const body = await this.body.boundingBox()
+    await this.page.mouse.wheel(0, body.y)
+  }
+
   // Select text in a paragraph
   // param: randomparanumber - nth paragraph to be selected
   async selectText(randomparanumber: number) {
     await this.paragraph.nth(randomparanumber).scrollIntoViewIfNeeded()
+
     const boundary = await this.paragraph.nth(randomparanumber).boundingBox()
+
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()
-      await this.page.mouse.move(boundary.width + boundary.x - 1, boundary.y + boundary.height - 1)
+      await this.page.mouse.move(boundary.width - 20 + boundary.x, boundary.y + boundary.height - 10)
       await this.page.mouse.up()
     }
   }

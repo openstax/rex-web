@@ -28,11 +28,11 @@ function randomChoice(list: ElementHandle[]): ElementHandle {
   return list[option]
 }
 
-  function randomNum(count: number, excludenum?: number){
-      var n = Math.floor(Math.random() * (count-1))
-      if (n >= excludenum) n++;
-      return n
-  }
+function randomNum(count: number, excludenum?: number) {
+  let n = Math.floor(Math.random() * (count - 1))
+  if (n >= excludenum) n++
+  return n
+}
 
 async function sleep(seconds = 1.0): Promise<unknown> {
   return new Promise((resolve) => {
