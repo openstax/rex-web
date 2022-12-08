@@ -1,6 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { renderToDom } from '../../../test/reactutils';
 import TestContainer from '../../../test/TestContainer';
@@ -33,37 +32,39 @@ describe('ModalContext', () => {
     };
 
     it('focuses the Modal when it exists', () => {
-      const { tree } = renderToDom(
+      const { node } = renderToDom(
         <TestContainer>
           <Modal ref={ref}>
             <DeletableChild/>
           </Modal>
         </TestContainer>
       );
-      let node = findDOMNode(tree).querySelector('span');
-      expect(node).not.toBeNull();
+      let child = node.querySelector('span');
+      expect(child).not.toBeNull();
 
       act(deleteChild);
 
-      node = findDOMNode(tree).querySelector('span');
-      expect(node).toBeNull();
+      child = node.querySelector('span');
+      expect(child).toBeNull();
 
       expect(focusSpy).toHaveBeenCalled();
     });
 
     it('does nothing and does not explode if the Modal does not exist', () => {
-      const { tree } = renderToDom(
+      const { node } = renderToDom(
         <TestContainer>
-          <DeletableChild/>
+          <div>
+            <DeletableChild/>
+          </div>
         </TestContainer>
       );
-      let node = findDOMNode(tree);
-      expect(node).not.toBeNull();
+      let child = node.querySelector('span');
+      expect(child).not.toBeNull();
 
       act(deleteChild);
 
-      node = findDOMNode(tree);
-      expect(node).toBeNull();
+      child = node.querySelector('span');
+      expect(child).toBeNull();
 
       expect(focusSpy).not.toHaveBeenCalled();
     });
