@@ -15,10 +15,10 @@ export const ModalContext = React.createContext<{focusModal: () => void}>({focus
 
 // tslint:disable-next-line: variable-name
 const ModalWithScrollLock = React.forwardRef<HTMLElement, ModalWithScrollLockProps>(
-  ({ children, scrollLockProps, ...props }: ModalWithScrollLockProps, ref) => {
+  ({ children, scrollLockProps, ...props }: ModalWithScrollLockProps, ref: React.Ref<HTMLElement>) => {
   const focusModal = () => {
     // Does not work for function refs but we don't use those
-    if (ref && typeof ref !== 'function' && ref.current) { ref.current.focus(); }
+    if (typeof ref !== 'function' && ref?.current) { ref.current.focus(); }
   };
 
   return createPortal(

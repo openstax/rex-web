@@ -23,7 +23,7 @@ describe('ModalContext', () => {
       const modalContext = React.useContext(ModalContext);
 
       deleteChild = () => {
-        if (ref && typeof ref !== 'function' && ref.current) { focusSpy = jest.spyOn(ref.current, 'focus'); }
+        if (typeof ref !== 'function' && ref?.current) { focusSpy = jest.spyOn(ref.current, 'focus'); }
         modalContext.focusModal();
         setDeleted(true);
       };
@@ -56,6 +56,25 @@ describe('ModalContext', () => {
           <div>
             <DeletableChild/>
           </div>
+        </TestContainer>
+      );
+      let child = node.querySelector('span');
+      expect(child).not.toBeNull();
+
+      act(deleteChild);
+
+      child = node.querySelector('span');
+      expect(child).toBeNull();
+
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
+
+    it('does nothing and does not explode if ref is a function', () => {
+      const { node } = renderToDom(
+        <TestContainer>
+          <Modal ref={() => null}>
+            <DeletableChild/>
+          </Modal>
         </TestContainer>
       );
       let child = node.querySelector('span');
