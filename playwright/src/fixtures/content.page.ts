@@ -1,5 +1,4 @@
 // Content page locators and functions
-import { expect } from '@playwright/test'
 import { Locator, Page } from 'playwright'
 
 class ContentPage {
@@ -26,8 +25,8 @@ class ContentPage {
     this.body = this.page.locator('[class*="MinPageHeight"]')
   }
 
-  // Open a Rex page with base url
   async open(path: string) {
+    // Open a Rex page with base url
     await this.page.goto(path)
 
     // Add cookies to get rid of full page nudge
@@ -42,16 +41,14 @@ class ContentPage {
       .addCookies([{ name: 'nudge_study_guides_date', value: current_date, url: this.page.url() }])
   }
 
-  // Return locator of the color
   async colorLocator(color: string) {
+    // Return locator of the color
     if (color === 'blue') {
       return this.blue
     } else if (color === 'green') {
       return this.green
     } else if (color === 'pink') {
       return this.pink
-      // const pink = await this.page.$('[aria-label="Apply pink highlight"]')
-      // return pink
     } else if (color === 'purple') {
       return this.purple
     } else if (color === 'yellow') {
@@ -61,15 +58,16 @@ class ContentPage {
     }
   }
 
-  // Highlight selected text
-  // param: highlight color
-  // param: randomparanumber - paragraph number of the content to be highlighted
   async highlightText(color: string, randomparanumber: number) {
+    // Highlight selected text
+    // param: highlight color
+    // param: randomparanumber - paragraph number of the content to be highlighted
+
     await this.selectText(randomparanumber)
+
+    // select color from the visible notecard in the page
     this.colorlocator = await this.colorLocator(color)
-
     const colorLocatorCount = await this.colorlocator.count()
-
     while (colorLocatorCount > 1) {
       for (let i = 0; i < colorLocatorCount; i++) {
         const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
@@ -84,15 +82,15 @@ class ContentPage {
     await this.colorlocator.click()
   }
 
-  // Total number of highlights in a page
   async highlightCount() {
+    // Total number of highlights in a page
     const highlightcount = await this.highlight.count()
     return highlightcount
   }
 
-  // Return highlight id of the specified paragraph from content page
-  // param: randomparanumber - paragraph number of the highlighted content
   async highlight_id(randomparanumber: number) {
+    // Return highlight id of the specified paragraph from content page
+    // param: randomparanumber - paragraph number of the highlighted content
     const paraLocatorString = this.paragraph.toString()
     const paralocators = paraLocatorString.split('@')
     const paralocator = paralocators[1]
@@ -104,9 +102,9 @@ class ContentPage {
     return highlight_id
   }
 
-  // Return color of the highlighted content
-  // param: highlight_id - highlight id of the highlighted content
   async contentHighlightColor(highlight_id: string) {
+    // Return color of the highlighted content
+    // param: highlight_id - highlight id of the highlighted content
     const colorclass = await this.page.getAttribute(`[data-highlight-id="${highlight_id}"]`, 'class')
     const contentcolors = colorclass.split(' ')
     const colors = ['blue', 'green', 'pink', 'purple', 'yellow']
@@ -119,24 +117,23 @@ class ContentPage {
     }
   }
 
-  // Number of paragraphs in the page
   async paracount() {
+    // Number of paragraphs in the page
     const paracount = this.paragraph
     return await paracount.count()
   }
 
   async scrolltotop() {
+    // Scroll to top of content area
     const body = await this.body.boundingBox()
     await this.page.mouse.wheel(0, body.y)
   }
 
-  // Select text in a paragraph
-  // param: randomparanumber - nth paragraph to be selected
   async selectText(randomparanumber: number) {
+    // Select text in a paragraph
+    // param: randomparanumber - paragraph number to be selected
     await this.paragraph.nth(randomparanumber).scrollIntoViewIfNeeded()
-
     const boundary = await this.paragraph.nth(randomparanumber).boundingBox()
-
     if (boundary) {
       await this.page.mouse.move(boundary.x, boundary.y)
       await this.page.mouse.down()

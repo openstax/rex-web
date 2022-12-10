@@ -107,15 +107,14 @@ test('multiple highlight', async ({ page, isMobile }) => {
   const paracount = BookPage.paracount()
   const randomparanumber = randomNum(await paracount)
   await BookPage.highlightText('green', randomparanumber)
-  // await BookPage.click()
+
+  // THEN: Text is highlighted
   let highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(1)
-  sleep(3)
 
+  // AND: Highlight another random paragraph
   await BookPage.scrolltotop()
-
   const randomparanumber2 = randomNum(await paracount, randomparanumber)
-
   await BookPage.highlightText('yellow', randomparanumber2)
 
   // THEN: Text is highlighted
