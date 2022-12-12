@@ -45,15 +45,17 @@ interface Props {
   onConfirm?: () => void;
   onCancel: () => void;
   always?: () => void;
+  drawFocus?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
 const Confirmation = React.forwardRef<HTMLElement, Props>((
-  {message, confirmMessage, confirmLink, always, onCancel, onConfirm, ...props}: Props,
+  {message, confirmMessage, confirmLink, always, onCancel, onConfirm, drawFocus = true, ...props}: Props,
   ref
 ) => {
+  const drawFocusRef = useDrawFocus();
   return <Overlay
-    ref={mergeRefs(ref, useDrawFocus())}
+    ref={mergeRefs(ref, drawFocus ? drawFocusRef : null)}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}
