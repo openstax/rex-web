@@ -1,7 +1,6 @@
 {
   "13ac107a-f15f-49d2-97e8-60ab2e3b519c": {
-    "defaultVersion": "ebc5beb",
-    "retired": true
+    "defaultVersion": "ebc5beb"
   },
   "9d8df601-4f12-4ac1-8224-b450bf739e5f": {
     "defaultVersion": "60ff1bb"
@@ -43,8 +42,7 @@
     "defaultVersion": "1d0f739"
   },
   "9b08c294-057f-4201-9f48-5d6ad992740d": {
-    "defaultVersion": "ebc5beb",
-    "retired": true
+    "defaultVersion": "ebc5beb"
   },
   "031da8d3-b525-429c-80cf-6c8ed997733a": {
     "defaultVersion": "1aa3e7a"
@@ -96,8 +94,7 @@
     "defaultVersion": "69e1925"
   },
   "fd53eae1-fa23-47c7-bb1b-972349835c3c": {
-    "defaultVersion": "ebc5beb",
-    "retired": true
+    "defaultVersion": "ebc5beb"
   },
   "9ab4ba6d-1e48-486d-a2de-38ae1617ca84": {
     "defaultVersion": "6044128"
@@ -139,8 +136,7 @@
     "defaultVersion": "10a2089"
   },
   "507feb1e-cfff-4b54-bc07-d52636cecfe3": {
-    "defaultVersion": "ebc5beb",
-    "retired": true
+    "defaultVersion": "ebc5beb"
   },
   "5bcc0e59-7345-421d-8507-a1e4608685e8": {
     "defaultVersion": "a7f9edc",
@@ -280,6 +276,15 @@
     "defaultVersion": "8f6c5ff"
   },
   "685e3163-1032-4529-bb3a-f97a54412704": {
-    "defaultVersion": "8199dcb"
+    "defaultVersion": "9e07b60"
+  },
+  "4c34671f-b057-4918-8796-38ca1b2f4151": {
+    "defaultVersion": "10ad93a"
+  },
+  "aff0c733-b223-4dfb-aad6-297bd361bdcf": {
+    "defaultVersion": "10ad93a"
+  },
+  "759181db-a886-4a98-8f5c-770a83a78832": {
+    "defaultVersion": "10ad93a"
   }
 }
