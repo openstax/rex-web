@@ -2,7 +2,9 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import icon from '../../../assets/kinetic.svg';
+import icon from '../../../assets/kinetic-logo.png';
+import KineticCTABackground from '../../../assets/kinetic-cta-background.svg';
+import KineticCTABackgroundSmall from '../../../assets/kinetic-cta-background-small.svg';
 import Button from '../../components/Button';
 import { kineticBannerEnabled } from '../../featureFlags/selectors';
 import theme from '../../theme';
@@ -10,22 +12,32 @@ import { disablePrint } from './utils/disablePrint';
 
 // tslint:disable-next-line: variable-name
 const LabsLogo = styled.img`
-  width: 5.5rem;
+  width: 10.7rem;
 `;
 
 // tslint:disable-next-line: variable-name
 const LabsCallWrapper = styled.div`
   width: 100%;
   max-width: 82.5rem;
+  min-height: 12rem;
   margin: 0 auto 1.6rem;
-  padding: 2.5rem;
+  padding: 2rem;
   display: flex;
   align-items: center;
-  background-color: #151b2c;
+  background-repeat: no-repeat;
+  background-image: url(${KineticCTABackground});
+  background-position: top right;
+  background-size: cover;
+  border: 1px solid #cacaca;
   ${theme.breakpoints.mobileMedium(css`
-    padding: 1.6rem;
+    background-position: center center;
+    padding: 4.5rem 2.3rem 3.5rem;
     align-items: flex-start;
     flex-direction: column;
+  `)}
+  ${theme.breakpoints.mobileSmall(css`
+    background-image: url(${KineticCTABackgroundSmall});
+    padding: 2rem 1.2rem 2.8rem;
   `)}
   ${disablePrint}
 `;
@@ -37,14 +49,19 @@ const Column = styled.div`
   display: flex;
   ${(props) => props.flex ? css`flex: 1;` : null}
   flex-direction: column;
-  color: ${theme.color.white};
+  color: ${theme.color.primary.gray.darker};
   overflow: hidden;
   ${(props) => props.maxWidth ? css`max-width: ${props.maxWidth}rem;` : null}
+  ${(props) => props.noShrink ? css`flex-shrink: 0;` : null}
   ${(props) => !props.last ? css`
     margin-right: 2.5rem;
+
     ${theme.breakpoints.mobileMedium(css`
       margin-right: 0;
-      margin-bottom: 3rem;
+      margin-bottom: 2.4rem;
+    `)}
+    ${theme.breakpoints.mobile(css`
+      margin-right: 0;
     `)}
   ` : null}
 
@@ -58,9 +75,14 @@ const Column = styled.div`
 const LabsCallHeader = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  flex: 1;
+  ${Column} {
+    margin-right: 1.4rem;
+  }
   ${theme.breakpoints.mobileMedium(css`
-    width:100%;
-    align-items: center;
+    align-items: initial;
+    flex-direction: column;
 
     ${LabsLogo} {
       margin-right: 2.5rem;
@@ -73,13 +95,21 @@ const LabsText = styled.div`
   font-size: ${(props) => props.size}rem;
   font-weight: ${(props) => props.weight};
   line-height: ${(props) => props.lineHeight}rem;
+
+  ${(props) => props.maxWidth ? css`max-width: ${props.maxWidth}rem;` : null}
   ${(props) => props.size === 'h2' ? css`
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 500;
-      line-height: 2.4rem;
+      line-height: 2.6rem;
       ${theme.breakpoints.mobileMedium(css`
+        margin-right: 10rem;
+        max-width: 34rem;
+        margin-right: 6rem;
+      `)}
+      ${theme.breakpoints.mobileSmall(css`
+        max-width: 40rem;
         font-size: 1.7rem;
-        line-height: 2rem;
+        line-height: 2.2rem;
       `)}
     ` : css`
       font-size: 1.4rem;
@@ -91,6 +121,8 @@ const LabsText = styled.div`
 // tslint:disable-next-line: variable-name
 const LabsCallLink = styled(Button)`
   background-color: #6922ea;
+  border-radius: 4px;
+  height: 4rem;
 `;
 
 // tslint:disable-next-line: variable-name
@@ -104,20 +136,16 @@ const LabsCTA = () => {
   return (
     <LabsCallWrapper data-async-content>
       <LabsCallHeader>
-        <Column>
+        <Column noShrink>
           <LabsLogo src={icon} role='img' alt='' />
         </Column>
-        <Column maxWidth={17}>
-          <LabsText size={'h2'}>Do you know how you learn best?</LabsText>
+        <Column maxWidth={35.4}>
+          <LabsText size={'h2'}>
+            Win prizes by participating in research and discover more insights about yourself!
+          </LabsText>
         </Column>
       </LabsCallHeader>
-      <Column flex>
-        <LabsText size={'text'}>
-          Kinetic by OpenStax offers access to innovative study tools designed
-          to help you maximize your learning potential.
-        </LabsText>
-      </Column>
-      <Column last>
+      <Column last maxWidth={13.6}>
         <LabsCallLink
           component={<a href='/kinetic/'>
             <FormattedMessage id='i18n:toolbar:labs-cta:link'>
