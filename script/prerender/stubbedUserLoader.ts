@@ -1,4 +1,6 @@
+import { AppServices } from '../../src/app/types';
+
 export default {
   getAuthorizedFetchConfig: () => Promise.resolve({}),
-  getUser: () => Promise.resolve(undefined),
-}
+  getCurrentUser: () => Promise.resolve(undefined),
+} as AppServices['userLoader'];
