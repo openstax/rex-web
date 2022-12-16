@@ -18,6 +18,6 @@ export default (url: string) => {
   //       but the browserAuthProvider always returns undefined for non-200 statuses instead
   return {
     getAuthorizedFetchConfig: authProvider.getAuthorizedFetchConfig,
-    getCurrentUser: authProvider.getUser as unknown as () => Promise<AccountsUser | undefined>,
+    getCurrentUser: authProvider.getUser,
   };
 };
