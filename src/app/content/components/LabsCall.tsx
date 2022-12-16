@@ -77,9 +77,11 @@ const LabsCallHeader = styled.div`
   flex-direction: row;
   align-items: center;
   flex: 1;
+
   ${Column} {
     margin-right: 1.4rem;
   }
+
   ${theme.breakpoints.mobileMedium(css`
     align-items: initial;
     flex-direction: column;
@@ -95,7 +97,6 @@ const LabsText = styled.div`
   font-size: ${(props) => props.size}rem;
   font-weight: ${(props) => props.weight};
   line-height: ${(props) => props.lineHeight}rem;
-
   ${(props) => props.maxWidth ? css`max-width: ${props.maxWidth}rem;` : null}
   ${(props) => props.size === 'h2' ? css`
       font-size: 1.8rem;
