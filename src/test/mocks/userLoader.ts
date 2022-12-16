@@ -11,5 +11,6 @@ export const testAccountsUser: AccountsUser = {
 };
 
 export default (): ReturnType<typeof createUserLoader> => ({
+  getAuthorizedFetchConfig: () => Promise.resolve({credentials: 'include'}),
   getCurrentUser: () => Promise.resolve(testAccountsUser),
 });

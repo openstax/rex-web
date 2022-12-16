@@ -12,11 +12,12 @@ export interface AccountsUser {
 }
 
 export default (url: string) => {
-  const authProvider = browserAuthProvider({window: assertWindow()})({auth: { accountsUrl: url }});
+  const authProvider = browserAuthProvider({window: assertWindow()})({auth: {accountsUrl: url}});
 
   // Note: previously getCurrentUser would return undefined for 403 and reject non-200 statuses,
   //       but the browserAuthProvider always returns undefined for non-200 statuses instead
   return {
+    getAuthorizedFetchConfig: authProvider.getAuthorizedFetchConfig,
     getCurrentUser: authProvider.getUser as unknown as () => Promise<AccountsUser | undefined>,
   };
 };

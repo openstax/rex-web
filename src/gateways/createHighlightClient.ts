@@ -1,4 +1,5 @@
 import { Configuration, HighlightsApi } from '@openstax/highlighter/dist/api';
+import { FetchConfig } from '@openstax/ts-utils/dist/fetch';
 import { UnauthenticatedError } from '../app/utils';
 
 const formatError = (response: Response) => {
@@ -8,19 +9,23 @@ const formatError = (response: Response) => {
     });
 };
 
-export default (url: string) => {
+export default (
+  basePath: string,
+  getAuthorizedFetchConfig: () => Promise<FetchConfig> = () => Promise.resolve({credentials: 'include'})
+) => {
   const config = new Configuration({
-    basePath: url,
-    credentials: 'include',
-    fetchApi: (...args) => fetch(...args)
-      .then((response) => {
-        if (response.status === 422) {
-          return formatError(response);
-        } else if (response.status === 401) {
-          return Promise.reject(new UnauthenticatedError());
-        }
-        return Promise.resolve(response);
-      }),
+    basePath,
+    fetchApi: async(url: string, fetchConfig: FetchConfig) => {
+      const authorizedFetchConfig = await getAuthorizedFetchConfig();
+      const response = await fetch(url, {...fetchConfig, ...authorizedFetchConfig});
+
+      if (response.status === 422) {
+        return formatError(response);
+      } else if (response.status === 401) {
+        throw new UnauthenticatedError();
+      }
+      return response;
+    },
   });
   return new HighlightsApi(config);
 };
