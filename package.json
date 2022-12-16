@@ -11,6 +11,7 @@
     "@openstax/event-capture-client": "^1.4.2",
     "@openstax/highlighter": "1.13.0",
     "@openstax/open-search-client": "0.1.0-build.7",
+    "@openstax/ts-utils": "^1.1.10",
     "@sentry/integrations": "7.2.0",
     "@sentry/react": "7.2.0",
     "color": "^3.1.2",

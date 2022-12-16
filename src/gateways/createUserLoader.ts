@@ -1,4 +1,5 @@
-import { rejectResponse } from '../helpers/fetch';
+import { browserAuthProvider } from '@openstax/ts-utils/dist/services/authProvider/browser';
+import { assertWindow } from '../app/utils';
 
 export interface AccountsUser {
   uuid: string;
@@ -11,17 +12,11 @@ export interface AccountsUser {
 }
 
 export default (url: string) => {
+  const authProvider = browserAuthProvider({window: assertWindow()})({auth: { accountsUrl: url }});
+
+  // Note: previously getCurrentUser would return undefined for 403 and reject non-200 statuses,
+  //       but the browserAuthProvider always returns undefined for non-200 statuses instead
   return {
-    getCurrentUser: () => fetch(`${url}/api/user`, {credentials: 'include'})
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json() as Promise<AccountsUser>;
-        } else if (response.status === 403) {
-          return Promise.resolve(undefined);
-        } else {
-          return rejectResponse(response,  (status, message) =>
-            new Error(`Error response from Accounts ${status}: ${message}`));
-        }
-      }),
+    getCurrentUser: authProvider.getUser as unknown as () => Promise<AccountsUser | undefined>,
   };
 };
