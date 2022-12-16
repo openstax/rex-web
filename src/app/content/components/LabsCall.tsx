@@ -3,8 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import icon from '../../../assets/kinetic-logo.png';
-import KineticCTABackground from '../../../assets/kinetic-cta-background.svg';
-import KineticCTABackgroundSmall from '../../../assets/kinetic-cta-background-small.svg';
+import KineticCTA from '../../../assets/kinetic-cta.svg';
+import KineticCTAMobile from '../../../assets/kinetic-cta-mobile.svg';
 import Button from '../../components/Button';
 import { kineticBannerEnabled } from '../../featureFlags/selectors';
 import theme from '../../theme';
@@ -25,7 +25,7 @@ const LabsCallWrapper = styled.div`
   display: flex;
   align-items: center;
   background-repeat: no-repeat;
-  background-image: url(${KineticCTABackground});
+  background-image: url(${KineticCTA});
   background-position: top right;
   background-size: cover;
   border: 1px solid #cacaca;
@@ -36,7 +36,7 @@ const LabsCallWrapper = styled.div`
     flex-direction: column;
   `)}
   ${theme.breakpoints.mobileSmall(css`
-    background-image: url(${KineticCTABackgroundSmall});
+    background-image: url(${KineticCTAMobile});
     padding: 2rem 1.2rem 2.8rem;
   `)}
   ${disablePrint}
