@@ -21,7 +21,6 @@ import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
-import createUserLoader from '../../src/gateways/createUserLoader';
 import { getSitemapItemOptions, renderAndSavePage } from './contentPages';
 import {
   deserializePageMatch,
@@ -38,6 +37,7 @@ import {
   sitemapPath,
   SitemapPayload,
 } from './sitemap';
+import userLoader from './stubbedUserLoader';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
 
@@ -124,7 +124,6 @@ async function makeTaskFunctionsMap() {
     archivePrefix: ARCHIVE_URL,
   });
   const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
-  const userLoader = createUserLoader(`${ACCOUNTS_URL}${REACT_APP_ACCOUNTS_URL}`);
   const searchClient = createSearchClient(`${SEARCH_URL}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`${HIGHLIGHTS_URL}${REACT_APP_HIGHLIGHTS_URL}`);
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
