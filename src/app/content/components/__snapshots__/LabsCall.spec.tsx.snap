@@ -4,7 +4,7 @@ exports[`LabsCTA renders \`null\` when selector is false 1`] = `null`;
 
 exports[`LabsCTA renders cta when selector is true 1`] = `
 <div
-  className="LabsCall__LabsCallWrapper-d86l90-1 fVaJUX"
+  className="LabsCall__LabsCallWrapper-d86l90-1 kbasaL"
   data-async-content={true}
 >
   <div
