@@ -28,7 +28,7 @@ const LabsCallWrapper = styled.div`
   background-image: url(${KineticCTA});
   background-position: top right;
   background-size: cover;
-  box-shadow: inset 0px 0px 0px 1px #cacaca;
+  box-shadow: inset 0 0 0 1px #cacaca;
   ${theme.breakpoints.mobileMedium(css`
     background-position: center center;
     padding: 4.5rem 2.3rem 3.5rem;
