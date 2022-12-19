@@ -120,4 +120,36 @@ test('multiple highlight', async ({ page, isMobile }) => {
   // THEN: Text is highlighted
   highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(2)
+
+  await BookPage.clickNext()
+
+  // WHEN: Highlight any random paragraph
+  const paracount3 = BookPage.paracount()
+  const randomparanumber3 = randomNum(await paracount3)
+  console.log(randomparanumber3)
+  await BookPage.highlightText('green', randomparanumber3)
+
+  // THEN: Text is highlighted
+  highlightcount = await BookPage.highlightCount()
+  
+
+  // AND: Highlight another random paragraph
+  await BookPage.scrolltotop()
+  const randomparanumber4 = randomNum(await paracount3, randomparanumber3)
+  console.log(randomparanumber4)
+  await BookPage.highlightText('yellow', randomparanumber4)
+})
+
+
+
+test('click next', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  await BookPage.clickNext()
+  
 })

@@ -13,6 +13,8 @@ class ContentPage {
   highlight: Locator
   colorlocator: any
   body: Locator
+  next: Locator
+  x: any
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -21,8 +23,9 @@ class ContentPage {
     this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
+    this.next = this.page.locator('[aria-label="Next Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
-    this.body = this.page.locator('[class*="MinPageHeight"]')
+    this.body = this.page.locator('[class*="Content__Background"]')
   }
 
   async open(path: string) {
@@ -68,6 +71,10 @@ class ContentPage {
     // select color from the visible notecard in the page
     this.colorlocator = await this.colorLocator(color)
     const colorLocatorCount = await this.colorlocator.count()
+    try {
+      await this.colorlocator.click()
+    } catch (error){
+    exitwhileloop:
     while (colorLocatorCount > 1) {
       for (let i = 0; i < colorLocatorCount; i++) {
         const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
@@ -75,11 +82,15 @@ class ContentPage {
         })
         if (colorLocatorVisibility === 'visible') {
           await this.colorlocator.nth(i).click()
-          return
+          break exitwhileloop
         }
       }
-    }
-    await this.colorlocator.click()
+    }}
+    
+    // click outside the highlighted paragraph to close the notecard
+    // Otherwise, the notecard can block other elements like next/previous links
+    const boundary = await this.paragraph.nth(randomparanumber).boundingBox()
+    await this.page.mouse.click(boundary.x, boundary.y-100)
   }
 
   async highlightCount() {
@@ -116,6 +127,12 @@ class ContentPage {
       }
     }
   }
+
+  async clickNext(){
+    // Click Next link
+    await this.next.click()
+  }
+
 
   async paracount() {
     // Number of paragraphs in the page
