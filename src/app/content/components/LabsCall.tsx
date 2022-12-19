@@ -96,26 +96,19 @@ const LabsText = styled.div`
   font-size: ${(props) => props.size}rem;
   font-weight: ${(props) => props.weight};
   line-height: ${(props) => props.lineHeight}rem;
-  ${(props) => props.maxWidth ? css`max-width: ${props.maxWidth}rem;` : null}
-  ${(props) => props.size === 'h2' ? css`
-      font-size: 1.8rem;
-      font-weight: 500;
-      line-height: 2.6rem;
-      ${theme.breakpoints.mobileMedium(css`
-        margin-right: 10rem;
-        max-width: 34rem;
-        margin-right: 6rem;
-      `)}
-      ${theme.breakpoints.mobileSmall(css`
-        max-width: 40rem;
-        font-size: 1.7rem;
-        line-height: 2.2rem;
-      `)}
-    ` : css`
-      font-size: 1.4rem;
-      line-height: 2.2rem;
-    `
-  }
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.6rem;
+  ${theme.breakpoints.mobileMedium(css`
+    margin-right: 10rem;
+    max-width: 34rem;
+    margin-right: 6rem;
+  `)}
+  ${theme.breakpoints.mobileSmall(css`
+    max-width: 40rem;
+    font-size: 1.7rem;
+    line-height: 2.2rem;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -140,7 +133,7 @@ const LabsCTA = () => {
           <LabsLogo src={icon} role='img' alt='' />
         </Column>
         <Column maxWidth={35.4}>
-          <LabsText size={'h2'}>
+          <LabsText>
             Win prizes by participating in research and discover more insights about yourself!
           </LabsText>
         </Column>

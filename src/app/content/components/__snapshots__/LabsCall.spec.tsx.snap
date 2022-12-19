@@ -24,8 +24,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
       className="LabsCall__Column-d86l90-2 gHpgVb"
     >
       <div
-        className="LabsCall__LabsText-d86l90-4 jsfxbf"
-        size="h2"
+        className="LabsCall__LabsText-d86l90-4 kVILRc"
       >
         Win prizes by participating in research and discover more insights about yourself!
       </div>
