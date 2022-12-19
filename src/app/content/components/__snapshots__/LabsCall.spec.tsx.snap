@@ -11,7 +11,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
     className="LabsCall__LabsCallHeader-d86l90-3 hsQsPV"
   >
     <div
-      className="LabsCall__Column-d86l90-2 bciDhq"
+      className="LabsCall__Column-d86l90-2 dTfiko"
     >
       <img
         alt=""
@@ -21,7 +21,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
       />
     </div>
     <div
-      className="LabsCall__Column-d86l90-2 ckvxwv"
+      className="LabsCall__Column-d86l90-2 gHpgVb"
     >
       <div
         className="LabsCall__LabsText-d86l90-4 jsfxbf"
@@ -32,7 +32,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
     </div>
   </div>
   <div
-    className="LabsCall__Column-d86l90-2 hKIYPW"
+    className="LabsCall__Column-d86l90-2 faCsbU"
   >
     <a
       className="Button-ayg7nk-0 LabsCall__LabsCallLink-d86l90-5 jEiksv"

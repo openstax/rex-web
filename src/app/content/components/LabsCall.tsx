@@ -47,7 +47,6 @@ const LabsCallWrapper = styled.div`
 // tslint:disable-next-line: variable-name
 const Column = styled.div`
   display: flex;
-  ${(props) => props.flex ? css`flex: 1;` : null}
   flex-direction: column;
   color: ${theme.color.primary.gray.darker};
   overflow: hidden;
