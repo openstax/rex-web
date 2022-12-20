@@ -7,6 +7,7 @@ import styled from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
 import { useServices } from '../../../context/Services';
 import { AppState, Dispatch } from '../../../types';
+import { ModalContext } from '../../components/Modal';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import ColorFilter from '../../components/popUp/ColorFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
@@ -110,12 +111,14 @@ const ConnectedPrintButton = connect(
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
   const [isUTGopen, setUTGopen] = React.useState(!Cookies.get(cookieUTG));
+  const modalContext = React.useContext(ModalContext);
   const services = useServices();
   const { dispatch } = services;
   const state = services.getState();
 
   const toggleUsingThisGuide = () => {
     setUTGopen((toggleState) => !toggleState);
+    modalContext.focusModal();
   };
 
   return <Filters>
