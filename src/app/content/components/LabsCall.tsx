@@ -39,6 +39,7 @@ const LabsCallWrapper = styled.div`
     background-image: url(${KineticCTAMobile});
     padding: 2rem 1.2rem 2.8rem;
   }
+
   ${disablePrint}
 `;
 
@@ -93,9 +94,6 @@ const LabsCallHeader = styled.div`
 
 // tslint:disable-next-line: variable-name
 const LabsText = styled.div`
-  font-size: ${(props) => props.size}rem;
-  font-weight: ${(props) => props.weight};
-  line-height: ${(props) => props.lineHeight}rem;
   font-size: 1.8rem;
   font-weight: 500;
   line-height: 2.6rem;
