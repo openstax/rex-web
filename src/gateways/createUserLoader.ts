@@ -8,7 +8,10 @@ export interface AccountsUser {
   first_name: string;
   last_name: string;
   full_name: string;
+  faculty_status: string;
+  is_administrator: boolean;
   is_not_gdpr_location: boolean;
+  contact_infos: any[];
 }
 
 export default (url: string) => {
