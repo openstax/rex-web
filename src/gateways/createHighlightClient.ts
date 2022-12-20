@@ -1,4 +1,5 @@
 import { Configuration, HighlightsApi } from '@openstax/highlighter/dist/api';
+import { merge } from '@openstax/ts-utils/dist';
 import { FetchConfig } from '@openstax/ts-utils/dist/fetch';
 import { UnauthenticatedError } from '../app/utils';
 
@@ -14,7 +15,7 @@ export default (basePath: string, getAuthorizedFetchConfig: () => Promise<FetchC
     basePath,
     fetchApi: async(url: string, fetchConfig: FetchConfig) => {
       const authorizedFetchConfig = await getAuthorizedFetchConfig();
-      const response = await fetch(url, {...fetchConfig, ...authorizedFetchConfig});
+      const response = await fetch(url, merge(fetchConfig, authorizedFetchConfig));
 
       if (response.status === 422) {
         return formatError(response);
