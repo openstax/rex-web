@@ -10,6 +10,7 @@ import { disablePrint } from '../../components/utils/disablePrint';
 import { SummaryFiltersUpdate } from '../../highlights/types';
 import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
+import { ModalContext } from '../Modal';
 import { LocationFilters } from './types';
 
 // tslint:disable-next-line: variable-name
@@ -130,17 +131,20 @@ const FiltersList = ({
   colorDataAnalyticsLabel,
   colorLabelKey,
 }: FiltersListProps) => {
+  const modalContext = React.useContext(ModalContext);
 
   const onRemoveChapter = (location: LinkedArchiveTreeNode) => {
     setFilters({
       locations: { remove: [location], new: [] },
     });
+    modalContext.focusModal();
   };
 
   const onRemoveColor = (color: HighlightColorEnum) => {
     setFilters({
       colors: { remove: [color], new: [] },
     });
+    modalContext.focusModal();
   };
 
   return <ul className={className}>
