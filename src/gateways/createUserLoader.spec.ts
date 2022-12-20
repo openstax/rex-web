@@ -45,14 +45,13 @@ describe('userLoader', () => {
       });
     });
 
-    it('gets undefined for unexpected errors', async() => {
+    it('throws for unexpected errors', async() => {
       (global as any).fetch = mockFetch(500, 'unexpected error');
 
-      const user = await userLoader.getCurrentUser();
+      await expect(userLoader.getCurrentUser()).rejects.toThrow('Error response from Accounts 500: unexpected error');
       expect(fetch).toHaveBeenCalledWith('url/accounts/api/user', {
         credentials: 'include',
       });
-      expect(user).toEqual(undefined);
     });
   });
 });
