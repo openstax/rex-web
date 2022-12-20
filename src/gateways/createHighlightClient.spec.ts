@@ -44,7 +44,7 @@ describe('createHighlightClient', () => {
         "asdf/highlights?source_type=openstax_page&scope_id=scope&source_ids=source&per_page=100",
         Object {
           "body": undefined,
-          "credentials": "include",
+          "credentials": undefined,
           "headers": Object {},
           "method": "GET",
         },

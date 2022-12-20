@@ -9,10 +9,7 @@ const formatError = (response: Response) => {
     });
 };
 
-export default (
-  basePath: string,
-  getAuthorizedFetchConfig: () => Promise<FetchConfig> = () => Promise.resolve({credentials: 'include'})
-) => {
+export default (basePath: string, getAuthorizedFetchConfig: () => Promise<FetchConfig> = () => Promise.resolve({})) => {
   const config = new Configuration({
     basePath,
     fetchApi: async(url: string, fetchConfig: FetchConfig) => {
