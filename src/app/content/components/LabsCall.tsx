@@ -35,10 +35,10 @@ const LabsCallWrapper = styled.div`
     align-items: flex-start;
     flex-direction: column;
   `)}
-  ${theme.breakpoints.mobileSmall(css`
+  @media screen and (max-width: 35em) {
     background-image: url(${KineticCTAMobile});
     padding: 2rem 1.2rem 2.8rem;
-  `)}
+  }
   ${disablePrint}
 `;
 
