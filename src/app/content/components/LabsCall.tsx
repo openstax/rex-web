@@ -87,6 +87,7 @@ const LabsCallHeader = styled.div`
       @media screen and (min-width: 54em) and (max-width: 58em) {
         margin-right: 21rem;
       }
+
       @media screen and (min-width: 50em) and (max-width: 52em) {
         margin-right: 14rem;
       }
