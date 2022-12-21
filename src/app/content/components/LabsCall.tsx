@@ -9,6 +9,7 @@ import Button from '../../components/Button';
 import { kineticBannerEnabled } from '../../featureFlags/selectors';
 import theme from '../../theme';
 import { disablePrint } from './utils/disablePrint';
+import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
 // tslint:disable-next-line: variable-name
 const LabsLogo = styled.img`
@@ -72,7 +73,7 @@ const Column = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-const LabsCallHeader = styled.div`
+const LabsCallHeader = isVerticalNavOpenConnector(styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -82,15 +83,31 @@ const LabsCallHeader = styled.div`
     margin-right: 1.4rem;
 
     &:last-child {
-      margin-right: 16rem;
+      margin-right: 14rem;
 
-      @media screen and (min-width: 54em) and (max-width: 58em) {
-        margin-right: 21rem;
+      @media screen and (min-width: 77em) and (max-width: 79em) {
+        margin-right: 15rem;
       }
 
-      @media screen and (min-width: 50em) and (max-width: 52em) {
-        margin-right: 14rem;
+      @media screen and (min-width: 79em) and (max-width: 85em) {
+        margin-right: 20rem;
       }
+
+      ${styleWhenSidebarClosed(css`
+        margin-right: 16rem;
+
+        @media screen and (min-width: 79em) and (max-width: 85em) {
+          margin-right: 16rem;
+        }
+
+        @media screen and (min-width: 54em) and (max-width: 58em) {
+          margin-right: 21rem;
+        }
+
+        @media screen and (min-width: 50em) and (max-width: 52em) {
+          margin-right: 14rem;
+        }
+      `)}
     }
   }
 
@@ -105,7 +122,7 @@ const LabsCallHeader = styled.div`
       margin-right: 1.4rem;
     }
   `)}
-`;
+`);
 
 // tslint:disable-next-line: variable-name
 const LabsText = styled.div`

@@ -8,7 +8,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
   data-async-content={true}
 >
   <div
-    className="LabsCall__LabsCallHeader-d86l90-3 itOsIo"
+    className="LabsCall__LabsCallHeader-d86l90-3 hQLNGQ"
   >
     <div
       className="LabsCall__Column-d86l90-2 dTfiko"
