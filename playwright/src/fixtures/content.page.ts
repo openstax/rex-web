@@ -14,7 +14,6 @@ class ContentPage {
   colorlocator: any
   body: Locator
   next: Locator
-  x: any
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -68,29 +67,25 @@ class ContentPage {
 
     await this.selectText(randomparanumber)
 
-    // select color from the visible notecard in the page
+    // select highlight color from the visible notecard in the page
     this.colorlocator = await this.colorLocator(color)
-    const colorLocatorCount = await this.colorlocator.count()
-    try {
-      await this.colorlocator.click()
-    } catch (error){
-    exitwhileloop:
-    while (colorLocatorCount > 1) {
+    const colorLocatorCount = await this.colorlocator.count() 
+    if (colorLocatorCount > 1) {
       for (let i = 0; i < colorLocatorCount; i++) {
         const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
           return window.getComputedStyle(e).getPropertyValue('visibility')
         })
         if (colorLocatorVisibility === 'visible') {
           await this.colorlocator.nth(i).click()
-          break exitwhileloop
-        }
       }
     }}
+    else {
+      await this.colorlocator.click()
+    }
     
     // click outside the highlighted paragraph to close the notecard
     // Otherwise, the notecard can block other elements like next/previous links
-    const boundary = await this.paragraph.nth(randomparanumber).boundingBox()
-    await this.page.mouse.click(boundary.x, boundary.y-100)
+    await this.scrolltotop()
   }
 
   async highlightCount() {
@@ -133,7 +128,6 @@ class ContentPage {
     await this.next.click()
   }
 
-
   async paracount() {
     // Number of paragraphs in the page
     const paracount = this.paragraph
@@ -141,9 +135,10 @@ class ContentPage {
   }
 
   async scrolltotop() {
-    // Scroll to top of content area
+    // Scroll to top of content area and click
     const body = await this.body.boundingBox()
-    await this.page.mouse.wheel(0, body.y)
+    await this.page.mouse.wheel(body.x+100, body.y+100)
+    await this.page.mouse.click(body.x+100, body.y+100)
   }
 
   async selectText(randomparanumber: number) {

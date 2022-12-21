@@ -103,53 +103,27 @@ test('multiple highlight', async ({ page, isMobile }) => {
   await rexUserSignup(page)
   await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
 
-  // WHEN: Highlight any random paragraph
+  // WHEN: Highlight 2 random paragraphs
   const paracount = BookPage.paracount()
   const randomparanumber = randomNum(await paracount)
   await BookPage.highlightText('green', randomparanumber)
 
-  // THEN: Text is highlighted
-  let highlightcount = await BookPage.highlightCount()
-  expect(highlightcount).toBe(1)
-
-  // AND: Highlight another random paragraph
-  await BookPage.scrolltotop()
   const randomparanumber2 = randomNum(await paracount, randomparanumber)
   await BookPage.highlightText('yellow', randomparanumber2)
 
   // THEN: Text is highlighted
-  highlightcount = await BookPage.highlightCount()
+  let highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(2)
 
+  // AND: Navigate to next page
   await BookPage.clickNext()
 
-  // WHEN: Highlight any random paragraph
+  // WHEN: Highlight 2 random paragraphs
   const paracount3 = BookPage.paracount()
   const randomparanumber3 = randomNum(await paracount3)
-  console.log(randomparanumber3)
   await BookPage.highlightText('green', randomparanumber3)
 
-  // THEN: Text is highlighted
-  highlightcount = await BookPage.highlightCount()
-  
-
-  // AND: Highlight another random paragraph
-  await BookPage.scrolltotop()
   const randomparanumber4 = randomNum(await paracount3, randomparanumber3)
-  console.log(randomparanumber4)
   await BookPage.highlightText('yellow', randomparanumber4)
 })
 
-
-
-test('click next', async ({ page, isMobile }) => {
-  test.skip(isMobile as boolean, 'test only desktop resolution')
-
-  // GIVEN: Open Rex page
-  const BookPage = new ContentPage(page)
-  const path = '/books/introduction-anthropology/pages/7-introduction'
-  await BookPage.open(path)
-
-  await BookPage.clickNext()
-  
-})
