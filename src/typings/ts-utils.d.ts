@@ -1,9 +1,3 @@
-declare module '@openstax/ts-utils/dist' {
-  export declare type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
-
-  export declare const merge: <T extends {}[]>(...[thing1, ...tail]: T) => UnionToIntersection<T[number]>;
-};
-
 declare module '@openstax/ts-utils/dist/fetch' {
   export enum METHOD {
     GET = 'GET',
