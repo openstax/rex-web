@@ -82,7 +82,14 @@ const LabsCallHeader = styled.div`
     margin-right: 1.4rem;
 
     &:last-child {
-      margin-right: 14rem;
+      margin-right: 16rem;
+
+      @media screen and (min-width: 54em) and (max-width: 58em) {
+        margin-right: 21rem;
+      }
+      @media screen and (min-width: 50em) and (max-width: 52em) {
+        margin-right: 14rem;
+      }
     }
   }
 
@@ -106,11 +113,11 @@ const LabsText = styled.div`
   line-height: 2.6rem;
   ${theme.breakpoints.mobileMedium(css`
     margin-right: 10rem;
-    max-width: 34rem;
-    margin-right: 6rem;
+    max-width: 31rem;
+    margin-right: rem;
   `)}
   ${theme.breakpoints.mobileSmall(css`
-    max-width: 28rem;
+    max-width: 20rem;
     font-size: 1.7rem;
     line-height: 2.2rem;
   `)}

@@ -8,7 +8,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
   data-async-content={true}
 >
   <div
-    className="LabsCall__LabsCallHeader-d86l90-3 gHLCjQ"
+    className="LabsCall__LabsCallHeader-d86l90-3 itOsIo"
   >
     <div
       className="LabsCall__Column-d86l90-2 dTfiko"
@@ -24,7 +24,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
       className="LabsCall__Column-d86l90-2 gHpgVb"
     >
       <div
-        className="LabsCall__LabsText-d86l90-4 gvWgSY"
+        className="LabsCall__LabsText-d86l90-4 llxqCy"
       >
         Win prizes by participating in research and discover more insights about yourself!
       </div>
