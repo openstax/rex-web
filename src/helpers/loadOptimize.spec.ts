@@ -43,7 +43,7 @@ describe('loadOptimize', () => {
 
     expect(mockAppend.mock.calls[0][0]).toMatchInlineSnapshot(`
     <script
-      async="async"
+      async=""
       src="https://www.googleoptimize.com/optimize.js?id=OPT-NFHSM4B"
       type="text/javascript"
     />
@@ -62,7 +62,7 @@ describe('loadOptimize', () => {
     // const script = document.head.querySelector('script');
     expect(mockAppend.mock.calls[1][0]).toMatchInlineSnapshot(`
     <script
-      async="async"
+      async=""
       src="https://www.googleoptimize.com/optimize.js?id=OPT-W65B3CP"
       type="text/javascript"
     />

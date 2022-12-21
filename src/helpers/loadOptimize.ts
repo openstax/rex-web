@@ -14,7 +14,7 @@ export default (window: Window, store: Store) => new Promise((resolve) => {
     const containerId = getOptimizeContainerByEnv();
 
     const script = assertDocument().createElement('script');
-    script.setAttribute('async', 'async');
+    script.toggleAttribute('async', true);
     script.setAttribute('type', 'text/javascript');
     script.setAttribute('src', `https://www.googleoptimize.com/optimize.js?id=${containerId}`);
     script.onload = resolve;
