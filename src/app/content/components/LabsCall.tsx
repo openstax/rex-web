@@ -80,6 +80,10 @@ const LabsCallHeader = styled.div`
 
   ${Column} {
     margin-right: 1.4rem;
+
+    &:last-child {
+      margin-right: 14rem;
+    }
   }
 
   ${theme.breakpoints.mobileMedium(css`
@@ -88,6 +92,9 @@ const LabsCallHeader = styled.div`
 
     ${LabsLogo} {
       margin-right: 2.5rem;
+    }
+    ${Column}:last-child {
+      margin-right: 1.4rem;
     }
   `)}
 `;
@@ -103,7 +110,7 @@ const LabsText = styled.div`
     margin-right: 6rem;
   `)}
   ${theme.breakpoints.mobileSmall(css`
-    max-width: 40rem;
+    max-width: 28rem;
     font-size: 1.7rem;
     line-height: 2.2rem;
   `)}
