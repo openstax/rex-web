@@ -40,6 +40,7 @@ interface Props {
   systemQueryParams?: SystemQueryParams;
   persistentQueryParams?: ContentQueryParams;
   ignoreModal?: boolean;
+  ignoreQuery?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -60,6 +61,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     systemQueryParams,
     persistentQueryParams,
     ignoreModal,
+    ignoreQuery,
     ...anchorProps
   } = props;
 
@@ -69,7 +71,12 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...persistentQueryParams, ...(ignoreModal && {modal: null}), ...systemQueryParams},
+    ? createNavigationOptions({
+      ...persistentQueryParams,
+      ...(ignoreQuery && {query: null}),
+      ...(ignoreModal && {modal: null}),
+      ...systemQueryParams,
+    },
       scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
