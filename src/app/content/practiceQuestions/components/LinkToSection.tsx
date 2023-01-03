@@ -45,8 +45,7 @@ const LinkToSection = ({ section }: LinkToSectionProps) => {
   return <StyledLink
     book={book}
     page={section}
-    ignoreModal={true}
-    ignoreQuery={true}
+    ignoreQueryParams={true}
     target='_blank'
     data-analytics-label='Go to link'
   >
