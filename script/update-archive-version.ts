@@ -66,8 +66,8 @@ async function updateArchiveAndContentVersions() {
   const updatedBooksConfig = { ...booksConfig.books };
 
   for (const book of booksToUpdate) {
-    const [bookId, bookVersions] = book;
-    const {contentVersion, dynamicStyles} = bookVersions;
+    const [bookId, bookConfig] = book;
+    const {contentVersion, dynamicStyles} = bookConfig;
     // this will remove any archiveOverride the book currently has
     updatedBooksConfig[bookId] = {defaultVersion: contentVersion, ...dynamicStyles && {dynamicStyles}};
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
