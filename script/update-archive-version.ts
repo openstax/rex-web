@@ -25,11 +25,11 @@ const args = argv.string('pipelineVersion').argv as any as {
 
 const getBooksToUpdate = (books: string[], config: BooksConfig) => books.map((book) => {
   const [bookId, contentVersion] = book.split('@');
-  const { defaultVersion, archiveOverride } = config.books[bookId] || {};
+  const { defaultVersion, archiveOverride, dynamicStyles } = config.books[bookId] || {};
   // include only books with a version change or where there is an existing pinned pipeline
   return defaultVersion === contentVersion && !archiveOverride
     ? undefined
-    : tuple(bookId, {contentVersion});
+    : tuple(bookId, {contentVersion, dynamicStyles});
 });
 
 async function updateArchiveAndContentVersions() {
@@ -67,8 +67,9 @@ async function updateArchiveAndContentVersions() {
 
   for (const book of booksToUpdate) {
     const [bookId, bookVersions] = book;
+    const {contentVersion, dynamicStyles} = bookVersions;
     // this will remove any archiveOverride the book currently has
-    updatedBooksConfig[bookId] = {defaultVersion: bookVersions.contentVersion};
+    updatedBooksConfig[bookId] = {defaultVersion: contentVersion, ...dynamicStyles && {dynamicStyles}};
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
 
