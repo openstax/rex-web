@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { ContentPage, KsModal, randomNum, rexUserSignup, rexUserSignout, sleep } from './helpers'
+import { ContentPage, KsModal, MHModal, randomNum, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
@@ -125,5 +125,18 @@ test('multiple highlight', async ({ page, isMobile }) => {
 
   const randomparanumber4 = randomNum(await paracount3, randomparanumber3)
   await BookPage.highlightText('yellow', randomparanumber4)
+
+
+  // WHEN: Open MH modal
+  await BookPage.openMHmodal()
+
+  const Modal = new MHModal(page)
+  await expect(Modal.MHModal).toBeVisible()
+
+  // WHEN: Close the MH modal using X icon
+  await Modal.closeMHModal()
+
+  // THEN: The MH modal is closed
+  await expect(Modal.MHModal).toBeHidden()
 })
 

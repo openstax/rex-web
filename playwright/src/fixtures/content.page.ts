@@ -13,6 +13,7 @@ class ContentPage {
   highlight: Locator
   colorlocator: any
   body: Locator
+  myhighlights: Locator
   next: Locator
   constructor(page: Page) {
     this.page = page
@@ -22,6 +23,7 @@ class ContentPage {
     this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
+    this.myhighlights = this.page.locator('[aria-label="Highlights"]')
     this.next = this.page.locator('[aria-label="Next Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
     this.body = this.page.locator('[class*="Content__Background"]')
@@ -126,6 +128,11 @@ class ContentPage {
   async clickNext(){
     // Click Next link
     await this.next.click()
+  }
+
+  // Open My Highlights modal
+  async openMHmodal() {
+    await this.myhighlights.click()
   }
 
   async paracount() {
