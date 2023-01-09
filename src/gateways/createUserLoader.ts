@@ -1,4 +1,4 @@
-import { browserAuthProvider } from '@openstax/ts-utils/dist/services/authProvider/browser';
+import { browserAuthProvider } from '@openstax/ts-utils/services/authProvider/browser';
 import { assertWindow } from '../app/utils';
 
 export interface AccountsUser {

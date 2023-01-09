@@ -1,5 +1,5 @@
 import { Configuration, HighlightsApi } from '@openstax/highlighter/dist/api';
-import { FetchConfig } from '@openstax/ts-utils/dist/fetch';
+import { FetchConfig } from '@openstax/ts-utils/fetch';
 import merge from 'lodash/fp/merge';
 import { UnauthenticatedError } from '../app/utils';
 
