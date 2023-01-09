@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
-import { ModalContext } from '../../../components/Modal';
 import { highlightStyles } from '../../../constants';
 import { book as bookSelector } from '../../../selectors';
 import { popupBodyPadding } from '../../../styles/PopupStyles';
@@ -75,7 +74,6 @@ interface HighlightListElementProps {
 
 // tslint:disable-next-line:variable-name
 const HighlightListElement = ({ highlight, locationFilterId, pageId }: HighlightListElementProps) => {
-  const modalContext = React.useContext(ModalContext);
   const [isEditing, setIsEditing] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const book = useSelector(bookSelector);
@@ -107,12 +105,6 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     }));
     trackEditAnnotation(addedNote, highlight.color, true);
     setIsEditing(false);
-    modalContext.focusModal();
-  };
-
-  const cancelEdit = () => {
-    setIsEditing(false);
-    modalContext.focusModal();
   };
 
   const updateColor = (color: HighlightColorEnum) => {
@@ -139,12 +131,6 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       pageId,
     }));
     trackDeleteHighlight(highlight.color, true);
-    modalContext.focusModal();
-  };
-
-  const cancelDelete = () => {
-    setIsDeleting(false);
-    modalContext.focusModal();
   };
 
   return <HighlightOuterWrapper>
@@ -165,12 +151,12 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
         annotation={highlight.annotation || ''}
         isEditing={isEditing}
         onSave={updateAnnotation}
-        onCancel={cancelEdit}
+        onCancel={() => setIsEditing(false)}
       />
     </HighlightContentWrapper>
     {isDeleting && <HighlightDeleteWrapper
       hasAnnotation={Boolean(highlight.annotation)}
-      onCancel={cancelDelete}
+      onCancel={() => setIsDeleting(false)}
       onDelete={confirmDelete}
     />}
   </HighlightOuterWrapper>;
