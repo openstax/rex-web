@@ -135,7 +135,7 @@ class GoogleAnalyticsClient {
 
   public setUserId(id: string) {
     // https://developers.google.com/analytics/devguides/collection/gtagjs/cookies-user-id#set_user_id
-    this.gaProxy({ name: 'config', payload: { user_id: id }});
+    this.gaProxy({ name: 'config', payload: { user_id: id, send_page_view: false }});
   }
 
   public setCustomDimensionForSession() {
@@ -145,7 +145,7 @@ class GoogleAnalyticsClient {
   }
 
   public unsetUserId() {
-    this.gaProxy({ name: 'config', payload: { user_id: undefined } });
+    this.gaProxy({ name: 'config', payload: { user_id: undefined, send_page_view: false } });
   }
 
   public trackPageView(path: string, query = {}) {

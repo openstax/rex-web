@@ -8,8 +8,8 @@ import {
 import { getCanonicalUrlParams } from '../../content/utils/canonicalUrl';
 import { getParentPrefix } from '../../content/utils/seoUtils';
 import { getBookPageUrlAndParams } from '../../content/utils/urlUtils';
+import createIntl from '../../messages/createIntl';
 import { AppServices } from '../../types';
-import { assertNotNull } from '../../utils/assertions';
 
 const domParser = new DOMParser();
 
@@ -22,8 +22,8 @@ const getPageRow = (book: Book, services: AppServices) => {
   const {archiveLoader, osWebLoader} = services;
 
   return async(section: LinkedArchiveTreeSection | LinkedArchiveTree) => {
-    // TODO - this is actually wrong, since different books will want different intl
-    const parentPrefix = getParentPrefix(section.parent, assertNotNull(services.intl.current, 'must have intl')).trim();
+    const intl = await createIntl(book.language);
+    const parentPrefix = getParentPrefix(section.parent, intl).trim();
 
     const { url } = getBookPageUrlAndParams(book, section);
 
