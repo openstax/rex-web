@@ -75,7 +75,7 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
     props.onCancel();
   };
 
-  useOnEsc(element, props.isActive, cancelEditing);
+  useOnEsc(props.isActive, cancelEditing);
 
   React.useEffect(() => {
     if (props.data || !props.isActive) { return; }
