@@ -1,11 +1,12 @@
 import { Document, Element, FocusEvent, HTMLElement,
   HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
-import { manageOnEscHandler } from './components/OnEsc';
 import { addSafeEventListener } from './domUtils';
 import { isElement, isTextInputHtmlElement, isWindow } from './guards';
 import theme from './theme';
 import { assertDefined, assertDocument, assertWindow } from './utils';
+
+export { useOnEsc } from './components/OnEsc';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E | null>(null);
@@ -172,10 +173,6 @@ export const useOnKey = (
 ) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(onKeyHandler(config, element, isEnabled, cb), [config, element, isEnabled, cb]);
-};
-
-export const useOnEsc = (isEnabled: boolean, cb: () => void) => {
-  React.useEffect(manageOnEscHandler(isEnabled, cb), [isEnabled, cb]);
 };
 
 const useMatchMediaQuery = (mediaQuery: string) => {
