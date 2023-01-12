@@ -37,7 +37,7 @@ const KeyboardShortcutsPopup = () => {
     dispatch(closeKeyboardShortcutsMenu());
     trackOpenCloseKS(method);
   }, [trackOpenCloseKS, dispatch]);
-  useOnEsc(popUpRef, isKeyboardShortcutsOpen, closeAndTrack('esc'));
+  useOnEsc(isKeyboardShortcutsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
