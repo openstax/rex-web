@@ -4,11 +4,11 @@ import { Locator, Page } from 'playwright'
 class MHModal {
   MHModal: Locator
   MHModalCloseIcon: Locator
-  MHedithighlight: Locator
-  MHaddnote: Locator
-  MHnotebox: Locator
-  MHsavenote: Locator
-  MHcancelnote: Locator
+  // MHedithighlight: Locator
+  // MHaddnote: Locator
+  // MHnotebox: Locator
+  // MHsavenote: Locator
+  // MHcancelnote: Locator
   page: Page
 
   constructor(page: Page) {
@@ -31,7 +31,7 @@ class MHModal {
 }
 
 
-class Highlights {
+class MyHighlights {
   MHedithighlight: Locator
   MHaddnote: Locator
   MHnotebox: Locator
@@ -53,4 +53,4 @@ class Highlights {
 
 }
 
-export { MHModal, Highlights }
+export { MHModal, MyHighlights }

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { ContentPage, KsModal, MHModal, randomNum, rexUserSignup, rexUserSignout, sleep } from './helpers'
+import { ContentPage, KsModal, MHModal, MyHighlights, randomNum, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
