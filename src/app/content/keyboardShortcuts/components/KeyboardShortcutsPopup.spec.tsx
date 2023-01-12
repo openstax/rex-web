@@ -6,7 +6,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { dispatchKeyDownEvent, renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
-import { OnEsc } from '../../../components/OnEsc';
+import OnEsc from '../../../components/OnEsc';
 import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument, assertNotNull } from '../../../utils';

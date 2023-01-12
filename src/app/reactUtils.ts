@@ -6,8 +6,6 @@ import { isElement, isTextInputHtmlElement, isWindow } from './guards';
 import theme from './theme';
 import { assertDefined, assertDocument, assertWindow } from './utils';
 
-export { useOnEsc } from './components/OnEsc';
-
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E | null>(null);
 
@@ -174,6 +172,27 @@ export const useOnKey = (
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(onKeyHandler(config, element, isEnabled, cb), [config, element, isEnabled, cb]);
 };
+
+export const onEscCallbacks: Array<() => void> = [];
+
+// To be called by components to add an onEsc callback
+// Requires the OnEsc component in the layout for normal operation
+// When ESC is pressed, the last callback in the onEscCallbacks array is executed
+// The callback is automatically removed when the calling component unmounts
+export const useOnEsc = (isEnabled: boolean, callback: () => void) => React.useEffect(() => {
+  if (!isEnabled) {
+    return undefined;
+  }
+
+  onEscCallbacks.push(callback);
+
+  return () => {
+    const index = onEscCallbacks.lastIndexOf(callback);
+    if (index !== -1) {
+      onEscCallbacks.splice(index, 1);
+    }
+  };
+}, [isEnabled, callback]);
 
 const useMatchMediaQuery = (mediaQuery: string) => {
   const matchMedia = assertWindow().matchMedia(mediaQuery);

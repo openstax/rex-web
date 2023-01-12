@@ -10,7 +10,7 @@ import { dispatchKeyDownEvent, renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
-import { OnEsc } from '../../../components/OnEsc';
+import OnEsc from '../../../components/OnEsc';
 import * as appGuards from '../../../guards';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
