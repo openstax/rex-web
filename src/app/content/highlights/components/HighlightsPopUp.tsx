@@ -105,7 +105,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
     trackOpenCloseMH(method);
   }, [closeMyHighlights, trackOpenCloseMH]);
 
-  useOnEsc(popUpRef, props.myHighlightsOpen, closeAndTrack('esc'));
+  useOnEsc(props.myHighlightsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
