@@ -6,6 +6,7 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { dispatchKeyDownEvent, renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
+import { OnEsc } from '../../../components/OnEsc';
 import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument, assertNotNull } from '../../../utils';
@@ -88,7 +89,7 @@ describe('KeyboardShortcuts', () => {
     expect(focus).toHaveBeenCalled();
   });
 
-  it('tracks analytics and adds modal-url when clicking shift + ?', async() => {
+  it('tracks analytics and adds modal-url when pressing shift + ?', async() => {
     const track = jest.spyOn(services.analytics.openCloseKeyboardShortcuts, 'track');
     jest.spyOn(ksSelectors, 'isKeyboardShortcutsOpen').mockReturnValue(false);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
@@ -142,12 +143,13 @@ describe('KeyboardShortcuts', () => {
     expect(dispatch).toHaveBeenCalledWith(closeKeyboardShortcutsMenu());
   });
 
-  it('tracks analytics and removes modal-url when clicking esc', async() => {
+  it('tracks analytics and removes modal-url when pressing esc', async() => {
     const track = jest.spyOn(services.analytics.openCloseKeyboardShortcuts, 'track');
     jest.spyOn(ksSelectors, 'isKeyboardShortcutsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <OnEsc />
       <KeyboardShortcutsPopup />
     </TestContainer>);
 

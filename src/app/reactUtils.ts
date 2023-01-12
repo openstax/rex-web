@@ -1,6 +1,7 @@
 import { Document, Element, FocusEvent, HTMLElement,
   HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
+import { manageOnEscHandler } from './components/OnEsc';
 import { addSafeEventListener } from './domUtils';
 import { isElement, isTextInputHtmlElement, isWindow } from './guards';
 import theme from './theme';
@@ -173,9 +174,9 @@ export const useOnKey = (
   React.useEffect(onKeyHandler(config, element, isEnabled, cb), [config, element, isEnabled, cb]);
 };
 
-export const useOnEsc = (
-  element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void
-) => useOnKey({key: 'Escape'}, element, isEnabled, cb);
+export const useOnEsc = (isEnabled: boolean, cb: () => void) => {
+  React.useEffect(manageOnEscHandler(isEnabled, cb), [isEnabled, cb]);
+};
 
 const useMatchMediaQuery = (mediaQuery: string) => {
   const matchMedia = assertWindow().matchMedia(mediaQuery);

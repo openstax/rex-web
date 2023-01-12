@@ -3,8 +3,9 @@ import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
-import { renderToDom } from '../../../../test/reactutils';
+import { dispatchKeyDownEvent, renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
+import { OnEsc } from '../../../components/OnEsc';
 import { push } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
@@ -109,35 +110,19 @@ describe('PracticeQuestions', () => {
     expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
   });
 
-  it('tracks analytics and removes modal-url when clicking esc', async() => {
+  it('tracks analytics and removes modal-url when pressing esc', async() => {
     const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
 
     const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <OnEsc />
       <PracticeQuestionsPopup />
     </TestContainer>);
 
     const element = assertNotNull(node.querySelector('[data-testid=\'practice-questions-popup-wrapper\']'), '');
 
-    element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
-
-    expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
-  });
-
-  it('tracks analytics and removes modal-url with push', async() => {
-    const track = jest.spyOn(services.analytics.openClosePracticeQuestions, 'track');
-    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    jest.spyOn(navigation, 'match').mockReturnValue(mockMatch);
-
-    const { node } = renderToDom(<TestContainer services={services} store={store}>
-      <PracticeQuestionsPopup />
-    </TestContainer>);
-
-    const element = assertNotNull(node.querySelector('[data-testid=\'practice-questions-popup-wrapper\']'), '');
-
-    element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
+    dispatchKeyDownEvent({element, key: 'Escape'});
 
     expect(track).toHaveBeenCalled();
     expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
