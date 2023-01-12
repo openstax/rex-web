@@ -67,10 +67,11 @@ export function renderToDom<C extends ComponentType>(subject: ReactElement<C>, c
   };
 
   if (!document) {
-    throw new Error('document is requried to render to dom');
+    throw new Error('document is required to render to dom');
   }
 
   const domContainer = container || document.createElement('div');
+  if (!domContainer.parentNode) { document.body.appendChild(domContainer); }
 
   let c: C;
 
@@ -120,5 +121,5 @@ export const dispatchKeyDownEvent = ({
   if (target) {
     Object.defineProperty(keyboardEvent, 'target', { value: target });
   }
-  (element || window!.document).dispatchEvent(keyboardEvent);
+  return (element || window!.document).dispatchEvent(keyboardEvent);
 };
