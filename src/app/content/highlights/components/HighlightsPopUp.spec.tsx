@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer, { act } from 'react-test-renderer';
@@ -138,7 +139,7 @@ describe('MyHighlights button and PopUp', () => {
     </TestContainer>);
 
     const track = jest.spyOn(services.analytics.openCloseMH, 'track');
-    const element = assertNotNull(node.querySelector('[data-testid=\'highlights-popup-wrapper\']'), '');
+    const element: HTMLElement = assertNotNull(node.querySelector('[data-testid=\'highlights-popup-wrapper\']'), '');
 
     dispatchKeyDownEvent({element, key: 'Escape'});
 

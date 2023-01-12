@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
@@ -120,7 +121,9 @@ describe('PracticeQuestions', () => {
       <PracticeQuestionsPopup />
     </TestContainer>);
 
-    const element = assertNotNull(node.querySelector('[data-testid=\'practice-questions-popup-wrapper\']'), '');
+    const element: HTMLElement = assertNotNull(
+      node.querySelector('[data-testid=\'practice-questions-popup-wrapper\']'), ''
+    );
 
     dispatchKeyDownEvent({element, key: 'Escape'});
 
