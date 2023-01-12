@@ -16,6 +16,7 @@ from tests import markers
 from utils.utility import (
     Utilities,
     Library,
+    get_default_page,
     get_search_term,
     expected_chapter_search_results_total,
     expected_rkt_search_results_total,
@@ -390,6 +391,7 @@ def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
 @markers.nondestructive
 def test_search_results(selenium, base_url, page_slug):
     """Search sidebar shows total number of matches throughout the book"""
+
     book_list = Library()
     book_slugs = book_list.book_slugs_list
 
@@ -397,7 +399,9 @@ def test_search_results(selenium, base_url, page_slug):
     for book_slug in list(book_slugs):
 
         # GIVEN: Book page is loaded
-        book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+        book = Content(
+            selenium, base_url, book_slug=book_slug, page_slug=get_default_page(book_slug)
+        ).open()
 
         # Skip any notification/nudge popups
         while book.notification_present:
@@ -536,3 +540,60 @@ def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slu
         "The hydrophilic head groups of the phospholipids face the aqueous solution. "
         "The hydrophobic tails are sequestered in the middle of the bilayer."
     )
+
+
+@markers.test_case("C543252a")
+@markers.parametrize("page_slug", ["preface"])
+@markers.desktop_only
+@markers.nondestructive
+def test_search_results_for_international_books(selenium, base_url, page_slug):
+    """Search sidebar shows total number of matches throughout the book for international books"""
+
+    book_list = Library()
+    book_slugs = book_list.book_slugs_list_intl
+
+    # Repeat the test for all books in the library
+    for book_slug in list(book_slugs):
+
+        # GIVEN: Book page is loaded
+        book = Content(
+            selenium, base_url, book_slug=book_slug, page_slug=get_default_page(book_slug)
+        ).open()
+
+        # Skip any notification/nudge popups
+        while book.notification_present:
+            book.notification.got_it()
+
+        # WHEN: Search is performed
+        search_sidebar = book.search_sidebar
+        search_term = get_search_term(book_slug)
+        chapter_search_results_expected_value = expected_chapter_search_results_total(book_slug)
+        rkt_results_expected_value = expected_rkt_search_results_total(book_slug)
+
+        # AND: Search sidebar is open
+        book.topbar.search_for(search_term)
+        try:
+            assert search_sidebar.search_results_present
+        except TimeoutException:
+            # wait and check if search sidebar appears
+            sleep(0.5)
+            assert search_sidebar.search_results_present
+
+        # THEN: Search sidebar shows total number of matches throughout the book
+        assert search_sidebar.rkt_search_result_total == rkt_results_expected_value
+        try:
+            assert (
+                search_sidebar.chapter_search_result_total == chapter_search_results_expected_value
+            )
+        except AssertionError:
+            # Total search results vary slightly between environment/search sessions which is being worked on by the developers.
+            # Till then asserting with a threshold value
+            print(
+                f"Search results mismatch for '{book_slug}', expected = '{chapter_search_results_expected_value}', actual = '{search_sidebar.chapter_search_result_total}'"
+            )
+            tc = unittest.TestCase()
+            tc.assertAlmostEqual(
+                search_sidebar.chapter_search_result_total,
+                chapter_search_results_expected_value,
+                delta=3,
+            )
