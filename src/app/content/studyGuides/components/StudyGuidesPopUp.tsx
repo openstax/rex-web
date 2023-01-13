@@ -28,7 +28,7 @@ const StudyguidesPopUp = () => {
     trackClose(method);
   }, [dispatch, trackClose]);
 
-  useOnEsc(popUpRef, isStudyGuidesOpen, closeAndTrack('esc'));
+  useOnEsc(isStudyGuidesOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;

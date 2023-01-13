@@ -712,59 +712,59 @@ def test_delete_highlight_from_MH_page_using_keyboard_navigation(
     for paragraphs, colors, note in data:
         book.content.highlight(target=paragraphs, offset=Highlight.RANDOM, color=colors, note=note)
 
-        my_highlights = book.toolbar.my_highlights()
-        highlights = my_highlights.highlights.edit_highlight
+    my_highlights = book.toolbar.my_highlights()
+    highlights = my_highlights.highlights.edit_highlight
 
-        # WHEN: Open the context menu
-        (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+    # WHEN: Open the context menu
+    (ActionChains(selenium).send_keys(Keys.TAB * 8).send_keys(Keys.RETURN).perform())
 
-        # AND: Select Delete note
-        (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
+    # AND: Select Delete note
+    (ActionChains(selenium).send_keys(Keys.TAB * 7).send_keys(Keys.RETURN).perform())
 
-        # THEN: Delete confirmation message is displayed
-        assert (
-            highlights[0].confirm_delete_message
-            == "Are you sure you want to delete this note and highlight?"
-            if highlights[0].note_present
-            else "Are you sure you want to delete this highlight?"
-        ), (
-            "delete confirmation message is incorrect"
-            f"message displayed: {highlights[0].confirm_delete_message}"
-        )
+    # THEN: Delete confirmation message is displayed
+    assert (
+        highlights[0].confirm_delete_message
+        == "Are you sure you want to delete this note and highlight?"
+        if highlights[0].note_present
+        else "Are you sure you want to delete this highlight?"
+    ), (
+        "delete confirmation message is incorrect"
+        f"message displayed: {highlights[0].confirm_delete_message}"
+    )
 
-        # WHEN: Hit Cancel in the delete confirmation dialog
-        (ActionChains(selenium).send_keys(Keys.TAB * 2).pause(1).send_keys(Keys.ENTER).perform())
+    # WHEN: Hit Cancel in the delete confirmation dialog
+    (ActionChains(selenium).send_keys(Keys.TAB * 2).pause(1).send_keys(Keys.ENTER).perform())
 
-        # THEN: The highlight is not removed from MH page
-        assert (
-            len(my_highlights.all_highlights) == 1
-        ), "Highlight is removed from MH page even on hitting Cancel in delete confirmation dialog"
+    # THEN: The highlight is not removed from MH page
+    assert (
+        len(my_highlights.all_highlights) == 2
+    ), "Highlight is removed from MH page even on hitting Cancel in delete confirmation dialog"
 
-        # WHEN: Open the context menu
-        (ActionChains(selenium).send_keys(Keys.TAB * 8).pause(1).send_keys(Keys.ENTER).perform())
+    # WHEN: Open the context menu
+    (ActionChains(selenium).send_keys(Keys.TAB * 1).pause(1).send_keys(Keys.ENTER).perform())
 
-        # AND: Select Delete note
-        (ActionChains(selenium).send_keys(Keys.TAB * 7).pause(1).send_keys(Keys.RETURN).perform())
+    # AND: Select Delete note
+    (ActionChains(selenium).send_keys(Keys.TAB * 7).pause(1).send_keys(Keys.RETURN).perform())
 
-        # AND: Hit Save in the delete confirmation dialog
-        (ActionChains(selenium).send_keys(Keys.TAB * 1).pause(1).send_keys(Keys.ENTER).perform())
+    # AND: Hit Save in the delete confirmation dialog
+    (ActionChains(selenium).send_keys(Keys.TAB * 1).pause(1).send_keys(Keys.ENTER).perform())
 
-        # THEN: The highlight is removed from the MH page
-        assert (
-            len(my_highlights.all_highlights) == 0
-        ), "Highlight is not removed from MH page even on hitting Save in delete confirmation dialog"
+    # THEN: The highlight is removed from the MH page
+    assert (
+        len(my_highlights.all_highlights) == 1
+    ), "Highlight is not removed from MH page even on hitting Save in delete confirmation dialog"
 
-        my_highlights.close()
+    my_highlights.close()
 
-        # AND: The highlight deleted in MH page is removed from the content page
-        assert book.content.highlight_count == 0, (
-            "Highlight deleted in MH page is not removed from content page: "
-            f"found {book.content.highlight_count}, expected {0}"
-        )
+    # AND: The highlight deleted in MH page is removed from the content page
+    assert book.content.highlight_count == 1, (
+        "Highlight deleted in MH page is not removed from content page: "
+        f"found {book.content.highlight_count}, expected {1}"
+    )
 
-        with pytest.raises(NoSuchElementException) as ex:
-            book.content.highlight_box
-        assert "No open highlight boxes found" in str(ex.value)
+    with pytest.raises(NoSuchElementException) as ex:
+        book.content.highlight_box
+    assert "No open highlight boxes found" in str(ex.value)
 
 
 @markers.test_case("C592644")
