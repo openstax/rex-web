@@ -74,9 +74,8 @@ def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page
         and "eventCategory" in toc_link_event
         and "eventLabel" in toc_link_event
     ), "Not viewing the correct GA event (eventAction)"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert toc_link_event["eventAction"] == event_action
     assert toc_link_event["eventCategory"] == event_category
@@ -180,9 +179,8 @@ def test_user_clicks_the_previous_and_next_page_link_ga_events(
         and "eventCategory" in transition_event
         and "eventLabel" in transition_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in transition_pageview_event
-        and "page" in transition_pageview_event
+    assert (
+        "hitType" in transition_pageview_event and "page" in transition_pageview_event
     ), "Not viewing the correct GA event (pageview)"
     assert transition_event["eventAction"] == previous_event_action
     assert transition_event["eventCategory"] == previous_event_category
@@ -193,9 +191,7 @@ def test_user_clicks_the_previous_and_next_page_link_ga_events(
 
     # WHEN:  they click the 'Next' link
     #        (use a script because we need the events before the page changes)
-    selenium.execute_script(
-        ACTION_SCRIPT.format(selector=label.format(label=next_event_action))
-    )
+    selenium.execute_script(ACTION_SCRIPT.format(selector=label.format(label=next_event_action)))
 
     # THEN:  the correct Google Analytics events are queued
     #        { eventAction: "next",
@@ -263,8 +259,7 @@ def test_user_logout_ga_event(selenium, base_url, book_slug, page_slug):
     assert log_out_event["eventCategory"] == log_out_event_category
     assert log_out_event["eventLabel"] == log_out_event_label
     assert (
-        "eventAction" in unload_event
-        and "eventCategory" in unload_event
+        "eventAction" in unload_event and "eventCategory" in unload_event
     ), "Not viewing the correct GA event (unload)"
     assert unload_event["eventAction"] == unload_event_action
     assert unload_event["eventCategory"] == unload_event_category
@@ -484,8 +479,8 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
     assert search_event["eventAction"] == search_event_action
     assert search_event["eventCategory"] == search_event_category
     assert search_event["eventLabel"] == search_event_label
-    assert(
-        len(events) == initial_events + new_events + (1 if book.is_mobile else 0)
+    assert len(events) == initial_events + new_events + (
+        1 if book.is_mobile else 0
     ), "Wrong number of GA events found"
 
     # WHEN:  they click on a search excerpt from chapter results
@@ -533,9 +528,8 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
         and "eventCategory" in related_key_term_click_event
         and "eventLabel" in related_key_term_click_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert related_key_term_click_event["eventAction"] == key_term_event_action
     assert related_key_term_click_event["eventCategory"] == key_term_event_category
@@ -584,8 +578,7 @@ def test_banner_book_title_click_ga_event(selenium, base_url, book_slug, page_sl
         and "eventLabel" in link_click_event
     ), "Not viewing the correct GA event"
     assert (
-        "eventAction" in unload_event
-        and "eventCategory" in unload_event
+        "eventAction" in unload_event and "eventCategory" in unload_event
     ), "Not viewing the correct GA event"
     assert link_click_event["eventAction"] == click_event_action
     assert link_click_event["eventCategory"] == click_event_category
@@ -663,8 +656,7 @@ def test_openstax_logo_click_ga_event(selenium, base_url, book_slug, page_slug):
         and "eventLabel" in logo_click_event
     ), "Not viewing the correct GA event"
     assert (
-        "eventAction" in unload_event
-        and "eventCategory" in unload_event
+        "eventAction" in unload_event and "eventCategory" in unload_event
     ), "Not viewing the correct GA event"
     assert logo_click_event["eventAction"] == click_event_action
     assert logo_click_event["eventCategory"] == click_event_category
@@ -713,8 +705,7 @@ def test_log_in_click_ga_event(selenium, base_url, book_slug, page_slug):
         and "eventLabel" in log_in_event
     ), "Not viewing the correct GA event"
     assert (
-        "eventAction" in unload_event
-        and "eventCategory" in unload_event
+        "eventAction" in unload_event and "eventCategory" in unload_event
     ), "Not viewing the correct GA event"
     assert log_in_event["eventAction"] == log_in_click_event_action
     assert log_in_event["eventCategory"] == log_in_click_event_category
@@ -946,8 +937,7 @@ def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
         and "eventLabel" in log_in_event
     ), "Not viewing the correct GA event"
     assert (
-        "eventAction" in unload_event
-        and "eventCategory" in unload_event
+        "eventAction" in unload_event and "eventCategory" in unload_event
     ), "Not viewing the correct GA event"
     assert show_log_in_event["eventAction"] == show_log_in_event_action
     assert show_log_in_event["eventCategory"] == show_log_in_event_category
@@ -1589,9 +1579,8 @@ def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
 
     button_event = events[-2]
     page_view_event = events[-1]
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert (
         "eventAction" in button_event
@@ -1647,9 +1636,8 @@ def test_sg_close_using_overlay_click_ga_event(selenium, base_url, book_slug, pa
         and "eventCategory" in overlay_event
         and "eventLabel" in overlay_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert event_action in overlay_event["eventAction"]
     assert overlay_event["eventCategory"] == event_category
@@ -1707,7 +1695,6 @@ def test_sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slu
 
 
 @markers.test_case("C621328", "C621329")
-@markers.smoke_test
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
 def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when SG close 'x' is clicked."""
@@ -1765,9 +1752,8 @@ def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, 
         and "eventCategory" in button_event
         and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert button_event_action in button_event["eventAction"]
     assert button_event["eventCategory"] == button_event_category
@@ -1816,9 +1802,8 @@ def test_study_guide_log_in_link_ga_event(selenium, base_url, book_slug, page_sl
         and "eventCategory" in log_in_link_event
         and "eventLabel" in log_in_link_event
     ), "Not viewing the correct GA event (log in link)"
-    assert(
-        "eventAction" in unload_event
-        and "eventCategory" in unload_event
+    assert (
+        "eventAction" in unload_event and "eventCategory" in unload_event
     ), "Not viewing the correct GA event (unload)"
     assert log_in_event_action in log_in_link_event["eventAction"]
     assert log_in_link_event["eventCategory"] == log_in_event_category
@@ -1971,9 +1956,8 @@ def test_practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
         and "eventCategory" in button_event
         and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert button_event_action in button_event["eventAction"]
     assert button_event["eventCategory"] == button_event_category
@@ -2126,7 +2110,6 @@ def test_practice_question_finish_section_button_ga_event(selenium, base_url, bo
 
 
 @markers.test_case("C621320")
-@markers.smoke_test
 @markers.parametrize(
     "book_slug, page_slug", [("physics", "1-1-physics-definitions-and-applications")]
 )
@@ -2260,9 +2243,8 @@ def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, boo
         and "eventCategory" in click_event
         and "eventLabel" in click_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert click_event_action in click_event["eventAction"]
     assert click_event["eventCategory"] == click_event_category
@@ -2311,9 +2293,8 @@ def test_close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug,
         and "eventCategory" in key_press_event
         and "eventLabel" in key_press_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert key_press_event_action in key_press_event["eventAction"]
     assert key_press_event["eventCategory"] == key_press_event_category
@@ -2324,7 +2305,6 @@ def test_close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug,
 
 
 @markers.test_case("C621324")
-@markers.smoke_test
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
 def test_practice_closed_when_x_close_button_clicked_ga_events(
     selenium, base_url, book_slug, page_slug
@@ -2382,9 +2362,8 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
         and "eventCategory" in button_event
         and "eventLabel" in button_event
     ), "Not viewing the correct GA event"
-    assert(
-        "hitType" in page_view_event
-        and "page" in page_view_event
+    assert (
+        "hitType" in page_view_event and "page" in page_view_event
     ), "Not viewing the correct GA event (pageview)"
     assert button_event_action in button_event["eventAction"]
     assert button_event["eventCategory"] == button_event_category
@@ -2437,7 +2416,6 @@ def test_practice_read_link_ga_event(selenium, base_url, book_slug, page_slug):
 
 
 @markers.test_case("C622245")
-@markers.smoke_test
 @markers.parametrize("book_slug, page_slug", [("physics", "2-4-velocity-vs-time-graphs")])
 def test_pq_continue_to_next_section_button_click_ga_event(
     selenium, base_url, book_slug, page_slug
@@ -2618,17 +2596,13 @@ def print_queue(events):
     for index, event in enumerate(events):
         position = -1 * len(events) + index
         _type = event.get("hitType", "     ")
-        print(f'{position: <3} : [{_type: <8}] : {event}')
+        print(f"{position: <3} : [{_type: <8}] : {event}")
 
 
 def store_events(driver, base_url):
     """Store GA event queue on Staging instances."""
     if "staging" in base_url:
-        driver.add_cookie({
-            "name": "ANALYTICS_OPT_OUT",
-            "value": "1",
-            "domain": ".openstax.org"
-        })
+        driver.add_cookie({"name": "ANALYTICS_OPT_OUT", "value": "1", "domain": ".openstax.org"})
 
 
 def switch_tab(driver):
