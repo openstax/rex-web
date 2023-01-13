@@ -39,7 +39,6 @@ interface Props {
   myForwardedRef: React.Ref<HTMLAnchorElement>;
   systemQueryParams?: SystemQueryParams;
   persistentQueryParams?: ContentQueryParams;
-  ignoreQueryParams?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -59,7 +58,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     hasUnsavedHighlight,
     systemQueryParams,
     persistentQueryParams,
-    ignoreQueryParams,
     ...anchorProps
   } = props;
 
@@ -69,7 +67,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...!ignoreQueryParams && persistentQueryParams, ...systemQueryParams},
+    ? createNavigationOptions({...systemQueryParams},
       scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
