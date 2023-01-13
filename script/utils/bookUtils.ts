@@ -33,7 +33,7 @@ export async function findBooks({
 
   const bookInfo = bookId
     ? [tuple(bookId, bookVersion ? {contentVersion: bookVersion} : undefined)]
-    : Object.entries(booksConfig)
+    : Object.entries(booksConfig.books)
       .filter(([, book]) => !book.retired)
       .map(([id]) => tuple(id, undefined))
   ;
