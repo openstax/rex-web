@@ -56,7 +56,7 @@ describe('kineticEnabled hook', () => {
       (global as any).document = documentBack;
     });
 
-    it('does nothing', async () => {
+    it('does nothing', async() => {
       await hook(receivePage({ ...page, references: [] }));
 
       expect(dispatch).not.toHaveBeenCalled();
