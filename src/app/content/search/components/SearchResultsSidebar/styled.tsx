@@ -262,7 +262,9 @@ interface SectionContentPreviewProps extends React.ComponentProps<typeof Content
 // tslint:disable-next-line:variable-name
 export const SectionContentPreview = styled(
   React.forwardRef<HTMLAnchorElement, SectionContentPreviewProps>(
-    ({selectedResult, ...props}, ref) => <ContentLinkComponent {...props} ref={ref} />
+    ({selectedResult, ...props}, ref) => {
+      console.log('props: ', props)
+    return <ContentLinkComponent {...props} ref={ref} />}
   )
 )`
   ${labelStyle}

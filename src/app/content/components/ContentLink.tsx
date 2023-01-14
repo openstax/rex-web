@@ -7,7 +7,6 @@ import { linkStyle } from '../../components/Typography';
 import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
-import { ScrollTarget } from '../../navigation/types';
 import { createNavigationOptions, navigationOptionsToString } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
@@ -33,12 +32,12 @@ interface Props {
   currentPath: string;
   hasUnsavedHighlight: boolean;
   queryParams?: OutputParams;
-  scrollTarget?: ScrollTarget;
   className?: string;
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
   systemQueryParams?: SystemQueryParams;
   persistentQueryParams?: ContentQueryParams;
+  ignoreModal?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -49,7 +48,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     currentBook,
     currentPath,
     queryParams,
-    scrollTarget,
     navigate,
     onClick,
     handleClick,
@@ -67,8 +65,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const bookUid = stripIdVersion(book.id);
   // Add options only if linking to the same book
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...systemQueryParams},
-      scrollTarget)
+    ? createNavigationOptions({...systemQueryParams})
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
   const services = useServices();
