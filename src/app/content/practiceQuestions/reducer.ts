@@ -8,6 +8,7 @@ import { State } from './types';
 export const initialState: State = {
   currentQuestionIndex: null,
   loading: false,
+  open: false,
   questionAnswers: {},
   questions: [],
   selectedSection: null,
