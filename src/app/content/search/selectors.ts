@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { searchButtonStyle } from '../../featureFlags/selectors';
+import { searchButtonStyle, searchLocation } from '../../featureFlags/selectors';
 import * as parentSelectors from '../selectors';
 import { BookWithOSWebData } from '../types';
 import {
@@ -120,3 +120,8 @@ export const searchButtonColor = createSelector(
       : (selectedBook && selectedStyle === 'bannerColorButton' ? selectedTheme : null
   )
 );
+
+export const searchInSidebar = createSelector(
+  searchLocation,
+  (state) => state === 'sidebar'
+)

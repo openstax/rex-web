@@ -24,7 +24,7 @@ import {
 } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
-import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerMenu } from './styled';
+import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, SearchInputWrapper, TextResizerMenu } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -251,6 +251,13 @@ describe('search', () => {
     });
 
     expect(findById('desktop-search-input').props.value).toEqual('asdf');
+  });
+
+  it('hides on desktop when a feature flag moves it to the sidebar', () => {
+    jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValueOnce(true);
+
+    const component = render();
+    expect(() => component.root.findByProps({ 'data-testid': 'desktop-search' }) ).toThrowError();
   });
 });
 
