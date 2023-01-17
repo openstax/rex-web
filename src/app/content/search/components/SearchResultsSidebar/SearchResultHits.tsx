@@ -26,7 +26,7 @@ const SearchResultHits = ({
   activeSectionRef, book, hits, getPage, testId, onClick, selectedResult,
 }: SearchResultHitsProps) => {
   const [keyTerms, setKeyTerms] = React.useState({});
-  const { archiveLoader, history } = useServices();
+  const { archiveLoader } = useServices();
 
   React.useEffect(() => {
     const keyTermsHits = hits.filter(isKeyTermHit);
@@ -67,11 +67,8 @@ const SearchResultHits = ({
           key={index}
           book={book}
           page={getPage(hit)}
-          onClick={() => {
-            onClick(thisResult);
-            history.replace({
-              hash: `#${target.elementId}`            });
-          }}
+          scrollTarget={target}
+          onClick={() => onClick(thisResult)}
           {...isSelected && activeSectionRef ? { ref: activeSectionRef } : {}}
         >
           {isKeyTermHit(hit)
