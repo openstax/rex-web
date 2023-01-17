@@ -38,7 +38,6 @@ ul, ol {
   list-style-type: none;
   padding-left: 0;
   > li {
-    display: flex;
     .os-stepwise-token {
       white-space: pre;
     }
@@ -54,7 +53,6 @@ ul, ol {
   list-style-type: none;
   padding-left: 0;
   > li {
-    display: flex;
     .os-stepwise-token {
       white-space: pre;
     }
@@ -643,6 +641,10 @@ figure {
   &[data-type="note"] {
     padding: 0;
   }
+}
+
+[data-type="media"][data-display="inline"] {
+  display: inline-flex;
 }
 
 // FIXME: hiding in baked books until a fix is made on CNX
