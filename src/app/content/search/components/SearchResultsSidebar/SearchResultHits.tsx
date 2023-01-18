@@ -2,6 +2,7 @@ import { SearchResultHit } from '@openstax/open-search-client';
 import isEqual from 'lodash/fp/isEqual';
 import React from 'react';
 import { useServices } from '../../../../context/Services';
+import * as navSelect from '../../../../navigation/selectors';
 import { ArchiveTreeSection, Book } from '../../../types';
 import { loadPageContent } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
@@ -26,7 +27,9 @@ const SearchResultHits = ({
   activeSectionRef, book, hits, getPage, testId, onClick, selectedResult,
 }: SearchResultHitsProps) => {
   const [keyTerms, setKeyTerms] = React.useState({});
-  const { archiveLoader } = useServices();
+  const { archiveLoader, getState } = useServices();
+  const state = getState();
+  const queryParams = navSelect.persistentQueryParameters(state);
 
   React.useEffect(() => {
     const keyTermsHits = hits.filter(isKeyTermHit);
@@ -68,6 +71,7 @@ const SearchResultHits = ({
           book={book}
           page={getPage(hit)}
           scrollTarget={target}
+          queryParams={queryParams}
           onClick={() => onClick(thisResult)}
           {...isSelected && activeSectionRef ? { ref: activeSectionRef } : {}}
         >

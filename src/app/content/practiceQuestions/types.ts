@@ -7,7 +7,6 @@ export interface State {
   questions: PracticeQuestion[];
   questionAnswers: QuestionAnswers;
   loading: boolean;
-  open: boolean;
 }
 
 export interface PracticeQuestionsSummary {
