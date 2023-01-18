@@ -1,11 +1,11 @@
 aspy.yaml==1.3.0
 atomicwrites==1.4.0
 attrs==21.4.0
-certifi==2022.12.7
+certifi==2021.10.8
 cffi==1.15.0
 cfgv==3.3.1
 chardet==4.0.0
-chromedriver-binary==107.0.5304.62
+chromedriver-binary==109.0.5414.74
 cryptography==36.0.2
 Faker==13.3.4
 identify==2.4.12
