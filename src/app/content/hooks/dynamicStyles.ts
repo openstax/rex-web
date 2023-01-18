@@ -10,7 +10,7 @@ const hookBody: ActionHookBody<typeof receiveBook> = (services) => async() => {
   const loadingBook = loadingBookSelector(state);
 
   if (loadingBook || !book || !book.style_href ||
-      !book.loadOptions.booksConfig.books[book.id]?.dynamicStyles) {
+      book.loadOptions.booksConfig.books[book.id]?.dynamicStyles === false) {
     return;
   }
 
