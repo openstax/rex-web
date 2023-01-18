@@ -36,11 +36,10 @@ interface HidingContentLinkProps {
   side: 'left' | 'right';
 }
 // tslint:disable-next-line:variable-name
-const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentLinkProps) => {
-  return page !== undefined && book !== undefined
+const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentLinkProps) =>
+  page !== undefined && book !== undefined
     ? <ContentLink book={book} page={page} {...props} />
     : <span aria-hidden />;
-  };
 
 // tslint:disable-next-line:variable-name
 const HidingContentLink = styled(HidingContentLinkComponent)`

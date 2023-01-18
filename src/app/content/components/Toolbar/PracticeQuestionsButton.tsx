@@ -6,7 +6,7 @@ import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg'
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useServices } from '../../../context/Services';
 import { replace } from '../../../navigation/actions';
-import * as navigation from '../../../navigation/selectors';
+import * as navSelect from '../../../navigation/selectors';
 import { AnyMatch } from '../../../navigation/types';
 import { getQueryForParam } from '../../../navigation/utils';
 import { modalQueryParameterName } from '../../constants';
@@ -48,8 +48,8 @@ const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();
   const intl = useIntl();
   const state = useServices().getState();
-  const match = navigation.match(state);
-  const existingQuery = navigation.query(state);
+  const match = navSelect.match(state);
+  const existingQuery = navSelect.query(state);
   const isEnabled = useSelector(practiceQuestionsEnabled);
   const isPracticeQOpen = useSelector(isPracticeQuestionsOpen);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
