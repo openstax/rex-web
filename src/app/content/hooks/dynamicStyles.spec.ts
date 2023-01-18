@@ -47,6 +47,17 @@ describe('dynamicStyles', () => {
     expect(loadResource).toHaveBeenCalledTimes(1);
     expect(loadResource).toHaveBeenCalledWith(stylesUrl);
     expect(dispatch).toHaveBeenCalledWith(setBookStylesUrl(stylesUrl));
+
+    jest.clearAllMocks();
+
+    delete combinedBook.loadOptions.booksConfig.books[combinedBook.id].dynamicStyles;
+
+    store.dispatch(receiveBookAction);
+    await hook(receiveBookAction);
+
+    expect(loadResource).toHaveBeenCalledTimes(1);
+    expect(loadResource).toHaveBeenCalledWith(stylesUrl);
+    expect(dispatch).toHaveBeenCalledWith(setBookStylesUrl(stylesUrl));
   });
 
   it('noops if no content-style param and (no style_href in book or dynamicStyles is false)', async() => {
