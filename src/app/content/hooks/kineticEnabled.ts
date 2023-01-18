@@ -11,11 +11,7 @@ const hookBody: ActionHookBody<typeof receivePage> = (services) => async() => {
   const state = getState();
   const book = select.book(state);
 
-  if (!book) {
-    return;
-  }
-
-  if (!hasOSWebData(book)) {
+  if ((typeof document === 'undefined') || !book || !hasOSWebData(book)) {
     return;
   }
 
