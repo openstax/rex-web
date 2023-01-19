@@ -4,7 +4,7 @@ import { RedirectsData } from '../../data/redirects/types';
 import { messageQueryParameterName } from '../../src/app/content/constants';
 import { content } from '../../src/app/content/routes';
 import { ArchiveTreeNode, Book, BookWithOSWebData, LinkedArchiveTreeNode } from '../../src/app/content/types';
-import { flattenArchiveTree, formatBookData, getPageIdFromUrlParam, stripIdVersion } from '../../src/app/content/utils';
+import { flattenArchiveTree, getPageIdFromUrlParam, stripIdVersion } from '../../src/app/content/utils';
 import {
   archiveTreeSectionIsPage,
   disableArchiveTreeCaching,
@@ -12,14 +12,11 @@ import {
   findDefaultBookPage
 } from '../../src/app/content/utils/archiveTreeUtils';
 import { getCanonicalUrlParams } from '../../src/app/content/utils/canonicalUrl';
-import { CANONICAL_MAP } from '../../src/canonicalBookMap';
 import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
-import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 disableArchiveTreeCaching();
 
-const booksConfig = getBooksConfigSync();
 const archiveLoader = createArchiveLoader({
   archivePrefix: ARCHIVE_URL,
 });
@@ -92,9 +89,9 @@ const updateRedirectsData = async(
         + `but neither section with ID ${section.id} nor slug ${section.slug} was found in book ${newBook.id}`);
     // below condition is specific to retiring books
     } else if (booksAreDifferent && !isAllowedDeletion(section) && !redirects.find(matchRedirect(section))) {
-      // first check for a canonical page
+      // first check for a canonical page in the new book
       const canonicalUrlParams = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, section.id);
-      const canonicalPageId = canonicalUrlParams && getPageIdFromUrlParam(book, canonicalUrlParams.page);
+      const canonicalPageId = canonicalUrlParams && getPageIdFromUrlParam(newBook, canonicalUrlParams.page);
       // fall back to default book page
       return (canonicalPageId && findArchiveTreeNodeById(newBook.tree, canonicalPageId))
         || findDefaultBookPage(newBook);

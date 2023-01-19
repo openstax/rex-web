@@ -41,6 +41,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
   const description = getPageDescription(services, intl, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
+  console.log('canonical url: ', canonicalUrl);
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
 
   const links = canonicalUrl ? [
