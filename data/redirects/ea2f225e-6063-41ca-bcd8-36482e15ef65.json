@@ -1,5 +1,1421 @@
 [
   {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/preface",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-introduction",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-1-what-is-economics-and-why-is-it-important",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-2-microeconomics-and-macroeconomics",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-3-how-economists-use-theories-and-models-to-understand-economic-issues",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-4-how-economies-can-be-organized-an-overview-of-economic-systems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/1-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-introduction-to-choice-in-a-world-of-scarcity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-1-how-individuals-make-choices-based-on-their-budget-constraint",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-2-the-production-possibilities-frontier-and-social-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-3-confronting-objections-to-the-economic-approach",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/2-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-introduction-to-demand-and-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-1-demand-supply-and-equilibrium-in-markets-for-goods-and-services",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-2-shifts-in-demand-and-supply-for-goods-and-services",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-3-changes-in-equilibrium-price-and-quantity-the-four-step-process",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-4-price-ceilings-and-price-floors",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-5-demand-supply-and-efficiency",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/3-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-introduction-to-labor-and-financial-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-1-demand-and-supply-at-work-in-labor-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-2-demand-and-supply-in-financial-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-3-the-market-system-as-an-efficient-mechanism-for-information",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/4-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-introduction-to-elasticity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-1-price-elasticity-of-demand-and-price-elasticity-of-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-2-polar-cases-of-elasticity-and-constant-elasticity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-3-elasticity-and-pricing",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-4-elasticity-in-areas-other-than-price",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/5-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-introduction-to-consumer-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-1-consumption-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-2-how-changes-in-income-and-prices-affect-consumption-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-3-labor-leisure-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-4-intertemporal-choices-in-financial-capital-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/6-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-introduction-to-cost-and-industry-structure",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-1-explicit-and-implicit-costs-and-accounting-and-economic-profit",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-2-the-structure-of-costs-in-the-short-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-3-the-structure-of-costs-in-the-long-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/7-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-introduction-to-perfect-competition",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-1-perfect-competition-and-why-it-matters",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-2-how-perfectly-competitive-firms-make-output-decisions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-3-entry-and-exit-decisions-in-the-long-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-4-efficiency-in-perfectly-competitive-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/8-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-introduction-to-a-monopoly",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-1-how-monopolies-form-barriers-to-entry",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-2-how-a-profit-maximizing-monopoly-chooses-output-and-price",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/9-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-introduction-to-monopolistic-competition-and-oligopoly",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-1-monopolistic-competition",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-2-oligopoly",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/10-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-introduction-to-monopoly-and-antitrust-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-1-corporate-mergers",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-2-regulating-anticompetitive-behavior",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-3-regulating-natural-monopolies",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-4-the-great-deregulation-experiment",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/11-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-introduction-to-environmental-protection-and-negative-externalities",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-1-the-economics-of-pollution",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-2-command-and-control-regulation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-3-market-oriented-environmental-tools",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-4-the-benefits-and-costs-of-u-s-environmental-laws",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-5-international-environmental-issues",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-6-the-tradeoff-between-economic-output-and-environmental-protection",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/12-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-introduction-to-positive-externalities-and-public-goods",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-1-why-the-private-sector-under-invests-in-innovation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-2-how-governments-can-encourage-innovation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-3-public-goods",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/13-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-introduction-to-poverty-and-economic-inequality",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-1-drawing-the-poverty-line",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-2-the-poverty-trap",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-3-the-safety-net",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-4-income-inequality-measurement-and-causes",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-5-government-policies-to-reduce-income-inequality",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/14-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-introduction-to-issues-in-labor-markets-unions-discrimination-immigration",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-1-unions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-2-employment-discrimination",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-3-immigration",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/15-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-introduction-to-information-risk-and-insurance",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-1-the-problem-of-imperfect-information-and-asymmetric-information",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-2-insurance-and-imperfect-information",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/16-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-introduction-to-financial-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-1-how-businesses-raise-financial-capital",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-2-how-households-supply-financial-capital",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-3-how-to-accumulate-personal-wealth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/17-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-introduction-to-public-economy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-1-voter-participation-and-costs-of-elections",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-2-special-interest-politics",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-3-flaws-in-the-democratic-system-of-government",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/18-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-introduction-to-international-trade",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-1-absolute-and-comparative-advantage",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-2-what-happens-when-a-country-has-an-absolute-advantage-in-all-goods",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-3-intra-industry-trade-between-similar-economies",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-4-the-benefits-of-reducing-barriers-to-international-trade",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/19-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-introduction-to-globalization-and-protectionism",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-1-protectionism-an-indirect-subsidy-from-consumers-to-producers",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-2-international-trade-and-its-effects-on-jobs-wages-and-working-conditions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-3-arguments-in-support-of-restricting-imports",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-4-how-trade-policy-is-enacted-globally-regionally-and-nationally",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-5-the-tradeoffs-of-trade-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/20-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/a-the-use-of-mathematics-in-principles-of-economics",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/b-indifference-curves",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/c-present-discounted-value",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-1",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-2",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-3",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-4",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-5",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-6",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-7",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-8",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-9",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-10",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-11",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-12",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-13",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-14",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-15",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-16",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-17",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-18",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-19",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/chapter-20",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/references",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "759181db-a886-4a98-8f5c-770a83a78832",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-microeconomics/pages/index",
+    "query": "?message=retired"
+  },
+  {
     "bookId": "ea2f225e-6063-41ca-bcd8-36482e15ef65",
     "pageId": "e911f49c-bb38-49cf-bb03-066373c43a76",
     "pathname": "/books/principles-microeconomics/pages/1-1-what-economics-is-and-why-its-important"
