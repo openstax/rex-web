@@ -7,7 +7,7 @@ import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
-import { CloseToCAndMobileMenuButton, CloseTOCControl, OpenTOCControl } from '../SidebarControl';
+import { CloseSearchControl, CloseToCAndMobileMenuButton, CloseTOCControl, OpenSearchControl, OpenTOCControl } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -15,7 +15,7 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 // tslint:disable-next-line: variable-name
-const VerticalNav =   () => {
+const VerticalNav = () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
@@ -46,8 +46,10 @@ const VerticalNav =   () => {
       <CloseToCAndMobileMenuButton />
     </Styled.ToolbarMobileHeader>
     <Styled.ToolbarElements>
-      <OpenTOCControl showActivatedState/>
-      <CloseTOCControl showActivatedState/>
+      <OpenTOCControl showActivatedState />
+      <CloseTOCControl showActivatedState />
+      <OpenSearchControl showActivatedState />
+      <CloseSearchControl showActivatedState />
       <PracticeQuestionsButton />
       <NudgeElementTarget id={nudgeStudyToolsTargetId}>
         <StudyGuidesButton />

@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import TocIcon from '../../../assets/TocIcon';
+import SearchIcon from '../../../assets/SearchIcon';
 import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
@@ -14,7 +15,7 @@ import { toolbarIconStyles } from './Toolbar/iconStyles';
 import { PlainButton, TimesIcon, toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
 
 interface InnerProps {
-  isOpen: State['tocOpen'];
+  isOpen: boolean | null;
   message: string;
   onClick: () => void;
   className?: string;
@@ -22,14 +23,16 @@ interface InnerProps {
 }
 
 interface MiddleProps {
-  isOpen: State['tocOpen'];
+  isOpen: boolean | null;
   openToc: () => void;
   closeToc: () => void;
   showActivatedState?: boolean;
 }
 
-const closedMessage = 'i18n:toc:toggle:closed';
-const openMessage = 'i18n:toc:toggle:opened';
+const closedTocMessage = 'i18n:toc:toggle:closed';
+const openTocMessage = 'i18n:toc:toggle:opened';
+const closedSearchMessage = 'i18n:toolbar:search:toggle:closed';
+const openSearchMessage = 'i18n:toolbar:search:toggle:opened';
 
 // tslint:disable-next-line:variable-name
 export const ToCButtonText = styled.span`
@@ -135,6 +138,28 @@ export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren
     {children}
   </CloseToCButton>;
 
+// tslint:disable-next-line:variable-name
+export const SearchControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) =>
+  <ToCButton
+    aria-label={useIntl().formatMessage({ id: message })}
+    {...props}
+  >
+    <SearchIcon />
+    <ToCButtonText>
+      {useIntl().formatMessage({ id: 'i18n:toolbar:search:text' })}
+    </ToCButtonText>
+    {children}
+  </ToCButton>;
+
+// tslint:disable-next-line:variable-name
+export const CloseSearch = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
+  <CloseToCButton
+    aria-label={useIntl().formatMessage({ id: message })}
+    {...props}
+  >
+    {children}
+  </CloseToCButton>;
+
 const connector = connect(
   (state: AppState) => ({
     isOpen:  selectors.tocOpen(state),
@@ -146,24 +171,35 @@ const connector = connect(
 );
 
 // tslint:disable-next-line:variable-name
-const lockControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
+const lockTocControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
   connector((props: MiddleProps) => <Control
     {...props}
     data-testid='toc-button'
-    message={isOpen ? openMessage : closedMessage}
+    message={isOpen ? openTocMessage : closedTocMessage}
     data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
     onClick={isOpen ? props.closeToc : props.openToc}
     isActive={Boolean(props.showActivatedState) && isOpen}
   />);
 
-// tslint:disable-next-line: variable-name
-export const OpenTOCControl = lockControlState(false, TOCControl);
+// tslint:disable-next-line:variable-name
+const lockSearchControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
+  connector((props: MiddleProps) => <Control
+    {...props}
+    data-testid='toc-button'
+    message={isOpen ? openSearchMessage : closedSearchMessage}
+    data-analytics-label={isOpen ? 'TODO' : 'TODO'}
+    onClick={isOpen ? props.closeToc : props.openToc}
+    isActive={Boolean(props.showActivatedState) && isOpen}
+  />);
 
 // tslint:disable-next-line: variable-name
-export const CloseTOCControl = lockControlState(true, TOCControl);
+export const OpenTOCControl = lockTocControlState(false, TOCControl);
+
+// tslint:disable-next-line: variable-name
+export const CloseTOCControl = lockTocControlState(true, TOCControl);
 
 // tslint:disable-next-line:variable-name
-export const TOCCloseButton = (lockControlState(true, CloseTOC));
+export const TOCCloseButton = (lockTocControlState(true, CloseTOC));
 
 // tslint:disable-next-line:variable-name
 export const TOCBackButton = styled(TOCCloseButton)`
@@ -185,3 +221,12 @@ export const StyledOpenTOCControl = styled(OpenTOCControl)`
     ${textRegularSize};
   }
 `;
+
+// tslint:disable-next-line: variable-name
+export const OpenSearchControl = lockSearchControlState(false, SearchControl);
+
+// tslint:disable-next-line: variable-name
+export const CloseSearchControl = lockSearchControlState(true, SearchControl);
+
+// tslint:disable-next-line:variable-name
+export const SearchCloseButton = (lockSearchControlState(true, CloseSearch));

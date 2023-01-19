@@ -24,7 +24,7 @@ import {
 } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
-import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, SearchInputWrapper, TextResizerMenu } from './styled';
+import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerMenu } from './styled';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 

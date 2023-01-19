@@ -106,12 +106,13 @@ class Topbar extends React.Component<Props, State> {
           <Styled.MenuButton type='button' onClick={openMenu} />
         </NudgeElementTarget>
 
-        {!this.props.searchInSidebar ? <Styled.SearchInputWrapper
+        <Styled.SearchInputWrapper
           active={this.props.mobileToolbarOpen}
           onSubmit={onSearchSubmit}
           data-testid='desktop-search'
           data-experiment
           colorSchema={this.props.searchButtonColor}
+          searchInSidebar={this.props.searchInSidebar}
         >
           <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
             onChange={onSearchChange}
@@ -139,7 +140,7 @@ class Topbar extends React.Component<Props, State> {
           {newButtonEnabled &&
             <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           }
-        </Styled.SearchInputWrapper> : null}
+        </Styled.SearchInputWrapper>
         <TextResizer
           bookTheme={this.props.bookTheme}
           textSize={this.props.textSize}
@@ -169,6 +170,7 @@ class Topbar extends React.Component<Props, State> {
             data-testid='mobile-search'
             data-experiment
             colorSchema={this.props.searchButtonColor}
+            searchInSidebar={this.props.searchInSidebar}
           >
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
