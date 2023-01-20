@@ -1,12 +1,1592 @@
 [
   {
-    "bookId": "4061c832-098e-4b3c-a1d9-7eb593a2cb31",
-    "pageId": "e911f49c-bb38-49cf-bb03-066373c43a76",
-    "pathname": "/books/principles-macroeconomics/pages/1-1-what-economics-is-and-why-its-important"
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6b77457d-1ba4-4d9c-828b-1baa3bb3191d",
+    "pathname": "/books/principles-macroeconomics/pages/preface",
+    "query": "?message=retired"
   },
   {
-    "bookId": "4061c832-098e-4b3c-a1d9-7eb593a2cb31",
-    "pageId": "2c962197-8004-45c5-8c65-0eb785cbe09b",
-    "pathname": "/books/principles-macroeconomics/pages/the-expenditure-output-model"
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/1-introduction",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "99d340b7-1345-4b77-87b4-747a7e2f5964",
+    "pathname": "/books/principles-macroeconomics/pages/1-1-what-is-economics-and-why-is-it-important",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d70b25fe-374a-4553-b47e-a21422a6e1b4",
+    "pathname": "/books/principles-macroeconomics/pages/1-2-microeconomics-and-macroeconomics",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6ed99720-2eaf-49e8-b816-73d2297ea6e8",
+    "pathname": "/books/principles-macroeconomics/pages/1-3-how-economists-use-theories-and-models-to-understand-economic-issues",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "fd2d23a3-1ccd-4593-980e-d7027ab2d6a9",
+    "pathname": "/books/principles-macroeconomics/pages/1-4-how-economies-can-be-organized-an-overview-of-economic-systems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "cd3efa4f-51f1-556f-ac82-08203b043e6b",
+    "pathname": "/books/principles-macroeconomics/pages/1-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d82e707b-4571-5145-b5db-dd3db3a07719",
+    "pathname": "/books/principles-macroeconomics/pages/1-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8a7a2349-d426-503e-89dc-eed2fa407f89",
+    "pathname": "/books/principles-macroeconomics/pages/1-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "ed7a856b-3656-5b0f-936e-44808dd31f5d",
+    "pathname": "/books/principles-macroeconomics/pages/1-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a92fbf47-5feb-5829-9f71-f150915a5610",
+    "pathname": "/books/principles-macroeconomics/pages/1-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "ca9cd951-dbdc-47f1-be0b-6bf3a669ce2d",
+    "pathname": "/books/principles-macroeconomics/pages/2-introduction-to-choice-in-a-world-of-scarcity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "b7c7a31d-06b1-41d4-9d0b-ca54ffb97261",
+    "pathname": "/books/principles-macroeconomics/pages/2-1-how-individuals-make-choices-based-on-their-budget-constraint",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "071a0776-6f06-4209-aac6-522aa9229b85",
+    "pathname": "/books/principles-macroeconomics/pages/2-2-the-production-possibilities-frontier-and-social-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "7e364e3b-4eee-4844-95c2-0a40683d665f",
+    "pathname": "/books/principles-macroeconomics/pages/2-3-confronting-objections-to-the-economic-approach",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "779b08d2-bb74-59e7-95b1-5341855fb240",
+    "pathname": "/books/principles-macroeconomics/pages/2-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "9905485b-55bc-5091-a7c0-ed3c087fb7fa",
+    "pathname": "/books/principles-macroeconomics/pages/2-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6a325160-0b4a-591d-8040-6cff8f83c5b8",
+    "pathname": "/books/principles-macroeconomics/pages/2-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "7ba9a515-cd33-53be-8f26-6462aa930759",
+    "pathname": "/books/principles-macroeconomics/pages/2-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "2f44ddcf-171d-5ab7-a5ac-2b202966c2e5",
+    "pathname": "/books/principles-macroeconomics/pages/2-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "e3674b0b-afc6-5fa9-9048-e1cb3951aad6",
+    "pathname": "/books/principles-macroeconomics/pages/2-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a0bffdda-92e3-4f18-9546-0c595e948718",
+    "pathname": "/books/principles-macroeconomics/pages/3-introduction-to-demand-and-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "802ecf92-b493-466e-aadc-464b507ee9fa",
+    "pathname": "/books/principles-macroeconomics/pages/3-1-demand-supply-and-equilibrium-in-markets-for-goods-and-services",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "c952ee10-1123-4c25-8a8e-8ed2d67eae32",
+    "pathname": "/books/principles-macroeconomics/pages/3-2-shifts-in-demand-and-supply-for-goods-and-services",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8b28e898-adca-4102-82c3-cbeaf0ee0b35",
+    "pathname": "/books/principles-macroeconomics/pages/3-3-changes-in-equilibrium-price-and-quantity-the-four-step-process",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "0ddbe2b0-199c-43ba-ba24-1673ab43772f",
+    "pathname": "/books/principles-macroeconomics/pages/3-4-price-ceilings-and-price-floors",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "ca2e1872-a8da-4523-a887-ac06689380de",
+    "pathname": "/books/principles-macroeconomics/pages/3-5-demand-supply-and-efficiency",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "5427aa84-23d2-565b-b58c-75da0e908d5f",
+    "pathname": "/books/principles-macroeconomics/pages/3-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "ca46f607-995d-5278-85df-83037054b1a6",
+    "pathname": "/books/principles-macroeconomics/pages/3-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "94164e45-d47e-5cf3-94fb-b6e94721f6d0",
+    "pathname": "/books/principles-macroeconomics/pages/3-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "ee3c4306-2844-5ebc-adb1-aeb6910e2b99",
+    "pathname": "/books/principles-macroeconomics/pages/3-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "c0951641-0c55-5c18-8148-d9e578fce793",
+    "pathname": "/books/principles-macroeconomics/pages/3-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "57fcc501-d0f6-57ed-9219-0140d77e274e",
+    "pathname": "/books/principles-macroeconomics/pages/3-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6541013b-eb9f-46ff-bb96-5c9215f41d67",
+    "pathname": "/books/principles-macroeconomics/pages/4-introduction-to-labor-and-financial-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "76a1b250-eb1b-40c5-82a5-8ed88234697f",
+    "pathname": "/books/principles-macroeconomics/pages/4-1-demand-and-supply-at-work-in-labor-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "7b97db6e-33c4-4eed-a6ac-c9cd17f5121e",
+    "pathname": "/books/principles-macroeconomics/pages/4-2-demand-and-supply-in-financial-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "f037d414-0834-458a-8216-4638dcf92483",
+    "pathname": "/books/principles-macroeconomics/pages/4-3-the-market-system-as-an-efficient-mechanism-for-information",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "67c9b6d8-0601-5627-a82d-cf90c9d3bf4b",
+    "pathname": "/books/principles-macroeconomics/pages/4-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a90748eb-56a1-5d05-bd1f-266e79fd2b2c",
+    "pathname": "/books/principles-macroeconomics/pages/4-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "f46b79ac-b566-5f93-a28d-2159798a75cc",
+    "pathname": "/books/principles-macroeconomics/pages/4-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "c77372fe-4aa7-5b1f-a4e0-8c68d4dbebb6",
+    "pathname": "/books/principles-macroeconomics/pages/4-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6a463b39-d1e1-5b6c-a64f-11348cf42e5f",
+    "pathname": "/books/principles-macroeconomics/pages/4-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d12944cd-def1-576c-8dd0-ec31606dd8d6",
+    "pathname": "/books/principles-macroeconomics/pages/4-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8735d814-2b1c-4c46-9452-cbb2b6ee9704",
+    "pathname": "/books/principles-macroeconomics/pages/5-introduction-to-elasticity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "129371f3-7e39-48f5-b917-c2387ed707b0",
+    "pathname": "/books/principles-macroeconomics/pages/5-1-price-elasticity-of-demand-and-price-elasticity-of-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d56c11b6-dc3c-4cf1-a50b-12c921cf15a0",
+    "pathname": "/books/principles-macroeconomics/pages/5-2-polar-cases-of-elasticity-and-constant-elasticity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6eddcac0-f833-4b07-a81b-bf741e9c5d68",
+    "pathname": "/books/principles-macroeconomics/pages/5-3-elasticity-and-pricing",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "1294512c-2a8e-414b-9551-a657c05bea53",
+    "pathname": "/books/principles-macroeconomics/pages/5-4-elasticity-in-areas-other-than-price",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "840888e2-9755-5f83-bcd9-d2394ab73df2",
+    "pathname": "/books/principles-macroeconomics/pages/5-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "96886fdf-2ee0-55a0-980c-08a55e797d2c",
+    "pathname": "/books/principles-macroeconomics/pages/5-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "30f2ca08-d654-5fa6-98b4-69076b8f481c",
+    "pathname": "/books/principles-macroeconomics/pages/5-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "99a7d1b5-b077-5deb-b848-74ca2c20cbb2",
+    "pathname": "/books/principles-macroeconomics/pages/5-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8f14fe88-f71f-5897-a053-025ebc694d84",
+    "pathname": "/books/principles-macroeconomics/pages/5-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "2b5840d2-b78e-5fe0-88df-130de9467cb0",
+    "pathname": "/books/principles-macroeconomics/pages/5-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/6-introduction-to-the-macroeconomic-perspective",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/6-1-measuring-the-size-of-the-economy-gross-domestic-product",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/6-2-adjusting-nominal-values-to-real-values",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/6-3-tracking-real-gdp-over-time",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/6-4-comparing-gdp-among-countries",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/6-5-how-well-gdp-measures-the-well-being-of-society",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "9e4d323e-93aa-5471-8810-a9def2c7e454",
+    "pathname": "/books/principles-macroeconomics/pages/6-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "ac273a33-ae6d-59a3-abe1-637d083dcaea",
+    "pathname": "/books/principles-macroeconomics/pages/6-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "b4c94571-e6bb-594d-8e2d-52c2879a6cf5",
+    "pathname": "/books/principles-macroeconomics/pages/6-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "f3026b9c-b38a-5775-867d-f7ffef80e4d4",
+    "pathname": "/books/principles-macroeconomics/pages/6-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "f696cbe2-caf2-507a-915d-fa6a5dcfc408",
+    "pathname": "/books/principles-macroeconomics/pages/6-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "27e3775b-a976-5e04-ba5e-6bca07e1232a",
+    "pathname": "/books/principles-macroeconomics/pages/6-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/7-introduction-to-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/7-1-the-relatively-recent-arrival-of-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/7-2-labor-productivity-and-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/7-3-components-of-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/7-4-economic-convergence",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d19ed7db-530f-5b2a-b77c-3ce8ca8d3168",
+    "pathname": "/books/principles-macroeconomics/pages/7-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d1e8e083-0c59-53c5-a699-7ee069ad4394",
+    "pathname": "/books/principles-macroeconomics/pages/7-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "87ce01ca-de63-5203-8638-49ca8da07982",
+    "pathname": "/books/principles-macroeconomics/pages/7-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "1a575f20-e0f9-5711-862c-7e02d8273d17",
+    "pathname": "/books/principles-macroeconomics/pages/7-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d49cfbe2-822a-5fd5-a0bc-446c94cf4113",
+    "pathname": "/books/principles-macroeconomics/pages/7-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a83d3a30-a591-5264-9d36-7c16753a4360",
+    "pathname": "/books/principles-macroeconomics/pages/7-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/8-introduction-to-unemployment",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/8-1-how-the-unemployment-rate-is-defined-and-computed",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/8-2-patterns-of-unemployment",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/8-3-what-causes-changes-in-unemployment-over-the-short-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/8-4-what-causes-changes-in-unemployment-over-the-long-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "c3441121-b9ab-5c57-b162-d7f121d0183e",
+    "pathname": "/books/principles-macroeconomics/pages/8-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "06e68ead-cae3-51cf-9930-934ef3916449",
+    "pathname": "/books/principles-macroeconomics/pages/8-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "051372c1-0549-5878-a4e7-8cf927e27501",
+    "pathname": "/books/principles-macroeconomics/pages/8-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a063b5df-1fca-5ccf-9aef-f44cd211eb46",
+    "pathname": "/books/principles-macroeconomics/pages/8-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "4ea9b99f-da73-5f82-905c-a8011f8871a6",
+    "pathname": "/books/principles-macroeconomics/pages/8-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "c46522cf-01c2-5bb8-aac7-bd9b675bde00",
+    "pathname": "/books/principles-macroeconomics/pages/8-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/9-introduction-to-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/9-1-tracking-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/9-2-how-changes-in-the-cost-of-living-are-measured",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/9-3-how-the-u-s-and-other-countries-experience-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/9-4-the-confusion-over-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/9-5-indexing-and-its-limitations",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "88de458c-1285-5b62-a68b-ff57d19a6515",
+    "pathname": "/books/principles-macroeconomics/pages/9-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6b85b41d-7968-560f-a6d1-6879e7b47dd3",
+    "pathname": "/books/principles-macroeconomics/pages/9-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "eafdf323-5733-56c1-9a39-8c8663a1ac14",
+    "pathname": "/books/principles-macroeconomics/pages/9-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6767ac61-8fa0-5998-a727-76fa8c5a7db2",
+    "pathname": "/books/principles-macroeconomics/pages/9-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dcf85358-48b4-5efe-a63a-221c373b0282",
+    "pathname": "/books/principles-macroeconomics/pages/9-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "4efa4458-270a-5007-a07e-3d36251a754a",
+    "pathname": "/books/principles-macroeconomics/pages/9-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/10-introduction-to-the-international-trade-and-capital-flows",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/10-1-measuring-trade-balances",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/10-2-trade-balances-in-historical-and-international-context",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/10-3-trade-balances-and-flows-of-financial-capital",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/10-4-the-national-saving-and-investment-identity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/10-5-the-pros-and-cons-of-trade-deficits-and-surpluses",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/10-6-the-difference-between-level-of-trade-and-the-trade-balance",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "01bde937-7f89-50b5-967e-a3704610fcac",
+    "pathname": "/books/principles-macroeconomics/pages/10-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "7f4ef34b-8de5-5ca2-a07a-d47d7aeeb1a9",
+    "pathname": "/books/principles-macroeconomics/pages/10-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "7a2fe4c1-ab30-55af-b433-7adab34c4704",
+    "pathname": "/books/principles-macroeconomics/pages/10-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "19c4e3f7-c263-5c9e-8a15-7a6cd0fee342",
+    "pathname": "/books/principles-macroeconomics/pages/10-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "5d5361c6-6c1f-5ef8-8f62-9b4857fed37a",
+    "pathname": "/books/principles-macroeconomics/pages/10-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "02253243-1f4d-5b45-b62a-c0a03162a69d",
+    "pathname": "/books/principles-macroeconomics/pages/10-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/11-introduction-to-the-aggregate-demand-aggregate-supply-model",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/11-1-macroeconomic-perspectives-on-demand-and-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/11-2-building-a-model-of-aggregate-demand-and-aggregate-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/11-3-shifts-in-aggregate-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/11-4-shifts-in-aggregate-demand",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/11-5-how-the-ad-as-model-incorporates-growth-unemployment-and-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/11-6-keynes-law-and-says-law-in-the-ad-as-model",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "852b68b9-7aca-5b02-99e6-dc589441d111",
+    "pathname": "/books/principles-macroeconomics/pages/11-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "bc0d37c9-8f30-5700-a46a-06810d621414",
+    "pathname": "/books/principles-macroeconomics/pages/11-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "025e2e61-00ca-5424-b4d0-04637cfec8a3",
+    "pathname": "/books/principles-macroeconomics/pages/11-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "54641777-40b8-5985-ad53-ffa74af962c2",
+    "pathname": "/books/principles-macroeconomics/pages/11-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "2c66ebc9-7193-53da-81e3-a0311738b100",
+    "pathname": "/books/principles-macroeconomics/pages/11-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "45c075fb-bb53-50e1-8d16-945778871ba2",
+    "pathname": "/books/principles-macroeconomics/pages/11-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/12-introduction-to-the-keynesian-perspective",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/12-1-aggregate-demand-in-keynesian-analysis",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/12-2-the-building-blocks-of-keynesian-analysis",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/12-3-the-phillips-curve",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/12-4-the-keynesian-perspective-on-market-forces",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "02fabb58-742d-5060-862d-3568c832a642",
+    "pathname": "/books/principles-macroeconomics/pages/12-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "c426451d-fdd0-5248-9c3b-871ee4e493bd",
+    "pathname": "/books/principles-macroeconomics/pages/12-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "43a5222f-f07c-5089-ad13-20438ccc4d13",
+    "pathname": "/books/principles-macroeconomics/pages/12-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dfeeb97d-7510-5016-99cb-ec0fd3b8183c",
+    "pathname": "/books/principles-macroeconomics/pages/12-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "aaa45f24-7726-5726-8b14-19d2e83aeaf8",
+    "pathname": "/books/principles-macroeconomics/pages/12-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/13-introduction-to-the-neoclassical-perspective",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/13-1-the-building-blocks-of-neoclassical-analysis",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/13-2-the-policy-implications-of-the-neoclassical-perspective",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/13-3-balancing-keynesian-and-neoclassical-models",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "175ff261-1f71-50fe-9ee9-183992bcefae",
+    "pathname": "/books/principles-macroeconomics/pages/13-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "303825b4-213e-57df-b111-9a61fd820b2d",
+    "pathname": "/books/principles-macroeconomics/pages/13-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8caeb639-beba-58a2-931a-0993c650a9d2",
+    "pathname": "/books/principles-macroeconomics/pages/13-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "956ae15b-68fd-54c0-b45a-3aab751b6891",
+    "pathname": "/books/principles-macroeconomics/pages/13-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8e024ac1-5736-59fc-9aab-b08e97ee2e22",
+    "pathname": "/books/principles-macroeconomics/pages/13-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "96f5b256-e4b6-5d6a-9431-a7c52a8ebd02",
+    "pathname": "/books/principles-macroeconomics/pages/13-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/14-introduction-to-money-and-banking",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/14-1-defining-money-by-its-functions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/14-2-measuring-money-currency-m1-and-m2",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/14-3-the-role-of-banks",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/14-4-how-banks-create-money",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "1c8d8a69-2feb-5255-9bf1-b07c06d5f2a8",
+    "pathname": "/books/principles-macroeconomics/pages/14-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "3187271c-8462-5671-956b-6145aea7caf9",
+    "pathname": "/books/principles-macroeconomics/pages/14-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "0df55567-06f3-5aee-ba7d-1186b90aae61",
+    "pathname": "/books/principles-macroeconomics/pages/14-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a5852690-978f-5b08-a2ff-8537f27b4702",
+    "pathname": "/books/principles-macroeconomics/pages/14-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "c2b7d9ef-3071-51d1-a677-e35b9ad64d1e",
+    "pathname": "/books/principles-macroeconomics/pages/14-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "ff09b6d8-c8e9-5620-b864-63ba65cadf15",
+    "pathname": "/books/principles-macroeconomics/pages/14-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/15-introduction-to-monetary-policy-and-bank-regulation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/15-1-the-federal-reserve-banking-system-and-central-banks",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/15-2-bank-regulation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/15-3-how-a-central-bank-executes-monetary-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/15-4-monetary-policy-and-economic-outcomes",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/15-5-pitfalls-for-monetary-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "90575f3a-f966-5aae-93d8-446398360b14",
+    "pathname": "/books/principles-macroeconomics/pages/15-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "689ace17-d046-5b16-ae67-d224aa8b35fd",
+    "pathname": "/books/principles-macroeconomics/pages/15-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "854f7842-8ab7-5747-a4ac-c626e6911ce6",
+    "pathname": "/books/principles-macroeconomics/pages/15-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a18724ae-b04d-5f5a-9069-25a78f390bd3",
+    "pathname": "/books/principles-macroeconomics/pages/15-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "e799456b-c378-5825-955f-798af55c9293",
+    "pathname": "/books/principles-macroeconomics/pages/15-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "118526cf-2f5d-561f-95d7-fc804aef5e46",
+    "pathname": "/books/principles-macroeconomics/pages/15-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/16-introduction-to-exchange-rates-and-international-capital-flows",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/16-1-how-the-foreign-exchange-market-works",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/16-2-demand-and-supply-shifts-in-foreign-exchange-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/16-3-macroeconomic-effects-of-exchange-rates",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/16-4-exchange-rate-policies",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d0932bbe-7780-5620-8dac-0b7a19bd4abc",
+    "pathname": "/books/principles-macroeconomics/pages/16-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "597767a1-f977-5fa2-88ce-f61ba6666392",
+    "pathname": "/books/principles-macroeconomics/pages/16-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "4c7ae01a-5da2-59e5-a00e-48fe9a7c63b1",
+    "pathname": "/books/principles-macroeconomics/pages/16-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "71260a3b-2c30-5733-83fc-d093f414bd73",
+    "pathname": "/books/principles-macroeconomics/pages/16-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "1823fa1f-cf69-542a-84e9-12fa243f086c",
+    "pathname": "/books/principles-macroeconomics/pages/16-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "cb9f19a1-6487-5822-8134-f47d084768d9",
+    "pathname": "/books/principles-macroeconomics/pages/16-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/17-introduction-to-government-budgets-and-fiscal-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/17-1-government-spending",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/17-2-taxation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/17-3-federal-deficits-and-the-national-debt",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/17-4-using-fiscal-policy-to-fight-recession-unemployment-and-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/17-5-automatic-stabilizers",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/17-6-practical-problems-with-discretionary-fiscal-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/17-7-the-question-of-a-balanced-budget",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "951e6b9c-8a6f-5b13-b0fa-9c6a1c3b4972",
+    "pathname": "/books/principles-macroeconomics/pages/17-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "06124bf6-1e76-5ccd-94d2-2a95f64adb99",
+    "pathname": "/books/principles-macroeconomics/pages/17-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "779b3617-a6e3-5898-8d43-44f4118287f6",
+    "pathname": "/books/principles-macroeconomics/pages/17-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "86c45865-6cf6-512e-88f8-a48e0e111d5f",
+    "pathname": "/books/principles-macroeconomics/pages/17-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "01330a16-4718-5d6a-b05e-26dbb909ce7e",
+    "pathname": "/books/principles-macroeconomics/pages/17-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "caa7a2af-15d9-5f5b-8c74-2b379dd7b04b",
+    "pathname": "/books/principles-macroeconomics/pages/17-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/18-introduction-to-the-impacts-of-government-borrowing",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/18-1-how-government-borrowing-affects-investment-and-the-trade-balance",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/18-2-fiscal-policy-investment-and-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/18-3-how-government-borrowing-affects-private-saving",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/18-4-fiscal-policy-and-the-trade-balance",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8c277f94-f327-59f6-94e2-7129854824e2",
+    "pathname": "/books/principles-macroeconomics/pages/18-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "bf689054-17d2-5ad4-a73c-d6ae02bf9db1",
+    "pathname": "/books/principles-macroeconomics/pages/18-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "5d507773-7dea-5eb5-84bf-030005e685fe",
+    "pathname": "/books/principles-macroeconomics/pages/18-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "548fe37d-d85c-5635-aca4-ec87349f07c1",
+    "pathname": "/books/principles-macroeconomics/pages/18-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "460ef2af-3d0a-53e9-8a94-32ce7e9561d4",
+    "pathname": "/books/principles-macroeconomics/pages/18-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "f5cb52f4-578b-5d6c-9c41-0839ffd991dd",
+    "pathname": "/books/principles-macroeconomics/pages/18-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/19-introduction-to-macroeconomic-policy-around-the-world",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/19-1-the-diversity-of-countries-and-economies-across-the-world",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/19-2-improving-countries-standards-of-living",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/19-3-causes-of-unemployment-around-the-world",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/19-4-causes-of-inflation-in-various-countries-and-regions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/19-5-balance-of-trade-concerns",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "4b8f47f9-7ead-5204-b988-ea315a997ec6",
+    "pathname": "/books/principles-macroeconomics/pages/19-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "77ef47b0-f72f-5120-a068-c550187ffec7",
+    "pathname": "/books/principles-macroeconomics/pages/19-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "188351c7-0ef7-58b6-b567-7c86d45eaaf3",
+    "pathname": "/books/principles-macroeconomics/pages/19-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "2b64919a-794b-5560-81ef-e4a8db84e6e2",
+    "pathname": "/books/principles-macroeconomics/pages/19-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "3dd287a5-7d0f-51cb-a7f7-b55f436d2009",
+    "pathname": "/books/principles-macroeconomics/pages/19-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "0cc75bce-1234-5ab0-a3fb-39ee05174ce1",
+    "pathname": "/books/principles-macroeconomics/pages/19-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/20-introduction-to-international-trade",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/20-1-absolute-and-comparative-advantage",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/20-2-what-happens-when-a-country-has-an-absolute-advantage-in-all-goods",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/20-3-intra-industry-trade-between-similar-economies",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/20-4-the-benefits-of-reducing-barriers-to-international-trade",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "95acc8ef-76ff-5089-a4bf-e1db9eff673f",
+    "pathname": "/books/principles-macroeconomics/pages/20-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "2b117d4c-570a-50fd-8b08-d89e19072e8f",
+    "pathname": "/books/principles-macroeconomics/pages/20-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8b9c7f8d-329a-58a8-8872-cf2e28d9a430",
+    "pathname": "/books/principles-macroeconomics/pages/20-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "228d3cf6-847a-5977-a0a8-5778a29ed0bd",
+    "pathname": "/books/principles-macroeconomics/pages/20-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "85b0f671-49ed-572a-b923-673e28a8841f",
+    "pathname": "/books/principles-macroeconomics/pages/20-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8558415f-a726-5aa6-bb32-c9bbf756c997",
+    "pathname": "/books/principles-macroeconomics/pages/20-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/21-introduction-to-globalization-and-protectionism",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/21-1-protectionism-an-indirect-subsidy-from-consumers-to-producers",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/21-2-international-trade-and-its-effects-on-jobs-wages-and-working-conditions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/21-3-arguments-in-support-of-restricting-imports",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/21-4-how-trade-policy-is-enacted-globally-regionally-and-nationally",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/21-5-the-tradeoffs-of-trade-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "9143e925-8936-59a9-a495-2a02a84d341b",
+    "pathname": "/books/principles-macroeconomics/pages/21-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "da1354a3-2d5d-57f7-9e1c-2df48f30c3fb",
+    "pathname": "/books/principles-macroeconomics/pages/21-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "2fc3fdaa-56aa-5329-8e0a-c2731838647f",
+    "pathname": "/books/principles-macroeconomics/pages/21-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "26f5ed4a-685f-5d2b-b2d4-0c4b8d0be670",
+    "pathname": "/books/principles-macroeconomics/pages/21-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "32597707-5d53-5fe6-885c-e9b7c0c47135",
+    "pathname": "/books/principles-macroeconomics/pages/21-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "8cd2cec8-c4bf-513f-9416-2644e45490b4",
+    "pathname": "/books/principles-macroeconomics/pages/21-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a4078b03-0419-4c50-9fb8-eb3e7f129ce6",
+    "pathname": "/books/principles-macroeconomics/pages/a-the-use-of-mathematics-in-principles-of-economics",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-macroeconomics/pages/b-the-expenditure-output-model",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a7239c2f-f86c-5084-9fa4-50bba2004d66",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-1",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "4d4749cb-d516-54ea-8b0d-aa65c50055df",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-2",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "f88f3282-ec73-5942-8154-917083741390",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-3",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "5c1ea543-5aeb-5124-b156-f6d7a8936f80",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-4",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "986ee6e0-99d8-5e58-b9e3-d93515c28378",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-5",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "47aabf0c-7016-5ba7-9e19-b50c0f1a2a32",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-6",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dfaaca7e-b685-5c1d-abf1-580ffc476be1",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-7",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "c15769b5-0fcc-5a36-a9e9-84a81414a1be",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-8",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "9fc4b13f-ed8f-587a-bce8-f037a03ede8a",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-9",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "d4a13d90-f95e-5474-9d2e-33a8c36f31f7",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-10",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "f84a6a38-cfe0-53a3-a8b4-f02b81762b7c",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-11",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "6b909dae-77c1-535d-a1e7-8e246c4a73f1",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-12",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "4640b7b0-b471-5816-9dca-294ce41ae641",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-13",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "fffe5263-0812-5308-8a25-bc7052c457c8",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-14",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "dd9e2203-375d-5503-bbd0-b1bada89eead",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-15",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "94729883-3d0d-54c2-bff4-c55d049f3a18",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-16",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "2e328ede-8f3b-5ffe-b0ea-66d3bb7cd2e1",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-17",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "3d2248be-be8d-523b-80a7-b707b126e55d",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-18",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "89e3ad14-7b11-5986-aec5-25e6569c6aa3",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-19",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "1eaa985c-5b7e-5ad8-9e5a-76d5a9c9f271",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-20",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "fc742046-1288-5781-8a33-4f9e7cc56d69",
+    "pathname": "/books/principles-macroeconomics/pages/chapter-21",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "f7d3f410-e1ec-5d1d-9db4-fa5ff61a10a7",
+    "pathname": "/books/principles-macroeconomics/pages/references",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "aff0c733-b223-4dfb-aad6-297bd361bdcf",
+    "pageId": "a03ea6d7-fdeb-594a-b041-b3dd923a760f",
+    "pathname": "/books/principles-macroeconomics/pages/index",
+    "query": "?message=retired"
   }
 ]
