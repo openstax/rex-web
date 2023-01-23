@@ -1,11 +1,8 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import isEqual from 'lodash/fp/isEqual';
-import pick from 'lodash/fp/pick';
 import React from 'react';
 import { useServices } from '../../../../context/Services';
-import { replace } from '../../../../navigation/actions';
 import * as navSelect from '../../../../navigation/selectors';
-import { getQueryForParam } from '../../../../navigation/utils';
 import { ArchiveTreeSection, Book } from '../../../types';
 import { loadPageContent } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
@@ -30,11 +27,9 @@ const SearchResultHits = ({
   activeSectionRef, book, hits, getPage, testId, onClick, selectedResult,
 }: SearchResultHitsProps) => {
   const [keyTerms, setKeyTerms] = React.useState({});
-  const { archiveLoader, dispatch, getState } = useServices();
+  const { archiveLoader, getState } = useServices();
   const state = getState();
   const queryParams = navSelect.persistentQueryParameters(state);
-  const currentQuery = navSelect.query(state);
-  const match = 
 
   React.useEffect(() => {
     const keyTermsHits = hits.filter(isKeyTermHit);
@@ -76,12 +71,8 @@ const SearchResultHits = ({
           book={book}
           page={getPage(hit)}
           scrollTarget={target}
-          onClick={() => {
-            dispatch(replace(match as AnyMatch, {
-              search: getQueryForParam(pick(['query'], queryParams), currentQuery),
-            }));
-            onClick(thisResult);
-          }}
+          queryParams={queryParams}
+          onClick={() => onClick(thisResult)}
           {...isSelected && activeSectionRef ? { ref: activeSectionRef } : {}}
         >
           {isKeyTermHit(hit)
