@@ -1,5 +1,2489 @@
 [
   {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "44954322-6754-4a69-aa9c-948e3ea86102",
+    "pathname": "/books/principles-economics/pages/preface",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-economics/pages/1-introduction",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "99d340b7-1345-4b77-87b4-747a7e2f5964",
+    "pathname": "/books/principles-economics/pages/1-1-what-is-economics-and-why-is-it-important",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d70b25fe-374a-4553-b47e-a21422a6e1b4",
+    "pathname": "/books/principles-economics/pages/1-2-microeconomics-and-macroeconomics",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6ed99720-2eaf-49e8-b816-73d2297ea6e8",
+    "pathname": "/books/principles-economics/pages/1-3-how-economists-use-theories-and-models-to-understand-economic-issues",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fd2d23a3-1ccd-4593-980e-d7027ab2d6a9",
+    "pathname": "/books/principles-economics/pages/1-4-how-economies-can-be-organized-an-overview-of-economic-systems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e1037b29-92c4-596d-b0ed-50e03aaff6c4",
+    "pathname": "/books/principles-economics/pages/1-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8db883f9-274a-5f8b-9d17-39b62074d472",
+    "pathname": "/books/principles-economics/pages/1-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c2c8e273-7535-5f3c-8f31-020dbd425eef",
+    "pathname": "/books/principles-economics/pages/1-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d4bfa8d1-4c5c-5e51-b2db-ddd1ce3679bb",
+    "pathname": "/books/principles-economics/pages/1-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ce76d90b-eaea-5689-a9df-752e02743105",
+    "pathname": "/books/principles-economics/pages/1-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ca9cd951-dbdc-47f1-be0b-6bf3a669ce2d",
+    "pathname": "/books/principles-economics/pages/2-introduction-to-choice-in-a-world-of-scarcity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b7c7a31d-06b1-41d4-9d0b-ca54ffb97261",
+    "pathname": "/books/principles-economics/pages/2-1-how-individuals-make-choices-based-on-their-budget-constraint",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "071a0776-6f06-4209-aac6-522aa9229b85",
+    "pathname": "/books/principles-economics/pages/2-2-the-production-possibilities-frontier-and-social-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7e364e3b-4eee-4844-95c2-0a40683d665f",
+    "pathname": "/books/principles-economics/pages/2-3-confronting-objections-to-the-economic-approach",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3440b692-cb96-5222-9346-6306cebf5e96",
+    "pathname": "/books/principles-economics/pages/2-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2714152e-7225-57a8-a3f3-8f452885b632",
+    "pathname": "/books/principles-economics/pages/2-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "af5ab6d5-2610-5433-ad82-8f6b6e31897d",
+    "pathname": "/books/principles-economics/pages/2-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "bf37ab16-f073-5251-9052-e695014a9886",
+    "pathname": "/books/principles-economics/pages/2-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c56981e8-41d5-5796-bb91-06485035ed50",
+    "pathname": "/books/principles-economics/pages/2-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0111bbb8-80b7-5b5e-abff-8c8526609310",
+    "pathname": "/books/principles-economics/pages/2-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a0bffdda-92e3-4f18-9546-0c595e948718",
+    "pathname": "/books/principles-economics/pages/3-introduction-to-demand-and-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "802ecf92-b493-466e-aadc-464b507ee9fa",
+    "pathname": "/books/principles-economics/pages/3-1-demand-supply-and-equilibrium-in-markets-for-goods-and-services",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c952ee10-1123-4c25-8a8e-8ed2d67eae32",
+    "pathname": "/books/principles-economics/pages/3-2-shifts-in-demand-and-supply-for-goods-and-services",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8b28e898-adca-4102-82c3-cbeaf0ee0b35",
+    "pathname": "/books/principles-economics/pages/3-3-changes-in-equilibrium-price-and-quantity-the-four-step-process",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0ddbe2b0-199c-43ba-ba24-1673ab43772f",
+    "pathname": "/books/principles-economics/pages/3-4-price-ceilings-and-price-floors",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ca2e1872-a8da-4523-a887-ac06689380de",
+    "pathname": "/books/principles-economics/pages/3-5-demand-supply-and-efficiency",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "eb759434-9544-54a3-954e-aeffeee39a61",
+    "pathname": "/books/principles-economics/pages/3-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "95c2b161-81a4-5908-81b7-72416748f02d",
+    "pathname": "/books/principles-economics/pages/3-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4f0e0bdb-ae4d-5a86-be7a-907a67a08dc9",
+    "pathname": "/books/principles-economics/pages/3-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a4d293b0-930d-5adf-9005-a1a6ea0c3399",
+    "pathname": "/books/principles-economics/pages/3-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "674411dd-3582-5eaf-a14d-d5541fe5dc6c",
+    "pathname": "/books/principles-economics/pages/3-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7b2b4e6e-71dd-5c49-ab70-53fd0700ed2a",
+    "pathname": "/books/principles-economics/pages/3-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6541013b-eb9f-46ff-bb96-5c9215f41d67",
+    "pathname": "/books/principles-economics/pages/4-introduction-to-labor-and-financial-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "76a1b250-eb1b-40c5-82a5-8ed88234697f",
+    "pathname": "/books/principles-economics/pages/4-1-demand-and-supply-at-work-in-labor-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7b97db6e-33c4-4eed-a6ac-c9cd17f5121e",
+    "pathname": "/books/principles-economics/pages/4-2-demand-and-supply-in-financial-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f037d414-0834-458a-8216-4638dcf92483",
+    "pathname": "/books/principles-economics/pages/4-3-the-market-system-as-an-efficient-mechanism-for-information",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fb71122c-8170-5f31-8408-786e5c51c6b6",
+    "pathname": "/books/principles-economics/pages/4-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3517067e-741d-5e8c-b966-bd6905df1cc3",
+    "pathname": "/books/principles-economics/pages/4-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4321bb1a-d60d-5c98-aca8-7df6dd617801",
+    "pathname": "/books/principles-economics/pages/4-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6b4ff4b3-e802-5a2c-8161-88e1e0634736",
+    "pathname": "/books/principles-economics/pages/4-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e8d10cbf-de59-5f26-84cf-e813df823076",
+    "pathname": "/books/principles-economics/pages/4-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "97e96c88-afac-5489-b646-02a1ba414d97",
+    "pathname": "/books/principles-economics/pages/4-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8735d814-2b1c-4c46-9452-cbb2b6ee9704",
+    "pathname": "/books/principles-economics/pages/5-introduction-to-elasticity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "129371f3-7e39-48f5-b917-c2387ed707b0",
+    "pathname": "/books/principles-economics/pages/5-1-price-elasticity-of-demand-and-price-elasticity-of-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d56c11b6-dc3c-4cf1-a50b-12c921cf15a0",
+    "pathname": "/books/principles-economics/pages/5-2-polar-cases-of-elasticity-and-constant-elasticity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6eddcac0-f833-4b07-a81b-bf741e9c5d68",
+    "pathname": "/books/principles-economics/pages/5-3-elasticity-and-pricing",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "1294512c-2a8e-414b-9551-a657c05bea53",
+    "pathname": "/books/principles-economics/pages/5-4-elasticity-in-areas-other-than-price",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d3776144-c6bb-55b4-b500-701ffd571ec1",
+    "pathname": "/books/principles-economics/pages/5-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c282bea3-04db-5316-82dc-24cf2b62b676",
+    "pathname": "/books/principles-economics/pages/5-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4a18c736-ded3-520a-a704-d50da68c53b2",
+    "pathname": "/books/principles-economics/pages/5-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "821d3d24-aded-5e84-b431-26285b436270",
+    "pathname": "/books/principles-economics/pages/5-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "344ac409-f3d0-5a84-908c-e2dcc42d860a",
+    "pathname": "/books/principles-economics/pages/5-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f5ab898b-a88d-56ca-8140-9609c0e2eb1b",
+    "pathname": "/books/principles-economics/pages/5-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8bac4fb0-b3ee-4042-a0d3-ab9c0c20d88a",
+    "pathname": "/books/principles-economics/pages/6-introduction-to-consumer-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0bf89fc6-7f75-48af-a66f-7b355cea059c",
+    "pathname": "/books/principles-economics/pages/6-1-consumption-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "70231500-6f22-406c-a01d-eb20830445b8",
+    "pathname": "/books/principles-economics/pages/6-2-how-changes-in-income-and-prices-affect-consumption-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c2813c73-63a1-4f6e-bcdd-1cba6e58cc7e",
+    "pathname": "/books/principles-economics/pages/6-3-labor-leisure-choices",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-economics/pages/6-4-intertemporal-choices-in-financial-capital-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "895f0678-179b-54e0-ac06-286b77f11019",
+    "pathname": "/books/principles-economics/pages/6-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "1c3798ad-b057-5025-8b76-1225bbd23c1e",
+    "pathname": "/books/principles-economics/pages/6-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "aad967a1-28b4-576f-91ff-d0cc909b3e59",
+    "pathname": "/books/principles-economics/pages/6-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "64e18ee7-507a-5111-8575-1e4411226095",
+    "pathname": "/books/principles-economics/pages/6-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3fd9bb83-94c6-56eb-b093-99dff0581bf6",
+    "pathname": "/books/principles-economics/pages/6-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2869778b-12fe-564f-8c78-c704f4f50282",
+    "pathname": "/books/principles-economics/pages/6-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4a598317-a4c4-4945-8977-0a07d042418e",
+    "pathname": "/books/principles-economics/pages/7-introduction-to-cost-and-industry-structure",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ee726a9f-f39a-4d4c-8226-98b5e035c2f8",
+    "pathname": "/books/principles-economics/pages/7-1-explicit-and-implicit-costs-and-accounting-and-economic-profit",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "992fe9d7-917e-4ac5-bd37-bd65edb96600",
+    "pathname": "/books/principles-economics/pages/7-2-the-structure-of-costs-in-the-short-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9039ac3e-b3c9-40b4-9cfa-77b2d16741e2",
+    "pathname": "/books/principles-economics/pages/7-3-the-structure-of-costs-in-the-long-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c069a965-66b4-5834-83b2-7893c8a32b18",
+    "pathname": "/books/principles-economics/pages/7-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dfdd8796-948d-594f-84a7-b1097c9a0218",
+    "pathname": "/books/principles-economics/pages/7-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "82dd6351-7db0-52ee-8770-21fb709f7f02",
+    "pathname": "/books/principles-economics/pages/7-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dcc8fa0f-76d9-56f2-8f15-4c04722e0e2f",
+    "pathname": "/books/principles-economics/pages/7-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f2f28135-e062-55b0-9fed-ddfeea6c5dca",
+    "pathname": "/books/principles-economics/pages/7-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5d544b08-013a-5321-a257-d828825dcf6f",
+    "pathname": "/books/principles-economics/pages/7-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "442a67c0-b89d-4fca-961d-dba95d664a93",
+    "pathname": "/books/principles-economics/pages/8-introduction-to-perfect-competition",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d72c1e29-0dbd-42a5-b94f-8d5996112349",
+    "pathname": "/books/principles-economics/pages/8-1-perfect-competition-and-why-it-matters",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "12464b69-d2a1-45ed-b7b1-a2d366d6174b",
+    "pathname": "/books/principles-economics/pages/8-2-how-perfectly-competitive-firms-make-output-decisions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "581e2629-6cb4-4033-85b4-79fbf1cd0d88",
+    "pathname": "/books/principles-economics/pages/8-3-entry-and-exit-decisions-in-the-long-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "72995f71-eee3-4d31-a2f7-78bf67b2675c",
+    "pathname": "/books/principles-economics/pages/8-4-efficiency-in-perfectly-competitive-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2639357d-a64b-5af9-b4bd-2ce489a9115f",
+    "pathname": "/books/principles-economics/pages/8-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "61980b7c-f7e3-5077-a1c6-beef9a5ff97a",
+    "pathname": "/books/principles-economics/pages/8-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e2cee2b1-f388-5e43-88d2-a3fb629f2d4a",
+    "pathname": "/books/principles-economics/pages/8-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8f554052-6cf3-5ec5-ace9-f91b6c354153",
+    "pathname": "/books/principles-economics/pages/8-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "889b9fd9-6453-5bbc-a9c1-70d23573944e",
+    "pathname": "/books/principles-economics/pages/8-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "bc76bb4c-4976-55ea-9e2a-67650b19aac8",
+    "pathname": "/books/principles-economics/pages/8-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7294c0d7-9289-4ac7-9b49-5bb347b88ae8",
+    "pathname": "/books/principles-economics/pages/9-introduction-to-a-monopoly",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "42bd9a06-0261-4ce9-9be1-3da2c5cdb699",
+    "pathname": "/books/principles-economics/pages/9-1-how-monopolies-form-barriers-to-entry",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9d9c8e74-4b7b-4fd3-983f-9a33c9131e13",
+    "pathname": "/books/principles-economics/pages/9-2-how-a-profit-maximizing-monopoly-chooses-output-and-price",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "94e43827-be41-5a25-8600-da3c8d4b4d7b",
+    "pathname": "/books/principles-economics/pages/9-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9f51adc5-d83c-5665-997a-2c23a9df65d0",
+    "pathname": "/books/principles-economics/pages/9-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "719abe64-30f9-5a6f-8596-d1b974a7dd4b",
+    "pathname": "/books/principles-economics/pages/9-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "eae34b7b-08b8-59b2-9721-3c2ba60be8ed",
+    "pathname": "/books/principles-economics/pages/9-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "03a3f6ba-379c-5b05-8601-8e58f0d36f6d",
+    "pathname": "/books/principles-economics/pages/9-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3ae3404b-91f9-5a51-8541-32f5d0c5ab40",
+    "pathname": "/books/principles-economics/pages/9-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "03dad2dd-c02c-4fed-becc-3bd4be4d94bf",
+    "pathname": "/books/principles-economics/pages/10-introduction-to-monopolistic-competition-and-oligopoly",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "80a92d5e-d0fc-4235-897c-f78fa775076a",
+    "pathname": "/books/principles-economics/pages/10-1-monopolistic-competition",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2dd513d0-556c-41e7-ae28-b5de3ead6f8a",
+    "pathname": "/books/principles-economics/pages/10-2-oligopoly",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c8f70478-77a9-5706-b1aa-fd601e68941c",
+    "pathname": "/books/principles-economics/pages/10-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4ac564f2-ca2d-5a11-88ec-8046f065d4ef",
+    "pathname": "/books/principles-economics/pages/10-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "61b50108-e112-5056-b337-86d73e9e1317",
+    "pathname": "/books/principles-economics/pages/10-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b8ba4ac6-2d1d-5798-a3eb-714bd11adb28",
+    "pathname": "/books/principles-economics/pages/10-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dbae4a3d-016a-586d-818f-bc29a030b00a",
+    "pathname": "/books/principles-economics/pages/10-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c9240a8b-5212-588c-b039-08c64fd3cdf1",
+    "pathname": "/books/principles-economics/pages/10-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "091a524f-3f05-4fde-918a-d95f3a0cce68",
+    "pathname": "/books/principles-economics/pages/11-introduction-to-monopoly-and-antitrust-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3b31cfcb-c061-4644-bff7-fe77e9881c78",
+    "pathname": "/books/principles-economics/pages/11-1-corporate-mergers",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ced9b334-de09-47ff-8eae-162f5a6d9753",
+    "pathname": "/books/principles-economics/pages/11-2-regulating-anticompetitive-behavior",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4fe47f2f-5962-41ce-a0a0-acd487243d2e",
+    "pathname": "/books/principles-economics/pages/11-3-regulating-natural-monopolies",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ca35cb8e-579a-4440-8ac7-5fcc70429895",
+    "pathname": "/books/principles-economics/pages/11-4-the-great-deregulation-experiment",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3edb2241-2b87-5355-8d5d-ecd4d34e612a",
+    "pathname": "/books/principles-economics/pages/11-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4c1de2d7-2120-5077-9fad-96c33c417e7e",
+    "pathname": "/books/principles-economics/pages/11-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a33bb818-7d6e-5537-bef9-1ee96e24f9f3",
+    "pathname": "/books/principles-economics/pages/11-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "59bb35c8-5f05-57f2-8e5b-1162b38a0a00",
+    "pathname": "/books/principles-economics/pages/11-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "afb15d15-2d2e-56fb-a96a-aa1d4f48ef3c",
+    "pathname": "/books/principles-economics/pages/11-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c7d89969-7868-57bf-9d40-69bb74fc5ffd",
+    "pathname": "/books/principles-economics/pages/11-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "df0c49f6-91af-4213-80f5-be200084d8b5",
+    "pathname": "/books/principles-economics/pages/12-introduction-to-environmental-protection-and-negative-externalities",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b24e1b03-1451-403c-9cb9-c49147f63fe0",
+    "pathname": "/books/principles-economics/pages/12-1-the-economics-of-pollution",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "de3e0efc-e173-4fc1-8961-842e828d6291",
+    "pathname": "/books/principles-economics/pages/12-2-command-and-control-regulation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ff3b9a64-5f31-40c3-96bf-2ff034f2eadf",
+    "pathname": "/books/principles-economics/pages/12-3-market-oriented-environmental-tools",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a3ef7d42-e399-4516-82f6-ad8eb1c3502e",
+    "pathname": "/books/principles-economics/pages/12-4-the-benefits-and-costs-of-u-s-environmental-laws",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e8a128fb-4ee2-40e9-b2bb-9b65bd043bd7",
+    "pathname": "/books/principles-economics/pages/12-5-international-environmental-issues",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7d570965-0df6-455f-8241-5f8611a6a0fe",
+    "pathname": "/books/principles-economics/pages/12-6-the-tradeoff-between-economic-output-and-environmental-protection",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "48354f7a-0d57-56e1-b545-b6aec492cebb",
+    "pathname": "/books/principles-economics/pages/12-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4db046c7-b7ee-52d9-b6b4-fe512d8fdde5",
+    "pathname": "/books/principles-economics/pages/12-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "81cb9198-2983-563a-b81c-57be21023e09",
+    "pathname": "/books/principles-economics/pages/12-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "63aa3d42-aef5-54b0-93e1-e798147abf2e",
+    "pathname": "/books/principles-economics/pages/12-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "17efa988-e4ef-56dd-b4d6-d96b0b598c74",
+    "pathname": "/books/principles-economics/pages/12-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8c10953c-ad50-5123-9747-abae2e48328b",
+    "pathname": "/books/principles-economics/pages/12-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f06969c8-bb7e-4cf6-b6e2-706d30c58a2b",
+    "pathname": "/books/principles-economics/pages/13-introduction-to-positive-externalities-and-public-goods",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4f06cefd-e497-4fab-8c70-2ee807fab6ac",
+    "pathname": "/books/principles-economics/pages/13-1-why-the-private-sector-under-invests-in-innovation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2e7a5ac4-f4ad-432b-b694-58fce538f1a8",
+    "pathname": "/books/principles-economics/pages/13-2-how-governments-can-encourage-innovation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "15202d03-f65b-4db0-8640-48ef46c98ab5",
+    "pathname": "/books/principles-economics/pages/13-3-public-goods",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "debae6cb-53b1-58eb-af3d-41992dda4ffd",
+    "pathname": "/books/principles-economics/pages/13-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5045c703-deab-5301-9067-0f87707b841b",
+    "pathname": "/books/principles-economics/pages/13-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "22bd3a63-0ab2-5f8a-a98c-a51f90460145",
+    "pathname": "/books/principles-economics/pages/13-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "24eae300-e036-526b-9c33-cf458fb4e117",
+    "pathname": "/books/principles-economics/pages/13-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8b89f08c-ca18-5e28-af3e-a34ee0ef8513",
+    "pathname": "/books/principles-economics/pages/13-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "db6f8e7a-56e1-5242-b7a8-ba087e0f18ef",
+    "pathname": "/books/principles-economics/pages/13-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "50a3e7ce-6a7f-4560-8442-f3e9f078e78f",
+    "pathname": "/books/principles-economics/pages/14-introduction-to-poverty-and-economic-inequality",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2c838703-dd93-490a-ab8e-b9799b8ec78c",
+    "pathname": "/books/principles-economics/pages/14-1-drawing-the-poverty-line",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "603a8e36-7ebb-4ab9-908e-6453b3c76f71",
+    "pathname": "/books/principles-economics/pages/14-2-the-poverty-trap",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "73b2e5d1-9ffd-4d23-a4f2-01bd849fd8ba",
+    "pathname": "/books/principles-economics/pages/14-3-the-safety-net",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f758d452-f68f-4fbf-879e-9ec292566c6b",
+    "pathname": "/books/principles-economics/pages/14-4-income-inequality-measurement-and-causes",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4b2bf15f-c68b-432e-818e-1e314e22dfa9",
+    "pathname": "/books/principles-economics/pages/14-5-government-policies-to-reduce-income-inequality",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f0d86942-01c5-5b99-a953-448d379fd2c7",
+    "pathname": "/books/principles-economics/pages/14-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c4e89453-3778-5bf6-9689-516ae983180b",
+    "pathname": "/books/principles-economics/pages/14-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "07d1c223-44cc-5c84-b3e4-59b749109408",
+    "pathname": "/books/principles-economics/pages/14-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "11c36652-1244-59f8-ad24-ab22705b5be4",
+    "pathname": "/books/principles-economics/pages/14-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "27a621f2-60d4-5123-a3cc-02d1d87f9c1b",
+    "pathname": "/books/principles-economics/pages/14-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dd99525b-50bb-40ff-ba1e-dd9e345183b4",
+    "pathname": "/books/principles-economics/pages/14-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "555a325b-15d3-48aa-98cf-05bba6ff089b",
+    "pathname": "/books/principles-economics/pages/15-introduction-to-issues-in-labor-markets-unions-discrimination-immigration",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "65f0f332-29a3-4a54-a982-7d8ab30dd0f9",
+    "pathname": "/books/principles-economics/pages/15-1-unions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "227f2aa4-af66-4cdb-bd5b-d9d761879fbe",
+    "pathname": "/books/principles-economics/pages/15-2-employment-discrimination",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e9e8c445-4906-49a5-a6ed-cfa4d2666cec",
+    "pathname": "/books/principles-economics/pages/15-3-immigration",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a2db1164-a787-5b91-a580-e88f3163d8f6",
+    "pathname": "/books/principles-economics/pages/15-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d702e849-ac49-59c4-b859-1273ef31949e",
+    "pathname": "/books/principles-economics/pages/15-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0074de2e-0edb-5c36-a635-990392bb9428",
+    "pathname": "/books/principles-economics/pages/15-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3456c5df-f428-5fa5-99a3-80ed82937c47",
+    "pathname": "/books/principles-economics/pages/15-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "71f3e203-930d-55bc-87cc-81143508e10e",
+    "pathname": "/books/principles-economics/pages/15-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c8b7d919-8a74-478d-a1d2-935ab6bb1db0",
+    "pathname": "/books/principles-economics/pages/16-introduction-to-information-risk-and-insurance",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "44502b4c-daab-4a40-b961-f03e1c9923af",
+    "pathname": "/books/principles-economics/pages/16-1-the-problem-of-imperfect-information-and-asymmetric-information",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2e66ad1e-0ffa-47b3-b338-aa41b554f1ad",
+    "pathname": "/books/principles-economics/pages/16-2-insurance-and-imperfect-information",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d31d2b06-0c6a-51c2-8494-5c0e3fc11d07",
+    "pathname": "/books/principles-economics/pages/16-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a45346bc-4496-5a72-a2a8-440866fb2a2a",
+    "pathname": "/books/principles-economics/pages/16-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b40d174d-d93d-5d43-8939-e1ecc28df0c2",
+    "pathname": "/books/principles-economics/pages/16-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0f201280-5f5d-5418-9b7c-990a98cc3218",
+    "pathname": "/books/principles-economics/pages/16-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e517243b-f1d5-582a-b572-4cc75456f212",
+    "pathname": "/books/principles-economics/pages/16-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b66b0cae-84ff-534b-9297-90b9ea96c611",
+    "pathname": "/books/principles-economics/pages/16-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dfac6327-3f55-4ddf-a67e-9cb5c7a62892",
+    "pathname": "/books/principles-economics/pages/17-introduction-to-financial-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f16a81e7-c565-44f6-89e3-18a8594c5dca",
+    "pathname": "/books/principles-economics/pages/17-1-how-businesses-raise-financial-capital",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d9b1928f-3d72-4421-b654-48a0525c3b77",
+    "pathname": "/books/principles-economics/pages/17-2-how-households-supply-financial-capital",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4675a2fa-c5d4-45fe-ab1e-8258a9292dc7",
+    "pathname": "/books/principles-economics/pages/17-3-how-to-accumulate-personal-wealth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "cbab9598-b545-58be-a856-d3172c8d61ad",
+    "pathname": "/books/principles-economics/pages/17-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "953dc73e-3173-5a21-9086-7b78c2d94e02",
+    "pathname": "/books/principles-economics/pages/17-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "58e51122-9762-5a03-a63e-31586b828c52",
+    "pathname": "/books/principles-economics/pages/17-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "148ed265-25b5-51ce-a8fa-5734aa48b904",
+    "pathname": "/books/principles-economics/pages/17-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a82c5969-1df2-5346-94b3-a54f3e566082",
+    "pathname": "/books/principles-economics/pages/17-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "050fe34c-1967-5087-8441-e07e4dc5561d",
+    "pathname": "/books/principles-economics/pages/17-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "279002e2-e8ba-415a-b0ad-c3aa56d646ea",
+    "pathname": "/books/principles-economics/pages/18-introduction-to-public-economy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "61272766-2605-498c-b25f-18c8d8440037",
+    "pathname": "/books/principles-economics/pages/18-1-voter-participation-and-costs-of-elections",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "bf119972-948e-45d3-81b8-c38969770f67",
+    "pathname": "/books/principles-economics/pages/18-2-special-interest-politics",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6d2760f9-0909-4464-8a7c-103db44ebad3",
+    "pathname": "/books/principles-economics/pages/18-3-flaws-in-the-democratic-system-of-government",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "92d0e2a1-433f-50ce-9013-4dbf55cc8250",
+    "pathname": "/books/principles-economics/pages/18-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "da70fca9-cb96-5624-a3ac-a86a71be68b2",
+    "pathname": "/books/principles-economics/pages/18-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8f87baaf-2f41-5ab4-8fee-18a73c84bcf9",
+    "pathname": "/books/principles-economics/pages/18-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6c95347e-5be3-5216-ae97-d889763b4994",
+    "pathname": "/books/principles-economics/pages/18-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "323bc6f9-298e-57f4-80bc-d9ed68c05567",
+    "pathname": "/books/principles-economics/pages/18-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b8f6ea37-15bb-590a-abc8-0468c282581e",
+    "pathname": "/books/principles-economics/pages/18-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "652d0109-ca8d-450c-b402-14c28b82d6cf",
+    "pathname": "/books/principles-economics/pages/19-introduction-to-the-macroeconomic-perspective",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d8c2feb4-66a0-4098-bb13-85bfebbbc0d7",
+    "pathname": "/books/principles-economics/pages/19-1-measuring-the-size-of-the-economy-gross-domestic-product",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3b7236be-bd0b-4ca2-9f73-5409b8bcff3b",
+    "pathname": "/books/principles-economics/pages/19-2-adjusting-nominal-values-to-real-values",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ab433ea8-9446-4f8f-b296-3a211111fc9a",
+    "pathname": "/books/principles-economics/pages/19-3-tracking-real-gdp-over-time",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b8de5902-7254-4093-b80b-807dbae832f2",
+    "pathname": "/books/principles-economics/pages/19-4-comparing-gdp-among-countries",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "bf615922-e33d-4b8b-ab49-7096b67d132d",
+    "pathname": "/books/principles-economics/pages/19-5-how-well-gdp-measures-the-well-being-of-society",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f94ef5ac-2d85-5bec-8723-9b406b04add0",
+    "pathname": "/books/principles-economics/pages/19-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "497ecb4e-dc8e-56b3-af86-5820f9a94af7",
+    "pathname": "/books/principles-economics/pages/19-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "31cb91de-f38b-5cc2-aba6-10f1e5fde8ba",
+    "pathname": "/books/principles-economics/pages/19-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a9b77833-c63b-531d-a280-52380960685f",
+    "pathname": "/books/principles-economics/pages/19-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e5d7d4d9-3b1c-53f1-9a92-4eb362824eae",
+    "pathname": "/books/principles-economics/pages/19-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7a6eaceb-0663-5f67-bb83-5f8fdeb7b3a5",
+    "pathname": "/books/principles-economics/pages/19-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0c19de2b-c72d-4817-ac1b-0b51c2d969af",
+    "pathname": "/books/principles-economics/pages/20-introduction-to-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "60644b34-3a42-4e5a-be09-698fd3ea7735",
+    "pathname": "/books/principles-economics/pages/20-1-the-relatively-recent-arrival-of-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "45bfb777-78f0-4f66-ade0-f7c6fb70e45b",
+    "pathname": "/books/principles-economics/pages/20-2-labor-productivity-and-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6c549881-7565-47b2-adc4-8ab0aa28011e",
+    "pathname": "/books/principles-economics/pages/20-3-components-of-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5bf33e61-3e24-4158-9cf6-170315cd5c8a",
+    "pathname": "/books/principles-economics/pages/20-4-economic-convergence",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d8ec9b5a-75e2-586c-bcc8-860929d48f57",
+    "pathname": "/books/principles-economics/pages/20-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "32748dc5-cd9b-56d2-bb60-b5e70c156e1d",
+    "pathname": "/books/principles-economics/pages/20-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fb81eeef-f52a-5cd5-ac71-5ea71f1867f7",
+    "pathname": "/books/principles-economics/pages/20-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c39c1f9b-2a36-56d0-993c-1b237b2d7d0d",
+    "pathname": "/books/principles-economics/pages/20-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a6a0be6f-757f-5457-92c5-0cdf89f6b7d5",
+    "pathname": "/books/principles-economics/pages/20-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "390aa751-2dbc-588b-854a-521f5de71f68",
+    "pathname": "/books/principles-economics/pages/20-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6f6106eb-0a38-4d46-8bf2-fb8a8cc97876",
+    "pathname": "/books/principles-economics/pages/21-introduction-to-unemployment",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "aeb29ebc-be90-4880-b16d-056526721e32",
+    "pathname": "/books/principles-economics/pages/21-1-how-the-unemployment-rate-is-defined-and-computed",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f36a8cb0-971e-4a20-9690-9859709ecc60",
+    "pathname": "/books/principles-economics/pages/21-2-patterns-of-unemployment",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6f3b3698-5593-44d4-b723-bd1cdf7f4e9f",
+    "pathname": "/books/principles-economics/pages/21-3-what-causes-changes-in-unemployment-over-the-short-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7ce1f44c-d28f-4dfd-87bc-3a95a91c892f",
+    "pathname": "/books/principles-economics/pages/21-4-what-causes-changes-in-unemployment-over-the-long-run",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "93d296c1-052e-5717-b29f-b30698f441ff",
+    "pathname": "/books/principles-economics/pages/21-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b9b7a679-0612-5af4-a798-0cba5fb926ae",
+    "pathname": "/books/principles-economics/pages/21-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "078517f7-0570-5dca-b568-215272b17dd2",
+    "pathname": "/books/principles-economics/pages/21-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "60511eff-9b39-5e0e-b9de-02f9b5ad4e12",
+    "pathname": "/books/principles-economics/pages/21-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "90d4e2b1-7c0b-530d-92e8-62c933e8e77e",
+    "pathname": "/books/principles-economics/pages/21-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b6af9b12-cd06-5d13-847b-ef10441af8ac",
+    "pathname": "/books/principles-economics/pages/21-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "71e2aba6-0173-4611-9a95-dd420a8e779c",
+    "pathname": "/books/principles-economics/pages/22-introduction-to-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fee821e4-a2b0-4c34-ab4e-be520071be3b",
+    "pathname": "/books/principles-economics/pages/22-1-tracking-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9e0dac7e-7258-4a33-bc87-3383bf92119b",
+    "pathname": "/books/principles-economics/pages/22-2-how-changes-in-the-cost-of-living-are-measured",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "17b27711-64cf-4383-9e0e-3633be3f1ca8",
+    "pathname": "/books/principles-economics/pages/22-3-how-the-u-s-and-other-countries-experience-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b33d4519-c3bc-48c8-bb30-bf827c2c35ab",
+    "pathname": "/books/principles-economics/pages/22-4-the-confusion-over-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2f19d742-7361-400f-9847-8dc8b3dae2cf",
+    "pathname": "/books/principles-economics/pages/22-5-indexing-and-its-limitations",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2fa8fa09-be18-5fbe-aa7a-4cac26950c6f",
+    "pathname": "/books/principles-economics/pages/22-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "493c166c-977c-5604-baf1-11ec2833a6eb",
+    "pathname": "/books/principles-economics/pages/22-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "cc4ff873-5015-5d3c-b027-31fbef354577",
+    "pathname": "/books/principles-economics/pages/22-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "aadb07f2-a983-56ed-9eae-05d89b018fa8",
+    "pathname": "/books/principles-economics/pages/22-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "27aae9cb-30b7-5083-88c6-57421ce21aef",
+    "pathname": "/books/principles-economics/pages/22-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9fc4ce1b-7132-5e1e-b599-7050791907f0",
+    "pathname": "/books/principles-economics/pages/22-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9bc234b0-dc9d-47f0-9b0c-406585187358",
+    "pathname": "/books/principles-economics/pages/23-introduction-to-the-international-trade-and-capital-flows",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c2dedb2e-d0d5-4770-bb79-03dde6912e63",
+    "pathname": "/books/principles-economics/pages/23-1-measuring-trade-balances",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fd45cb47-4731-493a-ad1a-a412017bb1a2",
+    "pathname": "/books/principles-economics/pages/23-2-trade-balances-in-historical-and-international-context",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "bf486b28-b641-422e-a6aa-1a31754e10e3",
+    "pathname": "/books/principles-economics/pages/23-3-trade-balances-and-flows-of-financial-capital",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "411c99e5-598f-4ec9-8149-3a74a294d6ff",
+    "pathname": "/books/principles-economics/pages/23-4-the-national-saving-and-investment-identity",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "1e970b9e-8cf0-4201-84be-cf9b44ab5bab",
+    "pathname": "/books/principles-economics/pages/23-5-the-pros-and-cons-of-trade-deficits-and-surpluses",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7dbd6b1a-7b11-48db-8ba7-c2338c0641b2",
+    "pathname": "/books/principles-economics/pages/23-6-the-difference-between-level-of-trade-and-the-trade-balance",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2618b149-8947-5eda-8928-7664a7de95d6",
+    "pathname": "/books/principles-economics/pages/23-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "64bbda21-13a6-536e-adde-35019728a948",
+    "pathname": "/books/principles-economics/pages/23-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0cf41066-d766-524d-89b4-8a13b86ae61c",
+    "pathname": "/books/principles-economics/pages/23-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "c12acad3-8c67-5dbb-9a9b-c68f123bc241",
+    "pathname": "/books/principles-economics/pages/23-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8f8e96ab-f8db-5504-ace1-23f7d78cbb2e",
+    "pathname": "/books/principles-economics/pages/23-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e5eaf9c7-2cd6-5f48-94cd-21ccc2d31e6f",
+    "pathname": "/books/principles-economics/pages/23-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9f828152-75d1-40ec-b8f0-1d60c193e04e",
+    "pathname": "/books/principles-economics/pages/24-introduction-to-the-aggregate-demand-aggregate-supply-model",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "cd67d9e6-6789-4fcc-a20e-2505188f0c1c",
+    "pathname": "/books/principles-economics/pages/24-1-macroeconomic-perspectives-on-demand-and-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "eedb7df2-e697-4ee6-a15e-cce5aa53cfb2",
+    "pathname": "/books/principles-economics/pages/24-2-building-a-model-of-aggregate-demand-and-aggregate-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "eed9cdad-7358-4ea3-8667-611d475c0b84",
+    "pathname": "/books/principles-economics/pages/24-3-shifts-in-aggregate-supply",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b2dc180a-cae6-401c-b034-36c70487179c",
+    "pathname": "/books/principles-economics/pages/24-4-shifts-in-aggregate-demand",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b6045d85-c79b-4252-aaae-028a18cb7590",
+    "pathname": "/books/principles-economics/pages/24-5-how-the-ad-as-model-incorporates-growth-unemployment-and-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fb69d553-cf11-4f47-9acf-a6394cc3ca74",
+    "pathname": "/books/principles-economics/pages/24-6-keynes-law-and-says-law-in-the-ad-as-model",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a91e8812-e985-5d90-88ae-2b984a971835",
+    "pathname": "/books/principles-economics/pages/24-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "63f6c162-ae4d-58cf-90d2-9d520d27d203",
+    "pathname": "/books/principles-economics/pages/24-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a9f3aad8-024c-5a01-ab98-cef26f354bce",
+    "pathname": "/books/principles-economics/pages/24-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "449f83ab-dbc7-5fe6-835a-1a46c6943695",
+    "pathname": "/books/principles-economics/pages/24-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5cdd4f16-bbe3-53e3-a827-188636b059e2",
+    "pathname": "/books/principles-economics/pages/24-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "77713f7c-6e88-5499-8fd4-7ca2fa2212d4",
+    "pathname": "/books/principles-economics/pages/24-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0c51ee41-91a1-4834-a55b-1e06b54cbfb8",
+    "pathname": "/books/principles-economics/pages/25-introduction-to-the-keynesian-perspective",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "068b33ba-c16e-4c1d-82f2-79c232ee8ea1",
+    "pathname": "/books/principles-economics/pages/25-1-aggregate-demand-in-keynesian-analysis",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5424200f-1ca2-4ae2-a992-651e0f73564e",
+    "pathname": "/books/principles-economics/pages/25-2-the-building-blocks-of-keynesian-analysis",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "1ffb30b6-e7a9-482e-9ff9-0588c32f4142",
+    "pathname": "/books/principles-economics/pages/25-3-the-phillips-curve",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6dfa8538-fa74-4564-9490-4dec1c533e5d",
+    "pathname": "/books/principles-economics/pages/25-4-the-keynesian-perspective-on-market-forces",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "79e4f797-3e68-5621-99d5-cc5cae043e2b",
+    "pathname": "/books/principles-economics/pages/25-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5df7f4b2-f39b-5b0e-9398-878016f13c2f",
+    "pathname": "/books/principles-economics/pages/25-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "be3fa869-491c-5625-8cae-9c1cf5bc6e2b",
+    "pathname": "/books/principles-economics/pages/25-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dd9c84d7-0916-5f26-bf5c-2abf9fab707a",
+    "pathname": "/books/principles-economics/pages/25-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3145e5d8-20e5-5159-b01f-158bf95b03bc",
+    "pathname": "/books/principles-economics/pages/25-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "212c8034-df03-4139-b1b8-fe8ac825151d",
+    "pathname": "/books/principles-economics/pages/26-introduction-to-the-neoclassical-perspective",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8c77a828-3fb6-4de9-b3da-4fca607dfe28",
+    "pathname": "/books/principles-economics/pages/26-1-the-building-blocks-of-neoclassical-analysis",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "df703e81-a3b5-4ec4-ba88-b2539246a55b",
+    "pathname": "/books/principles-economics/pages/26-2-the-policy-implications-of-the-neoclassical-perspective",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "cf85075b-e7ba-4fda-904a-8483462a781e",
+    "pathname": "/books/principles-economics/pages/26-3-balancing-keynesian-and-neoclassical-models",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "13311032-3131-56ff-869a-599303c32575",
+    "pathname": "/books/principles-economics/pages/26-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "24a3a317-8ab2-52ee-8a8e-25ff590b2aa6",
+    "pathname": "/books/principles-economics/pages/26-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "93a875d9-8942-567b-aff8-9a5d4d264c3e",
+    "pathname": "/books/principles-economics/pages/26-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "873c58ed-64f7-5958-95c9-38b237e8381c",
+    "pathname": "/books/principles-economics/pages/26-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3b58a295-7a4c-5c32-a782-8c1126f608d3",
+    "pathname": "/books/principles-economics/pages/26-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3154cc6c-ad81-5be3-8e42-ea3562fc1725",
+    "pathname": "/books/principles-economics/pages/26-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "eb2757b8-f435-45db-9b3c-a0fdd2b1de5a",
+    "pathname": "/books/principles-economics/pages/27-introduction-to-money-and-banking",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "64b84242-80ce-42ac-a5bc-b23ace0aa25b",
+    "pathname": "/books/principles-economics/pages/27-1-defining-money-by-its-functions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "cac79666-9520-4216-aa4d-2af280a0e64a",
+    "pathname": "/books/principles-economics/pages/27-2-measuring-money-currency-m1-and-m2",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e6820358-2680-4b15-81d2-79088328f60e",
+    "pathname": "/books/principles-economics/pages/27-3-the-role-of-banks",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "841fd63c-3aca-4947-9b32-9f6c036a4e2d",
+    "pathname": "/books/principles-economics/pages/27-4-how-banks-create-money",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "648b57b5-e5f6-58d7-802a-726915a93eab",
+    "pathname": "/books/principles-economics/pages/27-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ff4779cf-6eec-5c0e-ac67-8b1f550c9478",
+    "pathname": "/books/principles-economics/pages/27-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4b4a43b2-9d1b-5bc2-8c82-86a41397556c",
+    "pathname": "/books/principles-economics/pages/27-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "50903bea-233b-5068-9159-8b7e1c70f0fb",
+    "pathname": "/books/principles-economics/pages/27-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8faea2a6-586e-5c08-9cf2-e23a2a0f0ed3",
+    "pathname": "/books/principles-economics/pages/27-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f41d7eee-703f-5d6b-8428-614e981c41e0",
+    "pathname": "/books/principles-economics/pages/27-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ec354b1d-221a-432a-9ab3-9d529cbce906",
+    "pathname": "/books/principles-economics/pages/28-introduction-to-monetary-policy-and-bank-regulation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3efeb882-57f8-4b20-a4b4-129ec6b5ae30",
+    "pathname": "/books/principles-economics/pages/28-1-the-federal-reserve-banking-system-and-central-banks",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "93d6a5bf-c906-43e1-b038-8301ea9d7d65",
+    "pathname": "/books/principles-economics/pages/28-2-bank-regulation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f1bbcd91-df06-4254-88c5-b07b410ef1f8",
+    "pathname": "/books/principles-economics/pages/28-3-how-a-central-bank-executes-monetary-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5c3aa1ce-fac8-40ab-9f3d-021caf086da7",
+    "pathname": "/books/principles-economics/pages/28-4-monetary-policy-and-economic-outcomes",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "1599a583-c57d-4552-955e-02eb76e6f7d7",
+    "pathname": "/books/principles-economics/pages/28-5-pitfalls-for-monetary-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ed89fc29-79c7-59ea-ad01-42a42546cd9c",
+    "pathname": "/books/principles-economics/pages/28-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a7cd8f23-2479-5733-8e05-736a7bdaffd2",
+    "pathname": "/books/principles-economics/pages/28-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "bea34f1b-7763-5d8e-a76b-cbe922b8c3d6",
+    "pathname": "/books/principles-economics/pages/28-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f8d62baa-d76e-5d33-b201-2b833ed72b91",
+    "pathname": "/books/principles-economics/pages/28-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "cc46e44e-089f-5153-b062-951307eaa448",
+    "pathname": "/books/principles-economics/pages/28-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "54b4b2b6-5072-58d1-84c3-b4445d572def",
+    "pathname": "/books/principles-economics/pages/28-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "146523a0-dd5e-4e78-92e2-f4b8f92199cb",
+    "pathname": "/books/principles-economics/pages/29-introduction-to-exchange-rates-and-international-capital-flows",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a4271f85-f6dd-46f7-95bb-68a1fc45a16e",
+    "pathname": "/books/principles-economics/pages/29-1-how-the-foreign-exchange-market-works",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ef438a73-d5f8-47ad-b65f-1bccc131af24",
+    "pathname": "/books/principles-economics/pages/29-2-demand-and-supply-shifts-in-foreign-exchange-markets",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fa813af6-b0c1-4c62-b7d6-cb6011fa7550",
+    "pathname": "/books/principles-economics/pages/29-3-macroeconomic-effects-of-exchange-rates",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "717e7481-3205-455f-8f12-36a62a6bf992",
+    "pathname": "/books/principles-economics/pages/29-4-exchange-rate-policies",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2a1a93bd-674e-5180-8b71-a36a5968ca9f",
+    "pathname": "/books/principles-economics/pages/29-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5e5ca556-0f81-588f-ac17-c23f962d0ca9",
+    "pathname": "/books/principles-economics/pages/29-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a0466604-e720-5271-ad22-cc4c2c3a93c9",
+    "pathname": "/books/principles-economics/pages/29-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fd531912-b6d1-5673-8e3d-0aa581900397",
+    "pathname": "/books/principles-economics/pages/29-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8242bb82-9ee3-5f2d-a8c7-425fce1d0838",
+    "pathname": "/books/principles-economics/pages/29-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f6fcd578-6ef3-5a34-aaa2-8023cf556dd8",
+    "pathname": "/books/principles-economics/pages/29-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "97a07b5a-5fca-44ba-a3a6-b61ff2886599",
+    "pathname": "/books/principles-economics/pages/30-introduction-to-government-budgets-and-fiscal-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "52ce04d0-d69f-45cb-8385-312e0979b862",
+    "pathname": "/books/principles-economics/pages/30-1-government-spending",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f5993712-7831-42c7-aaa4-db50b3698358",
+    "pathname": "/books/principles-economics/pages/30-2-taxation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b0c796d2-9e33-48c0-9fb6-52ac8081422a",
+    "pathname": "/books/principles-economics/pages/30-3-federal-deficits-and-the-national-debt",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4faacb3a-5d62-42b6-a1d3-884fa7475c03",
+    "pathname": "/books/principles-economics/pages/30-4-using-fiscal-policy-to-fight-recession-unemployment-and-inflation",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9f4c884d-a163-437b-8100-bd320bc24b75",
+    "pathname": "/books/principles-economics/pages/30-5-automatic-stabilizers",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4b0f402d-67ab-4cbe-b17c-c26751b752cb",
+    "pathname": "/books/principles-economics/pages/30-6-practical-problems-with-discretionary-fiscal-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e5ea8996-5f7a-4653-a169-f834c20bfbb6",
+    "pathname": "/books/principles-economics/pages/30-7-the-question-of-a-balanced-budget",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "329c02c7-618d-5f8a-8ecb-6cac6eb862ec",
+    "pathname": "/books/principles-economics/pages/30-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b4af7e58-cf24-5061-baf8-d727255b1a11",
+    "pathname": "/books/principles-economics/pages/30-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3998d837-e2a4-54b4-9326-06b3568c3473",
+    "pathname": "/books/principles-economics/pages/30-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4e90840a-d691-502c-8efc-ad4080c844da",
+    "pathname": "/books/principles-economics/pages/30-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9806585e-99b1-57b2-a300-39df4ea2b72f",
+    "pathname": "/books/principles-economics/pages/30-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "83650dbb-2b8a-5363-b39b-b9200807f0e2",
+    "pathname": "/books/principles-economics/pages/30-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f8893362-f7f1-4b16-80f9-9c97975e3dbf",
+    "pathname": "/books/principles-economics/pages/31-introduction-to-the-impacts-of-government-borrowing",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4470156f-a022-4110-9848-236563b6b2ca",
+    "pathname": "/books/principles-economics/pages/31-1-how-government-borrowing-affects-investment-and-the-trade-balance",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "bd5ecd1d-7fdc-461b-8820-4cdb2e251c19",
+    "pathname": "/books/principles-economics/pages/31-2-fiscal-policy-investment-and-economic-growth",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7ab0495d-0bc8-40c2-864b-1644a56421c5",
+    "pathname": "/books/principles-economics/pages/31-3-how-government-borrowing-affects-private-saving",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "45408794-5616-4570-9930-5640bf7f270a",
+    "pathname": "/books/principles-economics/pages/31-4-fiscal-policy-and-the-trade-balance",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "34dfbe35-8fb4-56ee-8f78-3fd349032846",
+    "pathname": "/books/principles-economics/pages/31-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "13e72374-fffa-523d-90c9-407200968d62",
+    "pathname": "/books/principles-economics/pages/31-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "32ff298a-1479-5a8f-b4b4-db1861e885d9",
+    "pathname": "/books/principles-economics/pages/31-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4de64933-48e9-5b52-a881-d5f699ea7d4b",
+    "pathname": "/books/principles-economics/pages/31-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "26a308b1-7c01-5e9b-a84a-a326c94fb849",
+    "pathname": "/books/principles-economics/pages/31-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "fb0dddca-96ca-5a3b-aed9-febb1bf8c152",
+    "pathname": "/books/principles-economics/pages/31-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "686dabb3-1a2a-4375-a64d-28a8b1ac2d58",
+    "pathname": "/books/principles-economics/pages/32-introduction-to-macroeconomic-policy-around-the-world",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b6bc4294-e385-443a-87d7-4fc02e32f0ce",
+    "pathname": "/books/principles-economics/pages/32-1-the-diversity-of-countries-and-economies-across-the-world",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "f3a16586-4b8e-4beb-85e3-298adafaca01",
+    "pathname": "/books/principles-economics/pages/32-2-improving-countries-standards-of-living",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5daf511c-4f2d-4a64-b813-a01cfabab9d8",
+    "pathname": "/books/principles-economics/pages/32-3-causes-of-unemployment-around-the-world",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "89e97c01-b486-4ee3-8423-7046a7fd6493",
+    "pathname": "/books/principles-economics/pages/32-4-causes-of-inflation-in-various-countries-and-regions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ebd6368b-5081-40cb-8b58-6f8134f82fab",
+    "pathname": "/books/principles-economics/pages/32-5-balance-of-trade-concerns",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "51ed3d1e-d0d3-5d11-ba00-b870c4139864",
+    "pathname": "/books/principles-economics/pages/32-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "bf0dfdec-7fcc-55b0-b1b9-c431014e2f96",
+    "pathname": "/books/principles-economics/pages/32-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "52ec88da-6dd5-5881-babc-a1d327ca0e2e",
+    "pathname": "/books/principles-economics/pages/32-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "692a0086-8b52-5083-8479-0bb2f55b3309",
+    "pathname": "/books/principles-economics/pages/32-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "abfc4eab-a3b6-557d-9d94-72dae16d49e8",
+    "pathname": "/books/principles-economics/pages/32-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "69216b8c-c96a-5e91-8317-66dbd791a479",
+    "pathname": "/books/principles-economics/pages/32-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "6cfb9bda-7891-417a-98fd-ece6e32f5cf4",
+    "pathname": "/books/principles-economics/pages/33-introduction-to-international-trade",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ecd73abe-5bdb-406f-989c-044b4064eb0b",
+    "pathname": "/books/principles-economics/pages/33-1-absolute-and-comparative-advantage",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d69ead69-7fb3-4c76-a1d8-4c74ea4bbe73",
+    "pathname": "/books/principles-economics/pages/33-2-what-happens-when-a-country-has-an-absolute-advantage-in-all-goods",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0b9e9bce-a199-4c1f-928d-87193391bfe9",
+    "pathname": "/books/principles-economics/pages/33-3-intra-industry-trade-between-similar-economies",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4606e970-96b8-425b-b81f-a3263899b07a",
+    "pathname": "/books/principles-economics/pages/33-4-the-benefits-of-reducing-barriers-to-international-trade",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0c0323de-150a-5f8a-8d5e-3208c759c689",
+    "pathname": "/books/principles-economics/pages/33-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2e5af532-5a43-5ae5-bec4-83c49d912b1b",
+    "pathname": "/books/principles-economics/pages/33-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ebb90ca9-b0b4-50ea-bb86-f3c8adfac71c",
+    "pathname": "/books/principles-economics/pages/33-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e475bf7f-5c4c-5eb3-a869-c3f8ff9014cc",
+    "pathname": "/books/principles-economics/pages/33-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9434d13f-e256-52a7-adb1-b03d3693e502",
+    "pathname": "/books/principles-economics/pages/33-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "7fa884ea-7ee5-5536-a670-b3190cba5288",
+    "pathname": "/books/principles-economics/pages/33-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "19cf7176-5ab4-40b2-8b16-ee3cea886609",
+    "pathname": "/books/principles-economics/pages/34-introduction-to-globalization-and-protectionism",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "74d22bab-1680-419d-a2a2-889be24769d0",
+    "pathname": "/books/principles-economics/pages/34-1-protectionism-an-indirect-subsidy-from-consumers-to-producers",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "cab8ed16-981e-4a33-a9ea-79304d69f3ac",
+    "pathname": "/books/principles-economics/pages/34-2-international-trade-and-its-effects-on-jobs-wages-and-working-conditions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9485f8e5-30ab-4549-84af-29d053950b0b",
+    "pathname": "/books/principles-economics/pages/34-3-arguments-in-support-of-restricting-imports",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "08a3fbae-a2ba-4ba9-bf33-24f71e10d9fb",
+    "pathname": "/books/principles-economics/pages/34-4-how-trade-policy-is-enacted-globally-regionally-and-nationally",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a60d4dac-9445-4798-a811-f2cd703f6bd3",
+    "pathname": "/books/principles-economics/pages/34-5-the-tradeoffs-of-trade-policy",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "06956f9a-f99b-5cac-a729-27a5a9d4a042",
+    "pathname": "/books/principles-economics/pages/34-key-terms",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "33e3630f-c312-5b61-bd90-2fc5cb0d8b28",
+    "pathname": "/books/principles-economics/pages/34-key-concepts-and-summary",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a5c07274-ee98-5843-bb49-aa424a4909ca",
+    "pathname": "/books/principles-economics/pages/34-self-check-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d25e878b-0bb4-5469-80ed-362cd99b2356",
+    "pathname": "/books/principles-economics/pages/34-review-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "540e9e5a-7273-5129-9025-af60a3deab9c",
+    "pathname": "/books/principles-economics/pages/34-critical-thinking-questions",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "905ca9d9-ae3a-5c3d-a4f3-cb72269804be",
+    "pathname": "/books/principles-economics/pages/34-problems",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a4078b03-0419-4c50-9fb8-eb3e7f129ce6",
+    "pathname": "/books/principles-economics/pages/a-the-use-of-mathematics-in-principles-of-economics",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2ac731b5-3c9a-433f-8ccb-20c5035de1b9",
+    "pathname": "/books/principles-economics/pages/b-indifference-curves",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2ded13b0-6c7a-4350-9e83-1de5fbd452c0",
+    "pathname": "/books/principles-economics/pages/c-present-discounted-value",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d9c67d2b-ab69-4317-82a2-f0aeb1e4dcaf",
+    "pathname": "/books/principles-economics/pages/d-the-expenditure-output-model",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "0252f4b6-accb-5065-962d-63e9ba85806b",
+    "pathname": "/books/principles-economics/pages/chapter-1",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b877afc0-1ed3-5b58-aea5-082396efcab0",
+    "pathname": "/books/principles-economics/pages/chapter-2",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "49829d47-8c2a-57d1-b5dd-dcffab723362",
+    "pathname": "/books/principles-economics/pages/chapter-3",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "be96c415-4df5-55cf-a117-3eb347842f98",
+    "pathname": "/books/principles-economics/pages/chapter-4",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "194625fe-4ece-59c2-be69-2e38275c4cf1",
+    "pathname": "/books/principles-economics/pages/chapter-5",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d71afb25-68d9-56b3-acbd-08da39f2b8ec",
+    "pathname": "/books/principles-economics/pages/chapter-6",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "07074452-2ff1-5d09-a3f4-cfdbcddf4db1",
+    "pathname": "/books/principles-economics/pages/chapter-7",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2749744c-7fa7-5215-88bd-7b855e3cb116",
+    "pathname": "/books/principles-economics/pages/chapter-8",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "be0ca70c-70b9-50c1-a025-e3859798e7ac",
+    "pathname": "/books/principles-economics/pages/chapter-9",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3a6edb47-efd2-5d04-a211-3bca652558b3",
+    "pathname": "/books/principles-economics/pages/chapter-10",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "3d778de2-6a0f-55f6-8958-ab2bd018959a",
+    "pathname": "/books/principles-economics/pages/chapter-11",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "5ecd58d5-b395-592b-826a-8d4cdf4f0247",
+    "pathname": "/books/principles-economics/pages/chapter-12",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "52d4d9a4-3079-572a-8a84-9cdf51d5f890",
+    "pathname": "/books/principles-economics/pages/chapter-13",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "8d7299c8-7acd-55bb-96d9-0d74e7aa6bf6",
+    "pathname": "/books/principles-economics/pages/chapter-14",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "78fa4ecf-5445-5405-9f2e-c8246ac0b716",
+    "pathname": "/books/principles-economics/pages/chapter-15",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "b6868063-7c74-5b35-a8c3-8b85da701c64",
+    "pathname": "/books/principles-economics/pages/chapter-16",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "18283cb9-ba62-5b5c-b9cc-a8d1ff8728fb",
+    "pathname": "/books/principles-economics/pages/chapter-17",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "51243f77-bc30-5e46-9686-09e4d7ee1a5a",
+    "pathname": "/books/principles-economics/pages/chapter-18",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9d9df951-e7dd-5a15-ad59-368a8936439a",
+    "pathname": "/books/principles-economics/pages/chapter-19",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ab06a2fe-4d77-54b8-962b-e465522cacc1",
+    "pathname": "/books/principles-economics/pages/chapter-20",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "9f5f8773-94bc-5160-9993-dbcac7ae2b86",
+    "pathname": "/books/principles-economics/pages/chapter-21",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "4e253167-e2f1-5575-b0f1-36036169842c",
+    "pathname": "/books/principles-economics/pages/chapter-22",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "a7c38fc8-127b-543e-9c07-d5b62da76cf6",
+    "pathname": "/books/principles-economics/pages/chapter-23",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "524c45ca-968c-5c97-8075-79234d0f204f",
+    "pathname": "/books/principles-economics/pages/chapter-24",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "aba86f35-93a6-52c8-b98c-5bbf34618e9e",
+    "pathname": "/books/principles-economics/pages/chapter-25",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "1e5dd2b4-cd22-519d-b4e0-c97fb988ff14",
+    "pathname": "/books/principles-economics/pages/chapter-26",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "669b6b44-da2e-5916-92d2-b82dfd522ef5",
+    "pathname": "/books/principles-economics/pages/chapter-27",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "62ce7240-f17f-518b-bdb0-1af18253f599",
+    "pathname": "/books/principles-economics/pages/chapter-28",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d42a616a-63da-5058-995e-e2d54ff06188",
+    "pathname": "/books/principles-economics/pages/chapter-29",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "049b5916-c748-53e5-a17a-e81473b12289",
+    "pathname": "/books/principles-economics/pages/chapter-30",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "2d385cbb-dd6a-5428-9cc3-69f4a5489383",
+    "pathname": "/books/principles-economics/pages/chapter-31",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "dba9ab76-88f0-55eb-acec-f83488ee615f",
+    "pathname": "/books/principles-economics/pages/chapter-32",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "143dad2f-1e79-5034-850e-a3b82939b9c0",
+    "pathname": "/books/principles-economics/pages/chapter-33",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "e8137dae-840f-5a9b-baf9-bc3fba3d3dde",
+    "pathname": "/books/principles-economics/pages/chapter-34",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "d6d0e7e4-48c8-5083-917a-84b50b3581cb",
+    "pathname": "/books/principles-economics/pages/references",
+    "query": "?message=retired"
+  },
+  {
+    "bookId": "4c34671f-b057-4918-8796-38ca1b2f4151",
+    "pageId": "ac1e7f5e-6177-50cd-b7cd-5df8ce538934",
+    "pathname": "/books/principles-economics/pages/index",
+    "query": "?message=retired"
+  },
+  {
     "bookId": "69619d2b-68f0-44b0-b074-a9b2bf90b2c6",
     "pageId": "2c962197-8004-45c5-8c65-0eb785cbe09b",
     "pathname": "/books/principles-economics/pages/the-expenditure-output-model"

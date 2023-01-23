@@ -211,12 +211,19 @@ class Highlight:
 
 class Library(object):
 
-    # Read the books details from books.json file
-    local = "utils/books.json"
-    parent = f"pytest-selenium/{local}"
-    location = parent if exists(parent) else local
+    # Read the english books details from books.json file
+    english = "utils/books.json"
+    parent = f"pytest-selenium/{english}"
+    location = parent if exists(parent) else english
     with open(location, "r") as book_details:
         books = loads(book_details.read())
+
+    # Read the international books details from intlbooks.json file
+    intl = "utils/intlbooks.json"
+    intl_parent = f"pytest-selenium/{intl}"
+    intl_location = intl_parent if exists(intl_parent) else intl
+    with open(intl_location, "r") as book_details1:
+        intl_books = loads(book_details1.read())
 
     def random_book_slug(self):
         """Book slug of a random book selected from the Library."""
@@ -229,15 +236,21 @@ class Library(object):
         book_slugs_list = list(self.books.keys())
         return book_slugs_list
 
+    @property
+    def book_slugs_list_intl(self):
+        """List of book slugs for all the international books present in the Library."""
+        book_slugs_list_intl = list(self.intl_books.keys())
+        return book_slugs_list_intl
+
 
 def get_default_page(element):
-    book_list = Library.books
+    book_list = Library.intl_books if element in Library.intl_books else Library.books
     default_page = book_list[element]["default_page"]
     return default_page
 
 
 def get_search_term(element):
-    book_list = Library.books
+    book_list = Library.intl_books if element in Library.intl_books else Library.books
     search_term = book_list[element]["search_term"]
     return search_term
 
@@ -250,7 +263,7 @@ def expected_chapter_search_results_total(element) -> int:
         :rtype: int
 
     """
-    book_list = Library.books
+    book_list = Library.intl_books if element in Library.intl_books else Library.books
     return book_list[element]["chapter_search_results_total"]
 
 
@@ -262,7 +275,7 @@ def expected_rkt_search_results_total(element) -> int:
         :rtype: int
 
     """
-    book_list = Library.books
+    book_list = Library.intl_books if element in Library.intl_books else Library.books
     return book_list[element]["rkt_search_results_total"]
 
 

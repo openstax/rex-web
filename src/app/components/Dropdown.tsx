@@ -76,7 +76,7 @@ const TabHiddenDropDown = styled((
   const toggleElement = React.useRef<HTMLElement>(null);
 
   useFocusLost(container, isOpen, React.useCallback(() => setOpen(false), [setOpen]));
-  useOnEsc(container, isOpen, () => {
+  useOnEsc(isOpen, () => {
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
