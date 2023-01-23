@@ -60,6 +60,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
 
+  // Add options only if linking to the same book
   const getOptions = (explicitParams?: OutputParams) => currentBook && currentBook.id === bookUid
   ? createNavigationOptions({...systemQueryParams, ...explicitParams},
     scrollTarget)
@@ -69,7 +70,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
-  // Add options only if linking to the same book
   const options = getOptions();
   const optionsWithExplicitParams = getOptions(queryParams);
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
