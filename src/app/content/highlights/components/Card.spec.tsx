@@ -189,10 +189,10 @@ describe('Card', () => {
       color: highlightStyles[0].label,
       id: highlightData.id,
     } as HighlightData;
-    store.dispatch(receiveHighlights({highlights: [data], pageId: '123'}));
-    store.dispatch(focusHighlight(highlight.id));
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({highlights: [data], pageId: '123'}));
+    store.dispatch(focusHighlight(highlight.id));
 
     const component = renderer.create(<TestContainer store={store}>
       <Card {...cardProps} />
@@ -294,7 +294,10 @@ describe('Card', () => {
       ...highlight.serialize().getApiPayload(),
       scopeId: 'testbook1-uuid',
       sourceId: 'testbook1-testpage1-uuid',
-      sourceMetadata: {bookVersion: '1.0'},
+      sourceMetadata: {
+        bookVersion: '1.0',
+        pipelineVersion: book.archiveVersion,
+      },
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
       locationFilterId: location!.id,

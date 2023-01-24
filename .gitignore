@@ -12,6 +12,7 @@ node_modules
 
 # production
 /build
+/data/certs
 
 # misc
 .DS_Store

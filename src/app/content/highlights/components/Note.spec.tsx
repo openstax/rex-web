@@ -1,6 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { assertDocument } from '../../../utils/browser-assertions';
 import Note from './Note';
@@ -40,35 +41,47 @@ describe('Note', () => {
 
   it('resizes on update when necessary', () => {
     const textarea = assertDocument().createElement('textarea');
+    const textareaRef = {current: textarea};
+    const root = assertDocument().createElement('div');
 
-    const {node, root} = renderToDom(<TestContainer>
-      <Note textareaRef={{ current: textarea }} note='' onChange={() => null} onFocus={() => null} />
-    </TestContainer>);
+    act(() => {
+      ReactDOM.render(<TestContainer>
+        <Note textareaRef={textareaRef} note='' onChange={() => null} onFocus={() => null} />
+      </TestContainer>, root);
+    });
 
-    Object.defineProperty(node, 'scrollHeight', { value: 100 });
-    Object.defineProperty(node, 'offsetHeight', { value: 50 });
+    Object.defineProperty(textareaRef.current, 'scrollHeight', { value: 100 });
+    Object.defineProperty(textareaRef.current, 'offsetHeight', { value: 50 });
 
-    renderToDom(<TestContainer>
-      <Note textareaRef={{ current: textarea }} note='asdf' onChange={() => null} onFocus={() => null} />
-    </TestContainer>, root);
+    act(() => {
+      ReactDOM.render(<TestContainer>
+        <Note textareaRef={textareaRef} note='asdf' onChange={() => null} onFocus={() => null} />
+      </TestContainer>, root);
+    });
 
-    expect(node.style.height).toEqual('105px');
+    expect(textareaRef.current.style.height).toEqual('105px');
   });
 
   it('doesn\'t resize on update when unneccessary', () => {
     const textarea = assertDocument().createElement('textarea');
+    const textareaRef = {current: textarea};
+    const root = assertDocument().createElement('div');
 
-    const {node, root} = renderToDom(<TestContainer>
-      <Note textareaRef={{ current: textarea }} note='' onChange={() => null} onFocus={() => null} />
-    </TestContainer>);
+    act(() => {
+      ReactDOM.render(<TestContainer>
+        <Note textareaRef={{ current: textarea }} note='' onChange={() => null} onFocus={() => null} />
+      </TestContainer>, root);
+    });
 
-    Object.defineProperty(node, 'scrollHeight', { value: 50 });
-    Object.defineProperty(node, 'offsetHeight', { value: 50 });
+    Object.defineProperty(textareaRef.current, 'scrollHeight', { value: 50 });
+    Object.defineProperty(textareaRef.current, 'offsetHeight', { value: 50 });
 
-    renderToDom(<TestContainer>
-      <Note textareaRef={{ current: textarea }} note='asdf' onChange={() => null} onFocus={() => null} />
-    </TestContainer>, root);
+    act(() => {
+      ReactDOM.render(<TestContainer>
+        <Note textareaRef={{ current: textarea }} note='asdf' onChange={() => null} onFocus={() => null} />
+      </TestContainer>, root);
+    });
 
-    expect(node.style.height).toEqual('');
+    expect(textareaRef.current.style.height).toEqual('');
   });
 });

@@ -1,39 +1,49 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../test/createTestStore';
+import { book } from '../../test/mocks/archiveLoader';
 import TestContainer from '../../test/TestContainer';
+import { runHooksAsync } from '../../test/utils';
+import { setBookStylesUrl } from '../content/actions';
+import { State } from '../content/types';
 import { locationChange } from '../navigation/actions';
-import DynamicContentStyles, { WithStyles } from './DynamicContentStyles';
+import DynamicContentStyles, { ScopedGlobalStyle } from './DynamicContentStyles';
 
 describe('DynamicContentStyles', () => {
   // tslint:disable-next-line: variable-name
-  let Component: (props: { disable?: boolean }) => JSX.Element;
+  let Component: (props: { book: State['book'], disable?: boolean }) => JSX.Element;
   let store: ReturnType<typeof createTestStore>;
+  let spyFetch: ReturnType<typeof jest.spyOn>;
 
   beforeEach(() => {
     store = createTestStore();
-    Component = (props: { disable?: boolean }) => <DynamicContentStyles disable={props.disable}>
+    Component = (
+      props: { book: State['book'], disable?: boolean }
+    ) => <DynamicContentStyles book={props.book} disable={props.disable}>
       some text
     </DynamicContentStyles>;
+    spyFetch = jest.spyOn(globalThis, 'fetch')
+      .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
   });
 
-  it('fetches styles', async() => {
-    store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
-    const spyFetch = jest.spyOn(globalThis, 'fetch')
-      .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
+  afterEach(() => {
+    spyFetch.mockClear();
+  });
 
-    const componenet = renderer.create(<TestContainer store={store}>
-      <Component />
+  it('fetches styles in content-style param and sets styles and data-dynamic-style', async() => {
+    store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(async() => {});
+    await runHooksAsync(renderer);
 
     expect(spyFetch).toHaveBeenCalledTimes(1);
-
-    const withStyles = componenet.root.findByType(WithStyles);
-    expect(withStyles.props.styles).toEqual('.cool { color: red; }');
     expect(spyFetch).toHaveBeenCalledWith('file.css');
+
+    const globalStyle = component.root.findByType(ScopedGlobalStyle);
+    expect(globalStyle.props.styles).toEqual('.cool { color: red; }');
 
     await renderer.act(async() => {
       store.dispatch(locationChange({ location: { search: 'content-style=file2.css' } } as any));
@@ -47,37 +57,58 @@ describe('DynamicContentStyles', () => {
 
     // Don't call fetch again for the same url
     expect(spyFetch).toHaveBeenCalledTimes(2);
-    spyFetch.mockClear();
   });
 
-  it('noops if content-style is not provided', async() => {
-    const spyFetch = jest.spyOn(globalThis, 'fetch')
-      .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
+  it('sets styles and data-dynamic-style if bookStylesUrl is in the store and styles are cached', async() => {
+    store.dispatch(setBookStylesUrl('../resources/styles/test-styles.css'));
 
-    renderer.create(<TestContainer store={store}>
-      <Component />
+    const component = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(() => {});
+    await runHooksAsync(renderer);
 
-    expect(spyFetch).not.toHaveBeenCalled();
-    spyFetch.mockClear();
+    const globalStyle = component.root.findByType(ScopedGlobalStyle);
+    expect(globalStyle.props.styles).toEqual('.cool { color: blue; }');
   });
 
-  it('noops if disabled is passed', async() => {
-    store.dispatch(locationChange({ location: { search: 'content-style=file.css' } } as any));
-    const spyFetch = jest.spyOn(globalThis, 'fetch')
-      .mockImplementation(async() => ({ text: async() => '.cool { color: red; }' }) as any);
+  it('does not set styles but sets data-dynamic-style if bookStylesUrl is not cached', async() => {
+    store.dispatch(setBookStylesUrl('../resources/styles/uncached-styles.css'));
 
-    renderer.create(<TestContainer store={store}>
-      <Component disable={true} />
+    const component = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
-    await renderer.act(() => {});
+    await runHooksAsync(renderer);
 
-    expect(spyFetch).not.toHaveBeenCalled();
-    spyFetch.mockClear();
+    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
+      'No instances found with node type: "GlobalStyleComponent"'
+    );
+  });
+
+  it('does not set styles and data-dynamic-style if disable is passed', async() => {
+    store.dispatch(setBookStylesUrl('../resources/styles/test-styles.css'));
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Component book={book} disable={true} />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
+      'No instances found with node type: "GlobalStyleComponent"'
+    );
+  });
+
+  it('does not set styles and data-dynamic-style if store and query params not set', async() => {
+    const component = renderer.create(<TestContainer store={store}>
+      <Component book={book} />
+    </TestContainer>);
+
+    await runHooksAsync(renderer);
+
+    expect(() => component.root.findByType(ScopedGlobalStyle)).toThrow(
+      'No instances found with node type: "GlobalStyleComponent"'
+    );
   });
 });

@@ -8,6 +8,7 @@ import { locationChange } from '../../navigation/actions';
 import { getFiltersFromQuery } from '../../navigation/utils';
 import { AnyAction } from '../../types';
 import { merge } from '../../utils';
+import { receivePage } from '../actions';
 import { modalQueryParameterName } from '../constants';
 import * as actions from './actions';
 import { modalUrlName } from './constants';
@@ -43,12 +44,8 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       const hasModalQuery = action.payload.query[modalQueryParameterName] === modalUrlName;
       const {colors, locationIds} = getFiltersFromQuery(action.payload.query);
 
-      const currentPageId = state.currentPage.pageId;
-      const actionPageId = action.payload.location.state && action.payload.location.state.pageUid;
       return {
-        currentPage: currentPageId && actionPageId === currentPageId
-          ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
-          : initialState.currentPage,
+        ...state,
         summary: {
           ...state.summary,
           filters: {
@@ -58,6 +55,17 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
           },
           open: hasModalQuery,
         },
+      };
+    }
+    case getType(receivePage): {
+      const currentPageId = state.currentPage.pageId;
+      const actionPageId = action.payload.id;
+
+      return {
+        ...state,
+        currentPage: currentPageId && actionPageId === currentPageId
+          ? omit('focused', {...state.currentPage, hasUnsavedHighlight: false})
+          : initialState.currentPage,
       };
     }
     case getType(actions.createHighlight): {

@@ -95,7 +95,7 @@ describe('Dropdown', () => {
     expect(() => component.root.findByType(DropdownList)).not.toThrow();
 
     renderer.act(() => {
-      useOnEscSpy.mock.calls[0][2]();
+      useOnEscSpy.mock.calls[0][1]();
     });
 
     expect(() => component.root.findByType(DropdownList)).toThrow();
@@ -127,7 +127,7 @@ describe('Dropdown', () => {
     expect(() => component.root.findByType(DropdownList)).not.toThrow();
 
     renderer.act(() => {
-      useOnEscSpy.mock.calls[0][2]();
+      useOnEscSpy.mock.calls[0][1]();
     });
 
     expect(() => component.root.findByType(DropdownList)).toThrow();

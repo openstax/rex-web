@@ -7,13 +7,13 @@ import createIntl from './createIntl';
 import { currentLocale } from './selectors';
 
 // tslint:disable-next-line:variable-name
-const MessageProvider = (props: { children?: React.ReactNode }) => {
+const MessageProvider = (props: React.PropsWithChildren<{}>) => {
   const services = useServices();
   const [intl, setIntl] = useState<IntlShape | null>(services.intl.current);
   const bookLocale = useSelector(currentLocale);
 
   useEffect(() => {
-    if (!bookLocale) {
+    if (!bookLocale || intl) {
       return;
     }
 
@@ -25,7 +25,7 @@ const MessageProvider = (props: { children?: React.ReactNode }) => {
     };
 
     setUpIntl();
-  }, [bookLocale]);
+  }, [bookLocale, intl]);
 
   return intl && (
     <RawIntlProvider value={intl}>

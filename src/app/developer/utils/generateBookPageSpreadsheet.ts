@@ -1,10 +1,5 @@
-import { IntlShape } from 'react-intl';
-import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../../../config';
-import createArchiveLoader from '../../../gateways/createArchiveLoader';
-import { getArchiveUrl } from '../../../gateways/createBookConfigLoader';
-import createOSWebLoader from '../../../gateways/createOSWebLoader';
 import { content as contentRoute } from '../../content/routes';
-import { ArchiveBook, LinkedArchiveTree, LinkedArchiveTreeSection } from '../../content/types';
+import { Book, LinkedArchiveTree, LinkedArchiveTreeSection } from '../../content/types';
 import {
   archiveTreeSectionIsChapter,
   archiveTreeSectionIsUnit,
@@ -13,6 +8,8 @@ import {
 import { getCanonicalUrlParams } from '../../content/utils/canonicalUrl';
 import { getParentPrefix } from '../../content/utils/seoUtils';
 import { getBookPageUrlAndParams } from '../../content/utils/urlUtils';
+import createIntl from '../../messages/createIntl';
+import { AppServices } from '../../types';
 
 const domParser = new DOMParser();
 
@@ -21,13 +18,11 @@ const stripTags = (value?: string) => value ? domParser.parseFromString(
 
 const csvQuote = (value?: string) => value ? `"${value.replace(/"/g, '""')}"` : '""';
 
-const getPageRow = (book: ArchiveBook, intl: IntlShape) => {
-  const archiveLoader = createArchiveLoader(getArchiveUrl, {
-    archivePrefix: ARCHIVE_URL,
-  });
-  const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
+const getPageRow = (book: Book, services: AppServices) => {
+  const {archiveLoader, osWebLoader} = services;
 
   return async(section: LinkedArchiveTreeSection | LinkedArchiveTree) => {
+    const intl = await createIntl(book.language);
     const parentPrefix = getParentPrefix(section.parent, intl).trim();
 
     const { url } = getBookPageUrlAndParams(book, section);
@@ -56,7 +51,7 @@ const getPageRow = (book: ArchiveBook, intl: IntlShape) => {
   };
 };
 
-export const generateBookPageSpreadsheet = async(book: ArchiveBook, intl: IntlShape) => [
+export const generateBookPageSpreadsheet = async(book: Book, services: AppServices) => [
   [
     'Book Title',
     'Book Version',
@@ -69,5 +64,5 @@ export const generateBookPageSpreadsheet = async(book: ArchiveBook, intl: IntlSh
     'Page URL',
     'Canonical URL',
   ].map(csvQuote).join(','),
-  ...(await Promise.all(findTreePages(book.tree).map(getPageRow(book, intl)))),
+  ...(await Promise.all(findTreePages(book.tree).map(getPageRow(book, services)))),
 ].join(`\n`);

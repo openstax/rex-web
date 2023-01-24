@@ -8,14 +8,12 @@ import { toastMessageKeys } from '../../../notifications/components/ToastNotific
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
-import BuyBook from '../BuyBook';
-import LabsCTA from '../LabsCall';
 import PageToasts from '../Page/PageToasts';
-import PrevNextBar from '../PrevNextBar';
 import { PagePropTypes } from './connector';
 import { transformContent } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
+import * as lazyResources from './lazyResourceManager';
 import MinPageHeight from './MinPageHeight';
 import PageContent from './PageContent';
 import PageNotFound from './PageNotFound';
@@ -45,6 +43,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     return getCleanContent(book, page, services.archiveLoader, (content) => {
       const parsedContent = parser.parseFromString(content, 'text/html');
       contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
+      lazyResources.makeResourcesLazy(parsedContent);
 
       transformContent(parsedContent, parsedContent.body, this.props.intl);
 
@@ -107,6 +106,8 @@ export default class PageComponent extends Component<PagePropTypes> {
       forceRedraw: highlightsAddedOrRemoved,
       onSelect: this.onSearchHighlightSelect,
     });
+
+    lazyResources.checkLazyResources();
   }
 
   public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
@@ -148,14 +149,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     return <React.Fragment>
       <PageContent
         key='main-content'
+        book={this.props.book}
         className='page-content'
         ref={this.container}
         dangerouslySetInnerHTML={{ __html: html}}
         textSize={this.props.textSize}
       />
-      <PrevNextBar />
-      <LabsCTA />
-      <BuyBook />
+      {this.props.children}
     </React.Fragment>;
   };
 
@@ -193,6 +193,8 @@ export default class PageComponent extends Component<PagePropTypes> {
   private listenersOn() {
     this.listenersOff();
 
+    lazyResources.addScrollHandler();
+
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
@@ -201,6 +203,8 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   private listenersOff() {
+    lazyResources.removeScrollHandler();
+
     const removeIfExists = (el: HTMLElement) => {
       const handler = this.clickListeners.get(el);
       if (handler) {

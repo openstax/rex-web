@@ -586,6 +586,54 @@ describe('EditCard', () => {
     mockSpyUser.mockClear();
   });
 
+  it('does not trackShowCreate for authenticated user if the card is not active', () => {
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
+
+    const spyAnalytics = jest.spyOn(services.analytics.showCreate, 'track');
+
+    renderer.create(
+      <TestContainer services={services} store={store}>
+        <EditCard
+          {...editCardProps}
+          isActive={false}
+          data={undefined}
+        />
+      </TestContainer>
+    );
+
+    // Wait for React.useEffect
+    renderer.act(() => undefined);
+
+    expect(spyAnalytics).not.toHaveBeenCalled();
+    mockSpyUser.mockClear();
+  });
+
+  it('does not trackShowLogin for unauthenticated user if the card is not active', () => {
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
+    onClickOutside.mockReturnValue(() => () => null);
+
+    const spyAnalytics = jest.spyOn(services.analytics.showLogin, 'track');
+
+    renderer.create(
+      <TestContainer services={services} store={store}>
+        <EditCard
+          {...editCardProps}
+          isActive={false}
+          data={undefined}
+        />
+      </TestContainer>
+    );
+
+    // Wait for React.useEffect
+    renderer.act(() => undefined);
+
+    expect(spyAnalytics).not.toHaveBeenCalled();
+  });
+
   it('call onHeightChange when element mounts', () => {
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
     onClickOutside.mockReturnValue(() => () => null);

@@ -38,12 +38,14 @@ body {
   @import "./content-baked.less";
 
   @font-face {
+    font-display: swap;
     font-family: 'IBM Plex Sans';
     font-style: italic;
     font-weight: 400;
     src: url('../../static/fonts/ibm-plex-sans-v9-latin-italic.woff2') format('woff2'), url('../../static/fonts/ibm-plex-sans-v9-latin-italic.woff') format('woff');
   }
   @font-face {
+    font-display: swap;
     font-family: 'IBM Plex Sans';
     font-style: normal;
     font-weight: 400;
@@ -142,11 +144,7 @@ body {
   }
 
   span[data-screenreader-only="true"] {
-    position: absolute;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
+    .visual-hide();
   }
 
   sup {

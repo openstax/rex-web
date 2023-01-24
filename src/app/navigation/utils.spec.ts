@@ -186,13 +186,13 @@ describe('matchUrl', () => {
 describe('findPathForParams', () => {
   const exampleRoutes = [
     '/b/:book_slug/p/:page_slug',
-    '/b/:book_slug@:book_version/p/:page_slug',
+    '/b/:book_slug@:book_contentVersion/p/:page_slug',
   ];
 
   const params: Params = {
     book: {
+      contentVersion: '11.1',
       slug: 'randomBookSlug',
-      version: '11.1',
     },
     page: {
       slug: 'randomPageSlug',
@@ -208,7 +208,7 @@ describe('findPathForParams', () => {
   });
 
   it('matches new params', () => {
-    const pathForNewParam = '/b/:book_slug@:book_version/p/:page_slug/:book_unknownParam';
+    const pathForNewParam = '/b/:book_slug@:book_contentVersion/p/:page_slug/:book_unknownParam';
 
     expect(findPathForParams(getUrlRegexParams({...params, book: {...params.book, unknownParam: '1'}}), [
       ...exampleRoutes,
@@ -217,7 +217,7 @@ describe('findPathForParams', () => {
   });
 
   it('works for paths with regexp', () => {
-    const pathWithRegexp = `/b/:book_uuid([\da-z]{8}-[\da-z]{4}-[\da-z]{4}-[\da-z]{4}-[\da-z]{12})/p/:page_slug`;
+    const pathWithRegexp = `/b/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})/p/:page_slug`;
 
     expect(findPathForParams(getUrlRegexParams({...params, book: {uuid: '1'}}), [
       ...exampleRoutes,

@@ -8,7 +8,6 @@ import { testAccountsUser } from '../../../../test/mocks/userLoader';
 import { receivePageFocus } from '../../../actions';
 import { receiveUser } from '../../../auth/actions';
 import { formatUser } from '../../../auth/utils';
-import { locationChange } from '../../../navigation/actions';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
@@ -22,11 +21,11 @@ const mockBookConfig = {
 
 jest.doMock('../../../../config.books', () => mockBookConfig);
 
-describe('locationChange', () => {
+describe('loadHighlights', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
-  let hook: ReturnType<typeof import ('./locationChange').default>;
+  let hook: ReturnType<typeof import ('./loadHighlights').default>;
 
   beforeEach(() => {
     store = createTestStore();
@@ -39,7 +38,7 @@ describe('locationChange', () => {
 
     dispatch = jest.spyOn(helpers, 'dispatch');
 
-    hook = (require('./locationChange').default)(helpers);
+    hook = (require('./loadHighlights').default)(helpers);
   });
 
   it('noops with no book', () => {
@@ -73,7 +72,7 @@ describe('locationChange', () => {
     const highlights = [{id: mock.id} as HighlightData];
     store.dispatch(receiveHighlights({highlights, pageId: page.id}));
 
-    hook(locationChange({action: 'PUSH', location: {} as any}));
+    hook(receivePage({...page, references: []}));
 
     expect(getHighlights).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
@@ -187,7 +186,7 @@ describe('locationChange', () => {
         .mockRejectedValueOnce(error);
 
       try {
-        await hook(locationChange({action: 'PUSH', location: {} as any}));
+        await hook(receivePage({...page, references: []}));
       } catch (error) {
         expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.load);
         expect(error.meta).toEqual({destination: 'page', shouldAutoDismiss: false});
@@ -228,7 +227,7 @@ describe('locationChange', () => {
       }
 
       try {
-        await hook(locationChange({action: 'PUSH', location: {} as any}));
+        await hook(receivePage({...page, references: []}));
       } catch (error) {
         expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);

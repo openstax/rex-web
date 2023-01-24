@@ -7,7 +7,6 @@ import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Det
 import { htmlMessage } from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';
 import { scrollTo } from '../../domUtils';
-import * as selectNavigation from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import { assertNotNull } from '../../utils';
@@ -102,7 +101,6 @@ const AttributionDetails = styled(Details)`
 const AttributionContent = htmlMessage('i18n:attribution:text', Content);
 
 interface Props {
-  currentPath: string;
   book: Book | undefined;
   page: Page | undefined;
 }
@@ -154,21 +152,26 @@ class Attribution extends Component<Props> {
   }
 
   public render() {
-    const {book} = this.props;
+    const {book, page} = this.props;
 
-    return hasOSWebData(book) && <AttributionDetails
+    return hasOSWebData(book) && !!page && <AttributionDetails
       ref={this.container}
       data-testid='attribution-details'
       data-analytics-region='attribution'
     >
       <AttributionSummary />
-      <AttributionContent values={this.getValues(book)} />
+      <AttributionContent values={this.getValues(book, page)} />
     </AttributionDetails>;
   }
 
-  private getValues = (book: BookWithOSWebData) => {
+  private getValues = (book: BookWithOSWebData, page: Page) => {
     const introPage = findDefaultBookPage(book);
-    const introPageUrl = getBookPageUrlAndParams(book, introPage).url;
+    const bookWithoutExplicitVersions = {
+      ...book,
+      loadOptions: {booksConfig: book.loadOptions.booksConfig},
+    };
+    const introPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
+    const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
 
     assertNotNull(book.publish_date, `BUG: Could not find publication date`);
     const bookPublishDate = new Date(book.publish_date);
@@ -194,7 +197,7 @@ class Attribution extends Component<Props> {
       bookPublishDate,
       bookTitle: book.title,
       copyrightHolder: 'OpenStax',
-      currentPath: this.props.currentPath,
+      currentPath: currentPageUrl,
       introPageUrl,
       originalMaterialLink: null,
       ...this.bookIdsWithSpecialAttributionText[book.id] || {},
@@ -205,6 +208,5 @@ class Attribution extends Component<Props> {
 export default connect(
   (state: AppState) => ({
     ...select.bookAndPage(state),
-    currentPath: selectNavigation.pathname(state),
   })
 )(Attribution);

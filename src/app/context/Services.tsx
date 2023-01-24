@@ -6,11 +6,14 @@ export const servicesContext = React.createContext({} as AppServices & Middlewar
 
 const {Consumer, Provider} = servicesContext;
 
-export const useServices = (): AppServices & MiddlewareAPI => ({
-  ...React.useContext(servicesContext),
-  dispatch: useStore().dispatch,
-  getState: useStore().getState,
-});
+export const useServices = (): AppServices & MiddlewareAPI => {
+  const appServices = React.useContext(servicesContext);
+  const {dispatch, getState} = useStore();
+
+  return React.useMemo(() => ({
+    ...appServices, dispatch, getState,
+  }), [appServices, dispatch, getState]);
+};
 
 export {
   Consumer,

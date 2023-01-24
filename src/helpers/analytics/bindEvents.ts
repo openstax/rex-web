@@ -3,6 +3,7 @@ import { captureEvent } from '../../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import * as clickButton from './events/clickButton';
 import * as clickLink from './events/clickLink';
+import * as elementInteracted from './events/elementInteracted';
 import { AnalyticsEvent } from './events/event';
 import * as highlightingCreateNote from './events/highlighting/createNote';
 import * as deleteHighlight from './events/highlighting/delete';
@@ -62,6 +63,7 @@ export const events = {
   deleteHighlight: mapEventType(deleteHighlight),
   editAnnotation: mapEventType(highlightingEditAnnotation),
   editNoteColor: mapEventType(highlightingEditColor),
+  elementInteracted: mapEventType(elementInteracted),
   openCloseKeyboardShortcuts: mapEventType(openCloseKeyboardShortcuts),
   openCloseMH: mapEventType(openCloseMH),
   openClosePracticeQuestions: mapEventType(openClosePracticeQuestions),

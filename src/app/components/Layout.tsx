@@ -5,10 +5,12 @@ import ErrorModal from '../errors/components/ErrorModal';
 import theme from '../theme';
 import AccessibilityButtonsWrapper from './AccessibilityButtonsWrapper';
 import NavBar from './NavBar';
+import OnEsc from './OnEsc';
 
 // tslint:disable-next-line:variable-name
 const Layout: SFC = ({ children }) => <AccessibilityButtonsWrapper>
   <NavBar />
+  <OnEsc />
   <ErrorModal />
   <ErrorBoundary>
     {children}

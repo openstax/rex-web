@@ -125,7 +125,10 @@ const Card = (props: CardProps) => {
       ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
       scopeId: book.id,
       sourceId: page.id,
-      sourceMetadata: {bookVersion: book.version},
+      sourceMetadata: {
+        bookVersion: book.contentVersion,
+        pipelineVersion: book.archiveVersion,
+      },
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {
       isDefaultColor,

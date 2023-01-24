@@ -11,10 +11,23 @@ import * as routes from '../../routes';
 import { formatBookData } from '../../utils';
 import { ContentLinkProp, reduceReferences } from './contentLinkHandler';
 
-const book = {
-  ...formatBookData(archiveBook, mockCmsBook),
+const book = formatBookData({
+  ...archiveBook,
   id: 'longidin-vali-dfor-mat1-111111111111',
-};
+  loadOptions: {
+    ...archiveBook.loadOptions,
+    booksConfig: {
+      ...archiveBook.loadOptions.booksConfig,
+      books: {
+        'longidin-vali-dfor-mat1-111111111111': {defaultVersion: archiveBook.contentVersion},
+      },
+    },
+  },
+  tree: {
+    ...archiveBook.tree,
+    id: 'longidin-vali-dfor-mat1-111111111111@',
+  },
+}, mockCmsBook);
 
 describe('contentLinkHandler', () => {
   let handler: (e: MouseEvent) => Promise<void>;
@@ -38,7 +51,6 @@ describe('contentLinkHandler', () => {
       currentPath: '/asdf',
       focusedHighlight: '',
       hasUnsavedHighlight: false,
-      locationState: {} as any,
       navigate: jest.fn(),
       page,
       persistentQueryParams: {},
@@ -69,11 +81,6 @@ describe('contentLinkHandler', () => {
             slug: 'page-title',
           },
         },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       },
       {
         match: link2,
@@ -84,11 +91,6 @@ describe('contentLinkHandler', () => {
           page: {
             slug: 'page-title',
           },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
         },
       }];
 
@@ -108,23 +110,18 @@ describe('contentLinkHandler', () => {
     });
 
     it('intercepts clicking content links with uuid', async() => {
-      const link = `/books/${book.id}@${book.version}/pages/page-title`;
+      const link = `/books/${book.id}@${book.contentVersion}/pages/page-title`;
       anchor.setAttribute('href', link);
       prop.references = [{
         match: link,
         params: {
           book: {
+            contentVersion: book.contentVersion,
             uuid: book.id,
-            version: book.version,
           },
           page: {
             slug: 'page-title',
           },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
         },
       }];
 
@@ -141,19 +138,15 @@ describe('contentLinkHandler', () => {
       expect(prop.navigate).toHaveBeenCalledWith({
         params: {
           book: {
+            contentVersion: book.contentVersion,
             uuid: book.id,
-            version: book.version,
           },
           page: {
             slug: 'page-title',
           },
         },
         route: contentRoute,
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
+        state: {},
       }, expect.anything());
     });
 
@@ -170,11 +163,6 @@ describe('contentLinkHandler', () => {
             slug: 'page-title',
           },
         },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       }];
 
       const event = {
@@ -197,33 +185,24 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
+        state: {},
       }, expect.anything());
     });
 
     it('intercepts clicking content links with book and page uuid', async() => {
       const pageId = book.id;
-      const link = `/books/${book.id}@${book.version}/pages/${pageId}`;
+      const link = `/books/${book.id}@${book.contentVersion}/pages/${pageId}`;
       anchor.setAttribute('href', link);
       prop.references = [{
         match: link,
         params: {
           book: {
+            contentVersion: book.contentVersion,
             uuid: book.id,
-            version: book.version,
           },
           page: {
             uuid: pageId,
           },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
         },
       }];
 
@@ -240,19 +219,15 @@ describe('contentLinkHandler', () => {
       expect(prop.navigate).toHaveBeenCalledWith({
         params: {
           book: {
+            contentVersion: book.contentVersion,
             uuid: book.id,
-            version: book.version,
           },
           page: {
             uuid: pageId,
           },
         },
         route: contentRoute,
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
+        state: {},
       }, expect.anything());
     });
 
@@ -293,11 +268,6 @@ describe('contentLinkHandler', () => {
             slug: 'page-title',
           },
         },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
       }];
 
       const event = {
@@ -335,20 +305,14 @@ describe('contentLinkHandler', () => {
           },
         },
         route: contentRoute,
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
-        },
+        state: {},
       }, expect.anything());
     });
   });
 
   describe('with unsaved highlight', () => {
     let event: any;
-    const mockConfirmation = jest.fn()
-      .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(false), 300)))
-      .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(true), 300)));
+    const mockConfirmation = jest.fn();
 
     jest.mock(
       '../../highlights/components/utils/showConfirmation',
@@ -360,23 +324,18 @@ describe('contentLinkHandler', () => {
 
       handler = require('./contentLinkHandler').contentLinkHandler(anchor, () => prop, services);
 
-      const link = `/books/${book.id}@${book.version}/pages/page-title`;
+      const link = `/books/${book.id}@${book.contentVersion}/pages/page-title`;
       anchor.setAttribute('href', link);
       prop.references = [{
         match: link,
         params: {
           book: {
+            contentVersion: book.contentVersion,
             uuid: book.id,
-            version: book.version,
           },
           page: {
             slug: 'page-title',
           },
-        },
-        state: {
-          bookUid: 'book',
-          bookVersion: 'version',
-          pageUid: 'page',
         },
       }];
 
@@ -386,6 +345,7 @@ describe('contentLinkHandler', () => {
     });
 
     it('noops if user chooses not to discard', async() => {
+      mockConfirmation.mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(false), 300)));
       await handler(event as any);
 
       expect(event.preventDefault).toHaveBeenCalled();
@@ -397,6 +357,7 @@ describe('contentLinkHandler', () => {
     });
 
     it('intercepts clicking if user chooses to discard', async() => {
+      mockConfirmation.mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(true), 300)));
       await handler(event as any);
 
       expect(event.preventDefault).toHaveBeenCalled();

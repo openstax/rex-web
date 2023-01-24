@@ -2,7 +2,7 @@ import { Document, Element, FocusEvent, HTMLElement,
   HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
-import { isElement, isWindow } from './guards';
+import { isElement, isTextInputHtmlElement, isWindow } from './guards';
 import theme from './theme';
 import { assertDefined, assertDocument, assertWindow } from './utils';
 
@@ -134,7 +134,8 @@ export const onKey = (
 ): [() => void, () => void] => {
   const handler = (e: Event) => {
     if (isKeyboardEvent(e) && e.key === config.key &&
-        (typeof config.shiftKey === 'undefined' || e.shiftKey === config.shiftKey)) {
+        (typeof config.shiftKey === 'undefined' || e.shiftKey === config.shiftKey) &&
+        (!isTextInputHtmlElement(e.target))) {
       e.stopPropagation();
       cb();
     }
@@ -172,9 +173,26 @@ export const useOnKey = (
   React.useEffect(onKeyHandler(config, element, isEnabled, cb), [config, element, isEnabled, cb]);
 };
 
-export const useOnEsc = (
-  element: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void
-) => useOnKey({key: 'Escape'}, element, isEnabled, cb);
+export const onEscCallbacks: Array<() => void> = [];
+
+// To be called by components to add an onEsc callback
+// Requires the OnEsc component in the layout for normal operation
+// When ESC is pressed, the last callback in the onEscCallbacks array is executed
+// The callback is automatically removed when the calling component unmounts
+export const useOnEsc = (isEnabled: boolean, callback: () => void) => React.useEffect(() => {
+  if (!isEnabled) {
+    return undefined;
+  }
+
+  onEscCallbacks.push(callback);
+
+  return () => {
+    const index = onEscCallbacks.lastIndexOf(callback);
+    if (index !== -1) {
+      onEscCallbacks.splice(index, 1);
+    }
+  };
+}, [isEnabled, callback]);
 
 const useMatchMediaQuery = (mediaQuery: string) => {
   const matchMedia = assertWindow().matchMedia(mediaQuery);

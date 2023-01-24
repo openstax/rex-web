@@ -22,6 +22,7 @@ const extensions = ['.gif', '.jpeg', '.jpg', '.png', '.svg'];
 
 // Override the default style ignorer, also modifying all image requests
 ignoreStyles(DEFAULT_EXTENSIONS, (mod, filename) => {
+
   if (!extensions.find((f) => filename.endsWith(f))) {
     // If we find a style
     return noOp();

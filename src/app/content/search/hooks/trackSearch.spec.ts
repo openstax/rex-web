@@ -9,13 +9,13 @@ declare const window: Window;
 
 describe('trackSearch', () => {
   let client: GoogleAnalyticsClient;
-  let mockGa: any;
+  let mockGtag: any;
 
   beforeEach(() => {
     client = googleAnalyticsClient;
-    mockGa = jest.fn<UniversalAnalytics.ga, []>();
-    window.ga = mockGa;
-    client.setTrackingIds(['foo']);
+    mockGtag = jest.fn<Gtag.Gtag, []>();
+    window.gtag = mockGtag;
+    client.setTagIds(['foo']);
   });
 
   it('tracks the search for a known book', async() => {
@@ -25,11 +25,11 @@ describe('trackSearch', () => {
     } as any) as MiddlewareAPI & AppServices;
 
     await (trackSearchHookBody(helpers))(requestSearch('a query'));
-    expect(mockGa).toHaveBeenCalledWith('tfoo.send', expect.objectContaining({
-      eventAction: 'a query',
-      eventCategory: 'REX search',
-      eventLabel: 'algebra',
-      hitType: 'event',
+    expect(mockGtag).toHaveBeenCalledWith('event', 'a query', expect.objectContaining({
+      event_category: 'REX search',
+      event_label: 'algebra',
+      queue_time: 0,
+      send_to: 'foo',
     }));
   });
 
@@ -40,11 +40,11 @@ describe('trackSearch', () => {
     } as any) as MiddlewareAPI & AppServices;
 
     await (trackSearchHookBody(helpers))(requestSearch('a query'));
-    expect(mockGa).toHaveBeenCalledWith('tfoo.send', expect.objectContaining({
-      eventAction: 'a query',
-      eventCategory: 'REX search',
-      eventLabel: 'unknown',
-      hitType: 'event',
+    expect(mockGtag).toHaveBeenCalledWith('event', 'a query', expect.objectContaining({
+      event_category: 'REX search',
+      event_label: 'unknown',
+      queue_time: 0,
+      send_to: 'foo',
     }));
   });
 
@@ -55,6 +55,6 @@ describe('trackSearch', () => {
     } as any) as MiddlewareAPI & AppServices;
 
     await (trackSearchHookBody(helpers))(requestSearch('a query', {isResultReload: true}));
-    expect(mockGa).not.toHaveBeenCalled();
+    expect(mockGtag).not.toHaveBeenCalled();
   });
 });

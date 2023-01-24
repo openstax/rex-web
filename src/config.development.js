@@ -1,5 +1,8 @@
 const query = require('query-string');
 
+// NOTE: for a specific archive version, prefer using the path param. use
+// this argument to use a completely different archive, such as archive-preview
+// or localhost
 const REACT_APP_ARCHIVE_URL_OVERRIDE = typeof(window) === 'undefined'
   ? undefined
   : query.parse(window.location.search).archive
@@ -29,7 +32,7 @@ module.exports = {
   ACCOUNTS_URL: process.env.ACCOUNTS_URL || 'https://dev.openstax.org',
   OS_WEB_URL: process.env.OS_WEB_URL || 'https://dev.openstax.org',
   HIGHLIGHTS_URL: process.env.HIGHLIGHTS_URL || 'https://highlights-hl-40b2567.sandbox.openstax.org',
-  SEARCH_URL: process.env.SEARCH_URL || 'https://search-os-a6c9b00.sandbox.openstax.org',
+  SEARCH_URL: process.env.SEARCH_URL || 'https://openstax.org',
 
   SKIP_OS_WEB_PROXY: process.env.SKIP_OS_WEB_PROXY !== undefined,
   FIXTURES: false,

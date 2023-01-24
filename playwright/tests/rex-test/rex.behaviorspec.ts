@@ -1,33 +1,123 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
+import { ContentPage, KsModal, randomNum, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
-test('open rex page', async ({ page }) => {
-    await page.goto('https://staging.openstax.org/books/physics/pages/preface');
-    expect(page.url()).toBe('https://staging.openstax.org/books/physics/pages/preface');
-  });
+test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/business-ethics/pages/preface'
+  await BookPage.open(path)
 
+  // AND: Tab 3 times and hit Enter
+  if (browserName === 'webkit') {
+    await page.keyboard.press('Alt+Tab')
+    await page.keyboard.press('Alt+Tab')
+    await page.keyboard.press('Alt+Tab')
+    await page.keyboard.press('Alt+Enter')
+  } else {
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Tab')
+    await page.keyboard.press('Enter')
+  }
 
+  // THEN: The KS modal is open
+  await expect(page).toHaveURL('/books/business-ethics/pages/preface?modal=KS')
 
-test('open keyboard shortcut modal', async ({ page }) => {
-  await page.goto('https://staging.openstax.org/books/business-ethics/pages/preface');
- 
-  // Press Tab
-  await page.locator('body').press('Tab');
+  const Modal = new KsModal(page)
+  await expect(Modal.ksModal).toBeVisible()
 
-  // Press Tab
-  await page.locator('text=Skip to Content').press('Tab');
-  // Press Tab
-  await page.locator('text=Go to accessibility page').press('Tab');
+  // WHEN: Hit Esc key
+  await Modal.ksModal.press('Escape')
 
-    // Press Enter
-    await page.locator('text=Keyboard shortcuts menu').press('Enter');
+  // THEN: The KS modal is closed
+  await expect(page).toHaveURL('/books/business-ethics/pages/preface')
+  await expect(Modal.ksModal).toBeHidden()
+})
 
-  // await Promise.all([
-  //   page.waitForNavigation(/*{ url: 'https://staging.openstax.org/books/business-ethics/pages/preface?modal=KS' }*/),
-  // ]);
+test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/organizational-behavior/pages/preface'
+  await BookPage.open(path)
 
-  await expect(page).toHaveURL('https://staging.openstax.org/books/business-ethics/pages/preface?modal=KS');
-  
-  // Click [data-testid="close-keyboard-shortcuts-popup"]
-  await page.locator('[data-testid="close-keyboard-shortcuts-popup"]').click();
-  await expect(page).toHaveURL('https://staging.openstax.org/books/business-ethics/pages/preface');
-});  
+  // AND: Open KS modal using Shift+? keys
+  await page.keyboard.press('Shift+?')
+
+  // THEN: The KS modal is open
+  const ksModal = new KsModal(page)
+  await expect(ksModal.ksModal).toBeVisible()
+  await expect(page).toHaveURL('/books/organizational-behavior/pages/preface?modal=KS')
+
+  // WHEN: Close the KS modal using X icon
+  await ksModal.closeKsModal()
+
+  // THEN: The KS modal is closed
+  await expect(ksModal.ksModal).toBeHidden()
+  await expect(page).toHaveURL('/books/organizational-behavior/pages/preface')
+})
+
+test('signup and highlight', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
+
+  // WHEN: Highlight any random paragraph
+  const paracount = BookPage.paracount()
+  const randomparanumber = randomNum(await paracount)
+  await BookPage.highlightText('green', randomparanumber)
+
+  // THEN: Text is highlighted
+  let highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(1)
+
+  // AND: Highlighted color in the content page is green
+  const highlight_id = await BookPage.highlight_id(randomparanumber)
+  const highlightColor = await BookPage.contentHighlightColor(highlight_id)
+  expect(highlightColor).toBe('green')
+
+  // WHEN: Log out the user
+  await rexUserSignout(page)
+  await expect(page.locator('[data-testid="nav-login"]')).toContainText('Log in')
+
+  // THEN: The highlight is removed from the page
+  highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(0)
+})
+
+test('multiple highlight', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
+
+  // WHEN: Highlight any random paragraph
+  const paracount = BookPage.paracount()
+  const randomparanumber = randomNum(await paracount)
+  await BookPage.highlightText('green', randomparanumber)
+
+  // THEN: Text is highlighted
+  let highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(1)
+
+  // AND: Highlight another random paragraph
+  await BookPage.scrolltotop()
+  const randomparanumber2 = randomNum(await paracount, randomparanumber)
+  await BookPage.highlightText('yellow', randomparanumber2)
+
+  // THEN: Text is highlighted
+  highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(2)
+})

@@ -14,7 +14,7 @@ import * as ksSelectors from '../selectors';
 import ShowKeyboardShortcuts from './ShowKeyboardShortcuts';
 
 // tslint:disable-next-line:variable-name
-const StyledModal = styled(Modal)`
+const StyledModal = styled<any /* there is a bug in the styled-components types when using forwardRef */>(Modal)`
   max-width: 92.8rem;
 `;
 
@@ -37,7 +37,7 @@ const KeyboardShortcutsPopup = () => {
     dispatch(closeKeyboardShortcutsMenu());
     trackOpenCloseKS(method);
   }, [trackOpenCloseKS, dispatch]);
-  useOnEsc(popUpRef, isKeyboardShortcutsOpen, closeAndTrack('esc'));
+  useOnEsc(isKeyboardShortcutsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;

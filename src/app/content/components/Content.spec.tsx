@@ -137,7 +137,7 @@ describe('content', () => {
     expect(scrollOffset.props).toMatchInlineSnapshot(`
       Object {
         "desktopOffset": 15,
-        "mobileOffset": 13,
+        "mobileOffset": 14.3,
       }
     `);
   });
@@ -161,7 +161,7 @@ describe('content', () => {
     expect(scrollOffset.props).toMatchInlineSnapshot(`
       Object {
         "desktopOffset": 15,
-        "mobileOffset": 18.3,
+        "mobileOffset": 19.6,
       }
     `);
   });
@@ -270,7 +270,9 @@ describe('content', () => {
 
     renderer.act(() => {
       component.root
-        .findAllByProps({ 'aria-label': 'Click to close the Table of Contents' })[0]
+        .findAllByProps({
+          'aria-label': 'Click to close the Table of Contents',
+        })[0]
         .props.onClick();
     });
 

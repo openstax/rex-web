@@ -1,8 +1,8 @@
 import UntypedHighlighter, { SerializedHighlight as UntypedSerializedHighlight } from '@openstax/highlighter';
 import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
@@ -11,7 +11,6 @@ import mockArchiveLoader, { book, page } from '../../../test/mocks/archiveLoader
 import createMockHighlight from '../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../test/reactutils';
-import { resetModules } from '../../../test/utils';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
 import { locationChange } from '../../navigation/actions';
@@ -45,10 +44,6 @@ jest.mock('../../domUtils', () => ({
 }));
 
 jest.mock('@openstax/highlighter');
-
-UntypedHighlighter.prototype.eraseAll = jest.fn();
-UntypedHighlighter.prototype.erase = jest.fn();
-UntypedHighlighter.prototype.highlight = jest.fn();
 
 // tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
@@ -97,8 +92,13 @@ describe('Page', () => {
   let services: AppServices & MiddlewareAPI;
 
   beforeEach(() => {
-    resetModules();
-    jest.resetAllMocks();
+    jest.clearAllMocks();
+
+    UntypedHighlighter.prototype.eraseAll = jest.fn();
+    UntypedHighlighter.prototype.erase = jest.fn();
+    UntypedHighlighter.prototype.highlight = jest.fn();
+    UntypedHighlighter.prototype.clearFocusedStyles = jest.fn();
+    UntypedHighlighter.prototype.getHighlights = jest.fn(() => ([]));
 
     // scrollIntoView is not implemented in jsdom
     (assertWindow() as any).HTMLElement.prototype.scrollIntoView = () => jest.fn();
@@ -174,7 +174,7 @@ describe('Page', () => {
     );
     fromApiResponse.mockImplementation((highlight) => highlight);
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(locationChange({
         action: 'REPLACE',
         location: { hash: 'hash-of-scroll-target', search: mockScrollTarget },
@@ -197,11 +197,11 @@ describe('Page', () => {
       mockHighlights[0], { locationFilterId: 'does-not-matter', pageId: page.id }
     );
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(actionData);
     });
 
-    renderer.act(() => {
+    act(() => {
       requestDeleteHighlightHook.hookBody(
         {...services, getState: store.getState, dispatch: store.dispatch}
       )(actionData);
@@ -210,7 +210,6 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(receiveDeleteHighlight(mockHighlights[0], expect.anything()));
     expect(spyReplaceState).toHaveBeenCalledWith(null, '', window.location.origin + window.location.pathname);
     expect(scrollTarget(store.getState())).toEqual(null);
-    jest.resetAllMocks();
   });
 
   // tslint:disable-next-line: max-line-length
@@ -244,7 +243,7 @@ describe('Page', () => {
     );
     fromApiResponse.mockImplementation((highlight) => highlight);
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(locationChange({
         action: 'REPLACE',
         location: { hash: 'hash-of-scroll-target', search: mockScrollTarget },
@@ -259,14 +258,14 @@ describe('Page', () => {
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalled();
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(clearFocusedHighlight());
     });
 
     // page lifecycle hooks
     await Promise.resolve();
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(focusHighlight(mockHighlights[1].id));
     });
 
@@ -295,9 +294,6 @@ describe('Page', () => {
 
     expect(spyTypesetMath).toHaveBeenCalledTimes(1);
 
-    // page lifecycle hooks
-    await Promise.resolve();
-
     const mockHighlights = [createMockHighlight()] as any[];
 
     Highlighter.mock.instances[1].getHighlights.mockReturnValue(mockHighlights);
@@ -307,30 +303,21 @@ describe('Page', () => {
     );
     fromApiResponse.mockImplementation((highlight) => highlight);
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(receivePage({...pageWithRefereces, id: 'asdas', references}));
     });
-
-    // page lifecycle hooks
-    await Promise.resolve();
 
     // highlightManager.update is called recursivelly after every 100ms to check if typesetting has ended
     // we call this for test coverage
     jest.advanceTimersByTime(120);
 
-    renderer.act(() => {
+    act(() => {
       store.dispatch(receivePage({...pageWithRefereces, id: 'other', references}));
     });
 
-    // page lifecycle hooks
-    await Promise.resolve();
-
-    renderer.act(() => {
+    act(() => {
       store.dispatch(receivePage({...pageWithRefereces, references}));
     });
-
-    // page lifecycle hooks
-    await Promise.resolve();
 
     // initial load + 3 page changes
     expect(spyTypesetMath).toHaveBeenCalledTimes(4);
@@ -344,12 +331,12 @@ describe('Page', () => {
 
     // first function in mathjaxQueue is typesetDocument function and the second is typesetDocumentPromise
     expect(mathjaxQueue.length).toEqual(2);
-    // call typesetDocumentPromise
-    mathjaxQueue[1]();
 
-    // // page lifecycle hooks
-    await Promise.resolve();
-    await Promise.resolve();
+    // call typesetDocumentPromise
+    await act(async() => {
+      mathjaxQueue[1]();
+      await services.promiseCollector.calm();
+    });
 
     // We've updated highlighter only once even that we had 4 page rerenders
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(1);

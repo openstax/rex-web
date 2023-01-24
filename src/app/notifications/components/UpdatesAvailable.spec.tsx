@@ -41,7 +41,9 @@ describe('UpdatesAvailable', () => {
     // resolve the readyPromise
     renderer.act(() => resolveReadyPromise(sw));
     // wait for the component to re-render
-    await new Promise((resolve) => setImmediate(resolve));
+    await renderer.act(async() => {
+      await new Promise((resolve) => setImmediate(resolve));
+    });
     component!.root.findByType('button').props.onClick();
     expect(window!.location.reload).toHaveBeenCalled();
   });
@@ -53,7 +55,9 @@ describe('UpdatesAvailable', () => {
       component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
     });
     // wait for the component to re-render
-    await new Promise((resolve) => setImmediate(resolve));
+    await renderer.act(async() => {
+      await new Promise((resolve) => setImmediate(resolve));
+    });
     expect(component!.root.findAllByType('button').length).toBe(0);
   });
 
@@ -68,7 +72,9 @@ describe('UpdatesAvailable', () => {
       component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
     });
     // wait for the component to re-render
-    await new Promise((resolve) => setImmediate(resolve));
+    await renderer.act(async() => {
+      await new Promise((resolve) => setImmediate(resolve));
+    });
     expect(component!.root.findAllByType('button').length).toBe(1);
   });
 
@@ -94,14 +100,18 @@ describe('UpdatesAvailable', () => {
       // resolve the readyPromise
       renderer.act(() => resolveReadyPromise(sw));
       // wait for the component to re-render
-      await new Promise((resolve) => setImmediate(resolve));
+      await renderer.act(async() => {
+        await new Promise((resolve) => setImmediate(resolve));
+      });
       expect(component!.root.findAllByType('button').length).toBe(0);
 
       renderer.act(() => {
         component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
       });
       // wait for the component to render
-      await new Promise((resolve) => setImmediate(resolve));
+      await renderer.act(async() => {
+        await new Promise((resolve) => setImmediate(resolve));
+      });
       expect(component!.root.findAllByType('button').length).toBe(1);
     }
   );
@@ -121,14 +131,18 @@ describe('UpdatesAvailable', () => {
       // resolve the readyPromise
       renderer.act(() => resolveReadyPromise(sw));
       // wait for the component to re-render
-      await new Promise((resolve) => setImmediate(resolve));
+      await renderer.act(async() => {
+        await new Promise((resolve) => setImmediate(resolve));
+      });
       expect(component!.root.findAllByType('button').length).toBe(0);
 
       renderer.act(() => {
         component = renderer.create(<TestContainer><UpdatesAvailable /></TestContainer>);
       });
       // wait for the component to render
-      await new Promise((resolve) => setImmediate(resolve));
+      await renderer.act(async() => {
+        await new Promise((resolve) => setImmediate(resolve));
+      });
       expect(component!.root.findAllByType('button').length).toBe(1);
     }
   );

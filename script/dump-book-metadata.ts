@@ -1,26 +1,26 @@
 import fetch from 'node-fetch';
-import { ArchiveBook, LinkedArchiveTree, LinkedArchiveTreeSection } from '../src/app/content/types';
+import { Book, LinkedArchiveTree, LinkedArchiveTreeSection } from '../src/app/content/types';
 import { formatBookData } from '../src/app/content/utils';
 import { findTreePages } from '../src/app/content/utils/archiveTreeUtils';
 import { getPageDescription, getParentPrefix } from '../src/app/content/utils/seoUtils';
 import createIntl from '../src/app/messages/createIntl';
 import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
-import allBooks from '../src/config.books.json';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
-import { getArchiveUrl } from '../src/gateways/createBookConfigLoader';
+import { getBooksConfigSync } from '../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 
 (global as any).fetch = fetch;
 const domParser = new DOMParser();
 
-const archiveLoader = createArchiveLoader(getArchiveUrl, {
+const booksConfig = getBooksConfigSync();
+const archiveLoader = createArchiveLoader({
   archivePrefix: ARCHIVE_URL,
 });
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
 const getPageMetadata = async(
   section: LinkedArchiveTreeSection | LinkedArchiveTree,
-  book: ArchiveBook,
+  book: Book,
   loader: ReturnType<(typeof archiveLoader)['book']>
 ) => {
   const intl = await createIntl(book.language);
@@ -37,8 +37,8 @@ const getPageMetadata = async(
   console.log(row);
 };
 
-const getBookMetadata = async(id: string, version: string) => {
-  const loader = archiveLoader.book(id, version);
+const getBookMetadata = async(id: string) => {
+  const loader = archiveLoader.book(id, {booksConfig});
   const singleBook = await loader.load();
   const osWebBook = singleBook.tree.slug ? await osWebLoader.getBookFromSlug(singleBook.tree.slug) : undefined;
   const book = formatBookData(singleBook, osWebBook);
@@ -50,8 +50,8 @@ const getBookMetadata = async(id: string, version: string) => {
 };
 
 const getAllBooksMetadata = async() => {
-  for (const [bookId, { defaultVersion }] of Object.entries(allBooks)) {
-    await getBookMetadata(bookId, defaultVersion);
+  for (const [bookId] of Object.entries(booksConfig.books)) {
+    await getBookMetadata(bookId);
   }
 };
 

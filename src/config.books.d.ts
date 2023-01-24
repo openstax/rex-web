@@ -1,9 +1,11 @@
 export interface BookVersionConfig {
   defaultVersion: string;
   archiveOverride?: string;
+  dynamicStyles?: boolean;
+  retired?: boolean;
 }
 
-interface Books {
+export interface Books {
   [key: string]: BookVersionConfig;
 }
 

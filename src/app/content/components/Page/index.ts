@@ -9,6 +9,5 @@ export { default as PageComponent } from './PageComponent';
 
 export default flow(
   injectIntl,
-  withServices,
   connector
 )(withServices(PageComponent));

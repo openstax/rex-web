@@ -35,3 +35,4 @@ export const openNudgeStudyTools = createStandardAction('Content/openNudgeStudyT
 export const closeNudgeStudyTools = createStandardAction('Content/closeNudgeStudyTools')();
 
 export const setTextSize = createStandardAction('Content/setTextSize')<TextResizerValue>();
+export const setBookStylesUrl = createStandardAction('Content/setBookStylesUrl')<string>();

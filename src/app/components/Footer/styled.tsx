@@ -4,8 +4,10 @@ import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
 import { Twitter } from 'styled-icons/fa-brands/Twitter';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
-import { contentWrapperMaxWidth } from '../../content/components/constants';
+import { contentWrapperMaxWidth, toolbarWidth, verticalNavbarMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
+import theme from '../../theme';
+import { remsToEms } from '../../utils';
 
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
@@ -51,6 +53,9 @@ export const boxed = css`
   width: 100%;
 `;
 
+const contentWrapperAndNavWidthBreakpoint =
+  '(max-width: ' + remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2) + 'em)';
+
 // tslint:disable-next-line:variable-name
 export const FooterWrapper = styled.footer`
   ${textRegularStyle}
@@ -58,6 +63,13 @@ export const FooterWrapper = styled.footer`
   opacity: 1;
   transition: opacity 0.2s;
   ${disablePrint}
+  ${(props) => props.isVerticalNavOpen === false ? css`
+    @media (min-width: ${theme.breakpoints.desktopBreak}em) and ${contentWrapperAndNavWidthBreakpoint} {
+      padding-left: clamp(
+        0rem, calc(${toolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2), ${toolbarWidth}rem
+      );
+    }
+  ` : ``}
 `;
 
 // tslint:disable-next-line:variable-name

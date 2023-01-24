@@ -152,7 +152,7 @@ def test_license_details(selenium, base_url, page_slug):
     for book_slug in list(book_slugs):
 
         # GIVEN: Book page is loaded
-        book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
+        book = Content(selenium, base_url, book_slug=book_slug, page_slug=get_default_page(book_slug)).open()
         attribution = book.attribution
 
         # Skip any notification/nudge popups
@@ -167,13 +167,11 @@ def test_license_details(selenium, base_url, page_slug):
             "principles-financial-accounting",
             "principles-managerial-accounting",
         ):
-            license_name_expected = (
-                "Creative Commons Attribution-NonCommercial-ShareAlike License 4.0"
-            )
+            license_name_expected = "Creative Commons Attribution-NonCommercial-ShareAlike License"
             license_url_expected = "http://creativecommons.org/licenses/by-nc-sa/4.0/"
 
         else:
-            license_name_expected = "Creative Commons Attribution License 4.0"
+            license_name_expected = "Creative Commons Attribution License"
             license_url_expected = "http://creativecommons.org/licenses/by/4.0/"
 
         # WHEN: The attribution section is expanded

@@ -17,8 +17,7 @@ const {
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
-  REACT_APP_OS_WEB_API_URL,
-  REACT_APP_ARCHIVE_URL,
+  REACT_APP_OS_WEB_API_URL
 } = require('./config');
 const requireBabelConfig = require('./babel-config');
 
@@ -28,8 +27,7 @@ const { default: prepareRedirects } = require('../script/utils/prepareRedirects'
 const { default: createArchiveLoader } = require('./gateways/createArchiveLoader');
 const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 
-const getArchiveUrl = () => REACT_APP_ARCHIVE_URL;
-const archiveLoader = createArchiveLoader(getArchiveUrl, {
+const archiveLoader = createArchiveLoader({
   archivePrefix: ARCHIVE_URL
 });
 const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
@@ -144,6 +142,9 @@ function accountsProxy(app) {
     changeOrigin: true,
     autoRewrite: true,
     cookieDomainRewrite: "",
+    onProxyRes: (pres, req, res) => {
+      delete pres.headers['x-frame-options']
+    },
     onProxyReq: (preq, req, res) => {
       preq.setHeader('X-Forwarded-Host', req.headers.host);
     }
@@ -174,7 +175,7 @@ function osWebApiProxy(app) {
 }
 
 function osWebProxy(app) {
-  app.use(proxy((path) => !path.match(/^\/((books\/.*)|static.*|errors.*|rex.*|manifest.json|precache-manifest.*|index.html|\/)?$/) , {
+  app.use(proxy((path) => !path.match(/^\/((books\/.*)|(apps\/rex\/.*)|static.*|errors.*|rex.*|asset-manifest.json|precache-manifest.*|index.html|\/)?$/) , {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));

@@ -19,6 +19,7 @@ import studyGuidesReducer, {initialState as initialStudyGuidesState } from './st
 import { State } from './types';
 
 export const initialState = {
+  bookStylesUrl: null,
   buyPrint: null,
   highlights: initialHighlightState,
   loading: {},
@@ -132,6 +133,9 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.setTextSize): {
       return {...state, textSize: action.payload };
     }
+    case getType(actions.setBookStylesUrl): {
+      return {...state, bookStylesUrl: action.payload };
+    }
     default:
       return state;
   }
@@ -139,23 +143,7 @@ function reduceContent(state: State, action: AnyAction) {
 
 function reduceReceiveBook(state: State, action: ActionType<typeof actions.receiveBook>) {
   const loading = omit(['book'], state.loading);
-  const book = pick([
-    'id',
-    'title',
-    'version',
-    'tree',
-    'theme',
-    'slug',
-    'license',
-    'authors',
-    'promote_image',
-    'publish_date',
-    'revised',
-    'amazon_link',
-    'book_state',
-    'language',
-  ], action.payload);
-  return {...state, loading, book};
+  return {...state, loading, book: action.payload};
 }
 
 function reduceReceivePage(state: State, action: ActionType<typeof actions.receivePage>) {

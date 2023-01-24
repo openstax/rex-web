@@ -6,9 +6,9 @@ const ROUTES_PATH = '/';
 
 export const developerHome: Route = {
   component: Loadable({
-    loader: () => import(/* webpackChunkName: "DeveloperHome" */ './components/Home'),
+    loader: () => import(/* webpackChunkName: "route-developer-home" */ './components/Home'),
     loading: () => null,
-    modules: ['DeveloperHome'],
+    modules: ['route-developer-home'],
     webpack: /* istanbul ignore next */ () => [(require as any).resolveWeak('./components/Home')],
   }),
   getUrl: (): string => pathToRegexp.compile(ROUTES_PATH)(),

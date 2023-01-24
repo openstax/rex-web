@@ -2,7 +2,7 @@ import { ElementHandle, Page } from '@playwright/test'
 
 async function closeExtras(page: Page, retries = 5): Promise<void> {
   try {
-    await page.click('text=Got it!', { timeout: 500 })
+    await page.click('text=Got it!')
   } catch (error) {}
   try {
     await page.click('lower-sticky-note-content > .put-away', { timeout: 500 })
@@ -28,10 +28,21 @@ function randomChoice(list: ElementHandle[]): ElementHandle {
   return list[option]
 }
 
+function randomNum(count: number, excludenum?: number) {
+  // Generate random number within specified max 
+  // Exclude a number from the generated random number
+  // param: count - maximum number within which random number is generated
+  // param: excludenum - number to be excluded while generating the random number
+  
+  let n = Math.floor(Math.random() * (count - 1))
+  if (n >= excludenum) n++
+  return n
+}
+
 async function sleep(seconds = 1.0): Promise<unknown> {
   return new Promise((resolve) => {
     setTimeout(resolve, seconds * 1000)
   })
 }
 
-export { closeExtras, randomChoice, sleep }
+export { closeExtras, randomChoice, randomNum, sleep }

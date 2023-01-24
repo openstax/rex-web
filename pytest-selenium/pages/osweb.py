@@ -21,58 +21,40 @@ class WebBase(Page):
     URL_TEMPLATE = "/details/books/{book_slug}"
     VIEW_ONLINE = "//a[span[text()='View online']]"
 
-    _body_data_init_locator = (
-        By.CSS_SELECTOR, "body[data-abr=init]")
-    _call_out_put_away_button_locator = (
-        By.CSS_SELECTOR, ".callout .put-away")
-    _close_locator = (
-        By.CSS_SELECTOR, '[class="put-away"]')
-    _desktop_log_in_link_locator = (
-        By.CSS_SELECTOR, ".desktop .login-menu > a")
+    _body_data_init_locator = (By.CSS_SELECTOR, "body[data-abr=init]")
+    _call_out_put_away_button_locator = (By.CSS_SELECTOR, ".callout .put-away")
+    _close_locator = (By.CSS_SELECTOR, '[class="put-away"]')
+    _desktop_log_in_link_locator = (By.CSS_SELECTOR, ".desktop .login-menu > a")
     _desktop_user_menu_locator = (
-        By.CSS_SELECTOR, "[data-testid=user-nav-toggle], .desktop .login-menu")
-    _dialog_locator = (
-        By.CSS_SELECTOR, 'dialog[class*=dialog]')
-    _dialog_title_locator = (
-        By.CSS_SELECTOR, "#dialog-title")
-    _got_it_button_locator = (
-        By.CSS_SELECTOR, ".cookie-notice button")
-    _individual_copy_locator = (
-        By.CSS_SELECTOR, ".phone-version > a.box:first-child")
-    _logout_locator = (
-        By.CSS_SELECTOR, "[href*=signout]")
-    _log_in_locator = (
-        By.CSS_SELECTOR, '[class="pardotTrackClick"]')
-    _mobile_log_in_link_locator = (
-        By.CSS_SELECTOR, ".mobile .login-menu > a")
+        By.CSS_SELECTOR,
+        "[data-testid=user-nav-toggle], .desktop .login-menu",
+    )
+    _dialog_locator = (By.CSS_SELECTOR, "dialog[class*=dialog]")
+    _dialog_title_locator = (By.CSS_SELECTOR, "#dialog-title")
+    _got_it_button_locator = (By.CSS_SELECTOR, ".cookie-notice button")
+    _individual_copy_locator = (By.CSS_SELECTOR, ".phone-version > a.box:first-child")
+    _logout_locator = (By.CSS_SELECTOR, "[href*=logout]")
+    _log_in_locator = (By.CSS_SELECTOR, '[class="pardotTrackClick"]')
+    _mobile_log_in_link_locator = (By.CSS_SELECTOR, ".mobile .login-menu > a")
     _mobile_user_menu_locator = (
-        By.CSS_SELECTOR, "[data-testid=user-nav-toggle], .mobile .login-menu")
-    _mobile_user_nav_loaded_locator = (
-        By.CSS_SELECTOR, '[class="page-header active"]')
-    _mobile_user_nav_locator = (
-        By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
-    _pi_close_button_locator = (
-        By.CSS_SELECTOR, "._pi_closeButton")
-    _print_copy_locator = (
-        By.XPATH, f"{DESKTOP}{PRINT_COPY}")
-    _print_copy_mobile_locator = (
-        By.XPATH, f"{MOBILE}{PRINT_COPY}")
+        By.CSS_SELECTOR,
+        "[data-testid=user-nav-toggle], .mobile .login-menu",
+    )
+    _mobile_user_nav_loaded_locator = (By.CSS_SELECTOR, '[class="page-header active"]')
+    _mobile_user_nav_locator = (By.CSS_SELECTOR, '[aria-label="Toggle Meta Navigation Menu"]')
+    _pi_close_button_locator = (By.CSS_SELECTOR, "._pi_closeButton")
+    _print_copy_locator = (By.XPATH, f"{DESKTOP}{PRINT_COPY}")
+    _print_copy_mobile_locator = (By.XPATH, f"{MOBILE}{PRINT_COPY}")
     _order_a_personal_copy_locator = (
         By.CSS_SELECTOR,
-        ".larger-version [class='btn primary'][data-track=Print]"
+        ".larger-version [class='btn primary'][data-track=Print]",
     )
-    _osweb_404_locator = (
-        By.CSS_SELECTOR, '[class*="not-found"]')
-    _sticky_note_put_away_button_locator = (
-        By.CSS_SELECTOR, "#lower-sticky-note .put-away")
-    _user_nav_locator = (
-        By.CSS_SELECTOR, '.login-menu')
-    _view_online_desktop_locator = (
-        By.XPATH, f"{DESKTOP}{VIEW_ONLINE}")
-    _view_online_links_locator = (
-        By.XPATH, "//a[span[contains(text(),'View online')]]")
-    _view_online_mobile_locator = (
-        By.XPATH, f"{MOBILE}{VIEW_ONLINE}")
+    _osweb_404_locator = (By.CSS_SELECTOR, '[class*="not-found"]')
+    _sticky_note_put_away_button_locator = (By.CSS_SELECTOR, "#lower-sticky-note .put-away")
+    _user_nav_locator = (By.CSS_SELECTOR, ".login-menu")
+    _view_online_desktop_locator = (By.XPATH, f"{DESKTOP}{VIEW_ONLINE}")
+    _view_online_links_locator = (By.XPATH, "//a[span[contains(text(),'View online')]]")
+    _view_online_mobile_locator = (By.XPATH, f"{MOBILE}{VIEW_ONLINE}")
 
     @property
     def loaded(self):
@@ -94,11 +76,7 @@ class WebBase(Page):
 
     def osweb_404_displayed(self) -> bool:
         """Return true if osweb 404 error is displayed"""
-        return bool(
-            self.wait.until(
-                lambda _: self.find_element(*self._osweb_404_locator)
-            )
-        )
+        return bool(self.wait.until(lambda _: self.find_element(*self._osweb_404_locator)))
 
     @property
     def osweb_404_error(self):
@@ -139,7 +117,7 @@ class WebBase(Page):
             user_menu = self.find_element(*self._desktop_user_menu_locator)
         else:
             user_menu = self.find_element(*self._mobile_user_menu_locator)
-        return 'dropdown' in user_menu.get_attribute("class")
+        return "dropdown" in user_menu.get_attribute("class")
 
     @property
     def view_online(self):
@@ -226,12 +204,12 @@ class WebBase(Page):
         """Open the Book Order modal."""
         try:
             print_locator = (
-                self._print_copy_mobile_locator if self.is_mobile else
-                self._print_copy_locator
+                self._print_copy_mobile_locator if self.is_mobile else self._print_copy_locator
             )
             individual_locator = (
-                self._individual_copy_locator if self.is_mobile else
-                self._order_a_personal_copy_locator
+                self._individual_copy_locator
+                if self.is_mobile
+                else self._order_a_personal_copy_locator
             )
             Utilities.click_option(self.driver, locator=print_locator)
             individual = self.find_elements(*individual_locator)
@@ -255,28 +233,23 @@ class WebBase(Page):
 
         """
         # Pulse Insights survey
-        pi_close_button = self.find_elements(
-            *self._pi_close_button_locator)
+        pi_close_button = self.find_elements(*self._pi_close_button_locator)
         if pi_close_button:
-            Utilities.click_option(
-                self.driver, element=pi_close_button[0])
+            Utilities.click_option(self.driver, element=pi_close_button[0])
 
         # Sticky note alert or donation bar
-        sticky_note_close_button = self.find_elements(
-            *self._sticky_note_put_away_button_locator)
+        sticky_note_close_button = self.find_elements(*self._sticky_note_put_away_button_locator)
         if sticky_note_close_button:
-            Utilities.click_option(
-                self.driver, element=sticky_note_close_button[0])
+            Utilities.click_option(self.driver, element=sticky_note_close_button[0])
 
         # In-line call out modal for phone or full view
         call_out_put_away_button = [
             button
-            for button
-            in self.find_elements(*self._call_out_put_away_button_locator)
-            if self.driver.execute_script(HAS_HEIGHT, button)]
+            for button in self.find_elements(*self._call_out_put_away_button_locator)
+            if self.driver.execute_script(HAS_HEIGHT, button)
+        ]
         if call_out_put_away_button:
-            Utilities.click_option(
-                self.driver, element=call_out_put_away_button[0])
+            Utilities.click_option(self.driver, element=call_out_put_away_button[0])
 
     def fix_view_online_url(self, base_url: str):
         """Fix a non-staging/prod View online link.

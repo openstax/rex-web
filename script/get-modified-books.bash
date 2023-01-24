@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -ex
 
-git fetch origin master
-git show origin/master:src/config.books.json > src/config.books.old.json
+git fetch origin main 
+git show origin/main:src/config.books.json > src/config.books.old.json
 
 book_json=$(node -e "$(cat <<script
   const oldBooks = require('./src/config.books.old.json');

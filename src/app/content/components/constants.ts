@@ -32,7 +32,7 @@ export const toolbarMobileSearchWrapperHeight = toolbarSearchInputMobileHeight
   + toolbarHrHeight;
 
 export const topbarDesktopHeight = 5;
-export const topbarMobileHeight = 4;
+export const topbarMobileHeight = 5.3;
 export const toolbarMobileExpandedHeight = topbarMobileHeight
   + toolbarMobileSearchWrapperHeight;
 

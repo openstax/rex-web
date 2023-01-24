@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer, { act } from 'react-test-renderer';
@@ -5,10 +6,11 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { renderToDom } from '../../../../test/reactutils';
+import { dispatchKeyDownEvent, renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
+import OnEsc from '../../../components/OnEsc';
 import * as appGuards from '../../../guards';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
@@ -127,65 +129,19 @@ describe('MyHighlights button and PopUp', () => {
     expect(focus).toHaveBeenCalled();
   });
 
-  it('handles event listeners on mount and unmount for onEsc util', () => {
-    const focus = jest.fn();
-    const addEventListener = jest.fn();
-    const removeEventListener = jest.fn();
-    const createNodeMock = () => ({focus, addEventListener, removeEventListener});
-
-    const component = renderer.create(<TestContainer services={services} store={store}>
-          <HighlightsPopUp />
-    </TestContainer>, {createNodeMock});
-
-    const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
-
-    isHtmlElement.mockReturnValueOnce(true);
-
-    act(() => { store.dispatch(openMyHighlights()); });
-
-    expect(addEventListener).toHaveBeenCalled();
-
-    component.unmount();
-
-    expect(removeEventListener).toHaveBeenCalled();
-  });
-
-  it('handles event listeners on component update for onEsc util', () => {
-    const focus = jest.fn();
-    const addEventListener = jest.fn();
-    const removeEventListener = jest.fn();
-    const createNodeMock = () => ({focus, addEventListener, removeEventListener});
-
-    renderer.create(<TestContainer services={services} store={store}>
-      <HighlightsPopUp />
-    </TestContainer>, {createNodeMock});
-
-    const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
-
-    isHtmlElement.mockReturnValue(true);
-
-    act(() => { store.dispatch(openMyHighlights()); });
-
-    expect(addEventListener).toHaveBeenCalled();
-
-    // Force componentDidUpdate()
-    act(() => { store.dispatch(closeMyHighlights()); });
-
-    expect(removeEventListener).toHaveBeenCalled();
-  });
-
   it('closes popup on esc and tracks analytics', async() => {
     store.dispatch(openMyHighlights());
     store.dispatch(receiveUser(user));
 
     const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <OnEsc />
       <HighlightsPopUp />
     </TestContainer>);
 
     const track = jest.spyOn(services.analytics.openCloseMH, 'track');
-    const element = assertNotNull(node.querySelector('[data-testid=\'highlights-popup-wrapper\']'), '');
+    const element: HTMLElement = assertNotNull(node.querySelector('[data-testid=\'highlights-popup-wrapper\']'), '');
 
-    element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
+    dispatchKeyDownEvent({element, key: 'Escape'});
 
     expect(track).toHaveBeenCalled();
 

@@ -1,6 +1,5 @@
 import * as mockArchive from '../../../test/mocks/archiveLoader';
 import { content } from '../routes';
-import { stripIdVersion } from './idUtils';
 import { createNavigationMatch } from './navigationUtils';
 import * as urlUtils from './urlUtils';
 
@@ -18,11 +17,7 @@ describe('createRouteMatchOptions', () => {
     const mockMatch = {
       params: mockParams,
       route: content,
-      state: {
-        bookUid: book.id,
-        bookVersion: book.version,
-        pageUid: stripIdVersion(page.id),
-      },
+      state: { },
     };
     const spyGetBookPageUrlAndParams = jest.spyOn(urlUtils, 'getBookPageUrlAndParams')
       .mockReturnValueOnce({ params: mockParams } as any);
@@ -41,11 +36,7 @@ describe('createRouteMatchOptions', () => {
     const mockMatch = {
       params: mockParams,
       route: content,
-      state: {
-        bookUid: book.id,
-        bookVersion: book.version,
-        pageUid: stripIdVersion(page.id),
-      },
+      state: { },
     };
     const spyGetBookPageUrlAndParams = jest.spyOn(urlUtils, 'getBookPageUrlAndParams');
 

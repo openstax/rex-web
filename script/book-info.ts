@@ -1,9 +1,8 @@
 import fetch from 'node-fetch';
 import { argv } from 'yargs';
 import { ARCHIVE_URL } from '../src/config';
-import BOOKS from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
-import { getArchiveUrl } from '../src/gateways/createBookConfigLoader';
+import { getBooksConfigSync } from '../src/gateways/createBookConfigLoader';
 
 const {
   field,
@@ -13,13 +12,13 @@ const {
 
 (global as any).fetch = fetch;
 
-const archiveLoader = createArchiveLoader(getArchiveUrl, {
+const archiveLoader = createArchiveLoader({
   archivePrefix: ARCHIVE_URL,
 });
 
 const bookId = argv._[1];
-const bookVersion = BOOKS[bookId].defaultVersion;
-archiveLoader.book(bookId, bookVersion).load().then((book: any) => {
+const booksConfig = getBooksConfigSync();
+archiveLoader.book(bookId, {booksConfig}).load().then((book: any) => {
   if (field) {
     // tslint:disable-next-line:no-console
     console.log(book[field]);

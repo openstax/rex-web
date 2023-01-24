@@ -38,7 +38,6 @@ describe('Attribution', () => {
           book: formatBookData(book, mockCmsBook),
           page,
         },
-        navigation: { pathname: '/cool path name' },
       }) as any) as AppState;
 
       store = createTestStore(state);
@@ -159,6 +158,7 @@ describe('Attribution', () => {
               {value: {name: 'Jonny Doe', senior_author: false}},
             ],
           }),
+          page,
         },
       }) as any) as AppState;
 

@@ -1,24 +1,24 @@
 // tslint:disable: max-line-length
-import createIntl from '../../../test/createIntl';
+import createTestServices from '../../../test/createTestServices';
 import { book, bookWithUnits } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { formatBookData } from '../../content/utils';
 import { generateBookPageSpreadsheet } from './generateBookPageSpreadsheet';
-
-jest.mock('../../../config.books', () => ({
-  '3f6e0e03-46ac-485e-a737-ab3690d0b879': {
-    defaultVersion: '1.0',
-  },
-}));
 
 describe('generateBookPageSpreadsheet', () => {
   it('works with units and a canonical url map', async() => {
     const combinedBook = {
       ...formatBookData(bookWithUnits, mockCmsBook),
       id: '3f6e0e03-46ac-485e-a737-ab3690d0b879',
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive',
+          books: {'3f6e0e03-46ac-485e-a737-ab3690d0b879': {defaultVersion: bookWithUnits.version}},
+        },
+      },
     };
-    const intl = createIntl();
-    expect(await generateBookPageSpreadsheet(combinedBook, intl))
+    const services = createTestServices();
+    expect(await generateBookPageSpreadsheet(combinedBook, services))
       .toMatchInlineSnapshot(`
       "\\"Book Title\\",\\"Book Version\\",\\"Unit Title\\",\\"Chapter Title\\",\\"Parent Prefix\\",\\"Page UUID\\",\\"Page Title\\",\\"Page Slug\\",\\"Page URL\\",\\"Canonical URL\\"
       \\"Test Book 1\\",\\"1.0\\",\\"\\",\\"\\",\\"\\",\\"testbook1-testpage1-uuid\\",\\"Test Page 1\\",\\"test-page-1\\",\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\",\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\"
@@ -38,11 +38,17 @@ describe('generateBookPageSpreadsheet', () => {
 
   it('works without units or a canonical url map', async() => {
     const combinedBook = {
-      ...formatBookData(book, mockCmsBook),
+      ...formatBookData(book, undefined),
       id: 'e0ae033d-c34b-4518-8872-906ceb0b25b7',
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive',
+          books: {},
+        },
+      },
     };
-    const intl = createIntl();
-    expect(await generateBookPageSpreadsheet(combinedBook, intl))
+    const services = createTestServices();
+    expect(await generateBookPageSpreadsheet(combinedBook, services))
       .toMatchInlineSnapshot(`
       "\\"Book Title\\",\\"Book Version\\",\\"Unit Title\\",\\"Chapter Title\\",\\"Parent Prefix\\",\\"Page UUID\\",\\"Page Title\\",\\"Page Slug\\",\\"Page URL\\",\\"Canonical URL\\"
       \\"Test Book 1\\",\\"1.0\\",\\"\\",\\"\\",\\"\\",\\"testbook1-testpage1-uuid\\",\\"Test Page 1\\",\\"test-page-1\\",\\"https://openstax.org/books/e0ae033d-c34b-4518-8872-906ceb0b25b7@1.0/pages/test-page-1\\",\\"\\"

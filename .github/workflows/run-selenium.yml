@@ -1,10 +1,10 @@
 name: Run Selenium
 
-on: 
+on:
   workflow_dispatch:
     inputs:
       base_url:
-        description: 'Base Url'     
+        description: 'Base Url'
         required: true
         default: 'https://staging.openstax.org'
       browser:
@@ -19,7 +19,7 @@ on:
 jobs:
   selenium:
     runs-on: ubuntu-latest
-    container: python 
+    container: python:3.10
     steps:
     - uses: actions/checkout@v2
     - name: selenium

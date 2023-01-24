@@ -6,12 +6,14 @@ import Sentry from '../../helpers/Sentry';
 // https://formatjs.io/docs/polyfills/intl-pluralrules/#dynamic-import--capability-detection
 async function polyfill(locale: string) {
   if (shouldPolyfill()) {
-    await import('@formatjs/intl-pluralrules/polyfill');
+    await import(/* webpackChunkName: "intl-pluralrules" */ '@formatjs/intl-pluralrules/polyfill');
   }
 
   // boolean added by the polyfill
   if ((Intl.PluralRules as (typeof Intl.PluralRules & {polyfilled?: boolean})).polyfilled) {
-    await import(`@formatjs/intl-pluralrules/locale-data/${locale}`);
+    await import(
+      /* webpackChunkName: "intl-pluralrules-[request]" */ `@formatjs/intl-pluralrules/locale-data/${locale}`
+    );
   }
 }
 
@@ -23,10 +25,10 @@ export default memoize(async(loc: string) => {
   let locale = loc;
 
   try {
-    const localeMessages = await import(`./${locale}/index`);
+    const localeMessages = await import(/* webpackChunkName: "intl-[request]" */  `./${locale}/index`);
     messages = localeMessages.default;
   } catch (e) {
-    const enMessages = await import(`./en/index`);
+    const enMessages = await import(/* webpackChunkName: "intl-en-index" */ `./en/index`);
     locale = 'en';
     messages = enMessages.default;
     Sentry.captureException(e);

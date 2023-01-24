@@ -36,7 +36,7 @@ const PracticeQuestionsPopup = () => {
     trackOpenClosePQ(method);
   }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch, match]);
 
-  useOnEsc(popUpRef, isPracticeQuestionsOpen, closeAndTrack('esc'));
+  useOnEsc(isPracticeQuestionsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
     const popUp = popUpRef.current;

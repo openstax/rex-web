@@ -17,7 +17,9 @@ export interface AppMessageNotification {
 
 export type Messages = Message[];
 
-export type ModalNotification = ActionType<Pick<typeof actions, 'updateAvailable' | 'acceptCookies' >>
+export type ModalNotification = ActionType<Pick<typeof actions,
+  'updateAvailable' | 'acceptCookies' | 'retiredBookRedirect'
+>>
   | AppMessageNotification;
 
 export interface ToastNotification extends ToastMeta {

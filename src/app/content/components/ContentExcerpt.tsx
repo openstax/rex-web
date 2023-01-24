@@ -50,6 +50,7 @@ const ContentExcerpt = (props: Props) => {
   )(props.content), [props.content, excerptSource.url]);
 
   return <DynamicContentStyles
+    book={currentBook}
     ref={forwardedRef}
     dangerouslySetInnerHTML={{ __html: fixedContent }}
     className={`content-excerpt ${className}`}

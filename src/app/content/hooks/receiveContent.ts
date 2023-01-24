@@ -1,4 +1,3 @@
-import { getBookVersionFromUUIDSync } from '../../../gateways/createBookConfigLoader';
 import { setHead } from '../../head/actions';
 import { Link } from '../../head/types';
 import createIntl from '../../messages/createIntl';
@@ -60,7 +59,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
     meta.push({ property: 'og:image', content: book.promote_image.meta.download_url });
   }
 
-  if (getBookVersionFromUUIDSync(book.id)?.defaultVersion !== book.version) {
+  if (book.loadOptions.archiveVersion || book.loadOptions.contentVersion) {
     meta.push({ name: 'robots', content: 'noindex' });
   }
 

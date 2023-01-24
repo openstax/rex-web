@@ -5,6 +5,7 @@ import { Store } from '../../app/types';
 import * as eventCaptureClient from '../../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import { events } from './bindEvents';
+import { addInteractiveListeners } from './utils';
 
 export * from './utils';
 
@@ -15,6 +16,10 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
 
   window.addEventListener('beforeunload', () => {
     events.unload.track(events.unload.selector(store.getState()));
+  });
+
+  addInteractiveListeners(window, (element, stateChange) => {
+    events.elementInteracted.track(events.elementInteracted.selector(store.getState()), element, stateChange);
   });
 
   document.addEventListener('click', (e) => {

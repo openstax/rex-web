@@ -23,7 +23,6 @@ export interface PagePropTypes {
   className?: string;
   mobileToolbarOpen: boolean;
   contentLinks: ContentLinkProp;
-  locationState: ReturnType<typeof selectNavigation.locationState>;
   query: string | null;
   scrollToTopOrHash: ReturnType<typeof mapStateToScrollToTopOrHashProp>;
   searchHighlights: ReturnType<typeof mapStateToSearchHighlightProp>;
@@ -54,5 +53,9 @@ export default connect(
     contentLinks: mapDispatchToContentLinkProp(dispatch),
     highlights: mapDispatchToHighlightProp(dispatch),
   }),
-  merge
+  (stateProps, dispatchProps, ownProps) => ({
+    // the subscopes need to be deep merged
+    ...merge(stateProps, dispatchProps),
+    ...ownProps,
+  })
 );

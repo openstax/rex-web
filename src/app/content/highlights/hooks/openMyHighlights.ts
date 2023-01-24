@@ -5,6 +5,7 @@ import { user } from '../../../auth/selectors';
 // import { getQueryForParam } from '../../../navigation/utils';
 import { ActionHookBody } from '../../../types';
 import { actionHook } from '../../../utils';
+import { closeMobileMenu } from '../../actions';
 import { initializeMyHighlightsSummary, openMyHighlights } from '../actions';
 import * as select from '../selectors';
 
@@ -26,6 +27,8 @@ export const hookBody: ActionHookBody<typeof openMyHighlights> = ({
     //   search: getQueryForParam(summaryFilters as any as Record<string, string[]>, query),
     // }));
   }
+
+  dispatch(closeMobileMenu());
 };
 
 export const openMyHighlightsHook = actionHook(openMyHighlights, hookBody);

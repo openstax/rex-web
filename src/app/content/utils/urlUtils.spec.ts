@@ -13,29 +13,49 @@ import {
 
 const testUUID = 'longidin-vali-dfor-mat1-111111111111';
 
-jest.mock('../../../config.books', () => {
-  const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
-  return { [mockBook.id]: { defaultVersion: mockBook.version } };
-});
-
 describe('getBookPageUrlAndParams', () => {
   it('generates params without version', () => {
-    const result = getBookPageUrlAndParams(formatBookData(mockArchiveBook, mockCmsBook), page);
-    expect((result.params.book as any).version).toBeUndefined();
+    const result = getBookPageUrlAndParams(formatBookData({
+      ...mockArchiveBook,
+      id: testUUID,
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive',
+          books: {[testUUID]: {defaultVersion: mockArchiveBook.version}},
+        },
+      },
+    }, mockCmsBook), page);
+    expect((result.params.book as any).contentVersion).toBeUndefined();
   });
 
   it('generates params with version', () => {
-    const result = getBookPageUrlAndParams(
-      {...formatBookData(mockArchiveBook, mockCmsBook), version: 'asdf'},
-      page
-    );
-    expect((result.params.book as any).version).toBe('asdf');
+    const result = getBookPageUrlAndParams(formatBookData({
+      ...mockArchiveBook,
+      id: testUUID,
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive',
+          books: {[testUUID]: {defaultVersion: mockArchiveBook.version}},
+        },
+        contentVersion: 'asdf',
+      },
+    }, mockCmsBook), page);
+    expect((result.params.book as any).contentVersion).toBe('asdf');
   });
   it('generates params for books without osweb data', () => {
-    const result = getBookPageUrlAndParams(formatBookData({...mockArchiveBook, id: testUUID}, undefined), page);
+    const result = getBookPageUrlAndParams(formatBookData({
+      ...mockArchiveBook,
+      id: testUUID,
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive',
+          books: {[testUUID]: {defaultVersion: mockArchiveBook.version}},
+        },
+      },
+    }, undefined), page);
 
     expect((result.params.book as any)).not.toHaveProperty('slug');
-    expect((result.params.book as any)).toMatchObject({uuid: testUUID, version: mockArchiveBook.version});
+    expect((result.params.book as any)).toMatchObject({uuid: testUUID, contentVersion: mockArchiveBook.version});
   });
 });
 

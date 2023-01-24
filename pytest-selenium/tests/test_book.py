@@ -146,10 +146,11 @@ def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
     toolbar = book.toolbar
     sidebar = book.sidebar
     toc = book.sidebar.toc
+    topbar = book.topbar
 
     # WHEN: Rex 404 page is displayed
     expected_error = (
-        "Uh oh, we can't find the page you requested." "Try another page in theTable of contents"
+        "Uh oh, we can't find the page you requested." "Try another page in theContents"
     )
     assert book.content.page_error_displayed
     assert book.content.page_error == expected_error
@@ -178,6 +179,7 @@ def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
         assert not sidebar.header.is_displayed
 
         # AND: TOC toggle works
+        topbar.click_mobile_menu_button()
         toolbar.click_toc_toggle_button()
         assert sidebar.header.is_displayed
         sidebar.header.click_toc_toggle_button()
@@ -250,15 +252,17 @@ def test_attribution_behavior_in_rex_404_page(selenium, base_url, book_slug, pag
     # WHEN: Rex 404 page is displayed
     assert book.content.page_error_displayed
 
-    # THEN: Attribution can be expanded
-    attribution.click_attribution_link()
+    # THEN: Attribution section is not present
+    try:
+        assert not attribution.root.is_displayed()
+    except NoSuchElementException:
+        pass
+    
+    # AND: The "previous" link should be hidden
+    assert not book.previous_link_is_displayed
 
-    # AND: Clicking book url link in attribution works
-    attribution.click_book_url()
-    assert toc.sections[1].is_active
-
-    # AND: Rex 404 page is not displayed
-    assert not book.content.page_error_displayed
+    # AND: The "next" link should be hidden
+    assert not book.next_link_is_displayed
 
 
 @markers.test_case("C619385")
@@ -409,11 +413,11 @@ def test_close_nudge_using_x_icon(selenium, base_url, book_slug, page_slug):
     # AND: Full page nudge is displayed on 2nd page load
     book.reload()
     book.click_next_link()
-    assert book.full_page_nudge_displayed()
+    assert book.full_page_nudge_displayed
 
     # WHEN: Click x icon in the full page nudge
     nudge = book.full_page_nudge
     nudge.click_close_icon()
 
     # THEN: Full page nudge is closed
-    assert not book.full_page_nudge_displayed()
+    assert not book.full_page_nudge_displayed

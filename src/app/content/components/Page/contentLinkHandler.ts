@@ -21,7 +21,6 @@ export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) =
   currentPath: selectNavigation.pathname(state),
   focusedHighlight: focused(state),
   hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
-  locationState: selectNavigation.locationState(state),
   page: select.page(state),
   persistentQueryParams: selectNavigation.persistentQueryParameters(state),
   references: select.contentReferences(state),
@@ -98,12 +97,12 @@ export const reduceReferences = (
 
 const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap | PageReferenceError) =>
   isPageReferenceError(ref)
-  ? false
-  : content.getUrl(ref.params) === pathname
-    && (
-      ('slug' in ref.params.book && hasOSWebData(book) && ref.params.book.slug === book.slug)
-      || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
-    );
+    ? false
+    : content.getUrl(ref.params) === pathname
+      && (
+        ('slug' in ref.params.book && hasOSWebData(book) && ref.params.book.slug === book.slug)
+        || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
+      );
 
 // tslint:disable-next-line: max-line-length
 export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices & MiddlewareAPI) =>
@@ -114,7 +113,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       book,
       page,
       currentPath,
-      locationState,
       focusedHighlight,
       hasUnsavedHighlight,
     } = getProps();
@@ -155,21 +153,14 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       defer(() => navigate({
         params: reference.params,
         route: content,
-        state: {
-          ...locationState,
-          ...reference.state,
-        },
+        state: {},
       }, {hash, search: searchString}));
     } else {
       // defer to allow other handlers to execute before nav happens
       defer(() => navigate({
         params: getBookPageUrlAndParams(book, page).params,
         route: content,
-        state: {
-          ...locationState,
-          ...getBookPageUrlAndParams(book, page).state,
-
-        },
+        state: {},
       }, {hash, search: searchString}));
     }
   };
