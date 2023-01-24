@@ -108,6 +108,7 @@ const mobileSmallBreak = 30; // 480px
 const mobileMediumBreak = 50; // 800px
 const mobileBreak = 75; // 1200px
 const desktopBreak = mobileBreak + .0625; // 1201px
+const desktopQuery = `(min-width: ${desktopBreak}em)`;
 const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
 const mobileMediumQuery = `(max-width: ${mobileMediumBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
@@ -116,6 +117,11 @@ const touchDeviceQuery = `not all and (pointer: fine), (hover: none)`;
 export default {
   breakpoints: {
     desktopBreak,
+    desktop: (style: FlattenSimpleInterpolation) => css`
+      @media screen and ${desktopQuery} {
+        ${style}
+      }
+    `,
     mobile: (style: FlattenSimpleInterpolation) => css`
       @media screen and ${mobileQuery} {
         ${style}
@@ -127,6 +133,7 @@ export default {
         ${style}
       }
     `,
+    mobileMediumBreak,
     mobileMediumQuery,
     mobileQuery,
     mobileSmall: (style: FlattenSimpleInterpolation) => css`

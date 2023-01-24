@@ -216,10 +216,17 @@ export const SearchInputWrapper = styled.form`
     width: 100%;
     &, &:last-child { margin-right: 0; }
   `)}
+
+
+  ${(props: { searchInSidebar: boolean }) => props.searchInSidebar && css`
+    @media screen and (min-width: ${theme.breakpoints.mobileMediumBreak}em) {
+      display: none;
+    }
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
-export const SearchInput = styled(({ desktop, mobile, ...props }) =>
+export const SearchInput = styled(({ desktop, mobile, ...props }) => // TODO: extract to something like /components/search
   <input {...props}
     aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
     placeholder={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}

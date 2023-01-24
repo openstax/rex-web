@@ -12,7 +12,7 @@ export const isVerticalNavOpenConnector = connect((state: AppState) => ({
   isTocOpen: contentSelectors.tocOpen(state),
   isVerticalNavOpen: searchSelectors.searchResultsOpen(state) || contentSelectors.tocOpen(state),
 }));
-
+// TODO: rename
 export const styleWhenTocClosed = (closedStyle: FlattenSimpleInterpolation) => css`
   ${(props: {isTocOpen: State['tocOpen']}) =>
     props.isTocOpen === null && theme.breakpoints.mobile(closedStyle)}

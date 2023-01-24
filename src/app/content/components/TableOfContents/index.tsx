@@ -14,7 +14,7 @@ import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
-import { ToCHeaderText } from './styled';
+import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -24,8 +24,8 @@ interface SidebarProps {
 }
 
 // tslint:disable-next-line:variable-name
-const SidebarBody = React.forwardRef<HTMLElement, React.ComponentProps<typeof Styled.SidebarBody>>(
-  (props, ref) => <Styled.SidebarBody
+const SidebarBody = React.forwardRef<HTMLElement, React.ComponentProps<typeof SidebarPaneBody>>(
+  (props, ref) => <SidebarPaneBody
     ref={ref}
     data-testid='toc'
     aria-label={useIntl().formatMessage({id: 'i18n:toc:title'})}
@@ -119,14 +119,14 @@ export class TableOfContents extends Component<SidebarProps> {
   </Styled.NavDetails>;
 
   private renderTocHeader = () => {
-    return <Styled.ToCHeader data-testid='tocheader'>
+    return <Header data-testid='tocheader'>
       <TOCBackButton><LeftArrow /></TOCBackButton>
       <FormattedMessage id='i18n:toc:title'>
-        {(msg) => <ToCHeaderText>{msg}</ToCHeaderText>}
+        {(msg) => <HeaderText>{msg}</HeaderText>}
       </FormattedMessage>
       <CloseToCAndMobileMenuButton />
       <TOCCloseButton><TimesIcon /></TOCCloseButton>
-    </Styled.ToCHeader>;
+    </Header>;
   };
 
   private renderToc = (book: Book) => this.renderChildren(book, book.tree);

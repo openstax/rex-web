@@ -19,7 +19,7 @@ export const localState = createSelector(
 
 export const searchResultsOpen = createSelector(
   localState,
-  (state) => !!state.query && state.sidebarOpen
+  (state) => !!state.query || state.sidebarOpen
 );
 
 const getRawResults = createSelector(

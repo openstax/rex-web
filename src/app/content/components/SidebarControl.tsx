@@ -9,6 +9,8 @@ import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
+import * as searchActions from '../search/actions';
+import * as searchSelectors from '../search/selectors';
 import { State } from '../types';
 import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar/iconStyles';
@@ -24,8 +26,8 @@ interface InnerProps {
 
 interface MiddleProps {
   isOpen: boolean | null;
-  openToc: () => void;
-  closeToc: () => void;
+  open: () => void;
+  close: () => void;
   showActivatedState?: boolean;
 }
 
@@ -160,35 +162,45 @@ export const CloseSearch = ({ message, children, ...props}: React.PropsWithChild
     {children}
   </CloseToCButton>;
 
-const connector = connect(
+const tocConnector = connect(
   (state: AppState) => ({
     isOpen:  selectors.tocOpen(state),
   }),
   (dispatch: Dispatch) => ({
-    closeToc:  () => dispatch(actions.closeToc()),
-    openToc: () => dispatch(actions.openToc()),
+    close: () => dispatch(actions.closeToc()),
+    open: () => dispatch(actions.openToc()),
+  })
+);
+
+const searchConnector = connect(
+  (state: AppState) => ({
+    isOpen:  searchSelectors.searchResultsOpen(state),
+  }),
+  (dispatch: Dispatch) => ({
+    close: () => dispatch(searchActions.closeSearchResultsMobile()),
+    open: () => dispatch(searchActions.openSearchResultsMobile()),
   })
 );
 
 // tslint:disable-next-line:variable-name
 const lockTocControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
-  connector((props: MiddleProps) => <Control
+  tocConnector((props: MiddleProps) => <Control
     {...props}
     data-testid='toc-button'
     message={isOpen ? openTocMessage : closedTocMessage}
     data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
-    onClick={isOpen ? props.closeToc : props.openToc}
+    onClick={isOpen ? props.close : props.open}
     isActive={Boolean(props.showActivatedState) && isOpen}
   />);
 
 // tslint:disable-next-line:variable-name
 const lockSearchControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
-  connector((props: MiddleProps) => <Control
+  searchConnector((props: MiddleProps) => <Control
     {...props}
-    data-testid='toc-button'
+    data-testid='search-button'
     message={isOpen ? openSearchMessage : closedSearchMessage}
     data-analytics-label={isOpen ? 'TODO' : 'TODO'}
-    onClick={isOpen ? props.closeToc : props.openToc}
+    onClick={isOpen ? props.close : props.open}
     isActive={Boolean(props.showActivatedState) && isOpen}
   />);
 

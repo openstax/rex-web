@@ -1,10 +1,11 @@
+import flow from 'lodash/fp/flow';
 import { SearchResultHit } from '@openstax/open-search-client';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
 import * as select from '../../../selectors';
 import { Book } from '../../../types';
-import { clearSearch } from '../../actions';
+import { clearSearch, requestSearch } from '../../actions';
 import * as selectSearch from '../../selectors';
 import { SearchResultContainer, SelectedResult } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
@@ -19,6 +20,10 @@ interface Props {
   totalHitsKeyTerms: number | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
+  clearSearch: () => void;
+  search: typeof requestSearch;
+  searchButtonColor: string | null;
+  searchInSidebar: boolean;
   searchResultsOpen: boolean;
   selectedResult: SelectedResult | null;
   userSelectedResult: boolean;
@@ -66,7 +71,7 @@ export class SearchResultsSidebar extends Component<Props, State> {
   }
 
   public render() {
-    return this.state.query ? <SearchResultsBarWrapper
+    return this.props.searchResultsOpen || this.state.query ? <SearchResultsBarWrapper
       {...this.props}
       {...this.state}
       data-analytics-region='search-results'
@@ -82,6 +87,8 @@ export default connect(
     nonKeyTermResults: selectSearch.nonKeyTermResults(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
+    searchInSidebar: selectSearch.searchInSidebar(state),
+    searchButtonColor: selectSearch.searchButtonColor(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
     selectedResult: selectSearch.selectedResult(state),
     totalHits: selectSearch.totalHits(state),
@@ -92,5 +99,7 @@ export default connect(
     onClose: () => {
       dispatch(clearSearch());
     },
+    clearSearch: flow(clearSearch, dispatch),
+    search: flow(requestSearch, dispatch),
   })
 )(SearchResultsSidebar);

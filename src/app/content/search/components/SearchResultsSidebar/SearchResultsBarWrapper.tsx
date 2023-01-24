@@ -15,6 +15,12 @@ import { SearchResultContainer, SelectedResult } from '../../types';
 import RelatedKeyTerms from './RelatedKeyTerms';
 import SearchResultContainers from './SearchResultContainers';
 import * as Styled from './styled';
+import * as StyledSearch from '../../../components/Topbar/styled'; // TODO: move search styles into separate thing
+import { requestSearch } from '../../actions';
+import { isHtmlElement } from '../../../../guards';
+import { assertDocument } from '../../../../utils';
+import styled from 'styled-components';
+import theme from '../../../../theme';
 
 interface ResultsSidebarProps {
   query: string | null;
@@ -23,7 +29,11 @@ interface ResultsSidebarProps {
   nonKeyTermResults: SearchResultContainer[] | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
+  clearSearch: () => void;
+  search: typeof requestSearch;
+  searchInSidebar: boolean;
   searchResultsOpen: boolean;
+  searchButtonColor: string | null;
   book?: Book;
   totalHits: number | null;
   totalHitsKeyTerms: number | null;
@@ -31,9 +41,41 @@ interface ResultsSidebarProps {
   userSelectedResult: boolean;
 }
 
+interface State {
+  query: string;
+  queryProp: string;
+  formSubmitted: boolean;
+}
+
+// tslint:disable-next-line: variable-name
+const BlankState = ({onClose, ref, searchInput}: {
+  onClose: () => void; ref: React.Ref<HTMLElement>; searchInput: () => React.ReactNode
+}) => <div>
+<Styled.SearchResultsTopBar ref={ref}>
+    <Styled.SearchResultsHeader>
+      <Styled.SearchResultsHeaderTitle>
+        <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsHeaderTitle>
+      <Styled.CloseIconButton
+        onClick={onClose}
+        data-testid='close-search'
+      >
+        <Styled.CloseIcon />
+      </Styled.CloseIconButton>
+    </Styled.SearchResultsHeader>
+    <Styled.SearchQueryWrapper >
+      {searchInput()}
+    </Styled.SearchQueryWrapper>
+  </Styled.SearchResultsTopBar>
+
+  {useIntl().formatMessage({id: 'i18n:search-results:blank-state'})}
+</div>
+
 // tslint:disable-next-line: variable-name
 const LoadingState = ({onClose}: {onClose: () => void}) => <Styled.LoadingWrapper
-  aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'})}
+aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'})}
 >
   <Styled.CloseIconWrapper>
     <Styled.CloseIconButton onClick={onClose}>
@@ -55,16 +97,97 @@ const SearchResultsBar = React.forwardRef<
   />
 );
 
+const StyledSearchWrapper = styled.div`
+  flex: 1;
+  padding: 1.6rem;
+  background: ${theme.color.white};
+  border: 0.1rem solid ${theme.color.neutral.formBorder};
+  border-width: 0.1rem 0;
+
+  ${StyledSearch.SearchInputWrapper} {
+    margin: 0;
+    width: 100%;
+  }
+`;
+
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public searchSidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
   public searchSidebarHeader = React.createRef<HTMLElement>();
 
+  public headerTitle = `i18n:search-results:bar:header:title:${this.props.searchInSidebar ? 'plain' : 'results'}`;
+
+  public static getDerivedStateFromProps(newProps: ResultsSidebarProps, state: State) {
+    if (newProps.query && newProps.query !== state.queryProp && newProps.query !== state.query) {
+      return { ...state, query: newProps.query, queryProp: newProps.query };
+    }
+    return { ...state, queryProp: newProps.query };
+  }
+
+  public state = { query: '', queryProp: '', formSubmitted: false };
+
+  public onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
+  };
+
+  public newButtonEnabled = !!this.props.searchButtonColor;
+
+  public sidebarSearchInput = () => {
+    if (!this.props.searchInSidebar) {
+      return null;
+    }
+    return <StyledSearchWrapper>
+      <StyledSearch.SearchInputWrapper
+        action='#'
+        onSubmit={this.onSearchSubmit}
+        data-testid='sidebar-search'
+        data-experiment
+        colorSchema={this.props.searchButtonColor}
+        //searchInSidebar={this.props.searchInSidebar}
+      >
+        <StyledSearch.SearchInput type='search' data-testid='sidebar-search-input'
+          autoFocus
+          onChange={this.onSearchChange} value={this.state.query} />
+       {!this.state.formSubmitted && !this.newButtonEnabled &&
+            <StyledSearch.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+          }
+          {this.state.formSubmitted && !this.newButtonEnabled &&
+            <StyledSearch.CloseButton desktop type='button' onClick={this.onSearchClear} data-testid='desktop-clear-search' />
+          }
+          {this.state.formSubmitted && this.newButtonEnabled &&
+            <StyledSearch.CloseButtonNew desktop type='button' onClick={this.onSearchClear} data-testid='desktop-clear-search'>
+              <Styled.CloseIcon />
+            </StyledSearch.CloseButtonNew>
+          }
+          {this.newButtonEnabled &&
+            <StyledSearch.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+          }
+      </StyledSearch.SearchInputWrapper>
+    </StyledSearchWrapper>;
+  }
+
+  public onSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const activeElement = assertDocument().activeElement;
+    if (this.state.query) {
+      if (isHtmlElement(activeElement)) {
+        activeElement.blur();
+      }
+      this.props.search(this.state.query);
+      this.setState({ formSubmitted: true });
+    }
+  };
+
+  public onSearchClear = (e: React.FormEvent) => {
+    e.preventDefault();
+    this.setState({ query: '', formSubmitted: false });
+  };
+
   public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
     <Styled.SearchResultsHeader>
       <Styled.SearchResultsHeaderTitle>
-        <FormattedMessage id='i18n:search-results:bar:header:title'>
+        <FormattedMessage id={this.headerTitle}>
           {(msg) => msg}
         </FormattedMessage>
       </Styled.SearchResultsHeaderTitle>
@@ -75,6 +198,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         <Styled.CloseIcon />
       </Styled.CloseIconButton>
     </Styled.SearchResultsHeader>
+    {this.sidebarSearchInput()}
     <Styled.SearchQueryWrapper >
       <Styled.SearchQuery>
         <Styled.SearchIconInsideBar src={searchIcon}/>
@@ -95,6 +219,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         <Styled.CloseIcon />
       </Styled.CloseIconButton>
     </Styled.CloseIconWrapper>
+    {this.sidebarSearchInput()}
     <FormattedMessage id='i18n:search-results:bar:query:no-results'>
       {(msg) => (
         <Styled.SearchQuery>
@@ -156,7 +281,8 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         ref={this.searchSidebar}
         {...propsToForward}
       >
-        {!results ? <LoadingState onClose={onClose} /> : null}
+        {!query && !results ? <BlankState onClose={onClose} ref={this.searchSidebarHeader} searchInput={this.sidebarSearchInput} /> : null}
+        {query && !results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}
         {book && results && results.length > 0 ? this.resultContainers(book, nonKeyTermResults) : null}

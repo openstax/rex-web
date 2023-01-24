@@ -46,7 +46,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearSearch): {
       return initialState;
     }
-    case getType(actions.openSearchResultsMobile): {
+    case getType(actions.openSearchResultsMobile): { // TODO: rename for any
       return {...state, sidebarOpen: true};
     }
     case getType(actions.closeSearchResultsMobile): {
