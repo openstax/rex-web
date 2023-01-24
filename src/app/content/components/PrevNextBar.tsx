@@ -84,7 +84,7 @@ interface PropTypes {
   onNext?: () => void;
   handlePrevious?: () => void;
   handleNext?: () => void;
-  persistentQueryParams?: ContentQueryParams;
+  queryParams?: ContentQueryParams;
   prevNext: null | {
     prev?: ArchiveTreeSection;
     next?: ArchiveTreeSection;
@@ -92,7 +92,7 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-export const PrevNextBar = ({book, prevNext, persistentQueryParams, ...props}: PropTypes) => {
+export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) => {
   const { formatMessage } = useIntl();
 
   if (!prevNext) {
@@ -103,7 +103,7 @@ export const PrevNextBar = ({book, prevNext, persistentQueryParams, ...props}: P
     <HidingContentLink side='left'
       book={book}
       page={prevNext.prev}
-      queryParams={persistentQueryParams}
+      queryParams={queryParams}
       onClick={props.onPrevious}
       handleClick={props.handlePrevious}
       aria-label={formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
@@ -118,7 +118,7 @@ export const PrevNextBar = ({book, prevNext, persistentQueryParams, ...props}: P
     <HidingContentLink side='right'
       book={book}
       page={prevNext.next}
-      queryParams={persistentQueryParams}
+      queryParams={queryParams}
       onClick={props.onNext}
       handleClick={props.handleNext}
       aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
@@ -135,7 +135,7 @@ export const PrevNextBar = ({book, prevNext, persistentQueryParams, ...props}: P
 export default connect(
   (state: AppState) => ({
     book: select.book(state),
-    persistentQueryParams: navSelect.persistentQueryParameters(state),
     prevNext: select.prevNextPage(state),
+    queryParams: navSelect.persistentQueryParameters(state),
   })
 )(PrevNextBar);
