@@ -49,5 +49,3 @@ export const maxContentGutter = 6;
 export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + verticalNavbarMaxWidth;
 
 export const defaultTheme = 'blue' as BookWithOSWebData['theme'];
-
-
