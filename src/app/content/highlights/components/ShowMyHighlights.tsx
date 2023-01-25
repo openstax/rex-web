@@ -7,7 +7,7 @@ import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
 import { AppServices, AppState, Dispatch } from '../../../types';
 import { loadMoreDistanceFromBottom } from '../../constants';
-import { loadMoreSummaryHighlights } from '../actions';
+import { initializeMyHighlightsSummary, loadMoreSummaryHighlights } from '../actions';
 import * as select from '../selectors';
 import Highlights from './Highlights';
 import HighlightsToasts from './HighlightsToasts';
@@ -18,6 +18,7 @@ interface ShowMyHighlightsProps {
   hasMoreResults: boolean;
   summaryIsLoading: boolean;
   loadMore: () => void;
+  initMyHighlights: () => void;
   services: AppServices;
 }
 
@@ -55,6 +56,10 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
   };
 
   public componentDidMount() {
+    if (!this.props.summaryIsLoading) {
+      this.props.initMyHighlights();
+    }
+
     const highlightsBodyRef = this.myHighlightsBodyRef.current;
 
     if (isHtmlElement(highlightsBodyRef)) {
@@ -100,6 +105,7 @@ const connector = connect(
     summaryIsLoading: select.summaryIsLoading(state),
   }),
   (dispatch: Dispatch) => ({
+    initMyHighlights: () => dispatch(initializeMyHighlightsSummary()),
     loadMore: () => dispatch(loadMoreSummaryHighlights()),
   })
 );
