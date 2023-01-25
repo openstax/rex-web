@@ -161,6 +161,10 @@ export const SearchResultsHeader = styled.div`
   align-items: center;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   height: ${topbarDesktopHeight}rem;
+  ${({ emptyHeaderStyle = false }: { emptyHeaderStyle: boolean }) => emptyHeaderStyle && css`
+    border-bottom: 0;
+    justify-content: flex-end;
+  `}
   ${theme.breakpoints.mobileMedium(css`
     height: unset;
   `)}
