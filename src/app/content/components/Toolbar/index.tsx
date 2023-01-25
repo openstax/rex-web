@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import * as pqSelectors from '../../practiceQuestions/selectors';
+import { searchInSidebar } from '../../search/selectors';
 import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
@@ -19,6 +20,7 @@ const VerticalNav = () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
+  const showSearchInSidebar = useSelector(searchInSidebar);
 
   React.useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -48,8 +50,10 @@ const VerticalNav = () => {
     <Styled.ToolbarElements>
       <OpenTOCControl showActivatedState />
       <CloseTOCControl showActivatedState />
-      <OpenSearchControl showActivatedState />
-      <CloseSearchControl showActivatedState />
+      {showSearchInSidebar ? <>
+        <OpenSearchControl showActivatedState />
+        <CloseSearchControl showActivatedState />
+      </> : null}
       <PracticeQuestionsButton />
       <NudgeElementTarget id={nudgeStudyToolsTargetId}>
         <StudyGuidesButton />

@@ -19,7 +19,7 @@ import * as StyledSearch from '../../../components/Topbar/styled'; // TODO: move
 import { requestSearch } from '../../actions';
 import { isHtmlElement } from '../../../../guards';
 import { assertDocument } from '../../../../utils';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from '../../../../theme';
 
 interface ResultsSidebarProps {
@@ -50,7 +50,7 @@ interface State {
 // tslint:disable-next-line: variable-name
 const BlankState = ({onClose, ref, searchInput}: {
   onClose: () => void; ref: React.Ref<HTMLElement>; searchInput: () => React.ReactNode
-}) => <div>
+}) => <Styled.BlankStateWrapper>
 <Styled.SearchResultsTopBar ref={ref}>
     <Styled.SearchResultsHeader>
       <Styled.SearchResultsHeaderTitle>
@@ -70,8 +70,10 @@ const BlankState = ({onClose, ref, searchInput}: {
     </Styled.SearchQueryWrapper>
   </Styled.SearchResultsTopBar>
 
-  {useIntl().formatMessage({id: 'i18n:search-results:blank-state'})}
-</div>
+  <Styled.BlankStateMessage>
+    {useIntl().formatMessage({id: 'i18n:search-results:blank-state'})}
+  </Styled.BlankStateMessage>
+</Styled.BlankStateWrapper>
 
 // tslint:disable-next-line: variable-name
 const LoadingState = ({onClose}: {onClose: () => void}) => <Styled.LoadingWrapper
@@ -101,13 +103,28 @@ const StyledSearchWrapper = styled.div`
   flex: 1;
   padding: 1.6rem;
   background: ${theme.color.white};
-  border: 0.1rem solid ${theme.color.neutral.formBorder};
-  border-width: 0.1rem 0;
+  border-bottom: 0.1rem solid ${theme.color.neutral.formBorder};
 
   ${StyledSearch.SearchInputWrapper} {
     margin: 0;
     width: 100%;
   }
+
+  ${theme.breakpoints.mobileMedium(css`
+    display: none;
+  `)}
+`;
+
+const StyledSearchCloseButton = styled(StyledSearch.CloseButton)`
+  ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
+    display: block;
+  `)}
+`;
+
+const StyledSearchCloseButtonNew = styled(StyledSearch.CloseButtonNew)`
+  ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
+    display: block;
+  `)}
 `;
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
@@ -144,21 +161,20 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         data-testid='sidebar-search'
         data-experiment
         colorSchema={this.props.searchButtonColor}
-        //searchInSidebar={this.props.searchInSidebar}
       >
         <StyledSearch.SearchInput type='search' data-testid='sidebar-search-input'
           autoFocus
           onChange={this.onSearchChange} value={this.state.query} />
        {!this.state.formSubmitted && !this.newButtonEnabled &&
-            <StyledSearch.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
+            <StyledSearch.SearchButton colorSchema={this.props.searchButtonColor} data-experiment />
           }
           {this.state.formSubmitted && !this.newButtonEnabled &&
-            <StyledSearch.CloseButton desktop type='button' onClick={this.onSearchClear} data-testid='desktop-clear-search' />
+            <StyledSearchCloseButton type='button' onClick={this.onSearchClear} data-testid='sidebar-clear-search' />
           }
           {this.state.formSubmitted && this.newButtonEnabled &&
-            <StyledSearch.CloseButtonNew desktop type='button' onClick={this.onSearchClear} data-testid='desktop-clear-search'>
+            <StyledSearchCloseButtonNew type='button' onClick={this.onSearchClear} data-testid='sidebar-clear-search'>
               <Styled.CloseIcon />
-            </StyledSearch.CloseButtonNew>
+            </StyledSearchCloseButtonNew>
           }
           {this.newButtonEnabled &&
             <StyledSearch.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
@@ -199,7 +215,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       </Styled.CloseIconButton>
     </Styled.SearchResultsHeader>
     {this.sidebarSearchInput()}
-    <Styled.SearchQueryWrapper >
+    <Styled.SearchQueryWrapper>
       <Styled.SearchQuery>
         <Styled.SearchIconInsideBar src={searchIcon}/>
         <Styled.HeaderQuery>
@@ -214,11 +230,18 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.SearchResultsTopBar>;
 
   public noResults = () => <div>
-    <Styled.CloseIconWrapper>
-      <Styled.CloseIconButton onClick={this.props.onClose}>
-        <Styled.CloseIcon />
-      </Styled.CloseIconButton>
-    </Styled.CloseIconWrapper>
+    <Styled.SearchResultsHeader>
+      <Styled.SearchResultsHeaderTitle>
+        <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsHeaderTitle>
+      <Styled.CloseIconWrapper>
+        <Styled.CloseIconButton onClick={this.props.onClose}>
+          <Styled.CloseIcon />
+        </Styled.CloseIconButton>
+      </Styled.CloseIconWrapper>
+    </Styled.SearchResultsHeader>
     {this.sidebarSearchInput()}
     <FormattedMessage id='i18n:search-results:bar:query:no-results'>
       {(msg) => (

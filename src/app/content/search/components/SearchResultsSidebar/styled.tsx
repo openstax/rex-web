@@ -339,13 +339,12 @@ export const CloseIconWrapper = styled.div`
   overflow: visible;
   display: flex;
   justify-content: flex-end;
-  margin: 1.4rem 1.4rem 0 0;
+  align-items: center;
   ${theme.breakpoints.mobileMedium(css`
     display: none;
   `)}
-
   ${CloseIconButton} {
-    margin: 0;
+    margin: 0.3rem;
   }
 `;
 
@@ -359,6 +358,9 @@ export const LoadingWrapper = styled.div`
   height: 100%;
   background-color: ${backgroundColor};
   transition: opacity 0.5s 0.3s, transform 0.2s 0.2s;
+  ${CloseIconWrapper} {
+    height: ${topbarDesktopHeight}rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -440,4 +442,19 @@ export const KeyTermResult = styled(SimpleResult)`
       content: ''
     }
   }
+`;
+
+// tslint:disable-next-line: variable-name
+export const BlankStateWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
+
+// tslint:disable-next-line: variable-name
+export const BlankStateMessage = styled.div`
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
 `;

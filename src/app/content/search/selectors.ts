@@ -17,9 +17,14 @@ export const localState = createSelector(
   (parentState) => parentState.search
 );
 
+export const searchInSidebar = createSelector(
+  searchLocation,
+  (state) => state === 'sidebar'
+);
+
 export const searchResultsOpen = createSelector(
-  localState,
-  (state) => !!state.query || state.sidebarOpen
+  localState, searchInSidebar,
+  (state, searchInSidebar) => searchInSidebar ? state.sidebarOpen : !!state.query && state.sidebarOpen
 );
 
 const getRawResults = createSelector(
@@ -120,8 +125,3 @@ export const searchButtonColor = createSelector(
       : (selectedBook && selectedStyle === 'bannerColorButton' ? selectedTheme : null
   )
 );
-
-export const searchInSidebar = createSelector(
-  searchLocation,
-  (state) => state === 'sidebar'
-)
