@@ -69,7 +69,7 @@ async function updateArchiveAndContentVersions() {
     const [bookId, bookConfig] = book;
     const {contentVersion, dynamicStyles} = bookConfig;
     // this will remove any archiveOverride the book currently has
-    updatedBooksConfig[bookId] = {defaultVersion: contentVersion, ...dynamicStyles && {dynamicStyles}};
+    updatedBooksConfig[bookId] = {defaultVersion: contentVersion, dynamicStyles};
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
 
@@ -152,6 +152,6 @@ async function updateArchiveAndContentVersions() {
 
 updateArchiveAndContentVersions()
   .catch((e) => {
-    console.error('an error has prevented the upgrade from completing', e);
+    console.error('an error has prevented the upgrade from completingb ', e);
     process.exit(1);
   });
