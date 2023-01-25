@@ -2,6 +2,8 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { user } from '../../../auth/selectors';
+import { User } from '../../../auth/types';
 import GoToTopButton from '../../../components/GoToTopButton';
 import withServices from '../../../context/Services';
 import { isHtmlElement } from '../../../guards';
@@ -9,13 +11,16 @@ import { AppServices, AppState, Dispatch } from '../../../types';
 import { loadMoreDistanceFromBottom } from '../../constants';
 import { initializeMyHighlightsSummary, loadMoreSummaryHighlights } from '../actions';
 import * as select from '../selectors';
+import { SummaryHighlights } from '../types';
 import Highlights from './Highlights';
 import HighlightsToasts from './HighlightsToasts';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
 
 interface ShowMyHighlightsProps {
+  authenticated: User | undefined;
   hasMoreResults: boolean;
+  summaryHighlights: SummaryHighlights | null;
   summaryIsLoading: boolean;
   loadMore: () => void;
   initMyHighlights: () => void;
@@ -56,7 +61,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
   };
 
   public componentDidMount() {
-    if (!this.props.summaryIsLoading) {
+    if (this.props.authenticated && this.props.summaryIsLoading === false && this.props.summaryHighlights === null) {
       this.props.initMyHighlights();
     }
 
@@ -101,7 +106,9 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
 
 const connector = connect(
   (state: AppState) => ({
+    authenticated: user(state),
     hasMoreResults: select.hasMoreResults(state),
+    summaryHighlights: select.summaryHighlights(state),
     summaryIsLoading: select.summaryIsLoading(state),
   }),
   (dispatch: Dispatch) => ({
