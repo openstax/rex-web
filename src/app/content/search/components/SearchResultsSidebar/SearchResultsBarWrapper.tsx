@@ -102,14 +102,15 @@ const SearchResultsBar = React.forwardRef<
 const StyledSearchWrapper = styled.div`
   flex: 1;
   padding: 1.6rem;
-  background: ${theme.color.white};
-  border-bottom: 0.1rem solid ${theme.color.neutral.formBorder};
-
+  ${(props: { background: boolean }) => props.background && css`
+    background: ${theme.color.white};
+    border-bottom: 0.1rem solid ${theme.color.neutral.formBorder};
+  `}
   ${TopbarStyled.SearchInputWrapper} {
     margin: 0;
     width: 100%;
+    background: ${theme.color.white};
   }
-
   ${theme.breakpoints.mobileMedium(css`
     display: none;
   `)}
@@ -154,7 +155,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     if (!this.props.searchInSidebar) {
       return null;
     }
-    return <StyledSearchWrapper>
+    return <StyledSearchWrapper background={this.props.query}>
       <TopbarStyled.SearchInputWrapper
         action='#'
         onSubmit={this.onSearchSubmit}
@@ -165,7 +166,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         <TopbarStyled.SearchInput type='search' data-testid='sidebar-search-input'
           autoFocus
           onChange={this.onSearchChange} value={this.state.query} />
-       {!this.state.formSubmitted && !this.newButtonEnabled &&
+          {!this.state.formSubmitted && !this.newButtonEnabled &&
             <TopbarStyled.SearchButton colorSchema={this.props.searchButtonColor} data-experiment />
           }
           {this.state.formSubmitted && !this.newButtonEnabled &&
