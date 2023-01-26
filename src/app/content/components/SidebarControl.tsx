@@ -179,7 +179,7 @@ const searchConnector = connect(
     close: () => dispatch(searchActions.closeSearchResultsMobile()),
     open: () => {
       dispatch(searchActions.openSearchResultsMobile());
-      dispatch(actions.closeToc())
+      dispatch(actions.closeToc());
     },
   })
 );
@@ -201,7 +201,7 @@ const lockSearchControlState = (isOpen: boolean, Control: React.ComponentType<In
     {...props}
     data-testid='search-button'
     message={isOpen ? openSearchMessage : closedSearchMessage}
-    data-analytics-label={isOpen ? 'TODO' : 'TODO'}
+    data-analytics-label={isOpen ? 'Click to close Search' : 'Click to open Search'}
     onClick={isOpen ? close : open}
     isActive={Boolean(props.showActivatedState) && isOpen}
   />);
@@ -241,6 +241,3 @@ export const OpenSearchControl = lockSearchControlState(false, SearchControl);
 
 // tslint:disable-next-line: variable-name
 export const CloseSearchControl = lockSearchControlState(true, SearchControl);
-
-// tslint:disable-next-line:variable-name
-export const SearchCloseButton = (lockSearchControlState(true, CloseSearch));

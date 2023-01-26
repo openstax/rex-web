@@ -38,34 +38,6 @@ export interface ResultsSidebarProps {
 }
 
 // tslint:disable-next-line: variable-name
-const BlankState = ({onClose, ref, searchInput}: {
-  onClose: () => void; ref: React.Ref<HTMLElement>; searchInput: React.ReactNode
-}) => <Styled.BlankStateWrapper>
-<Styled.SearchResultsTopBar ref={ref}>
-    <Styled.SearchResultsHeader>
-      <Styled.SearchResultsHeaderTitle>
-        <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
-          {(msg) => msg}
-        </FormattedMessage>
-      </Styled.SearchResultsHeaderTitle>
-      <Styled.CloseIconButton
-        onClick={onClose}
-        data-testid='close-search'
-      >
-        <Styled.CloseIcon />
-      </Styled.CloseIconButton>
-    </Styled.SearchResultsHeader>
-    <Styled.SearchQueryWrapper >
-      {searchInput}
-    </Styled.SearchQueryWrapper>
-  </Styled.SearchResultsTopBar>
-
-  <Styled.BlankStateMessage>
-    {useIntl().formatMessage({id: 'i18n:search-results:blank-state'})}
-  </Styled.BlankStateMessage>
-</Styled.BlankStateWrapper>;
-
-// tslint:disable-next-line: variable-name
 const LoadingState = ({onClose}: {onClose: () => void}) => <Styled.LoadingWrapper
 aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'})}
 >
@@ -97,9 +69,34 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public headerTitle = `i18n:search-results:bar:header:title:${this.props.searchInSidebar ? 'plain' : 'results'}`;
 
+  public blankState = () => <Styled.BlankStateWrapper>
+    <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
+      <Styled.SearchResultsHeader>
+        <Styled.SearchResultsHeaderTitle data-testid='sidebar-header-title'>
+          <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
+            {(msg) => msg}
+          </FormattedMessage>
+        </Styled.SearchResultsHeaderTitle>
+        <Styled.CloseIconButton
+          onClick={this.props.onClose}
+          data-testid='close-search'
+        >
+          <Styled.CloseIcon />
+        </Styled.CloseIconButton>
+      </Styled.SearchResultsHeader>
+      <Styled.SearchQueryWrapper >
+        <SidebarSearchInput {...this.props} />
+      </Styled.SearchQueryWrapper>
+    </Styled.SearchResultsTopBar>
+
+    <Styled.BlankStateMessage>
+      <FormattedMessage id='i18n:search-results:blank-state' />
+    </Styled.BlankStateMessage>
+  </Styled.BlankStateWrapper>;
+
   public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
     <Styled.SearchResultsHeader>
-      <Styled.SearchResultsHeaderTitle>
+      <Styled.SearchResultsHeaderTitle data-testid='sidebar-header-title'>
         <FormattedMessage id={this.headerTitle}>
           {(msg) => msg}
         </FormattedMessage>
@@ -128,7 +125,9 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public noResults = () => <div>
     <Styled.SearchResultsHeader emptyHeaderStyle={!this.props.searchInSidebar}>
-      {this.props.searchInSidebar ? <Styled.SearchResultsHeaderTitle>
+      {this.props.searchInSidebar ? <Styled.SearchResultsHeaderTitle
+          data-testid='sidebar-header-title'
+        >
         <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
           {(msg) => msg}
         </FormattedMessage>
@@ -201,10 +200,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         ref={this.searchSidebar}
         {...propsToForward}
       >
-        {!query && !results ? <BlankState
-          onClose={onClose}
-          ref={this.searchSidebarHeader}
-          searchInput={<SidebarSearchInput {...this.props} />} /> : null}
+        {!query && !results ?  this.blankState() : null}
         {query && !results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}

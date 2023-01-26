@@ -13,6 +13,8 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { closeMobileMenu } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
+import { closeSearchResultsMobile, openSearchResultsMobile } from '../../search/actions';
+import * as searchSelectors from '../../search/selectors';
 import * as selectors from '../../selectors';
 import { CloseToCAndMobileMenuButton } from '../SidebarControl';
 import { PlainButton } from './styled';
@@ -101,6 +103,65 @@ describe('toolbar', () => {
       </Provider>);
 
       expect(() => component.root.findByProps({ 'data-testid': 'print' })).toThrow();
+    });
+  });
+
+  describe('search button', () => {
+    let dispatch: jest.SpyInstance;
+
+    beforeEach(() => {
+      jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValue(true);
+      dispatch = jest.spyOn(store, 'dispatch');
+    });
+
+    it('opens search', () => {
+      const component = renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Toolbar />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>);
+
+      renderer.act(() => {
+        component.root.findByProps({ 'data-testid': 'search-button', 'isActive': false }).props.onClick();
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(openSearchResultsMobile());
+    });
+
+    it('closes search', () => {
+      store.dispatch(openSearchResultsMobile())
+
+      const component = renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Toolbar />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>);
+
+      renderer.act(() => {
+        component.root.findByProps({ 'data-testid': 'search-button', 'isActive': true }).props.onClick();
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
+    });
+
+    it('does not render search button if disabled', () => {
+      beforeEach(() => {
+        jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValue(false);
+      });
+
+      const component = renderer.create(<Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Toolbar />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>);
+
+      expect(() => component.root.findByProps({ 'data-testid': 'search-button' })).toThrow();
     });
   });
 });

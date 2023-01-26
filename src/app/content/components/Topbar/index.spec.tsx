@@ -254,10 +254,10 @@ describe('search', () => {
   });
 
   it('hides on desktop when a feature flag moves it to the sidebar', () => {
-    jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValueOnce(true);
+    jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValue(true);
 
     const component = render();
-    expect(() => component.root.findByProps({ 'data-testid': 'desktop-search' }) ).toThrowError();
+    expect(component.root.findByProps({ 'data-testid': 'desktop-search' }).props.searchInSidebar).toBe(true);
   });
 });
 

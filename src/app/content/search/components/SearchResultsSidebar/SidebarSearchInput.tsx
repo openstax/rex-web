@@ -34,14 +34,14 @@ export const StyledSearchWrapper = styled.div`
 
 // tslint:disable-next-line: variable-name
 const StyledSearchCloseButton = styled(TopbarStyled.CloseButton)`
-  ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
+  ${(props: { formSubmitted: boolean }) => !props.formSubmitted && theme.breakpoints.mobile(css`
     display: block;
   `)}
 `;
 
 // tslint:disable-next-line: variable-name
-const StyledSearchCloseButtonNew = styled(TopbarStyled.CloseButtonNew)`
-  ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
+export const StyledSearchCloseButtonNew = styled(TopbarStyled.CloseButtonNew)`
+  ${(props: { formSubmitted: boolean }) => !props.formSubmitted && theme.breakpoints.mobile(css`
     display: block;
   `)}
 `;
@@ -54,7 +54,7 @@ export class SidebarSearchInput extends Component<ResultsSidebarProps> {
     return { ...state, queryProp: newProps.query };
   }
 
-  public state = { query: '', queryProp: '', formSubmitted: false };
+  public state = { query: '', queryProp: '', formSubmitted: this.props.results !== null };
   public newButtonEnabled = !!this.props.searchButtonColor;
 
   public onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -82,7 +82,7 @@ export class SidebarSearchInput extends Component<ResultsSidebarProps> {
     if (!this.props.searchInSidebar) {
       return null;
     }
-    return <StyledSearchWrapper background={this.props.query}>
+    return <StyledSearchWrapper background={!!this.props.query}>
       <TopbarStyled.SearchInputWrapper
         action='#'
         onSubmit={this.onSearchSubmit}
