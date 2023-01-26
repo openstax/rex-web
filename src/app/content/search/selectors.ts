@@ -24,7 +24,7 @@ export const searchInSidebar = createSelector(
 
 export const searchResultsOpen = createSelector(
   localState, searchInSidebar,
-  (state, searchInSidebar) => searchInSidebar ? state.sidebarOpen : !!state.query && state.sidebarOpen
+  (state, inSidebar) => inSidebar ? state.sidebarOpen : !!state.query && state.sidebarOpen
 );
 
 const getRawResults = createSelector(

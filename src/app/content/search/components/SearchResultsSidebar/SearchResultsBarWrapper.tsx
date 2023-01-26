@@ -136,71 +136,6 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public headerTitle = `i18n:search-results:bar:header:title:${this.props.searchInSidebar ? 'plain' : 'results'}`;
 
-  public static getDerivedStateFromProps(newProps: ResultsSidebarProps, state: State) {
-    if (newProps.query && newProps.query !== state.queryProp && newProps.query !== state.query) {
-      return { ...state, query: newProps.query, queryProp: newProps.query };
-    }
-    return { ...state, queryProp: newProps.query };
-  }
-
-  public state = { query: '', queryProp: '', formSubmitted: false };
-
-  public onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
-  };
-
-  public newButtonEnabled = !!this.props.searchButtonColor;
-
-  public sidebarSearchInput = () => {
-    if (!this.props.searchInSidebar) {
-      return null;
-    }
-    return <StyledSearchWrapper background={this.props.query}>
-      <TopbarStyled.SearchInputWrapper
-        action='#'
-        onSubmit={this.onSearchSubmit}
-        data-testid='sidebar-search'
-        data-experiment
-        colorSchema={this.props.searchButtonColor}
-      >
-        <TopbarStyled.SearchInput type='search' data-testid='sidebar-search-input'
-          autoFocus
-          onChange={this.onSearchChange} value={this.state.query} />
-          {!this.state.formSubmitted && !this.newButtonEnabled &&
-            <TopbarStyled.SearchButton colorSchema={this.props.searchButtonColor} data-experiment />
-          }
-          {this.state.formSubmitted && !this.newButtonEnabled &&
-            <StyledSearchCloseButton type='button' onClick={this.onSearchClear} data-testid='sidebar-clear-search' />
-          }
-          {this.state.formSubmitted && this.newButtonEnabled &&
-            <StyledSearchCloseButtonNew type='button' onClick={this.onSearchClear} data-testid='sidebar-clear-search'>
-              <Styled.CloseIcon />
-            </StyledSearchCloseButtonNew>
-          }
-          {this.newButtonEnabled &&
-            <TopbarStyled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
-          }
-      </TopbarStyled.SearchInputWrapper>
-    </StyledSearchWrapper>;
-  }
-
-  public onSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const activeElement = assertDocument().activeElement;
-    if (this.state.query) {
-      if (isHtmlElement(activeElement)) {
-        activeElement.blur();
-      }
-      this.props.search(this.state.query);
-      this.setState({ formSubmitted: true });
-    }
-  };
-
-  public onSearchClear = (e: React.FormEvent) => {
-    e.preventDefault();
-    this.setState({ query: '', formSubmitted: false });
-  };
-
   public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
     <Styled.SearchResultsHeader>
       <Styled.SearchResultsHeaderTitle>
@@ -215,7 +150,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         <Styled.CloseIcon />
       </Styled.CloseIconButton>
     </Styled.SearchResultsHeader>
-    {this.sidebarSearchInput()}
+    <SidebarSearchInput {...this.props} />
     <Styled.SearchQueryWrapper>
       <Styled.SearchQuery>
         <Styled.SearchIconInsideBar src={searchIcon}/>
@@ -305,7 +240,10 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         ref={this.searchSidebar}
         {...propsToForward}
       >
-        {!query && !results ? <BlankState onClose={onClose} ref={this.searchSidebarHeader} searchInput={this.sidebarSearchInput} /> : null}
+        {!query && !results ? <BlankState
+          onClose={onClose}
+          ref={this.searchSidebarHeader}
+          searchInput={<SidebarSearchInput {...this.props} />} /> : null}
         {query && !results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}

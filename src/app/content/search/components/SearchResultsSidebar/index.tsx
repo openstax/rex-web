@@ -1,5 +1,5 @@
-import flow from 'lodash/fp/flow';
 import { SearchResultHit } from '@openstax/open-search-client';
+import flow from 'lodash/fp/flow';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../../types';
@@ -87,8 +87,8 @@ export default connect(
     nonKeyTermResults: selectSearch.nonKeyTermResults(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
-    searchInSidebar: selectSearch.searchInSidebar(state),
     searchButtonColor: selectSearch.searchButtonColor(state),
+    searchInSidebar: selectSearch.searchInSidebar(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
     selectedResult: selectSearch.selectedResult(state),
     totalHits: selectSearch.totalHits(state),
@@ -96,10 +96,10 @@ export default connect(
     userSelectedResult: selectSearch.userSelectedResult(state),
   }),
   (dispatch: Dispatch) => ({
+    clearSearch: flow(clearSearch, dispatch),
     onClose: () => {
       dispatch(clearSearch());
     },
-    clearSearch: flow(clearSearch, dispatch),
     search: flow(requestSearch, dispatch),
   })
 )(SearchResultsSidebar);
