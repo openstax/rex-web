@@ -11,7 +11,6 @@ import * as actions from '../actions';
 import * as searchActions from '../search/actions';
 import * as searchSelectors from '../search/selectors';
 import * as selectors from '../selectors';
-import { State } from '../types';
 import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar/iconStyles';
 import { PlainButton, TimesIcon, toolbarDefaultButton, toolbarDefaultText } from './Toolbar/styled';
@@ -37,14 +36,14 @@ const closedSearchMessage = 'i18n:toolbar:search:toggle:closed';
 const openSearchMessage = 'i18n:toolbar:search:toggle:opened';
 
 // tslint:disable-next-line:variable-name
-export const ToCButtonText = styled.span`
+export const ButtonText = styled.span`
   ${toolbarDefaultText}
   margin: 0;
   padding: 0;
 `;
 
 // tslint:disable-next-line:variable-name
-const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
+const OpenButton = styled.button<{isOpen: InnerProps['isOpen'], isActive: boolean }>`
   background: none;
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};
@@ -75,7 +74,7 @@ const ToCButton = styled.button<{isOpen: State['tocOpen'], isActive: boolean }>`
 `;
 
 // tslint:disable-next-line: variable-name
-const CloseToCButton = styled.button`
+const CloseButton = styled.button`
   color: ${toolbarIconColor.base};
   border: none;
   padding: 0;
@@ -120,47 +119,47 @@ export const CloseToCAndMobileMenuButton = styled((props) => {
 
 // tslint:disable-next-line:variable-name
 export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) =>
-  <ToCButton
+  <OpenButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
   >
     <TocIcon />
-    <ToCButtonText>
+    <ButtonText>
       {useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
-    </ToCButtonText>
+    </ButtonText>
     {children}
-  </ToCButton>;
+  </OpenButton>;
 
 // tslint:disable-next-line:variable-name
 export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
-  <CloseToCButton
+  <CloseButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
   >
     {children}
-  </CloseToCButton>;
+  </CloseButton>;
 
 // tslint:disable-next-line:variable-name
 export const SearchControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) =>
-  <ToCButton
+  <OpenButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
   >
     <SearchIcon />
-    <ToCButtonText>
+    <ButtonText>
       {useIntl().formatMessage({ id: 'i18n:toolbar:search:text' })}
-    </ToCButtonText>
+    </ButtonText>
     {children}
-  </ToCButton>;
+  </OpenButton>;
 
 // tslint:disable-next-line:variable-name
 export const CloseSearch = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
-  <CloseToCButton
+  <CloseButton
     aria-label={useIntl().formatMessage({ id: message })}
     {...props}
   >
     {children}
-  </CloseToCButton>;
+  </CloseButton>;
 
 const tocConnector = connect(
   (state: AppState) => ({
@@ -178,7 +177,10 @@ const searchConnector = connect(
   }),
   (dispatch: Dispatch) => ({
     close: () => dispatch(searchActions.closeSearchResultsMobile()),
-    open: () => dispatch(searchActions.openSearchResultsMobile()),
+    open: () => {
+      dispatch(searchActions.openSearchResultsMobile());
+      dispatch(actions.closeToc())
+    },
   })
 );
 
@@ -229,7 +231,7 @@ export const StyledOpenTOCControl = styled(OpenTOCControl)`
   flex-direction: row;
   justify-content: start;
 
-  ${ToCButtonText} {
+  ${ButtonText} {
     ${textRegularSize};
   }
 `;

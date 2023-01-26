@@ -410,7 +410,7 @@ Array [
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 cYxBwy"
+              className="SidebarControl__OpenButton-sdjc7-1 cHAkNJ"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -440,14 +440,14 @@ Array [
                 </g>
               </svg>
               <span
-                className="SidebarControl__ToCButtonText-sdjc7-0 hBCsQF"
+                className="SidebarControl__ButtonText-sdjc7-0 ilphAr"
               >
                 Contents
               </span>
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 bMRCaL"
+              className="SidebarControl__OpenButton-sdjc7-1 cEJFfN"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -477,7 +477,7 @@ Array [
                 </g>
               </svg>
               <span
-                className="SidebarControl__ToCButtonText-sdjc7-0 hBCsQF"
+                className="SidebarControl__ButtonText-sdjc7-0 ilphAr"
               >
                 Contents
               </span>
@@ -587,7 +587,7 @@ Array [
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__TOCBackButton-sdjc7-4 eJCvwi SidebarControl__CloseToCButton-sdjc7-2 dLgTiY"
+              className="SidebarControl__TOCBackButton-sdjc7-4 eJCvwi SidebarControl__CloseButton-sdjc7-2 kZSWHO"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -646,7 +646,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__CloseToCButton-sdjc7-2 dLgTiY"
+              className="SidebarControl__CloseButton-sdjc7-2 kZSWHO"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2104,7 +2104,7 @@ Array [
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 cYxBwy"
+              className="SidebarControl__OpenButton-sdjc7-1 cHAkNJ"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2134,14 +2134,14 @@ Array [
                 </g>
               </svg>
               <span
-                className="SidebarControl__ToCButtonText-sdjc7-0 hBCsQF"
+                className="SidebarControl__ButtonText-sdjc7-0 ilphAr"
               >
                 Contents
               </span>
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__ToCButton-sdjc7-1 bMRCaL"
+              className="SidebarControl__OpenButton-sdjc7-1 cEJFfN"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2171,7 +2171,7 @@ Array [
                 </g>
               </svg>
               <span
-                className="SidebarControl__ToCButtonText-sdjc7-0 hBCsQF"
+                className="SidebarControl__ButtonText-sdjc7-0 ilphAr"
               >
                 Contents
               </span>
@@ -2281,7 +2281,7 @@ Array [
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__TOCBackButton-sdjc7-4 eJCvwi SidebarControl__CloseToCButton-sdjc7-2 dLgTiY"
+              className="SidebarControl__TOCBackButton-sdjc7-4 eJCvwi SidebarControl__CloseButton-sdjc7-2 kZSWHO"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2340,7 +2340,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__CloseToCButton-sdjc7-2 dLgTiY"
+              className="SidebarControl__CloseButton-sdjc7-2 kZSWHO"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
