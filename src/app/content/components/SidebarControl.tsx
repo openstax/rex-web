@@ -2,15 +2,15 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import TocIcon from '../../../assets/TocIcon';
 import SearchIcon from '../../../assets/SearchIcon';
+import TocIcon from '../../../assets/TocIcon';
 import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import * as actions from '../actions';
-import * as selectors from '../selectors';
 import * as searchActions from '../search/actions';
 import * as searchSelectors from '../search/selectors';
+import * as selectors from '../selectors';
 import { State } from '../types';
 import { toolbarIconColor } from './constants';
 import { toolbarIconStyles } from './Toolbar/iconStyles';
@@ -184,23 +184,23 @@ const searchConnector = connect(
 
 // tslint:disable-next-line:variable-name
 const lockTocControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
-  tocConnector((props: MiddleProps) => <Control
+  tocConnector(({open, close, ...props}: MiddleProps) => <Control
     {...props}
     data-testid='toc-button'
     message={isOpen ? openTocMessage : closedTocMessage}
     data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
-    onClick={isOpen ? props.close : props.open}
+    onClick={isOpen ? close : open}
     isActive={Boolean(props.showActivatedState) && isOpen}
   />);
 
 // tslint:disable-next-line:variable-name
 const lockSearchControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
-  searchConnector((props: MiddleProps) => <Control
+  searchConnector(({open, close, ...props}: MiddleProps) => <Control
     {...props}
     data-testid='search-button'
     message={isOpen ? openSearchMessage : closedSearchMessage}
     data-analytics-label={isOpen ? 'TODO' : 'TODO'}
-    onClick={isOpen ? props.close : props.open}
+    onClick={isOpen ? close : open}
     isActive={Boolean(props.showActivatedState) && isOpen}
   />);
 

@@ -8,7 +8,9 @@ import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
-import { CloseSearchControl, CloseToCAndMobileMenuButton, CloseTOCControl, OpenSearchControl, OpenTOCControl } from '../SidebarControl';
+import {
+  CloseSearchControl, CloseToCAndMobileMenuButton, CloseTOCControl, OpenSearchControl, OpenTOCControl
+} from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';

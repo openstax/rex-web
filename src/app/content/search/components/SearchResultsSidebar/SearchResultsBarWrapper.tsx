@@ -7,22 +7,18 @@ import Loader from '../../../../components/Loader';
 import { assertDefined, assertNotNull } from '../../../../utils/assertions';
 import { Book } from '../../../types';
 import {
-  fixSafariScrolling,
-  scrollSidebarSectionIntoView,
-  setSidebarHeight
+    fixSafariScrolling,
+    scrollSidebarSectionIntoView,
+    setSidebarHeight
 } from '../../../utils/domUtils';
+import { requestSearch } from '../../actions';
 import { SearchResultContainer, SelectedResult } from '../../types';
 import RelatedKeyTerms from './RelatedKeyTerms';
 import SearchResultContainers from './SearchResultContainers';
+import { SidebarSearchInput } from './SidebarSearchInput';
 import * as Styled from './styled';
-import * as TopbarStyled from '../../../components/Topbar/styled';
-import { requestSearch } from '../../actions';
-import { isHtmlElement } from '../../../../guards';
-import { assertDocument } from '../../../../utils';
-import styled, { css } from 'styled-components';
-import theme from '../../../../theme';
 
-interface ResultsSidebarProps {
+export interface ResultsSidebarProps {
   query: string | null;
   hasQuery: boolean;
   keyTermHits: SearchResultHit[] | null;
@@ -41,15 +37,9 @@ interface ResultsSidebarProps {
   userSelectedResult: boolean;
 }
 
-interface State {
-  query: string;
-  queryProp: string;
-  formSubmitted: boolean;
-}
-
 // tslint:disable-next-line: variable-name
 const BlankState = ({onClose, ref, searchInput}: {
-  onClose: () => void; ref: React.Ref<HTMLElement>; searchInput: () => React.ReactNode
+  onClose: () => void; ref: React.Ref<HTMLElement>; searchInput: React.ReactNode
 }) => <Styled.BlankStateWrapper>
 <Styled.SearchResultsTopBar ref={ref}>
     <Styled.SearchResultsHeader>
@@ -66,14 +56,14 @@ const BlankState = ({onClose, ref, searchInput}: {
       </Styled.CloseIconButton>
     </Styled.SearchResultsHeader>
     <Styled.SearchQueryWrapper >
-      {searchInput()}
+      {searchInput}
     </Styled.SearchQueryWrapper>
   </Styled.SearchResultsTopBar>
 
   <Styled.BlankStateMessage>
     {useIntl().formatMessage({id: 'i18n:search-results:blank-state'})}
   </Styled.BlankStateMessage>
-</Styled.BlankStateWrapper>
+</Styled.BlankStateWrapper>;
 
 // tslint:disable-next-line: variable-name
 const LoadingState = ({onClose}: {onClose: () => void}) => <Styled.LoadingWrapper
@@ -98,35 +88,6 @@ const SearchResultsBar = React.forwardRef<
     {...props}
   />
 );
-
-const StyledSearchWrapper = styled.div`
-  flex: 1;
-  padding: 1.6rem;
-  ${(props: { background: boolean }) => props.background && css`
-    background: ${theme.color.white};
-    border-bottom: 0.1rem solid ${theme.color.neutral.formBorder};
-  `}
-  ${TopbarStyled.SearchInputWrapper} {
-    margin: 0;
-    width: 100%;
-    background: ${theme.color.white};
-  }
-  ${theme.breakpoints.mobileMedium(css`
-    display: none;
-  `)}
-`;
-
-const StyledSearchCloseButton = styled(TopbarStyled.CloseButton)`
-  ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
-    display: block;
-  `)}
-`;
-
-const StyledSearchCloseButtonNew = styled(TopbarStyled.CloseButtonNew)`
-  ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
-    display: block;
-  `)}
-`;
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
@@ -178,7 +139,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         </Styled.CloseIconButton>
       </Styled.CloseIconWrapper>
     </Styled.SearchResultsHeader>
-    {this.sidebarSearchInput()}
+    <SidebarSearchInput {...this.props} />
     <FormattedMessage id='i18n:search-results:bar:query:no-results'>
       {(msg) => (
         <Styled.SearchQuery>

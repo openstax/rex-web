@@ -159,7 +159,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 bHZhxZ"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 hpkAyy"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -282,7 +282,7 @@ Array [
             </button>
             <form
               action="#"
-              className="styled__SearchInputWrapper-sc-12dq39v-7 bHZhxZ"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 hpkAyy"
               data-experiment={true}
               data-testid="mobile-search"
               onSubmit={[Function]}
@@ -577,12 +577,12 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 jwGPmf"
+          className="SidebarPane__SidebarPaneBody-rvfm87-0 hyOCnI"
           data-analytics-region="toc"
           data-testid="toc"
         >
           <div
-            className="wrapper__ToCHeader-sc-1nl0jy-1 jqGeii"
+            className="SidebarPane__Header-rvfm87-1 lmKWaf"
             data-testid="tocheader"
           >
             <button
@@ -605,7 +605,7 @@ Array [
               </svg>
             </button>
             <span
-              className="wrapper__ToCHeaderText-sc-1nl0jy-2 bNyifZ"
+              className="SidebarPane__HeaderText-rvfm87-2 jyCPMx"
             >
               Table of contents
             </span>
@@ -1853,7 +1853,7 @@ Array [
             </button>
           </div>
           <form
-            className="styled__SearchInputWrapper-sc-12dq39v-7 bHZhxZ"
+            className="styled__SearchInputWrapper-sc-12dq39v-7 hpkAyy"
             data-experiment={true}
             data-testid="desktop-search"
             onSubmit={[Function]}
@@ -1976,7 +1976,7 @@ Array [
             </button>
             <form
               action="#"
-              className="styled__SearchInputWrapper-sc-12dq39v-7 bHZhxZ"
+              className="styled__SearchInputWrapper-sc-12dq39v-7 hpkAyy"
               data-experiment={true}
               data-testid="mobile-search"
               onSubmit={[Function]}
@@ -2271,12 +2271,12 @@ Array [
         </div>
         <div
           aria-label="Table of contents"
-          className="wrapper__SidebarBody-sc-1nl0jy-0 jwGPmf"
+          className="SidebarPane__SidebarPaneBody-rvfm87-0 hyOCnI"
           data-analytics-region="toc"
           data-testid="toc"
         >
           <div
-            className="wrapper__ToCHeader-sc-1nl0jy-1 jqGeii"
+            className="SidebarPane__Header-rvfm87-1 lmKWaf"
             data-testid="tocheader"
           >
             <button
@@ -2299,7 +2299,7 @@ Array [
               </svg>
             </button>
             <span
-              className="wrapper__ToCHeaderText-sc-1nl0jy-2 bNyifZ"
+              className="SidebarPane__HeaderText-rvfm87-2 jyCPMx"
             >
               Table of contents
             </span>

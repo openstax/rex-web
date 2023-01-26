@@ -12,9 +12,9 @@ import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
+import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
-import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 
 interface SidebarProps {
   onNavigate: () => void;

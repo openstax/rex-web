@@ -226,7 +226,7 @@ export const SearchInputWrapper = styled.form`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SearchInput = styled(({ desktop, mobile, ...props }) => // TODO: extract to something like /components/search
+export const SearchInput = styled(({ desktop, mobile, ...props }) =>
   <input {...props}
     aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
     placeholder={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
