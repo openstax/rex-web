@@ -78,7 +78,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public blankState = () => <Styled.BlankStateWrapper>
     <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
       <Styled.SearchResultsHeader>
-        <Styled.SearchResultsHeaderTitle data-testid='sidebar-header-title'>
+        <Styled.SearchResultsHeaderTitle>
           <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
             {(msg) => msg}
           </FormattedMessage>
@@ -102,7 +102,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
     <Styled.SearchResultsHeader>
-      <Styled.SearchResultsHeaderTitle data-testid='sidebar-header-title'>
+      <Styled.SearchResultsHeaderTitle>
         <FormattedMessage id={this.headerTitle}>
           {(msg) => msg}
         </FormattedMessage>
@@ -131,9 +131,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public noResults = () => <div>
     <Styled.SearchResultsHeader emptyHeaderStyle={!this.props.searchInSidebar}>
-      {this.props.searchInSidebar ? <Styled.SearchResultsHeaderTitle
-          data-testid='sidebar-header-title'
-        >
+      {this.props.searchInSidebar ? <Styled.SearchResultsHeaderTitle>
         <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
           {(msg) => msg}
         </FormattedMessage>
