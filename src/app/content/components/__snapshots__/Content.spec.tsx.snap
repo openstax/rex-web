@@ -410,7 +410,7 @@ Array [
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__OpenButton-sdjc7-1 cHAkNJ"
+              className="SidebarControl__OpenButton-sdjc7-1 hjSBfv"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -447,7 +447,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__OpenButton-sdjc7-1 cEJFfN"
+              className="SidebarControl__OpenButton-sdjc7-1 cjpdUH"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2104,7 +2104,7 @@ Array [
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="SidebarControl__OpenButton-sdjc7-1 cHAkNJ"
+              className="SidebarControl__OpenButton-sdjc7-1 hjSBfv"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2141,7 +2141,7 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__OpenButton-sdjc7-1 cEJFfN"
+              className="SidebarControl__OpenButton-sdjc7-1 cjpdUH"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}

@@ -6,16 +6,16 @@ import createTestStore from '../../../../../test/createTestStore';
 import { makeEvent, makeFindByTestId, makeInputEvent } from '../../../../../test/reactutils';
 import { makeSearchResults } from '../../../../../test/searchResults';
 import TestContainer from '../../../../../test/TestContainer';
+import { receiveExperiments } from '../../../../featureFlags/actions';
 import { MiddlewareAPI, Store } from '../../../../types';
 import { assertDocument } from '../../../../utils';
+import { receiveBook } from '../../../actions';
+import * as searchActions from '../../../search/actions';
 import {
   receiveSearchResults,
   requestSearch
 } from '../../../search/actions';
-import * as searchActions from '../../../search/actions';
 import * as searchSelectors from '../../../search/selectors';
-import { receiveExperiments } from '../../../../featureFlags/actions';
-import { receiveBook } from '../../../actions';
 import { mockBook } from '../../../utils/seoUtils.spec.data';
 import { StyledSearchCloseButtonNew } from './SidebarSearchInput';
 

@@ -131,7 +131,7 @@ describe('toolbar', () => {
     });
 
     it('closes search', () => {
-      store.dispatch(openSearchResultsMobile())
+      store.dispatch(openSearchResultsMobile());
 
       const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
