@@ -1,10 +1,14 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import ContentLink from '../../components/ContentLink';
+import { useServices } from '../../../context/Services';
+import { replace } from '../../../navigation/actions';
+import * as navSelect from '../../../navigation/selectors';
+import { AnyMatch } from '../../../navigation/types';
+import { getQueryForParam } from '../../../navigation/utils';
 import { modalQueryParameterName } from '../../constants';
 import { modalUrlName } from '../../practiceQuestions/constants';
 import {
@@ -13,21 +17,17 @@ import {
   practiceQuestionsEnabled
 } from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
-import { toolbarIconColor } from '../constants';
 import { toolbarIconStyles } from './iconStyles';
-import { toolbarDefaultButton, toolbarDefaultText } from './styled';
+import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
 
 // tslint:disable-next-line:variable-name
-export const StyledPracticeQuestionsButton = styled(ContentLink)`
+export const StyledPracticeQuestionsButton = styled(PlainButton)`
   ${toolbarDefaultButton}
-  text-decoration: none;
+  height: auto;
   padding: 0;
-  width: 100%;
-  color: ${toolbarIconColor.base};
 
-  :hover,
-  :focus {
-    color: ${toolbarIconColor.darker};
+  > svg {
+    ${toolbarIconStyles}
   }
 `;
 
@@ -45,7 +45,11 @@ const PracticeQuestionsText = styled.span`
 
 // tslint:disable-next-line:variable-name
 const PracticeQuestionsButton = () => {
+  const dispatch = useDispatch();
   const intl = useIntl();
+  const state = useServices().getState();
+  const match = navSelect.match(state);
+  const existingQuery = navSelect.query(state);
   const isEnabled = useSelector(practiceQuestionsEnabled);
   const isPracticeQOpen = useSelector(isPracticeQuestionsOpen);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
@@ -54,13 +58,17 @@ const PracticeQuestionsButton = () => {
 
   if (!isEnabled || !hasPracticeQs || !book || !page) { return null; }
 
+  const openPracticeQuestions = () => {
+    dispatch(replace(match as AnyMatch, {
+      search: getQueryForParam({[modalQueryParameterName]: modalUrlName}, existingQuery),
+    }));
+    trackOpenClose();
+  };
+
   const text = intl.formatMessage({id: 'i18n:toolbar:practice-questions:button:text'});
 
   return <StyledPracticeQuestionsButton
-    book={book}
-    page={page}
-    queryParams={{ [modalQueryParameterName]: modalUrlName }}
-    onClick={trackOpenClose}
+    onClick={() => openPracticeQuestions()}
     aria-label={text}
     isActive={isPracticeQOpen}>
     <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
