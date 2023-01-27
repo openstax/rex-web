@@ -12,7 +12,7 @@ import {
   topbarMobileHeight
 } from './constants';
 import { disablePrint } from './utils/disablePrint';
-import { styleWhenTocClosed } from './utils/sidebar'; // TODO: rename
+import { styleWhenTocClosed } from './utils/sidebar';
 
 const sidebarPadding = 1.8;
 

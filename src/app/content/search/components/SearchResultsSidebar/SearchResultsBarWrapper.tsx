@@ -22,6 +22,7 @@ export interface ResultsSidebarProps {
   query: string | null;
   hasQuery: boolean;
   keyTermHits: SearchResultHit[] | null;
+  mobileToolbarOpen: boolean;
   nonKeyTermResults: SearchResultContainer[] | null;
   results: SearchResultContainer[] | null;
   onClose: () => void;
@@ -51,7 +52,12 @@ aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'
 
 // tslint:disable-next-line: variable-name
 const SearchResultsBar = React.forwardRef<
-  HTMLElement, {searchResultsOpen: boolean, hasQuery: boolean, children: React.ReactNode}
+  HTMLElement, {
+    mobileToolbarOpen: boolean,
+    searchResultsOpen: boolean,
+    hasQuery: boolean,
+    children: React.ReactNode,
+  }
 >(
   (props, ref) => <Styled.SearchResultsBar
     aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
@@ -194,13 +200,12 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       userSelectedResult,
       ...propsToForward
     } = this.props;
-
     return (
       <SearchResultsBar
         ref={this.searchSidebar}
         {...propsToForward}
       >
-        {!query && !results ?  this.blankState() : null}
+        {!query && !results ? this.blankState() : null}
         {query && !results ? <LoadingState onClose={onClose} /> : null}
         {results && results.length > 0 ? this.totalResults() : null}
         {results && results.length === 0 ? this.noResults() : null}

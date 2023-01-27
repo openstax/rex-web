@@ -15,6 +15,7 @@ interface Props {
   query: string | null;
   hasQuery: boolean;
   keyTermHits: SearchResultHit[] | null;
+  mobileToolbarOpen: boolean;
   nonKeyTermResults: SearchResultContainer[] | null;
   totalHits: number | null;
   totalHitsKeyTerms: number | null;
@@ -84,6 +85,7 @@ export default connect(
     book: select.book(state),
     hasQuery: !!selectSearch.query(state),
     keyTermHits: selectSearch.keyTermHitsInTitle(state),
+    mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     nonKeyTermResults: selectSearch.nonKeyTermResults(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),

@@ -99,6 +99,12 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
   }
 `;
 
+const styleWhenMobileToolbarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
+  ${(props: {mobileToolbarOpen: boolean; hasQuery: boolean}) =>
+    (!props.mobileToolbarOpen || props.mobileToolbarOpen && !props.hasQuery) &&
+      theme.breakpoints.mobileMedium(closedStyle)}
+`;
+
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
   -webkit-overflow-scrolling: touch;
@@ -118,6 +124,9 @@ export const SearchResultsBar = styled.div`
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
   ${styleWhenSearchClosed(css`
     animation: ${sidebarHideAnimation} ${sidebarTransitionTime}ms forwards;
+  `)}
+  ${styleWhenMobileToolbarClosed(css`
+    display: none;
   `)}
   ${theme.breakpoints.mobile(css`
     width: ${searchResultsBarMobileWidth}rem;
