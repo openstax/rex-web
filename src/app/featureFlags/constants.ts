@@ -28,4 +28,5 @@ export const experimentIds: { [key: string]: keyof typeof experiments } = {
   'L3WXXDcvT_OhGcLxyDcYOQ': 'kineticBanner', // prod
 
   'tpdEbFiARyarMQ-cx46QiQ': 'searchLocation', // dev
+  '8txxEETQSmyM0ii4aNAkiA': 'searchLocation', // prod
 };
