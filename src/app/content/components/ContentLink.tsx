@@ -15,7 +15,7 @@ import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
 import * as select from '../selectors';
-import { Book, ContentQueryParams, SystemQueryParams } from '../types';
+import { Book, SystemQueryParams } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { createNavigationMatch } from '../utils/navigationUtils';
@@ -38,7 +38,6 @@ interface Props {
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
   systemQueryParams?: SystemQueryParams;
-  persistentQueryParams?: ContentQueryParams;
   ignoreModal?: boolean;
 }
 
@@ -58,20 +57,21 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     myForwardedRef,
     hasUnsavedHighlight,
     systemQueryParams,
-    persistentQueryParams,
-    ignoreModal,
     ...anchorProps
   } = props;
+
+  // Add options only if linking to the same book
+  const getOptions = (explicitParams?: OutputParams) => currentBook && currentBook.id === bookUid
+  ? createNavigationOptions({...systemQueryParams, ...explicitParams},
+    scrollTarget)
+  : undefined;
 
   const {url, params} = getBookPageUrlAndParams(book, page);
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
-  // Add options only if linking to the same book
-  const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...persistentQueryParams, ...(ignoreModal && {modal: null}), ...systemQueryParams},
-      scrollTarget)
-    : undefined;
+  const options = getOptions();
+  const optionsWithExplicitParams = getOptions(queryParams);
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
   const services = useServices();
 
@@ -96,7 +96,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       if (handleClick) {
         handleClick();
       } else {
-        navigate(navigationMatch, options);
+        navigate(navigationMatch, optionsWithExplicitParams);
       }
     }}
     href={URL}
@@ -106,15 +106,13 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {queryParams?: OutputParams, persistentQueryParams?: ContentQueryParams}) => ({
+  (state: AppState) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
-    persistentQueryParams: {
-      ...selectNavigation.persistentQueryParameters(state),
-      ...ownProps.queryParams,
+    systemQueryParams: {
+      ...selectNavigation.systemQueryParameters(state),
     },
-    systemQueryParams: selectNavigation.systemQueryParameters(state),
   }),
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
