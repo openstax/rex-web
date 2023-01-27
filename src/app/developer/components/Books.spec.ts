@@ -1,4 +1,4 @@
-import createIntl from '../../../../src/test/createIntl';
+import createTestServices from '../../../test/createTestServices';
 import { book } from '../../../test/mocks/archiveLoader';
 import * as downloadFileModule from '../utils/downloadFile';
 import * as generateBookPageSpreadsheetModule from '../utils/generateBookPageSpreadsheet';
@@ -9,9 +9,9 @@ describe('export book', () => {
     const downloadFile = jest.spyOn(downloadFileModule, 'downloadFile');
     const generateBookPageSpreadsheet = jest.spyOn(generateBookPageSpreadsheetModule, 'generateBookPageSpreadsheet');
 
-    const intl = createIntl();
+    const services = createTestServices();
 
-    const handler = exportBookHandler(book, intl);
+    const handler = exportBookHandler(book, services);
 
     const spreadsheet = 'spreadsheet';
     generateBookPageSpreadsheet.mockImplementation(async() => spreadsheet);

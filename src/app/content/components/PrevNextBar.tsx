@@ -5,10 +5,11 @@ import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { ChevronRight } from 'styled-icons/boxicons-regular/ChevronRight';
 import { decoratedLinkStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
+import * as navSelect from '../../navigation/selectors';
 import theme from '../../theme';
 import { AppState } from '../../types';
 import * as select from '../selectors';
-import { ArchiveTreeSection, Book } from '../types';
+import { ArchiveTreeSection, Book, ContentQueryParams } from '../types';
 import { contentTextWidth } from './constants';
 import ContentLink from './ContentLink';
 import { disablePrint } from './utils/disablePrint';
@@ -79,6 +80,11 @@ const BarWrapper = styled.div`
 
 interface PropTypes {
   book?: Book;
+  onPrevious?: () => void;
+  onNext?: () => void;
+  handlePrevious?: () => void;
+  handleNext?: () => void;
+  queryParams?: ContentQueryParams;
   prevNext: null | {
     prev?: ArchiveTreeSection;
     next?: ArchiveTreeSection;
@@ -86,7 +92,7 @@ interface PropTypes {
 }
 
 // tslint:disable-next-line:variable-name
-const PrevNextBar = ({book, prevNext}: PropTypes) => {
+export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) => {
   const { formatMessage } = useIntl();
 
   if (!prevNext) {
@@ -97,6 +103,9 @@ const PrevNextBar = ({book, prevNext}: PropTypes) => {
     <HidingContentLink side='left'
       book={book}
       page={prevNext.prev}
+      queryParams={queryParams}
+      onClick={props.onPrevious}
+      handleClick={props.handlePrevious}
       aria-label={formatMessage({id: 'i18n:prevnext:prev:aria-label'})}
       data-analytics-label='prev'
     >
@@ -109,6 +118,9 @@ const PrevNextBar = ({book, prevNext}: PropTypes) => {
     <HidingContentLink side='right'
       book={book}
       page={prevNext.next}
+      queryParams={queryParams}
+      onClick={props.onNext}
+      handleClick={props.handleNext}
       aria-label={formatMessage({id: 'i18n:prevnext:next:aria-label'})}
       data-analytics-label='next'
     >
@@ -124,5 +136,6 @@ export default connect(
   (state: AppState) => ({
     book: select.book(state),
     prevNext: select.prevNextPage(state),
+    queryParams: navSelect.persistentQueryParameters(state),
   })
 )(PrevNextBar);

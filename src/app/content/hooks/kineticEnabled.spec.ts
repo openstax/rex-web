@@ -45,6 +45,24 @@ describe('kineticEnabled hook', () => {
     hook = kineticEnabled(helpers);
   });
 
+  describe('outside the browser', () => {
+    const documentBack = document;
+
+    beforeEach(() => {
+      delete (global as any).document;
+    });
+
+    afterEach(() => {
+      (global as any).document = documentBack;
+    });
+
+    it('does nothing', async() => {
+      await hook(receivePage({ ...page, references: [] }));
+
+      expect(dispatch).not.toHaveBeenCalled();
+    });
+  });
+
   it('does nothing if book is not loaded', async() => {
     store.dispatch(receivePage({...page, references: []}));
 

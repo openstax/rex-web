@@ -125,7 +125,6 @@ def test_rex_login_state_when_redirected_from_osweb(
 
 
 @markers.test_case("C546508")
-@markers.smoke_test
 @markers.parametrize("page_slug", ["preface"])
 def test_cookie_notice_accepted_in_rex_not_displayed_in_osweb(
     selenium, base_url, book_slug, page_slug, email, password
@@ -272,6 +271,7 @@ def test_cookie_notice_accepted_in_osweb_not_displayed_in_rex(
 
 
 @markers.test_case("C546507")
+@markers.smoke_test
 @markers.parametrize("page_slug", ["preface"])
 def test_accepted_cookie_notice_not_displayed_in_another_session(
     selenium, base_url, book_slug, page_slug, email, password

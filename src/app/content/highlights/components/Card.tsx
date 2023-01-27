@@ -13,7 +13,6 @@ import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import * as contentSelect from '../../selectors';
-import { getBookPipelineVersion } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
   clearFocusedHighlight,
@@ -127,8 +126,8 @@ const Card = (props: CardProps) => {
       scopeId: book.id,
       sourceId: page.id,
       sourceMetadata: {
-        bookVersion: book.version,
-        pipelineVersion: getBookPipelineVersion(book),
+        bookVersion: book.contentVersion,
+        pipelineVersion: book.archiveVersion,
       },
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {

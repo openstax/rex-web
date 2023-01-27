@@ -69,9 +69,12 @@ export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElem
 
 export const findFirstAncestorOrSelfOfType =
   <T extends {prototype: HTMLElement; new(): HTMLElement}>(node: Node, elementType: T) =>
-    findFirstAncestorOrSelf(node, (el) => el instanceof elementType) as T['prototype'] | void;
+    findFirstAncestorOrSelf(node, (el): el is T => el instanceof elementType) as T['prototype'] | void;
 
-export const findFirstAncestorOrSelf = (node: Node, predicate: (e: HTMLElement) => boolean): HTMLElement | void => {
+export const findFirstAncestorOrSelf = <T = HTMLElement>(
+  node: Node,
+  predicate: ((e: any) => boolean) | ((e: any) => e is T)
+): T | void => {
   if (isHtmlElement(node) && predicate(node)) {
     return node;
   } else if (node.parentElement) {
@@ -124,6 +127,23 @@ export const scrollIntoView = (elementToScroll: HTMLElement, otherElements?: HTM
   } else if (above) {
     scrollTo(elementToScroll);
   }
+};
+
+// https://stackoverflow.com/a/7557433/14809536
+/* this only works if the element is in the body scrollable, not a nested scrollable */
+export const elementIsVisibleInWindow = (element: Element) => {
+  if (typeof(window) === 'undefined')  {
+    return false;
+  }
+
+  const rect = element.getBoundingClientRect();
+
+  return (
+    rect.bottom >= 0
+    && rect.right >= 0
+    && rect.top <= window.innerHeight
+    && rect.left <= window.innerWidth
+  );
 };
 
 export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {

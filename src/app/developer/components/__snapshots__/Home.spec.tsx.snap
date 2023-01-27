@@ -140,17 +140,55 @@ Array [
                   Content
                 </h3>
                 path: 
-                /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion\\::book_archiveVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
                 <br />
-                /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_version/pages/:page_slug
+                /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion\\::book_archiveVersion/pages/:page_slug
                 <br />
-                /books/:book_slug@:book_version/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
                 <br />
-                /books/:book_slug@:book_version/pages/:page_slug
+                /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion/pages/:page_slug
+                <br />
+                /books/:book_slug@:book_contentVersion\\::book_archiveVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /books/:book_slug@:book_contentVersion\\::book_archiveVersion/pages/:page_slug
+                <br />
+                /books/:book_slug@:book_contentVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /books/:book_slug@:book_contentVersion/pages/:page_slug
                 <br />
                 /books/:book_slug/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
                 <br />
                 /books/:book_slug/pages/:page_slug
+                <br />
+                /apps/rex/books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion\\::book_archiveVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion\\::book_archiveVersion/pages/:page_slug
+                <br />
+                /apps/rex/books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion/pages/:page_slug
+                <br />
+                /apps/rex/books/:book_slug@:book_contentVersion\\::book_archiveVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/books/:book_slug@:book_contentVersion\\::book_archiveVersion/pages/:page_slug
+                <br />
+                /apps/rex/books/:book_slug@:book_contentVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/books/:book_slug@:book_contentVersion/pages/:page_slug
+                <br />
+                /apps/rex/books/:book_slug/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/books/:book_slug/pages/:page_slug
+                <br />
+              </div>
+              <div>
+                <h3
+                  className="headings__H3-sc-1xfiggv-2 dxSanG"
+                >
+                  Assigned
+                </h3>
+                path: 
+                /apps/rex/assigned/:activityId
                 <br />
               </div>
               <div>
@@ -283,7 +321,7 @@ Array [
     </div>
   </div>,
   <footer
-    className="styled__FooterWrapper-y5hgq4-4 gprQGv"
+    className="styled__FooterWrapper-y5hgq4-4 hkILNp"
     data-analytics-region="footer"
   >
     <div

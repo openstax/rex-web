@@ -1,7 +1,11 @@
 import { SearchResultHit } from '@openstax/open-search-client';
 import isEqual from 'lodash/fp/isEqual';
+import { OutputParams } from 'query-string';
 import React from 'react';
+import { connect } from 'react-redux';
 import { useServices } from '../../../../context/Services';
+import * as navSelect from '../../../../navigation/selectors';
+import { AppState } from '../../../../types';
 import { ArchiveTreeSection, Book } from '../../../types';
 import { loadPageContent } from '../../../utils';
 import { stripIdVersion } from '../../../utils/idUtils';
@@ -19,18 +23,19 @@ interface SearchResultHitsProps {
   getPage: (hit: SearchResultHit) => ArchiveTreeSection;
   onClick: (result: { result: SearchResultHit, highlight: number }) => void;
   selectedResult: SelectedResult | null;
+  queryParams: OutputParams;
 }
 
 // tslint:disable-next-line: variable-name
 const SearchResultHits = ({
-  activeSectionRef, book, hits, getPage, testId, onClick, selectedResult,
+  activeSectionRef, book, hits, getPage, testId, onClick, selectedResult, queryParams,
 }: SearchResultHitsProps) => {
   const [keyTerms, setKeyTerms] = React.useState({});
   const { archiveLoader } = useServices();
 
   React.useEffect(() => {
     const keyTermsHits = hits.filter(isKeyTermHit);
-    const loader = archiveLoader.book(book.id, book.version);
+    const loader = archiveLoader.forBook(book);
 
     const getKeyTermsPages = async() => {
       keyTermsHits.forEach(async(hit) => {
@@ -68,6 +73,7 @@ const SearchResultHits = ({
           book={book}
           page={getPage(hit)}
           scrollTarget={target}
+          queryParams={queryParams}
           onClick={() => onClick(thisResult)}
           {...isSelected && activeSectionRef ? { ref: activeSectionRef } : {}}
         >
@@ -83,4 +89,11 @@ const SearchResultHits = ({
   </React.Fragment>;
 };
 
-export default SearchResultHits;
+// tslint:disable-next-line:variable-name
+export const ConnectedSearchResultHits = connect(
+  (state: AppState) => ({
+    queryParams: navSelect.persistentQueryParameters(state),
+  })
+)(SearchResultHits);
+
+export default ConnectedSearchResultHits;

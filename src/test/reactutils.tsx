@@ -2,6 +2,7 @@ import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { ComponentType, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
+import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 
 // JSDom logs to console.error when an Error is thrown.
@@ -12,19 +13,53 @@ export function expectError(message: string, fn: () => void) {
   consoleError.mockImplementation(() => { /* suppress jsdom logging to console */ });
 
   try {
-      fn();
-      expect('Code should not have succeeded').toBeFalsy();
-  } catch (err) {
-      expect(err.message).toBe(message);
+    expect(fn).toThrow(message);
   } finally {
-      consoleError.mockRestore();
+    consoleError.mockRestore();
+  }
+}
+// tslint:disable-next-line:variable-name
+export function expectReactRenderError(message: string, Subject: ComponentType, container?: HTMLElement) {
+  const consoleError = jest.spyOn(console, 'error');
+  consoleError.mockImplementation(() => { /* suppress jsdom logging to console */ });
+  let error = '';
+
+  class ErrorBoundary extends React.Component<{}, {message?: string}> {
+    constructor(props: {}) {
+      super(props);
+      this.state = {};
+    }
+
+    public componentDidCatch(e: any) {
+      error = e.message;
+      this.setState({message: e.message});
+    }
+
+    public render() {
+
+      return this.state.message || <>{this.props.children}</>;
+    }
+  }
+
+  const domContainer = container || document!.createElement('div');
+
+  ReactDOM.render(
+    <ErrorBoundary>
+      <Subject />
+    </ErrorBoundary>
+  , domContainer);
+
+  try {
+    expect(error).toBe(message);
+  } finally {
+    consoleError.mockRestore();
   }
 }
 
 // Utility to handle nulls and SFCs
 export function renderToDom<C extends ComponentType>(subject: ReactElement<C>, container?: HTMLElement) {
 
-  // tslint:disable-next-line:variable-name
+  // tslint:disable-next-line:variable-name max-classes-per-file
   const Wrapper = class extends Component {
     public render() {
       return subject;
@@ -32,13 +67,19 @@ export function renderToDom<C extends ComponentType>(subject: ReactElement<C>, c
   };
 
   if (!document) {
-    throw new Error('document is requried to render to dom');
+    throw new Error('document is required to render to dom');
   }
 
   const domContainer = container || document.createElement('div');
-  const c = ReactDOM.render<C>(<Wrapper />, domContainer) as C;
+  if (!domContainer.parentNode) { document.body.appendChild(domContainer); }
 
-  if (!c) {
+  let c: C;
+
+  act(() => {
+    c = ReactDOM.render<C>(<Wrapper />, domContainer) as C;
+  });
+
+  if (!c!) {
       throw new Error(`BUG: Component was not rendered`);
   }
   const node = ReactDOM.findDOMNode(c) as HTMLElement;
@@ -47,6 +88,7 @@ export function renderToDom<C extends ComponentType>(subject: ReactElement<C>, c
     node,
     root: domContainer as HTMLElement,
     tree: c,
+    unmount: () => ReactDOM.unmountComponentAtNode(domContainer),
   };
 }
 
@@ -79,5 +121,5 @@ export const dispatchKeyDownEvent = ({
   if (target) {
     Object.defineProperty(keyboardEvent, 'target', { value: target });
   }
-  (element || window!.document).dispatchEvent(keyboardEvent);
+  return (element || window!.document).dispatchEvent(keyboardEvent);
 };

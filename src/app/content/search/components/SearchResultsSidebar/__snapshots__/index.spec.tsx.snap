@@ -3,7 +3,7 @@
 exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 gSIGuG"
+  className="styled__SearchResultsBar-as3fh1-4 NBvuH"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
@@ -68,7 +68,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 gSIGuG"
+  className="styled__SearchResultsBar-as3fh1-4 NBvuH"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
@@ -157,7 +157,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       <a
         className="styled__SectionContentPreview-as3fh1-15 caeGwU"
         data-testid="related-key-term-result"
-        href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page1"
+        href="books/book-slug-1/pages/test-page-1?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page1"
         onClick={[Function]}
       >
         <div
@@ -180,7 +180,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       <a
         className="styled__SectionContentPreview-as3fh1-15 kRChqI"
         data-testid="related-key-term-result"
-        href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page6"
+        href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page6"
         onClick={[Function]}
       >
         <div
@@ -280,7 +280,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
               <a
                 className="styled__SectionContentPreview-as3fh1-15 kRChqI"
                 data-testid="search-result"
-                href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
+                href="books/book-slug-1/pages/12-test-page-7?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
                 onClick={[Function]}
               >
                 <div
@@ -308,7 +308,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 gSIGuG"
+  className="styled__SearchResultsBar-as3fh1-4 NBvuH"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >
@@ -407,7 +407,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         <a
           className="styled__SectionContentPreview-as3fh1-15 caeGwU"
           data-testid="search-result"
-          href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
+          href="books/book-slug-1/pages/test-page-1?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
           onClick={[Function]}
         >
           <div
@@ -495,7 +495,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <a
                 className="styled__SectionContentPreview-as3fh1-15 kRChqI"
                 data-testid="search-result"
-                href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
+                href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
                 onClick={[Function]}
               >
                 <div
@@ -585,7 +585,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <a
                 className="styled__SectionContentPreview-as3fh1-15 kRChqI"
                 data-testid="search-result"
-                href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
+                href="books/book-slug-1/pages/12-test-page-7?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
                 onClick={[Function]}
               >
                 <div
@@ -613,7 +613,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 exports[`SearchResultsSidebar shows sidebar with loading state if there is a search 1`] = `
 <div
   aria-label="Search results sidebar"
-  className="styled__SearchResultsBar-as3fh1-4 gSIGuG"
+  className="styled__SearchResultsBar-as3fh1-4 NBvuH"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
 >

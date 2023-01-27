@@ -4,7 +4,6 @@ import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import config from '../../../../config';
 import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import createMockHighlight from '../../../../test/mocks/highlight';
@@ -190,10 +189,10 @@ describe('Card', () => {
       color: highlightStyles[0].label,
       id: highlightData.id,
     } as HighlightData;
-    store.dispatch(receiveHighlights({highlights: [data], pageId: '123'}));
-    store.dispatch(focusHighlight(highlight.id));
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({highlights: [data], pageId: '123'}));
+    store.dispatch(focusHighlight(highlight.id));
 
     const component = renderer.create(<TestContainer store={store}>
       <Card {...cardProps} />
@@ -297,7 +296,7 @@ describe('Card', () => {
       sourceId: 'testbook1-testpage1-uuid',
       sourceMetadata: {
         bookVersion: '1.0',
-        pipelineVersion: config.REACT_APP_ARCHIVE,
+        pipelineVersion: book.archiveVersion,
       },
       sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
     }, {

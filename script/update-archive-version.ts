@@ -6,11 +6,11 @@ import argv from 'yargs';
 import { BookWithOSWebData } from '../src/app/content/types';
 import { makeUnifiedBookLoader } from '../src/app/content/utils';
 import { isDefined } from '../src/app/guards';
-import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
+import { tuple } from '../src/app/utils';
+import { ARCHIVE_URL, REACT_APP_ARCHIVE, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import ArchiveUrlConfig from '../src/config.archive-url';
-import BOOKS_CONFIG from '../src/config.books';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
-import { getArchiveUrl } from '../src/gateways/createBookConfigLoader';
+import { BooksConfig, getBooksConfigSync } from '../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import updateRedirectsData from './utils/update-redirects-data';
 
@@ -23,25 +23,28 @@ const args = argv.string('pipelineVersion').argv as any as {
   contentVersion: string | string[],
 };
 
-const getBooksToUpdate = (books: string[]) => books.map((book) => {
-  const bookId = book.split('@')[0];
-  const versionNumber = book.split('@')[1];
-  const { defaultVersion, archiveOverride } = BOOKS_CONFIG[bookId] || {};
+const getBooksToUpdate = (books: string[], config: BooksConfig) => books.map((book) => {
+  const [bookId, contentVersion] = book.split('@');
+  const { defaultVersion, archiveOverride, dynamicStyles } = config.books[bookId] || {};
   // include only books with a version change or where there is an existing pinned pipeline
-  return defaultVersion === versionNumber && !archiveOverride
+  return defaultVersion === contentVersion && !archiveOverride
     ? undefined
-    : [bookId, {defaultVersion: versionNumber}] as [string, {defaultVersion: string, archiveOverride?: string}];
+    : tuple(bookId, {contentVersion, dynamicStyles});
 });
 
 async function updateArchiveAndContentVersions() {
-  const updatePipeline = args.pipelineVersion && args.pipelineVersion !== REACT_APP_ARCHIVE;
-  const newArchiveUrl = updatePipeline ? `${REACT_APP_ARCHIVE_URL_BASE}${args.pipelineVersion}` : REACT_APP_ARCHIVE_URL;
+  const booksConfig = getBooksConfigSync();
+  const newArchiveVersion = args.pipelineVersion && args.pipelineVersion !== REACT_APP_ARCHIVE
+    ? args.pipelineVersion
+    : undefined;
   const booksReceived = args.contentVersion
     ? (typeof args.contentVersion === 'string' ? [args.contentVersion] : args.contentVersion)
     : [];
-  const booksToUpdate = booksReceived.length ? getBooksToUpdate(booksReceived).filter(isDefined) : [];
+  const booksToUpdate = booksReceived.length
+    ? getBooksToUpdate(booksReceived, booksConfig).filter(isDefined)
+    : [];
 
-  if (!updatePipeline && !booksToUpdate.length) {
+  if (!newArchiveVersion && !booksToUpdate.length) {
     console.log('Current and new archive url are the same. No books need version updates.');
     process.exit(1);
 
@@ -50,51 +53,49 @@ async function updateArchiveAndContentVersions() {
   const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
 
   const currentBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(getArchiveUrl, {
+    createArchiveLoader({
       archivePrefix: ARCHIVE_URL,
     }),
-    osWebLoader
-  );
-
-  const getNewArchiveUrl = () => newArchiveUrl;
-
-  const newBookLoader = makeUnifiedBookLoader(
-    createArchiveLoader(getNewArchiveUrl, {
-      archivePrefix: ARCHIVE_URL,
-      disablePerBookPinning: true,
-    }),
-    osWebLoader
+    osWebLoader,
+    {booksConfig}
   );
 
   const updateRedirectsPromises: Array<() => Promise<[BookWithOSWebData, number]>> = [];
 
   console.log('Preparing books...');
-  const updatedBooksConfig = { ...BOOKS_CONFIG };
+  const updatedBooksConfig = { ...booksConfig.books };
 
   for (const book of booksToUpdate) {
-    const [bookId, bookVersion] = book;
-    updatedBooksConfig[bookId] = bookVersion;
+    const [bookId, bookConfig] = book;
+    const {contentVersion, dynamicStyles} = bookConfig;
+    // this will remove any archiveOverride the book currently has
+    updatedBooksConfig[bookId] = {defaultVersion: contentVersion, dynamicStyles};
     fs.writeFileSync(booksPath, JSON.stringify(updatedBooksConfig, undefined, 2) + '\n', 'utf8');
   }
 
-  const bookEntries = updatePipeline
+  const newBookLoader = makeUnifiedBookLoader(
+    createArchiveLoader({
+      archivePrefix: ARCHIVE_URL,
+    }),
+    osWebLoader,
+    {booksConfig: {...booksConfig, books: updatedBooksConfig}}
+  );
+
+  const bookEntries = newArchiveVersion
     // updating pipeline, check redirects for every book that is not retired
-    ? Object.entries(BOOKS_CONFIG).filter(([, book]) => !book.retired)
+    ? Object.entries(booksConfig.books).filter(([, book]) => !book.retired)
     // updating content, check redirects for updated books (not new books)
-    : booksToUpdate.filter(([bookId]) => !!BOOKS_CONFIG[bookId])
+    : booksToUpdate.filter(([bookId]) => !!booksConfig.books[bookId])
   ;
 
   for (const [bookId] of bookEntries) {
     const bookHasContentUpdate = booksToUpdate.find((book) => book[0] === bookId);
     // ignore books with a pinned archive that have no content updates
-    if (bookHasContentUpdate || !BOOKS_CONFIG[bookId].archiveOverride) {
+    if (bookHasContentUpdate || !booksConfig.books[bookId].archiveOverride) {
       updateRedirectsPromises.push(async() => {
         const [currentBook, newBook] = await Promise.all([
-          currentBookLoader(bookId, BOOKS_CONFIG[bookId].defaultVersion),
-          newBookLoader(bookId, bookHasContentUpdate
-            ? bookHasContentUpdate[1].defaultVersion
-            : BOOKS_CONFIG[bookId].defaultVersion
-          ),
+          currentBookLoader(bookId),
+          newBookLoader(bookId),
         ]);
 
         const redirects = await updateRedirectsData(currentBook, newBook);
@@ -134,17 +135,17 @@ async function updateArchiveAndContentVersions() {
     console.log('No new redirects were added.');
   }
 
-  if (!updatePipeline) {
+  if (!newArchiveVersion) {
     console.log('Current and new archive url are the same. Skipping archive update...');
     return;
   }
 
   const newConfig: typeof ArchiveUrlConfig = {
-    REACT_APP_ARCHIVE: args.pipelineVersion,
+    REACT_APP_ARCHIVE: newArchiveVersion,
     REACT_APP_ARCHIVE_URL_BASE,
   };
 
-  console.log(`Updating config.archive-url.json with ${args.pipelineVersion}`);
+  console.log(`Updating config.archive-url.json with ${newArchiveVersion}`);
 
   fs.writeFileSync(configArchiveUrlPath, JSON.stringify(newConfig, undefined, 2) + '\n', 'utf8');
 }

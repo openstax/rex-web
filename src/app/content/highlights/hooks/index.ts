@@ -3,12 +3,13 @@ import { receiveUser } from '../../../auth/actions';
 import { closeModal } from '../../../navigation/hooks/closeModalHook';
 import { openModal } from '../../../navigation/hooks/openModalHook';
 import { actionHook } from '../../../utils';
+import { receivePage } from '../../actions';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import { modalUrlName } from '../constants';
 import createHighlight from './createHighlight';
 import { initializeMyHighlightsSummaryHook } from './initializeMyHighlightsSummary';
+import loadHighlights from './loadHighlights';
 import { loadMoreHook, setSummaryFiltersHook, updateFiltersHook } from './loadMore';
-import loadHighlights from './locationChange';
 import { openMyHighlightsHook } from './openMyHighlights';
 import { printHighlightsHook } from './printHighlights';
 import receiveDeleteHighlight from './receiveDeleteHighlight';
@@ -32,4 +33,5 @@ export default [
   actionHook(openMyHighlights, openModal(modalUrlName)),
   actionHook(receiveUser, loadHighlights),
   actionHook(receivePageFocus, loadHighlights),
+  actionHook(receivePage, loadHighlights),
 ];

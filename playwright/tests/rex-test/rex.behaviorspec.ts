@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { ContentPage, KsModal } from './helpers'
+import { ContentPage, KsModal, randomNum, rexUserSignup, rexUserSignout, sleep } from './helpers'
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
@@ -54,4 +54,70 @@ test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }
   // THEN: The KS modal is closed
   await expect(ksModal.ksModal).toBeHidden()
   await expect(page).toHaveURL('/books/organizational-behavior/pages/preface')
+})
+
+test('signup and highlight', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
+
+  // WHEN: Highlight any random paragraph
+  const paracount = BookPage.paracount()
+  const randomparanumber = randomNum(await paracount)
+  await BookPage.highlightText('green', randomparanumber)
+
+  // THEN: Text is highlighted
+  let highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(1)
+
+  // AND: Highlighted color in the content page is green
+  const highlight_id = await BookPage.highlight_id(randomparanumber)
+  const highlightColor = await BookPage.contentHighlightColor(highlight_id)
+  expect(highlightColor).toBe('green')
+
+  // WHEN: Log out the user
+  await rexUserSignout(page)
+  await expect(page.locator('[data-testid="nav-login"]')).toContainText('Log in')
+
+  // THEN: The highlight is removed from the page
+  highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(0)
+})
+
+test('multiple highlight', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
+
+  // WHEN: Highlight any random paragraph
+  const paracount = BookPage.paracount()
+  const randomparanumber = randomNum(await paracount)
+  await BookPage.highlightText('green', randomparanumber)
+
+  // THEN: Text is highlighted
+  let highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(1)
+
+  // AND: Highlight another random paragraph
+  await BookPage.scrolltotop()
+  const randomparanumber2 = randomNum(await paracount, randomparanumber)
+  await BookPage.highlightText('yellow', randomparanumber2)
+
+  // THEN: Text is highlighted
+  highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(2)
 })

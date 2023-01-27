@@ -1,19 +1,19 @@
 import { HTMLAnchorElement } from '@openstax/types/lib.dom';
-import { getArchiveUrl, getBookVersionFromUUIDSync } from '../../gateways/createBookConfigLoader';
 import { OSWebBook } from '../../gateways/createOSWebLoader';
 import { isDefined } from '../guards';
 import { AppServices } from '../types';
 import { hasOSWebData, isArchiveTree } from './guards';
 import {
   ArchiveBook,
+  ArchiveLoadOptions,
   ArchivePage,
   ArchiveTree,
   ArchiveTreeNode,
-  Book,
   BookWithOSWebData,
   Params,
   SlugParams,
-  UuidParams
+  UuidParams,
+  VersionedArchiveBookWithConfig
 } from './types';
 import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';
@@ -48,6 +48,9 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
 
       return {
         bookId: bookId || book.id,
+        // TODO - cross book links no longer have versions in them ever, and
+        // putting the same book version here isn't really necessary, so we
+        // should consider removing the version from the references payload
         bookVersion: bookVersion || (!bookId ? book.version : undefined),
         match: matchPath,
         pageId: (pageId && stripIdVersion(pageId)) || page.id,
@@ -57,7 +60,7 @@ export function getContentPageReferences(book: ArchiveBook, page: ArchivePage) {
   return matches;
 }
 
-export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
+export const parseContents = (book: ArchiveBook, contents: Array<ArchiveTree | ArchiveTreeNode>) => {
   contents.map((subtree) => {
     subtree.title = getTitleFromArchiveNode(book, subtree);
     if (isArchiveTree(subtree)) {
@@ -74,11 +77,15 @@ export const parseContents = (book: Book, contents: Array<ArchiveTree | ArchiveT
   return contents;
 };
 
-const pickArchiveFields = (archiveBook: ArchiveBook) => ({
+const pickArchiveFields = (archiveBook: VersionedArchiveBookWithConfig) => ({
+  archiveVersion: archiveBook.archiveVersion,
+  contentVersion: archiveBook.contentVersion,
   id: archiveBook.id,
   language: archiveBook.language,
   license: archiveBook.license,
+  loadOptions: archiveBook.loadOptions,
   revised: archiveBook.revised,
+  style_href: archiveBook.style_href,
   title: archiveBook.title,
   tree: {
     ...archiveBook.tree,
@@ -88,12 +95,12 @@ const pickArchiveFields = (archiveBook: ArchiveBook) => ({
 });
 
 export const formatBookData = <O extends OSWebBook | undefined>(
-  archiveBook: ArchiveBook,
+  archiveBook: VersionedArchiveBookWithConfig,
   osWebBook: O
-): O extends OSWebBook ? BookWithOSWebData : ArchiveBook => {
+): O extends OSWebBook ? BookWithOSWebData : VersionedArchiveBookWithConfig => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return pickArchiveFields(archiveBook) as ArchiveBook as any;
+    return pickArchiveFields(archiveBook) as VersionedArchiveBookWithConfig as any;
   }
   return {
     ...pickArchiveFields(archiveBook),
@@ -110,9 +117,10 @@ export const formatBookData = <O extends OSWebBook | undefined>(
 
 export const makeUnifiedBookLoader = (
   archiveLoader: AppServices['archiveLoader'],
-  osWebLoader: AppServices['osWebLoader']
-) => async(bookId: string, bookVersion: string) => {
-  const bookLoader = archiveLoader.book(bookId, bookVersion);
+  osWebLoader: AppServices['osWebLoader'],
+  loadOptions: ArchiveLoadOptions
+) => async(bookId: string, versions?: Pick<ArchiveLoadOptions, 'contentVersion' | 'archiveVersion'>) => {
+  const bookLoader =  archiveLoader.book(bookId, {...loadOptions, ...versions});
   const osWebBook = await osWebLoader.getBookFromId(bookId);
   const archiveBook = await bookLoader.load();
   const book = formatBookData(archiveBook, osWebBook);
@@ -137,9 +145,4 @@ export const getIdFromPageParam = (param: Params['page'] | null) => {
 export const loadPageContent = async(loader: ReturnType<AppServices['archiveLoader']['book']>, pageId: string) => {
   const page = await loader.page(pageId).load();
   return page.content;
-};
-
-export const getBookPipelineVersion = (book: Book): string => {
-  const url = getBookVersionFromUUIDSync(book.id)?.archiveOverride || getArchiveUrl();
-  return url.replace(/^\/apps\/archive\//, '');
 };

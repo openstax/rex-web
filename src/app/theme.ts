@@ -107,6 +107,7 @@ const color = {
 const mobileSmallBreak = 30; // 480px
 const mobileMediumBreak = 50; // 800px
 const mobileBreak = 75; // 1200px
+const desktopBreak = mobileBreak + .0625; // 1201px
 const mobileSmallQuery = `(max-width: ${mobileSmallBreak}em)`;
 const mobileMediumQuery = `(max-width: ${mobileMediumBreak}em)`;
 const mobileQuery = `(max-width: ${mobileBreak}em)`;
@@ -114,6 +115,7 @@ const touchDeviceQuery = `not all and (pointer: fine), (hover: none)`;
 
 export default {
   breakpoints: {
+    desktopBreak,
     mobile: (style: FlattenSimpleInterpolation) => css`
       @media screen and ${mobileQuery} {
         ${style}

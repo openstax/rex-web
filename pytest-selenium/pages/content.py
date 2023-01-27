@@ -1966,7 +1966,10 @@ class Content(Page):
 
         _root_locator = (By.CSS_SELECTOR, "[data-testid='topbar']")
 
-        _search_button_desktop_locator = (By.CSS_SELECTOR, "button:nth-of-type(2)[value='Search']")
+        _search_button_desktop_locator = (
+            By.CSS_SELECTOR,
+            "button:nth-of-type(2)[class*='SearchButton']",
+        )
         _search_button_mobile_locator = (By.CSS_SELECTOR, "[data-testid='mobile-toggle']")
         _search_textbox_desktop_locator = (By.CSS_SELECTOR, "[data-testid='desktop-search-input']")
         _search_textbox_x_locator = (By.CSS_SELECTOR, "[data-testid='desktop-clear-search']")
