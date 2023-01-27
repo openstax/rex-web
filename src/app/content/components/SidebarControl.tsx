@@ -157,15 +157,6 @@ export const SearchControl = ({ message, children, ...props }: React.PropsWithCh
     {children}
   </OpenButton>;
 
-// tslint:disable-next-line:variable-name
-export const CloseSearch = ({ message, children, ...props}: React.PropsWithChildren<InnerProps>) =>
-  <CloseButton
-    aria-label={useIntl().formatMessage({ id: message })}
-    {...props}
-  >
-    {children}
-  </CloseButton>;
-
 const tocConnector = connect(
   (state: AppState) => ({
     isOpen:  selectors.tocOpen(state),

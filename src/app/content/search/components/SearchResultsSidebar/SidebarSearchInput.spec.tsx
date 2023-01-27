@@ -103,6 +103,24 @@ describe('search', () => {
     expect(blur1).toHaveBeenCalled();
   });
 
+  it('tries to blur the focused element on submit - non HTMLElement branch', () => {
+    const component = render();
+    const document = assertDocument();
+    const findById = makeFindByTestId(component.root);
+
+    const inputEvent = makeInputEvent('cool search');
+    renderer.act(() => {
+      findById('sidebar-search-input').props.onChange(inputEvent);
+    });
+
+    // test non HTMLElement branch
+    const svgelement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    Object.defineProperty(document, 'activeElement', {value: svgelement});
+    const blur2 = jest.spyOn(svgelement, 'blur');
+    renderer.act(() => findById('sidebar-search').props.onSubmit(makeEvent()));
+    expect(blur2).not.toHaveBeenCalled();
+  });
+
   it('search and clear work on sidebar', () => {
     const component = render();
     const findById = makeFindByTestId(component.root);
