@@ -71,6 +71,10 @@ const OpenButton = styled.button<{isOpen: InnerProps['isOpen'], isActive: boolea
   ${(props) => props.isOpen === null && props.isActive && theme.breakpoints.mobile(css`
     display: none;
   `)}
+
+  ${(props) => props.hideMobile && theme.breakpoints.mobileMedium(css`
+    display: none;
+  `)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -143,6 +147,7 @@ export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren
 export const SearchControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) =>
   <OpenButton
     aria-label={useIntl().formatMessage({ id: message })}
+    hideMobile={true}
     {...props}
   >
     <SearchIcon />
