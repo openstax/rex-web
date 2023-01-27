@@ -12,7 +12,7 @@ import {
 } from '../../src/utilities/user'
 import { closeExtras, randomChoice, randomNum, sleep } from '../../src/utilities/utilities'
 import { KsModal } from '../../src/fixtures/ksmodal'
-import { MHModal, MyHighlights } from '../../src/fixtures/MHmodal'
+import { MHModal, MyHighlights, EditHighlights } from '../../src/fixtures/MHmodal'
 
 export {
   ContentPage,
@@ -20,6 +20,7 @@ export {
   KsModal,
   MHModal,
   MyHighlights,
+  EditHighlights,
   Student,
   accountsUserSignOut,
   accountsUserSignup,

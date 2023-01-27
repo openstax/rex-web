@@ -1,14 +1,10 @@
 // My Highlights modal locators and functions
 import { Locator, Page } from 'playwright'
+import { sleep } from '../utilities/utilities'
 
 class MHModal {
   MHModal: Locator
   MHModalCloseIcon: Locator
-  // MHedithighlight: Locator
-  // MHaddnote: Locator
-  // MHnotebox: Locator
-  // MHsavenote: Locator
-  // MHcancelnote: Locator
   page: Page
 
   constructor(page: Page) {
@@ -17,11 +13,7 @@ class MHModal {
     //locators for My Highlights modal
     this.MHModal = page.locator('data-testid=highlights-popup-wrapper')
     this.MHModalCloseIcon = page.locator('data-testid=close-highlights-popup')
-    // this.MHedithighlight = page.locator()
-    // this.MHaddnote = page.locator()
-    // this.MHnotebox = page.locator()
-    // this.MHsavenote = page.locator()
-    // this.MHcancelnote = page.locator()
+    
   }
 
   // Close My Highlights modal using x icon
@@ -30,27 +22,45 @@ class MHModal {
   }
 }
 
-
-class MyHighlights {
-  MHedithighlight: Locator
-  MHaddnote: Locator
-  MHnotebox: Locator
-  MHsavenote: Locator
-  MHcancelnote: Locator
+class MyHighlights{
+  // Toolbar options
+  highlight: Locator
   page: Page
 
   constructor(page: Page) {
     this.page = page
 
-    //locators for the highlights region
-    // this.MHedithighlight = page.locator()
-    // this.MHaddnote = page.locator()
-    // this.MHnotebox = page.locator()
-    // this.MHsavenote = page.locator()
-    // this.MHcancelnote = page.locator()
-  }
+     //locators for My Highlights modal
+    this.highlight = page.locator('[class*="HighlightOuterWrapper"]')
+}
 
+  async highlightCount() {
+    // Total number of highlights in MH page
+    const highlightcount = await this.highlight.count()
+    return highlightcount
+  }
 
 }
 
-export { MHModal, MyHighlights }
+class EditHighlights extends MyHighlights{
+  // Context menu options
+  MHContextMenu: Locator
+
+
+  constructor(page: Page) {
+    super(page)
+    //locators for the highlights region
+    this.MHContextMenu = this.page.locator('[class*="MenuToggle"]')
+
+  }
+  
+  async clickContextMenu(n: number){
+    // Click context menu
+    await this.MHContextMenu.nth(n).click()
+  }
+
+}
+
+export { MHModal, MyHighlights, EditHighlights }
+
+
