@@ -55,7 +55,7 @@ class EditHighlights extends MyHighlights{
   }
   
   async clickContextMenu(n: number){
-    // Click context menu
+    // Click context menu test
     await this.MHContextMenu.nth(n).click()
   }
 
