@@ -53,8 +53,8 @@ const VerticalNav = () => {
       <OpenTOCControl showActivatedState />
       <CloseTOCControl showActivatedState />
       {showSearchInSidebar ? <>
-        <OpenSearchControl showActivatedState />
-        <CloseSearchControl showActivatedState />
+        <OpenSearchControl showActivatedState data-experiment />
+        <CloseSearchControl showActivatedState data-experiment />
       </> : null}
       <PracticeQuestionsButton />
       <NudgeElementTarget id={nudgeStudyToolsTargetId}>
