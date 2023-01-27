@@ -46,7 +46,7 @@ describe('SearchResultsSidebar', () => {
     await finishRender(page);
   };
 
-  it('clears search input without affecting search results sidebar', async () => {
+  it('clears search input without affecting search results sidebar', async() => {
     await setup();
     await openAndTriggerSearchDesktop(workingSearchText);
     await clearSearchInputDesktop();
@@ -60,7 +60,7 @@ describe('SearchResultsSidebar', () => {
     }
   });
 
-  it('closes the search results sidebar without affecting search input', async () => {
+  it('closes the search results sidebar without affecting search input', async() => {
     await setup();
     await openAndTriggerSearchDesktop(workingSearchText);
     await closeSearchSidebarDesktop();
