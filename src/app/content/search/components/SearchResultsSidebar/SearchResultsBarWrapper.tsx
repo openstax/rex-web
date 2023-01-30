@@ -96,7 +96,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     </Styled.SearchResultsTopBar>
 
     <Styled.BlankStateMessage>
-      <FormattedMessage id='i18n:search-results:blank-state' />
+      <FormattedMessage id='i18n:search-results:bar:blank-state' />
     </Styled.BlankStateMessage>
   </Styled.BlankStateWrapper>;
 
