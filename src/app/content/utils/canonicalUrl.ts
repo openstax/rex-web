@@ -32,10 +32,6 @@ export async function getCanonicalUrlParams(
 
   while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
-      if (mapsChecked.find((map) => isEqual(map, canonicalMap))) {
-        done = true;
-        break;
-      }
       mapsChecked.push(canonicalMap);
       const useCurrentBookAsCanonical = book.id === id && hasOSWebData(book);
       canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id);
