@@ -24,7 +24,7 @@ export async function getCanonicalUrlParams(
 };
 
   let canonicalMap = getCanonicalMap(book.id);
-  const mapsChecked = [];
+  const mapsChecked: Array<Array<[string, ObjectLiteral<string | undefined>]>> = [];
   let canonicalPageId = pageId;
   let done = false;
   let canonicalBook;
@@ -32,6 +32,10 @@ export async function getCanonicalUrlParams(
 
   while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
+      if (mapsChecked.find((map) => isEqual(map, canonicalMap))) {
+        done = true;
+        break;
+      }
       mapsChecked.push(canonicalMap);
       const useCurrentBookAsCanonical = book.id === id && hasOSWebData(book);
       canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id);
@@ -43,10 +47,12 @@ export async function getCanonicalUrlParams(
         break;
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
+      } else if (!treeSection) {
+        continue;
       }
 
       // check if canonical book maps to another book
-      const newMap = getCanonicalMap(canonicalBook.id);
+      const newMap = CANONICAL_MAP[canonicalBook.id] ? getCanonicalMap(canonicalBook.id) : [];
       done = !newMap.length || isEqual(canonicalMap, newMap);
       // throw if the new map has already been checked
       if (!done && mapsChecked.find((map) => isEqual(map, newMap))) {
