@@ -24,7 +24,7 @@ export async function getCanonicalUrlParams(
 };
 
   let canonicalMap = getCanonicalMap(book.id);
-  const mapsChecked: Array<Array<[string, ObjectLiteral<string | undefined>]>> = [];
+  const mapsChecked = [];
   let canonicalPageId = pageId;
   let done = false;
   let canonicalBook;
@@ -38,11 +38,13 @@ export async function getCanonicalUrlParams(
       canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
       const treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 
-      // use the most recent canonical page found if none is found in current canonical book
+      // if no matching page was found in current canonical book, fall back to the last match found
       if (!treeSection && canonicalBookWithPage) {
         break;
+      // else if a matching page is found, store it
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
+      // else we can stop this iteration and check the next book in the map
       } else if (!treeSection) {
         continue;
       }
@@ -65,6 +67,7 @@ export async function getCanonicalUrlParams(
   }
   if (canonicalBookWithPage && canonicalBookWithPage.treeSection) {
     const pageInBook = assertDefined(canonicalBookWithPage.treeSection.slug, 'Expected page to have slug.');
+    console.log('returning: ', canonicalBookWithPage.canonicalBook.title);
     return {book: {slug: (canonicalBookWithPage.canonicalBook as BookWithOSWebData).slug}, page: {slug: pageInBook}};
   }
 
