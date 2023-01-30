@@ -84,7 +84,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
         ...systemQueryParams,
       }),
     }
-    : { search: queryString.stringify({ query }) };
+    : { search: queryString.stringify({ query, modal: persistentQueryParams.modal }) };
 
   const navigationMatch = targetPageId
     ? createNavigationMatch(
