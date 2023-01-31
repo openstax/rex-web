@@ -63,6 +63,7 @@ describe('navigation middleware', () => {
     const state = {
       bookUid: '',
       bookVersion: '',
+      depth: 1,
       pageUid: '',
     };
 
