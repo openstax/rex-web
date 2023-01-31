@@ -47,7 +47,7 @@ export async function getCanonicalUrlParams(
       }
 
       // check if canonical book maps to another book not yet checked
-      const newMap = CANONICAL_MAP[canonicalBook.id] ? getCanonicalMap(canonicalBook.id) : [];
+      const newMap = getCanonicalMap(canonicalBook.id);
       done = !newMap.length || !!mapsChecked.find((map) => isEqual(map, newMap));
       canonicalMap = newMap;
     }
