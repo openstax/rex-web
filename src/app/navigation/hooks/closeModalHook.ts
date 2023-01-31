@@ -4,21 +4,13 @@ import { AppServices, MiddlewareAPI } from '../../types';
 export const closeModal = (services: MiddlewareAPI & AppServices) => () => {
   const queryStr = services.history.location.search;
   const parsedQuery = queryString.parse(queryStr?.substring(1)) || {};
-  const {modal, query, target} = parsedQuery;
+  const {modal, ...rest} = parsedQuery;
 
   // this is undefined if previous record is not on rex
-  if (services.history.location.state === undefined) {
+  if (services.history.location.state === undefined || services.history.location.state.depth === 0) {
     services.history.replace({
-      search: '',
+      search: queryString.stringify(rest),
     });
-  // in case page is loaded with both search term and modal in the query
-  // in which case receiveSearchHook will have added a previous record
-  } else if (modal && query) {
-    const newQueryString = queryString.stringify({
-      query,
-      target,
-    });
-    services.history.replace(`?${newQueryString}`);
   } else {
     services.history.goBack();
   }
