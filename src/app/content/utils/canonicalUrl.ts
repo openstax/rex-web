@@ -33,17 +33,15 @@ export async function getCanonicalUrlParams(
   while (canonicalMap.length && !done) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
       mapsChecked.push(canonicalMap);
-      // this is just to get the book, don't want to load unless necessary
       const useCurrentBookAsCanonical = book.id === id && hasOSWebData(book);
       canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id);
       canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
       const treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 
-      // if no matching page found in current canonical book, fall back to the last one found
+      // use the last canonical page found if none is found in current canonical book
       if (!treeSection && canonicalBookWithPage) {
         done = true;
         break;
-      // if a matching page is found, store it
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
       }
