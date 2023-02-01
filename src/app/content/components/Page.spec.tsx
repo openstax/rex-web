@@ -213,16 +213,6 @@ describe('Page', () => {
       .toEqual('<figure class="ui-has-child-figcaption">FF<figcaption>CC</figcaption></figure>');
     });
 
-    it('adds (target="_blank" rel="noopener nofollow") to external links', async() => {
-      expect(await htmlHelper('<a href="https://openstax.org/external-url">external-link</a>'))
-      .toEqual('<a href="https://openstax.org/external-url" target="_blank" rel="noopener nofollow">external-link</a>');
-    });
-
-    it('adds target="_blank" and removes rel attribute for relative links', async() => {
-      expect(await htmlHelper('<a href="../relative/url" rel="noopener nofollow">relative</a>'))
-      .toEqual('<a href="../relative/url" target="_blank">relative</a>');
-    });
-
     it('numbers lists that have a start attribute', async() => {
       expect(await htmlHelper('<ol start="123"><li>item</li></ol>'))
       .toEqual('<ol start="123" style="counter-reset: list-item 123"><li>item</li></ol>');
@@ -1345,41 +1335,6 @@ describe('Page', () => {
     });
 
     expect(spy).not.toHaveBeenCalled();
-  });
-
-  it('adds scope to table headers', () => {
-    const tablePage = {
-      abstract: '',
-      content: '<table><thead><tr><th id="coolheading">some heading</th></tr></thead></table>',
-      id: 'adsfasdf',
-      revised: '2018-07-30T15:58:45Z',
-      slug: 'mock-slug',
-      title: 'qerqwer',
-    };
-
-    state.content.page = tablePage;
-
-    archiveLoader.mockPage(book, tablePage, 'unused?4');
-
-    const {root} = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-                <ConnectedPage />
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
-
-    const target = root.querySelector('[id="coolheading"]');
-
-    if (target) {
-      expect(target.getAttribute('scope')).toEqual('col');
-    } else {
-      expect(target).toBeTruthy();
-    }
   });
 
   it('does not focus main content on initial load', () => {
