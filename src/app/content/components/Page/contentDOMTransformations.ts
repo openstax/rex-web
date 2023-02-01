@@ -8,14 +8,12 @@ import { expandClosestSolution } from '../../utils/domUtils';
 // We are passing Document because it is required to prerender.
 export const transformContent = (document: Document, rootEl: HTMLElement, intl: IntlShape) => {
   removeDocumentTitle(rootEl);
-  addScopeToTables(rootEl);
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
   wrapSolutions(document, rootEl, intl);
   expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, intl);
-  setLinksAttributes(rootEl);
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -25,10 +23,6 @@ function removeDocumentTitle(rootEl: HTMLElement) {
     'h3[data-type="document-subtitle"]',
     'div[data-type="document-title"]',
   ].join(',')).forEach((el) => el.remove());
-}
-
-function addScopeToTables(rootEl: HTMLElement) {
-  rootEl.querySelectorAll('table th').forEach((el) => el.setAttribute('scope', 'col'));
 }
 
 // Wrap title and content elements in header and section elements, respectively
@@ -181,19 +175,3 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
     sup.appendChild(link);
   }
 }
-
-const setLinksAttributes = (rootEl: HTMLElement) => {
-  rootEl.querySelectorAll('a').forEach((a) => {
-    const href = a.getAttribute('href');
-    if (!href) { return; }
-    if (href.startsWith('https://') || href.startsWith('http://') || href.startsWith('//')) {
-      // target blank and add `rel` to links that begin with: http:// https:// //
-      a.setAttribute('target', '_blank');
-      a.setAttribute('rel', 'noopener nofollow');
-    } else if (href.startsWith('../')) {
-      // target blank and allow indexing links to other books
-      a.setAttribute('target', '_blank');
-      a.removeAttribute('rel');
-    }
-  });
-};
