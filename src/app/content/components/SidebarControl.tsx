@@ -169,8 +169,8 @@ const tocConnector = connect(
 
 const searchConnector = connect(
   (state: AppState) => ({
-    isOpen:  searchSelectors.searchResultsOpen(state),
     hasQuery: !!searchSelectors.query(state),
+    isOpen:  searchSelectors.searchResultsOpen(state),
   }),
   (dispatch: Dispatch) => ({
     close: () => dispatch(searchActions.clearSearch()),

@@ -9,15 +9,15 @@ import { State } from './types';
 export const initialState: State = {
   loading: false,
   mobileToolbarOpen: false,
+  previous: {
+    query: null,
+    selectedResult: null,
+  },
   query: null,
   results: null,
   selectedResult: null,
   sidebarOpen: false,
   userSelectedResult: false,
-  previous: {
-    query: null,
-    selectedResult: null,
-  },
 };
 
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
@@ -58,15 +58,6 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(actions.openSearchInSidebar): {
       return {...state, sidebarOpen: true };
-    }
-    case getType(actions.closeSearchInSidebar): {
-      return {
-        ...initialState,
-        previous: {
-          query: state.query,
-          selectedResult: state.selectedResult,
-        },
-      };
     }
     case getType(actions.openSearchResultsMobile): {
       return {...state, sidebarOpen: true};

@@ -47,8 +47,14 @@ describe('search reducer', () => {
       loading: true,
       query: 'asdfasdf',
     };
+
     const newState = reducer(state, actions.clearSearch());
-    expect(newState).toBe(initialState);
+    expect(newState).toEqual({...initialState, previous: { query: 'asdfasdf', selectedResult: null }});
     expect(newState.query).toEqual(null);
+  });
+
+  it('reduces openSearchInSidebar', () => {
+    const newState = reducer(initialState, actions.openSearchInSidebar());
+    expect(newState.sidebarOpen).toBe(true);
   });
 });

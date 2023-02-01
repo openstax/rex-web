@@ -13,7 +13,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { closeMobileMenu } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
-import { closeSearchResultsMobile, openSearchResultsMobile } from '../../search/actions';
+import { clearSearch, openSearchInSidebar } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import * as selectors from '../../selectors';
 import { CloseToCAndMobileMenuButton } from '../SidebarControl';
@@ -124,14 +124,14 @@ describe('toolbar', () => {
       </Provider>);
 
       renderer.act(() => {
-        component.root.findByProps({ 'data-testid': 'search-button', 'isActive': false }).props.onClick();
+        component.root.findByProps({ 'data-testid': 'desktop-search-button', 'isActive': false }).props.onClick();
       });
 
-      expect(dispatch).toHaveBeenCalledWith(openSearchResultsMobile());
+      expect(dispatch).toHaveBeenCalledWith(openSearchInSidebar());
     });
 
     it('closes search', () => {
-      store.dispatch(openSearchResultsMobile());
+      store.dispatch(openSearchInSidebar());
 
       const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
@@ -141,11 +141,13 @@ describe('toolbar', () => {
         </Services.Provider>
       </Provider>);
 
+      jest.clearAllMocks();
+
       renderer.act(() => {
-        component.root.findByProps({ 'data-testid': 'search-button', 'isActive': true }).props.onClick();
+        component.root.findByProps({ 'data-testid': 'desktop-search-button', 'isActive': true }).props.onClick();
       });
 
-      expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
+      expect(dispatch).toHaveBeenCalledWith(clearSearch());
     });
 
     it('does not render search button if disabled', () => {
@@ -161,7 +163,7 @@ describe('toolbar', () => {
         </Services.Provider>
       </Provider>);
 
-      expect(() => component.root.findByProps({ 'data-testid': 'search-button' })).toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'desktop-search-button' })).toThrow();
     });
   });
 });

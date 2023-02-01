@@ -26,4 +26,3 @@ export const closeSearchResultsMobile = createStandardAction('Content/Search/clo
 export const selectSearchResult = createStandardAction('Content/Search/selectResult')<SelectedResult>();
 
 export const openSearchInSidebar = createStandardAction('Content/Search/openSearchInSidebar')();
-export const closeSearchInSidebar = createStandardAction('Content/Search/closeSearchInSidebar')();

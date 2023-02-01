@@ -150,10 +150,9 @@ export const openSearchInSidebarHook: ActionHookBody<typeof openSearchInSidebar>
   // Restore search state when opening sidebar
   const state = services.getState();
   const previousState = select.previousState(state);
-  const scrollTarget = selectNavigation.scrollTarget(state);
   const hash = selectNavigation.hash(state);
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
-  const { query, selectedResult } = previousState || {};
+  const { query, selectedResult } = previousState;
 
   if (!query) {
     return;
@@ -171,8 +170,8 @@ export const openSearchInSidebarHook: ActionHookBody<typeof openSearchInSidebar>
     : { search: queryString.stringify({ query }) };
 
   services.history.replace({
-    hash: scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : hash,
-    ...options
+    hash,
+    ...options,
   });
 };
 
