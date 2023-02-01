@@ -12,7 +12,7 @@ import * as selectContent from '../../selectors';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
-import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
+import { clearSearch, openSearchInSidebar, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
 import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
@@ -146,10 +146,41 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async() =
   }
 };
 
+export const openSearchInSidebarHook: ActionHookBody<typeof openSearchInSidebar> = (services) => () => {
+  // Restore search state when opening sidebar
+  const state = services.getState();
+  const previousState = select.previousState(state);
+  const scrollTarget = selectNavigation.scrollTarget(state);
+  const hash = selectNavigation.hash(state);
+  const systemQueryParams = selectNavigation.systemQueryParameters(state);
+  const { query, selectedResult } = previousState || {};
+
+  if (!query) {
+    return;
+  }
+
+  const options = selectedResult
+    ? {
+      hash: selectedResult.result.source.elementId,
+      search: queryString.stringify({
+        query,
+        target: JSON.stringify({ type: 'search', index: selectedResult.highlight }),
+        ...systemQueryParams,
+      }),
+    }
+    : { search: queryString.stringify({ query }) };
+
+  services.history.replace({
+    hash: scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : hash,
+    ...options
+  });
+};
+
 export default [
   trackSearch,
   actionHook(clearSearch, clearSearchHook),
   actionHook(openToc, clearSearchHook),
+  actionHook(openSearchInSidebar, openSearchInSidebarHook),
   actionHook(requestSearch, requestSearchHook),
   actionHook(receiveSearchResults, receiveSearchHook),
 ];

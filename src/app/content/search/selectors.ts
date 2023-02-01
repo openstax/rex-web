@@ -125,3 +125,8 @@ export const searchButtonColor = createSelector(
       : (selectedBook && selectedStyle === 'bannerColorButton' ? selectedTheme : null
   )
 );
+
+export const previousState = createSelector(
+  localState,
+  (state) => state.previous
+);

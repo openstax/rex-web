@@ -170,12 +170,13 @@ const tocConnector = connect(
 const searchConnector = connect(
   (state: AppState) => ({
     isOpen:  searchSelectors.searchResultsOpen(state),
+    hasQuery: !!searchSelectors.query(state),
   }),
   (dispatch: Dispatch) => ({
-    close: () => dispatch(searchActions.closeSearchResultsMobile()),
+    close: () => dispatch(searchActions.clearSearch()),
     open: () => {
-      dispatch(searchActions.openSearchResultsMobile());
       dispatch(actions.closeToc());
+      dispatch(searchActions.openSearchInSidebar());
     },
   })
 );
@@ -193,14 +194,25 @@ const lockTocControlState = (isOpen: boolean, Control: React.ComponentType<Inner
 
 // tslint:disable-next-line:variable-name
 const lockSearchControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
-  searchConnector(({open, close, ...props}: MiddleProps) => <Control
+  searchConnector(styled(({ open, close, hasQuery, desktop = false, ...props }: MiddleProps & {
+    desktop?: boolean;
+    hasQuery: boolean;
+  }) => <Control
     {...props}
-    data-testid='search-button'
+    data-testid={`${desktop ? 'desktop' : 'mobile'}-search-button`}
     message={isOpen ? openSearchMessage : closedSearchMessage}
     data-analytics-label={isOpen ? 'Click to close Search' : 'Click to open Search'}
-    onClick={isOpen ? close : open}
+    onClick={(desktop && hasQuery) || isOpen ? close : open}
+    isOpen={desktop ? hasQuery || props.isOpen : props.isOpen}
     isActive={Boolean(props.showActivatedState) && isOpen}
-  />);
+  />)`
+  ${({ desktop }: { desktop: boolean }) => !desktop && theme.breakpoints.desktop(css`
+    display: none;
+  `)}
+  ${({ desktop }: { desktop: boolean }) => desktop && theme.breakpoints.mobile(css`
+    display: none;
+  `)}
+`);
 
 // tslint:disable-next-line: variable-name
 export const OpenTOCControl = lockTocControlState(false, TOCControl);

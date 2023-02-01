@@ -16,6 +16,10 @@ export interface State {
   selectedResult: SelectedResult | null;
   sidebarOpen: boolean;
   userSelectedResult: boolean;
+  previous: {
+    query: null | string;
+    selectedResult: SelectedResult | null;
+  };
 }
 
 export interface SelectedResult {
