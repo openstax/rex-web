@@ -133,16 +133,19 @@ test('multiple highlight', async ({ page, isMobile }) => {
   const Modal = new MHModal(page)
   await expect(Modal.MHModal).toBeVisible()
 
-  const Myhighlights = new MyHighlights(page)
+  
   const Edithighlight = new EditHighlights(page)
   sleep(1)
-  let MHhighlightcount = await Myhighlights.highlightCount()
-
-
+  let MHhighlightcount = await Edithighlight.highlightCount()
   expect(MHhighlightcount).toBe(4)
 
-  await Edithighlight.clickContextMenu(0)
 
+  // let x = await Edithighlight.highlightlist()
+  // console.log(x[1])
+  // const highlight = x[1].toString().replace(/\D/g, "")
+  // console.log(highlight)
+
+  await Edithighlight.clickContextMenu(1)
   sleep(5)
 
   // WHEN: Close the MH modal using X icon
@@ -152,37 +155,3 @@ test('multiple highlight', async ({ page, isMobile }) => {
   await expect(Modal.MHModal).toBeHidden()
 })
 
-
-test('MH edits', async ({ page, isMobile }) => {
-  test.skip(isMobile as boolean, 'test only desktop resolution')
-
-  // GIVEN: Open Rex page
-  const BookPage = new ContentPage(page)
-  const path = '/books/introduction-anthropology/pages/7-introduction'
-  await BookPage.open(path)
-
-  // AND: Signup as a new user
-  await rexUserSignup(page)
-  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
-
-  // WHEN: Highlight 2 random paragraphs
-  const paracount = BookPage.paracount()
-  const randomparanumber = randomNum(await paracount)
-  await BookPage.highlightText('green', randomparanumber)
-
-  const randomparanumber2 = randomNum(await paracount, randomparanumber)
-  await BookPage.highlightText('yellow', randomparanumber2)
-
-  // WHEN: Open MH modal
-  await BookPage.openMHmodal()
-
-  const Myhighlights = new MyHighlights(page)
-  const Edithighlight = new EditHighlights(page)
-  sleep(2)
-  // let highlightcount = await Myhighlights.highlightCount()
-
-
-  // expect(highlightcount).toBe(2)
-
-  await Edithighlight.clickContextMenu(0)
-})
