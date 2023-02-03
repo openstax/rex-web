@@ -64,7 +64,7 @@ interface Query {[key: string]: string; }
 type Tag = {
   id: string;
   ignoredEventNames: string[];
-}
+};
 
 class PendingCommand {
   public command: Command;
@@ -119,14 +119,14 @@ export const campaignFromQuery: (query: Query) => SetPayload = flow(
 );
 
 const GA4_IGNORED_EVENT_NAMES = [
-  'page_view'
+  'page_view',
 ];
 
 // Only GA4 properties have a "G-" ID. https://support.google.com/analytics/answer/9539598
 export const isGA4 = (id: Tag['id']) => id.startsWith('G-');
 
 export const createTag = (id: Tag['id']): Tag => ({
-  id: id,
+  id,
   ignoredEventNames: isGA4(id) ? GA4_IGNORED_EVENT_NAMES : [],
 });
 
