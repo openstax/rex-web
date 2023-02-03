@@ -217,7 +217,7 @@ class GoogleAnalyticsClient {
       command.payload = {...command.payload, queue_time: queueTime };
 
       if (command.name === 'event') {
-        if (tag.ignoredEventNames.includes(command.eventName)) { return; }
+        if (tag.ignoredEventNames.includes(command.eventName)) { continue; }
         this.gtag('event', command.eventName, { ...command.payload, send_to: tag.id });
       } else {
         this.gtag(command.name, tag.id, command.payload);
