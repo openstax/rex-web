@@ -1,6 +1,6 @@
 import * as Utils from '../app/utils';
 import * as analyticsUtils from '../helpers/analytics/utils';
-import { campaignFromQuery, GoogleAnalyticsClient } from './googleAnalyticsClient';
+import { campaignFromQuery, createTag, GoogleAnalyticsClient, isGA4 } from './googleAnalyticsClient';
 
 declare const window: Window;
 
@@ -40,6 +40,26 @@ describe('campaignFromQuery', () => {
       campaignName: 'campaign',
       campaignSource: 'source',
     });
+  });
+});
+
+describe('isGA4', () => {
+  it('distinguishes between GA4 and non-GA4 ids', () => {
+    expect(isGA4('G-someid')).toBe(true);
+    expect(isGA4('Gsomeid')).toBe(false);
+    expect(isGA4('UA-someid')).toBe(false);
+  });
+});
+
+describe('createTag', () => {
+  it('creates a tag', () => {
+    const tag = createTag('UA-someid');
+    expect(tag).toEqual({ id: 'UA-someid', ignoredEventNames: [] });
+  });
+
+  it('sets ignoredEventNames when the id is a GA4 id', () => {
+    const tag = createTag('G-someid');
+    expect(tag).toEqual({ id: 'G-someid', ignoredEventNames: ['page_view'] });
   });
 });
 
@@ -199,6 +219,15 @@ describe('GoogleAnalyticsClient', () => {
           campaignMedium: 'unset',
           campaignSource: 'source',
         });
+      });
+    });
+
+    describe('when the tag is a GA4 id', () => {
+      it('ignores the event', async() => {
+        client.setTagIds(['G-foo']);
+        mockGtag.mockClear();
+        client.trackPageView('/some/path');
+        expect(mockGtag).not.toHaveBeenCalled();
       });
     });
   });

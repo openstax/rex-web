@@ -61,6 +61,11 @@ type Command = SetCommand | EventCommand | PageViewCommand | ConfigCommand;
 
 interface Query {[key: string]: string; }
 
+type Tag = {
+  id: string;
+  ignoredEventNames: string[];
+}
+
 class PendingCommand {
   public command: Command;
   public savedAt: Date;
@@ -113,8 +118,20 @@ export const campaignFromQuery: (query: Query) => SetPayload = flow(
   defaultCampaignFields
 );
 
+const GA4_IGNORED_EVENT_NAMES = [
+  'page_view'
+];
+
+// Only GA4 properties have a "G-" ID. https://support.google.com/analytics/answer/9539598
+export const isGA4 = (id: Tag['id']) => id.startsWith('G-');
+
+export const createTag = (id: Tag['id']): Tag => ({
+  id: id,
+  ignoredEventNames: isGA4(id) ? GA4_IGNORED_EVENT_NAMES : [],
+});
+
 class GoogleAnalyticsClient {
-  private tagIds: string[] = [];
+  private tags: Tag[] = [];
   private pendingCommands: PendingCommand[] = [];
 
   public gaProxy(command: Command) {
@@ -166,10 +183,10 @@ class GoogleAnalyticsClient {
 
   public setTagIds(ids: string[]) {
     // Ignore tracking ID changes for the moment
-    if (this.tagIds.length > 0 || trackingIsDisabled()) { return; }
+    if (this.tags.length > 0 || trackingIsDisabled()) { return; }
 
     for (const id of ids) {
-      this.tagIds.push(id);
+      this.tags.push(createTag(id));
       this.gtag('config', id, {
         send_page_view: false,
         transport_type: 'beacon',
@@ -196,18 +213,20 @@ class GoogleAnalyticsClient {
       return;
     }
 
-    for (const tagId of this.tagIds) {
+    for (const tag of this.tags) {
       command.payload = {...command.payload, queue_time: queueTime };
+
       if (command.name === 'event') {
-        this.gtag('event', command.eventName, { ...command.payload, send_to: tagId });
+        if (tag.ignoredEventNames.includes(command.eventName)) { return; }
+        this.gtag('event', command.eventName, { ...command.payload, send_to: tag.id });
       } else {
-        this.gtag(command.name, tagId, command.payload);
+        this.gtag(command.name, tag.id, command.payload);
       }
     }
   }
 
   private isReadyForCommands() {
-    return (this.tagIds.length > 0 && !trackingIsDisabled());
+    return (this.tags.length > 0 && !trackingIsDisabled());
   }
 
   // The real, low-level Google Analytics gtag function
