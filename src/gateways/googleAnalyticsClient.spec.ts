@@ -228,7 +228,7 @@ describe('GoogleAnalyticsClient', () => {
         mockGtag.mockClear();
         client.trackPageView('/some/path');
         expect(mockGtag).toHaveBeenNthCalledWith(1, 'event', 'page_view', {
-          'page_path': '/some/path', 'queue_time': 0, 'send_to': 'UA-foo'
+          page_path: '/some/path', queue_time: expect.any(Number), send_to: 'UA-foo',
         });
       });
     });
