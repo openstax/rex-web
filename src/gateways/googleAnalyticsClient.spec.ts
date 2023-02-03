@@ -224,10 +224,12 @@ describe('GoogleAnalyticsClient', () => {
 
     describe('when the tag is a GA4 id', () => {
       it('ignores the event', async() => {
-        client.setTagIds(['G-foo']);
+        client.setTagIds(['G-foo', 'UA-foo']);
         mockGtag.mockClear();
         client.trackPageView('/some/path');
-        expect(mockGtag).not.toHaveBeenCalled();
+        expect(mockGtag).toHaveBeenNthCalledWith(1, 'event', 'page_view', {
+          'page_path': '/some/path', 'queue_time': 0, 'send_to': 'UA-foo'
+        });
       });
     });
   });
