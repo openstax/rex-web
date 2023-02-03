@@ -1,6 +1,6 @@
 import { track } from './unload';
 
-const pathname = '/some/path'
+const pathname = '/some/path';
 
 describe('unload', () => {
 
