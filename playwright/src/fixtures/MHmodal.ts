@@ -20,7 +20,7 @@ class MHModal {
   }
 }
 
-class MyHighlights{
+class MyHighlights {
   // MH Toolbar objects
   highlight: Locator
   page: Page
@@ -29,7 +29,7 @@ class MyHighlights{
     this.page = page
 
     this.highlight = page.locator('[class*="HighlightOuterWrapper"]')
-}
+  }
 
   async highlightCount() {
     // Total number of highlights in MH page
@@ -38,17 +38,15 @@ class MyHighlights{
 
   async highlightlist() {
     // List of highlights in MH
-    let highlightList = []
-    for (let i = 0; i < await this.highlightCount(); i++) {
-      
-      highlightList.push(this.highlight.nth(i)) 
+    const highlightList = []
+    for (let i = 0; i < (await this.highlightCount()); i++) {
+      highlightList.push(this.highlight.nth(i))
     }
     return highlightList
   }
 }
 
-
-class EditHighlights extends MyHighlights{
+class EditHighlights extends MyHighlights {
   // Context menu options of a highlight
   MHContextMenu: Locator
 
@@ -56,13 +54,11 @@ class EditHighlights extends MyHighlights{
     super(page)
     this.MHContextMenu = this.page.locator('[class*="MenuToggle"]')
   }
-  
-  async clickContextMenu(n: number){
+
+  async clickContextMenu(n: number) {
     // Click context menu
     await this.MHContextMenu.nth(n).click()
   }
 }
 
 export { MHModal, MyHighlights, EditHighlights }
-
-

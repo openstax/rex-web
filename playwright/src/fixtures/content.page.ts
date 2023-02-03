@@ -71,7 +71,7 @@ class ContentPage {
 
     // select highlight color from the visible notecard in the page
     this.colorlocator = await this.colorLocator(color)
-    const colorLocatorCount = await this.colorlocator.count() 
+    const colorLocatorCount = await this.colorlocator.count()
     if (colorLocatorCount > 1) {
       for (let i = 0; i < colorLocatorCount; i++) {
         const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
@@ -79,12 +79,12 @@ class ContentPage {
         })
         if (colorLocatorVisibility === 'visible') {
           await this.colorlocator.nth(i).click()
+        }
       }
-    }}
-    else {
+    } else {
       await this.colorlocator.click()
     }
-    
+
     // click outside the highlighted paragraph to close the notecard
     // Otherwise, the notecard can block other elements like next/previous links
     await this.scrolltotop()
@@ -125,7 +125,7 @@ class ContentPage {
     }
   }
 
-  async clickNext(){
+  async clickNext() {
     // Click Next link
     await this.next.click()
   }
@@ -144,8 +144,8 @@ class ContentPage {
   async scrolltotop() {
     // Scroll to top of content area and click
     const body = await this.body.boundingBox()
-    await this.page.mouse.wheel(body.x+100, body.y+100)
-    await this.page.mouse.click(body.x+100, body.y+100)
+    await this.page.mouse.wheel(body.x + 100, body.y + 100)
+    await this.page.mouse.click(body.x + 100, body.y + 100)
   }
 
   async selectText(randomparanumber: number) {
