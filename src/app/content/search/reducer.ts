@@ -76,13 +76,18 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       // The mobile view can hide the sidebar when selecting a result
       // while keeping the state & params, so just reopen the sidebar.
       if (state.results && state.query && state.selectedResult) {
-        return {...state, sidebarOpen: true};
+        return {
+          ...state,
+          mobileToolbarOpen: true,
+          sidebarOpen: true,
+        };
       }
       // Restore some of the state needed to show the last search state without triggering a search.
       // The previous selectedResult is skipped here, openSearchInSidebarHook uses it directly to
       // trigger a locationChange that will reduce it with the normal flow.
       return {
         ...state,
+        mobileToolbarOpen: true,
         query: state.previous.query,
         results: state.previous.results,
         sidebarOpen: true,

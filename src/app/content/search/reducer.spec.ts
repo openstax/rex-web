@@ -66,6 +66,7 @@ describe('search reducer', () => {
   it('reduces openSearchInSidebar', () => {
     const newState = reducer(initialState, actions.openSearchInSidebar());
     expect(newState.sidebarOpen).toBe(true);
+    expect(newState.mobileToolbarOpen).toBe(true);
   });
 
   it('reduces openSearchInSidebar without unnecessary state changes', () => {
@@ -94,6 +95,7 @@ describe('search reducer', () => {
 
     const newState = reducer(state, actions.openSearchInSidebar());
     expect(newState.sidebarOpen).toBe(true);
+    expect(newState.mobileToolbarOpen).toBe(true);
     expect(newState.query).toEqual(state.query);
     expect(newState.results).toEqual(state.results);
     expect(newState.selectedResult).toEqual(state.selectedResult);
