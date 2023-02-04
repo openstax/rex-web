@@ -13,6 +13,7 @@ export interface State {
   mobileToolbarOpen: boolean;
   previous: {
     query: null | string;
+    results: SearchResult | null;
     selectedResult: SelectedResult | null;
   };
   query: null | string;

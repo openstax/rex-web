@@ -587,7 +587,7 @@ Array [
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__TOCBackButton-sdjc7-4 eJCvwi SidebarControl__CloseButton-sdjc7-2 kZSWHO"
+              className="SidebarControl__TOCBackButton-sdjc7-5 iQvAYm SidebarControl__CloseButton-sdjc7-2 kZSWHO"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -2282,7 +2282,7 @@ Array [
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="SidebarControl__TOCBackButton-sdjc7-4 eJCvwi SidebarControl__CloseButton-sdjc7-2 kZSWHO"
+              className="SidebarControl__TOCBackButton-sdjc7-5 iQvAYm SidebarControl__CloseButton-sdjc7-2 kZSWHO"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
