@@ -44,6 +44,8 @@ export async function getCanonicalUrlParams(
         break;
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
+        done = true;
+        break;
       }
 
       // check if canonical book maps to another book not yet checked
