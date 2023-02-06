@@ -1,4 +1,3 @@
-import { isEqual } from 'lodash/fp';
 import { CANONICAL_MAP, ObjectLiteral } from '../../../canonicalBookMap';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
@@ -24,15 +23,18 @@ export async function getCanonicalUrlParams(
 };
 
   let canonicalMap = getCanonicalMap(book.id);
-  const mapsChecked = [];
+  const booksChecked: string[] = [];
   let canonicalPageId = pageId;
-  let done = false;
   let canonicalBook;
   let canonicalBookWithPage;
 
-  while (canonicalMap.length && !done) {
+  mapsArrayLoop: while (canonicalMap.length) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
-      mapsChecked.push(canonicalMap);
+      if (booksChecked.includes(id)) {
+        break mapsArrayLoop;
+      } else {
+        booksChecked.push(id);
+      }
       const useCurrentBookAsCanonical = book.id === id && hasOSWebData(book);
       canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id);
       canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
@@ -40,18 +42,19 @@ export async function getCanonicalUrlParams(
 
       // use the last canonical page found if none is found in current canonical book
       if (!treeSection && canonicalBookWithPage) {
-        done = true;
-        break;
+        break mapsArrayLoop;
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
-        done = true;
-        break;
-      }
 
-      // check if canonical book maps to another book not yet checked
-      const newMap = getCanonicalMap(canonicalBook.id);
-      done = !newMap.length || !!mapsChecked.find((map) => isEqual(map, newMap));
-      canonicalMap = newMap;
+        // check if canonical book maps to another book not yet checked
+        const newMap = getCanonicalMap(canonicalBook.id);
+        if (!newMap.length) {
+          break mapsArrayLoop;
+        } else {
+          canonicalMap = newMap;
+          break;
+        }
+      }
     }
   }
 
