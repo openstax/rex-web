@@ -30,7 +30,7 @@ export async function getCanonicalUrlParams(
 
   mapsArrayLoop: while (canonicalMap.length) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
-      // stop iterating if this book has alreaady been checked
+      // stop iterating if this book has already been checked
       if (booksChecked.includes(id)) {
         break mapsArrayLoop;
       } else {
@@ -47,7 +47,7 @@ export async function getCanonicalUrlParams(
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
 
-        // check if canonical book maps to another book
+        // when a page match is found, check if its book maps to another book
         const newMap = getCanonicalMap(canonicalBook.id);
         canonicalMap = newMap;
         break;
@@ -55,7 +55,7 @@ export async function getCanonicalUrlParams(
     }
   }
 
-  // use current page as canonical if page not found in canonical book
+  // use current page as canonical if no page was found
   if (!canonicalBookWithPage && canonicalMap.length) {
     const treeSection = findArchiveTreeNodeById(book.tree, pageId);
     canonicalBookWithPage = {canonicalBook: book, treeSection};
