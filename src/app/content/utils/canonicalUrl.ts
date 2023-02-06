@@ -30,6 +30,7 @@ export async function getCanonicalUrlParams(
 
   mapsArrayLoop: while (canonicalMap.length) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
+      // stop iterating if this book has alreaady been checked
       if (booksChecked.includes(id)) {
         break mapsArrayLoop;
       } else {
@@ -46,14 +47,10 @@ export async function getCanonicalUrlParams(
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
 
-        // check if canonical book maps to another book not yet checked
+        // check if canonical book maps to another book
         const newMap = getCanonicalMap(canonicalBook.id);
-        if (!newMap.length) {
-          break mapsArrayLoop;
-        } else {
-          canonicalMap = newMap;
-          break;
-        }
+        canonicalMap = newMap;
+        break;
       }
     }
   }
