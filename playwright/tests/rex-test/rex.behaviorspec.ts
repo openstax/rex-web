@@ -3,7 +3,6 @@ import {
   ContentPage,
   KsModal,
   MHModal,
-  MHToolbar,
   MHHighlights,
   randomNum,
   rexUserSignup,

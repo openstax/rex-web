@@ -20,25 +20,18 @@ class MHModal {
   }
 }
 
-class MHToolbar {
-  // MH Toolbar objects
+class MHHighlights {
+  // Highlights section in MH modal
   highlight: Locator
+  MHContextMenu: Locator
   page: Page
 
   constructor(page: Page) {
     this.page = page
-  }
-}
-
-class MHHighlights extends MHToolbar {
-  // Context menu options of a highlight
-  MHContextMenu: Locator
-
-  constructor(page: Page) {
-    super(page)
     this.highlight = page.locator('[class*="HighlightOuterWrapper"]')
     this.MHContextMenu = this.page.locator('[class*="MenuToggle"]')
   }
+
 
   async highlightCount() {
     // Total number of highlights in MH page
@@ -60,4 +53,4 @@ class MHHighlights extends MHToolbar {
   }
 }
 
-export { MHModal, MHToolbar, MHHighlights }
+export { MHModal, MHHighlights }
