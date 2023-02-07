@@ -3,8 +3,8 @@ import {
   ContentPage,
   KsModal,
   MHModal,
-  MyHighlights,
-  EditHighlights,
+  MHToolbar,
+  MHHighlights,
   randomNum,
   rexUserSignup,
   rexUserSignout,
@@ -142,18 +142,12 @@ test('multiple highlight', async ({ page, isMobile }) => {
   const Modal = new MHModal(page)
   await expect(Modal.MHModal).toBeVisible()
 
-  const Edithighlight = new EditHighlights(page)
-  sleep(1)
+  const Edithighlight = new MHHighlights(page)
+
   const MHhighlightcount = await Edithighlight.highlightCount()
   expect(MHhighlightcount).toBe(4)
 
-  // let x = await Edithighlight.highlightlist()
-  // console.log(x[1])
-  // const highlight = x[1].toString().replace(/\D/g, "")
-  // console.log(highlight)
-
   await Edithighlight.clickContextMenu(1)
-  sleep(5)
 
   // WHEN: Close the MH modal using X icon
   await Modal.closeMHModal()
