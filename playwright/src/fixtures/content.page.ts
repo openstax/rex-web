@@ -13,6 +13,8 @@ class ContentPage {
   highlight: Locator
   colorlocator: any
   body: Locator
+  myhighlights: Locator
+  next: Locator
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -21,8 +23,10 @@ class ContentPage {
     this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
+    this.myhighlights = this.page.locator('[aria-label="Highlights"]')
+    this.next = this.page.locator('[aria-label="Next Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
-    this.body = this.page.locator('[class*="MinPageHeight"]')
+    this.body = this.page.locator('[class*="Content__Background"]')
   }
 
   async open(path: string) {
@@ -65,21 +69,25 @@ class ContentPage {
 
     await this.selectText(randomparanumber)
 
-    // select color from the visible notecard in the page
+    // select highlight color from the visible notecard in the page
     this.colorlocator = await this.colorLocator(color)
     const colorLocatorCount = await this.colorlocator.count()
-    while (colorLocatorCount > 1) {
+    if (colorLocatorCount > 1) {
       for (let i = 0; i < colorLocatorCount; i++) {
         const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
           return window.getComputedStyle(e).getPropertyValue('visibility')
         })
         if (colorLocatorVisibility === 'visible') {
           await this.colorlocator.nth(i).click()
-          return
         }
       }
+    } else {
+      await this.colorlocator.click()
     }
-    await this.colorlocator.click()
+
+    // click outside the highlighted paragraph to close the notecard
+    // Otherwise, the notecard can block other elements like next/previous links
+    await this.scrolltotop()
   }
 
   async highlightCount() {
@@ -117,6 +125,16 @@ class ContentPage {
     }
   }
 
+  async clickNext() {
+    // Click Next link
+    await this.next.click()
+  }
+
+  // Open My Highlights modal
+  async openMHmodal() {
+    await this.myhighlights.click()
+  }
+
   async paracount() {
     // Number of paragraphs in the page
     const paracount = this.paragraph
@@ -124,9 +142,10 @@ class ContentPage {
   }
 
   async scrolltotop() {
-    // Scroll to top of content area
+    // Scroll to top of content area and click
     const body = await this.body.boundingBox()
-    await this.page.mouse.wheel(0, body.y)
+    await this.page.mouse.wheel(body.x + 100, body.y + 100)
+    await this.page.mouse.click(body.x + 100, body.y + 100)
   }
 
   async selectText(randomparanumber: number) {
