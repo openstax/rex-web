@@ -122,7 +122,7 @@
     "concepts-biology": {
         "default_page": "1-introduction",
         "search_term": "Cell",
-        "chapter_search_results_total": 788,
+        "chapter_search_results_total": 792,
         "rkt_search_results_total": 23
     },
     "calculus-volume-1": {
@@ -224,7 +224,7 @@
     "physics": {
         "default_page": "1-introduction",
         "search_term": "linear relationship",
-        "chapter_search_results_total": 11,
+        "chapter_search_results_total": 10,
         "rkt_search_results_total": 0
     },
     "precalculus": {
@@ -236,7 +236,7 @@
     "precalculus-2e": {
         "default_page": "1-introduction-to-functions",
         "search_term": "one-to-one function",
-        "chapter_search_results_total": 410,
+        "chapter_search_results_total": 409,
         "rkt_search_results_total": 3
     },
     "prealgebra-2e": {

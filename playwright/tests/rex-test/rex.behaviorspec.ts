@@ -1,5 +1,14 @@
 import { test, expect } from '@playwright/test'
-import { ContentPage, KsModal, randomNum, rexUserSignup, rexUserSignout, sleep } from './helpers'
+import {
+  ContentPage,
+  KsModal,
+  MHModal,
+  MHHighlights,
+  randomNum,
+  rexUserSignup,
+  rexUserSignout,
+  sleep,
+} from './helpers'
 
 test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
@@ -103,21 +112,45 @@ test('multiple highlight', async ({ page, isMobile }) => {
   await rexUserSignup(page)
   await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
 
-  // WHEN: Highlight any random paragraph
+  // WHEN: Highlight 2 random paragraphs
   const paracount = BookPage.paracount()
   const randomparanumber = randomNum(await paracount)
   await BookPage.highlightText('green', randomparanumber)
 
-  // THEN: Text is highlighted
-  let highlightcount = await BookPage.highlightCount()
-  expect(highlightcount).toBe(1)
-
-  // AND: Highlight another random paragraph
-  await BookPage.scrolltotop()
   const randomparanumber2 = randomNum(await paracount, randomparanumber)
   await BookPage.highlightText('yellow', randomparanumber2)
 
   // THEN: Text is highlighted
-  highlightcount = await BookPage.highlightCount()
+  const highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(2)
+
+  // AND: Navigate to next page
+  await BookPage.clickNext()
+
+  // WHEN: Highlight 2 random paragraphs
+  const paracount3 = BookPage.paracount()
+  const randomparanumber3 = randomNum(await paracount3)
+  await BookPage.highlightText('green', randomparanumber3)
+
+  const randomparanumber4 = randomNum(await paracount3, randomparanumber3)
+  await BookPage.highlightText('yellow', randomparanumber4)
+
+  // WHEN: Open MH modal
+  await BookPage.openMHmodal()
+
+  const Modal = new MHModal(page)
+  await expect(Modal.MHModal).toBeVisible()
+
+  const Edithighlight = new MHHighlights(page)
+
+  const MHhighlightcount = await Edithighlight.highlightCount()
+  expect(MHhighlightcount).toBe(4)
+
+  await Edithighlight.clickContextMenu(1)
+
+  // WHEN: Close the MH modal using X icon
+  await Modal.closeMHModal()
+
+  // THEN: The MH modal is closed
+  await expect(Modal.MHModal).toBeHidden()
 })
