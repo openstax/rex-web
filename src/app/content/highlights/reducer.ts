@@ -42,17 +42,13 @@ export const initialState: State = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(locationChange): {
-      // Noops for locationChange dispatched when search query changes
-      if (action.payload.action === 'REPLACE') { return state; }
-
-      const summaryShouldBeOpen = action.payload.query[modalQueryParameterName] === modalUrlName
-        && action.payload.action === 'PUSH';
+      const hasModalQuery = action.payload.query[modalQueryParameterName] === modalUrlName;
 
       return {
         ...state,
         summary: {
           ...state.summary,
-          open: summaryShouldBeOpen,
+          open: hasModalQuery,
         },
       };
     }
