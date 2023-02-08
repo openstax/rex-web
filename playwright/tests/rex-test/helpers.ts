@@ -12,11 +12,14 @@ import {
 } from '../../src/utilities/user'
 import { closeExtras, randomChoice, randomNum, sleep } from '../../src/utilities/utilities'
 import { KsModal } from '../../src/fixtures/ksmodal'
+import { MHModal, MHHighlights } from '../../src/fixtures/MHmodal'
 
 export {
   ContentPage,
   EmailMessageData,
   KsModal,
+  MHModal,
+  MHHighlights,
   Student,
   accountsUserSignOut,
   accountsUserSignup,
