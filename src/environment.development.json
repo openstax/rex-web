@@ -9,7 +9,6 @@
     "feature_flags": [
       "practiceQuestionsEnabled",
       "studyGuidesEnabled"
-    ],
-
+    ]
   }
 }
