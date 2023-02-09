@@ -3,7 +3,8 @@
   "messages": [],
   "configs": {
     "google_analytics": [
-      "G-0D68920QV9"
+      "G-0D68920QV9",
+      "UA-73668038-11"
     ],
     "quasar_api": "default",
     "feature_flags": [
