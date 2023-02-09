@@ -14,8 +14,9 @@ export const track = (
 ): AnalyticsEvent | void => {
   return {
     getGoogleAnalyticsPayload: () => ({
-      eventAction: pathname,
+      eventAction: 'unload',
       eventCategory: eventName,
+      eventLabel: pathname,
       nonInteraction: true,
     }),
   };
