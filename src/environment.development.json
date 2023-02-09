@@ -2,10 +2,14 @@
   "release_id": "development",
   "messages": [],
   "configs": {
+    "google_analytics": [
+      "G-0D68920QV9"
+    ],
     "quasar_api": "default",
     "feature_flags": [
       "practiceQuestionsEnabled",
       "studyGuidesEnabled"
-    ]
+    ],
+
   }
 }
