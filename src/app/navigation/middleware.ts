@@ -30,6 +30,12 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
       return;
     }
 
+    const locationState = {...action.payload.state, depth: history.location.state?.depth || 0};
+
+    if (action.payload.method === 'push') {
+      locationState.depth++;
+    }
+
     history[action.payload.method]({
       hash: action.payload.hash,
       pathname: matchPathname(action.payload),
@@ -39,7 +45,7 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
           ...systemQueryParameters(getState()),
           ...queryString.parse(action.payload.search || ''),
         }),
-      state: action.payload.state,
+      state: locationState,
     });
   };
 };
