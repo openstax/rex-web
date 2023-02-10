@@ -148,6 +148,7 @@ export const syncSearch: RouteHookBody<typeof content> = (services) => async() =
   }
 };
 
+// Search in sidebar experiment
 export const openSearchInSidebarHook: ActionHookBody<typeof openSearchInSidebar> = (services) => () => {
   // Restore search state when opening sidebar
   const state = services.getState();

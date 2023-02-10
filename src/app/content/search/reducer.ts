@@ -9,7 +9,7 @@ import { State } from './types';
 export const initialState: State = {
   loading: false,
   mobileToolbarOpen: false,
-  previous: {
+  previous: { // Search in sidebar experiment
     query: null,
     results: null,
     selectedResult: null,
@@ -29,7 +29,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
         ...initialState,
         loading: true,
         mobileToolbarOpen: true,
-        previous: {
+        previous: { // Search in sidebar experiment
           ...initialState.previous,
           query: action.payload,
         },
@@ -41,7 +41,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        previous: {
+        previous: { // Search in sidebar experiment
           ...state.previous,
           results: action.payload,
         },
@@ -53,7 +53,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.selectSearchResult): {
       return {
         ...state,
-        previous: {
+        previous: { // Search in sidebar experiment
           ...state.previous,
           selectedResult: action.payload,
         },
@@ -69,10 +69,10 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     case getType(actions.clearSearch): {
       return {
         ...initialState,
-        previous: state.previous,
+        previous: state.previous, // Search in sidebar experiment
       };
     }
-    case getType(actions.openSearchInSidebar): {
+    case getType(actions.openSearchInSidebar): { // Search in sidebar experiment
       // The mobile view can hide the sidebar when selecting a result
       // while keeping the state & params, so just reopen the sidebar.
       if (state.results && state.query && state.selectedResult) {

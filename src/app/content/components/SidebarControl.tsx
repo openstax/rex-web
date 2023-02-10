@@ -192,6 +192,7 @@ const lockTocControlState = (isOpen: boolean, Control: React.ComponentType<Inner
     isActive={Boolean(props.showActivatedState) && isOpen}
   />);
 
+// Search in sidebar experiment
 // tslint:disable-next-line:variable-name
 const lockSearchControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
   searchConnector(styled(({ open, close, hasQuery, desktop = false, ...props }: MiddleProps & {

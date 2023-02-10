@@ -46,6 +46,7 @@ export const StyledSearchCloseButtonNew = styled(TopbarStyled.CloseButtonNew)`
   `)}
 `;
 
+// Search in sidebar experiment
 export class SidebarSearchInput extends Component<ResultsSidebarProps> {
   public static getDerivedStateFromProps(newProps: ResultsSidebarProps, state: State) {
     if (newProps.query && newProps.query !== state.queryProp && newProps.query !== state.query) {
