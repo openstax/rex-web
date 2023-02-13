@@ -10,7 +10,6 @@ import ErrorModal from '../../errors/components/ErrorModal';
 import { or } from '../../fpUtils';
 import * as selectNavigation from '../../navigation/selectors';
 import { assertString } from '../../utils/assertions';
-import { assertWindow } from '../../utils/browser-assertions';
 import { loadPage } from '../hooks/locationChange/resolveContent';
 import * as selectContent from '../selectors';
 import { ArchiveTreeSection, LinkedArchiveTreeSection } from '../types';
@@ -37,10 +36,6 @@ const useLoadSection = (currentSection: ArchiveTreeSection | undefined) => {
     if (!book || !currentSection) {
       return;
     }
-
-    const window = assertWindow();
-    window.scrollTo(0, 0);
-
     const uuid = stripIdVersion(currentSection.id);
     loadPage(services, {uuid}, book, services.archiveLoader.forBook(book), uuid);
   }, [services, currentSection, book]);
