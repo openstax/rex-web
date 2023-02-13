@@ -139,7 +139,7 @@ function archiveProxy(app) {
 }
 
 function accountsProxy(app) {
-  app.use(proxy(REACT_APP_ACCOUNTS_URL, {
+  app.use(proxy(REACT_APP_ACCOUNTS_URL.replace(/\/+$/, '') + '/accounts', {
     target: ACCOUNTS_URL,
     changeOrigin: true,
     autoRewrite: true,

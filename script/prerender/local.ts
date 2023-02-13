@@ -12,7 +12,6 @@ import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { OSWebBook } from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
-import createUserLoader from '../../src/gateways/createUserLoader';
 import { startServer } from '../server';
 import {
   getStats,
@@ -26,9 +25,9 @@ import createRedirects from './createRedirects';
 import { createDiskCache } from './fileUtils';
 import renderManifest from './renderManifest';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
+import userLoader from './stubbedUserLoader';
 
 const {
-  REACT_APP_ACCOUNTS_URL,
   REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
@@ -57,7 +56,6 @@ async function render() {
   const osWebLoader = createOSWebLoader(`http://localhost:${port}${REACT_APP_OS_WEB_API_URL}`, {
     cache: createDiskCache<string, OSWebBook | undefined>('osweb'),
   });
-  const userLoader = createUserLoader(`http://localhost:${port}${REACT_APP_ACCOUNTS_URL}`);
   const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL, {
