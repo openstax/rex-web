@@ -1,4 +1,5 @@
-import { rejectResponse } from '../helpers/fetch';
+import { browserAuthProvider } from '@openstax/ts-utils/services/authProvider/browser';
+import { assertWindow } from '../app/utils';
 
 export interface AccountsUser {
   uuid: string;
@@ -7,21 +8,17 @@ export interface AccountsUser {
   first_name: string;
   last_name: string;
   full_name: string;
+  faculty_status: string;
+  is_administrator: boolean;
   is_not_gdpr_location: boolean;
+  contact_infos: any[];
 }
 
 export default (url: string) => {
+  const authProvider = browserAuthProvider({window: assertWindow()})({auth: {accountsUrl: url}});
+
   return {
-    getCurrentUser: () => fetch(`${url}/api/user`, {credentials: 'include'})
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json() as Promise<AccountsUser>;
-        } else if (response.status === 403) {
-          return Promise.resolve(undefined);
-        } else {
-          return rejectResponse(response,  (status, message) =>
-            new Error(`Error response from Accounts ${status}: ${message}`));
-        }
-      }),
+    getAuthorizedFetchConfig: authProvider.getAuthorizedFetchConfig,
+    getCurrentUser: authProvider.getUser,
   };
 };
