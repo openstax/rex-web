@@ -48,6 +48,8 @@ const buyPrintConfigUrl = assertDefined(
 );
 const mainContent = document.getElementById('main-content');
 
+const userLoader = createUserLoader(accountsUrl);
+
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
@@ -55,12 +57,12 @@ const app = createApp({
     bookConfigLoader: createBookConfigLoader(),
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
     config,
-    highlightClient: createHighlightClient(highlightsUrl),
+    highlightClient: createHighlightClient(highlightsUrl, userLoader.getAuthorizedFetchConfig),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
-    userLoader: createUserLoader(accountsUrl),
+    userLoader,
   },
 });
 
