@@ -1,9 +1,12 @@
 import createUserLoader, { AccountsUser } from '../../gateways/createUserLoader';
 
 export const testAccountsUser: AccountsUser = {
+  contact_infos: [],
+  faculty_status: 'no_faculty_info',
   first_name: 'testy',
   full_name: 'testy mctesterson',
   id: 1,
+  is_administrator: false,
   is_not_gdpr_location: true,
   last_name: 'mctesterson',
   name: 'test',
@@ -11,5 +14,6 @@ export const testAccountsUser: AccountsUser = {
 };
 
 export default (): ReturnType<typeof createUserLoader> => ({
+  getAuthorizedFetchConfig: () => Promise.resolve({credentials: 'include'}),
   getCurrentUser: () => Promise.resolve(testAccountsUser),
 });
