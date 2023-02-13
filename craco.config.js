@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+// https://gist.github.com/vimcaw/2056dbc92ec7a8cc8fdcec0c513ed45c
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     webpack: {
@@ -30,6 +32,13 @@ module.exports = {
                     console.log(error.stack);
                     process.exit(1);
                   }
+                }
+
+                const htmlWebpackPluginInstance = webpackConfig.plugins.find(
+                  webpackPlugin => webpackPlugin instanceof HtmlWebpackPlugin
+                );
+                if (htmlWebpackPluginInstance) {
+                  htmlWebpackPluginInstance.options.scriptLoading = 'defer';
                 }
 
                 return webpackConfig;
