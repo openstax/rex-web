@@ -244,7 +244,7 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, links, modu
     .map((k) => assetManifest.files[k]);
 
   const scripts = extractAssets().map(
-    (c) => `<script type="text/javascript" src="${c}"></script>`
+    (c) => `<script defer type="text/javascript" src="${c}"></script>`
   );
 
   html = html.replace(/<html/, `<html lang="${book.language}"`);
@@ -268,7 +268,7 @@ function injectHTML(html: string, {body, styles, state, fonts, meta, links, modu
     `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(state).replace(/</g, '\\u003c')}</script>`
   );
 
-  html = html.replace(/(<script src="[^"]+\.chunk\.js"><\/script>)/, scripts.join('') + '$1');
+  html = html.replace(/(<script defer="defer" src="[^"]+\.chunk\.js"><\/script>)/, scripts.join('') + '$1');
 
   return html;
 }
