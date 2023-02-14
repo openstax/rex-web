@@ -14,6 +14,10 @@ export const experiments: Record<string, FeatureFlagVariantValue[]> = {
     1,
     2,
   ],
+  searchLocation: [
+    'original',
+    'sidebar',
+  ],
 };
 
 export const experimentIds: { [key: string]: keyof typeof experiments } = {
@@ -22,4 +26,7 @@ export const experimentIds: { [key: string]: keyof typeof experiments } = {
 
   'xneKbLnfQ8SbU-BvFNBM7Q': 'kineticBanner', // dev
   'L3WXXDcvT_OhGcLxyDcYOQ': 'kineticBanner', // prod
+
+  'tpdEbFiARyarMQ-cx46QiQ': 'searchLocation', // dev
+  '8txxEETQSmyM0ii4aNAkiA': 'searchLocation', // prod
 };
