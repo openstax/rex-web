@@ -28,9 +28,10 @@ interface Props {
   openMobileMenu: () => void;
   openMobileToolbar: () => void;
   mobileToolbarOpen: boolean;
+  searchButtonColor: string | null;
+  searchInSidebar: boolean;
   searchSidebarOpen: boolean;
   hasSearchResults: boolean;
-  searchButtonColor: string | null;
   bookTheme: string;
   textSize: TextResizerValue | null;
   setTextSize: (size: TextResizerValue) => void;
@@ -111,6 +112,7 @@ class Topbar extends React.Component<Props, State> {
           data-testid='desktop-search'
           data-experiment
           colorSchema={this.props.searchButtonColor}
+          searchInSidebar={this.props.searchInSidebar}
         >
           <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
             onChange={onSearchChange}
@@ -168,6 +170,7 @@ class Topbar extends React.Component<Props, State> {
             data-testid='mobile-search'
             data-experiment
             colorSchema={this.props.searchButtonColor}
+            searchInSidebar={this.props.searchInSidebar}
           >
             <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
               autoFocus
@@ -214,6 +217,7 @@ export default connect(
     mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
     query: selectSearch.query(state),
     searchButtonColor: selectSearch.searchButtonColor(state),
+    searchInSidebar: selectSearch.searchInSidebar(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     textSize: selectContent.textSize(state),
   }),

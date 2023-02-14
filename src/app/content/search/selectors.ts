@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { searchButtonStyle } from '../../featureFlags/selectors';
+import { searchButtonStyle, searchLocation } from '../../featureFlags/selectors';
 import * as parentSelectors from '../selectors';
 import { BookWithOSWebData } from '../types';
 import {
@@ -17,9 +17,14 @@ export const localState = createSelector(
   (parentState) => parentState.search
 );
 
+export const searchInSidebar = createSelector(
+  searchLocation,
+  (state) => state === 'sidebar'
+);
+
 export const searchResultsOpen = createSelector(
-  localState,
-  (state) => !!state.query && state.sidebarOpen
+  localState, searchInSidebar,
+  (state, inSidebar) => inSidebar ? state.sidebarOpen : !!state.query && state.sidebarOpen
 );
 
 const getRawResults = createSelector(
@@ -119,4 +124,9 @@ export const searchButtonColor = createSelector(
     selectedBook && selectedStyle === 'grayButton' ? 'gray' as BookWithOSWebData['theme']
       : (selectedBook && selectedStyle === 'bannerColorButton' ? selectedTheme : null
   )
+);
+
+export const previousState = createSelector(
+  localState,
+  (state) => state.previous
 );
