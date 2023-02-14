@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/macro';
-import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
-import theme from '../../../../theme';
+import { navDesktopHeight, navMobileHeight } from '../../components/NavBar';
+import theme from '../../theme';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -10,9 +10,9 @@ import {
   toolbarIconColor,
   topbarDesktopHeight,
   topbarMobileHeight
-} from '../../constants';
-import { disablePrint } from '../../utils/disablePrint';
-import { styleWhenTocClosed } from '../../utils/sidebar';
+} from './constants';
+import { disablePrint } from './utils/disablePrint';
+import { styleWhenTocClosed } from './utils/sidebar';
 
 const sidebarPadding = 1.8;
 
@@ -30,7 +30,7 @@ const sidebarClosedStyle = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SidebarBody = styled.div`
+export const SidebarPaneBody = styled.div`
   grid-area: 1 / 2 / auto / 3;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
@@ -98,7 +98,7 @@ export const SidebarBody = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const ToCHeader = styled.div`
+export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -113,7 +113,7 @@ export const ToCHeader = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const ToCHeaderText = styled.span`
+export const HeaderText = styled.span`
   font-size: 1.8rem;
   line-height: 2.9rem;
   font-weight: 600;

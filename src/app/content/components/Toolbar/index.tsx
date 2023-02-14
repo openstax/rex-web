@@ -3,11 +3,14 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import * as pqSelectors from '../../practiceQuestions/selectors';
+import { searchInSidebar } from '../../search/selectors';
 import { mobileMenuOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
-import { CloseToCAndMobileMenuButton, CloseTOCControl, OpenTOCControl } from '../SidebarControl';
+import {
+  CloseSearchControl, CloseToCAndMobileMenuButton, CloseTOCControl, OpenSearchControl, OpenTOCControl
+} from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -15,10 +18,11 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 
 // tslint:disable-next-line: variable-name
-const VerticalNav =   () => {
+const VerticalNav = () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
+  const showSearchInSidebar = useSelector(searchInSidebar);
 
   React.useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -46,8 +50,14 @@ const VerticalNav =   () => {
       <CloseToCAndMobileMenuButton />
     </Styled.ToolbarMobileHeader>
     <Styled.ToolbarElements>
-      <OpenTOCControl showActivatedState/>
-      <CloseTOCControl showActivatedState/>
+      <OpenTOCControl showActivatedState />
+      <CloseTOCControl showActivatedState />
+      {showSearchInSidebar ? <>
+        <OpenSearchControl showActivatedState data-experiment />
+        <CloseSearchControl showActivatedState data-experiment />
+        <OpenSearchControl showActivatedState data-experiment desktop />
+        <CloseSearchControl showActivatedState data-experiment desktop />
+      </> : null}
       <PracticeQuestionsButton />
       <NudgeElementTarget id={nudgeStudyToolsTargetId}>
         <StudyGuidesButton />

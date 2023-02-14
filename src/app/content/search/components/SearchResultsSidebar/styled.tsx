@@ -99,6 +99,12 @@ export const styleWhenSearchClosed = (closedStyle: FlattenSimpleInterpolation) =
   }
 `;
 
+const styleWhenMobileToolbarClosed = (closedStyle: FlattenSimpleInterpolation) => css`
+  ${(props: {mobileToolbarOpen: boolean; hasQuery: boolean}) =>
+    (!props.mobileToolbarOpen || (props.mobileToolbarOpen && !props.hasQuery)) &&
+    theme.breakpoints.mobileMedium(closedStyle)}
+`;
+
 // tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
   -webkit-overflow-scrolling: touch;
@@ -118,6 +124,9 @@ export const SearchResultsBar = styled.div`
   animation: ${sidebarOpenAnimation} ${sidebarTransitionTime}ms forwards;
   ${styleWhenSearchClosed(css`
     animation: ${sidebarHideAnimation} ${sidebarTransitionTime}ms forwards;
+  `)}
+  ${styleWhenMobileToolbarClosed(css`
+    display: none;
   `)}
   ${theme.breakpoints.mobile(css`
     width: ${searchResultsBarMobileWidth}rem;
@@ -161,6 +170,10 @@ export const SearchResultsHeader = styled.div`
   align-items: center;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   height: ${topbarDesktopHeight}rem;
+  ${({ emptyHeaderStyle = false }: { emptyHeaderStyle: boolean }) => emptyHeaderStyle && css`
+    border-bottom: 0;
+    justify-content: flex-end;
+  `}
   ${theme.breakpoints.mobileMedium(css`
     height: unset;
   `)}
@@ -339,13 +352,12 @@ export const CloseIconWrapper = styled.div`
   overflow: visible;
   display: flex;
   justify-content: flex-end;
-  margin: 1.4rem 1.4rem 0 0;
+  align-items: center;
   ${theme.breakpoints.mobileMedium(css`
     display: none;
   `)}
-
   ${CloseIconButton} {
-    margin: 0;
+    margin: 0.3rem;
   }
 `;
 
@@ -359,6 +371,9 @@ export const LoadingWrapper = styled.div`
   height: 100%;
   background-color: ${backgroundColor};
   transition: opacity 0.5s 0.3s, transform 0.2s 0.2s;
+  ${CloseIconWrapper} {
+    height: ${topbarDesktopHeight}rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -440,4 +455,21 @@ export const KeyTermResult = styled(SimpleResult)`
       content: ''
     }
   }
+`;
+
+// tslint:disable-next-line: variable-name
+export const BlankStateWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`;
+
+// tslint:disable-next-line: variable-name
+export const BlankStateMessage = styled.div`
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  color: ${theme.color.text.default};
+  font-size: 1.6rem;
 `;
