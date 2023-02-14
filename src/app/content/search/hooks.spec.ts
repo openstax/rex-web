@@ -12,7 +12,7 @@ import { content } from '../routes';
 import * as selectors from '../selectors';
 import { formatBookData } from '../utils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
-import { clearSearchHook, receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
+import { clearSearchHook, openSearchInSidebarHook, receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
 import { SearchScrollTarget } from './types';
 
 describe('hooks', () => {
@@ -359,6 +359,79 @@ describe('hooks', () => {
           search,
         })
       );
+    });
+  });
+
+  describe('openSearchInSidebarHook', () => {
+    let hook: ReturnType<typeof openSearchInSidebarHook>;
+
+    beforeEach(() => {
+      hook = openSearchInSidebarHook(helpers);
+    });
+
+    it('noops if there is no previous state', () => {
+      const spy = jest.spyOn(helpers.history, 'replace');
+
+      hook({} as any);
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('noops if query does not exist', () => {
+      const spy = jest.spyOn(helpers.history, 'replace');
+
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch(''));
+      const hit = makeSearchResultHit({book, page});
+      store.dispatch(receiveSearchResults({ hits: { hits: [hit] } } as any));
+      store.dispatch(selectSearchResult({ result: hit, highlight: 0 }));
+
+      store.dispatch(clearSearch());
+
+      hook({} as any);
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('restores search query', () => {
+      const spy = jest.spyOn(helpers.history, 'replace');
+      const search = queryString.stringify({ query: 'asdf' });
+
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      const hit = makeSearchResultHit({book, page});
+      store.dispatch(receiveSearchResults({ hits: { hits: [hit] } } as any));
+
+      store.dispatch(clearSearch());
+
+      hook({} as any);
+
+      expect(spy).toHaveBeenCalledWith({ hash: '', search });
+    });
+
+    it('restores search query with selected result', () => {
+      const spy = jest.spyOn(helpers.history, 'replace');
+      const search = queryString.stringify({
+        query: 'asdf',
+        target: JSON.stringify({ type: 'search', index: 0 }),
+      });
+
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('asdf'));
+      const hit = makeSearchResultHit({book, page});
+      store.dispatch(receiveSearchResults({ hits: { hits: [hit] } } as any));
+      store.dispatch(selectSearchResult({ result: hit, highlight: 0 }));
+
+      store.dispatch(clearSearch());
+
+      hook({} as any);
+
+      expect(spy).toHaveBeenCalledWith({
+        hash: hit.source.elementId, search,
+      });
     });
   });
 });
