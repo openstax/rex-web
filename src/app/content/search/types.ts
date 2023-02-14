@@ -11,6 +11,11 @@ import { ArchiveTree, ArchiveTreeSection } from '../types';
 export interface State {
   loading: boolean;
   mobileToolbarOpen: boolean;
+  previous: {
+    query: null | string;
+    results: SearchResult | null;
+    selectedResult: SelectedResult | null;
+  };
   query: null | string;
   results: SearchResult | null;
   selectedResult: SelectedResult | null;

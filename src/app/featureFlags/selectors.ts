@@ -15,3 +15,8 @@ export const kineticBannerEnabled = createSelector(
   localState,
   (featureFlags) => featureFlags.kineticEnabled
 );
+
+export const searchLocation = createSelector(
+  localState,
+  (featureFlags) => featureFlags.searchLocation || 'original'
+);
