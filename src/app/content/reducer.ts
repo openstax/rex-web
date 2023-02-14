@@ -88,7 +88,10 @@ function reduceContent(state: State, action: AnyAction) {
       return reduceReceiveBook(state, action);
     }
     case getType(actions.requestPage):
-      return {...omit(['page'], state), loading: {...state.loading, page: action.payload}};
+      return {
+      ...(isEqual(action.payload, state.page) ? state : omit(['page'], state)),
+      loading: {...state.loading, page: action.payload},
+    };
     case getType(actions.receivePage): {
       return reduceReceivePage(state, action);
     }
