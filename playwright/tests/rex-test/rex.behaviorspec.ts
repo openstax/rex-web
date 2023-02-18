@@ -148,6 +148,10 @@ test('multiple highlight', async ({ page, isMobile }) => {
 
   await Edithighlight.clickContextMenu(1)
 
+  await Edithighlight.changeColor('purple')
+
+  await Edithighlight.addNote()
+
   // WHEN: Close the MH modal using X icon
   await Modal.closeMHModal()
 

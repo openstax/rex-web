@@ -24,12 +24,22 @@ class MHHighlights {
   // Highlights section in MH modal
   highlight: Locator
   MHContextMenu: Locator
+  blue: Locator
+  green: Locator
+  pink: Locator
+  purple: Locator
+  yellow: Locator
   page: Page
 
   constructor(page: Page) {
     this.page = page
     this.highlight = page.locator('[class*="HighlightOuterWrapper"]')
     this.MHContextMenu = this.page.locator('[class*="MenuToggle"]')
+    this.blue = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply blue highlight"]')
+    this.green = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply green highlight"]')
+    this.pink = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply pink highlight"]')
+    this.purple = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply purple highlight"]')
+    this.yellow = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply yellow highlight"]')
   }
 
 
@@ -50,6 +60,26 @@ class MHHighlights {
   async clickContextMenu(n: number) {
     // Click context menu
     await this.MHContextMenu.nth(n).click()
+  }
+
+  async changeColor(color: string) {
+    // Change highlight color from MH modal
+    if (color === 'blue') {
+      return this.blue.click()
+    } else if (color === 'green') {
+      return this.green.click()
+    } else if (color === 'pink') {
+      return this.pink.click()
+    } else if (color === 'purple') {
+      return this.purple.click()
+    } else if (color === 'yellow') {
+      return this.yellow.click()
+    }
+  }
+
+  async addNote() {
+    // Add note to a highlight
+    await this.page.locator('text=Add note').click();
   }
 }
 
