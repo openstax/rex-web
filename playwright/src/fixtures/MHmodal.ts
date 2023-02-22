@@ -29,6 +29,9 @@ class MHHighlights {
   pink: Locator
   purple: Locator
   yellow: Locator
+  addNoteMenu: Locator
+  cancelNote: Locator
+  savelNote: Locator
   page: Page
 
   constructor(page: Page) {
@@ -40,12 +43,19 @@ class MHHighlights {
     this.pink = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply pink highlight"]')
     this.purple = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply yellow highlight"]')
+    this.addNoteMenu = this.page.locator('text=Add note')
+    this.cancelNote = this.page.locator('[data-testid="cancel"]')
+    this.savelNote = this.page.locator('[data-testid="save"]')
   }
 
 
   async highlightCount() {
     // Total number of highlights in MH page
+    await Promise.all([
+      this.highlight
+    ])
     return await this.highlight.count()
+
   }
 
   async highlightlist() {
@@ -79,7 +89,19 @@ class MHHighlights {
 
   async addNote() {
     // Add note to a highlight
-    await this.page.locator('text=Add note').click();
+    await this.addNoteMenu.click();
+    await this.page.locator('[aria-label="Enter note\\\'s text"]').fill('qrwqrwf');
+  }
+
+
+  async clickCancel() {
+    // Click Cancel on note textbox
+   await this.cancelNote.click();
+  }
+
+  async clickSave() {
+    // Click Save on note textbox
+   await this.savelNote.click();
   }
 }
 
