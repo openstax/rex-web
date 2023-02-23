@@ -32,6 +32,7 @@ class MHHighlights {
   addNoteMenu: Locator
   cancelNote: Locator
   savelNote: Locator
+  editNoteMenu: Locator
   page: Page
 
   constructor(page: Page) {
@@ -44,6 +45,7 @@ class MHHighlights {
     this.purple = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply yellow highlight"]')
     this.addNoteMenu = this.page.locator('text=Add note')
+    this.editNoteMenu = this.page.locator('text=Edit')
     this.cancelNote = this.page.locator('[data-testid="cancel"]')
     this.savelNote = this.page.locator('[data-testid="save"]')
   }
@@ -87,10 +89,16 @@ class MHHighlights {
     }
   }
 
-  async addNote() {
+  async addNote(note: string) {
     // Add note to a highlight
-    await this.addNoteMenu.click();
-    await this.page.locator('[aria-label="Enter note\\\'s text"]').fill('qrwqrwf');
+    await this.addNoteMenu.click()
+    await this.page.locator('[aria-label="Enter note\\\'s text"]').type(note)
+  }
+
+  async editNote(note: string) {
+    // Edit existing note of a highlight
+    await this.editNoteMenu.click()
+    await this.page.locator('[aria-label="Enter note\\\'s text"]').type(note)
   }
 
 
@@ -102,6 +110,11 @@ class MHHighlights {
   async clickSave() {
     // Click Save on note textbox
    await this.savelNote.click();
+  }
+
+  async deleteHighlight() {
+    // Click text=Delete
+  await this.page.locator('text=Delete').click();
   }
 }
 

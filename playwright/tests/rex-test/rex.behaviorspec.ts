@@ -5,6 +5,7 @@ import {
   MHModal,
   MHHighlights,
   randomNum,
+  randomstring,
   rexUserSignup,
   rexUserSignout,
   sleep,
@@ -150,14 +151,19 @@ test('multiple highlight', async ({ page, isMobile }) => {
 
   await Edithighlight.changeColor('purple')
 
-  // await Edithighlight.clickContextMenu(2)
-  await Edithighlight.addNote()
+  await Edithighlight.addNote(randomstring())
 
   await Edithighlight.clickCancel()
 
   await Edithighlight.clickContextMenu(0)
 
-  await Edithighlight.addNote()
+  await Edithighlight.addNote(randomstring())
+
+  await Edithighlight.clickSave()
+
+  await Edithighlight.clickContextMenu(0)
+
+  await Edithighlight.editNote(randomstring(8) + ' ')
 
   await Edithighlight.clickSave()
 
