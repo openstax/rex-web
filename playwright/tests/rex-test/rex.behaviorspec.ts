@@ -167,6 +167,13 @@ test('multiple highlight', async ({ page, isMobile }) => {
 
   await Edithighlight.clickSave()
 
+  await Edithighlight.clickContextMenu(0)
+
+  await Edithighlight.clickDeleteHighlight('cancel')
+
+  await Edithighlight.clickContextMenu(0)
+
+  await Edithighlight.clickDeleteHighlight('delete')
 
   // WHEN: Close the MH modal using X icon
   await Modal.closeMHModal()
