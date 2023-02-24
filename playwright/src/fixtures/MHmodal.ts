@@ -30,11 +30,12 @@ class MHHighlights {
   purple: Locator
   yellow: Locator
   addNoteMenu: Locator
+  cancelNote: Locator
   savelNote: Locator
   editNoteMenu: Locator
   deleteHighlight: Locator
   saveDelete: Locator
-  cancel: Locator
+  cancelDelete: Locator
   page: Page
 
   constructor(page: Page) {
@@ -48,10 +49,11 @@ class MHHighlights {
     this.yellow = this.page.locator('[data-testid="show-myhighlights-body"] [aria-label="Apply yellow highlight"]')
     this.addNoteMenu = this.page.locator('text=Add note')
     this.editNoteMenu = this.page.locator('text=Edit')
-    this.cancel = this.page.locator('[data-testid="cancel"]')
+    this.cancelNote = this.page.locator('[data-testid="cancel"]')
     this.savelNote = this.page.locator('[data-testid="save"]')
     this.deleteHighlight = this.page.locator('text=Delete')
     this.saveDelete = this.page.locator('[data-testid="delete"]')
+    this.cancelDelete = this.page.locator('[data-testid="cancel"]')
   }
 
 
@@ -108,7 +110,7 @@ class MHHighlights {
 
   async clickCancel() {
     // Click Cancel on note textbox
-   await this.cancel.click();
+   await this.cancelNote.click();
   }
 
   async clickSave() {
@@ -120,10 +122,10 @@ class MHHighlights {
     // Click text=Delete
   await this.deleteHighlight.click();
   if (confirm == 'delete') {
-    this.saveDelete.click();
+    this.saveDelete.click({ force: true })
   }
   else {
-    this.cancel.click()
+    this.cancelDelete.click()
   }
   }
 }
