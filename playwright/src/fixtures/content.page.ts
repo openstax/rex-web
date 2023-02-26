@@ -62,12 +62,12 @@ class ContentPage {
     }
   }
 
-  async highlightText(color: string, randomparanumber: number) {
+  async highlightText(color: string, randomparanumber: number)  {
     // Highlight selected text
     // param: highlight color
     // param: randomparanumber - paragraph number of the content to be highlighted
 
-    await this.selectText(randomparanumber)
+    await Promise.all([this.selectText(randomparanumber)])
 
     // select highlight color from the visible notecard in the page
     this.colorlocator = await this.colorLocator(color)

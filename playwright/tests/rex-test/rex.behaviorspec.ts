@@ -178,8 +178,8 @@ test('multiple highlight', async ({ page, isMobile }) => {
   // WHEN: Close the MH modal using X icon
   await Modal.closeMHModal()
 
-    // THEN: The MH modal is closed
-    await expect(Modal.MHModal).toBeHidden()
+  // THEN: The MH modal is closed
+  await expect(Modal.MHModal).toBeHidden()
 
   await BookPage.openMHmodal()
   const MHhighlightcount1 = await Edithighlight.highlightCount()
