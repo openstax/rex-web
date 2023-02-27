@@ -89,7 +89,7 @@ function reduceContent(state: State, action: AnyAction) {
     }
     case getType(actions.requestPage):
       return {
-      ...(isEqual(action.payload, state.page) ? state : omit(['page'], state)),
+      ...(isEqual(action.payload, state.params?.page) ? state : omit(['page'], state)),
       loading: {...state.loading, page: action.payload},
     };
     case getType(actions.receivePage): {
