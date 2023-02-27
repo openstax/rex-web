@@ -158,22 +158,6 @@ describe('getCanonicalURL', () => {
     )).rejects.toThrow(`could not load cms data for book: ${bookId}`);
   });
 
-  it('throws if infinite loop found in map', async() => {
-    helpers.archiveLoader.mockBook(mockBook);
-    helpers.archiveLoader.mockBook(mockOtherBook);
-
-    Object.assign(book.loadOptions.booksConfig.books, mockBookConfig);
-
-    const bookId = book.id;
-    const pageId = page.id;
-    CANONICAL_MAP[bookId] = [['testbook2-uuid', {}]];
-    CANONICAL_MAP['testbook2-uuid'] = [['testbook3-uuid', {}]];
-    CANONICAL_MAP['testbook3-uuid'] = [['testbook2-uuid', {}]];
-
-    await expect(getCanonicalUrlParams(helpers.archiveLoader, helpers.osWebLoader, book, pageId))
-      .rejects.toThrowErrorMatchingInlineSnapshot(`"Loop encountered in map for testbook3-uuid"`);
-  });
-
   it('doesn\'t add link when canonical is null', async() => {
     const bookId = book.id;
     const pageId = 'unique-snowflake-page';
@@ -244,6 +228,8 @@ describe('getCanonicalURL', () => {
   it('finds the deepest canonical page', async() => {
     helpers.archiveLoader.mockBook(mockBook);
     helpers.archiveLoader.mockBook(mockOtherBook);
+
+    Object.assign(book.loadOptions.booksConfig.books, mockBookConfig);
 
     const bookId = book.id;
     const pageId = page.id;

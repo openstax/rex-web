@@ -10,11 +10,13 @@ const {
   SKIP_OS_WEB_PROXY,
   FIXTURES,
   ARCHIVE_URL,
+  IMAGE_CDN_URL,
   OS_WEB_URL,
   SEARCH_URL,
   HIGHLIGHTS_URL,
   ACCOUNTS_URL,
   REACT_APP_ACCOUNTS_URL,
+  REACT_APP_IMAGE_CDN_URL,
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL
@@ -137,7 +139,7 @@ function archiveProxy(app) {
 }
 
 function accountsProxy(app) {
-  app.use(proxy(REACT_APP_ACCOUNTS_URL, {
+  app.use(proxy(REACT_APP_ACCOUNTS_URL.replace(/\/+$/, '') + '/accounts', {
     target: ACCOUNTS_URL,
     changeOrigin: true,
     autoRewrite: true,
@@ -148,6 +150,14 @@ function accountsProxy(app) {
     onProxyReq: (preq, req, res) => {
       preq.setHeader('X-Forwarded-Host', req.headers.host);
     }
+  }));
+}
+
+function imageCdnProxy(app) {
+  app.use(proxy(REACT_APP_IMAGE_CDN_URL, {
+    target: IMAGE_CDN_URL,
+    changeOrigin: true,
+    autoRewrite: true,
   }));
 }
 
@@ -232,6 +242,7 @@ async function setupProxy(app) {
 
   archiveProxy(app);
   accountsProxy(app);
+  imageCdnProxy(app);
   searchProxy(app);
   highlightsProxy(app);
   osWebApiProxy(app);

@@ -19,8 +19,6 @@ export default function getCleanContent(
   }
 
   const replacements = (content: string) => content
-    // remove body and surrounding content
-    .replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/g, '')
     // fix assorted self closing tags
     .replace(/<(a|em|h3|iframe|span|strong|sub|sup|u|figcaption)([^>]*?)\/>/g, '<$1$2></$1>')
     // move (first-child) figure and table ids up to the parent div

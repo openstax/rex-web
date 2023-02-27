@@ -252,6 +252,13 @@ describe('search', () => {
 
     expect(findById('desktop-search-input').props.value).toEqual('asdf');
   });
+
+  it('hides on desktop when a feature flag moves it to the sidebar', () => {
+    jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValue(true);
+
+    const component = render();
+    expect(component.root.findByProps({ 'data-testid': 'desktop-search' }).props.searchInSidebar).toBe(true);
+  });
 });
 
 describe('search button', () => {

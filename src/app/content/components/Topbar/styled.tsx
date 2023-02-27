@@ -216,6 +216,13 @@ export const SearchInputWrapper = styled.form`
     width: 100%;
     &, &:last-child { margin-right: 0; }
   `)}
+
+
+  ${(props: { searchInSidebar: boolean }) => props.searchInSidebar && css`
+    @media screen and (min-width: ${theme.breakpoints.mobileMediumBreak}em) {
+      display: none;
+    }
+  `}
 `;
 
 // tslint:disable-next-line:variable-name
