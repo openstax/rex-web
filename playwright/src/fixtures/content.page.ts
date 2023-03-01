@@ -1,5 +1,7 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
+import { sleep } from '../utilities/utilities'
+import { test } from '@playwright/test'
 
 class ContentPage {
   blue: Locator
@@ -15,6 +17,7 @@ class ContentPage {
   body: Locator
   myhighlights: Locator
   next: Locator
+  // browsername: string
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -26,7 +29,7 @@ class ContentPage {
     this.myhighlights = this.page.locator('[aria-label="Highlights"]')
     this.next = this.page.locator('[aria-label="Next Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
-    this.body = this.page.locator('[class*="Content__Background"]')
+    this.body = this.page.locator('[class*="page-content"]')
   }
 
   async open(path: string) {
@@ -143,9 +146,21 @@ class ContentPage {
 
   async scrolltotop() {
     // Scroll to top of content area and click
-    const body = await this.body.boundingBox()
-    await this.page.mouse.wheel(body.x + 100, body.y + 100)
-    await this.page.mouse.click(body.x + 100, body.y + 100)
+
+    const x1 = this.page.context().browser().browserType
+    console.log(x1)
+    
+    // console.log(test.info.name)
+    
+    await this.page.reload()
+  
+    await this.page.waitForSelector('[data-highlighted="true"]')
+
+    
+    // const body = await this.body.boundingBox()
+    // await this.page.mouse.wheel(body.x, body.y)
+    // await this.page.mouse.click(body.x - 100, body.y + 100)
+  
   }
 
   async selectText(randomparanumber: number) {
@@ -163,3 +178,4 @@ class ContentPage {
 }
 
 export { ContentPage }
+
