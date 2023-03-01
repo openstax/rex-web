@@ -1,19 +1,18 @@
-import { createSelector } from 'reselect';
-import * as selectNavigation from '../../../app/navigation/selectors';
+import { stateChange } from '@openstax/event-capture-client/events';
+import { AppState } from '../../../app/types';
 import { AnalyticsEvent } from './event';
 
-// const eventName = 'REX page focus';
-
-export const selector = createSelector(
-  selectNavigation.pathname,
-  (pathname) => ({pathname})
-);
+export const selector = (_state: AppState) => ({});
 
 export const track = (
-  // @ts-ignore
-  {pathname}: ReturnType<typeof selector>,
-  // @ts-ignore
+  _: ReturnType<typeof selector>,
   focused: boolean
 ): AnalyticsEvent | void => {
-  return {};
+  return {
+    getEventCapturePayload: () => stateChange({
+      current: focused ? 'focused' : 'unfocused',
+      previous: focused ? 'unfocused' : 'focused',
+      stateType: 'visibility',
+    }),
+  };
 };
