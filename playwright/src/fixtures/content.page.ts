@@ -1,7 +1,6 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
-import { sleep } from '../utilities/utilities'
-import { test } from '@playwright/test'
+
 
 class ContentPage {
   blue: Locator
@@ -17,7 +16,9 @@ class ContentPage {
   body: Locator
   myhighlights: Locator
   next: Locator
-  // browsername: string
+  MHbody: Locator
+  highlightsloaded: Locator
+
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -30,6 +31,8 @@ class ContentPage {
     this.next = this.page.locator('[aria-label="Next Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
     this.body = this.page.locator('[class*="page-content"]')
+    this.MHbody = this.page.locator('[data-testid="show-myhighlights-body"]')
+    this.highlightsloaded = this.page.locator('[data-highlighted="true"]')
   }
 
   async open(path: string) {
@@ -136,6 +139,7 @@ class ContentPage {
   // Open My Highlights modal
   async openMHmodal() {
     await this.myhighlights.click()
+    await this.MHbody.waitFor()
   }
 
   async paracount() {
@@ -144,23 +148,22 @@ class ContentPage {
     return await paracount.count()
   }
 
+
   async scrolltotop() {
     // Scroll to top of content area and click
 
-    const x1 = this.page.context().browser().browserType
-    console.log(x1)
-    
-    // console.log(test.info.name)
-    
-    await this.page.reload()
-  
-    await this.page.waitForSelector('[data-highlighted="true"]')
+    const browser = this.page.context().browser().browserType().name()
+    console.log(browser)
 
-    
-    // const body = await this.body.boundingBox()
-    // await this.page.mouse.wheel(body.x, body.y)
-    // await this.page.mouse.click(body.x - 100, body.y + 100)
-  
+    if (browser === 'firefox') {
+      await this.page.reload()
+      await this.highlightsloaded.waitFor()
+    }
+    else {
+    const body = await this.body.boundingBox()
+    await this.page.mouse.wheel(body.x, body.y)
+    await this.page.mouse.click(body.x - 100, body.y + 100)
+    }
   }
 
   async selectText(randomparanumber: number) {
@@ -178,4 +181,5 @@ class ContentPage {
 }
 
 export { ContentPage }
+
 

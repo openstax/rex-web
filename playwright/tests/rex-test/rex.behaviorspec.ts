@@ -113,6 +113,8 @@ test('multiple highlight', async ({ page, isMobile }) => {
   await rexUserSignup(page)
   await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
 
+  
+
   // WHEN: Highlight 2 random paragraphs
   const paracount = BookPage.paracount()
   const randomparanumber = randomNum(await paracount)
