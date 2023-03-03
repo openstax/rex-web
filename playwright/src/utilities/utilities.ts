@@ -40,6 +40,7 @@ function randomNum(count: number, excludenum?: number) {
 }
 
 function randomstring(length = 15) {
+  // Generate random string within specified max
   let string = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   const charactersLength = characters.length

@@ -3,6 +3,7 @@ import { Locator, Page } from 'playwright'
 
 
 class ContentPage {
+  colorlocator: any
   blue: Locator
   green: Locator
   pink: Locator
@@ -12,12 +13,11 @@ class ContentPage {
   paragraph: Locator
   para: Locator
   highlight: Locator
-  colorlocator: any
   body: Locator
-  myhighlights: Locator
+  myHighlights: Locator
   next: Locator
-  MHbodyloaded: Locator
-  contenthighlightsloaded: Locator
+  MHbodyLoaded: Locator
+  contentHighlightsLoaded: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -27,12 +27,12 @@ class ContentPage {
     this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
-    this.myhighlights = this.page.locator('[aria-label="Highlights"]')
+    this.myHighlights = this.page.locator('[aria-label="Highlights"]')
     this.next = this.page.locator('[aria-label="Next Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
     this.body = this.page.locator('[class*="page-content"]')
-    this.MHbodyloaded = this.page.locator('[data-testid="show-myhighlights-body"]')
-    this.contenthighlightsloaded = this.page.locator('[class*="HighlightsWrapper"]')
+    this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
+    this.contentHighlightsLoaded = this.page.locator('[class*="HighlightsWrapper"]')
   }
 
   async open(path: string) {
@@ -91,9 +91,9 @@ class ContentPage {
       await this.colorlocator.click()
     }
 
-    // click outside the highlighted paragraph to close the notecard
-    // Otherwise, the notecard can block other elements like next/previous links
-    await this.scrolltotop()
+
+    // Close notecard. Else, the it can block other elements like next/previous links.
+    await this.CloseHighlighter()
   }
 
   async highlightCount() {
@@ -138,8 +138,8 @@ class ContentPage {
 
   // Open My Highlights modal
   async openMHmodal() {
-    await this.myhighlights.click()
-    await Promise.all([this.MHbodyloaded.waitFor()])
+    await this.myHighlights.click()
+    await Promise.all([this.MHbodyLoaded.waitFor()])
   }
 
   async paracount() {
@@ -149,9 +149,10 @@ class ContentPage {
   }
 
 
-  async scrolltotop() {
-    // Scroll to top of content area and click
-
+  async CloseHighlighter() {
+    // Close the highlighter
+    // Chrome & safari - click somewhere outside the highlighted text.
+    // Firefox - reload the page since the method used for other browsers is not working here.
     const browser = this.page.context().browser().browserType().name()
     if (browser === 'firefox') {
       await this.page.reload()
@@ -161,7 +162,7 @@ class ContentPage {
     await this.page.mouse.wheel(body.x, body.y)
     await this.page.mouse.click(body.x - 100, body.y + 100)
     }
-    await Promise.race([this.contenthighlightsloaded.waitFor()])
+    await Promise.race([this.contentHighlightsLoaded.waitFor()])
   }
 
   async selectText(randomparanumber: number) {

@@ -36,6 +36,7 @@ class MHHighlights {
   deleteHighlight: Locator
   saveDelete: Locator
   cancelDelete: Locator
+  noteTextBox: Locator
   page: Page
 
   constructor(page: Page) {
@@ -54,16 +55,13 @@ class MHHighlights {
     this.deleteHighlight = this.page.locator('text=Delete')
     this.saveDelete = this.page.locator('[data-testid="delete"]')
     this.cancelDelete = this.page.locator('[data-testid="cancel"]')
+    this.noteTextBox = this.page.locator('[aria-label="Enter note\\\'s text"]')
   }
 
 
   async highlightCount() {
     // Total number of highlights in MH page
-    await Promise.all([
-      this.highlight
-    ])
     return await this.highlight.count()
-
   }
 
   async highlightlist() {
@@ -82,6 +80,7 @@ class MHHighlights {
 
   async changeColor(color: string) {
     // Change highlight color from MH modal
+    // param: color - new color to be applied to the highlight
     if (color === 'blue') {
       return this.blue.click()
     } else if (color === 'green') {
@@ -97,14 +96,16 @@ class MHHighlights {
 
   async addNote(note: string) {
     // Add note to a highlight
+    // param: note - text to be added as annotation
     await this.addNoteMenu.click()
-    await this.page.locator('[aria-label="Enter note\\\'s text"]').type(note)
+    await this.noteTextBox.type(note)
   }
 
   async editNote(note: string) {
-    // Edit existing note of a highlight
+    // Edit existing note of a highlight. Appends text to beginning of existing annotation.
+    // param: note - text to be appeneded as annotation
     await this.editNoteMenu.click()
-    await this.page.locator('[aria-label="Enter note\\\'s text"]').type(note)
+    await this.noteTextBox.type(note)
   }
 
 
@@ -119,7 +120,9 @@ class MHHighlights {
   }
 
   async clickDeleteHighlight(confirm: string) {
-    // Click text=Delete
+    // Delete a highlight
+    // param: confirm - option to be selected in the Delete Confirmation modal
+    // param values: - delete or cancel
   await this.deleteHighlight.click();
   if (confirm == 'delete') {
     this.saveDelete.click({ force: true })
