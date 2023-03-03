@@ -113,8 +113,6 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await rexUserSignup(page)
   await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
 
-  
-
   // WHEN: Highlight 2 random paragraphs
   const paracount = BookPage.paracount()
   const randomparanumber = randomNum(await paracount)
@@ -185,6 +183,4 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await BookPage.openMHmodal()
   const MHhighlightcount1 = await Edithighlight.highlightCount()
   expect(MHhighlightcount1).toBe(3)
-
-
 })

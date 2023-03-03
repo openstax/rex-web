@@ -1,7 +1,6 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
 
-
 class ContentPage {
   colorlocator: any
   blue: Locator
@@ -68,7 +67,7 @@ class ContentPage {
     }
   }
 
-  async highlightText(color: string, randomparanumber: number)  {
+  async highlightText(color: string, randomparanumber: number) {
     // Highlight selected text
     // param: highlight color
     // param: randomparanumber - paragraph number of the content to be highlighted
@@ -90,7 +89,6 @@ class ContentPage {
     } else {
       await this.colorlocator.click()
     }
-
 
     // Close notecard. Else, the it can block other elements like next/previous links.
     await this.CloseHighlighter()
@@ -148,7 +146,6 @@ class ContentPage {
     return await paracount.count()
   }
 
-
   async CloseHighlighter() {
     // Close the highlighter
     // Chrome & safari - click somewhere outside the highlighted text.
@@ -156,11 +153,10 @@ class ContentPage {
     const browser = this.page.context().browser().browserType().name()
     if (browser === 'firefox') {
       await this.page.reload()
-    }
-    else {
-    const body = await this.body.boundingBox()
-    await this.page.mouse.wheel(body.x, body.y)
-    await this.page.mouse.click(body.x - 100, body.y + 100)
+    } else {
+      const body = await this.body.boundingBox()
+      await this.page.mouse.wheel(body.x, body.y)
+      await this.page.mouse.click(body.x - 100, body.y + 100)
     }
     await Promise.race([this.contentHighlightsLoaded.waitFor()])
   }
@@ -180,5 +176,3 @@ class ContentPage {
 }
 
 export { ContentPage }
-
-

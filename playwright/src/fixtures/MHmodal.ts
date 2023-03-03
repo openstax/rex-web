@@ -58,7 +58,6 @@ class MHHighlights {
     this.noteTextBox = this.page.locator('[aria-label="Enter note\\\'s text"]')
   }
 
-
   async highlightCount() {
     // Total number of highlights in MH page
     return await this.highlight.count()
@@ -108,28 +107,26 @@ class MHHighlights {
     await this.noteTextBox.type(note)
   }
 
-
   async clickCancel() {
     // Click Cancel on note textbox
-   await this.cancelNote.click();
+    await this.cancelNote.click()
   }
 
   async clickSave() {
     // Click Save on note textbox
-   await this.savelNote.click();
+    await this.savelNote.click()
   }
 
   async clickDeleteHighlight(confirm: string) {
     // Delete a highlight
     // param: confirm - option to be selected in the Delete Confirmation modal
     // param values: - delete or cancel
-  await this.deleteHighlight.click();
-  if (confirm == 'delete') {
-    this.saveDelete.click({ force: true })
-  }
-  else {
-    this.cancelDelete.click()
-  }
+    await this.deleteHighlight.click()
+    if (confirm == 'delete') {
+      this.saveDelete.click({ force: true })
+    } else {
+      this.cancelDelete.click()
+    }
   }
 }
 

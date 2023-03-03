@@ -41,7 +41,7 @@ function randomNum(count: number, excludenum?: number) {
 
 function randomstring(length = 15) {
   // Generate random string within specified max
-  let string = '';
+  let string = ''
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   const charactersLength = characters.length
   let counter = 0
@@ -51,7 +51,6 @@ function randomstring(length = 15) {
   }
   return string
 }
-
 
 async function sleep(seconds = 1.0): Promise<unknown> {
   return new Promise((resolve) => {
