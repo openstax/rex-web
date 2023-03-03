@@ -16,8 +16,8 @@ class ContentPage {
   body: Locator
   myhighlights: Locator
   next: Locator
-  MHbody: Locator
-  highlightsloaded: Locator
+  MHbodyloaded: Locator
+  contenthighlightsloaded: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -31,8 +31,8 @@ class ContentPage {
     this.next = this.page.locator('[aria-label="Next Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
     this.body = this.page.locator('[class*="page-content"]')
-    this.MHbody = this.page.locator('[data-testid="show-myhighlights-body"]')
-    this.highlightsloaded = this.page.locator('[data-highlighted="true"]')
+    this.MHbodyloaded = this.page.locator('[data-testid="show-myhighlights-body"]')
+    this.contenthighlightsloaded = this.page.locator('[class*="HighlightsWrapper"]')
   }
 
   async open(path: string) {
@@ -139,7 +139,7 @@ class ContentPage {
   // Open My Highlights modal
   async openMHmodal() {
     await this.myhighlights.click()
-    await this.MHbody.waitFor()
+    await Promise.all([this.MHbodyloaded.waitFor()])
   }
 
   async paracount() {
@@ -153,17 +153,15 @@ class ContentPage {
     // Scroll to top of content area and click
 
     const browser = this.page.context().browser().browserType().name()
-    console.log(browser)
-
     if (browser === 'firefox') {
       await this.page.reload()
-      await this.highlightsloaded.waitFor()
     }
     else {
     const body = await this.body.boundingBox()
     await this.page.mouse.wheel(body.x, body.y)
     await this.page.mouse.click(body.x - 100, body.y + 100)
     }
+    await Promise.race([this.contenthighlightsloaded.waitFor()])
   }
 
   async selectText(randomparanumber: number) {
