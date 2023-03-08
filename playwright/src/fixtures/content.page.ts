@@ -93,8 +93,10 @@ class ContentPage {
       await this.colorlocator.click()
     }
 
-    // Close notecard. Else, the it can block other elements like next/previous links.
-    await this.CloseHighlighter()
+    // The notecard stays open after making a highlight,
+    // which prevents click actions on other elements like next/previous links.
+    // So close the notecard. 
+    await this.CloseNoteCard()
   }
 
   async highlightCount() {
@@ -149,8 +151,8 @@ class ContentPage {
     return await paracount.count()
   }
 
-  async CloseHighlighter() {
-    // Close the highlighter
+  async CloseNoteCard() {
+    // Close the notecard
     // Chrome & safari - click somewhere outside the highlighted text.
     // Firefox - reload the page since the method used for other browsers is not working here.
     const browser = this.page.context().browser().browserType().name()
