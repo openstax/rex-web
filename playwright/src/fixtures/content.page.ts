@@ -65,6 +65,9 @@ class ContentPage {
     } else if (color === '') {
       return this.yellow
     }
+    else {
+        throw new Error('Color specified in the test does not match the Highlighter colors')
+      }
   }
 
   async highlightText(color: string, randomparanumber: number) {

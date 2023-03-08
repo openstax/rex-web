@@ -91,6 +91,12 @@ class MHHighlights {
     } else if (color === 'yellow') {
       return this.yellow.click()
     }
+      else if (color === '') {
+    return this.yellow.click()
+    }
+    else {
+        throw new Error('Color specified in the test does not match the Highlighter colors')
+      }
   }
 
   async addNote(note: string) {
