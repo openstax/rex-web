@@ -1,3 +1,4 @@
+import { stateChange } from '@openstax/event-capture-client/events';
 import { createSelector } from 'reselect';
 import * as selectNavigation from '../../../app/navigation/selectors';
 import { AnalyticsEvent } from './event';
@@ -13,6 +14,10 @@ export const track = (
   {pathname}: ReturnType<typeof selector>
 ): AnalyticsEvent | void => {
   return {
+    getEventCapturePayload: () => stateChange({
+      current: 'unload', // TODO - the type only allows string, should it allow null?
+      stateType: 'visibility',
+    }),
     getGoogleAnalyticsPayload: () => ({
       eventAction: 'unload',
       eventCategory: eventName,

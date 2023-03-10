@@ -152,16 +152,16 @@ describe('focus on tab change', () => {
     pageFocus.mockRestore();
   });
 
-  it('reports focusin', async() => {
-    onPageFocusChange(true, {services, store})();
+  it('reports focus', async() => {
+    onPageFocusChange(true, document!, {services, store})();
     expect(dispatch).toHaveBeenCalledWith(receivePageFocus(true));
-    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), true);
+    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), document!);
   });
 
   it('reports focusout', () => {
-    onPageFocusChange(false, {services, store})();
+    onPageFocusChange(false, document!, {services, store})();
     expect(dispatch).toHaveBeenCalledWith(receivePageFocus(false));
-    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), false);
+    expect(pageFocus).toHaveBeenCalledWith(expect.anything(), document!);
   });
 });
 

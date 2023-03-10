@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce';
 import { AppState } from '../../app/types';
 import { captureEvent } from '../../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
@@ -40,20 +41,29 @@ const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
   }
 };
 
-const bindTrackSelector = <E extends Event>(event: E) => (state: AppState | (() => AppState)) =>  {
+const bindTrackSelector = <E extends Event>(event: E, track: E['track']) => (state: AppState | (() => AppState)) =>  {
   type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
 
   return (...args: RemainingArgumentTypes) => {
     const data = event.selector(typeof state === 'function' ? state() : state);
-    triggerEvent(event)(data, ...args);
+    track(data, ...args);
   };
 };
 
-export const mapEventType = <E extends Event>(event: E) => ({
-  ...event,
-  bind: bindTrackSelector(event),
-  track: triggerEvent(event),
-});
+export const mapEventType = <E extends Event>(event: E, debounceTimeout?: number) => {
+  const trackFn = triggerEvent(event);
+
+  const track = debounceTimeout === undefined
+    ? trackFn
+    : debounce(trackFn, debounceTimeout, {leading: false, trailing: true})
+  ;
+
+  return {
+    ...event,
+    bind: bindTrackSelector(event, track),
+    track,
+  };
+};
 
 export const events = {
   clickButton: mapEventType(clickButton),
@@ -70,7 +80,12 @@ export const events = {
   openNudgeStudyTools: mapEventType(openNudgeStudyTools),
   openStudyGuides: mapEventType(openStudyGuides),
   openUTG: mapEventType(openUTG),
-  pageFocus: mapEventType(pageFocus),
+  // debounce prevents common case of focusout immediately followed by move to background
+  // note that `unload` also triggers the visibility state change but it must be executed
+  // immediately without a debounce for the beacon to work. i don't think it will, but if
+  // this results in events representing unload followed by focusout we may have to
+  // re-visit this.
+  pageFocus: mapEventType(pageFocus, 5),
   print: mapEventType(print),
   search: mapEventType(search),
   sessionStarted: mapEventType(sessionStarted),

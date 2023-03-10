@@ -5168,6 +5168,12 @@
   dependencies:
     uuid "^8.3.2"
 
+"@openstax/event-capture-client@https://github.com/openstax/event-capture-client#1.5.1":
+  version "1.5.1"
+  resolved "https://github.com/openstax/event-capture-client#636a38ff1fa0a24908e253617c90980456fdd176"
+  dependencies:
+    uuid "^8.3.2"
+
 "@openstax/highlighter@1.13.0":
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.13.0.tgz#77536bea9b36ff3ec79f3fcd0355e94bc8e33580"

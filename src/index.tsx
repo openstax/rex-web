@@ -107,8 +107,8 @@ function doneRendering() {
   }
 }
 
-window.onblur = onPageFocusChange(false, app);
-window.onfocus = onPageFocusChange(true, app);
+window.onblur = onPageFocusChange(false, document, app);
+window.onfocus = onPageFocusChange(true, document, app);
 
 window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
 
