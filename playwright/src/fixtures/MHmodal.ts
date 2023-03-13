@@ -90,13 +90,11 @@ class MHHighlights {
       return this.purple.click()
     } else if (color === 'yellow') {
       return this.yellow.click()
+    } else if (color === '') {
+      return this.yellow.click()
+    } else {
+      throw new Error('Color specified in the test does not match the Highlighter colors')
     }
-      else if (color === '') {
-    return this.yellow.click()
-    }
-    else {
-        throw new Error('Color specified in the test does not match the Highlighter colors')
-      }
   }
 
   async addNote(note: string) {
@@ -123,10 +121,11 @@ class MHHighlights {
     await this.savelNote.click()
   }
 
-  async clickDeleteHighlight(confirm: string) {
+  async clickDeleteHighlight(confirm: Action) {
     // Delete a highlight
     // param: confirm - option to be selected in the Delete Confirmation modal
-    // param values: - delete or cancel
+    // param values: - delete or cancel set in enum Action
+
     await this.deleteHighlight.click()
     if (confirm == 'delete') {
       this.saveDelete.click({ force: true })
@@ -136,4 +135,9 @@ class MHHighlights {
   }
 }
 
-export { MHModal, MHHighlights }
+enum Action {
+  Delete = 'delete',
+  Cancel = 'cancel',
+}
+
+export { MHModal, MHHighlights, Action }
