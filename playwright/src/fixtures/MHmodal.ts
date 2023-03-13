@@ -139,5 +139,4 @@ enum Action {
   Delete = 'delete',
   Cancel = 'cancel',
 }
-
 export { MHModal, MHHighlights, Action }
