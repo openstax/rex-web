@@ -93,8 +93,8 @@ class ContentPage {
     }
 
     // The notecard stays open after making a highlight,
-    // which prevents click actions on other elements like next/previous links.
-    // So close the notecard.
+    // which prevents click actions on other elements like next/previous 
+    // links underneath the highlighter. So close the notecard.
     await this.CloseNoteCard()
   }
 
