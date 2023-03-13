@@ -9,6 +9,7 @@ import { createTitle, getPageDescription } from './seoUtils';
 import {
   contentPage,
   contentPageShort,
+  contentPageWithMath,
   contentPageWithObjectives,
   emptyPage,
   eobPage,
@@ -36,6 +37,14 @@ describe('getDescription', () => {
     const description = getPageDescription(services, intl, book, contentPage);
     expect(description).toMatchInlineSnapshot(
       `"For example, take a look at the image above. This image is of the Andromeda Galaxy, which contains billions of individual stars, huge clouds of gas, and..."`
+    );
+  });
+
+  it('makes a description for content page and strips math', () => {
+    archiveLoader.mockPage(book, contentPageWithMath, 'page-slug');
+    const description = getPageDescription(services, intl, book, contentPageWithMath);
+    expect(description).toMatchInlineSnapshot(
+      `"For example, take ... a look at the image above. This image is of the Andromeda Galaxy, which contains billions of individual stars, huge clouds of gas,..."`
     );
   });
 
