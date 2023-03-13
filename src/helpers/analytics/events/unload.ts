@@ -15,7 +15,7 @@ export const track = (
 ): AnalyticsEvent | void => {
   return {
     getEventCapturePayload: () => stateChange({
-      current: 'unload', // TODO - the type only allows string, should it allow null?
+      current: 'none',
       stateType: 'visibility',
     }),
     getGoogleAnalyticsPayload: () => ({
