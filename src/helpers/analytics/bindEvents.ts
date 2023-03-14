@@ -1,4 +1,3 @@
-import debounce from 'lodash/debounce';
 import { AppState } from '../../app/types';
 import { captureEvent } from '../../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
@@ -50,13 +49,8 @@ const bindTrackSelector = <E extends Event>(event: E, track: E['track']) => (sta
   };
 };
 
-export const mapEventType = <E extends Event>(event: E, debounceTimeout?: number) => {
-  const trackFn = triggerEvent(event);
-
-  const track = debounceTimeout === undefined
-    ? trackFn
-    : debounce(trackFn, debounceTimeout, {leading: false, trailing: true})
-  ;
+export const mapEventType = <E extends Event>(event: E) => {
+  const track = triggerEvent(event);
 
   return {
     ...event,
@@ -80,12 +74,7 @@ export const events = {
   openNudgeStudyTools: mapEventType(openNudgeStudyTools),
   openStudyGuides: mapEventType(openStudyGuides),
   openUTG: mapEventType(openUTG),
-  // debounce prevents common case of focusout immediately followed by move to background
-  // note that `unload` also triggers the visibility state change but it must be executed
-  // immediately without a debounce for the beacon to work. i don't think it will, but if
-  // this results in events representing unload followed by focusout we may have to
-  // re-visit this.
-  pageFocus: mapEventType(pageFocus, 5),
+  pageFocus: mapEventType(pageFocus),
   print: mapEventType(print),
   search: mapEventType(search),
   sessionStarted: mapEventType(sessionStarted),
