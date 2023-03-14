@@ -39,10 +39,23 @@ function randomNum(count: number, excludenum?: number) {
   return n
 }
 
+function randomstring(length = 15) {
+  // Generate random string within specified max
+  let string = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charactersLength = characters.length
+  let counter = 0
+  while (counter < length) {
+    string += characters.charAt(Math.floor(Math.random() * charactersLength))
+    counter += 1
+  }
+  return string
+}
+
 async function sleep(seconds = 1.0): Promise<unknown> {
   return new Promise((resolve) => {
     setTimeout(resolve, seconds * 1000)
   })
 }
 
-export { closeExtras, randomChoice, randomNum, sleep }
+export { closeExtras, randomChoice, randomNum, randomstring, sleep }
