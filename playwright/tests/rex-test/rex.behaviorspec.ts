@@ -4,7 +4,9 @@ import {
   KsModal,
   MHModal,
   MHHighlights,
+  Action,
   randomNum,
+  randomstring,
   rexUserSignup,
   rexUserSignout,
   sleep,
@@ -100,7 +102,7 @@ test('signup and highlight', async ({ page, isMobile }) => {
   expect(highlightcount).toBe(0)
 })
 
-test('multiple highlight', async ({ page, isMobile }) => {
+test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'test only desktop resolution')
 
   // GIVEN: Open Rex page
@@ -143,14 +145,43 @@ test('multiple highlight', async ({ page, isMobile }) => {
 
   const Edithighlight = new MHHighlights(page)
 
+  // THEN: MH page has all the highlights made in content page
   const MHhighlightcount = await Edithighlight.highlightCount()
   expect(MHhighlightcount).toBe(4)
 
+  // WHEN: Change a highlight color
   await Edithighlight.clickContextMenu(1)
+  await Edithighlight.changeColor('purple')
+
+  // WHEN: Add note to a highlight and cancel
+  await Edithighlight.addNote(randomstring())
+  await Edithighlight.clickCancel()
+
+  // WHEN: Add note to a highlight and save
+  await Edithighlight.clickContextMenu(0)
+  await Edithighlight.addNote(randomstring())
+  await Edithighlight.clickSave()
+
+  // WHEN: Edit note of a highlight and save
+  await Edithighlight.clickContextMenu(0)
+  await Edithighlight.editNote(randomstring(8) + ' ')
+  await Edithighlight.clickSave()
+
+  // WHEN: Delete a highlight and cancel
+  await Edithighlight.clickContextMenu(0)
+  await Edithighlight.clickDeleteHighlight(Action.Cancel)
+
+  // WHEN: Delete a highlight and cancel
+  await Edithighlight.clickContextMenu(0)
+  await Edithighlight.clickDeleteHighlight(Action.Delete)
 
   // WHEN: Close the MH modal using X icon
   await Modal.closeMHModal()
 
   // THEN: The MH modal is closed
   await expect(Modal.MHModal).toBeHidden()
+
+  await BookPage.openMHmodal()
+  const MHhighlightcount1 = await Edithighlight.highlightCount()
+  expect(MHhighlightcount1).toBe(3)
 })

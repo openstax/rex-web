@@ -41,6 +41,7 @@ const config: PlaywrightTestConfig = {
   ],
   reporter: [['list'], ['json', { outputFile: 'test-results/results.json' }]],
   retries: 0,
+  workers: 1,
   testMatch: /.*\.behaviorspec\.ts/,
   timeout: 60000,
   use: {

@@ -2,6 +2,7 @@
 import { Locator, Page } from 'playwright'
 
 class ContentPage {
+  colorlocator: any
   blue: Locator
   green: Locator
   pink: Locator
@@ -11,10 +12,12 @@ class ContentPage {
   paragraph: Locator
   para: Locator
   highlight: Locator
-  colorlocator: any
   body: Locator
-  myhighlights: Locator
+  myHighlights: Locator
   next: Locator
+  MHbodyLoaded: Locator
+  contentHighlightsLoaded: Locator
+
   constructor(page: Page) {
     this.page = page
     this.blue = this.page.locator('[aria-label="Apply blue highlight"]')
@@ -23,10 +26,12 @@ class ContentPage {
     this.purple = this.page.locator('[aria-label="Apply purple highlight"]')
     this.yellow = this.page.locator('[aria-label="Apply yellow highlight"]')
     this.highlight = this.page.locator('.highlight')
-    this.myhighlights = this.page.locator('[aria-label="Highlights"]')
+    this.myHighlights = this.page.locator('[aria-label="Highlights"]')
     this.next = this.page.locator('[aria-label="Next Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
-    this.body = this.page.locator('[class*="Content__Background"]')
+    this.body = this.page.locator('[class*="page-content"]')
+    this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
+    this.contentHighlightsLoaded = this.page.locator('[class*="HighlightsWrapper"]')
   }
 
   async open(path: string) {
@@ -59,6 +64,8 @@ class ContentPage {
       return this.yellow
     } else if (color === '') {
       return this.yellow
+    } else {
+      throw new Error('Color specified in the test does not match the Highlighter colors')
     }
   }
 
@@ -85,9 +92,10 @@ class ContentPage {
       await this.colorlocator.click()
     }
 
-    // click outside the highlighted paragraph to close the notecard
-    // Otherwise, the notecard can block other elements like next/previous links
-    await this.scrolltotop()
+    // The notecard stays open after making a highlight,
+    // which prevents click actions on other elements like next/previous 
+    // links underneath the highlighter. So close the notecard.
+    await this.CloseNoteCard()
   }
 
   async highlightCount() {
@@ -132,7 +140,8 @@ class ContentPage {
 
   // Open My Highlights modal
   async openMHmodal() {
-    await this.myhighlights.click()
+    await this.myHighlights.click()
+    await Promise.all([this.MHbodyLoaded.waitFor()])
   }
 
   async paracount() {
@@ -141,11 +150,19 @@ class ContentPage {
     return await paracount.count()
   }
 
-  async scrolltotop() {
-    // Scroll to top of content area and click
-    const body = await this.body.boundingBox()
-    await this.page.mouse.wheel(body.x + 100, body.y + 100)
-    await this.page.mouse.click(body.x + 100, body.y + 100)
+  async CloseNoteCard() {
+    // Close the notecard
+    // Chrome & safari - click somewhere outside the highlighted text.
+    // Firefox - reload the page since the method used for other browsers is not working here.
+    const browser = this.page.context().browser().browserType().name()
+    if (browser === 'firefox') {
+      await this.page.reload()
+    } else {
+      const body = await this.body.boundingBox()
+      await this.page.mouse.wheel(body.x, body.y)
+      await this.page.mouse.click(body.x - 100, body.y + 100)
+    }
+    await Promise.race([this.contentHighlightsLoaded.waitFor()])
   }
 
   async selectText(randomparanumber: number) {
