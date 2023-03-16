@@ -171,7 +171,7 @@
     "semver-sort": "^0.0.4",
     "serve-static": "^1.13.2",
     "sitemap": "^3.2.2",
-    "source-map-explorer": "^2.5.2",
+    "source-map-explorer": "^2.5.3",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-config-styled-components": "^0.1.1",
