@@ -84,15 +84,10 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     attribution.click_attribution_link()
 
     # WHEN: Navigating via TOC link
-    width, height = content.get_window_size()
-    print(width, height)
     if content.is_mobile:
-        print("o")
         topbar.click_mobile_menu_button()
-        print("a")
         toolbar.click_toc_toggle_button()
-        print("b")
-    print("c")
+
     toc.sections[-1].click()
 
     # THEN: The citation/attribution section is not open on the new page

@@ -7,7 +7,7 @@ import pytest
 from utils import utility
 
 # Window resolutions. Pytest takes these inputs backwards.
-DESKTOP = (1600, 1300)
+DESKTOP = (1600, 2560)
 # this used to be 414x738, but it looks like chrome won't resize lower than 500
 MOBILE = (516, 738)
 
