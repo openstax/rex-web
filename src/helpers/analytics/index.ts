@@ -13,9 +13,14 @@ export const registerGlobalAnalytics = (window: Window, store: Store) => {
   const document = window.document;
 
   events.sessionStarted.track(events.sessionStarted.selector(store.getState()));
+  events.pageFocus.track(events.pageFocus.selector(store.getState()), document);
 
   window.addEventListener('beforeunload', () => {
     events.unload.track(events.unload.selector(store.getState()));
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    events.pageFocus.track(events.pageFocus.selector(store.getState()), document);
   });
 
   addInteractiveListeners(window, (element, stateChange) => {

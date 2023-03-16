@@ -40,20 +40,24 @@ const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
   }
 };
 
-const bindTrackSelector = <E extends Event>(event: E) => (state: AppState | (() => AppState)) =>  {
+const bindTrackSelector = <E extends Event>(event: E, track: E['track']) => (state: AppState | (() => AppState)) =>  {
   type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
 
   return (...args: RemainingArgumentTypes) => {
     const data = event.selector(typeof state === 'function' ? state() : state);
-    triggerEvent(event)(data, ...args);
+    track(data, ...args);
   };
 };
 
-export const mapEventType = <E extends Event>(event: E) => ({
-  ...event,
-  bind: bindTrackSelector(event),
-  track: triggerEvent(event),
-});
+export const mapEventType = <E extends Event>(event: E) => {
+  const track = triggerEvent(event);
+
+  return {
+    ...event,
+    bind: bindTrackSelector(event, track),
+    track,
+  };
+};
 
 export const events = {
   clickButton: mapEventType(clickButton),
