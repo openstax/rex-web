@@ -142,5 +142,9 @@ serviceWorker.register()
     }
   })
   .catch((e) => {
-    Sentry.captureException(e);
+    if (e as Error instanceof DOMException && e.name === 'SecurityError') {
+      // They blocked cookies; ignore it
+    } else {
+      Sentry.captureException(e);
+    }
   });

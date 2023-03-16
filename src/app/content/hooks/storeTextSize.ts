@@ -18,8 +18,12 @@ export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => asy
     return;
   }
 
-  if (typeof window !== 'undefined' && window.localStorage) {
-    storedTextSize = window.localStorage.getItem(textResizerStorageKey);
+  if (typeof window !== 'undefined') {
+    try {
+      storedTextSize = window.localStorage.getItem(textResizerStorageKey);
+    } catch {
+      // They have blocked access to localStorage; ignore it
+    }
   }
 
   if (storedTextSize) {
@@ -38,7 +42,11 @@ const hookBody: ActionHookBody<typeof setTextSize> = (services) => async() => {
   const value = textSize(state);
 
   if (typeof window !== 'undefined' && value !== null) {
-    window.localStorage.setItem(textResizerStorageKey, value.toString());
+    try {
+      window.localStorage.setItem(textResizerStorageKey, value.toString());
+    } catch {
+      // They have blocked access to localStorage; ignore it
+    }
   }
 };
 
