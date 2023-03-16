@@ -11,11 +11,11 @@ import { locationChange } from '../navigation/actions';
 import { matchForRoute } from '../navigation/utils';
 import { AnyAction } from '../types';
 import * as actions from './actions';
-import highlightReducer, {initialState as initialHighlightState } from './highlights/reducer';
-import practiceQuestionsReducer, {initialState as initialPracticeQuestionsState } from './practiceQuestions/reducer';
+import highlightReducer, { initialState as initialHighlightState } from './highlights/reducer';
+import practiceQuestionsReducer, { initialState as initialPracticeQuestionsState } from './practiceQuestions/reducer';
 import { content } from './routes';
-import searchReducer, {initialState as initialSearchState } from './search/reducer';
-import studyGuidesReducer, {initialState as initialStudyGuidesState } from './studyGuides/reducer';
+import searchReducer, { initialState as initialSearchState } from './search/reducer';
+import studyGuidesReducer, { initialState as initialStudyGuidesState } from './studyGuides/reducer';
 import { State } from './types';
 
 export const initialState = {
