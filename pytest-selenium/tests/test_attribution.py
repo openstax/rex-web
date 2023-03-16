@@ -84,10 +84,15 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     attribution.click_attribution_link()
 
     # WHEN: Navigating via TOC link
+    width, height = content.get_window_size()
+    print(width, height)
     if content.is_mobile:
+        print("o")
         topbar.click_mobile_menu_button()
+        print("a")
         toolbar.click_toc_toggle_button()
-
+        print("b")
+    print("c")
     toc.sections[-1].click()
 
     # THEN: The citation/attribution section is not open on the new page
@@ -152,7 +157,9 @@ def test_license_details(selenium, base_url, page_slug):
     for book_slug in list(book_slugs):
 
         # GIVEN: Book page is loaded
-        book = Content(selenium, base_url, book_slug=book_slug, page_slug=get_default_page(book_slug)).open()
+        book = Content(
+            selenium, base_url, book_slug=book_slug, page_slug=get_default_page(book_slug)
+        ).open()
         attribution = book.attribution
 
         # Skip any notification/nudge popups
