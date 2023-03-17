@@ -176,7 +176,7 @@
     "stylelint-config-standard": "^18.3.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.5.2",
-    "tiny-async-pool": "^1.0.4",
+    "tiny-async-pool": "<2",
     "ts-unused-exports": "<7",
     "tslint": "6.1.3",
     "yargs": "^17.7.1"
