@@ -84,6 +84,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
     attribution.click_attribution_link()
 
     # WHEN: Navigating via TOC link
+    # test
     if content.is_mobile:
         topbar.click_mobile_menu_button()
         toolbar.click_toc_toggle_button()
