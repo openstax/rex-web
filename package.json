@@ -6,7 +6,7 @@
     "node": "14.x"
   },
   "dependencies": {
-    "@craco/craco": "^6.1.2",
+    "@craco/craco": "<7",
     "@formatjs/intl-pluralrules": "^4.0.6",
     "@openstax/event-capture-client": "^1.5.2",
     "@openstax/highlighter": "1.13.0",
