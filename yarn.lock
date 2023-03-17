@@ -7365,6 +7365,13 @@ brace-expansion@^1.1.7:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
 
+brace-expansion@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-2.0.1.tgz#1edc459e0f0c548486ecf9fc99f2221364b9a0ae"
+  integrity sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==
+  dependencies:
+    balanced-match "^1.0.0"
+
 braces@^2.3.1, braces@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/braces/-/braces-2.3.2.tgz#5979fd3f14cd531565e5fa2df1abfff1dfaee729"
@@ -9054,10 +9061,10 @@ destroy@~1.0.4:
   resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
   integrity sha1-l4hXRCxEdJ5CBmE+N5RiBYJqvYA=
 
-details-element-polyfill@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/details-element-polyfill/-/details-element-polyfill-2.3.1.tgz#6af31acd454d9e3906961c35b4f1e229281c4b62"
-  integrity sha512-7Gr2pBgSpeSvBGBWjMESJ7WClexq3A5/HlZ2ZVgG4OjNvTgRfCEe0+ZEfT44JymqCtHd04+pSrgYg4W6yok/6w==
+details-element-polyfill@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/details-element-polyfill/-/details-element-polyfill-2.4.0.tgz#e0622adef7902662faf27b4ab8acba5dc4e3a6e6"
+  integrity sha512-jnZ/m0+b1gz3EcooitqL7oDEkKHEro659dt8bWB/T/HjiILucoQhHvvi5MEOAIFJXxxO+rIYJ/t3qCgfUOSU5g==
 
 detect-libc@^1.0.2:
   version "1.0.3"
@@ -10400,10 +10407,10 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.4"
 
-focus-within-polyfill@^5.0.4:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/focus-within-polyfill/-/focus-within-polyfill-5.0.4.tgz#4b8518b9323e2da1f6aa2d21d99e60224c130c56"
-  integrity sha512-x/Nq2LuTRC+rC+63h9xoNBb367M9gCfPe2ovCyAX+q/xBU58HgA3lk/U05Q44ByxEZIyj1rVaCi5MrJx1PpOBA==
+focus-within-polyfill@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/focus-within-polyfill/-/focus-within-polyfill-5.2.1.tgz#bea7ed0689516ef76f3f226a7a66399ce5c45789"
+  integrity sha512-24dSGm2euJ0V+blff5Yj0IXtemjjGIoT6/OjmvICZ80NIgnyXDpthfxdkJAJWCDs0BaUvdB+2RParJ9b7X4EuQ==
 
 follow-redirects@^1.0.0:
   version "1.14.8"
@@ -10702,6 +10709,17 @@ glob-parent@^5.1.0, glob-parent@^5.1.2:
   integrity sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==
   dependencies:
     is-glob "^4.0.1"
+
+glob@<9:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-8.1.0.tgz#d388f656593ef708ee3e34640fdfb99a9fd1c33e"
+  integrity sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^5.0.1"
+    once "^1.3.0"
 
 glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3:
   version "7.1.3"
@@ -13764,6 +13782,13 @@ minimatch@3.0.4, minimatch@^3.0.4:
   integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
   dependencies:
     brace-expansion "^1.1.7"
+
+minimatch@^5.0.1:
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-5.1.6.tgz#1cfcb8cf5522ea69952cd2af95ae09477f122a96"
+  integrity sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==
+  dependencies:
+    brace-expansion "^2.0.1"
 
 minimist-options@4.1.0:
   version "4.1.0"
