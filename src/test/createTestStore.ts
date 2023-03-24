@@ -10,7 +10,7 @@ import createNavigationReducer from '../app/navigation/reducer';
 import notifications, { initialState as notificationState } from '../app/notifications/reducer';
 import { AnyAction, AppState } from '../app/types';
 
-export default function(initialState: Partial<AppState> = {}) {
+export function createTestStore(initialState: Partial<AppState> = {}) {
   const history = createMemoryHistory();
   const navigation = createNavigationReducer(history.location);
 
@@ -34,3 +34,5 @@ export default function(initialState: Partial<AppState> = {}) {
     ...initialState,
   }));
 }
+
+export default createTestStore;
