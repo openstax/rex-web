@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
+import { waitForHeadInitializaton } from './app/head/utils';
 import createIntl from './app/messages/createIntl';
 import { currentLocale } from './app/messages/selectors';
 import { updateAvailable } from './app/notifications/actions';
@@ -111,6 +112,10 @@ window.onblur = onPageFocusChange(false, document, app);
 window.onfocus = onPageFocusChange(true, document, app);
 
 window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
+
+// this event is for google-tag-manager to hook into
+waitForHeadInitializaton(app, 3000)
+  .then(() => window.gtag('event', 'app_loaded'));
 
 // start long running processes
 pollUpdates(app.store);
