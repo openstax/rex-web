@@ -5,6 +5,7 @@ import * as actions from './actions';
 import { State } from './types';
 
 export const initialState = {
+  initialized: false,
   links: [],
   meta: [],
   title: 'OpenStax',
@@ -13,7 +14,7 @@ export const initialState = {
 const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
   switch (action.type) {
     case getType(actions.setHead):
-      return action.payload;
+      return {...action.payload, initialized: true};
     default:
       return state;
   }
