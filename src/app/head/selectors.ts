@@ -20,3 +20,8 @@ export const title = createSelector(
   localState,
   (state) => state.title
 );
+
+export const initialized = createSelector(
+  localState,
+  (state) => state.initialized
+);
