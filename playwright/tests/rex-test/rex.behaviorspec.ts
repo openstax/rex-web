@@ -145,6 +145,8 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
 
   const Edithighlight = new MHHighlights(page)
 
+  console.log(await Edithighlight.highlightlist())
+
   // THEN: MH page has all the highlights made in content page
   const MHhighlightcount = await Edithighlight.highlightCount()
   expect(MHhighlightcount).toBe(4)
@@ -184,4 +186,9 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await BookPage.openMHmodal()
   const MHhighlightcount1 = await Edithighlight.highlightCount()
   expect(MHhighlightcount1).toBe(3)
+
+
+  // const highlight_id = await BookPage.highlight_id(randomparanumber)
+  // const highlightColor = await BookPage.contentHighlightColor(highlight_id)
+  // expect(highlightColor).toBe('green')
 })

@@ -10,18 +10,21 @@ const config: PlaywrightTestConfig = {
       name: 'Desktop Chrome',
       use: {
         browserName: 'chromium',
+        viewport: { width: 1600, height: 1200 },
       },
     },
     {
       name: 'Desktop Firefox',
       use: {
         browserName: 'firefox',
+        viewport: { width: 1600, height: 1200 },
       },
     },
     {
       name: 'Desktop Safari',
       use: {
         browserName: 'webkit',
+        viewport: { width: 1600, height: 1200 },
       },
     },
     {

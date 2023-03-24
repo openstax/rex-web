@@ -37,6 +37,7 @@ class MHHighlights {
   saveDelete: Locator
   cancelDelete: Locator
   noteTextBox: Locator
+  highlightId: Locator
   page: Page
 
   constructor(page: Page) {
@@ -56,6 +57,7 @@ class MHHighlights {
     this.saveDelete = this.page.locator('[data-testid="delete"]')
     this.cancelDelete = this.page.locator('[data-testid="cancel"]')
     this.noteTextBox = this.page.locator('[aria-label="Enter note\\\'s text"]')
+    this.highlightId = this.page.locator('[class*="HighlightOuterWrapper"] div:nth-of-type(2) div')
   }
 
   async highlightCount() {
@@ -66,9 +68,20 @@ class MHHighlights {
   async highlightlist() {
     // List of highlights in MH
     const highlightList = []
+    const highlightId = []
     for (let i = 0; i < (await this.highlightCount()); i++) {
       highlightList.push(this.highlight.nth(i))
+      const paraLocatorString = this.highlight.nth(i).toString()
+      const paralocators = paraLocatorString.split('@')
+      const paralocator = paralocators[1]
+      const x = paralocator.split('>')
+      const highlight_id = await this.page.getAttribute(`${x[0]} div:nth-of-type(2) div`,'data-highlight-id',)
+      const y = Array.from(highlight_id)
+      highlightId.push(highlight_id)
+      const z = this.page.locator(highlight_id).locator(`nth=${i}`)
+      console.log(z)
     }
+    console.log(highlightList)
     return highlightList
   }
 
