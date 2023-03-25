@@ -145,7 +145,7 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
 
   const Edithighlight = new MHHighlights(page)
 
-  console.log(await Edithighlight.highlightlist())
+  console.log(await Edithighlight.highlightId())
 
   // THEN: MH page has all the highlights made in content page
   const MHhighlightcount = await Edithighlight.highlightCount()
