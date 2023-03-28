@@ -142,13 +142,7 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
 
   const Modal = new MHModal(page)
   await expect(Modal.MHModal).toBeVisible()
-
   const Edithighlight = new MHHighlights(page)
-
-  console.log(await Edithighlight.highlightId())
-  const x = await Edithighlight.highlightId()
-  console.log(x[1])
-  console.log(await Edithighlight.highlightColor(x[1]))
 
   // THEN: MH page has all the highlights made in content page
   const MHhighlightcount = await Edithighlight.highlightCount()
@@ -157,6 +151,10 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   // WHEN: Change a highlight color
   await Edithighlight.clickContextMenu(1)
   await Edithighlight.changeColor('purple')
+
+  // THEN: The highlight changes to purple
+  const highlightId = await Edithighlight.highlightIds()
+  expect(await Edithighlight.highlightColor(highlightId[1])).toBe('purple')
 
   // WHEN: Add note to a highlight and cancel
   await Edithighlight.addNote(randomstring())

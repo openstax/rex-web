@@ -39,7 +39,7 @@ class MHHighlights {
   noteTextBox: Locator
   page: Page
   highlightIdlocator: Locator
-  colorclass: Locator
+  colordiv: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -65,19 +65,17 @@ class MHHighlights {
     return await this.highlight.count()
   }
 
-  async highlightId() {
+  async highlightIds() {
     // List of highlight Ids in MH
 
-    const highlightId = []
+    const highlightIds = []
     for (let i = 0; i < (await this.highlightCount()); i++) {
       this.highlightIdlocator = (this.highlight.nth(i)).locator('div:nth-of-type(2) div')
-      const highlightIdlocatorString = this.highlightIdlocator.toString()
-      const highlightIdStrings = highlightIdlocatorString.split('@')
-      const highlightIdString = highlightIdStrings[1]
-      const highlight_id = await this.page.getAttribute(highlightIdString, 'data-highlight-id',)
-      highlightId.push(highlight_id)
+      const highlightIdlocatorString = (this.highlightIdlocator.toString()).split('@')
+      const highlight_id = await this.page.getAttribute(highlightIdlocatorString[1], 'data-highlight-id',)
+      highlightIds.push(highlight_id)
     }
-    return highlightId
+    return highlightIds
   }
 
   async clickContextMenu(n: number) {
@@ -143,18 +141,12 @@ class MHHighlights {
   }
 
   async highlightColor(highlight_id: string) {
-    // Return color of the highlighted content
-    // param: highlight_id - highlight id of the highlighted content
-    // this.colorclass =  this.page.locator("//div[contains(@class, 'content-excerpt')]")
-    this.colorclass =  this.page.locator(`//div[@data-highlight-id="${highlight_id}"]/..`)
-    console.log(this.colorclass)
-    console.log(await this.colorclass.count())
-    const highlightIdStrings = (this.colorclass.toString()).split('Locator@')
-    const highlightIdString = highlightIdStrings[1]
-  
-    const color = await this.page.getAttribute(highlightIdString, 'color')
-    console.log(color)
-    
+    // Return color of the highlight in the MH modal
+    // param: highlight_id - highlight id of the highlight in the MH modal
+    this.colordiv =  this.page.locator(`//div[@data-highlight-id="${highlight_id}"]/..`)
+    const colordivsplit = (this.colordiv.toString()).split('Locator@')[1]
+    const color = await this.page.getAttribute(colordivsplit, 'color')
+    return color
   }
 }
 
