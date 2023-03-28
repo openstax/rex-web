@@ -39,6 +39,7 @@ class MHHighlights {
   noteTextBox: Locator
   page: Page
   highlightIdlocator: Locator
+  colorclass: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -139,6 +140,21 @@ class MHHighlights {
     } else {
       this.cancelDelete.click()
     }
+  }
+
+  async highlightColor(highlight_id: string) {
+    // Return color of the highlighted content
+    // param: highlight_id - highlight id of the highlighted content
+    // this.colorclass =  this.page.locator("//div[contains(@class, 'content-excerpt')]")
+    this.colorclass =  this.page.locator(`//div[@data-highlight-id="${highlight_id}"]/..`)
+    console.log(this.colorclass)
+    console.log(await this.colorclass.count())
+    const highlightIdStrings = (this.colorclass.toString()).split('Locator@')
+    const highlightIdString = highlightIdStrings[1]
+  
+    const color = await this.page.getAttribute(highlightIdString, 'color')
+    console.log(color)
+    
   }
 }
 
