@@ -149,12 +149,12 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   expect(MHhighlightcount).toBe(4)
 
   // WHEN: Change a highlight color
-  await Edithighlight.clickContextMenu(1)
+  await Edithighlight.clickContextMenu(3)
   await Edithighlight.changeColor('purple')
 
   // THEN: The highlight changes to purple
   const highlightId = await Edithighlight.highlightIds()
-  expect(await Edithighlight.highlightColor(highlightId[1])).toBe('purple')
+  expect(await Edithighlight.highlightColor(highlightId[3])).toBe('purple')
 
   // WHEN: Add note to a highlight and cancel
   await Edithighlight.addNote(randomstring())
@@ -184,12 +184,10 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   // THEN: The MH modal is closed
   await expect(Modal.MHModal).toBeHidden()
 
+  const contentHighlightColor = await BookPage.contentHighlightColor(highlightId[3])
+  expect(contentHighlightColor).toBe('purple')
+
   await BookPage.openMHmodal()
   const MHhighlightcount1 = await Edithighlight.highlightCount()
   expect(MHhighlightcount1).toBe(3)
-
-
-  // const highlight_id = await BookPage.highlight_id(randomparanumber)
-  // const highlightColor = await BookPage.contentHighlightColor(highlight_id)
-  // expect(highlightColor).toBe('green')
 })
