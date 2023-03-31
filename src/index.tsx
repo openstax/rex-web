@@ -124,6 +124,10 @@ startMathJax();
 // load optimize
 loadOptimize(window, app.store);
 
+function cookiesBlocked(e: DOMException) {
+  return ['SecurityError', 'NotSupportedError'].includes(e.name);
+}
+
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
   .then((registration) => {
@@ -142,9 +146,12 @@ serviceWorker.register()
     }
   })
   .catch((e) => {
-    if (e as Error instanceof DOMException && e.name === 'SecurityError') {
+    if (cookiesBlocked(e)) {
       // They blocked cookies; ignore it
+      console.info('*** Ignoring SecurityError'); // tslint:disable-line:no-console
     } else {
+      console.info('*** Capturing security error'); // tslint:disable-line:no-console
+      console.dir(e); // tslint:disable-line:no-console
       Sentry.captureException(e);
     }
   });
