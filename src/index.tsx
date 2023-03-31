@@ -148,10 +148,7 @@ serviceWorker.register()
   .catch((e) => {
     if (cookiesBlocked(e)) {
       // They blocked cookies; ignore it
-      console.info('*** Ignoring SecurityError'); // tslint:disable-line:no-console
     } else {
-      console.info('*** Capturing security error'); // tslint:disable-line:no-console
-      console.dir(e); // tslint:disable-line:no-console
       Sentry.captureException(e);
     }
   });
