@@ -40,6 +40,8 @@ class MHHighlights {
   page: Page
   highlightIdlocator: Locator
   colordiv: Locator
+  noteIndicator: Locator
+  noteTextLocator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -70,9 +72,9 @@ class MHHighlights {
 
     const highlightIds = []
     for (let i = 0; i < (await this.highlightCount()); i++) {
-      this.highlightIdlocator = (this.highlight.nth(i)).locator('div:nth-of-type(2) div')
-      const highlightIdlocatorString = (this.highlightIdlocator.toString()).split('@')
-      const highlight_id = await this.page.getAttribute(highlightIdlocatorString[1], 'data-highlight-id',)
+      this.highlightIdlocator = this.highlight.nth(i).locator('div:nth-of-type(2) div')
+      const highlightIdlocatorString = this.highlightIdlocator.toString().split('@')
+      const highlight_id = await this.page.getAttribute(highlightIdlocatorString[1], 'data-highlight-id')
       highlightIds.push(highlight_id)
     }
     return highlightIds
@@ -143,10 +145,27 @@ class MHHighlights {
   async highlightColor(highlight_id: string) {
     // Return color of the highlight in the MH modal
     // param: highlight_id - highlight id of the highlight in the MH modal
-    this.colordiv =  this.page.locator(`//div[@data-highlight-id="${highlight_id}"]/..`)
-    const colordivsplit = (this.colordiv.toString()).split('Locator@')[1]
+    this.colordiv = this.page.locator(`//div[@data-highlight-id="${highlight_id}"]/..`)
+    const colordivsplit = this.colordiv.toString().split('Locator@')[1]
     const color = await this.page.getAttribute(colordivsplit, 'color')
     return color
+  }
+
+  async noteAttached(highlight_id: string) {
+    // Check if note is attached to a highlight
+    // param: highlight_id - highlight id of the highlight in the MH modal
+    // rtype: boolean
+    this.noteIndicator = this.page.locator(
+      `//div[@data-highlight-id="${highlight_id}"]/following-sibling::div/span[contains(text(), 'Note:')]`,
+    )
+    return this.noteIndicator.isVisible()
+  }
+
+  async noteText(highlight_id: string) {
+    // Return the text attached to the note of a highlight
+    // param: highlight_id - highlight id of the highlight in the MH modal
+    this.noteTextLocator = this.page.locator(`//div[@data-highlight-id="${highlight_id}"]/following-sibling::div/div`)
+    return this.noteTextLocator.textContent()
   }
 }
 

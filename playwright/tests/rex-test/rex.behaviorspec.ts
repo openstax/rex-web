@@ -160,22 +160,33 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await Edithighlight.addNote(randomstring())
   await Edithighlight.clickCancel()
 
+  // THEN: Note is not added to the highlight
+  expect(await Edithighlight.noteAttached(highlightId[3])).toBe(false)
+
   // WHEN: Add note to a highlight and save
+  const noteText = randomstring()
   await Edithighlight.clickContextMenu(0)
-  await Edithighlight.addNote(randomstring())
+  await Edithighlight.addNote(noteText)
   await Edithighlight.clickSave()
+
+  // THEN: Note is added to the highlight
+  expect(await Edithighlight.noteText(highlightId[0])).toBe(noteText)
 
   // WHEN: Edit note of a highlight and save
+  const apendNote = randomstring(8)
   await Edithighlight.clickContextMenu(0)
-  await Edithighlight.editNote(randomstring(8) + ' ')
+  await Edithighlight.editNote(apendNote + ' ')
   await Edithighlight.clickSave()
 
+  // THEN: Note is updated with new text
+  expect(await Edithighlight.noteText(highlightId[0])).toBe(apendNote + ' ' + noteText)
+
   // WHEN: Delete a highlight and cancel
-  await Edithighlight.clickContextMenu(0)
+  await Edithighlight.clickContextMenu(1)
   await Edithighlight.clickDeleteHighlight(Action.Cancel)
 
   // WHEN: Delete a highlight and cancel
-  await Edithighlight.clickContextMenu(0)
+  await Edithighlight.clickContextMenu(1)
   await Edithighlight.clickDeleteHighlight(Action.Delete)
 
   // WHEN: Close the MH modal using X icon
