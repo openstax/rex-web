@@ -1,4 +1,4 @@
-import { Element, EventListener, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import { Document, Element, EventListener, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
 import * as dom from '@openstax/types/lib.dom';
 import scrollToElement from 'scroll-to-element';
 import { receivePageFocus } from './actions';
@@ -146,8 +146,12 @@ export const elementIsVisibleInWindow = (element: Element) => {
   );
 };
 
-export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {
-  app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), focus);
+export const onPageFocusChange = (
+  focus: boolean,
+  document: Document,
+  app: {services: AppServices, store: Store}
+) => () => {
+  app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), document);
   app.store.dispatch(receivePageFocus(focus));
 };
 

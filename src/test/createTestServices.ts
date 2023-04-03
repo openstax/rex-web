@@ -16,7 +16,7 @@ import mockUserLoader from './mocks/userLoader';
 jest.mock('@openstax/open-search-client');
 jest.mock('@openstax/highlighter/dist/api');
 
-const services = () => ({
+export const createTestServices = () => ({
   analytics,
   archiveLoader: mockArchiveLoader(),
   bookConfigLoader: mockbookConfigLoader(),
@@ -35,4 +35,4 @@ const services = () => ({
   userLoader: mockUserLoader(),
 });
 
-export default services;
+export default createTestServices;
