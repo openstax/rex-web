@@ -185,14 +185,14 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await Edithighlight.clickContextMenu(1)
   await Edithighlight.clickDeleteHighlight(Action.Cancel)
 
-  // WHEN: Delete a highlight and cancel
+  // WHEN: Delete a highlight and save
   await Edithighlight.clickContextMenu(1)
   await Edithighlight.clickDeleteHighlight(Action.Delete)
 
   // WHEN: Close the MH modal using X icon
   await Modal.closeMHModal()
 
-  // THEN: The MH modal  is closed
+  // THEN: The MH modal is closed
   await expect(Modal.MHModal).toBeHidden()
 
   const contentHighlightColor = await BookPage.contentHighlightColor(highlightId[3])
