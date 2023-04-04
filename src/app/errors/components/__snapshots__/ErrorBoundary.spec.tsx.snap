@@ -20,7 +20,7 @@ Array [
         Object {
           "__html": "
   We're not quite sure what went wrong. Restart your browser. If this doesn't solve
-  the problem, visit our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a>.
+  the problem, visit our <a href=\\"https://help.openstax.org/s/\\" target=\\"_blank\\">Support Center</a>.
 ",
         }
       }
@@ -75,7 +75,7 @@ Array [
             </a>
             <a
               className="styled__FooterLink-y5hgq4-10 ZbGzz"
-              href="https://openstax.secure.force.com/help"
+              href="https://help.openstax.org/s/"
               rel="noopener"
               target="_blank"
             >
@@ -314,7 +314,7 @@ Array [
         Object {
           "__html": "
   We're not quite sure what went wrong. Restart your browser. If this doesn't solve
-  the problem, visit our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a>.
+  the problem, visit our <a href=\\"https://help.openstax.org/s/\\" target=\\"_blank\\">Support Center</a>.
 ",
         }
       }
@@ -369,7 +369,7 @@ Array [
             </a>
             <a
               className="styled__FooterLink-y5hgq4-10 ZbGzz"
-              href="https://openstax.secure.force.com/help"
+              href="https://help.openstax.org/s/"
               rel="noopener"
               target="_blank"
             >

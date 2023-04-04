@@ -63,7 +63,7 @@ exports[`ErrorModal matches snapshot 1`] = `
             Object {
               "__html": "
   We're not quite sure what went wrong. Restart your browser. If this doesn't solve
-  the problem, visit our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a>.
+  the problem, visit our <a href=\\"https://help.openstax.org/s/\\" target=\\"_blank\\">Support Center</a>.
 ",
             }
           }
@@ -151,7 +151,7 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
             Object {
               "__html": "
   We're not quite sure what went wrong. Restart your browser. If this doesn't solve
-  the problem, visit our <a href=\\"https://openstax.secure.force.com/help\\" target=\\"_blank\\">Support Center</a>.
+  the problem, visit our <a href=\\"https://help.openstax.org/s/\\" target=\\"_blank\\">Support Center</a>.
 ",
             }
           }
