@@ -368,7 +368,7 @@
     "dynamicStyles": false
   },
   "685e3163-1032-4529-bb3a-f97a54412704": {
-    "defaultVersion": "24fff1d",
+    "defaultVersion": "2f9976b",
     "dynamicStyles": false
   },
   "4c34671f-b057-4918-8796-38ca1b2f4151": {
@@ -388,5 +388,8 @@
   },
   "7193a423-3ad7-4ac6-98dd-90c70e4724b7": {
     "defaultVersion": "bdbbf93"
+  },
+  "685e3163-1032-4529-bb3a-f97a54407214": {
+    "defaultVersion": "2f9976b"
   }
 }
