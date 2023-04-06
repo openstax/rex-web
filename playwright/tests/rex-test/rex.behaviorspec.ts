@@ -142,7 +142,6 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
 
   const Modal = new MHModal(page)
   await expect(Modal.MHModal).toBeVisible()
-
   const Edithighlight = new MHHighlights(page)
 
   // THEN: MH page has all the highlights made in content page
@@ -150,29 +149,44 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   expect(MHhighlightcount).toBe(4)
 
   // WHEN: Change a highlight color
-  await Edithighlight.clickContextMenu(1)
+  await Edithighlight.clickContextMenu(3)
   await Edithighlight.changeColor('purple')
+
+  // THEN: The highlight changes to purple
+  const highlightId = await Edithighlight.highlightIds()
+  expect(await Edithighlight.highlightColor(highlightId[3])).toBe('purple')
 
   // WHEN: Add note to a highlight and cancel
   await Edithighlight.addNote(randomstring())
   await Edithighlight.clickCancel()
 
+  // THEN: Note is not added to the highlight
+  expect(await Edithighlight.noteAttached(highlightId[3])).toBe(false)
+
   // WHEN: Add note to a highlight and save
+  const noteText = randomstring()
   await Edithighlight.clickContextMenu(0)
-  await Edithighlight.addNote(randomstring())
+  await Edithighlight.addNote(noteText)
   await Edithighlight.clickSave()
+
+  // THEN: Note is added to the highlight
+  expect(await Edithighlight.noteText(highlightId[0])).toBe(noteText)
 
   // WHEN: Edit note of a highlight and save
+  const apendNote = randomstring(8)
   await Edithighlight.clickContextMenu(0)
-  await Edithighlight.editNote(randomstring(8) + ' ')
+  await Edithighlight.editNote(apendNote + ' ')
   await Edithighlight.clickSave()
 
-  // WHEN: Delete a highlight and cancel
-  await Edithighlight.clickContextMenu(0)
-  await Edithighlight.clickDeleteHighlight(Action.Cancel)
+  // THEN: Note is updated with new text
+  expect(await Edithighlight.noteText(highlightId[0])).toBe(apendNote + ' ' + noteText)
 
   // WHEN: Delete a highlight and cancel
-  await Edithighlight.clickContextMenu(0)
+  await Edithighlight.clickContextMenu(1)
+  await Edithighlight.clickDeleteHighlight(Action.Cancel)
+
+  // WHEN: Delete a highlight and save
+  await Edithighlight.clickContextMenu(1)
   await Edithighlight.clickDeleteHighlight(Action.Delete)
 
   // WHEN: Close the MH modal using X icon
@@ -180,6 +194,9 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
 
   // THEN: The MH modal is closed
   await expect(Modal.MHModal).toBeHidden()
+
+  const contentHighlightColor = await BookPage.contentHighlightColor(highlightId[3])
+  expect(contentHighlightColor).toBe('purple')
 
   await BookPage.openMHmodal()
   const MHhighlightcount1 = await Edithighlight.highlightCount()
