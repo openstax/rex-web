@@ -124,8 +124,8 @@ startMathJax();
 // load optimize
 loadOptimize(window, app.store);
 
-function cookiesBlocked(e: DOMException) {
-  return ['SecurityError', 'NotSupportedError'].includes(e.name);
+function cookiesBlocked(e: Error) {
+  return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
@@ -146,9 +146,7 @@ serviceWorker.register()
     }
   })
   .catch((e) => {
-    if (cookiesBlocked(e)) {
-      // They blocked cookies; ignore it
-    } else {
+    if (e instanceof Error && !cookiesBlocked(e)) {
       Sentry.captureException(e);
     }
   });
