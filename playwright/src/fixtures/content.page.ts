@@ -17,6 +17,9 @@ class ContentPage {
   next: Locator
   MHbodyLoaded: Locator
   contentHighlightsLoaded: Locator
+  noteTextBox: Locator
+  saveNote: Locator
+  cancelNote: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -32,6 +35,9 @@ class ContentPage {
     this.body = this.page.locator('[class*="page-content"]')
     this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
     this.contentHighlightsLoaded = this.page.locator('[class*="HighlightsWrapper"]')
+    this.noteTextBox = this.page.locator('textarea')
+    this.saveNote = this.page.locator('[data-testid="save"]')
+    this.cancelNote = this.page.locator('[data-testid="cancel"]')
   }
 
   async open(path: string) {
@@ -98,6 +104,12 @@ class ContentPage {
     await this.CloseNoteCard()
   }
 
+  async clickHighlight(n: number) {
+    // Click on a highlight
+    // param: n - nth highlight on the content page
+    this.highlight.nth(n).click()
+  }
+
   async highlightCount() {
     // Total number of highlights in a page
     const highlightcount = await this.highlight.count()
@@ -130,6 +142,19 @@ class ContentPage {
           return contentcolor
         }
       }
+    }
+  }
+
+  async addnote(note: string) {
+    await this.noteTextBox.click()
+    await this.noteTextBox.type(note)
+  }
+
+  async noteConfirmDialog(confirm: Actions){
+    if (confirm == 'save') {
+      this.saveNote.click()
+    } else {
+      this.cancelNote.click()
     }
   }
 
@@ -179,4 +204,10 @@ class ContentPage {
   }
 }
 
-export { ContentPage }
+
+enum Actions {
+  Save = 'save',
+  Cancel = 'cancel',
+}
+
+export { ContentPage, Actions }
