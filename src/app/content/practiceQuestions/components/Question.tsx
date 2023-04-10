@@ -31,7 +31,6 @@ export const QuestionContent = styled(React.forwardRef((props, ref) => <div tabI
   ${h4Style}
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
-  padding: 0;
   overflow: initial;
   outline: none;
 `;

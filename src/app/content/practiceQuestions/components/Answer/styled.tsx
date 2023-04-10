@@ -20,12 +20,12 @@ export const AnswerExcerpt = styled.span`
 export const AnswerAlignment = styled.div`
   display: flex;
   align-items: center;
-  min-height: 4rem;
   flex: 1;
 `;
 
 // tslint:disable-next-line: variable-name
 export const AnswerContent = styled.div`
+  min-height: 4rem;
   margin-left: 1.6rem;
   overflow: initial;
 `;
