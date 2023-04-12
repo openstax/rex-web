@@ -10,7 +10,11 @@ describe('createNote event', () => {
   describe('ga', () => {
     it('reports color in action', () => {
       const page = {id: 'pageid'} as Page;
-      const event = track({pathname: 'asdf', book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book, page}, note, {isDefaultColor: false});
+      const event = track({
+        pathname: 'asdf',
+        book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book,
+        page
+      }, note, {isDefaultColor: false});
 
       if (!event || !event.getGoogleAnalyticsPayload) {
         return expect(false).toBeTruthy();
@@ -23,7 +27,11 @@ describe('createNote event', () => {
 
     it('reports color as "Default" if isDefaultColor is set', () => {
       const page = {id: 'pageid'} as Page;
-      const event = track({pathname: 'asdf', book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book, page}, note, {isDefaultColor: true});
+      const event = track({
+        pathname: 'asdf',
+        book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book,
+        page
+      }, note, {isDefaultColor: true});
 
       if (!event || !event.getGoogleAnalyticsPayload) {
         return expect(false).toBeTruthy();

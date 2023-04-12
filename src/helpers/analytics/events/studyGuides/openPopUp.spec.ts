@@ -6,7 +6,16 @@ describe('open study guide popup', () => {
   describe('creates event capture payload', () => {
     it('reports referrer', () => {
       const page = {id: 'pageid'} as Page;
-      const result = track({pathname: 'asdf', book: {id: 'bookid', contentVersion: '123', archiveVersion: '456', tree: {id: 'bookid', contents: [page]}} as unknown as Book, page}, 'button');
+      const result = track({
+        pathname: 'asdf',
+        book: {
+          id: 'bookid',
+          contentVersion: '123',
+          archiveVersion: '456',
+          tree: {id: 'bookid', contents: [page]}
+        } as unknown as Book,
+        page
+      }, 'button');
       const factory = jest.spyOn(events, 'accessedStudyguide');
 
       if (!result) {

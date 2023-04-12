@@ -22,7 +22,7 @@ const getElementStruct = <K extends string>(name: K, element: HTMLElement) => ({
 export const track = (
   {book, page}: ReturnType<typeof selector>,
   element: HTMLElement,
-  stateChange?: string,
+  stateChange?: string
 ): AnalyticsEvent | void => {
   const contextRegion = getAnalyticsRegion(element) || undefined;
   const contextElement = element.parentElement && findFirstAncestorOrSelf(element.parentElement, (search) =>

@@ -135,7 +135,7 @@ export const getPageIndex = (
     if (pages[index].id === pageId) {
       return index;
     }
-  };
+  }
 };
 
 export const getPrevNext = (

@@ -18,7 +18,7 @@ export const selector = createSelector(
 );
 
 export const track = (
-  {pathname, book, page}: ReturnType<typeof selector>,
+  {pathname, book, page}: ReturnType<typeof selector>
 ): AnalyticsEvent | void => {
   const getGoogleAnalyticsPayload = () => ({
     eventAction: 'unload',
@@ -40,5 +40,5 @@ export const track = (
       },
     }),
     getGoogleAnalyticsPayload,
-  }: { getGoogleAnalyticsPayload };
+  } : { getGoogleAnalyticsPayload };
 };

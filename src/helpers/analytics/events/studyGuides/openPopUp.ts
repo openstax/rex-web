@@ -32,7 +32,7 @@ export const track = (
           contentVersion: book.contentVersion,
           contextVersion: book.archiveVersion,
           scopeId: book.id,
-        }
+        },
       }),
     } : {}),
     getGoogleAnalyticsPayload: () => ({

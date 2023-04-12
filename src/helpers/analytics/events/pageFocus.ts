@@ -9,7 +9,7 @@ export const selector = (_state: AppState) => ({});
 
 export const track = (
   {book, page}: ReturnType<typeof selectContent.bookAndPage>,
-  document: Document,
+  document: Document
 ): AnalyticsEvent | void => {
   const focus = document.hasFocus();
   const visible = document.visibilityState === 'visible';
