@@ -1,13 +1,14 @@
 import { stateChange } from '@openstax/event-capture-client/events';
 import { Document } from '@openstax/types/lib.dom';
+import * as selectContent from '../../../app/content/selectors';
 import { AppState } from '../../../app/types';
 import { AnalyticsEvent } from './event';
 
 export const selector = (_state: AppState) => ({});
 
 export const track = (
-  _: ReturnType<typeof selector>,
-  document: Document
+  {book, page}: ReturnType<typeof selectContent.bookAndPage>,
+  document: Document,
 ): AnalyticsEvent | void => {
   const focus = document.hasFocus();
   const visible = document.visibilityState === 'visible';
@@ -19,10 +20,17 @@ export const track = (
       : 'background'
   ;
 
-  return {
+  return book && page ? {
     getEventCapturePayload: () => stateChange({
       current,
       stateType: 'visibility',
+      sourceMetadata: {
+        contentId: page.id,
+        //contentIndex: '', TODO: FIXME
+        contentVersion: book.contentVersion,
+        contextVersion: book.archiveVersion,
+        scopeId: book.id,
+      },
     }),
-  };
+  } : {};
 };

@@ -22,7 +22,17 @@ export const track = (
 ): AnalyticsEvent | void => {
   return {
     ...(page && book ? {
-      getEventCapturePayload: () => accessedStudyguide({pageId: page.id, bookId: book.id}),
+      getEventCapturePayload: () => accessedStudyguide({
+        pageId: page.id,
+        bookId: book.id,
+        sourceMetadata: {
+          contentId: page.id,
+          //contentIndex: '', TODO: FIXME
+          contentVersion: book.contentVersion,
+          contextVersion: book.archiveVersion,
+          scopeId: book.id,
+        }
+      }),
     } : {}),
     getGoogleAnalyticsPayload: () => ({
       eventAction: openMethod as string,
