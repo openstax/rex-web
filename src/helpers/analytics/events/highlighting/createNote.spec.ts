@@ -1,4 +1,5 @@
 import { NewHighlightPayload } from '../../../../app/content/highlights/types';
+import { Book, Page } from '../../../../app/content/types';
 import { track } from './createNote';
 
 const note = {
@@ -8,7 +9,8 @@ const note = {
 describe('createNote event', () => {
   describe('ga', () => {
     it('reports color in action', () => {
-      const event = track({pathname: 'asdf'}, note, {isDefaultColor: false});
+      const page = {id: 'pageid'} as Page;
+      const event = track({pathname: 'asdf', book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book, page}, note, {isDefaultColor: false});
 
       if (!event || !event.getGoogleAnalyticsPayload) {
         return expect(false).toBeTruthy();
@@ -20,7 +22,8 @@ describe('createNote event', () => {
     });
 
     it('reports color as "Default" if isDefaultColor is set', () => {
-      const event = track({pathname: 'asdf'}, note, {isDefaultColor: true});
+      const page = {id: 'pageid'} as Page;
+      const event = track({pathname: 'asdf', book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book, page}, note, {isDefaultColor: true});
 
       if (!event || !event.getGoogleAnalyticsPayload) {
         return expect(false).toBeTruthy();

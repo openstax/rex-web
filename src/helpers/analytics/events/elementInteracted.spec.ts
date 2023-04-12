@@ -1,3 +1,4 @@
+import { Book, Page } from '../../../app/content/types';
 import { assertDocument } from '../../../app/utils';
 import { track } from './elementInteracted';
 
@@ -11,7 +12,8 @@ describe('elementInteracted', () => {
     parent.setAttribute('id', 'foo');
     parent.setAttribute('random-attribute', 'random-value');
     parent.append(anchor);
-    const result = track({}, anchor);
+    const page = {id: 'pageid'} as Page;
+    const result = track({book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book, page}, anchor);
 
     if (!result) {
       return expect(result).toBeTruthy();
