@@ -1,6 +1,7 @@
 import { stateChange } from '@openstax/event-capture-client/events';
 import { Document } from '@openstax/types/lib.dom';
 import * as selectContent from '../../../app/content/selectors';
+import * as archiveTreeUtils from '../../../app/content/utils/archiveTreeUtils';
 import { AppState } from '../../../app/types';
 import { AnalyticsEvent } from './event';
 
@@ -26,7 +27,7 @@ export const track = (
       stateType: 'visibility',
       sourceMetadata: {
         contentId: page.id,
-        //contentIndex: '', TODO: FIXME
+        contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id)?.toString(),
         contentVersion: book.contentVersion,
         contextVersion: book.archiveVersion,
         scopeId: book.id,

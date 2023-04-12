@@ -1,6 +1,7 @@
 import { accessedStudyguide } from '@openstax/event-capture-client/events';
 import { createSelector } from 'reselect';
 import * as selectContent from '../../../../app/content/selectors';
+import * as archiveTreeUtils from '../../../../app/content/utils/archiveTreeUtils';
 import * as selectNavigation from '../../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
@@ -27,7 +28,7 @@ export const track = (
         bookId: book.id,
         sourceMetadata: {
           contentId: page.id,
-          //contentIndex: '', TODO: FIXME
+          contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id)?.toString(),
           contentVersion: book.contentVersion,
           contextVersion: book.archiveVersion,
           scopeId: book.id,

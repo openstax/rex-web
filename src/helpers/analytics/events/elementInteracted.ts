@@ -2,6 +2,7 @@ import { interacted } from '@openstax/event-capture-client/events';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { findFirstAncestorOrSelf } from '../../../app/domUtils';
 import * as selectContent from '../../../app/content/selectors';
+import * as archiveTreeUtils from '../../../app/content/utils/archiveTreeUtils';
 import { AnalyticsEvent, getAnalyticsRegion } from './event';
 
 // helper for ts to figure out the dynamic key names
@@ -34,7 +35,7 @@ export const track = (
       contextStateChange: stateChange,
       sourceMetadata: {
         contentId: page.id,
-        //contentIndex: '', TODO: FIXME
+        contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id)?.toString(),
         contentVersion: book.contentVersion,
         contextVersion: book.archiveVersion,
         scopeId: book.id,

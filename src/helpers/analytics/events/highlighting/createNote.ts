@@ -2,6 +2,7 @@ import { createdHighlight } from '@openstax/event-capture-client/events';
 import { createSelector } from 'reselect';
 import { NewHighlightPayload } from '../../../../app/content/highlights/types';
 import * as selectContent from '../../../../app/content/selectors';
+import * as archiveTreeUtils from '../../../../app/content/utils/archiveTreeUtils';
 import * as selectNavigation from '../../../../app/navigation/selectors';
 import { AnalyticsEvent } from '../event';
 
@@ -36,7 +37,7 @@ export const track = (
       locationStrategies: JSON.stringify(highlight.locationStrategies),
       sourceMetadata: {
         contentId: page.id,
-        //contentIndex: '', TODO: FIXME
+        contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id)?.toString(),
         contentVersion: book.contentVersion,
         contextVersion: book.archiveVersion,
         scopeId: book.id,
