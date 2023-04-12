@@ -14,7 +14,7 @@ describe('open study guide popup', () => {
           archiveVersion: '456',
           tree: {id: 'bookid', contents: [page]},
         } as unknown as Book,
-        page
+        page,
       }, 'button');
       const factory = jest.spyOn(events, 'accessedStudyguide');
 
