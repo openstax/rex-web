@@ -5,6 +5,8 @@ import * as selectContent from '../../../app/content/selectors';
 import * as archiveTreeUtils from '../../../app/content/utils/archiveTreeUtils';
 import { AnalyticsEvent, getAnalyticsRegion } from './event';
 
+export const selector = selectContent.bookAndPage;
+
 // helper for ts to figure out the dynamic key names
 const record = <K extends string, V>(key: K, value: V) => ({[key]: value}) as Record<K, V>;
 
@@ -18,7 +20,7 @@ const getElementStruct = <K extends string>(name: K, element: HTMLElement) => ({
 });
 
 export const track = (
-  {book, page}: ReturnType<typeof selectContent.bookAndPage>,
+  {book, page}: ReturnType<typeof selector>,
   element: HTMLElement,
   stateChange?: string,
 ): AnalyticsEvent | void => {
