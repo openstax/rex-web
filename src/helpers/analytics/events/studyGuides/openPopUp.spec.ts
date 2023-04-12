@@ -12,7 +12,7 @@ describe('open study guide popup', () => {
           id: 'bookid',
           contentVersion: '123',
           archiveVersion: '456',
-          tree: {id: 'bookid', contents: [page]}
+          tree: {id: 'bookid', contents: [page]},
         } as unknown as Book,
         page
       }, 'button');
@@ -40,7 +40,11 @@ describe('open study guide popup', () => {
     });
 
     it('but not if book is unavailable', () => {
-      const result = track({pathname: 'asdf', book: undefined, page: {id: 'pageid'} as Page}, 'button');
+      const result = track({
+        pathname: 'asdf',
+        book: undefined,
+        page: {id: 'pageid'} as Page,
+      }, 'button');
 
       if (!result) {
         return expect(result).toBeTruthy();
@@ -50,7 +54,11 @@ describe('open study guide popup', () => {
     });
 
     it('but not if page is unavailable', () => {
-      const result = track({pathname: 'asdf', book: { id: 'bookid', tree: [] } as unknown as Book, page: undefined}, 'button');
+      const result = track({
+        pathname: 'asdf',
+        book: { id: 'bookid', tree: [] } as unknown as Book,
+        page: undefined,
+      }, 'button');
 
       if (!result) {
         return expect(result).toBeTruthy();

@@ -11,7 +11,7 @@ describe('unload', () => {
       const result = track({
         pathname,
         book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book,
-        page
+        page,
       });
       if (!result) {
         return expect(result).toBeTruthy();

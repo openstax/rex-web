@@ -13,7 +13,7 @@ describe('createNote event', () => {
       const event = track({
         pathname: 'asdf',
         book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book,
-        page
+        page,
       }, note, {isDefaultColor: false});
 
       if (!event || !event.getGoogleAnalyticsPayload) {
@@ -30,7 +30,7 @@ describe('createNote event', () => {
       const event = track({
         pathname: 'asdf',
         book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book,
-        page
+        page,
       }, note, {isDefaultColor: true});
 
       if (!event || !event.getGoogleAnalyticsPayload) {

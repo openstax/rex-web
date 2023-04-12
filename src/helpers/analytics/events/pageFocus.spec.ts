@@ -8,7 +8,7 @@ describe('elementInteracted', () => {
     const page = {id: 'pageid'} as Page;
     const result = track({
       book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book,
-      page
+      page,
     }, {hasFocus: () => false, visibilityState: 'visible'} as any) as AnalyticsEvent | undefined;
     const payload = result?.getEventCapturePayload?.()();
 
@@ -21,7 +21,7 @@ describe('elementInteracted', () => {
     const page = {id: 'pageid'} as Page;
     const result = track({
       book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book,
-      page
+      page,
     }, {hasFocus: () => false, visibilityState: 'hidden'} as any) as AnalyticsEvent | undefined;
     const payload = result?.getEventCapturePayload?.()();
 
@@ -34,7 +34,7 @@ describe('elementInteracted', () => {
     const page = {id: 'pageid'} as Page;
     const result = track({
       book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book,
-      page
+      page,
     }, {hasFocus: () => true, visibilityState: 'visible'} as any) as AnalyticsEvent | undefined;
     const payload = result?.getEventCapturePayload?.()();
 
