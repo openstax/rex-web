@@ -40,17 +40,17 @@ describe('navigation middleware', () => {
     const dispatch = jest.fn((_: AnyAction) => undefined);
     const getState = jest.fn(() => ({ ...initialState, navigation: { query: {} } }));
 
-    const pushSpy = jest.spyOn(history, 'push');
-    pushSpy.mockImplementation(() => null);
+    const replaceSpy = jest.spyOn(history, 'replace');
+    replaceSpy.mockImplementation(() => null);
 
     middleware([], history)({dispatch, getState})(next)(actions.callHistoryMethod({
-      method: 'push',
+      method: 'replace',
       params: {},
       route: routes[0],
       state: {},
     }));
 
-    expect(pushSpy).toHaveBeenCalled();
+    expect(replaceSpy).toHaveBeenCalled();
     expect(next).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
   });
