@@ -16,6 +16,7 @@ import {
   getArchiveTreeSectionNumber,
   getArchiveTreeSectionTitle,
   getArchiveTreeSectionType,
+  getPageIndex,
   getTitleStringFromArchiveNode,
   nodeHasId,
   splitTitleParts,
@@ -91,6 +92,15 @@ describe('findArchiveTreeNodeByPageParam', () => {
     }
 
     expect(foundNode.id).toEqual(pageToFind.id);
+  });
+});
+
+describe('getPageIndex', () => {
+  it('returns the page number in the flattened archive tree', () => {
+    const page1 = { id: 'page-1', title: 'Page 1', slug: 'page-1' };
+    const page2 = { id: 'page-2', title: 'Page 2', slug: 'page-2' };
+    const tree = {id: 'book', title: 'Book', slug: 'book', contents: [page1, page2]};
+    expect(getPageIndex(tree, page2.id)).toBe(1);
   });
 });
 

@@ -42,4 +42,16 @@ describe('createNote event', () => {
       expect(payload.eventAction).toEqual('default');
     });
   });
+
+  describe('no content', () => {
+    it('has no event capture payload', () => {
+      const event = track({ pathname: 'asdf', book: undefined, page: undefined }, note, {isDefaultColor: true});
+
+      if (!event || !event.getGoogleAnalyticsPayload) {
+        return expect(false).toBeTruthy();
+      }
+
+      expect(event.getEventCapturePayload).toBeUndefined();
+    });
+  });
 });

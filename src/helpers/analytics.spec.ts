@@ -1,6 +1,8 @@
 import { Document } from '@openstax/types/lib.dom';
 import { assertWindow } from '../app/utils';
+import { receiveBook, receivePage } from '../app/content/actions';
 import createTestStore from '../test/createTestStore';
+import { book, page } from '../test/mocks/archiveLoader';
 import analytics, { registerGlobalAnalytics } from './analytics';
 
 const makeEvent = (doc: Document) => {
@@ -13,6 +15,8 @@ describe('registerGlobalAnalytics', () => {
   const window = assertWindow();
   const document = window.document;
   const store = createTestStore();
+  store.dispatch(receiveBook(book));
+  store.dispatch(receivePage({...page, references: []}));
   let clickLink: jest.SpyInstance;
   let clickButton: jest.SpyInstance;
   let print: jest.SpyInstance;

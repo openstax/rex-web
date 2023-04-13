@@ -4,7 +4,6 @@ import { track } from './unload';
 const pathname = '/some/path';
 
 describe('unload', () => {
-
   describe('google analytics', () => {
     it('tracks unload', () => {
       const page = {id: 'pageid'} as Page;
@@ -24,6 +23,18 @@ describe('unload', () => {
         eventLabel: pathname,
         nonInteraction: true,
       });
+    });
+  });
+
+  describe('no content', () => {
+    it('has no event capture payload', () => {
+      const event = track({ pathname: 'asdf', book: undefined, page: undefined });
+
+      if (!event || !event.getGoogleAnalyticsPayload) {
+        return expect(false).toBeTruthy();
+      }
+
+      expect(event.getEventCapturePayload).toBeUndefined();
     });
   });
 });

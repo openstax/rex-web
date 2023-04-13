@@ -29,4 +29,17 @@ describe('elementInteracted', () => {
     expect(payload.context_attributes['random-attribute']).toBe('random-value');
     expect(payload.context_type).toBe('DIV');
   });
+
+  describe('no content', () => {
+    it('has no event capture payload', () => {
+      const anchor = document.createElement('a');
+      const event = track({ book: undefined, page: undefined }, anchor);
+
+      if (!event) {
+        return expect(event).toBeTruthy();
+      }
+
+      expect(event.getEventCapturePayload).toBeUndefined();
+    });
+  });
 });
