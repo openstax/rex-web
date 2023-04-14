@@ -129,13 +129,8 @@ export const getPageIndex = (
   tree: ArchiveTree,
   pageId: string
 ): number | undefined => {
-  const pages = findTreePages(tree);
-
-  for (let index = 0; index < pages.length; index++) {
-    if (pages[index].id === pageId) {
-      return index;
-    }
-  }
+  const index = findTreePages(tree).findIndex((page) => page.id === pageId);
+  return index === -1 ? undefined : index;
 };
 
 export const getPrevNext = (
