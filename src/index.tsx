@@ -124,6 +124,10 @@ startMathJax();
 // load optimize
 loadOptimize(window, app.store);
 
+function cookiesBlocked(e: Error) {
+  return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
+}
+
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
   .then((registration) => {
@@ -142,5 +146,7 @@ serviceWorker.register()
     }
   })
   .catch((e) => {
-    Sentry.captureException(e);
+    if (e instanceof Error && !cookiesBlocked(e)) {
+      Sentry.captureException(e);
+    }
   });
