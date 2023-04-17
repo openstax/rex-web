@@ -129,7 +129,7 @@ export const getPageIndex = (
   tree: ArchiveTree,
   pageId: string
 ): number | undefined => {
-  const index = findTreePages(tree).findIndex((page) => page.id === pageId);
+  const index = findTreePages(tree).findIndex(nodeMatcher(pageId));
   return index === -1 ? undefined : index;
 };
 
