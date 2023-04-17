@@ -222,36 +222,20 @@ test('note in content page', async ({ page, isMobile }) => {
   const randomparanumber = randomNum(await paracount)
   await BookPage.highlightText('green', randomparanumber)
 
-  // AND: Add note to the highlight
-  await BookPage.clickHighlight(0)
-
-
-
-
-  // Add note
-  // Click textarea
-  await page.locator('textarea').click();
-
+  // AND: Add note to the highlight and save
   const noteText = randomstring()
-  await BookPage.addnote(noteText)
-  await BookPage.noteConfirmDialog()
-
-  // Fill textarea
-  await page.locator('textarea').fill('gfdcbv');
-  // Click [data-testid="save"]
-  await page.locator('[data-testid="save"]').click();
-
-
   await BookPage.clickHighlight(0)
-  // Click [data-testid="card"] button
-  await page.locator('[data-testid="card"] button').click();
-  // Click [data-testid="card"] >> text=Edit
-  await page.locator('[data-testid="card"] >> text=Edit').click();
-  // Click text=gfdcbv
-  await page.locator('text=gfdcbv').click();
-  // Fill text=gfdcbv
-  await page.locator('text=gfdcbv').fill('gfdcbv hdgcb');
-  // Click [data-testid="save"]
-  await page.locator('[data-testid="save"]').click();
+  await BookPage.addnote(noteText)
+  await BookPage.noteConfirmDialog(Actions.Save)
+
+
+// AND: Edit note to the highlight and save
+  const editnoteText = randomstring()
+  await BookPage.clickContextMenu(0)
+  await BookPage.editHighlight()
+
+  await BookPage.editNote(editnoteText)
+  await BookPage.noteConfirmDialog(Actions.Save)
+  expect(await BookPage.noteText()).toBe(noteText + editnoteText)
 
 })

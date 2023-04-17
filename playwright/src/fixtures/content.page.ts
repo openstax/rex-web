@@ -20,6 +20,9 @@ class ContentPage {
   noteTextBox: Locator
   saveNote: Locator
   cancelNote: Locator
+  contextMenu: Locator
+  editHighlightLocator: Locator
+  noteTextLocator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -38,6 +41,9 @@ class ContentPage {
     this.noteTextBox = this.page.locator('textarea')
     this.saveNote = this.page.locator('[data-testid="save"]')
     this.cancelNote = this.page.locator('[data-testid="cancel"]')
+    this.contextMenu = this.page.locator('[class*=MenuToggle]')
+    this.editHighlightLocator = this.page.locator('[data-testid="card"] >> text=Edit')
+    this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
   }
 
   async open(path: string) {
@@ -110,6 +116,20 @@ class ContentPage {
     this.highlight.nth(n).click()
   }
 
+  async clickContextMenu(n: number) {
+    // Click on a highlight
+    // param: n - nth highlight on the content page
+    this.highlight.nth(n).click()
+    this.contextMenu.click()
+  }
+
+  async editHighlight() {
+    // Click on a highlight
+    // param: n - nth highlight on the content page
+  
+    this.editHighlightLocator.click()
+  }
+
   async highlightCount() {
     // Total number of highlights in a page
     const highlightcount = await this.highlight.count()
@@ -150,12 +170,22 @@ class ContentPage {
     await this.noteTextBox.type(note)
   }
 
+  async editNote(note: string) {
+    await this.noteTextBox.click()
+    await this.page.keyboard.press('End')
+    await this.noteTextBox.type(note)
+  }
+
   async noteConfirmDialog(confirm: Actions){
     if (confirm == 'save') {
       this.saveNote.click()
     } else {
       this.cancelNote.click()
     }
+  }
+
+  async noteText(){
+    return this.noteTextLocator.textContent()
   }
 
   async clickNext() {
