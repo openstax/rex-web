@@ -32,7 +32,6 @@ export const track = (
   return book && page ? {
     getEventCapturePayload: () => createdHighlight({
       ...highlight,
-      annotation: highlight.annotation || '',
       highlightId: highlight.id,
       locationStrategies: JSON.stringify(highlight.locationStrategies),
       sourceMetadata: {
