@@ -170,14 +170,11 @@ class ContentPage {
   }
 
   async addnote(note: string) {
-    console.log(await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')]))
     await this.noteTextBox.click()
     await this.noteTextBox.type(note)
-    // await Promise.all([this.MHbodyLoaded.waitFor()])
   }
 
   async editNote(note: string) {
-    console.log(await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')]))
     await this.noteTextBox.click()
     await this.noteTextBox.focus()
     var i: number
@@ -185,7 +182,6 @@ class ContentPage {
       await this.page.keyboard.press('ArrowLeft')
     }
     await this.noteTextBox.type(note)
-    // await Promise.all([this.MHbodyLoaded.waitFor()])
   }
 
   async noteConfirmDialog(confirm: Actions){
@@ -194,12 +190,7 @@ class ContentPage {
     } else {
       this.cancelNote.click()
     }
-    // expect(await this.noteEditCard.isHidden()).toBe(true)
-    // await Promise.all([await this.noteEditCard.isVisible()])
-    // await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')])
-    sleep(5)
-    console.log(await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')]))
-    await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')])
+    await this.noteEditCard.waitFor({state: 'hidden'})
   }
 
   async noteText(){

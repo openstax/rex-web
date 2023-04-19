@@ -227,7 +227,6 @@ test('note in content page', async ({ page, isMobile }) => {
   await BookPage.clickHighlight(0)
   await BookPage.addnote(noteText)
   await BookPage.noteConfirmDialog(Actions.Save)
-  // expect(await BookPage.noteEditCard.isHidden()).toBe(true)
 
 
 // AND: Edit note to the highlight and save
@@ -238,6 +237,5 @@ test('note in content page', async ({ page, isMobile }) => {
   await BookPage.editNote(editnoteText)
   await BookPage.noteConfirmDialog(Actions.Save)
   expect(await BookPage.noteText()).toBe(editnoteText + noteText)
-  // expect(BookPage.saveNote.isHidden)
 
 })
