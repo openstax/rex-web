@@ -1,5 +1,7 @@
 // Content page locators and functions
+import { expect } from '@playwright/test'
 import { Locator, Page } from 'playwright'
+import { sleep } from '../utilities/utilities'
 
 class ContentPage {
   colorlocator: any
@@ -23,6 +25,7 @@ class ContentPage {
   contextMenu: Locator
   editHighlightLocator: Locator
   noteTextLocator: Locator
+  noteEditCard: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -44,6 +47,7 @@ class ContentPage {
     this.contextMenu = this.page.locator('[class*=MenuToggle]')
     this.editHighlightLocator = this.page.locator('[data-testid="card"] >> text=Edit')
     this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
+    this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
   }
 
   async open(path: string) {
@@ -166,14 +170,22 @@ class ContentPage {
   }
 
   async addnote(note: string) {
+    console.log(await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')]))
     await this.noteTextBox.click()
     await this.noteTextBox.type(note)
+    // await Promise.all([this.MHbodyLoaded.waitFor()])
   }
 
   async editNote(note: string) {
+    console.log(await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')]))
     await this.noteTextBox.click()
-    await this.page.keyboard.press('End')
+    await this.noteTextBox.focus()
+    var i: number
+    for (i=0; i < note.length; i++) {
+      await this.page.keyboard.press('ArrowLeft')
+    }
     await this.noteTextBox.type(note)
+    // await Promise.all([this.MHbodyLoaded.waitFor()])
   }
 
   async noteConfirmDialog(confirm: Actions){
@@ -182,6 +194,12 @@ class ContentPage {
     } else {
       this.cancelNote.click()
     }
+    // expect(await this.noteEditCard.isHidden()).toBe(true)
+    // await Promise.all([await this.noteEditCard.isVisible()])
+    // await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')])
+    sleep(5)
+    console.log(await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')]))
+    await Promise.all([this.page.isVisible('form[data-analytics-region="edit-note"]')])
   }
 
   async noteText(){
