@@ -1,6 +1,7 @@
 {
   "activities":{
     "reading":{
+      "icon":{"url":"/rex/icons/reading.svg"},
       "launch":{"url":"/apps/rex/assigned/:id","navigation":true,"xapi":false},
       "objectIRI":"https://openstax.org/orn/reading/:id",
       "objectTypeIRI":"http://id.tincanapi.com/activitytype/school-assignment"
