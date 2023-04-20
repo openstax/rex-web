@@ -1,6 +1,5 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
-import { sleep } from '../utilities/utilities'
 
 class ContentPage {
   colorlocator: any
