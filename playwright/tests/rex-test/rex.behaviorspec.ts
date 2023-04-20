@@ -204,7 +204,6 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   expect(MHhighlightcount1).toBe(3)
 })
 
-
 test('note in content page', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'test only desktop resolution')
 
@@ -225,9 +224,8 @@ test('note in content page', async ({ page, isMobile }) => {
   // AND: Add note to the highlight and save
   const noteText = randomstring()
   await BookPage.clickHighlight(0)
-  await BookPage.addnote(noteText)
+  await BookPage.addNote(noteText)
   await BookPage.noteConfirmDialog(Actions.Save)
-
 
   // AND: Edit note to the highlight and save
   const editnoteText = randomstring()
@@ -236,5 +234,4 @@ test('note in content page', async ({ page, isMobile }) => {
   await BookPage.editNote(editnoteText)
   await BookPage.noteConfirmDialog(Actions.Save)
   expect(await BookPage.noteText()).toBe(editnoteText + noteText)
-
 })

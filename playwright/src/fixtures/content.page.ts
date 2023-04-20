@@ -1,5 +1,4 @@
 // Content page locators and functions
-import { expect } from '@playwright/test'
 import { Locator, Page } from 'playwright'
 import { sleep } from '../utilities/utilities'
 
@@ -167,7 +166,7 @@ class ContentPage {
     }
   }
 
-  async addnote(note: string) {
+  async addNote(note: string) {
     // Add note to a highlight
     // param: note - text to be added as annotation
     await this.noteTextBox.click()
@@ -179,14 +178,14 @@ class ContentPage {
     // param: note - text to be appeneded as annotation
     await this.noteTextBox.click()
     await this.noteTextBox.focus()
-    var i: number
-    for (i=0; i < note.length; i++) {
+    let i: number
+    for (i = 0; i < note.length; i++) {
       await this.page.keyboard.press('ArrowLeft')
     }
     await this.noteTextBox.type(note)
   }
 
-  async noteConfirmDialog(confirm: Actions){
+  async noteConfirmDialog(confirm: Actions) {
     // Save or Cancel the note added in notebox
     // param: confirm - option to be selected in the Note Confirmation box
     // param values: - save or cancel set in enum Actions
@@ -195,11 +194,11 @@ class ContentPage {
     } else {
       this.cancelNote.click()
     }
-    await this.noteEditCard.waitFor({state: 'hidden'})
+    await this.noteEditCard.waitFor({ state: 'hidden' })
   }
 
-  async noteText(){
-    // Return the text attached to the note of a highlight
+  async noteText() {
+    // Return the text present in the note attached to a highlight
     return this.noteTextLocator.textContent()
   }
 
@@ -208,7 +207,6 @@ class ContentPage {
     await this.next.click()
   }
 
-  
   async openMHmodal() {
     // Open My Highlights modal
     await this.myHighlights.click()
@@ -249,7 +247,6 @@ class ContentPage {
     }
   }
 }
-
 
 enum Actions {
   Save = 'save',
