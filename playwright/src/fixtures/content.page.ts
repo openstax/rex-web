@@ -121,16 +121,14 @@ class ContentPage {
   }
 
   async clickContextMenu(n: number) {
-    // Click on a highlight
+    // Click context menu of a highlight
     // param: n - nth highlight on the content page
-    this.highlight.nth(n).click()
+    this.clickHighlight(n)
     this.contextMenu.click()
   }
 
   async editHighlight() {
-    // Click on a highlight
-    // param: n - nth highlight on the content page
-  
+    // Click the Edit option from a highlight's context menu
     this.editHighlightLocator.click()
   }
 
@@ -170,11 +168,15 @@ class ContentPage {
   }
 
   async addnote(note: string) {
+    // Add note to a highlight
+    // param: note - text to be added as annotation
     await this.noteTextBox.click()
     await this.noteTextBox.type(note)
   }
 
   async editNote(note: string) {
+    // Edit existing note of a highlight. Appends text to beginning of existing annotation.
+    // param: note - text to be appeneded as annotation
     await this.noteTextBox.click()
     await this.noteTextBox.focus()
     var i: number
@@ -185,6 +187,9 @@ class ContentPage {
   }
 
   async noteConfirmDialog(confirm: Actions){
+    // Save or Cancel the note added in notebox
+    // param: confirm - option to be selected in the Note Confirmation box
+    // param values: - save or cancel set in enum Actions
     if (confirm == 'save') {
       this.saveNote.click()
     } else {
@@ -194,6 +199,7 @@ class ContentPage {
   }
 
   async noteText(){
+    // Return the text attached to the note of a highlight
     return this.noteTextLocator.textContent()
   }
 
@@ -202,8 +208,9 @@ class ContentPage {
     await this.next.click()
   }
 
-  // Open My Highlights modal
+  
   async openMHmodal() {
+    // Open My Highlights modal
     await this.myHighlights.click()
     await Promise.all([this.MHbodyLoaded.waitFor()])
   }

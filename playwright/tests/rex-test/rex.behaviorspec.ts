@@ -229,11 +229,10 @@ test('note in content page', async ({ page, isMobile }) => {
   await BookPage.noteConfirmDialog(Actions.Save)
 
 
-// AND: Edit note to the highlight and save
+  // AND: Edit note to the highlight and save
   const editnoteText = randomstring()
   await BookPage.clickContextMenu(0)
   await BookPage.editHighlight()
-
   await BookPage.editNote(editnoteText)
   await BookPage.noteConfirmDialog(Actions.Save)
   expect(await BookPage.noteText()).toBe(editnoteText + noteText)
