@@ -47,6 +47,19 @@ export default class PageComponent extends Component<PagePropTypes> {
 
       transformContent(parsedContent, parsedContent.body, this.props.intl);
 
+      if (this.props.lockNavigation) {
+        const links = parsedContent.body.querySelectorAll('a[href]');
+
+        for (const link of links) {
+          const {origin, pathname} = new URL(link.getAttribute('href'), assertWindow().location.href);
+          const loc = assertWindow().location;
+
+          if (origin !== loc.origin || pathname !== loc.pathname) {
+            link.setAttribute('target', '_blank');
+          }
+        }
+      }
+
       /* this will be removed when all the books are in good order */
       /* istanbul ignore else */
       if (APP_ENV !== 'production') {
@@ -195,6 +208,9 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     lazyResources.addScrollHandler();
 
+    if (this.props.lockNavigation) {
+      return;
+    }
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
