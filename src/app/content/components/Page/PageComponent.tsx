@@ -21,6 +21,7 @@ import RedoPadding from './RedoPadding';
 import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
 import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
+import styled from 'styled-components/macro';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -135,9 +136,16 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public render() {
     const pageIsReady = this.props.page && this.props.textSize !== null;
+    const PT = this.props.toastTop ?
+      styled(PageToasts)`
+        top:${this.props.toastTop}rem;
+      ` : PageToasts
+    ;
+
+
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      <PageToasts />
+      <PT />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()

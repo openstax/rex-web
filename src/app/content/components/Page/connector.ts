@@ -32,6 +32,7 @@ export interface PagePropTypes {
   systemQueryParams: SystemQueryParams;
   textSize: TextResizerValue;
   lockNavigation: boolean;
+  toastTop: number;
 }
 
 export default connect(
