@@ -8,7 +8,7 @@
   "dependencies": {
     "@craco/craco": "<7",
     "@formatjs/intl-pluralrules": "^5.1.10",
-    "@openstax/event-capture-client": "^2.0.1",
+    "@openstax/event-capture-client": "^2.0.2",
     "@openstax/highlighter": "1.13.0",
     "@openstax/open-search-client": "0.1.0-build.7",
     "@openstax/ts-utils": "1.1.12",

@@ -28,7 +28,7 @@ export const track = (
         bookId: book.id,
         sourceMetadata: {
           contentId: page.id,
-          contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id)?.toString(),
+          contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id),
           contentVersion: book.contentVersion,
           contextVersion: book.archiveVersion,
           scopeId: book.id,

@@ -26,7 +26,7 @@ export const track = (
       stateType: 'visibility',
       sourceMetadata: {
         contentId: page.id,
-        contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id)?.toString(),
+        contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id),
         contentVersion: book.contentVersion,
         contextVersion: book.archiveVersion,
         scopeId: book.id,

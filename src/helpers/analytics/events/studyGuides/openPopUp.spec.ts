@@ -31,7 +31,7 @@ describe('open study guide popup', () => {
         bookId: 'bookid',
         sourceMetadata: {
           contentId: 'pageid',
-          contentIndex: '0',
+          contentIndex: 0,
           contentVersion: '123',
           contextVersion: '456',
           scopeId: 'bookid',

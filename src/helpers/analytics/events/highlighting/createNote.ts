@@ -36,7 +36,7 @@ export const track = (
       locationStrategies: JSON.stringify(highlight.locationStrategies),
       sourceMetadata: {
         contentId: page.id,
-        contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id)?.toString(),
+        contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id),
         contentVersion: book.contentVersion,
         contextVersion: book.archiveVersion,
         scopeId: book.id,
