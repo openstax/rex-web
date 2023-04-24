@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test'
 import {
   ContentPage,
+  Actions,
   KsModal,
   MHModal,
   MHHighlights,
@@ -201,4 +202,36 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await BookPage.openMHmodal()
   const MHhighlightcount1 = await Edithighlight.highlightCount()
   expect(MHhighlightcount1).toBe(3)
+})
+
+test('note in content page', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
+
+  // WHEN: Highlight 1 random paragraph
+  const paracount = BookPage.paracount()
+  const randomparanumber = randomNum(await paracount)
+  await BookPage.highlightText('green', randomparanumber)
+
+  // AND: Add note to the highlight and save
+  const noteText = randomstring()
+  await BookPage.clickHighlight(0)
+  await BookPage.addNote(noteText)
+  await BookPage.noteConfirmDialog(Actions.Save)
+
+  // AND: Edit note to the highlight and save
+  const editnoteText = randomstring()
+  await BookPage.clickContextMenu(0)
+  await BookPage.editHighlight()
+  await BookPage.editNote(editnoteText)
+  await BookPage.noteConfirmDialog(Actions.Save)
+  expect(await BookPage.noteText()).toBe(editnoteText + noteText)
 })

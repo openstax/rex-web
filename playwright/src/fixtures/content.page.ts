@@ -17,6 +17,13 @@ class ContentPage {
   next: Locator
   MHbodyLoaded: Locator
   contentHighlightsLoaded: Locator
+  noteTextBox: Locator
+  saveNote: Locator
+  cancelNote: Locator
+  contextMenu: Locator
+  editHighlightLocator: Locator
+  noteTextLocator: Locator
+  noteEditCard: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -32,6 +39,13 @@ class ContentPage {
     this.body = this.page.locator('[class*="page-content"]')
     this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
     this.contentHighlightsLoaded = this.page.locator('[class*="HighlightsWrapper"]')
+    this.noteTextBox = this.page.locator('textarea')
+    this.saveNote = this.page.locator('[data-testid="save"]')
+    this.cancelNote = this.page.locator('[data-testid="cancel"]')
+    this.contextMenu = this.page.locator('[class*=MenuToggle]')
+    this.editHighlightLocator = this.page.locator('[data-testid="card"] >> text=Edit')
+    this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
+    this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
   }
 
   async open(path: string) {
@@ -98,6 +112,24 @@ class ContentPage {
     await this.CloseNoteCard()
   }
 
+  async clickHighlight(n: number) {
+    // Click on a highlight
+    // param: n - nth highlight on the content page
+    this.highlight.nth(n).click()
+  }
+
+  async clickContextMenu(n: number) {
+    // Click context menu of a highlight
+    // param: n - nth highlight on the content page
+    this.clickHighlight(n)
+    this.contextMenu.click()
+  }
+
+  async editHighlight() {
+    // Click the Edit option from a highlight's context menu
+    this.editHighlightLocator.click()
+  }
+
   async highlightCount() {
     // Total number of highlights in a page
     const highlightcount = await this.highlight.count()
@@ -133,13 +165,49 @@ class ContentPage {
     }
   }
 
+  async addNote(note: string) {
+    // Add note to a highlight
+    // param: note - text to be added as annotation
+    await this.noteTextBox.click()
+    await this.noteTextBox.type(note)
+  }
+
+  async editNote(note: string) {
+    // Edit existing note of a highlight. Appends text to beginning of existing annotation.
+    // param: note - text to be appeneded as annotation
+    await this.noteTextBox.click()
+    await this.noteTextBox.focus()
+    let i: number
+    for (i = 0; i < note.length; i++) {
+      await this.page.keyboard.press('ArrowLeft')
+    }
+    await this.noteTextBox.type(note)
+  }
+
+  async noteConfirmDialog(confirm: Actions) {
+    // Save or Cancel the note added in notebox
+    // param: confirm - option to be selected in the Note Confirmation box
+    // param values: - save or cancel set in enum Actions
+    if (confirm == 'save') {
+      this.saveNote.click()
+    } else {
+      this.cancelNote.click()
+    }
+    await this.noteEditCard.waitFor({ state: 'hidden' })
+  }
+
+  async noteText() {
+    // Return the text present in the note attached to a highlight
+    return this.noteTextLocator.textContent()
+  }
+
   async clickNext() {
     // Click Next link
     await this.next.click()
   }
 
-  // Open My Highlights modal
   async openMHmodal() {
+    // Open My Highlights modal
     await this.myHighlights.click()
     await Promise.all([this.MHbodyLoaded.waitFor()])
   }
@@ -179,4 +247,9 @@ class ContentPage {
   }
 }
 
-export { ContentPage }
+enum Actions {
+  Save = 'save',
+  Cancel = 'cancel',
+}
+
+export { ContentPage, Actions }

@@ -445,6 +445,9 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
     /* Cálculo Vol. 2 */ ['8079f22f-c0a0-43ed-bb35-871d8d9743f3', {}],
   ],
+  /* World History Vol. 2 */ '685e3163-1032-4529-bb3a-f97a54412704': [
+    /* World History Vol. 1 */ ['685e3163-1032-4529-bb3a-f97a54407214', {}],
+  ],
 };
 
 export type CanonicalBookMap = ObjectLiteral<Array<[string, ObjectLiteral<string | undefined>]> | undefined>;
