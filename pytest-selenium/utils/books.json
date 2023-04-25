@@ -5,7 +5,7 @@
         "chapter_search_results_total": 6,
         "rkt_search_results_total": 0
     },
-        "algebra-and-trigonometry-2e": {
+    "algebra-and-trigonometry-2e": {
         "default_page": "1-introduction-to-prerequisites",
         "search_term": "quadratic equations",
         "chapter_search_results_total": 58,
@@ -74,7 +74,7 @@
     "chemistry-2e": {
         "default_page": "1-introduction",
         "search_term": "molecule",
-        "chapter_search_results_total": 425,
+        "chapter_search_results_total": 426,
         "rkt_search_results_total": 4
     },
     "chemistry-atoms-first-2e": {
@@ -116,13 +116,13 @@
     "college-physics-ap-courses": {
         "default_page": "1-connection-for-ap-r-courses",
         "search_term": "kinetic energy",
-        "chapter_search_results_total": 1026,
+        "chapter_search_results_total": 1025,
         "rkt_search_results_total": 11
     },
     "concepts-biology": {
         "default_page": "1-introduction",
         "search_term": "Cell",
-        "chapter_search_results_total": 788,
+        "chapter_search_results_total": 792,
         "rkt_search_results_total": 23
     },
     "calculus-volume-1": {
@@ -152,7 +152,7 @@
     "entrepreneurship": {
         "default_page": "1-introduction",
         "search_term": "Business Model",
-        "chapter_search_results_total": 350,
+        "chapter_search_results_total": 343,
         "rkt_search_results_total": 8
     },
     "elementary-algebra-2e": {
@@ -224,7 +224,7 @@
     "physics": {
         "default_page": "1-introduction",
         "search_term": "linear relationship",
-        "chapter_search_results_total": 11,
+        "chapter_search_results_total": 10,
         "rkt_search_results_total": 0
     },
     "precalculus": {
@@ -236,10 +236,9 @@
     "precalculus-2e": {
         "default_page": "1-introduction-to-functions",
         "search_term": "one-to-one function",
-        "chapter_search_results_total": 410,
+        "chapter_search_results_total": 409,
         "rkt_search_results_total": 3
     },
-
     "prealgebra-2e": {
         "default_page": "1-introduction",
         "search_term": "Whole Numbers",
@@ -335,5 +334,61 @@
         "search_term": "Social Media Savvy",
         "chapter_search_results_total": 2,
         "rkt_search_results_total": 0
+    },
+    "college-physics-ap-courses-2e": {
+        "default_page": "1-connection-for-ap-r-courses",
+        "search_term": "Big Idea",
+        "chapter_search_results_total": 178,
+        "rkt_search_results_total": 0
+    },
+    "principles-economics-3e": {
+        "default_page": "1-introduction",
+        "search_term": "Age",
+        "chapter_search_results_total": 73,
+        "rkt_search_results_total": 0
+    },
+    "principles-finance": {
+        "default_page": "1-why-it-matters",
+        "search_term": "Bacon",
+        "chapter_search_results_total": 13,
+        "rkt_search_results_total": 0
+    },
+    "principles-macroeconomics-3e": {
+        "default_page": "1-introduction",
+        "search_term": "Age",
+        "chapter_search_results_total": 49,
+        "rkt_search_results_total": 0
+    },
+    "introduction-political-science": {
+        "default_page": "1-introduction",
+        "search_term": "China",
+        "chapter_search_results_total": 97,
+        "rkt_search_results_total": 0
+    },
+    "principles-microeconomics-3e": {
+        "default_page": "1-introduction",
+        "search_term": "Bring it Home",
+        "chapter_search_results_total": 10,
+        "rkt_search_results_total": 0
+    },
+    "introduction-philosophy": {
+        "default_page": "1-introduction",
+        "search_term": "high school",
+        "chapter_search_results_total": 4,
+        "rkt_search_results_total": 0
+    },
+    "world-history-volume-2": {
+        "default_page": "1-introduction",
+        "search_term": "Winston Churchill",
+        "chapter_search_results_total": 15,
+        "rkt_search_results_total": 0
+    },
+    "college-physics-2e": {
+        "default_page": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
+        "search_term": "Veil Nebula",
+        "chapter_search_results_total": 6,
+        "rkt_search_results_total": 0
     }
 }
+
+

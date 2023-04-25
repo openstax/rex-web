@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
+import { waitForHeadInitializaton } from './app/head/utils';
 import createIntl from './app/messages/createIntl';
 import { currentLocale } from './app/messages/selectors';
 import { updateAvailable } from './app/notifications/actions';
@@ -48,6 +49,8 @@ const buyPrintConfigUrl = assertDefined(
 );
 const mainContent = document.getElementById('main-content');
 
+const userLoader = createUserLoader(accountsUrl);
+
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
@@ -55,12 +58,12 @@ const app = createApp({
     bookConfigLoader: createBookConfigLoader(),
     buyPrintConfigLoader: createBuyPrintConfigLoader(buyPrintConfigUrl),
     config,
-    highlightClient: createHighlightClient(highlightsUrl),
+    highlightClient: createHighlightClient(highlightsUrl, userLoader.getAuthorizedFetchConfig),
     osWebLoader: createOSWebLoader(osWebUrl),
     practiceQuestionsLoader: createPracticeQuestionsLoader(),
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
-    userLoader: createUserLoader(accountsUrl),
+    userLoader,
   },
 });
 
@@ -105,10 +108,14 @@ function doneRendering() {
   }
 }
 
-window.onblur = onPageFocusChange(false, app);
-window.onfocus = onPageFocusChange(true, app);
+window.onblur = onPageFocusChange(false, document, app);
+window.onfocus = onPageFocusChange(true, document, app);
 
 window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
+
+// this event is for google-tag-manager to hook into
+waitForHeadInitializaton(app, 3000)
+  .then(() => window.gtag('event', 'app_loaded'));
 
 // start long running processes
 pollUpdates(app.store);
@@ -116,6 +123,10 @@ startMathJax();
 
 // load optimize
 loadOptimize(window, app.store);
+
+function cookiesBlocked(e: Error) {
+  return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
+}
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
@@ -135,5 +146,7 @@ serviceWorker.register()
     }
   })
   .catch((e) => {
-    Sentry.captureException(e);
+    if (e instanceof Error && !cookiesBlocked(e)) {
+      Sentry.captureException(e);
+    }
   });

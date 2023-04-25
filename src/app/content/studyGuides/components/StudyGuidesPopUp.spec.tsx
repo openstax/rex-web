@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import renderer, { act } from 'react-test-renderer';
@@ -5,10 +6,11 @@ import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { renderToDom } from '../../../../test/reactutils';
+import { dispatchKeyDownEvent, renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
+import OnEsc from '../../../components/OnEsc';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
@@ -78,13 +80,14 @@ describe('Study Guides button and PopUp', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     const { node } = renderToDom(<TestContainer services={services} store={store}>
+      <OnEsc />
       <StudyguidesPopUp />
     </TestContainer>);
 
     const track = jest.spyOn(services.analytics.closeStudyGuides, 'track');
-    const element = assertNotNull(node.querySelector('[data-testid=\'studyguides-popup-wrapper\']'), '');
+    const element: HTMLElement = assertNotNull(node.querySelector('[data-testid=\'studyguides-popup-wrapper\']'), '');
 
-    element.dispatchEvent(new ((window as any).KeyboardEvent)('keydown', {key: 'Escape'}));
+    dispatchKeyDownEvent({element, key: 'Escape'});
 
     expect(track).toHaveBeenCalled();
 

@@ -35,17 +35,15 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
   ],
   /* Algebra & Trigonometry */ '13ac107a-f15f-49d2-97e8-60ab2e3b519c' : [
-    /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
+    /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
+    /* Algebra & Trigonometry 2e */ ['eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e', {}],
   ],
   /* Anatomy & Physiology */ '14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22': [
     /* Anatomy & Physiology 2e */ ['4fd99458-6fdf-49bc-8688-a6dc17a1268d', {}],
   ],
   /* Astronomy */ '2e737be8-ea65-48c3-aa0a-9f35b4c6a966': [
     /* Astronomy 2e */ ['4c29f9e5-a53d-42c0-bdb5-091990527d79', {}],
-  ],
-  /* Principles of Macroeconomics 2e */ '27f59064-990e-48f1-b604-5188b9086c29': [
-    /* Principles of Economics 2e */['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
   ],
   /* Organizational Behavior */ '2d941ab9-ac5b-4eb8-b21c-965d36a4f296': [
     /* Principles of Management */['c3acb2ab-7d5c-45ad-b3cd-e59673fedd4e', {}],
@@ -57,8 +55,8 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
   ],
   /* College Algebra with Corequisite Support */ '507feb1e-cfff-4b54-bc07-d52636cecfe3': [
-    /* College Algebra with Corequisite Support 2e */ ['59024a63-2b1a-4631-94c5-ae275a77b587', {}],
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
+    /* College Algebra with Corequisite Support 2e */ ['59024a63-2b1a-4631-94c5-ae275a77b587', {}],
   ],
   /* Psychology */ '4abf04bf-93a0-45c3-9cbc-2cefd46e68cc' : [
     /* Psychology 2e */ ['06aba565-9432-40f6-97ee-b8a361f118a8', {
@@ -276,15 +274,6 @@ export const CANONICAL_MAP: CanonicalBookMap = {
       'ffc33c5c-9381-50a0-842a-8d3e1238b8c7': '90d79060-d63e-55b7-b333-acc6b90561ca',
     }],
   ],
-  /* Principles of Microeconomics 2e */ '5c09762c-b540-47d3-9541-dda1f44f16e5': [
-    /* Principles of Economics 2e */['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
-  ],
-  /* Principles of Microeconomics for AP Courses 2e */ '636cbfd9-4e37-4575-83ab-9dec9029ca4e': [
-    /* Principles of Economics 2e */['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
-  ],
-  /* Principles of Macroeconomics for AP Courses 2e */ '9117cf8c-a8a3-4875-8361-9cb0f1fc9362': [
-    /* Principles of Economics 2e */['bc498e1f-efe9-43a0-8dea-d3569ad09a82', {}],
-  ],
   /* Introductory Business Statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': [
     /* Introductory Statistics */ ['30189442-6998-4686-ac05-ed152b91b9de', {}],
   ],
@@ -415,8 +404,8 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
   ],
   /* Precalculus */ 'fd53eae1-fa23-47c7-bb1b-972349835c3c' : [
-    /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
     /* College Algebra 2e */ ['35d7cce2-48dd-4403-b6a5-e828cb5a17da', {}],
+    /* Precalculus 2e */ ['f021395f-fd63-46cd-ab95-037c6f051730', {}],
   ],
   /* College Physics */ '031da8d3-b525-429c-80cf-6c8ed997733a': [
     /* College Physics 2e */ ['a31df062-930a-4f46-8953-605711e6d204', {}],
@@ -446,15 +435,18 @@ export const CANONICAL_MAP: CanonicalBookMap = {
     /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
   ],
   /* Calculus Vol. 3 */ 'a31cd793-2162-4e9e-acb5-6e6bbd76a5fa': [
-    /* Calculus Vol. 2 */ ['1d39a348-071f-4537-85b6-c98912458c3c', {}],
     /* Calculus Vol. 1 */ ['8b89d172-2927-466f-8661-01abc7ccdba4', {}],
+    /* Calculus Vol. 2 */ ['1d39a348-071f-4537-85b6-c98912458c3c', {}],
   ],
   /* Cálculo Vol. 2 */ '8079f22f-c0a0-43ed-bb35-871d8d9743f3': [
     /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
   ],
   /* Cálculo Vol. 3 */ '21b1d0df-a716-4205-8e86-0d0787b2c991': [
-    /* Cálculo Vol. 2 */ ['8079f22f-c0a0-43ed-bb35-871d8d9743f3', {}],
     /* Cálculo Vol. 1 */ ['8635f0be-e734-4cd1-a10e-8063e5b863b6', {}],
+    /* Cálculo Vol. 2 */ ['8079f22f-c0a0-43ed-bb35-871d8d9743f3', {}],
+  ],
+  /* World History Vol. 2 */ '685e3163-1032-4529-bb3a-f97a54412704': [
+    /* World History Vol. 1 */ ['685e3163-1032-4529-bb3a-f97a54407214', {}],
   ],
 };
 

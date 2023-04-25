@@ -1,0 +1,98 @@
+{
+    "mikroekonomia-podstawy": {
+          "default_page": "1-wprowadzenie-do-rozdzialu",
+          "search_term": "Twitter",
+          "chapter_search_results_total": 3,
+          "rkt_search_results_total": 0
+      },
+      "psychologia-polska": {
+          "default_page": "1-wprowadzenie",
+          "search_term": "MIT",
+          "chapter_search_results_total": 18,
+          "rkt_search_results_total": 0
+      },
+      "fizyka-dla-szkół-wyższych-tom-1": {
+          "default_page": "1-wstep",
+          "search_term": "galaktyka",
+          "chapter_search_results_total": 5,
+          "rkt_search_results_total": 0
+      },
+      "fizyka-dla-szkół-wyższych-tom-2": {
+          "default_page": "1-wstep",
+          "search_term": "gwiazdy",
+          "chapter_search_results_total": 2,
+          "rkt_search_results_total": 0
+      },
+      "fizyka-dla-szkół-wyższych-tom-3": {
+          "default_page": "1-wstep",
+          "search_term": "fale",
+          "chapter_search_results_total": 117,
+          "rkt_search_results_total": 2
+      },
+      "física-universitaria-volumen-1": {
+          "default_page": "1-introduccion",
+          "search_term": "ambos",
+          "chapter_search_results_total": 149,
+          "rkt_search_results_total": 0
+      },
+      "física-universitaria-volumen-2": {
+          "default_page": "1-introduccion",
+          "search_term": "del Sol",
+          "chapter_search_results_total": 112,
+          "rkt_search_results_total": 0
+      },
+      "física-universitaria-volumen-3": {
+          "default_page": "1-introduccion",
+          "search_term": "Maxwell",
+          "chapter_search_results_total": 10,
+          "rkt_search_results_total": 0
+      },
+      "química-2ed": {
+          "default_page": "1-introduccion",
+          "search_term": "Hacer café",
+          "chapter_search_results_total": 1,
+          "rkt_search_results_total": 0
+      },
+      "química-comenzando-átomos-2ed": {
+          "default_page": "1-introduccion",
+          "search_term": "el jabón",
+          "chapter_search_results_total": 25,
+          "rkt_search_results_total": 0
+      },
+      "cálculo-volumen-1": {
+          "default_page": "1-introduccion",
+          "search_term": "Haití",
+          "chapter_search_results_total": 4,
+          "rkt_search_results_total": 0
+      },
+      "cálculo-volumen-2": {
+          "default_page": "1-introduccion",
+          "search_term": "Minnesota",
+          "chapter_search_results_total": 1,
+          "rkt_search_results_total": 0
+      },
+      "cálculo-volumen-3": {
+          "default_page": "1-introduccion",
+          "search_term": "El Nautilus",
+          "chapter_search_results_total": 3,
+          "rkt_search_results_total": 0
+      },
+      "introducción-estadística": {
+          "default_page": "1-introduccion",
+          "search_term": "mejor estimación",
+          "chapter_search_results_total": 16,
+          "rkt_search_results_total": 0
+      },
+      "introducción-estadística-empresarial": {
+          "default_page": "1-introduccion",
+          "search_term": "Informática",
+          "chapter_search_results_total": 3,
+          "rkt_search_results_total": 0
+      },
+      "precálculo-2ed": {
+          "default_page": "1-introduccion",
+          "search_term": "las empresas",
+          "chapter_search_results_total": 12,
+          "rkt_search_results_total": 0
+      }
+}

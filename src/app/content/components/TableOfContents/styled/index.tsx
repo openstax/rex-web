@@ -10,8 +10,6 @@ import ContentLinkComponent from '../../ContentLink';
 
 export { ExpandIcon, CollapseIcon } from '../../../../components/Details';
 
-export * from './wrapper';
-
 /* to regenerate these numbers, run this in a rex browser window
 (
   (element) => 'wW1234567890.'.split('').reduce(

@@ -1,4 +1,4 @@
-import { Element, EventListener, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
+import { Document, Element, EventListener, HTMLElement, Node, TouchEvent } from '@openstax/types/lib.dom';
 import * as dom from '@openstax/types/lib.dom';
 import scrollToElement from 'scroll-to-element';
 import { receivePageFocus } from './actions';
@@ -69,9 +69,12 @@ export const findFirstScrollableParent = (element: HTMLElement | null): HTMLElem
 
 export const findFirstAncestorOrSelfOfType =
   <T extends {prototype: HTMLElement; new(): HTMLElement}>(node: Node, elementType: T) =>
-    findFirstAncestorOrSelf(node, (el) => el instanceof elementType) as T['prototype'] | void;
+    findFirstAncestorOrSelf(node, (el): el is T => el instanceof elementType) as T['prototype'] | void;
 
-export const findFirstAncestorOrSelf = (node: Node, predicate: (e: HTMLElement) => boolean): HTMLElement | void => {
+export const findFirstAncestorOrSelf = <T = HTMLElement>(
+  node: Node,
+  predicate: ((e: any) => boolean) | ((e: any) => e is T)
+): T | void => {
   if (isHtmlElement(node) && predicate(node)) {
     return node;
   } else if (node.parentElement) {
@@ -143,8 +146,12 @@ export const elementIsVisibleInWindow = (element: Element) => {
   );
 };
 
-export const onPageFocusChange = (focus: boolean, app: {services: AppServices, store: Store}) => () => {
-  app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), focus);
+export const onPageFocusChange = (
+  focus: boolean,
+  document: Document,
+  app: {services: AppServices, store: Store}
+) => () => {
+  app.services.analytics.pageFocus.track(app.services.analytics.pageFocus.selector(app.store.getState()), document);
   app.store.dispatch(receivePageFocus(focus));
 };
 

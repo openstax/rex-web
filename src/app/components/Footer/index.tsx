@@ -1,7 +1,9 @@
-import React, { SFC } from 'react';
+import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import RiceWhiteLogo from '../../../assets/rice-white-text.png';
 import htmlMessage from '../../components/htmlMessage';
+import { isVerticalNavOpenConnector } from '../../content/components/utils/sidebar';
+import { State } from '../../content/types';
 import * as Styled from './styled';
 
 const fbUrl = 'https://www.facebook.com/openstax';
@@ -10,7 +12,7 @@ const instagramUrl = 'https://www.instagram.com/openstax/';
 const linkedInUrl = 'https://www.linkedin.com/company/openstax';
 const riceUrl = 'http://www.rice.edu';
 const copyrightLink = 'https://creativecommons.org/licenses/by/4.0/';
-export const supportCenterLink = 'https://openstax.secure.force.com/help';
+export const supportCenterLink = 'https://help.openstax.org/s/';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
 // tslint:disable-next-line:variable-name
@@ -84,7 +86,8 @@ function getValues() {
 }
 
 // tslint:disable-next-line:variable-name
-const Footer: SFC = () => <Styled.FooterWrapper data-analytics-region='footer'>
+const Footer = ({ isVerticalNavOpen }: { isVerticalNavOpen: State['tocOpen'] }) =>
+  <Styled.FooterWrapper data-analytics-region='footer' isVerticalNavOpen={isVerticalNavOpen}>
   <Styled.InnerFooter>
     <Styled.FooterTop>
       <Styled.TopBoxed>
@@ -108,4 +111,4 @@ const Footer: SFC = () => <Styled.FooterWrapper data-analytics-region='footer'>
   </Styled.InnerFooter>
 </Styled.FooterWrapper>;
 
-export default Footer;
+export default isVerticalNavOpenConnector(Footer);

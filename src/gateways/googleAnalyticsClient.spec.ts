@@ -1,6 +1,6 @@
 import * as Utils from '../app/utils';
 import * as analyticsUtils from '../helpers/analytics/utils';
-import { campaignFromQuery, GoogleAnalyticsClient } from './googleAnalyticsClient';
+import { campaignFromQuery, createTag, GoogleAnalyticsClient, isGA4 } from './googleAnalyticsClient';
 
 declare const window: Window;
 
@@ -43,6 +43,26 @@ describe('campaignFromQuery', () => {
   });
 });
 
+describe('isGA4', () => {
+  it('distinguishes between GA4 and non-GA4 ids', () => {
+    expect(isGA4('G-someid')).toBe(true);
+    expect(isGA4('Gsomeid')).toBe(false);
+    expect(isGA4('UA-someid')).toBe(false);
+  });
+});
+
+describe('createTag', () => {
+  it('creates a tag', () => {
+    const tag = createTag('UA-someid');
+    expect(tag).toEqual({ id: 'UA-someid', ignoredEventNames: [] });
+  });
+
+  it('sets ignoredEventNames when the id is a GA4 id', () => {
+    const tag = createTag('G-someid');
+    expect(tag).toEqual({ id: 'G-someid', ignoredEventNames: ['page_view'] });
+  });
+});
+
 describe('GoogleAnalyticsClient', () => {
   let client: GoogleAnalyticsClient;
   let mockGtag: any;
@@ -70,8 +90,12 @@ describe('GoogleAnalyticsClient', () => {
           send_page_view: false,
           transport_type: 'beacon',
         });
-        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: 'jimbo', queue_time: expect.any(Number) });
-        expect(mockGtag).toHaveBeenCalledWith('config', 'bar', { user_id: 'jimbo', queue_time: expect.any(Number) });
+        expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
+          queue_time: expect.any(Number), send_page_view: false, user_id: 'jimbo',
+        });
+        expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
+          queue_time: expect.any(Number), send_page_view: false, user_id: 'jimbo',
+        });
       });
     });
 
@@ -81,6 +105,7 @@ describe('GoogleAnalyticsClient', () => {
         client.setUserId('jimbo');
         expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
           queue_time: expect.any(Number),
+          send_page_view: false,
           user_id : 'jimbo',
         });
       });
@@ -111,8 +136,12 @@ describe('GoogleAnalyticsClient', () => {
     it('unsets it', async() => {
       client.setTagIds(['foo', 'bar']);
       client.unsetUserId();
-      expect(mockGtag).toHaveBeenCalledWith('config', 'foo', { user_id: undefined, queue_time: 0 });
-      expect(mockGtag).toHaveBeenCalledWith('config', 'bar', { user_id: undefined, queue_time: 0 });
+      expect(mockGtag).toHaveBeenCalledWith('config', 'foo', {
+        queue_time: 0, send_page_view: false, user_id: undefined,
+      });
+      expect(mockGtag).toHaveBeenCalledWith('config', 'bar', {
+        queue_time: 0, send_page_view: false, user_id: undefined,
+      });
     });
 
   });
@@ -189,6 +218,17 @@ describe('GoogleAnalyticsClient', () => {
         expect(mockGtag).toHaveBeenCalledWith('set', {
           campaignMedium: 'unset',
           campaignSource: 'source',
+        });
+      });
+    });
+
+    describe('when the tag is a GA4 id', () => {
+      it('ignores the event', async() => {
+        client.setTagIds(['G-foo', 'UA-foo']);
+        mockGtag.mockClear();
+        client.trackPageView('/some/path');
+        expect(mockGtag).toHaveBeenNthCalledWith(1, 'event', 'page_view', {
+          page_path: '/some/path', queue_time: expect.any(Number), send_to: 'UA-foo',
         });
       });
     });

@@ -1,4 +1,3 @@
-import { isEqual } from 'lodash/fp';
 import { CANONICAL_MAP, ObjectLiteral } from '../../../canonicalBookMap';
 import { AppServices } from '../../types';
 import { assertDefined } from '../../utils';
@@ -24,39 +23,39 @@ export async function getCanonicalUrlParams(
 };
 
   let canonicalMap = getCanonicalMap(book.id);
-  const mapsChecked = [];
+  const booksChecked: string[] = [];
   let canonicalPageId = pageId;
-  let done = false;
   let canonicalBook;
   let canonicalBookWithPage;
 
-  mapsArrayLoop: while (canonicalMap.length && !done) {
+  mapsArrayLoop: while (canonicalMap.length) {
     for (const [id, CANONICAL_PAGES_MAP] of canonicalMap) {
-      mapsChecked.push(canonicalMap);
+      // stop iterating if this book has already been checked
+      if (booksChecked.includes(id)) {
+        break mapsArrayLoop;
+      } else {
+        booksChecked.push(id);
+      }
       const useCurrentBookAsCanonical = book.id === id && hasOSWebData(book);
       canonicalBook = useCurrentBookAsCanonical ? book : await getBook(id);
       canonicalPageId = CANONICAL_PAGES_MAP[canonicalPageId] || canonicalPageId;
       const treeSection = findArchiveTreeNodeById(canonicalBook.tree, canonicalPageId);
 
-      // use the most recent canonical page found if none is found in current canonical book
+      // use the last canonical page found if none is found in current canonical book
       if (!treeSection && canonicalBookWithPage) {
         break mapsArrayLoop;
       } else if (treeSection) {
         canonicalBookWithPage = {canonicalBook, treeSection};
-      }
 
-      // check if canonical book maps to another book
-      const newMap = getCanonicalMap(canonicalBook.id);
-      done = !newMap.length || isEqual(canonicalMap, newMap);
-      // throw if the new map has already been checked
-      if (!done && mapsChecked.find((map) => isEqual(map, newMap))) {
-        throw new Error(`Loop encountered in map for ${canonicalBook.id}`);
+        // when a page match is found, check if its book maps to another book
+        const newMap = getCanonicalMap(canonicalBook.id);
+        canonicalMap = newMap;
+        break;
       }
-      canonicalMap = newMap;
     }
   }
 
-  // use current page as canonical if page not found in canonical book
+  // use current page as canonical if no page was found
   if (!canonicalBookWithPage && canonicalMap.length) {
     const treeSection = findArchiveTreeNodeById(book.tree, pageId);
     canonicalBookWithPage = {canonicalBook: book, treeSection};

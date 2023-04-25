@@ -3,6 +3,7 @@ import { captureEvent } from '../../gateways/eventCaptureClient';
 import googleAnalyticsClient from '../../gateways/googleAnalyticsClient';
 import * as clickButton from './events/clickButton';
 import * as clickLink from './events/clickLink';
+import * as elementInteracted from './events/elementInteracted';
 import { AnalyticsEvent } from './events/event';
 import * as highlightingCreateNote from './events/highlighting/createNote';
 import * as deleteHighlight from './events/highlighting/delete';
@@ -39,20 +40,24 @@ const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
   }
 };
 
-const bindTrackSelector = <E extends Event>(event: E) => (state: AppState | (() => AppState)) =>  {
+const bindTrackSelector = <E extends Event>(event: E, track: E['track']) => (state: AppState | (() => AppState)) =>  {
   type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
 
   return (...args: RemainingArgumentTypes) => {
     const data = event.selector(typeof state === 'function' ? state() : state);
-    triggerEvent(event)(data, ...args);
+    track(data, ...args);
   };
 };
 
-export const mapEventType = <E extends Event>(event: E) => ({
-  ...event,
-  bind: bindTrackSelector(event),
-  track: triggerEvent(event),
-});
+export const mapEventType = <E extends Event>(event: E) => {
+  const track = triggerEvent(event);
+
+  return {
+    ...event,
+    bind: bindTrackSelector(event, track),
+    track,
+  };
+};
 
 export const events = {
   clickButton: mapEventType(clickButton),
@@ -62,6 +67,7 @@ export const events = {
   deleteHighlight: mapEventType(deleteHighlight),
   editAnnotation: mapEventType(highlightingEditAnnotation),
   editNoteColor: mapEventType(highlightingEditColor),
+  elementInteracted: mapEventType(elementInteracted),
   openCloseKeyboardShortcuts: mapEventType(openCloseKeyboardShortcuts),
   openCloseMH: mapEventType(openCloseMH),
   openClosePracticeQuestions: mapEventType(openClosePracticeQuestions),

@@ -4,6 +4,7 @@ import {
   navigate,
   setDesktopViewport
 } from '../../../../../test/browserutils';
+import { receiveExperiments } from '../../../../featureFlags/actions';
 
 const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
@@ -32,37 +33,44 @@ const closeSearchSidebarDesktop = async() => {
   await finishRender(page);
 };
 
-it('clears search input without affecting search results sidebar', async() => {
-  setDesktopViewport(page);
-  await navigate(page, TEST_PAGE_URL);
-  await finishRender(page);
+describe('SearchResultsSidebar', () => {
+  const setup = async() => {
+    setDesktopViewport(page);
+    await navigate(page, TEST_PAGE_URL);
 
-  await openAndTriggerSearchDesktop(workingSearchText);
-  await clearSearchInputDesktop();
+    // Prevent search from moving to sidebar
+    const action = receiveExperiments(['tpdEbFiARyarMQ-cx46QiQ', '0']);
+    await page.evaluate((experimentsAction) =>
+       window && window.__APP_STORE.dispatch(experimentsAction), action);
 
-  expect(await page.waitForSelector(searchSidebarSelector, {visible: true})).toBeTruthy();
+    await finishRender(page);
+  };
 
-  const searchInput = await page.$(selectSearchInputDesktop);
-  if (searchInput) {
-    const inputValue = await (await searchInput.getProperty('value')).jsonValue();
-    expect(inputValue).toBe('');
-  }
-});
+  it('clears search input without affecting search results sidebar', async() => {
+    await setup();
+    await openAndTriggerSearchDesktop(workingSearchText);
+    await clearSearchInputDesktop();
 
-it('closes the search results sidebar without affecting search input', async() => {
-  setDesktopViewport(page);
-  await navigate(page, TEST_PAGE_URL);
-  await finishRender(page);
+    expect(await page.waitForSelector(searchSidebarSelector, { visible: true })).toBeTruthy();
 
-  await openAndTriggerSearchDesktop(workingSearchText);
-  await closeSearchSidebarDesktop();
+    const searchInput = await page.$(selectSearchInputDesktop);
+    if (searchInput) {
+      const inputValue = await (await searchInput.getProperty('value')).jsonValue();
+      expect(inputValue).toBe('');
+    }
+  });
 
-  expect(await page.waitForSelector(searchSidebarSelector, {hidden: true})).toBeTruthy();
+  it('closes the search results sidebar without affecting search input', async() => {
+    await setup();
+    await openAndTriggerSearchDesktop(workingSearchText);
+    await closeSearchSidebarDesktop();
 
-  const searchInput = await page.$(selectSearchInputDesktop);
-  if (searchInput) {
-    const inputValue = await (await searchInput.getProperty('value')).jsonValue();
-    expect(await inputValue).toBe('moon');
-  }
+    expect(await page.waitForSelector(searchSidebarSelector, { hidden: true })).toBeTruthy();
 
+    const searchInput = await page.$(selectSearchInputDesktop);
+    if (searchInput) {
+      const inputValue = await (await searchInput.getProperty('value')).jsonValue();
+      expect(await inputValue).toBe('moon');
+    }
+  });
 });

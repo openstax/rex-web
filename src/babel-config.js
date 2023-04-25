@@ -19,8 +19,8 @@ module.exports = function(additionalExtensions = ['.ts', '.tsx']) {
     ],
     plugins: [
       'macros',
-      '@babel/proposal-class-properties',
-      '@babel/proposal-object-rest-spread',
+      '@babel/plugin-proposal-object-rest-spread',
+      '@babel/plugin-proposal-class-properties',
       '@babel/plugin-proposal-optional-chaining',
       '@babel/transform-runtime',
       'babel-plugin-transform-dynamic-import',

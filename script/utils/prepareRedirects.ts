@@ -25,7 +25,7 @@ const prepareRedirects = async(
   const redirects: Array<{ from: string, to: string }> = [];
 
   for (const fileName of redirectsDataFiles) {
-    const bookRedirects: RedirectsData = await import(fileName);
+    const bookRedirects: RedirectsData = (await import(fileName)).default;
 
     for (const { bookId, pageId, pathname, query } of bookRedirects) {
       const { tree, slug: bookSlug } = await bookLoader(bookId);

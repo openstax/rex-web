@@ -28,9 +28,28 @@ function randomChoice(list: ElementHandle[]): ElementHandle {
   return list[option]
 }
 
-function randomNumber(count: number) {
-  const randomnum = Math.floor(Math.random() * count)
-  return randomnum
+function randomNum(count: number, excludenum?: number) {
+  // Generate random number within specified max
+  // Exclude a number from the generated random number
+  // param: count - maximum number within which random number is generated
+  // param: excludenum - number to be excluded while generating the random number
+
+  let n = Math.floor(Math.random() * (count - 1))
+  if (n >= excludenum) n++
+  return n
+}
+
+function randomstring(length = 15) {
+  // Generate random string within specified max
+  let string = ''
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  const charactersLength = characters.length
+  let counter = 0
+  while (counter < length) {
+    string += characters.charAt(Math.floor(Math.random() * charactersLength))
+    counter += 1
+  }
+  return string
 }
 
 async function sleep(seconds = 1.0): Promise<unknown> {
@@ -39,4 +58,4 @@ async function sleep(seconds = 1.0): Promise<unknown> {
   })
 }
 
-export { closeExtras, randomChoice, randomNumber, sleep }
+export { closeExtras, randomChoice, randomNum, randomstring, sleep }

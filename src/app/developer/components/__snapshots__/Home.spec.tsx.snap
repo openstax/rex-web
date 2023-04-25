@@ -321,7 +321,7 @@ Array [
     </div>
   </div>,
   <footer
-    className="styled__FooterWrapper-y5hgq4-4 gprQGv"
+    className="styled__FooterWrapper-y5hgq4-4 hkILNp"
     data-analytics-region="footer"
   >
     <div
@@ -369,7 +369,7 @@ Array [
             </a>
             <a
               className="styled__FooterLink-y5hgq4-10 ZbGzz"
-              href="https://openstax.secure.force.com/help"
+              href="https://help.openstax.org/s/"
               rel="noopener"
               target="_blank"
             >
