@@ -168,20 +168,62 @@ class ContentPage {
   async addNote(note: string) {
     // Add note to a highlight
     // param: note - text to be added as annotation
-    await this.noteTextBox.click()
-    await this.noteTextBox.type(note)
+    // select highlight color from the visible notecard in the page
+    // this.colorlocator = await this.colorLocator(color)
+    const colorLocatorCount = await this.noteTextBox.count()
+    if (colorLocatorCount > 1) {
+      const i = await this.checkDuplicates()
+      console.log(i)
+      await this.noteTextBox.nth(i).click()
+      await this.noteTextBox.nth(i).type(note)
+    
+    } 
+    else {
+      await this.noteTextBox.click()
+      await this.noteTextBox.type(note)
+    }
+    
+    // await this.saveNote.click()
+  }
+
+
+  async checkDuplicates() {
+    const colorLocatorCount = await this.noteTextBox.count()
+    for (let i = 0; i < colorLocatorCount; i++) {
+      const colorLocatorVisibility = await this.noteTextBox.nth(i).evaluate((e: Element) => {
+        return window.getComputedStyle(e).getPropertyValue('visibility')
+      })
+      if (colorLocatorVisibility === 'visible') {
+        console.log(i)
+        return i
+      }
+    }
   }
 
   async editNote(note: string) {
     // Edit existing note of a highlight. Appends text to beginning of existing annotation.
     // param: note - text to be appeneded as annotation
-    await this.noteTextBox.click()
-    await this.noteTextBox.focus()
-    let i: number
-    for (i = 0; i < note.length; i++) {
-      await this.page.keyboard.press('ArrowLeft')
+
+    const colorLocatorCount = await this.noteTextBox.count()
+    if (colorLocatorCount > 1) {
+      const j = await this.checkDuplicates()
+      await this.noteTextBox.nth(j).click()
+      await this.noteTextBox.nth(j).focus()
+      let i: number
+      for (i = 0; i < note.length; i++) {
+        await this.page.keyboard.press('ArrowLeft')
+      }
+      await this.noteTextBox.nth(j).type(note)
     }
-    await this.noteTextBox.type(note)
+    else {
+      await this.noteTextBox.click()
+      await this.noteTextBox.focus()
+      let i: number
+      for (i = 0; i < note.length; i++) {
+        await this.page.keyboard.press('ArrowLeft')
+      }
+      await this.noteTextBox.type(note)
+    }
   }
 
   async noteConfirmDialog(confirm: Actions) {
@@ -217,6 +259,13 @@ class ContentPage {
     const paracount = this.paragraph
     return await paracount.count()
   }
+
+  async paraclick(randomparanumber: number) {
+    // Number of paragraphs in the page
+  
+    return this.paragraph.nth(randomparanumber).click()
+  }
+
 
   async CloseNoteCard() {
     // Close the notecard
