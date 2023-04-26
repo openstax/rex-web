@@ -110,6 +110,7 @@ export const formatBookData = <O extends OSWebBook | undefined>(
     promote_image: osWebBook.promote_image,
     publish_date: osWebBook.publish_date,
     slug: osWebBook.meta.slug,
+    subject: osWebBook.book_subjects[0]?.subject_name,
     theme: osWebBook.cover_color,
   // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
   } as BookWithOSWebData as any;

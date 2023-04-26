@@ -10,6 +10,7 @@
             },
             "title": "Test Book 1",
             "cnx_id": "testbook1-uuid",
+            "book_subjects": [{"subject_name": "test subject"}],
             "cover_color": "blue",
             "authors": [{"value": {"name": "Bam Bammerson"}}],
             "promote_image": null,
