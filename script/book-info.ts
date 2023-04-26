@@ -1,8 +1,10 @@
 import fetch from 'node-fetch';
 import { argv } from 'yargs';
-import { ARCHIVE_URL } from '../src/config';
+import { makeUnifiedBookLoader } from '../src/app/content/utils';
+import { ARCHIVE_URL, REACT_APP_OS_WEB_API_URL } from '../src/config';
 import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import { getBooksConfigSync } from '../src/gateways/createBookConfigLoader';
+import createOSWebLoader from '../src/gateways/createOSWebLoader';
 
 const {
   field,
@@ -12,13 +14,19 @@ const {
 
 (global as any).fetch = fetch;
 
-const archiveLoader = createArchiveLoader({
-  archivePrefix: ARCHIVE_URL,
-});
+const booksConfig = getBooksConfigSync();
+
+const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
+const bookLoader = makeUnifiedBookLoader(
+  createArchiveLoader({
+    archivePrefix: ARCHIVE_URL,
+  }),
+  osWebLoader,
+  {booksConfig}
+);
 
 const bookId = argv._[1];
-const booksConfig = getBooksConfigSync();
-archiveLoader.book(bookId, {booksConfig}).load().then((book: any) => {
+bookLoader(bookId).then((book: any) => {
   if (field) {
     // tslint:disable-next-line:no-console
     console.log(book[field]);

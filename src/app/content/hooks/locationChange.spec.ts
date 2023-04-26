@@ -204,6 +204,7 @@ describe('contentRouteHookBody', () => {
       amazon_link: '',
       authors: [{value: {name: 'different author', senior_author: true}}],
       book_state: 'live',
+      book_subjects: [{subject_name: 'test subject'}],
       cnx_id: mockOtherBook.id,
       cover_color: 'blue',
       meta: {
