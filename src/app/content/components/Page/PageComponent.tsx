@@ -7,6 +7,7 @@ import Loader from '../../../components/Loader';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
+import { fromRelativeUrl } from '../../utils/urlUtils';
 import getCleanContent from '../../utils/getCleanContent';
 import PageToasts from '../Page/PageToasts';
 import { PagePropTypes } from './connector';
@@ -37,6 +38,20 @@ export default class PageComponent extends Component<PagePropTypes> {
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
 
+  private linksToOtherPagesOpenInNewTab(rootEl: HTMLElement) {
+    const currentPath = this.props.currentPath;
+
+    rootEl.querySelectorAll('a[href]').forEach(
+      (link) => {
+        const pathname = fromRelativeUrl(currentPath, link.getAttribute('href') as string);
+  
+        if (pathname !== currentPath) {
+          link.setAttribute('target', '_blank');
+        }
+      }
+    );
+  }
+
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
 
@@ -48,16 +63,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       transformContent(parsedContent, parsedContent.body, this.props.intl);
 
       if (this.props.lockNavigation) {
-        const links = parsedContent.body.querySelectorAll('a[href]');
-
-        for (const link of links) {
-          const {origin, pathname} = new URL(link.getAttribute('href'), assertWindow().location.href);
-          const loc = assertWindow().location;
-
-          if (origin !== loc.origin || pathname !== loc.pathname) {
-            link.setAttribute('target', '_blank');
-          }
-        }
+        this.linksToOtherPagesOpenInNewTab(parsedContent.body);
       }
 
       /* this will be removed when all the books are in good order */
@@ -208,9 +214,6 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     lazyResources.addScrollHandler();
 
-    if (this.props.lockNavigation) {
-      return;
-    }
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
