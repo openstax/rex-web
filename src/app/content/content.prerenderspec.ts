@@ -102,7 +102,7 @@ describe('content', () => {
     );
 
     expect(links).toEqual([
-      '/apps/archive/codeversion/resources/c7cc4c5e00a4bc07cb74f29cac2fb3c6cd6d53b5',
+      '/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/c7cc4c5e00a4bc07cb74f29cac2fb3c6cd6d53b5',
     ]);
   });
 
