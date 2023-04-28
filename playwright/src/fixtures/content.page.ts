@@ -1,5 +1,6 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
+import { sleep } from '../utilities/utilities'
 
 class ContentPage {
   colorlocator: any
@@ -39,7 +40,8 @@ class ContentPage {
     this.body = this.page.locator('[class*="page-content"]')
     this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
     this.contentHighlightsLoaded = this.page.locator('[class*="HighlightsWrapper"]')
-    this.noteTextBox = this.page.locator('textarea')
+    // this.noteTextBox = this.page.locator('textarea')
+    this.noteTextBox = this.page.locator('[data-analytics-region="edit-note"]')
     this.saveNote = this.page.locator('[data-testid="save"]')
     this.cancelNote = this.page.locator('[data-testid="cancel"]')
     this.contextMenu = this.page.locator('[class*=MenuToggle]')
@@ -99,6 +101,7 @@ class ContentPage {
           return window.getComputedStyle(e).getPropertyValue('visibility')
         })
         if (colorLocatorVisibility === 'visible') {
+          console.log(colorLocatorVisibility)
           await this.colorlocator.nth(i).click()
         }
       }
@@ -165,34 +168,56 @@ class ContentPage {
     }
   }
 
-  async addNote(note: string) {
+  async addNote(note: string, color: string) {
     // Add note to a highlight
     // param: note - text to be added as annotation
     // select highlight color from the visible notecard in the page
     // this.colorlocator = await this.colorLocator(color)
-    const colorLocatorCount = await this.noteTextBox.count()
+    this.colorlocator = await this.colorLocator(color)
+    const colorLocatorCount = await this.colorlocator.count()
     if (colorLocatorCount > 1) {
-      const i = await this.checkDuplicates()
-      console.log(i)
-      await this.noteTextBox.nth(i).click()
-      await this.noteTextBox.nth(i).type(note)
+   
+    for (let i = 0; i < colorLocatorCount; i++) {
+      sleep(4)
+      const colorLocatorVisibility = await this.colorlocator.nth(i).evaluate((e: Element) => {
+        return window.getComputedStyle(e).getPropertyValue('visibility')
+      
+      })
+      console.log(colorLocatorVisibility)
+      if (colorLocatorVisibility === 'visible') {
+        console.log(i)
+        await this.noteTextBox.nth(i).focus()
+        await this.noteTextBox.nth(i).click()
+        await this.noteTextBox.nth(i).type(note)
+      }
+    }
+  }
     
-    } 
+    // if (colorLocatorCount > 1) {
+    //   const i = await this.activeNotecard(color)
+    //   console.log(i)
+    //   await this.noteTextBox.nth(i).click()
+    //   await this.noteTextBox.nth(i).type(note)
+    
+    // } 
     else {
       await this.noteTextBox.click()
       await this.noteTextBox.type(note)
     }
     
-    // await this.saveNote.click()
+    await this.saveNote.click()
   }
 
 
-  async checkDuplicates() {
-    const colorLocatorCount = await this.noteTextBox.count()
+  async activeNotecard(color: string) {
+    const colorLocatorCount = await (await this.colorLocator(color)).count()
+    console.log(colorLocatorCount)
     for (let i = 0; i < colorLocatorCount; i++) {
       const colorLocatorVisibility = await this.noteTextBox.nth(i).evaluate((e: Element) => {
         return window.getComputedStyle(e).getPropertyValue('visibility')
+      
       })
+      console.log(colorLocatorVisibility)
       if (colorLocatorVisibility === 'visible') {
         console.log(i)
         return i
@@ -206,7 +231,7 @@ class ContentPage {
 
     const colorLocatorCount = await this.noteTextBox.count()
     if (colorLocatorCount > 1) {
-      const j = await this.checkDuplicates()
+      const j = await this.activeNotecard()
       await this.noteTextBox.nth(j).click()
       await this.noteTextBox.nth(j).focus()
       let i: number
