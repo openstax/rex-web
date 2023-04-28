@@ -7,11 +7,10 @@ import Loader from '../../../components/Loader';
 import { toastMessageKeys } from '../../../notifications/components/ToastNotifications/constants';
 import { assertWindow } from '../../../utils';
 import { preloadedPageIdIs } from '../../utils';
-import { fromRelativeUrl } from '../../utils/urlUtils';
 import getCleanContent from '../../utils/getCleanContent';
 import PageToasts from '../Page/PageToasts';
 import { PagePropTypes } from './connector';
-import { transformContent } from './contentDOMTransformations';
+import { transformContent, linksToOtherPagesOpenInNewTab } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import * as lazyResources from './lazyResourceManager';
@@ -38,20 +37,6 @@ export default class PageComponent extends Component<PagePropTypes> {
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
 
-  private linksToOtherPagesOpenInNewTab(rootEl: HTMLElement) {
-    const currentPath = this.props.currentPath;
-
-    rootEl.querySelectorAll('a[href]').forEach(
-      (link) => {
-        const pathname = fromRelativeUrl(currentPath, link.getAttribute('href') as string);
-  
-        if (pathname !== currentPath) {
-          link.setAttribute('target', '_blank');
-        }
-      }
-    );
-  }
-
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
 
@@ -63,7 +48,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       transformContent(parsedContent, parsedContent.body, this.props.intl);
 
       if (this.props.lockNavigation) {
-        this.linksToOtherPagesOpenInNewTab(parsedContent.body);
+        linksToOtherPagesOpenInNewTab(parsedContent.body, this.props.currentPath);
       }
 
       /* this will be removed when all the books are in good order */
