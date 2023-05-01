@@ -35,10 +35,12 @@ const StyledButton = styled(Button)`
   margin: 0 auto;
 `;
 
-// Override top for Toast
+// Override layout for Toast
 const assignedMobileTop = (props: any) => getMobileSearchFailureTop(props) - bookBannerMobileMiniHeight;
 const ToastOverride = styled(PageToasts)`
   top: ${topbarDesktopHeight}rem;
+  left: 0;
+  max-width: 100%;
 
   ${theme.breakpoints.mobile(css`
     top: ${assignedMobileTop}rem;
