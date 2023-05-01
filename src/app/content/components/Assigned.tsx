@@ -41,7 +41,6 @@ const ToastOverride = styled(PageToasts)`
   top: ${topbarDesktopHeight}rem;
   left: 0;
   max-width: 100%;
-
   ${theme.breakpoints.mobile(css`
     top: ${assignedMobileTop}rem;
   `)}

@@ -21,7 +21,6 @@ const StyledTopBarWrapper = styled(TopBarWrapper)`
   color: ${theme.color.text.default};
   display: flex;
   height: ${topbarDesktopHeight}rem;
-
   ${theme.breakpoints.mobileMedium(css`
     height: ${topbarMobileHeight}rem;
   `)}
