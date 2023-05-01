@@ -1,3 +1,4 @@
+import { Book, Page } from '../../../app/content/types';
 import { assertDocument } from '../../../app/utils';
 import { track } from './elementInteracted';
 
@@ -11,7 +12,10 @@ describe('elementInteracted', () => {
     parent.setAttribute('id', 'foo');
     parent.setAttribute('random-attribute', 'random-value');
     parent.append(anchor);
-    const result = track({}, anchor);
+    const page = {id: 'pageid'} as Page;
+    const result = track(
+      {book: {id: 'bookid', tree: {id: 'bookid', contents: [page]}} as unknown as Book, page}, anchor
+    );
 
     if (!result) {
       return expect(result).toBeTruthy();
@@ -24,5 +28,18 @@ describe('elementInteracted', () => {
 
     expect(payload.context_attributes['random-attribute']).toBe('random-value');
     expect(payload.context_type).toBe('DIV');
+  });
+
+  describe('no content', () => {
+    it('has no event capture payload', () => {
+      const anchor = document.createElement('a');
+      const event = track({ book: undefined, page: undefined }, anchor);
+
+      if (!event) {
+        return expect(event).toBeTruthy();
+      }
+
+      expect(event.getEventCapturePayload).toBeUndefined();
+    });
   });
 });

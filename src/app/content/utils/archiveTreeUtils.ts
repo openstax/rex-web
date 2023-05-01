@@ -125,6 +125,14 @@ interface Sections {
   next?: LinkedArchiveTreeSection | undefined;
 }
 
+export const getPageIndex = (
+  tree: ArchiveTree,
+  pageId: string
+): number | undefined => {
+  const index = findTreePages(tree).findIndex(nodeMatcher(pageId));
+  return index === -1 ? undefined : index;
+};
+
 export const getPrevNext = (
   sections: LinkedArchiveTreeSection[],
   pageId: string

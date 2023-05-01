@@ -1,10 +1,11 @@
 import { interacted } from '@openstax/event-capture-client/events';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { findFirstAncestorOrSelf } from '../../../app/domUtils';
-import { AppState } from '../../../app/types';
+import * as selectContent from '../../../app/content/selectors';
+import * as archiveTreeUtils from '../../../app/content/utils/archiveTreeUtils';
 import { AnalyticsEvent, getAnalyticsRegion } from './event';
 
-export const selector = (_: AppState) => ({});
+export const selector = selectContent.bookAndPage;
 
 // helper for ts to figure out the dynamic key names
 const record = <K extends string, V>(key: K, value: V) => ({[key]: value}) as Record<K, V>;
@@ -19,7 +20,7 @@ const getElementStruct = <K extends string>(name: K, element: HTMLElement) => ({
 });
 
 export const track = (
-  _: ReturnType<typeof selector>,
+  {book, page}: ReturnType<typeof selector>,
   element: HTMLElement,
   stateChange?: string
 ): AnalyticsEvent | void => {
@@ -28,12 +29,19 @@ export const track = (
     search.hasAttribute('data-type') && search.hasAttribute('id')
   );
 
-  return {
+  return book && page ? {
     getEventCapturePayload: () => interacted({
       ...getElementStruct('target', element),
       ...getElementStruct('context', contextElement || element.ownerDocument.body),
       contextRegion,
       contextStateChange: stateChange,
+      sourceMetadata: {
+        contentId: page.id,
+        contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id),
+        contentVersion: book.contentVersion,
+        contextVersion: book.archiveVersion,
+        scopeId: book.id,
+      },
     }),
-  };
+  } : {};
 };
