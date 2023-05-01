@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, {css} from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import Button from '../../components/Button';
 import { useServices } from '../../context/Services';
@@ -37,6 +37,7 @@ const StyledButton = styled(Button)`
 
 // Override layout for Toast
 const assignedMobileTop = (props: any) => getMobileSearchFailureTop(props) - bookBannerMobileMiniHeight;
+// tslint:disable-next-line: variable-name
 const ToastOverride = styled(PageToasts)`
   top: ${topbarDesktopHeight}rem;
   left: 0;
