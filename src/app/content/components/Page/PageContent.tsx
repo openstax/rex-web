@@ -56,12 +56,12 @@ export default styled(MainContent)`
     z-index: 1;
   }
 
-  // stylelint-disable selector-class-pattern
+  /* stylelint-disable selector-class-pattern */
   .MathJax_Display .highlight,
   .MathJax_Preview + .highlight {
     display: inline-block;
   }
-  // stylelint-enable selector-class-pattern
+  /* stylelint-enable selector-class-pattern */
 
   ${highlightStyles.map((style) => css`
     .highlight.${style.label} {
