@@ -40,12 +40,6 @@ export const ShowPracitceQuestionsContent = styled.div`
     text-align: left;
     padding: 0;
   `)}
-
-  .MathJax {
-    vertical-align: middle;
-    display: inline-block;
-    overflow: hidden;
-  }
 `;
 
 // tslint:disable-next-line: variable-name
