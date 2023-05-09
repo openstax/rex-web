@@ -263,15 +263,13 @@ test('multiple note in content page', async ({ page, isMobile }) => {
 
   // AND: Add note to the highlight and save
   const noteText = randomstring()
-  await BookPage.clickHighlight(0)
-  await BookPage.addNote(noteText, 'green')
+  await BookPage.clickHighlight(1)
+  await BookPage.addNote(noteText)
   // await BookPage.noteConfirmDialog(Actions.Save)
 
-  // AND: Edit note to the highlight and save
-  const editnoteText = randomstring()
-  await BookPage.clickContextMenu(0)
-  await BookPage.editHighlight()
-  await BookPage.editNote(editnoteText)
-  await BookPage.noteConfirmDialog(Actions.Save)
-  expect(await BookPage.noteText()).toBe(editnoteText + noteText)
+  const noteText1 = randomstring()
+  await BookPage.clickHighlight(0)
+  await BookPage.addNote(noteText1)
+  expect(await BookPage.noteText()).toBe(noteText1)
+
 })
