@@ -1,5 +1,7 @@
 // Content page locators and functions
-import { Locator, Page } from 'playwright'
+import { Locator, Page, errors } from 'playwright'
+import { fail } from 'yargs'
+
 import { sleep } from '../utilities/utilities'
 
 class ContentPage {
@@ -226,9 +228,16 @@ class ContentPage {
     await this.noteEditCard.waitFor({ state: 'hidden' })
   }
 
-  async noteText() {
+  async noteText(note: string) {
     // Return the text present in the note attached to a highlight
-    return this.noteTextLocator.textContent()
+
+    const playwright = require('playwright')
+    try{
+    return await (this.noteTextLocator.filter({ hasText: note })).textContent({timeout: 3000})
+    } catch (error) {
+      if (error instanceof playwright.errors.TimeoutError)
+      {console.log('note not present')}
+    }
   }
 
   async clickNext() {
