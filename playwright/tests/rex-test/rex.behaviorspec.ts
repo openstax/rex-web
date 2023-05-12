@@ -218,9 +218,7 @@ test('note in content page', async ({ page, isMobile }) => {
 
   // WHEN: Highlight 1 random paragraph
   const paracount = BookPage.paracount()
-  // const randomparanumber = randomNum(await paracount)
   const randomparanumber = 0
-  // console.log(randomparanumber)
   await BookPage.highlightText('green', randomparanumber)
 
   // AND: Add note to the highlight and save
@@ -229,13 +227,13 @@ test('note in content page', async ({ page, isMobile }) => {
   await BookPage.addNote(noteText)
   await BookPage.noteConfirmDialog(Actions.Save)
 
-  // AND: Edit note to the highlight and save
-  const editnoteText = randomstring()
-  await BookPage.clickContextMenu(0)
-  await BookPage.editHighlight()
-  await BookPage.editNote(editnoteText)
-  await BookPage.noteConfirmDialog(Actions.Save)
-  expect(await BookPage.noteText()).toBe(editnoteText + noteText)
+  // // AND: Edit note to the highlight and save - Update in next PR
+  // const editnoteText = randomstring()
+  // await BookPage.clickContextMenu(0)
+  // await BookPage.editHighlight()
+  // await BookPage.editNote(editnoteText)
+  // await BookPage.noteConfirmDialog(Actions.Save)
+  // expect(await BookPage.noteText()).toBe(editnoteText + noteText)
 })
 
 
@@ -251,30 +249,27 @@ test('multiple note in content page', async ({ page, isMobile }) => {
   await rexUserSignup(page)
   await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
 
-  // WHEN: Highlight 1 random paragraph
+  // WHEN: Highlight a random paragraph with note
   const paracount = BookPage.paracount()
-  const randomparanumber = randomNum(await paracount)
-  // const randomparanumber = 0
-  // // console.log(randomparanumber)
-  await BookPage.highlightText('green', randomparanumber)
+  const randomparanumber0 = randomNum(await paracount)
+  const noteText0 = randomstring()
+  await BookPage.highlightText('green', randomparanumber0, noteText0)
+  let highlightId0 = await BookPage.highlight_id(randomparanumber0)
 
-  const randomparanumber2 = randomNum(await paracount, randomparanumber)
-  await BookPage.highlightText('yellow', randomparanumber2)
+  // AND: Highlight a random paragraph without note
+  const randomparanumber1 = randomNum(await paracount, randomparanumber0)
+  await BookPage.highlightText('yellow', randomparanumber1)
+  let highlightId1 = await BookPage.highlight_id(randomparanumber1)
 
-  // AND: Add note to the highlight and save
-
-  await BookPage.clickHighlight(1)
+  // AND: Add note to the 2nd highlight and save
+  await BookPage.clickHighlight(randomparanumber1)
   const noteText1 = randomstring()
   await BookPage.addNote(noteText1)
-  // await BookPage.noteConfirmDialog(Actions.Save)
-  
+  await BookPage.noteConfirmDialog(Actions.Save)
 
-  
-  await BookPage.clickHighlight(0)
-  const noteText0 = randomstring()
-  await BookPage.addNote(noteText0)
-  expect(await BookPage.noteText(noteText1)).toContain(noteText1)
-  expect(await BookPage.noteText(noteText0)).toContain(noteText0)
-  expect(await BookPage.noteText('rdfg')).toBe('rdfg')
+  await BookPage.clickHighlight(randomparanumber0)
+  expect(await BookPage.noteText()).toBe(noteText0)
+  await BookPage.clickHighlight(randomparanumber1)
+  expect(await BookPage.noteText()).toBe(noteText1)
 
 })

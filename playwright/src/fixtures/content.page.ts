@@ -28,6 +28,7 @@ class ContentPage {
   noteTextLocator: Locator
   noteEditCard: Locator
   textarea: Locator
+  highlightIdlocator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -89,14 +90,15 @@ class ContentPage {
     }
   }
 
-  async highlightText(color: string, randomparanumber: number) {
+  async highlightText(color: string, randomparanumber: number, note?: string) {
     // Highlight selected text
     // param: highlight color
     // param: randomparanumber - paragraph number of the content to be highlighted
+    // param: note - optional note to be added to the highlight
 
     await this.selectText(randomparanumber)
 
-    // select highlight color from the visible notecard in the page
+    // select highlight color & add note from the visible notecard in the page (if multiple highlights are present in the page)
     this.colorlocator = await this.colorLocator(color)
     const colorLocatorCount = await this.colorlocator.count()
     if (colorLocatorCount > 1) {
@@ -106,22 +108,37 @@ class ContentPage {
         })
         if (colorLocatorVisibility === 'visible') {
           await this.colorlocator.nth(i).click()
+          if(typeof note !== 'undefined'){
+          await this.noteTextBox.nth(i).click()
+          await this.noteTextBox.nth(i).type(note)
+          await this.saveNote.click()
+          }
         }
       }
-    } else {
+    } 
+    // select the highlight color & add note from the available notecard in the page (first highlight on the page)
+    else {
       await this.colorlocator.click()
+      if(typeof note !== 'undefined'){
+      await this.noteTextBox.click()
+      await this.noteTextBox.type(note)
+      await this.saveNote.click()
+      }
     }
-
+    
     // The notecard stays open after making a highlight,
     // which prevents click actions on other elements like next/previous
     // links underneath the highlighter. So close the notecard.
     await this.CloseNoteCard()
   }
 
-  async clickHighlight(n: number) {
+  async clickHighlight(randomparanumber?: number) {
     // Click on a highlight
     // param: n - nth highlight on the content page
-    this.highlight.nth(n).click()
+    // this.highlight.nth(n).click()
+    const highlight_id = await this.highlight_id(randomparanumber)
+    this.highlightIdlocator = this.page.locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
+    await this.highlightIdlocator.click()
   }
 
   async clickContextMenu(n: number) {
@@ -178,27 +195,15 @@ class ContentPage {
     const EditBoxCount = await this.textarea.count()
     
     if (EditBoxCount > 1) {
-   
-    for (let i = 0; i < EditBoxCount; i++) {
-      // await this.textarea.nth(i).waitFor() 
-      const textarea = await this.textarea.nth(i).evaluate((e: Element) => {
-        return window.getComputedStyle(e).getPropertyValue('visibility')
-      
-      })
-      if (textarea === 'visible') {
-        await this.noteTextBox.nth(i).focus()
-        await this.noteTextBox.nth(i).click()
-        await this.noteTextBox.nth(i).type(note)
-        break
-          }
-        }
+      const i = await this.activeNotecard()
+      await this.noteTextBox.nth(i).focus()
+      await this.noteTextBox.nth(i).click()
+      await this.noteTextBox.nth(i).type(note)
       }
       else {
         await this.noteTextBox.click()
         await this.noteTextBox.type(note)
       }
-    
-    await this.saveNote.click()
   }
 
 
@@ -210,7 +215,6 @@ class ContentPage {
       
       })
       if (textarea === 'visible') {
-        console.log(i)
         return i
       }
     }
@@ -228,16 +232,20 @@ class ContentPage {
     await this.noteEditCard.waitFor({ state: 'hidden' })
   }
 
-  async noteText(note: string) {
+  async noteText() {
     // Return the text present in the note attached to a highlight
 
-    const playwright = require('playwright')
-    try{
-    return await (this.noteTextLocator.filter({ hasText: note })).textContent({timeout: 3000})
-    } catch (error) {
-      if (error instanceof playwright.errors.TimeoutError)
-      {console.log('note not present')}
+    const EditBoxCount = await this.noteTextLocator.count()
+    for (let i = 0; i < EditBoxCount; i++) {
+      const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
+        return window.getComputedStyle(e).getPropertyValue('display')
+      
+      })
+      if (noteText === 'block') {
+
+        return (await this.noteTextLocator.nth(i).textContent())
     }
+  }
   }
 
   async clickNext() {
