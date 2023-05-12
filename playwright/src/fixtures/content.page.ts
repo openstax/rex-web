@@ -108,24 +108,24 @@ class ContentPage {
         })
         if (colorLocatorVisibility === 'visible') {
           await this.colorlocator.nth(i).click()
-          if(typeof note !== 'undefined'){
-          await this.noteTextBox.nth(i).click()
-          await this.noteTextBox.nth(i).type(note)
-          await this.saveNote.click()
+          if (typeof note !== 'undefined') {
+            await this.noteTextBox.nth(i).click()
+            await this.noteTextBox.nth(i).type(note)
+            await this.saveNote.click()
           }
         }
       }
-    } 
+    }
     // select the highlight color & add note from the available notecard in the page (first highlight on the page)
     else {
       await this.colorlocator.click()
-      if(typeof note !== 'undefined'){
-      await this.noteTextBox.click()
-      await this.noteTextBox.type(note)
-      await this.saveNote.click()
+      if (typeof note !== 'undefined') {
+        await this.noteTextBox.click()
+        await this.noteTextBox.type(note)
+        await this.saveNote.click()
       }
     }
-    
+
     // The notecard stays open after making a highlight,
     // which prevents click actions on other elements like next/previous
     // links underneath the highlighter. So close the notecard.
@@ -193,26 +193,23 @@ class ContentPage {
     // param: note - text to be added as annotation
 
     const EditBoxCount = await this.textarea.count()
-    
+
     if (EditBoxCount > 1) {
       const i = await this.activeNotecard()
       await this.noteTextBox.nth(i).focus()
       await this.noteTextBox.nth(i).click()
       await this.noteTextBox.nth(i).type(note)
-      }
-      else {
-        await this.noteTextBox.click()
-        await this.noteTextBox.type(note)
-      }
+    } else {
+      await this.noteTextBox.click()
+      await this.noteTextBox.type(note)
+    }
   }
-
 
   async activeNotecard() {
     const EditBoxCount = await this.textarea.count()
     for (let i = 0; i < EditBoxCount; i++) {
       const textarea = await this.textarea.nth(i).evaluate((e: Element) => {
         return window.getComputedStyle(e).getPropertyValue('visibility')
-      
       })
       if (textarea === 'visible') {
         return i
@@ -239,13 +236,11 @@ class ContentPage {
     for (let i = 0; i < EditBoxCount; i++) {
       const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
         return window.getComputedStyle(e).getPropertyValue('display')
-      
       })
       if (noteText === 'block') {
-
-        return (await this.noteTextLocator.nth(i).textContent())
+        return await this.noteTextLocator.nth(i).textContent()
+      }
     }
-  }
   }
 
   async clickNext() {
@@ -267,10 +262,9 @@ class ContentPage {
 
   async paraclick(randomparanumber: number) {
     // Number of paragraphs in the page
-  
+
     return this.paragraph.nth(randomparanumber).click()
   }
-
 
   async CloseNoteCard() {
     // Close the notecard

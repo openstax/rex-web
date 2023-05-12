@@ -236,7 +236,6 @@ test('note in content page', async ({ page, isMobile }) => {
   // expect(await BookPage.noteText()).toBe(editnoteText + noteText)
 })
 
-
 test('multiple note in content page', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'test only desktop resolution')
 
@@ -254,12 +253,12 @@ test('multiple note in content page', async ({ page, isMobile }) => {
   const randomparanumber0 = randomNum(await paracount)
   const noteText0 = randomstring()
   await BookPage.highlightText('green', randomparanumber0, noteText0)
-  let highlightId0 = await BookPage.highlight_id(randomparanumber0)
+  const highlightId0 = await BookPage.highlight_id(randomparanumber0)
 
   // AND: Highlight a random paragraph without note
   const randomparanumber1 = randomNum(await paracount, randomparanumber0)
   await BookPage.highlightText('yellow', randomparanumber1)
-  let highlightId1 = await BookPage.highlight_id(randomparanumber1)
+  const highlightId1 = await BookPage.highlight_id(randomparanumber1)
 
   // AND: Add note to the 2nd highlight and save
   await BookPage.clickHighlight(randomparanumber1)
@@ -271,5 +270,4 @@ test('multiple note in content page', async ({ page, isMobile }) => {
   expect(await BookPage.noteText()).toBe(noteText0)
   await BookPage.clickHighlight(randomparanumber1)
   expect(await BookPage.noteText()).toBe(noteText1)
-
 })
