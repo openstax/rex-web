@@ -132,19 +132,17 @@ class ContentPage {
     await this.CloseNoteCard()
   }
 
-  async clickHighlight(randomparanumber?: number) {
+  async clickHighlight(highlight_id: string) {
     // Click on a highlight
-    // param: n - nth highlight on the content page
-    // this.highlight.nth(n).click()
-    const highlight_id = await this.highlight_id(randomparanumber)
+    // param: highlight_id of the highlight to be clicked
     this.highlightIdlocator = this.page.locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
     await this.highlightIdlocator.click()
   }
 
-  async clickContextMenu(n: number) {
+  async clickContextMenu(highlight_id: string) {
     // Click context menu of a highlight
-    // param: n - nth highlight on the content page
-    this.clickHighlight(n)
+    // param: highlight_id 
+    this.clickHighlight(highlight_id)
     this.contextMenu.click()
   }
 
@@ -206,6 +204,7 @@ class ContentPage {
   }
 
   async activeNotecard() {
+    // Find the active notecard that is visible in the content page
     const EditBoxCount = await this.textarea.count()
     for (let i = 0; i < EditBoxCount; i++) {
       const textarea = await this.textarea.nth(i).evaluate((e: Element) => {
@@ -230,10 +229,9 @@ class ContentPage {
   }
 
   async noteText() {
-    // Return the text present in the note attached to a highlight
-
-    const EditBoxCount = await this.noteTextLocator.count()
-    for (let i = 0; i < EditBoxCount; i++) {
+    // Return the text present in the active notecard 
+    const NoteCardCount = await this.noteTextLocator.count()
+    for (let i = 0; i < NoteCardCount; i++) {
       const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
         return window.getComputedStyle(e).getPropertyValue('display')
       })
