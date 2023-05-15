@@ -67,6 +67,16 @@ describe('setHead hook', () => {
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
+  it('does nothing if page is reloading', async() => {
+    store.dispatch(receiveBook(combinedBook));
+    store.dispatch(receivePage({...page, references: []}));
+    store.getState().content.loading = {page: {slug: 'pageId'}};
+
+    await hook(receivePage({...page, references: []}));
+
+    expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
+  });
+
   it('does nothing if page is not loaded', async() => {
     store.dispatch(receiveBook(combinedBook));
 

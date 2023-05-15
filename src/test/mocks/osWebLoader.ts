@@ -4,6 +4,7 @@ export const mockCmsBook: OSWebBook = {
   amazon_link: '',
   authors: [{value: {name: 'Bam Bammerson', senior_author: true}}],
   book_state: 'live',
+  book_subjects: [{subject_name: 'test subject'}],
   cnx_id: '3',
   cover_color: 'blue',
   meta: {
