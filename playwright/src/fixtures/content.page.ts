@@ -141,7 +141,7 @@ class ContentPage {
 
   async clickContextMenu(highlight_id: string) {
     // Click context menu of a highlight
-    // param: highlight_id 
+    // param: highlight_id
     this.clickHighlight(highlight_id)
     this.contextMenu.click()
   }
@@ -229,7 +229,7 @@ class ContentPage {
   }
 
   async noteText() {
-    // Return the text present in the active notecard 
+    // Return the text present in the active notecard
     const NoteCardCount = await this.noteTextLocator.count()
     for (let i = 0; i < NoteCardCount; i++) {
       const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
