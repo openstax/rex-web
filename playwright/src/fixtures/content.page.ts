@@ -1,8 +1,5 @@
 // Content page locators and functions
-import { Locator, Page, errors } from 'playwright'
-import { fail } from 'yargs'
-
-import { sleep } from '../utilities/utilities'
+import { Locator, Page } from 'playwright'
 
 class ContentPage {
   colorlocator: any
@@ -44,7 +41,6 @@ class ContentPage {
     this.body = this.page.locator('[class*="page-content"]')
     this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
     this.contentHighlightsLoaded = this.page.locator('[class*="HighlightsWrapper"]')
-    // this.noteTextBox = this.page.locator('textarea')
     this.noteTextBox = this.page.locator('[data-analytics-region="edit-note"]')
     this.saveNote = this.page.locator('[data-testid="save"]')
     this.cancelNote = this.page.locator('[data-testid="cancel"]')
@@ -259,8 +255,8 @@ class ContentPage {
   }
 
   async paraclick(randomparanumber: number) {
-    // Number of paragraphs in the page
-
+    // Click on nth paragraph in the page
+    // param: randomparanumber - paragraph number to be clicked
     return this.paragraph.nth(randomparanumber).click()
   }
 

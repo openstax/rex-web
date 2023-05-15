@@ -218,7 +218,7 @@ test('note in content page', async ({ page, isMobile }) => {
 
   // WHEN: Highlight 1 random paragraph
   const paracount = BookPage.paracount()
-  const randomparanumber = 0
+  const randomparanumber = randomNum(await paracount)
   await BookPage.highlightText('green', randomparanumber)
 
   // AND: Add note to the highlight and save
