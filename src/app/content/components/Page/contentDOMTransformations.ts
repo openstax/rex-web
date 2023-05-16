@@ -14,6 +14,7 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   wrapSolutions(document, rootEl, intl);
   expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, intl);
+  optimizeImages(rootEl);
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -65,6 +66,17 @@ function tweakFigures(rootEl: HTMLElement) {
     parent.classList.add('ui-has-child-figcaption');
     parent.appendChild(el);
   });
+}
+
+function optimizeImages(rootEl: HTMLElement) {
+  const images = Array.from(rootEl.querySelectorAll('img[src^="/apps/archive"'));
+
+  for (const i of images) {
+    const src = assertNotNull(i.getAttribute('src'), 'Somehow got a null src attribute')
+    .replace('/apps/archive', '/apps/image-cdn/v1/f=webp/apps/archive');
+
+    i.setAttribute('src', src);
+  }
 }
 
 function fixLists(rootEl: HTMLElement) {
