@@ -19,6 +19,7 @@ clean-test: ## remove test and coverage artifacts
 venv:
 	python3 -m venv .venv && \
 		. .venv/bin/activate && \
+		pip install --use-pep517 \
 		pip install -r pytest-selenium/requirements-dev.txt
 
 help_redirect:
