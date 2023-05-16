@@ -132,6 +132,7 @@ const NudgeTextOnlyHighlights = htmlMessage('i18n:nudge:study-tools:text:only-hi
 const NoopForPrerenderingAndForHiddenState = () => {
   const studyGuidesEnabled = useSelector(studyGuidesEnabledSelector);
   const totalCountsPerPage = useSelector(totalCountsPerPageSelector);
+  const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const show = useSelector(showNudgeStudyTools);
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const dispatch = useDispatch();
@@ -146,7 +147,9 @@ const NoopForPrerenderingAndForHiddenState = () => {
       && shouldDisplayNudgeStudyTools()
     ) {
       setNudgeStudyToolsCookies();
-      trackOpen();
+      const app = hasStudyGuides ? 'rex' : 'highlights';
+      const target = hasStudyGuides ? 'study_guides' : 'highlights';
+      trackOpen(app, target);
       dispatch(openNudgeStudyTools());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
