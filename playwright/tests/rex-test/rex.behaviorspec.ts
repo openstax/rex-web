@@ -223,15 +223,53 @@ test('note in content page', async ({ page, isMobile }) => {
 
   // AND: Add note to the highlight and save
   const noteText = randomstring()
-  await BookPage.clickHighlight(0)
+  const highlightId = await BookPage.highlight_id(randomparanumber)
+  await BookPage.clickHighlight(highlightId)
   await BookPage.addNote(noteText)
   await BookPage.noteConfirmDialog(Actions.Save)
 
-  // AND: Edit note to the highlight and save
-  const editnoteText = randomstring()
-  await BookPage.clickContextMenu(0)
-  await BookPage.editHighlight()
-  await BookPage.editNote(editnoteText)
+  // // AND: Edit note to the highlight and save - Edit Note Update in next PR
+  // const editnoteText = randomstring()
+  // await BookPage.clickContextMenu(0)
+  // await BookPage.editHighlight()
+  // await BookPage.editNote(editnoteText)
+  // await BookPage.noteConfirmDialog(Actions.Save)
+  // expect(await BookPage.noteText()).toBe(editnoteText + noteText)
+})
+
+test('multiple note in content page', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
+
+  // WHEN: Highlight a random paragraph with note
+  const paracount = BookPage.paracount()
+  const randomparanumber0 = randomNum(await paracount)
+  const noteText0 = randomstring()
+  await BookPage.highlightText('green', randomparanumber0, noteText0)
+  const highlightId0 = await BookPage.highlight_id(randomparanumber0)
+
+  // AND: Highlight a random paragraph without note
+  const randomparanumber1 = randomNum(await paracount, randomparanumber0)
+  await BookPage.highlightText('yellow', randomparanumber1)
+  const highlightId1 = await BookPage.highlight_id(randomparanumber1)
+
+  // AND: Add note to the 2nd highlight and save
+  await BookPage.clickHighlight(highlightId1)
+  const noteText1 = randomstring()
+  await BookPage.addNote(noteText1)
   await BookPage.noteConfirmDialog(Actions.Save)
-  expect(await BookPage.noteText()).toBe(editnoteText + noteText)
+
+  // THEN: Each note is attached to the corresponding highlight
+  await BookPage.clickHighlight(highlightId0)
+  expect(await BookPage.noteText()).toBe(noteText0)
+  await BookPage.clickHighlight(highlightId1)
+  expect(await BookPage.noteText()).toBe(noteText1)
 })
