@@ -24,6 +24,8 @@ class ContentPage {
   editHighlightLocator: Locator
   noteTextLocator: Locator
   noteEditCard: Locator
+  textarea: Locator
+  highlightIdlocator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -39,13 +41,14 @@ class ContentPage {
     this.body = this.page.locator('[class*="page-content"]')
     this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
     this.contentHighlightsLoaded = this.page.locator('[class*="HighlightsWrapper"]')
-    this.noteTextBox = this.page.locator('textarea')
+    this.noteTextBox = this.page.locator('[data-analytics-region="edit-note"]')
     this.saveNote = this.page.locator('[data-testid="save"]')
     this.cancelNote = this.page.locator('[data-testid="cancel"]')
     this.contextMenu = this.page.locator('[class*=MenuToggle]')
     this.editHighlightLocator = this.page.locator('[data-testid="card"] >> text=Edit')
     this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
     this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
+    this.textarea = this.page.locator('textarea[class*="TextArea"]')
   }
 
   async open(path: string) {
@@ -83,14 +86,15 @@ class ContentPage {
     }
   }
 
-  async highlightText(color: string, randomparanumber: number) {
+  async highlightText(color: string, randomparanumber: number, note?: string) {
     // Highlight selected text
     // param: highlight color
     // param: randomparanumber - paragraph number of the content to be highlighted
+    // param: note - optional note to be added to the highlight
 
     await this.selectText(randomparanumber)
 
-    // select highlight color from the visible notecard in the page
+    // select highlight color & add note from the visible notecard in the page (if multiple highlights are present in the page)
     this.colorlocator = await this.colorLocator(color)
     const colorLocatorCount = await this.colorlocator.count()
     if (colorLocatorCount > 1) {
@@ -100,10 +104,22 @@ class ContentPage {
         })
         if (colorLocatorVisibility === 'visible') {
           await this.colorlocator.nth(i).click()
+          if (typeof note !== 'undefined') {
+            await this.noteTextBox.nth(i).click()
+            await this.noteTextBox.nth(i).type(note)
+            await this.saveNote.click()
+          }
         }
       }
-    } else {
+    }
+    // select the highlight color & add note from the available notecard in the page (first highlight on the page)
+    else {
       await this.colorlocator.click()
+      if (typeof note !== 'undefined') {
+        await this.noteTextBox.click()
+        await this.noteTextBox.type(note)
+        await this.saveNote.click()
+      }
     }
 
     // The notecard stays open after making a highlight,
@@ -112,16 +128,17 @@ class ContentPage {
     await this.CloseNoteCard()
   }
 
-  async clickHighlight(n: number) {
+  async clickHighlight(highlight_id: string) {
     // Click on a highlight
-    // param: n - nth highlight on the content page
-    this.highlight.nth(n).click()
+    // param: highlight_id of the highlight to be clicked
+    this.highlightIdlocator = this.page.locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
+    await this.highlightIdlocator.click()
   }
 
-  async clickContextMenu(n: number) {
+  async clickContextMenu(highlight_id: string) {
     // Click context menu of a highlight
-    // param: n - nth highlight on the content page
-    this.clickHighlight(n)
+    // param: highlight_id
+    this.clickHighlight(highlight_id)
     this.contextMenu.click()
   }
 
@@ -168,20 +185,31 @@ class ContentPage {
   async addNote(note: string) {
     // Add note to a highlight
     // param: note - text to be added as annotation
-    await this.noteTextBox.click()
-    await this.noteTextBox.type(note)
+
+    const EditBoxCount = await this.textarea.count()
+
+    if (EditBoxCount > 1) {
+      const i = await this.activeNotecard()
+      await this.noteTextBox.nth(i).focus()
+      await this.noteTextBox.nth(i).click()
+      await this.noteTextBox.nth(i).type(note)
+    } else {
+      await this.noteTextBox.click()
+      await this.noteTextBox.type(note)
+    }
   }
 
-  async editNote(note: string) {
-    // Edit existing note of a highlight. Appends text to beginning of existing annotation.
-    // param: note - text to be appeneded as annotation
-    await this.noteTextBox.click()
-    await this.noteTextBox.focus()
-    let i: number
-    for (i = 0; i < note.length; i++) {
-      await this.page.keyboard.press('ArrowLeft')
+  async activeNotecard() {
+    // Find the active notecard that is visible in the content page
+    const EditBoxCount = await this.textarea.count()
+    for (let i = 0; i < EditBoxCount; i++) {
+      const textarea = await this.textarea.nth(i).evaluate((e: Element) => {
+        return window.getComputedStyle(e).getPropertyValue('visibility')
+      })
+      if (textarea === 'visible') {
+        return i
+      }
     }
-    await this.noteTextBox.type(note)
   }
 
   async noteConfirmDialog(confirm: Actions) {
@@ -197,8 +225,16 @@ class ContentPage {
   }
 
   async noteText() {
-    // Return the text present in the note attached to a highlight
-    return this.noteTextLocator.textContent()
+    // Return the text present in the active notecard
+    const NoteCardCount = await this.noteTextLocator.count()
+    for (let i = 0; i < NoteCardCount; i++) {
+      const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
+        return window.getComputedStyle(e).getPropertyValue('display')
+      })
+      if (noteText === 'block') {
+        return await this.noteTextLocator.nth(i).textContent()
+      }
+    }
   }
 
   async clickNext() {
@@ -216,6 +252,12 @@ class ContentPage {
     // Number of paragraphs in the page
     const paracount = this.paragraph
     return await paracount.count()
+  }
+
+  async paraclick(randomparanumber: number) {
+    // Click on nth paragraph in the page
+    // param: randomparanumber - paragraph number to be clicked
+    return this.paragraph.nth(randomparanumber).click()
   }
 
   async CloseNoteCard() {
