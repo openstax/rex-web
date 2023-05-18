@@ -133,7 +133,7 @@ export const AnswerInput = styled.input`
 export const AnswerBlock = styled.label`
   padding: 1rem 2.4rem;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   cursor: ${(props: AnswerBlockProps) => props.isSubmitted ? 'not-allowed' : 'pointer'};
 
   :focus {
