@@ -147,9 +147,8 @@ const NoopForPrerenderingAndForHiddenState = () => {
       && shouldDisplayNudgeStudyTools()
     ) {
       setNudgeStudyToolsCookies();
-      const app = hasStudyGuides ? 'rex' : 'highlights';
       const target = hasStudyGuides ? 'study_guides' : 'highlights';
-      trackOpen(app, target);
+      trackOpen(target);
       dispatch(openNudgeStudyTools());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

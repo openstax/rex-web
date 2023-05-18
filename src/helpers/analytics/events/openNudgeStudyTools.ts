@@ -17,7 +17,6 @@ export const selector = createSelector(
 
 export const track = (
   {pathname, book}: ReturnType<typeof selector>,
-  app: string,
   target: string
 ): AnalyticsEvent | void => {
   const getGoogleAnalyticsPayload = () => ({
@@ -28,7 +27,7 @@ export const track = (
 
   return book ? {
     getEventCapturePayload: () => nudged({
-      app,
+      app: 'rex',
       target,
       context: book.id,
       flavor: 'full screen',
