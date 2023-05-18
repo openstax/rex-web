@@ -199,6 +199,32 @@ class ContentPage {
     }
   }
 
+  async editNote(note: string) {
+    // Edit the note on a highlight
+    // param: note - text to be updated in the annotation
+    console.log(await this.noteText())
+    console.log((await this.noteText()).length)
+    const x = (await this.noteText()).length
+    const EditBoxCount = await this.textarea.count()
+
+    if (EditBoxCount > 1) {
+      const i = await this.activeNotecard()
+      await this.noteTextBox.nth(i).focus()
+      await this.noteTextBox.nth(i).click()
+      let j: number
+      
+      for (j = 0; j < x; j++) {
+        await this.page.keyboard.press('ArrowLeft')}
+      await this.noteTextBox.nth(i).type(note)
+    } else {
+      await this.noteTextBox.click()
+      let j: number
+      for (j = 0; j < x; j++) {
+        await this.page.keyboard.press('ArrowLeft')}
+      await this.noteTextBox.type(note)
+    }
+  }
+
   async activeNotecard() {
     // Find the active notecard that is visible in the content page
     const EditBoxCount = await this.textarea.count()
@@ -227,6 +253,8 @@ class ContentPage {
   async noteText() {
     // Return the text present in the active notecard
     const NoteCardCount = await this.noteTextLocator.count()
+
+    if (NoteCardCount > 1){
     for (let i = 0; i < NoteCardCount; i++) {
       const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
         return window.getComputedStyle(e).getPropertyValue('display')
@@ -234,6 +262,10 @@ class ContentPage {
       if (noteText === 'block') {
         return await this.noteTextLocator.nth(i).textContent()
       }
+    }
+    }
+    else {
+      return await this.noteTextLocator.textContent()
     }
   }
 

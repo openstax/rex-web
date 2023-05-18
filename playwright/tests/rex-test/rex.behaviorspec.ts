@@ -228,16 +228,16 @@ test('note in content page', async ({ page, isMobile }) => {
   await BookPage.addNote(noteText)
   await BookPage.noteConfirmDialog(Actions.Save)
 
-  // // AND: Edit note to the highlight and save - Edit Note Update in next PR
-  // const editnoteText = randomstring()
-  // await BookPage.clickContextMenu(0)
-  // await BookPage.editHighlight()
-  // await BookPage.editNote(editnoteText)
-  // await BookPage.noteConfirmDialog(Actions.Save)
-  // expect(await BookPage.noteText()).toBe(editnoteText + noteText)
+  // AND: Edit note to the highlight and save 
+  const editnoteText = randomstring()
+  await BookPage.clickContextMenu(highlightId)
+  await BookPage.editHighlight()
+  await BookPage.editNote(editnoteText)
+  await BookPage.noteConfirmDialog(Actions.Save)
+  expect(await BookPage.noteText()).toBe(editnoteText + noteText)
 })
 
-test('multiple note in content page', async ({ page, isMobile }) => {
+test('multiple notes in content page', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'test only desktop resolution')
 
   // GIVEN: Open Rex page
