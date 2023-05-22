@@ -15,6 +15,7 @@ class ContentPage {
   body: Locator
   myHighlights: Locator
   next: Locator
+  previous: Locator
   MHbodyLoaded: Locator
   contentHighlightsLoaded: Locator
   noteTextBox: Locator
@@ -37,6 +38,7 @@ class ContentPage {
     this.highlight = this.page.locator('.highlight')
     this.myHighlights = this.page.locator('[aria-label="Highlights"]')
     this.next = this.page.locator('[aria-label="Next Page"]')
+    this.previous = this.page.locator('[aria-label="Previous Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
     this.body = this.page.locator('[class*="page-content"]')
     this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
@@ -269,9 +271,14 @@ class ContentPage {
     }
   }
 
-  async clickNext() {
+  async clickNextPage() {
     // Click Next link
     await this.next.click()
+  }
+
+  async clickPreviousPage() {
+    // Click Previous link
+    await this.previous.click()
   }
 
   async openMHmodal() {

@@ -123,12 +123,12 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   const randomparanumber2 = randomNum(await paracount, randomparanumber)
   await BookPage.highlightText('yellow', randomparanumber2)
 
-  // THEN: Text is highlighted
+  // THEN: 2 paragraphs are highlighted in content page
   const highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(2)
 
   // AND: Navigate to next page
-  await BookPage.clickNext()
+  await BookPage.clickNextPage()
 
   // WHEN: Highlight 2 random paragraphs
   const paracount3 = BookPage.paracount()
@@ -137,6 +137,10 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
 
   const randomparanumber4 = randomNum(await paracount3, randomparanumber3)
   await BookPage.highlightText('yellow', randomparanumber4)
+
+  // THEN: 2 paragraphs are highlighted in content page
+  const highlightcount1 = await BookPage.highlightCount()
+  expect(highlightcount1).toBe(2)
 
   // WHEN: Open MH modal
   await BookPage.openMHmodal()
@@ -149,22 +153,24 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   const MHhighlightcount = await Edithighlight.highlightCount()
   expect(MHhighlightcount).toBe(4)
 
-  // WHEN: Change a highlight color
+  // WHEN: Change highlight color of 3rd highlight
   await Edithighlight.clickContextMenu(3)
   await Edithighlight.changeColor('purple')
+  await Edithighlight.clickContextMenu(3)
 
   // THEN: The highlight changes to purple
   const highlightId = await Edithighlight.highlightIds()
   expect(await Edithighlight.highlightColor(highlightId[3])).toBe('purple')
 
-  // WHEN: Add note to a highlight and cancel
+  // WHEN: Add note to the 3rd highlight and cancel
+  await Edithighlight.clickContextMenu(3)
   await Edithighlight.addNote(randomstring())
   await Edithighlight.clickCancel()
 
-  // THEN: Note is not added to the highlight
+  // THEN: Note is not added to the 3rd highlight
   expect(await Edithighlight.noteAttached(highlightId[3])).toBe(false)
 
-  // WHEN: Add note to a highlight and save
+  // WHEN: Add note to the 0th highlight and save
   const noteText = randomstring()
   await Edithighlight.clickContextMenu(0)
   await Edithighlight.addNote(noteText)
@@ -173,7 +179,7 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   // THEN: Note is added to the highlight
   expect(await Edithighlight.noteText(highlightId[0])).toBe(noteText)
 
-  // WHEN: Edit note of a highlight and save
+  // WHEN: Edit note of 0th highlight and save
   const apendNote = randomstring(8)
   await Edithighlight.clickContextMenu(0)
   await Edithighlight.editNote(apendNote + ' ')
@@ -182,7 +188,7 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   // THEN: Note is updated with new text
   expect(await Edithighlight.noteText(highlightId[0])).toBe(apendNote + ' ' + noteText)
 
-  // WHEN: Delete a highlight and cancel
+  // WHEN: Delete 1st highlight and cancel
   await Edithighlight.clickContextMenu(1)
   await Edithighlight.clickDeleteHighlight(Action.Cancel)
 
@@ -198,6 +204,13 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
 
   const contentHighlightColor = await BookPage.contentHighlightColor(highlightId[3])
   expect(contentHighlightColor).toBe('purple')
+
+  // Click Previous page
+  await BookPage.clickPreviousPage()
+
+  // THEN: Each note is attached to the corresponding highlight
+  await BookPage.clickHighlight(highlightId[0])
+  expect(await BookPage.noteText()).toBe(apendNote + ' ' + noteText)
 
   await BookPage.openMHmodal()
   const MHhighlightcount1 = await Edithighlight.highlightCount()

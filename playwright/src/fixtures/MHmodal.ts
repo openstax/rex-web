@@ -81,7 +81,7 @@ class MHHighlights {
   }
 
   async clickContextMenu(n: number) {
-    // Click context menu
+    // Click context menu of nth highlight
     await this.MHContextMenu.nth(n).click()
   }
 
