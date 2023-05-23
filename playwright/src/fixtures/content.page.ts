@@ -166,6 +166,7 @@ class ContentPage {
       `${paralocator}:nth-child(${paranumber}) .highlight`,
       'data-highlight-id',
     )
+    console.log(highlight_id)
     return highlight_id
   }
 
@@ -324,6 +325,7 @@ class ContentPage {
       await this.page.mouse.down()
       await this.page.mouse.move(boundary.width - 20 + boundary.x, boundary.y + boundary.height - 10)
       await this.page.mouse.up()
+      
     }
   }
 }
