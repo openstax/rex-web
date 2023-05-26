@@ -151,8 +151,14 @@ class ContentPage {
 
   async highlightCount() {
     // Total number of highlights in a page
-    const highlightcount = await this.highlight.count()
-    return highlightcount
+    const highlightIds = []
+    const highlightLocatorCount = await this.highlight.count()
+    for (let i = 0; i < highlightLocatorCount; i++) {
+      const highlightIdlocatorString = this.highlight.nth(i).toString().split('@')
+      const highlight_id = await this.page.getAttribute(highlightIdlocatorString[1], 'data-highlight-id')
+      highlightIds.push(highlight_id)
+    }
+    return new Set(highlightIds).size
   }
 
   async highlight_id(randomparanumber: number) {
@@ -166,7 +172,6 @@ class ContentPage {
       `${paralocator}:nth-child(${paranumber}) .highlight`,
       'data-highlight-id',
     )
-    console.log(highlight_id)
     return highlight_id
   }
 
@@ -205,9 +210,7 @@ class ContentPage {
   async editNote(note: string) {
     // Edit the note on a highlight
     // param: note - text to be updated in the annotation
-    console.log(await this.noteText())
-    console.log((await this.noteText()).length)
-    const x = (await this.noteText()).length
+    const noteLength = (await this.noteText()).length
     const EditBoxCount = await this.textarea.count()
 
     if (EditBoxCount > 1) {
@@ -216,13 +219,13 @@ class ContentPage {
       await this.noteTextBox.nth(i).click()
       let j: number
       
-      for (j = 0; j < x; j++) {
+      for (j = 0; j < noteLength; j++) {
         await this.page.keyboard.press('ArrowLeft')}
       await this.noteTextBox.nth(i).type(note)
     } else {
       await this.noteTextBox.click()
       let j: number
-      for (j = 0; j < x; j++) {
+      for (j = 0; j < noteLength; j++) {
         await this.page.keyboard.press('ArrowLeft')}
       await this.noteTextBox.type(note)
     }
@@ -312,7 +315,7 @@ class ContentPage {
       await this.page.mouse.wheel(body.x, body.y)
       await this.page.mouse.click(body.x - 100, body.y + 100)
     }
-    await Promise.race([this.contentHighlightsLoaded.waitFor()])
+    await Promise.all([this.contentHighlightsLoaded.waitFor()])
   }
 
   async selectText(randomparanumber: number) {
@@ -325,7 +328,7 @@ class ContentPage {
       await this.page.mouse.down()
       await this.page.mouse.move(boundary.width - 20 + boundary.x, boundary.y + boundary.height - 10)
       await this.page.mouse.up()
-      
+
     }
   }
 }
