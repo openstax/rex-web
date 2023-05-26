@@ -157,9 +157,10 @@ class ContentPage {
   }
 
   async highlightCount() {
-    // Total number of unique highlights in a page
+    // Total number of highlights in a page
     const highlightIds = []
     const highlightLocatorCount = await this.highlight.count()
+    // When a highlight is broken into multiple pieces due on content styling, count only the unique highlight ids
     for (let i = 0; i < highlightLocatorCount; i++) {
       const highlightIdlocatorString = this.highlight.nth(i).toString().split('@')
       const highlight_id = await this.page.getAttribute(highlightIdlocatorString[1], 'data-highlight-id')
