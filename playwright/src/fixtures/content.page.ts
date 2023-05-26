@@ -160,7 +160,7 @@ class ContentPage {
     // Total number of highlights in a page
     const highlightIds = []
     const highlightLocatorCount = await this.highlight.count()
-    // When a highlight is broken into multiple pieces due on content styling, count only the unique highlight ids
+    // When a highlight is broken into multiple pieces due to content styling, count only the unique highlight ids
     for (let i = 0; i < highlightLocatorCount; i++) {
       const highlightIdlocatorString = this.highlight.nth(i).toString().split('@')
       const highlight_id = await this.page.getAttribute(highlightIdlocatorString[1], 'data-highlight-id')
@@ -225,7 +225,7 @@ class ContentPage {
       const i = await this.activeNotecard()
       await this.noteTextBox.nth(i).focus()
       await this.noteTextBox.nth(i).click()
-      
+
       // Move cursor to the beginning of the existing note
       let j: number
       for (j = 0; j < noteLength; j++) {
@@ -234,6 +234,8 @@ class ContentPage {
       await this.noteTextBox.nth(i).type(note)
     } else {
       await this.noteTextBox.click()
+
+      // Move cursor to the beginning of the existing note
       let j: number
       for (j = 0; j < noteLength; j++) {
         await this.page.keyboard.press('ArrowLeft')
