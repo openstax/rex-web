@@ -133,7 +133,14 @@ class ContentPage {
   async clickHighlight(highlight_id: string) {
     // Click on a highlight
     // param: highlight_id of the highlight to be clicked
-    this.highlightIdlocator = this.page.locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
+    try {
+      this.highlightIdlocator = this.page.locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
+    } catch (err) {
+      // When a highlight is broken into multiple pieces due on content styling, select the first highlight block
+      this.highlightIdlocator = this.page
+        .locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
+        .nth(1)
+    }
     await this.highlightIdlocator.click()
   }
 
@@ -150,7 +157,7 @@ class ContentPage {
   }
 
   async highlightCount() {
-    // Total number of highlights in a page
+    // Total number of unique highlights in a page
     const highlightIds = []
     const highlightLocatorCount = await this.highlight.count()
     for (let i = 0; i < highlightLocatorCount; i++) {
@@ -218,15 +225,17 @@ class ContentPage {
       await this.noteTextBox.nth(i).focus()
       await this.noteTextBox.nth(i).click()
       let j: number
-      
+
       for (j = 0; j < noteLength; j++) {
-        await this.page.keyboard.press('ArrowLeft')}
+        await this.page.keyboard.press('ArrowLeft')
+      }
       await this.noteTextBox.nth(i).type(note)
     } else {
       await this.noteTextBox.click()
       let j: number
       for (j = 0; j < noteLength; j++) {
-        await this.page.keyboard.press('ArrowLeft')}
+        await this.page.keyboard.press('ArrowLeft')
+      }
       await this.noteTextBox.type(note)
     }
   }
@@ -260,17 +269,16 @@ class ContentPage {
     // Return the text present in the active notecard
     const NoteCardCount = await this.noteTextLocator.count()
 
-    if (NoteCardCount > 1){
-    for (let i = 0; i < NoteCardCount; i++) {
-      const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
-        return window.getComputedStyle(e).getPropertyValue('display')
-      })
-      if (noteText === 'block') {
-        return await this.noteTextLocator.nth(i).textContent()
+    if (NoteCardCount > 1) {
+      for (let i = 0; i < NoteCardCount; i++) {
+        const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
+          return window.getComputedStyle(e).getPropertyValue('display')
+        })
+        if (noteText === 'block') {
+          return await this.noteTextLocator.nth(i).textContent()
+        }
       }
-    }
-    }
-    else {
+    } else {
       return await this.noteTextLocator.textContent()
     }
   }
@@ -328,7 +336,6 @@ class ContentPage {
       await this.page.mouse.down()
       await this.page.mouse.move(boundary.width - 20 + boundary.x, boundary.y + boundary.height - 10)
       await this.page.mouse.up()
-
     }
   }
 }

@@ -241,7 +241,7 @@ test('note in content page', async ({ page, isMobile }) => {
   await BookPage.addNote(noteText)
   await BookPage.noteConfirmDialog(Actions.Save)
 
-  // AND: Edit note to the highlight and save 
+  // AND: Edit note to the highlight and save
   const editnoteText = randomstring()
   await BookPage.clickContextMenu(highlightId)
   await BookPage.editHighlight()
