@@ -225,8 +225,9 @@ class ContentPage {
       const i = await this.activeNotecard()
       await this.noteTextBox.nth(i).focus()
       await this.noteTextBox.nth(i).click()
+      
+      // Move cursor to the beginning of the existing note
       let j: number
-
       for (j = 0; j < noteLength; j++) {
         await this.page.keyboard.press('ArrowLeft')
       }
