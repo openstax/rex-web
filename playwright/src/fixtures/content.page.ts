@@ -139,7 +139,7 @@ class ContentPage {
       // When a highlight is broken into multiple pieces due on content styling, select the first highlight block
       this.highlightIdlocator = this.page
         .locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
-        .nth(1)
+        .nth(0)
     }
     await this.highlightIdlocator.click()
   }
