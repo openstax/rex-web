@@ -143,7 +143,8 @@ class ContentPage {
     // Click context menu of a highlight
     // param: highlight_id
     this.clickHighlight(highlight_id)
-    this.contextMenu.click()
+    // this.contextMenu.click({delay: 100})
+    this.contextMenu.dispatchEvent('click')
   }
 
   async editHighlight() {
