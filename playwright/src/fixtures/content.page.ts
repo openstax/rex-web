@@ -133,15 +133,10 @@ class ContentPage {
   async clickHighlight(highlight_id: string) {
     // Click on a highlight
     // param: highlight_id of the highlight to be clicked
-    try {
-      this.highlightIdlocator = this.page.locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
-    } catch (err) {
-      // When a highlight is broken into multiple pieces due on content styling, select the first highlight block
-      this.highlightIdlocator = this.page
-        .locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
-        .nth(0)
-    }
-    await this.highlightIdlocator.click()
+    const highlightIdlocator = await this.page.$$(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
+  
+    // When a highlight is broken into multiple pieces due on content styling, select the first highlight block
+    await highlightIdlocator[0].click()
   }
 
   async clickContextMenu(highlight_id: string) {
