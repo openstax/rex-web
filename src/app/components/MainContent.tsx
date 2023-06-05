@@ -22,7 +22,8 @@ const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {
   `}
 
   /* Compensates for a Firefox issue */
-  .os-problem-container .token {
+  .os-problem-container .token,
+  .os-solution-container .token {
     font-size-adjust: cap-height 1;
     vertical-align: middle;
   }
