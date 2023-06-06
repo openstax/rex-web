@@ -209,6 +209,7 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await BookPage.clickPreviousPage()
 
   // THEN: Each note is attached to the corresponding highlight
+  console.log(highlightId[0])
   await BookPage.clickHighlight(highlightId[0])
   expect(await BookPage.noteText()).toBe(apendNote + ' ' + noteText)
 
