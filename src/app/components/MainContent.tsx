@@ -20,6 +20,13 @@ const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {
   ${(props: {textSize: TextResizerValue}) => `
     --content-text-scale: ${textResizerValueMap.get(props.textSize)};
   `}
+
+  /* Compensates for a Firefox issue */
+  .os-problem-container .token,
+  .os-solution-container .token {
+    font-size-adjust: cap-height 1;
+    vertical-align: middle;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
