@@ -1,4 +1,6 @@
 import { VersionedArchiveBookWithConfig } from '../app/content/types';
+import { toastMessageKeys } from '../app/notifications/components/ToastNotifications/constants';
+import { ToastMesssageError } from '../helpers/applicationMessageError';
 import { resetModules } from '../test/utils';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
@@ -226,6 +228,7 @@ describe('archiveLoader', () => {
           expect(error).toBeTruthy();
         }
       });
+
       it('when archive 404s', async() => {
         (global as any).fetch = mockFetch(404, 'not found');
         let error: Error | null = null;
@@ -245,6 +248,26 @@ describe('archiveLoader', () => {
         } else {
           expect(error).toBeTruthy();
         }
+      });
+
+      it('when the network connection is flaky/offline', async() => {
+        global.fetch = jest.fn(() =>
+          Promise.reject(new TypeError('Failed to fetch'))
+        );
+        let error: ToastMesssageError | null = null;
+
+        try {
+          await createArchiveLoader().book('coolid', {
+            booksConfig: {archiveUrl: '/test/archive', books: {coolid: {defaultVersion: 'version'}}},
+          }).load();
+        } catch (e) {
+          error = e as ToastMesssageError;
+        }
+
+        expect(error).toBeInstanceOf(ToastMesssageError);
+        expect(error?.messageKey).toBe(toastMessageKeys.archive.failure.load);
+        expect(error?.meta).toEqual({destination: 'page', shouldAutoDismiss: false});
+        jest.restoreAllMocks();
       });
     });
   });

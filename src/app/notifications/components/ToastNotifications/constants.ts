@@ -4,6 +4,11 @@ export const fadeOutDuration = 1000;
 export const timeUntilFadeIn = 5;
 
 export const toastMessageKeys = {
+  archive: {
+    failure: {
+      load: 'i18n:notification:toast:archive:load-failure',
+    },
+  },
   higlights: {
     failure: {
       create: 'i18n:notification:toast:highlights:create-failure',
