@@ -22,15 +22,15 @@ exports[`Filters matches snapshot 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
               fill="currentColor"
             />
           </svg>
@@ -52,15 +52,15 @@ exports[`Filters matches snapshot 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
               fill="currentColor"
             />
           </svg>
@@ -77,14 +77,14 @@ exports[`Filters matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
+        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__PrintIcon-sc-1119auh-3 iKTgDK"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+          d="M128 0C92.7 0 64 28.7 64 64v96h64V64h226.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zm256 352v96H128v-96h256zm64 32h32c17.7 0 32-14.3 32-32v-96c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32h32v64c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64v-64zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24z"
           fill="currentColor"
         />
       </svg>
@@ -334,15 +334,15 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
               fill="currentColor"
             />
           </svg>
@@ -364,15 +364,15 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
               fill="currentColor"
             />
           </svg>
@@ -425,14 +425,14 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
+        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__PrintIcon-sc-1119auh-3 iKTgDK"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+          d="M128 0C92.7 0 64 28.7 64 64v96h64V64h226.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zm256 352v96H128v-96h256zm64 32h32c17.7 0 32-14.3 32-32v-96c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32h32v64c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64v-64zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24z"
           fill="currentColor"
         />
       </svg>

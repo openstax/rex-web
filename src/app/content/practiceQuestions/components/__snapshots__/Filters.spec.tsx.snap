@@ -22,15 +22,15 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
               fill="currentColor"
             />
           </svg>
@@ -63,15 +63,15 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
               fill="currentColor"
             />
           </svg>
@@ -105,15 +105,15 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 />
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+                  className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
-                  viewBox="0 0 320 512"
+                  viewBox="0 0 448 512"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                     fill="currentColor"
                   />
                 </svg>
@@ -171,15 +171,15 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 />
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+                  className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
                   direction="up"
                   fill="currentColor"
                   focusable="false"
-                  viewBox="0 0 320 512"
+                  viewBox="0 0 448 512"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                     fill="currentColor"
                   />
                 </svg>
@@ -234,15 +234,15 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
-            viewBox="0 0 320 512"
+            viewBox="0 0 448 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
               fill="currentColor"
             />
           </svg>
@@ -276,15 +276,15 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 />
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+                  className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
-                  viewBox="0 0 320 512"
+                  viewBox="0 0 448 512"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                     fill="currentColor"
                   />
                 </svg>
@@ -342,15 +342,15 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 />
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+                  className="StyledIconBase-sc-ea9ulj-0 gWDkVc Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
-                  viewBox="0 0 320 512"
+                  viewBox="0 0 448 512"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                    d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
                     fill="currentColor"
                   />
                 </svg>

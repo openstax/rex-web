@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components/macro';
-import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
-import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
+import { CaretDown } from '@styled-icons/fa-solid/CaretDown';
+import { CaretRight } from '@styled-icons/fa-solid/CaretRight';
 import '../../polyfill/details';
 
 export const iconSize = 1.7;

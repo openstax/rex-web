@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { Check } from 'styled-icons/fa-solid/Check';
+import { Check } from '@styled-icons/fa-solid/Check';
 import theme from '../theme';
 import { disabledStyle } from './Typography';
 

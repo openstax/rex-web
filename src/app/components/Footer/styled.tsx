@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components/macro';
-import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
-import { Instagram } from 'styled-icons/fa-brands/Instagram';
-import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
-import { Twitter } from 'styled-icons/fa-brands/Twitter';
+import { FacebookF } from '@styled-icons/fa-brands/FacebookF';
+import { Instagram } from '@styled-icons/fa-brands/Instagram';
+import { LinkedinIn } from '@styled-icons/fa-brands/LinkedinIn';
+import { Twitter } from '@styled-icons/fa-brands/Twitter';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
 import { contentWrapperMaxWidth, toolbarWidth, verticalNavbarMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';

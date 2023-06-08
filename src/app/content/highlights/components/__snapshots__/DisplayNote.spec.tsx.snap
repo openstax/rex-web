@@ -18,14 +18,14 @@ exports[`DisplayNote matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
-          viewBox="0 0 192 512"
+          viewBox="0 0 128 512"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            d="M64 360c30.9 0 56 25.1 56 56s-25.1 56-56 56-56-25.1-56-56 25.1-56 56-56zm0-160c30.9 0 56 25.1 56 56s-25.1 56-56 56-56-25.1-56-56 25.1-56 56-56zm56-104c0 30.9-25.1 56-56 56S8 126.9 8 96s25.1-56 56-56 56 25.1 56 56z"
             fill="currentColor"
           />
         </svg>
@@ -91,14 +91,14 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
-          viewBox="0 0 192 512"
+          viewBox="0 0 128 512"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            d="M64 360c30.9 0 56 25.1 56 56s-25.1 56-56 56-56-25.1-56-56 25.1-56 56-56zm0-160c30.9 0 56 25.1 56 56s-25.1 56-56 56-56-25.1-56-56 25.1-56 56-56zm56-104c0 30.9-25.1 56-56 56S8 126.9 8 96s25.1-56 56-56 56 25.1 56 56z"
             fill="currentColor"
           />
         </svg>
@@ -164,14 +164,14 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
-          viewBox="0 0 192 512"
+          viewBox="0 0 128 512"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+            d="M64 360c30.9 0 56 25.1 56 56s-25.1 56-56 56-56-25.1-56-56 25.1-56 56-56zm0-160c30.9 0 56 25.1 56 56s-25.1 56-56 56-56-25.1-56-56 25.1-56 56-56zm56-104c0 30.9-25.1 56-56 56S8 126.9 8 96s25.1-56 56-56 56 25.1 56 56z"
             fill="currentColor"
           />
         </svg>

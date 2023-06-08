@@ -21,14 +21,14 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="StyledIconBase-sc-ea9ulj-0 gWDkVc ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+        d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"
         fill="currentColor"
       />
     </svg>
@@ -65,14 +65,14 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="StyledIconBase-sc-ea9ulj-0 gWDkVc ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+        d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"
         fill="currentColor"
       />
     </svg>
@@ -109,14 +109,14 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="StyledIconBase-sc-ea9ulj-0 gWDkVc ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+        d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"
         fill="currentColor"
       />
     </svg>
@@ -153,14 +153,14 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="StyledIconBase-sc-ea9ulj-0 gWDkVc ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+        d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"
         fill="currentColor"
       />
     </svg>
@@ -197,14 +197,14 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="StyledIconBase-sc-ea9ulj-0 gWDkVc ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+        d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7l233.4-233.3c12.5-12.5 32.8-12.5 45.3 0z"
         fill="currentColor"
       />
     </svg>

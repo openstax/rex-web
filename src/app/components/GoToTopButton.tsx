@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
-import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
+import { AngleUp } from '@styled-icons/fa-solid/AngleUp';
 import { disablePrint } from '../content/components/utils/disablePrint';
 
 // tslint:disable-next-line:variable-name

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
-import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
-import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
-import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
+import { AngleLeft } from '@styled-icons/fa-solid/AngleLeft';
+import { Bars as Hamburger } from '@styled-icons/fa-solid/Bars';
+import { TimesCircle } from '@styled-icons/fa-solid/TimesCircle';
 import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
 import { decoratedLinkStyle, textRegularStyle, textStyle } from '../../../components/Typography';

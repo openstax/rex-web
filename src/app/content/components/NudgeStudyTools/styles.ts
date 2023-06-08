@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/macro';
-import { Times } from 'styled-icons/fa-solid/Times/Times';
+import { Times } from '@styled-icons/fa-solid/Times/Times';
 import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
 import theme from '../../../theme';

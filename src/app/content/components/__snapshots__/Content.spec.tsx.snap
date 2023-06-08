@@ -65,14 +65,15 @@ Array [
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+            colorSchema="blue"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+              d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
             />
           </svg>
           Test Book 1
@@ -104,14 +105,15 @@ Array [
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+            colorSchema="blue"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+              d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
             />
           </svg>
           Test Book 1
@@ -148,14 +150,14 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="sc-bdVaJa cjEDWs styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
+                className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                  d="M0 96c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zm0 160c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zm448 160c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z"
                   fill="currentColor"
                 />
               </svg>
@@ -560,14 +562,14 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
+                className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__PrintIcon-sc-1119auh-3 iKTgDK"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+                  d="M128 0C92.7 0 64 28.7 64 64v96h64V64h226.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zm256 352v96H128v-96h256zm64 32h32c17.7 0 32-14.3 32-32v-96c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32h32v64c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64v-64zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24z"
                   fill="currentColor"
                 />
               </svg>
@@ -598,14 +600,14 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="sc-bdVaJa iJCmgd styled__LeftArrow-sc-1119auh-8 gHBmen"
+                className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__LeftArrow-sc-1119auh-8 gHBmen"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                  d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
                 />
               </svg>
             </button>
@@ -720,27 +722,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -772,27 +774,27 @@ Array [
                         >
                           <svg
                             aria-hidden="true"
-                            className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                             fill="currentColor"
                             focusable="false"
-                            viewBox="0 0 192 512"
+                            viewBox="0 0 256 512"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                              d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                               fill="currentColor"
                             />
                           </svg>
                           <svg
                             aria-hidden="true"
-                            className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                             fill="currentColor"
                             focusable="false"
                             viewBox="0 0 320 512"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                              d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                               fill="currentColor"
                             />
                           </svg>
@@ -875,27 +877,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -946,27 +948,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -1017,27 +1019,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -1087,27 +1089,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -1157,27 +1159,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -1299,14 +1301,14 @@ Array [
                 >
                   <svg
                     aria-hidden="true"
-                    className="sc-bdVaJa iJCmgd PrevNextBar__LeftArrow-sc-13m2i12-0 bBoLai"
+                    className="StyledIconBase-sc-ea9ulj-0 gWDkVc PrevNextBar__LeftArrow-sc-13m2i12-0 bBoLai"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                      d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
                     />
                   </svg>
                   Previous
@@ -1321,14 +1323,14 @@ Array [
                   Next
                   <svg
                     aria-hidden="true"
-                    className="sc-bdVaJa iJCmgd PrevNextBar__RightArrow-sc-13m2i12-1 hAIJlW"
+                    className="StyledIconBase-sc-ea9ulj-0 gWDkVc PrevNextBar__RightArrow-sc-13m2i12-1 hAIJlW"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+                      d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
                     />
                   </svg>
                 </a>
@@ -1346,27 +1348,27 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+                className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
                 fill="currentColor"
                 focusable="false"
-                viewBox="0 0 192 512"
+                viewBox="0 0 256 512"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                  d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                   fill="currentColor"
                 />
               </svg>
               <svg
                 aria-hidden="true"
-                className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+                className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 320 512"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                  d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                   fill="currentColor"
                 />
               </svg>
@@ -1623,14 +1625,14 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="sc-bdVaJa cjEDWs styled__FBIcon-y5hgq4-0 lbjeVE"
+                        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__FBIcon-y5hgq4-0 lbjeVE"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 320 512"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+                          d="m279.14 288 14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
                           fill="currentColor"
                         />
                       </svg>
@@ -1644,7 +1646,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="sc-bdVaJa cjEDWs styled__TwitterIcon-y5hgq4-1 dMlpbg"
+                        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__TwitterIcon-y5hgq4-1 dMlpbg"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 512 512"
@@ -1665,14 +1667,14 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="sc-bdVaJa cjEDWs styled__LinkedInIcon-y5hgq4-3 hvjOHs"
+                        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__LinkedInIcon-y5hgq4-3 hvjOHs"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 448 512"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 01107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
+                          d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
                           fill="currentColor"
                         />
                       </svg>
@@ -1686,7 +1688,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="sc-bdVaJa cjEDWs styled__IGIcon-y5hgq4-2 hQnbtn"
+                        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__IGIcon-y5hgq4-2 hQnbtn"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 448 512"
@@ -1787,14 +1789,15 @@ Array [
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+            colorSchema="blue"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+              d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
             />
           </svg>
           Test Book 1
@@ -1826,14 +1829,15 @@ Array [
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+            className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+            colorSchema="blue"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+              d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
             />
           </svg>
           Test Book 1
@@ -1870,14 +1874,14 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="sc-bdVaJa cjEDWs styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
+                className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                  d="M0 96c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zm0 160c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zm448 160c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z"
                   fill="currentColor"
                 />
               </svg>
@@ -2282,14 +2286,14 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
+                className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__PrintIcon-sc-1119auh-3 iKTgDK"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+                  d="M128 0C92.7 0 64 28.7 64 64v96h64V64h226.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zm256 352v96H128v-96h256zm64 32h32c17.7 0 32-14.3 32-32v-96c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32h32v64c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64v-64zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24 24 10.7 24 24-10.7 24-24 24z"
                   fill="currentColor"
                 />
               </svg>
@@ -2320,14 +2324,14 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="sc-bdVaJa iJCmgd styled__LeftArrow-sc-1119auh-8 gHBmen"
+                className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__LeftArrow-sc-1119auh-8 gHBmen"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+                  d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
                 />
               </svg>
             </button>
@@ -2442,27 +2446,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -2494,27 +2498,27 @@ Array [
                         >
                           <svg
                             aria-hidden="true"
-                            className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                             fill="currentColor"
                             focusable="false"
-                            viewBox="0 0 192 512"
+                            viewBox="0 0 256 512"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                              d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                               fill="currentColor"
                             />
                           </svg>
                           <svg
                             aria-hidden="true"
-                            className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                            className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                             fill="currentColor"
                             focusable="false"
                             viewBox="0 0 320 512"
                             xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
-                              d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                              d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                               fill="currentColor"
                             />
                           </svg>
@@ -2597,27 +2601,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -2667,27 +2671,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -2737,27 +2741,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -2807,27 +2811,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -2877,27 +2881,27 @@ Array [
                   >
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__ExpandIcon-xi326o-0 cVuUUi"
                       fill="currentColor"
                       focusable="false"
-                      viewBox="0 0 192 512"
+                      viewBox="0 0 256 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+                        d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9S63.9 115 63.9 128v256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"
                         fill="currentColor"
                       />
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
+                      className="StyledIconBase-sc-ea9ulj-0 gWDkVc Details__CollapseIcon-xi326o-1 jsdrhW"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+                        d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9S301 191.9 288 191.9L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"
                         fill="currentColor"
                       />
                     </svg>
@@ -3250,14 +3254,14 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="sc-bdVaJa cjEDWs styled__FBIcon-y5hgq4-0 lbjeVE"
+                        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__FBIcon-y5hgq4-0 lbjeVE"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 320 512"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+                          d="m279.14 288 14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
                           fill="currentColor"
                         />
                       </svg>
@@ -3271,7 +3275,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="sc-bdVaJa cjEDWs styled__TwitterIcon-y5hgq4-1 dMlpbg"
+                        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__TwitterIcon-y5hgq4-1 dMlpbg"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 512 512"
@@ -3292,14 +3296,14 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="sc-bdVaJa cjEDWs styled__LinkedInIcon-y5hgq4-3 hvjOHs"
+                        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__LinkedInIcon-y5hgq4-3 hvjOHs"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 448 512"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 01107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
+                          d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
                           fill="currentColor"
                         />
                       </svg>
@@ -3313,7 +3317,7 @@ Array [
                     >
                       <svg
                         aria-hidden="true"
-                        className="sc-bdVaJa cjEDWs styled__IGIcon-y5hgq4-2 hQnbtn"
+                        className="StyledIconBase-sc-ea9ulj-0 gWDkVc styled__IGIcon-y5hgq4-2 hQnbtn"
                         fill="currentColor"
                         focusable="false"
                         viewBox="0 0 448 512"

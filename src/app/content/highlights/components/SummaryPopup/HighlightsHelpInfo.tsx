@@ -2,7 +2,7 @@ import * as Cookies from 'js-cookie';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
-import { Times } from 'styled-icons/fa-solid/Times/Times';
+import { Times } from '@styled-icons/fa-solid/Times/Times';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { user as userSelector } from '../../../../auth/selectors';
 import { PlainButton } from '../../../../components/Button';

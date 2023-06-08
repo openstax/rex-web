@@ -18,14 +18,15 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          colorSchema="blue"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
           />
         </svg>
         Test Book 1
@@ -57,14 +58,15 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          colorSchema="blue"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
           />
         </svg>
         Test Book 1
@@ -100,14 +102,15 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          colorSchema="blue"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
           />
         </svg>
         Test Book 1
@@ -139,14 +142,15 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          colorSchema="blue"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
           />
         </svg>
         Test Book 1
@@ -235,14 +239,15 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          colorSchema="blue"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
           />
         </svg>
         Test Book 1
@@ -266,14 +271,15 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="StyledIconBase-sc-ea9ulj-0 gWDkVc BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          colorSchema="blue"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
           />
         </svg>
         Test Book 1
