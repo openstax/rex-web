@@ -14,13 +14,13 @@ exports[`text resizer does not render if textSize is null 1`] = `
     >
       <button
         aria-label="Click to open menu"
-        className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
+        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__MenuButton-sc-12dq39v-2 bDNWEV"
         onClick={[Function]}
         type="button"
       >
         <svg
           aria-hidden="true"
-          className="styled__HamburgerIcon-sc-12dq39v-1 fKwlfW StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="StyledIconBase-sc-bdy9j4 cCvWXa styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
@@ -49,7 +49,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
       />
       <button
         aria-label="Search this book"
-        className="styled__SearchButton-sc-12dq39v-3 dAFIlk styled__PlainButton-sc-1119auh-0 kPdLbJ"
+        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
         data-analytics-label="Search this book"
         data-experiment={true}
         data-testid="mobile-toggle"
@@ -83,7 +83,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
         </svg>
       </button>
       <button
-        className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
         data-experiment={true}
         value="Search"
       >
@@ -152,7 +152,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
           value=""
         />
         <button
-          className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+          className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
           data-experiment={true}
           value="Search"
         >
@@ -203,13 +203,13 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
     >
       <button
         aria-label="Click to open menu"
-        className="styled__MenuButton-sc-12dq39v-2 bDNWEV styled__PlainButton-sc-1119auh-0 kPdLbJ"
+        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__MenuButton-sc-12dq39v-2 bDNWEV"
         onClick={[Function]}
         type="button"
       >
         <svg
           aria-hidden="true"
-          className="styled__HamburgerIcon-sc-12dq39v-1 fKwlfW StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="StyledIconBase-sc-bdy9j4 cCvWXa styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
@@ -238,7 +238,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       />
       <button
         aria-label="Search this book"
-        className="styled__SearchButton-sc-12dq39v-3 dAFIlk styled__PlainButton-sc-1119auh-0 kPdLbJ"
+        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
         data-analytics-label="Search this book"
         data-experiment={true}
         data-testid="mobile-toggle"
@@ -272,7 +272,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </svg>
       </button>
       <button
-        className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
         data-experiment={true}
         value="Search"
       >
@@ -303,11 +303,11 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </form>
     <div
-      className="styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu"
     >
       <button
         aria-label="Change text size"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -335,7 +335,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         >
           <button
             aria-label="Decrease text size"
-            className="styled__TextResizerChangeButton-sc-12dq39v-18 hPlFJJ styled__PlainButton-sc-1119auh-0 kPdLbJ"
+            className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__TextResizerChangeButton-sc-12dq39v-18 hPlFJJ"
             data-testid="decrease-text-size"
             onClick={[Function]}
           >
@@ -357,7 +357,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           />
           <button
             aria-label="Increase text size"
-            className="styled__TextResizerChangeButton-sc-12dq39v-18 hPlFJJ styled__PlainButton-sc-1119auh-0 kPdLbJ"
+            className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__TextResizerChangeButton-sc-12dq39v-18 hPlFJJ"
             data-testid="increase-text-size"
             onClick={[Function]}
           >
@@ -409,7 +409,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           value=""
         />
         <button
-          className="styled__SearchButton-sc-12dq39v-3 eoLjh styled__PlainButton-sc-1119auh-0 kPdLbJ"
+          className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
           data-experiment={true}
           value="Search"
         >
@@ -442,11 +442,11 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         
       </form>
       <div
-        className="styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+        className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu"
       >
         <button
           aria-label="Change text size"
-          className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+          className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
           data-analytics-label="Change text size"
           onClick={[Function]}
         >

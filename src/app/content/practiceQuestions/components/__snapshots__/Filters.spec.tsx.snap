@@ -8,11 +8,11 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
     className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
   >
     <div
-      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -22,7 +22,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -48,11 +48,11 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
     className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
   >
     <div
-      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -62,7 +62,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -103,7 +103,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 />
                 <svg
                   aria-hidden="true"
-                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
@@ -168,7 +168,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 />
                 <svg
                   aria-hidden="true"
-                  className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
                   direction="up"
                   fill="currentColor"
                   focusable="false"
@@ -216,11 +216,11 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
     className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
   >
     <div
-      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -230,7 +230,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -271,7 +271,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 />
                 <svg
                   aria-hidden="true"
-                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
@@ -336,7 +336,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 />
                 <svg
                   aria-hidden="true"
-                  className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+                  className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
