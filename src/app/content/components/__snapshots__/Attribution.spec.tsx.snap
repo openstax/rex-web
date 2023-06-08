@@ -12,7 +12,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -25,7 +25,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </svg>
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -126,7 +126,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -139,7 +139,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </svg>
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -242,7 +242,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -255,7 +255,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </svg>
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -356,7 +356,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+      className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -369,7 +369,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </svg>
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+      className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"

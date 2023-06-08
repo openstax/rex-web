@@ -16,7 +16,7 @@ exports[`Dropdown matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -61,7 +61,7 @@ exports[`Dropdown matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+        className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -93,7 +93,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -138,7 +138,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+        className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"

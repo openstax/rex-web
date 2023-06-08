@@ -21,7 +21,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -65,7 +65,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -109,7 +109,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -153,7 +153,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -197,7 +197,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+      className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"

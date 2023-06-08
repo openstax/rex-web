@@ -20,7 +20,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
+          className="sc-bdVaJa cjEDWs styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
@@ -210,7 +210,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
+          className="sc-bdVaJa cjEDWs styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"

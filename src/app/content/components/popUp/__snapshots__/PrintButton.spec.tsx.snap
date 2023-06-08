@@ -11,7 +11,7 @@ exports[`HighlightsPrintButton matches snapshot 1`] = `
 >
   <svg
     aria-hidden="true"
-    className="StyledIconBase-sc-bdy9j4 cCvWXa styled__PrintIcon-sc-1119auh-3 iKTgDK"
+    className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
     fill="currentColor"
     focusable="false"
     viewBox="0 0 512 512"

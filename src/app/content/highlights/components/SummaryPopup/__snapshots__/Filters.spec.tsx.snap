@@ -22,7 +22,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -79,7 +79,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -130,7 +130,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -147,7 +147,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -190,7 +190,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -207,7 +207,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -250,7 +250,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -267,7 +267,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -310,7 +310,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -327,7 +327,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -370,7 +370,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -387,7 +387,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -428,7 +428,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa styled__PrintIcon-sc-1119auh-3 iKTgDK"
+        className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"

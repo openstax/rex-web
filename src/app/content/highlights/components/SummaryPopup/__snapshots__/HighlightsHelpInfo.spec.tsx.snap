@@ -4,7 +4,7 @@ exports[`HighlightsHelpInfo matches snapshot when hidden 1`] = `null`;
 
 exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
 <div
-  className="sc-bdVaJa KamJP"
+  className="sc-bwzfXH jEyUI"
   data-analytics-region="Mobile MH help info"
 >
   <span
@@ -21,7 +21,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa sc-bwzfXH hxHqFe"
+      className="sc-bdVaJa cjEDWs sc-htpNat jWDcqe"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 352 512"

@@ -22,7 +22,7 @@ exports[`Filters matches snapshot 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -52,7 +52,7 @@ exports[`Filters matches snapshot 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -77,7 +77,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa styled__PrintIcon-sc-1119auh-3 iKTgDK"
+        className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -334,7 +334,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -364,7 +364,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -425,7 +425,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa styled__PrintIcon-sc-1119auh-3 iKTgDK"
+        className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"

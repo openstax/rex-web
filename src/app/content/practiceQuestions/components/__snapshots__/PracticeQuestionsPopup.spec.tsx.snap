@@ -85,7 +85,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
                 Chapter & Section
                 <svg
                   aria-hidden="true"
-                  className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
                   direction="down"
                   fill="currentColor"
                   focusable="false"

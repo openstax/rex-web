@@ -231,7 +231,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi"
+                className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 192 512"
@@ -244,7 +244,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW"
+                className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 320 512"
@@ -447,7 +447,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi"
+                className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 192 512"
@@ -460,7 +460,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW"
+                className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 320 512"
@@ -540,7 +540,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi"
+                className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 192 512"
@@ -553,7 +553,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW"
+                className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 320 512"

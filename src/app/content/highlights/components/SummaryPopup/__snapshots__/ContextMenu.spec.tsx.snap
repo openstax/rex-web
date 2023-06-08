@@ -17,7 +17,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -51,7 +51,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -88,7 +88,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -134,7 +134,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -180,7 +180,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -226,7 +226,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -272,7 +272,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -315,7 +315,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledEditIcon-a36hp5-2 ioizoP"
+              className="sc-bdVaJa cjEDWs ContextMenu__StyledEditIcon-a36hp5-2 ioizoP"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 576 512"
@@ -339,7 +339,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledTrashAltIcon-a36hp5-3 dvaTJY"
+              className="sc-bdVaJa cjEDWs ContextMenu__StyledTrashAltIcon-a36hp5-3 dvaTJY"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 448 512"
@@ -362,7 +362,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledLinkIcon-a36hp5-4 kOdVkL"
+              className="sc-bdVaJa cjEDWs ContextMenu__StyledLinkIcon-a36hp5-4 kOdVkL"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
