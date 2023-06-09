@@ -105,7 +105,7 @@ class ContentPage {
           return window.getComputedStyle(e).getPropertyValue('visibility')
         })
         if (colorLocatorVisibility === 'visible') {
-          await this.colorlocator.nth(i).click()
+          await this.colorlocator.nth(i).check()
           if (typeof note !== 'undefined') {
             await this.noteTextBox.nth(i).click()
             await this.noteTextBox.nth(i).type(note)
@@ -116,7 +116,7 @@ class ContentPage {
     }
     // select the highlight color & add note from the available notecard in the page (first highlight on the page)
     else {
-      await this.colorlocator.click()
+      await this.colorlocator.check()
       if (typeof note !== 'undefined') {
         await this.noteTextBox.click()
         await this.noteTextBox.type(note)
@@ -135,7 +135,6 @@ class ContentPage {
     // param: highlight_id of the highlight to be clicked
     const highlightIdlocator = await this.page.$$(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
 
-    console.log(await highlightIdlocator[0])
     // When a highlight is broken into multiple pieces due to content styling, select the first highlight block
     await highlightIdlocator[0].click()
   }
@@ -155,6 +154,7 @@ class ContentPage {
 
   async highlightCount() {
     // Total number of highlights in a page
+    await this.page.waitForSelector('.highlight')
     const highlightIds = []
     const highlightLocatorCount = await this.highlight.count()
     // When a highlight is broken into multiple pieces due to content styling, count only the unique highlight ids

@@ -18,6 +18,13 @@ class MHModal {
   async closeMHModal() {
     await this.MHModalCloseIcon.click()
   }
+
+
+
+  async waitForHighlights() {
+    await this.page.waitForSelector('[class*=“HighlightOuterWrapper”]')
+    // await Promise.all([waitForLocator(this.MHloaded)])
+  }
 }
 
 class MHHighlights {
