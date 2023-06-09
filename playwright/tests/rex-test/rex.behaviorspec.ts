@@ -146,7 +146,7 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await BookPage.openMHmodal()
 
   const Modal = new MHModal(page)
-  Modal.waitForHighlights()
+  await Modal.waitForHighlights()
   await expect(Modal.MHModal).toBeVisible()
   const Edithighlight = new MHHighlights(page)
 
