@@ -22,7 +22,7 @@ class MHModal {
 
 
   async waitForHighlights() {
-    await this.page.waitForSelector('[class*=“HighlightOuterWrapper”]')
+    await this.page.waitForSelector('[class*=HighlightOuterWrapper]')
     // await Promise.all([waitForLocator(this.MHloaded)])
   }
 }
