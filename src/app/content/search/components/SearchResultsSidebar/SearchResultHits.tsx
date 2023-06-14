@@ -53,8 +53,8 @@ const SearchResultHits = ({
       // https://app.zenhub.com/workspaces/openstax-unified-5b71aabe3815ff014b102258/issues/openstax/unified/1750
       if (isKeyTermHit(hit)) {
         const pair = (keyTerms as { [key: string]: any })[hit.source.elementId];
-        hit.highlight.term = (pair && pair.term) || hit.highlight.title;
-        hit.highlight.visibleContent = (pair && pair.definition) ? [pair.definition] : hit.highlight.visibleContent;
+        hit.highlight.term = pair?.term || '...';
+        hit.highlight.visibleContent = pair?.definition ? [pair.definition] : hit.highlight.visibleContent;
       }
 
       return hit.highlight.visibleContent?.map((highlight: string, index: number) => {
