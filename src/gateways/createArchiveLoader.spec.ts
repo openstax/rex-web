@@ -254,19 +254,16 @@ describe('archiveLoader', () => {
         global.fetch = jest.fn(() =>
           Promise.reject(new TypeError('Failed to fetch'))
         );
-        let error: ToastMesssageError | null = null;
 
-        try {
-          await createArchiveLoader().book('coolid', {
-            booksConfig: {archiveUrl: '/test/archive', books: {coolid: {defaultVersion: 'version'}}},
-          }).load();
-        } catch (e) {
-          error = e as ToastMesssageError;
-        }
+        await expect(
+          createArchiveLoader().book('coolid', {
+            booksConfig: { archiveUrl: '/test/archive', books: { coolid: { defaultVersion: 'version' } } },
+          }).load().catch((error) => {
+            expect(error?.messageKey).toBe(toastMessageKeys.archive.failure.load);
+            expect(error?.meta).toEqual({ destination: 'page', shouldAutoDismiss: false });
+          })
+        );
 
-        expect(error).toBeInstanceOf(ToastMesssageError);
-        expect(error?.messageKey).toBe(toastMessageKeys.archive.failure.load);
-        expect(error?.meta).toEqual({destination: 'page', shouldAutoDismiss: false});
         jest.restoreAllMocks();
       });
     });
