@@ -28,6 +28,7 @@ describe('hooks', () => {
       getState: store.getState,
     };
     dispatch = jest.spyOn(helpers, 'dispatch');
+    helpers.searchClient.search = jest.fn().mockReturnValue(Promise.resolve());
   });
 
   describe('requestSearchHook', () => {
@@ -56,7 +57,9 @@ describe('hooks', () => {
 
     it('dispatches receiveSearchResults', async() => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-      (helpers.searchClient.search as any).mockReturnValue('searchresults');
+      (helpers.searchClient.search as any).mockReturnValue(
+        Promise.resolve('searchresults')
+      );
       await hook(requestSearch('asdf'));
       expect(dispatch).toHaveBeenCalledWith(
         receiveSearchResults('searchresults' as any)

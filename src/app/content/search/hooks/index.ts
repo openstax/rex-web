@@ -1,5 +1,6 @@
 import isEqual from 'lodash/fp/isEqual';
 import queryString from 'query-string';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { push, replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
@@ -13,6 +14,7 @@ import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, openSearchInSidebar, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
+import { SearchLoadError } from '../errors';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
 import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
@@ -31,6 +33,11 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     indexStrategy: 'i1',
     q: payload,
     searchStrategy: 's1',
+  }).catch((error) => {
+    throw ensureApplicationErrorType(
+      error,
+      new SearchLoadError({ destination: 'page', shouldAutoDismiss: false })
+    );
   });
 
   services.dispatch(receiveSearchResults(results, meta));

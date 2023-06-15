@@ -27,6 +27,7 @@ export const toastMessageKeys = {
   },
   search: {
     failure: {
+      load: 'i18n:notification:toast:search:load-failure',
       nodeNotFound: 'i18n:notification:toast:search:highlight-not-found',
     },
   },
