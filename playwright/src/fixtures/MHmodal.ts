@@ -18,6 +18,11 @@ class MHModal {
   async closeMHModal() {
     await this.MHModalCloseIcon.click()
   }
+
+  async waitForHighlights() {
+    // Wait for the highlights to be loaded in MH modal
+    await this.page.waitForSelector('[class*=HighlightOuterWrapper]')
+  }
 }
 
 class MHHighlights {
@@ -64,6 +69,7 @@ class MHHighlights {
 
   async highlightCount() {
     // Total number of highlights in MH page
+    await Promise.all([this.page.waitForSelector('[class*="HighlightOuterWrapper"]')])
     return await this.highlight.count()
   }
 
@@ -81,7 +87,7 @@ class MHHighlights {
   }
 
   async clickContextMenu(n: number) {
-    // Click context menu
+    // Click context menu of nth highlight
     await this.MHContextMenu.nth(n).click()
   }
 
