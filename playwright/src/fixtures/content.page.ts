@@ -15,6 +15,7 @@ class ContentPage {
   body: Locator
   myHighlights: Locator
   next: Locator
+  previous: Locator
   MHbodyLoaded: Locator
   contentHighlightsLoaded: Locator
   noteTextBox: Locator
@@ -26,6 +27,7 @@ class ContentPage {
   noteEditCard: Locator
   textarea: Locator
   highlightIdlocator: Locator
+  highlightIndicator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -37,6 +39,7 @@ class ContentPage {
     this.highlight = this.page.locator('.highlight')
     this.myHighlights = this.page.locator('[aria-label="Highlights"]')
     this.next = this.page.locator('[aria-label="Next Page"]')
+    this.previous = this.page.locator('[aria-label="Previous Page"]')
     this.paragraph = this.page.locator('p[id*=para]')
     this.body = this.page.locator('[class*="page-content"]')
     this.MHbodyLoaded = this.page.locator('[data-testid="show-myhighlights-body"]')
@@ -103,7 +106,7 @@ class ContentPage {
           return window.getComputedStyle(e).getPropertyValue('visibility')
         })
         if (colorLocatorVisibility === 'visible') {
-          await this.colorlocator.nth(i).click()
+          await this.colorlocator.nth(i).check()
           if (typeof note !== 'undefined') {
             await this.noteTextBox.nth(i).click()
             await this.noteTextBox.nth(i).type(note)
@@ -114,7 +117,7 @@ class ContentPage {
     }
     // select the highlight color & add note from the available notecard in the page (first highlight on the page)
     else {
-      await this.colorlocator.click()
+      await this.colorlocator.check()
       if (typeof note !== 'undefined') {
         await this.noteTextBox.click()
         await this.noteTextBox.type(note)
@@ -131,15 +134,18 @@ class ContentPage {
   async clickHighlight(highlight_id: string) {
     // Click on a highlight
     // param: highlight_id of the highlight to be clicked
-    this.highlightIdlocator = this.page.locator(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
-    await this.highlightIdlocator.click()
+    await this.page.waitForSelector('.highlight')
+    const highlightIdlocator = await this.page.$$(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
+
+    // When a highlight is broken into multiple pieces due to content styling, select the first highlight block
+    await highlightIdlocator[0].click()
   }
 
   async clickContextMenu(highlight_id: string) {
     // Click context menu of a highlight
     // param: highlight_id
     this.clickHighlight(highlight_id)
-    this.contextMenu.click()
+    this.contextMenu.dispatchEvent('click')
   }
 
   async editHighlight() {
@@ -149,8 +155,24 @@ class ContentPage {
 
   async highlightCount() {
     // Total number of highlights in a page
-    const highlightcount = await this.highlight.count()
-    return highlightcount
+
+    await this.page.waitForSelector('.highlight')
+    const highlightIds = []
+    const highlightLocatorCount = await this.highlight.count()
+
+    // When a highlight is broken into multiple pieces due to content styling, count only the unique highlight ids
+    for (let i = 0; i < highlightLocatorCount; i++) {
+      const highlightIdlocatorString = this.highlight.nth(i).toString().split('@')
+      const highlight_id = await this.page.getAttribute(highlightIdlocatorString[1], 'data-highlight-id')
+      highlightIds.push(highlight_id)
+    }
+    return new Set(highlightIds).size
+  }
+
+  async highlightNotPresent() {
+    // Verify highlights are not present in a page
+    this.highlightIndicator = this.page.locator('.highlight')
+    return this.highlightIndicator.isHidden()
   }
 
   async highlight_id(randomparanumber: number) {
@@ -199,6 +221,39 @@ class ContentPage {
     }
   }
 
+  async editNote(note: string) {
+    // Edit the note on a highlight
+    // param: note - text to be updated in the annotation
+    const noteLength = (await this.noteText()).length
+    const EditBoxCount = await this.textarea.count()
+
+    if (EditBoxCount > 1) {
+      // When there are multiple highlights in a page,
+      // edit the active notecard
+      const i = await this.activeNotecard()
+      await this.noteTextBox.nth(i).focus()
+      await this.noteTextBox.nth(i).click()
+
+      // Move cursor to the beginning of the existing note
+      let j: number
+      for (j = 0; j < noteLength; j++) {
+        await this.page.keyboard.press('ArrowLeft')
+      }
+      await this.noteTextBox.nth(i).type(note)
+    } else {
+      // When there is only one highlight in a page,
+      // edit the available notecard
+      await this.noteTextBox.click()
+
+      // Move cursor to the beginning of the existing note
+      let j: number
+      for (j = 0; j < noteLength; j++) {
+        await this.page.keyboard.press('ArrowLeft')
+      }
+      await this.noteTextBox.type(note)
+    }
+  }
+
   async activeNotecard() {
     // Find the active notecard that is visible in the content page
     const EditBoxCount = await this.textarea.count()
@@ -227,19 +282,33 @@ class ContentPage {
   async noteText() {
     // Return the text present in the active notecard
     const NoteCardCount = await this.noteTextLocator.count()
-    for (let i = 0; i < NoteCardCount; i++) {
-      const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
-        return window.getComputedStyle(e).getPropertyValue('display')
-      })
-      if (noteText === 'block') {
-        return await this.noteTextLocator.nth(i).textContent()
+
+    if (NoteCardCount > 1) {
+      // When there are multiple notecards in a page,
+      // return note text of the active notecard
+      for (let i = 0; i < NoteCardCount; i++) {
+        const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
+          return window.getComputedStyle(e).getPropertyValue('display')
+        })
+        if (noteText === 'block') {
+          return await this.noteTextLocator.nth(i).textContent()
+        }
       }
+    } else {
+      // When is only one notecard in a page,
+      // return note text of the available notecard
+      return await this.noteTextLocator.textContent()
     }
   }
 
-  async clickNext() {
+  async clickNextPage() {
     // Click Next link
     await this.next.click()
+  }
+
+  async clickPreviousPage() {
+    // Click Previous link
+    await this.previous.click()
   }
 
   async openMHmodal() {
@@ -272,7 +341,7 @@ class ContentPage {
       await this.page.mouse.wheel(body.x, body.y)
       await this.page.mouse.click(body.x - 100, body.y + 100)
     }
-    await Promise.race([this.contentHighlightsLoaded.waitFor()])
+    await Promise.all([this.contentHighlightsLoaded.waitFor()])
   }
 
   async selectText(randomparanumber: number) {
