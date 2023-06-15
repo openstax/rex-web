@@ -86,7 +86,7 @@ test('signup and highlight', async ({ page, isMobile }) => {
   await BookPage.highlightText('green', randomparanumber)
 
   // THEN: Text is highlighted
-  let highlightcount = await BookPage.highlightCount()
+  const highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(1)
 
   // AND: Highlighted color in the content page is green
@@ -99,8 +99,7 @@ test('signup and highlight', async ({ page, isMobile }) => {
   await expect(page.locator('[data-testid="nav-login"]')).toContainText('Log in')
 
   // THEN: The highlight is removed from the page
-  highlightcount = await BookPage.highlightCount()
-  expect(highlightcount).toBe(0)
+  expect(await BookPage.highlightNotPresent()).toBe(true)
 })
 
 test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
@@ -210,7 +209,6 @@ test('Multiple highlights and MH modal edits', async ({ page, isMobile }) => {
   await BookPage.clickPreviousPage()
 
   // THEN: Each note is attached to the corresponding highlight
-  console.log(highlightId[0])
   await BookPage.clickHighlight(highlightId[0])
   expect(await BookPage.noteText()).toBe(apendNote + ' ' + noteText)
 

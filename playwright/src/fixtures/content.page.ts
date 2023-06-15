@@ -27,6 +27,7 @@ class ContentPage {
   noteEditCard: Locator
   textarea: Locator
   highlightIdlocator: Locator
+  highlightIndicator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -133,8 +134,8 @@ class ContentPage {
   async clickHighlight(highlight_id: string) {
     // Click on a highlight
     // param: highlight_id of the highlight to be clicked
+    await this.page.waitForSelector('.highlight')
     const highlightIdlocator = await this.page.$$(`[data-highlight-id="${highlight_id}"][data-highlighted="true"]`)
-    
 
     // When a highlight is broken into multiple pieces due to content styling, select the first highlight block
     await highlightIdlocator[0].click()
@@ -155,7 +156,9 @@ class ContentPage {
 
   async highlightCount() {
     // Total number of highlights in a page
+
     await this.page.waitForSelector('.highlight')
+
     const highlightIds = []
     const highlightLocatorCount = await this.highlight.count()
     // When a highlight is broken into multiple pieces due to content styling, count only the unique highlight ids
@@ -165,6 +168,11 @@ class ContentPage {
       highlightIds.push(highlight_id)
     }
     return new Set(highlightIds).size
+  }
+
+  async highlightNotPresent() {
+    this.highlightIndicator = this.page.locator('.highlight')
+    return this.highlightIndicator.isHidden()
   }
 
   async highlight_id(randomparanumber: number) {
