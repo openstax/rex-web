@@ -20,8 +20,8 @@ class MHModal {
   }
 
   async waitForHighlights() {
+    // Wait for the highlights to be loaded in MH modal
     await this.page.waitForSelector('[class*=HighlightOuterWrapper]')
-    // await Promise.all([waitForLocator(this.MHloaded)])
   }
 }
 

@@ -145,7 +145,6 @@ class ContentPage {
     // Click context menu of a highlight
     // param: highlight_id
     this.clickHighlight(highlight_id)
-    // this.contextMenu.click({delay: 100})
     this.contextMenu.dispatchEvent('click')
   }
 
@@ -158,9 +157,9 @@ class ContentPage {
     // Total number of highlights in a page
 
     await this.page.waitForSelector('.highlight')
-
     const highlightIds = []
     const highlightLocatorCount = await this.highlight.count()
+
     // When a highlight is broken into multiple pieces due to content styling, count only the unique highlight ids
     for (let i = 0; i < highlightLocatorCount; i++) {
       const highlightIdlocatorString = this.highlight.nth(i).toString().split('@')
@@ -171,6 +170,7 @@ class ContentPage {
   }
 
   async highlightNotPresent() {
+    // Verify highlights are not present in a page
     this.highlightIndicator = this.page.locator('.highlight')
     return this.highlightIndicator.isHidden()
   }
@@ -228,6 +228,8 @@ class ContentPage {
     const EditBoxCount = await this.textarea.count()
 
     if (EditBoxCount > 1) {
+      // When there are multiple highlights in a page,
+      // edit the active notecard
       const i = await this.activeNotecard()
       await this.noteTextBox.nth(i).focus()
       await this.noteTextBox.nth(i).click()
@@ -239,6 +241,8 @@ class ContentPage {
       }
       await this.noteTextBox.nth(i).type(note)
     } else {
+      // When there is only one highlight in a page,
+      // edit the available notecard
       await this.noteTextBox.click()
 
       // Move cursor to the beginning of the existing note
@@ -280,6 +284,8 @@ class ContentPage {
     const NoteCardCount = await this.noteTextLocator.count()
 
     if (NoteCardCount > 1) {
+      // When there are multiple notecards in a page,
+      // return note text of the active notecard
       for (let i = 0; i < NoteCardCount; i++) {
         const noteText = await this.noteTextLocator.nth(i).evaluate((e: Element) => {
           return window.getComputedStyle(e).getPropertyValue('display')
@@ -289,6 +295,8 @@ class ContentPage {
         }
       }
     } else {
+      // When is only one notecard in a page,
+      // return note text of the available notecard
       return await this.noteTextLocator.textContent()
     }
   }
