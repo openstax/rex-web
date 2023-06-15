@@ -25,19 +25,18 @@ interface SearchResultHitsProps {
   selectedResult: SelectedResult | null;
   queryParams: OutputParams;
 }
-type OneSearchResultHitProps = Omit<SearchResultHitsProps, 'hits'> & {
+
+type UseKeyTermPairProps = {
   hit: SearchResultHit;
-  loader: any;
+  loader: Parameters<typeof loadPageContent>[0]
 };
+type OneSearchResultHitProps = Omit<SearchResultHitsProps, 'hits'> & UseKeyTermPairProps;
 
 function useKeyTermPair({
   hit,
   loader,
-}: {
-  hit: SearchResultHit;
-  loader: any;
-}): ReturnType<typeof getKeyTermPair> | undefined {
-  const [pair, setPair] = React.useState(undefined as any);
+}: UseKeyTermPairProps): ReturnType<typeof getKeyTermPair> | undefined {
+  const [pair, setPair] = React.useState<ReturnType<typeof getKeyTermPair>>();
 
   React.useEffect(() => {
     const fn = async() => {
