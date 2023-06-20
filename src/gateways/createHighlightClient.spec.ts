@@ -3,7 +3,6 @@ import { UnauthenticatedError } from '../app/utils';
 import { resetModules } from '../test/utils';
 import createHighlightClient from './createHighlightClient';
 import { ToastMesssageError } from '../helpers/applicationMessageError';
-import { toastMessageKeys } from '../app/notifications/components/ToastNotifications/constants';
 
 describe('createHighlightClient', () => {
   const fetchBackup = fetch;
@@ -124,7 +123,7 @@ describe('createHighlightClient', () => {
     ).rejects.toBeInstanceOf(UnauthenticatedError);
   });
 
-  it('throws ToastMessageError if network connection is flaky/offline', async () => {
+  it('throws ToastMessageError if network connection is flaky/offline', async() => {
     global.fetch = jest.fn(() =>
       Promise.reject(new TypeError('Failed to fetch'))
     );

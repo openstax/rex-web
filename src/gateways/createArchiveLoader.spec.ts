@@ -1,6 +1,5 @@
 import { VersionedArchiveBookWithConfig } from '../app/content/types';
 import { toastMessageKeys } from '../app/notifications/components/ToastNotifications/constants';
-import { ToastMesssageError } from '../helpers/applicationMessageError';
 import { resetModules } from '../test/utils';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({

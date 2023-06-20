@@ -14,6 +14,7 @@ import { formatBookData } from '../utils';
 import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } from './actions';
 import { clearSearchHook, openSearchInSidebarHook, receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
 import { SearchScrollTarget } from './types';
+import { ToastMesssageError } from '../../../helpers/applicationMessageError';
 
 describe('hooks', () => {
   let store: Store;
@@ -64,6 +65,18 @@ describe('hooks', () => {
       expect(dispatch).toHaveBeenCalledWith(
         receiveSearchResults('searchresults' as any)
       );
+    });
+
+    it('throws a custom toast error when the network connection is flaky/offline', async() => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      (helpers.searchClient.search as any).mockReturnValue(
+        Promise.reject('Fetch Error')
+      );
+      try {
+        await hook(requestSearch('asdf'));
+      } catch (e) {
+        expect(e).toBeInstanceOf(ToastMesssageError);
+      }
     });
   });
 

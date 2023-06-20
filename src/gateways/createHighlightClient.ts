@@ -19,7 +19,7 @@ export default (basePath: string, getAuthorizedFetchConfig: () => Promise<FetchC
       let response;
       try {
         response = await fetch(url, merge(fetchConfig, authorizedFetchConfig));
-      } catch(e) {
+      } catch (e) {
         throw new HighlightLoadError({ destination: 'page', shouldAutoDismiss: true });
       }
 
