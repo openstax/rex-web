@@ -31,6 +31,7 @@ export interface PagePropTypes {
   addToast: typeof addToast;
   systemQueryParams: SystemQueryParams;
   textSize: TextResizerValue;
+  lockNavigation: boolean;
 }
 
 export default connect(

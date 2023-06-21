@@ -10,7 +10,7 @@ import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import PageToasts from '../Page/PageToasts';
 import { PagePropTypes } from './connector';
-import { transformContent } from './contentDOMTransformations';
+import { transformContent, linksToOtherPagesOpenInNewTab } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import * as lazyResources from './lazyResourceManager';
@@ -46,6 +46,10 @@ export default class PageComponent extends Component<PagePropTypes> {
       lazyResources.makeResourcesLazy(parsedContent);
 
       transformContent(parsedContent, parsedContent.body, this.props.intl);
+
+      if (this.props.lockNavigation) {
+        linksToOtherPagesOpenInNewTab(parsedContent.body, this.props.currentPath);
+      }
 
       /* this will be removed when all the books are in good order */
       /* istanbul ignore else */
