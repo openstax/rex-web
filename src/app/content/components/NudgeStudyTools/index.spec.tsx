@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
+import uuid from 'uuid/v4';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import MessageProvider from '../../../../test/MessageProvider';
@@ -22,6 +23,7 @@ import arrow from './assets/arrow.svg';
 import { NudgeArrow, NudgeBackground, NudgeCloseButton,
   NudgeContentWrapper, NudgeWrapper } from './styles';
 import * as utils from './utils';
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 describe('NudgeStudyTools', () => {
   let store: Store;
@@ -77,7 +79,11 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(utils, 'shouldDisplayNudgeStudyTools')
       .mockReturnValue(true);
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
-    store.dispatch(receiveStudyGuidesTotalCounts({}));
+    store.dispatch(receiveStudyGuidesTotalCounts({
+      [uuid()]: {
+        [HighlightColorEnum.Yellow]: 1,
+      },
+    }));
     const spySetCookies = jest.spyOn(utils, 'setNudgeStudyToolsCookies');
     const spyTrack = jest.spyOn(services.analytics.openNudgeStudyTools, 'track');
 

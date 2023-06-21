@@ -2,6 +2,19 @@ import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import { IntlShape } from 'react-intl';
 import { assertNotNull } from '../../../utils';
 import { expandClosestSolution } from '../../utils/domUtils';
+import { fromRelativeUrl } from '../../utils/urlUtils';
+
+export function linksToOtherPagesOpenInNewTab(rootEl: HTMLElement, currentPath: string) {
+  rootEl.querySelectorAll('a[href]').forEach(
+    (link) => {
+      const pathname = fromRelativeUrl(currentPath, link.getAttribute('href') as string);
+
+      if (pathname !== currentPath) {
+        link.setAttribute('target', '_blank');
+      }
+    }
+  );
+}
 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
