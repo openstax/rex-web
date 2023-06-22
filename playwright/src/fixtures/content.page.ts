@@ -298,13 +298,13 @@ class ContentPage {
     } else {
       // When there is only one notecard in a page,
       // return note text of the available notecard
-        const noteText = await this.noteTextLocator.evaluate((e: Element) => {
-          return window.getComputedStyle(e).getPropertyValue('display')
-        })
-        if (noteText === 'block') {
-          return await this.noteTextLocator.textContent()
-        }
+      const noteText = await this.noteTextLocator.evaluate((e: Element) => {
+        return window.getComputedStyle(e).getPropertyValue('display')
+      })
+      if (noteText === 'block') {
+        return await this.noteTextLocator.textContent()
       }
+    }
   }
 
   async clickNextPage() {
