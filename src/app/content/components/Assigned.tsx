@@ -90,7 +90,7 @@ export default () => {
     <ErrorModal />
     <ErrorBoundary>
       <AssignedTopBar section={section} />
-      <Page>
+      <Page lockNavigation={true} >
         {prevNext
           ? <PrevNextBar
             book={book}

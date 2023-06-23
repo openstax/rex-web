@@ -117,8 +117,9 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       hasUnsavedHighlight,
     } = getProps();
     const href = anchor.getAttribute('href');
+    const target = anchor.getAttribute('target');
 
-    if (!href || !book || !page || isClickWithModifierKeys(e)) {
+    if (!href || !book || !page || target === '_blank' || isClickWithModifierKeys(e)) {
       return;
     }
 

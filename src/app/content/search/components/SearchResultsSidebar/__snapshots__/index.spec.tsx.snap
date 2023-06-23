@@ -170,7 +170,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
           <span
             className="styled__KeyTerm-as3fh1-28 kXnHGv"
           >
-            term1 - selected
+            ...
           </span>
           <div
             dangerouslySetInnerHTML={
@@ -193,7 +193,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
           <span
             className="styled__KeyTerm-as3fh1-28 kXnHGv"
           >
-            term2
+            ...
           </span>
           <div
             dangerouslySetInnerHTML={
