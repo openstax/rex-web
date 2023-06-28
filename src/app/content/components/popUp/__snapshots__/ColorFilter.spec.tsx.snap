@@ -38,7 +38,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -54,7 +54,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -96,7 +96,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -112,7 +112,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -154,7 +154,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -170,7 +170,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -212,7 +212,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -228,7 +228,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -270,7 +270,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="Checkbox__CheckIcon-f0dje9-0 irsTpS StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -286,7 +286,7 @@ exports[`ColorFilter matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"

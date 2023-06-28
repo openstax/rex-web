@@ -12,7 +12,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
     onClick={[Function]}
   />
   <div
-    className="KeyboardShortcutsPopup__StyledModal-y3xath-0 gvXRCW PopupStyles__Modal-w0z1hl-3 dxCHBC"
+    className="PopupStyles__Modal-w0z1hl-3 dxCHBC KeyboardShortcutsPopup__StyledModal-y3xath-0 gvXRCW"
     data-testid="keyboard-shortcuts-popup-wrapper"
     tabIndex="-1"
   >

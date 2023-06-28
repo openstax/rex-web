@@ -8,7 +8,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply yellow highlight"
     checked={false}
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 HsETE"
+    className="ColorIndicator-sc-1w5zl7g-2 HsETE ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
     component={<label />}
     style={
       Object {
@@ -21,7 +21,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -51,7 +51,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply green highlight"
     checked={false}
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 iXfiep"
+    className="ColorIndicator-sc-1w5zl7g-2 iXfiep ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
     component={<label />}
     style={
       Object {
@@ -64,7 +64,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -94,7 +94,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply blue highlight"
     checked={false}
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 jvnIhj"
+    className="ColorIndicator-sc-1w5zl7g-2 jvnIhj ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
     component={<label />}
     style={
       Object {
@@ -107,7 +107,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -137,7 +137,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply purple highlight"
     checked={false}
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 fEyUOh"
+    className="ColorIndicator-sc-1w5zl7g-2 fEyUOh ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
     component={<label />}
     style={
       Object {
@@ -150,7 +150,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
@@ -180,7 +180,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply pink highlight"
     checked={false}
-    className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 jhGpQY"
+    className="ColorIndicator-sc-1w5zl7g-2 jhGpQY ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
     component={<label />}
     style={
       Object {
@@ -193,7 +193,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 512 512"
