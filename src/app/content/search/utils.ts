@@ -17,11 +17,20 @@ const ACCEPTED_DOC_TYPES = [
   SearchResultHitSourceElementTypeEnum.Paragraph,
 ];
 
+const findFirstResultPage = (container: SearchResultContainer): SearchResultPage => isSearchResultChapter(container)
+  ? findFirstResultPage(container.contents[0])
+  : container;
+
+const skipKeyTerms = (results: SearchResultContainer[]): SearchResultContainer | undefined => {
+  return results.find(r => {
+    const first = findFirstResultPage(r)?.results[0];
+
+    return first && first.source.elementType !== 'key_term';
+  });
+};
+
 export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
-  const [result] = getFormattedSearchResults(book.tree, results);
-  const findFirstResultPage = (container: SearchResultContainer): SearchResultPage => isSearchResultChapter(container)
-    ? findFirstResultPage(container.contents[0])
-    : container;
+  const result = skipKeyTerms(getFormattedSearchResults(book.tree, results));
 
   const firstResultPage = result && findFirstResultPage(result);
   const firstResult = firstResultPage && firstResultPage.results[0];
