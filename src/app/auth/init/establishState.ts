@@ -1,6 +1,7 @@
 import { Initializer } from '../../types';
 import { receiveLoggedOut, receiveUser } from '../actions';
 import { formatUser } from '../utils';
+import { AccountsUser } from '../../../gateways/createUserLoader';
 
 const initializer: Initializer = async({dispatch, userLoader}) => {
   if (typeof(document) === 'undefined') {
@@ -10,7 +11,7 @@ const initializer: Initializer = async({dispatch, userLoader}) => {
   const user = await userLoader.getCurrentUser();
 
   if (user) {
-    dispatch(receiveUser(formatUser(user)));
+    dispatch(receiveUser(formatUser(user as AccountsUser)));
   } else {
     dispatch(receiveLoggedOut());
   }

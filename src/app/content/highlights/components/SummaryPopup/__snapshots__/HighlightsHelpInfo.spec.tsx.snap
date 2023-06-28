@@ -21,7 +21,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="sc-bwzfXH hxHqFe StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa sc-bwzfXH hxHqFe"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 352 512"

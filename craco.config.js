@@ -8,7 +8,7 @@ module.exports = {
       alias: {
         // ts-utils uses the `exports` package.json options, which is not supported in webpack 4
         // this can be removed if we update react-scripts
-        '@openstax/ts-utils': '@openstax/ts-utils/dist'
+        '@openstax/ts-utils': '@openstax/ts-utils/dist/cjs'
       },
     },
     plugins: [{
