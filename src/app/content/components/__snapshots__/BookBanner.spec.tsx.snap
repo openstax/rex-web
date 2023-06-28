@@ -18,7 +18,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
+          className="StyledIconBase-sc-bdy9j4 jbPeIR BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -56,7 +56,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
+          className="StyledIconBase-sc-bdy9j4 jbPeIR BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -98,7 +98,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
+          className="StyledIconBase-sc-bdy9j4 jbPeIR BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -136,7 +136,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
+          className="StyledIconBase-sc-bdy9j4 jbPeIR BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -231,7 +231,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
+          className="StyledIconBase-sc-bdy9j4 jbPeIR BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -261,7 +261,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA StyledIconBase-sc-bdy9j4 jbPeIR"
+          className="StyledIconBase-sc-bdy9j4 jbPeIR BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"

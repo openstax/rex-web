@@ -8,11 +8,11 @@ exports[`Attribution in browser renders default attribution 1`] = `
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
+    className="Details__Summary-xi326o-2 goqLfs Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL"
   >
     <svg
       aria-hidden="true"
-      className="Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -24,7 +24,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </svg>
     <svg
       aria-hidden="true"
-      className="Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -120,11 +120,11 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
+    className="Details__Summary-xi326o-2 goqLfs Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL"
   >
     <svg
       aria-hidden="true"
-      className="Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -136,7 +136,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </svg>
     <svg
       aria-hidden="true"
-      className="Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -234,11 +234,11 @@ exports[`Attribution in browser renders special licensing and attribution for In
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
+    className="Details__Summary-xi326o-2 goqLfs Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL"
   >
     <svg
       aria-hidden="true"
-      className="Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -250,7 +250,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </svg>
     <svg
       aria-hidden="true"
-      className="Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -346,11 +346,11 @@ exports[`Attribution in browser renders special licensing and attribution for St
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL Details__Summary-xi326o-2 goqLfs"
+    className="Details__Summary-xi326o-2 goqLfs Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL"
   >
     <svg
       aria-hidden="true"
-      className="Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD Details__ExpandIcon-xi326o-0 cVuUUi StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -362,7 +362,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </svg>
     <svg
       aria-hidden="true"
-      className="Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve Details__CollapseIcon-xi326o-1 jsdrhW StyledIconBase-sc-bdy9j4 cCvWXa"
+      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"

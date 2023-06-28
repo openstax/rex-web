@@ -8,11 +8,11 @@ exports[`Filters matches snapshot 1`] = `
     className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
   >
     <div
-      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
     >
       <button
         aria-label="Filter highlights by Chapter"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -22,7 +22,7 @@ exports[`Filters matches snapshot 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -37,11 +37,11 @@ exports[`Filters matches snapshot 1`] = `
       </button>
     </div>
     <div
-      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
     >
       <button
         aria-label="Filter highlights by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -51,7 +51,7 @@ exports[`Filters matches snapshot 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -67,7 +67,7 @@ exports[`Filters matches snapshot 1`] = `
     </div>
     <button
       aria-label="print"
-      className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jcbTdL styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
+      className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 jcfgAp PrintButton-sc-1bdptk0-0 jcbTdL"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -75,7 +75,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="styled__PrintIcon-sc-1119auh-3 iKTgDK StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa styled__PrintIcon-sc-1119auh-3 iKTgDK"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -317,11 +317,11 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
   >
     <div
-      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
     >
       <button
         aria-label="Filter highlights by Chapter"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 liapzj Button__PlainButton-ayg7nk-2 chgswm"
+        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -331,7 +331,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="Filters__AngleIcon-sc-1fn81fx-0 jYDriK StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -346,11 +346,11 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       </button>
     </div>
     <div
-      className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
     >
       <button
         aria-label="Filter highlights by Color"
-        className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF Filters__Toggle-sc-1fn81fx-1 gsKueT Button__PlainButton-ayg7nk-2 chgswm"
+        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -360,7 +360,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -412,7 +412,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     </div>
     <button
       aria-label="print"
-      className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jcbTdL styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
+      className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 jcfgAp PrintButton-sc-1bdptk0-0 jcbTdL"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -420,7 +420,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="styled__PrintIcon-sc-1119auh-3 iKTgDK StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa styled__PrintIcon-sc-1119auh-3 iKTgDK"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
