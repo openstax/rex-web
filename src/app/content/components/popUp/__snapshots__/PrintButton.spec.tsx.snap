@@ -3,7 +3,7 @@
 exports[`HighlightsPrintButton matches snapshot 1`] = `
 <button
   aria-label="print"
-  className="styled__PlainButton-sc-1119auh-0 PrintButton-sc-1bdptk0-0 jcbTdL styled__PrintOptWrapper-sc-1119auh-1 jcfgAp"
+  className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 jcfgAp PrintButton-sc-1bdptk0-0 jcbTdL"
   data-analytics-label="print"
   data-testid="print"
   disabled={false}
@@ -11,7 +11,7 @@ exports[`HighlightsPrintButton matches snapshot 1`] = `
 >
   <svg
     aria-hidden="true"
-    className="styled__PrintIcon-sc-1119auh-3 iKTgDK StyledIconBase-sc-bdy9j4 cCvWXa"
+    className="StyledIconBase-sc-bdy9j4 cCvWXa styled__PrintIcon-sc-1119auh-3 iKTgDK"
     fill="currentColor"
     focusable="false"
     viewBox="0 0 512 512"

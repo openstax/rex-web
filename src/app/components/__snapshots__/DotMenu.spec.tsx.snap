@@ -2,13 +2,13 @@
 
 exports[`Dropdown matches snapshot 1`] = `
 <div
-  className="DotMenu__DotMenuDropdown-khcauc-3 hDFPiE Dropdown-rmc6yw-5 fBPFfC Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM"
+  className="Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM Dropdown-rmc6yw-5 fBPFfC DotMenu__DotMenuDropdown-khcauc-3 hDFPiE"
 >
   <div
     className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
       tabIndex={0}
     >
       <div
@@ -16,7 +16,7 @@ exports[`Dropdown matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -52,7 +52,7 @@ exports[`Dropdown matches snapshot 1`] = `
     </ol>
   </div>
   <button
-    className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+    className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
     tabIndex={0}
   >
     <div
@@ -60,7 +60,7 @@ exports[`Dropdown matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -77,13 +77,13 @@ exports[`Dropdown matches snapshot 1`] = `
 
 exports[`Dropdown matches snapshot on right align 1`] = `
 <div
-  className="DotMenu__DotMenuDropdown-khcauc-3 hDFPiE Dropdown-rmc6yw-5 fBPFfC Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM"
+  className="Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM Dropdown-rmc6yw-5 fBPFfC DotMenu__DotMenuDropdown-khcauc-3 hDFPiE"
 >
   <div
     className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
       tabIndex={0}
     >
       <div
@@ -91,7 +91,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -127,7 +127,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     </ol>
   </div>
   <button
-    className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+    className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
     tabIndex={0}
   >
     <div
@@ -135,7 +135,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+        className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"

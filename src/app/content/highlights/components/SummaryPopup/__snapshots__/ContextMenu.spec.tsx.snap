@@ -5,11 +5,11 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   className="ContextMenu__StyledContextMenu-a36hp5-0 eFRhVx"
 >
   <div
-    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+    className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
   >
     <button
       aria-label="Edit this highlight"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
       onClick={[Function]}
     >
       <div
@@ -17,7 +17,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -38,11 +38,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
   className="ContextMenu__StyledContextMenu-a36hp5-0 eFRhVx"
 >
   <div
-    className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+    className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
   >
     <button
       aria-label="Edit this highlight"
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF DotMenu__DotMenuToggle-khcauc-1 fyJNFy Button__PlainButton-ayg7nk-2 chgswm"
+      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
       onClick={[Function]}
     >
       <div
@@ -50,7 +50,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="DotMenu__DotMenuIcon-khcauc-0 ehMhqa StyledIconBase-sc-bdy9j4 cCvWXa"
+          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -72,7 +72,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply yellow highlight"
           checked={false}
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 hxgXOu"
+          className="ColorIndicator-sc-1w5zl7g-2 hxgXOu ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
           component={<label />}
           size="small"
           style={
@@ -86,7 +86,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -117,7 +117,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply green highlight"
           checked={false}
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 kUYWjn"
+          className="ColorIndicator-sc-1w5zl7g-2 kUYWjn ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
           component={<label />}
           size="small"
           style={
@@ -131,7 +131,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -162,7 +162,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply blue highlight"
           checked={true}
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 gHfQKR"
+          className="ColorIndicator-sc-1w5zl7g-2 gHfQKR ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
           component={<label />}
           size="small"
           style={
@@ -176,7 +176,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -207,7 +207,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply purple highlight"
           checked={false}
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 gdbVRC"
+          className="ColorIndicator-sc-1w5zl7g-2 gdbVRC ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
           component={<label />}
           size="small"
           style={
@@ -221,7 +221,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -252,7 +252,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply pink highlight"
           checked={false}
-          className="ColorPicker__ColorButton-an3xh1-0 dcHOwJ ColorIndicator-sc-1w5zl7g-2 bhqGqa"
+          className="ColorIndicator-sc-1w5zl7g-2 bhqGqa ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
           component={<label />}
           size="small"
           style={
@@ -266,7 +266,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl StyledIconBase-sc-bdy9j4 cCvWXa"
+            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -308,7 +308,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="ContextMenu__StyledEditIcon-a36hp5-2 ioizoP StyledIconBase-sc-bdy9j4 cCvWXa"
+              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledEditIcon-a36hp5-2 ioizoP"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 576 512"
@@ -331,7 +331,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="ContextMenu__StyledTrashAltIcon-a36hp5-3 dvaTJY StyledIconBase-sc-bdy9j4 cCvWXa"
+              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledTrashAltIcon-a36hp5-3 dvaTJY"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 448 512"
@@ -353,7 +353,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="ContextMenu__StyledLinkIcon-a36hp5-4 kOdVkL StyledIconBase-sc-bdy9j4 cCvWXa"
+              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledLinkIcon-a36hp5-4 kOdVkL"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 576 512"

@@ -2,7 +2,7 @@
 
 exports[`Dropdown matches snapshot 1`] = `
 <div
-  className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM"
+  className="Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM Dropdown-rmc6yw-5 fBPFfC"
 >
   <div
     className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
@@ -47,7 +47,7 @@ exports[`Dropdown matches snapshot 1`] = `
 
 exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 <div
-  className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+  className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
 >
   <button
     className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
@@ -61,7 +61,7 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 
 exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
 <div
-  className="Dropdown-rmc6yw-5 fBPFfC Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv"
+  className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
 >
   <button
     className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"

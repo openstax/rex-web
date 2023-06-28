@@ -203,7 +203,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="styled__FBIcon-y5hgq4-0 lbjeVE StyledIconBase-sc-bdy9j4 cCvWXa"
+                className="StyledIconBase-sc-bdy9j4 cCvWXa styled__FBIcon-y5hgq4-0 lbjeVE"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 320 512"
@@ -223,7 +223,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="styled__TwitterIcon-y5hgq4-1 dMlpbg StyledIconBase-sc-bdy9j4 cCvWXa"
+                className="StyledIconBase-sc-bdy9j4 cCvWXa styled__TwitterIcon-y5hgq4-1 dMlpbg"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -243,7 +243,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="styled__LinkedInIcon-y5hgq4-3 hvjOHs StyledIconBase-sc-bdy9j4 cCvWXa"
+                className="StyledIconBase-sc-bdy9j4 cCvWXa styled__LinkedInIcon-y5hgq4-3 hvjOHs"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
@@ -263,7 +263,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="styled__IGIcon-y5hgq4-2 hQnbtn StyledIconBase-sc-bdy9j4 cCvWXa"
+                className="StyledIconBase-sc-bdy9j4 cCvWXa styled__IGIcon-y5hgq4-2 hQnbtn"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
@@ -497,7 +497,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="styled__FBIcon-y5hgq4-0 lbjeVE StyledIconBase-sc-bdy9j4 cCvWXa"
+                className="StyledIconBase-sc-bdy9j4 cCvWXa styled__FBIcon-y5hgq4-0 lbjeVE"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 320 512"
@@ -517,7 +517,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="styled__TwitterIcon-y5hgq4-1 dMlpbg StyledIconBase-sc-bdy9j4 cCvWXa"
+                className="StyledIconBase-sc-bdy9j4 cCvWXa styled__TwitterIcon-y5hgq4-1 dMlpbg"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -537,7 +537,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="styled__LinkedInIcon-y5hgq4-3 hvjOHs StyledIconBase-sc-bdy9j4 cCvWXa"
+                className="StyledIconBase-sc-bdy9j4 cCvWXa styled__LinkedInIcon-y5hgq4-3 hvjOHs"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
@@ -557,7 +557,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="styled__IGIcon-y5hgq4-2 hQnbtn StyledIconBase-sc-bdy9j4 cCvWXa"
+                className="StyledIconBase-sc-bdy9j4 cCvWXa styled__IGIcon-y5hgq4-2 hQnbtn"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
