@@ -21,7 +21,7 @@ const findFirstResultPage = (container: SearchResultContainer): SearchResultPage
   ? findFirstResultPage(container.contents[0])
   : container;
 
-const skipKeyTerms = (results: SearchResultContainer[]): SearchResultContainer | undefined => {
+const firstNonKeyTermResult = (results: SearchResultContainer[]): SearchResultContainer | undefined => {
   return results.find(r => {
     const first = findFirstResultPage(r)?.results[0];
 
@@ -30,7 +30,7 @@ const skipKeyTerms = (results: SearchResultContainer[]): SearchResultContainer |
 };
 
 export const getFirstResult = (book: {tree: ArchiveTree}, results: SearchResult): SelectedResult | null => {
-  const result = skipKeyTerms(getFormattedSearchResults(book.tree, results));
+  const result = firstNonKeyTermResult(getFormattedSearchResults(book.tree, results));
 
   const firstResultPage = result && findFirstResultPage(result);
   const firstResult = firstResultPage && firstResultPage.results[0];
