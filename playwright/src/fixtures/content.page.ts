@@ -224,7 +224,7 @@ class ContentPage {
   async editNote(note: string) {
     // Edit the note on a highlight
     // param: note - text to be updated in the annotation
-    const noteLength = (await this.noteText()).length
+    const noteLength = (await this.noteTextBox.textContent()).length
     const EditBoxCount = await this.textarea.count()
 
     if (EditBoxCount > 1) {
@@ -243,6 +243,7 @@ class ContentPage {
     } else {
       // When there is only one highlight in a page,
       // edit the available notecard
+      await this.noteTextBox.focus()
       await this.noteTextBox.click()
 
       // Move cursor to the beginning of the existing note
@@ -295,9 +296,14 @@ class ContentPage {
         }
       }
     } else {
-      // When is only one notecard in a page,
+      // When there is only one notecard in a page,
       // return note text of the available notecard
-      return await this.noteTextLocator.textContent()
+      const noteText = await this.noteTextLocator.evaluate((e: Element) => {
+        return window.getComputedStyle(e).getPropertyValue('display')
+      })
+      if (noteText === 'block') {
+        return await this.noteTextLocator.textContent()
+      }
     }
   }
 
