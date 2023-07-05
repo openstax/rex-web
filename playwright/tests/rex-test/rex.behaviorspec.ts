@@ -13,7 +13,7 @@ import {
   sleep,
 } from './helpers'
 
-test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
+test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/business-ethics/pages/preface'
@@ -46,7 +46,7 @@ test('S487 C651124 open keyboard shortcut modal using keyboard', async ({ browse
   await expect(Modal.ksModal).toBeHidden()
 })
 
-test('S487 C651123 open keyboard shortcut modal using hot keys', async ({ page }) => {
+test('C651123 open keyboard shortcut modal using hot keys', async ({ page }) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/organizational-behavior/pages/preface'
@@ -285,4 +285,43 @@ test('multiple notes in content page', async ({ page, isMobile }) => {
   expect(await BookPage.noteText()).toBe(noteText0)
   await BookPage.clickHighlight(highlightId1)
   expect(await BookPage.noteText()).toBe(noteText1)
+})
+
+test('C649726 MH modal stays open on reload', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
+
+  // AND: Highlight a random paragraph with note
+  const paracount = BookPage.paracount()
+  const randomparanumber0 = randomNum(await paracount)
+  const noteText0 = randomstring()
+  await BookPage.highlightText('green', randomparanumber0, noteText0)
+
+  // WHEN: Open MH modal
+  await BookPage.openMHmodal()
+
+  // THEN: MH page has all the highlights made in content page
+  const Modal = new MHModal(page)
+  await Modal.waitForHighlights()
+  await expect(Modal.MHModal).toBeVisible()
+  const Edithighlight = new MHHighlights(page)
+
+  const MHhighlightcount = await Edithighlight.highlightCount()
+  expect(MHhighlightcount).toBe(1)
+
+  // WHEN: Reload the browser
+  await page.reload()
+  await Modal.waitForHighlights()
+
+  // THEN: MH modal stays open
+  await expect(Modal.MHModal).toBeVisible()
+  expect(MHhighlightcount).toBe(1)
 })
