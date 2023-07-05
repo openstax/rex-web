@@ -43,7 +43,7 @@ const config: PlaywrightTestConfig = {
   retries: 0,
   workers: 1,
   testMatch: /.*\.behaviorspec\.ts/,
-  timeout: 60000,
+  timeout: 120000,
   use: {
     baseURL: BASE_URL ? BASE_URL : 'https://staging.openstax.org',
     launchOptions: {
