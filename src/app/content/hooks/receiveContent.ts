@@ -63,7 +63,13 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
     meta.push({ name: 'robots', content: 'noindex' });
   }
 
-  dispatch(setHead({links, meta, title}));
+  const contentTags = 'subjects' in book && 'categories' in book ? [
+    `book=${book.title}`,
+    ...book.subjects.map((subject) => `subject=${subject.subject_name}`),
+    ...book.categories.map((category) => `category=${category.subject_category} (${category.subject_name})`),
+  ] : [];
+
+  dispatch(setHead({links, meta, title, contentTags}));
 };
 
 export default hookBody;

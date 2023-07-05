@@ -1,10 +1,10 @@
 import { createTestServices } from '../../test/createTestServices';
 import { createTestStore } from '../../test/createTestStore';
 import { AppServices, Store } from '../types';
-import { setHead } from './actions';
-import { waitForHeadInitializaton } from './utils';
+import { receiveLoggedOut } from './actions';
+import { waitForAuthInitialization } from './utils';
 
-describe('waitForHeadInitializaton', () => {
+describe('waitForAuthInitialization', () => {
   let store: Store;
   let services: AppServices;
 
@@ -14,14 +14,14 @@ describe('waitForHeadInitializaton', () => {
   });
 
   it('resolves immediately', async() => {
-    store.dispatch(setHead({title: 'aasdf', meta: [], links: [], contentTags: []}));
-    const result = await waitForHeadInitializaton({store, services}, 1000);
+    store.dispatch(receiveLoggedOut());
+    const result = await waitForAuthInitialization({store, services}, 1000);
     expect(result).toBe(true);
   });
 
   it('resolves after waiting', async() => {
-    const result = waitForHeadInitializaton({store, services});
-    store.dispatch(setHead({title: 'aasdf', meta: [], links: [], contentTags: []}));
+    const result = waitForAuthInitialization({store, services});
+    store.dispatch(receiveLoggedOut());
     expect(await result).toBe(true);
   });
 });

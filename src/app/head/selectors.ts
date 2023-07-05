@@ -25,3 +25,8 @@ export const initialized = createSelector(
   localState,
   (state) => state.initialized
 );
+
+export const contentTags = createSelector(
+  localState,
+  (state) => state.contentTags
+);

@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
+import { waitForAuthInitialization } from './app/auth/utils';
 import { onPageFocusChange } from './app/domUtils';
 import { waitForHeadInitializaton } from './app/head/utils';
 import createIntl from './app/messages/createIntl';
@@ -20,6 +21,7 @@ import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoa
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
+import { appInitialized } from './helpers/dataLayer';
 import loadFont from './helpers/loadFont';
 import loadOptimize from './helpers/loadOptimize';
 import { startMathJax } from './helpers/mathjax';
@@ -114,8 +116,8 @@ window.onfocus = onPageFocusChange(true, document, app);
 window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
 
 // this event is for google-tag-manager to hook into
-waitForHeadInitializaton(app, 3000)
-  .then(() => window.gtag('event', 'app_loaded'));
+Promise.all([waitForAuthInitialization(app, 3000), waitForHeadInitializaton(app, 3000)])
+  .then(() => { appInitialized(app); });
 
 // start long running processes
 pollUpdates(app.store);

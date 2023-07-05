@@ -1,8 +1,11 @@
+import { setContentTags } from '../../../helpers/dataLayer';
 import { ActionHookBody } from '../../types';
 import { actionHook, assertNotNull } from '../../utils';
 import * as actions from '../actions';
 
-export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({payload: {title, meta, links}}) => {
+export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({
+  payload: {title, meta, links, contentTags},
+}) => {
   if (typeof(document) === 'undefined') {
     return;
   }
@@ -24,6 +27,8 @@ export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({payload:
     Object.entries(linkValue).forEach(([name, value]) => tag.setAttribute(name, value));
     head.appendChild(tag);
   }
+
+  setContentTags(contentTags);
 };
 
 export default actionHook(actions.setHead, hookBody);
