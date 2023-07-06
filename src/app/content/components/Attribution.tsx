@@ -96,6 +96,44 @@ const AttributionDetails = styled(Details)`
 
   ${disablePrint}
 `;
+// date is initialized as UTC, conversion to local time can change the date.
+// this compensates
+function compensateForUTC(date: Date): void {
+  date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+}
+
+function getPublishDate(book: Book): Date | null {
+  if (!('publish_date' in book)) {
+    return null;
+  }
+  const date = new Date(book.publish_date);
+
+  compensateForUTC(date);
+  return date;
+}
+
+function getAuthors(book: Book) {
+  if (!('authors' in book)) {
+    return [];
+  }
+  const seniorAuthors = book.authors.filter((author) => author.value.senior_author);
+
+  return seniorAuthors.length > 0
+    ? seniorAuthors
+    : book.authors.slice(0, 2);
+}
+
+export function attributionValues(book: Book) {
+  const bookPublishDate = getPublishDate(book);
+  const authorsToDisplay = getAuthors(book);
+
+  return {
+    bookTitle: book.title,
+    copyrightHolder: 'OpenStax',
+    bookPublishDate,
+    authorsToDisplay,
+  };
+}
 
 // tslint:disable-next-line:variable-name
 const AttributionContent = htmlMessage('i18n:attribution:text', Content);
@@ -174,19 +212,12 @@ class Attribution extends Component<Props> {
     const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
 
     assertNotNull(book.publish_date, `BUG: Could not find publication date`);
-    const bookPublishDate = new Date(book.publish_date);
+    const bookPublishDate = getPublishDate(book);
     const bookLatestRevision = new Date(book.revised);
 
-    // date is initialized as UTC, conversion to local time can change the date.
-    // this compensates
-    bookPublishDate.setMinutes(bookPublishDate.getMinutes() + bookPublishDate.getTimezoneOffset());
-    bookLatestRevision.setMinutes(bookLatestRevision.getMinutes() + bookLatestRevision.getTimezoneOffset());
+    compensateForUTC(bookLatestRevision);
 
-    const seniorAuthors = book.authors.filter((author) => author.value.senior_author);
-
-    const authorsToDisplay = seniorAuthors.length > 0
-      ? seniorAuthors
-      : book.authors.slice(0, 2);
+    const authorsToDisplay = getAuthors(book);
 
     return {
       bookAuthors: authorsToDisplay.map(({value: {name}}) => name).join(', '),
