@@ -170,7 +170,7 @@
     "serve-static": "~1.15",
     "sitemap": "<4",
     "source-map-explorer": "^2.5.3",
-    "stylelint": "<14",
+    "stylelint": "<16",
     "stylelint-config-standard": "<23",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.5.2",
