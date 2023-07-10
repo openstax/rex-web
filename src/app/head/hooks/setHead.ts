@@ -1,4 +1,4 @@
-import { setContentTags } from '../../../helpers/dataLayer';
+import { callDLF } from '../../../helpers/dataLayer';
 import { ActionHookBody } from '../../types';
 import { actionHook, assertNotNull } from '../../utils';
 import * as actions from '../actions';
@@ -28,7 +28,7 @@ export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({
     head.appendChild(tag);
   }
 
-  setContentTags(contentTags);
+  callDLF('setContentTags', contentTags);
 };
 
 export default actionHook(actions.setHead, hookBody);

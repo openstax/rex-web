@@ -3,9 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
-import { waitForAuthInitialization } from './app/auth/utils';
 import { onPageFocusChange } from './app/domUtils';
-import { waitForHeadInitializaton } from './app/head/utils';
+import * as selectHead from './app/head/selectors';
 import createIntl from './app/messages/createIntl';
 import { currentLocale } from './app/messages/selectors';
 import { updateAvailable } from './app/notifications/actions';
@@ -21,7 +20,7 @@ import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoa
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
-import { appInitialized } from './helpers/dataLayer';
+import { callDLF } from './helpers/dataLayer';
 import loadFont from './helpers/loadFont';
 import loadOptimize from './helpers/loadOptimize';
 import { startMathJax } from './helpers/mathjax';
@@ -85,6 +84,10 @@ app.services.promiseCollector.calm().then(() => {
 });
 
 if (window.__PRELOADED_STATE__) {
+  // content isn't received in a preloaded state its in the state already,
+  // so trigger it here
+  callDLF('setContentTags', selectHead.contentTags(app.store.getState()));
+
   Loadable.preloadReady()
     .then(() => {
       // during pre-rendering this happens in src/app/content/hooks/intlHook.ts
@@ -114,10 +117,6 @@ window.onblur = onPageFocusChange(false, document, app);
 window.onfocus = onPageFocusChange(true, document, app);
 
 window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
-
-// this event is for google-tag-manager to hook into
-Promise.all([waitForAuthInitialization(app, 3000), waitForHeadInitializaton(app, 3000)])
-  .then(() => { appInitialized(app); });
 
 // start long running processes
 pollUpdates(app.store);
