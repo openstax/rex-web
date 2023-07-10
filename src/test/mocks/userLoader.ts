@@ -11,8 +11,8 @@ export const testAccountsUser: AccountsUser = {
   last_name: 'mctesterson',
   name: 'test',
   self_reported_role: 'student',
-  using_openstax: false,
   signed_contract_names: [],
+  using_openstax: false,
   uuid: 'e567b65d-c958-486e-b2f3-496f10828906',
 };
 
