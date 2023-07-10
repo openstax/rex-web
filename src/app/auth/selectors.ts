@@ -18,11 +18,6 @@ export const loggedOut = createSelector(
   (state, currentUser) => state.established && !currentUser
 );
 
-export const initialized = createSelector(
-  localState,
-  (state) => state.established
-);
-
 export const loginLink = createSelector(
   selectNavigation.pathname,
   (currentPath) => '/accounts/login?r=' + currentPath

@@ -1,9 +1,9 @@
-import { User } from '@openstax/ts-utils/services/authProvider';
+import { ApiUser } from '@openstax/ts-utils/services/authProvider';
 import { browserAuthProvider } from '@openstax/ts-utils/services/authProvider/browser';
 import { assertWindow } from '../app/utils';
 
 // TODO - update tst to include these fields
-export type AccountsUser = User & {
+export type AccountsUser = ApiUser & {
   self_reported_role: string;
   using_openstax: boolean;
 };
