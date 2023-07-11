@@ -20,7 +20,6 @@ import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoa
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
 import { registerGlobalAnalytics } from './helpers/analytics';
-import { callDLF } from './helpers/dataLayer';
 import loadFont from './helpers/loadFont';
 import loadOptimize from './helpers/loadOptimize';
 import { startMathJax } from './helpers/mathjax';
@@ -86,7 +85,7 @@ app.services.promiseCollector.calm().then(() => {
 if (window.__PRELOADED_STATE__) {
   // content isn't received in a preloaded state its in the state already,
   // so trigger it here
-  callDLF('setContentTags', selectHead.contentTags(app.store.getState()));
+  window.oxDLF.push({contentTags: selectHead.contentTags(app.store.getState())});
 
   Loadable.preloadReady()
     .then(() => {
