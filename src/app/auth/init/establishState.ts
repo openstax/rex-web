@@ -1,17 +1,19 @@
 import { Initializer } from '../../types';
 import { receiveLoggedOut, receiveUser } from '../actions';
 import { formatUser } from '../utils';
-import { AccountsUser } from '../../../gateways/createUserLoader';
 
 const initializer: Initializer = async({dispatch, userLoader}) => {
-  if (typeof(document) === 'undefined') {
+  if (typeof(window) === 'undefined') {
     return;
   }
 
   const user = await userLoader.getCurrentUser();
 
+  // TODO - consider moving this into the ts-utils auth loader
+  window.oxDLF.push({user});
+
   if (user) {
-    dispatch(receiveUser(formatUser(user as AccountsUser)));
+    dispatch(receiveUser(formatUser(user)));
   } else {
     dispatch(receiveLoggedOut());
   }
