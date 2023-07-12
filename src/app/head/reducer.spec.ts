@@ -3,6 +3,7 @@ import reducer, { initialState } from './reducer';
 
 describe('head reducer', () => {
   const action = setHead({
+    contentTags: [],
     links: [
       {rel: 'canonical', href: '../test-url'},
     ],
