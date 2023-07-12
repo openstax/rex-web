@@ -21,7 +21,7 @@ export const title = createSelector(
   (state) => state.title
 );
 
-export const initialized = createSelector(
+export const contentTags = createSelector(
   localState,
-  (state) => state.initialized
+  (state) => state.contentTags
 );

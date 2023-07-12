@@ -172,6 +172,11 @@ describe('getCanonicalURL', () => {
     await hook(receivePage({ ...page, references: [], id: pageId }));
 
     expect(dispatch).toHaveBeenCalledWith(setHead({
+      contentTags: [
+        'book=Test Book 1',
+        'subject=test subject',
+        'category=test category (test subject)',
+      ],
       links: [],
       meta: expect.anything(),
       title: expect.anything(),
@@ -188,6 +193,11 @@ describe('getCanonicalURL', () => {
     await hook(receivePage({ ...page, references: [] }));
 
     expect(dispatch).toHaveBeenCalledWith(setHead({
+      contentTags: [
+        'book=Test Book 1',
+        'subject=test subject',
+        'category=test category (test subject)',
+      ],
       links: [{ rel: 'canonical', href: 'https://openstax.org/books/book-slug-1/pages/test-page-1' }],
       meta: expect.anything(),
       title: expect.anything(),
@@ -217,6 +227,11 @@ describe('getCanonicalURL', () => {
     await hook(receivePage({ ...page, references: [] }));
 
     expect(dispatch).toHaveBeenCalledWith(setHead({
+      contentTags: [
+        'book=Test Book 1',
+        'subject=test subject',
+        'category=test category (test subject)',
+      ],
       links: [{ rel: 'canonical', href: 'https://openstax.org/books/book-slug-1/pages/test-page-1' }],
       meta: expect.arrayContaining([
         { property: 'og:url', content: 'https://openstax.org/books/coolbook/pages/coolpage' },
