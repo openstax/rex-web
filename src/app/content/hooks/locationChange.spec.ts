@@ -203,6 +203,7 @@ describe('contentRouteHookBody', () => {
     const mockCmsOtherBook: OSWebBook = {
       amazon_link: '',
       authors: [{value: {name: 'different author', senior_author: true}}],
+      book_categories: [{subject_name: 'test subject', subject_category: 'test category'}],
       book_state: 'live',
       book_subjects: [{subject_name: 'test subject'}],
       cnx_id: mockOtherBook.id,

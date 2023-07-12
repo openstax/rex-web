@@ -17,6 +17,7 @@ export interface OSWebBook {
   book_state: BookWithOSWebData['book_state'];
   cover_color: BookWithOSWebData['theme'];
   book_subjects: Array<{subject_name: string}>;
+  book_categories: Array<{subject_name: string; subject_category: string}>;
   cnx_id: string;
   amazon_link: string;
 }
@@ -28,7 +29,17 @@ interface OSWebResponse {
   items: OSWebBook[];
 }
 
-export const fields = 'cnx_id,authors,publish_date,cover_color,amazon_link,book_state,promote_image,book_subjects';
+export const fields = [
+  'cnx_id',
+  'authors',
+  'publish_date',
+  'cover_color',
+  'amazon_link',
+  'book_state',
+  'promote_image',
+  'book_subjects',
+  'book_categories',
+].join(',');
 
 interface Options {
   cache?: Cache<string, OSWebBook | undefined>;
