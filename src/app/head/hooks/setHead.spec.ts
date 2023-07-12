@@ -6,6 +6,7 @@ describe('setHead hook', () => {
   let hookBody: ActionHookBody<typeof setHead>;
   const helpers = {} as MiddlewareAPI & AppServices;
   const action = setHead({
+    contentTags: [],
     links: [{rel: 'canonical', href: 'justfortesting'}],
     meta: [{name: 'fake', content: 'meta'}],
     title: 'cool title',
@@ -49,13 +50,16 @@ describe('setHead hook', () => {
 
   describe('outside the browser', () => {
     const documentBackup = document;
+    const windowBackup = window;
 
     beforeEach(() => {
       delete (global as any).document;
+      delete (global as any).window;
     });
 
     afterEach(() => {
       (global as any).document = documentBackup;
+      (global as any).window = windowBackup;
     });
 
     it('doesn\'t break', () => {

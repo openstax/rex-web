@@ -10,6 +10,9 @@ export const testAccountsUser: AccountsUser = {
   is_not_gdpr_location: true,
   last_name: 'mctesterson',
   name: 'test',
+  self_reported_role: 'student',
+  signed_contract_names: [],
+  using_openstax: false,
   uuid: 'e567b65d-c958-486e-b2f3-496f10828906',
 };
 

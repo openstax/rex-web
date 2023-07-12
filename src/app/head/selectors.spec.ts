@@ -41,3 +41,14 @@ describe('title', () => {
     expect(selectors.title(rootState)).toEqual('foobar');
   });
 });
+
+describe('contentTags', () => {
+  it('returns contentTags', () => {
+    const rootState = {head: {
+      ...initialState,
+      contentTags: ['foobar'],
+    }} as any as AppState;
+
+    expect(selectors.contentTags(rootState)).toEqual(['foobar']);
+  });
+});

@@ -7,4 +7,5 @@ export interface State {
   meta: Meta[];
   initialized: boolean;
   links: Link[];
+  contentTags: string[];
 }
