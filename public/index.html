@@ -22,8 +22,12 @@
 
     <script>
       window.dataLayer = window.dataLayer || [];
+      /* oxDLF is provided by https://github.com/openstax/analytics-helpers/blob/main/src/data-layer-factories.ts */
+      window.oxDLF = window.oxDLF || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      
+      window.dataLayer.push({app: 'rex'})
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML-full&delayStartupUntil=configured" async></script>
