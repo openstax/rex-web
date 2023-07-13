@@ -13,6 +13,7 @@ import {
 import { closeExtras, randomChoice, randomNum, randomstring, sleep } from '../../src/utilities/utilities'
 import { KsModal } from '../../src/fixtures/ksmodal'
 import { MHModal, MHHighlights, Action } from '../../src/fixtures/MHmodal'
+import { toc } from '../../src/fixtures/toc'
 
 export {
   ContentPage,
@@ -20,6 +21,7 @@ export {
   EmailMessageData,
   KsModal,
   MHModal,
+  toc,
   MHHighlights,
   Action,
   Student,

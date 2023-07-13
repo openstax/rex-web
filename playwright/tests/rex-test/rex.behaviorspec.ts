@@ -4,6 +4,7 @@ import {
   Actions,
   KsModal,
   MHModal,
+  toc,
   MHHighlights,
   Action,
   randomNum,
@@ -324,4 +325,19 @@ test('C649726 MH modal stays open on reload', async ({ page, isMobile }) => {
   // THEN: MH modal stays open
   await expect(Modal.MHModal).toBeVisible()
   expect(MHhighlightcount).toBe(1)
+})
+
+
+test('toc', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  const TOC = new toc(page)
+  await TOC.pageClick(22)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/1-2-the-four-field-approach-four-approaches-within-the-guiding-narrative')
+
 })
