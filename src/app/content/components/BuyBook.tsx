@@ -22,7 +22,7 @@ const BuyBookAlignment = styled.div`
 // tslint:disable-next-line:variable-name
 const BuyBookLink = styled.a`
   ${textRegularSize};
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   display: flex;
   align-items: center;
   justify-content: center;

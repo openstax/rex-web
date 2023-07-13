@@ -2,19 +2,19 @@
 
 exports[`Button matches snapshot - default 1`] = `
 <button
-  className="Button-ayg7nk-0 liRzrl"
+  className="Button-ayg7nk-0 fXKRFg"
 />
 `;
 
 exports[`Button matches snapshot - large 1`] = `
 <button
-  className="Button-ayg7nk-0 dSJsyM"
+  className="Button-ayg7nk-0 cpWzOm"
 />
 `;
 
 exports[`Button matches snapshot - link 1`] = `
 <a
-  className="Button-ayg7nk-0 liRzrl"
+  className="Button-ayg7nk-0 fXKRFg"
   href="/"
 >
   this is a link
@@ -23,25 +23,25 @@ exports[`Button matches snapshot - link 1`] = `
 
 exports[`Button matches snapshot - medium 1`] = `
 <button
-  className="Button-ayg7nk-0 liRzrl"
+  className="Button-ayg7nk-0 fXKRFg"
 />
 `;
 
 exports[`Button matches snapshot - primary 1`] = `
 <button
-  className="Button-ayg7nk-0 fFJxez"
+  className="Button-ayg7nk-0 extinX"
 />
 `;
 
 exports[`Button matches snapshot - secondary 1`] = `
 <button
-  className="Button-ayg7nk-0 dYeAnt"
+  className="Button-ayg7nk-0 jAVVDA"
 />
 `;
 
 exports[`Button matches snapshot - small 1`] = `
 <button
-  className="Button-ayg7nk-0 bHTkEr"
+  className="Button-ayg7nk-0 izrGku"
 />
 `;
 

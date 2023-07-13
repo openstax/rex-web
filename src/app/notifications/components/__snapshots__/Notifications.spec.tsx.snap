@@ -25,7 +25,7 @@ exports[`Notifications matches snapshot for acceptCookies 1`] = `
         className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
       >
         <button
-          className="Button-ayg7nk-0 fFJxez"
+          className="Button-ayg7nk-0 extinX"
           onClick={[Function]}
         >
           Got it!
@@ -62,7 +62,7 @@ exports[`Notifications matches snapshot for appMessage 1`] = `
       className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
     >
       <button
-        className="Button-ayg7nk-0 fFJxez"
+        className="Button-ayg7nk-0 extinX"
         onClick={[Function]}
       >
         OK
@@ -97,7 +97,7 @@ exports[`Notifications matches snapshot for retiredBookRedirect 1`] = `
         className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
       >
         <button
-          className="Button-ayg7nk-0 fFJxez"
+          className="Button-ayg7nk-0 extinX"
           onClick={[Function]}
         >
           Got it!
@@ -133,7 +133,7 @@ exports[`Notifications matches snapshot for updateAvailable 1`] = `
       className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
     >
       <button
-        className="Button-ayg7nk-0 fFJxez"
+        className="Button-ayg7nk-0 extinX"
         onClick={[Function]}
       >
         Update
