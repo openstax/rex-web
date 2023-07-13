@@ -67,7 +67,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             className="ChapterFilter__Column-tcdlu-1 dKPjiE"
           >
             <label
-              className="Checkbox-f0dje9-2 gEkNQh"
+              className="Checkbox-f0dje9-2 bQUsMb"
             >
               <input
                 checked={false}
@@ -76,7 +76,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 type="checkbox"
               />
               <span
-                className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+                className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
               >
                 <svg
                   aria-hidden="true"
@@ -101,7 +101,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </label>
             <label
-              className="Checkbox-f0dje9-2 gEkNQh"
+              className="Checkbox-f0dje9-2 bQUsMb"
             >
               <input
                 checked={false}
@@ -110,7 +110,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 type="checkbox"
               />
               <span
-                className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+                className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
               >
                 <svg
                   aria-hidden="true"
@@ -135,7 +135,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </label>
             <label
-              className="Checkbox-f0dje9-2 ksczzL"
+              className="Checkbox-f0dje9-2 jNHPPI"
             >
               <input
                 checked={true}
@@ -144,7 +144,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 type="checkbox"
               />
               <span
-                className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+                className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
               >
                 <svg
                   aria-hidden="true"
@@ -169,7 +169,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </label>
             <label
-              className="Checkbox-f0dje9-2 gEkNQh"
+              className="Checkbox-f0dje9-2 bQUsMb"
             >
               <input
                 checked={false}
@@ -178,7 +178,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 type="checkbox"
               />
               <span
-                className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+                className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
               >
                 <svg
                   aria-hidden="true"
@@ -203,7 +203,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </label>
             <label
-              className="Checkbox-f0dje9-2 gEkNQh"
+              className="Checkbox-f0dje9-2 bQUsMb"
             >
               <input
                 checked={false}
@@ -212,7 +212,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 type="checkbox"
               />
               <span
-                className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+                className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
               >
                 <svg
                   aria-hidden="true"
@@ -237,7 +237,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </label>
             <label
-              className="Checkbox-f0dje9-2 gEkNQh"
+              className="Checkbox-f0dje9-2 bQUsMb"
             >
               <input
                 checked={false}
@@ -246,7 +246,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 type="checkbox"
               />
               <span
-                className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+                className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
               >
                 <svg
                   aria-hidden="true"
@@ -271,7 +271,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </label>
             <label
-              className="Checkbox-f0dje9-2 gEkNQh"
+              className="Checkbox-f0dje9-2 bQUsMb"
             >
               <input
                 checked={false}
@@ -280,7 +280,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 type="checkbox"
               />
               <span
-                className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+                className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
               >
                 <svg
                   aria-hidden="true"
@@ -362,7 +362,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           </button>
         </div>
         <label
-          className="Checkbox-f0dje9-2 ksczzL"
+          className="Checkbox-f0dje9-2 jNHPPI"
         >
           <input
             checked={true}
@@ -371,7 +371,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
           >
             <svg
               aria-hidden="true"
@@ -420,7 +420,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           </span>
         </label>
         <label
-          className="Checkbox-f0dje9-2 ksczzL"
+          className="Checkbox-f0dje9-2 jNHPPI"
         >
           <input
             checked={true}
@@ -429,7 +429,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
           >
             <svg
               aria-hidden="true"
@@ -478,7 +478,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           </span>
         </label>
         <label
-          className="Checkbox-f0dje9-2 ksczzL"
+          className="Checkbox-f0dje9-2 jNHPPI"
         >
           <input
             checked={true}
@@ -487,7 +487,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
           >
             <svg
               aria-hidden="true"
@@ -536,7 +536,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           </span>
         </label>
         <label
-          className="Checkbox-f0dje9-2 ksczzL"
+          className="Checkbox-f0dje9-2 jNHPPI"
         >
           <input
             checked={true}
@@ -545,7 +545,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gLNaiW"
+            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
           >
             <svg
               aria-hidden="true"

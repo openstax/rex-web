@@ -71,9 +71,9 @@ const color = {
       foregroundHover: greyColors.light,
     },
     'orange': {
-      base: '#f36b32',
-      darker: '#e96128',
-      darkest: '#df571e',
+      base: '#d4450c',
+      darker: '#be3c08',
+      darkest: '#b03808',
       foreground: textColors.white,
       foregroundHover: greyColors.darker,
     },
