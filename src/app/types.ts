@@ -18,6 +18,7 @@ import createOSWebLoader from '../gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../gateways/createSearchClient';
 import createUserLoader from '../gateways/createUserLoader';
+import createImageCDNUtils from '../gateways/createImageCDNUtils';
 import analytics from '../helpers/analytics';
 import FontCollector from '../helpers/FontCollector';
 import PromiseCollector from '../helpers/PromiseCollector';
@@ -56,6 +57,7 @@ export interface AppServices {
   serviceWorker?: ServiceWorkerRegistration;
   userLoader: ReturnType<typeof createUserLoader>;
   bookConfigLoader: ReturnType<typeof createBookConfigLoader>;
+  imageCDNUtils: ReturnType<typeof createImageCDNUtils>;
 }
 
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
