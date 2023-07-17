@@ -3,6 +3,7 @@ import { IntlShape } from 'react-intl';
 import { assertNotNull } from '../../../utils';
 import { expandClosestSolution } from '../../utils/domUtils';
 import { fromRelativeUrl } from '../../utils/urlUtils';
+import { AppServices, MiddlewareAPI } from '../../../types';
 
 export function linksToOtherPagesOpenInNewTab(rootEl: HTMLElement, currentPath: string) {
   rootEl.querySelectorAll('a[href]').forEach(
@@ -19,7 +20,9 @@ export function linksToOtherPagesOpenInNewTab(rootEl: HTMLElement, currentPath: 
 // from https://github.com/openstax/webview/blob/f95b1d0696a70f0b61d83a85c173102e248354cd
 // .../src/scripts/modules/media/body/body.coffee#L123
 // We are passing Document because it is required to prerender.
-export const transformContent = (document: Document, rootEl: HTMLElement, intl: IntlShape) => {
+export const transformContent = (
+  document: Document, rootEl: HTMLElement, intl: IntlShape, services: AppServices & MiddlewareAPI
+) => {
   removeDocumentTitle(rootEl);
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
@@ -27,7 +30,7 @@ export const transformContent = (document: Document, rootEl: HTMLElement, intl: 
   wrapSolutions(document, rootEl, intl);
   expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, intl);
-  optimizeImages(rootEl);
+  optimizeImages(rootEl, services);
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -44,7 +47,6 @@ function wrapElements(document: Document, rootEl: HTMLElement) {
   rootEl.querySelectorAll(`.example, .exercise, .note, .abstract,
     [data-type="example"], [data-type="exercise"],
     [data-type="note"], [data-type="abstract"]`).forEach((el) => {
-
     // JSDOM does not support `:scope` in .querySelectorAll() so use .matches()
     const titles = Array.from(el.children).filter((child) => child.matches('.title, [data-type="title"], .os-title'));
 
@@ -81,14 +83,13 @@ function tweakFigures(rootEl: HTMLElement) {
   });
 }
 
-function optimizeImages(rootEl: HTMLElement) {
+function optimizeImages(rootEl: HTMLElement, services: AppServices & MiddlewareAPI) {
   const images = Array.from(rootEl.querySelectorAll('img[src^="/apps/archive"'));
 
   for (const i of images) {
-    const src = assertNotNull(i.getAttribute('src'), 'Somehow got a null src attribute')
-    .replace('/apps/archive', '/apps/image-cdn/v1/f=webp/apps/archive');
+    const src = assertNotNull(i.getAttribute('src'), 'Somehow got a null src attribute');
 
-    i.setAttribute('src', src);
+    i.setAttribute('src', services.imageCDNUtils.getOptimizedImageUrl(src));
   }
 }
 
@@ -96,7 +97,8 @@ function fixLists(rootEl: HTMLElement) {
   // Copy data-mark-prefix and -suffix from ol to li so they can be used in css
   rootEl.querySelectorAll(`ol[data-mark-prefix] > li, ol[data-mark-suffix] > li,
   [data-type="list"][data-list-type="enumerated"][data-mark-prefix] > [data-type="item"],
-  [data-type="list"][data-list-type="enumerated"][data-mark-suffix] > [data-type="item"]`).forEach((el) => {
+  [data-type="list"][data-list-type="enumerated"][data-mark-suffix] > [data-type="item"]
+  `).forEach((el) => {
     const parent = assertNotNull(el.parentElement, 'list parent should always be defined');
     const markPrefix = parent.getAttribute('data-mark-prefix');
     const markSuffix = parent.getAttribute('data-mark-suffix');
