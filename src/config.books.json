@@ -136,11 +136,13 @@
   },
   "636cbfd9-4e37-4575-83ab-9dec9029ca4e": {
     "defaultVersion": "a6dd6c5",
-    "dynamicStyles": false
+    "dynamicStyles": false,
+    "retired": true
   },
   "9117cf8c-a8a3-4875-8361-9cb0f1fc9362": {
     "defaultVersion": "a6dd6c5",
-    "dynamicStyles": false
+    "dynamicStyles": false,
+    "retired": true
   },
   "bc498e1f-efe9-43a0-8dea-d3569ad09a82": {
     "defaultVersion": "a6dd6c5",
@@ -224,7 +226,8 @@
   },
   "ca344e2d-6731-43cd-b851-a7b3aa0b37aa": {
     "defaultVersion": "444e84e",
-    "dynamicStyles": false
+    "dynamicStyles": false,
+    "retired": true
   },
   "69619d2b-68f0-44b0-b074-a9b2bf90b2c6": {
     "defaultVersion": "444e84e",
@@ -233,7 +236,8 @@
   },
   "33076054-ec1d-4417-8824-ce354efe42d0": {
     "defaultVersion": "444e84e",
-    "dynamicStyles": false
+    "dynamicStyles": false,
+    "retired": true
   },
   "185cbf87-c72e-48f5-b51e-f14f21b5eabd": {
     "defaultVersion": "e989ec3",
