@@ -12,11 +12,12 @@ import mockArchiveLoader from './mocks/archiveLoader';
 import mockbookConfigLoader from './mocks/bookConfigLoader';
 import mockOsWebLoader from './mocks/osWebLoader';
 import mockUserLoader from './mocks/userLoader';
+import createImageCDNUtils from '../gateways/createImageCDNUtils';
 
 jest.mock('@openstax/open-search-client');
 jest.mock('@openstax/highlighter/dist/api');
 
-export const createTestServices = () => ({
+export const createTestServices = (args?: {prefetchResolutions: boolean}) => ({
   analytics,
   archiveLoader: mockArchiveLoader(),
   bookConfigLoader: mockbookConfigLoader(),
@@ -33,6 +34,7 @@ export const createTestServices = () => ({
   promiseCollector: new PromiseCollector(),
   searchClient: new SearchApi(),
   userLoader: mockUserLoader(),
+  imageCDNUtils: createImageCDNUtils(args),
 });
 
 export default createTestServices;
