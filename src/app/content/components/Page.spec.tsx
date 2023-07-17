@@ -112,7 +112,7 @@ describe('Page', () => {
     });
     state = store.getState();
 
-    const testServices = createTestServices();
+    const testServices = createTestServices({prefetchResolutions: true});
 
     services = {
       ...testServices,
