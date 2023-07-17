@@ -54,7 +54,8 @@ const Button = styled(ButtonHoc)`
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  border-radius: 0.2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black), 0.2);
   text-decoration: none;
   white-space: nowrap;
   overflow: initial;
@@ -79,6 +80,8 @@ const Button = styled(ButtonHoc)`
     ${applyColor(theme.color.primary.orange)}
     font-weight: bold;
     border: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   `}
   ${(props) => props.variant === 'secondary' && `
     ${applyColor(theme.color.secondary.lightGray)}
