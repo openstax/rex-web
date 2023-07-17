@@ -12,7 +12,7 @@ import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import { createTitle, getPageDescription } from '../utils/seoUtils';
-import { attributionValues } from '../components/Attribution';
+import { attributionValues } from '../components/utils/attributionValues';
 import { Book } from '../types';
 
 const escapeQuotes = (text: string) => text.replace(/"/g, '&quot;');
