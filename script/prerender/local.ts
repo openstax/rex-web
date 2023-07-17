@@ -12,6 +12,7 @@ import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { OSWebBook } from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
+import createImageCDNUtils from '../../src/gateways/createImageCDNUtils';
 import { startServer } from '../server';
 import {
   getStats,
@@ -75,6 +76,7 @@ async function render() {
     practiceQuestionsLoader,
     searchClient,
     userLoader,
+    imageCDNUtils: createImageCDNUtils({prefetchResolutions: true}),
   };
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
