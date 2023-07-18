@@ -9,6 +9,7 @@ class toc {
     eocLocator: Locator
     eobLocator: Locator
     unitLocator: Locator
+    chapterInUnit: Locator
 
 
 
@@ -27,31 +28,57 @@ class toc {
     const tocPageCount = await this.sectionLocator.count()
     console.log(tocPageCount)
   }
-
-  async tocChapterCount() {
-    return await this.chapterLocator.count()
-  }
   
-  async chapterClick(n: number){
-    await this.chapterLocator.nth(n).click()
+
+  async sectionClick(n: number) {
+    if (await this.sectionLocator.nth(n).isVisible() === true) {
+        await this.sectionLocator.nth(n).click()
+    }
   }
 
   async pageClick(n: number){
-    const chapterCount = await this.tocChapterCount()
+    const unitCount = await this.unitLocator.count()
+    //  if page is visible click and return
     if (await this.sectionLocator.nth(n).isVisible() === true) {
-    await this.sectionLocator.nth(n).click()
-    } 
-    else {
-        let j: number
+        await this.sectionLocator.nth(n).click()
         
-        for (j = 0; j < chapterCount; j++) {
-            await this.chapterLocator.nth(j).click()
-            if (await this.sectionLocator.nth(n).isVisible() === true)
-                await this.sectionLocator.nth(n).click()
-                exit
+    } 
+
+    // if book has units, expand unit and check if page is visible
+    else if (await this.unitLocator.nth(0).isVisible() === true) {
+            let unit: number
+            let chapter: number 
+        
+            for (unit = 0; unit < unitCount; unit++) {
+                await this.unitLocator.nth(unit).click()
+                if (await this.sectionLocator.nth(n).isVisible() === true) {
+                    await this.sectionLocator.nth(n).click()                   
+                }
+            
+        
+                else {
+                    
+                    this.chapterInUnit = this.unitLocator.nth(unit).locator("//li[@data-type='chapter']")
+
+                    const chapterInUnitCount = await this.chapterInUnit.count()
+                    console.log(chapterInUnitCount)
+                
+                    for (chapter = 0; chapter < chapterInUnitCount; chapter++) {
+                        await this.chapterInUnit.nth(chapter).click()
+                        if (await this.sectionLocator.nth(n).isVisible() === true)
+                            await this.sectionLocator.nth(n).click()
+                            
+                          
+                            
+                    }
+                }
+        }
     }
-  }
+}
 }
 
-}
+    
+
+
+
 export { toc }
