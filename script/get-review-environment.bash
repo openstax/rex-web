@@ -26,11 +26,6 @@ until [ $WAIT_MINUTES -eq 0 ] || [ "$(github "repos/openstax/rex-web/deployments
   WAIT_MINUTES=$(( WAIT_MINUTES - 1 ))
 done
 
-if [ $WAIT_MINUTES -lt 1 ]; then
-  echo "timed out">&2
-  exit 1
-fi;
-
 pr_deployment_id=$(github "repos/openstax/rex-web/deployments?sha=$GIT_REF" | jq -r '.[0].id // ""')
 
 if [ -z "$pr_deployment_id" ]; then
@@ -38,7 +33,7 @@ if [ -z "$pr_deployment_id" ]; then
   exit 1;
 fi;
 
-WAIT_MINUTES=10
+WAIT_MINUTES=15
 until [ $WAIT_MINUTES -eq 0 ] || [ "$(github "repos/openstax/rex-web/deployments/$pr_deployment_id/statuses" | jq -r .[0].state)" == "success" ]; do
   echo "sleeping 1m">&2
   sleep 60
