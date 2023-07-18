@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eo pipefail
 
 if [ -z "$GITHUB_ACCESS_TOKEN" ]
 then
