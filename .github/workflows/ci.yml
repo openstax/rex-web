@@ -33,7 +33,8 @@ jobs:
         GIT_REF: ${{ github.event.pull_request.head.sha }}
         GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "{url}={$(./script/get-review-environment.bash)}" >> $GITHUB_OUTPUT
+        echo "url=$(./script/get-review-environment.bash)" >> $GITHUB_OUTPUT
+      shell: bash
 
   selenium:
     name: Selenium
