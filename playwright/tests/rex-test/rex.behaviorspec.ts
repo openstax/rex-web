@@ -333,11 +333,11 @@ test('toc', async ({ page, isMobile }) => {
 
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/writing-guide/pages/preface'
+  const path = '/books/writing-guide/pages/index'
   await BookPage.open(path)
 
   const TOC = new toc(page)
-  await TOC.pageClick(226)
+  await TOC.pageClick(193)
   await expect(page).toHaveURL('/books/introduction-anthropology/pages/1-2-the-four-field-approach-four-approaches-within-the-guiding-narrative')
 
 })
