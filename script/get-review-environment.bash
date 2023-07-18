@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eo pipefail
 
 if [ -z "$GITHUB_ACCESS_TOKEN" ]
 then
@@ -33,14 +33,14 @@ if [ -z "$pr_deployment_id" ]; then
   exit 1;
 fi;
 
-WAIT_MINUTES=10
+WAIT_MINUTES=15
 until [ $WAIT_MINUTES -eq 0 ] || [ "$(github "repos/openstax/rex-web/deployments/$pr_deployment_id/statuses" | jq -r .[0].state)" == "success" ]; do
   echo "sleeping 1m">&2
   sleep 60
   WAIT_MINUTES=$(( WAIT_MINUTES - 1 ))
 done
 
-if [ "$NEXT_WAIT_TIME" -lt 1 ]; then
+if [ $WAIT_MINUTES -lt 1 ]; then
   echo "timed out">&2
   exit 1
 fi;
