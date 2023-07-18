@@ -49,11 +49,13 @@ export const bookIdsWithSpecialAttributionText: {
 export function attributionValues(book: Book) {
   const bookPublishDate = getPublishDate(book);
   const authorsToDisplay = getAuthors(book);
+  const locale = book.language;
 
   return {
     bookTitle: book.title,
-    copyrightHolder:
-      bookIdsWithSpecialAttributionText[book.id]?.copyrightHolder || 'OpenStax',
+    publisher: locale === 'pl' ? 'OpenStax Poland' : 'OpenStax',
+    // @ts-expect-error
+    language: new Intl.DisplayNames([locale], { type: 'language' }).of(locale),
     bookPublishDate,
     authorsToDisplay,
   };

@@ -18,12 +18,13 @@ import { Book } from '../types';
 const escapeQuotes = (text: string) => text.replace(/"/g, '&quot;');
 
 function citationMetaTags(book: Book, canonicalHref: string | null) {
-  const {bookTitle, copyrightHolder, bookPublishDate, authorsToDisplay} = attributionValues(book);
+  const {bookTitle, publisher, bookPublishDate, language, authorsToDisplay} = attributionValues(book);
   const dateStr = bookPublishDate?.toLocaleDateString('en-us', {month: 'short', day: 'numeric', year: 'numeric'});
 
   return [
     {name: 'citation_title', content: bookTitle},
-    {name: 'citation_publisher', content: copyrightHolder},
+    {name: 'citation_publisher', content: publisher},
+    {name: 'citation_language', content: language},
     ...(dateStr ? [{name: 'citation_date', content: dateStr}] : []),
     ...authorsToDisplay.map((a) => ({name: 'citation_author', content: a.value.name})),
     ...(canonicalHref ? [{name: 'citation_public_url', content: canonicalHref}] : []),
