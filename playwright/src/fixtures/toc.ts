@@ -1,6 +1,5 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
-import { exit } from 'yargs'
 
 class toc {
     page: Page
@@ -10,6 +9,8 @@ class toc {
     eobLocator: Locator
     unitLocator: Locator
     chapterInUnit: Locator
+    eocInChapter: Locator
+    dropdownLocator: Locator
 
 
 
@@ -20,6 +21,7 @@ class toc {
     this.eocLocator = this.page.locator('[data-type="eoc-dropdown"]')
     this.eobLocator = this.page.locator('[data-type="eob-dropdown"]')
     this.unitLocator = this.page.locator('[data-type="unit"]')
+    this.dropdownLocator = this.page.locator('details[class*="NavDetails"]')
 
   }
 
@@ -39,7 +41,7 @@ class toc {
     }
   }
 
-  async pageClick(n: number){
+  async pageClickIfUnits(n: number){
     const unitCount = await this.unitLocator.count()
     //  if page is visible click and return to test
     try {
@@ -73,14 +75,53 @@ class toc {
                         }
                 
                         catch(error) {
-                            // console.log("page not found")
-                        }             
+                            // if eoc is present expand
+                            this.eocInChapter = this.chapterLocator.nth(chapter).locator("//li[@data-type='eoc-dropdown']")
+                            const eocInChapterCount = await this.eocInChapter.count()
+
+                            for (chapter = 0; chapter < eocInChapterCount; chapter++) {
+                                await this.eocInChapter.nth(chapter).click()
+
+                                //  if page is visible within a chapter, click and return to test
+                                try {
+                                    await this.sectionClick(n)
+                                }
+
+                                catch(error) {
+                                    // console.log("page not found")
+                                }     
+                            }             
+                        }
                     }
+    
+                    
                 }
             }
-        }
+        }   
     }
   }
+
+async pageClick(n: number) {
+    try {
+        await this.sectionClick(n)
+    }
+    catch(error) {
+        const dropdownCount = await this.dropdownLocator.count()
+        let x: number
+        // expand all dropdowns in toc
+        for (x = 0; x < dropdownCount; x++) {
+            await this.dropdownLocator.nth(x).click()
+            if (await this.sectionLocator.nth(n).isVisible() === true) {
+                await this.sectionLocator.nth(n).click()
+                break
+            }
+            
+        }
+
+    }
+}
+
+
 }
 
 export { toc }
