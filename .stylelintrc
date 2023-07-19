@@ -4,7 +4,14 @@
     "stylelint-config-standard",
     "stylelint-config-styled-components"
   ],
+  "customSyntax": "postcss-scss",
   "rules": {
+    "alpha-value-notation": null,
+    "shorthand-property-no-redundant-values": null,
+    "selector-id-pattern": null,
+    "keyframes-name-pattern": null,
+    "number-max-precision": null,
+    "color-function-notation": null,
     "at-rule-name-case": "lower",
     "at-rule-name-space-after": "always",
     "at-rule-no-unknown": true,
@@ -70,14 +77,15 @@
     "selector-pseudo-class-no-unknown": true,
     "selector-pseudo-element-no-unknown": true,
     "selector-type-no-unknown":  [ true, {
-      "severity": "warning"
+      "severity": "warning",
+      "ignoreTypes": ["/-styled-mixin/", "/^\\$\\w+/"]
     } ],
     "string-quotes": [ "double", {
       "severity": "warning"
     } ],
     "unit-no-unknown": true,
     "unit-case": "lower",
-    "value-keyword-case": ["lower", ignoreKeywords: ["dummyValue"]],
+    "value-keyword-case": ["lower", {"ignoreKeywords": ["dummyValue"]}],
     "value-list-max-empty-lines": 0,
     "value-no-vendor-prefix": [ true, {
       "severity": "warning"
