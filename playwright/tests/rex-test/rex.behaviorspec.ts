@@ -329,15 +329,18 @@ test('C649726 MH modal stays open on reload', async ({ page, isMobile }) => {
 
 
 test('toc', async ({ page, isMobile }) => {
-  test.skip(isMobile as boolean, 'test only desktop resolution')
+  // test.skip(isMobile as boolean, 'test only desktop resolution')
 
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/organizational-behavior/pages/preface'
+  const path = '/books/college-physics-2e/pages/preface'
   await BookPage.open(path)
 
   const TOC = new toc(page)
-  await TOC.pageClick(500)
-  await expect(page).toHaveURL('/books/introduction-anthropology/pages/1-2-the-four-field-approach-four-approaches-within-the-guiding-narrative')
+  if(isMobile) {
+    await BookPage.mobileToc()
+  }
+  await TOC.pageClick(11)
+  await expect(page).toHaveURL('/books/college-physics-2e/pages/2-1-displacement')
 
 })
