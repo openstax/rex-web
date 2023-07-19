@@ -189,7 +189,10 @@ export const SearchInputWrapper = styled.form`
   border-radius: 0.2rem;
   width: 38rem;
 
-  &:last-child { margin-right: auto; } // On desktop, center if no other controls to the right
+  // On desktop, center if no other controls to the right
+  &:last-child {
+    margin-right: auto;
+  }
 
   &:focus-within {
     border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
@@ -216,7 +219,6 @@ export const SearchInputWrapper = styled.form`
     width: 100%;
     &, &:last-child { margin-right: 0; }
   `)}
-
 
   ${(props: { searchInSidebar: boolean }) => props.searchInSidebar && css`
     @media screen and (min-width: ${theme.breakpoints.mobileMediumBreak}em) {
@@ -394,17 +396,20 @@ const thumbCss = css`
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
 `;
 
+/* stylelint-disable function-comma-space-after */
 const tickMarkCss = css`
-  background: repeating-linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0) 19%,
-    #fff 19%,
-    #fff 20%,
-    rgba(0, 0, 0, 0) 20%,
-    rgba(0, 0, 0, 0) 20%
-  );
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0) 19%,
+      #fff 19%,
+      #fff 20%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0) 20%
+    );
 `;
+/* stylelint-enable function-comma-space-after */
 
 // tslint:disable-next-line:variable-name
 export const TextResizerMenu = styled.div`
