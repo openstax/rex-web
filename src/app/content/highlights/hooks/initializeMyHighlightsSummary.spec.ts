@@ -98,7 +98,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
 
     try {
       await hook(initializeMyHighlightsSummary());
-    } catch (error) {
+    } catch (error: any) {
       expect(getHighlightsSummaryClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
       expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.load);
@@ -117,7 +117,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
 
     try {
       await hook(initializeMyHighlightsSummary());
-    } catch (error) {
+    } catch (error: any) {
       expect(getHighlightsSummaryClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
       expect(error instanceof ApplicationError).toEqual(true);
@@ -137,7 +137,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
 
     try {
       await hook(initializeMyHighlightsSummary());
-    } catch (error) {
+    } catch (error: any) {
       expect(getHighlightsClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
       expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.load);
@@ -157,7 +157,7 @@ describe('initializeMyHighlightsSummaryHook', () => {
 
     try {
       await hook(initializeMyHighlightsSummary());
-    } catch (error) {
+    } catch (error: any) {
       expect(getHighlightsClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
       expect(error instanceof ApplicationError).toEqual(true);

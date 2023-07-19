@@ -46,7 +46,7 @@ describe('loadBuyPrintConfig', () => {
 
     try {
       await hook();
-    } catch (e) {
+    } catch {
       expect('this should not have thrown').toEqual('asdf');
     }
 

@@ -43,7 +43,7 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
             services.promiseCollector.add(promise.catch(catchError));
           }
         } catch (e) {
-          catchError(e);
+          catchError(e as Error);
         }
       }
       return result;
