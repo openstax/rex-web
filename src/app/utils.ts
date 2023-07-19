@@ -150,7 +150,7 @@ export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 
   ...getCommonProperties(thing1, thing2).reduce((result, property) => ({
     ...result,
     ...(isPlainObject(thing1[property]) && isPlainObject(thing2[property])
-      ? {[property]: merge(thing1[property], thing2[property])}
+      ? {[property]: merge(thing1[property] as object, thing2[property] as object)}
       : (Array.isArray(thing1[property]) && Array.isArray(thing2[property]))
         ? {[property]: [...thing1[property] as unknown as [], ...thing2[property] as unknown as []]}
         : {}
