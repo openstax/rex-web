@@ -12,7 +12,7 @@ import {
   rexUserSignup,
   rexUserSignout,
   sleep,
-  mobileNav,
+  mobileNavigation,
 } from './helpers'
 
 test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
@@ -329,20 +329,42 @@ test('C649726 MH modal stays open on reload', async ({ page, isMobile }) => {
 })
 
 
-test('toc', async ({ page, isMobile }) => {
+test('toc', async ({ page, isMobile }, testinfo) => {
   // test.skip(isMobile as boolean, 'test only desktop resolution')
 
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/college-physics-2e/pages/preface'
+  let path = '/books/college-physics-2e/pages/preface'
   await BookPage.open(path)
+  
+  const mobileNav = new mobileNavigation(page)
+  const projectsName = testinfo.project.name
 
-  const TOC = new toc(page)
-  const mobileNavs = new mobileNav(page)
-  if(isMobile) {
-    mobileNavs.mobileMenu('toc')
+  if(isMobile && projectsName == 'iPad Pro 11') {
+    mobileNav.openBigMobileMenu('toc')
   }
+
+  else if (isMobile) {
+    mobileNav.openMobileMenu('toc')
+  }
+  
+  const TOC = new toc(page)
   await TOC.pageClick(11)
   await expect(page).toHaveURL('/books/college-physics-2e/pages/2-1-displacement')
+
+  path = '/books/writing-guide/pages/preface'
+  await BookPage.open(path)
+  new URL("/books/writing-guide/pages/preface", path)
+
+  if(isMobile && projectsName == 'iPad Pro 11') {
+    mobileNav.openBigMobileMenu('toc')
+  }
+
+  else if (isMobile) {
+    mobileNav.openMobileMenu('toc')
+  }
+  
+  await TOC.pageClick(1)
+  await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
 
 })

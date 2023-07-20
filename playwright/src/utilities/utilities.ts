@@ -1,5 +1,4 @@
 import { ElementHandle, Page } from '@playwright/test'
-// import { Locator, Page } from 'playwright'
 
 async function closeExtras(page: Page, retries = 5): Promise<void> {
   try {
@@ -60,29 +59,42 @@ async function sleep(seconds = 1.0): Promise<unknown> {
 }
 
 
-class mobileNav {
+class mobileNavigation {
   page: Page
 
 constructor(page: Page) {
   this.page = page
 }
 
-  async mobileMenu(menu: any) {
-
+  async openMobileMenu(menu: any) {
+    
     switch (menu) {
       case 'toc':
-          // Click [aria-label="Click to open menu"]
-          await this.page.click('[aria-label="Click to open menu"]');
-          // await page.click('text=Sign up')
-          // Click [aria-label="Click to open the Table of Contents"]
-          await this.page.locator('[aria-label="Click to open the Table of Contents"]').click();
+          await this.page.click('[aria-label="Click to open menu"]')
+          await this.page.click('[aria-label="Click to open the Table of Contents"]')
+          break
 
-          break;
       case 'MH':
-          console.log("open mh");
-          break;
+          await this.page.click('[aria-label="Click to open menu"]')
+          await this.page.click('[aria-label="Highlights"]')
+          break
     }
   }
+
+
+  async openBigMobileMenu(menu: any) {
+    
+    switch (menu) {
+      case 'toc':
+          await this.page.click('[aria-label="Click to open the Table of Contents"]')
+          break
+
+      case 'MH':
+          await this.page.click('[aria-label="Highlights"]')
+          break
+    }
+  }
+
 }
 
-export { closeExtras, randomChoice, randomNum, randomstring, sleep, mobileNav }
+export { closeExtras, randomChoice, randomNum, randomstring, sleep, mobileNavigation }
