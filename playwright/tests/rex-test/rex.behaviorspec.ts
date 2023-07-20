@@ -12,6 +12,7 @@ import {
   rexUserSignup,
   rexUserSignout,
   sleep,
+  mobileNav,
 } from './helpers'
 
 test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
@@ -337,8 +338,9 @@ test('toc', async ({ page, isMobile }) => {
   await BookPage.open(path)
 
   const TOC = new toc(page)
+  const mobileNavs = new mobileNav(page)
   if(isMobile) {
-    await BookPage.mobileToc()
+    mobileNavs.mobileMenu('toc')
   }
   await TOC.pageClick(11)
   await expect(page).toHaveURL('/books/college-physics-2e/pages/2-1-displacement')

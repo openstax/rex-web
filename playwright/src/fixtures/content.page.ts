@@ -70,14 +70,6 @@ class ContentPage {
       .addCookies([{ name: 'nudge_study_guides_date', value: current_date, url: this.page.url() }])
   }
 
-  async mobileToc() {
-    // Click [aria-label="Click to open menu"]
-  await this.page.locator('[aria-label="Click to open menu"]').click();
-  // Click [aria-label="Click to open the Table of Contents"]
-  await this.page.locator('[aria-label="Click to open the Table of Contents"]').click();
-  }
-
-
   async colorLocator(color: string) {
     // Return locator of the color
     if (color === 'blue') {
