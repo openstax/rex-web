@@ -13,7 +13,6 @@ import {
   rexUserSignout,
   sleep,
   mobileNavigation,
-  closeExtras,
 } from './helpers'
 
 test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
@@ -329,25 +328,21 @@ test('C649726 MH modal stays open on reload', async ({ page, isMobile }) => {
   expect(MHhighlightcount).toBe(1)
 })
 
-
 test('C483587 chapters toc', async ({ page, isMobile }, testinfo) => {
-
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/college-physics-2e/pages/preface'
   await BookPage.open(path)
-  
+
   const mobileNav = new mobileNavigation(page)
   const projectsName = testinfo.project.name
 
-  if(isMobile && projectsName == 'iPad Pro 11') {
+  if (isMobile && projectsName == 'iPad Pro 11') {
     mobileNav.openBigMobileMenu('toc')
-  }
-
-  else if (isMobile) {
+  } else if (isMobile) {
     mobileNav.openMobileMenu('toc')
   }
-  
+
   const TOC = new toc(page)
   await TOC.pageClick(11)
   await expect(page).toHaveURL('/books/college-physics-2e/pages/2-1-displacement')
@@ -362,16 +357,13 @@ test('C483587 units toc', async ({ page, isMobile }, testinfo) => {
   const mobileNav = new mobileNavigation(page)
   const projectsName = testinfo.project.name
 
-  if(isMobile && projectsName == 'iPad Pro 11') {
+  if (isMobile && projectsName == 'iPad Pro 11') {
     mobileNav.openBigMobileMenu('toc')
-  }
-
-  else if (isMobile) {
+  } else if (isMobile) {
     mobileNav.openMobileMenu('toc')
   }
-  
+
   const TOC = new toc(page)
   await TOC.pageClick(1)
   await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
-
 })
