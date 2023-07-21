@@ -2,11 +2,11 @@
 
 exports[`Notifications matches snapshot for acceptCookies 1`] = `
 <div
-  className="Card__Body-sc-1o7sacr-2 kVpfjE"
+  className="Card__Body-sc-1o7sacr-2 dqyzHu"
 >
   <div>
     <div
-      className="Card__Group-sc-1o7sacr-0 jzDffS"
+      className="Card__Group-sc-1o7sacr-0 hbDyKx"
     >
       <div
         className="Card__Header-sc-1o7sacr-3 jGwlNH"
@@ -22,10 +22,10 @@ exports[`Notifications matches snapshot for acceptCookies 1`] = `
         }
       />
       <div
-        className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+        className="Button__ButtonGroup-sc-ayg7nk-1 bhiOme"
       >
         <button
-          className="Button-ayg7nk-0 extinX"
+          className="Button-sc-ayg7nk-0 ebflCp"
           onClick={[Function]}
         >
           Got it!
@@ -38,11 +38,11 @@ exports[`Notifications matches snapshot for acceptCookies 1`] = `
 
 exports[`Notifications matches snapshot for appMessage 1`] = `
 <div
-  className="Card__Body-sc-1o7sacr-2 kVpfjE"
+  className="Card__Body-sc-1o7sacr-2 dqyzHu"
 >
   <div>
     <div
-      className="Card__Group-sc-1o7sacr-0 jzDffS"
+      className="Card__Group-sc-1o7sacr-0 hbDyKx"
     >
       <div
         className="Card__Header-sc-1o7sacr-3 jGwlNH"
@@ -59,10 +59,10 @@ exports[`Notifications matches snapshot for appMessage 1`] = `
       />
     </div>
     <div
-      className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+      className="Button__ButtonGroup-sc-ayg7nk-1 bhiOme"
     >
       <button
-        className="Button-ayg7nk-0 extinX"
+        className="Button-sc-ayg7nk-0 ebflCp"
         onClick={[Function]}
       >
         OK
@@ -74,11 +74,11 @@ exports[`Notifications matches snapshot for appMessage 1`] = `
 
 exports[`Notifications matches snapshot for retiredBookRedirect 1`] = `
 <div
-  className="Card__Body-sc-1o7sacr-2 kVpfjE"
+  className="Card__Body-sc-1o7sacr-2 dqyzHu"
 >
   <div>
     <div
-      className="Card__Group-sc-1o7sacr-0 jzDffS"
+      className="Card__Group-sc-1o7sacr-0 hbDyKx"
     >
       <div
         className="Card__Header-sc-1o7sacr-3 jGwlNH"
@@ -94,10 +94,10 @@ exports[`Notifications matches snapshot for retiredBookRedirect 1`] = `
         }
       />
       <div
-        className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+        className="Button__ButtonGroup-sc-ayg7nk-1 bhiOme"
       >
         <button
-          className="Button-ayg7nk-0 extinX"
+          className="Button-sc-ayg7nk-0 ebflCp"
           onClick={[Function]}
         >
           Got it!
@@ -112,11 +112,11 @@ exports[`Notifications matches snapshot for unknown notification 1`] = `null`;
 
 exports[`Notifications matches snapshot for updateAvailable 1`] = `
 <div
-  className="Card__Body-sc-1o7sacr-2 kVpfjE"
+  className="Card__Body-sc-1o7sacr-2 dqyzHu"
 >
   <div>
     <div
-      className="Card__Group-sc-1o7sacr-0 jzDffS"
+      className="Card__Group-sc-1o7sacr-0 hbDyKx"
     >
       <div
         className="Card__Header-sc-1o7sacr-3 jGwlNH"
@@ -130,10 +130,10 @@ exports[`Notifications matches snapshot for updateAvailable 1`] = `
       </p>
     </div>
     <div
-      className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+      className="Button__ButtonGroup-sc-ayg7nk-1 bhiOme"
     >
       <button
-        className="Button-ayg7nk-0 extinX"
+        className="Button-sc-ayg7nk-0 ebflCp"
         onClick={[Function]}
       >
         Update

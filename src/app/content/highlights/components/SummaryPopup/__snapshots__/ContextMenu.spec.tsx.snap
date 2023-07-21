@@ -9,7 +9,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   >
     <button
       aria-label="Edit this highlight"
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="Button__PlainButton-sc-ayg7nk-2 iIWpmD DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
       onClick={[Function]}
     >
       <div
@@ -42,7 +42,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   >
     <button
       aria-label="Edit this highlight"
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="Button__PlainButton-sc-ayg7nk-2 iIWpmD DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
       onClick={[Function]}
     >
       <div

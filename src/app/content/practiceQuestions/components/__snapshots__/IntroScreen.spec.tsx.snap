@@ -2,7 +2,7 @@
 
 exports[`IntroScreen for practice questions renders properly for 1 question 1`] = `
 <div
-  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 eGmEow"
+  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 eNQlhB"
 >
   <span
     className="IntroScreen__IntroScreenMessage-h8gm9y-1 dwmRhb"
@@ -10,7 +10,7 @@ exports[`IntroScreen for practice questions renders properly for 1 question 1`] 
     2 questions in this section
   </span>
   <button
-    className="Button-ayg7nk-0 dlvVUh"
+    className="Button-sc-ayg7nk-0 lmFxno"
     data-analytics-label="Start now"
     onClick={[Function]}
   >
@@ -21,7 +21,7 @@ exports[`IntroScreen for practice questions renders properly for 1 question 1`] 
 
 exports[`IntroScreen for practice questions renders properly for 2 questions 1`] = `
 <div
-  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 eGmEow"
+  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 eNQlhB"
 >
   <span
     className="IntroScreen__IntroScreenMessage-h8gm9y-1 dwmRhb"
@@ -29,7 +29,7 @@ exports[`IntroScreen for practice questions renders properly for 2 questions 1`]
     2 questions in this section
   </span>
   <button
-    className="Button-ayg7nk-0 dlvVUh"
+    className="Button-sc-ayg7nk-0 lmFxno"
     data-analytics-label="Start now"
     onClick={[Function]}
   >

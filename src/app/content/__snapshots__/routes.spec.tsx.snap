@@ -42,7 +42,7 @@ Array [
     >
       <button
         aria-label="Change text size"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >

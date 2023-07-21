@@ -307,7 +307,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
     >
       <button
         aria-label="Change text size"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -322,7 +322,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </div>
       </button>
       <div
-        className="styled__TextResizerMenu-sc-12dq39v-17 eDJseE"
+        className="styled__TextResizerMenu-sc-12dq39v-17 gITUZJ"
         tabIndex={0}
       >
         <label
@@ -446,7 +446,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       >
         <button
           aria-label="Change text size"
-          className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+          className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
           data-analytics-label="Change text size"
           onClick={[Function]}
         >

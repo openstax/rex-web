@@ -6,10 +6,10 @@ exports[`ColorFilter matches snapshot 1`] = `
   tabIndex={-1}
 >
   <div
-    className="AllOrNone-sc-7m1y94-0 divvKQ"
+    className="AllOrNone-sc-7m1y94-0 fgjPZp"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+      className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
       onClick={[Function]}
     >
       All
@@ -18,7 +18,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       |
     </span>
     <button
-      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+      className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
       onClick={[Function]}
     >
       None

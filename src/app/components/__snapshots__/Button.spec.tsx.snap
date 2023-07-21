@@ -2,19 +2,19 @@
 
 exports[`Button matches snapshot - default 1`] = `
 <button
-  className="Button-ayg7nk-0 fXKRFg"
+  className="Button-sc-ayg7nk-0 kwjPLs"
 />
 `;
 
 exports[`Button matches snapshot - large 1`] = `
 <button
-  className="Button-ayg7nk-0 cpWzOm"
+  className="Button-sc-ayg7nk-0 dOKikv"
 />
 `;
 
 exports[`Button matches snapshot - link 1`] = `
 <a
-  className="Button-ayg7nk-0 fXKRFg"
+  className="Button-sc-ayg7nk-0 kwjPLs"
   href="/"
 >
   this is a link
@@ -23,61 +23,61 @@ exports[`Button matches snapshot - link 1`] = `
 
 exports[`Button matches snapshot - medium 1`] = `
 <button
-  className="Button-ayg7nk-0 fXKRFg"
+  className="Button-sc-ayg7nk-0 kwjPLs"
 />
 `;
 
 exports[`Button matches snapshot - primary 1`] = `
 <button
-  className="Button-ayg7nk-0 extinX"
+  className="Button-sc-ayg7nk-0 ebflCp"
 />
 `;
 
 exports[`Button matches snapshot - secondary 1`] = `
 <button
-  className="Button-ayg7nk-0 jAVVDA"
+  className="Button-sc-ayg7nk-0 jWztje"
 />
 `;
 
 exports[`Button matches snapshot - small 1`] = `
 <button
-  className="Button-ayg7nk-0 izrGku"
+  className="Button-sc-ayg7nk-0 kXnpAm"
 />
 `;
 
 exports[`ButtonGroup matches snapshot (expand) 1`] = `
 <div
-  className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+  className="Button__ButtonGroup-sc-ayg7nk-1 bhiOme"
 />
 `;
 
 exports[`ButtonGroup matches snapshot (not-expand) 1`] = `
 <div
-  className="Button__ButtonGroup-ayg7nk-1 jzhcUT"
+  className="Button__ButtonGroup-sc-ayg7nk-1 cTXfyQ"
 />
 `;
 
 exports[`ButtonGroup matches snapshot 1`] = `
 <div
-  className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+  className="Button__ButtonGroup-sc-ayg7nk-1 bhiOme"
 />
 `;
 
 exports[`ButtonLink matches snapshot (decorated and disabled) 1`] = `
 <button
-  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 Rtfaq"
+  className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 cfFbvJ"
   disabled={true}
 />
 `;
 
 exports[`ButtonLink matches snapshot (decorated) 1`] = `
 <button
-  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+  className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
 />
 `;
 
 exports[`ButtonLink matches snapshot 1`] = `
 <button
-  className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 cXLkqS"
+  className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 kDokyw"
 />
 `;

@@ -8,7 +8,7 @@ exports[`Dropdown matches snapshot 1`] = `
     className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="Button__PlainButton-sc-ayg7nk-2 iIWpmD DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
       tabIndex={0}
     >
       <div
@@ -52,7 +52,7 @@ exports[`Dropdown matches snapshot 1`] = `
     </ol>
   </div>
   <button
-    className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+    className="Button__PlainButton-sc-ayg7nk-2 iIWpmD DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
     tabIndex={0}
   >
     <div
@@ -83,7 +83,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="Button__PlainButton-sc-ayg7nk-2 iIWpmD DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
       tabIndex={0}
     >
       <div
@@ -127,7 +127,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     </ol>
   </div>
   <button
-    className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+    className="Button__PlainButton-sc-ayg7nk-2 iIWpmD DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
     tabIndex={0}
   >
     <div

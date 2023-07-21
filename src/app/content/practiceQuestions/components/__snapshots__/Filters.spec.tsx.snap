@@ -12,7 +12,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -52,7 +52,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -120,7 +120,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
               >
                 <button
                   aria-label="Filter PQ by  section1"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="Button__PlainButton-sc-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
                   data-analytics-label="Filter PQ by  section1"
                   onClick={[Function]}
                 >
@@ -135,7 +135,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 </button>
                 <button
                   aria-label="Filter PQ by  section2"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="Button__PlainButton-sc-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
                   data-analytics-label="Filter PQ by  section2"
                   onClick={[Function]}
                 >
@@ -185,7 +185,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
               >
                 <button
                   aria-label="Filter PQ by  section21"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 AJhCb"
+                  className="Button__PlainButton-sc-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 AJhCb"
                   data-analytics-label="Filter PQ by  section21"
                   onClick={[Function]}
                 >
@@ -220,7 +220,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -288,7 +288,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
               >
                 <button
                   aria-label="Filter PQ by  section1"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="Button__PlainButton-sc-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
                   data-analytics-label="Filter PQ by  section1"
                   onClick={[Function]}
                 >
@@ -303,7 +303,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 </button>
                 <button
                   aria-label="Filter PQ by  section2"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="Button__PlainButton-sc-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
                   data-analytics-label="Filter PQ by  section2"
                   onClick={[Function]}
                 >
@@ -353,7 +353,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
               >
                 <button
                   aria-label="Filter PQ by  section21"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="Button__PlainButton-sc-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
                   data-analytics-label="Filter PQ by  section21"
                   onClick={[Function]}
                 >

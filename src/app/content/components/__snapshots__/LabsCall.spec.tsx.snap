@@ -34,7 +34,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
     className="LabsCall__Column-d86l90-2 faCsbU"
   >
     <a
-      className="Button-ayg7nk-0 LabsCall__LabsCallLink-d86l90-5 dSdugF"
+      className="Button-sc-ayg7nk-0 LabsCall__LabsCallLink-d86l90-5 dSdugF"
       data-analytics-label="kinetic-banner"
       href="/kinetic/"
       rel="noopener"

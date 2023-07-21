@@ -62,7 +62,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
         className="styles__Footer-sc-1gxqzoa-9 sc-bdVaJa gURIHf"
       >
         <button
-          className="Button-ayg7nk-0 extinX"
+          className="Button-sc-ayg7nk-0 ebflCp"
           data-testid="discard-changes"
           onClick={[Function]}
         >
@@ -70,7 +70,7 @@ exports[`ConfirmationModal matches snapshot 1`] = `
           Discard changes
         </button>
         <button
-          className="Button-ayg7nk-0 jAVVDA"
+          className="Button-sc-ayg7nk-0 jWztje"
           data-testid="cancel-discard"
           onClick={[Function]}
         >

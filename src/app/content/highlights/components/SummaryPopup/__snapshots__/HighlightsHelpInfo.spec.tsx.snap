@@ -15,7 +15,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
     }
   />
   <button
-    className="Button__PlainButton-ayg7nk-2 chgswm"
+    className="Button__PlainButton-sc-ayg7nk-2 iIWpmD"
     data-analytics-label="close"
     onClick={[Function]}
   >

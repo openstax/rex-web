@@ -73,37 +73,37 @@ Array [
               className="Panel__Wrappper-sc-13xpmbe-0 dMnuSy"
             >
               <div
-                className="Button__ButtonGroup-ayg7nk-1 eDyKty"
+                className="Button__ButtonGroup-sc-ayg7nk-1 gRoWHg"
               >
                 <button
-                  className="Button-ayg7nk-0 fXKRFg"
+                  className="Button-sc-ayg7nk-0 kwjPLs"
                   onClick={[Function]}
                 >
                   accept cookies
                 </button>
                 <button
-                  className="Button-ayg7nk-0 fXKRFg"
+                  className="Button-sc-ayg7nk-0 kwjPLs"
                   data-testid="trigger-updates-available"
                   onClick={[Function]}
                 >
                   update available
                 </button>
                 <button
-                  className="Button-ayg7nk-0 fXKRFg"
+                  className="Button-sc-ayg7nk-0 kwjPLs"
                   data-testid="trigger-messages"
                   onClick={[Function]}
                 >
                   app messages
                 </button>
                 <button
-                  className="Button-ayg7nk-0 fXKRFg"
+                  className="Button-sc-ayg7nk-0 kwjPLs"
                   data-testid="trigger-inline-error"
                   onClick={[Function]}
                 >
                   inline error
                 </button>
                 <button
-                  className="Button-ayg7nk-0 fXKRFg"
+                  className="Button-sc-ayg7nk-0 kwjPLs"
                   data-testid="trigger-modal-error"
                   onClick={[Function]}
                 >
@@ -246,7 +246,7 @@ Array [
                     className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC DotMenu__DotMenuDropdown-khcauc-3 hDFPiE"
                   >
                     <button
-                      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+                      className="Button__PlainButton-sc-ayg7nk-2 iIWpmD DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
                       onClick={[Function]}
                     >
                       <div
@@ -291,7 +291,7 @@ Array [
                     className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC DotMenu__DotMenuDropdown-khcauc-3 hDFPiE"
                   >
                     <button
-                      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+                      className="Button__PlainButton-sc-ayg7nk-2 iIWpmD DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
                       onClick={[Function]}
                     >
                       <div

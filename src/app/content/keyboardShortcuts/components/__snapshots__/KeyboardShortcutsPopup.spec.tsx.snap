@@ -22,7 +22,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
       Keyboard Shortcuts
       <button
         aria-label="Click to close Keyboard Shortcuts menu"
-        className="Button__PlainButton-ayg7nk-2 PopupStyles__CloseIconWrapper-w0z1hl-4 jafVNy"
+        className="Button__PlainButton-sc-ayg7nk-2 PopupStyles__CloseIconWrapper-w0z1hl-4 jafVNy"
         data-analytics-label="Click to close Keyboard Shortcuts modal"
         data-testid="close-keyboard-shortcuts-popup"
         onClick={[Function]}

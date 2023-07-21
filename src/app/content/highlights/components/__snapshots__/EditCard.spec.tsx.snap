@@ -2,7 +2,7 @@
 
 exports[`EditCard matches snapshot when editing 1`] = `
 <form
-  className="EditCard-sc-1kvvj32-0 iFPiln"
+  className="EditCard-sc-1kvvj32-0 kDGNVM"
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
@@ -23,10 +23,10 @@ exports[`EditCard matches snapshot when editing 1`] = `
     }
   />
   <div
-    className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+    className="Button__ButtonGroup-sc-ayg7nk-1 bhiOme"
   >
     <button
-      className="Button-ayg7nk-0 huAXIU"
+      className="Button-sc-ayg7nk-0 eIWIWG"
       data-analytics-label="save"
       data-testid="save"
       onClick={[Function]}
@@ -34,7 +34,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
       Save
     </button>
     <button
-      className="Button-ayg7nk-0 izrGku"
+      className="Button-sc-ayg7nk-0 kXnpAm"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
@@ -57,7 +57,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
 
 exports[`EditCard matches snapshot when focused 1`] = `
 <form
-  className="EditCard-sc-1kvvj32-0 iFPiln"
+  className="EditCard-sc-1kvvj32-0 kDGNVM"
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
@@ -93,7 +93,7 @@ exports[`EditCard matches snapshot when focused 1`] = `
 
 exports[`EditCard matches snapshot with data 1`] = `
 <form
-  className="EditCard-sc-1kvvj32-0 iFPiln"
+  className="EditCard-sc-1kvvj32-0 kDGNVM"
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
@@ -128,7 +128,7 @@ exports[`EditCard matches snapshot with data 1`] = `
 
 exports[`EditCard matches snapshot without data 1`] = `
 <form
-  className="EditCard-sc-1kvvj32-0 iFPiln"
+  className="EditCard-sc-1kvvj32-0 kDGNVM"
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >

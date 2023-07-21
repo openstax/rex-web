@@ -12,7 +12,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Filter study guides by Chapter"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter study guides by Chapter"
         onClick={[Function]}
       >
@@ -40,10 +40,10 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         tabIndex={-1}
       >
         <div
-          className="AllOrNone-sc-7m1y94-0 divvKQ"
+          className="AllOrNone-sc-7m1y94-0 fgjPZp"
         >
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
             disabled={false}
             onClick={[Function]}
           >
@@ -53,7 +53,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             |
           </span>
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
             disabled={false}
             onClick={[Function]}
           >
@@ -313,7 +313,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Filter study guides by Color"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter study guides by Color"
         onClick={[Function]}
       >
@@ -341,10 +341,10 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         tabIndex={-1}
       >
         <div
-          className="AllOrNone-sc-7m1y94-0 divvKQ"
+          className="AllOrNone-sc-7m1y94-0 fgjPZp"
         >
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
             disabled={false}
             onClick={[Function]}
           >
@@ -354,7 +354,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             |
           </span>
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
             disabled={false}
             onClick={[Function]}
           >
@@ -626,7 +626,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       </button>
       <button
         aria-label="Using This Guide"
-        className="Button__PlainButton-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 gdZrfW"
+        className="Button__PlainButton-sc-ayg7nk-2 UsingThisGuideButton__UsingThisGuideButtonWrapper-bu0xmw-2 gdZrfW"
         data-analytics-disable-track={true}
         onClick={[Function]}
       >
@@ -685,7 +685,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     </div>
     <button
       aria-label="Closes the image describing the structure of study guides."
-      className="Button__PlainButton-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 bnGaoD"
+      className="Button__PlainButton-sc-ayg7nk-2 UsingThisGuideBanner__CloseIconButton-adj8ti-3 bnGaoD"
       data-analytics-disable-track={true}
       data-testid="close-utg"
       onClick={[Function]}
@@ -712,7 +712,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove breadcrumb for chapter 2 Test Chapter 2"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for chapter 2 Test Chapter 2"
         onClick={[Function]}
       >
@@ -757,7 +757,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove breadcrumb for label Important Concepts"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
       >
@@ -799,7 +799,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove breadcrumb for label Connections & Relationships"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
       >
@@ -841,7 +841,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove breadcrumb for label Enrichment"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
       >
@@ -883,7 +883,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     >
       <button
         aria-label="Remove breadcrumb for label Key Terms"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
       >

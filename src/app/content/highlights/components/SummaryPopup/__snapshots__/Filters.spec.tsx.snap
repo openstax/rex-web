@@ -12,7 +12,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Filter highlights by Chapter"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -40,10 +40,10 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         tabIndex={-1}
       >
         <div
-          className="AllOrNone-sc-7m1y94-0 divvKQ"
+          className="AllOrNone-sc-7m1y94-0 fgjPZp"
         >
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
             onClick={[Function]}
           >
             All
@@ -52,7 +52,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             |
           </span>
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
             onClick={[Function]}
           >
             None
@@ -68,7 +68,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Filter highlights by Color"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="Button__PlainButton-sc-ayg7nk-2 iIWpmD Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -96,10 +96,10 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         tabIndex={-1}
       >
         <div
-          className="AllOrNone-sc-7m1y94-0 divvKQ"
+          className="AllOrNone-sc-7m1y94-0 fgjPZp"
         >
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
             onClick={[Function]}
           >
             All
@@ -108,7 +108,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             |
           </span>
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="Button__PlainButton-sc-ayg7nk-2 Button__ButtonLink-sc-ayg7nk-3 gBgRNs"
             onClick={[Function]}
           >
             None
@@ -441,7 +441,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove breadcrumb for color blue"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -483,7 +483,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove breadcrumb for color green"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -525,7 +525,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove breadcrumb for color pink"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -567,7 +567,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove breadcrumb for color purple"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -609,7 +609,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <button
         aria-label="Remove breadcrumb for color yellow"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="Button__PlainButton-sc-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
