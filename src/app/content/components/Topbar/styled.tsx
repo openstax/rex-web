@@ -189,7 +189,9 @@ export const SearchInputWrapper = styled.form`
   border-radius: 0.2rem;
   width: 38rem;
 
-  &:last-child { margin-right: auto; } // On desktop, center if no other controls to the right
+  &:last-child {
+    margin-right: auto;
+  } // On desktop, center if no other controls to the right
 
   &:focus-within {
     border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
@@ -216,7 +218,6 @@ export const SearchInputWrapper = styled.form`
     width: 100%;
     &, &:last-child { margin-right: 0; }
   `)}
-
 
   ${(props: { searchInSidebar: boolean }) => props.searchInSidebar && css`
     @media screen and (min-width: ${theme.breakpoints.mobileMediumBreak}em) {
@@ -395,6 +396,7 @@ const thumbCss = css`
 `;
 
 const tickMarkCss = css`
+  // stylelint-disable declaration-colon-newline-after
   background: repeating-linear-gradient(
     to right,
     rgba(0, 0, 0, 0),

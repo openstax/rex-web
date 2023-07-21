@@ -55,6 +55,7 @@ const Button = styled(ButtonHoc)`
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
+  // stylelint-disable function-no-unknown
   box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black), 0.2);
   text-decoration: none;
   white-space: nowrap;
