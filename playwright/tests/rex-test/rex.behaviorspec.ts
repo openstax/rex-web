@@ -4,7 +4,7 @@ import {
   Actions,
   KsModal,
   MHModal,
-  toc,
+  TOC,
   MHHighlights,
   Action,
   randomNum,
@@ -12,7 +12,7 @@ import {
   rexUserSignup,
   rexUserSignout,
   sleep,
-  mobileNavigation,
+  MobileNavigation,
 } from './helpers'
 
 test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
@@ -334,7 +334,7 @@ test('C483587 chapters toc', async ({ page, isMobile }, testinfo) => {
   const path = '/books/college-physics-2e/pages/preface'
   await BookPage.open(path)
 
-  const mobileNav = new mobileNavigation(page)
+  const mobileNav = new MobileNavigation(page)
   const projectsName = testinfo.project.name
 
   if (isMobile && projectsName == 'iPad Pro 11') {
@@ -343,8 +343,8 @@ test('C483587 chapters toc', async ({ page, isMobile }, testinfo) => {
     mobileNav.openMobileMenu('toc')
   }
 
-  const TOC = new toc(page)
-  await TOC.pageClick(11)
+  const Toc = new TOC(page)
+  await Toc.pageClick(11)
   await expect(page).toHaveURL('/books/college-physics-2e/pages/2-1-displacement')
 })
 
@@ -354,7 +354,7 @@ test('C483587 units toc', async ({ page, isMobile }, testinfo) => {
   const path = '/books/writing-guide/pages/preface'
   await BookPage.open(path)
 
-  const mobileNav = new mobileNavigation(page)
+  const mobileNav = new MobileNavigation(page)
   const projectsName = testinfo.project.name
 
   if (isMobile && projectsName == 'iPad Pro 11') {
@@ -363,7 +363,7 @@ test('C483587 units toc', async ({ page, isMobile }, testinfo) => {
     mobileNav.openMobileMenu('toc')
   }
 
-  const TOC = new toc(page)
-  await TOC.pageClick(1)
+  const Toc = new TOC(page)
+  await Toc.pageClick(1)
   await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
 })

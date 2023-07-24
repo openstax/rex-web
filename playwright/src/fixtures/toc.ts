@@ -1,7 +1,7 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
 
-class toc {
+class TOC {
   page: Page
   sectionLocator: Locator
   tocDropdownLocator: Locator
@@ -41,4 +41,4 @@ class toc {
   }
 }
 
-export { toc }
+export { TOC }

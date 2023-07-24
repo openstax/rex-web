@@ -58,7 +58,7 @@ async function sleep(seconds = 1.0): Promise<unknown> {
   })
 }
 
-class mobileNavigation {
+class MobileNavigation {
   page: Page
 
   constructor(page: Page) {
@@ -92,4 +92,4 @@ class mobileNavigation {
   }
 }
 
-export { closeExtras, randomChoice, randomNum, randomstring, sleep, mobileNavigation }
+export { closeExtras, randomChoice, randomNum, randomstring, sleep, MobileNavigation }

@@ -16,11 +16,11 @@ import {
   randomNum,
   randomstring,
   sleep,
-  mobileNavigation,
+  MobileNavigation,
 } from '../../src/utilities/utilities'
 import { KsModal } from '../../src/fixtures/ksmodal'
 import { MHModal, MHHighlights, Action } from '../../src/fixtures/MHmodal'
-import { toc } from '../../src/fixtures/toc'
+import { TOC } from '../../src/fixtures/toc'
 
 export {
   ContentPage,
@@ -28,7 +28,7 @@ export {
   EmailMessageData,
   KsModal,
   MHModal,
-  toc,
+  TOC,
   MHHighlights,
   Action,
   Student,
@@ -42,7 +42,7 @@ export {
   randomstring,
   rexUserSignup,
   sleep,
-  mobileNavigation,
+  MobileNavigation,
   test,
   userSignIn,
   webUserSignup,
