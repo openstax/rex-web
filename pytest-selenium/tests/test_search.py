@@ -385,9 +385,9 @@ def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
 
 
 @markers.test_case("C543252")
+@markers.parametrize("page_slug", ["preface"])
 @markers.desktop_only
 @markers.nondestructive
-@markers.parametrize("page_slug", ["preface"])
 def test_search_results(selenium, base_url, page_slug):
     """Search sidebar shows total number of matches throughout the book"""
 
