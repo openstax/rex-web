@@ -68,6 +68,7 @@ export const mockOsWebBook: OSWebBook = {
   publish_date: '',
   authors: [{value: {name: 'Author Name', senior_author: true}}],
   book_subjects: [{subject_name: 'test subject'}],
+  book_categories: [{subject_name: 'test subject', subject_category: 'test category'}],
   book_state: 'coming_soon',
   cover_color: 'yellow',
   promote_image: null,

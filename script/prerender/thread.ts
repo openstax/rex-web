@@ -21,6 +21,7 @@ import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
 import createSearchClient from '../../src/gateways/createSearchClient';
+import createImageCDNUtils from '../../src/gateways/createImageCDNUtils';
 import { getSitemapItemOptions, renderAndSavePage } from './contentPages';
 import {
   deserializePageMatch,
@@ -138,6 +139,7 @@ async function makeTaskFunctionsMap() {
     practiceQuestionsLoader,
     searchClient,
     userLoader,
+    imageCDNUtils: createImageCDNUtils({prefetchResolutions: true}),
   };
 
   return {
