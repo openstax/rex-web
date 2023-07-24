@@ -12,15 +12,15 @@ class toc {
     this.tocDropdownLocator = this.page.locator('details[class*="NavDetails"]')
   }
 
-  async pageClick(n: number) {
+  async pageClick(sectionNumber: number) {
     // Click on a toc link
-    // param: nth page number to be clicked
+    // param: section number to be clicked
 
     const tocPageCount = await this.sectionLocator.count()
-    if (n < tocPageCount) {
+    if (sectionNumber < tocPageCount) {
       // click the page, if it is visible in toc
-      if ((await this.sectionLocator.nth(n).isVisible()) === true) {
-        await this.sectionLocator.nth(n).click()
+      if ((await this.sectionLocator.nth(sectionNumber).isVisible()) === true) {
+        await this.sectionLocator.nth(sectionNumber).click()
       } else {
         // expand the dropdowns in toc
         const tocDropdownCounts = await this.tocDropdownLocator.count()
@@ -29,14 +29,14 @@ class toc {
           await this.tocDropdownLocator.nth(tocDropdownCount).click()
 
           // click the page, if it is visible in toc
-          if ((await this.sectionLocator.nth(n).isVisible()) === true) {
-            await this.sectionLocator.nth(n).click()
+          if ((await this.sectionLocator.nth(sectionNumber).isVisible()) === true) {
+            await this.sectionLocator.nth(sectionNumber).click()
             break
           }
         }
       }
     } else {
-      console.log('The page number specified exceeds the total pages in the book')
+      console.log('The section number specified exceeds the total pages in the book')
     }
   }
 }
