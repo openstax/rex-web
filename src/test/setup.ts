@@ -94,6 +94,7 @@ beforeEach(() => {
   scrollTo = window.scrollTo = jest.fn();
   scrollBy = window.scrollBy = jest.fn();
   window.dataLayer = window.dataLayer || [];
+  window.oxDLF = window.oxDLF || [];
 
   // function also defined in index.html
   function gtag() {

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
-import { waitForHeadInitializaton } from './app/head/utils';
+import * as selectHead from './app/head/selectors';
 import createIntl from './app/messages/createIntl';
 import { currentLocale } from './app/messages/selectors';
 import { updateAvailable } from './app/notifications/actions';
@@ -19,6 +19,7 @@ import createOSWebLoader from './gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from './gateways/createPracticeQuestionsLoader';
 import createSearchClient from './gateways/createSearchClient';
 import createUserLoader from './gateways/createUserLoader';
+import createImageCDNUtils from './gateways/createImageCDNUtils';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
 import loadOptimize from './helpers/loadOptimize';
@@ -64,6 +65,7 @@ const app = createApp({
     prerenderedContent: mainContent ? mainContent.innerHTML : undefined,
     searchClient: createSearchClient(searchUrl),
     userLoader,
+    imageCDNUtils: createImageCDNUtils(),
   },
 });
 
@@ -83,6 +85,10 @@ app.services.promiseCollector.calm().then(() => {
 });
 
 if (window.__PRELOADED_STATE__) {
+  // content isn't received in a preloaded state its in the state already,
+  // so trigger it here
+  window.oxDLF.push({contentTags: selectHead.contentTags(app.store.getState())});
+
   Loadable.preloadReady()
     .then(() => {
       // during pre-rendering this happens in src/app/content/hooks/intlHook.ts
@@ -112,10 +118,6 @@ window.onblur = onPageFocusChange(false, document, app);
 window.onfocus = onPageFocusChange(true, document, app);
 
 window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
-
-// this event is for google-tag-manager to hook into
-waitForHeadInitializaton(app, 3000)
-  .then(() => window.gtag('event', 'app_loaded'));
 
 // start long running processes
 pollUpdates(app.store);

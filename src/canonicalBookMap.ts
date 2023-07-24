@@ -274,6 +274,9 @@ export const CANONICAL_MAP: CanonicalBookMap = {
       'ffc33c5c-9381-50a0-842a-8d3e1238b8c7': '90d79060-d63e-55b7-b333-acc6b90561ca',
     }],
   ],
+  /* Preparing for College Success */ '503d9717-0d3a-409f-893e-d25740d237dc': [
+    /* College Success Concise */ ['62a49025-8cd8-407c-9cfb-c7eba55cf1c6', {}],
+  ],
   /* Introductory Business Statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': [
     /* Introductory Statistics */ ['30189442-6998-4686-ac05-ed152b91b9de', {}],
   ],

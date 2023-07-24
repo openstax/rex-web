@@ -89,6 +89,8 @@ export interface BookWithOSWebData extends VersionedArchiveBookWithConfig {
   publish_date: string;
   amazon_link: string;
   subject: string;
+  subjects: Array<{subject_name: string}>;
+  categories: Array<{subject_name: string; subject_category: string}>;
   authors: Array<{
     value: {
       name: string;
