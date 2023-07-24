@@ -22,7 +22,7 @@ function citationMetaTags(book: Book, canonicalHref: string | null) {
   const dateStr = bookPublishDate?.toLocaleDateString('en-us', {month: 'short', day: 'numeric', year: 'numeric'});
 
   return [
-    {name: 'citation_title', content: bookTitle},
+    {name: 'citation_book_title', content: bookTitle},
     {name: 'citation_publisher', content: publisher},
     {name: 'citation_language', content: language},
     ...(dateStr ? [{name: 'citation_date', content: dateStr}] : []),
