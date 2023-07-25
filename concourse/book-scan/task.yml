@@ -1,0 +1,19 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    password: ((dockerhub-password))
+    username: ((dockerhub-username))
+    repository: node
+
+inputs:
+- name: release-issue
+- name: rex-web
+
+caches:
+- path: node_modules
+
+run:
+  path: rex-web/concourse/book-scan/script.bash
