@@ -38,7 +38,7 @@ const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, r
 // tslint:disable-next-line:variable-name
 const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.ComponentType}> =
   ({id, href, Icon}) => <Styled.SocialIcon aria-label={useIntl().formatMessage({id})} href={href}
-    target='_blank' rel='noopener'>
+    target='_blank' rel='noopener' role='listitem'>
     <Icon />
   </Styled.SocialIcon>;
 
@@ -68,12 +68,12 @@ const Column3 = () => <Styled.Column3>
 </Styled.Column3>;
 
 // tslint:disable-next-line:variable-name
-const SocialDirectory = () => <Styled.Social role='directory'>
+const SocialDirectory = () => <Styled.Social role='list'>
   <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} Icon={Styled.FBIcon} />
   <SocialIconMessage id='i18n:footer:social:tw:alt' href={twitterUrl} Icon={Styled.TwitterIcon} />
   <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} Icon={Styled.LinkedInIcon} />
   <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} Icon={Styled.IGIcon} />
-  <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener'>
+  <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener' role='listitem'>
     <Styled.FooterLogo src={RiceWhiteLogo} alt={useIntl().formatMessage({id: 'i18n:footer:social:rice-logo:alt'})} />
   </Styled.BottomLink>
 </Styled.Social>;
