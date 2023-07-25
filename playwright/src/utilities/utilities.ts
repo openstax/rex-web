@@ -58,4 +58,38 @@ async function sleep(seconds = 1.0): Promise<unknown> {
   })
 }
 
-export { closeExtras, randomChoice, randomNum, randomstring, sleep }
+class MobileNavigation {
+  page: Page
+
+  constructor(page: Page) {
+    this.page = page
+  }
+
+  async openMobileMenu(menu: any) {
+    switch (menu) {
+      case 'toc':
+        await this.page.click('[aria-label="Click to open menu"]')
+        await this.page.click('[aria-label="Click to open the Table of Contents"]')
+        break
+
+      case 'MH':
+        await this.page.click('[aria-label="Click to open menu"]')
+        await this.page.click('[aria-label="Highlights"]')
+        break
+    }
+  }
+
+  async openBigMobileMenu(menu: any) {
+    switch (menu) {
+      case 'toc':
+        await this.page.click('[aria-label="Click to open the Table of Contents"]')
+        break
+
+      case 'MH':
+        await this.page.click('[aria-label="Highlights"]')
+        break
+    }
+  }
+}
+
+export { closeExtras, randomChoice, randomNum, randomstring, sleep, MobileNavigation }
