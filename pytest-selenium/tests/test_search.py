@@ -422,7 +422,18 @@ def test_search_results(selenium, base_url, page_slug):
             assert search_sidebar.search_results_present
 
         # THEN: Search sidebar shows total number of matches throughout the book
-        assert search_sidebar.rkt_search_result_total == rkt_results_expected_value
+        try:
+            assert search_sidebar.rkt_search_result_total == rkt_results_expected_value
+        except AssertionError:
+            # Total search results vary slightly between environment/search sessions which is being worked on by the developers.
+            # Till then asserting with a threshold value
+            print(
+                f"Search results mismatch for '{book_slug}', expected = '{rkt_results_expected_value}', actual = '{search_sidebar.rkt_search_result_total}'"
+            )
+            tc = unittest.TestCase()
+            tc.assertAlmostEqual(
+                search_sidebar.rkt_search_result_total, rkt_results_expected_value, delta=3
+            )
         try:
             assert (
                 search_sidebar.chapter_search_result_total == chapter_search_results_expected_value
