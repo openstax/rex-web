@@ -7,7 +7,7 @@ image_resource:
     password: ((dockerhub-password))
     username: ((dockerhub-username))
     repository: node
-    tag: v14.15.4
+    tag: 14.15.4-buster
 
 inputs:
 - name: release-issue
