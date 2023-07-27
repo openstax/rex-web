@@ -97,14 +97,14 @@ async function visitPages(
         const link = await page.$(linkSelector);
 
         if (link) {
-          await page.evaluate((linkSelector) => {
-            const link = document?.querySelector(linkSelector);
-            if (!link) {
+          await page.evaluate((linkCss) => {
+            const linkElt = document?.querySelector(linkCss);
+            if (!linkElt) {
               // This should not be reachable
               throw new Error('Evaluation failed: document or link not found');
             }
 
-            link.click();
+            linkElt.click();
           }, linkSelector);
         } else {
           await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
@@ -202,6 +202,7 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
     errorObserver(`requestfailed: ${text} ${request.url()}`);
   });
 
+  // tslint:disable-next-line: no-console
   process.on('exit', () => console.log(`Cache hits: ${hits} / Total requests: ${hits + misses}`));
 
   return (newObserver: PageErrorObserver) => errorObserver = newObserver;
