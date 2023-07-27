@@ -9,11 +9,10 @@ while read -r row; do
   book_version=$(jq -r '.book_version' <<< "$row")
   is_new=$(jq -r '.is_new' <<< "$row")
 
-  node script/entry.js domVisitor errorsExist \
+  REACT_APP_UNLIMITED_CONTENT=true node script/entry.js domVisitor errorsExist \
     --bookId="$book_id" \
     --bookVersion="$book_version" \
     --rootUrl="$BASE_URL" \
-    --queryString="validateLinks" \
     || code=1
 
   if [ "$is_new" == false ]; then

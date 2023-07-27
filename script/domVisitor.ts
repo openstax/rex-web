@@ -86,7 +86,30 @@ async function visitPages(
       const appendQueryString =
         queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
                     : archiveUrl ? `?archive=${archiveUrl}` : '';
-      await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+      if (appendQueryString) {
+        await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+      } else {
+        // If there's no queryString, we can click the content links instead which are much faster
+        // Prefer using env variables instead of queryStrings when possible
+        const pageComponents = pageUrl.split('/');
+        const slug = pageComponents[pageComponents.length - 1];
+        const linkSelector = `a[href="${slug}"]`;
+        const link = await page.$(linkSelector);
+
+        if (link) {
+          await page.evaluate((linkSelector) => {
+            const link = document?.querySelector(linkSelector);
+            if (!link) {
+              // This should not be reachable
+              throw new Error('Evaluation failed: document or link not found');
+            }
+
+            link.click();
+          }, linkSelector);
+        } else {
+          await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+        }
+      }
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
 
