@@ -57,7 +57,7 @@ export function attributionValues(book: Book) {
     // Per https://github.com/microsoft/TypeScript/issues/41338#issuecomment-1571465883
     // DisplayNames is not defined by TypeScript until version v4.5
     // @ts-expect-error
-    language: new Intl.DisplayNames([locale], { type: 'language' }).of(locale),
+    language: new Intl.DisplayNames([locale], { type: 'language' }).of(locale) as string,
     bookPublishDate,
     authorsToDisplay,
   };
