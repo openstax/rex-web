@@ -50,4 +50,4 @@ cd rex-web
 
 yarn
 
-REACT_APP_UNLIMITED_CONTENT=true node script/entry.js domVisitor errorsExist --rootUrl="https://release-${release_number}.sandbox.openstax.org"
+node script/entry.js domVisitor errorsExist --rootUrl="https://release-${release_number}.sandbox.openstax.org" --queryString="validateLinks"
