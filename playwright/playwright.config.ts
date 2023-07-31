@@ -38,6 +38,13 @@ const config: PlaywrightTestConfig = {
         ...devices['iPhone 12'],
       },
     },
+    {
+      name: 'iPad Pro 11',
+      use: {
+        browserName: 'webkit',
+        ...devices['iPad Pro 11'],
+      },
+    },
   ],
   reporter: [['list'], ['json', { outputFile: 'test-results/results.json' }]],
   retries: 0,
