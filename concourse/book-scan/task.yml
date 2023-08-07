@@ -1,20 +1,8 @@
 ---
 platform: linux
 
-image_resource:
-  type: docker-image
-  source:
-    password: ((dockerhub-password))
-    username: ((dockerhub-username))
-    repository: node
-    tag: 14.15.4-buster
-
 inputs:
-- name: release-issue
-- name: rex-web
-
-caches:
-- path: node_modules
+- name: cloudfront-environment
 
 run:
   path: rex-web/concourse/book-scan/script.bash
