@@ -39,6 +39,13 @@ class TOC {
       console.log('The section number specified exceeds the total pages in the book')
     }
   }
+
+  async tocSectionName(sectionNumber: number) {
+    // Return the section name for the specified section number
+    const sectionLink = this.sectionLocator.nth(sectionNumber).locator('a')
+    const tocSectionName = await sectionLink.textContent()
+    return tocSectionName
+  }
 }
 
 export { TOC }
