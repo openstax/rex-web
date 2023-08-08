@@ -328,27 +328,6 @@ test('C649726 MH modal stays open on reload', async ({ page, isMobile }) => {
   expect(MHhighlightcount).toBe(1)
 })
 
-test('C483587 click chapter page', async ({ page, isMobile }, testinfo) => {
-  // GIVEN: Open Rex page
-  const BookPage = new ContentPage(page)
-  const path = '/books/college-physics-2e/pages/preface'
-  await BookPage.open(path)
-
-  const mobileNav = new MobileNavigation(page)
-  const projectsName = testinfo.project.name
-
-  if (isMobile && projectsName == 'iPad Pro 11') {
-    mobileNav.openBigMobileMenu('toc')
-  } else if (isMobile) {
-    mobileNav.openMobileMenu('toc')
-  }
-
-  const Toc = new TOC(page)
-  await Toc.pageClick(11)
-  await expect(page).toHaveURL('/books/college-physics-2e/pages/2-1-displacement')
-  expect(await Toc.tocSectionName(11)).toBe('2.1 Displacement')
-})
-
 test('C483587 click unit introduction page', async ({ page, isMobile }, testinfo) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
@@ -368,12 +347,14 @@ test('C483587 click unit introduction page', async ({ page, isMobile }, testinfo
   await Toc.pageClick(1)
   await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
   expect(await Toc.tocSectionName(1)).toBe('1 Unit Introduction')
+
+  console.log(await Toc.unitName(14))
 })
 
-test('C483587 click eob page', async ({ page, isMobile }, testinfo) => {
+test('C483587 click pages on book with no units', async ({ page, isMobile }, testinfo) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/chemistry-2e/pages/preface'
+  const path = '/books/college-algebra-2e/pages/preface'
   await BookPage.open(path)
 
   const mobileNav = new MobileNavigation(page)
@@ -385,37 +366,27 @@ test('C483587 click eob page', async ({ page, isMobile }, testinfo) => {
     mobileNav.openMobileMenu('toc')
   }
 
-  const Toc = new TOC(page)
-  await Toc.pageClick(231)
-  await expect(page).toHaveURL('/books/chemistry-2e/pages/chapter-2')
-  expect(await Toc.tocSectionName(231)).toBe('Chapter 2')
-})
-
-test('C483587 click eoc page', async ({ page, isMobile }, testinfo) => {
-  // GIVEN: Open Rex page
-  const BookPage = new ContentPage(page)
-  const path = '/books/physics/pages/preface'
-  await BookPage.open(path)
-
-  const mobileNav = new MobileNavigation(page)
-  const projectsName = testinfo.project.name
-
-  if (isMobile && projectsName == 'iPad Pro 11') {
-    mobileNav.openBigMobileMenu('toc')
-  } else if (isMobile) {
-    mobileNav.openMobileMenu('toc')
-  }
-
+  // click chapter page
   const Toc = new TOC(page)
   await Toc.pageClick(28)
-  await expect(page).toHaveURL('/books/physics/pages/2-short-answer')
-  expect(await Toc.tocSectionName(28)).toBe('Short Answer')
+  await expect(page).toHaveURL('/books/college-algebra-2e/pages/3-2-domain-and-range')
+  expect(await Toc.tocSectionName(28)).toBe('3.2 Domain and Range')
+
+  // click eob page
+  await Toc.pageClick(100)
+  await expect(page).toHaveURL('/books/college-algebra-2e/pages/1-key-equations')
+  expect(await Toc.tocSectionName(9)).toBe('Key Equations')
+
+  // click eoc page
+  await Toc.pageClick(120)
+  await expect(page).toHaveURL('/books/college-algebra-2e/pages/chapter-8')
+  expect(await Toc.tocSectionName(120)).toBe('Chapter 8')
 })
 
-test('C483587 click chapter page on book with units', async ({ page, isMobile }, testinfo) => {
+test('C483587 click page on book with units', async ({ page, isMobile }, testinfo) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
-  const path = '/books/world-history-volume-1/pages/preface'
+  const path = '/books/university-physics-volume-1/pages/preface'
   await BookPage.open(path)
 
   const mobileNav = new MobileNavigation(page)
@@ -427,9 +398,42 @@ test('C483587 click chapter page on book with units', async ({ page, isMobile },
     mobileNav.openMobileMenu('toc')
   }
 
+  // click chapter page (special character present in section name)
   const Toc = new TOC(page)
   await Toc.pageClick(57)
-  await expect(page).toHaveURL('/books/world-history-volume-1/pages/6-review-questions')
-  expect(await Toc.tocSectionName(57)).toBe('Review Questions')
+  await expect(page).toHaveURL('/books/university-physics-volume-1/pages/5-2-newtons-first-law')
+  expect(await Toc.tocSectionName(57)).toBe("5.2 Newton's First Law")
+
+  // click eob page
+  await Toc.pageClick(200)
+  await expect(page).toHaveURL('/books/university-physics-volume-1/pages/15-summary')
+  expect(await Toc.tocSectionName(200)).toBe('Summary')
+
+  // click eoc page
+  await Toc.pageClick(245)
+  await expect(page).toHaveURL('/books/university-physics-volume-1/pages/chapter-4')
+  expect(await Toc.tocSectionName(245)).toBe('Chapter 4')
+})
+
+test('C242991 special characters are escaped in slug', async ({ page, isMobile }, testinfo) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/psychologia-polska/pages/przedmowa'
+  await BookPage.open(path)
+
+  const mobileNav = new MobileNavigation(page)
+  const projectsName = testinfo.project.name
+
+  if (isMobile && projectsName == 'iPad Pro 11') {
+    mobileNav.openBigMobileMenu('toc')
+  } else if (isMobile) {
+    mobileNav.openMobileMenu('toc')
+  }
+
+  // click chapter page (special character present in section name)
+  const Toc = new TOC(page)
+  await Toc.pageClick(12)
+  await expect(page).toHaveURL('/books/psychologia-polska/pages/2-1-dlaczego-badania-sa-wazne')
+  expect(await Toc.tocSectionName(12)).toBe("2.1 Dlaczego badania są ważne?")
 })
 
