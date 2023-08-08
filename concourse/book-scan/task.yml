@@ -5,4 +5,4 @@ inputs:
 - name: cloudfront-environment
 
 run:
-  path: rex-web/concourse/book-scan/script.bash
+  path: /code/concourse/book-scan/script.bash
