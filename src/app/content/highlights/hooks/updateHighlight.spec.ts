@@ -122,7 +122,7 @@ describe('updateHighlight', () => {
     const updatePayload = highlightUpdatePayload(highlight.id, {color: 'red', annotation: 'new'});
     try {
       await hook(updateHighlight(updatePayload, meta));
-    } catch (error) {
+    } catch {
       expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
       expect(dispatch).toHaveBeenCalledWith(updateHighlight(
         meta.preUpdateData, { ...meta, revertingAfterFailure: true }
@@ -145,7 +145,7 @@ describe('updateHighlight', () => {
 
     try {
       await hook(updateHighlight(colorUpdate, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(updateHighlightClient).toHaveBeenCalledWith(colorUpdate);
       expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.color);
       expect(error.meta).toEqual({ destination: 'page' });
@@ -167,7 +167,7 @@ describe('updateHighlight', () => {
 
     try {
       await hook(updateHighlight(annotationUpdate, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(updateHighlightClient).toHaveBeenCalledWith(annotationUpdate);
       expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.annotation);
       expect(error.meta).toEqual({ destination: 'page' });
@@ -178,7 +178,7 @@ describe('updateHighlight', () => {
 
     try {
       await hook(updateHighlight(annotationUpdate, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(updateHighlightClient).toHaveBeenCalledWith(annotationUpdate);
       expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.annotation);
       expect(error.meta).toEqual({ destination: 'myHighlights' });
@@ -196,7 +196,7 @@ describe('updateHighlight', () => {
 
     try {
       await hook(updateHighlight(updatePayload, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(updateHighlightClient).toHaveBeenCalledWith(updatePayload);
       expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);

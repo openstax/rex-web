@@ -274,7 +274,7 @@ describe('contentRouteHookBody', () => {
 
       try {
         await hook(payload);
-      } catch (e) {
+      } catch (e: any) {
         message = e.message;
       }
 
