@@ -1,6 +1,14 @@
 ---
 platform: linux
 
+image_resource:
+  type: docker-image
+  source:
+    password: ((dockerhub-password))
+    username: ((dockerhub-username))
+    repository: openstax/rex-web
+    tag: CI-2021-09-21
+
 inputs:
 - name: cloudfront-environment
 
