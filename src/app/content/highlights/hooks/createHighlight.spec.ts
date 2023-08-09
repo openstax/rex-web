@@ -79,7 +79,7 @@ describe('createHighlight', () => {
 
     try {
     await hook(createHighlight(mock, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(createHighlightClient).toHaveBeenCalledWith({highlight: mock});
       expect(dispatch).toHaveBeenCalledWith(
         receiveDeleteHighlight(mock as unknown as HighlightData, {...meta, revertingAfterFailure: true})
@@ -101,7 +101,7 @@ describe('createHighlight', () => {
 
     try {
       await hook(createHighlight(mock, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(createHighlightClient).toHaveBeenCalledWith({ highlight: mock });
       expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.create);
       expect(error.meta).toEqual({ destination: 'page' });
@@ -122,7 +122,7 @@ describe('createHighlight', () => {
 
     try {
       await hook(createHighlight(mock, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(createHighlightClient).toHaveBeenCalledWith({ highlight: mock });
       expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);
