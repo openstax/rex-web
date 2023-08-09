@@ -51,7 +51,7 @@ describe('osWebLoader', () => {
 
       try {
         await osWebLoader.getBookIdFromSlug('asdf');
-      } catch (e) {
+      } catch (e: any) {
         message = e.message;
       }
 

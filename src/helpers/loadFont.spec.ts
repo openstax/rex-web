@@ -71,7 +71,7 @@ describe('loadFont', () => {
 
       try {
         await loadFont('adsf');
-      } catch (e) {
+      } catch (e: any) {
         message = e.message;
       }
 
