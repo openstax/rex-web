@@ -97,15 +97,18 @@ async function visitPages(
         const link = await page.$(linkSelector);
 
         if (link) {
-          await page.evaluate((linkCss) => {
-            const linkElt = document?.querySelector(linkCss);
-            if (!linkElt) {
-              // This should not be reachable
-              throw new Error('Evaluation failed: document or link not found');
-            }
+          await Promise.all([
+            page.evaluate((linkCss) => {
+              const linkElt = document?.querySelector(linkCss);
+              if (!linkElt) {
+                // This should not be reachable
+                throw new Error('Evaluation failed: document or link not found');
+              }
 
-            linkElt.click();
-          }, linkSelector);
+              linkElt.click();
+            }, linkSelector),
+            page.waitForNavigation()
+          ])
         } else {
           await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
         }
@@ -175,22 +178,27 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
   });
 
   page.on('response', (response) => {
-    const url = response.url();
-    const status = response.status();
+    try {
+      const url = response.url();
+      const status = response.status();
 
-    // Don't cache data urls
-    if (!url.startsWith('data:')) {
-      const headers = response.headers();
-      const contentType = headers['content-type'];
-      response.buffer().then((body) => cache.set(url, { status, headers, contentType, body }));
+      // Don't cache data urls
+      if (!url.startsWith('data:')) {
+        const headers = response.headers();
+        const contentType = headers['content-type'];
+        response.buffer().then((body) => cache.set(url, { status, headers, contentType, body }));
+      }
+
+      // accounts endpoint always 403s when logged out
+      if ([200, 304].includes(status) || (status === 403 && url.includes('/accounts/api/user'))) {
+        return;
+      }
+
+      errorObserver(`response: ${status} ${url}`);
+    } catch (e) {
+      // if something sent a request but we navigated to another page in the meantime, causing the response to become unavailable
+      errorObserver(`caught ${e.message}`); // TODO: remove this and ignore error
     }
-
-    // accounts endpoint always 403s when logged out
-    if ([200, 304].includes(status) || (status === 403 && url.includes('/accounts/api/user'))) {
-      return;
-    }
-
-    errorObserver(`response: ${status} ${url}`);
   });
 
   page.on('requestfailed', (request) => {
