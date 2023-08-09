@@ -6,7 +6,6 @@ import Sentry from '../helpers/Sentry';
 import { receiveLoggedOut } from './auth/actions';
 import { recordError, showErrorDialog } from './errors/actions';
 import { notFound } from './errors/routes';
-import { isPlainObject } from './guards';
 import { replace } from './navigation/actions';
 import * as selectNavigation from './navigation/selectors';
 import { addToast } from './notifications/actions';
@@ -20,7 +19,7 @@ import {
   Middleware,
   MiddlewareAPI
 } from './types';
-
+export { merge, getCommonProperties } from '@openstax/ts-utils';
 export * from './utils/assertions';
 export * from './utils/browser-assertions';
 
@@ -43,7 +42,7 @@ export const actionHook = <C extends AnyActionCreator>(actionCreator: C, body: A
             services.promiseCollector.add(promise.catch(catchError));
           }
         } catch (e) {
-          catchError(e);
+          catchError(e as Error);
         }
       }
       return result;
@@ -132,31 +131,6 @@ export const preventDefault = (event: React.MouseEvent) => {
   event.preventDefault();
   return event;
 };
-
-export const getCommonProperties = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2) =>
-  Object.keys(thing1).filter((key) => Object.keys(thing2).includes(key)) as Array<keyof T1 & keyof T2>;
-
-/*
- * recursive merge properties of two inputs. values are merged if they are
- * plain objects or arrays, otherwise if the same property exists in both
- * objects the value from the second argument will win.
- *
- * unlike lodash merge, this will not change object references for values that
- * exist only in one parameter.
- */
-export const merge = <T1 extends {}, T2 extends {}>(thing1: T1, thing2: T2): T1 & T2 => ({
-  ...thing1,
-  ...thing2,
-  ...getCommonProperties(thing1, thing2).reduce((result, property) => ({
-    ...result,
-    ...(isPlainObject(thing1[property]) && isPlainObject(thing2[property])
-      ? {[property]: merge(thing1[property], thing2[property])}
-      : (Array.isArray(thing1[property]) && Array.isArray(thing2[property]))
-        ? {[property]: [...thing1[property] as unknown as [], ...thing2[property] as unknown as []]}
-        : {}
-    ),
-  }), {}),
-});
 
 export const shallowEqual = <T extends object>(objA: T, objB: T) => {
   const keysOfA = Object.keys(objA) as Array<keyof T>;
