@@ -140,7 +140,7 @@ describe('Attribution', () => {
 
       try {
         renderer.create(render());
-      } catch (e) {
+      } catch (e: any) {
         message = e.message;
       }
 
