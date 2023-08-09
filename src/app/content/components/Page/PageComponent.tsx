@@ -135,9 +135,11 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public render() {
     const pageIsReady = this.props.page && this.props.textSize !== null;
+    const PT = this.props.ToastOverride ? this.props.ToastOverride : PageToasts;
+
     return <MinPageHeight>
       <this.highlightManager.CardList />
-      <PageToasts />
+      <PT />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()
