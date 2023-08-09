@@ -215,7 +215,7 @@ describe('archiveLoader', () => {
           await createArchiveLoader().book('uncoolid', {
             booksConfig: {archiveUrl: '/test/archive', books: {coolid: {defaultVersion: 'version'}}},
           }).load();
-        } catch (e) {
+        } catch (e: any) {
           error = e;
         }
 
@@ -236,7 +236,7 @@ describe('archiveLoader', () => {
           await createArchiveLoader().book('coolid', {
             booksConfig: {archiveUrl: '/test/archive', books: {coolid: {defaultVersion: 'version'}}},
           }).load();
-        } catch (e) {
+        } catch (e: any) {
           error = e;
         }
 
@@ -372,7 +372,7 @@ describe('archiveLoader', () => {
 
         try {
           await createArchiveLoader(options).book('bookId', {booksConfig}).resource('../resources/coolid').load();
-        } catch (e) {
+        } catch (e: any) {
           error = e;
         }
 
