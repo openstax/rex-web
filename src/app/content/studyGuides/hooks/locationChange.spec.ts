@@ -119,7 +119,7 @@ describe('locationChange', () => {
 
     try {
       await hook();
-    } catch (error) {
+    } catch (error: any) {
       expect(getHighlightsSummaryClient).toHaveBeenCalled();
       expect(error.messageKey).toBe(toastMessageKeys.studyGuides.failure.load);
       expect(error.meta).toEqual({ destination: 'page' , shouldAutoDismiss: false});
@@ -142,7 +142,7 @@ describe('locationChange', () => {
 
     try {
       await hook();
-    } catch (error) {
+    } catch (error: any) {
       expect(getHighlightsSummaryClient).toHaveBeenCalled();
       expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);

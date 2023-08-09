@@ -78,7 +78,7 @@ describe('printStudyGuides', () => {
 
     try {
       await hook(printStudyGuides());
-    } catch (error) {
+    } catch (error: any) {
       expect(dispatch).toBeCalledWith(toggleStudyGuidesSummaryLoading(false));
       expect(error.messageKey).toBe(mockApplicationMesssageError.messageKey);
       expect(error.meta).toEqual(mockApplicationMesssageError.meta);

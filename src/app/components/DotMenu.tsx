@@ -48,7 +48,7 @@ export const DotMenuDropdownList = styled(DropdownList)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown toggle={<DotMenuToggle />} {...props} />)`
+export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown {...props} toggle={<DotMenuToggle />} />)`
   .focus-within ${DotMenuIcon} {
     color: ${theme.color.primary.gray.base};
   }

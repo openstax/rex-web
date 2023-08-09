@@ -32,7 +32,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
     return;
   }
 
-  let highlights: HighlightData[];
+  let highlights: HighlightData[] = [];
   try {
     highlights = await loadAllHighlights({
       book,
@@ -44,7 +44,7 @@ const hookBody = (services: MiddlewareAPI & AppServices) => async(action?: AnyAc
       error,
       () => action && action.type !== getType(receivePageFocus)
         ? new HighlightLoadError({ destination: 'page', shouldAutoDismiss: false })
-        : error
+        : error as Error
     );
   }
 
