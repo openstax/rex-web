@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import Button from '../../components/Button';
 import { useServices } from '../../context/Services';
@@ -20,12 +20,31 @@ import Attribution from './Attribution';
 import { contentTextWidth } from './constants';
 import Page from './Page';
 import { PrevNextBar } from './PrevNextBar';
+import { getMobileSearchFailureTop } from './Page/PageToasts';
+import theme from '../../theme';
+import PageToasts from './Page/PageToasts';
+import {
+  topbarDesktopHeight,
+  bookBannerMobileMiniHeight
+} from './constants';
 
 // tslint:disable-next-line: variable-name
 const StyledButton = styled(Button)`
   width: 100%;
   max-width: ${contentTextWidth}rem;
   margin: 0 auto;
+`;
+
+// Override layout for Toast
+const assignedMobileTop = (props: any) => getMobileSearchFailureTop(props) - bookBannerMobileMiniHeight;
+// tslint:disable-next-line: variable-name
+const ToastOverride = styled(PageToasts)`
+  top: ${topbarDesktopHeight}rem;
+  left: 0;
+  max-width: 100%;
+  ${theme.breakpoints.mobile(css`
+    top: ${assignedMobileTop}rem;
+  `)}
 `;
 
 const useLoadSection = (currentSection: ArchiveTreeSection | undefined) => {
@@ -90,7 +109,7 @@ export default () => {
     <ErrorModal />
     <ErrorBoundary>
       <AssignedTopBar section={section} />
-      <Page lockNavigation={true} >
+      <Page lockNavigation={true} ToastOverride={ToastOverride}>
         {prevNext
           ? <PrevNextBar
             book={book}
