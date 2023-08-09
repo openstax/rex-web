@@ -107,8 +107,8 @@ async function visitPages(
 
               linkElt.click();
             }, linkSelector),
-            page.waitForNavigation()
-          ])
+            page.waitForNavigation(),
+          ]);
         } else {
           await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
         }
@@ -196,7 +196,7 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
 
       errorObserver(`response: ${status} ${url}`);
     } catch (e) {
-      // if something sent a request but we navigated to another page in the meantime, causing the response to become unavailable
+      // in case a request was interrupted by navigation, causing the response to throw
       errorObserver(`caught ${e.message}`); // TODO: remove this and ignore error
     }
   });
