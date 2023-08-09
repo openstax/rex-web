@@ -5480,6 +5480,13 @@
   dependencies:
     tslib "^2.5.0"
 
+"@smithy/is-array-buffer@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@smithy/is-array-buffer/-/is-array-buffer-2.0.0.tgz#8fa9b8040651e7ba0b2f6106e636a91354ff7d34"
+  integrity sha512-z3PjFjMyZNI98JFRJi/U0nGoLWMSJlDjAW4QUX2WNZLas5C0CmVV6LJ01JI0k90l7FvpmixjWxPFmENSClQ7ug==
+  dependencies:
+    tslib "^2.5.0"
+
 "@smithy/md5-js@^1.0.1":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@smithy/md5-js/-/md5-js-1.0.2.tgz#bbcbdfc7afc3497ce74b1cb84026999753a813fb"
@@ -5659,6 +5666,14 @@
     "@smithy/util-buffer-from" "^1.0.2"
     tslib "^2.5.0"
 
+"@smithy/util-base64@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@smithy/util-base64/-/util-base64-2.0.0.tgz#1beeabfb155471d1d41c8d0603be1351f883c444"
+  integrity sha512-Zb1E4xx+m5Lud8bbeYi5FkcMJMnn+1WUnJF3qD7rAdXpaL7UjkFQLdmW5fHadoKbdHpwH9vSR8EyTJFHJs++tA==
+  dependencies:
+    "@smithy/util-buffer-from" "^2.0.0"
+    tslib "^2.5.0"
+
 "@smithy/util-body-length-browser@^1.0.1":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@smithy/util-body-length-browser/-/util-body-length-browser-1.0.2.tgz#4a9a49497634b5f25ab5ff73f1a8498010b0024a"
@@ -5679,6 +5694,14 @@
   integrity sha512-lHAYIyrBO9RANrPvccnPjU03MJnWZ66wWuC5GjWWQVfsmPwU6m00aakZkzHdUT6tGCkGacXSgArP5wgTgA+oCw==
   dependencies:
     "@smithy/is-array-buffer" "^1.0.2"
+    tslib "^2.5.0"
+
+"@smithy/util-buffer-from@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@smithy/util-buffer-from/-/util-buffer-from-2.0.0.tgz#7eb75d72288b6b3001bc5f75b48b711513091deb"
+  integrity sha512-/YNnLoHsR+4W4Vf2wL5lGv0ksg8Bmk3GEGxn2vEQt52AQaPSCuaO5PM5VM7lP1K9qHRKHwrPGktqVoAHKWHxzw==
+  dependencies:
+    "@smithy/is-array-buffer" "^2.0.0"
     tslib "^2.5.0"
 
 "@smithy/util-config-provider@^1.0.1", "@smithy/util-config-provider@^1.0.2":
