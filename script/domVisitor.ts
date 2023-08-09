@@ -119,7 +119,7 @@ async function visitPages(
         anyFailures = true;
         bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
       }
-    } catch (e) {
+    } catch (e: any) {
       anyFailures = true;
       bar.interrupt(`- (error loading) ${pageUrl}`);
       if (e.message) {

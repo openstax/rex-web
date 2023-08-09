@@ -160,14 +160,14 @@ describe('loadHighlights', () => {
 
       try {
         await hook(receivePageFocus(true));
-      } catch (error) {
+      } catch (error: any) {
         expect(error.messageKey).not.toBeDefined();
         expect(error.meta).not.toBeDefined();
       }
 
       try {
         await hook(receivePageFocus(false));
-      } catch (error) {
+      } catch (error: any) {
         expect(error.messageKey).not.toBeDefined();
         expect(error.meta).not.toBeDefined();
       }
@@ -187,7 +187,7 @@ describe('loadHighlights', () => {
 
       try {
         await hook(receivePage({...page, references: []}));
-      } catch (error) {
+      } catch (error: any) {
         expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.load);
         expect(error.meta).toEqual({destination: 'page', shouldAutoDismiss: false});
       }
@@ -207,28 +207,28 @@ describe('loadHighlights', () => {
 
       try {
         await hook();
-      } catch (error) {
+      } catch (error: any) {
         expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(receivePageFocus(true));
-      } catch (error) {
+      } catch (error: any) {
         expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(receivePageFocus(false));
-      } catch (error) {
+      } catch (error: any) {
         expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
 
       try {
         await hook(receivePage({...page, references: []}));
-      } catch (error) {
+      } catch (error: any) {
         expect(error instanceof ApplicationError).toEqual(true);
         expect(error.message).toBe(mockCustomApplicationError.message);
       }
