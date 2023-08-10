@@ -117,4 +117,4 @@ const connector = connect(
   })
 );
 
-export default flow(withServices, connector)(ShowMyHighlights);
+export default flow(withServices, connector)(ShowMyHighlights as React.ComponentType<any>);
