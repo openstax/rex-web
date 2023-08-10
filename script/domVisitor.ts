@@ -86,7 +86,8 @@ async function visitPages(
       const appendQueryString =
         queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
                     : archiveUrl ? `?archive=${archiveUrl}` : '';
-      if (appendQueryString) {
+      // validateLinks should persist within the SPA so we allow it when clicking links
+      if (appendQueryString && appendQueryString !== '?validateLinks') {
         await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
       } else {
         // If there's no queryString, we can click the content links instead which are much faster
@@ -97,18 +98,16 @@ async function visitPages(
         const link = await page.$(linkSelector);
 
         if (link) {
-          await Promise.all([
-            page.evaluate((linkCss) => {
-              const linkElt = document?.querySelector(linkCss);
-              if (!linkElt) {
-                // This should not be reachable
-                throw new Error('Evaluation failed: document or link not found');
-              }
+          await page.evaluate((linkCss) => {
+            const linkElt = document?.querySelector(linkCss);
+            if (!linkElt) {
+              // This should not be reachable
+              throw new Error('Evaluation failed: document or link not found');
+            }
 
-              linkElt.click();
-            }, linkSelector),
-            page.waitForNavigation(),
-          ]);
+            linkElt.click();
+          }, linkSelector);
+          await page.waitForSelector(`li[aria-label="Current Page"] ${linkSelector}`);
         } else {
           await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
         }
@@ -178,27 +177,22 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
   });
 
   page.on('response', (response) => {
-    try {
-      const url = response.url();
-      const status = response.status();
+    const url = response.url();
+    const status = response.status();
 
-      // Don't cache data urls
-      if (!url.startsWith('data:')) {
-        const headers = response.headers();
-        const contentType = headers['content-type'];
-        response.buffer().then((body) => cache.set(url, { status, headers, contentType, body }));
-      }
-
-      // accounts endpoint always 403s when logged out
-      if ([200, 304].includes(status) || (status === 403 && url.includes('/accounts/api/user'))) {
-        return;
-      }
-
-      errorObserver(`response: ${status} ${url}`);
-    } catch (e) {
-      // in case a request was interrupted by navigation, causing the response to throw
-      errorObserver(`caught ${e.message}`); // TODO: remove this and ignore error
+    // Don't cache data urls
+    if (!url.startsWith('data:')) {
+      const headers = response.headers();
+      const contentType = headers['content-type'];
+      response.buffer().then((body) => cache.set(url, { status, headers, contentType, body }));
     }
+
+    // accounts endpoint always 403s when logged out
+    if ([200, 304].includes(status) || (status === 403 && url.includes('/accounts/api/user'))) {
+      return;
+    }
+
+    errorObserver(`response: ${status} ${url}`);
   });
 
   page.on('requestfailed', (request) => {
