@@ -297,7 +297,7 @@ describe('loadMore', () => {
 
     try {
       await hook(store.dispatch(loadMoreStudyGuides()));
-    } catch (error) {
+    } catch (error: any) {
       expect(dispatch).toHaveBeenLastCalledWith(toggleStudyGuidesSummaryLoading(false));
       expect(error.messageKey).toBe(toastMessageKeys.studyGuides.failure.popUp.load);
       expect(error.meta).toEqual({ destination: 'studyGuides' });
@@ -341,7 +341,7 @@ describe('loadMore', () => {
 
     try {
       await hook(store.dispatch(loadMoreStudyGuides()));
-    } catch (error) {
+    } catch (error: any) {
       expect(dispatch).toHaveBeenCalledWith(toggleStudyGuidesSummaryLoading(false));
       expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);

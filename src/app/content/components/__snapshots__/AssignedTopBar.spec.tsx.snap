@@ -2,10 +2,10 @@
 
 exports[`AssignedTopBar renders 1`] = `
 <div
-  className="styled__TopBarWrapper-sc-12dq39v-0 sc-bdVaJa iqimfc"
+  className="styled__TopBarWrapper-sc-12dq39v-0 sc-bwzfXH JAqDh"
 >
   <h2
-    className="sc-bwzfXH jNfaKd"
+    className="sc-htpNat iadNqp"
     dangerouslySetInnerHTML={
       Object {
         "__html": "1.1 Section Title",

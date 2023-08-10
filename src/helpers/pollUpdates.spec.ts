@@ -286,7 +286,7 @@ describe('poll', () => {
 
     try {
       await poll(store)();
-    } catch (e) {
+    } catch (e: any) {
       message = e.message;
     }
 

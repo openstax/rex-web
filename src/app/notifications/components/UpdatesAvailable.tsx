@@ -31,7 +31,7 @@ const UpdatesAvailable = ({className}: {className?: string}) => {
   // if the readyPromise exists, wait for it before rendering
   // if it doesn't exist, we render anyway and in that case
   // onClick() calls activateSwAndReload(undefined) to reload without waiting
-  if (readyPromise && !sw) {
+  if (assertWindow().navigator.serviceWorker && !sw) {
     return null;
   }
 

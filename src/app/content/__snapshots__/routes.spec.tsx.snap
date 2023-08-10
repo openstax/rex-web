@@ -27,10 +27,10 @@ Array [
     Keyboard shortcuts menu
   </a>,
   <div
-    className="styled__TopBarWrapper-sc-12dq39v-0 sc-bwzfXH efJRLb"
+    className="styled__TopBarWrapper-sc-12dq39v-0 sc-htpNat eAhzsN"
   >
     <h2
-      className="sc-htpNat iadNqp"
+      className="sc-bxivhb dTKNNv"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -93,10 +93,11 @@ Array [
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+        className="sc-bdVaJa cjEDWs Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -105,10 +106,11 @@ Array [
       </svg>
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+        className="sc-bdVaJa cjEDWs Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 320 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"

@@ -7,6 +7,7 @@ import * as selectContent from '../selectors';
 import { LinkedArchiveTreeSection } from '../types';
 import { shadow, TopBarWrapper } from './Topbar/styled';
 import { TextResizer } from './Topbar/TextResizer';
+import { topbarDesktopHeight, topbarMobileHeight } from './constants';
 
 // tslint:disable-next-line:variable-name
 const StyledTopBarWrapper = styled(TopBarWrapper)`
@@ -19,6 +20,10 @@ const StyledTopBarWrapper = styled(TopBarWrapper)`
   background-color: ${theme.color.neutral.base};
   color: ${theme.color.text.default};
   display: flex;
+  height: ${topbarDesktopHeight}rem;
+  ${theme.breakpoints.mobileMedium(css`
+    height: ${topbarMobileHeight}rem;
+  `)}
 `;
 
 // tslint:disable-next-line:variable-name

@@ -133,7 +133,7 @@ ReceiveMessageResult | SendMessageBatchResult | SendMessageResult>(
     try {
       // return await is required here to catch the error
       return await client.send(command);
-    } catch (error) {
+    } catch (error: any) {
       if (attempt >= MAX_ATTEMPTS || error.code !== 'EPROTO') {
         throw error;
       }
@@ -153,7 +153,7 @@ async function callWithRetries<A, B, R>(
     try {
       // return await is required here to catch the error
       return await (b === undefined ? func(a) : func(a, b));
-    } catch (error) {
+    } catch (error: any) {
       if (attempt >= MAX_ATTEMPTS || error.code !== 'EPROTO') {
         throw error;
       }

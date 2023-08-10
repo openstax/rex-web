@@ -274,7 +274,7 @@ describe('locationChange', () => {
       try {
         bookOrReferenceLoadingError = await resolveExternalBookReference(
           helpers, mockOtherBook, mockPageInOtherBook, reference);
-      } catch (e) {
+      } catch (e: any) {
         message = e;
       }
 
