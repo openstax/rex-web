@@ -432,6 +432,5 @@ test('C242991 special characters are escaped in slug', async ({ page, isMobile }
   const Toc = new TOC(page)
   await Toc.pageClick(12)
   await expect(page).toHaveURL('/books/psychologia-polska/pages/2-1-dlaczego-badania-sa-wazne')
-  expect(await Toc.tocSectionName(12)).toBe("2.1 Dlaczego badania są ważne?")
+  expect(await Toc.tocSectionName(12)).toBe('2.1 Dlaczego badania są ważne?')
 })
-
