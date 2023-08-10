@@ -26,7 +26,7 @@ const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
       book={book}
       hits={keyTermHits}
       testId='related-key-term-result'
-      getPage={(hit) => assertDefined(findArchiveTreeNodeById(book.tree, hit.source.pageId), 'hit has to be in a book')}
+      getPage={(hit: SearchResultHit) => assertDefined(findArchiveTreeNodeById(book.tree, hit.source.pageId), 'hit has to be in a book')}
       onClick={() => dispatch(closeSearchResultsMobile())}
       selectedResult={selectedResult}
     />

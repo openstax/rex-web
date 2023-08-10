@@ -81,7 +81,7 @@ const SearchResult = (props: {
       hits={props.page.results}
       testId='search-result'
       getPage={() => props.page}
-      onClick={(result) => props.selectResult(result)}
+      onClick={(result: SelectedResult) => props.selectResult(result)}
       selectedResult={props.selectedResult}
     />
   </Styled.NavItem>;
