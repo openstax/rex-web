@@ -347,8 +347,6 @@ test('C483587 click unit introduction page', async ({ page, isMobile }, testinfo
   await Toc.pageClick(1)
   await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
   expect(await Toc.tocSectionName(1)).toBe('1 Unit Introduction')
-
-  console.log(await Toc.unitName(14))
 })
 
 test('C483587 click pages on book with no units', async ({ page, isMobile }, testinfo) => {

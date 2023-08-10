@@ -46,12 +46,6 @@ class TOC {
     const tocSectionName = await sectionLink.textContent()
     return tocSectionName
   }
-
-  async unitName(sectionNumber: number) {
-    const unitLink = (this.sectionLocator.nth(sectionNumber).locator('xpath=./../../..//li[@data-type="unit"]'))
-    const unitName = await unitLink.textContent()
-    console.log(unitName)
-  }
 }
 
 export { TOC }
