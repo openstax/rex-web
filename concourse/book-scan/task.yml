@@ -11,6 +11,7 @@ image_resource:
 
 inputs:
 - name: cloudfront-environment
+- name: rex-web
 
 run:
-  path: /code/concourse/book-scan/script.bash
+  path: rex-web/concourse/book-scan/script.bash
