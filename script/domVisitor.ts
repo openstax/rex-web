@@ -190,12 +190,10 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
       const headers = response.headers();
       const contentType = headers['content-type'];
       response.buffer().then((body) => cache.set(url, { status, headers, contentType, body })).catch((error) => {
-        if (error.message === 'Protocol error (Network.getResponseBody): No resource with given identifier found') {
-          // ignore this error that happens if we navigated away from the page before loading this response
-          return;
-        }
-
-        throw error;
+        // ignore this error that happens if we navigated away from the page before loading this response
+        if (error.message !== 'Protocol error (Network.getResponseBody): No resource with given identifier found') {
+          throw error;
+        }        
       });
     }
 
