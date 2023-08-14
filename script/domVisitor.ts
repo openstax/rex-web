@@ -180,15 +180,20 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
     const url = response.url();
     const status = response.status();
 
-    // Don't cache data urls
+    // ignore redirect responses since they have no response body
+    if (status >= 300 && status < 400) {
+      return;
+    }
+
+    // don't cache data urls
     if (!url.startsWith('data:')) {
       const headers = response.headers();
       const contentType = headers['content-type'];
       response.buffer().then((body) => cache.set(url, { status, headers, contentType, body }));
     }
 
-    // accounts endpoint always 403s when logged out
-    if ([200, 304].includes(status) || (status === 403 && url.includes('/accounts/api/user'))) {
+    // accounts endpoint always 403s when logged out, so we ignore those errors
+    if ((status >= 200 && status < 300) || (status === 403 && url.includes('/accounts/api/user'))) {
       return;
     }
 
