@@ -88,12 +88,6 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
   ] : [];
 
   dispatch(setHead({links, meta, title, contentTags}));
-  if (typeof window !== 'undefined') {
-    document?.dispatchEvent(new Event('ZoteroItemUpdated', {
-      bubbles: true,
-      cancelable: true,
-    }));
-    }
 };
 
 export default hookBody;
