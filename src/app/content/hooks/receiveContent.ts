@@ -12,8 +12,24 @@ import { content as contentRoute } from '../routes';
 import * as select from '../selectors';
 import { getCanonicalUrlParams } from '../utils/canonicalUrl';
 import { createTitle, getPageDescription } from '../utils/seoUtils';
+import { attributionValues } from '../components/utils/attributionValues';
+import { Book } from '../types';
 
 const escapeQuotes = (text: string) => text.replace(/"/g, '&quot;');
+
+function citationMetaTags(book: Book, canonicalHref: string | null) {
+  const {bookTitle, publisher, bookPublishDate, language, authorsToDisplay} = attributionValues(book);
+  const dateStr = bookPublishDate?.toLocaleDateString('en-us', {month: 'short', day: 'numeric', year: 'numeric'});
+
+  return [
+    {name: 'citation_book_title', content: bookTitle},
+    {name: 'citation_publisher', content: publisher},
+    {name: 'citation_language', content: language},
+    ...(dateStr ? [{name: 'citation_date', content: dateStr}] : []),
+    ...authorsToDisplay.map((a) => ({name: 'citation_author', content: a.value.name})),
+    ...(canonicalHref ? [{name: 'citation_public_url', content: canonicalHref}] : []),
+  ];
+}
 
 const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (services) => async() => {
   const { getState, dispatch, archiveLoader, osWebLoader } = services;
@@ -41,10 +57,11 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
   const description = getPageDescription(services, intl, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
+  const canonicalHref = canonicalUrl && `https://openstax.org${canonicalUrl}`;
   const bookTheme = theme.color.primary[hasOSWebData(book) ? book.theme : defaultTheme].base;
 
-  const links = canonicalUrl ? [
-    {rel: 'canonical', href: `https://openstax.org${canonicalUrl}`} as Link,
+  const links = canonicalHref ? [
+    {rel: 'canonical', href: canonicalHref} as Link,
   ] : [];
   const escapedDescription = escapeQuotes(description);
   const meta = [
@@ -53,6 +70,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
     {property: 'og:title', content: escapeQuotes(title)},
     {property: 'og:url', content: `https://openstax.org${currentPath}`},
     {name: 'theme-color', content: bookTheme},
+    ...citationMetaTags(book, canonicalHref),
   ];
 
   if (hasOSWebData(book) && book.promote_image) {
