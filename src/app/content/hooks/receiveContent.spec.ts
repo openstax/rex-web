@@ -197,6 +197,7 @@ describe('setHead hook', () => {
     });
 
     it('dispatches sethead without robots:noindex tag if book is default', async() => {
+      combinedBook.language = 'pl';
       store.dispatch(receiveBook({
         ...combinedBook,
       }));
