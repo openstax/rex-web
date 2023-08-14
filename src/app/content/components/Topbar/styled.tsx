@@ -111,6 +111,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
       : {}
     }
     value={intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}
+    aria-label={intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}
   >
     <SearchIcon />
   </PlainButton>;
