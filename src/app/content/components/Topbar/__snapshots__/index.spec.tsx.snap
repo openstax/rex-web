@@ -49,7 +49,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
         value=""
       />
       <button
-        aria-label="Search this book"
+        aria-label="Search"
         className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
         data-analytics-label="Search this book"
         data-experiment={true}
@@ -61,10 +61,14 @@ exports[`text resizer does not render if textSize is null 1`] = `
         <svg
           aria-hidden="true"
           height="18px"
+          role="img"
           version="1.1"
           viewBox="0 0 18 18"
           width="18px"
         >
+          <title>
+            Search
+          </title>
           <g
             fill="none"
             fillRule="evenodd"
@@ -84,6 +88,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
         </svg>
       </button>
       <button
+        aria-label="Search"
         className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
         data-experiment={true}
         value="Search"
@@ -91,10 +96,14 @@ exports[`text resizer does not render if textSize is null 1`] = `
         <svg
           aria-hidden="true"
           height="18px"
+          role="img"
           version="1.1"
           viewBox="0 0 18 18"
           width="18px"
         >
+          <title>
+            Search
+          </title>
           <g
             fill="none"
             fillRule="evenodd"
@@ -153,6 +162,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
           value=""
         />
         <button
+          aria-label="Search"
           className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
           data-experiment={true}
           value="Search"
@@ -160,10 +170,14 @@ exports[`text resizer does not render if textSize is null 1`] = `
           <svg
             aria-hidden="true"
             height="18px"
+            role="img"
             version="1.1"
             viewBox="0 0 18 18"
             width="18px"
           >
+            <title>
+              Search
+            </title>
             <g
               fill="none"
               fillRule="evenodd"
@@ -239,7 +253,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         value=""
       />
       <button
-        aria-label="Search this book"
+        aria-label="Search"
         className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
         data-analytics-label="Search this book"
         data-experiment={true}
@@ -251,10 +265,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         <svg
           aria-hidden="true"
           height="18px"
+          role="img"
           version="1.1"
           viewBox="0 0 18 18"
           width="18px"
         >
+          <title>
+            Search
+          </title>
           <g
             fill="none"
             fillRule="evenodd"
@@ -274,6 +292,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </svg>
       </button>
       <button
+        aria-label="Search"
         className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
         data-experiment={true}
         value="Search"
@@ -281,10 +300,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         <svg
           aria-hidden="true"
           height="18px"
+          role="img"
           version="1.1"
           viewBox="0 0 18 18"
           width="18px"
         >
+          <title>
+            Search
+          </title>
           <g
             fill="none"
             fillRule="evenodd"
@@ -411,6 +434,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           value=""
         />
         <button
+          aria-label="Search"
           className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
           data-experiment={true}
           value="Search"
@@ -418,10 +442,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           <svg
             aria-hidden="true"
             height="18px"
+            role="img"
             version="1.1"
             viewBox="0 0 18 18"
             width="18px"
           >
+            <title>
+              Search
+            </title>
             <g
               fill="none"
               fillRule="evenodd"
