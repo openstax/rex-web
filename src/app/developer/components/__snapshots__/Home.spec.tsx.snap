@@ -488,13 +488,14 @@ Array [
           />
           <div
             className="styled__Social-y5hgq4-19 kjjZEm"
-            role="directory"
+            role="list"
           >
             <a
               aria-label="facebook"
               className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
               href="https://www.facebook.com/openstax"
               rel="noopener"
+              role="listitem"
               target="_blank"
             >
               <svg
@@ -516,6 +517,7 @@ Array [
               className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
               href="https://twitter.com/openstax"
               rel="noopener"
+              role="listitem"
               target="_blank"
             >
               <svg
@@ -537,6 +539,7 @@ Array [
               className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
               href="https://www.linkedin.com/company/openstax"
               rel="noopener"
+              role="listitem"
               target="_blank"
             >
               <svg
@@ -558,6 +561,7 @@ Array [
               className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
               href="https://www.instagram.com/openstax/"
               rel="noopener"
+              role="listitem"
               target="_blank"
             >
               <svg
@@ -578,6 +582,7 @@ Array [
               className="styled__BottomLink-y5hgq4-11 iKPkVp"
               href="http://www.rice.edu"
               rel="noopener"
+              role="listitem"
               target="_blank"
             >
               <img
