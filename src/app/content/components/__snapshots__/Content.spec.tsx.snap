@@ -177,7 +177,7 @@ Array [
               value=""
             />
             <button
-              aria-label="Search this book"
+              aria-label="Search"
               className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
               data-analytics-label="Search this book"
               data-experiment={true}
@@ -189,10 +189,14 @@ Array [
               <svg
                 aria-hidden="true"
                 height="18px"
+                role="img"
                 version="1.1"
                 viewBox="0 0 18 18"
                 width="18px"
               >
+                <title>
+                  Search
+                </title>
                 <g
                   fill="none"
                   fillRule="evenodd"
@@ -212,6 +216,7 @@ Array [
               </svg>
             </button>
             <button
+              aria-label="Search"
               className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
               data-experiment={true}
               value="Search"
@@ -219,10 +224,14 @@ Array [
               <svg
                 aria-hidden="true"
                 height="18px"
+                role="img"
                 version="1.1"
                 viewBox="0 0 18 18"
                 width="18px"
               >
+                <title>
+                  Search
+                </title>
                 <g
                   fill="none"
                   fillRule="evenodd"
@@ -301,6 +310,7 @@ Array [
                 value=""
               />
               <button
+                aria-label="Search"
                 className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
                 data-experiment={true}
                 value="Search"
@@ -308,10 +318,14 @@ Array [
                 <svg
                   aria-hidden="true"
                   height="18px"
+                  role="img"
                   version="1.1"
                   viewBox="0 0 18 18"
                   width="18px"
                 >
+                  <title>
+                    Search
+                  </title>
                   <g
                     fill="none"
                     fillRule="evenodd"
@@ -1612,13 +1626,14 @@ Array [
                   />
                   <div
                     className="styled__Social-y5hgq4-19 kjjZEm"
-                    role="directory"
+                    role="list"
                   >
                     <a
                       aria-label="facebook"
                       className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
                       href="https://www.facebook.com/openstax"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <svg
@@ -1640,6 +1655,7 @@ Array [
                       className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
                       href="https://twitter.com/openstax"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <svg
@@ -1661,6 +1677,7 @@ Array [
                       className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
                       href="https://www.linkedin.com/company/openstax"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <svg
@@ -1682,6 +1699,7 @@ Array [
                       className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
                       href="https://www.instagram.com/openstax/"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <svg
@@ -1702,6 +1720,7 @@ Array [
                       className="styled__BottomLink-y5hgq4-11 iKPkVp"
                       href="http://www.rice.edu"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <img
@@ -1899,7 +1918,7 @@ Array [
               value=""
             />
             <button
-              aria-label="Search this book"
+              aria-label="Search"
               className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
               data-analytics-label="Search this book"
               data-experiment={true}
@@ -1911,10 +1930,14 @@ Array [
               <svg
                 aria-hidden="true"
                 height="18px"
+                role="img"
                 version="1.1"
                 viewBox="0 0 18 18"
                 width="18px"
               >
+                <title>
+                  Search
+                </title>
                 <g
                   fill="none"
                   fillRule="evenodd"
@@ -1934,6 +1957,7 @@ Array [
               </svg>
             </button>
             <button
+              aria-label="Search"
               className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
               data-experiment={true}
               value="Search"
@@ -1941,10 +1965,14 @@ Array [
               <svg
                 aria-hidden="true"
                 height="18px"
+                role="img"
                 version="1.1"
                 viewBox="0 0 18 18"
                 width="18px"
               >
+                <title>
+                  Search
+                </title>
                 <g
                   fill="none"
                   fillRule="evenodd"
@@ -2023,6 +2051,7 @@ Array [
                 value=""
               />
               <button
+                aria-label="Search"
                 className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
                 data-experiment={true}
                 value="Search"
@@ -2030,10 +2059,14 @@ Array [
                 <svg
                   aria-hidden="true"
                   height="18px"
+                  role="img"
                   version="1.1"
                   viewBox="0 0 18 18"
                   width="18px"
                 >
+                  <title>
+                    Search
+                  </title>
                   <g
                     fill="none"
                     fillRule="evenodd"
@@ -3239,13 +3272,14 @@ Array [
                   />
                   <div
                     className="styled__Social-y5hgq4-19 kjjZEm"
-                    role="directory"
+                    role="list"
                   >
                     <a
                       aria-label="facebook"
                       className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
                       href="https://www.facebook.com/openstax"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <svg
@@ -3267,6 +3301,7 @@ Array [
                       className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
                       href="https://twitter.com/openstax"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <svg
@@ -3288,6 +3323,7 @@ Array [
                       className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
                       href="https://www.linkedin.com/company/openstax"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <svg
@@ -3309,6 +3345,7 @@ Array [
                       className="styled__SocialIcon-y5hgq4-20 hUKzFZ"
                       href="https://www.instagram.com/openstax/"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <svg
@@ -3329,6 +3366,7 @@ Array [
                       className="styled__BottomLink-y5hgq4-11 iKPkVp"
                       href="http://www.rice.edu"
                       rel="noopener"
+                      role="listitem"
                       target="_blank"
                     >
                       <img
