@@ -86,31 +86,24 @@ async function visitPages(
       const appendQueryString =
         queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
                     : archiveUrl ? `?archive=${archiveUrl}` : '';
-      // validateLinks should persist within the SPA so we allow it when clicking links
-      if (appendQueryString && appendQueryString !== '?validateLinks') {
-        await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+      const pageComponents = pageUrl.split('/');
+      const slug = pageComponents[pageComponents.length - 1];
+      const linkSelector = `a[href^="${slug}"]`;
+      const link = await page.$(linkSelector);
+
+      if (link) {
+        await page.evaluate((linkCss) => {
+          const linkElt = document?.querySelector(linkCss);
+          if (!linkElt) {
+            // This should not be reachable
+            throw new Error('Evaluation failed: document or link not found');
+          }
+
+          linkElt.click();
+        }, linkSelector);
+        await page.waitForSelector(`li[aria-label="Current Page"] ${linkSelector}`);
       } else {
-        // If there's no queryString, we can click the content links instead which are much faster
-        // Prefer using env variables instead of queryStrings when possible
-        const pageComponents = pageUrl.split('/');
-        const slug = pageComponents[pageComponents.length - 1];
-        const linkSelector = `a[href="${slug}"]`;
-        const link = await page.$(linkSelector);
-
-        if (link) {
-          await page.evaluate((linkCss) => {
-            const linkElt = document?.querySelector(linkCss);
-            if (!linkElt) {
-              // This should not be reachable
-              throw new Error('Evaluation failed: document or link not found');
-            }
-
-            linkElt.click();
-          }, linkSelector);
-          await page.waitForSelector(`li[aria-label="Current Page"] ${linkSelector}`);
-        } else {
-          await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
-        }
+        await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
       }
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
@@ -193,7 +186,7 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
         // ignore this error that happens if we navigated away from the page before loading this response
         if (error.message !== 'Protocol error (Network.getResponseBody): No resource with given identifier found') {
           throw error;
-        }        
+        }
       });
     }
 
