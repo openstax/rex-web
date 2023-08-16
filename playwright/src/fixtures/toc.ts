@@ -46,6 +46,24 @@ class TOC {
     const tocSectionName = await sectionLink.textContent()
     return tocSectionName
   }
+
+  async tocChapterName(sectionNumber: number) {
+    const loc = this.page.locator('div[data-testid=toc]')
+    const unit = loc.locator('css=[data-type=unit] >> details', { hasText: `${await this.tocSectionName(sectionNumber)}` }).first()
+    const chapter = unit.locator('[data-type=chapter]', { hasText: `${await this.tocSectionName(sectionNumber)}` })
+    const chapterNumber = chapter.locator('.os-number').first()
+    const chapterName = chapter.locator('.os-text').first()
+    console.log(await chapterNumber.textContent())
+    console.log(await chapterName.textContent())
+  }
+
+  async tocUnitName(sectionNumber: number) {
+    const loc = this.page.locator('div[data-testid=toc]')
+    const unit = loc.locator('css=[data-type=unit] >> details', { hasText: `${await this.tocSectionName(sectionNumber)}` }).first()
+    const unitName = unit.locator('.os-text').first()
+    console.log(await unitName.textContent())
+
+  }
 }
 
 export { TOC }

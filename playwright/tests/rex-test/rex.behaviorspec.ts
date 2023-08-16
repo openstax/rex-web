@@ -434,3 +434,17 @@ test('C242991 special characters are escaped in slug', async ({ page, isMobile }
   await expect(page).toHaveURL('/books/psychologia-polska/pages/2-1-dlaczego-badania-sa-wazne')
   expect(await Toc.tocSectionName(12)).toBe('2.1 Dlaczego badania są ważne?')
 })
+
+test('unit name', async ({ page, isMobile }, testinfo) => {
+  const bookPage = new ContentPage(page)
+  const path = '/books/biology-2e/pages/1-1-the-science-of-biology'
+  await bookPage.open(path)
+
+
+  const Toc = new TOC(page)
+
+
+  await Toc.tocUnitName(2)
+  await Toc.tocChapterName(2)
+
+})
