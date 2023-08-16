@@ -554,3 +554,20 @@ describe('memoizeStateToProps', () => {
     expect(stateA.bookAndPage).not.toBe(stateB.bookAndPage);
   });
 });
+
+describe('isNetworkError', () => {
+  it('should return true for network errors', () => {
+    const networkError = new TypeError('Failed to fetch');
+    expect(utils.isNetworkError(networkError)).toBe(true);
+  });
+
+  it('should return false for non-network errors', () => {
+    const otherError = new Error('Some other error');
+    expect(utils.isNetworkError(otherError)).toBe(false);
+  });
+
+  it('should return false for network errors with a different message', () => {
+    const differentNetworkError = new TypeError('Some other type error');
+    expect(utils.isNetworkError(differentNetworkError)).toBe(false);
+  });
+});

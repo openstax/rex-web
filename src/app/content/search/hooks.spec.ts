@@ -15,6 +15,7 @@ import { clearSearch, receiveSearchResults, requestSearch, selectSearchResult } 
 import { clearSearchHook, openSearchInSidebarHook, receiveSearchHook, requestSearchHook, syncSearch } from './hooks';
 import { SearchScrollTarget } from './types';
 import { ToastMesssageError } from '../../../helpers/applicationMessageError';
+import Sentry from '../../../helpers/Sentry';
 
 describe('hooks', () => {
   let store: Store;
@@ -75,6 +76,21 @@ describe('hooks', () => {
       try {
         await hook(requestSearch('asdf'));
       } catch (e) {
+        expect(e).toBeInstanceOf(ToastMesssageError);
+      }
+    });
+
+    it('captures errors if something else went wrong with the fetch', async () => {
+      const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
+
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      (helpers.searchClient.search as any).mockReturnValue(
+        Promise.reject('Internal Error')
+      );
+      try {
+        await hook(requestSearch('asdf'));
+      } catch (e) {
+        expect(captureException).toHaveBeenCalledWith('Internal Error');
         expect(e).toBeInstanceOf(ToastMesssageError);
       }
     });
