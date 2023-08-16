@@ -1,5 +1,6 @@
 import { VersionedArchiveBookWithConfig } from '../app/content/types';
 import { toastMessageKeys } from '../app/notifications/components/ToastNotifications/constants';
+import Sentry from '../helpers/Sentry';
 import { resetModules } from '../test/utils';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
@@ -254,14 +255,34 @@ describe('archiveLoader', () => {
           Promise.reject(new TypeError('Failed to fetch'))
         );
 
-        await expect(
-          createArchiveLoader().book('coolid', {
+        expect(async() => {
+          await createArchiveLoader().book('coolid', {
             booksConfig: { archiveUrl: '/test/archive', books: { coolid: { defaultVersion: 'version' } } },
           }).load().catch((error) => {
             expect(error?.messageKey).toBe(toastMessageKeys.archive.failure.load);
             expect(error?.meta).toEqual({ destination: 'page', shouldAutoDismiss: false });
-          })
+          });
+        });
+
+        jest.restoreAllMocks();
+      });
+
+      it('captures errors if something else went wrong with the fetch', async() => {
+        const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
+
+        global.fetch = jest.fn(() =>
+          Promise.reject('Internal Error')
         );
+
+        expect(async() => {
+          await createArchiveLoader().book('coolid', {
+            booksConfig: { archiveUrl: '/test/archive', books: { coolid: { defaultVersion: 'version' } } },
+          }).load().catch((error) => {
+            expect(captureException).toHaveBeenCalledWith('Internal Error');
+            expect(error?.messageKey).toBe(toastMessageKeys.archive.failure.load);
+            expect(error?.meta).toEqual({ destination: 'page', shouldAutoDismiss: false });
+          });
+        });
 
         jest.restoreAllMocks();
       });

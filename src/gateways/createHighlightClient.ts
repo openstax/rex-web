@@ -1,8 +1,9 @@
 import { Configuration, HighlightsApi } from '@openstax/highlighter/dist/api';
 import { FetchConfig } from '@openstax/ts-utils/fetch';
 import merge from 'lodash/fp/merge';
-import { UnauthenticatedError } from '../app/utils';
+import { UnauthenticatedError, isNetworkError } from '../app/utils';
 import { HighlightLoadError } from '../app/content/highlights/errors';
+import Sentry from '../helpers/Sentry';
 
 const formatError = (response: Response) => {
   return response.json()
@@ -20,6 +21,9 @@ export default (basePath: string, getAuthorizedFetchConfig: () => Promise<FetchC
       try {
         response = await fetch(url, merge(fetchConfig, authorizedFetchConfig));
       } catch (e) {
+        if (!isNetworkError(e)) {
+          Sentry.captureException(e);
+        }
         throw new HighlightLoadError({ destination: 'page', shouldAutoDismiss: true });
       }
 

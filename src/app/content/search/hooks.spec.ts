@@ -80,7 +80,7 @@ describe('hooks', () => {
       }
     });
 
-    it('captures errors if something else went wrong with the fetch', async () => {
+    it('captures errors if something else went wrong with the fetch', async() => {
       const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
 
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
