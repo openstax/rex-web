@@ -20,10 +20,11 @@ exports[`text resizer does not render if textSize is null 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
+          className="sc-bdVaJa cjEDWs styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
@@ -48,7 +49,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
         value=""
       />
       <button
-        aria-label="Search this book"
+        aria-label="Search"
         className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
         data-analytics-label="Search this book"
         data-experiment={true}
@@ -60,10 +61,14 @@ exports[`text resizer does not render if textSize is null 1`] = `
         <svg
           aria-hidden="true"
           height="18px"
+          role="img"
           version="1.1"
           viewBox="0 0 18 18"
           width="18px"
         >
+          <title>
+            Search
+          </title>
           <g
             fill="none"
             fillRule="evenodd"
@@ -83,6 +88,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
         </svg>
       </button>
       <button
+        aria-label="Search"
         className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
         data-experiment={true}
         value="Search"
@@ -90,10 +96,14 @@ exports[`text resizer does not render if textSize is null 1`] = `
         <svg
           aria-hidden="true"
           height="18px"
+          role="img"
           version="1.1"
           viewBox="0 0 18 18"
           width="18px"
         >
+          <title>
+            Search
+          </title>
           <g
             fill="none"
             fillRule="evenodd"
@@ -152,6 +162,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
           value=""
         />
         <button
+          aria-label="Search"
           className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
           data-experiment={true}
           value="Search"
@@ -159,10 +170,14 @@ exports[`text resizer does not render if textSize is null 1`] = `
           <svg
             aria-hidden="true"
             height="18px"
+            role="img"
             version="1.1"
             viewBox="0 0 18 18"
             width="18px"
           >
+            <title>
+              Search
+            </title>
             <g
               fill="none"
               fillRule="evenodd"
@@ -209,10 +224,11 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
+          className="sc-bdVaJa cjEDWs styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
@@ -237,7 +253,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         value=""
       />
       <button
-        aria-label="Search this book"
+        aria-label="Search"
         className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
         data-analytics-label="Search this book"
         data-experiment={true}
@@ -249,10 +265,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         <svg
           aria-hidden="true"
           height="18px"
+          role="img"
           version="1.1"
           viewBox="0 0 18 18"
           width="18px"
         >
+          <title>
+            Search
+          </title>
           <g
             fill="none"
             fillRule="evenodd"
@@ -272,6 +292,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </svg>
       </button>
       <button
+        aria-label="Search"
         className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
         data-experiment={true}
         value="Search"
@@ -279,10 +300,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         <svg
           aria-hidden="true"
           height="18px"
+          role="img"
           version="1.1"
           viewBox="0 0 18 18"
           width="18px"
         >
+          <title>
+            Search
+          </title>
           <g
             fill="none"
             fillRule="evenodd"
@@ -409,6 +434,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           value=""
         />
         <button
+          aria-label="Search"
           className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
           data-experiment={true}
           value="Search"
@@ -416,10 +442,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           <svg
             aria-hidden="true"
             height="18px"
+            role="img"
             version="1.1"
             viewBox="0 0 18 18"
             width="18px"
           >
+            <title>
+              Search
+            </title>
             <g
               fill="none"
               fillRule="evenodd"

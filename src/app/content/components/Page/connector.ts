@@ -13,6 +13,7 @@ import { ContentLinkProp, mapDispatchToContentLinkProp, mapStateToContentLinkPro
 import { HighlightProp, mapDispatchToHighlightProp, mapStateToHighlightProp } from './highlightManager';
 import { mapStateToScrollToTopOrHashProp } from './scrollToTopOrHashManager';
 import { mapStateToSearchHighlightProp } from './searchHighlightManager';
+import { StyledComponent } from 'styled-components';
 
 export interface PagePropTypes {
   intl: IntlShape;
@@ -32,6 +33,7 @@ export interface PagePropTypes {
   systemQueryParams: SystemQueryParams;
   textSize: TextResizerValue;
   lockNavigation: boolean;
+  ToastOverride: StyledComponent<'div', any, {}, never>;
 }
 
 export default connect(
