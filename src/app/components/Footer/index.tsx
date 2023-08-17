@@ -65,6 +65,9 @@ const Column3 = () => <Styled.Column3>
   <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
   <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
   <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
+  <Styled.ManageCookiesLink>
+    <FormattedMessage id='i18n:footer:column3:manage-cookies'>{(msg) => msg}</FormattedMessage>
+  </Styled.ManageCookiesLink>
 </Styled.Column3>;
 
 // tslint:disable-next-line:variable-name

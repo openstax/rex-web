@@ -1,3 +1,4 @@
+import { ManageCookiesLink as RawCookiesLink } from '@openstax/ui-components';
 import styled, { css } from 'styled-components/macro';
 import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
@@ -15,6 +16,10 @@ const mobileMinWidth = '37.5';
 
 export const columnLink = css`
   color: inherit;
+
+  &:hover, &:active, &:focus {
+    color: inherit;
+  }
 `;
 
 export const iconStyles = css`
@@ -159,8 +164,7 @@ export const Mission = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
-export const FooterLink = styled.a`
+export const footerLinkStyle = css`
   ${columnLink}
   text-decoration: none;
 
@@ -171,6 +175,18 @@ export const FooterLink = styled.a`
   @media (max-width: ${mobileMinWidth}em) {
     line-height: 4.5rem;
   }
+`;
+
+// tslint:disable-next-line:variable-name
+export const FooterLink = styled.a`
+  ${footerLinkStyle}
+`;
+
+// tslint:disable-next-line:variable-name
+export const ManageCookiesLink = styled(RawCookiesLink)`
+  ${textRegularStyle}
+  ${footerLinkStyle}
+  text-align: left;
 `;
 
 // tslint:disable-next-line:variable-name
