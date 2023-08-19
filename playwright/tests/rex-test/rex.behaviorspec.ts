@@ -346,7 +346,7 @@ test('C483587 click unit introduction page', async ({ page, isMobile }, testinfo
   const Toc = new TOC(page)
   await Toc.pageClick(1)
   await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
-  expect(await Toc.tocSectionName(1)).toBe('1 Unit Introduction')
+  expect(await Toc.SectionName()).toBe('1 Unit Introduction')
 })
 
 test('C483587 click pages on book with no units', async ({ page, isMobile }, testinfo) => {
@@ -368,20 +368,20 @@ test('C483587 click pages on book with no units', async ({ page, isMobile }, tes
   const Toc = new TOC(page)
   await Toc.pageClick(28)
   await expect(page).toHaveURL('/books/college-algebra-2e/pages/3-2-domain-and-range')
-  expect(await Toc.tocSectionName(28)).toBe('3.2 Domain and Range')
+  expect(await Toc.SectionName()).toBe('3.2 Domain and Range')
 
   // click eob page
-  await Toc.pageClick(100)
-  await expect(page).toHaveURL('/books/college-algebra-2e/pages/1-key-equations')
-  expect(await Toc.tocSectionName(9)).toBe('Key Equations')
+  await Toc.pageClick(11)
+  await expect(page).toHaveURL('/books/college-algebra-2e/pages/1-review-exercises')
+  expect(await Toc.SectionName()).toBe('Review Exercises')
 
   // click eoc page
   await Toc.pageClick(120)
   await expect(page).toHaveURL('/books/college-algebra-2e/pages/chapter-8')
-  expect(await Toc.tocSectionName(120)).toBe('Chapter 8')
+  expect(await Toc.SectionName()).toBe('Chapter 8')
 })
 
-test('C483587 click page on book with units', async ({ page, isMobile }, testinfo) => {
+test('C483587 click pages on book with units', async ({ page, isMobile }, testinfo) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/university-physics-volume-1/pages/preface'
@@ -400,17 +400,17 @@ test('C483587 click page on book with units', async ({ page, isMobile }, testinf
   const Toc = new TOC(page)
   await Toc.pageClick(57)
   await expect(page).toHaveURL('/books/university-physics-volume-1/pages/5-2-newtons-first-law')
-  expect(await Toc.tocSectionName(57)).toBe("5.2 Newton's First Law")
+  expect(await Toc.SectionName()).toBe("5.2 Newton's First Law")
 
   // click eob page
   await Toc.pageClick(200)
   await expect(page).toHaveURL('/books/university-physics-volume-1/pages/15-summary')
-  expect(await Toc.tocSectionName(200)).toBe('Summary')
+  expect(await Toc.SectionName()).toBe('Summary')
 
   // click eoc page
   await Toc.pageClick(245)
   await expect(page).toHaveURL('/books/university-physics-volume-1/pages/chapter-4')
-  expect(await Toc.tocSectionName(245)).toBe('Chapter 4')
+  expect(await Toc.SectionName()).toBe('Chapter 4')
 })
 
 test('C242991 special characters are escaped in slug', async ({ page, isMobile }, testinfo) => {
@@ -432,7 +432,7 @@ test('C242991 special characters are escaped in slug', async ({ page, isMobile }
   const Toc = new TOC(page)
   await Toc.pageClick(12)
   await expect(page).toHaveURL('/books/psychologia-polska/pages/2-1-dlaczego-badania-sa-wazne')
-  expect(await Toc.tocSectionName(12)).toBe('2.1 Dlaczego badania są ważne?')
+  expect(await Toc.SectionName()).toBe('2.1 Dlaczego badania są ważne?')
 })
 
 test('unit name', async ({ page, isMobile }, testinfo) => {
@@ -440,11 +440,13 @@ test('unit name', async ({ page, isMobile }, testinfo) => {
   const path = '/books/biology-2e/pages/1-1-the-science-of-biology'
   await bookPage.open(path)
 
-
   const Toc = new TOC(page)
 
+  console.log(await Toc.pageNumber('11-introduction'))
 
-  await Toc.tocUnitName(2)
-  await Toc.tocChapterName(2)
+  await Toc.pageClick(105)
+  await Toc.CurrentPageSlug()
 
+  expect(await Toc.UnitName()).toBe('Genetics')
+  expect(await Toc.ChapterName()).toBe('11         Meiosis and Sexual Reproduction')
 })
