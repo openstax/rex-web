@@ -17,7 +17,9 @@ const mobileMinWidth = '37.5';
 export const columnLink = css`
   color: inherit;
 
-  &:hover, &:active, &:focus {
+  &:hover,
+  &:active,
+  &:focus {
     color: inherit;
   }
 `;
