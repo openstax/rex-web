@@ -1,6 +1,6 @@
 import { VersionedArchiveBookWithConfig } from '../app/content/types';
-import { toastMessageKeys } from '../app/notifications/components/ToastNotifications/constants';
 import Sentry from '../helpers/Sentry';
+import { ToastMesssageError } from '../helpers/applicationMessageError';
 import { resetModules } from '../test/utils';
 
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
@@ -15,10 +15,12 @@ const createArchiveLoader: typeof import ('./createArchiveLoader').default = (..
 
 describe('archiveLoader', () => {
   const fetchBackup = fetch;
+  let captureException: jest.SpyInstance;
 
   afterEach(() => {
     resetModules();
     (global as any).fetch = fetchBackup;
+    captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
   });
 
   describe('book loader', () => {
@@ -251,38 +253,51 @@ describe('archiveLoader', () => {
       });
 
       it('when the network connection is flaky/offline', async() => {
+        let error: Error | null = null;
+
         global.fetch = jest.fn(() =>
           Promise.reject(new TypeError('Failed to fetch'))
         );
 
-        expect(async() => {
+        try {
           await createArchiveLoader().book('coolid', {
             booksConfig: { archiveUrl: '/test/archive', books: { coolid: { defaultVersion: 'version' } } },
-          }).load().catch((error) => {
-            expect(error?.messageKey).toBe(toastMessageKeys.archive.failure.load);
-            expect(error?.meta).toEqual({ destination: 'page', shouldAutoDismiss: false });
-          });
-        });
+          }).load();
+        } catch (e: any) {
+          error = e;
+        }
 
-        jest.restoreAllMocks();
+        if (error) {
+          expect(captureException).not.toHaveBeenCalled();
+          expect((error as ToastMesssageError).messageKey).toEqual(
+            'i18n:notification:toast:archive:load-failure'
+          );
+        } else {
+          expect(error).toBeTruthy();
+        }
       });
 
       it('captures errors if something else went wrong with the fetch', async() => {
-        const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
+        let error: Error | null = null;
 
-        global.fetch = jest.fn(() =>
-          Promise.reject('Internal Error')
-        );
+        (global as any).fetch = mockFetch(500, 'Internal Error');
 
-        expect(async() => {
+        try {
           await createArchiveLoader().book('coolid', {
             booksConfig: { archiveUrl: '/test/archive', books: { coolid: { defaultVersion: 'version' } } },
-          }).load().catch((error) => {
-            expect(captureException).toHaveBeenCalledWith('Internal Error');
-            expect(error?.messageKey).toBe(toastMessageKeys.archive.failure.load);
-            expect(error?.meta).toEqual({ destination: 'page', shouldAutoDismiss: false });
-          });
-        });
+          }).load();
+        } catch (e: any) {
+          error = e;
+        }
+
+        if (error) {
+          expect(captureException).toHaveBeenCalled();
+          expect(error.message).toEqual(
+            'Error response from archive \"/test/archive/contents/coolid@version.json\" 500: Internal Error'
+          );
+        } else {
+          expect(error).toBeTruthy();
+        }
 
         jest.restoreAllMocks();
       });
