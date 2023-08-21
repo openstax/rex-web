@@ -15,12 +15,12 @@ const createArchiveLoader: typeof import ('./createArchiveLoader').default = (..
 
 describe('archiveLoader', () => {
   const fetchBackup = fetch;
-  let captureException: jest.SpyInstance;
+  let captureException: jest.SpyInstance = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
 
   afterEach(() => {
     resetModules();
     (global as any).fetch = fetchBackup;
-    captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
+    captureException.mockReset();
   });
 
   describe('book loader', () => {
