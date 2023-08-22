@@ -16,7 +16,6 @@ import {
   randomNum,
   randomstring,
   sleep,
-  MobileNavigation,
 } from '../../src/utilities/utilities'
 import { KsModal } from '../../src/fixtures/ksmodal'
 import { MHModal, MHHighlights, Action } from '../../src/fixtures/MHmodal'
@@ -42,7 +41,6 @@ export {
   randomstring,
   rexUserSignup,
   sleep,
-  MobileNavigation,
   test,
   userSignIn,
   webUserSignup,
