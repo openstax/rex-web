@@ -12,7 +12,6 @@ import {
   rexUserSignup,
   rexUserSignout,
   sleep,
-  MobileNavigation,
 } from './helpers'
 
 test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
@@ -334,15 +333,6 @@ test('C660045 click unit introduction page', async ({ page, isMobile }, testinfo
   const path = '/books/writing-guide/pages/preface'
   await BookPage.open(path)
 
-  const mobileNav = new MobileNavigation(page)
-  const projectsName = testinfo.project.name
-
-  if (isMobile && projectsName == 'iPad Pro 11') {
-    mobileNav.openBigMobileMenu('toc')
-  } else if (isMobile) {
-    mobileNav.openMobileMenu('toc')
-  }
-
   const Toc = new TOC(page)
   await Toc.pageClick(1)
   await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
@@ -356,15 +346,6 @@ test('C483595 click pages on book with no units', async ({ page, isMobile }, tes
   const BookPage = new ContentPage(page)
   const path = '/books/college-algebra-2e/pages/preface'
   await BookPage.open(path)
-
-  const mobileNav = new MobileNavigation(page)
-  const projectsName = testinfo.project.name
-
-  if (isMobile && projectsName == 'iPad Pro 11') {
-    mobileNav.openBigMobileMenu('toc')
-  } else if (isMobile) {
-    mobileNav.openMobileMenu('toc')
-  }
 
   // click chapter page
   const Toc = new TOC(page)
@@ -392,15 +373,6 @@ test('C483594 click pages on book with units', async ({ page, isMobile }, testin
   const BookPage = new ContentPage(page)
   const path = '/books/university-physics-volume-1/pages/preface'
   await BookPage.open(path)
-
-  const mobileNav = new MobileNavigation(page)
-  const projectsName = testinfo.project.name
-
-  if (isMobile && projectsName == 'iPad Pro 11') {
-    mobileNav.openBigMobileMenu('toc')
-  } else if (isMobile) {
-    mobileNav.openMobileMenu('toc')
-  }
 
   // click chapter page (special character present in section name)
   const Toc = new TOC(page)
