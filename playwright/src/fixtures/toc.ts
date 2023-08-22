@@ -1,5 +1,6 @@
-// Content page locators and functions
+// Table of Contents locators and functions
 import { Locator, Page } from 'playwright'
+import { MobileNavigation } from '../utilities/utilities'
 
 class TOC {
   page: Page
@@ -26,6 +27,15 @@ class TOC {
   async pageClick(pageNumber: number) {
     // Click on a toc link
     // param: page number to be clicked
+
+    const mobileNav = new MobileNavigation(this.page)
+    const browserAgent = await this.page.evaluate(() => navigator.userAgent)
+
+    if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')){
+      await mobileNav.openBigMobileMenu('toc')
+    } else if (browserAgent.includes('Mobile')) {
+      await mobileNav.openMobileMenu('toc')
+    }
 
     if (pageNumber < (await this.pageCount())) {
       // click the page if it is visible in toc
