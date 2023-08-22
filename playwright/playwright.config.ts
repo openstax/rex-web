@@ -24,13 +24,13 @@ const config: PlaywrightTestConfig = {
         browserName: 'webkit',
       },
     },
-    // {
-    //   name: 'Mobile (Pixel 5)',
-    //   use: {
-    //     browserName: 'chromium',
-    //     ...devices['Pixel 5'],
-    //   },
-    // },
+    {
+       name: 'Mobile (Pixel 5)',
+       use: {
+         browserName: 'chromium',
+         ...devices['Pixel 5'],
+       },
+     },
     // {
     //   name: 'Mobile (iPhone 12)',
     //   use: {
