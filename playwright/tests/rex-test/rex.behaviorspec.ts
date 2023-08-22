@@ -328,27 +328,7 @@ test('C649726 MH modal stays open on reload', async ({ page, isMobile }) => {
   expect(MHhighlightcount).toBe(1)
 })
 
-test('C483587 chapters toc', async ({ page, isMobile }, testinfo) => {
-  // GIVEN: Open Rex page
-  const BookPage = new ContentPage(page)
-  const path = '/books/college-physics-2e/pages/preface'
-  await BookPage.open(path)
-
-  const mobileNav = new MobileNavigation(page)
-  const projectsName = testinfo.project.name
-
-  if (isMobile && projectsName == 'iPad Pro 11') {
-    mobileNav.openBigMobileMenu('toc')
-  } else if (isMobile) {
-    mobileNav.openMobileMenu('toc')
-  }
-
-  const Toc = new TOC(page)
-  await Toc.pageClick(11)
-  await expect(page).toHaveURL('/books/college-physics-2e/pages/2-1-displacement')
-})
-
-test('C483587 units toc', async ({ page, isMobile }, testinfo) => {
+test('C660045 click unit introduction page', async ({ page, isMobile }, testinfo) => {
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/writing-guide/pages/preface'
@@ -366,4 +346,104 @@ test('C483587 units toc', async ({ page, isMobile }, testinfo) => {
   const Toc = new TOC(page)
   await Toc.pageClick(1)
   await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
+  expect(await Toc.SectionName()).toBe('1 Unit Introduction')
+
+  expect(await Toc.UnitName()).toBe('The Things We Carry: Experience, Culture, and Language')
+})
+
+test('C483595 click pages on book with no units', async ({ page, isMobile }, testinfo) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/college-algebra-2e/pages/preface'
+  await BookPage.open(path)
+
+  const mobileNav = new MobileNavigation(page)
+  const projectsName = testinfo.project.name
+
+  if (isMobile && projectsName == 'iPad Pro 11') {
+    mobileNav.openBigMobileMenu('toc')
+  } else if (isMobile) {
+    mobileNav.openMobileMenu('toc')
+  }
+
+  // click chapter page
+  const Toc = new TOC(page)
+  await Toc.pageClick(28)
+  await expect(page).toHaveURL('/books/college-algebra-2e/pages/3-2-domain-and-range')
+  expect(await Toc.SectionName()).toBe('3.2 Domain and Range')
+  expect(await Toc.ChapterName()).toBe('3         Functions')
+
+  // click eoc page
+  await Toc.pageClick(11)
+  await expect(page).toHaveURL('/books/college-algebra-2e/pages/1-review-exercises')
+  expect(await Toc.SectionName()).toBe('Review Exercises')
+  expect(await Toc.ChapterName()).toBe('1         Prerequisites')
+  expect(await Toc.eocSectionHeading()).toBe('Exercises')
+
+  // click eob page
+  await Toc.pageClick(120)
+  await expect(page).toHaveURL('/books/college-algebra-2e/pages/chapter-8')
+  expect(await Toc.SectionName()).toBe('Chapter 8')
+  expect(await Toc.eobSectionHeading()).toBe('Answer Key')
+})
+
+test('C483594 click pages on book with units', async ({ page, isMobile }, testinfo) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/university-physics-volume-1/pages/preface'
+  await BookPage.open(path)
+
+  const mobileNav = new MobileNavigation(page)
+  const projectsName = testinfo.project.name
+
+  if (isMobile && projectsName == 'iPad Pro 11') {
+    mobileNav.openBigMobileMenu('toc')
+  } else if (isMobile) {
+    mobileNav.openMobileMenu('toc')
+  }
+
+  // click chapter page (special character present in section name)
+  const Toc = new TOC(page)
+  await Toc.pageClick(57)
+  await expect(page).toHaveURL('/books/university-physics-volume-1/pages/5-2-newtons-first-law')
+  expect(await Toc.SectionName()).toBe("5.2 Newton's First Law")
+  expect(await Toc.ChapterName()).toBe("5         Newton's Laws of Motion")
+  expect(await Toc.UnitName()).toBe('Mechanics')
+
+  // click eoc page
+  await Toc.pageClick(200)
+  await expect(page).toHaveURL('/books/university-physics-volume-1/pages/15-summary')
+  expect(await Toc.SectionName()).toBe('Summary')
+  expect(await Toc.ChapterName()).toBe('15         Oscillations')
+  expect(await Toc.UnitName()).toBe('Waves and Acoustics')
+  expect(await Toc.eocSectionHeading()).toBe('Chapter Review')
+
+  // click eob page
+  await Toc.pageClick(245)
+  await expect(page).toHaveURL('/books/university-physics-volume-1/pages/chapter-4')
+  expect(await Toc.SectionName()).toBe('Chapter 4')
+  expect(await Toc.eobSectionHeading()).toBe('Answer Key')
+})
+
+test('C242991 special characters are escaped in slug', async ({ page, isMobile }, testinfo) => {
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/psychologia-polska/pages/przedmowa'
+  await BookPage.open(path)
+
+  const mobileNav = new MobileNavigation(page)
+  const projectsName = testinfo.project.name
+
+  if (isMobile && projectsName == 'iPad Pro 11') {
+    mobileNav.openBigMobileMenu('toc')
+  } else if (isMobile) {
+    mobileNav.openMobileMenu('toc')
+  }
+
+  // click chapter page (special character present in section name)
+  const Toc = new TOC(page)
+  await Toc.pageClick(12)
+  await expect(page).toHaveURL('/books/psychologia-polska/pages/2-1-dlaczego-badania-sa-wazne')
+  expect(await Toc.SectionName()).toBe('2.1 Dlaczego badania są ważne?')
+  expect(await Toc.ChapterName()).toBe('2         Prowadzenie badań')
 })
