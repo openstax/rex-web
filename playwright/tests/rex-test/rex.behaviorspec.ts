@@ -431,15 +431,6 @@ test('C242991 special characters are escaped in slug', async ({ page, isMobile }
   const path = '/books/psychologia-polska/pages/przedmowa'
   await BookPage.open(path)
 
-  const mobileNav = new MobileNavigation(page)
-  const projectsName = testinfo.project.name
-
-  if (isMobile && projectsName == 'iPad Pro 11') {
-    mobileNav.openBigMobileMenu('toc')
-  } else if (isMobile) {
-    mobileNav.openMobileMenu('toc')
-  }
-
   // click chapter page (special character present in section name)
   const Toc = new TOC(page)
   await Toc.pageClick(12)
