@@ -25,26 +25,26 @@ const config: PlaywrightTestConfig = {
       },
     },
     {
-       name: 'Mobile (Pixel 5)',
-       use: {
-         browserName: 'chromium',
-         ...devices['Pixel 5'],
-       },
-     },
-     {
-       name: 'Mobile (iPhone 12)',
-       use: {
-         browserName: 'webkit',
-         ...devices['iPhone 12'],
-       },
-     },
-     {
-       name: 'iPad Pro 11',
-       use: {
-         browserName: 'webkit',
-         ...devices['iPad Pro 11'],
-       },
-     },
+      name: 'Mobile (Pixel 5)',
+      use: {
+        browserName: 'chromium',
+        ...devices['Pixel 5'],
+      },
+    },
+    {
+      name: 'Mobile (iPhone 12)',
+      use: {
+        browserName: 'webkit',
+        ...devices['iPhone 12'],
+      },
+    },
+    {
+      name: 'iPad Pro 11',
+      use: {
+        browserName: 'webkit',
+        ...devices['iPad Pro 11'],
+      },
+    },
   ],
   reporter: [['list'], ['json', { outputFile: 'test-results/results.json' }]],
   retries: 0,

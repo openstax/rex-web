@@ -31,7 +31,7 @@ class TOC {
     const mobileNav = new MobileNavigation(this.page)
     const browserAgent = await this.page.evaluate(() => navigator.userAgent)
 
-    if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')){
+    if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
       await mobileNav.openBigMobileMenu('toc')
     } else if (browserAgent.includes('Mobile')) {
       await mobileNav.openMobileMenu('toc')
@@ -47,16 +47,16 @@ class TOC {
         let tocDropdownCount: number
         for (tocDropdownCount = 0; tocDropdownCount < tocDropdownCounts; tocDropdownCount++) {
           await this.tocDropdownLocator.nth(tocDropdownCount).click()
-
-          // click the page, if it is visible in toc
-          if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
-            await this.pageLocator.nth(pageNumber).click()
-            break
-          }
+        }
+        // click the page, if it is visible in toc
+        if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
+          await this.pageLocator.nth(pageNumber).click()
+        } else {
+          console.log('The page is not available')
         }
       }
     } else {
-      console.log('The section number specified exceeds the total pages in the book')
+      console.log('The page number specified exceeds the total pages in the book')
     }
   }
 
