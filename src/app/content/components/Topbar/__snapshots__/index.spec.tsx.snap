@@ -364,25 +364,25 @@ exports[`text resizer does not render if textSize is null 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .edbfpj .c10 {
+  .gPsjnW .c10 {
     color: #5e6062;
   }
 }
 
 @media screen and (max-width:75em) {
-  .bsHLI .c10 {
+  .kXPpuK .c10 {
     color: #fff;
   }
 
-  .bsHLI .c10:hover,
-  .bsHLI .c10:focus {
+  .kXPpuK .c10:hover,
+  .kXPpuK .c10:focus {
     color: #fff;
     -webkit-transition: color 200ms;
     transition: color 200ms;
   }
 
-  .bsHLI .c10:hover::before,
-  .bsHLI .c10:focus::before {
+  .kXPpuK .c10:hover::before,
+  .kXPpuK .c10:focus::before {
     content: "";
     display: block;
     height: 100%;
@@ -395,19 +395,19 @@ exports[`text resizer does not render if textSize is null 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .bPVywq .c10 {
+  .ulpVr .c10 {
     color: #000;
   }
 
-  .bPVywq .c10:hover,
-  .bPVywq .c10:focus {
+  .ulpVr .c10:hover,
+  .ulpVr .c10:focus {
     color: #000;
     -webkit-transition: color 200ms;
     transition: color 200ms;
   }
 
-  .bPVywq .c10:hover::before,
-  .bPVywq .c10:focus::before {
+  .ulpVr .c10:hover::before,
+  .ulpVr .c10:focus::before {
     content: "";
     display: block;
     height: 100%;
@@ -473,7 +473,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
 }
 
 @media screen and (max-width:50em) {
-  .kpOckI .c7 {
+  .gjWAAG .c7 {
     border: none;
     border-radius: 0;
     width: 45px;
@@ -1312,25 +1312,25 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .edbfpj .c10 {
+  .gPsjnW .c10 {
     color: #5e6062;
   }
 }
 
 @media screen and (max-width:75em) {
-  .bsHLI .c10 {
+  .kXPpuK .c10 {
     color: #fff;
   }
 
-  .bsHLI .c10:hover,
-  .bsHLI .c10:focus {
+  .kXPpuK .c10:hover,
+  .kXPpuK .c10:focus {
     color: #fff;
     -webkit-transition: color 200ms;
     transition: color 200ms;
   }
 
-  .bsHLI .c10:hover::before,
-  .bsHLI .c10:focus::before {
+  .kXPpuK .c10:hover::before,
+  .kXPpuK .c10:focus::before {
     content: "";
     display: block;
     height: 100%;
@@ -1343,19 +1343,19 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .bPVywq .c10 {
+  .ulpVr .c10 {
     color: #000;
   }
 
-  .bPVywq .c10:hover,
-  .bPVywq .c10:focus {
+  .ulpVr .c10:hover,
+  .ulpVr .c10:focus {
     color: #000;
     -webkit-transition: color 200ms;
     transition: color 200ms;
   }
 
-  .bPVywq .c10:hover::before,
-  .bPVywq .c10:focus::before {
+  .ulpVr .c10:hover::before,
+  .ulpVr .c10:focus::before {
     content: "";
     display: block;
     height: 100%;
@@ -1421,7 +1421,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:50em) {
-  .kpOckI .c7 {
+  .gjWAAG .c7 {
     border: none;
     border-radius: 0;
     width: 45px;

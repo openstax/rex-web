@@ -1692,9 +1692,9 @@ Array [
   -webkit-transform-origin: left;
   -ms-transform-origin: left;
   transform-origin: left;
-  -webkit-transition: -webkit-transform 300ms ease-in-out, opacity 300ms ease-in-out, box-shadow 300ms ease-in-out;
-  -webkit-transition: transform 300ms ease-in-out, opacity 300ms ease-in-out, box-shadow 300ms ease-in-out;
-  transition: transform 300ms ease-in-out, opacity 300ms ease-in-out, box-shadow 300ms ease-in-out;
+  -webkit-transition: -webkit-transform 300ms ease-in-out,opacity 300ms ease-in-out,box-shadow 300ms ease-in-out;
+  -webkit-transition: transform 300ms ease-in-out,opacity 300ms ease-in-out,box-shadow 300ms ease-in-out;
+  transition: transform 300ms ease-in-out,opacity 300ms ease-in-out,box-shadow 300ms ease-in-out;
   background-color: #fafafa;
   z-index: 50;
   width: 37.5rem;
@@ -6261,9 +6261,9 @@ Array [
   -webkit-transform-origin: left;
   -ms-transform-origin: left;
   transform-origin: left;
-  -webkit-transition: -webkit-transform 300ms ease-in-out, opacity 300ms ease-in-out, box-shadow 300ms ease-in-out;
-  -webkit-transition: transform 300ms ease-in-out, opacity 300ms ease-in-out, box-shadow 300ms ease-in-out;
-  transition: transform 300ms ease-in-out, opacity 300ms ease-in-out, box-shadow 300ms ease-in-out;
+  -webkit-transition: -webkit-transform 300ms ease-in-out,opacity 300ms ease-in-out,box-shadow 300ms ease-in-out;
+  -webkit-transition: transform 300ms ease-in-out,opacity 300ms ease-in-out,box-shadow 300ms ease-in-out;
+  transition: transform 300ms ease-in-out,opacity 300ms ease-in-out,box-shadow 300ms ease-in-out;
   background-color: #fafafa;
   z-index: 50;
   width: 37.5rem;
