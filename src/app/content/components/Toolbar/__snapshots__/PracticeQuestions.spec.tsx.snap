@@ -3,18 +3,98 @@
 exports[`practice questions button does not render if feature flag is not enabled and there are no practice questions 1`] = `null`;
 
 exports[`practice questions button renders if feature flag is enabled and there are practice questions 1`] = `
+.c0 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 77px;
+  height: auto;
+  padding: 0;
+}
+
+.c0:hover,
+.c0:focus {
+  color: #424242;
+}
+
+.c0 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c1 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c2 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+    min-height: unset;
+    margin-top: 25px;
+    background: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c2 {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    margin-left: 1.2rem;
+  }
+}
+
 <button
   aria-label="Practice"
-  className="styled__PlainButton-sc-1119auh-0 PracticeQuestionsButton__StyledPracticeQuestionsButton-vyu0p6-0 hyBzTw"
+  className="c0"
   onClick={[Function]}
 >
   <img
     aria-hidden="true"
-    className="PracticeQuestionsButton__PracticeQuestionsIcon-vyu0p6-1 cYCeqv"
+    className="c1"
     src="practiceQuestionsIcon.svg"
   />
   <span
-    className="PracticeQuestionsButton__PracticeQuestionsText-vyu0p6-2 dNHGxi"
+    className="c2"
   >
     Practice
   </span>

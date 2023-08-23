@@ -1,14 +1,206 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches snapshot 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c4 {
+  overflow: visible;
+}
+
+.c0 .c3 + .c7 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c3.focus-within + .c7 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c3:focus-within + .c7 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c3 > .c7 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c3.focus-within > .c7 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c3:focus-within > .c7 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c3 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c0 .c3 > *:not(.c7) {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c3.focus-within > *:not(.c7) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c3:focus-within > *:not(.c7) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c1 {
+  overflow: visible;
+  position: relative;
+}
+
+.c11 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #e5e5e5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c11:hover {
+  color: #818181;
+}
+
+.c6 {
+  border: none;
+  display: block;
+}
+
+.c6 > div {
+  display: inline-block;
+  outline: none;
+}
+
+.c12 {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+  z-index: 1;
+}
+
+.c12 li {
+  display: inline-block;
+}
+
+.c12 li button,
+.c12 li a {
+  white-space: nowrap;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 0 0.8rem;
+  margin: 0;
+  height: 3.2rem;
+  background: none;
+  min-width: 7.2rem;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c12 li button:hover,
+.c12 li a:hover,
+.c12 li button:focus,
+.c12 li a:focus {
+  background: #d5d5d5;
+}
+
+.c12.c12 {
+  left: 0;
+  right: unset;
+}
+
+.c2 .focus-within .c10 {
+  color: #5e6062;
+}
+
+.c2:focus-within .c10 {
+  color: #5e6062;
+}
+
 <div
-  className="Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM Dropdown-rmc6yw-5 fBPFfC DotMenu__DotMenuDropdown-khcauc-3 hDFPiE"
+  className="c0 c1 c2"
 >
   <div
-    className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
+    className="c3 c4"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c5 c6 c7 c8"
       tabIndex={0}
     >
       <div
@@ -16,7 +208,7 @@ exports[`Dropdown matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="c9 c10 c11"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -30,7 +222,7 @@ exports[`Dropdown matches snapshot 1`] = `
       </div>
     </button>
     <ol
-      className="Dropdown__DropdownList-rmc6yw-4 DotMenu__DotMenuDropdownList-khcauc-2 fHGnJd"
+      className="c12"
     >
       <li>
         <a
@@ -53,7 +245,7 @@ exports[`Dropdown matches snapshot 1`] = `
     </ol>
   </div>
   <button
-    className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+    className="c5 c6 c7 c8"
     tabIndex={0}
   >
     <div
@@ -61,7 +253,7 @@ exports[`Dropdown matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -78,14 +270,206 @@ exports[`Dropdown matches snapshot 1`] = `
 `;
 
 exports[`Dropdown matches snapshot on right align 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c4 {
+  overflow: visible;
+}
+
+.c0 .c3 + .c7 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c3.focus-within + .c7 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c3:focus-within + .c7 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c3 > .c7 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c3.focus-within > .c7 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c3:focus-within > .c7 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c3 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c0 .c3 > *:not(.c7) {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c3.focus-within > *:not(.c7) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c3:focus-within > *:not(.c7) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c1 {
+  overflow: visible;
+  position: relative;
+}
+
+.c11 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #e5e5e5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c11:hover {
+  color: #818181;
+}
+
+.c6 {
+  border: none;
+  display: block;
+}
+
+.c6 > div {
+  display: inline-block;
+  outline: none;
+}
+
+.c12 {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+  z-index: 1;
+}
+
+.c12 li {
+  display: inline-block;
+}
+
+.c12 li button,
+.c12 li a {
+  white-space: nowrap;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding: 0 0.8rem;
+  margin: 0;
+  height: 3.2rem;
+  background: none;
+  min-width: 7.2rem;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c12 li button:hover,
+.c12 li a:hover,
+.c12 li button:focus,
+.c12 li a:focus {
+  background: #d5d5d5;
+}
+
+.c12.c12 {
+  right: 0;
+  left: unset;
+}
+
+.c2 .focus-within .c10 {
+  color: #5e6062;
+}
+
+.c2:focus-within .c10 {
+  color: #5e6062;
+}
+
 <div
-  className="Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM Dropdown-rmc6yw-5 fBPFfC DotMenu__DotMenuDropdown-khcauc-3 hDFPiE"
+  className="c0 c1 c2"
 >
   <div
-    className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
+    className="c3 c4"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c5 c6 c7 c8"
       tabIndex={0}
     >
       <div
@@ -93,7 +477,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="c9 c10 c11"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
@@ -107,7 +491,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       </div>
     </button>
     <ol
-      className="Dropdown__DropdownList-rmc6yw-4 DotMenu__DotMenuDropdownList-khcauc-2 jNSZKe"
+      className="c12"
     >
       <li>
         <a
@@ -130,7 +514,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     </ol>
   </div>
   <button
-    className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+    className="c5 c6 c7 c8"
     tabIndex={0}
   >
     <div
@@ -138,7 +522,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="sc-bdVaJa cjEDWs DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"

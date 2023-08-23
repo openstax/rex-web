@@ -1,18 +1,165 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c2 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c4 {
+  overflow: visible;
+  position: relative;
+}
+
+.c5 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c10 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+}
+
+.c6 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+}
+
+.c6 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+}
+
+.c0 {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #fff;
+  border-bottom: 0.1rem solid #d5d5d5;
+}
+
+.c0 .c7 {
+  font-weight: bold;
+}
+
+.c0 .c3 > *:not(.c7) {
+  top: calc(100% - 0.1rem);
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  max-height: calc(100vh - 26rem);
+}
+
+@media screen and (max-width:75em) {
+  .c6 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 .c3 > *:not(.c7) {
+    max-height: calc(100vh - 18.4rem);
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c0 .c3 {
+    position: initial;
+  }
+
+  .c0 .c3 > *:not(.c7) {
+    top: auto;
+    margin-top: -0.1rem;
+  }
+}
+
+@media print {
+  .c0 {
+    padding-left: 0;
+  }
+}
+
+@media print {
+  .c0 > *:not(.sc-eqIVtm) {
+    display: none;
+  }
+}
+
 <div
-  className="Filters-sc-1fn81fx-3 gZlQQL"
+  className="c0"
 >
   <div
-    className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
+    className="c1"
   >
     <div
-      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+      className="c2 c3 c4"
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -22,7 +169,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+            className="c9 c10"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -42,18 +189,376 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
 `;
 
 exports[`Filters ChapterFilter matches snapshot when open with selected section 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c2 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c4 {
+  overflow: visible;
+  position: relative;
+}
+
+.c5 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c20 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+}
+
+.c11 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  padding-top: 0;
+  padding-bottom: 0.2rem;
+}
+
+.c6 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+  z-index: 2;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
+  clip-path: inset(0 -0.6rem 0px -0.6rem);
+  background-color: #fff;
+  border-left: 0.1rem solid #d5d5d5;
+  border-right: 0.1rem solid #d5d5d5;
+}
+
+.c6 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+}
+
+.c0 {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #fff;
+  border-bottom: 0.1rem solid #d5d5d5;
+}
+
+.c0 .c7 {
+  font-weight: bold;
+}
+
+.c0 .c3 > *:not(.c7) {
+  top: calc(100% - 0.1rem);
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  max-height: calc(100vh - 26rem);
+}
+
+.c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.c19 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  white-space: nowrap;
+  margin-left: 0.8rem;
+}
+
+.c19 > * {
+  overflow: hidden;
+}
+
+.c19 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-overflow: ellipsis;
+}
+
+.c19 .os-divider {
+  margin: 0 0.4rem;
+}
+
+.c16 {
+  width: 400px;
+  cursor: pointer;
+  border-bottom: 1px solid #d5d5d5;
+  overflow: visible;
+}
+
+.c17 {
+  padding: 1rem 1.6rem;
+  list-style: none;
+}
+
+.c17::marker,
+.c17::-webkit-details-marker {
+  content: "";
+  display: none;
+}
+
+.c17 .c18 {
+  float: left;
+  margin-left: 0;
+  text-align: left;
+}
+
+.c17 .c10 {
+  float: right;
+}
+
+.c22 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 4rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1.4rem;
+  color: #424242;
+}
+
+.c22:hover,
+.c22:focus {
+  background-color: #f1f1f1;
+}
+
+.c22 .c18 {
+  padding-left: 2.5rem;
+  width: 95%;
+}
+
+.c23 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 4rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1.4rem;
+  color: #424242;
+  color: #027eb5;
+}
+
+.c23:hover,
+.c23:focus {
+  background-color: #f1f1f1;
+}
+
+.c23 .c18 {
+  padding-left: 2.5rem;
+  width: 95%;
+}
+
+.c21 {
+  overflow: visible;
+}
+
+.c12 {
+  color: #424242;
+  background: #fff;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  overflow: auto;
+  z-index: 1;
+  padding: 0;
+}
+
+.c12 .c24 {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.c12 .c25 {
+  padding: 0.8rem;
+}
+
+.c12 .c26 {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+.c12 .c15:last-child {
+  border-bottom: none;
+}
+
+@media screen and (max-width:75em) {
+  .c6 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 .c3 > *:not(.c7) {
+    max-height: calc(100vh - 18.4rem);
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c0 .c3 {
+    position: initial;
+  }
+
+  .c0 .c3 > *:not(.c7) {
+    top: auto;
+    margin-top: -0.1rem;
+  }
+}
+
+@media print {
+  .c0 {
+    padding-left: 0;
+  }
+}
+
+@media print {
+  .c0 > *:not(.sc-eqIVtm) {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c13 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c16 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c12 {
+    width: calc(100vw - 1.6rem);
+  }
+}
+
 <div
-  className="Filters-sc-1fn81fx-3 gZlQQL"
+  className="c0"
 >
   <div
-    className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
+    className="c1"
   >
     <div
-      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+      className="c2 c3 c4"
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -63,7 +568,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="c9 c10 c11"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -78,25 +583,25 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jynUnN"
+        className="c12"
         tabIndex={-1}
       >
         <div
-          className="ChapterFilter__Row-tcdlu-0 nqIYu"
+          className="c13"
         >
           <div
-            className="ChapterFilter__Column-tcdlu-1 dKPjiE"
+            className="c14"
           >
             <details
-              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
+              className="c15 c16"
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 fDzISg"
+                className="c17"
                 onClick={[Function]}
               >
                 <span
-                  className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                  className="c18 c19"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "chapterId",
@@ -105,7 +610,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 />
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+                  className="c9 c10 c20"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
@@ -119,16 +624,16 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 </svg>
               </summary>
               <div
-                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+                className="c21"
               >
                 <button
                   aria-label="Filter PQ by  section1"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="c22"
                   data-analytics-label="Filter PQ by  section1"
                   onClick={[Function]}
                 >
                   <span
-                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    className="c18 c19"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "section1",
@@ -138,12 +643,12 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 </button>
                 <button
                   aria-label="Filter PQ by  section2"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="c22"
                   data-analytics-label="Filter PQ by  section2"
                   onClick={[Function]}
                 >
                   <span
-                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    className="c18 c19"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "section2",
@@ -154,15 +659,15 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
               </div>
             </details>
             <details
-              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
+              className="c15 c16"
               open={true}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 fDzISg"
+                className="c17"
                 onClick={[Function]}
               >
                 <span
-                  className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                  className="c18 c19"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "chapterId2",
@@ -171,7 +676,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 />
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+                  className="c9 c10 c11"
                   direction="up"
                   fill="currentColor"
                   focusable="false"
@@ -185,16 +690,16 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 </svg>
               </summary>
               <div
-                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+                className="c21"
               >
                 <button
                   aria-label="Filter PQ by  section21"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 AJhCb"
+                  className="c23"
                   data-analytics-label="Filter PQ by  section21"
                   onClick={[Function]}
                 >
                   <span
-                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    className="c18 c19"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "section21",
@@ -213,18 +718,344 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 `;
 
 exports[`Filters ChapterFilter matches snapshot when open without selected section 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c2 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c4 {
+  overflow: visible;
+  position: relative;
+}
+
+.c5 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c20 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+}
+
+.c11 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  padding-top: 0;
+  padding-bottom: 0.2rem;
+}
+
+.c6 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+  z-index: 2;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
+  clip-path: inset(0 -0.6rem 0px -0.6rem);
+  background-color: #fff;
+  border-left: 0.1rem solid #d5d5d5;
+  border-right: 0.1rem solid #d5d5d5;
+}
+
+.c6 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+}
+
+.c0 {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #fff;
+  border-bottom: 0.1rem solid #d5d5d5;
+}
+
+.c0 .c7 {
+  font-weight: bold;
+}
+
+.c0 .c3 > *:not(.c7) {
+  top: calc(100% - 0.1rem);
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  max-height: calc(100vh - 26rem);
+}
+
+.c13 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.c19 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  white-space: nowrap;
+  margin-left: 0.8rem;
+}
+
+.c19 > * {
+  overflow: hidden;
+}
+
+.c19 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-overflow: ellipsis;
+}
+
+.c19 .os-divider {
+  margin: 0 0.4rem;
+}
+
+.c16 {
+  width: 400px;
+  cursor: pointer;
+  border-bottom: 1px solid #d5d5d5;
+  overflow: visible;
+}
+
+.c17 {
+  padding: 1rem 1.6rem;
+  list-style: none;
+}
+
+.c17::marker,
+.c17::-webkit-details-marker {
+  content: "";
+  display: none;
+}
+
+.c17 .c18 {
+  float: left;
+  margin-left: 0;
+  text-align: left;
+}
+
+.c17 .c10 {
+  float: right;
+}
+
+.c22 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 4rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1.4rem;
+  color: #424242;
+}
+
+.c22:hover,
+.c22:focus {
+  background-color: #f1f1f1;
+}
+
+.c22 .c18 {
+  padding-left: 2.5rem;
+  width: 95%;
+}
+
+.c21 {
+  overflow: visible;
+}
+
+.c12 {
+  color: #424242;
+  background: #fff;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  overflow: auto;
+  z-index: 1;
+  padding: 0;
+}
+
+.c12 .c23 {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.c12 .c24 {
+  padding: 0.8rem;
+}
+
+.c12 .c25 {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+.c12 .c15:last-child {
+  border-bottom: none;
+}
+
+@media screen and (max-width:75em) {
+  .c6 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 .c3 > *:not(.c7) {
+    max-height: calc(100vh - 18.4rem);
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c0 .c3 {
+    position: initial;
+  }
+
+  .c0 .c3 > *:not(.c7) {
+    top: auto;
+    margin-top: -0.1rem;
+  }
+}
+
+@media print {
+  .c0 {
+    padding-left: 0;
+  }
+}
+
+@media print {
+  .c0 > *:not(.sc-eqIVtm) {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c13 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c16 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c12 {
+    width: calc(100vw - 1.6rem);
+  }
+}
+
 <div
-  className="Filters-sc-1fn81fx-3 gZlQQL"
+  className="c0"
 >
   <div
-    className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
+    className="c1"
   >
     <div
-      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+      className="c2 c3 c4"
     >
       <button
         aria-label="Filter PQ by Chapter & Section"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
       >
@@ -234,7 +1065,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="c9 c10 c11"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -249,25 +1080,25 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-7 Filters__StyledChapterFilters-sc-1lvdmlz-0 jynUnN"
+        className="c12"
         tabIndex={-1}
       >
         <div
-          className="ChapterFilter__Row-tcdlu-0 nqIYu"
+          className="c13"
         >
           <div
-            className="ChapterFilter__Column-tcdlu-1 dKPjiE"
+            className="c14"
           >
             <details
-              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
+              className="c15 c16"
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 fDzISg"
+                className="c17"
                 onClick={[Function]}
               >
                 <span
-                  className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                  className="c18 c19"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "chapterId",
@@ -276,7 +1107,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 />
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+                  className="c9 c10 c20"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
@@ -290,16 +1121,16 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 </svg>
               </summary>
               <div
-                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+                className="c21"
               >
                 <button
                   aria-label="Filter PQ by  section1"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="c22"
                   data-analytics-label="Filter PQ by  section1"
                   onClick={[Function]}
                 >
                   <span
-                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    className="c18 c19"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "section1",
@@ -309,12 +1140,12 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 </button>
                 <button
                   aria-label="Filter PQ by  section2"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="c22"
                   data-analytics-label="Filter PQ by  section2"
                   onClick={[Function]}
                 >
                   <span
-                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    className="c18 c19"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "section2",
@@ -325,15 +1156,15 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
               </div>
             </details>
             <details
-              className="ChapterFilter__StyledDetails-tcdlu-3 inZQMy"
+              className="c15 c16"
               open={false}
             >
               <summary
-                className="ChapterFilter__StyledSummary-tcdlu-4 fDzISg"
+                className="c17"
                 onClick={[Function]}
               >
                 <span
-                  className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                  className="c18 c19"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "chapterId2",
@@ -342,7 +1173,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 />
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+                  className="c9 c10 c20"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
@@ -356,16 +1187,16 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 </svg>
               </summary>
               <div
-                className="ChapterFilter__StyledChapterFilterItemWrapper-tcdlu-6 jOBTbY"
+                className="c21"
               >
                 <button
                   aria-label="Filter PQ by  section21"
-                  className="Button__PlainButton-ayg7nk-2 ChapterFilter__StyledSectionItem-tcdlu-5 hbjjSx"
+                  className="c22"
                   data-analytics-label="Filter PQ by  section21"
                   onClick={[Function]}
                 >
                   <span
-                    className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+                    className="c18 c19"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "section21",

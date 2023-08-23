@@ -1,13 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`wrapper matches snapshot 1`] = `
+.c1 {
+  position: relative;
+  overflow: visible;
+}
+
+.c0 {
+  width: 100%;
+  max-width: 144rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 8rem auto auto;
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    grid-template-columns: 100%;
+  }
+}
+
 <div
-  className="Wrapper__ContentLayoutBody-m6kdbg-1 fRDSoc Wrapper-m6kdbg-0 bwERCu"
+  className="c0 c1"
 />
 `;
 
 exports[`wrapper matches snapshot with search open 1`] = `
+.c1 {
+  position: relative;
+  overflow: visible;
+}
+
+.c0 {
+  width: 100%;
+  max-width: 144rem;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 8rem auto auto;
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    grid-template-columns: 100%;
+  }
+}
+
 <div
-  className="Wrapper__ContentLayoutBody-m6kdbg-1 fRDSoc Wrapper-m6kdbg-0 bwERCu"
+  className="c0 c1"
 />
 `;

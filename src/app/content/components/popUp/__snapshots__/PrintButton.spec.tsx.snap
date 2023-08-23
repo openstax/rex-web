@@ -1,9 +1,120 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HighlightsPrintButton matches snapshot 1`] = `
+.c2 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c0 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 77px;
+  height: auto;
+  padding: 0 10px;
+}
+
+.c0:hover,
+.c0:focus {
+  color: #424242;
+}
+
+.c5 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.c3 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c1 {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  cursor: pointer;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  min-height: unset;
+  margin: 0 0 0 auto;
+  padding-right: 2.4rem;
+}
+
+.c1 .c4 {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0px 0px 0px 0.5rem;
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+    min-height: unset;
+    margin-top: 25px;
+    background: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c5 {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    margin-left: 1.2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    padding-right: 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 .c4 {
+    display: none;
+  }
+}
+
 <button
   aria-label="print"
-  className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 jcfgAp PrintButton-sc-1bdptk0-0 jcbTdL"
+  className="c0 c1"
   data-analytics-label="print"
   data-testid="print"
   disabled={false}
@@ -11,7 +122,7 @@ exports[`HighlightsPrintButton matches snapshot 1`] = `
 >
   <svg
     aria-hidden="true"
-    className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
+    className="c2 c3"
     fill="currentColor"
     focusable="false"
     viewBox="0 0 512 512"
@@ -23,7 +134,7 @@ exports[`HighlightsPrintButton matches snapshot 1`] = `
     />
   </svg>
   <span
-    className="styled__PrintOptions-sc-1119auh-2 iCecXY"
+    className="c4 c5"
   >
     Print
   </span>

@@ -1,17 +1,378 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StudyGuides properly display summary highlights 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-height: 5.6rem;
+  padding: 0 3.2rem;
+}
+
+.c4 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  width: 100%;
+}
+
+.c4 .os-number {
+  overflow: visible;
+}
+
+.c4 > .os-text {
+  white-space: break-spaces;
+}
+
+.c6 {
+  margin: 1.6rem 3.2rem;
+  border: solid 0.1rem #e5e5e5;
+  overflow: visible;
+}
+
+.c8 {
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  padding: 0 2.4rem 0 3.2rem;
+  background: #e5e5e5;
+  height: 3.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.c8 > .os-number,
+.c8 > .os-divider,
+.c8 > .os-text {
+  overflow: hidden;
+}
+
+.c8 > .os-number,
+.c8 > .os-divider {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c8 > .os-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.c1 {
+  overflow: visible;
+}
+
+.c1 .os-divider {
+  width: 0.8rem;
+}
+
+.c13 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  overflow: auto;
+}
+
+.c13 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13 a:hover {
+  color: #0064A0;
+}
+
+.c13 * {
+  overflow: initial;
+}
+
+.c9 {
+  overflow: visible;
+  padding: 0 3.2rem 1rem 3.2rem;
+  background: #fff;
+}
+
+.c9:not(:last-child) {
+  border-bottom: solid 0.2rem #fafafa;
+}
+
+.c10 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1.2rem 0;
+  color: #000;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.c11 {
+  padding-left: 0.4rem;
+  border-left: solid 0.8rem #c8f5ff;
+  margin-left: 2.1rem;
+}
+
+.c14 {
+  padding-left: 0.4rem;
+  border-left: solid 0.8rem #def99f;
+  margin-left: 2.1rem;
+}
+
+.c15 {
+  padding-left: 0.4rem;
+  border-left: solid 0.8rem #ffc5e1;
+  margin-left: 2.1rem;
+}
+
+.c16 {
+  padding-left: 0.4rem;
+  border-left: solid 0.8rem #cbcfff;
+  margin-left: 2.1rem;
+}
+
+.c17 {
+  padding-left: 0.4rem;
+}
+
+.c0 {
+  display: contents;
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c4 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media print {
+  .c4 {
+    padding: 0;
+    background: white;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c6 {
+    margin: 0 0 1.6rem 0;
+  }
+}
+
+@media print {
+  .c6 {
+    border-width: 0;
+  }
+}
+
+@media print {
+  .c8 {
+    -webkit-break-after: avoid;
+    break-after: avoid;
+    -webkit-break-inside: avoid;
+    break-inside: avoid;
+    background: white;
+  }
+}
+
+@media print {
+  .c9 {
+    page-break-inside: avoid;
+  }
+
+  .c9:not(:last-child) {
+    border-color: white;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c9 {
+    padding: 0 0 1rem 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c10 {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    margin-left: 2rem;
+  }
+}
+
+@media print {
+  .c11 {
+    -webkit-break-inside: avoid-page;
+    break-inside: avoid-page;
+  }
+
+  .c11 .c12 {
+    background-color: white;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c14 {
+    margin-left: 2rem;
+  }
+}
+
+@media print {
+  .c14 {
+    -webkit-break-inside: avoid-page;
+    break-inside: avoid-page;
+  }
+
+  .c14 .c12 {
+    background-color: white;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c15 {
+    margin-left: 2rem;
+  }
+}
+
+@media print {
+  .c15 {
+    -webkit-break-inside: avoid-page;
+    break-inside: avoid-page;
+  }
+
+  .c15 .c12 {
+    background-color: white;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c16 {
+    margin-left: 2rem;
+  }
+}
+
+@media print {
+  .c16 {
+    -webkit-break-inside: avoid-page;
+    break-inside: avoid-page;
+  }
+
+  .c16 .c12 {
+    background-color: white;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c17 {
+    margin-left: 2rem;
+  }
+}
+
+@media print {
+  .c17 {
+    -webkit-break-inside: avoid-page;
+    break-inside: avoid-page;
+  }
+
+  .c17 .c12 {
+    background-color: white;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 .c2 {
+    max-width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 .c7 {
+    padding-left: 2rem;
+  }
+}
+
+@media print {
+  .c0 .c2 {
+    padding-left: 0;
+  }
+
+  .c0 .c2 + .c5 {
+    margin-top: 0;
+  }
+
+  .c0 .c5 {
+    margin-left: 0;
+  }
+
+  .c0 .c7 {
+    background: #e5e5e5;
+  }
+}
+
 <div
-  className="StudyGuides-sc-1d60zwp-0 cAwzzu"
+  className="c0"
 >
   <div
-    className="HighlightsWrapper-vefi0f-0 kuspas"
+    className="c1"
   >
     <div
-      className="SectionHighlights__HighlightsChapterWrapper-c51y19-0 kARwht"
+      className="c2 c3"
     >
       <div
-        className="SectionHighlights__HighlightsChapter-c51y19-1 HowFS"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -21,10 +382,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       />
     </div>
     <div
-      className="SectionHighlights__HighlightWrapper-c51y19-2 gFcHNj"
+      className="c5 c6"
     >
       <div
-        className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
+        className="c7 c8"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
@@ -33,19 +394,19 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         data-testid="section-title"
       />
       <div
-        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+        className="c9"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+          className="c10"
         >
           hl1
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 lbsMtc"
+          className="c11"
           color="blue"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt c12 c13"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
@@ -57,19 +418,19 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+        className="c9"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+          className="c10"
         >
           hl
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 jQASvQ"
+          className="c14"
           color="green"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt c12 c13"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -81,19 +442,19 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+        className="c9"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+          className="c10"
         >
           hl
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 kuhHtd"
+          className="c15"
           color="pink"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt c12 c13"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -105,19 +466,19 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+        className="c9"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+          className="c10"
         >
           hl
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 fMEUWV"
+          className="c16"
           color="purple"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt c12 c13"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -129,17 +490,17 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+        className="c9"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+          className="c10"
         />
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 cjhgbG"
+          className="c17"
           color={null}
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt c12 c13"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -152,10 +513,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       </div>
     </div>
     <div
-      className="SectionHighlights__HighlightsChapterWrapper-c51y19-0 kARwht"
+      className="c2 c3"
     >
       <div
-        className="SectionHighlights__HighlightsChapter-c51y19-1 HowFS"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -165,10 +526,10 @@ exports[`StudyGuides properly display summary highlights 1`] = `
       />
     </div>
     <div
-      className="SectionHighlights__HighlightWrapper-c51y19-2 gFcHNj"
+      className="c5 c6"
     >
       <div
-        className="SectionHighlights__HighlightSection-c51y19-3 cYxWVd"
+        className="c7 c8"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -177,19 +538,19 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         data-testid="section-title"
       />
       <div
-        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+        className="c9"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+          className="c10"
         >
           hl1
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 lbsMtc"
+          className="c11"
           color="blue"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt c12 c13"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -201,19 +562,19 @@ exports[`StudyGuides properly display summary highlights 1`] = `
         </div>
       </div>
       <div
-        className="StudyGuidesListElement__HighlightOuterWrapper-sc-5qgyda-0 cEYBxy"
+        className="c9"
       >
         <div
-          className="StudyGuidesListElement__HighlightAnnotation-sc-5qgyda-1 cZidrZ"
+          className="c10"
         >
           hl
         </div>
         <div
-          className="StudyGuidesListElement__HighlightContentWrapper-sc-5qgyda-2 jQASvQ"
+          className="c14"
           color="green"
         >
           <div
-            className="content-excerpt ContentExcerpt-sc-16hg3lt-0 iKlVB"
+            className="content-excerpt c12 c13"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",

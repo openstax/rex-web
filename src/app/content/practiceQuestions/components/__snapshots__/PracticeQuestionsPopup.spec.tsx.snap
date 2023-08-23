@@ -3,33 +3,426 @@
 exports[`PracticeQuestions doesn't render practice questions modal if it is closed 1`] = `null`;
 
 exports[`PracticeQuestions renders practice questions modal if it is open 1`] = `
+.c16 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c1 {
+  -webkit-animation: 300ms bcCCNc ease-out;
+  animation: 300ms bcCCNc ease-out;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 110;
+  position: absolute;
+  content: "";
+  top: -5rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.c12 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c3 {
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  color: #fff;
+  background: #002468;
+  padding: 3.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7.2rem;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.c2 {
+  top: 0;
+  z-index: 110;
+  position: fixed;
+  background: #fff;
+  border-radius: 0.5rem;
+  height: calc(100% - 9.6rem);
+  outline: none;
+  overflow: hidden;
+  margin: 7.2rem auto 2.4rem;
+  max-width: 128rem;
+  width: calc(100% - 2.4rem * 2);
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c5 {
+  color: #fff;
+  cursor: pointer;
+}
+
+.c5:hover {
+  color: #424242;
+}
+
+.c15 {
+  cursor: pointer;
+}
+
+.c9 > *:not(.c14) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c11 {
+  overflow: visible;
+  position: relative;
+}
+
+.c17 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+}
+
+.c13 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+}
+
+.c13 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+}
+
+.c7 {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #fff;
+  border-bottom: 0.1rem solid #d5d5d5;
+}
+
+.c7 .c14 {
+  font-weight: bold;
+}
+
+.c7 .c10 > *:not(.c14) {
+  top: calc(100% - 0.1rem);
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  max-height: calc(100vh - 26rem);
+}
+
+.c19 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  margin: 2rem auto;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+.c20 {
+  margin-bottom: 3rem;
+  max-width: 38rem;
+  overflow: initial;
+}
+
+.c6 {
+  -webkit-overflow-scrolling: touch;
+  height: calc(100% - 7.2rem);
+  background: #fff;
+  z-index: 4;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background: #fafafa;
+}
+
+.c18 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding: 2rem 3.2rem 0 3.2rem;
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media print {
+  .c0 {
+    display: block;
+  }
+
+  .c0 ~ div {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media print {
+  .c3 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    padding: 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    margin: 2rem 0;
+    width: calc(100% - 1.6rem);
+    height: calc(100% - 4rem);
+  }
+}
+
+@media print {
+  .c2 {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+@media print {
+  .c5 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c13 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c7 .c10 > *:not(.c14) {
+    max-height: calc(100vh - 18.4rem);
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c7 .c10 {
+    position: initial;
+  }
+
+  .c7 .c10 > *:not(.c14) {
+    top: auto;
+    margin-top: -0.1rem;
+  }
+}
+
+@media print {
+  .c7 {
+    padding-left: 0;
+  }
+}
+
+@media print {
+  .c7 > *:not(.sc-dNLxif) {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c6 {
+    text-align: center;
+    padding: 8rem 3.2rem;
+  }
+}
+
+@media print {
+  .c6 {
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    overflow: auto;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c6 {
+    padding: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c18 {
+    text-align: left;
+    padding: 0;
+  }
+}
+
 <div
-  className="PopupStyles__PopupWrapper-w0z1hl-0 cYcgUJ"
+  className="c0"
 >
   <div
-    className="ScrollLock__Overlay-sc-1fi845b-0 bDZyGN"
+    className="c1"
     data-testid="scroll-lock-overlay"
     onClick={[Function]}
   />
   <div
-    className="PopupStyles__Modal-w0z1hl-3 dxCHBC"
+    className="c2"
     data-testid="practice-questions-popup-wrapper"
     tabIndex="-1"
   >
     <h3
-      className="headings__H3-sc-1xfiggv-2 PopupStyles__Header-w0z1hl-1 kFaPzE"
+      className="c3"
     >
       Practice Questions
       <button
         aria-label="Click to close Practice Questions modal"
-        className="Button__PlainButton-ayg7nk-2 PopupStyles__CloseIconWrapper-w0z1hl-4 jafVNy"
+        className="c4"
         data-analytics-label="Click to close Practice Questions modal"
         data-testid="close-practice-questions-popup"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="PopupStyles__CloseIcon-w0z1hl-5 eWfjhO"
+          className="c5"
           focusable="true"
           height="15px"
           version="1.1"
@@ -59,23 +452,23 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       </button>
     </h3>
     <div
-      className="PopupStyles__PopupBody-w0z1hl-2 ShowPracticeQuestions__ShowPracticeQuestionsBody-sc-1hq8omx-0 eoLiAF"
+      className="c6"
       data-analytics-location="section not loaded"
       data-analytics-region="PQ popup"
       data-testid="show-practice-questions-body"
     >
       <div
-        className="Filters-sc-1fn81fx-3 gZlQQL"
+        className="c7"
       >
         <div
-          className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
+          className="c8"
         >
           <div
-            className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+            className="c9 c10 c11"
           >
             <button
               aria-label="Filter PQ by Chapter & Section"
-              className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+              className="c12 c13 c14 c15"
               data-analytics-label="Filter PQ by Chapter & Section"
               onClick={[Function]}
             >
@@ -85,7 +478,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
                 Chapter & Section
                 <svg
                   aria-hidden="true"
-                  className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jYDriK"
+                  className="c16 c17"
                   direction="down"
                   fill="currentColor"
                   focusable="false"
@@ -103,13 +496,13 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
         </div>
       </div>
       <div
-        className="ShowPracticeQuestions__ShowPracitceQuestionsContent-sc-1hq8omx-1 gWrwIb"
+        className="c18"
       >
         <div
-          className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 cKZyXt"
+          className="c19"
         >
           <span
-            className="FinalScreen__StyledText-sc-131hu2n-1 MXQtJ"
+            className="c20"
           >
             You have reached the end of this set!
           </span>

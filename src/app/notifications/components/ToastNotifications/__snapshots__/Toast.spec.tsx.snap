@@ -1,26 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Toast matches snapshot 1`] = `
+.c3 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  background-color: #fafafa;
+  line-height: 4rem;
+}
+
+.c3 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c3 a:hover {
+  color: #0064A0;
+}
+
+.c0 {
+  width: 100%;
+  margin: 0;
+  overflow: visible;
+  -webkit-transition: -webkit-transform 0.6s;
+  -webkit-transition: transform 0.6s;
+  transition: transform 0.6s;
+  z-index: 0;
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+.c1 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5rem 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #F8E8EB;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border: 1px solid #E297A0;
+}
+
+.c1 .c2 {
+  background: inherit;
+  color: #C23834;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+.c5 {
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: #EDBFC5;
+  overflow: visible;
+}
+
+.c4:hover {
+  color: #E297A0;
+}
+
+@media (max-width:75em) {
+  .c3 {
+    padding: 0;
+    line-height: 2rem;
+    background-color: initial;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:75em) {
+  .c1 {
+    -webkit-align-items: flex-start;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    padding: 1.6rem 1.6rem;
+  }
+}
+
 <div
-  className="styles__BannerBodyWrapper-zqr5u1-1 hYxeHM"
+  className="c0"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
 >
   <div
-    className="styles__BannerBody-zqr5u1-2 kYtMtD"
+    className="c1"
   >
     <div
-      className="Card__Header-sc-1o7sacr-3 jGwlNH"
+      className="c2 c3"
     >
       The highlight could not be saved. Please check your connection and try again.
     </div>
     <button
-      className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 jhqTCe"
+      className="c4"
       onClick={[MockFunction]}
     >
       <svg
         aria-hidden="true"
-        className="styles__CloseIcon-zqr5u1-3 cTGvEX"
+        className="c5"
         focusable="false"
         height="15px"
         version="1.1"

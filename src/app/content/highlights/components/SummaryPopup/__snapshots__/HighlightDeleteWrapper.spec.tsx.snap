@@ -1,8 +1,137 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HighlightDeleteWrapper match snapshot 1`] = `
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #d4450c;
+  font-weight: bold;
+  border: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.c2:hover {
+  background-color: ,#be3c08,;
+}
+
+.c2:active {
+  background-color: ,#b03808,;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+}
+
+.c3:hover {
+  background-color: ,#fafafa,;
+}
+
+.c3:active {
+  background-color: ,#e5e5e5,;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 8px;
+  overflow: visible;
+}
+
+.c1 button:first-child {
+  margin-right: 8px;
+}
+
+.c0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.9);
+}
+
+.c0 span {
+  color: #424242;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+  -webkit-letter-spacing: -0.2;
+  -moz-letter-spacing: -0.2;
+  -ms-letter-spacing: -0.2;
+  letter-spacing: -0.2;
+  color: #fff;
+  margin-right: 8px;
+}
+
 <div
-  className="HighlightDeleteWrapper__StyledHighlightDeleteWrapper-gn1gyy-0 lnQzGa"
+  className="c0"
   data-analytics-region="MH delete"
   tabIndex={0}
 >
@@ -10,10 +139,10 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
     Are you sure you want to delete this highlight?
   </span>
   <div
-    className="styles__HighlightEditButtons-sc-1t1yajj-0 JvKbW"
+    className="c1"
   >
     <button
-      className="Button-ayg7nk-0 extinX"
+      className="c2"
       data-analytics-label="delete"
       data-testid="delete"
       onClick={[Function]}
@@ -21,7 +150,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
       Delete
     </button>
     <button
-      className="Button-ayg7nk-0 fXKRFg"
+      className="c3"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
