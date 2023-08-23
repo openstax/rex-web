@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Loader from '../../components/Loader';
 
 // tslint:disable-next-line: variable-name

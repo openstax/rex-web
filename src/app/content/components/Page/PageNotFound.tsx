@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import theme from '../../../theme';
 import { StyledOpenTOCControl } from '../SidebarControl';
 

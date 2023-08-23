@@ -1,6 +1,6 @@
 import { MouseEvent } from '@openstax/types/lib.dom';
 import React from 'react';
-import { createGlobalStyle, css } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components/macro';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
 import { assertWindow, remsToPx } from '../utils';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Button from '../../components/Button';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';

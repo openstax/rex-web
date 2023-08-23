@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { Times } from 'styled-icons/fa-solid/Times';
 import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';

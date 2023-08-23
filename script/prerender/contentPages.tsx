@@ -7,7 +7,7 @@ import { renderToString } from 'react-dom/server';
 import Loadable from 'react-loadable';
 import { EnumChangefreq } from 'sitemap';
 import { SitemapItemOptions } from 'sitemap';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components/macro';
 import asyncPool from 'tiny-async-pool';
 import createApp from '../../src/app';
 import { AppOptions } from '../../src/app';

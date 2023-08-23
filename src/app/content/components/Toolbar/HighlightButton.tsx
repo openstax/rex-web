@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import HighlightsIcon from '../../../../assets/HighlightsIcon';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';

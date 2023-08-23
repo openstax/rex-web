@@ -1,7 +1,7 @@
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { Times } from 'styled-icons/fa-solid/Times';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { PlainButton } from '../../../../components/Button';

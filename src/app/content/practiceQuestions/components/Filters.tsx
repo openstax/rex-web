@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
 import { FiltersChange } from '../../components/popUp/types';

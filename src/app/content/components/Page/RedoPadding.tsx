@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { wrapperPadding } from '../../../components/Layout';
 
 export default styled.div`

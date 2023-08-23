@@ -1,7 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';

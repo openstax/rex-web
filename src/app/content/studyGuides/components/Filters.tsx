@@ -3,7 +3,7 @@ import * as Cookies from 'js-cookie';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
 import { useServices } from '../../../context/Services';
 import { AppState, Dispatch } from '../../../types';

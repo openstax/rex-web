@@ -1,5 +1,5 @@
 import { ManageCookiesLink as RawCookiesLink } from '@openstax/ui-components';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';

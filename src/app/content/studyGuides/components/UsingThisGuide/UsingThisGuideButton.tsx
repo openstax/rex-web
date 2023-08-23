@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { QuestionCircle } from 'styled-icons/fa-regular/QuestionCircle';
 import { PlainButton } from '../../../../components/Button';
 import { textRegularSize } from '../../../../components/Typography';

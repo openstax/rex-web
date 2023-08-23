@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components/macro';
 import { bookStylesUrl as bookStylesUrlSelector } from '../content/selectors';
 import { State } from '../content/types';
 import { useServices } from '../context/Services';

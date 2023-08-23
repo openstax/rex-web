@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import GoToTopButton from '../../../components/GoToTopButton';
 import theme from '../../../theme';
 import FiltersList from '../../components/popUp/FiltersList';

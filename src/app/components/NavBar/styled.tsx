@@ -1,6 +1,6 @@
 import Color from 'color';
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
 import { contentWrapperMaxWidth } from '../../content/components/constants';

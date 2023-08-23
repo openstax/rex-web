@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Button from '../../../components/Button';
 import { textRegularSize } from '../../../components/Typography';
 import { nextQuestion } from '../actions';

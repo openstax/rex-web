@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';

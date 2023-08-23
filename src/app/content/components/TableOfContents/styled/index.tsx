@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { Details } from '../../../../components/Details';
 import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';

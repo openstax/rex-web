@@ -4,7 +4,7 @@ import { HTMLElement, HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as selectAuth from '../../../auth/selectors';
 import Button, { ButtonGroup } from '../../../components/Button';

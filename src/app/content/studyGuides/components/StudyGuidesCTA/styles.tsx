@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';

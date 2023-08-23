@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { toolbarIconColor } from '../../content/components/constants';
 import { toolbarIconStyles } from '../../content/components/Toolbar/iconStyles';
 import theme from '../../theme';

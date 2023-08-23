@@ -1,6 +1,6 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { StyledComponentProps } from 'styled-components';
+import { StyledComponentProps } from 'styled-components/macro';
 import ScrollLock from '../../components/ScrollLock';
 import { assertDocument } from '../../utils/browser-assertions';
 import { Modal as ModalWrapper, PopupWrapper } from '../styles/PopupStyles';

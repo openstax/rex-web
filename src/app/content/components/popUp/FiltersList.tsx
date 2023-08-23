@@ -1,7 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography';

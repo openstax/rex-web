@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { maxNavWidth } from '../../../components/NavBar/styled';

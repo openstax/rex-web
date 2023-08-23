@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { navDesktopHeight, navMobileHeight } from '../../../components/NavBar/styled';
 import theme from '../../../theme';
 import { desktopAttributionHeight, mobileAttributionHeight } from '../Attribution';

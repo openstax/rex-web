@@ -2,7 +2,7 @@ import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';

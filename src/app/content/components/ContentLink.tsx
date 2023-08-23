@@ -2,7 +2,7 @@ import flow from 'lodash/fp/flow';
 import { OutputParams } from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';

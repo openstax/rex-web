@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import Color from 'color';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
 import { useDrawFocus } from '../../../reactUtils';

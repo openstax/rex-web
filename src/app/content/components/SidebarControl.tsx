@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import SearchIcon from '../../../assets/SearchIcon';
 import TocIcon from '../../../assets/TocIcon';
 import { textRegularSize } from '../../components/Typography';

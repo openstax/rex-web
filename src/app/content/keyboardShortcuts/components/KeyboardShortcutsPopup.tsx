@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc, useOnKey } from '../../../reactUtils';
 import theme from '../../../theme';

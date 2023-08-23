@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from 'styled-components/macro';
 import { textRegularLineHeight } from '../../../components/Typography';
 
 export const toolbarIconStyles = css`

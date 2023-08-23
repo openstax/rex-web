@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import { h4Style, labelStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { assertDefined } from '../../utils';
