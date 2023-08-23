@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { textRegularStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import ContentExcerpt from '../../components/ContentExcerpt';

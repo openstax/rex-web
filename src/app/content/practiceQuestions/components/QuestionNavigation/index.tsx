@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import Button from '../../../../components/Button';
 import theme from '../../../../theme';
 import * as pqSelectors from '../../selectors';

@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 // tslint:disable-next-line: variable-name
 const HighlightsWrapper = styled.div`

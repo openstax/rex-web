@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';

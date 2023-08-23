@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
 import '../../polyfill/details';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import Button from '../../components/Button';
 import { useServices } from '../../context/Services';

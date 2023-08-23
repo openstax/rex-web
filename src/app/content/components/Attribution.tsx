@@ -2,7 +2,7 @@ import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
 import { htmlMessage } from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';

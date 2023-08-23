@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
 import theme from '../../theme';
 import { buyPrintConfig } from '../selectors';

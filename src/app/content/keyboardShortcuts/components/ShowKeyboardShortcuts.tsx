@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { htmlMessage } from '../../../components/htmlMessage';
 import theme from '../../../theme';
 import { PopupBody } from '../../styles/PopupStyles';

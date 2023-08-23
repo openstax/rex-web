@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import KineticCTAMobile from '../../../assets/kinetic-cta-mobile.svg';
 import KineticCTA from '../../../assets/kinetic-cta.svg';
 import icon from '../../../assets/kinetic-logo.png';

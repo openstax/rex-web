@@ -2,7 +2,7 @@ import flow from 'lodash/fp/flow';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import Sentry from '../../../helpers/Sentry';
 import Footer from '../../components/Footer';
 import { supportCenterLink } from '../../components/Footer';

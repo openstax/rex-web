@@ -1,5 +1,5 @@
 import React, { SFC } from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import ErrorBoundary from '../errors/components/ErrorBoundary';
 import ErrorModal from '../errors/components/ErrorModal';
 import theme from '../theme';

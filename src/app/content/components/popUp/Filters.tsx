@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';

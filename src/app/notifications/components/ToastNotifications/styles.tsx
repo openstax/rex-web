@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
 import { disablePrint } from '../../../content/components/utils/disablePrint';

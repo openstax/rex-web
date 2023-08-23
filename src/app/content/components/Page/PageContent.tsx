@@ -1,5 +1,5 @@
 import Color from 'color';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import MainContent from '../../../components/MainContent';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';

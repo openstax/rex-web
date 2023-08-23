@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import htmlMessage from '../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';

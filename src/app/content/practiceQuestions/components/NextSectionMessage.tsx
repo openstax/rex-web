@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import Button from '../../../components/Button';
 import { textRegularStyle } from '../../../components/Typography';
 import { LinkedArchiveTreeSection } from '../../types';

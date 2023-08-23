@@ -1,6 +1,6 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { TextResizerValue, textResizerValueMap } from '../content/constants';
 import { State } from '../content/types';
 import { MAIN_CONTENT_ID } from '../context/constants';

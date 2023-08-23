@@ -1,7 +1,7 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { cardPadding, cardWidth } from '../constants';

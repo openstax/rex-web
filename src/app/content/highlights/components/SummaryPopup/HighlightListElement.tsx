@@ -1,7 +1,7 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';

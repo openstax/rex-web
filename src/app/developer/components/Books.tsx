@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { BookVersionConfig } from '../../../config.books';
 import { getBooksConfigSync } from '../../../gateways/createBookConfigLoader';
 import { DotMenuDropdown, DotMenuDropdownList } from '../../components/DotMenu';

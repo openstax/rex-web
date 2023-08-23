@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
 import { decoratedLinkStyle, linkColor, linkStyle } from './Typography';

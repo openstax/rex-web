@@ -1,5 +1,5 @@
 import flow from 'lodash/fp/flow';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';

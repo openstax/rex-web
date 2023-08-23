@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlattenSimpleInterpolation } from 'styled-components';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components';
 import { Details as BaseDetails, Summary } from '../../../../components/Details';
 import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';

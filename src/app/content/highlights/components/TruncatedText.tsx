@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { linkStyle } from '../../../components/Typography';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';

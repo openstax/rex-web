@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
+import styled, { createGlobalStyle, css, keyframes } from 'styled-components';
 import { sidebarTransitionTime, topbarDesktopHeight } from '../content/components/constants';
 import { disablePrint } from '../content/components/utils/disablePrint';
 import { useDisableContentTabbing } from '../reactUtils';

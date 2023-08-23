@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';

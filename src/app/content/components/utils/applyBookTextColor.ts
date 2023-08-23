@@ -1,4 +1,4 @@
-import { css } from 'styled-components/macro';
+import { css } from 'styled-components';
 import theme from '../../../theme';
 import { BookWithOSWebData } from '../../types';
 

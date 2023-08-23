@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { textRegularSize } from '../../../components/Typography';
 import theme from '../../../theme';
 import PrintButton from '../../components/Toolbar/PrintButton';

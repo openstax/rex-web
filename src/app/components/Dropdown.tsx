@@ -4,7 +4,7 @@ import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { css, keyframes } from 'styled-components';
 import { useFocusLost } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme from '../theme';

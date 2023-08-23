@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { textRegularStyle } from '../../../components/Typography';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';

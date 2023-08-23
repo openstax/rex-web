@@ -11,6 +11,19 @@ module.exports = {
         '@openstax/ts-utils': '@openstax/ts-utils/dist/cjs'
       },
     },
+    babel: {
+      plugins: [
+        ['babel-plugin-styled-components', {
+          "meaninglessFileNames": ["index", "styled"],
+          "ssr": true,
+          "minify": true,
+          "transpileTemplateLiterals": true,
+          "pure": true,
+          "displayName": true,
+          "fileName": true,
+        }]
+      ]
+    },
     plugins: [{
         plugin: {
             // Based on https://github.com/kevinsperrine/craco-workbox/blob/master/lib/index.js

@@ -19,6 +19,15 @@ module.exports = function(additionalExtensions = ['.ts', '.tsx']) {
     ],
     plugins: [
       'macros',
+      ['babel-plugin-styled-components', {
+        "meaninglessFileNames": ["index", "styled"],
+        "ssr": true,
+        "minify": true,
+        "transpileTemplateLiterals": true,
+        "pure": true,
+        "displayName": true,
+        "fileName": true,
+      }],
       '@babel/plugin-proposal-object-rest-spread',
       '@babel/plugin-proposal-class-properties',
       '@babel/plugin-proposal-optional-chaining',

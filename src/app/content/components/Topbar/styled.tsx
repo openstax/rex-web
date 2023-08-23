@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';

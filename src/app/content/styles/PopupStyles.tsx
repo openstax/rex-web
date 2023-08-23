@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 import Times from '../../../../src/app/components/Times';
 import { PlainButton } from '../../components/Button';
 import { H3 } from '../../components/Typography/headings';

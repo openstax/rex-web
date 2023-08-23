@@ -1,5 +1,5 @@
 import { FlattenSimpleInterpolation } from 'styled-components';
-import { css } from 'styled-components/macro';
+import { css } from 'styled-components';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
 export interface ColorSet {

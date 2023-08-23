@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import { ButtonGroup } from '../../components/Button';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { disablePrint } from '../../content/components/utils/disablePrint';
