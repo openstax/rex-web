@@ -22,6 +22,7 @@ describe('content', () => {
 
       // these elements are intended to be changed on page load
       [
+        '[class*="ManageCookiesLink"]',
         '[data-testid="user-nav"]',
         '[data-testid="nav-login"]',
         '[data-experiment]',
