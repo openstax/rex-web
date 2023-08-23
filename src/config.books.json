@@ -8,10 +8,12 @@
     "dynamicStyles": false
   },
   "14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22": {
-    "defaultVersion": "ccce780"
+    "defaultVersion": "ccce780",
+    "dynamicStyles": false
   },
   "2e737be8-ea65-48c3-aa0a-9f35b4c6a966": {
-    "defaultVersion": "faae451"
+    "defaultVersion": "faae451",
+    "dynamicStyles": false
   },
   "8d50a0af-948b-4204-a71d-4826cba765b8": {
     "defaultVersion": "3bf8607"
@@ -223,7 +225,8 @@
     "retired": true
   },
   "185cbf87-c72e-48f5-b51e-f14f21b5eabd": {
-    "defaultVersion": "e989ec3"
+    "defaultVersion": "e989ec3",
+    "dynamicStyles": false
   },
   "1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1": {
     "defaultVersion": "be11438"
