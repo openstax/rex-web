@@ -1,4 +1,4 @@
-// import { ManageCookiesLink as RawCookiesLink } from '@openstax/ui-components';
+import { ManageCookiesLink as RawCookiesLink } from '@openstax/ui-components';
 import styled, { css } from 'styled-components';
 import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
@@ -10,7 +10,6 @@ import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { remsToEms } from '../../utils';
 
-// export { RawCookiesLink };
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
 const mobileMinWidth = '37.5';
@@ -186,7 +185,7 @@ export const FooterLink = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-export const ManageCookiesLink = styled.button`
+export const ManageCookiesLink = styled(RawCookiesLink)`
   ${textRegularStyle}
   ${footerLinkStyle}
   text-align: left;

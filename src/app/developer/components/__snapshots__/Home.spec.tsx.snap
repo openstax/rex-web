@@ -695,25 +695,25 @@ Array [
       </div>
     </div>
   </div>,
-  .c17 {
+  .c16 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
+}
+
+.c17 {
+  height: 1em;
 }
 
 .c18 {
   height: 1em;
 }
 
-.c19 {
-  height: 1em;
-}
-
-.c21 {
-  height: 1em;
-}
-
 .c20 {
+  height: 1em;
+}
+
+.c19 {
   height: 1em;
 }
 
@@ -795,28 +795,7 @@ Array [
   text-decoration: underline;
 }
 
-.c11 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: left;
-}
-
-.c11:hover,
-.c11:active,
-.c11:focus {
-  color: inherit;
-}
-
-.c11:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c22 {
+.c21 {
   color: inherit;
   display: inline-grid;
   grid-auto-flow: column;
@@ -824,9 +803,9 @@ Array [
   overflow: hidden;
 }
 
-.c22:hover,
-.c22:active,
-.c22:focus {
+.c21:hover,
+.c21:active,
+.c21:focus {
   color: inherit;
 }
 
@@ -861,7 +840,7 @@ Array [
   line-height: normal;
 }
 
-.c12 {
+.c11 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -872,7 +851,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c13 {
+.c12 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -894,28 +873,28 @@ Array [
   overflow: visible;
 }
 
-.c14 {
+.c13 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c14 [data-html="copyright"] {
+.c13 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c14 a {
+.c13 a {
   color: inherit;
   overflow: visible;
 }
 
-.c14 a:hover,
-.c14 a:active,
-.c14 a:focus {
+.c13 a:hover,
+.c13 a:active,
+.c13 a:focus {
   color: inherit;
 }
 
-.c14 sup {
+.c13 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -923,7 +902,7 @@ Array [
   vertical-align: top;
 }
 
-.c15 {
+.c14 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -938,7 +917,7 @@ Array [
   overflow: visible;
 }
 
-.c16 {
+.c15 {
   color: inherit;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -957,13 +936,13 @@ Array [
   width: 3rem;
 }
 
-.c16:hover,
-.c16:active,
-.c16:focus {
+.c15:hover,
+.c15:active,
+.c15:focus {
   color: inherit;
 }
 
-.c23 {
+.c22 {
   height: 4rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -1060,37 +1039,31 @@ Array [
 }
 
 @media (max-width:37.5em) {
-  .c11 {
-    line-height: 4.5rem;
-  }
-}
-
-@media (max-width:37.5em) {
   .c7 {
     line-height: 4.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c12 {
+  .c11 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c12 {
+  .c11 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c13 {
+  .c12 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c13 {
+  .c12 {
     padding: 0;
   }
 }
@@ -1232,22 +1205,17 @@ Array [
             >
               Privacy Policy
             </a>
-            <button
-              className="c11"
-            >
-              Manage Cookies
-            </button>
           </div>
         </div>
       </div>
       <div
-        className="c12"
+        className="c11"
       >
         <div
-          className="c13"
+          className="c12"
         >
           <div
-            className="c14"
+            className="c13"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -1265,12 +1233,12 @@ Array [
             }
           />
           <div
-            className="c15"
+            className="c14"
             role="list"
           >
             <a
               aria-label="facebook"
-              className="c16"
+              className="c15"
               href="https://www.facebook.com/openstax"
               rel="noopener"
               role="listitem"
@@ -1278,7 +1246,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="c17 c18"
+                className="c16 c17"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 320 512"
@@ -1292,7 +1260,7 @@ Array [
             </a>
             <a
               aria-label="twitter"
-              className="c16"
+              className="c15"
               href="https://twitter.com/openstax"
               rel="noopener"
               role="listitem"
@@ -1300,7 +1268,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="c17 c19"
+                className="c16 c18"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1314,7 +1282,7 @@ Array [
             </a>
             <a
               aria-label="linkedin"
-              className="c16"
+              className="c15"
               href="https://www.linkedin.com/company/openstax"
               rel="noopener"
               role="listitem"
@@ -1322,7 +1290,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="c17 c20"
+                className="c16 c19"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
@@ -1336,7 +1304,7 @@ Array [
             </a>
             <a
               aria-label="instagram"
-              className="c16"
+              className="c15"
               href="https://www.instagram.com/openstax/"
               rel="noopener"
               role="listitem"
@@ -1344,7 +1312,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="c17 c21"
+                className="c16 c20"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 448 512"
@@ -1357,7 +1325,7 @@ Array [
               </svg>
             </a>
             <a
-              className="c22"
+              className="c21"
               href="http://www.rice.edu"
               rel="noopener"
               role="listitem"
@@ -1365,7 +1333,7 @@ Array [
             >
               <img
                 alt="Rice University logo"
-                className="c23"
+                className="c22"
                 src="rice-white-text.png"
               />
             </a>

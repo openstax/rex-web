@@ -362,7 +362,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 @media print {
-  .c7 > *:not(.sc-dNLxif) {
+  .c7 > *:not(.sc-dfVpRl) {
     display: none;
   }
 }
