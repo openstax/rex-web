@@ -1,6 +1,6 @@
 // Table of Contents locators and functions
 import { Locator, Page } from 'playwright'
-import { MobileNavigation } from '../utilities/utilities'
+import { MobileNavigation, sleep } from '../utilities/utilities'
 
 class TOC {
   page: Page
@@ -36,12 +36,14 @@ class TOC {
     } else if (browserAgent.includes('Mobile')) {
       await mobileNav.openMobileMenu('toc')
     }
-    
+
     await this.page.waitForSelector('[data-type="page"]')
     if (pageNumber < (await this.pageCount())) {
       // click the page if it is visible in toc
       if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
         await this.pageLocator.nth(pageNumber).click()
+        if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
+          sleep(1)
       } else {
         // expand the dropdowns in toc
         await this.page.waitForSelector('details[class*="NavDetails"]')
@@ -53,6 +55,9 @@ class TOC {
         // click the page, if it is visible in toc
         if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
           await this.pageLocator.nth(pageNumber).click()
+          if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
+            sleep(1)
+          }
         } else {
           console.log('The page is not available')
         }
