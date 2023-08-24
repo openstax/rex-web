@@ -43,7 +43,7 @@ class TOC {
       if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
         await this.pageLocator.nth(pageNumber).click()
         if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
-          sleep(1)
+          sleep(1)}
       } else {
         // expand the dropdowns in toc
         await this.page.waitForSelector('details[class*="NavDetails"]')
