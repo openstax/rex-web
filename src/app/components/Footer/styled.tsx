@@ -2,9 +2,13 @@ import styled, { css } from 'styled-components/macro';
 import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
-import { Twitter } from 'styled-icons/fa-brands/Twitter';
+import React from 'react';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
-import { contentWrapperMaxWidth, toolbarWidth, verticalNavbarMaxWidth } from '../../content/components/constants';
+import {
+  contentWrapperMaxWidth,
+  toolbarWidth,
+  verticalNavbarMaxWidth
+} from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { remsToEms } from '../../utils';
@@ -26,10 +30,33 @@ export const FBIcon = styled(FacebookF)`
   ${iconStyles}
 `;
 
+// This is the SVG output by FontAwesome on osweb. Temporary filler until
+// styled-icons updates their icon set.
+// The use of styled(XTwitter) didn't do anything; I had to
+// set the height here.
+function XTwitter() {
+  return (
+    <svg
+      aria-hidden='true'
+      focusable='false'
+      data-prefix='fab'
+      data-icon='x-twitter'
+      role='img'
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 512 512'
+      className='svg-inline--fa fa-x-twitter'
+      height='1em'
+    >
+      <path
+        fill='currentColor'
+        d='M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z'
+      ></path>
+    </svg>
+  );
+}
+
 // tslint:disable-next-line:variable-name
-export const TwitterIcon = styled(Twitter)`
-  ${iconStyles}
-`;
+export const TwitterIcon = XTwitter;
 
 // tslint:disable-next-line:variable-name
 export const IGIcon = styled(Instagram)`
