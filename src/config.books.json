@@ -32,13 +32,16 @@
     "defaultVersion": "d6578c3"
   },
   "8b89d172-2927-466f-8661-01abc7ccdba4": {
-    "defaultVersion": "d87509a"
+    "defaultVersion": "d87509a",
+    "dynamicStyles": false
   },
   "1d39a348-071f-4537-85b6-c98912458c3c": {
-    "defaultVersion": "d87509a"
+    "defaultVersion": "d87509a",
+    "dynamicStyles": false
   },
   "a31cd793-2162-4e9e-acb5-6e6bbd76a5fa": {
-    "defaultVersion": "d87509a"
+    "defaultVersion": "d87509a",
+    "dynamicStyles": false
   },
   "7fccc9cf-9b71-44f6-800b-f9457fd64335": {
     "defaultVersion": "b40bd2c",
@@ -304,13 +307,16 @@
     "dynamicStyles": false
   },
   "8079f22f-c0a0-43ed-bb35-871d8d9743f3": {
-    "defaultVersion": "da492e7"
+    "defaultVersion": "da492e7",
+    "dynamicStyles": false
   },
   "8635f0be-e734-4cd1-a10e-8063e5b863b6": {
-    "defaultVersion": "da492e7"
+    "defaultVersion": "da492e7",
+    "dynamicStyles": false
   },
   "21b1d0df-a716-4205-8e86-0d0787b2c991": {
-    "defaultVersion": "da492e7"
+    "defaultVersion": "da492e7",
+    "dynamicStyles": false
   },
   "4fd99458-6fdf-49bc-8688-a6dc17a1268d": {
     "defaultVersion": "f1ce9ea"
