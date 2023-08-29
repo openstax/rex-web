@@ -21,18 +21,19 @@ const Mission = htmlMessage('i18n:footer:copyright:mission-text', Styled.Mission
 const Copyrights = htmlMessage('i18n:footer:copyright:bottom-text', Styled.Copyrights);
 
 // tslint:disable-next-line:variable-name
+const BareMessage: React.SFC<{id: string}> = ({id}) => <FormattedMessage id={id}>
+  {(msg) => msg}
+</FormattedMessage>;
+
+// tslint:disable-next-line:variable-name
 const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHeading>
-  <FormattedMessage id={id}>
-    {(msg) => msg}
-  </FormattedMessage>
+  <BareMessage id={id} />
 </Styled.ColumnHeading>;
 
 // tslint:disable-next-line:variable-name
 const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, rel?: string }> =
   ({id, href, target, rel }) => <Styled.FooterLink href={href} target={target ? target : '_self'} rel={rel ? rel : ''}>
-  <FormattedMessage id={id}>
-    {(msg) => msg}
-  </FormattedMessage>
+  <BareMessage id={id} />
 </Styled.FooterLink>;
 
 // tslint:disable-next-line:variable-name
@@ -66,7 +67,7 @@ const Column3 = () => <Styled.Column3>
   <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
   <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
   <Styled.ManageCookiesLink>
-    <FormattedMessage id='i18n:footer:column3:manage-cookies'>{(msg) => msg}</FormattedMessage>
+    <BareMessage id='i18n:footer:column3:manage-cookies' />
   </Styled.ManageCookiesLink>
 </Styled.Column3>;
 
@@ -95,9 +96,7 @@ const Footer = ({ isVerticalNavOpen }: { isVerticalNavOpen: State['tocOpen'] }) 
     <Styled.FooterTop>
       <Styled.TopBoxed>
         <Styled.Heading role='heading' aria-level={2}>
-          <FormattedMessage id='i18n:footer:heading'>
-            {(msg) => msg}
-          </FormattedMessage>
+          <BareMessage id='i18n:footer:heading' />
         </Styled.Heading>
         <Mission />
         <Column1 />
