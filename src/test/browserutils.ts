@@ -120,6 +120,8 @@ export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string)
   const port = Number((new URL(target.wsEndpoint())).port);
   const { lhr } = await lighthouse(url(urlPath), {port}, lighthouseConfig);
 
+  // tslint:disable-next-line
+  console.dir(lhr, {depth: null});
   expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
   expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.69);
