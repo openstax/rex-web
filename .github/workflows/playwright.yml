@@ -21,3 +21,11 @@ jobs:
     - run: npx playwright install-deps
     - run: npx playwright install
     - run: npm run test
+
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: playwright-report
+        path: test-results
+        
