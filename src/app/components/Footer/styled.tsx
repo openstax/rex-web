@@ -13,9 +13,10 @@ import { remsToEms } from '../../utils';
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
 const mobileMinWidth = '37.5';
+const textColor = '#d5d5d5';
 
 export const columnLink = css`
-  color: inherit;
+  color: ${textColor};
 
   &:hover,
   &:active,
@@ -81,7 +82,7 @@ export const FooterWrapper = styled.footer`
 
 // tslint:disable-next-line:variable-name
 export const InnerFooter = styled.div`
-  color: #d5d5d5;
+  color: ${textColor};
   display: grid;
 `;
 
