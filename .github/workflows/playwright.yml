@@ -27,5 +27,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: playwright-report
-        path: test-results
+        path: playwright/test-results
         
