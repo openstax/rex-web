@@ -187,9 +187,11 @@ export const FooterLink = styled.a`
 
 // tslint:disable-next-line:variable-name
 export const ManageCookiesLink = styled(RawCookiesLink)`
-  ${textRegularStyle}
-  ${footerLinkStyle}
-  text-align: left;
+  && {
+    ${textRegularStyle}
+    ${footerLinkStyle}
+    text-align: left;
+  }
 `;
 
 // tslint:disable-next-line:variable-name

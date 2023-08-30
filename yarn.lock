@@ -5126,16 +5126,16 @@
   resolved "https://registry.yarnpkg.com/@openstax/types/-/types-3.1.0.tgz#364a73e321127dfb1cfa36adccdae8e21a0805dc"
   integrity sha512-vy9nFdfw/nRX7iYjpl1CPxHwr8dIog+WVlDQr+EeD31HQ9uQX4I+cNV7jmvx1oiMIofSdrM+OBbmPC9qzAJK+w==
 
-"@openstax/ui-components@https://github.com/openstax/ui-components#1.3.4":
+"@openstax/ui-components@https://github.com/openstax/ui-components#1.3.4-post":
   version "0.0.0"
-  resolved "https://github.com/openstax/ui-components#90d8c4293f3840e87dbb183e78568b1bf77d3e4b"
+  resolved "https://github.com/openstax/ui-components#339b25c96d96b8efd72e793289302b40faefc748"
   dependencies:
     "@sentry/react" "^7.48.0"
     classnames "^2.3.1"
 
-"@openstax/ui-components@https://github.com/openstax/ui-components#1.3.4-post":
+"@openstax/ui-components@https://github.com/openstax/ui-components#1.3.4-post2":
   version "0.0.0"
-  resolved "https://github.com/openstax/ui-components#339b25c96d96b8efd72e793289302b40faefc748"
+  resolved "https://github.com/openstax/ui-components#cf700e10471d92a287d1f5304d93633e6cab3fa4"
   dependencies:
     "@sentry/react" "^7.48.0"
     classnames "^2.3.1"
