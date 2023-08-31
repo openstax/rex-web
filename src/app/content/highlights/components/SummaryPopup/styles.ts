@@ -4,10 +4,7 @@ import styled from 'styled-components/macro';
 export const HighlightEditButtons = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 8px;
   overflow: visible;
-
-  button:first-child {
-    margin-right: 8px;
-  }
+  gap: 1rem;
+  height: min-content;
 `;
