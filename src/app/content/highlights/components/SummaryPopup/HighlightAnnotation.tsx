@@ -65,29 +65,37 @@ function DisplayHighlightAnnotation({
   );
 }
 
+type StyleableElement = Element & {
+  style: { height?: number };
+  scrollHeight: number;
+};
 const FUDGE_TO_AVOID_SCROLLBARS = 2;
+
+function noScrollHeight(el: StyleableElement) {
+  const h = el.style.height;
+
+  // Transient change to allow scrollHeight to shrink
+  el.style.height = 0;
+  const result = el.scrollHeight;
+
+  el.style.height = h;
+
+  return result;
+}
 
 function useCalculatedHeight() {
   const [taHeight, setTaHeight] = React.useState(0);
-  const calculateHeight = React.useCallback(
-    ({target}) => {
-      const h = target.style.height;
-
-      // Transient change to allow scrollHeight to shrink
-      target.style.height = 0;
-      setTaHeight(target.scrollHeight);
-      target.style.height = h;
-    },
-    []
-  );
+  const calculateHeight = React.useCallback(({ target }) => {
+    setTaHeight(noScrollHeight(target));
+  }, []);
   const taStyle = React.useMemo(
-    () => (taHeight ? {
-      height: `${taHeight + FUDGE_TO_AVOID_SCROLLBARS}px`
-    }: null),
+    () => ({
+      height: `${taHeight + FUDGE_TO_AVOID_SCROLLBARS}px`,
+    }),
     [taHeight]
   );
 
-  return {calculateHeight, taStyle};
+  return { calculateHeight, taStyle };
 }
 
 // tslint:disable-next-line:variable-name
@@ -98,17 +106,16 @@ const EditHighlightAnnotation = ({
 }: Omit<HighlightAnnotationProps, 'isEditing'>) => {
   const [anno, setAnno] = React.useState(annotation);
   const intl = useIntl();
-  const ref = React.useRef();
-  const {calculateHeight, taStyle} = useCalculatedHeight();
+  const ref = React.useRef<HTMLDivElement>();
+  const { calculateHeight, taStyle } = useCalculatedHeight();
 
   React.useEffect(() => {
     setAnno(annotation);
   }, [annotation]);
 
-  React.useLayoutEffect(
-    () => calculateHeight({target: ref.current}),
-    [calculateHeight]
-  );
+  React.useEffect(() => {
+    calculateHeight({ target: ref.current });
+  }, [calculateHeight]);
 
   return (
     <HighlightNote>

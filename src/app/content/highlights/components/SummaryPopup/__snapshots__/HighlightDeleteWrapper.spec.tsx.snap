@@ -88,12 +88,11 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0 8px;
   overflow: visible;
-}
-
-.c1 button:first-child {
-  margin-right: 8px;
+  gap: 1rem;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
 }
 
 .c0 {
