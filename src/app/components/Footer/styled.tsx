@@ -29,6 +29,11 @@ export const iconStyles = css`
   height: 1em;
 `;
 
+// tslint:disable-next-line:variable-name
+export const FBIcon = styled(FacebookF)`
+  ${iconStyles}
+`;
+
 // This is the SVG output by FontAwesome on osweb. Temporary filler until
 // styled-icons updates their icon set.
 // The use of styled(XTwitter) didn't do anything; I had to
@@ -54,11 +59,6 @@ function XTwitter() {
     </svg>
   );
 }
-
-// tslint:disable-next-line:variable-name
-export const FBIcon = styled(FacebookF)`
-  ${iconStyles}
-`;
 
 // tslint:disable-next-line:variable-name
 export const TwitterIcon = XTwitter;
