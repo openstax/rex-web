@@ -165,7 +165,7 @@
     "prettier": "1.19.1",
     "pretty": "^2.0.0",
     "progress": "^2.0.3",
-    "puppeteer": "~5.4",
+    "puppeteer": "^5",
     "react-scripts": "^4.0.3",
     "react-test-renderer": "~16.9",
     "resize-observer-polyfill": "^1.5.1",
