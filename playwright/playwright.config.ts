@@ -39,10 +39,10 @@ const config: PlaywrightTestConfig = {
       },
     },
     {
-      name: 'iPad Pro 11 landscape',
+      name: 'iPad Pro 11',
       use: {
         browserName: 'webkit',
-        ...devices['iPad Pro 11 landscape'],
+        ...devices['iPad Pro 11'],
       },
     },
   ],

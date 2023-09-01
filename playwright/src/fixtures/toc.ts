@@ -45,8 +45,6 @@ class TOC {
       // click the page if it is visible in toc
       if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
         await this.pageLocator.nth(pageNumber).click()
-        // if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
-        //   sleep(1)}
       } else {
         // expand the dropdowns in toc
         await this.page.waitForSelector('details[class*="NavDetails"]')
@@ -58,9 +56,6 @@ class TOC {
         // click the page, if it is visible in toc
         if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
           await this.pageLocator.nth(pageNumber).click()
-          // if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
-          //   sleep(1)
-          // }
         } else {
           console.log('The page is not available')
         }
