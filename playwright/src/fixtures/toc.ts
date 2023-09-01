@@ -28,6 +28,9 @@ class TOC {
     // Click on a toc link
     // param: page number to be clicked
 
+    const titleBeforeClick = this.page.locator('head title').textContent()
+    
+
     const mobileNav = new MobileNavigation(this.page)
     const browserAgent = await this.page.evaluate(() => navigator.userAgent)
 
@@ -42,8 +45,8 @@ class TOC {
       // click the page if it is visible in toc
       if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
         await this.pageLocator.nth(pageNumber).click()
-        if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
-          sleep(1)}
+        // if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
+        //   sleep(1)}
       } else {
         // expand the dropdowns in toc
         await this.page.waitForSelector('details[class*="NavDetails"]')
@@ -55,13 +58,19 @@ class TOC {
         // click the page, if it is visible in toc
         if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
           await this.pageLocator.nth(pageNumber).click()
-          if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
-            sleep(1)
-          }
+          // if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
+          //   sleep(1)
+          // }
         } else {
           console.log('The page is not available')
         }
       }
+      const titleAfterClick = this.page.locator('head title').textContent()
+      if (await titleAfterClick != await titleBeforeClick){
+        return
+      }
+      else { sleep(1)}
+      
     } else {
       console.log('The page number specified exceeds the total pages in the book')
     }

@@ -75,7 +75,7 @@
         "outputDir": "/Users/malar/Rex/rex-web/playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "name": "iPad Pro 11",
+        "name": "iPad Pro 11 landscape",
         "testDir": "/Users/malar/Rex/rex-web/playwright",
         "testIgnore": [],
         "testMatch": [
@@ -119,7 +119,7 @@
       "column": 0,
       "specs": [
         {
-          "title": "C660045 click unit introduction page",
+          "title": "C242991 special characters are escaped in slug",
           "ok": true,
           "tags": [],
           "tests": [
@@ -127,12 +127,12 @@
               "timeout": 120000,
               "annotations": [],
               "expectedStatus": "passed",
-              "projectName": "Desktop Chrome",
+              "projectName": "iPad Pro 11 landscape",
               "results": [
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 11948,
+                  "duration": 8980,
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
@@ -143,7 +143,7 @@
             }
           ],
           "file": "tests/rex-test/rex.behaviorspec.ts",
-          "line": 330,
+          "line": 406,
           "column": 1
         }
       ]
