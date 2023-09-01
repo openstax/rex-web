@@ -113,7 +113,6 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
       book,
       page,
       currentPath,
-      focusedHighlight,
       hasUnsavedHighlight,
     } = getProps();
     const href = anchor.getAttribute('href');
@@ -139,7 +138,7 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
     e.preventDefault();
 
     if (isHtmlElementWithHighlight(e.target)) {
-      if (e.target.getAttribute('data-highlight-id') !==  focusedHighlight) {
+      if (!e.target.matches('.focus')) {
         return;
       }
       e.stopPropagation();
