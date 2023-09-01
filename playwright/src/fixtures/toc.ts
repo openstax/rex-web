@@ -29,7 +29,6 @@ class TOC {
     // param: page number to be clicked
 
     const titleBeforeClick = this.page.locator('head title').textContent()
-    
 
     const mobileNav = new MobileNavigation(this.page)
     const browserAgent = await this.page.evaluate(() => navigator.userAgent)
@@ -61,11 +60,11 @@ class TOC {
         }
       }
       const titleAfterClick = this.page.locator('head title').textContent()
-      if (await titleAfterClick != await titleBeforeClick){
+      if ((await titleAfterClick) != (await titleBeforeClick)) {
         return
+      } else {
+        sleep(1)
       }
-      else { sleep(1)}
-      
     } else {
       console.log('The page number specified exceeds the total pages in the book')
     }

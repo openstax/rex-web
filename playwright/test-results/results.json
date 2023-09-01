@@ -75,7 +75,7 @@
         "outputDir": "/Users/malar/Rex/rex-web/playwright/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "name": "iPad Pro 11",
+        "name": "iPad Pro 11 landscape",
         "testDir": "/Users/malar/Rex/rex-web/playwright",
         "testIgnore": [],
         "testMatch": [
@@ -127,12 +127,12 @@
               "timeout": 120000,
               "annotations": [],
               "expectedStatus": "passed",
-              "projectName": "iPad Pro 11",
+              "projectName": "iPad Pro 11 landscape",
               "results": [
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 9843,
+                  "duration": 9756,
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
@@ -143,7 +143,7 @@
             }
           ],
           "file": "tests/rex-test/rex.behaviorspec.ts",
-          "line": 406,
+          "line": 413,
           "column": 1
         }
       ]
