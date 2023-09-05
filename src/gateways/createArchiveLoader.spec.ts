@@ -1,5 +1,4 @@
 import { VersionedArchiveBookWithConfig } from '../app/content/types';
-import Sentry from '../helpers/Sentry';
 import { ToastMesssageError } from '../helpers/applicationMessageError';
 import { resetModules } from '../test/utils';
 
@@ -15,13 +14,21 @@ const createArchiveLoader: typeof import ('./createArchiveLoader').default = (..
 
 describe('archiveLoader', () => {
   const fetchBackup = fetch;
-  let captureException: jest.SpyInstance = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
+  let sentry;
+  let captureException: jest.SpyInstance;
+
+  beforeEach(() => {
+    sentry = require('../helpers/Sentry').default;
+    captureException = jest.spyOn(sentry, 'captureException').mockImplementation(() => undefined);
+  });
+
 
   afterEach(() => {
     resetModules();
     (global as any).fetch = fetchBackup;
     captureException.mockReset();
   });
+
 
   describe('book loader', () => {
     describe('when successful', () => {
@@ -277,7 +284,7 @@ describe('archiveLoader', () => {
         }
       });
 
-      xit('captures errors if something else went wrong with the fetch', async() => {
+      it('captures errors if something else went wrong with the fetch', async() => {
         let error: Error | null = null;
 
         (global as any).fetch = mockFetch(500, 'Internal Error');
