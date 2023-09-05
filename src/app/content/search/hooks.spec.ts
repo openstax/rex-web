@@ -69,13 +69,15 @@ describe('hooks', () => {
     });
 
     it('throws a custom toast error when the network connection is flaky/offline', async() => {
+      const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       (helpers.searchClient.search as any).mockReturnValue(
-        Promise.reject('Fetch Error')
+        Promise.reject(new TypeError('Failed to fetch'))
       );
       try {
         await hook(requestSearch('asdf'));
       } catch (e) {
+        expect(captureException).not.toHaveBeenCalled();
         expect(e).toBeInstanceOf(ToastMesssageError);
       }
     });
