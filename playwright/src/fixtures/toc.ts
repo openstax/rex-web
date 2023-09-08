@@ -1,5 +1,6 @@
-// Content page locators and functions
+// Table of Contents locators and functions
 import { Locator, Page } from 'playwright'
+import { MobileNavigation, sleep } from '../utilities/utilities'
 
 class TOC {
   page: Page
@@ -27,26 +28,45 @@ class TOC {
     // Click on a toc link
     // param: page number to be clicked
 
+    const titleBeforeClick = this.page.locator('head title').textContent()
+
+    const mobileNav = new MobileNavigation(this.page)
+    const browserAgent = await this.page.evaluate(() => navigator.userAgent)
+
+    if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
+      await mobileNav.openBigMobileMenu('toc')
+    } else if (browserAgent.includes('Mobile')) {
+      await mobileNav.openMobileMenu('toc')
+    }
+
+    await this.page.waitForSelector('[data-type="page"]')
     if (pageNumber < (await this.pageCount())) {
       // click the page if it is visible in toc
       if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
         await this.pageLocator.nth(pageNumber).click()
       } else {
         // expand the dropdowns in toc
+        await this.page.waitForSelector('details[class*="NavDetails"]')
         const tocDropdownCounts = await this.tocDropdownLocator.count()
         let tocDropdownCount: number
         for (tocDropdownCount = 0; tocDropdownCount < tocDropdownCounts; tocDropdownCount++) {
           await this.tocDropdownLocator.nth(tocDropdownCount).click()
-
-          // click the page, if it is visible in toc
-          if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
-            await this.pageLocator.nth(pageNumber).click()
-            break
-          }
+        }
+        // click the page, if it is visible in toc
+        if ((await this.pageLocator.nth(pageNumber).isVisible()) === true) {
+          await this.pageLocator.nth(pageNumber).click()
+        } else {
+          console.log('The page is not available')
         }
       }
+      const titleAfterClick = this.page.locator('head title').textContent()
+      if ((await titleAfterClick) != (await titleBeforeClick)) {
+        return
+      } else {
+        sleep(1)
+      }
     } else {
-      console.log('The section number specified exceeds the total pages in the book')
+      console.log('The page number specified exceeds the total pages in the book')
     }
   }
 
