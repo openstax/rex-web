@@ -24,30 +24,30 @@ const config: PlaywrightTestConfig = {
         browserName: 'webkit',
       },
     },
-    // {
-    //   name: 'Mobile (Pixel 5)',
-    //   use: {
-    //     browserName: 'chromium',
-    //     ...devices['Pixel 5'],
-    //   },
-    // },
-    // {
-    //   name: 'Mobile (iPhone 12)',
-    //   use: {
-    //     browserName: 'webkit',
-    //     ...devices['iPhone 12'],
-    //   },
-    // },
-    // {
-    //   name: 'iPad Pro 11',
-    //   use: {
-    //     browserName: 'webkit',
-    //     ...devices['iPad Pro 11'],
-    //   },
-    // },
+    {
+      name: 'Mobile (Pixel 5)',
+      use: {
+        browserName: 'chromium',
+        ...devices['Pixel 5'],
+      },
+    },
+    {
+      name: 'Mobile (iPhone 12)',
+      use: {
+        browserName: 'webkit',
+        ...devices['iPhone 12'],
+      },
+    },
+    {
+      name: 'iPad Pro 11 landscape',
+      use: {
+        browserName: 'webkit',
+        ...devices['iPad Pro 11 landscape'],
+      },
+    },
   ],
   reporter: [['list'], ['json', { outputFile: 'test-results/results.json' }]],
-  retries: 0,
+  retries: 1,
   workers: 1,
   testMatch: /.*\.behaviorspec\.ts/,
   timeout: 120000,
@@ -56,8 +56,8 @@ const config: PlaywrightTestConfig = {
     launchOptions: {
       slowMo: 150,
     },
-    trace: 'retain-on-failure',
-    video: 'retain-on-failure',
+    trace: 'on-first-retry',
+    video: 'on-first-retry',
   },
 }
 
