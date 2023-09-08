@@ -10,14 +10,7 @@ import {
   accountsUserSignOut,
   rexUserSignout,
 } from '../../src/utilities/user'
-import {
-  closeExtras,
-  randomChoice,
-  randomNum,
-  randomstring,
-  sleep,
-  MobileNavigation,
-} from '../../src/utilities/utilities'
+import { closeExtras, randomChoice, randomNum, randomstring, sleep } from '../../src/utilities/utilities'
 import { KsModal } from '../../src/fixtures/ksmodal'
 import { MHModal, MHHighlights, Action } from '../../src/fixtures/MHmodal'
 import { TOC } from '../../src/fixtures/toc'
@@ -42,7 +35,6 @@ export {
   randomstring,
   rexUserSignup,
   sleep,
-  MobileNavigation,
   test,
   userSignIn,
   webUserSignup,

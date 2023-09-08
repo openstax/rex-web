@@ -68,13 +68,13 @@ class MobileNavigation {
   async openMobileMenu(menu: any) {
     switch (menu) {
       case 'toc':
-        await this.page.click('[aria-label="Click to open menu"]')
-        await this.page.click('[aria-label="Click to open the Table of Contents"]')
+        await this.page.click('[id*="mobile-menu-button"] [class*="styled__PlainButton"]')
+        await this.page.click('[data-analytics-label="Click to open the Table of Contents"]')
         break
 
       case 'MH':
-        await this.page.click('[aria-label="Click to open menu"]')
-        await this.page.click('[aria-label="Highlights"]')
+        await this.page.click('[id*="mobile-menu-button"] [class*="styled__PlainButton"]')
+        await this.page.click('[data-analytics-label="My highlights"]')
         break
     }
   }
@@ -82,11 +82,11 @@ class MobileNavigation {
   async openBigMobileMenu(menu: any) {
     switch (menu) {
       case 'toc':
-        await this.page.click('[aria-label="Click to open the Table of Contents"]')
+        await this.page.click('[data-analytics-label="Click to open the Table of Contents"]')
         break
 
       case 'MH':
-        await this.page.click('[aria-label="Highlights"]')
+        await this.page.click('[data-analytics-label="My highlights"]')
         break
     }
   }
