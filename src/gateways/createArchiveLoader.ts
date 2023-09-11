@@ -1,3 +1,4 @@
+import { ArchiveLoadError } from '../app/content/errors';
 import {
   ArchiveBook,
   ArchiveContent,
@@ -8,8 +9,10 @@ import {
 import { stripIdVersion } from '../app/content/utils';
 import { fromRelativeUrl } from '../app/content/utils/urlUtils';
 import { ifUndefined } from '../app/fpUtils';
-import { ArchiveBookMissingError, BookNotFoundError, tuple } from '../app/utils';
+import { ArchiveBookMissingError, BookNotFoundError, isNetworkError, tuple } from '../app/utils';
 import { REACT_APP_ARCHIVE_URL_OVERRIDE } from '../config';
+import Sentry from '../helpers/Sentry';
+import { ensureApplicationErrorType } from '../helpers/applicationMessageError';
 import createCache, { Cache } from '../helpers/createCache';
 import { acceptStatus } from '../helpers/fetch';
 
@@ -151,6 +154,15 @@ export default (options: Options = {}) => {
       .then((response) => {
         cache.set(cacheKey, response);
         return response;
+      })
+      .catch((error) => {
+        if (!isNetworkError(error)) {
+          Sentry.captureException(error);
+        }
+        throw ensureApplicationErrorType(
+          error,
+          new ArchiveLoadError({ destination: 'page', shouldAutoDismiss: false })
+        );
       });
   };
 

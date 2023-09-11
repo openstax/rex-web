@@ -71,6 +71,10 @@ const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
   dispatch(showErrorDialog());
 };
 
+export const isNetworkError = (error: any) => {
+  return error instanceof TypeError && error.message.includes('Failed to fetch');
+};
+
 // from https://github.com/facebook/react/issues/13029#issuecomment-445480443
 export const mergeRefs = <T>(...refs: Array<Ref<T> | undefined>) => (ref: T) => {
   refs.forEach((resolvableRef) => {

@@ -1,10 +1,11 @@
 import isEqual from 'lodash/fp/isEqual';
 import queryString from 'query-string';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { push, replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
-import { actionHook } from '../../../utils';
+import { actionHook, isNetworkError } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
@@ -13,10 +14,12 @@ import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, openSearchInSidebar, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
+import { SearchLoadError } from '../errors';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
 import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
+import Sentry from '../../../../helpers/Sentry';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
@@ -31,6 +34,14 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     indexStrategy: 'i1',
     q: payload,
     searchStrategy: 's1',
+  }).catch((error) => {
+    if (!isNetworkError(error)) {
+      Sentry.captureException(error);
+    }
+    throw ensureApplicationErrorType(
+      error,
+      new SearchLoadError({ destination: 'page', shouldAutoDismiss: false })
+    );
   });
 
   services.dispatch(receiveSearchResults(results, meta));
