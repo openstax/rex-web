@@ -8,7 +8,6 @@ import { AppState } from '../../types';
 import { assertDocument, assertWindow } from '../../utils';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
-import { BarWrapper } from './BookBanner';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 const page = {...shortPage, references: []};
@@ -20,6 +19,8 @@ describe('BookBanner', () => {
   let assign: jest.SpyInstance;
   // tslint:disable-next-line:variable-name
   let BookBanner: React.FC;
+  // tslint:disable-next-line:variable-name
+  let BarWrapper: React.FC<any>;
 
   beforeEach(() => {
     resetModules();
@@ -51,6 +52,7 @@ describe('BookBanner', () => {
     beforeEach(() => {
       ({React, ReactDOM, renderer, TestContainer, renderToDom} = reactAndFriends());
       BookBanner = require('./BookBanner').default;
+      BarWrapper = require('./BookBanner').BarWrapper;
     });
 
     it('renders empty state with no page or book', () => {

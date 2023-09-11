@@ -3,38 +3,307 @@
 exports[`LabsCTA renders \`null\` when selector is false 1`] = `null`;
 
 exports[`LabsCTA renders cta when selector is true 1`] = `
+.c5 {
+  width: 10.7rem;
+}
+
+.c0 {
+  width: 100%;
+  max-width: 82.5rem;
+  min-height: 12rem;
+  margin: 0 auto 1.6rem;
+  padding: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-image: url(kinetic-cta.svg);
+  background-position: top right;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1px #cacaca;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  color: #424242;
+  overflow: hidden;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-right: 2.5rem;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  color: #424242;
+  overflow: hidden;
+  max-width: 35.4rem;
+  margin-right: 2.5rem;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  color: #424242;
+  overflow: hidden;
+  max-width: 13.6rem;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c1 .c2 {
+  margin-right: 1.4rem;
+}
+
+.c1 .c2:last-child {
+  margin-right: 14rem;
+}
+
+.c7 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.6rem;
+}
+
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  font-size: 1.6rem;
+  height: 5rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #d4450c;
+  font-weight: bold;
+  border: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #6922ea;
+  border-radius: 4px;
+  height: 4rem;
+}
+
+.c9:hover {
+  background-color: ,#be3c08,;
+}
+
+.c9:active {
+  background-color: ,#b03808,;
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    background-position: center center;
+    padding: 4.5rem 2.3rem 3.5rem;
+    -webkit-align-items: flex-start;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width:35em) {
+  .c0 {
+    background-image: url(kinetic-cta-mobile.svg);
+    padding: 2rem 1.2rem 2.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c3 {
+    margin-right: 0;
+    margin-bottom: 2.4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c3 {
+    margin-right: 0;
+    max-width: unset;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c6 {
+    margin-right: 0;
+    margin-bottom: 2.4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c6 {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c6 {
+    margin-right: 0;
+    max-width: unset;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c8 {
+    margin-right: 0;
+    max-width: unset;
+  }
+}
+
+@media screen and (min-width:77em) and (max-width:79em) {
+  .c1 .c2:last-child {
+    margin-right: 15rem;
+  }
+}
+
+@media screen and (min-width:79em) and (max-width:85em) {
+  .c1 .c2:last-child {
+    margin-right: 20rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 .c2:last-child {
+    margin-right: 16rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c1 {
+    -webkit-align-items: initial;
+    -webkit-box-align: initial;
+    -ms-flex-align: initial;
+    align-items: initial;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .c1 .c4 {
+    margin-right: 2.5rem;
+  }
+
+  .c1 .c2:last-child {
+    margin-right: 1.4rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c7 {
+    margin-right: 10rem;
+    max-width: 31rem;
+    margin-right: rem;
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c7 {
+    max-width: 20rem;
+    font-size: 1.7rem;
+    line-height: 2.2rem;
+  }
+}
+
 <div
-  className="LabsCall__LabsCallWrapper-d86l90-1 cjSWTB"
+  className="c0"
   data-async-content={true}
 >
   <div
-    className="LabsCall__LabsCallHeader-d86l90-3 hQLNGQ"
+    className="c1"
   >
     <div
-      className="LabsCall__Column-d86l90-2 dTfiko"
+      className="c2 c3"
     >
       <img
         alt=""
-        className="LabsCall__LabsLogo-d86l90-0 bjSvVK"
+        className="c4 c5"
         role="img"
         src="kinetic-logo.png"
       />
     </div>
     <div
-      className="LabsCall__Column-d86l90-2 gHpgVb"
+      className="c2 c6"
     >
       <div
-        className="LabsCall__LabsText-d86l90-4 llxqCy"
+        className="c7"
       >
         Win prizes by participating in research and discover more insights about yourself!
       </div>
     </div>
   </div>
   <div
-    className="LabsCall__Column-d86l90-2 faCsbU"
+    className="c2 c8"
   >
     <a
-      className="Button-ayg7nk-0 LabsCall__LabsCallLink-d86l90-5 dSdugF"
+      className="c9"
       data-analytics-label="kinetic-banner"
       href="/kinetic/"
       rel="noopener"

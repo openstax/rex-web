@@ -3,32 +3,177 @@
 exports[`ToastNotifications matches snapshot 1`] = `null`;
 
 exports[`ToastNotifications matches snapshots with toasts 1`] = `
+.c5 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  background-color: #fafafa;
+  line-height: 4rem;
+}
+
+.c5 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 a:hover {
+  color: #0064A0;
+}
+
+.c1 {
+  width: 100%;
+  position: absolute;
+  overflow: visible;
+}
+
+.c2 {
+  width: 100%;
+  margin: 0;
+  overflow: visible;
+  -webkit-transition: -webkit-transform 0.6s;
+  -webkit-transition: transform 0.6s;
+  transition: transform 0.6s;
+  z-index: 1;
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+.c8 {
+  width: 100%;
+  margin: 0;
+  overflow: visible;
+  -webkit-transition: -webkit-transform 0.6s;
+  -webkit-transition: transform 0.6s;
+  transition: transform 0.6s;
+  z-index: 2;
+  -webkit-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+.c3 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5rem 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #F8E8EB;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border: 1px solid #E297A0;
+}
+
+.c3 .c4 {
+  background: inherit;
+  color: #C23834;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+.c7 {
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+}
+
+.c6 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: #EDBFC5;
+  overflow: visible;
+}
+
+.c6:hover {
+  color: #E297A0;
+}
+
+.c9 {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  color: #C23834;
+  white-space: nowrap;
+}
+
+.c0 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  overflow: visible;
+  z-index: 3;
+  width: 100%;
+}
+
+@media (max-width:75em) {
+  .c5 {
+    padding: 0;
+    line-height: 2rem;
+    background-color: initial;
+  }
+}
+
+@media print {
+  .c2 {
+    display: none;
+  }
+}
+
+@media print {
+  .c8 {
+    display: none;
+  }
+}
+
+@media (max-width:75em) {
+  .c3 {
+    -webkit-align-items: flex-start;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    padding: 1.6rem 1.6rem;
+  }
+}
+
 <div
-  className="ToastNotifications__PopUpToastNotificationsWrapper-sc-1q33jgi-0 kruHEC"
+  className="c0"
 >
   <div
-    className="styles__ToastsContainer-zqr5u1-0 clxXiP"
+    className="c1"
   >
     <div
-      className="styles__BannerBodyWrapper-zqr5u1-1 qefEc"
+      className="c2"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
     >
       <div
-        className="styles__BannerBody-zqr5u1-2 kYtMtD"
+        className="c3"
       >
         <div
-          className="Card__Header-sc-1o7sacr-3 jGwlNH"
+          className="c4 c5"
         >
           The highlight could not be deleted. Please check your connection and try again.
         </div>
         <button
-          className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 jhqTCe"
+          className="c6"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="styles__CloseIcon-zqr5u1-3 cTGvEX"
+            className="c7"
             focusable="false"
             height="15px"
             version="1.1"
@@ -59,19 +204,19 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
       </div>
     </div>
     <div
-      className="styles__BannerBodyWrapper-zqr5u1-1 gKPfvw"
+      className="c8"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
     >
       <div
-        className="styles__BannerBody-zqr5u1-2 kYtMtD"
+        className="c3"
       >
         <div
-          className="Card__Header-sc-1o7sacr-3 jGwlNH"
+          className="c4 c5"
         >
           The note could not be saved. Please check your connection and try again.
           <span
-            className="styles__ErrorId-zqr5u1-5 iLwDHx"
+            className="c9"
           >
             (ID: 
             error-id
@@ -79,12 +224,12 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
           </span>
         </div>
         <button
-          className="Button__PlainButton-ayg7nk-2 styles__CloseButton-zqr5u1-4 jhqTCe"
+          className="c6"
           onClick={[Function]}
         >
           <svg
             aria-hidden="true"
-            className="styles__CloseIcon-zqr5u1-3 cTGvEX"
+            className="c7"
             focusable="false"
             height="15px"
             version="1.1"

@@ -1,8 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] = `
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding-top: 1.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 span {
+  margin: 0 0.8rem 0 0;
+  overflow: visible;
+}
+
+.c1 {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
 <div
-  className="HighlightAnnotation__HighlightNote-ppiq8t-0 fKLraL"
+  className="c0"
 >
   <span
     className="highlight-note-text"
@@ -10,7 +32,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
     Note:
   </span>
   <div
-    className="HighlightAnnotation__HighlightNoteAnnotation-ppiq8t-1 cWfCT"
+    className="c1"
   >
     Some annotation
   </div>
@@ -18,23 +40,151 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
 `;
 
 exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #d4450c;
+  font-weight: bold;
+  border: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.c3:hover {
+  background-color: ,#be3c08,;
+}
+
+.c3:active {
+  background-color: ,#b03808,;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+}
+
+.c4:hover {
+  background-color: ,#fafafa,;
+}
+
+.c4:active {
+  background-color: ,#e5e5e5,;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 8px;
+  overflow: visible;
+}
+
+.c2 button:first-child {
+  margin-right: 8px;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding-top: 1.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0 span {
+  margin: 0 0.8rem 0 0;
+  overflow: visible;
+}
+
+.c1 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  font-family: inherit;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-letter-spacing: 0;
+  -moz-letter-spacing: 0;
+  -ms-letter-spacing: 0;
+  letter-spacing: 0;
+  line-height: 20px;
+  color: #6f6f6f;
+  padding: 8px;
+}
+
 <div
-  className="HighlightAnnotation__HighlightNote-ppiq8t-0 fKLraL"
+  className="c0"
 >
   <textarea
     aria-label="Enter note's text"
     autoFocus={true}
-    className="HighlightAnnotation__Textarea-ppiq8t-2 kebluY"
+    className="c1"
     onChange={[Function]}
     placeholder="Add a note..."
     value="Some annotation"
   />
   <div
-    className="styles__HighlightEditButtons-sc-1t1yajj-0 JvKbW"
+    className="c2"
   >
     <button
       aria-label="Save"
-      className="Button-ayg7nk-0 extinX"
+      className="c3"
       data-analytics-label="save"
       data-testid="save"
       onClick={[Function]}
@@ -43,7 +193,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
     </button>
     <button
       aria-label="Cancel"
-      className="Button-ayg7nk-0 fXKRFg"
+      className="c4"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}

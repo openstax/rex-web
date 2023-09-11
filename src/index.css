@@ -35,6 +35,9 @@ noscript {
 
 * {
   box-sizing: border-box;
+}
+
+:where(html, body, #root, #root *) {
   overflow: auto;
 }
 

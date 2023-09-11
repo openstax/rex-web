@@ -1,12 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorIndicator matches snapshot (checked) 1`] = `
+.c1 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c3 {
+  display: none;
+}
+
+.c5 {
+  display: none;
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  background-color: #ffff8a;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c6 .c2 {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+.c6 input:focus + .c4 {
+  display: block;
+}
+
+.c0 {
+  position: relative;
+  background-color: #ffff8a;
+  border: 1px solid #fed200;
+  height: 2.4rem;
+  width: 2.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c0 .c2 {
+  height: 1.6rem;
+  width: 1.6rem;
+  color: #fed200;
+  display: block;
+}
+
+.c0 input:focus + .c4 {
+  display: block;
+}
+
 <div
-  className="ColorIndicator-sc-1w5zl7g-2 dojCyw"
+  className="c0"
 >
   <svg
     aria-hidden="true"
-    className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+    className="c1 c2 c3"
     fill="currentColor"
     focusable="false"
     viewBox="0 0 512 512"
@@ -18,7 +82,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
     />
   </svg>
   <span
-    className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 gcsHaO"
+    className="c4 c5"
     style={
       Object {
         "focused": "#fed200",
@@ -31,12 +95,65 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 `;
 
 exports[`ColorIndicator matches snapshot 1`] = `
+.c1 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c3 {
+  display: none;
+}
+
+.c5 {
+  display: none;
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  background-color: #ffff8a;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c0 {
+  position: relative;
+  background-color: #ffff8a;
+  border: 1px solid #fed200;
+  height: 2.4rem;
+  width: 2.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c0 .c2 {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+.c0 input:focus + .c4 {
+  display: block;
+}
+
 <div
-  className="ColorIndicator-sc-1w5zl7g-2 HsETE"
+  className="c0"
 >
   <svg
     aria-hidden="true"
-    className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+    className="c1 c2 c3"
     fill="currentColor"
     focusable="false"
     viewBox="0 0 512 512"
@@ -48,7 +165,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
     />
   </svg>
   <span
-    className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 gcsHaO"
+    className="c4 c5"
     style={
       Object {
         "focused": "#fed200",

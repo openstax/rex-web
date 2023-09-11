@@ -7,7 +7,11 @@ export const doAcceptCookies = () => {
 };
 
 export const isAcceptCookiesNeeded = () => {
-  return Cookies.get(acknowledgedKey) !== 'true';
+  const osanoActive = typeof window !== 'undefined'
+    && window.Osano
+    && window.Osano.cm.mode !== 'debug';
+
+  return !osanoActive && Cookies.get(acknowledgedKey) !== 'true';
 };
 
 export const clearAcceptCookies = () => {

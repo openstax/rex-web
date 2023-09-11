@@ -1,18 +1,805 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot and renders proper aria labels 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c23 {
+  color: #fff;
+  height: 1rem;
+  width: 1rem;
+  display: none;
+}
+
+.c21 {
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+input:not(:checked) + .c21 {
+  border: 1px solid #424242;
+}
+
+input:checked + .c21 {
+  background-color: #b03808;
+}
+
+input:checked + .c21 .c22 {
+  display: block;
+}
+
+.c19 {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c19 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c19:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c19:focus-within .c20 {
+  border: 1px solid #b03808;
+}
+
+.c19.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c19.focus-within .c20 {
+  border: 1px solid #b03808;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c2 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c4 {
+  overflow: visible;
+  position: relative;
+}
+
+.c5 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c15 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  outline: none;
+  color: #424242;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c15:hover,
+.c15:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c13 {
+  height: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c13,
+.c13 .c14 {
+  font-size: 1.4rem;
+  overflow: visible;
+}
+
+.c13 span {
+  padding: 0 1rem;
+}
+
+.c27 {
+  display: none;
+}
+
+.c29 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #ffff8a;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c32 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #def99f;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c34 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #c8f5ff;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c36 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #cbcfff;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c38 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #ffc5e1;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c25 {
+  position: relative;
+  background-color: #ffff8a;
+  border: 1px solid #fed200;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c25 .c26 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c25 input:focus + .c28 {
+  display: block;
+}
+
+.c31 {
+  position: relative;
+  background-color: #def99f;
+  border: 1px solid #92d101;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c31 .c26 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c31 input:focus + .c28 {
+  display: block;
+}
+
+.c33 {
+  position: relative;
+  background-color: #c8f5ff;
+  border: 1px solid #00c3ed;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c33 .c26 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c33 input:focus + .c28 {
+  display: block;
+}
+
+.c35 {
+  position: relative;
+  background-color: #cbcfff;
+  border: 1px solid #545ec8;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c35 .c26 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c35 input:focus + .c28 {
+  display: block;
+}
+
+.c37 {
+  position: relative;
+  background-color: #ffc5e1;
+  border: 1px solid #de017e;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c37 .c26 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c37 input:focus + .c28 {
+  display: block;
+}
+
+.c47 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  height: 1.7rem;
+  margin-right: 0.4rem;
+}
+
+.c47 svg {
+  height: 0.8rem;
+  width: 0.8rem;
+  color: #5e6062;
+}
+
+.c48 {
+  color: #424242;
+  font-weight: 300;
+  color: #5e6062;
+  max-width: 8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  line-height: 1.5rem;
+}
+
+.c46 {
+  margin-right: 3.2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  height: 4rem;
+}
+
+.c45 {
+  color: #424242;
+  font-size: 1.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  padding: 0 2.8rem 1rem 2.8rem;
+  margin-top: -1rem;
+  list-style: none;
+  overflow: visible;
+}
+
+.c10 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  padding-top: 0;
+  padding-bottom: 0.2rem;
+}
+
+.c6 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+  z-index: 2;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
+  clip-path: inset(0 -0.6rem 0px -0.6rem);
+  background-color: #fff;
+  border-left: 0.1rem solid #d5d5d5;
+  border-right: 0.1rem solid #d5d5d5;
+}
+
+.c6 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+}
+
+.c0 {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #fff;
+  border-bottom: 0.1rem solid #d5d5d5;
+}
+
+.c0 .c7 {
+  font-weight: bold;
+}
+
+.c0 .c3 > *:not(.c7) {
+  top: calc(100% - 0.1rem);
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  max-height: calc(100vh - 26rem);
+}
+
+.c16 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c11 {
+  color: #424242;
+  background: #fff;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  overflow: auto;
+  z-index: 1;
+}
+
+.c11 .c12 {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.c11 .c18 {
+  padding: 0.8rem;
+}
+
+.c11 .c24 {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+.c11 .c49:last-child {
+  border-bottom: none;
+}
+
+.c30 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c17 {
+  background: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  color: #424242;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  z-index: 1;
+}
+
+.c17 .c12 {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.c17 .c18 {
+  padding: 0.8rem;
+  text-transform: capitalize;
+}
+
+.c17 .c24 {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+.c39 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 77px;
+  height: auto;
+  padding: 0 10px;
+}
+
+.c39:hover,
+.c39:focus {
+  color: #424242;
+}
+
+.c43 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.c41 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c40 {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  cursor: pointer;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  min-height: unset;
+  margin: 0 0 0 auto;
+  padding-right: 2.4rem;
+}
+
+.c40 .c42 {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0px 0px 0px 0.5rem;
+}
+
+@media print {
+  .c47 {
+    display: none;
+  }
+}
+
+@media print {
+  .c48 {
+    max-width: -webkit-max-content;
+    max-width: -moz-max-content;
+    max-width: max-content;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c45 {
+    padding: 0 2.4rem 0.4rem 2.4rem;
+  }
+}
+
+@media print {
+  .c45 {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c6 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 .c3 > *:not(.c7) {
+    max-height: calc(100vh - 18.4rem);
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c0 .c3 {
+    position: initial;
+  }
+
+  .c0 .c3 > *:not(.c7) {
+    top: auto;
+    margin-top: -0.1rem;
+  }
+}
+
+@media print {
+  .c0 {
+    padding-left: 0;
+  }
+}
+
+@media print {
+  .c0 > *:not(.c44) {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c16 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c11 {
+    width: calc(100vw - 1.6rem);
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c17 {
+    width: calc(100vw - 1.6rem);
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c39 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+    min-height: unset;
+    margin-top: 25px;
+    background: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c43 {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    margin-left: 1.2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c40 {
+    padding-right: 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c40 .c42 {
+    display: none;
+  }
+}
+
 <div
-  className="Filters-sc-1fn81fx-3 gZlQQL"
+  className="c0"
 >
   <div
-    className="Filters__FiltersTopBar-sc-1fn81fx-2 fWMshY"
+    className="c1"
   >
     <div
-      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+      className="c2 c3 c4"
     >
       <button
         aria-label="Filter highlights by Chapter"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="c5 c6 c7 c8"
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -22,7 +809,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="c9 c10"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -37,14 +824,14 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </div>
       </button>
       <div
-        className="ChapterFilter-tcdlu-7 iaQiZB"
+        className="c11"
         tabIndex={-1}
       >
         <div
-          className="AllOrNone-sc-7m1y94-0 divvKQ"
+          className="c12 c13"
         >
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="c14 c15"
             onClick={[Function]}
           >
             All
@@ -53,23 +840,23 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             |
           </span>
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="c14 c15"
             onClick={[Function]}
           >
             None
           </button>
         </div>
         <div
-          className="ChapterFilter__Row-tcdlu-0 nqIYu"
+          className="c16"
         />
       </div>
     </div>
     <div
-      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+      className="c2 c3 c4"
     >
       <button
         aria-label="Filter highlights by Color"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="c5 c6 c7 c8"
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -79,7 +866,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Filters__AngleIcon-sc-1fn81fx-0 jKNYyQ"
+            className="c9 c10"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -94,14 +881,14 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </div>
       </button>
       <div
-        className="ColorFilter-sc-1ic50x3-1 gDnnAT"
+        className="c17"
         tabIndex={-1}
       >
         <div
-          className="AllOrNone-sc-7m1y94-0 divvKQ"
+          className="c12 c13"
         >
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="c14 c15"
             onClick={[Function]}
           >
             All
@@ -110,14 +897,14 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             |
           </span>
           <button
-            className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+            className="c14 c15"
             onClick={[Function]}
           >
             None
           </button>
         </div>
         <label
-          className="Checkbox-f0dje9-2 jNHPPI"
+          className="c18 c19"
         >
           <input
             checked={true}
@@ -126,11 +913,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+            className="c20 c21"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="c9 c22 c23"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -143,11 +930,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-2 hxgXOu"
+            className="c24 c25"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="c9 c26 c27"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -159,7 +946,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
               />
             </svg>
             <span
-              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 kwsovu"
+              className="c28 c29"
               size="small"
               style={
                 Object {
@@ -171,13 +958,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             />
           </div>
           <span
-            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+            className="c30"
           >
             yellow
           </span>
         </label>
         <label
-          className="Checkbox-f0dje9-2 jNHPPI"
+          className="c18 c19"
         >
           <input
             checked={true}
@@ -186,11 +973,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+            className="c20 c21"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="c9 c22 c23"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -203,11 +990,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-2 kUYWjn"
+            className="c24 c31"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="c9 c26 c27"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -219,7 +1006,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
               />
             </svg>
             <span
-              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 fqiTys"
+              className="c28 c32"
               size="small"
               style={
                 Object {
@@ -231,13 +1018,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             />
           </div>
           <span
-            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+            className="c30"
           >
             green
           </span>
         </label>
         <label
-          className="Checkbox-f0dje9-2 jNHPPI"
+          className="c18 c19"
         >
           <input
             checked={true}
@@ -246,11 +1033,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+            className="c20 c21"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="c9 c22 c23"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -263,11 +1050,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-2 fkmJHS"
+            className="c24 c33"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="c9 c26 c27"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -279,7 +1066,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
               />
             </svg>
             <span
-              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 eHIgYD"
+              className="c28 c34"
               size="small"
               style={
                 Object {
@@ -291,13 +1078,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             />
           </div>
           <span
-            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+            className="c30"
           >
             blue
           </span>
         </label>
         <label
-          className="Checkbox-f0dje9-2 jNHPPI"
+          className="c18 c19"
         >
           <input
             checked={true}
@@ -306,11 +1093,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+            className="c20 c21"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="c9 c22 c23"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -323,11 +1110,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-2 gdbVRC"
+            className="c24 c35"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="c9 c26 c27"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -339,7 +1126,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
               />
             </svg>
             <span
-              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 AHChX"
+              className="c28 c36"
               size="small"
               style={
                 Object {
@@ -351,13 +1138,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             />
           </div>
           <span
-            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+            className="c30"
           >
             purple
           </span>
         </label>
         <label
-          className="Checkbox-f0dje9-2 jNHPPI"
+          className="c18 c19"
         >
           <input
             checked={true}
@@ -366,11 +1153,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             type="checkbox"
           />
           <span
-            className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+            className="c20 c21"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+              className="c9 c22 c23"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -383,11 +1170,11 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             </svg>
           </span>
           <div
-            className="ColorIndicator-sc-1w5zl7g-2 bhqGqa"
+            className="c24 c37"
           >
             <svg
               aria-hidden="true"
-              className="sc-bdVaJa cjEDWs ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+              className="c9 c26 c27"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
@@ -399,7 +1186,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
               />
             </svg>
             <span
-              className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 cxneHl"
+              className="c28 c38"
               size="small"
               style={
                 Object {
@@ -411,7 +1198,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
             />
           </div>
           <span
-            className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+            className="c30"
           >
             pink
           </span>
@@ -420,7 +1207,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     </div>
     <button
       aria-label="print"
-      className="styled__PlainButton-sc-1119auh-0 styled__PrintOptWrapper-sc-1119auh-1 jcfgAp PrintButton-sc-1bdptk0-0 jcbTdL"
+      className="c39 c40"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -428,7 +1215,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="sc-bdVaJa cjEDWs styled__PrintIcon-sc-1119auh-3 iKTgDK"
+        className="c9 c41"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -440,21 +1227,21 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         />
       </svg>
       <span
-        className="styled__PrintOptions-sc-1119auh-2 iCecXY"
+        className="c42 c43"
       >
         Print
       </span>
     </button>
   </div>
   <ul
-    className="FiltersList-sc-1sdnk9e-3 fQoHdD"
+    className="c44 c45"
   >
     <li
-      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
+      className="c46"
     >
       <button
         aria-label="Remove breadcrumb for color blue"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="c47"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -486,17 +1273,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
+        className="c48"
       >
         blue
       </span>
     </li>
     <li
-      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
+      className="c46"
     >
       <button
         aria-label="Remove breadcrumb for color green"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="c47"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -528,17 +1315,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
+        className="c48"
       >
         green
       </span>
     </li>
     <li
-      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
+      className="c46"
     >
       <button
         aria-label="Remove breadcrumb for color pink"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="c47"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -570,17 +1357,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
+        className="c48"
       >
         pink
       </span>
     </li>
     <li
-      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
+      className="c46"
     >
       <button
         aria-label="Remove breadcrumb for color purple"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="c47"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -612,17 +1399,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
+        className="c48"
       >
         purple
       </span>
     </li>
     <li
-      className="FiltersList__FilterListItem-sc-1sdnk9e-2 hhDKAf"
+      className="c46"
     >
       <button
         aria-label="Remove breadcrumb for color yellow"
-        className="Button__PlainButton-ayg7nk-2 FiltersList__StyledPlainButton-sc-1sdnk9e-0 gUsiXX"
+        className="c47"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -654,7 +1441,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="FiltersList__ItemLabel-sc-1sdnk9e-1 TUwad"
+        className="c48"
       >
         yellow
       </span>

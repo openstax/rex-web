@@ -15,9 +15,9 @@ import * as select from '../selectors';
 import { Book, BookWithOSWebData, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { contentTextStyle } from './Page/PageContent';
+import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate, } from './utils/attributionValues';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
-import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate, } from './utils/attributionValues';
 
 const detailsMarginTop = 3;
 const desktopSpacing = 1.8;

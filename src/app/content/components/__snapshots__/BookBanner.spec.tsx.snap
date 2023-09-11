@@ -2,23 +2,177 @@
 
 exports[`BookBanner outside browser renders 1`] = `
 Array [
-  <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+  .c4 {
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: #fff;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 {
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: block;
+  margin: 1rem 0 0 0;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+}
+
+.c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+    className="c0"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="c1"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
+        className="c2"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="c3 c4"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -31,7 +185,7 @@ Array [
         Test Book 1
       </a>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
+        className="c5"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -40,16 +194,194 @@ Array [
       />
     </div>
   </div>,
-  <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+  .c4 {
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: #fff;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  width: 27rem;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: inline-block;
+  margin: 1rem 0 0 0;
+  max-width: 78.25rem;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+  margin-top: -7rem;
+}
+
+.c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    max-width: none;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+<div
+    className="c0"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="c1"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
+        className="c2"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -57,7 +389,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="c3 c4"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -70,7 +402,7 @@ Array [
         Test Book 1
       </a>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
+        className="c5"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -84,23 +416,177 @@ Array [
 
 exports[`BookBanner without unsaved changes renders correctly when you pass a page and book 1`] = `
 Array [
-  <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+  .c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c4 {
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: #fff;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 {
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: block;
+  margin: 1rem 0 0 0;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+    className="c0"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="c1"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
+        className="c2"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="c3 c4"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -113,7 +599,7 @@ Array [
         Test Book 1
       </a>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
+        className="c5"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -122,16 +608,194 @@ Array [
       />
     </div>
   </div>,
-  <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+  .c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c4 {
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: #fff;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  width: 27rem;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: inline-block;
+  margin: 1rem 0 0 0;
+  max-width: 78.25rem;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+  margin-top: -7rem;
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    max-width: none;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+<div
+    className="c0"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="c1"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
+        className="c2"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -139,7 +803,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="c3 c4"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -152,7 +816,7 @@ Array [
         Test Book 1
       </a>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
+        className="c5"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -166,22 +830,378 @@ Array [
 
 exports[`BookBanner without unsaved changes renders correctly without osweb data 1`] = `
 Array [
-  <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+  .c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+}
+
+.c3 {
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: block;
+  margin: 1rem 0 0 0;
+}
+
+.c3 {
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: block;
+  margin: 1rem 0 0 0;
+}
+
+.c3 {
+  color: #424242;
+  font-size: 2.4rem;
+  line-height: 3rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: block;
+  margin: 1rem 0 0 0;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+    className="c0"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="c1"
     >
       <span
-        className="BookBanner__BookTitle-sc-1avy0c0-2 gUeKV"
+        className="c2"
         data-testid="book-title-expanded"
       >
         Test Book 1
       </span>
       <h1
-        className="BookBanner__BookChapter-sc-1avy0c0-4 kPUGut"
+        className="c3"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -190,22 +1210,443 @@ Array [
       />
     </div>
   </div>,
-  <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+  .c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  width: 27rem;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  width: 27rem;
+}
+
+.c3 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: inline-block;
+  margin: 1rem 0 0 0;
+  max-width: 78.25rem;
+}
+
+.c3 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: inline-block;
+  margin: 1rem 0 0 0;
+  max-width: 78.25rem;
+}
+
+.c3 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  display: inline-block;
+  margin: 1rem 0 0 0;
+  max-width: 78.25rem;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+  margin-top: -7rem;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+  margin-top: -7rem;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+  margin-top: -7rem;
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-height: 4rem;
+    margin-top: 0.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    max-width: none;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+<div
+    className="c0"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="c1"
     >
       <span
-        className="BookBanner__BookTitle-sc-1avy0c0-2 jvAwFk"
+        className="c2"
         data-testid="book-title-collapsed"
       >
         Test Book 1
       </span>
       <span
-        className="BookBanner__BookChapter-sc-1avy0c0-4 fNXDFo"
+        className="c3"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -219,23 +1660,323 @@ Array [
 
 exports[`BookBanner without unsaved changes renders correctly without pageNode 1`] = `
 Array [
-  <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 MNbyW"
+  .c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c4 {
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: #fff;
+}
+
+.c4 {
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: #fff;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
+<div
+    className="c0"
     data-analytics-region="book-banner-expanded"
     data-testid="bookbanner"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="c1"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iGPDns"
+        className="c2"
         data-testid="details-link-expanded"
         href="/details/books/book-slug-1"
         onClick={[Function]}
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="c3 c4"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -249,16 +1990,342 @@ Array [
       </a>
     </div>
   </div>,
-  <div
-    className="BookBanner__BarWrapper-sc-1avy0c0-5 bheBBm"
+  .c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.c4 {
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: #fff;
+}
+
+.c4 {
+  margin-top: -0.25rem;
+  margin-left: -0.8rem;
+  height: 3rem;
+  width: 3rem;
+  color: #fff;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  width: 100%;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  width: 27rem;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c2 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  max-width: 105.25rem;
+  padding: 0;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  height: 2.5rem;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  width: 27rem;
+}
+
+.c2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+  margin-top: -7rem;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+  margin-top: -7rem;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right,#002468,#004aa2);
+  margin-top: -7rem;
+}
+
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 7rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 68;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+  margin-top: -7rem;
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    color: #424242;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    -webkit-letter-spacing: -0.02rem;
+    -moz-letter-spacing: -0.02rem;
+    -ms-letter-spacing: -0.02rem;
+    letter-spacing: -0.02rem;
+    padding: 1rem 0 1rem 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    max-width: 105.25rem;
+    padding: 0;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    display: none;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 6rem;
+    margin-top: -6rem;
+  }
+}
+
+<div
+    className="c0"
     data-analytics-region="book-banner-collapsed"
     data-testid="bookbanner-collapsed"
   >
     <div
-      className="BookBanner__TopBar-sc-1avy0c0-1 jVswHX"
+      className="c1"
     >
       <a
-        className="BookBanner__BookTitleLink-sc-1avy0c0-3 iJDVtP"
+        className="c2"
         data-testid="details-link-collapsed"
         href="/details/books/book-slug-1"
         onClick={[Function]}
@@ -266,7 +2333,7 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa iJCmgd BookBanner__LeftArrow-sc-1avy0c0-0 jjTVXA"
+          className="c3 c4"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 24 24"
@@ -284,13 +2351,93 @@ Array [
 `;
 
 exports[`BookBanner without unsaved changes renders empty state with no page or book 1`] = `
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
 <div
-  className="BookBanner__BarWrapper-sc-1avy0c0-5 blPrsP"
+  className="c0"
 />
 `;
 
 exports[`BookBanner without unsaved changes wrapper transition matches snapshot 1`] = `
+.c0 {
+  top: 0;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 13rem;
+  -webkit-transition: -webkit-transform 200ms;
+  -webkit-transition: transform 200ms;
+  transition: transform 200ms;
+  position: relative;
+  z-index: 69;
+  overflow: hidden;
+  background: linear-gradient(to right, #002468, #004aa2);
+  -webkit-transform: translateY(-7rem);
+  -ms-transform: translateY(-7rem);
+  transform: translateY(-7rem);
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    -webkit-transform: translateY(-6rem);
+    -ms-transform: translateY(-6rem);
+    transform: translateY(-6rem);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 1.6rem;
+    height: 10.4rem;
+  }
+}
+
 <div
-  className="BookBanner__BarWrapper-sc-1avy0c0-5 bYEYED"
+  className="c0"
 />
 `;

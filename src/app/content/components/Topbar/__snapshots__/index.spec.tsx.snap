@@ -1,26 +1,563 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`text resizer does not render if textSize is null 1`] = `
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c2 {
+  display: contents;
+}
+
+.c3 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+}
+
+.c3:hover,
+.c3:focus {
+  color: #424242;
+}
+
+.c0 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7rem;
+  width: 100%;
+  overflow: visible;
+  display: block;
+  z-index: 30;
+}
+
+.c6 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c4 {
+  display: none;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c11 {
+  height: 3.2rem;
+  border-radius: 0;
+  margin: 0;
+  -webkit-transition: none;
+  transition: none;
+  background: transparent;
+  color: #5e6062;
+  display: none;
+}
+
+.c11 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  vertical-align: middle;
+}
+
+.c12 {
+  height: 3.2rem;
+  border-radius: 0;
+  margin: 0;
+  -webkit-transition: none;
+  transition: none;
+  background: transparent;
+  color: #5e6062;
+}
+
+.c12 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  vertical-align: middle;
+}
+
+.c8 {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: -5.2rem;
+  position: relative;
+  color: #5e6062;
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+  width: 38rem;
+}
+
+.c8:last-child {
+  margin-right: auto;
+}
+
+.c8:focus-within {
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c8.focus-within {
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c9 {
+  color: #424242;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  font-size: 1.6rem;
+  margin: 0 1rem 0 1rem;
+  height: 3.2rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.c9::-webkit-search-decoration,
+.c9::-webkit-search-cancel-button,
+.c9::-webkit-search-results-button,
+.c9::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.c9::-webkit-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c9::-moz-placeholder {
+  color: #6f6f6f;
+}
+
+.c9:-ms-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c9::placeholder {
+  color: #6f6f6f;
+}
+
+.c18 {
+  color: #424242;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  font-size: 1.6rem;
+  margin: 0 1rem 0 1rem;
+  height: 3.2rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.c18::-webkit-search-decoration,
+.c18::-webkit-search-cancel-button,
+.c18::-webkit-search-results-button,
+.c18::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.c18::-webkit-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c18::-moz-placeholder {
+  color: #6f6f6f;
+}
+
+.c18:-ms-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c18::placeholder {
+  color: #6f6f6f;
+}
+
+.c1 {
+  height: 5rem;
+  max-width: 128rem;
+  margin: 0 auto;
+  text-align: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  background-color: #fff;
+  -webkit-transition: padding-left 300ms;
+  transition: padding-left 300ms;
+  padding-left: 37.5rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+}
+
+.c15 {
+  max-width: 128rem;
+  margin: 0 auto;
+  width: calc(100% - 3.2rem * 2);
+  overflow: visible;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  height: 3.2rem;
+}
+
+.c13 {
+  display: none;
+  overflow: visible;
+  height: 5.3rem;
+  background-color: #fff;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+}
+
+.c14 {
+  border: none;
+  border-top: 0.1rem solid #efeff1;
+  display: none;
+  margin: 0;
+}
+
+.c17 {
+  white-space: nowrap;
+  margin-right: 1rem;
+  text-align: left;
+}
+
+.c16 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: visible;
+  min-width: auto;
+  display: none;
+}
+
+.c16:hover,
+.c16:focus {
+  color: #424242;
+}
+
+.c16:hover,
+.c16:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    top: 6rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    z-index: 51;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c4 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    display: block;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c12 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c8 {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c8 {
+    width: 100%;
+  }
+
+  .c8,
+  .c8:last-child {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .gPsjnW .c10 {
+    color: #5e6062;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .kXPpuK .c10 {
+    color: #fff;
+  }
+
+  .kXPpuK .c10:hover,
+  .kXPpuK .c10:focus {
+    color: #fff;
+    -webkit-transition: color 200ms;
+    transition: color 200ms;
+  }
+
+  .kXPpuK .c10:hover::before,
+  .kXPpuK .c10:focus::before {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 45px;
+    background-color: rgba(0,0,0,0.06);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .ulpVr .c10 {
+    color: #000;
+  }
+
+  .ulpVr .c10:hover,
+  .ulpVr .c10:focus {
+    color: #000;
+    -webkit-transition: color 200ms;
+    transition: color 200ms;
+  }
+
+  .ulpVr .c10:hover::before,
+  .ulpVr .c10:focus::before {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 45px;
+    background-color: rgba(0,0,0,0.06);
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:90em) {
+  .c1 {
+    padding-left: calc(45.5rem - (100vw - 128rem) / 2);
+  }
+}
+
+@media screen and (max-width:80em) {
+  .c1 {
+    padding-left: 45.5rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    padding-left: 0 !important;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c1 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 5.3rem;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0 6px;
+    -webkit-transition: none;
+    transition: none;
+  }
+
+  .c1 .c7 {
+    border: none;
+    border-radius: 0;
+    width: 45px;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .gjWAAG .c7 {
+    border: none;
+    border-radius: 0;
+    width: 45px;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c15 {
+    width: calc(100% - 1.6rem * 2);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c15 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c15 {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c13 {
+    padding-left: 8rem;
+    display: block;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c13 {
+    padding-left: 0;
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c14 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c16 {
+    display: block;
+  }
+}
+
 <div
-  className="styled__TopBarWrapper-sc-12dq39v-0 aQNQa"
+  className="c0"
   data-testid="topbar"
 >
   <div
-    className="styled__SearchPrintWrapper-sc-12dq39v-9 cHhLGz"
+    className="c1"
   >
     <div
-      className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
+      className="c2"
       id="mobile-menu-button"
     >
       <button
         aria-label="Click to open menu"
-        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__MenuButton-sc-12dq39v-2 bDNWEV"
+        className="c3 c4"
         onClick={[Function]}
         type="button"
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa cjEDWs styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
+          className="c5 c6"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
@@ -34,14 +571,14 @@ exports[`text resizer does not render if textSize is null 1`] = `
       </button>
     </div>
     <form
-      className="styled__SearchInputWrapper-sc-12dq39v-7 hpkAyy"
+      className="c7 c8"
       data-experiment={true}
       data-testid="desktop-search"
       onSubmit={[Function]}
     >
       <input
         aria-label="Search this book"
-        className="styled__SearchInput-sc-12dq39v-8 kGWMSU"
+        className="c9"
         data-testid="desktop-search-input"
         onChange={[Function]}
         placeholder="Search this book"
@@ -50,7 +587,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
       />
       <button
         aria-label="Search"
-        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
+        className="c3 c10 c11"
         data-analytics-label="Search this book"
         data-experiment={true}
         data-testid="mobile-toggle"
@@ -89,7 +626,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
       </button>
       <button
         aria-label="Search"
-        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
+        className="c3 c10 c12"
         data-experiment={true}
         value="Search"
       >
@@ -125,28 +662,28 @@ exports[`text resizer does not render if textSize is null 1`] = `
     </form>
   </div>
   <div
-    className="styled__MobileSearchWrapper-sc-12dq39v-11 foGdGm"
+    className="c13"
   >
     <hr
-      className="styled__Hr-sc-12dq39v-12 iJYKyP"
+      className="c14"
     />
     <div
-      className="styled__MobileSearchContainer-sc-12dq39v-10 hKhfgu"
+      className="c15"
     >
       <button
-        className="styled__PlainButton-sc-1119auh-0 styled__SeachResultsTextButton-sc-12dq39v-15 styled__CloseSearchResultsTextButton-sc-12dq39v-19 kzdVbH"
+        className="c16"
         data-testid="close-search-results"
         onClick={[Function]}
       >
         <div
-          className="styled__InnerText-sc-12dq39v-14 fahaRL"
+          className="c17"
         >
           Close
         </div>
       </button>
       <form
         action="#"
-        className="styled__SearchInputWrapper-sc-12dq39v-7 hpkAyy"
+        className="c7 c8"
         data-experiment={true}
         data-testid="mobile-search"
         onSubmit={[Function]}
@@ -154,7 +691,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
         <input
           aria-label="Search this book"
           autoFocus={true}
-          className="styled__SearchInput-sc-12dq39v-8 bHFdA"
+          className="c18"
           data-testid="mobile-search-input"
           onChange={[Function]}
           placeholder="Search this book"
@@ -163,7 +700,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
         />
         <button
           aria-label="Search"
-          className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
+          className="c3 c10 c12"
           data-experiment={true}
           value="Search"
         >
@@ -205,26 +742,785 @@ exports[`text resizer does not render if textSize is null 1`] = `
 `;
 
 exports[`text resizer opens menu when clicking menu button 1`] = `
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c16 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c2 {
+  display: contents;
+}
+
+.c19 {
+  cursor: pointer;
+}
+
+.c13 > *:not(.c18) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c14 {
+  overflow: visible;
+  position: relative;
+}
+
+.c28 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+}
+
+.c28 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c17 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+  z-index: 2;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
+  clip-path: inset(0 -0.6rem 0px -0.6rem);
+  background-color: #fff;
+  border-left: 0.1rem solid #d5d5d5;
+  border-right: 0.1rem solid #d5d5d5;
+}
+
+.c17 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c3 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+}
+
+.c3:hover,
+.c3:focus {
+  color: #424242;
+}
+
+.c0 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7rem;
+  width: 100%;
+  overflow: visible;
+  display: block;
+  z-index: 30;
+}
+
+.c6 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c4 {
+  display: none;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c11 {
+  height: 3.2rem;
+  border-radius: 0;
+  margin: 0;
+  -webkit-transition: none;
+  transition: none;
+  background: transparent;
+  color: #5e6062;
+  display: none;
+}
+
+.c11 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  vertical-align: middle;
+}
+
+.c12 {
+  height: 3.2rem;
+  border-radius: 0;
+  margin: 0;
+  -webkit-transition: none;
+  transition: none;
+  background: transparent;
+  color: #5e6062;
+}
+
+.c12 > svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  vertical-align: middle;
+}
+
+.c8 {
+  margin-left: auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: -5.2rem;
+  position: relative;
+  color: #5e6062;
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+  width: 38rem;
+}
+
+.c8:last-child {
+  margin-right: auto;
+}
+
+.c8:focus-within {
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c8.focus-within {
+  border: solid 0.1rem #0dc0dc;
+  box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
+}
+
+.c9 {
+  color: #424242;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  font-size: 1.6rem;
+  margin: 0 1rem 0 1rem;
+  height: 3.2rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.c9::-webkit-search-decoration,
+.c9::-webkit-search-cancel-button,
+.c9::-webkit-search-results-button,
+.c9::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.c9::-webkit-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c9::-moz-placeholder {
+  color: #6f6f6f;
+}
+
+.c9:-ms-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c9::placeholder {
+  color: #6f6f6f;
+}
+
+.c27 {
+  color: #424242;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  font-size: 1.6rem;
+  margin: 0 1rem 0 1rem;
+  height: 3.2rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.c27::-webkit-search-decoration,
+.c27::-webkit-search-cancel-button,
+.c27::-webkit-search-results-button,
+.c27::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.c27::-webkit-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c27::-moz-placeholder {
+  color: #6f6f6f;
+}
+
+.c27:-ms-input-placeholder {
+  color: #6f6f6f;
+}
+
+.c27::placeholder {
+  color: #6f6f6f;
+}
+
+.c1 {
+  height: 5rem;
+  max-width: 128rem;
+  margin: 0 auto;
+  text-align: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  background-color: #fff;
+  -webkit-transition: padding-left 300ms;
+  transition: padding-left 300ms;
+  padding-left: 37.5rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+}
+
+.c24 {
+  max-width: 128rem;
+  margin: 0 auto;
+  width: calc(100% - 3.2rem * 2);
+  overflow: visible;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  height: 3.2rem;
+}
+
+.c22 {
+  display: none;
+  overflow: visible;
+  height: 5.3rem;
+  background-color: #fff;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+}
+
+.c23 {
+  border: none;
+  border-top: 0.1rem solid #efeff1;
+  display: none;
+  margin: 0;
+}
+
+.c26 {
+  white-space: nowrap;
+  margin-right: 1rem;
+  text-align: left;
+}
+
+.c15 {
+  margin-left: auto;
+  z-index: 3;
+}
+
+.c15 > button {
+  max-height: 5.2rem;
+}
+
+.c15 > button > div {
+  padding: 1.5rem;
+}
+
+.c20 {
+  color: #5e6062;
+  text-align: left;
+  font-weight: bold;
+}
+
+.c20.c20 {
+  background: #fff;
+  right: 0;
+  left: auto;
+  top: calc(100% - 1px);
+}
+
+.c20 label {
+  padding: 1.6rem 1.6rem 0;
+  display: block;
+}
+
+.c20 .controls {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c20 .controls > button {
+  height: 4rem;
+  width: 4.8rem;
+}
+
+.c20 .controls input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #f1f1f1;
+  background-image: linear-gradient(#002468,#002468);
+  background-size: calc( (0 - -2) * 100 / (3 - -2) * 1% ) 100%;
+  background-repeat: no-repeat;
+  overflow: visible;
+  height: 0.4rem;
+  width: 12rem;
+  margin: 0.8rem 0.7rem;
+}
+
+.c20 .controls input[type="range"]::-webkit-slider-runnable-track,
+.c20 .controls input[type="range"]::-moz-range-track {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-shadow: none;
+  border: none;
+  height: 0.2rem;
+  background: repeating-linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0,0) 19%, #fff 19%, #fff 20%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 20% );
+}
+
+.c20 .controls input[type="range"]::-webkit-slider-runnable-track {
+  height: 0.2rem;
+  background: repeating-linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0,0) 19%, #fff 19%, #fff 20%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 20% );
+}
+
+.c20 .controls input[type="range"]::-moz-range-thumb {
+  background: white;
+  height: 1.5rem;
+  width: 0.7rem;
+  border: 1px solid #5e6062;
+  border-radius: 1px;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,0.04), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+}
+
+.c20 .controls input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: white;
+  height: 1.5rem;
+  width: 0.7rem;
+  border: 1px solid #5e6062;
+  border-radius: 1px;
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,0.04), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
+  width: 0.8rem;
+  margin-top: -6px;
+}
+
+.c21 {
+  margin: 0.2rem 0.6rem;
+}
+
+.c25 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: visible;
+  min-width: auto;
+  display: none;
+}
+
+.c25:hover,
+.c25:focus {
+  color: #424242;
+}
+
+.c25:hover,
+.c25:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+@media screen and (max-width:75em) {
+  .c28 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c17 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    top: 6rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    z-index: 51;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c4 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    display: block;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c12 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c8 {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c8 {
+    width: 100%;
+  }
+
+  .c8,
+  .c8:last-child {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .gPsjnW .c10 {
+    color: #5e6062;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .kXPpuK .c10 {
+    color: #fff;
+  }
+
+  .kXPpuK .c10:hover,
+  .kXPpuK .c10:focus {
+    color: #fff;
+    -webkit-transition: color 200ms;
+    transition: color 200ms;
+  }
+
+  .kXPpuK .c10:hover::before,
+  .kXPpuK .c10:focus::before {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 45px;
+    background-color: rgba(0,0,0,0.06);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .ulpVr .c10 {
+    color: #000;
+  }
+
+  .ulpVr .c10:hover,
+  .ulpVr .c10:focus {
+    color: #000;
+    -webkit-transition: color 200ms;
+    transition: color 200ms;
+  }
+
+  .ulpVr .c10:hover::before,
+  .ulpVr .c10:focus::before {
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 45px;
+    background-color: rgba(0,0,0,0.06);
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c9 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:90em) {
+  .c1 {
+    padding-left: calc(45.5rem - (100vw - 128rem) / 2);
+  }
+}
+
+@media screen and (max-width:80em) {
+  .c1 {
+    padding-left: 45.5rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    padding-left: 0 !important;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c1 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    height: 5.3rem;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0 6px;
+    -webkit-transition: none;
+    transition: none;
+  }
+
+  .c1 .c7 {
+    border: none;
+    border-radius: 0;
+    width: 45px;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .gjWAAG .c7 {
+    border: none;
+    border-radius: 0;
+    width: 45px;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c24 {
+    width: calc(100% - 1.6rem * 2);
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c24 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c24 {
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c22 {
+    padding-left: 8rem;
+    display: block;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c22 {
+    padding-left: 0;
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c23 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c15 {
+    margin-left: 0;
+    display: block;
+  }
+
+  .c15 > button {
+    max-height: 4.6rem;
+  }
+
+  .c15 > button > div {
+    padding: 0.9rem 1.5rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c25 {
+    display: block;
+  }
+}
+
 <div
-  className="styled__TopBarWrapper-sc-12dq39v-0 aQNQa"
+  className="c0"
   data-testid="topbar"
 >
   <div
-    className="styled__SearchPrintWrapper-sc-12dq39v-9 cHhLGz"
+    className="c1"
   >
     <div
-      className="styles__NudgeElementTarget-hrv0cf-10 BGmTi"
+      className="c2"
       id="mobile-menu-button"
     >
       <button
         aria-label="Click to open menu"
-        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__MenuButton-sc-12dq39v-2 bDNWEV"
+        className="c3 c4"
         onClick={[Function]}
         type="button"
       >
         <svg
           aria-hidden="true"
-          className="sc-bdVaJa cjEDWs styled__HamburgerIcon-sc-12dq39v-1 fKwlfW"
+          className="c5 c6"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 448 512"
@@ -238,14 +1534,14 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </div>
     <form
-      className="styled__SearchInputWrapper-sc-12dq39v-7 hpkAyy"
+      className="c7 c8"
       data-experiment={true}
       data-testid="desktop-search"
       onSubmit={[Function]}
     >
       <input
         aria-label="Search this book"
-        className="styled__SearchInput-sc-12dq39v-8 kGWMSU"
+        className="c9"
         data-testid="desktop-search-input"
         onChange={[Function]}
         placeholder="Search this book"
@@ -254,7 +1550,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       />
       <button
         aria-label="Search"
-        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 dAFIlk"
+        className="c3 c10 c11"
         data-analytics-label="Search this book"
         data-experiment={true}
         data-testid="mobile-toggle"
@@ -293,7 +1589,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
       <button
         aria-label="Search"
-        className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
+        className="c3 c10 c12"
         data-experiment={true}
         value="Search"
       >
@@ -328,11 +1624,11 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </form>
     <div
-      className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu"
+      className="c13 c14 c15"
     >
       <button
         aria-label="Change text size"
-        className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 gsKueT Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+        className="c16 c17 c18 c19"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -347,7 +1643,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </div>
       </button>
       <div
-        className="styled__TextResizerMenu-sc-12dq39v-17 eDJseE"
+        className="c20"
         tabIndex={0}
       >
         <label
@@ -360,7 +1656,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         >
           <button
             aria-label="Decrease text size"
-            className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__TextResizerChangeButton-sc-12dq39v-18 hPlFJJ"
+            className="c3 c21"
             data-testid="decrease-text-size"
             onClick={[Function]}
           >
@@ -382,7 +1678,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           />
           <button
             aria-label="Increase text size"
-            className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__TextResizerChangeButton-sc-12dq39v-18 hPlFJJ"
+            className="c3 c21"
             data-testid="increase-text-size"
             onClick={[Function]}
           >
@@ -397,28 +1693,28 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
     </div>
   </div>
   <div
-    className="styled__MobileSearchWrapper-sc-12dq39v-11 foGdGm"
+    className="c22"
   >
     <hr
-      className="styled__Hr-sc-12dq39v-12 iJYKyP"
+      className="c23"
     />
     <div
-      className="styled__MobileSearchContainer-sc-12dq39v-10 hKhfgu"
+      className="c24"
     >
       <button
-        className="styled__PlainButton-sc-1119auh-0 styled__SeachResultsTextButton-sc-12dq39v-15 styled__CloseSearchResultsTextButton-sc-12dq39v-19 kzdVbH"
+        className="c25"
         data-testid="close-search-results"
         onClick={[Function]}
       >
         <div
-          className="styled__InnerText-sc-12dq39v-14 fahaRL"
+          className="c26"
         >
           Close
         </div>
       </button>
       <form
         action="#"
-        className="styled__SearchInputWrapper-sc-12dq39v-7 hpkAyy"
+        className="c7 c8"
         data-experiment={true}
         data-testid="mobile-search"
         onSubmit={[Function]}
@@ -426,7 +1722,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         <input
           aria-label="Search this book"
           autoFocus={true}
-          className="styled__SearchInput-sc-12dq39v-8 bHFdA"
+          className="c27"
           data-testid="mobile-search-input"
           onChange={[Function]}
           placeholder="Search this book"
@@ -435,7 +1731,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         />
         <button
           aria-label="Search"
-          className="styled__PlainButton-sc-1119auh-0 kPdLbJ styled__SearchButton-sc-12dq39v-3 eoLjh"
+          className="c3 c10 c12"
           data-experiment={true}
           value="Search"
         >
@@ -472,11 +1768,11 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         
       </form>
       <div
-        className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC styled__TextResizerDropdown-sc-12dq39v-16 gZvMfu"
+        className="c13 c14 c15"
       >
         <button
           aria-label="Change text size"
-          className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+          className="c16 c28 c18 c19"
           data-analytics-label="Change text size"
           onClick={[Function]}
         >

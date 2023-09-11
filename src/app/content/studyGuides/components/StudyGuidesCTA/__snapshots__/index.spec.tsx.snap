@@ -1,17 +1,286 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 20rem;
+  padding: 0 8rem;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #424242;
+  box-shadow: inset 0 0 10px 0 rgba(0,0,0,0.4);
+  overflow: hidden;
+}
+
+.c0 strong {
+  white-space: nowrap;
+  color: #0c9372;
+}
+
+.c1 {
+  display: contents;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.c3 {
+  overflow: hidden;
+  font-size: 2.4rem;
+  margin: 0 0 1rem 0;
+}
+
+.c4 {
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  min-width: 12rem;
+  font-size: 1.6rem;
+  height: 4rem;
+  padding: 0 3rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+  width: 24rem;
+  height: 4.8rem;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #0c9372;
+  border: none;
+  margin-right: 1.6rem;
+}
+
+.c5:hover {
+  background-color: ,#fafafa,;
+}
+
+.c5:active {
+  background-color: ,#e5e5e5,;
+}
+
+.c5:hover {
+  background-color: #0c9372;
+}
+
+.c6 {
+  padding: 1.4rem 0;
+}
+
+.c7 {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  margin-right: 1.6rem;
+}
+
+.c8 {
+  font-size: 1.6rem;
+  color: #027eb5;
+}
+
+.c9 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  overflow: visible;
+  position: relative;
+}
+
+.c10 {
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  width: 24rem;
+  margin-top: 2.5rem;
+  z-index: 1;
+}
+
+.c10 strong {
+  display: block;
+}
+
+.c11 {
+  position: absolute;
+}
+
+.c12 {
+  position: absolute;
+  left: -4rem;
+  display: none;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    height: 17.6rem;
+    padding: 0 1.6rem;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    max-width: 34rem;
+    height: 100%;
+    overflow: visible;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    font-size: 1.4rem;
+    width: 11rem;
+    height: 3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c7 {
+    font-size: 1.4rem;
+    margin-right: 1.2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c8 {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c9 {
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c10 {
+    width: 10rem;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    margin-left: 2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c12 {
+    display: block;
+  }
+}
+
 <div
-  className="styles__StudyGuidesCTAWrapper-dthmzf-0 ldAdwo"
+  className="c0"
 >
   <div
-    className="styles__StudyGuidesCTAInnerWrapper-dthmzf-1 ekANVM"
+    className="c1"
   >
     <div
-      className="styles__StudyGuidesCTAContent-dthmzf-2 hZLeDx"
+      className="c2"
     >
       <h2
-        className="styles__StudyGuidesCTATitle-dthmzf-3 igvIfZ"
+        className="c3"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Expert-created study guides. <strong>100% free!</strong>",
@@ -19,25 +288,25 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
         }
       />
       <div
-        className="styles__StudyGuidesCTAButtons-dthmzf-4 bESOcY"
+        className="c4"
       >
         <a
-          className="Button-ayg7nk-0 styles__StudyGuidesCTAButton-dthmzf-5 edJeOI"
+          className="c5"
           data-analytics-label="signup"
           href="/accounts/signup?r=/"
         >
           Sign Up
         </a>
         <div
-          className="styles__StudyGuidesCTAButtonsSecondary-dthmzf-6 dSPDZh"
+          className="c6"
         >
           <span
-            className="styles__StudyGuidesCTASeparator-dthmzf-7 bXhklW"
+            className="c7"
           >
             or
           </span>
           <a
-            className="styles__StudyGuidesCTALink-dthmzf-8 hLoOdb"
+            className="c8"
             data-analytics-label="login"
             href="/accounts/login?r=/"
           >
@@ -47,10 +316,10 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
       </div>
     </div>
     <div
-      className="styles__StudyGuidesCTAInfoWrapper-dthmzf-9 iGpeCA"
+      className="c9"
     >
       <div
-        className="styles__StudyGuidesCTAInfo-dthmzf-10 dKsjzx"
+        className="c10"
         dangerouslySetInnerHTML={
           Object {
             "__html": "Like this guide? <br>We've got study guides for every chapter. <strong>Free forever.</strong>",
@@ -59,12 +328,12 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
       />
       <img
         alt=""
-        className="styles__StudyGuidesCTAArrowDesktop-dthmzf-11 cKiziA"
+        className="c11"
         src="arrow-desktop.svg"
       />
       <img
         alt=""
-        className="styles__StudyGuidesCTAArrowMobile-dthmzf-12 itsJER"
+        className="c12"
         src="arrow-mobile.svg"
       />
     </div>

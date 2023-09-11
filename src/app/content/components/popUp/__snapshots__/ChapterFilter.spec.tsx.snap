@@ -1,15 +1,277 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChapterFilter matches snapshot 1`] = `
+.c11 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  outline: none;
+  color: #424242;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover,
+.c4:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c2 {
+  height: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c2,
+.c2 .c3 {
+  font-size: 1.4rem;
+  overflow: visible;
+}
+
+.c2 span {
+  padding: 0 1rem;
+}
+
+.c13 {
+  color: #fff;
+  height: 1rem;
+  width: 1rem;
+  display: none;
+}
+
+.c10 {
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+input:not(:checked) + .c10 {
+  border: 1px solid #424242;
+}
+
+input:checked + .c10 {
+  background-color: #b03808;
+}
+
+input:checked + .c10 .c12 {
+  display: block;
+}
+
+.c8 {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c8 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c8:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c8:focus-within .c9 {
+  border: 1px solid #b03808;
+}
+
+.c8.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c8.focus-within .c9 {
+  border: 1px solid #b03808;
+}
+
+.c15 {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #424242;
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.c15 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c15:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c15:focus-within .c9 {
+  border: 1px solid #b03808;
+}
+
+.c15.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c15.focus-within .c9 {
+  border: 1px solid #b03808;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.c14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  white-space: nowrap;
+  margin-left: 0.8rem;
+}
+
+.c14 > * {
+  overflow: hidden;
+}
+
+.c14 .os-text {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-overflow: ellipsis;
+}
+
+.c14 .os-divider {
+  margin: 0 0.4rem;
+}
+
+.c0 {
+  color: #424242;
+  background: #fff;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  overflow: auto;
+  z-index: 1;
+}
+
+.c0 .c1 {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.c0 .c7 {
+  padding: 0.8rem;
+}
+
+.c0 .c16 {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+.c0 .c17:last-child {
+  border-bottom: none;
+}
+
+@media screen and (max-width:75em) {
+  .c5 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c0 {
+    width: calc(100vw - 1.6rem);
+  }
+}
+
 <div
-  className="ChapterFilter-tcdlu-7 iaQiZB"
+  className="c0"
   tabIndex={-1}
 >
   <div
-    className="AllOrNone-sc-7m1y94-0 divvKQ"
+    className="c1 c2"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+      className="c3 c4"
       onClick={[Function]}
     >
       All
@@ -18,20 +280,20 @@ exports[`ChapterFilter matches snapshot 1`] = `
       |
     </span>
     <button
-      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+      className="c3 c4"
       onClick={[Function]}
     >
       None
     </button>
   </div>
   <div
-    className="ChapterFilter__Row-tcdlu-0 nqIYu"
+    className="c5"
   >
     <div
-      className="ChapterFilter__Column-tcdlu-1 dKPjiE"
+      className="c6"
     >
       <label
-        className="Checkbox-f0dje9-2 jNHPPI"
+        className="c7 c8"
       >
         <input
           checked={true}
@@ -40,11 +302,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -57,7 +319,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -66,7 +328,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -75,11 +337,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -92,7 +354,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -101,7 +363,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -110,11 +372,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -127,7 +389,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -136,7 +398,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -145,11 +407,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -162,7 +424,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -171,7 +433,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -180,11 +442,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -197,7 +459,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -206,7 +468,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -215,11 +477,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -232,7 +494,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -241,7 +503,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -250,11 +512,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -267,7 +529,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -276,7 +538,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -285,11 +547,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -302,7 +564,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -311,7 +573,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -320,11 +582,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -337,7 +599,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
@@ -346,7 +608,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -355,11 +617,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -372,7 +634,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
@@ -381,7 +643,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
         />
       </label>
       <label
-        className="Checkbox-f0dje9-2 bQUsMb"
+        className="c7 c15"
       >
         <input
           checked={false}
@@ -390,11 +652,11 @@ exports[`ChapterFilter matches snapshot 1`] = `
           type="checkbox"
         />
         <span
-          className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+          className="c9 c10"
         >
           <svg
             aria-hidden="true"
-            className="sc-bdVaJa cjEDWs Checkbox__CheckIcon-f0dje9-0 irsTpS"
+            className="c11 c12 c13"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
@@ -407,7 +669,7 @@ exports[`ChapterFilter matches snapshot 1`] = `
           </svg>
         </span>
         <span
-          className="ChapterFilter__ChapterTitle-tcdlu-2 fmaoPu"
+          className="c14"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",

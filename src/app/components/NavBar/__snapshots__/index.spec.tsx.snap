@@ -1,12 +1,291 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`content in browser matches snapshot for logged out 1`] = `
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c3 {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  display: block;
+  -webkit-letter-spacing: -0.072rem;
+  -moz-letter-spacing: -0.072rem;
+  -ms-letter-spacing: -0.072rem;
+  letter-spacing: -0.072rem;
+  font-size: 1.8rem;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 1rem 0;
+  color: #5e6062;
+}
+
+.c3:hover,
+.c3:active,
+.c3:focus {
+  padding-bottom: 0.6rem;
+  border-bottom: 0.4rem solid #63a524;
+}
+
+.c3:hover {
+  color: #424242;
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3 {
+    font-size: 1.4rem;
+    -webkit-letter-spacing: 0.02rem;
+    -moz-letter-spacing: 0.02rem;
+    -ms-letter-spacing: 0.02rem;
+    letter-spacing: 0.02rem;
+    padding: 0.7rem 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3:hover,
+  .c3:active,
+  .c3:focus {
+    padding: 0.7rem 0;
+    border-bottom: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
+  className="c0"
   data-analytics-region="openstax-navbar"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 iVnlSK"
+    className="c1"
     data-testid="navbar"
   >
     <a
@@ -14,13 +293,13 @@ exports[`content in browser matches snapshot for logged out 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 gTGoMI"
+        className="c2"
         role="img"
         src="logo.svg"
       />
     </a>
     <a
-      className="styled__Link-sc-3syvnw-6 bqAshF"
+      className="c3"
       data-analytics-label="login"
       data-testid="nav-login"
       href="/accounts/login?r=/"
@@ -33,12 +312,70 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 `;
 
 exports[`content in browser matches snapshot for null state 1`] = `
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
+  className="c0"
   data-analytics-region="openstax-navbar"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 iVnlSK"
+    className="c1"
     data-testid="navbar"
   >
     <a
@@ -46,7 +383,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 gTGoMI"
+        className="c2"
         role="img"
         src="logo.svg"
       />
@@ -56,12 +393,356 @@ exports[`content in browser matches snapshot for null state 1`] = `
 `;
 
 exports[`content in browser when logged in matches snapshot 1`] = `
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c4 {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  overflow: visible;
+  position: relative;
+  height: 100%;
+}
+
+.c9 {
+  display: none;
+  width: auto;
+  height: 2.8rem;
+  position: absolute;
+  left: 1.6rem;
+  top: 1.2000000000000002rem;
+}
+
+.c6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  line-height: 1.6rem;
+  font-size: 1.4rem;
+  color: #fff;
+  background-color: #007297;
+  cursor: pointer;
+  margin-top: 1.25rem;
+}
+
+.c6:hover {
+  box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.3);
+}
+
+.c10 {
+  color: #424242;
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  -webkit-letter-spacing: -0.02rem;
+  -moz-letter-spacing: -0.02rem;
+  -ms-letter-spacing: -0.02rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  padding-bottom: 0;
+  display: none;
+}
+
+.c11 {
+  position: absolute;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #fff;
+  top: 100%;
+  right: 0;
+  border-top: 0.4rem solid #63a524;
+}
+
+.c11 > li {
+  overflow: visible;
+  display: block;
+}
+
+.c11 > li a {
+  overflow: visible;
+  white-space: nowrap;
+  display: block;
+  padding: 0 1rem;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c11 > li a:hover {
+  color: #0064A0;
+}
+
+.c3.focus-within .c11,
+.c3:hover .c11 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c3:focus-within .c11 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c8 {
+  overflow: visible;
+  margin-bottom: 0.8rem;
+}
+
+.c12 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  position: fixed;
+  height: 5.2rem;
+  width: 5.2rem;
+  top: 0;
+  right: 0;
+  color: #5e6062;
+  display: none;
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c4 {
+    height: auto;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c9 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c6 {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c10 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c11 {
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c8 {
+    background: rgba(255,255,255,0);
+    -webkit-transition: background 200ms;
+    transition: background 200ms;
+    position: fixed;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+
+  .c8:focus,
+  .c8.focus-within,
+  .c5:focus ~ .c8 {
+    padding-top: calc(20vh + 5vw);
+    background: rgba(255,255,255,0.98);
+    height: auto;
+    width: auto;
+    right: 0;
+    bottom: -100%;
+  }
+
+  .c8:focus-within {
+    padding-top: calc(20vh + 5vw);
+    background: rgba(255,255,255,0.98);
+    height: auto;
+    width: auto;
+    right: 0;
+    bottom: -100%;
+  }
+
+  .c8 > div {
+    width: -webkit-min-content;
+    width: -moz-min-content;
+    width: min-content;
+    overflow: visible;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c5:focus ~ .c12,
+  .c7:focus ~ .c12,
+  .c7.focus-within ~ .c12,
+  .c7:focus-within ~ .c12 {
+    display: block;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
 <div
-  className="styled__BarWrapper-sc-3syvnw-12 ePgITh"
+  className="c0"
   data-analytics-region="openstax-navbar"
 >
   <div
-    className="styled__TopBar-sc-3syvnw-0 iVnlSK"
+    className="c1"
     data-testid="navbar"
   >
     <a
@@ -69,24 +750,24 @@ exports[`content in browser when logged in matches snapshot 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="styled__HeaderImage-sc-3syvnw-1 gTGoMI"
+        className="c2"
         role="img"
         src="logo.svg"
       />
     </a>
     <div
-      className="styled__DropdownContainer-sc-3syvnw-2 bZPfgq"
+      className="c3 c4"
       data-testid="user-nav"
     >
       <div
-        className="styled__DropdownToggle-sc-3syvnw-7 SsufM"
+        className="c5 c6"
         data-testid="user-nav-toggle"
         tabIndex="0"
       >
         TT
       </div>
       <div
-        className="styled__DropdownOverlay-sc-3syvnw-10 bKVtjk"
+        className="c7 c8"
         data-testid="nav-overlay"
         tabIndex="-1"
       >
@@ -97,18 +778,18 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         >
           <img
             alt="OpenStax Logo"
-            className="styled__OverlayLogo-sc-3syvnw-3 dlofMy"
+            className="c9"
             src="logo.svg"
           />
         </a>
         <div>
           <h4
-            className="styled__OverlayHeading-sc-3syvnw-8 keFAHn"
+            className="c10"
           >
             Hi test
           </h4>
           <ul
-            className="styled__DropdownList-sc-3syvnw-9 cmtaUi"
+            className="c11"
           >
             <li>
               <a
@@ -130,7 +811,7 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       </div>
       <button
         aria-hidden="true"
-        className="styled__TimesIcon-sc-3syvnw-11 kSBsZL"
+        className="c12"
         tabIndex={-1}
       >
         <svg
