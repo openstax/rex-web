@@ -1,11 +1,150 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignedTopBar renders 1`] = `
+.c5 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c2 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 {
+  overflow: visible;
+  position: relative;
+}
+
+.c6 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+}
+
+.c6 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c4 {
+  margin-left: auto;
+  z-index: 3;
+}
+
+.c4 > button {
+  max-height: 5.2rem;
+}
+
+.c4 > button > div {
+  padding: 1.5rem;
+}
+
+.c0 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7rem;
+  width: 100%;
+  overflow: visible;
+  display: block;
+  z-index: 30;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
+  background-color: #fff;
+  color: #424242;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 5rem;
+}
+
+.c0.c0 {
+  top: 0;
+}
+
+.c1 {
+  font-size: 1.8rem;
+  line-height: 2.1rem;
+  -webkit-letter-spacing: 0.03px;
+  -moz-letter-spacing: 0.03px;
+  -ms-letter-spacing: 0.03px;
+  letter-spacing: 0.03px;
+  margin-left: 1.6rem;
+}
+
+@media screen and (max-width:75em) {
+  .c6 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    top: 6rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    z-index: 51;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    height: 5.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 <div
-  className="styled__TopBarWrapper-sc-12dq39v-0 sc-bwzfXH JAqDh"
+  className="c0"
 >
   <h2
-    className="sc-htpNat iadNqp"
+    className="c1"
     dangerouslySetInnerHTML={
       Object {
         "__html": "1.1 Section Title",
@@ -13,11 +152,11 @@ exports[`AssignedTopBar renders 1`] = `
     }
   />
   <div
-    className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC styled__TextResizerDropdown-sc-12dq39v-16 iLqgWD"
+    className="c2 c3 c4"
   >
     <button
       aria-label="Change text size"
-      className="Button__PlainButton-ayg7nk-2 chgswm Filters__Toggle-sc-1fn81fx-1 liapzj Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c5 c6 c7 c8"
       data-analytics-label="Change text size"
       onClick={[Function]}
     >

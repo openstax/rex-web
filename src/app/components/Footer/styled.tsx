@@ -1,14 +1,11 @@
+import { ManageCookiesLink as RawCookiesLink } from '@openstax/ui-components';
+import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
-import React from 'react';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
-import {
-  contentWrapperMaxWidth,
-  toolbarWidth,
-  verticalNavbarMaxWidth
-} from '../../content/components/constants';
+import { contentWrapperMaxWidth, toolbarWidth, verticalNavbarMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { remsToEms } from '../../utils';
@@ -16,9 +13,16 @@ import { remsToEms } from '../../utils';
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
 const mobileMinWidth = '37.5';
+const textColor = '#d5d5d5';
 
 export const columnLink = css`
-  color: inherit;
+  color: ${textColor};
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: inherit;
+  }
 `;
 
 export const iconStyles = css`
@@ -49,7 +53,8 @@ function XTwitter() {
     >
       <path
         fill='currentColor'
-        d='M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z'
+        d={'M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5' +
+          ' 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z'}
       ></path>
     </svg>
   );
@@ -101,7 +106,7 @@ export const FooterWrapper = styled.footer`
 
 // tslint:disable-next-line:variable-name
 export const InnerFooter = styled.div`
-  color: #d5d5d5;
+  color: ${textColor};
   display: grid;
 `;
 
@@ -186,8 +191,7 @@ export const Mission = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
-export const FooterLink = styled.a`
+export const footerLinkStyle = css`
   ${columnLink}
   text-decoration: none;
 
@@ -197,6 +201,20 @@ export const FooterLink = styled.a`
 
   @media (max-width: ${mobileMinWidth}em) {
     line-height: 4.5rem;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const FooterLink = styled.a`
+  ${footerLinkStyle}
+`;
+
+// tslint:disable-next-line:variable-name
+export const ManageCookiesLink = styled(RawCookiesLink)`
+  && {
+    ${textRegularStyle}
+    ${footerLinkStyle}
+    text-align: left;
   }
 `;
 

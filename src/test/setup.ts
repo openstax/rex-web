@@ -82,6 +82,9 @@ let mockResizeObserver: any;
 
 resetModules();
 
+// tslint:disable-next-line no-var-requires
+require('jest-styled-components');
+
 afterAll(async() => {
   await resetModules();
 });
