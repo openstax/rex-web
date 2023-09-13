@@ -4,6 +4,7 @@ import { PopupBody } from '../../styles/PopupStyles';
 
 // tslint:disable-next-line:variable-name
 export const ShowMyHighlightsBody = styled(PopupBody)`
+  overflow: auto;
   background: ${theme.color.neutral.darker};
   ${theme.breakpoints.mobile(css`
     text-align: left;
