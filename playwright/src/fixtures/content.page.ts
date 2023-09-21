@@ -55,7 +55,7 @@ class ContentPage {
     this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
     this.textarea = this.page.locator('textarea[class*="TextArea"]')
     this.osanoCloseButton = this.page.locator('button[class*="osano-cm-info"]')
-    this.osanoManageButton = this.page.locator('button[class*="osano-cm-manage"]') 
+    this.osanoManageButton = this.page.locator('button[class*="osano-cm-manage"]')
   }
 
   async open(path: string) {
