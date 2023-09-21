@@ -697,7 +697,7 @@ Array [
     <div
       className="c1"
     >
-      <div
+      <main
         className="c2 page-content"
         tabIndex={0}
       >
@@ -712,7 +712,7 @@ Array [
           id="main-content"
           tabIndex={-1}
         />
-      </div>
+      </main>
     </div>
   </div>,
   .c5 {
