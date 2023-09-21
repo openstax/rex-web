@@ -246,6 +246,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   height: calc(100% - 7.2rem);
   background: #fff;
   z-index: 4;
+  overflow: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
