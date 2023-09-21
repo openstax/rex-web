@@ -29,6 +29,7 @@ class ContentPage {
   highlightIdlocator: Locator
   highlightIndicator: Locator
   osanoCloseButton: Locator
+  osanoManageButton: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -53,7 +54,8 @@ class ContentPage {
     this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
     this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
     this.textarea = this.page.locator('textarea[class*="TextArea"]')
-    this.osanoCloseButton = this.page.locator('button[class*="osano-cm-dialog"]')
+    this.osanoCloseButton = this.page.locator('button[class*="osano-cm-info"]')
+    this.osanoManageButton = this.page.locator('button[class*="osano-cm-manage"]') 
   }
 
   async open(path: string) {
@@ -61,6 +63,8 @@ class ContentPage {
     await this.page.goto(path)
 
     try {
+      await this.osanoManageButton.click()
+      await this.osanoManageButton.waitFor({ state: 'hidden' })
       await this.osanoCloseButton.click()
       await this.osanoCloseButton.waitFor({ state: 'hidden' })
     } catch (error) {}
