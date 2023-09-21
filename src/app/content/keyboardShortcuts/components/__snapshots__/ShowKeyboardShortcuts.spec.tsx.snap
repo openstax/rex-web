@@ -6,6 +6,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
   height: calc(100% - 7.2rem);
   background: #fff;
   z-index: 4;
+  overflow: auto;
   background-color: #fafafa;
   color: #424242;
   font-size: 1.6rem;
