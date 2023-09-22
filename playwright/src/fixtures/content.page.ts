@@ -63,9 +63,9 @@ class ContentPage {
     await this.page.goto(path)
 
     try {
-      await this.osanoManageButton.click()
+      await this.osanoManageButton.click({ force: true })
       await this.osanoManageButton.waitFor({ state: 'hidden' })
-      await this.osanoCloseButton.click()
+      await this.osanoCloseButton.click({ force: true })
       await this.osanoCloseButton.waitFor({ state: 'hidden' })
     } catch (error) {}
 
