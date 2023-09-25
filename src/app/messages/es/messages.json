@@ -109,7 +109,7 @@
   "i18n:notification:update:header": "Actualizaciones disponibles",
   "i18n:notification:update:reload": "Actualización",
   "i18n:notification:toast:archive:load-failure": "No podemos cargar esta página. Por favor, compruebe su conexión y vuelva a intentarlo.",
-  "i18n:notification:toast:search:highlight-not-found": "No podemos encontrar resultados de esa búsqueda. Por favor, intente con otra.",
+  "i18n:notification:toast:search:highlight-not-found": "No podemos encontrar texto resaltado. Por favor, intente con otra.",
   "i18n:notification:toast:search:load-failure": "No podemos completar su solicitud de búsqueda. Por favor, compruebe su conexión y vuelva a intentarlo.",
   "i18n:notification:toast:highlights:create-failure": "No se pudo guardar el texto resaltado. Por favor, compruebe su conexión y vuelva a intentarlo.",
   "i18n:notification:toast:highlights:delete-failure": "No se pudo eliminar el texto resaltado. Por favor, comprueba su conexión y vuelva a intentarlo.",
