@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import type { SearchArgs } from './search-common';
 
 type Args = React.PropsWithChildren<
-    SearchArgs & {showBackToSearchResults: boolean}
+  SearchArgs & { showBackToSearchResults: boolean }
 >;
 
 export default function MobileSearch({
@@ -35,7 +35,7 @@ export default function MobileSearch({
       <Styled.MobileSearchContainer>
         {showBackToSearchResults && (
           <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-            {msg => (
+            {(msg) => (
               <Styled.SeachResultsTextButton
                 onClick={openSearchbar}
                 data-testid='back-to-search-results'
@@ -48,7 +48,7 @@ export default function MobileSearch({
         )}
         {!showBackToSearchResults && (
           <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-            {msg => (
+            {(msg) => (
               <Styled.CloseSearchResultsTextButton
                 onClick={toggleMobile}
                 data-testid='close-search-results'

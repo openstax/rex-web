@@ -162,7 +162,7 @@
     "node-fetch": "~2.6",
     "pify": "^4.0.1",
     "portfinder": "^1.0.32",
-    "prettier": "1.19.1",
+    "prettier": "3.0.3",
     "pretty": "^2.0.0",
     "progress": "^2.0.3",
     "puppeteer": "^5",

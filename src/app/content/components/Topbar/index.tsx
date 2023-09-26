@@ -10,7 +10,7 @@ import {
   clearSearch,
   openMobileToolbar,
   openSearchResultsMobile,
-  requestSearch
+  requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
@@ -44,9 +44,12 @@ interface State {
 }
 
 class Topbar extends React.Component<Props, State> {
-
   public static getDerivedStateFromProps(newProps: Props, state: State) {
-    if (newProps.query && newProps.query !== state.queryProp && newProps.query !== state.query) {
+    if (
+      newProps.query &&
+      newProps.query !== state.queryProp &&
+      newProps.query !== state.query
+    ) {
       return { ...state, query: newProps.query, queryProp: newProps.query };
     }
     return { ...state, queryProp: newProps.query };
@@ -60,33 +63,33 @@ class Topbar extends React.Component<Props, State> {
       e.preventDefault();
       this.props.openMobileMenu();
     };
-    const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
+    const showBackToSearchResults =
+      !this.props.searchSidebarOpen && this.props.hasSearchResults;
 
-    return <Styled.TopBarWrapper data-testid='topbar'>
-      <DesktopSearch
-        {...commonSearchArgs}
-        openMenu={openMenu}
-      >
-        <TextResizer
-          bookTheme={this.props.bookTheme}
-          textSize={this.props.textSize}
-          setTextSize={this.props.setTextSize}
-          data-testid='text-resizer'
-        />
-      </DesktopSearch>
-      <MobileSearch
-        {...commonSearchArgs}
-        showBackToSearchResults={showBackToSearchResults}
-      >
-        <TextResizer
-          bookTheme={this.props.bookTheme}
-          textSize={this.props.textSize}
-          setTextSize={this.props.setTextSize}
-          mobileToolbarOpen={this.props.mobileToolbarOpen}
-          data-testid='mobile-text-resizer'
-        />
-      </MobileSearch>
-    </Styled.TopBarWrapper>;
+    return (
+      <Styled.TopBarWrapper data-testid='topbar'>
+        <DesktopSearch {...commonSearchArgs} openMenu={openMenu}>
+          <TextResizer
+            bookTheme={this.props.bookTheme}
+            textSize={this.props.textSize}
+            setTextSize={this.props.setTextSize}
+            data-testid='text-resizer'
+          />
+        </DesktopSearch>
+        <MobileSearch
+          {...commonSearchArgs}
+          showBackToSearchResults={showBackToSearchResults}
+        >
+          <TextResizer
+            bookTheme={this.props.bookTheme}
+            textSize={this.props.textSize}
+            setTextSize={this.props.setTextSize}
+            mobileToolbarOpen={this.props.mobileToolbarOpen}
+            data-testid='mobile-text-resizer'
+          />
+        </MobileSearch>
+      </Styled.TopBarWrapper>
+    );
   }
 
   private getSearchArgs(): SearchArgs {
@@ -106,7 +109,10 @@ class Topbar extends React.Component<Props, State> {
       this.setState({ query: '', formSubmitted: false });
     };
     const onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
-      this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
+      this.setState({
+        query: (e.currentTarget as any).value,
+        formSubmitted: false,
+      });
     };
     const toggleMobile = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -118,7 +124,7 @@ class Topbar extends React.Component<Props, State> {
       }
     };
 
-    return ({
+    return {
       onSearchSubmit,
       onSearchClear,
       onSearchChange,
@@ -129,7 +135,7 @@ class Topbar extends React.Component<Props, State> {
       toggleMobile,
       state: this.state,
       newButtonEnabled: !!this.props.searchButtonColor,
-    });
+    };
   }
 }
 
