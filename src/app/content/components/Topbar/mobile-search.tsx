@@ -1,23 +1,11 @@
 import React from 'react';
 import * as Styled from './styled';
 import { FormattedMessage } from 'react-intl';
+import type { SearchArgs } from './search-common';
 
-type Args = React.PropsWithChildren<{
-  showBackToSearchResults: boolean;
-  onSearchSubmit(e: React.FormEvent): void;
-  onSearchClear(e: React.FormEvent): void;
-  onSearchChange(e: React.FormEvent): void;
-  colorSchema: string | null;
-  searchInSidebar: boolean;
-  mobileToolbarOpen: boolean;
-  openSearchResults(): void;
-  toggleMobile(e: React.MouseEvent): void;
-  state: {
-    query: string;
-    formSubmitted: boolean;
-  };
-  newButtonEnabled: boolean;
-}>;
+type Args = React.PropsWithChildren<
+    SearchArgs & {showBackToSearchResults: boolean}
+>;
 
 export default function MobileSearch({
   showBackToSearchResults,

@@ -7,10 +7,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
   overflow: hidden;
 }
 
-.c2 {
-  display: contents;
-}
-
 .c3 {
   cursor: pointer;
   border: none;
@@ -303,6 +299,10 @@ exports[`text resizer does not render if textSize is null 1`] = `
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
+}
+
+.c2 {
+  display: contents;
 }
 
 @media screen and (max-width:75em) {
@@ -754,10 +754,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   margin: 0;
   padding: 0;
   background: none;
-}
-
-.c2 {
-  display: contents;
 }
 
 .c19 {
@@ -1239,6 +1235,10 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
+}
+
+.c2 {
+  display: contents;
 }
 
 @media screen and (max-width:75em) {

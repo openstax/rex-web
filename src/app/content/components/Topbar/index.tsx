@@ -15,9 +15,9 @@ import {
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import MobileSearch from './mobile-search';
-import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
-import { NudgeElementTarget } from '../NudgeStudyTools/styles';
+import DesktopSearch from './desktop-search';
 import * as Styled from './styled';
+import type { SearchArgs } from './search-common';
 import { TextResizer } from './TextResizer';
 
 interface Props {
@@ -55,11 +55,41 @@ class Topbar extends React.Component<Props, State> {
   public state = { query: '', queryProp: '', formSubmitted: false };
 
   public render() {
+    const commonSearchArgs = this.getSearchArgs();
     const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       this.props.openMobileMenu();
     };
+    const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
 
+    return <Styled.TopBarWrapper data-testid='topbar'>
+      <DesktopSearch
+        {...commonSearchArgs}
+        openMenu={openMenu}
+      >
+        <TextResizer
+          bookTheme={this.props.bookTheme}
+          textSize={this.props.textSize}
+          setTextSize={this.props.setTextSize}
+          data-testid='text-resizer'
+        />
+      </DesktopSearch>
+      <MobileSearch
+        {...commonSearchArgs}
+        showBackToSearchResults={showBackToSearchResults}
+      >
+        <TextResizer
+          bookTheme={this.props.bookTheme}
+          textSize={this.props.textSize}
+          setTextSize={this.props.setTextSize}
+          mobileToolbarOpen={this.props.mobileToolbarOpen}
+          data-testid='mobile-text-resizer'
+        />
+      </MobileSearch>
+    </Styled.TopBarWrapper>;
+  }
+
+  private getSearchArgs(): SearchArgs {
     const onSearchSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
@@ -71,12 +101,13 @@ class Topbar extends React.Component<Props, State> {
         this.setState({ formSubmitted: true });
       }
     };
-
     const onSearchClear = (e: React.FormEvent) => {
       e.preventDefault();
       this.setState({ query: '', formSubmitted: false });
     };
-
+    const onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
+      this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
+    };
     const toggleMobile = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
 
@@ -87,85 +118,18 @@ class Topbar extends React.Component<Props, State> {
       }
     };
 
-    const onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
-      this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
-    };
-
-    const showBackToSearchResults = !this.props.searchSidebarOpen && this.props.hasSearchResults;
-
-    const newButtonEnabled = !!this.props.searchButtonColor;
-
-    return <Styled.TopBarWrapper data-testid='topbar'>
-      <Styled.SearchPrintWrapper>
-        <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
-          <Styled.MenuButton type='button' onClick={openMenu} />
-        </NudgeElementTarget>
-
-        <Styled.SearchInputWrapper
-          active={this.props.mobileToolbarOpen}
-          onSubmit={onSearchSubmit}
-          data-testid='desktop-search'
-          data-experiment
-          colorSchema={this.props.searchButtonColor}
-          searchInSidebar={this.props.searchInSidebar}
-        >
-          <Styled.SearchInput desktop type='search' data-testid='desktop-search-input'
-            onChange={onSearchChange}
-            value={this.state.query} />
-          <Styled.SearchButton mobile
-            type='button'
-            ariaLabelId='i18n:toolbar:search:toggle'
-            data-analytics-label='Search this book'
-            data-testid='mobile-toggle'
-            data-experiment
-            onClick={toggleMobile}
-            colorSchema={this.props.searchButtonColor}
-          />
-          {!this.state.formSubmitted && !newButtonEnabled &&
-            <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
-          }
-          {this.state.formSubmitted && !newButtonEnabled &&
-            <Styled.CloseButton desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search' />
-          }
-          {this.state.formSubmitted && newButtonEnabled &&
-            <Styled.CloseButtonNew desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search'>
-              <Styled.CloseIcon />
-            </Styled.CloseButtonNew>
-          }
-          {newButtonEnabled &&
-            <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
-          }
-        </Styled.SearchInputWrapper>
-        <TextResizer
-          bookTheme={this.props.bookTheme}
-          textSize={this.props.textSize}
-          setTextSize={this.props.setTextSize}
-          data-testid='text-resizer'
-        />
-      </Styled.SearchPrintWrapper>
-
-      <MobileSearch
-        showBackToSearchResults={showBackToSearchResults}
-        onSearchSubmit={onSearchSubmit}
-        onSearchClear={onSearchClear}
-        onSearchChange={onSearchChange}
-        colorSchema={this.props.searchButtonColor}
-        searchInSidebar={this.props.searchInSidebar}
-        mobileToolbarOpen={this.props.mobileToolbarOpen}
-        openSearchResults={this.props.openSearchResults}
-        toggleMobile={toggleMobile}
-        state={this.state}
-        newButtonEnabled={newButtonEnabled}
-      >
-        <TextResizer
-          bookTheme={this.props.bookTheme}
-          textSize={this.props.textSize}
-          setTextSize={this.props.setTextSize}
-          mobileToolbarOpen={this.props.mobileToolbarOpen}
-          data-testid='mobile-text-resizer'
-        />
-      </MobileSearch>
-    </Styled.TopBarWrapper>;
+    return ({
+      onSearchSubmit,
+      onSearchClear,
+      onSearchChange,
+      colorSchema: this.props.searchButtonColor,
+      searchInSidebar: this.props.searchInSidebar,
+      mobileToolbarOpen: this.props.mobileToolbarOpen,
+      openSearchResults: this.props.openSearchResults,
+      toggleMobile,
+      state: this.state,
+      newButtonEnabled: !!this.props.searchButtonColor,
+    });
   }
 }
 
