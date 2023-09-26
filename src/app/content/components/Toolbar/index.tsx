@@ -15,7 +15,7 @@ import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
 import StudyGuidesButton from './StudyGuidesButton';
-import { useMatchMobileQuery } from '../../../reactUtils';
+import { useMatchMobileMediumQuery } from '../../../reactUtils';
 import * as Styled from './styled';
 
 // tslint:disable-next-line: variable-name
@@ -24,7 +24,7 @@ const VerticalNav = () => {
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
   const showSearchInSidebar = useSelector(searchInSidebar);
-  const isMobile = useMatchMobileQuery();
+  const isMobile = useMatchMobileMediumQuery();
 
   React.useEffect(() => {
     const sidebar = sidebarRef.current;
