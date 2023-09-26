@@ -17,7 +17,6 @@ import * as selectContent from '../../selectors';
 import MobileSearch from './mobile-search';
 import DesktopSearch from './desktop-search';
 import * as Styled from './styled';
-import type { SearchArgs } from './search-common';
 import { TextResizer } from './TextResizer';
 
 interface Props {
@@ -59,6 +58,7 @@ class Topbar extends React.Component<Props, State> {
 
   public render() {
     const commonSearchArgs = this.getSearchArgs();
+    const commonResizerArgs = this.getResizerArgs();
     const showBackToSearchResults =
       !this.props.searchSidebarOpen && this.props.hasSearchResults;
 
@@ -68,21 +68,14 @@ class Topbar extends React.Component<Props, State> {
           {...commonSearchArgs}
           openMobileMenu={this.props.openMobileMenu}
         >
-          <TextResizer
-            bookTheme={this.props.bookTheme}
-            textSize={this.props.textSize}
-            setTextSize={this.props.setTextSize}
-            data-testid='text-resizer'
-          />
+          <TextResizer {...commonResizerArgs} data-testid='text-resizer' />
         </DesktopSearch>
         <MobileSearch
           {...commonSearchArgs}
           showBackToSearchResults={showBackToSearchResults}
         >
           <TextResizer
-            bookTheme={this.props.bookTheme}
-            textSize={this.props.textSize}
-            setTextSize={this.props.setTextSize}
+            {...commonResizerArgs}
             mobileToolbarOpen={this.props.mobileToolbarOpen}
             data-testid='mobile-text-resizer'
           />
@@ -91,7 +84,7 @@ class Topbar extends React.Component<Props, State> {
     );
   }
 
-  private getSearchArgs(): SearchArgs {
+  private getSearchArgs() {
     const onSearchSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       const activeElement = assertDocument().activeElement;
@@ -134,6 +127,14 @@ class Topbar extends React.Component<Props, State> {
       toggleMobile,
       state: this.state,
       newButtonEnabled: !!this.props.searchButtonColor,
+    };
+  }
+
+  private getResizerArgs() {
+    return {
+      bookTheme: this.props.bookTheme,
+      textSize: this.props.textSize,
+      setTextSize: this.props.setTextSize,
     };
   }
 }
