@@ -32,6 +32,26 @@ describe('toolbar', () => {
     };
   });
 
+  it('does not render vertical nav in mobile unless mobile menu is open', () => {
+    const mock = {
+      matches: true,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+    } as any;
+
+    jest.spyOn(assertWindow(), 'matchMedia')
+      .mockImplementation(() => mock);
+    const component = renderer.create(<Provider store={store}>
+      <MessageProvider>
+        <Toolbar />
+      </MessageProvider>
+    </Provider>);
+
+    const toolbars = component.root.findAllByProps({'data-testid': 'toolbar'});
+
+    expect(toolbars.length).toBe(0);
+  });
+
   it('resizes on scroll', () => {
     const sidebar = assertWindow().document.createElement('div');
     jest.spyOn(selectors, 'mobileMenuOpen').mockReturnValue(true);
