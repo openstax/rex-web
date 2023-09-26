@@ -1,6 +1,5 @@
 import flow from 'lodash/fp/flow';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
 import { AppState, Dispatch } from '../../../types';
@@ -15,6 +14,7 @@ import {
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
+import MobileSearch from './mobile-search';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
@@ -87,11 +87,6 @@ class Topbar extends React.Component<Props, State> {
       }
     };
 
-    const openSearchbar = (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      this.props.openSearchResults();
-    };
-
     const onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
       this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
     };
@@ -149,63 +144,27 @@ class Topbar extends React.Component<Props, State> {
         />
       </Styled.SearchPrintWrapper>
 
-      <Styled.MobileSearchWrapper mobileToolbarOpen={this.props.mobileToolbarOpen}>
-        <Styled.Hr />
-        <Styled.MobileSearchContainer>
-          {showBackToSearchResults &&
-            <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-              {(msg) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
-                <Styled.LeftArrow /><Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.SeachResultsTextButton>}
-            </FormattedMessage>}
-          {!showBackToSearchResults &&
-            <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-              {(msg) => <Styled.CloseSearchResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
-                <Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.CloseSearchResultsTextButton>}
-            </FormattedMessage>}
-          <Styled.SearchInputWrapper
-            action='#'
-            onSubmit={onSearchSubmit}
-            data-testid='mobile-search'
-            data-experiment
-            colorSchema={this.props.searchButtonColor}
-            searchInSidebar={this.props.searchInSidebar}
-          >
-            <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
-              autoFocus
-              onChange={onSearchChange} value={this.state.query} />
-            {!this.state.formSubmitted && !newButtonEnabled &&
-              <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
-            }
-            {
-              this.state.query && newButtonEnabled && <Styled.CloseButtonNew
-                type='button'
-                onClick={onSearchClear}
-                formSubmitted={this.state.formSubmitted}
-                data-testid='mobile-clear-search'
-              >
-                <Styled.CloseIcon />
-              </Styled.CloseButtonNew>
-            }
-            {
-              this.state.query && !newButtonEnabled && <Styled.CloseButton
-                type='button'
-                onClick={onSearchClear}
-                formSubmitted={this.state.formSubmitted}
-                data-testid='mobile-clear-search'
-              />
-            }
-          </Styled.SearchInputWrapper>
-          <TextResizer
-            bookTheme={this.props.bookTheme}
-            textSize={this.props.textSize}
-            setTextSize={this.props.setTextSize}
-            mobileToolbarOpen={this.props.mobileToolbarOpen}
-            data-testid='mobile-text-resizer'
-          />
-        </Styled.MobileSearchContainer>
-      </Styled.MobileSearchWrapper>
+      <MobileSearch
+        showBackToSearchResults={showBackToSearchResults}
+        onSearchSubmit={onSearchSubmit}
+        onSearchClear={onSearchClear}
+        onSearchChange={onSearchChange}
+        colorSchema={this.props.searchButtonColor}
+        searchInSidebar={this.props.searchInSidebar}
+        mobileToolbarOpen={this.props.mobileToolbarOpen}
+        openSearchResults={this.props.openSearchResults}
+        toggleMobile={toggleMobile}
+        state={this.state}
+        newButtonEnabled={newButtonEnabled}
+      >
+        <TextResizer
+          bookTheme={this.props.bookTheme}
+          textSize={this.props.textSize}
+          setTextSize={this.props.setTextSize}
+          mobileToolbarOpen={this.props.mobileToolbarOpen}
+          data-testid='mobile-text-resizer'
+        />
+      </MobileSearch>
     </Styled.TopBarWrapper>;
   }
 }
