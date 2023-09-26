@@ -3,10 +3,9 @@ import * as Styled from './styled';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import type { SearchArgs } from './search-common';
+import { CloseButton } from './search-common';
 
-type Args = React.PropsWithChildren<
-  SearchArgs & { openMenu(e: React.MouseEvent<HTMLButtonElement>): void }
->;
+type Args = React.PropsWithChildren<SearchArgs & { openMobileMenu(): void }>;
 
 export default function DesktopSearch({
   state,
@@ -18,9 +17,17 @@ export default function DesktopSearch({
   mobileToolbarOpen,
   newButtonEnabled,
   toggleMobile,
-  openMenu,
+  openMobileMenu,
   children,
 }: Args) {
+  const openMenu = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      openMobileMenu();
+    },
+    [openMobileMenu]
+  );
+
   return (
     <Styled.SearchPrintWrapper>
       <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
@@ -52,38 +59,19 @@ export default function DesktopSearch({
           onClick={toggleMobile}
           colorSchema={colorSchema}
         />
-        {!state.formSubmitted && !newButtonEnabled && (
-          <Styled.SearchButton
+        {state.formSubmitted && (
+          <CloseButton
             desktop
-            colorSchema={colorSchema}
-            data-experiment
+            newButtonEnabled={newButtonEnabled}
+            onSearchClear={onSearchClear}
+            testid='desktop-clear-search'
           />
         )}
-        {state.formSubmitted && !newButtonEnabled && (
-          <Styled.CloseButton
-            desktop
-            type='button'
-            onClick={onSearchClear}
-            data-testid='desktop-clear-search'
-          />
-        )}
-        {state.formSubmitted && newButtonEnabled && (
-          <Styled.CloseButtonNew
-            desktop
-            type='button'
-            onClick={onSearchClear}
-            data-testid='desktop-clear-search'
-          >
-            <Styled.CloseIcon />
-          </Styled.CloseButtonNew>
-        )}
-        {newButtonEnabled && (
-          <Styled.SearchButton
-            desktop
-            colorSchema={colorSchema}
-            data-experiment
-          />
-        )}
+        <Styled.SearchButton
+          desktop
+          colorSchema={colorSchema}
+          data-experiment
+        />
       </Styled.SearchInputWrapper>
       {children}
     </Styled.SearchPrintWrapper>

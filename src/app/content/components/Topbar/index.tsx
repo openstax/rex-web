@@ -59,16 +59,15 @@ class Topbar extends React.Component<Props, State> {
 
   public render() {
     const commonSearchArgs = this.getSearchArgs();
-    const openMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      this.props.openMobileMenu();
-    };
     const showBackToSearchResults =
       !this.props.searchSidebarOpen && this.props.hasSearchResults;
 
     return (
       <Styled.TopBarWrapper data-testid='topbar'>
-        <DesktopSearch {...commonSearchArgs} openMenu={openMenu}>
+        <DesktopSearch
+          {...commonSearchArgs}
+          openMobileMenu={this.props.openMobileMenu}
+        >
           <TextResizer
             bookTheme={this.props.bookTheme}
             textSize={this.props.textSize}

@@ -2,6 +2,7 @@ import React from 'react';
 import * as Styled from './styled';
 import { FormattedMessage } from 'react-intl';
 import type { SearchArgs } from './search-common';
+import { CloseButton } from './search-common';
 
 type Args = React.PropsWithChildren<
   SearchArgs & { showBackToSearchResults: boolean }
@@ -21,43 +22,15 @@ export default function MobileSearch({
   newButtonEnabled,
   children,
 }: Args) {
-  const openSearchbar = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      openSearchResults();
-    },
-    [openSearchResults]
-  );
-
   return (
     <Styled.MobileSearchWrapper mobileToolbarOpen={mobileToolbarOpen}>
       <Styled.Hr />
       <Styled.MobileSearchContainer>
-        {showBackToSearchResults && (
-          <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-            {(msg) => (
-              <Styled.SeachResultsTextButton
-                onClick={openSearchbar}
-                data-testid='back-to-search-results'
-              >
-                <Styled.LeftArrow />
-                <Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.SeachResultsTextButton>
-            )}
-          </FormattedMessage>
-        )}
-        {!showBackToSearchResults && (
-          <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-            {(msg) => (
-              <Styled.CloseSearchResultsTextButton
-                onClick={toggleMobile}
-                data-testid='close-search-results'
-              >
-                <Styled.InnerText>{msg}</Styled.InnerText>
-              </Styled.CloseSearchResultsTextButton>
-            )}
-          </FormattedMessage>
-        )}
+        <BackToSearchOrClose
+          showBackToSearchResults={showBackToSearchResults}
+          toggleMobile={toggleMobile}
+          openSearchResults={openSearchResults}
+        />
         <Styled.SearchInputWrapper
           action='#'
           onSubmit={onSearchSubmit}
@@ -81,27 +54,64 @@ export default function MobileSearch({
               data-experiment
             />
           )}
-          {state.query && newButtonEnabled && (
-            <Styled.CloseButtonNew
-              type='button'
-              onClick={onSearchClear}
+          {state.query && (
+            <CloseButton
+              newButtonEnabled={newButtonEnabled}
+              onSearchClear={onSearchClear}
               formSubmitted={state.formSubmitted}
-              data-testid='mobile-clear-search'
-            >
-              <Styled.CloseIcon />
-            </Styled.CloseButtonNew>
-          )}
-          {state.query && !newButtonEnabled && (
-            <Styled.CloseButton
-              type='button'
-              onClick={onSearchClear}
-              formSubmitted={state.formSubmitted}
-              data-testid='mobile-clear-search'
+              testid='mobile-clear-search'
             />
           )}
         </Styled.SearchInputWrapper>
         {children}
       </Styled.MobileSearchContainer>
     </Styled.MobileSearchWrapper>
+  );
+}
+
+type BackToSearchOrCloseArgs = {
+  showBackToSearchResults: boolean;
+} & Pick<Args, 'openSearchResults' | 'toggleMobile'>;
+
+function BackToSearchOrClose({
+  showBackToSearchResults,
+  openSearchResults,
+  toggleMobile,
+}: BackToSearchOrCloseArgs) {
+  const openSearchbar = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      openSearchResults();
+    },
+    [openSearchResults]
+  );
+
+  if (showBackToSearchResults) {
+    return (
+      <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
+        {(msg) => (
+          <Styled.SeachResultsTextButton
+            onClick={openSearchbar}
+            data-testid='back-to-search-results'
+          >
+            <Styled.LeftArrow />
+            <Styled.InnerText>{msg}</Styled.InnerText>
+          </Styled.SeachResultsTextButton>
+        )}
+      </FormattedMessage>
+    );
+  }
+
+  return (
+    <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
+      {(msg) => (
+        <Styled.CloseSearchResultsTextButton
+          onClick={toggleMobile}
+          data-testid='close-search-results'
+        >
+          <Styled.InnerText>{msg}</Styled.InnerText>
+        </Styled.CloseSearchResultsTextButton>
+      )}
+    </FormattedMessage>
   );
 }

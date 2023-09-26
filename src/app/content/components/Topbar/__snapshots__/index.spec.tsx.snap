@@ -734,7 +734,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
           </svg>
         </button>
         
-        
       </form>
     </div>
   </div>
@@ -1764,7 +1763,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
             </g>
           </svg>
         </button>
-        
         
       </form>
       <div
