@@ -10,6 +10,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
 import LoaderWrapper from '../../styles/LoaderWrapper';
+import { assertDocument } from '../../../utils';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
@@ -239,9 +240,10 @@ describe('Highlights', () => {
     store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
     dispatch.mockClear();
 
+    const createNodeMock = () => assertDocument().createElement('div');
     const component = renderer.create(<TestContainer services={services} store={store}>
       <Highlights/>
-    </TestContainer>);
+    </TestContainer>, {createNodeMock});
 
     let [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
     expect(firstAnnotation.props.isEditing).toEqual(false);
