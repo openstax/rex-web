@@ -784,6 +784,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         Search results
       </span>
       <button
+        aria-label="close search"
         className="c4 c5"
         data-testid="close-search"
         onClick={[Function]}
@@ -1466,6 +1467,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         Search results
       </span>
       <button
+        aria-label="close search"
         className="c4 c5"
         data-testid="close-search"
         onClick={[Function]}
