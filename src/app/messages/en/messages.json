@@ -111,7 +111,7 @@
   "i18n:notification:update:header": "Updates Available",
   "i18n:notification:update:reload": "Update",
   "i18n:notification:toast:archive:load-failure": "We're unable to load this page. Please check your connection and try again.",
-  "i18n:notification:toast:search:highlight-not-found": "We're unable to find that search result. Please try another.",
+  "i18n:notification:toast:search:highlight-not-found": "We're unable to find that highlight. Please try another.",
   "i18n:notification:toast:search:load-failure": "We're unable to complete your search request. Please check your connection and try again.",
   "i18n:notification:toast:highlights:create-failure": "The highlight could not be saved. Please check your connection and try again.",
   "i18n:notification:toast:highlights:delete-failure": "The highlight could not be deleted. Please check your connection and try again.",
