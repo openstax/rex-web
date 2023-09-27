@@ -54,93 +54,116 @@ export interface CardProps {
   isHidden: boolean;
 }
 
-// tslint:disable-next-line:variable-name
-const Card = (props: CardProps) => {
+type CardPropsWithBookAndPage = Omit<CardProps, 'book' | 'page'> & {
+  book: Exclude<CardProps['book'], undefined>;
+  page: Exclude<CardProps['page'], undefined>;
+};
+
+type ComputedProps = {
+  focusCard(): Promise<void>;
+  editing: boolean;
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+  annotation: string | undefined;
+  hasUnsavedHighlight: boolean;
+  element: React.RefObject<HTMLElement>
+};
+
+function useComputedProps(props: CardProps): ComputedProps {
   const annotation = props.data && props.data.annotation;
-  const element = React.useRef<HTMLElement>(null);
-  const [editing, setEditing] = React.useState<boolean>(!annotation);
-  const [highlightRemoved, setHighlightRemoved] = React.useState<boolean>(false);
-  const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
-  const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const services = useServices();
-
-  const { isActive, highlight: { id }, focus } = props;
-
+  const { isActive, highlight, focus, onHeightChange,
+lastActive } = props;
+  const {id} = highlight;
+  const [editing, setEditing] = React.useState<boolean>(!annotation);
+  const hasUnsavedHighlight = useSelector(selectHighlights.hasUnsavedHighlight);
   const focusCard = React.useCallback(async() => {
     if (!isActive && (!hasUnsavedHighlight || await showConfirmation(services))) {
       focus(id);
     }
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
+  const element = React.useRef<HTMLElement>(null);
 
   useFocusIn(element, true, focusCard);
 
   React.useEffect(() => {
-    if (!props.lastActive) {
+    if (!lastActive) {
       setEditing(false);
     } else {
-      scrollHighlightIntoView(props.highlight, element);
+      scrollHighlightIntoView(highlight, element);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [element, props.lastActive]);
+  }, [element, lastActive, highlight]);
 
   React.useEffect(() => {
     if (annotation) {
-      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
+      highlight.elements.forEach((el) => (el as HTMLElement).classList.add('has-note'));
     } else {
-      props.highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
+      highlight.elements.forEach((el) => (el as HTMLElement).classList.remove('has-note'));
     }
-  }, [props.highlight, annotation]);
+  }, [highlight, annotation]);
 
   React.useEffect(() => {
-    if (!annotation && !props.isActive) {
-      props.onHeightChange({ current: null });
+    if (!annotation && !isActive) {
+      onHeightChange({ current: null });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [annotation, props.isActive]);
+  }, [annotation, isActive]); // onHeightChange
 
+return React.useMemo(
+    () => ({
+      focusCard,
+      editing,
+      setEditing,
+      annotation,
+      hasUnsavedHighlight,
+      element,
+    }),
+    [annotation, editing, focusCard, hasUnsavedHighlight]
+  );
+}
+
+function useLocationFilterId(page: CardProps['page']): string | undefined {
+  const locationFilters = useSelector(selectHighlights.highlightLocationFilters);
   const location = React.useMemo(() => {
-    return props.page && getHighlightLocationFilterForPage(locationFilters, props.page);
-  }, [locationFilters, props.page]);
+    return page && getHighlightLocationFilterForPage(locationFilters, page);
+  }, [locationFilters, page]);
   const locationFilterId = location && stripIdVersion(location.id);
-  const { page, book } = props;
 
+  return locationFilterId;
+}
+
+// tslint:disable-next-line:variable-name
+const Card = (props: CardProps) => {
+  const {
+    focusCard,
+    editing,
+    setEditing,
+    annotation,
+    hasUnsavedHighlight,
+    element,
+  } = useComputedProps(props);
+  const locationFilterId = useLocationFilterId(props.page);
+  const [highlightRemoved, setHighlightRemoved] = React.useState<boolean>(false);
   const onRemove = React.useCallback(
     () => {
-      if (props.data && page && locationFilterId) {
+      if (props.data && props.page && locationFilterId) {
         setHighlightRemoved(true);
         props.remove(props.data, {
           locationFilterId,
-          pageId: page.id,
+          pageId: props.page.id,
         });
       }
     },
-    [locationFilterId, page, props]
+    [locationFilterId, props]
   );
 
   const isMobile = useMatchMobileMediumQuery();
 
-  if (!props.highlight.range || !page || !book || !locationFilterId) {
+  if (!props.highlight.range || !props.page || !props.book || !locationFilterId
+    || highlightRemoved || isMobile) {
     return null;
   }
 
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
-
-  const onCreate = (isDefaultColor: boolean) => {
-    props.create({
-      ...props.highlight.serialize().getApiPayload(props.highlighter, props.highlight),
-      scopeId: book.id,
-      sourceId: page.id,
-      sourceMetadata: {
-        bookVersion: book.contentVersion,
-        pipelineVersion: book.archiveVersion,
-      },
-      sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
-    }, {
-      isDefaultColor,
-      locationFilterId,
-      pageId: page.id,
-    });
-  };
 
   const commonProps = {
     className: props.className,
@@ -153,7 +176,7 @@ const Card = (props: CardProps) => {
     shouldFocusCard: props.shouldFocusCard,
   };
 
-return !highlightRemoved && !isMobile ? <div onClick={focusCard} data-testid='card'>
+return <div onClick={focusCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
@@ -161,19 +184,67 @@ return !highlightRemoved && !isMobile ? <div onClick={focusCard} data-testid='ca
         note={annotation}
         focus={props.focus}
         onEdit={() => setEditing(true)}
-      /> : <EditCard
-        {...commonProps}
+      /> : <EditCardWithOnCreate
+        cardProps={props as CardPropsWithBookAndPage}
+        commonProps={commonProps}
         locationFilterId={locationFilterId}
         hasUnsavedHighlight={hasUnsavedHighlight}
-        pageId={page.id}
-        onCreate={onCreate}
-        setAnnotationChangesPending={props.setAnnotationChangesPending}
-        onCancel={() => setEditing(false)}
-        data={props.data}
+        setEditing={setEditing}
       />
     }
-  </div> : null;
+  </div>;
 };
+type EditCardProps = {
+  commonProps: object,
+  cardProps: CardPropsWithBookAndPage,
+  locationFilterId: string,
+} & Pick<ComputedProps, 'hasUnsavedHighlight' | 'setEditing'>;
+
+function EditCardWithOnCreate({
+  commonProps,
+  cardProps,
+  locationFilterId,
+  hasUnsavedHighlight,
+  setEditing,
+}: EditCardProps) {
+  const {create, highlight, highlighter, book, page} = cardProps;
+  const onCreate = React.useCallback(
+    (isDefaultColor: boolean) => {
+      create({
+        ...highlight.serialize().getApiPayload(highlighter, highlight),
+        scopeId: book.id,
+        sourceId: page.id,
+        sourceMetadata: {
+          bookVersion: book.contentVersion,
+          pipelineVersion: book.archiveVersion,
+        },
+        sourceType: NewHighlightSourceTypeEnum.OpenstaxPage,
+      }, {
+        isDefaultColor,
+        locationFilterId,
+        pageId: page.id,
+      });
+    },
+    [book, create, highlight, highlighter, locationFilterId, page.id]
+  );
+  const stopEditing = React.useCallback(
+    () => setEditing(false),
+    [setEditing]
+  );
+
+  return (
+    <EditCard
+      {...commonProps}
+      locationFilterId={locationFilterId}
+      hasUnsavedHighlight={hasUnsavedHighlight}
+      pageId={cardProps.page.id}
+      onCreate={onCreate}
+      setAnnotationChangesPending={cardProps.setAnnotationChangesPending}
+      onCancel={stopEditing}
+      data={cardProps.data}
+    />
+  );
+}
 
 // tslint:disable-next-line: variable-name
 const StyledCard = styled(Card)`
