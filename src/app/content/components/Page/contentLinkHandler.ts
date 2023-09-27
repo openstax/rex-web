@@ -95,7 +95,7 @@ export const reduceReferences = (
   }
 };
 
-const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap | PageReferenceError) =>
+const isPathReferenceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap | PageReferenceError) =>
   isPageReferenceError(ref)
     ? false
     : content.getUrl(ref.params) === pathname
@@ -104,9 +104,31 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
         || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
       );
 
-// tslint:disable-next-line: max-line-length
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices & MiddlewareAPI) =>
-  async(e: MouseEvent) => {
+const doubleClick : {
+  timer: number | undefined;
+  lastHref: string
+} = {
+  timer: undefined,
+  lastHref: '',
+};
+function isDoubleClick(href: string) {
+  const result = doubleClick.timer && doubleClick.lastHref === href;
+
+  doubleClick.lastHref = href;
+  assertWindow().clearTimeout(doubleClick.timer);
+  doubleClick.timer = assertWindow().setTimeout(
+    () => doubleClick.lastHref = '',
+    500
+  );
+
+  return result;
+}
+
+export const contentLinkHandler = (
+  anchor: HTMLAnchorElement,
+  getProps: () => ContentLinkProp,
+  services: AppServices & MiddlewareAPI
+) => async(e: MouseEvent) => {
     const {
       references,
       navigate,
@@ -123,22 +145,26 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
     }
 
     const base = new URL(assertWindow().location.href);
+    const currentHash = base.hash;
     base.hash = '';
     base.search = '';
 
     const {hash, search, pathname} = new URL(href, base.href);
-    const reference = references.find(isPathRefernceForBook(pathname, book));
-
+    const reference = references.find(isPathReferenceForBook(pathname, book));
     const searchString = search.substring(1);
+    const alreadyThere = pathname === currentPath && hash === currentHash;
 
     if (!reference && !(pathname === currentPath && hash)) {
       return;
     }
 
+    if (alreadyThere) {
+      return;
+    }
     e.preventDefault();
 
     if (isHtmlElementWithHighlight(e.target)) {
-      if (!e.target.matches('.focus')) {
+      if (!e.target.matches('.focus') && !isDoubleClick(href)) {
         return;
       }
       e.stopPropagation();
