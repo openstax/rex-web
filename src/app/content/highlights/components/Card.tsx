@@ -6,7 +6,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
-import { useFocusIn } from '../../../reactUtils';
+import { useFocusIn, useMatchMobileMediumQuery } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -102,6 +102,8 @@ const Card = (props: CardProps) => {
     return props.page && getHighlightLocationFilterForPage(locationFilters, props.page);
   }, [locationFilters, props.page]);
 
+  const isMobile = useMatchMobileMediumQuery();
+
   const locationFilterId = location && stripIdVersion(location.id);
 
   const { page, book } = props;
@@ -148,7 +150,7 @@ const Card = (props: CardProps) => {
     shouldFocusCard: props.shouldFocusCard,
   };
 
-  return !highlightRemoved ? <div onClick={focusCard} data-testid='card'>
+return !highlightRemoved && !isMobile ? <div onClick={focusCard} data-testid='card'>
     {
       !editing && style && annotation ? <DisplayNote
         {...commonProps}
