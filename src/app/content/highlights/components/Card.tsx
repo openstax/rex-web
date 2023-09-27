@@ -101,25 +101,28 @@ const Card = (props: CardProps) => {
   const location = React.useMemo(() => {
     return props.page && getHighlightLocationFilterForPage(locationFilters, props.page);
   }, [locationFilters, props.page]);
+  const locationFilterId = location && stripIdVersion(location.id);
+  const { page, book } = props;
+
+  const onRemove = React.useCallback(
+    () => {
+      if (props.data && page && locationFilterId) {
+        setHighlightRemoved(true);
+        props.remove(props.data, {
+          locationFilterId,
+          pageId: page.id,
+        });
+      }
+    },
+    [locationFilterId, page, props]
+  );
 
   const isMobile = useMatchMobileMediumQuery();
 
-  const locationFilterId = location && stripIdVersion(location.id);
-
-  const { page, book } = props;
   if (!props.highlight.range || !page || !book || !locationFilterId) {
     return null;
   }
 
-  const onRemove = () => {
-    if (props.data) {
-      setHighlightRemoved(true);
-      props.remove(props.data, {
-        locationFilterId,
-        pageId: page.id,
-      });
-    }
-  };
   const style = highlightStyles.find((search) => props.data && search.label === props.data.color);
 
   const onCreate = (isDefaultColor: boolean) => {
