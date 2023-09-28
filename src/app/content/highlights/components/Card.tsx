@@ -59,16 +59,7 @@ type CardPropsWithBookAndPage = Omit<CardProps, 'book' | 'page'> & {
   page: Exclude<CardProps['page'], undefined>;
 };
 
-type ComputedProps = {
-  focusCard(): Promise<void>;
-  editing: boolean;
-  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  annotation: string | undefined;
-  hasUnsavedHighlight: boolean;
-  element: React.RefObject<HTMLElement>;
-};
-
-function useComputedProps(props: CardProps): ComputedProps {
+function useComputedProps(props: CardProps) {
   const annotation = props.data && props.data.annotation;
   const services = useServices();
   const { isActive, highlight, focus, onHeightChange, lastActive } = props;
@@ -84,6 +75,18 @@ function useComputedProps(props: CardProps): ComputedProps {
     }
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
   const element = React.useRef<HTMLElement>(null);
+  const commonProps = React.useMemo(
+    () => ({
+      className: props.className,
+      highlight: props.highlight,
+      isActive: props.isActive,
+      onBlur: props.blur,
+      onHeightChange: props.onHeightChange,
+      ref: element,
+      shouldFocusCard: props.shouldFocusCard,
+    }),
+    [props]
+  );
 
   useFocusIn(element, true, focusCard);
 
@@ -121,9 +124,9 @@ function useComputedProps(props: CardProps): ComputedProps {
       setEditing,
       annotation,
       hasUnsavedHighlight,
-      element,
+      commonProps,
     }),
-    [annotation, editing, focusCard, hasUnsavedHighlight]
+    [annotation, editing, focusCard, hasUnsavedHighlight, commonProps]
   );
 }
 
@@ -139,31 +142,13 @@ function useLocationFilterId(page: CardProps['page']): string | undefined {
   return locationFilterId;
 }
 
-// tslint:disable-next-line:variable-name
-const Card = (props: CardProps) => {
-  const {
-    focusCard,
-    editing,
-    setEditing,
-    annotation,
-    hasUnsavedHighlight,
-    element,
-  } = useComputedProps(props);
+function Card(props: CardProps) {
   const locationFilterId = useLocationFilterId(props.page);
   const [highlightRemoved, setHighlightRemoved] = React.useState<boolean>(
     false
   );
-  const onRemove = React.useCallback(() => {
-    if (props.data && props.page && locationFilterId) {
-      setHighlightRemoved(true);
-      props.remove(props.data, {
-        locationFilterId,
-        pageId: props.page.id,
-      });
-    }
-  }, [locationFilterId, props]);
-
   const isMobile = useMatchMobileMediumQuery();
+  const computedProps = useComputedProps(props);
 
   if (
     !props.highlight.range ||
@@ -176,26 +161,55 @@ const Card = (props: CardProps) => {
     return null;
   }
 
+  return (
+    <NoteOrCard
+      props={props as CardPropsWithBookAndPage}
+      setHighlightRemoved={setHighlightRemoved}
+      locationFilterId={locationFilterId}
+      computedProps={computedProps}
+    />
+  );
+}
+
+function NoteOrCard({
+  props,
+  setHighlightRemoved,
+  locationFilterId,
+  computedProps,
+}: {
+  props: CardPropsWithBookAndPage;
+  setHighlightRemoved: React.Dispatch<React.SetStateAction<boolean>>;
+  locationFilterId: string;
+  computedProps: ReturnType<typeof useComputedProps>;
+}) {
+  const {
+    focusCard,
+    editing,
+    setEditing,
+    annotation,
+    hasUnsavedHighlight,
+    commonProps,
+  } = computedProps;
+  const onRemove = React.useCallback(() => {
+    if (props.data) {
+      setHighlightRemoved(true);
+      props.remove(props.data, {
+        locationFilterId,
+        pageId: props.page.id,
+      });
+    }
+  }, [locationFilterId, props, setHighlightRemoved]);
+
   const style = highlightStyles.find(
     search => props.data && search.label === props.data.color
   );
-
-  const commonProps = {
-    className: props.className,
-    highlight: props.highlight,
-    isActive: props.isActive,
-    onBlur: props.blur,
-    onHeightChange: props.onHeightChange,
-    onRemove,
-    ref: element,
-    shouldFocusCard: props.shouldFocusCard,
-  };
 
   return (
     <div onClick={focusCard} data-testid='card'>
       {!editing && style && annotation ? (
         <DisplayNote
           {...commonProps}
+          onRemove={onRemove}
           style={style}
           note={annotation}
           focus={props.focus}
@@ -204,7 +218,7 @@ const Card = (props: CardProps) => {
       ) : (
         <EditCardWithOnCreate
           cardProps={props as CardPropsWithBookAndPage}
-          commonProps={commonProps}
+          commonProps={{ ...commonProps, onRemove }}
           locationFilterId={locationFilterId}
           hasUnsavedHighlight={hasUnsavedHighlight}
           setEditing={setEditing}
@@ -212,7 +226,9 @@ const Card = (props: CardProps) => {
       )}
     </div>
   );
-};
+}
+
+type ComputedProps = ReturnType<typeof useComputedProps>;
 type EditCardProps = {
   commonProps: object;
   cardProps: CardPropsWithBookAndPage;
