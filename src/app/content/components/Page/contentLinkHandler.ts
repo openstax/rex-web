@@ -15,6 +15,7 @@ import * as select from '../../selectors';
 import { Book, PageReferenceError, PageReferenceMap, SystemQueryParams } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
+import isDoubleClick from './doubleClick';
 
 export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) => ({
   book: select.book(state),
@@ -103,26 +104,6 @@ const isPathReferenceForBook = (pathname: string, book: Book) => (ref: PageRefer
         ('slug' in ref.params.book && hasOSWebData(book) && ref.params.book.slug === book.slug)
         || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
       );
-
-const doubleClick : {
-  timer: number | undefined;
-  lastHref: string
-} = {
-  timer: undefined,
-  lastHref: '',
-};
-function isDoubleClick(href: string) {
-  const result = doubleClick.timer && doubleClick.lastHref === href;
-
-  doubleClick.lastHref = href;
-  assertWindow().clearTimeout(doubleClick.timer);
-  doubleClick.timer = assertWindow().setTimeout(
-    () => doubleClick.lastHref = '',
-    500
-  );
-
-  return result;
-}
 
 export const contentLinkHandler = (
   anchor: HTMLAnchorElement,
