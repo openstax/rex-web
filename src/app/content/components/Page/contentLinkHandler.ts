@@ -145,22 +145,17 @@ export const contentLinkHandler = (
     }
 
     const base = new URL(assertWindow().location.href);
-    const currentHash = base.hash;
     base.hash = '';
     base.search = '';
 
     const {hash, search, pathname} = new URL(href, base.href);
     const reference = references.find(isPathReferenceForBook(pathname, book));
     const searchString = search.substring(1);
-    const alreadyThere = pathname === currentPath && hash === currentHash;
 
-    if (!reference && !(pathname === currentPath && hash)) {
+    if ((!reference && !(pathname === currentPath && hash))) {
       return;
     }
 
-    if (alreadyThere) {
-      return;
-    }
     e.preventDefault();
 
     if (isHtmlElementWithHighlight(e.target)) {
