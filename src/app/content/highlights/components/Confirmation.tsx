@@ -55,7 +55,7 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
 ) => {
   const drawFocusRef = useDrawFocus();
   return <Overlay
-    ref={mergeRefs(ref, drawFocus ? drawFocusRef : null)}
+    ref={mergeRefs(ref, drawFocusRef)}
     tabIndex={-1}
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}

@@ -108,7 +108,7 @@ function useComputedProps(props: CardProps) {
         (el as HTMLElement).classList.remove('has-note')
       );
     }
-  }, [highlight, annotation]);
+  }, [highlight.elements, annotation]);
 
   React.useEffect(() => {
     if (!annotation && !isActive) {

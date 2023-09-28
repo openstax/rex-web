@@ -38,6 +38,7 @@ describe('EditCard', () => {
     jest.resetAllMocks();
     highlight.elements = [assertDocument().createElement('span')];
     editCardProps = {
+      isActive: true,
       highlight: highlight as unknown as Highlight,
       onBlur: jest.fn(),
       onCancel: jest.fn(),
@@ -75,6 +76,8 @@ describe('EditCard', () => {
 
   it('matches snapshot when editing', () => {
     highlight.getStyle.mockReturnValue('red');
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
         <EditCard
@@ -92,6 +95,7 @@ describe('EditCard', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+    mockSpyUser.mockClear();
   });
 
   it('matches snapshot without data', () => {
@@ -106,6 +110,8 @@ describe('EditCard', () => {
   });
 
   it('chains ColorPicker onRemove', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: '',
@@ -126,9 +132,12 @@ describe('EditCard', () => {
     });
 
     expect(editCardProps.onRemove).toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('doesn\'t chain ColorPicker onRemove if there is a note', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: 'asdf',
@@ -145,10 +154,13 @@ describe('EditCard', () => {
     });
 
     expect(editCardProps.onRemove).not.toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('doesn\'t chain ColorPicker onRemove if there is a pending note', () => {
     highlight.getStyle.mockReturnValue('red');
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: '',
@@ -174,10 +186,13 @@ describe('EditCard', () => {
     });
 
     expect(editCardProps.onRemove).not.toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('cancelling resets the form state', () => {
     highlight.getStyle.mockReturnValue('red');
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: 'qwer',
@@ -209,9 +224,12 @@ describe('EditCard', () => {
     expect(note.props.note).toBe('qwer');
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
+    mockSpyUser.mockClear();
   });
 
   it('save saves', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
         <EditCard
@@ -253,9 +271,12 @@ describe('EditCard', () => {
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(component.root.findAllByType('button').length).toBe(0);
     expect(editCardProps.onCancel).toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('removing note shows confirmation', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: 'qwer',
@@ -282,9 +303,12 @@ describe('EditCard', () => {
     });
 
     expect(() => findByTestId('confirm-delete')).not.toThrow();
+    mockSpyUser.mockClear();
   });
 
   it('confirmation can save', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: 'qwer',
@@ -335,10 +359,13 @@ describe('EditCard', () => {
     }));
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(editCardProps.onCancel).toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('confirmation can cancel', () => {
     highlight.getStyle.mockReturnValue('red');
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: 'qwer',
@@ -373,10 +400,13 @@ describe('EditCard', () => {
     expect(() => findByTestId('confirm-delete')).toThrow();
     expect(dispatch).not.toHaveBeenCalled();
     expect(note.props.note).toBe('qwer');
+    mockSpyUser.mockClear();
   });
 
   it('responds to changes', () => {
     highlight.getStyle.mockReturnValue('red');
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: 'qwer',
@@ -397,10 +427,13 @@ describe('EditCard', () => {
       note.props.onChange('');
     });
     expect(editCardProps.setAnnotationChangesPending).toHaveBeenCalledWith(true);
+    mockSpyUser.mockClear();
   });
 
   it('dispatches if changes are reverted', () => {
     highlight.getStyle.mockReturnValue('red');
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const data = {
       ...highlightData,
       annotation: 'qwer',
@@ -421,9 +454,12 @@ describe('EditCard', () => {
       note.props.onChange('qwer');
     });
     expect(editCardProps.setAnnotationChangesPending).toHaveBeenCalledWith(false);
+    mockSpyUser.mockClear();
   });
 
   it('handles color change when there is data', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
         <EditCard
@@ -456,9 +492,12 @@ describe('EditCard', () => {
         id: highlightData.id,
       },
     }));
+    mockSpyUser.mockClear();
   });
 
   it('creates when changing color on a new highlight', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
         <EditCard {...editCardProps} isActive={true} />
@@ -472,9 +511,12 @@ describe('EditCard', () => {
 
     expect(highlight.setStyle).toHaveBeenCalledWith('blue');
     expect(editCardProps.onCreate).toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('sets color and creates when you focus', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
         <EditCard {...editCardProps} />
@@ -488,10 +530,13 @@ describe('EditCard', () => {
 
     expect(highlight.setStyle).toHaveBeenCalledWith(highlightStyles[0].label);
     expect(editCardProps.onCreate).toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('focusing an existing note does nothing', () => {
     highlight.getStyle.mockReturnValue('red');
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
         <EditCard {...editCardProps} data={highlightData} />
@@ -505,9 +550,12 @@ describe('EditCard', () => {
 
     expect(highlight.setStyle).not.toHaveBeenCalled();
     expect(editCardProps.onCreate).not.toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('blurs when clicking outside', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
     onClickOutside.mockReturnValue();
 
@@ -522,11 +570,14 @@ describe('EditCard', () => {
     expect(component).toBeTruthy();
     expect(onClickOutside.mock.calls.length).toBe(1);
     expect(editCardProps.onBlur).toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('doesn\'t blur when clicking outside and editing', () => {
     highlight.getStyle.mockReturnValue('red');
 
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
     onClickOutside.mockReturnValue();
 
@@ -553,6 +604,7 @@ describe('EditCard', () => {
     expect(onClickOutside.mock.calls.length).toBe(2);
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
     expect(editCardProps.onCancel).not.toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('trackShowCreate for authenticated user', () => {
@@ -638,6 +690,8 @@ describe('EditCard', () => {
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
     onClickOutside.mockReturnValue(() => () => null);
 
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const onHeightChange = jest.fn();
     const createNodeMock = () => assertDocument().createElement('div');
 
@@ -661,6 +715,7 @@ describe('EditCard', () => {
       'data-analytics-region': 'edit-note',
     })).not.toThrow();
     expect(onHeightChange).toHaveBeenCalled();
+    mockSpyUser.mockClear();
   });
 
   it('focuses textarea if shouldFocusCard is set to true', () => {
@@ -677,6 +732,8 @@ describe('EditCard', () => {
       }
     };
 
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const onHeightChange = jest.fn();
 
     renderer.create(
@@ -690,5 +747,6 @@ describe('EditCard', () => {
     renderer.act(() => undefined);
 
     expect(spyTextareaFocus).toHaveBeenCalledTimes(1);
+    mockSpyUser.mockClear();
   });
 });
