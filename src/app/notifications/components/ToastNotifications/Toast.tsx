@@ -103,6 +103,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
       isFadingIn={state.isFadingIn}
       isFadingOut={state.isFadingOut}
       data-testid='banner-body'
+      role='alert'
     >
       <BannerBody>
         <FormattedMessage id={notification.messageKey}>
