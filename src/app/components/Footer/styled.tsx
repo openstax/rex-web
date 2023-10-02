@@ -219,13 +219,19 @@ export const ManageCookiesLink = styled(RawCookiesLink)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BottomLink = styled.a`
+const InnerBottomLink = styled.a`
   ${columnLink}
   display: inline-grid;
   grid-auto-flow: column;
   grid-column-gap: 0.7rem;
   overflow: hidden;
 `;
+
+export function BottomLink(
+  props: React.AnchorHTMLAttributes<unknown>
+) {
+  return (<li><InnerBottomLink {...props} /></li>);
+}
 
 export const column = css`
   display: grid;
@@ -321,7 +327,7 @@ export const Copyrights = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Social = styled.div`
+export const Social = styled.ul`
   align-items: center;
   display: grid;
   grid-auto-flow: column;
@@ -331,7 +337,7 @@ export const Social = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SocialIcon = styled.a`
+const InnerSocialIcon = styled.a`
   ${columnLink}
   ${textRegularSize}
   background-color: #959595;
@@ -343,6 +349,12 @@ export const SocialIcon = styled.a`
   overflow: hidden;
   width: 3rem;
 `;
+
+export function SocialIcon(
+  props: React.AnchorHTMLAttributes<unknown>
+) {
+  return (<li><InnerSocialIcon {...props} /></li>);
+}
 
 // tslint:disable-next-line:variable-name
 export const FooterLogo = styled.img`
