@@ -120,7 +120,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     <Styled.SearchQueryWrapper>
       <Styled.SearchQuery>
         <Styled.SearchIconInsideBar src={searchIcon} alt='' />
-        <Styled.HeaderQuery>
+        <Styled.HeaderQuery role='note' tabIndex='0'>
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
             values={{search: this.props.totalHits, terms: this.props.totalHitsKeyTerms}}
@@ -170,7 +170,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         selectedResult={this.props.selectedResult}
         keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
       />}
-      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle>
+      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex="0">
         <FormattedMessage id='i18n:search-results:bar:title'>
           {(msg) => msg}
         </FormattedMessage>
