@@ -109,6 +109,7 @@ exports[`Toast matches snapshot 1`] = `
   className="c0"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
+  role="alert"
 >
   <div
     className="c1"

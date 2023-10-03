@@ -170,7 +170,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         selectedResult={this.props.selectedResult}
         keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
       />}
-      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex="0">
+      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex='0'>
         <FormattedMessage id='i18n:search-results:bar:title'>
           {(msg) => msg}
         </FormattedMessage>

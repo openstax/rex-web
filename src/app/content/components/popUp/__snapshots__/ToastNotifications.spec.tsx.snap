@@ -158,6 +158,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
       className="c2"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
+      role="alert"
     >
       <div
         className="c3"
@@ -207,6 +208,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
       className="c8"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
+      role="alert"
     >
       <div
         className="c3"
