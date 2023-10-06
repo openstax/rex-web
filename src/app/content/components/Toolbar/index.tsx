@@ -19,7 +19,6 @@ import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
 import StudyGuidesButton from './StudyGuidesButton';
-import { useMatchMobileMediumQuery } from '../../../reactUtils';
 import * as Styled from './styled';
 
 // tslint:disable-next-line: variable-name
