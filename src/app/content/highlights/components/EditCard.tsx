@@ -23,7 +23,6 @@ import { generateUpdatePayload } from './cardUtils';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
 import Note from './Note';
-import useCallbackFor from './utils/useCallbackFor';
 import {
   isElementForOnClickOutside,
   useOnClickOutside
@@ -75,24 +74,21 @@ function LoginOrEdit({
       {authenticated ? (
         <ActiveEditCard props={props} element={element} />
       ) : (
-        <LoginConfirmation data={props.data} onBlur={props.onBlur} />
+        <LoginConfirmation onBlur={props.onBlur} />
       )}
     </form>
   );
 }
 
 function LoginConfirmation({
-  data,
   onBlur,
 }: Pick<EditCardProps, 'data' | 'onBlur'>) {
   const loginLink = useSelector(selectAuth.loginLink);
-  const trackShowLogin = useCallbackFor(useAnalyticsEvent('showLogin'));
+  const trackShowLogin = useAnalyticsEvent('showLogin');
 
   React.useEffect(() => {
-    if (!data) {
-      trackShowLogin();
-    }
-  }, [data, trackShowLogin]);
+    trackShowLogin();
+  }, [trackShowLogin]);
 
   return (
     <Confirmation
@@ -130,7 +126,7 @@ function ActiveEditCard({
     false
   );
 
-  const onBlur = useCallbackFor(props.onBlur);
+  const onBlur = props.onBlur;
   const blurIfNotEditing = React.useCallback(() => {
     if (!props.hasUnsavedHighlight && !editingAnnotation) {
       onBlur();
@@ -145,14 +141,14 @@ function ActiveEditCard({
     capture: true,
   });
 
-  const onHeightChange = useCallbackFor(props.onHeightChange);
+  const onHeightChange = props.onHeightChange;
   React.useEffect(() => {
     if (element.current) {
       onHeightChange(element);
     }
   }, [element, onHeightChange]);
 
-  const trackShowCreate = useCallbackFor(useAnalyticsEvent('showCreate'));
+  const trackShowCreate = useAnalyticsEvent('showCreate');
 
   React.useEffect(() => {
     if (!props.data) {
@@ -212,10 +208,8 @@ function ActiveEditCard({
 }
 
 function useOnRemove(props: EditCardProps, pendingAnnotation: string) {
-  const onRemove = useCallbackFor(props.onRemove);
-  const trackDeleteHighlight = useCallbackFor(
-    useAnalyticsEvent('deleteHighlight')
-  );
+  const onRemove = props.onRemove;
+  const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
   return React.useCallback(() => {
     if (props.data && !props.data.annotation && !pendingAnnotation) {
@@ -239,9 +233,7 @@ function AnnotationEditor({
   setPendingAnnotation: (value: React.SetStateAction<string>) => void;
 }) {
   const textarea = React.useRef<HTMLTextAreaElement>(null);
-  const setAnnotationChangesPending = useCallbackFor(
-    props.setAnnotationChangesPending
-  );
+  const setAnnotationChangesPending = props.setAnnotationChangesPending;
   const updateUnsavedHighlightStatus = React.useCallback(
     (newValue: string) => {
       const currentValue = props.data?.annotation ?? '';
@@ -334,10 +326,8 @@ function CancelButton({
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
   resetAnnotation: () => void;
 }) {
-  const setAnnotationChangesPending = useCallbackFor(
-    props.setAnnotationChangesPending
-  );
-  const onCancel = useCallbackFor(props.onCancel);
+  const setAnnotationChangesPending = props.setAnnotationChangesPending;
+  const onCancel = props.onCancel;
   const cancelEditing = React.useCallback(
     (e?: React.FormEvent) => {
       e?.preventDefault();
@@ -369,8 +359,8 @@ function CancelButton({
 
 function useOnColorChange(props: EditCardProps) {
   const { highlight, data, locationFilterId, pageId } = props;
-  const trackEditNoteColor = useCallbackFor(useAnalyticsEvent('editNoteColor'));
-  const onCreate = useCallbackFor(props.onCreate);
+  const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
+  const onCreate = props.onCreate;
   const dispatch = useDispatch();
 
   return React.useCallback(
@@ -415,11 +405,9 @@ function useSaveAnnotation(
   pendingAnnotation: string
 ) {
   const dispatch = useDispatch();
-  const trackEditAnnotation = useCallbackFor(
-    useAnalyticsEvent('editAnnotation')
-  );
+  const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
   const { pageId, locationFilterId, highlight } = props;
-  const onCancel = useCallbackFor(props.onCancel);
+  const onCancel = props.onCancel;
 
   return React.useCallback(
     (toSave: HighlightData) => {

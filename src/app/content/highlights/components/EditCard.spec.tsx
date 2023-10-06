@@ -64,6 +64,8 @@ describe('EditCard', () => {
   });
 
   it('matches snapshot with data', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
         <EditCard {...editCardProps} isActive={true} />
@@ -72,6 +74,7 @@ describe('EditCard', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+    mockSpyUser.mockClear();
   });
 
   it('matches snapshot when editing', () => {

@@ -193,14 +193,20 @@ exports[`EditCard matches snapshot with data 1`] = `
   data-highlight-card={true}
 >
   <div
-    confirmLink="/accounts/login?r=/"
-    confirmMessage="i18n:highlighting:login:link"
-    data-analytics-label="login"
-    data-analytics-region="highlighting-login"
-    drawFocus={false}
-    message="i18n:highlighting:login:prompt"
-    mock-confirmation={true}
-    onCancel={[MockFunction]}
+    mock-color-picker={true}
+    onChange={[Function]}
+    onRemove={[Function]}
+  />
+  <div
+    mock-note={true}
+    note=""
+    onChange={[Function]}
+    onFocus={[Function]}
+    textareaRef={
+      Object {
+        "current": null,
+      }
+    }
   />
 </form>
 `;
