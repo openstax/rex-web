@@ -24,7 +24,6 @@ const VerticalNav = () => {
   const isPracticeQuestionsEnabled = useSelector(pqSelectors.practiceQuestionsEnabled);
   const sidebarRef = React.useRef<HTMLElement>(null);
   const showSearchInSidebar = useSelector(searchInSidebar);
-  const isMobile = useMatchMobileMediumQuery();
 
   React.useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -37,24 +36,13 @@ const VerticalNav = () => {
     return deregister;
   }, [sidebarRef]);
 
-  if (isMobile && !isMobileMenuOpen) {
-    return null;
-  }
-
   return <Styled.ToolbarWrapper
     isMobileMenuOpen={isMobileMenuOpen}
     ref={sidebarRef}
     data-testid='toolbar'
     data-analytics-region='toolbar'
   >
-    <Styled.ToolbarMobileHeader>
-      <Styled.ToolbarMobileHeaderTitle>
-        <FormattedMessage id='i18n:toolbar:header:title'>
-          {(msg) => msg}
-        </FormattedMessage>
-      </Styled.ToolbarMobileHeaderTitle>
-      <CloseToCAndMobileMenuButton />
-    </Styled.ToolbarMobileHeader>
+    {isMobileMenuOpen && <MobileMenu />}
     <Styled.ToolbarElements>
       <OpenTOCControl showActivatedState />
       <CloseTOCControl showActivatedState />
@@ -73,5 +61,18 @@ const VerticalNav = () => {
     </Styled.ToolbarElements>
   </Styled.ToolbarWrapper>;
 };
+
+function MobileMenu() {
+  return (
+    <Styled.ToolbarMobileHeader>
+      <Styled.ToolbarMobileHeaderTitle>
+        <FormattedMessage id='i18n:toolbar:header:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.ToolbarMobileHeaderTitle>
+      <CloseToCAndMobileMenuButton />
+    </Styled.ToolbarMobileHeader>
+  )
+}
 
 export default VerticalNav;
