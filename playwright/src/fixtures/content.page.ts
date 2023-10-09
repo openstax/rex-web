@@ -54,7 +54,8 @@ class ContentPage {
     this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
     this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
     this.textarea = this.page.locator('textarea[class*="TextArea"]')
-    this.osanoCloseButton = this.page.locator('button[class*="osano-cm-info"]')
+    // this.osanoCloseButton = this.page.locator('button[class*="osano-cm-info"]')
+    this.osanoCloseButton = this.page.locator('button[class*="osano-cm-dialog__close"]')
     this.osanoManageButton = this.page.locator('button[class*="osano-cm-manage"]')
   }
 
@@ -63,8 +64,8 @@ class ContentPage {
     await this.page.goto(path)
 
     try {
-      await this.osanoManageButton.click({ force: true })
-      await this.osanoManageButton.waitFor({ state: 'hidden' })
+      // await this.osanoManageButton.click({ force: true })
+      // await this.osanoManageButton.waitFor({ state: 'hidden' })
       await this.osanoCloseButton.click({ force: true })
       await this.osanoCloseButton.waitFor({ state: 'hidden' })
     } catch (error) {}
