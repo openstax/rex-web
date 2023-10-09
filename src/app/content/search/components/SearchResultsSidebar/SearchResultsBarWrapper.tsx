@@ -86,6 +86,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         <Styled.CloseIconButton
           onClick={this.props.onClose}
           data-testid='close-search'
+          aria-label='close search'
         >
           <Styled.CloseIcon />
         </Styled.CloseIconButton>
@@ -110,6 +111,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       <Styled.CloseIconButton
         onClick={this.props.onClose}
         data-testid='close-search'
+        aria-label='close search'
       >
         <Styled.CloseIcon />
       </Styled.CloseIconButton>

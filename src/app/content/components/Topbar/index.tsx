@@ -130,10 +130,20 @@ class Topbar extends React.Component<Props, State> {
             <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
           }
           {this.state.formSubmitted && !newButtonEnabled &&
-            <Styled.CloseButton desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search' />
+            <Styled.CloseButton desktop
+              type='button'
+              aria-label='clear search'
+              onClick={onSearchClear}
+              data-testid='desktop-clear-search'
+            />
           }
           {this.state.formSubmitted && newButtonEnabled &&
-            <Styled.CloseButtonNew desktop type='button' onClick={onSearchClear} data-testid='desktop-clear-search'>
+            <Styled.CloseButtonNew desktop
+              type='button'
+              aria-label='clear search'
+              onClick={onSearchClear}
+              data-testid='desktop-clear-search'
+            >
               <Styled.CloseIcon />
             </Styled.CloseButtonNew>
           }
@@ -181,6 +191,7 @@ class Topbar extends React.Component<Props, State> {
             {
               this.state.query && newButtonEnabled && <Styled.CloseButtonNew
                 type='button'
+                aria-label='clear search'
                 onClick={onSearchClear}
                 formSubmitted={this.state.formSubmitted}
                 data-testid='mobile-clear-search'
@@ -191,6 +202,7 @@ class Topbar extends React.Component<Props, State> {
             {
               this.state.query && !newButtonEnabled && <Styled.CloseButton
                 type='button'
+                aria-label='clear search'
                 onClick={onSearchClear}
                 formSubmitted={this.state.formSubmitted}
                 data-testid='mobile-clear-search'

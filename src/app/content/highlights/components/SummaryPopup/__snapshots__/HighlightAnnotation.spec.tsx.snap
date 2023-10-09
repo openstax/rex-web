@@ -10,6 +10,14 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 1rem;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 span {
@@ -127,12 +135,11 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 0 8px;
   overflow: visible;
-}
-
-.c2 button:first-child {
-  margin-right: 8px;
+  gap: 1rem;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
 }
 
 .c0 {
@@ -144,6 +151,14 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  gap: 1rem;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .c0 span {
@@ -163,9 +178,12 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   -moz-letter-spacing: 0;
   -ms-letter-spacing: 0;
   letter-spacing: 0;
-  line-height: 20px;
+  line-height: 2rem;
+  min-height: 3.6rem;
+  max-height: calc(60vh - 20rem);
+  min-width: 60%;
   color: #6f6f6f;
-  padding: 8px;
+  padding: 0.8rem;
 }
 
 <div
@@ -176,7 +194,13 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
     autoFocus={true}
     className="c1"
     onChange={[Function]}
+    onInput={[Function]}
     placeholder="Add a note..."
+    style={
+      Object {
+        "height": "2px",
+      }
+    }
     value="Some annotation"
   />
   <div
