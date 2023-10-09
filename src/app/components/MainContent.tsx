@@ -32,7 +32,7 @@ const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {
 // tslint:disable-next-line:variable-name
 const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(
   ({book, children, className, ...props}, ref) => <Consumer>
-    {({registerMainContent}) => <div
+    {({registerMainContent}) => <main
       ref={mergeRefs(ref, registerMainContent)}
       className={className}
       tabIndex={0}
@@ -45,7 +45,7 @@ const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Pro
       >
         {children}
       </ContentStyles>
-    </div>}
+    </main>}
   </Consumer>
 );
 
