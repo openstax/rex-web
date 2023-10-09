@@ -58,6 +58,7 @@ const config: PlaywrightTestConfig = {
     },
     trace: 'on-first-retry',
     video: 'on-first-retry',
+    timezoneId: 'America/Chicago',
   },
 }
 
