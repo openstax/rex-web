@@ -760,8 +760,10 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       data-testid="user-nav"
     >
       <div
+        aria-label="account actions"
         className="c5 c6"
         data-testid="user-nav-toggle"
+        role="menubar"
         tabIndex="0"
       >
         TT
