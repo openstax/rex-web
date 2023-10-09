@@ -4204,7 +4204,7 @@ li[aria-label="Current Page"] .c62 {
             <div
               className="c78"
             >
-              <div
+              <main
                 className="c79 page-content"
                 tabIndex={0}
               >
@@ -4220,7 +4220,7 @@ li[aria-label="Current Page"] .c62 {
                   id="main-content"
                   tabIndex={-1}
                 />
-              </div>
+              </main>
               <div
                 className="c81"
                 data-analytics-region="prev-next"
@@ -8714,7 +8714,7 @@ li[aria-label="Current Page"] .c62 {
             <div
               className="c78"
             >
-              <div
+              <main
                 className="c79"
                 tabIndex={0}
               >
@@ -8795,7 +8795,7 @@ li[aria-label="Current Page"] .c62 {
                     />
                   </svg>
                 </div>
-              </div>
+              </main>
             </div>
           </div>
           <footer
