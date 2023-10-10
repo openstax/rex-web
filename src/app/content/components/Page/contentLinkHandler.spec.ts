@@ -287,6 +287,7 @@ describe('contentLinkHandler', () => {
 
       prop.focusedHighlight = testHighlightID;
       event.preventDefault.mockClear();
+      highlight.classList.add('focus');
 
       await handler(event as any);
 
