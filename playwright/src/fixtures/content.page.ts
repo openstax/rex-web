@@ -1,5 +1,6 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
+import { closeOsano } from '../utilities/utilities'
 
 class ContentPage {
   colorlocator: any
@@ -30,6 +31,8 @@ class ContentPage {
   highlightIndicator: Locator
   osanoCloseButton: Locator
   osanoManageButton: Locator
+  osanoAccept: Locator
+  osanoDialog: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -57,18 +60,34 @@ class ContentPage {
     // this.osanoCloseButton = this.page.locator('button[class*="osano-cm-info"]')
     this.osanoCloseButton = this.page.locator('button[class*="osano-cm-dialog__close"]')
     this.osanoManageButton = this.page.locator('button[class*="osano-cm-manage"]')
+    this.osanoAccept = this.page.locator('button[class*="type_accept"]')
+    this.osanoDialog = this.page.locator('[class*="osano-cm-window"]')
   }
 
   async open(path: string) {
     // Open a Rex page with base url
     await this.page.goto(path)
+    
+    // await closeOsano(this.page)
+    if (await this.osanoAccept.isVisible()) {
+      try {
+        // const osanoAccept = this.page.locator('button[class*="type_accept"]')
+        await this.osanoAccept.click({force: true})
+        await this.osanoAccept.waitFor({ state: 'hidden' })
+       
+      } catch (error) {}
+    }
+    else {
+      try {
+        // await this.osanoManageButton.click({ force: true })
+        // await this.osanoManageButton.waitFor({ state: 'hidden' })
+        await this.osanoCloseButton.click({ force: true })
+        await this.osanoCloseButton.waitFor({ state: 'hidden' })
+      } catch (error) {}
+    }
 
-    try {
-      // await this.osanoManageButton.click({ force: true })
-      // await this.osanoManageButton.waitFor({ state: 'hidden' })
-      await this.osanoCloseButton.click({ force: true })
-      await this.osanoCloseButton.waitFor({ state: 'hidden' })
-    } catch (error) {}
+    
+    
 
     // Add cookies to get rid of full page nudge
     const now = new Date()

@@ -58,9 +58,6 @@ const config: PlaywrightTestConfig = {
     },
     trace: 'on-first-retry',
     video: 'on-first-retry',
-    // timezoneId: 'America/Chicago',
-    geolocation: { longitude: 95.3698, latitude: 29.7604 },
-    permissions: ['geolocation'],
   },
 }
 

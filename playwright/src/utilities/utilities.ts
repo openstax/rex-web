@@ -21,6 +21,28 @@ async function closeExtras(page: Page, retries = 5): Promise<void> {
   }
 }
 
+
+async function closeOsano(page: Page) {
+  
+
+  try {
+    const osanoAccept = this.page.locator('button[class*="type_accept"]')
+    await this.osanoAccept.click({force: true})
+    await this.osanoAccept.waitFor({ state: 'hidden' })
+   
+  } catch (error) {}
+
+  try {
+    await this.page.locator('button[class*="osano-cm-manage"]').click({force: true})
+    // await this.osanoManageButton.click({ force: true })
+    // await this.osanoManageButton.waitFor({ state: 'hidden' })
+    await this.page.locator('button[class*="osano-cm-dialog__close"]').click({force: true})
+    // await this.osanoCloseButton.click({ force: true })
+    // await this.osanoCloseButton.click()
+    // await this.osanoCloseButton.waitFor({ state: 'hidden' })
+  } catch (error) {}
+}
+
 function randomChoice(list: ElementHandle[]): ElementHandle {
   const option = Math.floor(Math.random() * list.length)
   return list[option]
@@ -90,4 +112,4 @@ class MobileNavigation {
   }
 }
 
-export { closeExtras, randomChoice, randomNum, randomstring, sleep, MobileNavigation }
+export { closeExtras, randomChoice, randomNum, randomstring, sleep, MobileNavigation, closeOsano }
