@@ -1,6 +1,5 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
-import { closeOsano } from '../utilities/utilities'
 
 class ContentPage {
   colorlocator: any
@@ -57,7 +56,6 @@ class ContentPage {
     this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
     this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
     this.textarea = this.page.locator('textarea[class*="TextArea"]')
-    // this.osanoCloseButton = this.page.locator('button[class*="osano-cm-info"]')
     this.osanoCloseButton = this.page.locator('button[class*="osano-cm-dialog__close"]')
     this.osanoManageButton = this.page.locator('button[class*="osano-cm-manage"]')
     this.osanoAccept = this.page.locator('button[class*="type_accept"]')
@@ -79,8 +77,6 @@ class ContentPage {
     }
     else {
       try {
-        // await this.osanoManageButton.click({ force: true })
-        // await this.osanoManageButton.waitFor({ state: 'hidden' })
         await this.osanoCloseButton.click({ force: true })
         await this.osanoCloseButton.waitFor({ state: 'hidden' })
       } catch (error) {}
