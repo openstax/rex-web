@@ -15,6 +15,7 @@ import * as select from '../../selectors';
 import { Book, PageReferenceError, PageReferenceMap, SystemQueryParams } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
+import isDoubleClick from './doubleClick';
 
 export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) => ({
   book: select.book(state),
@@ -95,7 +96,7 @@ export const reduceReferences = (
   }
 };
 
-const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap | PageReferenceError) =>
+const isPathReferenceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap | PageReferenceError) =>
   isPageReferenceError(ref)
     ? false
     : content.getUrl(ref.params) === pathname
@@ -104,16 +105,17 @@ const isPathRefernceForBook = (pathname: string, book: Book) => (ref: PageRefere
         || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
       );
 
-// tslint:disable-next-line: max-line-length
-export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => ContentLinkProp, services: AppServices & MiddlewareAPI) =>
-  async(e: MouseEvent) => {
+export const contentLinkHandler = (
+  anchor: HTMLAnchorElement,
+  getProps: () => ContentLinkProp,
+  services: AppServices & MiddlewareAPI
+) => async(e: MouseEvent) => {
     const {
       references,
       navigate,
       book,
       page,
       currentPath,
-      focusedHighlight,
       hasUnsavedHighlight,
     } = getProps();
     const href = anchor.getAttribute('href');
@@ -128,18 +130,17 @@ export const contentLinkHandler = (anchor: HTMLAnchorElement, getProps: () => Co
     base.search = '';
 
     const {hash, search, pathname} = new URL(href, base.href);
-    const reference = references.find(isPathRefernceForBook(pathname, book));
-
+    const reference = references.find(isPathReferenceForBook(pathname, book));
     const searchString = search.substring(1);
 
-    if (!reference && !(pathname === currentPath && hash)) {
+    if ((!reference && !(pathname === currentPath && hash))) {
       return;
     }
 
     e.preventDefault();
 
     if (isHtmlElementWithHighlight(e.target)) {
-      if (e.target.getAttribute('data-highlight-id') !==  focusedHighlight) {
+      if (!e.target.matches('.focus') && !isDoubleClick(href)) {
         return;
       }
       e.stopPropagation();
