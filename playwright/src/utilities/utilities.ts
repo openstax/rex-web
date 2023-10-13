@@ -21,7 +21,6 @@ async function closeExtras(page: Page, retries = 5): Promise<void> {
   }
 }
 
-
 function randomChoice(list: ElementHandle[]): ElementHandle {
   const option = Math.floor(Math.random() * list.length)
   return list[option]
