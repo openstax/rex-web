@@ -147,7 +147,6 @@ function Card(props: CardProps) {
   const [highlightRemoved, setHighlightRemoved] = React.useState<boolean>(
     false
   );
-  const isMobile = useMatchMobileMediumQuery();
   const computedProps = useComputedProps(props);
 
   if (
@@ -155,8 +154,7 @@ function Card(props: CardProps) {
     !props.page ||
     !props.book ||
     !locationFilterId ||
-    highlightRemoved ||
-    isMobile
+    highlightRemoved
   ) {
     return null;
   }
@@ -199,10 +197,14 @@ function NoteOrCard({
       });
     }
   }, [locationFilterId, props, setHighlightRemoved]);
-
+  const isMobile = useMatchMobileMediumQuery();
   const style = highlightStyles.find(
     search => props.data && search.label === props.data.color
   );
+
+  if (!annotation && isMobile) {
+    return null;
+  }
 
   return (
     <div onClick={focusCard} data-testid='card'>
