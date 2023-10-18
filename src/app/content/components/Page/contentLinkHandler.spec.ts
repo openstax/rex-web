@@ -53,7 +53,7 @@ describe('contentLinkHandler', () => {
       hasUnsavedHighlight: false,
       navigate: jest.fn(),
       page,
-      persistentQueryParams: {},
+      persistentQueryParams: {query: 'hi'},
       references: [],
       systemQueryParams: {},
     };
@@ -152,6 +152,7 @@ describe('contentLinkHandler', () => {
 
     it('intercepts clicking content links with slug', async() => {
       const link = `/books/${book.slug}/pages/page-title`;
+      prop.currentPath = '/asdf?foo=bar';
       anchor.setAttribute('href', link);
       prop.references = [{
         match: link,

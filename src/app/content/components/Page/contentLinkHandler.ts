@@ -117,6 +117,7 @@ export const contentLinkHandler = (
       page,
       currentPath,
       hasUnsavedHighlight,
+      persistentQueryParams,
     } = getProps();
     const href = anchor.getAttribute('href');
     const target = anchor.getAttribute('target');
@@ -131,7 +132,6 @@ export const contentLinkHandler = (
 
     const {hash, search, pathname} = new URL(href, base.href);
     const reference = references.find(isPathReferenceForBook(pathname, book));
-    const searchString = search.substring(1);
 
     if ((!reference && !(pathname === currentPath && hash))) {
       return;
@@ -150,19 +150,24 @@ export const contentLinkHandler = (
       return;
     }
 
+    const additionalQueryString = new URLSearchParams(
+      persistentQueryParams as Record<string, string>
+    ).toString();
+    const extendedSearchString = (search + '&' + additionalQueryString).substring(1);
+
     if (reference && !isPageReferenceError(reference)) {
       // defer to allow other handlers to execute before nav happens
       defer(() => navigate({
         params: reference.params,
         route: content,
         state: {},
-      }, {hash, search: searchString}));
+      }, {hash, search: extendedSearchString}));
     } else {
       // defer to allow other handlers to execute before nav happens
       defer(() => navigate({
         params: getBookPageUrlAndParams(book, page).params,
         route: content,
         state: {},
-      }, {hash, search: searchString}));
+      }, {hash, search: extendedSearchString}));
     }
   };
