@@ -349,7 +349,7 @@ Array [
     -ms-flex-align: start;
     align-items: start;
     grid-column-gap: 4rem;
-    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto,50rem) auto auto auto;
+    grid-template: "headline col1 col2 col3" "mission col1 col2 col3" / minmax(auto,50rem) auto auto auto;
   }
 }
 
@@ -1070,7 +1070,7 @@ Array [
     -ms-flex-align: start;
     align-items: start;
     grid-column-gap: 4rem;
-    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto,50rem) auto auto auto;
+    grid-template: "headline col1 col2 col3" "mission col1 col2 col3" / minmax(auto,50rem) auto auto auto;
   }
 }
 

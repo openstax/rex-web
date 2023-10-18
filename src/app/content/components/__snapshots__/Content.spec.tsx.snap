@@ -2025,7 +2025,7 @@ li[aria-label="Current Page"] .c62 {
     -ms-flex-align: start;
     align-items: start;
     grid-column-gap: 4rem;
-    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto,50rem) auto auto auto;
+    grid-template: "headline col1 col2 col3" "mission col1 col2 col3" / minmax(auto,50rem) auto auto auto;
   }
 }
 
@@ -6597,7 +6597,7 @@ li[aria-label="Current Page"] .c62 {
     -ms-flex-align: start;
     align-items: start;
     grid-column-gap: 4rem;
-    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto,50rem) auto auto auto;
+    grid-template: "headline col1 col2 col3" "mission col1 col2 col3" / minmax(auto,50rem) auto auto auto;
   }
 }
 
