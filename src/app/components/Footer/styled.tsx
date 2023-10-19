@@ -91,10 +91,20 @@ export const boxed = css`
   width: 100%;
 `;
 
-const contentWrapperAndNavWidthBreakpoint =
-  '(max-width: ' +
-  remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2) +
-  'em)';
+const contentWrapperAndNavWidthBreakpoint = `(max-width: ${remsToEms(
+  contentWrapperMaxWidth + verticalNavbarMaxWidth * 2
+)}em)`;
+
+const verticalNavToolbarStyling = css`
+  @media (min-width: ${theme.breakpoints.desktopBreak}em) and ${contentWrapperAndNavWidthBreakpoint} {
+    padding-left:
+      clamp(
+        0rem,
+        calc(${toolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2),
+        ${toolbarWidth}rem
+      );
+  }
+`;
 
 // tslint:disable-next-line:variable-name
 export const FooterWrapper = styled.footer`
@@ -104,20 +114,7 @@ export const FooterWrapper = styled.footer`
   transition: opacity 0.2s;
   ${disablePrint}
   ${props =>
-    props.isVerticalNavOpen === false
-      ? css`
-          @media (min-width: ${theme.breakpoints
-              .desktopBreak}em) and ${contentWrapperAndNavWidthBreakpoint} {
-            padding-left: clamp(
-              0rem,
-              calc(
-                ${toolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2
-              ),
-              ${toolbarWidth}rem
-            );
-          }
-        `
-      : ``}
+    props.isVerticalNavOpen === false ? verticalNavToolbarStyling : ''}
 `;
 
 // tslint:disable-next-line:variable-name
