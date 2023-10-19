@@ -150,9 +150,9 @@ describe('contentLinkHandler', () => {
       }, expect.anything());
     });
 
-    it('intercepts clicking content links with slug', async() => {
-      const link = `/books/${book.slug}/pages/page-title`;
-      prop.currentPath = '/asdf?foo=bar';
+    it('intercepts clicking content links with slug and preserves search params', async() => {
+      const link = `/books/${book.slug}/pages/page-title?foo=bar`;
+      prop.currentPath = '/asdf';
       anchor.setAttribute('href', link);
       prop.references = [{
         match: link,
@@ -187,7 +187,7 @@ describe('contentLinkHandler', () => {
         },
         route: contentRoute,
         state: {},
-      }, expect.anything());
+      }, expect.objectContaining({search: 'foo=bar&query=hi'}));
     });
 
     it('intercepts clicking content links with book and page uuid', async() => {

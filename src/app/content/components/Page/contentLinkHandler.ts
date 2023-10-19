@@ -35,6 +35,7 @@ import {
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 import isDoubleClick from './doubleClick';
+import queryString from 'query-string';
 
 export const mapStateToContentLinkProp = memoizeStateToProps(
   (state: AppState) => ({
@@ -198,11 +199,8 @@ export const contentLinkHandler = (
     return;
   }
 
-  const additionalQueryString = new URLSearchParams(
-    persistentQueryParams as Record<string, string>
-  ).toString();
-  const extendedSearchString = (search + '&' + additionalQueryString).substring(
-    1
+  const extendedSearchString = queryString.stringify(
+    { ...queryString.parse(search), ...persistentQueryParams }
   );
 
   if (reference && !isPageReferenceError(reference)) {
