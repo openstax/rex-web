@@ -119,7 +119,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
     <SidebarSearchInput {...this.props} />
     <Styled.SearchQueryWrapper>
       <Styled.SearchQuery>
-        <Styled.SearchIconInsideBar src={searchIcon}/>
+        <Styled.SearchIconInsideBar src={searchIcon} alt='' />
         <Styled.HeaderQuery>
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
