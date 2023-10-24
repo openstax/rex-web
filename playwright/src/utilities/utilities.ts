@@ -2,9 +2,6 @@ import { ElementHandle, Page } from '@playwright/test'
 
 async function closeExtras(page: Page, retries = 5): Promise<void> {
   try {
-    await page.click('text=Got it!')
-  } catch (error) {}
-  try {
     await page.click('lower-sticky-note-content > .put-away', { timeout: 500 })
   } catch (error) {}
   try {
@@ -13,6 +10,7 @@ async function closeExtras(page: Page, retries = 5): Promise<void> {
   try {
     await page.click('.ReactModalPortal .put-away', { timeout: 500 })
   } catch (error) {}
+
   const extras = await page.isVisible(
     '.cookie-notice button, lower-sticky-note-content > .put-away, ._pi_closeButton, .ReactModalPortal .put-away',
   )
