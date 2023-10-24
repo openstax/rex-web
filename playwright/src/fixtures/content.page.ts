@@ -28,6 +28,10 @@ class ContentPage {
   textarea: Locator
   highlightIdlocator: Locator
   highlightIndicator: Locator
+  osanoCloseButton: Locator
+  osanoManageButton: Locator
+  osanoAccept: Locator
+  osanoDialog: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -52,11 +56,26 @@ class ContentPage {
     this.noteTextLocator = this.page.locator('[class*=TruncatedText]')
     this.noteEditCard = this.page.locator('form[data-analytics-region="edit-note"]')
     this.textarea = this.page.locator('textarea[class*="TextArea"]')
+    this.osanoCloseButton = this.page.locator('button[class*="osano-cm-dialog__close"]')
+    this.osanoAccept = this.page.locator('button[class*="type_accept"]')
   }
 
   async open(path: string) {
     // Open a Rex page with base url
     await this.page.goto(path)
+
+    // Close the osano cookie management widget
+    if (await this.osanoAccept.isVisible()) {
+      try {
+        await this.osanoAccept.click({ force: true })
+        await this.osanoAccept.waitFor({ state: 'hidden' })
+      } catch (error) {}
+    } else {
+      try {
+        await this.osanoCloseButton.click({ force: true })
+        await this.osanoCloseButton.waitFor({ state: 'hidden' })
+      } catch (error) {}
+    }
 
     // Add cookies to get rid of full page nudge
     const now = new Date()
