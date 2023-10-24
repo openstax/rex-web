@@ -40,8 +40,8 @@ interface Positions {
 }
 
 export const getPositions = (target: HTMLElement, isMobile: boolean): Positions => {
-  const padding = remsToPx(mobileSpotlightPadding);
   const { top, left, height, width } = getBoundingRectOfNudgeTarget(target);
+  const padding = Math.min(left, remsToPx(mobileSpotlightPadding));
   const spotlightLeftOffset = left - (isMobile ? padding : 0);
   const spotlightWidth = width + (isMobile ? padding * 2 : 0);
   const arrowTopOffset = top + height + remsToPx(arrowTopMargin);
