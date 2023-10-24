@@ -199,33 +199,25 @@ export const contentLinkHandler = (
     return;
   }
 
-  const extendedSearchString = queryString.stringify(
-    { ...queryString.parse(search), ...persistentQueryParams }
-  );
+  delete persistentQueryParams.target;
+  const extendedSearchString = queryString.stringify({
+    ...queryString.parse(search),
+    ...persistentQueryParams,
+  });
+  const params =
+    reference && !isPageReferenceError(reference)
+      ? reference.params
+      : getBookPageUrlAndParams(book, page).params;
 
-  if (reference && !isPageReferenceError(reference)) {
-    // defer to allow other handlers to execute before nav happens
-    defer(() =>
-      navigate(
-        {
-          params: reference.params,
-          route: content,
-          state: {},
-        },
-        { hash, search: extendedSearchString }
-      )
-    );
-  } else {
-    // defer to allow other handlers to execute before nav happens
-    defer(() =>
-      navigate(
-        {
-          params: getBookPageUrlAndParams(book, page).params,
-          route: content,
-          state: {},
-        },
-        { hash, search: extendedSearchString }
-      )
-    );
-  }
+  // defer to allow other handlers to execute before nav happens
+  defer(() =>
+    navigate(
+      {
+        params,
+        route: content,
+        state: {},
+      },
+      { hash, search: extendedSearchString }
+    )
+  );
 };
