@@ -14,7 +14,8 @@ import {
   sleep,
 } from './helpers'
 
-test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page }) => {
+test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName, page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/business-ethics/pages/preface'
@@ -47,7 +48,8 @@ test('C651124 open keyboard shortcut modal using keyboard', async ({ browserName
   await expect(Modal.ksModal).toBeHidden()
 })
 
-test('C651123 open keyboard shortcut modal using hot keys', async ({ page }) => {
+test('C651123 open keyboard shortcut modal using hot keys', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
   // GIVEN: Open Rex page
   const BookPage = new ContentPage(page)
   const path = '/books/organizational-behavior/pages/preface'
