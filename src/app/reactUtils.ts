@@ -1,4 +1,4 @@
-import { Document, Element, FocusEvent, HTMLElement,
+import { Document, Element, FocusEvent, HTMLElement, Event,
   HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
@@ -195,16 +195,14 @@ export const useOnEsc = (isEnabled: boolean, callback: () => void) => React.useE
 }, [isEnabled, callback]);
 
 const useMatchMediaQuery = (mediaQuery: string) => {
-  const matchMedia = assertWindow().matchMedia(mediaQuery);
-  const [matches, setMatches] = React.useState(matchMedia.matches);
-
-  const listener = React.useCallback((e: MediaQueryListEvent) => {
-    if (e.matches) {
-      setMatches(true);
-    } else {
-      setMatches(false);
-    }
-  }, []);
+  const matchMedia = React.useMemo(
+    () => assertWindow().matchMedia(mediaQuery),
+    [mediaQuery]
+  );
+  const [matches, listener] = React.useReducer(
+    (_state: unknown, e: MediaQueryListEvent) => e.matches,
+    matchMedia.matches
+  );
 
   React.useEffect(() => {
     if (typeof matchMedia.addEventListener === 'function') {
