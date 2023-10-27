@@ -51,15 +51,15 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   if (!props.isActive) {
     return null;
   }
-  return <LoginOrEdit props={props} ref={ref} />;
+  return <LoginOrEdit props={props} fref={ref} />;
 });
 
 function LoginOrEdit({
   props,
-  ref,
+  fref,
 }: {
   props: React.PropsWithChildren<EditCardProps>;
-  ref: React.ForwardedRef<HTMLElement>;
+  fref: React.ForwardedRef<HTMLElement>;
 }) {
   const authenticated = !!useSelector(selectAuth.user);
   const element = React.useRef<HTMLElement>(null);
@@ -67,7 +67,7 @@ function LoginOrEdit({
   return (
     <form
       className={props.className}
-      ref={mergeRefs(ref, element)}
+      ref={mergeRefs(fref, element)}
       data-analytics-region='edit-note'
       data-highlight-card
     >

@@ -197,14 +197,9 @@ function NoteOrCard({
       });
     }
   }, [locationFilterId, props, setHighlightRemoved]);
-  const isMobile = useMatchMobileMediumQuery();
   const style = highlightStyles.find(
     search => props.data && search.label === props.data.color
   );
-
-  if (!annotation && isMobile) {
-    return null;
-  }
 
   return (
     <div onClick={focusCard} data-testid='card'>
@@ -217,7 +212,8 @@ function NoteOrCard({
           focus={props.focus}
           onEdit={() => setEditing(true)}
         />
-      ) : (
+      ) : <React.Fragment>{
+        commonProps.isActive &&
         <EditCardWithOnCreate
           cardProps={props as CardPropsWithBookAndPage}
           commonProps={{ ...commonProps, onRemove }}
@@ -225,7 +221,7 @@ function NoteOrCard({
           hasUnsavedHighlight={hasUnsavedHighlight}
           setEditing={setEditing}
         />
-      )}
+      }</React.Fragment>}
     </div>
   );
 }
@@ -288,6 +284,19 @@ const StyledCard = styled(Card)`
   ${mainCardStyles}
 `;
 
+// Styling is expensive and most Cards don't need to render
+function PreCard(props: CardProps) {
+  const isMobile = useMatchMobileMediumQuery();
+  const computedProps = useComputedProps(props);
+
+  if (!computedProps.annotation && (!props.isActive || isMobile)) {
+    return null;
+  }
+  return (
+    <StyledCard {...props} />
+  );
+}
+
 export default connect(
   (state: AppState, ownProps: { highlight: Highlight }) => ({
     ...selectContent.bookAndPage(state),
@@ -308,4 +317,4 @@ export default connect(
     remove: flow(requestDeleteHighlight, dispatch),
     setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
   })
-)(StyledCard);
+)(PreCard);

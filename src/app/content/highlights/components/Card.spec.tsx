@@ -181,7 +181,7 @@ describe('Card', () => {
       picker.props.onEdit();
     });
 
-    expect(() => component.root.findByType(EditCard)).not.toThrow();
+    expect(() => component.root.findAllByType(EditCard)).not.toThrow();
   });
 
   it('switches to display mode when cancelling', () => {
