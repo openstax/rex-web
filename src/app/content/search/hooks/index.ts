@@ -51,16 +51,13 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const state = services.getState();
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
-  const query = select.query(state);
-  const results = select.hits(state);
-  const systemQueryParams = selectNavigation.systemQueryParameters(state);
-  const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
 
   if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
 
-  const searchResultHit = meta && meta.searchScrollTarget &&
+  const results = select.hits(state);
+  const searchResultHit = meta?.searchScrollTarget &&
     findSearchResultHit(results, meta.searchScrollTarget, state?.content?.page?.id);
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
@@ -85,6 +82,9 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
   const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
     ? replace : push;
 
+  const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
+  const systemQueryParams = selectNavigation.systemQueryParameters(state);
+  const query = select.query(state);
   const options = selectedResult
     ? {
       hash: selectedResult.result.source.elementId,
@@ -112,14 +112,14 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
   const state = services.getState();
-  const scrollTarget = selectNavigation.scrollTarget(state);
-  const hash = selectNavigation.hash(state);
   const query = selectNavigation.query(state);
 
   if (!Object.keys(query).length) {
     return;
   }
 
+  const scrollTarget = selectNavigation.scrollTarget(state);
+  const hash = selectNavigation.hash(state);
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
   const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
   const newTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : persistentQueryParams.target;
@@ -164,14 +164,14 @@ export const openSearchInSidebarHook: ActionHookBody<typeof openSearchInSidebar>
   // Restore search state when opening sidebar
   const state = services.getState();
   const previousState = select.previousState(state);
-  const hash = selectNavigation.hash(state);
-  const systemQueryParams = selectNavigation.systemQueryParameters(state);
   const { query, selectedResult } = previousState;
 
   if (!query) {
     return;
   }
 
+  const hash = selectNavigation.hash(state);
+  const systemQueryParams = selectNavigation.systemQueryParameters(state);
   const options = selectedResult
     ? {
       hash: selectedResult.result.source.elementId,
