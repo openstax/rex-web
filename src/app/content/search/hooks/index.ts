@@ -17,7 +17,7 @@ import { clearSearch, openSearchInSidebar, receiveSearchResults, requestSearch, 
 import { SearchLoadError } from '../errors';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
+import { findSearchResultHit, getIndexData } from '../utils';
 import trackSearch from './trackSearch';
 import Sentry from '../../../../helpers/Sentry';
 
@@ -47,7 +47,7 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
   services.dispatch(receiveSearchResults(results, meta));
 };
 
-export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
+export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({meta}) => {
   const state = services.getState();
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
@@ -61,7 +61,7 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     findSearchResultHit(results, meta.searchScrollTarget, state?.content?.page?.id);
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
-    : getFirstResult(book, payload);
+    : null;
 
   if (
     selectedResult
