@@ -1,7 +1,7 @@
 import isEqual from 'lodash/fp/isEqual';
 import queryString from 'query-string';
 import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
-import { push, replace } from '../../../navigation/actions';
+import { replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
@@ -11,13 +11,12 @@ import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
-import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, openSearchInSidebar, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
 import { SearchLoadError } from '../errors';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { findSearchResultHit, getIndexData } from '../utils';
+import { findSearchResultHit } from '../utils';
 import trackSearch from './trackSearch';
 import Sentry from '../../../../helpers/Sentry';
 
@@ -63,24 +62,13 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
     : null;
 
-  if (
-    selectedResult
-    // We are clearing selected result when requesting a new search so in the theory this should never happen
-    && (isEqual(select.selectedResult(state), selectedResult)
-      // selectedResult bookId data is different than current book id
-      || book.id !== getIndexData(selectedResult.result.index).bookId)
-  ) {
-    return;
-  }
-
   if (selectedResult) {
     services.dispatch(selectSearchResult(selectedResult));
   }
 
   const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
 
-  const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
-    ? replace : push;
+  const action = replace;
 
   const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
