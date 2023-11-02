@@ -283,44 +283,6 @@ describe('hooks', () => {
       expect(dispatch).not.toHaveBeenCalledWith(replace);
     });
 
-    // it('throws if index string is improperly formatted', () => {
-    //   store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    //   store.dispatch(receivePage({ ...page, references: [] }));
-    //   store.dispatch(requestSearch('asdf'));
-    //   expect(() =>
-    //     go([
-    //       {
-    //         ...hit,
-    //         index: 'asdf',
-    //       },
-    //     ], {searchScrollTarget: {type: 'search', index: 0, elementId: hit.source.elementId}})
-    //   ).toThrowErrorMatchingInlineSnapshot(
-    //     `"impropertly formatted index string: \\"asdf\\""`
-    //   );
-    // });
-
-    // it('dispatches PUSH with first page and search query when page is different', () => {
-    //   store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    //   store.dispatch(receivePage({ ...shortPage, references: [] }));
-    //   store.dispatch(requestSearch('asdf'));
-
-    //   go([hit], {searchScrollTarget: {type: 'search', index: 0, elementId: 'elem'}});
-    //   // expect(dispatch).toHaveBeenCalledWith(selectSearchResult({ result: hit, highlight: 0 }));
-
-    //   const search = queryString.stringify({
-    //     query: 'asdf',
-    //   });
-    //   expect(dispatch).toHaveBeenCalledWith(
-    //     push({
-    //       params: expect.anything(),
-    //       route: content,
-    //       state: { },
-    //     }, {
-    //       search,
-    //     })
-    //   );
-    // });
-
     it('dispatches REPLACE with search query when page is the same', () => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       store.dispatch(receivePage({ ...page, references: [] }));
