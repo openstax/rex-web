@@ -9,8 +9,8 @@ jest.mock(
     })
 );
 
-describe('locale not found', () => {
-  it('loads english messages', () => {
+describe('setting language', () => {
+  it('uses Intl.DisplayName to set language when DisplayNames is available', () => {
     const {language} = attributionValues(book);
     expect(language).toBe('English');
   });
@@ -21,5 +21,4 @@ describe('locale not found', () => {
 
     expect(language).toBe('en');
   });
-
 });
