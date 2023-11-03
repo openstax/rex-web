@@ -170,6 +170,7 @@ export const SearchResultsHeader = styled.h2`
   align-items: center;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   height: ${topbarDesktopHeight}rem;
+  margin: 0;
   ${({ emptyHeaderStyle = false }: { emptyHeaderStyle: boolean }) => emptyHeaderStyle && css`
     border-bottom: 0;
     justify-content: flex-end;
@@ -395,6 +396,7 @@ export const SearchResultsSectionTitle = styled.h3`
   font-size: 1.8rem;
   font-weight: bold;
   display: flex;
+  margin: 0;
   padding: 1.2rem 3.2rem;
 `;
 
