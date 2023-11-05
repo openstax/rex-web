@@ -67,7 +67,7 @@ const MAX_ATTEMPTS = 5;
 
 // The worker fleet is automatically terminated after this many seconds
 // This is insurance in case this process gets stuck or crashes without deleting the workers stack
-const PRERENDER_TIMEOUT_SECONDS = 1800;
+const PRERENDER_TIMEOUT_SECONDS = 3600;
 
 // Abort the build if the workers stack is not created/deleted within this many seconds
 const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 300;
