@@ -213,7 +213,6 @@ function NoteOrCard({
           onEdit={() => setEditing(true)}
         />
       ) : <React.Fragment>{
-        commonProps.isActive &&
         <EditCardWithOnCreate
           cardProps={props as CardPropsWithBookAndPage}
           commonProps={{ ...commonProps, onRemove }}
