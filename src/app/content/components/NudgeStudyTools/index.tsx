@@ -177,8 +177,6 @@ const NoopForPrerenderingAndForHiddenState = () => {
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const dispatch = useDispatch();
   const counter = useIncrementPageCounter();
-  const isMobile = useMatchMobileMediumQuery();
-  const positions = usePositions(isMobile);
 
   React.useEffect(() => {
     if (
@@ -196,11 +194,26 @@ const NoopForPrerenderingAndForHiddenState = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, counter, totalCountsPerPage, studyGuidesEnabled]);
 
-  if (!show || !positions) {
+  if (!show) {
     return null;
   }
 
-  return <NudgeStudyTools positions={positions} />;
+  return <MaybeNudgeStudyTools />;
 };
+
+// This has to be separate from the function above because it requires
+// window to be defined.
+function MaybeNudgeStudyTools() {
+  const isMobile = useMatchMobileMediumQuery();
+  const positions = usePositions(isMobile);
+
+  if (!positions) {
+    return null;
+  }
+
+  return (
+    <NudgeStudyTools positions={positions} />
+  );
+}
 
 export default NoopForPrerenderingAndForHiddenState;
