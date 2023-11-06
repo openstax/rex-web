@@ -169,6 +169,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
           The highlight could not be deleted. Please check your connection and try again.
         </div>
         <button
+          aria-label="dismiss"
           className="c6"
           onClick={[Function]}
         >
@@ -226,6 +227,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
           </span>
         </div>
         <button
+          aria-label="dismiss"
           className="c6"
           onClick={[Function]}
         >

@@ -120,6 +120,7 @@ exports[`Toast matches snapshot 1`] = `
       The highlight could not be saved. Please check your connection and try again.
     </div>
     <button
+      aria-label="dismiss"
       className="c4"
       onClick={[MockFunction]}
     >

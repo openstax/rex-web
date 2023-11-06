@@ -165,6 +165,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
           The highlight could not be saved. Please check your connection and try again.
         </div>
         <button
+          aria-label="dismiss"
           className="c6"
           onClick={[Function]}
         >
@@ -367,6 +368,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
           The highlight could not be saved. Please check your connection and try again.
         </div>
         <button
+          aria-label="dismiss"
           className="c6"
           onClick={[Function]}
         >

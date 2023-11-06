@@ -116,7 +116,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
             }
           </Header>}
         </FormattedMessage>
-        <CloseButton onClick={dismiss}>
+        <CloseButton onClick={dismiss} aria-label='dismiss'>
           <CloseIcon />
         </CloseButton>
       </BannerBody>
