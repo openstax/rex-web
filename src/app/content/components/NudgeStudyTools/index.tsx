@@ -33,19 +33,8 @@ import {
   usePositions,
 } from './utils';
 
-function NudgeStudyTools() {
-  const isMobile = useMatchMobileMediumQuery();
-  const positions = usePositions(isMobile);
-
-  if (!positions) { return null; }
-
-  return (
-    <NudgeStudyTools2 positions={positions} />
-  );
-}
-
 // tslint:disable-next-line: variable-name
-const NudgeStudyTools2 = ({
+const NudgeStudyTools = ({
   positions,
 }: {
   positions: Exclude<ReturnType<typeof usePositions>, null>;
@@ -128,13 +117,7 @@ const NudgeStudyTools2 = ({
   </NudgeWrapper>;
 };
 
-function CloseButtonHoldingFocus({
-  positions,
-  dismiss,
-}: {
-  positions: Exclude<ReturnType<typeof usePositions>, null>;
-  dismiss: () => void;
-}) {
+function useTabNavigationInterceptor() {
   const ref = React.useRef<HTMLElement>();
 
   React.useEffect(
@@ -151,6 +134,18 @@ function CloseButtonHoldingFocus({
     []
   );
 
+  return ref;
+}
+
+function CloseButtonHoldingFocus({
+  positions,
+  dismiss,
+}: {
+  positions: Exclude<ReturnType<typeof usePositions>, null>;
+  dismiss: () => void;
+}) {
+  const tabNavigationInterceptor = useTabNavigationInterceptor();
+
   return (
     <NudgeCloseButton
       top={positions.closeButtonTopOffset}
@@ -159,7 +154,7 @@ function CloseButtonHoldingFocus({
       data-analytics-label='close'
       aria-label='close overlay'
       title='close overlay'
-      ref={ref}
+      ref={tabNavigationInterceptor}
     >
       <NudgeCloseIcon />
     </NudgeCloseButton>
@@ -182,6 +177,8 @@ const NoopForPrerenderingAndForHiddenState = () => {
   const trackOpen = useAnalyticsEvent('openNudgeStudyTools');
   const dispatch = useDispatch();
   const counter = useIncrementPageCounter();
+  const isMobile = useMatchMobileMediumQuery();
+  const positions = usePositions(isMobile);
 
   React.useEffect(() => {
     if (
@@ -199,11 +196,11 @@ const NoopForPrerenderingAndForHiddenState = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, counter, totalCountsPerPage, studyGuidesEnabled]);
 
-  if (!show ) {
+  if (!show || !positions) {
     return null;
   }
 
-  return <NudgeStudyTools />;
+  return <NudgeStudyTools positions={positions} />;
 };
 
 export default NoopForPrerenderingAndForHiddenState;
