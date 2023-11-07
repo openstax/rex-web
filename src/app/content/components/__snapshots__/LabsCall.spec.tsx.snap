@@ -285,7 +285,6 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
       <img
         alt=""
         className="c4 c5"
-        role="img"
         src="kinetic-logo.png"
       />
     </div>
