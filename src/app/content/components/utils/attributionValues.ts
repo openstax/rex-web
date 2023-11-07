@@ -1,4 +1,5 @@
 import { Book } from '../../types';
+import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill';
 
 // date is initialized as UTC, conversion to local time can change the date.
 // this compensates
@@ -54,7 +55,9 @@ export function attributionValues(book: Book) {
   return {
     bookTitle: book.title,
     publisher: locale === 'pl' ? 'OpenStax Poland' : 'OpenStax',
-    language: new Intl.DisplayNames([locale], { type: 'language' }).of(locale) as string,
+    language: shouldPolyfill() ?
+      locale :
+      new Intl.DisplayNames([locale], { type: 'language' }).of(locale) as string,
     bookPublishDate,
     authorsToDisplay,
   };
