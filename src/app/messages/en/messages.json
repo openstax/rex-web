@@ -192,7 +192,6 @@
   "i18n:toolbar:toc:text": "Contents",
   "i18n:toc:toggle:closed": "Click to open the Table of Contents",
   "i18n:toc:toggle:opened": "Click to close the Table of Contents",
-  "i18n:toolbar:buy-book:aria-label:text": "Buy book",
   "i18n:toolbar:buy-book:text": "Order a print copy",
   "i18n:toolbar:labs-cta:link": "Explore Kinetic",
   "i18n:practice-questions:popup:answers:choice": "Choice {choiceIndicator}",

@@ -760,10 +760,11 @@ exports[`content in browser when logged in matches snapshot 1`] = `
       data-testid="user-nav"
     >
       <div
+        aria-controls="dropdown-menu"
+        aria-haspopup="true"
         aria-label="account actions"
         className="c5 c6"
         data-testid="user-nav-toggle"
-        role="menubar"
         tabIndex="0"
       >
         TT
@@ -790,25 +791,33 @@ exports[`content in browser when logged in matches snapshot 1`] = `
           >
             Hi test
           </h4>
-          <ul
+          <menu
             className="c11"
+            id="dropdown-menu"
+            role="menu"
           >
-            <li>
+            <li
+              role="presentation"
+            >
               <a
                 href="/accounts/profile"
+                role="menuitem"
                 target="_blank"
               >
                 Account Profile
               </a>
             </li>
-            <li>
+            <li
+              role="presentation"
+            >
               <a
                 href="/accounts/logout?r=/"
+                role="menuitem"
               >
                 Log out
               </a>
             </li>
-          </ul>
+          </menu>
         </div>
       </div>
       <button

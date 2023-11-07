@@ -190,7 +190,6 @@
   "i18n:toolbar:toc:text": "Índice",
   "i18n:toc:toggle:closed": "Haga clic para abrir el índice",
   "i18n:toc:toggle:opened": "Haga clic para cerrar el índice",
-  "i18n:toolbar:buy-book:aria-label:text": "Comprar libro",
   "i18n:toolbar:buy-book:text": "Solicitar una copia impresa",
   "i18n:practice-questions:popup:answers:choice": "Elección {choiceIndicator}",
   "i18n:toolbar:header:title": "Menú",

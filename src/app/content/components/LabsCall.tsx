@@ -160,7 +160,7 @@ const LabsCTA = () => {
     <LabsCallWrapper data-async-content>
       <LabsCallHeader>
         <Column noShrink>
-          <LabsLogo src={icon} role='img' alt='' />
+          <LabsLogo src={icon} alt='' />
         </Column>
         <Column maxWidth={35.4}>
           <LabsText>

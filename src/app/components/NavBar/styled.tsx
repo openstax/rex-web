@@ -185,7 +185,7 @@ const visuallyShown = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const DropdownList = styled.ul`
+export const DropdownList = styled.menu`
   position: absolute;
   height: 1px;
   width: 1px;
