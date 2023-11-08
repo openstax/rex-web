@@ -103,6 +103,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
       isFadingIn={state.isFadingIn}
       isFadingOut={state.isFadingOut}
       data-testid='banner-body'
+      role='alert'
     >
       <BannerBody>
         <FormattedMessage id={notification.messageKey}>
@@ -115,7 +116,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
             }
           </Header>}
         </FormattedMessage>
-        <CloseButton onClick={dismiss}>
+        <CloseButton onClick={dismiss} aria-label='dismiss'>
           <CloseIcon />
         </CloseButton>
       </BannerBody>

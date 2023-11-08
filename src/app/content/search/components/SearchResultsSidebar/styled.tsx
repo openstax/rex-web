@@ -164,12 +164,13 @@ export const SearchResultsBar = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const SearchResultsHeader = styled.div`
+export const SearchResultsHeader = styled.h2`
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   height: ${topbarDesktopHeight}rem;
+  margin: 0;
   ${({ emptyHeaderStyle = false }: { emptyHeaderStyle: boolean }) => emptyHeaderStyle && css`
     border-bottom: 0;
     justify-content: flex-end;
@@ -390,11 +391,12 @@ export const ListItem = styled.li`
 `;
 
 // tslint:disable-next-line: variable-name
-export const SearchResultsSectionTitle = styled.span`
+export const SearchResultsSectionTitle = styled.h3`
   ${textStyle}
   font-size: 1.8rem;
   font-weight: bold;
   display: flex;
+  margin: 0;
   padding: 1.2rem 3.2rem;
 `;
 

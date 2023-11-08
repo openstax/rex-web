@@ -137,6 +137,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
     className="c1"
     data-testid="banner-body"
     onAnimationEnd={[Function]}
+    role="alert"
   >
     <div
       className="c2"
@@ -147,6 +148,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
         The highlight could not be saved. Please check your connection and try again.
       </div>
       <button
+        aria-label="dismiss"
         className="c5"
         onClick={[Function]}
       >
@@ -186,6 +188,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
     className="c7"
     data-testid="banner-body"
     onAnimationEnd={[Function]}
+    role="alert"
   >
     <div
       className="c2"
@@ -196,6 +199,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
         The highlight could not be deleted. Please check your connection and try again.
       </div>
       <button
+        aria-label="dismiss"
         className="c5"
         onClick={[Function]}
       >
