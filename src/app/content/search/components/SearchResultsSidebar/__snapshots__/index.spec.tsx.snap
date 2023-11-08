@@ -72,6 +72,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   align-items: center;
   border-bottom: 1px solid #d5d5d5;
   height: 5rem;
+  margin: 0;
   border-bottom: 0;
   -webkit-box-pack: end;
   -webkit-justify-content: flex-end;
@@ -203,7 +204,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   data-testid="search-results-sidebar"
 >
   <div>
-    <div
+    <h2
       className="c1"
     >
       <div
@@ -244,7 +245,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
           </svg>
         </button>
       </div>
-    </div>
+    </h2>
     <div
       className="c7 c8"
     >
@@ -385,6 +386,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   align-items: center;
   border-bottom: 1px solid #d5d5d5;
   height: 5rem;
+  margin: 0;
 }
 
 .c3 {
@@ -628,6 +630,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin: 0;
   padding: 1.2rem 3.2rem;
 }
 
@@ -775,7 +778,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   <div
     className="c1"
   >
-    <div
+    <h2
       className="c2"
     >
       <span
@@ -819,7 +822,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
           </g>
         </svg>
       </button>
-    </div>
+    </h2>
     <div
       className="c7"
     >
@@ -833,6 +836,8 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         />
         <div
           className="c11"
+          role="note"
+          tabIndex="0"
         >
           2 key term results and 1 search result for 
           <strong>
@@ -851,11 +856,12 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       className="c13"
       data-analytics-region="kt-search-results"
     >
-      <span
+      <h3
         className="c14"
+        tabIndex="0"
       >
         Related key terms
-      </span>
+      </h3>
       <a
         className="c15 c16"
         data-testid="related-key-term-result"
@@ -903,11 +909,12 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         </div>
       </a>
     </div>
-    <span
+    <h3
       className="c14"
+      tabIndex="0"
     >
       Chapter results
-    </span>
+    </h3>
     <ol
       className="c20"
       data-analytics-region="content-search-results"
@@ -1130,6 +1137,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   align-items: center;
   border-bottom: 1px solid #d5d5d5;
   height: 5rem;
+  margin: 0;
 }
 
 .c3 {
@@ -1459,7 +1467,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   <div
     className="c1"
   >
-    <div
+    <h2
       className="c2"
     >
       <span
@@ -1503,7 +1511,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           </g>
         </svg>
       </button>
-    </div>
+    </h2>
     <div
       className="c7"
     >
@@ -1517,6 +1525,8 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         />
         <div
           className="c11"
+          role="note"
+          tabIndex="0"
         >
           3 search results for 
           <strong>

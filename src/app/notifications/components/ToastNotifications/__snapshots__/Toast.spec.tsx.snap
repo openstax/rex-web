@@ -109,6 +109,7 @@ exports[`Toast matches snapshot 1`] = `
   className="c0"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
+  role="alert"
 >
   <div
     className="c1"
@@ -119,6 +120,7 @@ exports[`Toast matches snapshot 1`] = `
       The highlight could not be saved. Please check your connection and try again.
     </div>
     <button
+      aria-label="dismiss"
       className="c4"
       onClick={[MockFunction]}
     >
