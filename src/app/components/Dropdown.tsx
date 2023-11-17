@@ -173,7 +173,7 @@ export const DropdownList = styled.ol`
   z-index: 1;
 
   li {
-    display: inline-block;
+    padding: 0.2rem;
   }
 
   li button,
@@ -186,11 +186,11 @@ export const DropdownList = styled.ol`
     cursor: pointer;
     outline: none;
     border: none;
-    padding: 0 0.8rem;
+    padding-left: 0.8rem;
     margin: 0;
-    height: 3.2rem;
+    height: 3rem;
     background: none;
-    min-width: 7.2rem;
+    min-width: 7rem;
     ${textStyle}
     font-size: 1.4rem;
     line-height: 2rem;
@@ -198,6 +198,8 @@ export const DropdownList = styled.ol`
     &:hover,
     &:focus {
       background: ${theme.color.neutral.formBorder};
+      outline: 0.2rem auto Highlight;
+      outline: 0.2rem inset -webkit-focus-ring-color;
     }
   }
 `;
