@@ -21,6 +21,7 @@ import RedoPadding from './RedoPadding';
 import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
 import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
+import isEqual from 'lodash/fp/isEqual';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -97,9 +98,17 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
-    // If user navigated quickly between pages then most likelly there were multiple componentDidUpdate calls started.
+    const searchHighlightsChanged = !isEqual(
+      prevProps.searchHighlights.searchResults,
+      this.props.searchHighlights.searchResults
+    );
+
+    // If user navigated quickly between pages then most likely there were multiple componentDidUpdate calls started.
     // We want to update highlight manager only for the last componentDidUpdate.
-    if (!this.shouldUpdateHighlightManagers(prevProps, this.props, runId)) {
+    if (
+      !this.shouldUpdateHighlightManagers(prevProps, this.props, runId) &&
+      !searchHighlightsChanged
+    ) {
       return;
     }
 

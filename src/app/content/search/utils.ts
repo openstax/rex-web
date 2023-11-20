@@ -7,7 +7,7 @@ import { getAllRegexMatches } from '../../utils';
 import attachHighlight from '../components/utils/attachHighlight';
 import { ArchiveTree, LinkedArchiveTree, LinkedArchiveTreeNode } from '../types';
 import { archiveTreeSectionIsChapter, archiveTreeSectionIsPage, linkArchiveTree } from '../utils/archiveTreeUtils';
-import { getIdVersion, stripIdVersion } from '../utils/idUtils';
+import { stripIdVersion } from '../utils/idUtils';
 import { isKeyTermHit, isSearchResultChapter } from './guards';
 import { SearchResultContainer, SearchResultPage, SearchScrollTarget, SelectedResult } from './types';
 
@@ -77,24 +77,6 @@ const filterTreeForSearchResults = (
   }
 
   return containers;
-};
-
-export const getIndexData = (indexName: string) => {
-  const tail = getIdVersion(indexName);
-
-  if (!tail) {
-    throw new Error(`impropertly formatted index string: "${indexName}"`);
-  }
-
-  const [version, indexingStrategy] = tail.split('_');
-  const id = stripIdVersion(indexName);
-  const idArchiveSplit = id.split('__');
-
-  return {
-    bookId: idArchiveSplit.length > 1 ? idArchiveSplit[1] : id,
-    indexingStrategy,
-    version,
-  };
 };
 
 export const countTotalHighlights = (results: SearchResultHit[]) => {
