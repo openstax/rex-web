@@ -411,3 +411,88 @@ test('C242991 special characters are escaped in slug', async ({ page, isMobile }
   expect(await Toc.SectionName()).toBe('2.1 Dlaczego badania są ważne?')
   expect(await Toc.ChapterName()).toBe('2         Prowadzenie badań')
 })
+
+test('MH page filters', async ({ page, isMobile }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+
+  // GIVEN: Open Rex page
+  const BookPage = new ContentPage(page)
+  const path = '/books/introduction-anthropology/pages/7-introduction'
+  await BookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+  await expect(page).toHaveURL('/books/introduction-anthropology/pages/7-introduction')
+
+  // AND: Highlight a random paragraph with note
+  const paracount = BookPage.paracount()
+  const randomparanumber0 = randomNum(await paracount)
+  const noteText0 = randomstring()
+  await BookPage.highlightText('green', randomparanumber0, noteText0)
+  const highlightId0 = await BookPage.highlight_id(randomparanumber0)
+
+  // AND: Highlight a random paragraph without note
+  const randomparanumber1 = randomNum(await paracount, randomparanumber0)
+  await BookPage.highlightText('yellow', randomparanumber1)
+  const highlightId1 = await BookPage.highlight_id(randomparanumber1)
+
+  const Toc = new TOC(page)
+  await Toc.pageClick(24)
+
+   // WHEN: Highlight a random paragraph with note
+   const paracount1 = BookPage.paracount()
+   const randomparanumber2 = randomNum(await paracount1)
+   const noteText2 = randomstring()
+   await BookPage.highlightText('pink', randomparanumber2, noteText2)
+   const highlightId2 = await BookPage.highlight_id(randomparanumber2)
+ 
+   // AND: Highlight a random paragraph without note
+   const randomparanumber3 = randomNum(await paracount1, randomparanumber2)
+   await BookPage.highlightText('blue', randomparanumber3)
+   const highlightId3 = await BookPage.highlight_id(randomparanumber3)
+
+  // WHEN: Open MH modal
+  await BookPage.openMHmodal()
+
+  const Modal = new MHModal(page)
+  await Modal.waitForHighlights()
+
+  // Open color dropdown
+  await Modal.toggleColorDropdown()
+
+  // Assert pink color is checked
+  expect (await Modal.checkboxChecked("pink")).toBeTruthy()
+
+  // Assert purple color is disabled
+  expect (await Modal.checkboxDisabled("purple")).toBeTruthy()
+
+  // Uncheck pink color
+  await Modal.toggleCheckbox("pink")
+
+  // Close & open color dropdown to verify pink color is unchecked
+  await Modal.toggleColorDropdown()
+  await Modal.toggleColorDropdown()
+  expect (await Modal.checkboxUnchecked("pink")).toBeTruthy()
+
+  // Open chapter dropdown filter
+  await Modal.toggleChapterDropdown()
+
+  // Validate total number of chapters in the chapter dropdown is 22
+  const chapterDropdownCount = await Modal.chapterDropdownCount()
+  expect(chapterDropdownCount).toBe(21)
+
+  // Assert chapter 7 is checked
+  expect (await Modal.checkboxChecked(7)).toBeTruthy()
+
+  // Assert chapter 9 is disabled
+  expect (await Modal.checkboxDisabled(9)).toBeTruthy()
+
+  // Uncheck chapter 7
+  await Modal.toggleCheckbox(7)
+
+  // Close & open chapter dropdown to verify chapter 7 is unchecked
+  await Modal.toggleChapterDropdown()
+  await Modal.toggleChapterDropdown()
+  expect (await Modal.checkboxUnchecked(7)).toBeTruthy()
+})
+

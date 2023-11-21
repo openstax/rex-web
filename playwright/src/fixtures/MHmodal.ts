@@ -1,17 +1,24 @@
 // My Highlights modal locators and functions
 import { Locator, Page } from 'playwright'
-import { sleep } from '../utilities/utilities'
+import { string } from 'yargs'
+import { TOC } from '../../src/fixtures/toc'
 
 class MHModal {
   // MH modal objects
   MHModal: Locator
   MHModalCloseIcon: Locator
+  chapterDropdownLocator: Locator
+  colorDropdownLocator: Locator
+  checkBoxStatus: Locator
   page: Page
 
   constructor(page: Page) {
     this.page = page
     this.MHModal = page.locator('data-testid=highlights-popup-wrapper')
     this.MHModalCloseIcon = page.locator('data-testid=close-highlights-popup')
+    this.chapterDropdownLocator = page.locator('[aria-label="Filter highlights by Chapter"]')
+    this.colorDropdownLocator = page.locator('[aria-label="Filter highlights by Color"]')
+    this.checkBoxStatus = page.locator('label[class*="Checkbox"]')
   }
 
   // Close My Highlights modal using x icon
@@ -22,6 +29,80 @@ class MHModal {
   async waitForHighlights() {
     // Wait for the highlights to be loaded in MH modal
     await this.page.waitForSelector('[class*=HighlightOuterWrapper]')
+  }
+
+  async chapterDropdownCount() {
+    // Total number of checkboxes in the chapter dropdown
+    const Toc = new TOC(this.page)
+    const chapterDropdownCount = (await Toc.chapterCount() + await Toc.eocCount() + 1)
+    return chapterDropdownCount
+  }
+
+  async toggleChapterDropdown() {
+    // Open the chapter dropdown filter
+    await this.chapterDropdownLocator.click()
+  }
+
+  async toggleColorDropdown() {
+    // Open the color dropdown filter
+    await this.colorDropdownLocator.click()
+  }
+
+  async colorNumber(color: string) {
+    // Assign number to each color in the color dropdown
+    if (color === 'yellow') {
+      return "0"
+    } else if (color === 'green') {
+      return "1"
+    } else if (color === 'blue') {
+      return "2"
+    } else if (color === 'purple') {
+      return "3"
+    } else if (color === 'pink') {
+      return "4"
+    } 
+  }
+
+  async checkboxChecked(n: any) {
+    // verify the checkbox status is checked in the chapter/color dropdown
+    if (typeof(n) === 'string') {
+      n = await this.colorNumber(n)
+    }
+    const checkBoxHtml = await this.checkBoxStatus.nth(await n).innerHTML()
+    if (checkBoxHtml.includes('type="checkbox" checked')) {
+      return true
+    }
+  }
+
+  async checkboxDisabled(n: any) {
+    // verify the checkbox status is disabled in the chapter/color dropdown
+    if (typeof(n) === 'string') {
+      n = await this.colorNumber(n)
+    }
+    const checkBoxHtml = await this.checkBoxStatus.nth(n).innerHTML()
+    if (checkBoxHtml.includes('type="checkbox" disabled')) {
+      return true
+    }
+  }
+
+  async checkboxUnchecked(n: any) {
+    // verify the checkbox status is unchecked and enabled in the chapter/color dropdown
+    if (typeof(n) === 'string') {
+      n = await this.colorNumber(n)
+    }
+    const checkBoxHtml = await this.checkBoxStatus.nth(n).innerHTML()
+    if (checkBoxHtml.includes('<input type="checkbox">')) {
+      return true
+    }
+  }
+  
+
+  async toggleCheckbox (n: any) {
+    // enable/disable checkboxes in the chapter/color dropdown
+    if (typeof(n) === 'string') {
+      n = await this.colorNumber(n)
+    }
+    await this.page.locator('label[class*="Checkbox"]').nth(n).uncheck()
   }
 }
 

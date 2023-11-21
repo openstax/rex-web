@@ -24,6 +24,20 @@ class TOC {
     return await this.pageLocator.count()
   }
 
+  async chapterCount() {
+    // Total number of chapters in the book
+    const toc = this.page.locator('div[data-testid=toc]')
+    const chapterLocator = toc.locator('[data-type=chapter]')
+    return await chapterLocator.count()
+  }
+
+  async eocCount() {
+    // Total number of chapters in the book
+    const toc = this.page.locator('div[data-testid=toc]')
+    const chapterLocator = toc.locator('[data-type=eoc-dropdown]')
+    return await chapterLocator.count()
+  }
+
   async pageClick(pageNumber: number) {
     // Click on a toc link
     // param: page number to be clicked
@@ -126,7 +140,7 @@ class TOC {
   }
 
   async eocSectionHeading() {
-    // Return chapter name of the current page
+    // Return end of chapter nesting level heading of the current page
     const toc = this.page.locator('div[data-testid=toc]')
     const eocLocator = toc.locator('[data-type=eoc-dropdown]', {
       has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
@@ -136,7 +150,7 @@ class TOC {
   }
 
   async eobSectionHeading() {
-    // Return chapter name of the current page
+    // Return end of book nesting level heading of the current page
     const toc = this.page.locator('div[data-testid=toc]')
     const eobLocator = toc.locator('[data-type=eob-dropdown]', {
       has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
