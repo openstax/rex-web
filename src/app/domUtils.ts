@@ -5,6 +5,7 @@ import { receivePageFocus } from './actions';
 import { isHtmlElement } from './guards';
 import { AppServices, Store } from './types';
 import { assertDefined, assertDocument, assertWindow } from './utils';
+import debounce from 'lodash/debounce';
 
 export const SCROLL_UP: 'scroll_up' = 'scroll_up';
 export const SCROLL_DOWN: 'scroll_down' = 'scroll_down';
@@ -97,7 +98,14 @@ const getScrollPadding = () => {
 };
 
 export const scrollTo = (elem: HTMLElement | Element | string) => {
-  const scroll = () => scrollToElement(elem, {offset: getScrollPadding()});
+  const scroll = debounce(
+    () => scrollToElement(elem, {offset: getScrollPadding()}),
+    100,
+    {
+      leading: true,
+      trailing: false,
+    }
+  );
 
   document?.addEventListener(
     'load', scroll, true
