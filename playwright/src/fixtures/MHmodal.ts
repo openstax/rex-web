@@ -34,7 +34,7 @@ class MHModal {
   async chapterDropdownCount() {
     // Total number of checkboxes in the chapter dropdown
     const Toc = new TOC(this.page)
-    const chapterDropdownCount = (await Toc.chapterCount() + await Toc.eocCount() + 1)
+    const chapterDropdownCount = (await Toc.chapterCount()) + (await Toc.eocCount()) + 1
     return chapterDropdownCount
   }
 
@@ -51,21 +51,21 @@ class MHModal {
   async colorNumber(color: string) {
     // Assign number to each color in the color dropdown
     if (color === 'yellow') {
-      return "0"
+      return '0'
     } else if (color === 'green') {
-      return "1"
+      return '1'
     } else if (color === 'blue') {
-      return "2"
+      return '2'
     } else if (color === 'purple') {
-      return "3"
+      return '3'
     } else if (color === 'pink') {
-      return "4"
-    } 
+      return '4'
+    }
   }
 
   async checkboxChecked(n: any) {
     // verify the checkbox status is checked in the chapter/color dropdown
-    if (typeof(n) === 'string') {
+    if (typeof n === 'string') {
       n = await this.colorNumber(n)
     }
     const checkBoxHtml = await this.checkBoxStatus.nth(await n).innerHTML()
@@ -76,7 +76,7 @@ class MHModal {
 
   async checkboxDisabled(n: any) {
     // verify the checkbox status is disabled in the chapter/color dropdown
-    if (typeof(n) === 'string') {
+    if (typeof n === 'string') {
       n = await this.colorNumber(n)
     }
     const checkBoxHtml = await this.checkBoxStatus.nth(n).innerHTML()
@@ -87,7 +87,7 @@ class MHModal {
 
   async checkboxUnchecked(n: any) {
     // verify the checkbox status is unchecked and enabled in the chapter/color dropdown
-    if (typeof(n) === 'string') {
+    if (typeof n === 'string') {
       n = await this.colorNumber(n)
     }
     const checkBoxHtml = await this.checkBoxStatus.nth(n).innerHTML()
@@ -95,11 +95,32 @@ class MHModal {
       return true
     }
   }
-  
 
-  async toggleCheckbox (n: any) {
+  async chapterCheckedCount() {
+    let x = 0
+    for (let i = 0; i < (await this.chapterDropdownCount()); i++) {
+      const checkBoxHtml = await this.checkBoxStatus.nth(i).innerHTML()
+      if (checkBoxHtml.includes('<input type="checkbox" checked')) {
+        x = x + 1
+      }
+    }
+    return x
+  }
+
+  async colorCheckedCount() {
+    let x = 0
+    for (let i = 0; i < 5; i++) {
+      const checkBoxHtml = await this.checkBoxStatus.nth(i).innerHTML()
+      if (checkBoxHtml.includes('<input type="checkbox" checked')) {
+        x = x + 1
+      }
+    }
+    return x
+  }
+
+  async toggleCheckbox(n: any) {
     // enable/disable checkboxes in the chapter/color dropdown
-    if (typeof(n) === 'string') {
+    if (typeof n === 'string') {
       n = await this.colorNumber(n)
     }
     await this.page.locator('label[class*="Checkbox"]').nth(n).uncheck()

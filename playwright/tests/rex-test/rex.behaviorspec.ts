@@ -412,7 +412,7 @@ test('C242991 special characters are escaped in slug', async ({ page, isMobile }
   expect(await Toc.ChapterName()).toBe('2         Prowadzenie badań')
 })
 
-test('MH page filters', async ({ page, isMobile }) => {
+test('MH page dropdown filters', async ({ page, isMobile }) => {
   test.skip(isMobile as boolean, 'test only desktop resolution')
 
   // GIVEN: Open Rex page
@@ -439,17 +439,17 @@ test('MH page filters', async ({ page, isMobile }) => {
   const Toc = new TOC(page)
   await Toc.pageClick(24)
 
-   // WHEN: Highlight a random paragraph with note
-   const paracount1 = BookPage.paracount()
-   const randomparanumber2 = randomNum(await paracount1)
-   const noteText2 = randomstring()
-   await BookPage.highlightText('pink', randomparanumber2, noteText2)
-   const highlightId2 = await BookPage.highlight_id(randomparanumber2)
- 
-   // AND: Highlight a random paragraph without note
-   const randomparanumber3 = randomNum(await paracount1, randomparanumber2)
-   await BookPage.highlightText('blue', randomparanumber3)
-   const highlightId3 = await BookPage.highlight_id(randomparanumber3)
+  // WHEN: Highlight a random paragraph with note
+  const paracount1 = BookPage.paracount()
+  const randomparanumber2 = randomNum(await paracount1)
+  const noteText2 = randomstring()
+  await BookPage.highlightText('pink', randomparanumber2, noteText2)
+  const highlightId2 = await BookPage.highlight_id(randomparanumber2)
+
+  // AND: Highlight a random paragraph without note
+  const randomparanumber3 = randomNum(await paracount1, randomparanumber2)
+  await BookPage.highlightText('blue', randomparanumber3)
+  const highlightId3 = await BookPage.highlight_id(randomparanumber3)
 
   // WHEN: Open MH modal
   await BookPage.openMHmodal()
@@ -457,22 +457,34 @@ test('MH page filters', async ({ page, isMobile }) => {
   const Modal = new MHModal(page)
   await Modal.waitForHighlights()
 
+  // Verify all the highlights are listed in the modal
+  const Edithighlight = new MHHighlights(page)
+  const MHhighlightcount = await Edithighlight.highlightCount()
+  expect(MHhighlightcount).toBe(4)
+
   // Open color dropdown
   await Modal.toggleColorDropdown()
 
   // Assert pink color is checked
-  expect (await Modal.checkboxChecked("pink")).toBeTruthy()
+  // expect (await Modal.checkboxChecked("pink")).toBeTruthy()
 
+  // verify 4 highlight colors are checked
+  expect(await Modal.colorCheckedCount()).toBe(4)
   // Assert purple color is disabled
-  expect (await Modal.checkboxDisabled("purple")).toBeTruthy()
+  expect(await Modal.checkboxDisabled('purple')).toBeTruthy()
 
   // Uncheck pink color
-  await Modal.toggleCheckbox("pink")
+  await Modal.toggleCheckbox('pink')
+
+  // Verify the pink highlight is removed from the Highlights frame
+  const MHhighlightcount1 = await Edithighlight.highlightCount()
+  expect(MHhighlightcount1).toBe(3)
 
   // Close & open color dropdown to verify pink color is unchecked
   await Modal.toggleColorDropdown()
   await Modal.toggleColorDropdown()
-  expect (await Modal.checkboxUnchecked("pink")).toBeTruthy()
+  expect(await Modal.checkboxUnchecked('pink')).toBeTruthy()
+  await Modal.toggleColorDropdown()
 
   // Open chapter dropdown filter
   await Modal.toggleChapterDropdown()
@@ -480,19 +492,46 @@ test('MH page filters', async ({ page, isMobile }) => {
   // Validate total number of chapters in the chapter dropdown is 22
   const chapterDropdownCount = await Modal.chapterDropdownCount()
   expect(chapterDropdownCount).toBe(21)
+  // verify 2 chapters are checked
+  expect(await Modal.chapterCheckedCount()).toBe(2)
 
   // Assert chapter 7 is checked
-  expect (await Modal.checkboxChecked(7)).toBeTruthy()
+  expect(await Modal.checkboxChecked(7)).toBeTruthy()
 
   // Assert chapter 9 is disabled
-  expect (await Modal.checkboxDisabled(9)).toBeTruthy()
+  expect(await Modal.checkboxDisabled(9)).toBeTruthy()
 
   // Uncheck chapter 7
   await Modal.toggleCheckbox(7)
 
+  // Verify the pink highlight is removed from the Highlights frame
+  const MHhighlightcount2 = await Edithighlight.highlightCount()
+  expect(MHhighlightcount2).toBe(1)
+
   // Close & open chapter dropdown to verify chapter 7 is unchecked
   await Modal.toggleChapterDropdown()
   await Modal.toggleChapterDropdown()
-  expect (await Modal.checkboxUnchecked(7)).toBeTruthy()
-})
+  expect(await Modal.checkboxUnchecked(7)).toBeTruthy()
+  expect(await Modal.chapterCheckedCount()).toBe(1)
+  await Modal.toggleChapterDropdown()
 
+  // Open color dropdown
+  await Modal.toggleColorDropdown()
+  expect(await Modal.checkboxChecked('green')).toBeTruthy()
+  expect(await Modal.checkboxChecked('yellow')).toBeTruthy()
+  expect(await Modal.colorCheckedCount()).toBe(3)
+  await Modal.toggleColorDropdown()
+
+  // WHEN: Close the MH modal using X icon
+  await Modal.closeMHModal()
+
+  // THEN: The MH modal is closed
+  await expect(Modal.MHModal).toBeHidden()
+
+  const contentHighlightColor = await BookPage.contentHighlightColor(highlightId3)
+  expect(contentHighlightColor).toBe('blue')
+
+  // THEN: Text is highlighted
+  const highlightcount = await BookPage.highlightCount()
+  expect(highlightcount).toBe(2)
+})
