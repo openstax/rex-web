@@ -10,7 +10,6 @@ class TOC {
   pageSlugLocator: Locator
   currentPageLocator: Locator
 
-
   constructor(page: Page) {
     this.page = page
     this.pageLocator = this.page.locator('[data-type="page"]')
@@ -33,16 +32,9 @@ class TOC {
   }
 
   async standalonePagesCount() {
-    // Total number of pages in the book that are not contained in chapter or EOC or unit category
+    // Total number of pages in the book that are not contained in chapter or EOC or unit categories
     const standalonepageLocator = this.page.locator('div[aria-label="Table of contents"] > ol > [data-type="page"]')
     return await standalonepageLocator.count()
-  }
-
-  async eocCount() {
-    // Total number of chapters in the book
-    const toc = this.page.locator('div[data-testid=toc]')
-    const chapterLocator = toc.locator('[data-type=eoc-dropdown]')
-    return await chapterLocator.count()
   }
 
   async pageClick(pageNumber: number) {

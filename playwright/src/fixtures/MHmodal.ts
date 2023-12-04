@@ -96,25 +96,25 @@ class MHModal {
   }
 
   async chapterCheckedCount() {
-    let x = 0
+    let chapterCheckedCounter = 0
     for (let i = 0; i < (await this.chapterDropdownCount()); i++) {
       const checkBoxHtml = await this.checkBoxStatus.nth(i).innerHTML()
       if (checkBoxHtml.includes('<input type="checkbox" checked')) {
-        x = x + 1
+        chapterCheckedCounter = chapterCheckedCounter + 1
       }
     }
-    return x
+    return chapterCheckedCounter
   }
 
   async colorCheckedCount() {
-    let x = 0
+    let colorCheckedCounter = 0
     for (let i = 0; i < 5; i++) {
       const checkBoxHtml = await this.checkBoxStatus.nth(i).innerHTML()
       if (checkBoxHtml.includes('<input type="checkbox" checked')) {
-        x = x + 1
+        colorCheckedCounter = colorCheckedCounter + 1
       }
     }
-    return x
+    return colorCheckedCounter
   }
 
   async toggleCheckbox(n: any) {
@@ -122,7 +122,7 @@ class MHModal {
     if (typeof n === 'string') {
       n = await this.colorNumber(n)
     }
-    await this.page.locator('label[class*="Checkbox"]').nth(n).uncheck()
+    await this.page.locator('label[class*="Checkbox"]').nth(n).click()
   }
 }
 

@@ -439,7 +439,7 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
   const Toc = new TOC(page)
   await Toc.pageClick(24)
 
-  // WHEN: Highlight a random paragraph with note
+  // AND: Highlight a random paragraph with note
   const paracount1 = BookPage.paracount()
   const randomparanumber2 = randomNum(await paracount1)
   const noteText2 = randomstring()
@@ -451,44 +451,42 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
   await BookPage.highlightText('blue', randomparanumber3)
   const highlightId3 = await BookPage.highlight_id(randomparanumber3)
 
-  // WHEN: Open MH modal
+  // AND: Open MH modal
   await BookPage.openMHmodal()
-
   const Modal = new MHModal(page)
   await Modal.waitForHighlights()
 
-  // Verify all the highlights are listed in the modal
+  // AND: Verify all the highlights are listed in the modal
   const Edithighlight = new MHHighlights(page)
   const MHhighlightcount = await Edithighlight.highlightCount()
   expect(MHhighlightcount).toBe(4)
 
-  // Open color dropdown
+  // WHEN: Open color dropdown
   await Modal.toggleColorDropdown()
 
   // Assert pink color is checked
-  expect (await Modal.checkboxChecked("pink")).toBeTruthy()
-
+  expect(await Modal.checkboxChecked('pink')).toBeTruthy()
   // verify 4 highlight colors are checked
   expect(await Modal.colorCheckedCount()).toBe(4)
   // Assert purple color is disabled
   expect(await Modal.checkboxDisabled('purple')).toBeTruthy()
 
-  // Uncheck pink color
+  // AND: Uncheck pink color
   await Modal.toggleCheckbox('pink')
 
-  // Verify the pink highlight is removed from the Highlights frame
+  // THEN: Verify the pink highlight is removed from the Highlights frame
   const MHhighlightcount1 = await Edithighlight.highlightCount()
   expect(MHhighlightcount1).toBe(3)
 
   // Close & open color dropdown to verify pink color is unchecked
-  // In realtime, the dropdown unchecks immediately but playwright is not updating 
+  // In realtime, the dropdown unchecks immediately but playwright is not updating
   // the checkbox status in the html unless its closed & reopened
   await Modal.toggleColorDropdown()
   await Modal.toggleColorDropdown()
   expect(await Modal.checkboxUnchecked('pink')).toBeTruthy()
   await Modal.toggleColorDropdown()
 
-  // Open chapter dropdown filter
+  // WHEN: Open chapter dropdown filter
   await Modal.toggleChapterDropdown()
 
   // Validate total number of chapters in the chapter dropdown is 22
@@ -497,22 +495,20 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
 
   // verify 2 chapters are checked
   expect(await Modal.chapterCheckedCount()).toBe(2)
-
   // Assert chapter 7 is checked
   expect(await Modal.checkboxChecked(7)).toBeTruthy()
-
   // Assert chapter 9 is disabled
   expect(await Modal.checkboxDisabled(9)).toBeTruthy()
 
-  // Uncheck chapter 7
+  // AND: Uncheck chapter 7
   await Modal.toggleCheckbox(7)
 
-  // Verify highlights from ch 7 is removed from the Highlights frame
+  // THEN: Verify highlights from ch 7 is removed from the Highlights frame
   const MHhighlightcount2 = await Edithighlight.highlightCount()
   expect(MHhighlightcount2).toBe(1)
 
   // Close & open chapter dropdown to verify chapter 7 is unchecked
-  // In realtime, the dropdown unchecks immediately but playwright is not updating 
+  // In realtime, the dropdown unchecks immediately but playwright is not updating
   // the checkbox status in the html unless its closed & reopened
   await Modal.toggleChapterDropdown()
   await Modal.toggleChapterDropdown()
@@ -534,7 +530,7 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
   // The highlights in content page are unaffected
   const contentHighlightColor = await BookPage.contentHighlightColor(highlightId2)
   expect(contentHighlightColor).toBe('pink')
-  
+
   const highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(2)
 })
