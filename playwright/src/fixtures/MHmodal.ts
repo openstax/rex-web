@@ -1,6 +1,5 @@
 // My Highlights modal locators and functions
 import { Locator, Page } from 'playwright'
-import { string } from 'yargs'
 import { TOC } from '../../src/fixtures/toc'
 
 class MHModal {
@@ -34,7 +33,7 @@ class MHModal {
   async chapterDropdownCount() {
     // Total number of checkboxes in the chapter dropdown
     const Toc = new TOC(this.page)
-    const chapterDropdownCount = (await Toc.chapterCount()) + (await Toc.eocCount()) + 1
+    const chapterDropdownCount = (await Toc.chapterCount()) + (await Toc.standalonePagesCount())
     return chapterDropdownCount
   }
 

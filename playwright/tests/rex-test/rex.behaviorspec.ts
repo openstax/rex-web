@@ -466,7 +466,7 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
   await Modal.toggleColorDropdown()
 
   // Assert pink color is checked
-  // expect (await Modal.checkboxChecked("pink")).toBeTruthy()
+  expect (await Modal.checkboxChecked("pink")).toBeTruthy()
 
   // verify 4 highlight colors are checked
   expect(await Modal.colorCheckedCount()).toBe(4)
@@ -481,6 +481,8 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
   expect(MHhighlightcount1).toBe(3)
 
   // Close & open color dropdown to verify pink color is unchecked
+  // In realtime, the dropdown unchecks immediately but playwright is not updating 
+  // the checkbox status in the html unless its closed & reopened
   await Modal.toggleColorDropdown()
   await Modal.toggleColorDropdown()
   expect(await Modal.checkboxUnchecked('pink')).toBeTruthy()
@@ -491,7 +493,8 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
 
   // Validate total number of chapters in the chapter dropdown is 22
   const chapterDropdownCount = await Modal.chapterDropdownCount()
-  expect(chapterDropdownCount).toBe(21)
+  expect(chapterDropdownCount).toBe(22)
+
   // verify 2 chapters are checked
   expect(await Modal.chapterCheckedCount()).toBe(2)
 
@@ -504,34 +507,34 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
   // Uncheck chapter 7
   await Modal.toggleCheckbox(7)
 
-  // Verify the pink highlight is removed from the Highlights frame
+  // Verify highlights from ch 7 is removed from the Highlights frame
   const MHhighlightcount2 = await Edithighlight.highlightCount()
   expect(MHhighlightcount2).toBe(1)
 
   // Close & open chapter dropdown to verify chapter 7 is unchecked
+  // In realtime, the dropdown unchecks immediately but playwright is not updating 
+  // the checkbox status in the html unless its closed & reopened
   await Modal.toggleChapterDropdown()
   await Modal.toggleChapterDropdown()
   expect(await Modal.checkboxUnchecked(7)).toBeTruthy()
   expect(await Modal.chapterCheckedCount()).toBe(1)
   await Modal.toggleChapterDropdown()
 
-  // Open color dropdown
+  // Validate the color dropdown filters are unaffected by changes to chapter filters
   await Modal.toggleColorDropdown()
   expect(await Modal.checkboxChecked('green')).toBeTruthy()
   expect(await Modal.checkboxChecked('yellow')).toBeTruthy()
   expect(await Modal.colorCheckedCount()).toBe(3)
   await Modal.toggleColorDropdown()
 
-  // WHEN: Close the MH modal using X icon
+  // Close the MH modal using X icon
   await Modal.closeMHModal()
-
-  // THEN: The MH modal is closed
   await expect(Modal.MHModal).toBeHidden()
 
-  const contentHighlightColor = await BookPage.contentHighlightColor(highlightId3)
-  expect(contentHighlightColor).toBe('blue')
-
-  // THEN: Text is highlighted
+  // The highlights in content page are unaffected
+  const contentHighlightColor = await BookPage.contentHighlightColor(highlightId2)
+  expect(contentHighlightColor).toBe('pink')
+  
   const highlightcount = await BookPage.highlightCount()
   expect(highlightcount).toBe(2)
 })
