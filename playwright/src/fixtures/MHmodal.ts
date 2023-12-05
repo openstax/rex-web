@@ -1,6 +1,6 @@
 // My Highlights modal locators and functions
 import { Locator, Page } from 'playwright'
-import { TOC } from '../../src/fixtures/toc'
+import { TOC, colorNumber } from '../../tests/rex-test/helpers'
 
 class MHModal {
   // MH modal objects
@@ -47,25 +47,10 @@ class MHModal {
     await this.colorDropdownLocator.click()
   }
 
-  async colorNumber(color: string) {
-    // Assign number to each color in the color dropdown
-    if (color === 'yellow') {
-      return '0'
-    } else if (color === 'green') {
-      return '1'
-    } else if (color === 'blue') {
-      return '2'
-    } else if (color === 'purple') {
-      return '3'
-    } else if (color === 'pink') {
-      return '4'
-    }
-  }
-
   async checkboxChecked(n: any) {
     // verify the checkbox status is checked in the chapter/color dropdown
     if (typeof n === 'string') {
-      n = await this.colorNumber(n)
+      n = colorNumber(n)
     }
     const checkBoxHtml = await this.checkBoxStatus.nth(await n).innerHTML()
     if (checkBoxHtml.includes('type="checkbox" checked')) {
@@ -76,7 +61,7 @@ class MHModal {
   async checkboxDisabled(n: any) {
     // verify the checkbox status is disabled in the chapter/color dropdown
     if (typeof n === 'string') {
-      n = await this.colorNumber(n)
+      n = colorNumber(n)
     }
     const checkBoxHtml = await this.checkBoxStatus.nth(n).innerHTML()
     if (checkBoxHtml.includes('type="checkbox" disabled')) {
@@ -87,7 +72,7 @@ class MHModal {
   async checkboxUnchecked(n: any) {
     // verify the checkbox status is unchecked and enabled in the chapter/color dropdown
     if (typeof n === 'string') {
-      n = await this.colorNumber(n)
+      n = colorNumber(n)
     }
     const checkBoxHtml = await this.checkBoxStatus.nth(n).innerHTML()
     if (checkBoxHtml.includes('<input type="checkbox">')) {
@@ -120,7 +105,7 @@ class MHModal {
   async toggleCheckbox(n: any) {
     // enable/disable checkboxes in the chapter/color dropdown
     if (typeof n === 'string') {
-      n = await this.colorNumber(n)
+      n = colorNumber(n)
     }
     await this.page.locator('label[class*="Checkbox"]').nth(n).click()
   }

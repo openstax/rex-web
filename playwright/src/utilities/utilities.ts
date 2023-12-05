@@ -50,6 +50,26 @@ function randomstring(length = 15) {
   return string
 }
 
+function colorNumber(color: string) {
+  // Assign number to each color in the highlighter
+  switch (color) {
+    case 'yellow':
+      return 0
+
+    case 'green':
+      return 1
+
+    case 'blue':
+      return 2
+
+    case 'purple':
+      return 3
+
+    case 'pink':
+      return 4
+  }
+}
+
 async function sleep(seconds = 1.0): Promise<unknown> {
   return new Promise((resolve) => {
     setTimeout(resolve, seconds * 1000)
@@ -90,4 +110,4 @@ class MobileNavigation {
   }
 }
 
-export { closeExtras, randomChoice, randomNum, randomstring, sleep, MobileNavigation }
+export { closeExtras, randomChoice, randomNum, randomstring, sleep, colorNumber, MobileNavigation }
