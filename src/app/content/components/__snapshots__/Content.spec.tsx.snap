@@ -908,6 +908,8 @@ Array [
 
 .c77 .os-figure,
 .c77 .os-figure:last-child {
+  table-layout: fixed;
+  width: 100%;
   margin-bottom: 5px;
 }
 
@@ -5558,6 +5560,8 @@ Array [
 
 .c77 .os-figure,
 .c77 .os-figure:last-child {
+  table-layout: fixed;
+  width: 100%;
   margin-bottom: 5px;
 }
 
