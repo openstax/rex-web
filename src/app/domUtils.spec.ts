@@ -33,7 +33,9 @@ describe('scrollIntoView', () => {
       top: -50,
     } as any);
 
+    jest.useFakeTimers();
     domUtils.scrollIntoView(element);
+    jest.runAllTimers();
 
     expect(scrollTo).toHaveBeenCalledWith(element, expect.anything());
   });

@@ -5,6 +5,7 @@ import { receivePageFocus } from './actions';
 import { isHtmlElement } from './guards';
 import { AppServices, Store } from './types';
 import { assertDefined, assertDocument, assertWindow } from './utils';
+import debounce from 'lodash/debounce';
 
 export const SCROLL_UP: 'scroll_up' = 'scroll_up';
 export const SCROLL_DOWN: 'scroll_down' = 'scroll_down';
@@ -76,7 +77,7 @@ export const findFirstAncestorOrSelf = <T = HTMLElement>(
   predicate: ((e: any) => boolean) | ((e: any) => e is T)
 ): T | void => {
   if (isHtmlElement(node) && predicate(node)) {
-    return node;
+    return node as T;
   } else if (node.parentElement) {
     return findFirstAncestorOrSelf(node.parentElement, predicate);
   }
@@ -97,7 +98,24 @@ const getScrollPadding = () => {
 };
 
 export const scrollTo = (elem: HTMLElement | Element | string) => {
-  return scrollToElement(elem, {offset: getScrollPadding()});
+  const scroll = debounce(
+    () => scrollToElement(elem, {offset: getScrollPadding()}),
+    100,
+    {
+      leading: true,
+      trailing: false,
+    }
+  );
+
+  document?.addEventListener(
+    'load', scroll, true
+  );
+
+  setTimeout(
+    () => document?.removeEventListener('load', scroll, true),
+    3000
+  );
+  return scroll();
 };
 
 /**

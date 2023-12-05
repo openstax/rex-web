@@ -525,6 +525,8 @@ Array [
 
 .c2 .os-figure,
 .c2 .os-figure:last-child {
+  table-layout: fixed;
+  width: 100%;
   margin-bottom: 5px;
 }
 
