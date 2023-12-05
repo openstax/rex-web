@@ -150,6 +150,8 @@ export default styled(MainContent)`
 
   .os-figure,
   .os-figure:last-child {
+    table-layout: fixed;
+    width: 100%;
     margin-bottom: 5px; /* fix double scrollbar bug */
   }
 
