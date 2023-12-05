@@ -171,6 +171,44 @@ describe('NudgeStudyTools', () => {
     expect(() => findByTestId('nudge-text-with-sg')).not.toThrow();
   });
 
+  it('focuses on close button if tab is pressed', () => {
+    jest.spyOn(contentSelect, 'showNudgeStudyTools')
+      .mockReturnValue(true);
+
+    jest.spyOn(utils, 'usePositions')
+      .mockReturnValue(mockPositions);
+    const contentWrapperElement = assertDocument().createElement('div');
+    const spyFocus = jest.spyOn(contentWrapperElement, 'focus');
+    const createNodeMock = () => contentWrapperElement;
+
+    renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <NudgeStudyTools/>
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>,
+      { createNodeMock }
+    );
+
+    runHooks(renderer);
+
+    // Other keys don't trigger focus
+    renderer.act(() => {
+      assertDocument().body.dispatchEvent(new KeyboardEvent('keydown', {key: 'a'}));
+    });
+
+    expect(spyFocus).toHaveBeenCalledTimes(1);
+
+    // Tab does
+    renderer.act(() => {
+      assertDocument().body.dispatchEvent(new KeyboardEvent('keydown', {key: 'Tab'}));
+    });
+
+    expect(spyFocus).toHaveBeenCalledTimes(2);
+  });
+
   it('dispatches action on clicking close button and tests if body has overflow style set to hidden', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
