@@ -27,7 +27,9 @@ from utils.utility import Utilities
 
 
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
-XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
+XPATH_SEARCH = (
+    "//span[contains(text(),'{term}') and contains(@class,'search-highlight text last focus')]"
+)
 # If search term is inside a block of search highlight use this XPATH
 XPATH_SEARCH_BLOCK = "//span[contains(@class,'search-highlight first text last focus')]//span[contains(text(),'{term}')]"
 
