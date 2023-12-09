@@ -1,5 +1,6 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
+import { MobileNavigation } from '../utilities/utilities'
 
 class ContentPage {
   colorlocator: any
@@ -338,6 +339,15 @@ class ContentPage {
 
   async openMHmodal() {
     // Open My Highlights modal
+    const mobileNav = new MobileNavigation(this.page)
+    const browserAgent = await this.page.evaluate(() => navigator.userAgent)
+
+    if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
+      await mobileNav.openBigMobileMenu('MH')
+    } else if (browserAgent.includes('Mobile')) {
+      await mobileNav.openMobileMenu('MH')
+    }
+
     await this.myHighlights.click()
     await Promise.all([this.MHbodyLoaded.waitFor()])
   }

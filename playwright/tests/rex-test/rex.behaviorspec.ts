@@ -335,11 +335,23 @@ test('C660045 click unit introduction page', async ({ page, isMobile }, testinfo
   const path = '/books/writing-guide/pages/preface'
   await bookPage.open(path)
 
+  // AND: Signup as a new user
+  await rexUserSignup(page)
+
   const Toc = new TOC(page)
   await Toc.pageClick(1)
   await expect(page).toHaveURL('/books/writing-guide/pages/1-unit-introduction')
   expect(await Toc.SectionName()).toBe('1 Unit Introduction')
   expect(await Toc.UnitName()).toBe('The Things We Carry: Experience, Culture, and Language')
+
+  // WHEN: Open MH modal and open chapter dropdown
+  await bookPage.openMHmodal()
+  const Modal = new MHModal(page)
+  await Modal.toggleChapterDropdown()
+
+  // Validate total number of chapters in the chapter dropdown is 26
+  const chapterDropdownCount = await Modal.chapterDropdownCount()
+  expect(chapterDropdownCount).toBe(26)
 })
 
 test('C483595 click pages on book with no units', async ({ page, isMobile }, testinfo) => {
@@ -347,6 +359,9 @@ test('C483595 click pages on book with no units', async ({ page, isMobile }, tes
   const bookPage = new ContentPage(page)
   const path = '/books/college-algebra-2e/pages/preface'
   await bookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
 
   // click chapter page
   const Toc = new TOC(page)
@@ -367,6 +382,15 @@ test('C483595 click pages on book with no units', async ({ page, isMobile }, tes
   await expect(page).toHaveURL('/books/college-algebra-2e/pages/chapter-8')
   expect(await Toc.SectionName()).toBe('Chapter 8')
   expect(await Toc.eobSectionHeading()).toBe('Answer Key')
+
+  // WHEN: Open MH modal and open chapter dropdown
+  await bookPage.openMHmodal()
+  const Modal = new MHModal(page)
+  await Modal.toggleChapterDropdown()
+
+  // Validate total number of chapters in the chapter dropdown is 12
+  const chapterDropdownCount = await Modal.chapterDropdownCount()
+  expect(chapterDropdownCount).toBe(12)
 })
 
 test('C483594 click pages on book with units', async ({ page, isMobile }, testinfo) => {
@@ -374,6 +398,9 @@ test('C483594 click pages on book with units', async ({ page, isMobile }, testin
   const bookPage = new ContentPage(page)
   const path = '/books/university-physics-volume-1/pages/preface'
   await bookPage.open(path)
+
+  // AND: Signup as a new user
+  await rexUserSignup(page)
 
   // click chapter page (special character present in section name)
   const Toc = new TOC(page)
@@ -396,6 +423,15 @@ test('C483594 click pages on book with units', async ({ page, isMobile }, testin
   await expect(page).toHaveURL('/books/university-physics-volume-1/pages/chapter-4')
   expect(await Toc.SectionName()).toBe('Chapter 4')
   expect(await Toc.eobSectionHeading()).toBe('Answer Key')
+
+  // WHEN: Open MH modal and open chapter dropdown
+  await bookPage.openMHmodal()
+  const Modal = new MHModal(page)
+  await Modal.toggleChapterDropdown()
+
+  // Validate total number of chapters in the chapter dropdown is 27
+  const chapterDropdownCount = await Modal.chapterDropdownCount()
+  expect(chapterDropdownCount).toBe(27)
 })
 
 test('C242991 special characters are escaped in slug', async ({ page, isMobile }, testinfo) => {
@@ -404,9 +440,11 @@ test('C242991 special characters are escaped in slug', async ({ page, isMobile }
   const path = '/books/psychologia-polska/pages/przedmowa'
   await bookPage.open(path)
 
-  // click chapter page (special character present in section name)
+  // WHEN: click chapter page with special character present in section name
   const Toc = new TOC(page)
   await Toc.pageClick(12)
+
+  // THEN: Special characters are escaped in the url
   await expect(page).toHaveURL('/books/psychologia-polska/pages/2-1-dlaczego-badania-sa-wazne')
   expect(await Toc.SectionName()).toBe('2.1 Dlaczego badania są ważne?')
   expect(await Toc.ChapterName()).toBe('2         Prowadzenie badań')
