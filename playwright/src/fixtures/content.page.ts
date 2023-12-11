@@ -339,17 +339,20 @@ class ContentPage {
 
   async openMHmodal() {
     // Open My Highlights modal
+
     const mobileNav = new MobileNavigation(this.page)
     const browserAgent = await this.page.evaluate(() => navigator.userAgent)
 
     if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
       await mobileNav.openBigMobileMenu('MH')
-    } else if (browserAgent.includes('Mobile')) {
+    } 
+    else if (browserAgent.includes('Mobile')) {
       await mobileNav.openMobileMenu('MH')
     }
-
-    await this.myHighlights.click()
-    await Promise.all([this.MHbodyLoaded.waitFor()])
+    else {
+      await this.myHighlights.click()
+      await Promise.all([this.MHbodyLoaded.waitFor()])
+    }
   }
 
   async paracount() {
