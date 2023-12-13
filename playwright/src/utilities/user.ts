@@ -1,5 +1,5 @@
 import faker from 'faker'
-import { Page } from '@playwright/test'
+import { Locator, Page } from '@playwright/test'
 import { checkRestmail, getPin } from './restmail'
 import { closeExtras } from './utilities'
 
@@ -63,8 +63,7 @@ async function accountsUserSignup(page: Page, url = '', student: Student = new S
   await page.fill('[placeholder="me@myemail.com"]', student.email)
   await page.fill('[placeholder="Password"]', student.password)
   // await page.click('#signup_terms_accepted')
-  // this.osanoCloseButton = this.page.locator('#signup_terms_accepted')
-  await page.locator('#signup_terms_accepted').click({ force: true })
+  await page.evaluate("document.getElementById('signup_terms_accepted').click()")
   await page.click('text=Continue')
   const messages = await checkRestmail(student.username)
   const pin = getPin(messages.pop())
