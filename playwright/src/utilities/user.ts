@@ -64,6 +64,7 @@ async function accountsUserSignup(page: Page, url = '', student: Student = new S
   await page.fill('[placeholder="Password"]', student.password)
   // await page.click('#signup_terms_accepted')
   await page.evaluate("document.getElementById('signup_terms_accepted').click()")
+  await page.evaluate(() => document.querySelector('#signup_form_submit_button').scrollIntoView())
   await page.click('text=Continue')
   const messages = await checkRestmail(student.username)
   const pin = getPin(messages.pop())
