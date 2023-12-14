@@ -65,13 +65,15 @@ async function accountsUserSignup(page: Page, url = '', student: Student = new S
   // await page.click('#signup_terms_accepted')
   await page.evaluate("document.getElementById('signup_terms_accepted').click()")
   await page.evaluate("document.getElementById('signup_form_submit_button').click()")
-  // await page.evaluate(() => document.querySelector('#signup_form_submit_button').click())
+  
   // await page.click('text=Continue')
   const messages = await checkRestmail(student.username)
   const pin = getPin(messages.pop())
   await page.fill('[placeholder="Enter 6-digit PIN here"]', pin)
   await page.click('text=Confirm my account')
-  await page.click('text=Finish')
+  await page.evaluate("document.getElementsByName('button')[0].click()")
+  
+  // await page.click('text=Finish')
   return student
 }
 
