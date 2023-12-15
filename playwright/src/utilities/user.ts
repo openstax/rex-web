@@ -72,7 +72,7 @@ async function accountsUserSignup(page: Page, url = '', student: Student = new S
   await page.fill('[placeholder="Enter 6-digit PIN here"]', pin)
   await page.click('text=Confirm my account')
 
-  
+  await page.locator('text=Finish').waitFor()
   await page.click('text=Finish')
   return student
 }
