@@ -60,6 +60,7 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
   return <Overlay
     ref={mergeRefs(ref, drawFocus ? drawFocusRef : null)}
     tabIndex={-1}
+    role='alertdialog'
     {...props['data-analytics-region']
       ? {'data-analytics-region': props['data-analytics-region']}
       : {}
