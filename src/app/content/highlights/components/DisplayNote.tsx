@@ -165,4 +165,10 @@ export default styled(DisplayNote)`
       display: none;
     }
  `)}
+  ${theme.breakpoints.mobile(css`
+    margin-left: 8rem;
+  `)}
+  ${theme.breakpoints.mobileMedium(css`
+    margin-left: 0;
+  `)}
 `;
