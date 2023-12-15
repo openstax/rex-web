@@ -277,8 +277,11 @@ export const CANONICAL_MAP: CanonicalBookMap = {
   /* Preparing for College Success */ '503d9717-0d3a-409f-893e-d25740d237dc': [
     /* College Success Concise */ ['62a49025-8cd8-407c-9cfb-c7eba55cf1c6', {}],
   ],
+  /* Introductory Statistics */ '30189442-6998-4686-ac05-ed152b91b9de': [
+    /* Introductory Statistics 2e */ ['c4b474e4-4e3b-4232-b35c-2c3535bfae73', {}],
+  ],
   /* Introductory Business Statistics */ 'b56bb9e9-5eb8-48ef-9939-88b1b12ce22f': [
-    /* Introductory Statistics */ ['30189442-6998-4686-ac05-ed152b91b9de', {}],
+    /* Introductory Business Statistics 2e */ ['547026cb-a330-4809-94bf-126be5f62381', {}],
   ],
   /* Introducción a la estadística empresarial */ 'f346fe75-ae39-4d11-ad32-d80c03df58cb': [
     /* Introducción a la estadística */ ['e53d6c8b-fd9e-4a28-8930-c564ca6fd77d', {}],
