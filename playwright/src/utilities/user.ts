@@ -70,9 +70,8 @@ async function accountsUserSignup(page: Page, url = '', student: Student = new S
   const messages = await checkRestmail(student.username)
   const pin = getPin(messages.pop())
   await page.fill('[placeholder="Enter 6-digit PIN here"]', pin)
-  await page.click('text=Confirm my account')
-
-  await page.locator('text=Finish').waitFor()
+  await page.evaluate("document.getElementsByClassName('primary')[0].click()")
+  // await page.click('text=Confirm my account')
   await page.click('text=Finish')
   return student
 }
