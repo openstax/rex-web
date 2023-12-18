@@ -27,7 +27,7 @@ export function createTrapTab(ref: React.MutableRefObject<HTMLElement | null>) {
     if (!el) { return; }
 
     const focusableItemQuery =
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
     const focusableElements = el.querySelectorAll<HTMLElement>(focusableItemQuery);
 
     if (focusableElements.length === 0) { return; }

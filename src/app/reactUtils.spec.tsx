@@ -252,7 +252,6 @@ describe('useTrapTabNavigation', () => {
     window = assertWindow();
 
     addEventListener = jest.spyOn(window.document, 'addEventListener');
-    // removeEventListener = jest.spyOn(window.document, 'removeEventListener');
   });
 
   function Component() {
