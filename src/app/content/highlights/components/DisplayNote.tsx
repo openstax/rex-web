@@ -14,6 +14,7 @@ import { query } from '../../search/selectors';
 import { tocOpen } from '../../selectors';
 import { focusHighlight } from '../actions';
 import { cardPadding, cardWidth } from '../constants';
+import { verticalNavbarMaxWidth } from '../../../content/components/constants';
 import Confirmation from './Confirmation';
 import MenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
@@ -166,7 +167,7 @@ export default styled(DisplayNote)`
     }
  `)}
   ${theme.breakpoints.mobile(css`
-    margin-left: 8rem;
+    margin-left: ${verticalNavbarMaxWidth}rem;
   `)}
   ${theme.breakpoints.mobileMedium(css`
     margin-left: 0;
