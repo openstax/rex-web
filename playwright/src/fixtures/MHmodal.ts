@@ -41,6 +41,12 @@ class MHModal {
     return chapterDropdownCount
   }
 
+  async chapterDropdownText(n: number) {
+    //
+    const chapterName = await this.checkBoxStatus.nth(n).innerText()
+    return chapterName
+  }
+
   async toggleChapterDropdown() {
     // Open the chapter dropdown filter
     await this.chapterDropdownLocator.click()

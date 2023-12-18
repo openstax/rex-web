@@ -345,11 +345,9 @@ class ContentPage {
 
     if (browserAgent.includes('Mobile') && browserAgent.includes('iPad')) {
       await mobileNav.openBigMobileMenu('MH')
-    } 
-    else if (browserAgent.includes('Mobile')) {
+    } else if (browserAgent.includes('Mobile')) {
       await mobileNav.openMobileMenu('MH')
-    }
-    else {
+    } else {
       await this.myHighlights.click()
       await Promise.all([this.MHbodyLoaded.waitFor()])
     }
