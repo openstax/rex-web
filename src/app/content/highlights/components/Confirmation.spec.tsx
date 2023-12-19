@@ -65,6 +65,7 @@ describe('Confirmation', () => {
             message='message'
             confirmMessage='confirm'
             onCancel={() => null}
+            drawFocus={false}
           />
         </MessageProvider>
       </Services.Provider>
