@@ -1,5 +1,6 @@
 // tslint:disable max-line-length
 export const defaultText = `
+<p>This book may not be used in the training of large language models or otherwise be ingested into large language models or generative AI offerings without OpenStax's permission.</p>
 <p>
   Want to cite, share, or modify this book? This book uses the
   <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
