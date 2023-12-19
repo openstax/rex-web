@@ -1,5 +1,6 @@
 // tslint:disable max-line-length
 export const defaultText = `
+<p>Ten podręcznik nie może być wykorzystywany do trenowania sztucznej inteligencji ani do przetwarzania przez systemy sztucznej inteligencji bez zgody OpenStax lub OpenStax Poland.</p>
 <p>
  Chcesz zacytować, udostępnić albo zmodyfikować treść tej książki? Została ona wydana na licencji
   <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
