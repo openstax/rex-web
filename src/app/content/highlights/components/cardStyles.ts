@@ -97,7 +97,7 @@ const fadeInAnimation = css`
 `;
 
 export const mainCardStyles = css`
-  ${(props: CardProps) => (!props.isActive && (!props.data || !props.data.annotation)) || props.isHidden
+  ${(props: CardProps) => props.isHidden
     ? 'visibility: hidden;'
     : 'visibility: visible;'}
   ${fadeInAnimation}
@@ -118,15 +118,11 @@ export const mainCardStyles = css`
   ${(props: {data: HighlightData}) => {
     const data = props.data;
 
-    if (!data || !data.color) {
+    if (!data?.color) {
       return null;
     }
 
-    const style = highlightStyles.find((search) => search.label === props.data.color);
-
-    if (!style) {
-      return null;
-    }
+    const style = highlightStyles.find((search) => search.label === data.color);
 
     return css`
       ::before {
@@ -137,7 +133,7 @@ export const mainCardStyles = css`
         left: 0
         bottom: 0;
         width: ${cardPadding / 2}rem;
-        background-color: ${style.focused};
+        background-color: ${style?.focused};
       }
       ${theme.breakpoints.touchDeviceQuery(css`
         ::before {
