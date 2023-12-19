@@ -348,8 +348,8 @@ test('C660045 click unit introduction page', async ({ page, isMobile }, testinfo
   await bookPage.openMHmodal()
   const Modal = new MHModal(page)
   await Modal.toggleChapterDropdown()
-  expect(await Modal.chapterDropdownText(2)).toBe(
-    '1\nThe Digital World: Building on What You Already Know to Respond Critically',
+  expect(await Modal.chapterDropdownText(1)).toBe(
+    '1 Unit Introduction',
   )
 
   // Validate total number of chapters in the chapter dropdown is 26
@@ -390,7 +390,8 @@ test('C483595 click pages on book with no units', async ({ page, isMobile }, tes
   await bookPage.openMHmodal()
   const Modal = new MHModal(page)
   await Modal.toggleChapterDropdown()
-  expect(await Modal.chapterDropdownText(1)).toBe('1\nPrerequisites')
+  console.log(await Modal.chapterDropdownText(1))
+  expect(await Modal.chapterDropdownText(1)).toBe('1\n     \n    Prerequisites')
 
   // Validate total number of chapters in the chapter dropdown is 12
   const chapterDropdownCount = await Modal.chapterDropdownCount()
@@ -432,7 +433,7 @@ test('C483594 click pages on book with units', async ({ page, isMobile }, testin
   await bookPage.openMHmodal()
   const Modal = new MHModal(page)
   await Modal.toggleChapterDropdown()
-  expect(await Modal.chapterDropdownText(1)).toBe('1\nUnits and Measurement')
+  expect(await Modal.chapterDropdownText(1)).toBe('1\n     \n    Units and Measurement')
 
   // Validate total number of chapters in the chapter dropdown is 27
   const chapterDropdownCount = await Modal.chapterDropdownCount()

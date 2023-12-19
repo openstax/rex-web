@@ -42,8 +42,8 @@ class MHModal {
   }
 
   async chapterDropdownText(n: number) {
-    //
-    const chapterName = await this.checkBoxStatus.nth(n).innerText()
+    // Chapter name listed under the chapter dropdown
+    const chapterName = await this.checkBoxStatus.nth(n).textContent()
     return chapterName
   }
 
