@@ -138,16 +138,6 @@ exports[`EditCard matches snapshot when editing 1`] = `
       Cancel
     </button>
   </div>
-  <div
-    confirmLink="/accounts/login?r=/"
-    confirmMessage="i18n:highlighting:login:link"
-    data-analytics-label="login"
-    data-analytics-region="highlighting-login"
-    drawFocus={false}
-    message="i18n:highlighting:login:prompt"
-    mock-confirmation={true}
-    onCancel={[MockFunction]}
-  />
 </form>
 `;
 
@@ -170,23 +160,6 @@ exports[`EditCard matches snapshot when focused 1`] = `
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
-  <div
-    color="yellow"
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    mock-note={true}
-    note=""
-    onChange={[Function]}
-    onFocus={[Function]}
-    textareaRef={
-      Object {
-        "current": null,
-      }
-    }
-  />
   <div
     confirmLink="/accounts/login?r=/"
     confirmMessage="i18n:highlighting:login:link"
@@ -235,16 +208,6 @@ exports[`EditCard matches snapshot with data 1`] = `
       }
     }
   />
-  <div
-    confirmLink="/accounts/login?r=/"
-    confirmMessage="i18n:highlighting:login:link"
-    data-analytics-label="login"
-    data-analytics-region="highlighting-login"
-    drawFocus={false}
-    message="i18n:highlighting:login:prompt"
-    mock-confirmation={true}
-    onCancel={[MockFunction]}
-  />
 </form>
 `;
 
@@ -267,22 +230,6 @@ exports[`EditCard matches snapshot without data 1`] = `
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
-  <div
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    mock-note={true}
-    note=""
-    onChange={[Function]}
-    onFocus={[Function]}
-    textareaRef={
-      Object {
-        "current": null,
-      }
-    }
-  />
   <div
     confirmLink="/accounts/login?r=/"
     confirmMessage="i18n:highlighting:login:link"
