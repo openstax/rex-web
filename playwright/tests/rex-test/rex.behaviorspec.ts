@@ -348,9 +348,7 @@ test('C660045 click unit introduction page', async ({ page, isMobile }, testinfo
   await bookPage.openMHmodal()
   const Modal = new MHModal(page)
   await Modal.toggleChapterDropdown()
-  expect(await Modal.chapterDropdownText(1)).toBe(
-    '1 Unit Introduction',
-  )
+  expect(await Modal.chapterDropdownText(1)).toBe('1 Unit Introduction')
 
   // Validate total number of chapters in the chapter dropdown is 26
   const chapterDropdownCount = await Modal.chapterDropdownCount()

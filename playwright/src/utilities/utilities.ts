@@ -93,6 +93,7 @@ class MobileNavigation {
       case 'MH':
         await this.page.click('[id*="mobile-menu-button"] [class*="styled__PlainButton"]')
         await this.page.click('[data-analytics-label="My highlights"]')
+        // Close the mobile help notification tooltip
         await this.page.locator('[data-testid="highlights-popup-wrapper"] button').nth(4).click()
         break
     }
@@ -106,6 +107,7 @@ class MobileNavigation {
 
       case 'MH':
         await this.page.click('[data-analytics-label="My highlights"]')
+        // Close the mobile help notification tooltip
         await this.page.locator('[data-analytics-region="Mobile MH help info"] button').click()
         break
     }
