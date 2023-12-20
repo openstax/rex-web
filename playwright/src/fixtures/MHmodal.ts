@@ -37,7 +37,8 @@ class MHModal {
       (await Toc.chapterCount()) +
       (await Toc.standalonePagesCount()) +
       (await Toc.unitIntroCount()) +
-      (await Toc.eobDropdownCount()))
+      (await Toc.eobDropdownCount())
+    )
   }
 
   async chapterDropdownText(n: number) {
