@@ -523,7 +523,7 @@ def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slu
 
     Utilities.click_option(selenium, element=book.search_sidebar.chapter_results[0])
     book.assert_search_term_is_highlighted_in_content_page(search_term)
-    sleep(3)
+
     # THEN: Entire search element is highlighted in content page
     xpath_search_block = (
         "//span[contains(@class,'search-highlight text last focus')][contains(text(),'{term}')]"
