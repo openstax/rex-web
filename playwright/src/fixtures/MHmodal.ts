@@ -33,8 +33,17 @@ class MHModal {
   async chapterDropdownCount() {
     // Total number of checkboxes in the chapter dropdown
     const Toc = new TOC(this.page)
-    const chapterDropdownCount = (await Toc.chapterCount()) + (await Toc.standalonePagesCount())
-    return chapterDropdownCount
+    return (
+      (await Toc.chapterCount()) +
+      (await Toc.standalonePagesCount()) +
+      (await Toc.unitIntroCount()) +
+      (await Toc.eobDropdownCount())
+    )
+  }
+
+  async chapterDropdownText(n: number) {
+    // Chapter name listed under the chapter dropdown
+    return await this.checkBoxStatus.nth(n).textContent()
   }
 
   async toggleChapterDropdown() {
