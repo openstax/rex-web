@@ -31,8 +31,21 @@ class TOC {
     return await chapterLocator.count()
   }
 
+  async unitIntroCount() {
+    // Total number of unit introduction pages in the book
+    const unitIntroPageLocator = this.page.locator('//li[@data-type="unit"]/details/ol[1]/li[1][@data-type="page"]')
+    return await unitIntroPageLocator.count()
+  }
+
+  async eobDropdownCount() {
+    // Total number of eob dropdowns in the book
+    const toc = this.page.locator('div[data-testid=toc]')
+    const eobDropdownLocator = toc.locator('[data-type=eob-dropdown]')
+    return await eobDropdownLocator.count()
+  }
+
   async standalonePagesCount() {
-    // Total number of pages in the book that are not contained in chapter or EOC or unit categories
+    // Total number of pages in the book that are not contained in chapter or EOB or unit categories
     const standalonepageLocator = this.page.locator('div[aria-label="Table of contents"] > ol > [data-type="page"]')
     return await standalonepageLocator.count()
   }
