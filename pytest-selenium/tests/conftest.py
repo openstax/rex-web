@@ -125,8 +125,7 @@ def chrome_options(chrome_options, pytestconfig, language):
     chrome_options.add_argument("--lang={lang}".format(lang=language))
     chrome_options.add_experimental_option("prefs", {"intl.accept_languages": language})
 
-    chrome_options.browser_version = "117"
-    # browserOpts.browser_version = "117"
+    chrome_options.driver_version = "117"
 
     return chrome_options
 
