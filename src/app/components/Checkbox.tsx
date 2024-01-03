@@ -48,6 +48,11 @@ const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props
   {children}
 </label>;
 
+const defaultFocusOutline = `
+outline: 0.1rem dotted #212121;
+outline: 0.5rem auto -webkit-focus-ring-color;
+`;
+
 export default styled(Checkbox)`
   cursor: pointer;
   display: flex;
@@ -67,6 +72,7 @@ export default styled(Checkbox)`
     &:focus-within {
       border-radius: 0.4rem;
       background-color: ${theme.color.neutral.pageBackground};
+      ${defaultFocusOutline}
 
       ${CustomCheckbox} {
         border: 1px solid ${theme.color.primary.orange.darkest};
