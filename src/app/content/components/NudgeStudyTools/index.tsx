@@ -146,6 +146,9 @@ function useTabNavigationInterceptor() {
             (exposedElements[newIndex] as HTMLElement)?.focus();
           }
         }
+        if ('key' in event && (event.key as string).startsWith('Arrow')) {
+          event.preventDefault();
+        }
       };
       document.body.addEventListener('keydown', handleTabbing);
       return () => document.body.removeEventListener('keydown', handleTabbing);

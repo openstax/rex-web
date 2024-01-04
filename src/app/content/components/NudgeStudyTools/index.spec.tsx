@@ -196,6 +196,11 @@ describe('NudgeStudyTools', () => {
 
     expect(spyFocus).toHaveBeenCalledTimes(3);
 
+    // Catch Arrow Keys
+    renderer.act(() => {
+      assertDocument().body.dispatchEvent(new KeyboardEvent('keydown', {key: 'ArrowLeft'}));
+    });
+
     // Force useEffect to remove listener
     component.update(
       <Provider store={store}>
