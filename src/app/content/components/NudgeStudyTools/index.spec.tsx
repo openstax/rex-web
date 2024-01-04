@@ -29,6 +29,8 @@ describe('NudgeStudyTools', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let services: AppServices & MiddlewareAPI;
+  // tslint:disable-next-line:variable-name
+  let Component: React.JSX.Element;
   const mockPositions = {
     arrowLeft: 1200,
     arrowTopOffset: 245,
@@ -52,6 +54,13 @@ describe('NudgeStudyTools', () => {
       dispatch: store.dispatch,
       getState: store.getState,
     };
+    Component = <Provider store={store}>
+      <Services.Provider value={services}>
+        <MessageProvider>
+          <NudgeStudyTools/>
+        </MessageProvider>
+      </Services.Provider>
+    </Provider>;
   });
 
   it('sets cookies, opens nudge and track opening for books without SG', () => {
@@ -60,13 +69,7 @@ describe('NudgeStudyTools', () => {
     const spySetCookies = jest.spyOn(utils, 'setNudgeStudyToolsCookies');
     const spyTrack = jest.spyOn(services.analytics.openNudgeStudyTools, 'track');
 
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    renderer.create(Component);
 
     runHooks(renderer);
 
@@ -87,13 +90,7 @@ describe('NudgeStudyTools', () => {
     const spySetCookies = jest.spyOn(utils, 'setNudgeStudyToolsCookies');
     const spyTrack = jest.spyOn(services.analytics.openNudgeStudyTools, 'track');
 
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    renderer.create(Component);
 
     runHooks(renderer);
 
@@ -103,13 +100,7 @@ describe('NudgeStudyTools', () => {
   });
 
   it('does not render if not open', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(Component);
 
     expect(() => component.root.findByType(NudgeWrapper)).toThrow();
   });
@@ -118,13 +109,7 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(Component);
 
     expect(() => component.root.findByType(NudgeWrapper)).toThrow();
   });
@@ -136,13 +121,7 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(utils, 'usePositions')
       .mockReturnValue(mockPositions);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(Component);
 
     expect(() => component.root.findByType(NudgeArrow)).not.toThrow();
     expect(() => component.root.findByType(NudgeCloseButton)).not.toThrow();
@@ -171,9 +150,11 @@ describe('NudgeStudyTools', () => {
     expect(() => findByTestId('nudge-text-with-sg')).not.toThrow();
   });
 
-  it('focuses on close button if tab is pressed', () => {
+  it('Restricts tab navigation', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(false);
 
     jest.spyOn(utils, 'usePositions')
       .mockReturnValue(mockPositions);
@@ -181,7 +162,7 @@ describe('NudgeStudyTools', () => {
     const spyFocus = jest.spyOn(contentWrapperElement, 'focus');
     const createNodeMock = () => contentWrapperElement;
 
-    renderer.create(
+    const component = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
@@ -207,6 +188,23 @@ describe('NudgeStudyTools', () => {
     });
 
     expect(spyFocus).toHaveBeenCalledTimes(2);
+
+    // Shift-Tab does
+    renderer.act(() => {
+      assertDocument().body.dispatchEvent(new KeyboardEvent('keydown', {key: 'Tab', shiftKey: true}));
+    });
+
+    expect(spyFocus).toHaveBeenCalledTimes(3);
+
+    // Force useEffect to remove listener
+    component.update(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+        </Services.Provider>
+      </Provider>
+    );
+
+    component.update(Component);
   });
 
   it('dispatches action on clicking close button and tests if body has overflow style set to hidden', () => {
@@ -219,13 +217,7 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(utils, 'usePositions')
       .mockReturnValue(mockPositions);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(Component);
 
     renderer.act(() => {
       expect(assertDocument().body.style.overflow).toEqual('hidden');
@@ -252,13 +244,7 @@ describe('NudgeStudyTools', () => {
     const spyFocus = jest.spyOn(contentWrapperElement, 'focus');
     const createNodeMock = () => contentWrapperElement;
 
-    renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>, { createNodeMock });
+    renderer.create(Component, { createNodeMock });
 
     runHooks(renderer);
 
@@ -273,13 +259,7 @@ describe('NudgeStudyTools', () => {
       .mockReturnValueOnce(mockPositions)
       .mockReturnValue(null);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(Component);
 
     runHooks(renderer);
 
@@ -306,13 +286,7 @@ describe('NudgeStudyTools', () => {
 
     jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(Component);
 
     expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
 
@@ -328,13 +302,7 @@ describe('NudgeStudyTools', () => {
 
     jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(Component);
 
     expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
 
@@ -351,13 +319,7 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
     const onKeySpy = jest.spyOn(reactUtils, 'onKey');
 
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider>
-          <NudgeStudyTools/>
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(Component);
 
     expect(() => component.root.findByType(NudgeContentWrapper)).not.toThrow();
 
