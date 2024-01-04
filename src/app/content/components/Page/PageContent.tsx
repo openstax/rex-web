@@ -140,6 +140,7 @@ export default styled(MainContent)`
       &.focus {
         ${SELF_AND_CHILD_MATH_SELECTOR} {
           background-color: #ff9e4b;
+          padding: 0.2rem 0;
         }
 
         .search-highlight {
