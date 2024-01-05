@@ -173,6 +173,8 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
         topbar.search_for(search_term)
         assert search_sidebar.search_results_present
 
+        Utilities.click_option(selenium, element=book.search_sidebar.chapter_results[0])
+
         # AND: Search term is focussed in the content page
         book.assert_search_term_is_highlighted_in_content_page(search_term)
 
@@ -518,6 +520,9 @@ def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slu
     book.topbar.search_for(search_term)
     sleep(0.5)
     assert search_sidebar.search_results_present
+
+    Utilities.click_option(selenium, element=book.search_sidebar.chapter_results[0])
+    book.assert_search_term_is_highlighted_in_content_page(search_term)
 
     # THEN: Entire search element is highlighted in content page
     xpath_search_block = (
