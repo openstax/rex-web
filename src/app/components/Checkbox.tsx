@@ -49,8 +49,8 @@ const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props
 </label>;
 
 const defaultFocusOutline = `
-outline: 0.1rem dotted #212121;
-outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 `;
 
 export default styled(Checkbox)`
