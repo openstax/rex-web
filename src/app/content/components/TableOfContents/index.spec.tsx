@@ -62,6 +62,7 @@ describe('TableOfContents', () => {
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(2);
   });
 
+  jest.useFakeTimers();
   it('opens and closes', () => {
     jest.spyOn(reactUtils, 'useMatchMobileQuery')
       .mockReturnValue(true);
@@ -81,6 +82,7 @@ describe('TableOfContents', () => {
       store.dispatch(actions.openToc());
     });
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
+    jest.runAllTimers();
   });
 
   it('resets toc on navigate', () => {

@@ -207,6 +207,19 @@ export class TableOfContents extends Component<SidebarProps> {
       expandCurrentChapter(this.activeSection.current);
       this.scrollToSelectedPage();
     }
+    if (this.props.isOpen && !prevProps.isOpen) {
+      const firstItemInToc = this.sidebar.current?.querySelector(
+        'ol > li a, old > li summary'
+      ) as HTMLElement;
+
+      // Something else affects focus; wait for it to pass
+      assertWindow().setTimeout(
+        () => {
+          firstItemInToc?.focus();
+        },
+        100
+      );
+    }
   }
 
   public componentWillUnmount() {
