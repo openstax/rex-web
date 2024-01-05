@@ -1949,7 +1949,7 @@ class Content(Page):
 
             _toc_toggle_button_locator = (
                 By.CSS_SELECTOR,
-                "[aria-label*='close the Table of Contents']",
+                "[aria-label*='Click to close the Table of Contents']",
             )
 
             @property
@@ -2046,6 +2046,7 @@ class Content(Page):
 
         _my_highlights_selector = "[data-testid=highlights-popup-wrapper]"
         _pop_up_wrapper_root_selector = "[class*=PopupWrapper]"
+        _mobile_menu_close_locator = (By.CSS_SELECTOR, "[aria-label*='Click to close menu']")
 
         @property
         def my_highlights_button(self) -> WebElement:
@@ -2110,6 +2111,14 @@ class Content(Page):
             """Clicks the TOC toggle button."""
             self.offscreen_click(self.toc_toggle_button)
             return self.page.sidebar.wait_for_region_to_display()
+
+        @property
+        def close_mobile_menu_button(self) -> WebElement:
+            return self.find_element(*self._mobile_menu_close_locator)
+
+        def close_mobile_menu(self):
+            """Clicks the x button in the mobile menu screen"""
+            self.offscreen_click(self.close_mobile_menu_button)
 
         def my_highlights(self) -> MyHighlights:
             """Click the My highlights toolbar button.
