@@ -477,6 +477,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
     topbar.search_for(search_term)
     book.wait_for_page_to_load()
     search_results = search_sidebar.search_results(search_term)
+    Utilities.click_option(selenium, element=book.search_sidebar.chapter_results[0])
 
     # AND: Highlight a paragraph, add a note & do not save
     paragraph = random.sample(book.content.paragraphs, 1)
@@ -549,6 +550,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_pag
     topbar.search_for(search_term)
     book.wait_for_page_to_load()
     search_results = search_sidebar.search_results(search_term)
+    Utilities.click_option(selenium, element=book.search_sidebar.chapter_results[0])
 
     # AND: Highlight a paragraph, add a note & do not save
     paragraph = random.sample(book.content.paragraphs, 1)
