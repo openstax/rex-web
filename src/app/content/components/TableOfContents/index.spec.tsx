@@ -63,6 +63,7 @@ describe('TableOfContents', () => {
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(2);
   });
 
+  jest.useFakeTimers();
   it('opens and closes', () => {
     jest.spyOn(reactUtils, 'useMatchMobileQuery')
       .mockReturnValue(true);
@@ -80,8 +81,14 @@ describe('TableOfContents', () => {
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(false);
 
+    const {root} = renderToDom(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+    const sb = root.querySelector('[data-testid="toc"]');
+
     renderer.act(() => {
       store.dispatch(actions.openToc());
+      sb?.dispatchEvent(new Event('transitionend'));
     });
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
   });
