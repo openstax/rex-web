@@ -430,7 +430,7 @@ class Content(Page):
             By.XPATH,
             "//*[contains(text(), 'Want to cite, share, or modify this book')]/a",
         )
-        _copyright_locator = (By.CSS_SELECTOR, "div > p:nth-of-type(2)")
+        _copyright_locator = (By.CSS_SELECTOR, "div > p:nth-of-type(3)")
         _section_url_locator = (By.XPATH, "//*[contains(text(), 'Section URL')]/a")
 
         @property
