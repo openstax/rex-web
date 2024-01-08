@@ -569,6 +569,7 @@ Array [
 @media screen {
   .c2 .highlight.yellow.focus {
     background-color: #fed200;
+    border-bottom: 0.2rem solid #8f7700;
   }
 
   .c2 .highlight.yellow.focus.block:after {
@@ -583,6 +584,7 @@ Array [
 @media screen {
   .c2 .highlight.green.focus {
     background-color: #92d101;
+    border-bottom: 0.2rem solid #4e6f01;
   }
 
   .c2 .highlight.green.focus.block:after {
@@ -597,6 +599,7 @@ Array [
 @media screen {
   .c2 .highlight.blue.focus {
     background-color: #00c3ed;
+    border-bottom: 0.2rem solid #006880;
   }
 
   .c2 .highlight.blue.focus.block:after {
@@ -611,6 +614,7 @@ Array [
 @media screen {
   .c2 .highlight.purple.focus {
     background-color: #545ec8;
+    border-bottom: 0.2rem solid #141a3e;
     color: #fff;
   }
 
@@ -626,6 +630,7 @@ Array [
 @media screen {
   .c2 .highlight.pink.focus {
     background-color: #de017e;
+    border-bottom: 0.2rem solid #560131;
     color: #fff;
   }
 

@@ -14,12 +14,42 @@ export const modalQueryParameterName = 'modal';
 export const colorFilterQueryParameterName = 'colors';
 export const locationIdsFilterQueryParameterName = 'locationIds';
 
-export const highlightStyles: Array<{label: HighlightColorEnum, passive: string, focused: string}> = [
-  {label: HighlightColorEnum.Yellow, passive: '#ffff8a', focused: '#fed200'},
-  {label: HighlightColorEnum.Green, passive: '#def99f', focused: '#92d101'},
-  {label: HighlightColorEnum.Blue, passive: '#c8f5ff', focused: '#00c3ed'},
-  {label: HighlightColorEnum.Purple, passive: '#cbcfff', focused: '#545ec8'},
-  {label: HighlightColorEnum.Pink, passive: '#ffc5e1', focused: '#de017e'},
+export const highlightStyles: Array<{
+  label: HighlightColorEnum;
+  passive: string;
+  focused: string;
+  focusBorder: string;
+}> = [
+  {
+    label: HighlightColorEnum.Yellow,
+    passive: '#ffff8a',
+    focused: '#fed200',
+    focusBorder: '#8f7700',
+  },
+  {
+    label: HighlightColorEnum.Green,
+    passive: '#def99f',
+    focused: '#92d101',
+    focusBorder: '#4e6f01',
+  },
+  {
+    label: HighlightColorEnum.Blue,
+    passive: '#c8f5ff',
+    focused: '#00c3ed',
+    focusBorder: '#006880',
+  },
+  {
+    label: HighlightColorEnum.Purple,
+    passive: '#cbcfff',
+    focused: '#545ec8',
+    focusBorder: '#141a3e',
+  },
+  {
+    label: HighlightColorEnum.Pink,
+    passive: '#ffc5e1',
+    focused: '#de017e',
+    focusBorder: '#560131',
+  },
 ];
 
 export type TextResizerValue = -2 | -1 | 0 | 1 | 2 | 3;
