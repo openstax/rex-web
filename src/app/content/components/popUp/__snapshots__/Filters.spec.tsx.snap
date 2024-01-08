@@ -1061,26 +1061,31 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         styles={
           Array [
             Object {
+              "focusBorder": "#8f7700",
               "focused": "#fed200",
               "label": "yellow",
               "passive": "#ffff8a",
             },
             Object {
+              "focusBorder": "#4e6f01",
               "focused": "#92d101",
               "label": "green",
               "passive": "#def99f",
             },
             Object {
+              "focusBorder": "#006880",
               "focused": "#00c3ed",
               "label": "blue",
               "passive": "#c8f5ff",
             },
             Object {
+              "focusBorder": "#141a3e",
               "focused": "#545ec8",
               "label": "purple",
               "passive": "#cbcfff",
             },
             Object {
+              "focusBorder": "#560131",
               "focused": "#de017e",
               "label": "pink",
               "passive": "#ffc5e1",
