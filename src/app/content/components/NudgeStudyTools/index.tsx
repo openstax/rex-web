@@ -32,6 +32,7 @@ import {
   useIncrementPageCounter,
   usePositions,
 } from './utils';
+import { nudgeStudyToolsTargetId } from './constants';
 
 // tslint:disable-next-line: variable-name
 const NudgeStudyTools = ({
@@ -119,19 +120,40 @@ const NudgeStudyTools = ({
 
 function useTabNavigationInterceptor() {
   const ref = React.useRef<HTMLElement>();
+  const isMobile = useMatchMobileMediumQuery();
 
   React.useEffect(
     () => {
-      const abortTabbing = (event: Event) => {
+      if (isMobile) {
+        return;
+      }
+      const document = assertDocument();
+      const exposedElements: (Element | null | undefined)[] = [
+        ref.current,
+        ...Array.from(document.querySelectorAll(`#${nudgeStudyToolsTargetId} > button`)),
+      ];
+      const handleTabbing = (event: Event) => {
         if ('key' in event && event.key === 'Tab') {
           event.preventDefault();
-          ref.current?.focus();
+          const focusIndex = exposedElements.indexOf(document.activeElement);
+          if ('shiftKey' in event && event.shiftKey) {
+            const newIndex = (focusIndex + exposedElements.length - 1) % exposedElements.length;
+
+            (exposedElements[newIndex] as HTMLElement)?.focus();
+          } else {
+            const newIndex = (focusIndex + 1) % exposedElements.length;
+
+            (exposedElements[newIndex] as HTMLElement)?.focus();
+          }
+        }
+        if ('key' in event && (event.key as string).startsWith('Arrow')) {
+          event.preventDefault();
         }
       };
-      document?.body.addEventListener('keydown', abortTabbing);
-      return () => document?.body.removeEventListener('keydown', abortTabbing);
+      document.body.addEventListener('keydown', handleTabbing);
+      return () => document.body.removeEventListener('keydown', handleTabbing);
     },
-    []
+    [isMobile]
   );
 
   return ref;
