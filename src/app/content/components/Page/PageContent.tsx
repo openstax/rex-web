@@ -111,6 +111,7 @@ export default styled(MainContent)`
       @media screen {
         &.focus {
           background-color: ${style.focused};
+          border-bottom: 0.2rem solid ${style.focusBorder};
 
           ${Color(style.focused).isDark() && css`
             color: ${theme.color.text.white};
