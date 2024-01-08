@@ -85,6 +85,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
     className="c4 c5"
     style={
       Object {
+        "focusBorder": "#8f7700",
         "focused": "#fed200",
         "label": "yellow",
         "passive": "#ffff8a",
@@ -168,6 +169,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
     className="c4 c5"
     style={
       Object {
+        "focusBorder": "#8f7700",
         "focused": "#fed200",
         "label": "yellow",
         "passive": "#ffff8a",
