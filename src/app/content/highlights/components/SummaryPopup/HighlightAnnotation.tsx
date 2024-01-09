@@ -14,7 +14,7 @@ const HighlightNote = styled.div`
   display: flex;
   gap: 1rem;
   flex-flow: wrap;
-  align-items: center;
+  align-items: start;
 
   span {
     margin: 0 0.8rem 0 0;
