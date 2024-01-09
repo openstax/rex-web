@@ -248,6 +248,7 @@ describe('Highlights', () => {
     let [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
     expect(firstAnnotation.props.isEditing).toEqual(false);
 
+    // Test saving note
     renderer.act(() => {
       const [firstContextMenu] = component.root.findAllByType(ContextMenu);
       firstContextMenu.props.onEdit();
@@ -274,6 +275,56 @@ describe('Highlights', () => {
       },
     }));
 
+    // Test saving empty note
+    renderer.act(() => {
+      const [firstContextMenu] = component.root.findAllByType(ContextMenu);
+      firstContextMenu.props.onEdit();
+    });
+
+    [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
+    expect(firstAnnotation.props.isEditing).toEqual(true);
+
+    renderer.act(() => {
+      firstAnnotation.props.onSave('');
+    });
+
+    const confirmButton = component.root.findByProps({ 'data-testid': 'delete' });
+
+    renderer.act(() => confirmButton.props.onClick({preventDefault: () => null}));
+    expect(dispatch).toHaveBeenCalled();
+    expect(firstAnnotation.props.isEditing).toEqual(false);
+
+    // Test delete/cancel via context menu
+    renderer.act(() => {
+      const [firstContextMenu] = component.root.findAllByType(ContextMenu);
+      firstContextMenu.props.onDelete();
+    });
+    renderer.act(() => {
+      const hdw = component.root.findByType(HighlightDeleteWrapper);
+      hdw.props.onCancel();
+    });
+
+    // Test cancelling save of empty note
+    renderer.act(() => {
+      const [firstContextMenu] = component.root.findAllByType(ContextMenu);
+      firstContextMenu.props.onEdit();
+    });
+
+    [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
+    expect(firstAnnotation.props.isEditing).toEqual(true);
+
+    renderer.act(() => {
+      firstAnnotation.props.onSave('');
+    });
+
+    renderer.act(() => {
+      const hdw = component.root.findByType(HighlightDeleteWrapper);
+      hdw.props.onCancel();
+    });
+
+    expect(firstAnnotation.props.isEditing).toEqual(false);
+
+    // Test cancelling save
     renderer.act(() => {
       const [firstContextMenu] = component.root.findAllByType(ContextMenu);
       firstContextMenu.props.onEdit();
@@ -369,17 +420,20 @@ describe('Highlights', () => {
     </TestContainer>);
 
     renderer.act(() => {
-      const [firstContextMenu, secondContextMenu] = component.root.findAllByType(ContextMenu);
-      firstContextMenu.props.onDelete();
-      secondContextMenu.props.onDelete();
+      const contextMenus = component.root.findAllByType(ContextMenu);
+      for (const cm of contextMenus) {
+        cm.props.onDelete();
+      }
     });
 
-    expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(2);
+    expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(6);
 
     renderer.act(() => {
-      const [firstDeleteWrapper, secondDeleteWrapper] = component.root.findAllByType(HighlightDeleteWrapper);
+      const [firstDeleteWrapper, ...rest] = component.root.findAllByType(HighlightDeleteWrapper);
       firstDeleteWrapper.props.onDelete();
-      secondDeleteWrapper.props.onCancel();
+      for (const dw of rest) {
+        dw.props.onCancel();
+      }
 
       requestDeleteHighlightHook.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
         requestDeleteHighlight(hlBlue as HighlightData, {
