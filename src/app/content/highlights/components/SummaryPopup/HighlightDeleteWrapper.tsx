@@ -30,14 +30,14 @@ const StyledHighlightDeleteWrapper = styled.div`
 `;
 
 interface HighlightDeleteWrapperProps {
-  hasAnnotation?: boolean;
+  deletingWhat?: 'note' | 'highlight' | 'both';
   onCancel: () => void;
   onDelete: () => void;
 }
 
 // tslint:disable-next-line:variable-name
 const HighlightDeleteWrapper = ({
-  hasAnnotation,
+  deletingWhat = 'highlight',
   onDelete,
   onCancel,
 }: HighlightDeleteWrapperProps) => <StyledHighlightDeleteWrapper
@@ -46,9 +46,11 @@ const HighlightDeleteWrapper = ({
   ref={useDrawFocus()}
 >
   <FormattedMessage
-    id={hasAnnotation
+    id={deletingWhat === 'both'
       ? 'i18n:highlighting:confirmation:delete-both'
-      : 'i18n:highlighting:confirmation:delete-highlight'}
+      : deletingWhat === 'highlight' ? 'i18n:highlighting:confirmation:delete-highlight'
+      : 'i18n:highlighting:confirmation:delete-note'
+    }
   >
     {(msg) => <span>{msg}</span>}
   </FormattedMessage>

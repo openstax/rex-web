@@ -76,6 +76,7 @@ interface HighlightListElementProps {
 const HighlightListElement = ({ highlight, locationFilterId, pageId }: HighlightListElementProps) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const [confirming, setConfirming] = React.useState(false);
   const book = useSelector(bookSelector);
   const dispatch = useDispatch();
   const linkToHighlight = useCreateHighlightLink(highlight, book);
@@ -84,28 +85,36 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
 
-  const updateAnnotation = (
-    annotation: string
-  ) => {
-    const addedNote = (highlight.annotation === undefined);
+  const updateAnnotation = React.useCallback(
+    (
+      annotation: string
+    ) => {
+      const addedNote = (highlight.annotation === undefined);
 
-    dispatch(updateHighlight({
-      highlight: {annotation},
-      id: highlight.id,
-    }, {
-      locationFilterId,
-      pageId,
-      preUpdateData: {
-        highlight: {
-          annotation: highlight.annotation,
-          color: highlight.color as string as HighlightUpdateColorEnum,
-        },
+      if (annotation === '' && !addedNote && confirming === false) {
+        setConfirming(true);
+        return;
+      }
+      dispatch(updateHighlight({
+        highlight: {annotation},
         id: highlight.id,
-      },
-    }));
-    trackEditAnnotation(addedNote, highlight.color, true);
-    setIsEditing(false);
-  };
+      }, {
+        locationFilterId,
+        pageId,
+        preUpdateData: {
+          highlight: {
+            annotation: highlight.annotation,
+            color: highlight.color as string as HighlightUpdateColorEnum,
+          },
+          id: highlight.id,
+        },
+      }));
+      trackEditAnnotation(addedNote, highlight.color, true);
+      setIsEditing(false);
+      setConfirming(false);
+    },
+    [dispatch, highlight, locationFilterId, pageId, trackEditAnnotation, confirming]
+  );
 
   const updateColor = (color: HighlightColorEnum) => {
     dispatch(updateHighlight({
@@ -153,9 +162,20 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
         onSave={updateAnnotation}
         onCancel={() => setIsEditing(false)}
       />
+      {
+        confirming === true &&
+        <HighlightDeleteWrapper
+        deletingWhat='note'
+        onCancel={() => {
+          setConfirming(false);
+          setIsEditing(false);
+        }}
+        onDelete={() => updateAnnotation('')}
+      />
+      }
     </HighlightContentWrapper>
     {isDeleting && <HighlightDeleteWrapper
-      hasAnnotation={Boolean(highlight.annotation)}
+      deletingWhat={Boolean(highlight.annotation) ? 'both' : 'highlight'}
       onCancel={() => setIsDeleting(false)}
       onDelete={confirmDelete}
     />}
