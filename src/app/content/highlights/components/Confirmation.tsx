@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
-import { useDrawFocus } from '../../../reactUtils';
+import { useDrawFocus, useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
 import { cardPadding } from '../constants';
@@ -54,6 +54,9 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
   ref
 ) => {
   const drawFocusRef = useDrawFocus();
+
+  useTrapTabNavigation(drawFocusRef);
+
   return <Overlay
     ref={mergeRefs(ref, drawFocus ? drawFocusRef : null)}
     tabIndex={-1}
