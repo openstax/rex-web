@@ -69,6 +69,8 @@ input:checked + .c21 .c22 {
 .c19:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c19:focus-within .c20 {

@@ -14,10 +14,10 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
   -webkit-flex-flow: wrap;
   -ms-flex-flow: wrap;
   flex-flow: wrap;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
 }
 
 .c0 span {
@@ -155,10 +155,10 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   -webkit-flex-flow: wrap;
   -ms-flex-flow: wrap;
   flex-flow: wrap;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: start;
 }
 
 .c0 span {
