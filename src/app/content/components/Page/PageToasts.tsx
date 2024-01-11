@@ -16,7 +16,6 @@ import theme from '../../../theme';
 import { mobileToolbarOpen as mobileToolbarOpenSelector } from '../../search/selectors';
 import { contentWrapperAndNavWidthBreakpoint, contentWrapperWidthBreakpoint } from '../ContentPane';
 import { ToastProps } from '../../../notifications/components/ToastNotifications/Toast';
-import { HTMLElement } from '@openstax/types/lib.dom';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
@@ -62,19 +61,9 @@ export const ToastContainerWrapper = styled.div`
 const PageToasts = (props: ToastProps | {}) => {
   const toasts = useSelector(groupedToastNotifications).page;
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
-  const ref = React.useRef<HTMLElement | null>(null);
-
-  React.useEffect(
-    () => {
-      if (toasts && ref.current) {
-        ref.current.querySelector('button')?.focus();
-      }
-    },
-    [toasts]
-  );
 
   return (
-    <ToastContainerWrapper ref={ref} role='alert' {...props} mobileToolbarOpen={mobileToolbarOpen}>
+    <ToastContainerWrapper role='alert' {...props} mobileToolbarOpen={mobileToolbarOpen}>
       {toasts ? <ToastNotifications toasts={toasts} /> : null}
     </ToastContainerWrapper>
   );
