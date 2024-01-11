@@ -1,9 +1,10 @@
-import { HTMLElement, MediaQueryList } from '@openstax/types/lib.dom';
+import type { HTMLElement, KeyboardEvent, MediaQueryList } from '@openstax/types/lib.dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { resetModules, runHooks } from '../test/utils';
 import * as utils from './reactUtils';
 import { assertDocument, assertWindow } from './utils';
+import { dispatchKeyDownEvent } from '../test/reactutils';
 
 describe('onFocusInOrOutHandler focusout', () => {
   let ref: React.RefObject<HTMLElement>;
@@ -241,6 +242,90 @@ describe('useOnDOMEvent', () => {
       expect(removeEventListener).toBeDefined();
     });
   });
+});
+
+describe('useTrapTabNavigation', () => {
+  let window;
+  let addEventListener: jest.SpyInstance;
+
+  beforeEach(() => {
+    window = assertWindow();
+
+    addEventListener = jest.spyOn(window.document, 'addEventListener');
+  });
+
+  function Component() {
+    const ref = React.useRef<HTMLElement | null>(null);
+    utils.useTrapTabNavigation(ref);
+
+    return <div />;
+  }
+
+  it('short circuits if no ref element', () => {
+    renderer.create(<Component />);
+    expect(addEventListener).not.toHaveBeenCalled();
+  });
+  it('attaches listeners', () => {
+    const tr = renderer.create(<Component />);
+
+    expect(addEventListener).toHaveBeenCalled();
+    renderer.act(
+      () => {
+        dispatchKeyDownEvent({key: 'Tab'});
+      }
+    );
+    tr.unmount();
+  });
+});
+
+describe('createTrapTab', () => {
+  let trapTab: ReturnType<typeof utils.createTrapTab>;
+  let querySelectorAll: ReturnType<typeof jest.spyOn>;
+  const htmlElement = assertDocument().createElement('div');
+  const preventDefault = jest.fn();
+  const d = assertDocument().createElement('div');
+  const b = assertDocument().createElement('button');
+  const i = assertDocument().createElement('input');
+
+  beforeEach(() => {
+    const ref: React.MutableRefObject<HTMLElement> = {
+      current: htmlElement,
+    };
+
+    querySelectorAll = jest.spyOn(ref.current!, 'querySelectorAll');
+    trapTab = utils.createTrapTab(ref);
+  });
+  it('ignores non_Tab events', () => {
+    trapTab({key: 'a'} as KeyboardEvent);
+    expect(querySelectorAll).not.toHaveBeenCalled();
+  });
+  it('handles Tab, no focusable elements', () => {
+    trapTab({key: 'Tab'} as KeyboardEvent);
+    expect(querySelectorAll).toHaveBeenCalledTimes(1);
+  });
+  it('tabs forward (wrap around)', () => {
+    b.focus = jest.fn();
+    htmlElement.appendChild(d); // not focusable
+    htmlElement.appendChild(b);
+    htmlElement.appendChild(i);
+    Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
+    trapTab({key: 'Tab', preventDefault} as unknown as KeyboardEvent);
+    expect(b.focus).toHaveBeenCalled();
+    expect(preventDefault).toHaveBeenCalled();
+  });
+  it('tabs backward (wrap around)', () => {
+    i.focus = jest.fn();
+    Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
+    preventDefault.mockClear();
+    trapTab({key: 'Tab', shiftKey: true, preventDefault} as unknown as KeyboardEvent);
+    expect(i.focus).toHaveBeenCalled();
+    expect(preventDefault).toHaveBeenCalled();
+   });
+   it('tabs normally otherwise', () => {
+    preventDefault.mockClear();
+    trapTab({key: 'Tab', preventDefault} as unknown as KeyboardEvent);
+    expect(preventDefault).not.toHaveBeenCalled();
+   });
 });
 
 describe('onKeyHandler', () => {
