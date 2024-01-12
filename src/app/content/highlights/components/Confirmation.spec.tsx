@@ -30,6 +30,26 @@ describe('Confirmation', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
 
+  function Component({
+    onCancel = () => null,
+    ...otherProps
+  }) {
+    return (
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider locale='en' messages={messages}>
+            <Confirmation
+              message='message'
+              confirmMessage='confirm'
+              onCancel={onCancel}
+              {...otherProps}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+  }
+
   beforeEach(() => {
     store = createTestStore();
     services = {
@@ -40,19 +60,9 @@ describe('Confirmation', () => {
   });
 
   it('matches snapshot no selection', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider locale='en' messages={messages}>
-          <Confirmation
-            message='message'
-            data-analytics-region='region'
-            confirmMessage='confirm'
-            onConfirm={() => null}
-            onCancel={() => null}
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(
+      <Component data-analytics-region='region' onConfirm={() => null} />
+    );
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -81,17 +91,9 @@ describe('Confirmation', () => {
   });
 
   it('prevents default when clicking cancel button', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider locale='en' messages={messages}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onCancel={() => null}
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(
+      <Component />
+    );
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('cancel');
@@ -103,18 +105,9 @@ describe('Confirmation', () => {
   });
 
   it('doesn\'t prevent default when clicking confirm link', () => {
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider locale='en' messages={messages}>
-          <Confirmation
-            confirmLink='/asdf'
-            message='message'
-            confirmMessage='confirm'
-            onCancel={() => null}
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(
+      <Component confirmLink='/asdf' />
+    );
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('confirm');
@@ -127,18 +120,9 @@ describe('Confirmation', () => {
 
   it('calls onConfirm', () => {
     const onConfirm = jest.fn();
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider locale='en' messages={messages}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onConfirm={onConfirm}
-            onCancel={() => null}
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(
+      <Component onConfirm={onConfirm} />
+    );
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('confirm');
@@ -149,18 +133,9 @@ describe('Confirmation', () => {
 
   it('calls onCancel', () => {
     const onCancel = jest.fn();
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider locale='en' messages={messages}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onConfirm={() => null}
-            onCancel={onCancel}
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(
+      <Component onCancel={onCancel} />
+    );
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('cancel');
@@ -171,18 +146,9 @@ describe('Confirmation', () => {
 
   it('calls always', () => {
     const always = jest.fn();
-    const component = renderer.create(<Provider store={store}>
-      <Services.Provider value={services}>
-        <MessageProvider locale='en' messages={messages}>
-          <Confirmation
-            message='message'
-            confirmMessage='confirm'
-            onCancel={() => null}
-            always={always}
-          />
-        </MessageProvider>
-      </Services.Provider>
-    </Provider>);
+    const component = renderer.create(
+      <Component always={always} />
+    );
 
     const findByTestId = makeFindByTestId(component.root);
     findByTestId('confirm').props.onClick({preventDefault: jest.fn()});

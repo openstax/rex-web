@@ -18,6 +18,45 @@ export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   return ref;
 };
 
+// Exported to allow testing
+export function createTrapTab(ref: React.MutableRefObject<HTMLElement | null>) {
+  return (event: KeyboardEvent) => {
+    if (event.key !== 'Tab') { return; }
+
+    const el = ref.current;
+    if (!el) { return; }
+
+    const focusableItemQuery =
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusableElements = el.querySelectorAll<HTMLElement>(focusableItemQuery);
+
+    if (focusableElements.length === 0) { return; }
+    const firstFocusableElement = focusableElements[0];
+    const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document?.activeElement === firstFocusableElement) {
+      lastFocusableElement.focus();
+      event.preventDefault();
+    } else if (document?.activeElement === lastFocusableElement) {
+      firstFocusableElement.focus();
+      event.preventDefault();
+    }
+  };
+}
+
+export function useTrapTabNavigation(ref: React.MutableRefObject<HTMLElement | null>) {
+  React.useEffect(
+    () => {
+      const trapTab = createTrapTab(ref);
+
+      document?.addEventListener('keydown', trapTab, true);
+
+      return () => document?.removeEventListener('keydown', trapTab, true);
+    },
+    [ref]
+  );
+}
+
 export const onFocusInOrOutHandler = (
   ref: React.RefObject<HTMLElement>,
   isEnabled: boolean,
