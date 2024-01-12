@@ -13,6 +13,7 @@ import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
+import * as reactUtils from '../../../reactUtils';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -63,6 +64,8 @@ describe('TableOfContents', () => {
   });
 
   it('opens and closes', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
     const component = renderer.create(<TestContainer store={store}>
       <ConnectedTableOfContents />
     </TestContainer>);

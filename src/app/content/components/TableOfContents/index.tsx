@@ -1,5 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import React, { Component } from 'react';
+import React, { Component, MutableRefObject } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { AppState, Dispatch } from '../../../types';
@@ -15,6 +15,7 @@ import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../S
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
+import { createTrapTab, useMatchMobileMediumQuery } from '../../../reactUtils';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -23,28 +24,160 @@ interface SidebarProps {
   page?: Page;
 }
 
+function TabTrapper({
+  mRef,
+  isTocOpen,
+}: {
+  mRef: MutableRefObject<HTMLElement>;
+  isTocOpen: boolean;
+}) {
+  const isMobile = useMatchMobileMediumQuery();
+
+  React.useEffect(() => {
+    if (!isMobile) {
+      return;
+    }
+    const listener = createTrapTab(mRef);
+
+    if (isTocOpen) {
+      document?.addEventListener('keydown', listener, true);
+    } else {
+      document?.removeEventListener('keydown', listener, true);
+    }
+
+    return () => document?.removeEventListener('keydown', listener, true);
+  }, [mRef, isTocOpen, isMobile]);
+
+  return null;
+}
+
 // tslint:disable-next-line:variable-name
-const SidebarBody = React.forwardRef<HTMLElement, React.ComponentProps<typeof SidebarPaneBody>>(
-  (props, ref) => <SidebarPaneBody
-    ref={ref}
-    data-testid='toc'
-    aria-label={useIntl().formatMessage({id: 'i18n:toc:title'})}
-    data-analytics-region='toc'
-    {...props}
-  />
-);
+const SidebarBody = React.forwardRef<
+  HTMLElement,
+  React.ComponentProps<typeof SidebarPaneBody>
+>((props, ref) => {
+  return (
+    <React.Fragment>
+      {typeof window !== 'undefined' && (
+        <TabTrapper
+          mRef={ref as MutableRefObject<HTMLElement>}
+          isTocOpen={props.isTocOpen}
+        />
+      )}
+      <SidebarPaneBody
+        ref={ref}
+        data-testid='toc'
+        aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
+        data-analytics-region='toc'
+        {...props}
+      />
+    </React.Fragment>
+  );
+});
+
+function TocHeader() {
+  return (
+    <Header data-testid='tocheader'>
+      <TOCBackButton><LeftArrow /></TOCBackButton>
+      <FormattedMessage id='i18n:toc:title'>
+        {(msg) => <HeaderText>{msg}</HeaderText>}
+      </FormattedMessage>
+      <CloseToCAndMobileMenuButton />
+      <TOCCloseButton><TimesIcon /></TOCCloseButton>
+    </Header>
+  );
+}
+
+function TocNode({
+  defaultOpen,
+  title,
+  children,
+}: React.PropsWithChildren<{ defaultOpen: boolean; title: string }>) {
+  return (
+    <Styled.NavDetails {...(defaultOpen ? {defaultOpen} : {})}>
+      <Styled.Summary>
+        <Styled.SummaryWrapper>
+          <Styled.ExpandIcon/>
+          <Styled.CollapseIcon/>
+          <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: title}}/>
+        </Styled.SummaryWrapper>
+      </Styled.Summary>
+        {children}
+    </Styled.NavDetails>
+  );
+}
+
+function TocSection({
+  book,
+  page,
+  section,
+  activeSection,
+  onNavigate,
+}: {
+  book: Book | undefined;
+  page: Page | undefined;
+  section: ArchiveTree;
+  activeSection: React.RefObject<HTMLElement>;
+  onNavigate: () => void;
+}) {
+  return (
+    <Styled.NavOl section={section}>
+      {linkContents(section).map((item) => {
+        const sectionType = getArchiveTreeSectionType(item);
+        const active = page && stripIdVersion(item.id) === page.id;
+
+        return isArchiveTree(item)
+        ? <Styled.NavItem key={item.id} sectionType={sectionType}>
+            <TocNode defaultOpen={shouldBeOpen(page, item)} title={item.title}>
+                <TocSection
+                  book={book} page={page} section={item} activeSection={activeSection}
+                  onNavigate={onNavigate}
+                />
+            </TocNode>
+          </Styled.NavItem>
+        : <Styled.NavItem
+          key={item.id}
+          sectionType={sectionType}
+          ref={active ? activeSection : null}
+          active={active}
+        >
+          <Styled.ContentLink
+            onClick={onNavigate}
+            book={book}
+            page={item}
+            dangerouslySetInnerHTML={{__html: item.title}}
+          />
+        </Styled.NavItem>;
+      })}
+    </Styled.NavOl>
+  );
+}
+
+function shouldBeOpen(page: Page | undefined, node: ArchiveTree) {
+  return Boolean(page && archiveTreeContainsNode(node, page.id));
+}
 
 export class TableOfContents extends Component<SidebarProps> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
 
   public render() {
-    const {isOpen, book} = this.props;
+    const { isOpen, book } = this.props;
 
-    return <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
-      {this.renderTocHeader()}
-      {book && this.renderToc(book)}
-    </SidebarBody>;
+    return (
+      <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
+        <TocHeader />
+        {book && (
+          <TocSection
+            book={book}
+            page={this.props.page}
+            section={book.tree}
+            activeSection={this.activeSection}
+            onNavigate={this.props.onNavigate}
+          />
+        )}
+      </SidebarBody>
+    );
   }
 
   public componentDidMount() {
@@ -75,61 +208,6 @@ export class TableOfContents extends Component<SidebarProps> {
   private scrollToSelectedPage() {
     scrollSidebarSectionIntoView(this.sidebar.current, this.activeSection.current);
   }
-
-  private renderChildren = (book: Book, section: ArchiveTree) =>
-    <Styled.NavOl section={section}>
-      {linkContents(section).map((item) => {
-        const sectionType = getArchiveTreeSectionType(item);
-        const active = this.props.page && stripIdVersion(item.id) === this.props.page.id;
-
-        return isArchiveTree(item)
-        ? <Styled.NavItem key={item.id} sectionType={sectionType}>
-            {this.renderTocNode(book, item)}
-          </Styled.NavItem>
-        : <Styled.NavItem
-          key={item.id}
-          sectionType={sectionType}
-          ref={active ? this.activeSection : null}
-          active={active}
-        >
-          <Styled.ContentLink
-            onClick={this.props.onNavigate}
-            book={book}
-            page={item}
-            dangerouslySetInnerHTML={{__html: item.title}}
-          />
-        </Styled.NavItem>;
-      })}
-    </Styled.NavOl>;
-
-  private renderTocNode = (book: Book, node: ArchiveTree) => <Styled.NavDetails
-    {...this.props.page && archiveTreeContainsNode(node, this.props.page.id)
-        ? {defaultOpen: true}
-        : {}
-    }
-  >
-    <Styled.Summary>
-      <Styled.SummaryWrapper>
-        <Styled.ExpandIcon/>
-        <Styled.CollapseIcon/>
-        <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: node.title}}/>
-      </Styled.SummaryWrapper>
-    </Styled.Summary>
-    {this.renderChildren(book, node)}
-  </Styled.NavDetails>;
-
-  private renderTocHeader = () => {
-    return <Header data-testid='tocheader'>
-      <TOCBackButton><LeftArrow /></TOCBackButton>
-      <FormattedMessage id='i18n:toc:title'>
-        {(msg) => <HeaderText>{msg}</HeaderText>}
-      </FormattedMessage>
-      <CloseToCAndMobileMenuButton />
-      <TOCCloseButton><TimesIcon /></TOCCloseButton>
-    </Header>;
-  };
-
-  private renderToc = (book: Book) => this.renderChildren(book, book.tree);
 }
 
 export default connect(
