@@ -2210,6 +2210,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.yellow.focus {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
+    padding: 0.2rem 0 0;
   }
 
   .c77 .highlight.yellow.focus.block:after {
@@ -2225,6 +2226,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.green.focus {
     background-color: #92d101;
     border-bottom: 0.2rem solid #4e6f01;
+    padding: 0.2rem 0 0;
   }
 
   .c77 .highlight.green.focus.block:after {
@@ -2240,6 +2242,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.blue.focus {
     background-color: #00c3ed;
     border-bottom: 0.2rem solid #006880;
+    padding: 0.2rem 0 0;
   }
 
   .c77 .highlight.blue.focus.block:after {
@@ -2255,6 +2258,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.purple.focus {
     background-color: #545ec8;
     border-bottom: 0.2rem solid #141a3e;
+    padding: 0.2rem 0 0;
     color: #fff;
   }
 
@@ -2271,6 +2275,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.pink.focus {
     background-color: #de017e;
     border-bottom: 0.2rem solid #560131;
+    padding: 0.2rem 0 0;
     color: #fff;
   }
 
@@ -2296,6 +2301,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .search-highlight.focus,
   .c77 .search-highlight.focus .math {
     background-color: #ff9e4b;
+    padding: 0.2rem 0;
   }
 
   .c77 .search-highlight.focus .search-highlight {
@@ -6713,6 +6719,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.yellow.focus {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
+    padding: 0.2rem 0 0;
   }
 
   .c77 .highlight.yellow.focus.block:after {
@@ -6728,6 +6735,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.green.focus {
     background-color: #92d101;
     border-bottom: 0.2rem solid #4e6f01;
+    padding: 0.2rem 0 0;
   }
 
   .c77 .highlight.green.focus.block:after {
@@ -6743,6 +6751,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.blue.focus {
     background-color: #00c3ed;
     border-bottom: 0.2rem solid #006880;
+    padding: 0.2rem 0 0;
   }
 
   .c77 .highlight.blue.focus.block:after {
@@ -6758,6 +6767,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.purple.focus {
     background-color: #545ec8;
     border-bottom: 0.2rem solid #141a3e;
+    padding: 0.2rem 0 0;
     color: #fff;
   }
 
@@ -6774,6 +6784,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .highlight.pink.focus {
     background-color: #de017e;
     border-bottom: 0.2rem solid #560131;
+    padding: 0.2rem 0 0;
     color: #fff;
   }
 
@@ -6799,6 +6810,7 @@ li[aria-label="Current Page"] .c60 {
   .c77 .search-highlight.focus,
   .c77 .search-highlight.focus .math {
     background-color: #ff9e4b;
+    padding: 0.2rem 0;
   }
 
   .c77 .search-highlight.focus .search-highlight {

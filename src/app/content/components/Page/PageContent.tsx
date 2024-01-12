@@ -112,6 +112,7 @@ export default styled(MainContent)`
         &.focus {
           background-color: ${style.focused};
           border-bottom: 0.2rem solid ${style.focusBorder};
+          padding: 0.2rem 0 0;
 
           ${Color(style.focused).isDark() && css`
             color: ${theme.color.text.white};
@@ -140,6 +141,7 @@ export default styled(MainContent)`
       &.focus {
         ${SELF_AND_CHILD_MATH_SELECTOR} {
           background-color: #ff9e4b;
+          padding: 0.2rem 0;
         }
 
         .search-highlight {
