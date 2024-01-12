@@ -71,7 +71,13 @@ const selectResult = (services: Services, previous: HighlightProp | null, curren
 
   if (firstSelectedHighlight) {
     allImagesLoaded(services.container).then(
-      () => scrollTo(firstSelectedHighlight.elements[0] as HTMLElement)
+      () => {
+        const target = firstSelectedHighlight.elements[0] as HTMLElement;
+        const container = target.closest('[tabindex]') as HTMLElement;
+
+        scrollTo(target);
+        container?.focus();
+      }
     );
   }
 
