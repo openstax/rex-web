@@ -16,6 +16,7 @@ import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery } from '../../../reactUtils';
+import { assertWindow } from '../../../utils';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -64,7 +65,6 @@ const SidebarBody = React.forwardRef<
   HTMLElement,
   React.ComponentProps<typeof SidebarPaneBody>
 >((props, ref) => {
-
   return (
     <React.Fragment>
       {typeof window !== 'undefined' && (
