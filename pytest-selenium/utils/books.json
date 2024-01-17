@@ -44,7 +44,7 @@
     "astronomy-2e": {
         "default_page": "1-introduction",
         "search_term": "(AU)",
-        "chapter_search_results_total": 75,
+        "chapter_search_results_total": 76,
         "rkt_search_results_total": 1
     },
     "biology-2e": {
@@ -236,7 +236,7 @@
     "precalculus-2e": {
         "default_page": "1-introduction-to-functions",
         "search_term": "one-to-one function",
-        "chapter_search_results_total": 409,
+        "chapter_search_results_total": 404,
         "rkt_search_results_total": 3
     },
     "prealgebra-2e": {
