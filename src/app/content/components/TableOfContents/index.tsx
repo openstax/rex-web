@@ -16,7 +16,6 @@ import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery } from '../../../reactUtils';
-import { assertWindow } from '../../../utils';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -60,16 +59,33 @@ function TabTrapper({
   return null;
 }
 
+
+
 // tslint:disable-next-line:variable-name
 const SidebarBody = React.forwardRef<
   HTMLElement,
   React.ComponentProps<typeof SidebarPaneBody>
 >((props, ref) => {
+  const mRef = ref as MutableRefObject<HTMLElement>;
+
+  React.useEffect(
+    () => {
+      if (props.isTocOpen) {
+        const firstItemInToc = mRef?.current?.querySelector(
+          'ol > li a, old > li summary'
+        ) as HTMLElement;
+
+        setTimeout(() => firstItemInToc?.focus(), 100);
+      }
+    },
+    [props.isTocOpen, mRef]
+  );
+
   return (
     <React.Fragment>
       {typeof window !== 'undefined' && (
         <TabTrapper
-          mRef={ref as MutableRefObject<HTMLElement>}
+          mRef={mRef}
           isTocOpen={props.isTocOpen}
         />
       )}
@@ -206,19 +222,6 @@ export class TableOfContents extends Component<SidebarProps> {
     if (this.props.page !== prevProps.page) {
       expandCurrentChapter(this.activeSection.current);
       this.scrollToSelectedPage();
-    }
-    if (this.props.isOpen && !prevProps.isOpen) {
-      const firstItemInToc = this.sidebar.current?.querySelector(
-        'ol > li a, old > li summary'
-      ) as HTMLElement;
-
-      // Something else affects focus; wait for it to pass
-      assertWindow().setTimeout(
-        () => {
-          firstItemInToc?.focus();
-        },
-        100
-      );
     }
   }
 
