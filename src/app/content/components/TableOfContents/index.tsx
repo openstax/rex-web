@@ -12,6 +12,7 @@ import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
+import { sidebarTransitionTime } from '../constants';
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
@@ -75,7 +76,7 @@ const SidebarBody = React.forwardRef<
           'ol > li a, old > li summary'
         ) as HTMLElement;
 
-        setTimeout(() => firstItemInToc?.focus(), 100);
+        setTimeout(() => firstItemInToc?.focus(), sidebarTransitionTime);
       }
     },
     [props.isTocOpen, mRef]
