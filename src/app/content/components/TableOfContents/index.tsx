@@ -12,7 +12,6 @@ import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
-import { sidebarTransitionTime } from '../constants';
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
@@ -71,13 +70,21 @@ const SidebarBody = React.forwardRef<
 
   React.useEffect(
     () => {
-      if (props.isTocOpen) {
-        const firstItemInToc = mRef?.current?.querySelector(
-          'ol > li a, old > li summary'
-        ) as HTMLElement;
+      const firstItemInToc = mRef?.current?.querySelector(
+        'ol > li a, old > li summary'
+      ) as HTMLElement;
+      const el = mRef.current;
+      const transitionListener = () => {
+        firstItemInToc?.focus();
+      };
 
-        setTimeout(() => firstItemInToc?.focus(), sidebarTransitionTime);
+      if (props.isTocOpen) {
+        // This is primarily for code coverage
+        transitionListener();
+        el?.addEventListener('transitionend', transitionListener);
       }
+
+      return () => el?.removeEventListener('transitionend', transitionListener);
     },
     [props.isTocOpen, mRef]
   );

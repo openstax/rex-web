@@ -78,11 +78,17 @@ describe('TableOfContents', () => {
       store.dispatch(actions.closeToc());
     });
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(false);
+
+    const {root} = renderToDom(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+    const sb = root.querySelector('[data-testid="toc"]');
+
     renderer.act(() => {
       store.dispatch(actions.openToc());
+      sb?.dispatchEvent(new Event('transitionend'));
     });
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
-    jest.runAllTimers();
   });
 
   it('resets toc on navigate', () => {
