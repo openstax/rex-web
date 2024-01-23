@@ -18,6 +18,10 @@ export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   return ref;
 };
 
+function isHidden(el: HTMLElement) {
+  return el.offsetWidth === 0 && el.offsetHeight === 0;
+}
+
 // Exported to allow testing
 export function createTrapTab(ref: React.MutableRefObject<HTMLElement | null>) {
   return (event: KeyboardEvent) => {
@@ -28,7 +32,8 @@ export function createTrapTab(ref: React.MutableRefObject<HTMLElement | null>) {
 
     const focusableItemQuery =
       'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-    const focusableElements = el.querySelectorAll<HTMLElement>(focusableItemQuery);
+    const focusableElements = Array.from(el.querySelectorAll<HTMLElement>(focusableItemQuery))
+    .filter((e) => !isHidden(e));
 
     if (focusableElements.length === 0) { return; }
     const firstFocusableElement = focusableElements[0];

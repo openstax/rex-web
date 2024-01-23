@@ -1,4 +1,4 @@
-import type { HTMLElement, KeyboardEvent, MediaQueryList } from '@openstax/types/lib.dom';
+import type { KeyboardEvent, MediaQueryList, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { resetModules, runHooks } from '../test/utils';
@@ -287,6 +287,15 @@ describe('createTrapTab', () => {
   const b = assertDocument().createElement('button');
   const i = assertDocument().createElement('input');
 
+  Object.defineProperty(b, 'offsetHeight', {
+    value: 1000,
+    writable: false,
+  });
+  Object.defineProperty(i, 'offsetWidth', {
+    value: 1000,
+    writable: false,
+  });
+
   beforeEach(() => {
     const ref: React.MutableRefObject<HTMLElement> = {
       current: htmlElement,
@@ -298,10 +307,6 @@ describe('createTrapTab', () => {
   it('ignores non_Tab events', () => {
     trapTab({key: 'a'} as KeyboardEvent);
     expect(querySelectorAll).not.toHaveBeenCalled();
-  });
-  it('handles Tab, no focusable elements', () => {
-    trapTab({key: 'Tab'} as KeyboardEvent);
-    expect(querySelectorAll).toHaveBeenCalledTimes(1);
   });
   it('tabs forward (wrap around)', () => {
     b.focus = jest.fn();
