@@ -1,41 +1,66 @@
-import { Document, HTMLAnchorElement, MouseEvent } from '@openstax/types/lib.dom';
+import {
+  Document,
+  HTMLAnchorElement,
+  MouseEvent
+} from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
 import { isHtmlElementWithHighlight } from '../../../guards';
 import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
-import { createNavigationOptions, navigationOptionsToString } from '../../../navigation/utils';
+import {
+  createNavigationOptions,
+  navigationOptionsToString
+} from '../../../navigation/utils';
 import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../../types';
-import { assertNotNull, assertWindow, memoizeStateToProps } from '../../../utils';
+import {
+  assertNotNull,
+  assertWindow,
+  memoizeStateToProps
+} from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
-import { focused, hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
+import {
+  focused,
+  hasUnsavedHighlight as hasUnsavedHighlightSelector
+} from '../../highlights/selectors';
 import { content } from '../../routes';
 import * as select from '../../selectors';
-import { Book, PageReferenceError, PageReferenceMap, SystemQueryParams } from '../../types';
+import {
+  Book,
+  PageReferenceError,
+  PageReferenceMap,
+  SystemQueryParams
+} from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';
 import isDoubleClick from './doubleClick';
+import queryString from 'query-string';
 
-export const mapStateToContentLinkProp = memoizeStateToProps((state: AppState) => ({
-  book: select.book(state),
-  currentPath: selectNavigation.pathname(state),
-  focusedHighlight: focused(state),
-  hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
-  page: select.page(state),
-  persistentQueryParams: selectNavigation.persistentQueryParameters(state),
-  references: select.contentReferences(state),
-  systemQueryParams: selectNavigation.systemQueryParameters(state),
-}));
+export const mapStateToContentLinkProp = memoizeStateToProps(
+  (state: AppState) => ({
+    book: select.book(state),
+    currentPath: selectNavigation.pathname(state),
+    focusedHighlight: focused(state),
+    hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
+    page: select.page(state),
+    persistentQueryParams: selectNavigation.persistentQueryParameters(state),
+    references: select.contentReferences(state),
+    systemQueryParams: selectNavigation.systemQueryParameters(state),
+  })
+);
 export const mapDispatchToContentLinkProp = (dispatch: Dispatch) => ({
   navigate: flow(push, dispatch),
 });
-export type ContentLinkProp =
-  ReturnType<typeof mapStateToContentLinkProp> & ReturnType<typeof mapDispatchToContentLinkProp>;
+export type ContentLinkProp = ReturnType<typeof mapStateToContentLinkProp> &
+  ReturnType<typeof mapDispatchToContentLinkProp>;
 
 const reducePageReferenceError = (a: HTMLAnchorElement) => {
   a.removeAttribute('href');
-  a.setAttribute('onclick', 'alert("This link is broken because of a cross book content loading issue")');
+  a.setAttribute(
+    'onclick',
+    'alert("This link is broken because of a cross book content loading issue")'
+  );
 };
 
 // tslint:disable-next-line: max-line-length
@@ -46,17 +71,22 @@ const reduceReference = (
   options: ReturnType<typeof createNavigationOptions>
 ) => {
   const path = content.getUrl(reference.params);
-  const href = assertNotNull(a.getAttribute('href'), 'it was found by having an href attribute');
+  const href = assertNotNull(
+    a.getAttribute('href'),
+    'it was found by having an href attribute'
+  );
   const newHref = href.replace(
     reference.match,
-    toRelativeUrl(currentPath, path) + navigationOptionsToString({ ...options, hash: a.hash })
+    toRelativeUrl(currentPath, path) +
+      navigationOptionsToString({ ...options, hash: a.hash })
   );
   a.setAttribute('href', newHref);
 };
 
 // tslint:disable-next-line: max-line-length
 export const reduceReferences = (
-  document: Document, {references, currentPath, systemQueryParams}: ContentLinkProp
+  document: Document,
+  { references, currentPath, systemQueryParams }: ContentLinkProp
 ) => {
   /*
      Testing seems to indicate that exact matches are enough
@@ -66,14 +96,25 @@ export const reduceReferences = (
      2. Reference with a url fragment containing a single quote
      These cases would only be partially matched by current regexes in getContentPageReferences()
   */
-  const referenceMap: { [key: string]: PageReferenceMap | PageReferenceError | undefined } = {};
+  const referenceMap: {
+    [key: string]: PageReferenceMap | PageReferenceError | undefined;
+  } = {};
 
-  for (const reference of references) { referenceMap[reference.match] = reference; }
+  for (const reference of references) {
+    referenceMap[reference.match] = reference;
+  }
 
-  const options = createNavigationOptions(systemQueryParams as SystemQueryParams);
+  const options = createNavigationOptions(
+    systemQueryParams as SystemQueryParams
+  );
 
-  for (const a of Array.from(document.querySelectorAll<HTMLAnchorElement>('[href]'))) {
-    const href = assertNotNull(a.getAttribute('href'), 'it was found by having an href attribute');
+  for (const a of Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('[href]')
+  )) {
+    const href = assertNotNull(
+      a.getAttribute('href'),
+      'it was found by having an href attribute'
+    );
 
     // The code previously gave priority to reference errors
     // Since we expect that all references have different matches and most references will be good,
@@ -96,73 +137,87 @@ export const reduceReferences = (
   }
 };
 
-const isPathReferenceForBook = (pathname: string, book: Book) => (ref: PageReferenceMap | PageReferenceError) =>
+const isPathReferenceForBook = (pathname: string, book: Book) => (
+  ref: PageReferenceMap | PageReferenceError
+) =>
   isPageReferenceError(ref)
     ? false
-    : content.getUrl(ref.params) === pathname
-      && (
-        ('slug' in ref.params.book && hasOSWebData(book) && ref.params.book.slug === book.slug)
-        || ('uuid' in ref.params.book && ref.params.book.uuid === book.id)
-      );
+    : content.getUrl(ref.params) === pathname &&
+      (('slug' in ref.params.book &&
+        hasOSWebData(book) &&
+        ref.params.book.slug === book.slug) ||
+        ('uuid' in ref.params.book && ref.params.book.uuid === book.id));
 
 export const contentLinkHandler = (
   anchor: HTMLAnchorElement,
   getProps: () => ContentLinkProp,
   services: AppServices & MiddlewareAPI
 ) => async(e: MouseEvent) => {
-    const {
-      references,
-      navigate,
-      book,
-      page,
-      currentPath,
-      hasUnsavedHighlight,
-    } = getProps();
-    const href = anchor.getAttribute('href');
-    const target = anchor.getAttribute('target');
+  const {
+    references,
+    navigate,
+    book,
+    page,
+    currentPath,
+    hasUnsavedHighlight,
+    persistentQueryParams,
+  } = getProps();
+  const href = anchor.getAttribute('href');
+  const target = anchor.getAttribute('target');
 
-    if (!href || !book || !page || target === '_blank' || isClickWithModifierKeys(e)) {
+  if (
+    !href ||
+    !book ||
+    !page ||
+    target === '_blank' ||
+    isClickWithModifierKeys(e)
+  ) {
+    return;
+  }
+
+  const base = new URL(assertWindow().location.href);
+  base.hash = '';
+  base.search = '';
+
+  const { hash, search, pathname } = new URL(href, base.href);
+  const reference = references.find(isPathReferenceForBook(pathname, book));
+
+  if (!reference && !(pathname === currentPath && hash)) {
+    return;
+  }
+
+  e.preventDefault();
+
+  if (isHtmlElementWithHighlight(e.target)) {
+    if (!e.target.matches('.focus') && !isDoubleClick(href)) {
       return;
     }
+    e.stopPropagation();
+  }
 
-    const base = new URL(assertWindow().location.href);
-    base.hash = '';
-    base.search = '';
+  if (hasUnsavedHighlight && !(await showConfirmation(services))) {
+    return;
+  }
 
-    const {hash, search, pathname} = new URL(href, base.href);
-    const reference = references.find(isPathReferenceForBook(pathname, book));
-    const searchString = search.substring(1);
+  delete persistentQueryParams.target;
+  const extendedSearchString = queryString.stringify({
+    ...queryString.parse(search),
+    ...persistentQueryParams,
+  });
+  const params =
+    reference && !isPageReferenceError(reference)
+      ? reference.params
+      : getBookPageUrlAndParams(book, page).params;
 
-    if ((!reference && !(pathname === currentPath && hash))) {
-      return;
-    }
-
-    e.preventDefault();
-
-    if (isHtmlElementWithHighlight(e.target)) {
-      if (!e.target.matches('.focus') && !isDoubleClick(href)) {
-        return;
-      }
-      e.stopPropagation();
-    }
-
-    if (hasUnsavedHighlight && !await showConfirmation(services)) {
-      return;
-    }
-
-    if (reference && !isPageReferenceError(reference)) {
-      // defer to allow other handlers to execute before nav happens
-      defer(() => navigate({
-        params: reference.params,
+  // defer to allow other handlers to execute before nav happens
+  defer(() =>
+    navigate(
+      {
+        params,
         route: content,
         state: {},
-      }, {hash, search: searchString}));
-    } else {
-      // defer to allow other handlers to execute before nav happens
-      defer(() => navigate({
-        params: getBookPageUrlAndParams(book, page).params,
-        route: content,
-        state: {},
-      }, {hash, search: searchString}));
-    }
-  };
+      },
+      { hash, search: extendedSearchString }
+    )
+  );
+};
