@@ -15,6 +15,7 @@ import { groupedToastNotifications } from '../../../notifications/selectors';
 import theme from '../../../theme';
 import { mobileToolbarOpen as mobileToolbarOpenSelector } from '../../search/selectors';
 import { contentWrapperAndNavWidthBreakpoint, contentWrapperWidthBreakpoint } from '../ContentPane';
+import { ToastProps } from '../../../notifications/components/ToastNotifications/Toast';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
 export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
@@ -57,11 +58,11 @@ export const ToastContainerWrapper = styled.div`
  */
 
 // tslint:disable-next-line:variable-name
-const PageToasts = () => {
+const PageToasts = (props: ToastProps | {}) => {
   const toasts = useSelector(groupedToastNotifications).page;
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
 
-  return toasts ? <ToastContainerWrapper mobileToolbarOpen={mobileToolbarOpen}>
+  return toasts ? <ToastContainerWrapper {...props} mobileToolbarOpen={mobileToolbarOpen}>
     <ToastNotifications toasts={toasts} />
   </ToastContainerWrapper> : null;
 };

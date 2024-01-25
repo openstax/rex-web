@@ -1,10 +1,15 @@
+import { ManageCookiesLink as RawCookiesLink } from '@openstax/ui-components';
+import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
-import { Twitter } from 'styled-icons/fa-brands/Twitter';
 import { textRegularSize, textRegularStyle } from '../../components/Typography';
-import { contentWrapperMaxWidth, toolbarWidth, verticalNavbarMaxWidth } from '../../content/components/constants';
+import {
+  contentWrapperMaxWidth,
+  toolbarWidth,
+  verticalNavbarMaxWidth
+} from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { remsToEms } from '../../utils';
@@ -12,9 +17,16 @@ import { remsToEms } from '../../utils';
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
 const mobileMinWidth = '37.5';
+const textColor = '#d5d5d5';
 
 export const columnLink = css`
-  color: inherit;
+  color: ${textColor};
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: inherit;
+  }
 `;
 
 export const iconStyles = css`
@@ -26,10 +38,36 @@ export const FBIcon = styled(FacebookF)`
   ${iconStyles}
 `;
 
+// This is the SVG output by FontAwesome on osweb. Temporary filler until
+// styled-icons updates their icon set.
+// The use of styled(XTwitter) didn't do anything; I had to
+// set the height here.
+function XTwitter() {
+  return (
+    <svg
+      aria-hidden='true'
+      focusable='false'
+      data-prefix='fab'
+      data-icon='x-twitter'
+      role='img'
+      xmlns='http://www.w3.org/2000/svg'
+      viewBox='0 0 512 512'
+      className='svg-inline--fa fa-x-twitter'
+      height='1em'
+    >
+      <path
+        fill='currentColor'
+        d={
+          'M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5' +
+          ' 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z'
+        }
+      ></path>
+    </svg>
+  );
+}
+
 // tslint:disable-next-line:variable-name
-export const TwitterIcon = styled(Twitter)`
-  ${iconStyles}
-`;
+export const TwitterIcon = XTwitter;
 
 // tslint:disable-next-line:variable-name
 export const IGIcon = styled(Instagram)`
@@ -53,8 +91,20 @@ export const boxed = css`
   width: 100%;
 `;
 
-const contentWrapperAndNavWidthBreakpoint =
-  '(max-width: ' + remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2) + 'em)';
+const contentWrapperAndNavWidthBreakpoint = `(max-width: ${remsToEms(
+  contentWrapperMaxWidth + verticalNavbarMaxWidth * 2
+)}em)`;
+
+const verticalNavToolbarStyling = css`
+  @media (min-width: ${theme.breakpoints.desktopBreak}em) and ${contentWrapperAndNavWidthBreakpoint} {
+    padding-left:
+      clamp(
+        0rem,
+        calc(${toolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2),
+        ${toolbarWidth}rem
+      );
+  }
+`;
 
 // tslint:disable-next-line:variable-name
 export const FooterWrapper = styled.footer`
@@ -63,18 +113,13 @@ export const FooterWrapper = styled.footer`
   opacity: 1;
   transition: opacity 0.2s;
   ${disablePrint}
-  ${(props) => props.isVerticalNavOpen === false ? css`
-    @media (min-width: ${theme.breakpoints.desktopBreak}em) and ${contentWrapperAndNavWidthBreakpoint} {
-      padding-left: clamp(
-        0rem, calc(${toolbarWidth}rem - (100vw - ${contentWrapperMaxWidth}rem) / 2), ${toolbarWidth}rem
-      );
-    }
-  ` : ``}
+  ${props =>
+    props.isVerticalNavOpen === false ? verticalNavToolbarStyling : ''}
 `;
 
 // tslint:disable-next-line:variable-name
 export const InnerFooter = styled.div`
-  color: #d5d5d5;
+  color: ${textColor};
   display: grid;
 `;
 
@@ -105,7 +150,9 @@ export const TopBoxed = styled.div`
   @media (min-width: ${desktopMinWidth}em) {
     align-items: start;
     grid-column-gap: 4rem;
-    grid-template: "headline col1 col2 col3" "mission col1 col2 col3"/minmax(auto, 50rem) auto auto auto;
+    grid-template:
+      "headline col1 col2 col3" "mission col1 col2 col3" / minmax(auto, 50rem)
+      auto auto auto;
   }
 
   @media (max-width: ${mobileMinWidth}em) {
@@ -159,8 +206,7 @@ export const Mission = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
-export const FooterLink = styled.a`
+export const footerLinkStyle = css`
   ${columnLink}
   text-decoration: none;
 
@@ -174,13 +220,35 @@ export const FooterLink = styled.a`
 `;
 
 // tslint:disable-next-line:variable-name
-export const BottomLink = styled.a`
+export const FooterLink = styled.a`
+  ${footerLinkStyle}
+`;
+
+// tslint:disable-next-line:variable-name
+export const ManageCookiesLink = styled(RawCookiesLink)`
+  && {
+    ${textRegularStyle}
+    ${footerLinkStyle}
+    text-align: left;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const InnerBottomLink = styled.a`
   ${columnLink}
   display: inline-grid;
   grid-auto-flow: column;
   grid-column-gap: 0.7rem;
   overflow: hidden;
 `;
+
+export function BottomLink(props: React.AnchorHTMLAttributes<unknown>) {
+  return (
+    <li>
+      <InnerBottomLink {...props} />
+    </li>
+  );
+}
 
 export const column = css`
   display: grid;
@@ -276,7 +344,7 @@ export const Copyrights = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Social = styled.div`
+export const Social = styled.ul`
   align-items: center;
   display: grid;
   grid-auto-flow: column;
@@ -286,7 +354,7 @@ export const Social = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SocialIcon = styled.a`
+const InnerSocialIcon = styled.a`
   ${columnLink}
   ${textRegularSize}
   background-color: #959595;
@@ -298,6 +366,14 @@ export const SocialIcon = styled.a`
   overflow: hidden;
   width: 3rem;
 `;
+
+export function SocialIcon(props: React.AnchorHTMLAttributes<unknown>) {
+  return (
+    <li>
+      <InnerSocialIcon {...props} />
+    </li>
+  );
+}
 
 // tslint:disable-next-line:variable-name
 export const FooterLogo = styled.img`

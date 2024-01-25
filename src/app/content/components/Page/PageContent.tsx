@@ -56,10 +56,12 @@ export default styled(MainContent)`
     z-index: 1;
   }
 
+  /* stylelint-disable selector-class-pattern */
   .MathJax_Display .highlight,
   .MathJax_Preview + .highlight {
     display: inline-block;
   }
+  /* stylelint-enable selector-class-pattern */
 
   ${highlightStyles.map((style) => css`
     .highlight.${style.label} {
@@ -109,6 +111,8 @@ export default styled(MainContent)`
       @media screen {
         &.focus {
           background-color: ${style.focused};
+          border-bottom: 0.2rem solid ${style.focusBorder};
+          padding: 0.2rem 0 0;
 
           ${Color(style.focused).isDark() && css`
             color: ${theme.color.text.white};
@@ -137,6 +141,7 @@ export default styled(MainContent)`
       &.focus {
         ${SELF_AND_CHILD_MATH_SELECTOR} {
           background-color: #ff9e4b;
+          padding: 0.2rem 0;
         }
 
         .search-highlight {

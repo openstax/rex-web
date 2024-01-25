@@ -55,7 +55,7 @@ describe('setHead hook', () => {
 
       try {
         hookBody(helpers)(action);
-      } catch (e) {
+      } catch (e: any) {
         error = e;
       }
 

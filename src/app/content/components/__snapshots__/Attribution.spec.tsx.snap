@@ -1,21 +1,1135 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Attribution in browser renders default attribution 1`] = `
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
 <details
-  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
+  className="c0"
   data-analytics-region="attribution"
   data-testid="attribution-details"
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Details__Summary-xi326o-2 goqLfs Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL"
+    className="c1 c2 c3 c4"
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+      className="c5 c6 c7 c8"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -24,10 +1138,11 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </svg>
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+      className="c5 c9 c10 c11"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -39,10 +1154,11 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </span>
   </summary>
   <div
-    className="Attribution__Content-sc-11isnv6-3 SNfN"
+    className="c12"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
+<p>This book may not be used in the training of large language models or otherwise be ingested into large language models or generative AI offerings without OpenStax's permission.</p>
 <p>
   Want to cite, share, or modify this book? This book uses the
   <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"http://example.com\\">
@@ -63,7 +1179,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
     <blockquote>
-      Access for free at <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </blockquote>
   </li>
 </ul>
@@ -91,10 +1207,10 @@ exports[`Attribution in browser renders default attribution 1`] = `
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+        Book URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+        Section URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
       </li>
     </ul>
   </li>
@@ -113,21 +1229,1294 @@ exports[`Attribution in browser renders default attribution 1`] = `
 `;
 
 exports[`Attribution in browser renders special licensing and attribution for HS Physics 1`] = `
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
 <details
-  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
+  className="c0"
   data-analytics-region="attribution"
   data-testid="attribution-details"
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Details__Summary-xi326o-2 goqLfs Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL"
+    className="c1 c2 c3 c4"
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+      className="c5 c6 c7 c8"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -136,10 +2525,11 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </svg>
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+      className="c5 c9 c10 c11"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -151,10 +2541,11 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </span>
   </summary>
   <div
-    className="Attribution__Content-sc-11isnv6-3 SNfN"
+    className="c12"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
+<p>This book may not be used in the training of large language models or otherwise be ingested into large language models or generative AI offerings without OpenStax's permission.</p>
 <p>
   Want to cite, share, or modify this book? This book uses the
   <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"http://example.com\\">
@@ -177,7 +2568,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
     <blockquote>
-      Access for free at <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </blockquote>
   </li>
 </ul>
@@ -205,10 +2596,10 @@ exports[`Attribution in browser renders special licensing and attribution for HS
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+        Book URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+        Section URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
       </li>
     </ul>
   </li>
@@ -227,21 +2618,1612 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 `;
 
 exports[`Attribution in browser renders special licensing and attribution for Intellectual Property 1`] = `
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
 <details
-  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
+  className="c0"
   data-analytics-region="attribution"
   data-testid="attribution-details"
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Details__Summary-xi326o-2 goqLfs Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL"
+    className="c1 c2 c3 c4"
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+      className="c5 c6 c7 c8"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -250,10 +4232,11 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </svg>
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+      className="c5 c9 c10 c11"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -265,10 +4248,11 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </span>
   </summary>
   <div
-    className="Attribution__Content-sc-11isnv6-3 SNfN"
+    className="c12"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
+<p>This book may not be used in the training of large language models or otherwise be ingested into large language models or generative AI offerings without OpenStax's permission.</p>
 <p>
   Want to cite, share, or modify this book? This book uses the
   <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"http://example.com\\">
@@ -289,7 +4273,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
     <blockquote>
-      Access for free at <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </blockquote>
   </li>
 </ul>
@@ -317,10 +4301,10 @@ exports[`Attribution in browser renders special licensing and attribution for In
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+        Book URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+        Section URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
       </li>
     </ul>
   </li>
@@ -339,21 +4323,1453 @@ exports[`Attribution in browser renders special licensing and attribution for In
 `;
 
 exports[`Attribution in browser renders special licensing and attribution for Statistics 1`] = `
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
 <details
-  className="Details-xi326o-3 Attribution__AttributionDetails-sc-11isnv6-4 ecFdAU"
+  className="c0"
   data-analytics-region="attribution"
   data-testid="attribution-details"
 >
   <summary
     aria-label="Citation/Attribution"
-    className="Details__Summary-xi326o-2 goqLfs Attribution__AttributionSummary-sc-11isnv6-2 ccMXsL"
+    className="c1 c2 c3 c4"
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__ExpandIcon-xi326o-0 cVuUUi Attribution__SummaryClosedIcon-sc-11isnv6-0 gSPJtD"
+      className="c5 c6 c7 c8"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -362,10 +5778,11 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </svg>
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa Details__CollapseIcon-xi326o-1 jsdrhW Attribution__SummaryOpenIcon-sc-11isnv6-1 kRXAve"
+      className="c5 c9 c10 c11"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -377,10 +5794,11 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </span>
   </summary>
   <div
-    className="Attribution__Content-sc-11isnv6-3 SNfN"
+    className="c12"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
+<p>This book may not be used in the training of large language models or otherwise be ingested into large language models or generative AI offerings without OpenStax's permission.</p>
 <p>
   Want to cite, share, or modify this book? This book uses the
   <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"http://example.com\\">
@@ -403,7 +5821,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
     <blockquote>
-      Access for free at <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </blockquote>
   </li>
 </ul>
@@ -431,10 +5849,10 @@ exports[`Attribution in browser renders special licensing and attribution for St
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+        Book URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+        Section URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
       </li>
     </ul>
   </li>

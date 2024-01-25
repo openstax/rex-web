@@ -2,6 +2,8 @@ import { GetHighlightsSourceTypeEnum } from '@openstax/highlighter/dist/api';
 import { UnauthenticatedError } from '../app/utils';
 import { resetModules } from '../test/utils';
 import createHighlightClient from './createHighlightClient';
+import { ToastMesssageError } from '../helpers/applicationMessageError';
+import Sentry from '../helpers/Sentry';
 
 describe('createHighlightClient', () => {
   const fetchBackup = fetch;
@@ -120,5 +122,42 @@ describe('createHighlightClient', () => {
         sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
       })
     ).rejects.toBeInstanceOf(UnauthenticatedError);
+  });
+
+  it('throws ToastMessageError if network connection is flaky/offline', async() => {
+    global.fetch = jest.fn(() =>
+      Promise.reject(new TypeError('Failed to fetch'))
+    );
+
+    const client = createHighlightClient('asdf');
+
+    await expect(
+      client.getHighlights({
+        perPage: 100,
+        scopeId: 'scope',
+        sourceIds: ['source'],
+        sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
+      })
+    ).rejects.toBeInstanceOf(ToastMesssageError);
+  });
+
+  it('captures errors if something else went wrong with the fetch', async() => {
+    const captureException = jest.spyOn(Sentry, 'captureException').mockImplementation(() => undefined);
+
+    global.fetch = jest.fn(() =>
+      Promise.reject('Internal Error')
+    );
+
+    const client = createHighlightClient('asdf');
+
+    await expect(
+      client.getHighlights({
+        perPage: 100,
+        scopeId: 'scope',
+        sourceIds: ['source'],
+        sourceType: GetHighlightsSourceTypeEnum.OpenstaxPage,
+      })
+    ).rejects.toBeInstanceOf(ToastMesssageError);
+    expect(captureException).toHaveBeenCalledWith('Internal Error');
   });
 });

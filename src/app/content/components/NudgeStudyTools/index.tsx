@@ -1,4 +1,4 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, Event } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,20 +32,29 @@ import {
   useIncrementPageCounter,
   usePositions,
 } from './utils';
+import { nudgeStudyToolsTargetId } from './constants';
 
 // tslint:disable-next-line: variable-name
-const NudgeStudyTools = () => {
+const NudgeStudyTools = ({
+  positions,
+}: {
+  positions: Exclude<ReturnType<typeof usePositions>, null>;
+}) => {
   const { formatMessage } = useIntl();
   const hasStudyGuides = useSelector(hasStudyGuidesSelector);
   const document = assertDocument();
   const wrapperRef = React.useRef<HTMLElement>(null);
-  const isMobile = useMatchMobileMediumQuery();
-  const positions = usePositions(isMobile);
   const dispatch = useDispatch();
+  const dismiss = React.useCallback(
+    () => {
+      dispatch(closeNudgeStudyTools());
+    },
+    [dispatch]
+  );
   const [addOnEscListener, removeOnEscListener] = onKey(
     {key: 'Escape'},
     document.body,
-    () => dispatch(closeNudgeStudyTools())
+    dismiss
   );
 
   React.useEffect(() => {
@@ -54,9 +63,7 @@ const NudgeStudyTools = () => {
   }, [addOnEscListener, removeOnEscListener]);
 
   React.useEffect(() => {
-    if (positions) {
-      document.body.style.overflow = 'hidden';
-    }
+    document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
     // document will not change
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,12 +71,10 @@ const NudgeStudyTools = () => {
 
   React.useEffect(() => {
     const element = wrapperRef.current;
-    if (positions && element) {
+    if (element) {
      element.focus();
     }
   }, [wrapperRef, positions]);
-
-  if (!positions) { return null; }
 
   const ariaLabelKey = hasStudyGuides
     ? 'i18n:nudge:study-tools:aria-label:with-study-guides'
@@ -82,15 +87,7 @@ const NudgeStudyTools = () => {
       top={positions.arrowTopOffset}
       left={positions.arrowLeft}
     />
-    <NudgeCloseButton
-      tabIndex={2}
-      top={positions.closeButtonTopOffset}
-      left={positions.closeButtonLeft}
-      onClick={() => dispatch(closeNudgeStudyTools())}
-      data-analytics-label='close'
-    >
-      <NudgeCloseIcon />
-    </NudgeCloseButton>
+    <CloseButtonHoldingFocus positions={positions} dismiss={dismiss} />
     <NudgeContentWrapper
       ref={wrapperRef}
       tabIndex={1}
@@ -120,6 +117,71 @@ const NudgeStudyTools = () => {
     </NudgeBackground>
   </NudgeWrapper>;
 };
+
+function useTabNavigationInterceptor() {
+  const ref = React.useRef<HTMLElement>();
+  const isMobile = useMatchMobileMediumQuery();
+
+  React.useEffect(
+    () => {
+      if (isMobile) {
+        return;
+      }
+      const document = assertDocument();
+      const exposedElements: (Element | null | undefined)[] = [
+        ref.current,
+        ...Array.from(document.querySelectorAll(`#${nudgeStudyToolsTargetId} > button`)),
+      ];
+      const handleTabbing = (event: Event) => {
+        if ('key' in event && event.key === 'Tab') {
+          event.preventDefault();
+          const focusIndex = exposedElements.indexOf(document.activeElement);
+          if ('shiftKey' in event && event.shiftKey) {
+            const newIndex = (focusIndex + exposedElements.length - 1) % exposedElements.length;
+
+            (exposedElements[newIndex] as HTMLElement)?.focus();
+          } else {
+            const newIndex = (focusIndex + 1) % exposedElements.length;
+
+            (exposedElements[newIndex] as HTMLElement)?.focus();
+          }
+        }
+        if ('key' in event && (event.key as string).startsWith('Arrow')) {
+          event.preventDefault();
+        }
+      };
+      document.body.addEventListener('keydown', handleTabbing);
+      return () => document.body.removeEventListener('keydown', handleTabbing);
+    },
+    [isMobile]
+  );
+
+  return ref;
+}
+
+function CloseButtonHoldingFocus({
+  positions,
+  dismiss,
+}: {
+  positions: Exclude<ReturnType<typeof usePositions>, null>;
+  dismiss: () => void;
+}) {
+  const tabNavigationInterceptor = useTabNavigationInterceptor();
+
+  return (
+    <NudgeCloseButton
+      top={positions.closeButtonTopOffset}
+      left={positions.closeButtonLeft}
+      onClick={dismiss}
+      data-analytics-label='close'
+      aria-label='close overlay'
+      title='close overlay'
+      ref={tabNavigationInterceptor}
+    >
+      <NudgeCloseIcon />
+    </NudgeCloseButton>
+  );
+}
 
 // tslint:disable-next-line: variable-name
 const NudgeTextWithStudyGuides = htmlMessage('i18n:nudge:study-tools:text:with-study-guides', NudgeTextStyles);
@@ -154,11 +216,26 @@ const NoopForPrerenderingAndForHiddenState = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, counter, totalCountsPerPage, studyGuidesEnabled]);
 
-  if (!show ) {
+  if (!show) {
     return null;
   }
 
-  return <NudgeStudyTools />;
+  return <MaybeNudgeStudyTools />;
 };
+
+// This has to be separate from the function above because it requires
+// window to be defined.
+function MaybeNudgeStudyTools() {
+  const isMobile = useMatchMobileMediumQuery();
+  const positions = usePositions(isMobile);
+
+  if (!positions) {
+    return null;
+  }
+
+  return (
+    <NudgeStudyTools positions={positions} />
+  );
+}
 
 export default NoopForPrerenderingAndForHiddenState;

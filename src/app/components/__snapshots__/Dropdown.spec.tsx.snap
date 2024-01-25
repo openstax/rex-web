@@ -1,20 +1,162 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches snapshot 1`] = `
+.c5 {
+  cursor: pointer;
+}
+
+.c3 {
+  overflow: visible;
+}
+
+.c0 .c2 + .c4 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c2.focus-within + .c4 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c2:focus-within + .c4 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c2 > .c4 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c2.focus-within > .c4 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c2:focus-within > .c4 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c2 > *:not(.c4) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c0 .c2 > *:not(.c4) {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c0 .c2.focus-within > *:not(.c4) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c0 .c2:focus-within > *:not(.c4) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c6 {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+  z-index: 1;
+}
+
+.c6 li {
+  padding: 0.2rem;
+}
+
+.c6 li button,
+.c6 li a {
+  white-space: nowrap;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding-left: 0.8rem;
+  margin: 0;
+  height: 3rem;
+  background: none;
+  min-width: 7rem;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c6 li button:hover,
+.c6 li a:hover,
+.c6 li button:focus,
+.c6 li a:focus {
+  background: #d5d5d5;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
+}
+
+.c1 {
+  overflow: visible;
+  position: relative;
+}
+
 <div
-  className="Dropdown__TabTransparentDropdown-rmc6yw-3 edlcTM Dropdown-rmc6yw-5 fBPFfC"
+  className="c0 c1"
 >
   <div
-    className="Dropdown__DropdownFocusWrapper-rmc6yw-2 ldfjZL"
+    className="c2 c3"
   >
     <button
-      className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c4 c5"
       tabIndex={0}
     >
       show more
     </button>
     <ol
-      className="Dropdown__DropdownList-rmc6yw-4 ksrroJ"
+      className="c6"
     >
       <li>
         <a
@@ -37,7 +179,7 @@ exports[`Dropdown matches snapshot 1`] = `
     </ol>
   </div>
   <button
-    className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+    className="c4 c5"
     tabIndex={0}
   >
     show more
@@ -46,11 +188,112 @@ exports[`Dropdown matches snapshot 1`] = `
 `;
 
 exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
+.c3 {
+  cursor: pointer;
+}
+
+.c0 > *:not(.c2) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c4 .c5 + .c2 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c4 .c5.focus-within + .c2 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c4 .c5:focus-within + .c2 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c4 .c5 > .c2 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c4 .c5.focus-within > .c2 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c4 .c5:focus-within > .c2 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c4 .c5 > *:not(.c2) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c4 .c5 > *:not(.c2) {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c4 .c5.focus-within > *:not(.c2) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c4 .c5:focus-within > *:not(.c2) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c1 {
+  overflow: visible;
+  position: relative;
+}
+
 <div
-  className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+  className="c0 c1"
 >
   <button
-    className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+    className="c2 c3"
     isOpen={false}
     onClick={[Function]}
   >
@@ -60,18 +303,166 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
 `;
 
 exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
+.c3 {
+  cursor: pointer;
+}
+
+.c0 > *:not(.c2) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c5 .c6 + .c2 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c5 .c6.focus-within + .c2 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c5 .c6:focus-within + .c2 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c5 .c6 > .c2 {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c5 .c6.focus-within > .c2 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c5 .c6:focus-within > .c2 {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c5 .c6 > *:not(.c2) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c5 .c6 > *:not(.c2) {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+}
+
+.c5 .c6.focus-within > *:not(.c2) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c5 .c6:focus-within > *:not(.c2) {
+  height: unset;
+  width: unset;
+  -webkit-clip: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+.c4 {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+  z-index: 1;
+}
+
+.c4 li {
+  padding: 0.2rem;
+}
+
+.c4 li button,
+.c4 li a {
+  white-space: nowrap;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding-left: 0.8rem;
+  margin: 0;
+  height: 3rem;
+  background: none;
+  min-width: 7rem;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c4 li button:hover,
+.c4 li a:hover,
+.c4 li button:focus,
+.c4 li a:focus {
+  background: #d5d5d5;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
+}
+
+.c1 {
+  overflow: visible;
+  position: relative;
+}
+
 <div
-  className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+  className="c0 c1"
 >
   <button
-    className="Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+    className="c2 c3"
     isOpen={true}
     onClick={[Function]}
   >
     show more
   </button>
   <ol
-    className="Dropdown__DropdownList-rmc6yw-4 ksrroJ"
+    className="c4"
   >
     <li>
       <a

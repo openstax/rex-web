@@ -178,7 +178,7 @@ describe('startMathJax', () => {
 
       try {
         startMathJax();
-      } catch (e) {
+      } catch (e: any) {
         message = e.message;
       }
 

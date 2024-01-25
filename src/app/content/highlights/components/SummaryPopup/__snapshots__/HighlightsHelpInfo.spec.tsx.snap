@@ -3,8 +3,79 @@
 exports[`HighlightsHelpInfo matches snapshot when hidden 1`] = `null`;
 
 exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
+.c2 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c1 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c0 {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 120;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+  height: 6rem;
+  padding: 0 2rem;
+  background-color: #f5f5f5;
+  border: 1px solid #d5d5d5;
+  -webkit-animation: 800ms bNiYjl ease-out;
+  animation: 800ms bNiYjl ease-out;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c3 {
+  color: #818181;
+  width: 1.4rem;
+}
+
+@media screen and (min-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
 <div
-  className="sc-bdVaJa KamJP"
+  className="c0"
   data-analytics-region="Mobile MH help info"
 >
   <span
@@ -15,16 +86,17 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
     }
   />
   <button
-    className="Button__PlainButton-ayg7nk-2 chgswm"
+    className="c1"
     data-analytics-label="close"
     onClick={[Function]}
   >
     <svg
       aria-hidden="true"
-      className="StyledIconBase-sc-bdy9j4 cCvWXa sc-bwzfXH hxHqFe"
+      className="c2 c3"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 352 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"

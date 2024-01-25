@@ -1,8 +1,104 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EditCard matches snapshot when editing 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  font-size: 1.4rem;
+  height: 3rem;
+  padding: 0 2rem;
+  color: #fff;
+  background-color: #d4450c;
+  font-weight: bold;
+  border: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.c3:hover {
+  background-color: ,#be3c08,;
+}
+
+.c3:active {
+  background-color: ,#b03808,;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  font-size: 1.4rem;
+  height: 3rem;
+  padding: 0 2rem;
+  color: #5e6062;
+  background-color: #fff;
+  border: 1px solid #d5d5d5;
+  font-weight: regular;
+}
+
+.c4:hover {
+  background-color: ,#fafafa,;
+}
+
+.c4:active {
+  background-color: ,#e5e5e5,;
+}
+
+.c2 {
+  display: grid;
+  overflow: visible;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
+}
+
+.c0 {
+  background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.c0 .c1 {
+  margin-top: 0.8rem;
+}
+
 <form
-  className="EditCard-sc-1kvvj32-0 iFPiln"
+  className="c0"
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
@@ -23,10 +119,10 @@ exports[`EditCard matches snapshot when editing 1`] = `
     }
   />
   <div
-    className="Button__ButtonGroup-ayg7nk-1 fJPuTt"
+    className="c1 c2"
   >
     <button
-      className="Button-ayg7nk-0 huAXIU"
+      className="c3"
       data-analytics-label="save"
       data-testid="save"
       onClick={[Function]}
@@ -34,7 +130,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
       Save
     </button>
     <button
-      className="Button-ayg7nk-0 izrGku"
+      className="c4"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
@@ -42,42 +138,28 @@ exports[`EditCard matches snapshot when editing 1`] = `
       Cancel
     </button>
   </div>
-  <div
-    confirmLink="/accounts/login?r=/"
-    confirmMessage="i18n:highlighting:login:link"
-    data-analytics-label="login"
-    data-analytics-region="highlighting-login"
-    drawFocus={false}
-    message="i18n:highlighting:login:prompt"
-    mock-confirmation={true}
-    onCancel={[MockFunction]}
-  />
 </form>
 `;
 
 exports[`EditCard matches snapshot when focused 1`] = `
+.c0 {
+  background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.c0 .c1 {
+  margin-top: 0.8rem;
+}
+
 <form
-  className="EditCard-sc-1kvvj32-0 iFPiln"
+  className="c0"
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
-  <div
-    color="yellow"
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    mock-note={true}
-    note=""
-    onChange={[Function]}
-    onFocus={[Function]}
-    textareaRef={
-      Object {
-        "current": null,
-      }
-    }
-  />
   <div
     confirmLink="/accounts/login?r=/"
     confirmMessage="i18n:highlighting:login:link"
@@ -92,8 +174,21 @@ exports[`EditCard matches snapshot when focused 1`] = `
 `;
 
 exports[`EditCard matches snapshot with data 1`] = `
+.c0 {
+  background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.c0 .c1 {
+  margin-top: 0.8rem;
+}
+
 <form
-  className="EditCard-sc-1kvvj32-0 iFPiln"
+  className="c0"
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
@@ -112,42 +207,29 @@ exports[`EditCard matches snapshot with data 1`] = `
         "current": null,
       }
     }
-  />
-  <div
-    confirmLink="/accounts/login?r=/"
-    confirmMessage="i18n:highlighting:login:link"
-    data-analytics-label="login"
-    data-analytics-region="highlighting-login"
-    drawFocus={false}
-    message="i18n:highlighting:login:prompt"
-    mock-confirmation={true}
-    onCancel={[MockFunction]}
   />
 </form>
 `;
 
 exports[`EditCard matches snapshot without data 1`] = `
+.c0 {
+  background: #f5f5f5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: visible;
+}
+
+.c0 .c1 {
+  margin-top: 0.8rem;
+}
+
 <form
-  className="EditCard-sc-1kvvj32-0 iFPiln"
+  className="c0"
   data-analytics-region="edit-note"
   data-highlight-card={true}
 >
-  <div
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    mock-note={true}
-    note=""
-    onChange={[Function]}
-    onFocus={[Function]}
-    textareaRef={
-      Object {
-        "current": null,
-      }
-    }
-  />
   <div
     confirmLink="/accounts/login?r=/"
     confirmMessage="i18n:highlighting:login:link"

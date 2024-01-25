@@ -1,5 +1,6 @@
 // tslint:disable max-line-length
 export const defaultText = `
+<p>This book may not be used in the training of large language models or otherwise be ingested into large language models or generative AI offerings without OpenStax's permission.</p>
 <p>
   Want to cite, share, or modify this book? This book uses the
   <a target="_blank" rel="noopener" href="{bookLicenseUrl}">
@@ -27,7 +28,7 @@ export const defaultText = `
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
     <blockquote>
-      Access for free at <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+      Access for free at <a target="_blank" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
     </blockquote>
   </li>
 </ul>
@@ -55,10 +56,10 @@ export const defaultText = `
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+        Book URL: <a target="_blank" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
       </li>
       <li>
-        Section URL: <a href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+        Section URL: <a target="_blank" href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
       </li>
     </ul>
   </li>

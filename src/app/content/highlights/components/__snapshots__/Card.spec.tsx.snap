@@ -1,12 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Card matches snapshot when focused without note 1`] = `
+.c0 {
+  visibility: visible;
+  -webkit-animation: 600ms bcCCNc ease-out;
+  animation: 600ms bcCCNc ease-out;
+  display: block;
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: 150px;
+  left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
+  transition: opacity 0.3s,top 0.3s,left 0.3s;
+}
+
+.c0 .c1 {
+  z-index: 1;
+}
+
+.c0::before {
+  content: ' ';
+  border-radius: 0.4rem 0 0 0.4rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0.4rem;
+  background-color: #fed200;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:106.25em) {
+  .c0 {
+    -webkit-animation: none;
+    animation: none;
+    left: unset;
+    right: 2rem;
+    top: 0px;
+  }
+}
+
+@media (max-width:82.8125em) {
+  .c0 {
+    -webkit-animation: none;
+    animation: none;
+    left: unset;
+    right: 2rem;
+    top: 0px;
+  }
+}
+
 <div
   data-testid="card"
   onClick={[Function]}
 >
   <div
-    className="sc-bdVaJa dOLEKj"
+    className="c0"
     data={
       Object {
         "color": "yellow",
@@ -61,12 +119,59 @@ exports[`Card matches snapshot when focused without note 1`] = `
 `;
 
 exports[`Card matches snapshot when passed data without note 1`] = `
+.c0 {
+  visibility: visible;
+  -webkit-animation: 600ms bcCCNc ease-out;
+  animation: 600ms bcCCNc ease-out;
+  display: block;
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: undefinedpx;
+  left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
+  transition: opacity 0.3s,top 0.3s,left 0.3s;
+}
+
+.c0 .c1 {
+  z-index: 1;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:106.25em) {
+  .c0 {
+    -webkit-animation: none;
+    animation: none;
+    left: unset;
+    right: 2rem;
+    top: 0px;
+  }
+}
+
+@media (max-width:82.8125em) {
+  .c0 {
+    -webkit-animation: none;
+    animation: none;
+    left: unset;
+    right: 2rem;
+    top: 0px;
+  }
+}
+
 <div
   data-testid="card"
   onClick={[Function]}
 >
   <div
-    className="sc-bdVaJa khmmDV"
+    className="c0"
     data={
       Object {
         "id": "asdf",
@@ -107,12 +212,59 @@ exports[`Card matches snapshot when passed data without note 1`] = `
 `;
 
 exports[`Card matches snapshot without data 1`] = `
+.c0 {
+  visibility: visible;
+  -webkit-animation: 600ms bcCCNc ease-out;
+  animation: 600ms bcCCNc ease-out;
+  display: block;
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
+  right: unset;
+  top: 200px;
+  left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
+  transition: opacity 0.3s,top 0.3s,left 0.3s;
+}
+
+.c0 .c1 {
+  z-index: 1;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:106.25em) {
+  .c0 {
+    -webkit-animation: none;
+    animation: none;
+    left: unset;
+    right: 2rem;
+    top: 200px;
+  }
+}
+
+@media (max-width:82.8125em) {
+  .c0 {
+    -webkit-animation: none;
+    animation: none;
+    left: unset;
+    right: 2rem;
+    top: 200px;
+  }
+}
+
 <div
   data-testid="card"
   onClick={[Function]}
 >
   <div
-    className="sc-bdVaJa hpBiyJ"
+    className="c0"
     hasUnsavedHighlight={false}
     highlight={
       Object {

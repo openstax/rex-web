@@ -64,7 +64,7 @@ describe('receiveDeleteHighlight', () => {
 
     try {
       await hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
-    } catch (error) {
+    } catch {
       expect(deleteHighlightClient).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalledWith(createHighlight(highlight, {...meta, revertingAfterFailure: true}));
     }
@@ -79,7 +79,7 @@ describe('receiveDeleteHighlight', () => {
 
     try {
       await hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(deleteHighlightClient).toHaveBeenCalled();
       expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.delete);
       expect(error.meta).toEqual({ destination: 'page' });
@@ -95,7 +95,7 @@ describe('receiveDeleteHighlight', () => {
 
     try {
       await hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
-    } catch (error) {
+    } catch (error: any) {
       expect(deleteHighlightClient).toHaveBeenCalled();
       expect(error instanceof ApplicationError).toEqual(true);
       expect(error.message).toBe(mockCustomApplicationError.message);

@@ -1,16 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TruncatedText matches snapshot 1`] = `
+.c0 {
+  color: #424242;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin: 0 0.4rem 0 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 5.4rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
 <p
-  className="TruncatedText-sc-7sqw62-1 hPKVIz"
+  className="c0"
 >
   asdf
 </p>
 `;
 
 exports[`TruncatedText matches snapshot when focused 1`] = `
+.c0 {
+  color: #424242;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin: 0 0.4rem 0 0;
+  padding: 0;
+}
+
+.c0 + .c1 {
+  display: none;
+}
+
 <p
-  className="TruncatedText-sc-7sqw62-1 jyYCEi"
+  className="c0"
 >
   asdf
 </p>

@@ -8,6 +8,7 @@ import { mockCmsBook } from '../../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../../test/TestContainer';
 import { MiddlewareAPI, Store } from '../../../../types';
 import { receiveBook, receivePage } from '../../../actions';
+import { assertDocument } from '../../../../utils';
 import { formatBookData } from '../../../utils';
 import { highlightLocationFilters } from '../../selectors';
 import { HighlightData } from '../../types';
@@ -41,6 +42,7 @@ describe('HighlightDeleteWrapper', () => {
   });
 
   it('match snapshot when editing is set to true', () => {
+    const createNodeMock = () => assertDocument().createElement('div');
     const component = renderer.create(<TestContainer store={store}>
       <HighlightAnnotation
         annotation='Some annotation'
@@ -50,7 +52,7 @@ describe('HighlightDeleteWrapper', () => {
         // tslint:disable-next-line: no-empty
         onCancel={() => {}}
       />
-    </TestContainer>);
+    </TestContainer>, {createNodeMock});
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -61,6 +63,7 @@ describe('HighlightDeleteWrapper', () => {
     let cancelClicked = false;
     const annotation = 'TEST';
 
+    const createNodeMock = () => assertDocument().createElement('div');
     const component = renderer.create(<TestContainer store={store}>
       <HighlightAnnotation
         annotation={annotation}
@@ -68,7 +71,7 @@ describe('HighlightDeleteWrapper', () => {
         onCancel={() => { cancelClicked = true; }}
         onSave={(text) => { savedText = text; }}
       />
-    </TestContainer>);
+    </TestContainer>, {createNodeMock});
 
     renderer.act(() => { return; });
 
@@ -117,13 +120,14 @@ describe('Highlight annotation', () => {
     jest.spyOn(utils, 'useCreateHighlightLink')
       .mockReturnValue('/link/to/highlight');
 
-    const component = renderer.create(<TestContainer services={services} store={store}>
+      const createNodeMock = () => assertDocument().createElement('div');
+      const component = renderer.create(<TestContainer services={services} store={store}>
       <HighlightListElement
         highlight={highlight as unknown as HighlightData}
         locationFilterId={location!.id}
         pageId={page.id}
       />
-    </TestContainer>);
+    </TestContainer>, {createNodeMock});
 
     const track = jest.spyOn(services.analytics.editAnnotation, 'track');
 
