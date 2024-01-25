@@ -1,5 +1,5 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
-import React, { SFC } from 'react';
+import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import openstaxLogo from '../../../assets/logo.svg';
@@ -17,7 +17,7 @@ if (typeof(window) !== 'undefined') {
 }
 
 // tslint:disable-next-line:variable-name
-export const Dropdown: React.FunctionComponent<{user: User, currentPath: string}> = ({user, currentPath}) => {
+export const Dropdown: FunctionComponent<{user: User, currentPath: string}> = ({user, currentPath}) => {
   const overlay = React.useRef<HTMLElement>();
 
   const blockScroll: OnScrollCallback = (e) => {
@@ -33,51 +33,84 @@ export const Dropdown: React.FunctionComponent<{user: User, currentPath: string}
     }
   };
 
-  return <OnScroll callback={blockScroll}>
-    <Styled.DropdownOverlay tabIndex='-1' ref={overlay} data-testid='nav-overlay'>
-      <a aria-hidden='true' tabIndex={-1} href='/'>
-        <Styled.OverlayLogo
-          src={openstaxLogo}
-          alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
-        />
-      </a>
-      <div>
-        <FormattedMessage id='i18n:nav:hello:text' values={{name: user.firstName}}>
-          {(msg) => <Styled.OverlayHeading>{msg}</Styled.OverlayHeading>}
-        </FormattedMessage>
-        <Styled.DropdownList>
-          <li>
-            <FormattedMessage id='i18n:nav:profile:text'>
-              {(msg) => <a href='/accounts/profile' target='_blank'>{msg}</a>}
-            </FormattedMessage>
-          </li>
-          <li>
-            <FormattedMessage id='i18n:nav:logout:text'>
-              {(msg) => <a href={'/accounts/logout?r=' + currentPath}>{msg}</a>}
-            </FormattedMessage>
-          </li>
-        </Styled.DropdownList>
-      </div>
-    </Styled.DropdownOverlay>
-  </OnScroll>;
+  return (
+    <OnScroll callback={blockScroll}>
+      <Styled.DropdownOverlay
+        tabIndex='-1'
+        ref={overlay}
+        data-testid='nav-overlay'
+      >
+        <a aria-hidden='true' tabIndex={-1} href='/'>
+          <Styled.OverlayLogo
+            src={openstaxLogo}
+            alt={useIntl().formatMessage({ id: 'i18n:nav:logo:alt' })}
+          />
+        </a>
+        <div>
+          <FormattedMessage
+            id='i18n:nav:hello:text'
+            values={{ name: user.firstName }}
+          >
+            {msg => <Styled.OverlayHeading>{msg}</Styled.OverlayHeading>}
+          </FormattedMessage>
+          <Styled.DropdownList id='dropdown-menu' role='menu'>
+            <li role='presentation'>
+              <FormattedMessage id='i18n:nav:profile:text'>
+                {msg => (
+                  <a href='/accounts/profile' target='_blank' role='menuitem'>
+                    {msg}
+                  </a>
+                )}
+              </FormattedMessage>
+            </li>
+            <li role='presentation'>
+              <FormattedMessage id='i18n:nav:logout:text'>
+                {msg => (
+                  <a href={'/accounts/logout?r=' + currentPath} role='menuitem'>
+                    {msg}
+                  </a>
+                )}
+              </FormattedMessage>
+            </li>
+          </Styled.DropdownList>
+        </div>
+      </Styled.DropdownOverlay>
+    </OnScroll>
+  );
 };
 
 // tslint:disable-next-line:variable-name
-const DropdownToggle: SFC<{user: User}> = ({user: { firstName, lastName }}) => {
+const DropdownToggle: FunctionComponent<{ user: User }> = ({
+  user: { firstName, lastName },
+}) => {
   const initials = (firstName[0] + lastName[0]).toUpperCase();
-  return <Styled.DropdownToggle tabIndex='0' data-testid='user-nav-toggle'>{initials}</Styled.DropdownToggle>;
+  return (
+    <Styled.DropdownToggle
+      tabIndex='0'
+      data-testid='user-nav-toggle'
+      aria-label='account actions'
+      aria-haspopup='true'
+      aria-controls='dropdown-menu'
+    >
+      {initials}
+    </Styled.DropdownToggle>
+  );
 };
 
 // tslint:disable-next-line:variable-name
-const LoggedInState: SFC<{user: User, currentPath: string}> = ({user, currentPath}) =>
+const LoggedInState: FunctionComponent<{ user: User; currentPath: string }> = ({
+  user,
+  currentPath,
+}) => (
   <Styled.DropdownContainer data-testid='user-nav'>
     <DropdownToggle user={user} />
     <Dropdown user={user} currentPath={currentPath} />
     <Styled.TimesIcon />
-  </Styled.DropdownContainer>;
+  </Styled.DropdownContainer>
+);
 
 // tslint:disable-next-line:variable-name
-const LoggedOutState: SFC<{currentPath: string}> = ({currentPath}) => <FormattedMessage id='i18n:nav:login:text'>
+const LoggedOutState: FunctionComponent<{currentPath: string}> = ({currentPath}) => <FormattedMessage id='i18n:nav:login:text'>
   {(msg) => <Styled.Link href={'/accounts/login?r=' + currentPath}
     data-testid='nav-login' data-analytics-label='login'> {msg}
   </Styled.Link>}

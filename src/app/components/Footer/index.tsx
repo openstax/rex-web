@@ -16,67 +16,145 @@ export const supportCenterLink = 'https://help.openstax.org/s/';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
 // tslint:disable-next-line:variable-name
-const Mission = htmlMessage('i18n:footer:copyright:mission-text', Styled.Mission);
+const Mission = htmlMessage(
+  'i18n:footer:copyright:mission-text',
+  Styled.Mission
+);
 // tslint:disable-next-line:variable-name
-const Copyrights = htmlMessage('i18n:footer:copyright:bottom-text', Styled.Copyrights);
+const Copyrights = htmlMessage(
+  'i18n:footer:copyright:bottom-text',
+  Styled.Copyrights
+);
 
 // tslint:disable-next-line:variable-name
-const ColumnHeadingMessage: React.SFC<{id: string}> = ({id}) => <Styled.ColumnHeading>
-  <FormattedMessage id={id}>
-    {(msg) => msg}
-  </FormattedMessage>
-</Styled.ColumnHeading>;
+const BareMessage: React.FunctionComponent<{ id: string }> = ({ id }) => (
+  <FormattedMessage id={id}>{msg => msg}</FormattedMessage>
+);
 
 // tslint:disable-next-line:variable-name
-const FooterLinkMessage: React.SFC<{id: string, href: string, target?: string, rel?: string }> =
-  ({id, href, target, rel }) => <Styled.FooterLink href={href} target={target ? target : '_self'} rel={rel ? rel : ''}>
-  <FormattedMessage id={id}>
-    {(msg) => msg}
-  </FormattedMessage>
-</Styled.FooterLink>;
+const ColumnHeadingMessage: React.FunctionComponent<{ id: string }> = ({
+  id,
+}) => (
+  <Styled.ColumnHeading>
+    <BareMessage id={id} />
+  </Styled.ColumnHeading>
+);
 
 // tslint:disable-next-line:variable-name
-const SocialIconMessage: React.SFC<{id: string, href: string, Icon: React.ComponentType}> =
-  ({id, href, Icon}) => <Styled.SocialIcon aria-label={useIntl().formatMessage({id})} href={href}
-    target='_blank' rel='noopener'>
+const FooterLinkMessage: React.FunctionComponent<{
+  id: string;
+  href: string;
+  target?: string;
+  rel?: string;
+}> = ({ id, href, target, rel }) => (
+  <Styled.FooterLink
+    href={href}
+    target={target ? target : '_self'}
+    rel={rel ? rel : ''}
+  >
+    <BareMessage id={id} />
+  </Styled.FooterLink>
+);
+
+// tslint:disable-next-line:variable-name
+const SocialIconMessage: React.FunctionComponent<{
+  id: string;
+  href: string;
+  Icon: React.ComponentType;
+}> = ({ id, href, Icon }) => (
+  <Styled.SocialIcon
+    aria-label={useIntl().formatMessage({ id })}
+    href={href}
+    target='_blank'
+    rel='noopener'
+  >
     <Icon />
-  </Styled.SocialIcon>;
+  </Styled.SocialIcon>
+);
 
 // tslint:disable-next-line:variable-name
-const Column1 = () => <Styled.Column1>
-  <ColumnHeadingMessage id='i18n:footer:column1:help' />
-  <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
-  <FooterLinkMessage href={supportCenterLink} id='i18n:footer:column1:support-center' target='_blank' rel='noopener'/>
-  <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
-</Styled.Column1>;
+const Column1 = () => (
+  <Styled.Column1>
+    <ColumnHeadingMessage id='i18n:footer:column1:help' />
+    <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
+    <FooterLinkMessage
+      href={supportCenterLink}
+      id='i18n:footer:column1:support-center'
+      target='_blank'
+      rel='noopener'
+    />
+    <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
+  </Styled.Column1>
+);
 
 // tslint:disable-next-line:variable-name
-const Column2 = () => <Styled.Column2>
-  <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
-  <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
-  <FooterLinkMessage href={newsletterLink} target='_blank' rel='noopener' id='i18n:footer:column2:newsletter' />
-  <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
-</Styled.Column2>;
+const Column2 = () => (
+  <Styled.Column2>
+    <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
+    <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
+    <FooterLinkMessage
+      href={newsletterLink}
+      target='_blank'
+      rel='noopener'
+      id='i18n:footer:column2:newsletter'
+    />
+    <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
+  </Styled.Column2>
+);
 
 // tslint:disable-next-line:variable-name
-const Column3 = () => <Styled.Column3>
-  <ColumnHeadingMessage id='i18n:footer:column3:policies' />
-  <FooterLinkMessage href='/accessibility-statement' id='i18n:footer:column3:accessibility' />
-  <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
-  <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
-  <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
-</Styled.Column3>;
+const Column3 = () => (
+  <Styled.Column3>
+    <ColumnHeadingMessage id='i18n:footer:column3:policies' />
+    <FooterLinkMessage
+      href='/accessibility-statement'
+      id='i18n:footer:column3:accessibility'
+    />
+    <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
+    <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
+    <FooterLinkMessage
+      href='/privacy-policy'
+      id='i18n:footer:column3:privacy-policy'
+    />
+    <Styled.ManageCookiesLink>
+      <BareMessage id='i18n:footer:column3:manage-cookies' />
+    </Styled.ManageCookiesLink>
+  </Styled.Column3>
+);
 
 // tslint:disable-next-line:variable-name
-const SocialDirectory = () => <Styled.Social role='directory'>
-  <SocialIconMessage id='i18n:footer:social:fb:alt' href={fbUrl} Icon={Styled.FBIcon} />
-  <SocialIconMessage id='i18n:footer:social:tw:alt' href={twitterUrl} Icon={Styled.TwitterIcon} />
-  <SocialIconMessage id='i18n:footer:social:in:alt' href={linkedInUrl} Icon={Styled.LinkedInIcon} />
-  <SocialIconMessage id='i18n:footer:social:ig:alt' href={instagramUrl} Icon={Styled.IGIcon} />
-  <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener'>
-    <Styled.FooterLogo src={RiceWhiteLogo} alt={useIntl().formatMessage({id: 'i18n:footer:social:rice-logo:alt'})} />
-  </Styled.BottomLink>
-</Styled.Social>;
+const SocialDirectory = () => (
+  <Styled.Social>
+    <SocialIconMessage
+      id='i18n:footer:social:fb:alt'
+      href={fbUrl}
+      Icon={Styled.FBIcon}
+    />
+    <SocialIconMessage
+      id='i18n:footer:social:tw:alt'
+      href={twitterUrl}
+      Icon={Styled.TwitterIcon}
+    />
+    <SocialIconMessage
+      id='i18n:footer:social:in:alt'
+      href={linkedInUrl}
+      Icon={Styled.LinkedInIcon}
+    />
+    <SocialIconMessage
+      id='i18n:footer:social:ig:alt'
+      href={instagramUrl}
+      Icon={Styled.IGIcon}
+    />
+    <Styled.BottomLink href={riceUrl} target='_blank' rel='noopener'>
+      <Styled.FooterLogo
+        src={RiceWhiteLogo}
+        alt={useIntl().formatMessage({
+          id: 'i18n:footer:social:rice-logo:alt',
+        })}
+      />
+    </Styled.BottomLink>
+  </Styled.Social>
+);
 
 function getValues() {
   return {
@@ -86,29 +164,35 @@ function getValues() {
 }
 
 // tslint:disable-next-line:variable-name
-const Footer = ({ isVerticalNavOpen }: { isVerticalNavOpen: State['tocOpen'] }) =>
-  <Styled.FooterWrapper data-analytics-region='footer' isVerticalNavOpen={isVerticalNavOpen}>
-  <Styled.InnerFooter>
-    <Styled.FooterTop>
-      <Styled.TopBoxed>
-        <Styled.Heading role='heading' aria-level={2}>
-          <FormattedMessage id='i18n:footer:heading'>
-            {(msg) => msg}
-          </FormattedMessage>
-        </Styled.Heading>
-        <Mission />
-        <Column1 />
-        <Column2 />
-        <Column3 />
-      </Styled.TopBoxed>
-    </Styled.FooterTop>
-    <Styled.FooterBottom>
-      <Styled.BottomBoxed>
-        <Copyrights values={getValues()} />
-        <SocialDirectory />
-      </Styled.BottomBoxed>
-    </Styled.FooterBottom>
-  </Styled.InnerFooter>
-</Styled.FooterWrapper>;
+const Footer = ({
+  isVerticalNavOpen,
+}: {
+  isVerticalNavOpen: State['tocOpen'];
+}) => (
+  <Styled.FooterWrapper
+    data-analytics-region='footer'
+    isVerticalNavOpen={isVerticalNavOpen}
+  >
+    <Styled.InnerFooter>
+      <Styled.FooterTop>
+        <Styled.TopBoxed>
+          <Styled.Heading role='heading' aria-level={2}>
+            <BareMessage id='i18n:footer:heading' />
+          </Styled.Heading>
+          <Mission />
+          <Column1 />
+          <Column2 />
+          <Column3 />
+        </Styled.TopBoxed>
+      </Styled.FooterTop>
+      <Styled.FooterBottom>
+        <Styled.BottomBoxed>
+          <Copyrights values={getValues()} />
+          <SocialDirectory />
+        </Styled.BottomBoxed>
+      </Styled.FooterBottom>
+    </Styled.InnerFooter>
+  </Styled.FooterWrapper>
+);
 
 export default isVerticalNavOpenConnector(Footer);

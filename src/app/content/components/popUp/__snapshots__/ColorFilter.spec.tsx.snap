@@ -1,15 +1,455 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorFilter matches snapshot 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  outline: none;
+  color: #424242;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover,
+.c4:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c2 {
+  height: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c2,
+.c2 .c3 {
+  font-size: 1.4rem;
+  overflow: visible;
+}
+
+.c2 span {
+  padding: 0 1rem;
+}
+
+.c11 {
+  color: #fff;
+  height: 1rem;
+  width: 1rem;
+  display: none;
+}
+
+.c8 {
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+input:not(:checked) + .c8 {
+  border: 1px solid #424242;
+}
+
+input:checked + .c8 {
+  background-color: #b03808;
+}
+
+input:checked + .c8 .c10 {
+  display: block;
+}
+
+.c6 {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c6 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c6:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
+}
+
+.c6:focus-within .c7 {
+  border: 1px solid #b03808;
+}
+
+.c6.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c6.focus-within .c7 {
+  border: 1px solid #b03808;
+}
+
+.c21 {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #424242;
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.c21 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c21:focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
+}
+
+.c21:focus-within .c7 {
+  border: 1px solid #b03808;
+}
+
+.c21.focus-within {
+  border-radius: 0.4rem;
+  background-color: #f1f1f1;
+}
+
+.c21.focus-within .c7 {
+  border: 1px solid #b03808;
+}
+
+.c15 {
+  display: none;
+}
+
+.c17 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #ffff8a;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c20 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #def99f;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c23 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #c8f5ff;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c25 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #cbcfff;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c27 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #ffc5e1;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c13 {
+  position: relative;
+  background-color: #ffff8a;
+  border: 1px solid #fed200;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c13 .c14 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c13 input:focus + .c16 {
+  display: block;
+}
+
+.c19 {
+  position: relative;
+  background-color: #def99f;
+  border: 1px solid #92d101;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c19 .c14 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c19 input:focus + .c16 {
+  display: block;
+}
+
+.c22 {
+  position: relative;
+  background-color: #c8f5ff;
+  border: 1px solid #00c3ed;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c22 .c14 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c22 input:focus + .c16 {
+  display: block;
+}
+
+.c24 {
+  position: relative;
+  background-color: #cbcfff;
+  border: 1px solid #545ec8;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c24 .c14 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c24 input:focus + .c16 {
+  display: block;
+}
+
+.c26 {
+  position: relative;
+  background-color: #ffc5e1;
+  border: 1px solid #de017e;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c26 .c14 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c26 input:focus + .c16 {
+  display: block;
+}
+
+.c18 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c0 {
+  background: #fff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  color: #424242;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  outline: none;
+  z-index: 1;
+}
+
+.c0 .c1 {
+  margin: 0.8rem 0 0.8rem 0.8rem;
+}
+
+.c0 .c5 {
+  padding: 0.8rem;
+  text-transform: capitalize;
+}
+
+.c0 .c12 {
+  margin: 0 1.6rem 0 1.6rem;
+}
+
+@media screen and (max-width:30em) {
+  .c0 {
+    width: calc(100vw - 1.6rem);
+  }
+}
+
 <div
-  className="ColorFilter-sc-1ic50x3-1 gDnnAT"
+  className="c0"
   tabIndex={-1}
 >
   <div
-    className="AllOrNone-sc-7m1y94-0 divvKQ"
+    className="c1 c2"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+      className="c3 c4"
       onClick={[Function]}
     >
       All
@@ -18,14 +458,14 @@ exports[`ColorFilter matches snapshot 1`] = `
       |
     </span>
     <button
-      className="Button__PlainButton-ayg7nk-2 Button__ButtonLink-ayg7nk-3 flLYdq"
+      className="c3 c4"
       onClick={[Function]}
     >
       None
     </button>
   </div>
   <label
-    className="Checkbox-f0dje9-2 jNHPPI"
+    className="c5 c6"
   >
     <input
       checked={true}
@@ -34,14 +474,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       type="checkbox"
     />
     <span
-      className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -50,14 +491,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-2 hxgXOu"
+      className="c12 c13"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+        className="c9 c14 c15"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -65,10 +507,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
       <span
-        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 kwsovu"
+        className="c16 c17"
         size="small"
         style={
           Object {
+            "focusBorder": "#8f7700",
             "focused": "#fed200",
             "label": "yellow",
             "passive": "#ffff8a",
@@ -77,13 +520,13 @@ exports[`ColorFilter matches snapshot 1`] = `
       />
     </div>
     <span
-      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+      className="c18"
     >
       yellow
     </span>
   </label>
   <label
-    className="Checkbox-f0dje9-2 jNHPPI"
+    className="c5 c6"
   >
     <input
       checked={true}
@@ -92,14 +535,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       type="checkbox"
     />
     <span
-      className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -108,14 +552,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-2 kUYWjn"
+      className="c12 c19"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+        className="c9 c14 c15"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -123,10 +568,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
       <span
-        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 fqiTys"
+        className="c16 c20"
         size="small"
         style={
           Object {
+            "focusBorder": "#4e6f01",
             "focused": "#92d101",
             "label": "green",
             "passive": "#def99f",
@@ -135,13 +581,13 @@ exports[`ColorFilter matches snapshot 1`] = `
       />
     </div>
     <span
-      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+      className="c18"
     >
       green
     </span>
   </label>
   <label
-    className="Checkbox-f0dje9-2 bQUsMb"
+    className="c5 c21"
   >
     <input
       checked={false}
@@ -150,14 +596,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       type="checkbox"
     />
     <span
-      className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -166,14 +613,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-2 fkmJHS"
+      className="c12 c22"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+        className="c9 c14 c15"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -181,10 +629,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
       <span
-        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 eHIgYD"
+        className="c16 c23"
         size="small"
         style={
           Object {
+            "focusBorder": "#006880",
             "focused": "#00c3ed",
             "label": "blue",
             "passive": "#c8f5ff",
@@ -193,13 +642,13 @@ exports[`ColorFilter matches snapshot 1`] = `
       />
     </div>
     <span
-      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+      className="c18"
     >
       blue
     </span>
   </label>
   <label
-    className="Checkbox-f0dje9-2 bQUsMb"
+    className="c5 c21"
   >
     <input
       checked={false}
@@ -208,14 +657,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       type="checkbox"
     />
     <span
-      className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -224,14 +674,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-2 gdbVRC"
+      className="c12 c24"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+        className="c9 c14 c15"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -239,10 +690,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
       <span
-        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 AHChX"
+        className="c16 c25"
         size="small"
         style={
           Object {
+            "focusBorder": "#141a3e",
             "focused": "#545ec8",
             "label": "purple",
             "passive": "#cbcfff",
@@ -251,13 +703,13 @@ exports[`ColorFilter matches snapshot 1`] = `
       />
     </div>
     <span
-      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+      className="c18"
     >
       purple
     </span>
   </label>
   <label
-    className="Checkbox-f0dje9-2 jNHPPI"
+    className="c5 c6"
   >
     <input
       checked={true}
@@ -266,14 +718,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       type="checkbox"
     />
     <span
-      className="Checkbox__CustomCheckbox-f0dje9-1 gIKgIb"
+      className="c7 c8"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa Checkbox__CheckIcon-f0dje9-0 irsTpS"
+        className="c9 c10 c11"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -282,14 +735,15 @@ exports[`ColorFilter matches snapshot 1`] = `
       </svg>
     </span>
     <div
-      className="ColorIndicator-sc-1w5zl7g-2 bhqGqa"
+      className="c12 c26"
     >
       <svg
         aria-hidden="true"
-        className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+        className="c9 c14 c15"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -297,10 +751,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </svg>
       <span
-        className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 cxneHl"
+        className="c16 c27"
         size="small"
         style={
           Object {
+            "focusBorder": "#560131",
             "focused": "#de017e",
             "label": "pink",
             "passive": "#ffc5e1",
@@ -309,7 +764,7 @@ exports[`ColorFilter matches snapshot 1`] = `
       />
     </div>
     <span
-      className="ColorFilter__ColorLabel-sc-1ic50x3-0 iOVncN"
+      className="c18"
     >
       pink
     </span>

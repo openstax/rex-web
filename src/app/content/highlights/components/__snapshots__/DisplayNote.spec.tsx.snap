@@ -1,16 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DisplayNote matches snapshot 1`] = `
+.c8 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  cursor: pointer;
+}
+
+.c1 > *:not(.c6) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 {
+  overflow: visible;
+  position: relative;
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c10 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #e5e5e5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c10:hover {
+  color: #818181;
+}
+
+.c5 {
+  border: none;
+  display: block;
+}
+
+.c5 > div {
+  display: inline-block;
+  outline: none;
+}
+
+.c11 {
+  color: #c5c5c5;
+  height: 4.2rem;
+  width: 4.2rem;
+  padding: 1.6rem;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.c0 {
+  width: 20rem;
+  overflow: visible;
+  background: #f5f5f5;
+}
+
+.c0 > label {
+  display: none;
+  color: #424242;
+  color: #fed200;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 1.2000000000000002rem 0 0 1.6rem;
+}
+
+.c0 .c12.c12 {
+  left: -4rem;
+}
+
+.c0 .c2 {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+.c0 .c2 .focus-within .c9 {
+  color: #5e6062;
+}
+
+.c0 .c2:focus-within .c9 {
+  color: #5e6062;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: 8rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    margin-left: 0;
+  }
+}
+
 <div
-  className="DisplayNote-wzwggt-1 cixiIq"
+  className="c0"
   data-highlight-card={true}
   tabIndex={-1}
 >
   <div
-    className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+    className="c1 c2 c3"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c4 c5 c6 c7"
       onClick={[Function]}
     >
       <div
@@ -18,10 +132,11 @@ exports[`DisplayNote matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="c8 c9 c10"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -33,7 +148,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="DisplayNote__CloseIcon-wzwggt-0 hnBOJQ"
+    className="c11"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}
@@ -73,16 +188,145 @@ exports[`DisplayNote matches snapshot 1`] = `
 `;
 
 exports[`DisplayNote matches snapshot when focused 1`] = `
+.c8 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  cursor: pointer;
+}
+
+.c1 > *:not(.c6) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 {
+  overflow: visible;
+  position: relative;
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c10 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #e5e5e5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c10:hover {
+  color: #818181;
+}
+
+.c5 {
+  border: none;
+  display: block;
+}
+
+.c5 > div {
+  display: inline-block;
+  outline: none;
+}
+
+.c11 {
+  color: #c5c5c5;
+  height: 4.2rem;
+  width: 4.2rem;
+  padding: 1.6rem;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.c12 .c2 {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+.c12 .c2 .focus-within .c9 {
+  color: #5e6062;
+}
+
+.c12 .c2:focus-within .c9 {
+  color: #5e6062;
+}
+
+.c0 {
+  width: 20rem;
+  overflow: visible;
+  background: #f5f5f5;
+  background: #fff;
+}
+
+.c0 > label {
+  display: none;
+  color: #424242;
+  color: #fed200;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 1.2000000000000002rem 0 0 1.6rem;
+}
+
+.c0 .c13.c13 {
+  left: -4rem;
+}
+
+.c0 .c2 {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+.c0 .c2 .focus-within .c9 {
+  color: #5e6062;
+}
+
+.c0 .c2:focus-within .c9 {
+  color: #5e6062;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: 8rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    margin-left: 0;
+  }
+}
+
 <div
-  className="DisplayNote-wzwggt-1 ryJyB"
+  className="c0"
   data-highlight-card={true}
   tabIndex={-1}
 >
   <div
-    className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+    className="c1 c2 c3"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c4 c5 c6 c7"
       onClick={[Function]}
     >
       <div
@@ -90,10 +334,11 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="c8 c9 c10"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -105,7 +350,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="DisplayNote__CloseIcon-wzwggt-0 hnBOJQ"
+    className="c11"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}
@@ -145,16 +390,196 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 `;
 
 exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
+.c8 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  cursor: pointer;
+}
+
+.c1 > *:not(.c6) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c12 {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+  z-index: 1;
+}
+
+.c12 li {
+  padding: 0.2rem;
+}
+
+.c12 li button,
+.c12 li a {
+  white-space: nowrap;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding-left: 0.8rem;
+  margin: 0;
+  height: 3rem;
+  background: none;
+  min-width: 7rem;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c12 li button:hover,
+.c12 li a:hover,
+.c12 li button:focus,
+.c12 li a:focus {
+  background: #d5d5d5;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
+}
+
+.c3 {
+  overflow: visible;
+  position: relative;
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c10 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #e5e5e5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c10:hover {
+  color: #818181;
+}
+
+.c5 {
+  border: none;
+  display: block;
+}
+
+.c5 > div {
+  display: inline-block;
+  outline: none;
+}
+
+.c13 {
+  color: #c5c5c5;
+  height: 4.2rem;
+  width: 4.2rem;
+  padding: 1.6rem;
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.c14 .c11.c11 {
+  left: -4rem;
+}
+
+.c14 .c2 {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+.c14 .c2 .focus-within .c9 {
+  color: #5e6062;
+}
+
+.c14 .c2:focus-within .c9 {
+  color: #5e6062;
+}
+
+.c0 {
+  width: 20rem;
+  overflow: visible;
+  background: #f5f5f5;
+  background: #fff;
+}
+
+.c0 > label {
+  display: none;
+  color: #424242;
+  color: #fed200;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  margin: 1.2000000000000002rem 0 0 1.6rem;
+}
+
+.c0 .c11.c11 {
+  left: -4rem;
+}
+
+.c0 .c2 {
+  position: absolute;
+  top: 0.8rem;
+  right: -0.2rem;
+}
+
+.c0 .c2 .focus-within .c9 {
+  color: #5e6062;
+}
+
+.c0 .c2:focus-within .c9 {
+  color: #5e6062;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: 8rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    margin-left: 0;
+  }
+}
+
 <div
-  className="DisplayNote-wzwggt-1 ryJyB"
+  className="c0"
   data-highlight-card={true}
   tabIndex={-1}
 >
   <div
-    className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+    className="c1 c2 c3"
   >
     <button
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c4 c5 c6 c7"
       onClick={[Function]}
     >
       <div
@@ -162,10 +587,11 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="c8 c9 c10"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -175,7 +601,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       </div>
     </button>
     <ol
-      className="Dropdown__DropdownList-rmc6yw-4 ksrroJ"
+      className="c11 c12"
     >
       <li>
         <a
@@ -199,7 +625,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="DisplayNote__CloseIcon-wzwggt-0 hnBOJQ"
+    className="c13"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}

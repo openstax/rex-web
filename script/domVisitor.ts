@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
+import QuickLRU from 'quick-lru';
 import argv from 'yargs';
 import { Book } from '../src/app/content/types';
 import { getBookPageUrlAndParams } from '../src/app/content/utils';
@@ -11,6 +12,16 @@ import createArchiveLoader from '../src/gateways/createArchiveLoader';
 import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
 import progressBar from './utils/progressBar';
+
+// Blocking GTM prevents most analytics scripts from loading
+const blockedRequests = [
+  /^https?:\/\/(?:www\.)?googletagmanager\.com/,
+  /^https?:\/\/js\.pulseinsights\.com/,
+  /^https?:\/\/cmp\.osano.com/,
+];
+
+// Most pages perform less than 10 requests when GTM is blocked
+const cacheMaxSize = 50;
 
 const {
   archiveUrl,
@@ -76,7 +87,25 @@ async function visitPages(
       const appendQueryString =
         queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
                     : archiveUrl ? `?archive=${archiveUrl}` : '';
-      await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+      const pageComponents = pageUrl.split('/');
+      const slug = pageComponents[pageComponents.length - 1];
+      const linkSelector = `a[href^="${slug}"]`;
+      const link = await page.$(linkSelector);
+
+      if (link) {
+        await page.evaluate((linkCss) => {
+          const linkElt = document?.querySelector(linkCss);
+          if (!linkElt) {
+            // This should not be reachable
+            throw new Error('Evaluation failed: document or link not found');
+          }
+
+          linkElt.click();
+        }, linkSelector);
+        await page.waitForSelector(`li[aria-label="Current Page"] ${linkSelector}`);
+      } else {
+        await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+      }
       await page.waitForSelector('body[data-rex-loaded="true"]');
       await calmHooks(page);
 
@@ -86,7 +115,7 @@ async function visitPages(
         anyFailures = true;
         bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
       }
-    } catch (e) {
+    } catch (e: any) {
       anyFailures = true;
       bar.interrupt(`- (error loading) ${pageUrl}`);
       if (e.message) {
@@ -100,8 +129,14 @@ async function visitPages(
   return anyFailures;
 }
 
-function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
-  let observer: PageErrorObserver = () => null;
+function configurePage(page: puppeteer.Page): ObservePageErrors {
+  let errorObserver: PageErrorObserver = () => null;
+  const cache = new QuickLRU<string, puppeteer.RespondOptions>({maxSize: cacheMaxSize});
+  let hits = 0;
+  let misses = 0;
+
+  page.setDefaultNavigationTimeout(60 * 1000);
+  page.setRequestInterception(true);
 
   page.on('console', (message) => {
     if (['info'].includes(message.type())) {
@@ -110,20 +145,58 @@ function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
     if (message.text() === 'Failed to load resource: the server responded with a status of 403 (Forbidden)') {
       return;
     }
-    observer(`console: ${message.type().substr(0, 3).toUpperCase()} ${message.text()}`);
+    errorObserver(`console: ${message.type().substr(0, 3).toUpperCase()} ${message.text()}`);
   });
 
-  page.on('pageerror', ({ message }) => observer('ERR: ' + message));
+  page.on('pageerror', ({ message }) => errorObserver('ERR: ' + message));
+
+  page.on('request', (request) => {
+    const url = request.url();
+
+    if (blockedRequests.some((blockedRequest) => blockedRequest.test(url))) {
+      return request.abort();
+    }
+
+    if (!url.startsWith('data:')) {
+      const cachedResponse = cache.get(url);
+      if (cachedResponse) {
+        hits++;
+        return request.respond(cachedResponse);
+      } else {
+        misses++;
+      }
+    }
+
+    request.continue();
+  });
 
   page.on('response', (response) => {
-    if ([200, 304].includes(response.status())) {
+    const url = response.url();
+    const status = response.status();
+
+    // ignore redirect responses since they have no response body
+    if (status >= 300 && status < 400) {
       return;
     }
-    // accounts endpoint always 403s when logged out
-    if (response.status() === 403 && response.url().includes('/accounts/api/user')) {
+
+    // don't cache data urls
+    if (!url.startsWith('data:')) {
+      const headers = response.headers();
+      const contentType = headers['content-type'];
+      response.buffer().then((body) => cache.set(url, { status, headers, contentType, body })).catch((error) => {
+        // ignore this error that happens if we navigated away from the page before loading this response
+        if (error.message !== 'Protocol error (Network.getResponseBody): No resource with given identifier found') {
+          throw error;
+        }
+      });
+    }
+
+    // accounts endpoint always 403s when logged out, so we ignore those errors
+    if ((status >= 200 && status < 300) || (status === 403 && url.includes('/accounts/api/user'))) {
       return;
     }
-    observer(`response: ${response.status()} ${response.url()}`);
+
+    errorObserver(`response: ${status} ${url}`);
   });
 
   page.on('requestfailed', (request) => {
@@ -132,10 +205,13 @@ function makePageErrorDetector(page: puppeteer.Page): ObservePageErrors {
     if (text === 'net::ERR_ABORTED' && request.url().includes('/resources/')) {
       return;
     }
-    observer(`requestfailed: ${text} ${request.url()}`);
+    errorObserver(`requestfailed: ${text} ${request.url()}`);
   });
 
-  return (newObserver: PageErrorObserver) => observer = newObserver;
+  // tslint:disable-next-line: no-console
+  process.on('exit', () => console.log(`Cache hits: ${hits} / Total requests: ${hits + misses}`));
+
+  return (newObserver: PageErrorObserver) => errorObserver = newObserver;
 }
 
 async function run() {
@@ -160,9 +236,7 @@ async function run() {
   let anyFailures = false;
 
   const page = await browser.newPage();
-  page.setDefaultNavigationTimeout(60 * 1000);
-
-  const errorDetector = makePageErrorDetector(page);
+  const errorDetector = configurePage(page);
 
   for (const book of books) {
     anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit) || anyFailures;

@@ -66,6 +66,7 @@ figure {
   position: relative;
   color: @gray;
   text-align: center;
+  overflow: auto;
 
   > figcaption {
     padding: 1rem;
@@ -74,7 +75,7 @@ figure {
 
   // do not wrap this in a .media so it applies to editing in Aloha
   img {
-    max-width: 100%;
+    width: 100%;
     margin: 0; //overrides top&bott margin on img, all img EXCEPT those in figure tags should have 1em top&bott margin
   }
 

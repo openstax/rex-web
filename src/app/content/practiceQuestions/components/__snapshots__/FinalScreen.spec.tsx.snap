@@ -1,27 +1,122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FinalScreen for practice questions renders properly and dispatches action on click 1`] = `
+.c9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  font-size: 1.6rem;
+  height: 5rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #d4450c;
+  font-weight: bold;
+  border: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.c9:hover {
+  background-color: ,#be3c08,;
+}
+
+.c9:active {
+  background-color: ,#b03808,;
+}
+
+.c2 {
+  max-width: 38rem;
+  overflow: initial;
+}
+
+.c2 .c8 {
+  margin: 4rem auto;
+}
+
+.c4 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+.c6 {
+  display: inline;
+}
+
+.c7 {
+  font-weight: 700;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  margin: 2rem auto;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  text-align: center;
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+}
+
+.c1 {
+  margin-bottom: 3rem;
+  max-width: 38rem;
+  overflow: initial;
+}
+
+.c3 .c5 {
+  display: block;
+}
+
 <div
-  className="FinalScreen__StyledFinalScreen-sc-131hu2n-0 cKZyXt"
+  className="c0"
 >
   <span
-    className="FinalScreen__StyledText-sc-131hu2n-1 MXQtJ"
+    className="c1"
   >
     You have reached the end of this set!
   </span>
   <div
-    className="NextSectionMessage__StyledNextSectionMessage-qtwzgn-0 gTWiOh FinalScreen__StyledNextSectionMessage-sc-131hu2n-2 hofvhY"
+    className="c2 c3"
   >
     <div
-      className="NextSectionMessage__StyledMessage-qtwzgn-1 TEURJ"
+      className="c4"
     >
       <span
-        className="NextSectionMessage__StyledMessageText-qtwzgn-2 iCtbqd"
+        className="c5 c6"
       >
         Next section:
       </span>
       <span
-        className="NextSectionMessage__StyledSectionTitle-qtwzgn-3 cmlWLO"
+        className="c7"
         dangerouslySetInnerHTML={
           Object {
             "__html": "some title",
@@ -30,7 +125,7 @@ exports[`FinalScreen for practice questions renders properly and dispatches acti
       />
     </div>
     <button
-      className="Button-ayg7nk-0 dlvVUh"
+      className="c8 c9"
       data-analytics-label="Continue (Final Screen)"
       onClick={[Function]}
     >

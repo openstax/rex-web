@@ -10,6 +10,27 @@
     -->
     <link rel="manifest" href="/dist/assets/manifest.json">
 
+
+    <!--
+      this style shows the osano widget after a delay, giving the app
+      a chance to explicitly hide it but still defaulting to showing it
+      as a safety fallback
+    -->
+    <style>
+      .osano-cm-widget {
+        animation: fadeInAnimation 5s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+      }
+      @keyframes fadeInAnimation {
+        0% { opacity: 0; }
+        90% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+    </style>
+    <script src="https://cmp.osano.com/AzZqbXTbzhHsU3cv1/68d8e8ae-4024-4489-a000-72766ad284a6/osano.js"></script>
+    <script src="https://chat.research.openstax.org/assets/static/loader.js" async></script>
+
     <!-- Google Tag Manager -->
     <script>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -26,7 +47,7 @@
       window.oxDLF = window.oxDLF || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      
+
       window.dataLayer.push({app: 'rex'})
     </script>
 

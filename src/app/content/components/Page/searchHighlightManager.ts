@@ -22,7 +22,7 @@ export const mapStateToSearchHighlightProp = memoizeStateToProps((state: AppStat
 
   return {
     searchResults,
-    selectedResult: searchResults && selectedResult && searchResults.find(isEqual(selectedResult.result))
+    selectedResult: selectedResult && searchResults?.find(isEqual(selectedResult.result))
       ? selectedResult
       : null,
   };

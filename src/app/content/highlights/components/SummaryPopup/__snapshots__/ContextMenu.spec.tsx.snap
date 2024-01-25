@@ -1,15 +1,109 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContextMenu match snapshot when closed 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c1 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 {
+  overflow: visible;
+  position: relative;
+}
+
+.c11 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #e5e5e5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c11:hover {
+  color: #818181;
+}
+
+.c6 {
+  border: none;
+  display: block;
+}
+
+.c6 > div {
+  display: inline-block;
+  outline: none;
+}
+
+.c0 .c2 {
+  position: absolute;
+  width: 150px;
+  top: 1.2rem;
+  right: 0;
+}
+
+.c0 .c2 .focus-within .c10 {
+  color: #818181;
+}
+
+.c0 .c2:focus-within .c10 {
+  color: #818181;
+}
+
+.c0 .c12 {
+  margin: 0.6rem 0 0 0.6rem;
+}
+
+.c0 .c5 {
+  float: right;
+  margin-right: 0.2rem;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
 <div
-  className="ContextMenu__StyledContextMenu-a36hp5-0 eFRhVx"
+  className="c0"
 >
   <div
-    className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+    className="c1 c2 c3"
   >
     <button
       aria-label="Edit this highlight"
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c4 c5 c6 c7 c8"
       onClick={[Function]}
     >
       <div
@@ -17,10 +111,11 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="c9 c10 c11"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -34,15 +129,442 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 `;
 
 exports[`ContextMenu match snapshot when open 1`] = `
+.c9 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c18 {
+  display: none;
+}
+
+.c20 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #ffff8a;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c22 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #def99f;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c24 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #c8f5ff;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c26 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #cbcfff;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c28 {
+  display: none;
+  position: absolute;
+  height: 2.2rem;
+  width: 2.2rem;
+  background-color: #ffc5e1;
+  z-index: -1;
+  left: -0.4rem;
+  top: -0.4rem;
+  border-radius: 2rem;
+}
+
+.c15 {
+  position: relative;
+  background-color: #ffff8a;
+  border: 1px solid #fed200;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c15 .c17 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c15 input:focus + .c19 {
+  display: block;
+}
+
+.c21 {
+  position: relative;
+  background-color: #def99f;
+  border: 1px solid #92d101;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c21 .c17 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c21 input:focus + .c19 {
+  display: block;
+}
+
+.c23 {
+  position: relative;
+  background-color: #c8f5ff;
+  border: 1px solid #00c3ed;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c23 .c17 {
+  height: 1rem;
+  width: 1rem;
+  color: #00c3ed;
+  display: block;
+}
+
+.c23 input:focus + .c19 {
+  display: block;
+}
+
+.c25 {
+  position: relative;
+  background-color: #cbcfff;
+  border: 1px solid #545ec8;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c25 .c17 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c25 input:focus + .c19 {
+  display: block;
+}
+
+.c27 {
+  position: relative;
+  background-color: #ffc5e1;
+  border: 1px solid #de017e;
+  height: 1.6rem;
+  width: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 2rem;
+  overflow: visible;
+}
+
+.c27 .c17 {
+  height: 1rem;
+  width: 1rem;
+}
+
+.c27 input:focus + .c19 {
+  display: block;
+}
+
+.c16 {
+  cursor: pointer;
+  margin: 0 0.8rem 0.8rem 0;
+}
+
+.c16 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.c14 {
+  outline: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  overflow: visible;
+}
+
+.c4 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+.c8 {
+  cursor: pointer;
+}
+
+.c1 > *:not(.c7) {
+  -webkit-animation: 100ms bcCCNc ease-out;
+  animation: 100ms bcCCNc ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
+  border: 1px solid #d5d5d5;
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+.c3 {
+  overflow: visible;
+  position: relative;
+}
+
+.c11 {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: #e5e5e5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c11:hover {
+  color: #818181;
+}
+
+.c6 {
+  border: none;
+  display: block;
+}
+
+.c6 > div {
+  display: inline-block;
+  outline: none;
+}
+
+.c0 .c2 {
+  position: absolute;
+  width: 150px;
+  top: 1.2rem;
+  right: 0;
+}
+
+.c0 .c2 .focus-within .c10 {
+  color: #818181;
+}
+
+.c0 .c2:focus-within .c10 {
+  color: #818181;
+}
+
+.c0 .c13 {
+  margin: 0.6rem 0 0 0.6rem;
+}
+
+.c0 .c5 {
+  float: right;
+  margin-right: 0.2rem;
+}
+
+.c29 {
+  margin: 0;
+  padding: 0.6rem 0;
+  background: #f5f5f5;
+  z-index: 1;
+  padding: 0;
+}
+
+.c29 li {
+  padding: 0.2rem;
+}
+
+.c29 li button,
+.c29 li a {
+  white-space: nowrap;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding-left: 0.8rem;
+  margin: 0;
+  height: 3rem;
+  background: none;
+  min-width: 7rem;
+  color: #424242;
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.c29 li button:hover,
+.c29 li a:hover,
+.c29 li button:focus,
+.c29 li a:focus {
+  background: #d5d5d5;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
+}
+
+.c29 li {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c29 li a {
+  width: 100%;
+}
+
+.c30 {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: #424242;
+}
+
+.c31 {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: #424242;
+}
+
+.c32 {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: #424242;
+}
+
+.c12 {
+  z-index: 2;
+  border: 1px solid #d5d5d5;
+  background-color: #f5f5f5;
+  margin-bottom: 1rem;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    display: none;
+  }
+}
+
 <div
-  className="ContextMenu__StyledContextMenu-a36hp5-0 eFRhVx"
+  className="c0"
 >
   <div
-    className="Dropdown__TabHiddenDropDown-rmc6yw-1 kbMrSv Dropdown-rmc6yw-5 fBPFfC"
+    className="c1 c2 c3"
   >
     <button
       aria-label="Edit this highlight"
-      className="Button__PlainButton-ayg7nk-2 chgswm DotMenu__DotMenuToggle-khcauc-1 fyJNFy Dropdown__DropdownToggle-rmc6yw-0 gpiKKF"
+      className="c4 c5 c6 c7 c8"
       onClick={[Function]}
     >
       <div
@@ -50,10 +572,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="StyledIconBase-sc-bdy9j4 cCvWXa DotMenu__DotMenuIcon-khcauc-0 ehMhqa"
+          className="c9 c10 c11"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 192 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -63,20 +586,21 @@ exports[`ContextMenu match snapshot when open 1`] = `
       </div>
     </button>
     <div
-      className="ContextMenu__HighlightToggleEditContent-a36hp5-5 hRiRhl"
+      className="c12"
     >
       <div
-        className="ColorPicker-an3xh1-1 eIpXfa"
+        className="c13 c14"
         tabIndex={-1}
       >
         <label
           aria-label="Apply yellow highlight"
           checked={false}
-          className="ColorIndicator-sc-1w5zl7g-2 hxgXOu ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
+          className="c15 c16"
           component={<label />}
           size="small"
           style={
             Object {
+              "focusBorder": "#8f7700",
               "focused": "#fed200",
               "label": "yellow",
               "passive": "#ffff8a",
@@ -86,10 +610,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="c9 c17 c18"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -103,10 +628,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 kwsovu"
+            className="c19 c20"
             size="small"
             style={
               Object {
+                "focusBorder": "#8f7700",
                 "focused": "#fed200",
                 "label": "yellow",
                 "passive": "#ffff8a",
@@ -117,11 +643,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply green highlight"
           checked={false}
-          className="ColorIndicator-sc-1w5zl7g-2 kUYWjn ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
+          className="c21 c16"
           component={<label />}
           size="small"
           style={
             Object {
+              "focusBorder": "#4e6f01",
               "focused": "#92d101",
               "label": "green",
               "passive": "#def99f",
@@ -131,10 +658,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="c9 c17 c18"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -148,10 +676,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 fqiTys"
+            className="c19 c22"
             size="small"
             style={
               Object {
+                "focusBorder": "#4e6f01",
                 "focused": "#92d101",
                 "label": "green",
                 "passive": "#def99f",
@@ -162,11 +691,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply blue highlight"
           checked={true}
-          className="ColorIndicator-sc-1w5zl7g-2 gHfQKR ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
+          className="c23 c16"
           component={<label />}
           size="small"
           style={
             Object {
+              "focusBorder": "#006880",
               "focused": "#00c3ed",
               "label": "blue",
               "passive": "#c8f5ff",
@@ -176,10 +706,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="c9 c17 c18"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -193,10 +724,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 eHIgYD"
+            className="c19 c24"
             size="small"
             style={
               Object {
+                "focusBorder": "#006880",
                 "focused": "#00c3ed",
                 "label": "blue",
                 "passive": "#c8f5ff",
@@ -207,11 +739,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply purple highlight"
           checked={false}
-          className="ColorIndicator-sc-1w5zl7g-2 gdbVRC ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
+          className="c25 c16"
           component={<label />}
           size="small"
           style={
             Object {
+              "focusBorder": "#141a3e",
               "focused": "#545ec8",
               "label": "purple",
               "passive": "#cbcfff",
@@ -221,10 +754,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="c9 c17 c18"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -238,10 +772,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 AHChX"
+            className="c19 c26"
             size="small"
             style={
               Object {
+                "focusBorder": "#141a3e",
                 "focused": "#545ec8",
                 "label": "purple",
                 "passive": "#cbcfff",
@@ -252,11 +787,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply pink highlight"
           checked={false}
-          className="ColorIndicator-sc-1w5zl7g-2 bhqGqa ColorPicker__ColorButton-an3xh1-0 dcHOwJ"
+          className="c27 c16"
           component={<label />}
           size="small"
           style={
             Object {
+              "focusBorder": "#560131",
               "focused": "#de017e",
               "label": "pink",
               "passive": "#ffc5e1",
@@ -266,10 +802,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <svg
             aria-hidden="true"
-            className="StyledIconBase-sc-bdy9j4 cCvWXa ColorIndicator__CheckIcon-sc-1w5zl7g-0 Lufbl"
+            className="c9 c17 c18"
             fill="currentColor"
             focusable="false"
             viewBox="0 0 512 512"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -283,10 +820,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="ColorIndicator__FocusedStyle-sc-1w5zl7g-1 cxneHl"
+            className="c19 c28"
             size="small"
             style={
               Object {
+                "focusBorder": "#560131",
                 "focused": "#de017e",
                 "label": "pink",
                 "passive": "#ffc5e1",
@@ -296,7 +834,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </label>
       </div>
       <ol
-        className="Dropdown__DropdownList-rmc6yw-4 ContextMenu__StyledDropdownList-a36hp5-1 cqWhBl"
+        className="c29"
       >
         <li
           aria-label="Add note"
@@ -308,10 +846,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledEditIcon-a36hp5-2 ioizoP"
+              className="c9 c30"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 576 512"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
@@ -331,13 +870,14 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledTrashAltIcon-a36hp5-3 dvaTJY"
+              className="c9 c31"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
+                d="M32 464a48 48 0 0048 48h288a48 48 0 0048-48V128H32zm272-256a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zM432 32H312l-9.4-18.7A24 24 0 00281.1 0H166.8a23.72 23.72 0 00-21.4 13.3L136 32H16A16 16 0 000 48v32a16 16 0 0016 16h416a16 16 0 0016-16V48a16 16 0 00-16-16z"
                 fill="currentColor"
               />
             </svg>
@@ -353,13 +893,14 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="StyledIconBase-sc-bdy9j4 cCvWXa ContextMenu__StyledLinkIcon-a36hp5-4 kOdVkL"
+              className="c9 c32"
               fill="currentColor"
               focusable="false"
-              viewBox="0 0 576 512"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"
+                d="M432 320h-32a16 16 0 00-16 16v112H64V128h144a16 16 0 0016-16V80a16 16 0 00-16-16H48a48 48 0 00-48 48v352a48 48 0 0048 48h352a48 48 0 0048-48V336a16 16 0 00-16-16zM488 0H360c-21.37 0-32.05 25.91-17 41l35.73 35.73L135 320.37a24 24 0 000 34L157.67 377a24 24 0 0034 0l243.61-243.68L471 169c15 15 41 4.5 41-17V24a24 24 0 00-24-24z"
                 fill="currentColor"
               />
             </svg>

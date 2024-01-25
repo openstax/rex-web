@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import { textStyle } from '../../../../components/Typography';
-import { useDrawFocus } from '../../../../reactUtils';
+import { useDrawFocus, useTrapTabNavigation } from '../../../../reactUtils';
 import { HighlightEditButtons } from './styles';
 
 // tslint:disable-next-line:variable-name
@@ -30,47 +30,65 @@ const StyledHighlightDeleteWrapper = styled.div`
 `;
 
 interface HighlightDeleteWrapperProps {
-  hasAnnotation?: boolean;
+  deletingWhat?: 'note' | 'highlight' | 'both';
   onCancel: () => void;
   onDelete: () => void;
 }
 
-// tslint:disable-next-line:variable-name
-const HighlightDeleteWrapper = ({
-  hasAnnotation,
+function HighlightDeleteWrapper({
+  deletingWhat = 'highlight',
   onDelete,
   onCancel,
-}: HighlightDeleteWrapperProps) => <StyledHighlightDeleteWrapper
-  data-analytics-region='MH delete'
-  tabIndex={0}
-  ref={useDrawFocus()}
->
-  <FormattedMessage
-    id={hasAnnotation
-      ? 'i18n:highlighting:confirmation:delete-both'
-      : 'i18n:highlighting:confirmation:delete-highlight'}
-  >
-    {(msg) => <span>{msg}</span>}
-  </FormattedMessage>
-  <HighlightEditButtons>
-    <FormattedMessage id='i18n:highlighting:button:delete'>
-      {(msg) => <Button
-        data-testid='delete'
-        data-analytics-label='delete'
-        size='medium'
-        variant='primary'
-        onClick={onDelete}
-      >{msg}</Button>}
-    </FormattedMessage>
-    <FormattedMessage id='i18n:highlighting:button:cancel'>
-      {(msg) => <Button
-        size='medium'
-        data-analytics-label='cancel'
-        data-testid='cancel'
-        onClick={onCancel}
-      >{msg}</Button>}
-    </FormattedMessage>
-  </HighlightEditButtons>
-</StyledHighlightDeleteWrapper>;
+}: HighlightDeleteWrapperProps) {
+  const ref = useDrawFocus();
+
+  useTrapTabNavigation(ref);
+
+  return (
+    <StyledHighlightDeleteWrapper
+      data-analytics-region='MH delete'
+      tabIndex={0}
+      ref={ref}
+    >
+      <FormattedMessage
+        id={
+          deletingWhat === 'both'
+            ? 'i18n:highlighting:confirmation:delete-both'
+            : deletingWhat === 'highlight' ? 'i18n:highlighting:confirmation:delete-highlight'
+            : 'i18n:highlighting:confirmation:delete-note'
+        }
+      >
+        {msg => <span>{msg}</span>}
+      </FormattedMessage>
+      <HighlightEditButtons>
+        <FormattedMessage id='i18n:highlighting:button:delete'>
+          {msg => (
+            <Button
+              data-testid='delete'
+              data-analytics-label='delete'
+              size='medium'
+              variant='primary'
+              onClick={onDelete}
+            >
+              {msg}
+            </Button>
+          )}
+        </FormattedMessage>
+        <FormattedMessage id='i18n:highlighting:button:cancel'>
+          {msg => (
+            <Button
+              size='medium'
+              data-analytics-label='cancel'
+              data-testid='cancel'
+              onClick={onCancel}
+            >
+              {msg}
+            </Button>
+          )}
+        </FormattedMessage>
+      </HighlightEditButtons>
+    </StyledHighlightDeleteWrapper>
+  );
+}
 
 export default HighlightDeleteWrapper;

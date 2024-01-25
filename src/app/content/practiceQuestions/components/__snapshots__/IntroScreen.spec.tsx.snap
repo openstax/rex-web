@@ -1,16 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IntroScreen for practice questions renders properly for 1 question 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  font-size: 1.6rem;
+  height: 5rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #d4450c;
+  font-weight: bold;
+  border: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.c3:hover {
+  background-color: ,#be3c08,;
+}
+
+.c3:active {
+  background-color: ,#b03808,;
+}
+
+.c0 {
+  text-align: center;
+}
+
+.c0 .c2 {
+  display: block;
+  margin: 2rem auto;
+}
+
+.c1 {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 4rem 0;
+}
+
 <div
-  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 eGmEow"
+  className="c0"
 >
   <span
-    className="IntroScreen__IntroScreenMessage-h8gm9y-1 dwmRhb"
+    className="c1"
   >
     2 questions in this section
   </span>
   <button
-    className="Button-ayg7nk-0 dlvVUh"
+    className="c2 c3"
     data-analytics-label="Start now"
     onClick={[Function]}
   >
@@ -20,16 +74,70 @@ exports[`IntroScreen for practice questions renders properly for 1 question 1`] 
 `;
 
 exports[`IntroScreen for practice questions renders properly for 2 questions 1`] = `
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: initial;
+  font-size: 1.6rem;
+  height: 5rem;
+  padding: 0 3rem;
+  color: #fff;
+  background-color: #d4450c;
+  font-weight: bold;
+  border: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.c3:hover {
+  background-color: ,#be3c08,;
+}
+
+.c3:active {
+  background-color: ,#b03808,;
+}
+
+.c0 {
+  text-align: center;
+}
+
+.c0 .c2 {
+  display: block;
+  margin: 2rem auto;
+}
+
+.c1 {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 4rem 0;
+}
+
 <div
-  className="IntroScreen__IntroScreenWrapper-h8gm9y-0 eGmEow"
+  className="c0"
 >
   <span
-    className="IntroScreen__IntroScreenMessage-h8gm9y-1 dwmRhb"
+    className="c1"
   >
     2 questions in this section
   </span>
   <button
-    className="Button-ayg7nk-0 dlvVUh"
+    className="c2 c3"
     data-analytics-label="Start now"
     onClick={[Function]}
   >

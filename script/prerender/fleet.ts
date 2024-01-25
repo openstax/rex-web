@@ -67,7 +67,7 @@ const MAX_ATTEMPTS = 5;
 
 // The worker fleet is automatically terminated after this many seconds
 // This is insurance in case this process gets stuck or crashes without deleting the workers stack
-const PRERENDER_TIMEOUT_SECONDS = 1800;
+const PRERENDER_TIMEOUT_SECONDS = 3600;
 
 // Abort the build if the workers stack is not created/deleted within this many seconds
 const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 300;
@@ -133,7 +133,7 @@ ReceiveMessageResult | SendMessageBatchResult | SendMessageResult>(
     try {
       // return await is required here to catch the error
       return await client.send(command);
-    } catch (error) {
+    } catch (error: any) {
       if (attempt >= MAX_ATTEMPTS || error.code !== 'EPROTO') {
         throw error;
       }
@@ -153,7 +153,7 @@ async function callWithRetries<A, B, R>(
     try {
       // return await is required here to catch the error
       return await (b === undefined ? func(a) : func(a, b));
-    } catch (error) {
+    } catch (error: any) {
       if (attempt >= MAX_ATTEMPTS || error.code !== 'EPROTO') {
         throw error;
       }

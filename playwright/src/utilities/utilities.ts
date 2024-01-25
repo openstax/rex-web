@@ -2,9 +2,6 @@ import { ElementHandle, Page } from '@playwright/test'
 
 async function closeExtras(page: Page, retries = 5): Promise<void> {
   try {
-    await page.click('text=Got it!')
-  } catch (error) {}
-  try {
     await page.click('lower-sticky-note-content > .put-away', { timeout: 500 })
   } catch (error) {}
   try {
@@ -13,6 +10,7 @@ async function closeExtras(page: Page, retries = 5): Promise<void> {
   try {
     await page.click('.ReactModalPortal .put-away', { timeout: 500 })
   } catch (error) {}
+
   const extras = await page.isVisible(
     '.cookie-notice button, lower-sticky-note-content > .put-away, ._pi_closeButton, .ReactModalPortal .put-away',
   )
@@ -52,10 +50,68 @@ function randomstring(length = 15) {
   return string
 }
 
+function colorNumber(color: string) {
+  // Assign number to each color in the highlighter
+  switch (color) {
+    case 'yellow':
+      return 0
+
+    case 'green':
+      return 1
+
+    case 'blue':
+      return 2
+
+    case 'purple':
+      return 3
+
+    case 'pink':
+      return 4
+  }
+}
+
 async function sleep(seconds = 1.0): Promise<unknown> {
   return new Promise((resolve) => {
     setTimeout(resolve, seconds * 1000)
   })
 }
 
-export { closeExtras, randomChoice, randomNum, randomstring, sleep }
+class MobileNavigation {
+  page: Page
+
+  constructor(page: Page) {
+    this.page = page
+  }
+
+  async openMobileMenu(menu: any) {
+    switch (menu) {
+      case 'toc':
+        await this.page.click('[id*="mobile-menu-button"] [class*="styled__PlainButton"]')
+        await this.page.click('[data-analytics-label="Click to open the Table of Contents"]')
+        break
+
+      case 'MH':
+        await this.page.click('[id*="mobile-menu-button"] [class*="styled__PlainButton"]')
+        await this.page.click('[data-analytics-label="My highlights"]')
+        // Close the mobile help notification tooltip
+        await this.page.locator('[data-testid="highlights-popup-wrapper"] button').nth(4).click()
+        break
+    }
+  }
+
+  async openBigMobileMenu(menu: any) {
+    switch (menu) {
+      case 'toc':
+        await this.page.click('[data-analytics-label="Click to open the Table of Contents"]')
+        break
+
+      case 'MH':
+        await this.page.click('[data-analytics-label="My highlights"]')
+        // Close the mobile help notification tooltip
+        await this.page.locator('[data-analytics-region="Mobile MH help info"] button').click()
+        break
+    }
+  }
+}
+
+export { closeExtras, randomChoice, randomNum, randomstring, sleep, colorNumber, MobileNavigation }

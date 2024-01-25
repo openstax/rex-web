@@ -1,32 +1,188 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ProgressBar displays properly 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.c1::after {
+  content: "";
+  display: block;
+  height: 0.1rem;
+  width: 5.6rem;
+  background-color: #5e6062;
+}
+
+.c1:last-child::after {
+  content: none;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.c3::after {
+  content: "";
+  display: block;
+  height: 0.1rem;
+  width: 5.6rem;
+  background-color: #5e6062;
+  background-color: #F1F1F1;
+}
+
+.c3:last-child::after {
+  content: none;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: #5e6062;
+  border: 1px solid #5e6062;
+  color: #fff;
+  margin: 0 0.4rem;
+  font-weight: bold;
+}
+
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: #5e6062;
+  border: 1px solid #5e6062;
+  color: #fff;
+  margin: 0 0.4rem;
+  font-weight: bold;
+  color: #5e6062;
+  background-color: #fff;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: #5e6062;
+  border: 1px solid #5e6062;
+  color: #fff;
+  margin: 0 0.4rem;
+  font-weight: bold;
+  color: #c1c1c1;
+  background-color: #f1f1f1;
+  border-color: #f1f1f1;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 3.2rem;
+}
+
+@media screen and (max-width:75em) {
+  .c1::after {
+    width: 3.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c3::after {
+    width: 3.3rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    margin: 1rem;
+  }
+}
+
 <div
-  className="ProgressBar__ProgressBarWrapper-sc-12ssvtu-0 kleYmF"
+  className="c0"
 >
   <span
-    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 IySic"
+    className="c1"
   >
     <span
-      className="ProgressBarItem__StyledItem-sc-1d02vnm-1 bipRWq"
+      className="c2"
     >
       1
     </span>
   </span>
   <span
-    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 hnxurH"
+    className="c3"
   >
     <span
-      className="ProgressBarItem__StyledItem-sc-1d02vnm-1 ProgressBarItem__StyledActiveItem-sc-1d02vnm-2 cAorVC"
+      className="c4"
     >
       2
     </span>
   </span>
   <span
-    className="ProgressBarItem__StyledItemWrapper-sc-1d02vnm-0 hnxurH"
+    className="c3"
   >
     <span
-      className="ProgressBarItem__StyledItem-sc-1d02vnm-1 ProgressBarItem__StyledDisabledItem-sc-1d02vnm-3 ldibSe"
+      className="c5"
     >
       3
     </span>

@@ -17,7 +17,7 @@ const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
   const dispatch = useDispatch();
 
   return <Styled.RelatedKeyTerms data-analytics-region='kt-search-results'>
-    <Styled.SearchResultsSectionTitle>
+    <Styled.SearchResultsSectionTitle tabIndex='0'>
       <FormattedMessage id='i18n:search-results:related-key-term:title'>
         {(msg) => msg}
       </FormattedMessage>
@@ -26,7 +26,7 @@ const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
       book={book}
       hits={keyTermHits}
       testId='related-key-term-result'
-      getPage={(hit) => assertDefined(findArchiveTreeNodeById(book.tree, hit.source.pageId), 'hit has to be in a book')}
+      getPage={(hit: SearchResultHit) => assertDefined(findArchiveTreeNodeById(book.tree, hit.source.pageId), 'hit has to be in a book')}
       onClick={() => dispatch(closeSearchResultsMobile())}
       selectedResult={selectedResult}
     />

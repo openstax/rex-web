@@ -1,22 +1,24 @@
 import isEqual from 'lodash/fp/isEqual';
 import queryString from 'query-string';
-import { push, replace } from '../../../navigation/actions';
+import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
+import { replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
-import { actionHook } from '../../../utils';
+import { actionHook, isNetworkError } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
 import { content } from '../../routes';
 import * as selectContent from '../../selectors';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
-import { stripIdVersion } from '../../utils/idUtils';
 import { createNavigationMatch } from '../../utils/navigationUtils';
 import { clearSearch, openSearchInSidebar, receiveSearchResults, requestSearch, selectSearchResult } from '../actions';
+import { SearchLoadError } from '../errors';
 import { isSearchScrollTarget } from '../guards';
 import * as select from '../selectors';
-import { findSearchResultHit, getFirstResult, getIndexData } from '../utils';
+import { findSearchResultHit } from '../utils';
 import trackSearch from './trackSearch';
+import Sentry from '../../../../helpers/Sentry';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
@@ -31,39 +33,34 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
     indexStrategy: 'i1',
     q: payload,
     searchStrategy: 's1',
+  }).catch((error) => {
+    if (!isNetworkError(error)) {
+      Sentry.captureException(error);
+    }
+    throw ensureApplicationErrorType(
+      error,
+      new SearchLoadError({ destination: 'page', shouldAutoDismiss: false })
+    );
   });
 
   services.dispatch(receiveSearchResults(results, meta));
 };
 
-export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({payload, meta}) => {
+export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({meta}) => {
   const state = services.getState();
   const {page: currentPage, book} = selectContent.bookAndPage(state);
   const pageIsLoading = selectContent.loadingPage(state);
-  const query = select.query(state);
-  const results = select.hits(state);
-  const systemQueryParams = selectNavigation.systemQueryParameters(state);
-  const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
 
   if (pageIsLoading || !book) {
     return; // book changed while query was in the air
   }
 
-  const searchResultHit = meta && meta.searchScrollTarget &&
+  const results = select.hits(state);
+  const searchResultHit = meta?.searchScrollTarget &&
     findSearchResultHit(results, meta.searchScrollTarget, state?.content?.page?.id);
   const selectedResult = searchResultHit && meta.searchScrollTarget
     ? {result: searchResultHit, highlight: meta.searchScrollTarget.index}
-    : getFirstResult(book, payload);
-
-  if (
-    selectedResult
-    // We are clearing selected result when requesting a new search so in the theory this should never happen
-    && (isEqual(select.selectedResult(state), selectedResult)
-      // selectedResult bookId data is different than current book id
-      || book.id !== getIndexData(selectedResult.result.index).bookId)
-  ) {
-    return;
-  }
+    : null;
 
   if (selectedResult) {
     services.dispatch(selectSearchResult(selectedResult));
@@ -71,9 +68,11 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
   const targetPageId = selectedResult?.result.source.pageId || currentPage?.id;
 
-  const action = (targetPageId && stripIdVersion(targetPageId)) === (currentPage && stripIdVersion(currentPage.id))
-    ? replace : push;
+  const action = replace;
 
+  const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
+  const systemQueryParams = selectNavigation.systemQueryParameters(state);
+  const query = select.query(state);
   const options = selectedResult
     ? {
       hash: selectedResult.result.source.elementId,
@@ -101,14 +100,14 @@ export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (s
 
 export const clearSearchHook: ActionHookBody<typeof clearSearch | typeof openToc> = (services) => () => {
   const state = services.getState();
-  const scrollTarget = selectNavigation.scrollTarget(state);
-  const hash = selectNavigation.hash(state);
   const query = selectNavigation.query(state);
 
   if (!Object.keys(query).length) {
     return;
   }
 
+  const scrollTarget = selectNavigation.scrollTarget(state);
+  const hash = selectNavigation.hash(state);
   const systemQueryParams = selectNavigation.systemQueryParameters(state);
   const persistentQueryParams = selectNavigation.persistentQueryParameters(state);
   const newTarget = scrollTarget && isSearchScrollTarget(scrollTarget) ? '' : persistentQueryParams.target;
@@ -153,14 +152,14 @@ export const openSearchInSidebarHook: ActionHookBody<typeof openSearchInSidebar>
   // Restore search state when opening sidebar
   const state = services.getState();
   const previousState = select.previousState(state);
-  const hash = selectNavigation.hash(state);
-  const systemQueryParams = selectNavigation.systemQueryParameters(state);
   const { query, selectedResult } = previousState;
 
   if (!query) {
     return;
   }
 
+  const hash = selectNavigation.hash(state);
+  const systemQueryParams = selectNavigation.systemQueryParameters(state);
   const options = selectedResult
     ? {
       hash: selectedResult.result.source.elementId,
