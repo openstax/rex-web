@@ -15,7 +15,7 @@ import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../S
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
-import { createTrapTab, useMatchMobileMediumQuery } from '../../../reactUtils';
+import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery } from '../../../reactUtils';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -31,22 +31,23 @@ function TabTrapper({
   mRef: MutableRefObject<HTMLElement>;
   isTocOpen: boolean;
 }) {
-  const isMobile = useMatchMobileMediumQuery();
+  const isPhone = useMatchMobileMediumQuery();
+  const isMobile = useMatchMobileQuery();
 
   React.useEffect(() => {
-    if (!isMobile) {
+    const refIsSensible = mRef && 'current' in mRef && mRef.current;
+
+    if (!refIsSensible) {
       return;
     }
-    const listener = createTrapTab(mRef);
-
-    if (isTocOpen) {
+    const containers = [mRef.current, ...(isPhone ? [] : [mRef.current.previousElementSibling])];
+    const listener = createTrapTab(...containers as HTMLElement[]);
+    if (isTocOpen && isMobile) {
       document?.addEventListener('keydown', listener, true);
-    } else {
-      document?.removeEventListener('keydown', listener, true);
     }
 
     return () => document?.removeEventListener('keydown', listener, true);
-  }, [mRef, isTocOpen, isMobile]);
+  }, [mRef, isTocOpen, isMobile, isPhone]);
 
   return null;
 }
@@ -56,6 +57,7 @@ const SidebarBody = React.forwardRef<
   HTMLElement,
   React.ComponentProps<typeof SidebarPaneBody>
 >((props, ref) => {
+
   return (
     <React.Fragment>
       {typeof window !== 'undefined' && (

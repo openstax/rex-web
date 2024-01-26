@@ -255,7 +255,11 @@ describe('useTrapTabNavigation', () => {
   });
 
   function Component() {
-    const ref = React.useRef<HTMLElement | null>(null);
+    const container = assertDocument().createElement('div');
+    const b = assertDocument().createElement('button');
+
+    container.appendChild(b);
+    const ref = React.useRef<HTMLElement | null>(container);
     utils.useTrapTabNavigation(ref);
 
     return <div />;
@@ -280,12 +284,15 @@ describe('useTrapTabNavigation', () => {
 
 describe('createTrapTab', () => {
   let trapTab: ReturnType<typeof utils.createTrapTab>;
-  let querySelectorAll: ReturnType<typeof jest.spyOn>;
   const htmlElement = assertDocument().createElement('div');
   const preventDefault = jest.fn();
   const d = assertDocument().createElement('div');
   const b = assertDocument().createElement('button');
   const i = assertDocument().createElement('input');
+
+  htmlElement.appendChild(d); // not focusable
+  htmlElement.appendChild(b);
+  htmlElement.appendChild(i);
 
   Object.defineProperty(b, 'offsetHeight', {
     value: 1000,
@@ -297,22 +304,13 @@ describe('createTrapTab', () => {
   });
 
   beforeEach(() => {
-    const ref: React.MutableRefObject<HTMLElement> = {
-      current: htmlElement,
-    };
-
-    querySelectorAll = jest.spyOn(ref.current!, 'querySelectorAll');
-    trapTab = utils.createTrapTab(ref);
+    trapTab = utils.createTrapTab(htmlElement);
   });
-  it('ignores non_Tab events', () => {
+  it('ignores non-Tab events', () => {
     trapTab({key: 'a'} as KeyboardEvent);
-    expect(querySelectorAll).not.toHaveBeenCalled();
   });
   it('tabs forward (wrap around)', () => {
     b.focus = jest.fn();
-    htmlElement.appendChild(d); // not focusable
-    htmlElement.appendChild(b);
-    htmlElement.appendChild(i);
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
     trapTab({key: 'Tab', preventDefault} as unknown as KeyboardEvent);
     expect(b.focus).toHaveBeenCalled();
@@ -329,8 +327,21 @@ describe('createTrapTab', () => {
    it('tabs normally otherwise', () => {
     preventDefault.mockClear();
     trapTab({key: 'Tab', preventDefault} as unknown as KeyboardEvent);
+    Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
+    trapTab({key: 'Tab', shiftKey: true, preventDefault} as unknown as KeyboardEvent);
     expect(preventDefault).not.toHaveBeenCalled();
    });
+   it('brings focus back from outside', () => {
+    const outsideEl = assertDocument().createElement('button');
+    b.focus = jest.fn();
+    expect(b.focus).not.toHaveBeenCalled();
+    Object.defineProperty(document, 'activeElement', { value: outsideEl, writable: false, configurable: true });
+    preventDefault.mockClear();
+    trapTab({key: 'Tab', shiftKey: true, preventDefault} as unknown as KeyboardEvent);
+    expect(b.focus).toHaveBeenCalled();
+    expect(preventDefault).toHaveBeenCalled();
+   });
+
 });
 
 describe('onKeyHandler', () => {

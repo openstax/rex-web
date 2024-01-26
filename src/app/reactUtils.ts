@@ -1,4 +1,4 @@
-import { Document, Element, FocusEvent, HTMLElement, Event,
+import type { Document, Element, FocusEvent, HTMLElement, Event,
   HTMLElementEventMap, KeyboardEvent, MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { addSafeEventListener } from './domUtils';
@@ -22,28 +22,65 @@ function isHidden(el: HTMLElement) {
   return el.offsetWidth === 0 && el.offsetHeight === 0;
 }
 
+const focusableItemQuery = [
+  'button', 'input', 'select', 'textarea', '[href]', '[tabindex]:not([tabindex="-1"]',
+].map((s) => s.includes('[') ? s : `${s}:not([disabled])`).join(',');
+
+function ringAdd(arr: unknown[], a: number, b: number) {
+  return (arr.length + a + b) % arr.length;
+}
+
 // Exported to allow testing
-export function createTrapTab(ref: React.MutableRefObject<HTMLElement | null>) {
+export function createTrapTab(...elements: HTMLElement[]) {
+  const focusableElements = elements
+  .filter(c => c  && 'querySelectorAll' in c) // in some tests, this gets garbage
+  .map(
+    (container) => {
+      const contents = Array.from(container.querySelectorAll<HTMLElement>(focusableItemQuery))
+        .filter((el) => !isHidden(el));
+
+      return {
+        container,
+        firstEl: contents[0],
+        lastEl: contents[contents.length - 1],
+      };
+    }
+  ).filter((c) => c.firstEl);
+
+  if (focusableElements.length === 0) {
+    return () => null;
+  }
+
+  // A typical implementation, adapted for crossing multiple containers
+  // e.g. https://hidde.blog/using-javascript-to-trap-focus-in-an-element/
   return (event: KeyboardEvent) => {
     if (event.key !== 'Tab') { return; }
 
-    const el = ref.current;
-    if (!el) { return; }
+    // Keep track of where we came from
+    const startEl = document?.activeElement as HTMLElement;
+    const feEntry = focusableElements.find((entry) => entry.container.contains(startEl));
 
-    const focusableItemQuery =
-      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-    const focusableElements = Array.from(el.querySelectorAll<HTMLElement>(focusableItemQuery))
-    .filter((e) => !isHidden(e));
-
-    if (focusableElements.length === 0) { return; }
-    const firstFocusableElement = focusableElements[0];
-    const lastFocusableElement = focusableElements[focusableElements.length - 1];
-
-    if (event.shiftKey && document?.activeElement === firstFocusableElement) {
-      lastFocusableElement.focus();
+    // Focus has escaped the trap
+    if (!feEntry) {
+      focusableElements[0].firstEl.focus();
       event.preventDefault();
-    } else if (document?.activeElement === lastFocusableElement) {
-      firstFocusableElement.focus();
+      return;
+    }
+
+    // Move to the next container
+    if (event.shiftKey) {
+      if (startEl === feEntry.firstEl) {
+        const feIdx = focusableElements.indexOf(feEntry);
+        const newIdx = ringAdd(focusableElements, feIdx, -1);
+
+        focusableElements[newIdx].lastEl.focus();
+        event.preventDefault();
+      }
+    } else if (startEl === feEntry.lastEl) {
+      const feIdx = focusableElements.indexOf(feEntry);
+      const newIdx = ringAdd(focusableElements, feIdx, 1);
+
+      focusableElements[newIdx].firstEl.focus();
       event.preventDefault();
     }
   };
@@ -52,7 +89,11 @@ export function createTrapTab(ref: React.MutableRefObject<HTMLElement | null>) {
 export function useTrapTabNavigation(ref: React.MutableRefObject<HTMLElement | null>) {
   React.useEffect(
     () => {
-      const trapTab = createTrapTab(ref);
+      const el = ref.current;
+      if (!el) {
+        return;
+      }
+      const trapTab = createTrapTab(el);
 
       document?.addEventListener('keydown', trapTab, true);
 
