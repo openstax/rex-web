@@ -62,9 +62,11 @@ const PageToasts = (props: ToastProps | {}) => {
   const toasts = useSelector(groupedToastNotifications).page;
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
 
-  return toasts ? <ToastContainerWrapper {...props} mobileToolbarOpen={mobileToolbarOpen}>
-    <ToastNotifications toasts={toasts} />
-  </ToastContainerWrapper> : null;
+  return (
+    <ToastContainerWrapper role='alert' {...props} mobileToolbarOpen={mobileToolbarOpen}>
+      {toasts ? <ToastNotifications toasts={toasts} /> : null}
+    </ToastContainerWrapper>
+  );
 };
 
 export default PageToasts;
