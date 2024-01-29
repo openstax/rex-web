@@ -1,6 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PageToasts matches snapshot 1`] = `null`;
+exports[`PageToasts matches snapshot 1`] = `
+.c0 {
+  position: -webkit-sticky;
+  position: sticky;
+  overflow: visible;
+  z-index: 19;
+  top: 12rem;
+}
+
+@media screen and (max-width:90em) {
+  .c0 {
+    max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
+    left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
+  }
+}
+
+@media screen and (max-width:80em) {
+  .c0 {
+    max-width: calc(100vw - 8rem);
+    left: 8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    max-width: 100%;
+    left: 0;
+    z-index: 21;
+    top: 11.3rem;
+  }
+}
+
+<div
+  className="c0"
+  role="alert"
+/>
+`;
 
 exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
 .c5 {
@@ -146,6 +182,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 
 <div
   className="c0"
+  role="alert"
 >
   <div
     className="c1"
@@ -349,6 +386,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
 
 <div
   className="c0"
+  role="alert"
 >
   <div
     className="c1"
