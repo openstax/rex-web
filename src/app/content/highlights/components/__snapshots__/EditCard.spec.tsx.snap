@@ -103,40 +103,44 @@ exports[`EditCard matches snapshot when editing 1`] = `
   data-highlight-card={true}
 >
   <div
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    mock-note={true}
-    note="asdf"
-    onChange={[Function]}
-    onFocus={[Function]}
-    textareaRef={
-      Object {
-        "current": null,
-      }
-    }
-  />
-  <div
-    className="c1 c2"
+    className=""
   >
-    <button
-      className="c3"
-      data-analytics-label="save"
-      data-testid="save"
-      onClick={[Function]}
+    <div
+      mock-color-picker={true}
+      onChange={[Function]}
+      onRemove={[Function]}
+    />
+    <div
+      mock-note={true}
+      note="asdf"
+      onChange={[Function]}
+      onFocus={[Function]}
+      textareaRef={
+        Object {
+          "current": null,
+        }
+      }
+    />
+    <div
+      className="c1 c2"
     >
-      Save
-    </button>
-    <button
-      className="c4"
-      data-analytics-label="cancel"
-      data-testid="cancel"
-      onClick={[Function]}
-    >
-      Cancel
-    </button>
+      <button
+        className="c3"
+        data-analytics-label="save"
+        data-testid="save"
+        onClick={[Function]}
+      >
+        Save
+      </button>
+      <button
+        className="c4"
+        data-analytics-label="cancel"
+        data-testid="cancel"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+    </div>
   </div>
 </form>
 `;
@@ -193,21 +197,25 @@ exports[`EditCard matches snapshot with data 1`] = `
   data-highlight-card={true}
 >
   <div
-    mock-color-picker={true}
-    onChange={[Function]}
-    onRemove={[Function]}
-  />
-  <div
-    mock-note={true}
-    note=""
-    onChange={[Function]}
-    onFocus={[Function]}
-    textareaRef={
-      Object {
-        "current": null,
+    className=""
+  >
+    <div
+      mock-color-picker={true}
+      onChange={[Function]}
+      onRemove={[Function]}
+    />
+    <div
+      mock-note={true}
+      note=""
+      onChange={[Function]}
+      onFocus={[Function]}
+      textareaRef={
+        Object {
+          "current": null,
+        }
       }
-    }
-  />
+    />
+  </div>
 </form>
 `;
 

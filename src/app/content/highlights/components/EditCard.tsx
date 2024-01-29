@@ -103,6 +103,13 @@ function LoginConfirmation({
   );
 }
 
+// tslint:disable-next-line:variable-name
+const HiddenOnMobile = styled.div`
+  ${theme.breakpoints.touchDeviceQuery(css`
+    display: none;
+  `)}
+`;
+
 function ActiveEditCard({
   props,
   element,
@@ -160,7 +167,7 @@ function ActiveEditCard({
   const saveAnnotation = useSaveAnnotation(props, element, pendingAnnotation);
 
   return (
-    <React.Fragment>
+    <HiddenOnMobile>
       <ColorPicker
         color={props.data?.color}
         onChange={onColorChange}
@@ -203,7 +210,7 @@ function ActiveEditCard({
           always={() => setConfirmingDelete(false)}
         />
       )}
-    </React.Fragment>
+    </HiddenOnMobile>
   );
 }
 
