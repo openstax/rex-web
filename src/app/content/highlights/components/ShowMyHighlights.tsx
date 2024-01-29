@@ -90,7 +90,6 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
         ref={this.myHighlightsBodyRef}
         data-testid='show-myhighlights-body'
         data-analytics-region='MH popup'
-        aria-live='polite'
       >
         <HighlightsToasts />
         <Filters />
