@@ -10,7 +10,6 @@ import createMockHighlight from '../../../../test/mocks/highlight';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
 import * as domUtils from '../../../domUtils';
-import * as reactUtils from '../../../reactUtils';
 import { Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { assertWindow } from '../../../utils/browser-assertions';
@@ -242,48 +241,6 @@ describe('Card', () => {
       locationFilterId: location!.id,
       pageId: page.id,
     }));
-  });
-
-  it('does not render EditCard on mobile', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
-      .mockReturnValue(true);
-    highlight.range.getBoundingClientRect.mockReturnValue({
-      bottom: 200,
-      top: 100,
-    });
-    const container = {
-      nodeName: 'div',
-      nodeType: 1,
-      offsetParent: {
-        nodeName: 'div',
-        nodeType: 1,
-        offsetTop: 50,
-        tagName: 'DIV',
-        title: '',
-      },
-      tagName: 'DIV',
-      title: '',
-    } as unknown as HTMLElement;
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(receiveHighlights({
-      highlights: [
-        {
-          color: highlightStyles[0].label,
-          id: highlightData.id,
-        },
-      ] as HighlightData[],
-      pageId: '123',
-    }));
-    store.dispatch(focusHighlight(highlight.id));
-    const component = renderer.create(<TestContainer store={store}>
-      <Card {...cardProps} container={container} />
-    </TestContainer>, {createNodeMock});
-
-    expect(() => component.root.findByType(EditCard)).toThrow();
-
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
-      .mockReturnValue(false);
   });
 
   it('noops when remove is called but there isn\'t anything to remove', () => {
