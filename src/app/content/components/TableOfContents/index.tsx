@@ -35,9 +35,7 @@ function TabTrapper({
   const isMobile = useMatchMobileQuery();
 
   React.useEffect(() => {
-    const refIsSensible = mRef && 'current' in mRef && mRef.current;
-
-    if (!refIsSensible) {
+    if (!mRef?.current) {
       return;
     }
     const otherRegions =
