@@ -52,7 +52,7 @@ const VerticalNav = () => {
 
         return () => {
           document?.removeEventListener('keydown', listener, true);
-        }
+        };
       }
     },
     [isMobileMenuOpen, isTocOpen]
