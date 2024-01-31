@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import * as pqSelectors from '../../practiceQuestions/selectors';
 import { searchInSidebar } from '../../search/selectors';
-import { mobileMenuOpen } from '../../selectors';
+import { mobileMenuOpen, tocOpen } from '../../selectors';
 import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
@@ -20,6 +20,7 @@ import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
 import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
+import { createTrapTab } from '../../../reactUtils';
 
 // tslint:disable-next-line: variable-name
 const VerticalNav = () => {
@@ -29,6 +30,7 @@ const VerticalNav = () => {
   );
   const sidebarRef = React.useRef<HTMLElement>(null);
   const showSearchInSidebar = useSelector(searchInSidebar);
+  const isTocOpen = useSelector(tocOpen);
 
   React.useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -39,7 +41,22 @@ const VerticalNav = () => {
     callback();
 
     return deregister;
-  }, [sidebarRef]);
+  }, []);
+
+  React.useEffect(
+    () => {
+      if (isMobileMenuOpen && sidebarRef.current && !isTocOpen) {
+        const listener = createTrapTab(sidebarRef.current);
+
+        document?.addEventListener('keydown', listener, true);
+
+        return () => {
+          document?.removeEventListener('keydown', listener, true);
+        }
+      }
+    },
+    [isMobileMenuOpen, isTocOpen]
+  );
 
   return (
     <Styled.ToolbarWrapper
