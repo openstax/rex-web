@@ -15,6 +15,7 @@ import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
+import type { ArchiveTree } from '../../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -81,6 +82,9 @@ describe('TableOfContents', () => {
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(false);
 
+    // Cover case where title includes parent title
+    const temp = (book.tree.contents[1] as ArchiveTree).contents[0];
+    temp.title = temp.title.replace('Test Chapter 1.1', 'Introduction to Science');
     const {root} = renderToDom(<TestContainer store={store}>
       <ConnectedTableOfContents />
     </TestContainer>);
