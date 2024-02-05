@@ -273,6 +273,8 @@ function AnnotationEditor({
   const initializeColor = React.useCallback(() => {
     if (!props.highlight.getStyle()) {
       onColorChange(highlightStyles[0].label, true);
+      textarea.current?.blur();
+      textarea.current?.focus();
     }
   }, [onColorChange, props.highlight]);
 
