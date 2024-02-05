@@ -27,6 +27,10 @@ const dispatchFocusOutEvent = (
   element.dispatchEvent(focusEvent);
 };
 
+const dispatchHighlightToggle = (target: HTMLElement | undefined) => {
+  dispatchKeyDownEvent({key: highlightKeyCombination.key!, altKey: highlightKeyCombination.altKey, target});
+};
+
 jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
 
 jest.mock('./cardUtils', () => ({
@@ -245,7 +249,7 @@ describe('CardWrapper', () => {
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
     renderer.act(() => {
-      dispatchKeyDownEvent({key: highlightKeyCombination.key!, target: cardElement});
+      dispatchHighlightToggle(cardElement);
     });
 
     expect(highlight.focus).toHaveBeenCalled();
@@ -271,7 +275,7 @@ describe('CardWrapper', () => {
     });
 
     renderer.act(() => {
-      dispatchKeyDownEvent({key: highlightKeyCombination.key!, target: highlightElement});
+      dispatchHighlightToggle(highlightElement);
     });
 
     renderer.act(() => {
@@ -325,9 +329,9 @@ describe('CardWrapper', () => {
     });
 
     renderer.act(() => {
-      dispatchKeyDownEvent({key: highlightKeyCombination.key!, target: textarea});
+      dispatchHighlightToggle(textarea);
 
-      dispatchKeyDownEvent({key: highlightKeyCombination.key!, target: elementOutsideOfTheContainer});
+      dispatchHighlightToggle(elementOutsideOfTheContainer);
 
       dispatchKeyDownEvent({key: 'anotherkeythatwedontsupport', target: elementInsideContainer});
     });
@@ -359,7 +363,7 @@ describe('CardWrapper', () => {
     expect(store.getState().content.highlights.currentPage.focused).toEqual(undefined);
 
     renderer.act(() => {
-      dispatchKeyDownEvent({key: highlightKeyCombination.key!, target: cardElement});
+      dispatchHighlightToggle(cardElement);
     });
 
     expect(highlight.focus).not.toHaveBeenCalled();
@@ -386,7 +390,7 @@ describe('CardWrapper', () => {
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
     renderer.act(() => {
-      dispatchKeyDownEvent({key: highlightKeyCombination.key!, target: undefined});
+      dispatchHighlightToggle(undefined);
     });
 
     expect(highlight.focus).not.toHaveBeenCalled();

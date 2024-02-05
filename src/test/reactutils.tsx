@@ -107,16 +107,17 @@ export const makeInputEvent = (value: string) => ({
 });
 
 export const dispatchKeyDownEvent = ({
-  element, key, shiftKey = false, target, view,
+  element, key, shiftKey = false, altKey = false, target, view,
 }: {
   key: string,
   element?: Document | HTMLElement,
   shiftKey?: boolean,
+  altKey?: boolean,
   target?: HTMLElement,
   view?: Window,
 }) => {
   const keyboardEvent = new KeyboardEvent('keydown', {
-    bubbles: true, cancelable: true, key, shiftKey, view: (view || window),
+    bubbles: true, cancelable: true, key, shiftKey, altKey, view: (view || window),
   });
   if (target) {
     Object.defineProperty(keyboardEvent, 'target', { value: target });

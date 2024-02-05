@@ -201,7 +201,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            h
+            i18n:a11y:keyboard-shortcuts:keys:alt+h
           </span>
         </div>
         <div
@@ -336,7 +336,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            h
+            i18n:a11y:keyboard-shortcuts:keys:alt+h
           </span>
         </div>
         <div
