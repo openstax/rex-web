@@ -466,10 +466,12 @@ function useSaveAnnotation(
   );
 }
 
+// tslint:disable-next-line
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
   user-select: none;
   overflow: visible;
+  padding-top: 0 !important;
 
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;
