@@ -6,7 +6,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
-import { useFocusIn, useMatchMobileMediumQuery } from '../../../reactUtils';
+import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -285,10 +285,9 @@ const StyledCard = styled(Card)`
 
 // Styling is expensive and most Cards don't need to render
 function PreCard(props: CardProps) {
-  const isMobile = useMatchMobileMediumQuery();
   const computedProps = useComputedProps(props);
 
-  if (!computedProps.annotation && (!props.isActive || isMobile)) {
+  if (!computedProps.annotation && (!props.isActive)) {
     return null;
   }
   return (
