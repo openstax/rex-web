@@ -68,6 +68,44 @@ const OneSearchResultHit = ({
   loader,
 }: OneSearchResultHitProps) => {
   const pair = useKeyTermPair({ hit, loader });
+  // tslint:disable-next-line: variable-name
+  const HighlightPreview = React.useCallback(
+    (highlight: string, index: number) => {
+      const thisResult = { result: hit, highlight: index };
+      const isSelected = isEqual(selectedResult, thisResult);
+      const target: SearchScrollTarget = {
+        elementId: thisResult.result.source.elementId,
+        index,
+        type: 'search',
+      };
+
+      return (
+        <Styled.SectionContentPreview
+          selectedResult={isSelected}
+          data-testid={testId}
+          key={index}
+          book={book}
+          page={getPage(hit)}
+          scrollTarget={target}
+          queryParams={queryParams}
+          onClick={() => onClick(thisResult)}
+          ref={isSelected ? activeSectionRef : undefined}
+        >
+          {isKeyTermHit(hit) ? (
+            <RelatedKeyTermContent keyTermHit={hit} />
+          ) : (
+            <Styled.SimpleResult>
+              <div
+                tabIndex={-1}
+                dangerouslySetInnerHTML={{ __html: highlight }}
+              />
+            </Styled.SimpleResult>
+          )}
+        </Styled.SectionContentPreview>
+      );
+    },
+    [activeSectionRef, book, getPage, hit, onClick, queryParams, selectedResult, testId]
+  );
 
   // inefficient data structure for search results should be addressed in the future
   // https://app.zenhub.com/workspaces/openstax-unified-5b71aabe3815ff014b102258/issues/openstax/unified/1750
@@ -81,42 +119,7 @@ const OneSearchResultHit = ({
 
   return (
     <React.Fragment>
-      {hit.highlight.visibleContent?.map((highlight: string, index: number) => {
-        const thisResult = { result: hit, highlight: index };
-        const isSelected = isEqual(selectedResult, thisResult);
-        const target: SearchScrollTarget = {
-          elementId: thisResult.result.source.elementId,
-          index,
-          type: 'search',
-        };
-
-        return (
-          <Styled.SectionContentPreview
-            selectedResult={isSelected}
-            data-testid={testId}
-            key={index}
-            book={book}
-            page={getPage(hit)}
-            scrollTarget={target}
-            queryParams={queryParams}
-            onClick={() => onClick(thisResult)}
-            {...(isSelected && activeSectionRef
-              ? { ref: activeSectionRef }
-              : {})}
-          >
-            {isKeyTermHit(hit) ? (
-              <RelatedKeyTermContent keyTermHit={hit} />
-            ) : (
-              <Styled.SimpleResult>
-                <div
-                  tabIndex={-1}
-                  dangerouslySetInnerHTML={{ __html: highlight }}
-                />
-              </Styled.SimpleResult>
-            )}
-          </Styled.SectionContentPreview>
-        );
-      })}
+      {hit.highlight.visibleContent?.map(HighlightPreview)}
     </React.Fragment>
   );
 };
