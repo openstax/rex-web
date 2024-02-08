@@ -228,7 +228,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 
 .c2 {
   cursor: pointer;
-  margin: 0 0.8rem 0.8rem 0;
+  margin: 0;
 }
 
 .c2 input {
@@ -249,11 +249,17 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   -ms-flex-direction: row;
   flex-direction: row;
   overflow: visible;
+  gap: 0.8rem;
+  padding: 0.8rem 0;
 }
 
 <div
+  aria-label="colors"
   className="c0"
-  tabIndex={-1}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  role="radiogroup"
+  tabIndex={0}
 >
   <label
     aria-label="Apply yellow highlight"
@@ -287,7 +293,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="yellow"
       onChange={[Function]}
-      type="checkbox"
+      tabindex={-1}
+      type="radio"
     />
     <span
       className="c6 c7"
@@ -333,7 +340,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="green"
       onChange={[Function]}
-      type="checkbox"
+      tabindex={-1}
+      type="radio"
     />
     <span
       className="c6 c9"
@@ -379,7 +387,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="blue"
       onChange={[Function]}
-      type="checkbox"
+      tabindex={-1}
+      type="radio"
     />
     <span
       className="c6 c11"
@@ -425,7 +434,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="purple"
       onChange={[Function]}
-      type="checkbox"
+      tabindex={-1}
+      type="radio"
     />
     <span
       className="c6 c13"
@@ -471,7 +481,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="pink"
       onChange={[Function]}
-      type="checkbox"
+      tabindex={-1}
+      type="radio"
     />
     <span
       className="c6 c15"

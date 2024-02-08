@@ -358,7 +358,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c16 {
   cursor: pointer;
-  margin: 0 0.8rem 0.8rem 0;
+  margin: 0;
 }
 
 .c16 input {
@@ -379,6 +379,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
   -ms-flex-direction: row;
   flex-direction: row;
   overflow: visible;
+  gap: 0.8rem;
+  padding: 0.8rem 0;
 }
 
 .c4 {
@@ -589,8 +591,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
       className="c12"
     >
       <div
+        aria-label="colors"
         className="c13 c14"
-        tabIndex={-1}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        role="radiogroup"
+        tabIndex={0}
       >
         <label
           aria-label="Apply yellow highlight"
@@ -625,7 +631,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="yellow"
             onChange={[Function]}
-            type="checkbox"
+            tabindex={-1}
+            type="radio"
           />
           <span
             className="c19 c20"
@@ -673,7 +680,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="green"
             onChange={[Function]}
-            type="checkbox"
+            tabindex={-1}
+            type="radio"
           />
           <span
             className="c19 c22"
@@ -721,7 +729,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={true}
             name="blue"
             onChange={[Function]}
-            type="checkbox"
+            tabindex={-1}
+            type="radio"
           />
           <span
             className="c19 c24"
@@ -769,7 +778,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="purple"
             onChange={[Function]}
-            type="checkbox"
+            tabindex={-1}
+            type="radio"
           />
           <span
             className="c19 c26"
@@ -817,7 +827,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="pink"
             onChange={[Function]}
-            type="checkbox"
+            tabindex={-1}
+            type="radio"
           />
           <span
             className="c19 c28"

@@ -1,8 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { renderToDom, dispatchKeyDownEvent } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { highlightStyles } from '../../constants';
 import ColorPicker from './ColorPicker';
+import { HTMLElement, HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import { assertDocument } from '../../../utils';
 
 describe('ColorPicker', () => {
   it('matches snapshot no selection', () => {
@@ -79,6 +82,55 @@ describe('ColorPicker', () => {
 
     expect(onRemove).toHaveBeenCalled();
     expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('operates as a radiogroup', () => {
+    const onChange = jest.fn();
+    const onRemove = jest.fn();
+    const {root} = renderToDom(
+      <TestContainer>
+        <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
+      </TestContainer>
+    );
+    const rg = root.querySelector('[role="radiogroup"]') as HTMLDivElement;
+
+    expect(rg).toBeTruthy();
+    rg?.focus();
+
+    const inputs = Array.from(rg.querySelectorAll('input'));
+    const checkedIdx = () => {
+      const i2 = assertDocument().activeElement as HTMLInputElement;
+      return inputs.indexOf(i2);
+    };
+
+    expect(checkedIdx()).toBe(0);
+    dispatchKeyDownEvent({
+      element: rg as HTMLElement,
+      key: 'End',
+    });
+    expect(checkedIdx()).toBe(4);
+    dispatchKeyDownEvent({
+      element: rg as HTMLElement,
+      key: 'ArrowLeft',
+    });
+    expect(checkedIdx()).toBe(3);
+    dispatchKeyDownEvent({
+      element: rg as HTMLElement,
+      key: 'ArrowRight',
+    });
+    expect(checkedIdx()).toBe(4);
+    dispatchKeyDownEvent({
+      element: rg as HTMLElement,
+      key: 'Home',
+    });
+    expect(checkedIdx()).toBe(0);
+    // Ignores other keys
+    dispatchKeyDownEvent({
+      element: rg as HTMLElement,
+      key: 'ArrowDown',
+    });
+    expect(checkedIdx()).toBe(0);
+
   });
 
   it('calls remove when changing selection (multiple)', () => {

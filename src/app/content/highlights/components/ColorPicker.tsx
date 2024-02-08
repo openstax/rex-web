@@ -63,7 +63,9 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
   }
 `;
 
-function nextIdx(idx: number, itemCount: number, key: string) {
+type NavKeys = 'Home' | 'End' | 'ArrowLeft' | 'ArrowRight';
+
+function nextIdx(idx: number, itemCount: number, key: NavKeys) {
   if (key === 'Home') {
     return 0;
   }
@@ -73,10 +75,8 @@ function nextIdx(idx: number, itemCount: number, key: string) {
   if (key === 'ArrowLeft') {
     return (idx + itemCount - 1) % itemCount;
   }
-  if (key === 'ArrowRight') {
-    return (idx + 1) % itemCount;
-  }
-  return idx;
+  // ArrowRight
+  return (idx + 1) % itemCount;
 }
 
 // tslint:disable-next-line:variable-name
@@ -88,13 +88,11 @@ const ColorPicker = ({className, ...props}: Props) => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
         return;
       }
-      if (!ref.current) {
-        return;
-      }
+      const assertedRef = ref as React.MutableRefObject<HTMLDivElement>;
       const activeElement = document?.activeElement as HTMLInputElement;
-      const inputs = Array.from(ref.current.querySelectorAll('input'));
+      const inputs = Array.from(assertedRef.current.querySelectorAll('input'));
       const idx = inputs.indexOf(activeElement);
-      const destIdx = nextIdx(idx, inputs.length, event.key);
+      const destIdx = nextIdx(idx, inputs.length, event.key as NavKeys);
       const el = inputs[destIdx];
 
       event.preventDefault();
@@ -108,21 +106,12 @@ const ColorPicker = ({className, ...props}: Props) => {
       if (!ref.current || event.currentTarget !== event.target) {
         return;
       }
-      const destEl = ref.current.querySelector<HTMLInputElement>('input[checked]');
-
-      if (destEl) {
-        destEl.focus();
-      } else {
-        ref.current.querySelector<HTMLInputElement>('input]')?.focus();
-      }
+      // There will always be one checked
+      (ref.current.querySelector<HTMLInputElement>('input[checked]') as HTMLInputElement).focus();
     },
     []
   );
 
-  // its important that this be click focusable, because when clicking
-  // labels in chrome the focus is first moved to a background element
-  // before the input, and that might cause weird behavior in parent
-  // elements.
   return (
     <div
       className={className}
