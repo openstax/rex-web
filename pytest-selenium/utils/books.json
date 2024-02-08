@@ -387,8 +387,61 @@
         "default_page": "1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units",
         "search_term": "Veil Nebula",
         "chapter_search_results_total": 6,
+        "rkt_search_results_total": 0
+    },
+    "workplace-software-skills": {
+        "default_page": "1-chapter-scenario",
+        "search_term": "\"click and drag the file\"",
+        "chapter_search_results_total": 1,
+        "rkt_search_results_total": 0
+    },
+    "world-history-volume-1": {
+        "default_page": "1-introduction",
+        "search_term": "3300–1200 BCE",
+        "chapter_search_results_total": 3,
+        "rkt_search_results_total": 0
+    },
+    "organic-chemistry": {
+        "default_page": "1-why-this-chapter",
+        "search_term": "Zwitterion",
+        "chapter_search_results_total": 7,
+        "rkt_search_results_total": 0
+    },
+    "contemporary-mathematics": {
+        "default_page": "1-introduction",
+        "search_term": "well-defined sets",
+        "chapter_search_results_total": 8,
+        "rkt_search_results_total": 0
+    },
+    "introductory-statistics-2e": {
+        "default_page": "1-introduction",
+        "search_term": "Student's t-Distribution",
+        "chapter_search_results_total": 71,
+        "rkt_search_results_total": 2
+    },
+    "introductory-business-statistics-2e": {
+        "default_page": "1-introduction",
+        "search_term": "(df)",
+        "chapter_search_results_total": 69,
         "rkt_search_results_total": 1
+    },
+    "college-success-concise": {
+        "default_page": "1-introduction",
+        "search_term": "résumé",
+        "chapter_search_results_total": 1,
+        "rkt_search_results_total": 0
+    },
+    "preparing-for-college-success": {
+        "default_page": "1-introduction",
+        "search_term": "liberal arts courses",
+        "chapter_search_results_total": 10,
+        "rkt_search_results_total": 0
+    },
+    "principles-marketing": {
+        "default_page": "1-unit-introduction",
+        "search_term": "Procter & Gamble",
+        "chapter_search_results_total": 16,
+        "rkt_search_results_total": 0
     }
 }
-
 
