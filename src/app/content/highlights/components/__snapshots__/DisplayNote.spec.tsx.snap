@@ -116,7 +116,7 @@ exports[`DisplayNote matches snapshot 1`] = `
 }
 
 <div
-  aria-label="highlight editor"
+  aria-label="Highlighted note"
   className="c0"
   data-highlight-card={true}
   role="dialog"
@@ -320,7 +320,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 }
 
 <div
-  aria-label="highlight editor"
+  aria-label="Highlighted note"
   className="c0"
   data-highlight-card={true}
   role="dialog"
@@ -575,7 +575,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 }
 
 <div
-  aria-label="highlight editor"
+  aria-label="Highlighted note"
   className="c0"
   data-highlight-card={true}
   role="dialog"
