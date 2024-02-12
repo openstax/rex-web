@@ -631,7 +631,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="yellow"
             onChange={[Function]}
-            tabindex={-1}
+            tabIndex={-1}
             type="radio"
           />
           <span
@@ -680,7 +680,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="green"
             onChange={[Function]}
-            tabindex={-1}
+            tabIndex={-1}
             type="radio"
           />
           <span
@@ -729,7 +729,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={true}
             name="blue"
             onChange={[Function]}
-            tabindex={-1}
+            tabIndex={-1}
             type="radio"
           />
           <span
@@ -778,7 +778,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="purple"
             onChange={[Function]}
-            tabindex={-1}
+            tabIndex={-1}
             type="radio"
           />
           <span
@@ -827,7 +827,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="pink"
             onChange={[Function]}
-            tabindex={-1}
+            tabIndex={-1}
             type="radio"
           />
           <span

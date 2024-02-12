@@ -1,5 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import React, { LegacyRef } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
@@ -81,7 +81,7 @@ function nextIdx(idx: number, itemCount: number, key: NavKeys) {
 
 // tslint:disable-next-line:variable-name
 const ColorPicker = ({className, ...props}: Props) => {
-  const ref = React.useRef<HTMLDivElement>();
+  const ref = React.useRef<HTMLDivElement>(null);
   // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role#keyboard_interactions
   const handleKeyNavigation = React.useCallback(
     (event: React.KeyboardEvent) => {
@@ -118,7 +118,7 @@ const ColorPicker = ({className, ...props}: Props) => {
       tabIndex={0}
       role='radiogroup'
       aria-label='colors'
-      ref={ref as unknown as LegacyRef<HTMLElement>}
+      ref={ref}
       onKeyDown={handleKeyNavigation}
       onFocus={initialFocus}
     >
@@ -127,7 +127,7 @@ const ColorPicker = ({className, ...props}: Props) => {
         checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
         style={style}
         size={props.size}
-        tabindex={-1}
+        tabIndex={-1}
         onChange={() => props.multiple
           ? props.selected.includes(style.label)
             ? props.onChange(props.selected.filter(not(match(style.label))))
