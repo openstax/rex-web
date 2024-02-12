@@ -28,7 +28,7 @@ const dispatchFocusOutEvent = (
 };
 
 const dispatchHighlightToggle = (target: HTMLElement | undefined) => {
-  dispatchKeyDownEvent({key: highlightKeyCombination.key!, altKey: highlightKeyCombination.altKey, target});
+  dispatchKeyDownEvent({code: highlightKeyCombination.code, altKey: highlightKeyCombination.altKey, target});
 };
 
 jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
