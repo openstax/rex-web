@@ -26,13 +26,39 @@ const TextArea = styled.textarea`
   min-width: ${width}rem;
   border: 1px solid ${theme.color.neutral.formBorder};
   padding: ${cardPadding}rem;
+  padding-top: 1.6rem;
   ${textStyle}
   color: ${theme.color.text.label};
   font-size: 1.4rem;
   font-family: inherit;
   line-height: 2rem;
   font-weight: normal;
+
+  :placeholder-shown {
+    padding-top: 2rem;
+  }
 `;
+
+// tslint:disable-next-line:variable-name
+const WrapperLabel = styled.label`
+  position: relative;
+
+  textarea:placeholder-shown ~ div {
+    font-size: 1.4rem;
+    opacity: 1;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+const FloatingLabel = styled.div`
+  color: ${theme.color.text.label};
+  font-size: 1.2rem;
+  position: absolute;
+  left: 0.9rem;
+  top: 0.5rem;
+  opacity: 0.7;
+`;
+
 
 // tslint:disable-next-line:variable-name
 const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
@@ -49,16 +75,22 @@ const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
 
   React.useEffect(setTextAreaHeight, [note, setTextAreaHeight]);
 
-  return <TextArea
-    ref={textareaRef}
-    value={note}
-    onFocus={onFocus}
-    maxLength={noteMaxLength}
-    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      onChange(e.target.value);
-    }}
-    placeholder={useIntl().formatMessage({id: 'i18n:highlighting:card:placeholder'})}
-  />;
+  return (
+    <WrapperLabel for='note-textarea'>
+      <TextArea
+        id='note-textarea'
+        ref={textareaRef}
+        value={note}
+        onFocus={onFocus}
+        maxLength={noteMaxLength}
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          onChange(e.target.value);
+        }}
+        placeholder=''
+      />
+      <FloatingLabel>{useIntl().formatMessage({id: 'i18n:highlighting:card:placeholder'})}</FloatingLabel>
+    </WrapperLabel>
+  );
 };
 
 export default Note;

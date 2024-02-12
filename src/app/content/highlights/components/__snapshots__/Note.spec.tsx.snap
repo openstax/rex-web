@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Note matches snapshot 1`] = `
-.c0 {
+.c1 {
   display: block;
   min-height: 5.6rem;
   width: 18.4rem;
@@ -10,6 +10,7 @@ exports[`Note matches snapshot 1`] = `
   min-width: 18.4rem;
   border: 1px solid #d5d5d5;
   padding: 0.8rem;
+  padding-top: 1.6rem;
   color: #424242;
   color: #6f6f6f;
   font-size: 1.4rem;
@@ -18,12 +19,45 @@ exports[`Note matches snapshot 1`] = `
   font-weight: normal;
 }
 
-<textarea
+.c1:placeholder-shown {
+  padding-top: 2rem;
+}
+
+.c0 {
+  position: relative;
+}
+
+.c0 textarea:placeholder-shown ~ div {
+  font-size: 1.4rem;
+  opacity: 1;
+}
+
+.c2 {
+  color: #6f6f6f;
+  font-size: 1.2rem;
+  position: absolute;
+  left: 0.9rem;
+  top: 0.5rem;
+  opacity: 0.7;
+}
+
+<label
   className="c0"
-  maxLength={1000}
-  onChange={[Function]}
-  onFocus={[Function]}
-  placeholder="Add a note..."
-  value=""
-/>
+  for="note-textarea"
+>
+  <textarea
+    className="c1"
+    id="note-textarea"
+    maxLength={1000}
+    onChange={[Function]}
+    onFocus={[Function]}
+    placeholder=""
+    value=""
+  />
+  <div
+    className="c2"
+  >
+    Add a note...
+  </div>
+</label>
 `;
