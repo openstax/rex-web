@@ -13,11 +13,13 @@ import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
+import * as reactUtils from '../../../reactUtils';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('TableOfContents', () => {
   let store: Store;
+  let Component: React.JSX.Element; // tslint:disable-line:variable-name
 
   beforeEach(() => {
     const state = {
@@ -27,19 +29,19 @@ describe('TableOfContents', () => {
       },
     } as any as AppState;
     store = createTestStore(state);
+    Component =
+      <TestContainer store={store}>
+        <ConnectedTableOfContents />
+      </TestContainer>;
   });
 
   it('mounts and unmounts without a dom', () => {
-    const component = renderer.create(<TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>);
+    const component = renderer.create(Component);
     expect(() => component.unmount()).not.toThrow();
   });
 
   it('mounts and unmmounts with a dom', () => {
-    const {root} = renderToDom(<TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>);
+    const {root} = renderToDom(Component);
     expect(() => unmountComponentAtNode(root)).not.toThrow();
   });
 
@@ -47,9 +49,7 @@ describe('TableOfContents', () => {
     const scrollSidebarSectionIntoView = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
     const expandCurrentChapter = jest.spyOn(domUtils, 'expandCurrentChapter');
 
-    renderer.create(<TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>);
+    renderer.create(Component);
 
     expect(expandCurrentChapter).not.toHaveBeenCalled();
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
@@ -63,9 +63,14 @@ describe('TableOfContents', () => {
   });
 
   it('opens and closes', () => {
-    const component = renderer.create(<TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>);
+    jest.spyOn(reactUtils, 'useMatchMobileQuery')
+      .mockReturnValue(true);
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+    const component = renderer.create(Component);
+
+    // To exercise ref code
+    renderToDom(Component);
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
     renderer.act(() => {
@@ -81,9 +86,7 @@ describe('TableOfContents', () => {
   it('resets toc on navigate', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
-    const component = renderer.create(<TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>);
+    const component = renderer.create(Component);
 
     renderer.act(() => {
       component.root.findAllByType('a')[0].props.onClick({preventDefault: () => null});
@@ -97,11 +100,7 @@ describe('TableOfContents', () => {
       return expect(document).toBeTruthy();
     }
 
-    const render = () => <TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>;
-
-    const {node} = renderToDom(render());
+    const {node} = renderToDom(Component);
     const spy = jest.spyOn(node.style, 'setProperty');
 
     const event = document.createEvent('UIEvents');
