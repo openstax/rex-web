@@ -12,6 +12,7 @@ import { receiveFeatureFlags } from '../../../featureFlags/actions';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { closeMobileMenu } from '../../actions';
+import { openToc } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
 import { clearSearch, openSearchInSidebar } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
@@ -54,15 +55,20 @@ describe('toolbar', () => {
 
   it('has a button that closes mobile menu', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
+    const sidebar = assertWindow().document.createElement('div');
     const component = renderer.create(<TestContainer store={store}>
       <Toolbar />
-    </TestContainer>);
+    </TestContainer>, { createNodeMock: () => sidebar });
 
     renderer.act(() => {
       component.root.findByType(CloseToCAndMobileMenuButton).findByType(PlainButton).props.onClick();
     });
 
     expect(dispatchSpy).toHaveBeenCalledWith(closeMobileMenu());
+
+    // exercise teardown of useEffect
+    store.dispatch(openToc());
+    expect(selectors.tocOpen(store.getState())).toEqual(true);
   });
 
   describe('print button', () => {
