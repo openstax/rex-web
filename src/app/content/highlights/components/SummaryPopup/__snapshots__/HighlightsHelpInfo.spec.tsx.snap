@@ -86,6 +86,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
     }
   />
   <button
+    aria-label="dismiss"
     className="c1"
     data-analytics-label="close"
     onClick={[Function]}
