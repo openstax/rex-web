@@ -93,7 +93,7 @@ const HighlightsHelpInfo = () => {
 
   return <Wrapper data-analytics-region='Mobile MH help info'>
     <Message />
-    <PlainButton onClick={dismiss} data-analytics-label='close'>
+    <PlainButton onClick={dismiss} data-analytics-label='close' aria-label='dismiss'>
       <CloseIcon />
     </PlainButton>
   </Wrapper>;
