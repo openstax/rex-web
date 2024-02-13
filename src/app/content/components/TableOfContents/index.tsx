@@ -59,8 +59,6 @@ function TabTrapper({
   return null;
 }
 
-
-
 // tslint:disable-next-line:variable-name
 const SidebarBody = React.forwardRef<
   HTMLElement,
@@ -79,8 +77,6 @@ const SidebarBody = React.forwardRef<
       };
 
       if (props.isTocOpen) {
-        // This is primarily for code coverage
-        transitionListener();
         el?.addEventListener('transitionend', transitionListener);
       }
 

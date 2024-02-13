@@ -1,5 +1,6 @@
 import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
+import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import ConnectedTableOfContents, { TableOfContents } from '.';
 import createTestStore from '../../../../test/createTestStore';
@@ -7,13 +8,13 @@ import { book as archiveBook, page, shortPage } from '../../../../test/mocks/arc
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
+import * as reactUtils from '../../../reactUtils';
 import { AppState, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
-import * as reactUtils from '../../../reactUtils';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
@@ -62,7 +63,6 @@ describe('TableOfContents', () => {
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(2);
   });
 
-  jest.useFakeTimers();
   it('opens and closes', () => {
     jest.spyOn(reactUtils, 'useMatchMobileQuery')
       .mockReturnValue(true);
@@ -77,18 +77,43 @@ describe('TableOfContents', () => {
     renderer.act(() => {
       store.dispatch(actions.closeToc());
     });
+
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(false);
+
+    renderer.act(() => {
+      store.dispatch(actions.openToc());
+    });
+    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
+  });
+
+  it('focuses when opening', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
 
     const {root} = renderToDom(<TestContainer store={store}>
       <ConnectedTableOfContents />
     </TestContainer>);
-    const sb = root.querySelector('[data-testid="toc"]');
+    const sb = root.querySelector('[data-testid="toc"]')!;
+    const firstTocItem = sb.querySelector('ol > li a, old > li summary') as HTMLElement;
+    const focusSpy = jest.spyOn(firstTocItem as any, 'focus');
 
-    renderer.act(() => {
-      store.dispatch(actions.openToc());
+    reactDomAct(() => {
+      store.dispatch(actions.closeToc());
+    });
+    reactDomAct(() => {
       sb?.dispatchEvent(new Event('transitionend'));
     });
-    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
+
+    expect(focusSpy).not.toHaveBeenCalled();
+
+    reactDomAct(() => {
+      store.dispatch(actions.openToc());
+    });
+    reactDomAct(() => {
+      sb?.dispatchEvent(new Event('transitionend'));
+    });
+
+    expect(focusSpy).toHaveBeenCalled();
   });
 
   it('resets toc on navigate', () => {
@@ -113,7 +138,7 @@ describe('TableOfContents', () => {
 
     const event = document.createEvent('UIEvents');
     event.initEvent('scroll', true, false);
-    renderer.act(() => {
+    reactDomAct(() => {
       assertWindow().dispatchEvent(event);
     });
 
