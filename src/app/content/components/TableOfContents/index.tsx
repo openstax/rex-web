@@ -64,12 +64,32 @@ const SidebarBody = React.forwardRef<
   HTMLElement,
   React.ComponentProps<typeof SidebarPaneBody>
 >((props, ref) => {
+  const mRef = ref as MutableRefObject<HTMLElement>;
+
+  React.useEffect(
+    () => {
+      const firstItemInToc = mRef?.current?.querySelector(
+        'ol > li a, old > li summary'
+      ) as HTMLElement;
+      const el = mRef.current;
+      const transitionListener = () => {
+        firstItemInToc?.focus();
+      };
+
+      if (props.isTocOpen) {
+        el?.addEventListener('transitionend', transitionListener);
+      }
+
+      return () => el?.removeEventListener('transitionend', transitionListener);
+    },
+    [props.isTocOpen, mRef]
+  );
 
   return (
     <React.Fragment>
       {typeof window !== 'undefined' && (
         <TabTrapper
-          mRef={ref as MutableRefObject<HTMLElement>}
+          mRef={mRef}
           isTocOpen={props.isTocOpen}
         />
       )}
