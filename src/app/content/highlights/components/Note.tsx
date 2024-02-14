@@ -34,16 +34,17 @@ const TextArea = styled.textarea`
   line-height: 2rem;
   font-weight: normal;
 
-  :placeholder-shown {
+  :empty {
     padding-top: 1rem;
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const WrapperLabel = styled.label`
+  display: block;
   position: relative;
 
-  textarea:placeholder-shown ~ div {
+  textarea:empty ~ div {
     color: ${theme.color.text.label};
     font-size: 1.4rem;
     top: 1.3rem;
@@ -61,7 +62,7 @@ const FloatingLabel = styled.div`
   position: absolute;
   left: 0.9rem;
   top: 0.5rem;
-  transition: all 0.3s;
+  transition: all 0.2s;
 `;
 
 
