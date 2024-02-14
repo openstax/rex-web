@@ -10,7 +10,7 @@ exports[`Note matches snapshot 1`] = `
   min-width: 18.4rem;
   border: 1px solid #d5d5d5;
   padding: 0.8rem;
-  padding-top: 1.6rem;
+  padding-top: 1rem;
   color: #424242;
   color: #6f6f6f;
   font-size: 1.4rem;
@@ -19,8 +19,8 @@ exports[`Note matches snapshot 1`] = `
   font-weight: normal;
 }
 
-.c1:placeholder-shown {
-  padding-top: 2rem;
+.c1:not(:placeholder-shown) {
+  padding-top: 1.6rem;
 }
 
 .c0 {
@@ -28,17 +28,23 @@ exports[`Note matches snapshot 1`] = `
 }
 
 .c0 textarea:placeholder-shown ~ div {
+  color: #6f6f6f;
   font-size: 1.4rem;
-  opacity: 1;
+  top: 1.3rem;
+}
+
+.c0 textarea:placeholder-shown ~ div::after {
+  content: '...';
 }
 
 .c2 {
-  color: #6f6f6f;
+  color: #002468;
   font-size: 1.2rem;
   position: absolute;
   left: 0.9rem;
   top: 0.5rem;
-  opacity: 0.7;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
 }
 
 <label
@@ -57,7 +63,7 @@ exports[`Note matches snapshot 1`] = `
   <div
     className="c2"
   >
-    Add a note...
+    Add a note
   </div>
 </label>
 `;

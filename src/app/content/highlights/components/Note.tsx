@@ -35,7 +35,7 @@ const TextArea = styled.textarea`
   font-weight: normal;
 
   :placeholder-shown {
-    padding-top: 2rem;
+    padding-top: 1rem;
   }
 `;
 
@@ -44,19 +44,24 @@ const WrapperLabel = styled.label`
   position: relative;
 
   textarea:placeholder-shown ~ div {
+    color: ${theme.color.text.label};
     font-size: 1.4rem;
-    opacity: 1;
+    top: 1.3rem;
+
+    ::after {
+      content: '...';
+    }
   }
 `;
 
 // tslint:disable-next-line:variable-name
 const FloatingLabel = styled.div`
-  color: ${theme.color.text.label};
+  color: ${theme.color.primary.blue.base};
   font-size: 1.2rem;
   position: absolute;
   left: 0.9rem;
   top: 0.5rem;
-  opacity: 0.7;
+  transition: all 0.3s;
 `;
 
 
