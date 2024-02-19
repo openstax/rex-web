@@ -50,6 +50,26 @@ function randomstring(length = 15) {
   return string
 }
 
+function colorNumber(color: string) {
+  // Assign number to each color in the highlighter
+  switch (color) {
+    case 'yellow':
+      return 0
+
+    case 'green':
+      return 1
+
+    case 'blue':
+      return 2
+
+    case 'purple':
+      return 3
+
+    case 'pink':
+      return 4
+  }
+}
+
 async function sleep(seconds = 1.0): Promise<unknown> {
   return new Promise((resolve) => {
     setTimeout(resolve, seconds * 1000)
@@ -73,6 +93,8 @@ class MobileNavigation {
       case 'MH':
         await this.page.click('[id*="mobile-menu-button"] [class*="styled__PlainButton"]')
         await this.page.click('[data-analytics-label="My highlights"]')
+        // Close the mobile help notification tooltip
+        await this.page.locator('[data-testid="highlights-popup-wrapper"] button').nth(4).click()
         break
     }
   }
@@ -85,9 +107,11 @@ class MobileNavigation {
 
       case 'MH':
         await this.page.click('[data-analytics-label="My highlights"]')
+        // Close the mobile help notification tooltip
+        await this.page.locator('[data-analytics-region="Mobile MH help info"] button').click()
         break
     }
   }
 }
 
-export { closeExtras, randomChoice, randomNum, randomstring, sleep, MobileNavigation }
+export { closeExtras, randomChoice, randomNum, randomstring, sleep, colorNumber, MobileNavigation }

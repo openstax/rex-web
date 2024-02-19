@@ -115,6 +115,8 @@ input:checked + .c8 .c10 {
 .c6:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c6:focus-within .c7 {
@@ -159,6 +161,8 @@ input:checked + .c8 .c10 {
 .c21:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c21:focus-within .c7 {
@@ -507,6 +511,7 @@ input:checked + .c8 .c10 {
         size="small"
         style={
           Object {
+            "focusBorder": "#8f7700",
             "focused": "#fed200",
             "label": "yellow",
             "passive": "#ffff8a",
@@ -567,6 +572,7 @@ input:checked + .c8 .c10 {
         size="small"
         style={
           Object {
+            "focusBorder": "#4e6f01",
             "focused": "#92d101",
             "label": "green",
             "passive": "#def99f",
@@ -627,6 +633,7 @@ input:checked + .c8 .c10 {
         size="small"
         style={
           Object {
+            "focusBorder": "#006880",
             "focused": "#00c3ed",
             "label": "blue",
             "passive": "#c8f5ff",
@@ -687,6 +694,7 @@ input:checked + .c8 .c10 {
         size="small"
         style={
           Object {
+            "focusBorder": "#141a3e",
             "focused": "#545ec8",
             "label": "purple",
             "passive": "#cbcfff",
@@ -747,6 +755,7 @@ input:checked + .c8 .c10 {
         size="small"
         style={
           Object {
+            "focusBorder": "#560131",
             "focused": "#de017e",
             "label": "pink",
             "passive": "#ffc5e1",

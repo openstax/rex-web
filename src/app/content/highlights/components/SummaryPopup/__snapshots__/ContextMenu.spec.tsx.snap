@@ -466,7 +466,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
 }
 
 .c29 li {
-  display: inline-block;
+  padding: 0.2rem;
 }
 
 .c29 li button,
@@ -486,11 +486,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
   cursor: pointer;
   outline: none;
   border: none;
-  padding: 0 0.8rem;
+  padding-left: 0.8rem;
   margin: 0;
-  height: 3.2rem;
+  height: 3rem;
   background: none;
-  min-width: 7.2rem;
+  min-width: 7rem;
   color: #424242;
   font-size: 1.4rem;
   line-height: 2rem;
@@ -501,6 +501,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 .c29 li button:focus,
 .c29 li a:focus {
   background: #d5d5d5;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
 }
 
 .c29 li {
@@ -598,6 +600,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           size="small"
           style={
             Object {
+              "focusBorder": "#8f7700",
               "focused": "#fed200",
               "label": "yellow",
               "passive": "#ffff8a",
@@ -629,6 +632,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             size="small"
             style={
               Object {
+                "focusBorder": "#8f7700",
                 "focused": "#fed200",
                 "label": "yellow",
                 "passive": "#ffff8a",
@@ -644,6 +648,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           size="small"
           style={
             Object {
+              "focusBorder": "#4e6f01",
               "focused": "#92d101",
               "label": "green",
               "passive": "#def99f",
@@ -675,6 +680,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             size="small"
             style={
               Object {
+                "focusBorder": "#4e6f01",
                 "focused": "#92d101",
                 "label": "green",
                 "passive": "#def99f",
@@ -690,6 +696,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           size="small"
           style={
             Object {
+              "focusBorder": "#006880",
               "focused": "#00c3ed",
               "label": "blue",
               "passive": "#c8f5ff",
@@ -721,6 +728,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             size="small"
             style={
               Object {
+                "focusBorder": "#006880",
                 "focused": "#00c3ed",
                 "label": "blue",
                 "passive": "#c8f5ff",
@@ -736,6 +744,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           size="small"
           style={
             Object {
+              "focusBorder": "#141a3e",
               "focused": "#545ec8",
               "label": "purple",
               "passive": "#cbcfff",
@@ -767,6 +776,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             size="small"
             style={
               Object {
+                "focusBorder": "#141a3e",
                 "focused": "#545ec8",
                 "label": "purple",
                 "passive": "#cbcfff",
@@ -782,6 +792,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           size="small"
           style={
             Object {
+              "focusBorder": "#560131",
               "focused": "#de017e",
               "label": "pink",
               "passive": "#ffc5e1",
@@ -813,6 +824,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             size="small"
             style={
               Object {
+                "focusBorder": "#560131",
                 "focused": "#de017e",
                 "label": "pink",
                 "passive": "#ffc5e1",

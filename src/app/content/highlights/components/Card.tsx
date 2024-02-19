@@ -6,7 +6,7 @@ import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
-import { useFocusIn, useMatchMobileMediumQuery } from '../../../reactUtils';
+import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
@@ -108,7 +108,7 @@ function useComputedProps(props: CardProps) {
         (el as HTMLElement).classList.remove('has-note')
       );
     }
-  }, [highlight, annotation]);
+  }, [highlight.elements, annotation]);
 
   React.useEffect(() => {
     if (!annotation && !isActive) {
@@ -197,14 +197,9 @@ function NoteOrCard({
       });
     }
   }, [locationFilterId, props, setHighlightRemoved]);
-  const isMobile = useMatchMobileMediumQuery();
   const style = highlightStyles.find(
     search => props.data && search.label === props.data.color
   );
-
-  if (!annotation && isMobile) {
-    return null;
-  }
 
   return (
     <div onClick={focusCard} data-testid='card'>
@@ -217,7 +212,7 @@ function NoteOrCard({
           focus={props.focus}
           onEdit={() => setEditing(true)}
         />
-      ) : (
+      ) : <React.Fragment>{
         <EditCardWithOnCreate
           cardProps={props as CardPropsWithBookAndPage}
           commonProps={{ ...commonProps, onRemove }}
@@ -225,7 +220,7 @@ function NoteOrCard({
           hasUnsavedHighlight={hasUnsavedHighlight}
           setEditing={setEditing}
         />
-      )}
+      }</React.Fragment>}
     </div>
   );
 }
@@ -288,6 +283,18 @@ const StyledCard = styled(Card)`
   ${mainCardStyles}
 `;
 
+// Styling is expensive and most Cards don't need to render
+function PreCard(props: CardProps) {
+  const computedProps = useComputedProps(props);
+
+  if (!computedProps.annotation && (!props.isActive)) {
+    return null;
+  }
+  return (
+    <StyledCard {...props} />
+  );
+}
+
 export default connect(
   (state: AppState, ownProps: { highlight: Highlight }) => ({
     ...selectContent.bookAndPage(state),
@@ -308,4 +315,4 @@ export default connect(
     remove: flow(requestDeleteHighlight, dispatch),
     setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
   })
-)(StyledCard);
+)(PreCard);

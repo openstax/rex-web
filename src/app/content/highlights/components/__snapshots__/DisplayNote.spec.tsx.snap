@@ -103,6 +103,18 @@ exports[`DisplayNote matches snapshot 1`] = `
   color: #5e6062;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: 8rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    margin-left: 0;
+  }
+}
+
 <div
   className="c0"
   data-highlight-card={true}
@@ -293,6 +305,18 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   color: #5e6062;
 }
 
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: 8rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    margin-left: 0;
+  }
+}
+
 <div
   className="c0"
   data-highlight-card={true}
@@ -394,7 +418,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 }
 
 .c12 li {
-  display: inline-block;
+  padding: 0.2rem;
 }
 
 .c12 li button,
@@ -414,11 +438,11 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   cursor: pointer;
   outline: none;
   border: none;
-  padding: 0 0.8rem;
+  padding-left: 0.8rem;
   margin: 0;
-  height: 3.2rem;
+  height: 3rem;
   background: none;
-  min-width: 7.2rem;
+  min-width: 7rem;
   color: #424242;
   font-size: 1.4rem;
   line-height: 2rem;
@@ -429,6 +453,8 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 .c12 li button:focus,
 .c12 li a:focus {
   background: #d5d5d5;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
 }
 
 .c3 {
@@ -530,6 +556,18 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 
 .c0 .c2:focus-within .c9 {
   color: #5e6062;
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    margin-left: 8rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    margin-left: 0;
+  }
 }
 
 <div
