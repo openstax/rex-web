@@ -54,7 +54,7 @@ const prepareRedirects = async(
   for (const book of books) {
     redirects.push({
       from: `/books/${book.slug}`,
-      to: `${redirectBaseUrl}/books/${book.slug}`,
+      to: `${redirectBaseUrl}/details/books/${book.slug}`,
     });
   }
 
