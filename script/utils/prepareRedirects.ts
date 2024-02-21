@@ -22,10 +22,11 @@ const prepareRedirects = async(
   osWebLoader: AppServices['osWebLoader']
 ) => {
   const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig: getBooksConfigSync()});
+  const redirectBaseUrl = 'https://openstax.org';
   const books =  await findBooks({
     archiveLoader,
     osWebLoader,
-    rootUrl: 'https://openstax.org',
+    rootUrl: redirectBaseUrl,
   });
 
   const redirects: Array<{ from: string, to: string }> = [];
@@ -53,7 +54,7 @@ const prepareRedirects = async(
   for (const book of books) {
     redirects.push({
       from: `/books/${book.slug}`,
-      to: `https://openstax.org/books/${book.slug}`,
+      to: `${redirectBaseUrl}/books/${book.slug}`,
     });
   }
 
