@@ -36,9 +36,8 @@ export const matchForRoute = <R extends AnyRoute>(route: R, match: AnyMatch | un
 export const locationChangeForRoute = <R extends AnyRoute>(
   route: R,
   locationChange: LocationChange
-): locationChange is Required<LocationChange<Match<R>>> => {
-  console.log(locationChange.match, route)
-  return !!locationChange.match && locationChange.match.route.name === route.name;}
+): locationChange is Required<LocationChange<Match<R>>> =>
+  !!locationChange.match && locationChange.match.route.name === route.name;
 
 export const getUrlRegexParams = (obj: object): object => flatten(obj, {delimiter});
 
@@ -102,8 +101,6 @@ export const routeHook = <R extends AnyRoute>(route: R, body: RouteHookBody<R>) 
     return (action) => {
       if (locationChangeForRoute(route, action.payload)) {
         return boundHook(action.payload);
-      } else {
-        console.log('else!')
       }
     };
   });
