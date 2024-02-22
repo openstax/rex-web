@@ -166,6 +166,7 @@ def test_license_details(selenium, base_url, page_slug):
             "calculus-volume-1",
             "calculus-volume-2",
             "calculus-volume-3",
+            "organic-chemistry",
             "principles-financial-accounting",
             "principles-managerial-accounting",
         ):
