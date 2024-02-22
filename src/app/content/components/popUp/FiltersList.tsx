@@ -143,7 +143,7 @@ const FiltersList = ({
     });
   };
 
-  return <ul className={className}>
+  return <ul className={className} aria-live='polite' aria-atomic='true'>
     {Array.from(locationFilters).map(([locationId, location]) => selectedLocationFilters.has(locationId) &&
     <FiltersListChapter
       key={locationId}

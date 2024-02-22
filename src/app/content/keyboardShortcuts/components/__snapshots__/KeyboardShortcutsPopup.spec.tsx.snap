@@ -272,7 +272,9 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
 }
 
 <div
+  aria-modal="true"
   className="c0"
+  role="dialog"
 >
   <div
     className="c1"
