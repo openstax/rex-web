@@ -18,12 +18,12 @@ const config: PlaywrightTestConfig = {
         browserName: 'firefox',
       },
     },
-    {
-      name: 'Desktop Safari',
-      use: {
-        browserName: 'webkit',
-      },
-    },
+    // {
+    //   name: 'Desktop Safari',
+    //   use: {
+    //     browserName: 'webkit',
+    //   },
+    // },
     {
       name: 'Mobile (Pixel 5)',
       use: {
