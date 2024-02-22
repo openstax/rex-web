@@ -1776,6 +1776,8 @@ input:checked + .c21 .c22 {
     </button>
   </div>
   <ul
+    aria-atomic="true"
+    aria-live="polite"
     className="c57 c58"
   >
     <li

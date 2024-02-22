@@ -78,7 +78,7 @@ const Highlights = ({ className }: { className: string }) => {
 
   return <React.Fragment>
     {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
-    {orderedHighlights && <HighlightsWrapper ref={container} className={className}>
+    {orderedHighlights && <HighlightsWrapper ref={container} className={className} aria-live='polite'>
       {orderedHighlights.map((highlightData) => {
         return <SectionHighlights
           key={highlightData.location.id}
