@@ -99,7 +99,7 @@ FROM utils AS release
 # Docker trickery so we can reuse the yarn install layer until package.json or yarn.lock change
 COPY package.json yarn.lock /code/
 WORKDIR /code
-RUN yarn install
+RUN yarn install --network-timeout 60000
 
 COPY . /code
 
