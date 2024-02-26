@@ -9,7 +9,7 @@ export type AccountsUser = ApiUser & {
 };
 
 export default (url: string) => {
-  const authProvider = browserAuthProvider({window: assertWindow()})({auth: {accountsBase: url.replace(/\/+$/, '') + '/accounts'}});
+  const authProvider = browserAuthProvider({window: assertWindow()})({auth: {accountsBase: url}});
 
   return {
     getAuthorizedFetchConfig: authProvider.getAuthorizedFetchConfig,
