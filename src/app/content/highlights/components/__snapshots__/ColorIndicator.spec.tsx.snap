@@ -37,7 +37,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 .c0 {
   position: relative;
   background-color: #ffff8a;
-  border: 1px solid #fed200;
+  border: 1px solid #8f7700;
   height: 2.4rem;
   width: 2.4rem;
   display: -webkit-box;
@@ -59,7 +59,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 .c0 .c2 {
   height: 1.6rem;
   width: 1.6rem;
-  color: #fed200;
+  color: #8f7700;
   display: block;
 }
 
@@ -125,7 +125,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
 .c0 {
   position: relative;
   background-color: #ffff8a;
-  border: 1px solid #fed200;
+  border: 1px solid #8f7700;
   height: 2.4rem;
   width: 2.4rem;
   display: -webkit-box;

@@ -245,7 +245,7 @@ input:checked + .c8 .c10 {
 .c13 {
   position: relative;
   background-color: #ffff8a;
-  border: 1px solid #fed200;
+  border: 1px solid #8f7700;
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -278,7 +278,7 @@ input:checked + .c8 .c10 {
 .c19 {
   position: relative;
   background-color: #def99f;
-  border: 1px solid #92d101;
+  border: 1px solid #4e6f01;
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -311,7 +311,7 @@ input:checked + .c8 .c10 {
 .c22 {
   position: relative;
   background-color: #c8f5ff;
-  border: 1px solid #00c3ed;
+  border: 1px solid #006880;
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -344,7 +344,7 @@ input:checked + .c8 .c10 {
 .c24 {
   position: relative;
   background-color: #cbcfff;
-  border: 1px solid #545ec8;
+  border: 1px solid #141a3e;
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -377,7 +377,7 @@ input:checked + .c8 .c10 {
 .c26 {
   position: relative;
   background-color: #ffc5e1;
-  border: 1px solid #de017e;
+  border: 1px solid #560131;
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;

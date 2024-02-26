@@ -114,7 +114,7 @@ exports[`Dropdown matches snapshot 1`] = `
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #e5e5e5;
+  color: #949494;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -387,7 +387,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #e5e5e5;
+  color: #949494;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
