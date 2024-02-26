@@ -63,7 +63,7 @@ const checkSize = (props: {size?: 'small'}) => props.size === 'small' ? 1 : 1.6;
 const ColorIndicator = styled(Hoc)`
   position: relative;
   background-color: ${(props: {style: typeof highlightStyles[number]}) => props.style.passive};
-  border: 1px solid ${(props: {style: typeof highlightStyles[number]}) => props.style.focused};
+  border: 1px solid ${(props: {style: typeof highlightStyles[number]}) => props.style.focusBorder};
   height: ${(props: Props) => indicatorSize(props)}rem;
   width: ${(props: Props) => indicatorSize(props)}rem;
   display: flex;
@@ -78,7 +78,7 @@ const ColorIndicator = styled(Hoc)`
     height: ${(props: Props) => checkSize(props)}rem;
     width: ${(props: Props) => checkSize(props)}rem;
     ${(props: Props) => props.checked && css`
-      color: ${props.style.focused};
+      color: ${props.style.focusBorder};
       display: block;
     `}
   }
