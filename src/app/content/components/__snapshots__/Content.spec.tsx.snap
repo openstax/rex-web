@@ -662,6 +662,18 @@ Array [
   overflow: visible;
 }
 
+.c78 [data-for-screenreaders="true"] {
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+  white-space: nowrap;
+}
+
 .c78 .highlight {
   position: relative;
   z-index: 1;
@@ -5364,6 +5376,18 @@ Array [
 
 .c78 {
   overflow: visible;
+}
+
+.c78 [data-for-screenreaders="true"] {
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+  white-space: nowrap;
 }
 
 .c78 .highlight {

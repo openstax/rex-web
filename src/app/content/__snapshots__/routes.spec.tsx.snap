@@ -278,6 +278,18 @@ Array [
   overflow: visible;
 }
 
+.c4 [data-for-screenreaders="true"] {
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-clip-path: inset(100%);
+  clip-path: inset(100%);
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  position: absolute;
+  white-space: nowrap;
+}
+
 .c4 .highlight {
   position: relative;
   z-index: 1;
