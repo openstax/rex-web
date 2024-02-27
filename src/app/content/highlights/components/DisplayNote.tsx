@@ -19,6 +19,7 @@ import Confirmation from './Confirmation';
 import MenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
+import { useIntl } from 'react-intl';
 
 // tslint:disable-next-line:variable-name
 const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
@@ -61,6 +62,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const [width] = useDebouncedWindowSize();
   const searchQuery = useSelector(query);
   const isTocOpen = useSelector(tocOpen);
+  const {formatMessage} = useIntl();
 
   const onToggle = () => {
     if (!isActive) {
@@ -92,30 +94,39 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
 
   useFocusElement(element, shouldFocusCard);
 
-  return <div className={className} ref={mergeRefs(ref, element)} tabIndex={-1} data-highlight-card>
-    <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
-      <DropdownList>
-        <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
-        <DropdownItem
-          message='i18n:highlighting:dropdown:delete'
-          data-testid='delete'
-          onClick={() => setConfirmingDelete(true)}
-        />
-      </DropdownList>
-    </Dropdown>
-    <CloseIcon onClick={onBlur} />
-    <label>Note:</label>
-    <TruncatedText text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
-    {confirmingDelete && <Confirmation
-      ref={confirmationRef}
-      data-analytics-label='delete'
-      data-analytics-region='confirm-delete-inline-highlight'
-      message='i18n:highlighting:confirmation:delete-both'
-      confirmMessage='i18n:highlighting:button:delete'
-      onConfirm={onRemove}
-      onCancel={() => setConfirmingDelete(false)}
-    />}
-  </div>;
+  return (
+    <div
+      className={className}
+      ref={mergeRefs(ref, element)}
+      tabIndex={-1}
+      data-highlight-card
+      role='dialog'
+      aria-label={formatMessage({id: 'i18n:highlighter:display-note:label'})}
+    >
+      <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
+        <DropdownList>
+          <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
+          <DropdownItem
+            message='i18n:highlighting:dropdown:delete'
+            data-testid='delete'
+            onClick={() => setConfirmingDelete(true)}
+          />
+        </DropdownList>
+      </Dropdown>
+      <CloseIcon onClick={onBlur} />
+      <label>Note:</label>
+      <TruncatedText text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
+      {confirmingDelete && <Confirmation
+        ref={confirmationRef}
+        data-analytics-label='delete'
+        data-analytics-region='confirm-delete-inline-highlight'
+        message='i18n:highlighting:confirmation:delete-both'
+        confirmMessage='i18n:highlighting:button:delete'
+        onConfirm={onRemove}
+        onCancel={() => setConfirmingDelete(false)}
+      />}
+    </div>
+  );
 });
 
 export default styled(DisplayNote)`
