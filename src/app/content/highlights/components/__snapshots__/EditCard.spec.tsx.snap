@@ -97,52 +97,57 @@ exports[`EditCard matches snapshot when editing 1`] = `
   margin-top: 0.8rem;
 }
 
-<form
+<div
+  aria-label="Edit highlighted note"
   className="c0"
-  data-analytics-region="edit-note"
-  data-highlight-card={true}
+  role="dialog"
 >
-  <div
-    className=""
+  <form
+    data-analytics-region="edit-note"
+    data-highlight-card={true}
   >
     <div
-      mock-color-picker={true}
-      onChange={[Function]}
-      onRemove={[Function]}
-    />
-    <div
-      mock-note={true}
-      note="asdf"
-      onChange={[Function]}
-      onFocus={[Function]}
-      textareaRef={
-        Object {
-          "current": null,
-        }
-      }
-    />
-    <div
-      className="c1 c2"
+      className=""
     >
-      <button
-        className="c3"
-        data-analytics-label="save"
-        data-testid="save"
-        onClick={[Function]}
+      <div
+        mock-color-picker={true}
+        onChange={[Function]}
+        onRemove={[Function]}
+      />
+      <div
+        mock-note={true}
+        note="asdf"
+        onChange={[Function]}
+        onFocus={[Function]}
+        textareaRef={
+          Object {
+            "current": null,
+          }
+        }
+      />
+      <div
+        className="c1 c2"
       >
-        Save
-      </button>
-      <button
-        className="c4"
-        data-analytics-label="cancel"
-        data-testid="cancel"
-        onClick={[Function]}
-      >
-        Cancel
-      </button>
+        <button
+          className="c3"
+          data-analytics-label="save"
+          data-testid="save"
+          onClick={[Function]}
+        >
+          Save
+        </button>
+        <button
+          className="c4"
+          data-analytics-label="cancel"
+          data-testid="cancel"
+          onClick={[Function]}
+        >
+          Cancel
+        </button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
 `;
 
 exports[`EditCard matches snapshot when focused 1`] = `
@@ -159,22 +164,27 @@ exports[`EditCard matches snapshot when focused 1`] = `
   margin-top: 0.8rem;
 }
 
-<form
+<div
+  aria-label="Edit highlighted note"
   className="c0"
-  data-analytics-region="edit-note"
-  data-highlight-card={true}
+  role="dialog"
 >
-  <div
-    confirmLink="/accounts/login?r=/"
-    confirmMessage="i18n:highlighting:login:link"
-    data-analytics-label="login"
-    data-analytics-region="highlighting-login"
-    drawFocus={false}
-    message="i18n:highlighting:login:prompt"
-    mock-confirmation={true}
-    onCancel={[MockFunction]}
-  />
-</form>
+  <form
+    data-analytics-region="edit-note"
+    data-highlight-card={true}
+  >
+    <div
+      confirmLink="/accounts/login?r=/"
+      confirmMessage="i18n:highlighting:login:link"
+      data-analytics-label="login"
+      data-analytics-region="highlighting-login"
+      drawFocus={false}
+      message="i18n:highlighting:login:prompt"
+      mock-confirmation={true}
+      onCancel={[MockFunction]}
+    />
+  </form>
+</div>
 `;
 
 exports[`EditCard matches snapshot with data 1`] = `
@@ -191,32 +201,37 @@ exports[`EditCard matches snapshot with data 1`] = `
   margin-top: 0.8rem;
 }
 
-<form
+<div
+  aria-label="Edit highlighted note"
   className="c0"
-  data-analytics-region="edit-note"
-  data-highlight-card={true}
+  role="dialog"
 >
-  <div
-    className=""
+  <form
+    data-analytics-region="edit-note"
+    data-highlight-card={true}
   >
     <div
-      mock-color-picker={true}
-      onChange={[Function]}
-      onRemove={[Function]}
-    />
-    <div
-      mock-note={true}
-      note=""
-      onChange={[Function]}
-      onFocus={[Function]}
-      textareaRef={
-        Object {
-          "current": null,
+      className=""
+    >
+      <div
+        mock-color-picker={true}
+        onChange={[Function]}
+        onRemove={[Function]}
+      />
+      <div
+        mock-note={true}
+        note=""
+        onChange={[Function]}
+        onFocus={[Function]}
+        textareaRef={
+          Object {
+            "current": null,
+          }
         }
-      }
-    />
-  </div>
-</form>
+      />
+    </div>
+  </form>
+</div>
 `;
 
 exports[`EditCard matches snapshot without data 1`] = `
@@ -233,20 +248,25 @@ exports[`EditCard matches snapshot without data 1`] = `
   margin-top: 0.8rem;
 }
 
-<form
+<div
+  aria-label="Edit highlighted note"
   className="c0"
-  data-analytics-region="edit-note"
-  data-highlight-card={true}
+  role="dialog"
 >
-  <div
-    confirmLink="/accounts/login?r=/"
-    confirmMessage="i18n:highlighting:login:link"
-    data-analytics-label="login"
-    data-analytics-region="highlighting-login"
-    drawFocus={false}
-    message="i18n:highlighting:login:prompt"
-    mock-confirmation={true}
-    onCancel={[MockFunction]}
-  />
-</form>
+  <form
+    data-analytics-region="edit-note"
+    data-highlight-card={true}
+  >
+    <div
+      confirmLink="/accounts/login?r=/"
+      confirmMessage="i18n:highlighting:login:link"
+      data-analytics-label="login"
+      data-analytics-region="highlighting-login"
+      drawFocus={false}
+      message="i18n:highlighting:login:prompt"
+      mock-confirmation={true}
+      onCancel={[MockFunction]}
+    />
+  </form>
+</div>
 `;
