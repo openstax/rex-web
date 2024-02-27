@@ -57,6 +57,8 @@
   "i18n:footer:social:in:alt": "linkedin",
   "i18n:footer:social:rice-logo:alt": "Logo Rice University",
   "i18n:footer:social:tw:alt": "twitter",
+  "i18n:highlighter:display-note:label": "notatka",
+  "i18n:highlighter:edit-note:label": "edytuj notatkę",
   "i18n:highlighter:highlight:end": "Koniec {style, select, blue {niebieskiego} green {zielonego} pink {różowego} purple {fioletowego} yellow {żółtego} other {{style}}} zakreślenia",
   "i18n:highlighter:highlight:start": "Początek {style, select, blue {niebieskiego} green {zielonego} pink {różowego} purple {fioletowego} yellow {żółtego} other {{style}}} zakreślenia",
   "i18n:highlighter:highlight:end:search": "Koniec zakreślenia wyniku wyszukiwania",
