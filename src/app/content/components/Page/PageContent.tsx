@@ -22,6 +22,19 @@ export const contentTextStyle = css`
 // otherwise math elements won't have full height background color
 const SELF_AND_CHILD_MATH_SELECTOR = '&, & .math';
 
+const hideDataForScreenreaders = `
+  /* Hide data per https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark */
+  [data-for-screenreaders="true"] {
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip-path: inset(100%);
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+    white-space: nowrap;
+  }
+`;
+
 export default styled(MainContent)`
   ${contentTextStyle}
   overflow: visible;
@@ -50,6 +63,8 @@ export default styled(MainContent)`
       `)}
     }
   }
+
+  ${hideDataForScreenreaders}
 
   .highlight {
     position: relative;
