@@ -11,6 +11,7 @@ interface Props {
   textareaRef: React.RefObject<HTMLTextAreaElement>;
   onChange: (note: string) => void;
   onFocus: () => void;
+  edit?: boolean;
 }
 
 const noteMaxLength = 1000;
@@ -67,7 +68,7 @@ const FloatingLabel = styled.div`
 
 
 // tslint:disable-next-line:variable-name
-const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
+const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
   const setTextAreaHeight = React.useCallback(() => {
     const element = textareaRef.current;
     if (!element) {
@@ -78,6 +79,7 @@ const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
       element.style.height = `${element.scrollHeight + 5}px`;
     }
   }, [textareaRef]);
+  const labelId = `i18n:highlighting:card:placeholder${edit ? '-edit' : ''}`;
 
   React.useEffect(setTextAreaHeight, [note, setTextAreaHeight]);
 
@@ -94,7 +96,7 @@ const Note = ({onChange, onFocus, note, textareaRef}: Props) => {
         }}
         placeholder=''
       />
-      <FloatingLabel>{useIntl().formatMessage({id: 'i18n:highlighting:card:placeholder'})}</FloatingLabel>
+      <FloatingLabel>{useIntl().formatMessage({id: labelId})}</FloatingLabel>
     </WrapperLabel>
   );
 };
