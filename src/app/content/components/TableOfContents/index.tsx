@@ -7,8 +7,8 @@ import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
-import { ArchiveTree, Book, Page, State } from '../../types';
-import { archiveTreeContainsNode, getArchiveTreeSectionType } from '../../utils/archiveTreeUtils';
+import { ArchiveTree, Book, LinkedArchiveTreeSection, Page, State } from '../../types';
+import { archiveTreeContainsNode, getArchiveTreeSectionType, splitTitleParts } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
@@ -136,6 +136,23 @@ function TocNode({
   );
 }
 
+
+function maybeAriaLabel(page: LinkedArchiveTreeSection) {
+  const [num, titleText] = splitTitleParts(page.title);
+
+  if (num) {
+    return {};
+  }
+
+  const [parentNum, parentTitleText] = splitTitleParts(page.parent.title);
+
+  if (!parentNum || titleText.includes(parentTitleText)) {
+    return {};
+  }
+
+  return {'aria-label': `${titleText} - Chapter ${parentNum}`};
+}
+
 function TocSection({
   book,
   page,
@@ -175,6 +192,7 @@ function TocSection({
             book={book}
             page={item}
             dangerouslySetInnerHTML={{__html: item.title}}
+            {...maybeAriaLabel(item)}
           />
         </Styled.NavItem>;
       })}
