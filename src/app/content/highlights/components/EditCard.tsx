@@ -2,7 +2,7 @@ import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement, HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
@@ -63,20 +63,27 @@ function LoginOrEdit({
 }) {
   const authenticated = !!useSelector(selectAuth.user);
   const element = React.useRef<HTMLElement>(null);
+  const {formatMessage} = useIntl();
 
   return (
-    <form
+    <div
       className={props.className}
-      ref={mergeRefs(fref, element)}
-      data-analytics-region='edit-note'
-      data-highlight-card
+      role='dialog'
+      aria-label={formatMessage({id: 'i18n:highlighter:edit-note:label'})}
     >
-      {authenticated ? (
-        <ActiveEditCard props={props} element={element} />
-      ) : (
-        <LoginConfirmation onBlur={props.onBlur} />
-      )}
-    </form>
+      <form
+        ref={mergeRefs(fref, element)}
+        data-analytics-region='edit-note'
+        data-highlight-card
+      >
+        {authenticated ? (
+          <ActiveEditCard props={props} element={element}
+          />
+        ) : (
+          <LoginConfirmation onBlur={props.onBlur} />
+        )}
+      </form>
+    </div>
   );
 }
 
