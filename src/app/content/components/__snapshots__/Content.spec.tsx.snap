@@ -4183,7 +4183,7 @@ li[aria-label="Current Page"] .c60 {
             >
               <main
                 className="c78 page-content"
-                tabIndex={0}
+                tabIndex={-1}
               >
                 <div
                   className="c79"
@@ -8675,7 +8675,7 @@ li[aria-label="Current Page"] .c60 {
             >
               <main
                 className="c78"
-                tabIndex={0}
+                tabIndex={-1}
               >
                 <div
                   className="c79"
