@@ -212,7 +212,7 @@ function NoteOrCard({
           focus={props.focus}
           onEdit={() => setEditing(true)}
         />
-      ) : <React.Fragment>{
+      ) : (
         <EditCardWithOnCreate
           cardProps={props as CardPropsWithBookAndPage}
           commonProps={{ ...commonProps, onRemove }}
@@ -220,7 +220,7 @@ function NoteOrCard({
           hasUnsavedHighlight={hasUnsavedHighlight}
           setEditing={setEditing}
         />
-      }</React.Fragment>}
+      )}
     </div>
   );
 }
