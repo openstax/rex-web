@@ -7,9 +7,10 @@ import { findArchiveTreeNodeById } from '../../src/app/content/utils/archiveTree
 import { AppServices } from '../../src/app/types';
 import { APP_ENV } from '../../src/config';
 import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
-import { findBooks } from './bookUtils';
 
 const redirectsDataFolderPath = path.resolve(__dirname, '../../data/redirects/');
+
+const booksConfig = getBooksConfigSync();
 
 const redirectsDataFiles = APP_ENV === 'test'
   ? [path.resolve(__dirname, '../../src/mock-redirects.json')]
@@ -21,13 +22,7 @@ const prepareRedirects = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
 ) => {
-  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig: getBooksConfigSync()});
-  const redirectBaseUrl = 'https://openstax.org';
-  const books =  await findBooks({
-    archiveLoader,
-    osWebLoader,
-    rootUrl: redirectBaseUrl,
-  });
+const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig});
 
   const redirects: Array<{ from: string, to: string }> = [];
 
@@ -51,10 +46,12 @@ const prepareRedirects = async(
     }
   }
 
-  for (const book of books) {
+  for (const [bookId] of Object.entries(booksConfig.books)) {
+    const slug = await osWebLoader.getBookSlugFromId(bookId);
+    console.log(slug)
     redirects.push({
-      from: `/books/${book.slug}`,
-      to: `${redirectBaseUrl}/details/books/${book.slug}`,
+      from: `/books/${slug}`,
+      to: `https://openstax.org/details/books/${slug}`,
     });
   }
 
