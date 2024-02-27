@@ -59,6 +59,8 @@
   "i18n:footer:social:in:alt": "linkedin",
   "i18n:footer:social:rice-logo:alt": "Rice University logo",
   "i18n:footer:social:tw:alt": "twitter",
+  "i18n:highlighter:display-note:label": "Highlighted note",
+  "i18n:highlighter:edit-note:label": "Edit highlighted note",
   "i18n:highlighter:highlight:end": "End of {style} highlight",
   "i18n:highlighter:highlight:start": "Start {style} highlight",
   "i18n:highlighter:highlight:end:search": "End of search result",
