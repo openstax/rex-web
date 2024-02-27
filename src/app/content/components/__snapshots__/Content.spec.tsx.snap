@@ -3716,6 +3716,7 @@ li[aria-label="Current Page"] .c60 {
                           data-type="page"
                         >
                           <a
+                            aria-label="Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Chapter 1"
                             className="c59 c60"
                             dangerouslySetInnerHTML={
                               Object {
@@ -3819,6 +3820,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 3 - Chapter 2"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -3891,6 +3893,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 4 - Chapter 3"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -3961,6 +3964,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 5 - Chapter 4"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -4031,6 +4035,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 6 with special characters in url - Chapter 10"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -4101,6 +4106,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 7 - Chapter 12"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -8204,6 +8210,7 @@ li[aria-label="Current Page"] .c60 {
                           data-type="page"
                         >
                           <a
+                            aria-label="Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Chapter 1"
                             className="c59 c60"
                             dangerouslySetInnerHTML={
                               Object {
@@ -8307,6 +8314,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 3 - Chapter 2"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -8377,6 +8385,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 4 - Chapter 3"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -8447,6 +8456,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 5 - Chapter 4"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -8517,6 +8527,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 6 with special characters in url - Chapter 10"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
@@ -8587,6 +8598,7 @@ li[aria-label="Current Page"] .c60 {
                     data-type="page"
                   >
                     <a
+                      aria-label="Test Page 7 - Chapter 12"
                       className="c59 c60"
                       dangerouslySetInnerHTML={
                         Object {
