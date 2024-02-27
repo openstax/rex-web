@@ -3481,7 +3481,7 @@ li[aria-label="Current Page"] .c60 {
             </button>
           </div>
         </div>
-        <div
+        <nav
           aria-label="Table of contents"
           className="c48"
           data-analytics-region="toc"
@@ -4166,7 +4166,7 @@ li[aria-label="Current Page"] .c60 {
               />
             </li>
           </ol>
-        </div>
+        </nav>
         <div
           className="c74"
           data-testid="centered-content-row"
@@ -7975,7 +7975,7 @@ li[aria-label="Current Page"] .c60 {
             </button>
           </div>
         </div>
-        <div
+        <nav
           aria-label="Table of contents"
           className="c48"
           data-analytics-region="toc"
@@ -8658,7 +8658,7 @@ li[aria-label="Current Page"] .c60 {
               />
             </li>
           </ol>
-        </div>
+        </nav>
         <div
           className="c74"
           data-testid="centered-content-row"
