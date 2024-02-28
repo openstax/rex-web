@@ -7,7 +7,6 @@ export const processBrowserRedirect = async(services: {history: History}) => {
     .catch(() => []);
 
   for (const {from, to} of redirects) {
-    // console.log(from, services.history.location.pathname)
     if (from === services.history.location.pathname) {
       services.history.replace(to);
       return true;
