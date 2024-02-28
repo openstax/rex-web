@@ -148,6 +148,7 @@ const resolvePage = async(
   const {dispatch, getState} = services;
   const state = getState();
   const pageId = getPageIdFromUrlParam(book, match.params.page);
+  console.log('resolve page: ', pageId)
 
   if (!pageId) {
     dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));

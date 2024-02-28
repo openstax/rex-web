@@ -48,10 +48,9 @@ const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfi
 
   for (const [bookId] of Object.entries(booksConfig.books)) {
     const slug = await osWebLoader.getBookSlugFromId(bookId);
-    console.log(slug)
     redirects.push({
       from: `/books/${slug}`,
-      to: `https://openstax.org/details/books/${slug}`,
+      to: `/details/books/${slug}`,
     });
   }
 
