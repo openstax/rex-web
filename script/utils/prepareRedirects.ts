@@ -22,7 +22,7 @@ const prepareRedirects = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
 ) => {
-const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig});
+  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig});
 
   const redirects: Array<{ from: string, to: string }> = [];
 
