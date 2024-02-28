@@ -151,10 +151,8 @@ const resolvePage = async(
   console.log(book, match.params.page)
 
   if (!match.params.page) {
-    // book slug but no page
-    console.log('process redirect')
-    // await processBrowserRedirect(services);
-    // return;
+    await processBrowserRedirect(services);
+    return;
   }
   const pageId = getPageIdFromUrlParam(book, match.params.page);
 
