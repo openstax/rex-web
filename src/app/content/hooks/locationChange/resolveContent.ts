@@ -91,7 +91,6 @@ export const resolveBookReference = async(
   const {osWebLoader, bookConfigLoader, getState} = services;
   const state = getState();
   const currentBook = select.book(state);
-  console.log('param: ', bookParam)
 
   const bookId  = 'uuid' in bookParam
     ? bookParam.uuid
@@ -148,7 +147,6 @@ const resolvePage = async(
 ) => {
   const {dispatch, getState} = services;
   const state = getState();
-  console.log(book, match.params.page)
 
   if (!match.params.page) {
     await processBrowserRedirect(services);
