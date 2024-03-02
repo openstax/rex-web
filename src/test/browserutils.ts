@@ -115,13 +115,21 @@ export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
   return h1 && h1.textContent;
 });
 
-export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string) => {
+type Categories = Awaited<ReturnType<typeof lighthouse>>['lhr']['categories'];
+
+export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string, scores: {
+  [key in keyof Categories]?: number;
+}) => {
 
   const port = Number((new URL(target.wsEndpoint())).port);
   const { lhr } = await lighthouse(url(urlPath), {port}, lighthouseConfig);
 
-  expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);
-  expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
-  expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.69);
-  expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.79);
+  Object.entries(scores).forEach(([category, minScore]) => {
+    if (category in lhr.categories) {
+      const { score } = lhr.categories[category as keyof Categories];
+      if (score < minScore) {
+        throw new Error(`${category} score of ${score} was less than the minimum of ${minScore}`);
+      }
+    }
+  });
 };
