@@ -35,7 +35,7 @@ const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Pro
     {({registerMainContent}) => <main
       ref={mergeRefs(ref, registerMainContent)}
       className={className}
-      tabIndex={0}
+      tabIndex={-1}
     >
       <ContentStyles
         id={MAIN_CONTENT_ID}
