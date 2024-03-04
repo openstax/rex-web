@@ -11,14 +11,14 @@ const TEST_PAGES = [ TEST_PAGE_WITHOUT_MATH, TEST_PAGE_WITH_LINKS, TEST_PAGE_WIT
 
 describe('lighthouse', () => {
   it('runs', async() => {
-    await asyncPool(1, TEST_PAGES, async(url) => {
-      await checkLighthouse(browser, url, {
+    await asyncPool(1, TEST_PAGES, async(pageUrl) => {
+      await checkLighthouse(browser, pageUrl, {
         accessibility: 0.97,
         'best-practices': 0.88,
         customAccessibility: 1,
         seo: 0.9,
       });
-    })
+    });
   });
 });
 
