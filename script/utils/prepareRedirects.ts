@@ -39,10 +39,19 @@ const prepareRedirects = async(
         continue;
       }
 
+      const to = decodeURI(content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } })) + (query || '');
+
       redirects.push({
         from: pathname,
-        to: decodeURI(content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } })) + (query || ''),
+        to,
       });
+
+      if (!pathname.endsWith('/')) {
+        redirects.push({
+          from: `${pathname}/`,
+          to,
+        });
+      }
     }
   }
 
@@ -50,6 +59,10 @@ const prepareRedirects = async(
     const slug = await osWebLoader.getBookSlugFromId(bookId);
     redirects.push({
       from: `/books/${slug}`,
+      to: `/details/books/${slug}`,
+    },
+    {
+      from: `/books/${slug}/`,
       to: `/details/books/${slug}`,
     });
   }
