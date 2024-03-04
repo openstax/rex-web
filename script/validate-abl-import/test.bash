@@ -27,8 +27,10 @@ for input_file in "$my_dir"/*.input.json; do
     # Actual test goes here
     # -------------------------
     json=$(cat "$input_file")
-    node "$my_dir/../entry.js" transform-approved-books-data --data "$json" > "$output_file"
+    configured_books="{}"
 
+    bash "$my_dir/../transform-approved-books-data.bash" \
+        "$json" "$configured_books" > "$output_file"
 
     diff "$snapshot_file" "$output_file"
     
