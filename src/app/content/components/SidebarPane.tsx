@@ -30,7 +30,7 @@ const sidebarClosedStyle = css`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SidebarPaneBody = styled.div`
+export const SidebarPaneBody = styled.nav`
   grid-area: 1 / 2 / auto / 3;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
