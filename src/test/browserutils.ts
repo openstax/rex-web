@@ -116,13 +116,12 @@ export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
 });
 
 type Categories = Awaited<ReturnType<typeof lighthouse>>['lhr']['categories'];
+export type ScoreTargets = { [key in keyof Categories]?: number };
 
-export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string, scores: {
-  [key in keyof Categories]?: number;
-}) => {
-
+export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string, scores: ScoreTargets) => {
+  const absoluteUrl = urlPath.startsWith('https://') || urlPath.startsWith('http://') ? urlPath : url(urlPath);
   const port = Number((new URL(target.wsEndpoint())).port);
-  const { lhr } = await lighthouse(url(urlPath), {port}, lighthouseConfig);
+  const { lhr } = await lighthouse(absoluteUrl, {port}, lighthouseConfig);
 
   Object.entries(scores).forEach(([category, minScore]) => {
     if (category in lhr.categories) {
