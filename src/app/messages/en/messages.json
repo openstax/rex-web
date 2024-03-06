@@ -21,6 +21,7 @@
   "i18n:a11y:keyboard-shortcuts:move-focus-through-each-line": "Move focus through each line of text",
   "i18n:a11y:keyboard-shortcuts:select-text": "Select text",
   "i18n:a11y:keyboard-shortcuts:create-highlight-or-note": "Create a highlight or note after selecting text",
+  "i18n:a11y:keyboard-shortcuts:cycle-search-regions": "Navigate among search bar, search results, and main content region",
   "i18n:a11y:keyboard-shortcuts:keys:shift": "Shift",
   "i18n:a11y:keyboard-shortcuts:keys:?": "?",
   "i18n:a11y:keyboard-shortcuts:keys:tab": "Tab",

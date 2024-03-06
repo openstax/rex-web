@@ -127,7 +127,9 @@ describe('search', () => {
     const findById = makeFindByTestId(component.root);
 
     const inputEvent = makeInputEvent('cool search');
-    findById('desktop-search-input').props.onChange(inputEvent);
+    renderer.act(() => {
+      findById('desktop-search-input').props.onChange(inputEvent);
+    });
 
     const event = makeEvent();
     renderer.act(() => findById('desktop-search').props.onSubmit(event));
@@ -315,7 +317,9 @@ describe('search button', () => {
     const findById = makeFindByTestId(component.root);
 
     const inputEvent = makeInputEvent('cool search');
-    findById('desktop-search-input').props.onChange(inputEvent);
+    renderer.act(
+      () => findById('desktop-search-input').props.onChange(inputEvent)
+    );
 
     const event = makeEvent();
     renderer.act(() => findById('desktop-search').props.onSubmit(event));

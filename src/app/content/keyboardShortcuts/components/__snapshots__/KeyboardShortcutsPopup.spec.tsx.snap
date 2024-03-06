@@ -603,6 +603,24 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               Create a highlight or note after selecting text
             </div>
           </div>
+          <div
+            className="c11"
+          >
+            <div
+              className="c12"
+            >
+              <span
+                className="c13"
+              >
+                i18n:a11y:keyboard-shortcuts:keys:alt+s
+              </span>
+            </div>
+            <div
+              className="c12"
+            >
+              Navigate among search bar, search results, and main content region
+            </div>
+          </div>
         </div>
       </div>
     </div>
