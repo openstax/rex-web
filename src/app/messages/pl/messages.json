@@ -19,6 +19,7 @@
   "i18n:a11y:keyboard-shortcuts:move-focus-through-each-line": "Aktywuj fragment tekstu",
   "i18n:a11y:keyboard-shortcuts:select-text": "Zaznacz tekst",
   "i18n:a11y:keyboard-shortcuts:create-highlight-or-note": "Stwórz zakreślenie lub notatkę po zaznaczeniu tekstu",
+  "i18n:a11y:keyboard-shortcuts:cycle-search-regions": "Nawigacja między paskiem wyszukiwania, wynikami wyszukiwania i głównym obszarem zawartości",
   "i18n:a11y:keyboard-shortcuts:keys:shift": "Shift",
   "i18n:a11y:keyboard-shortcuts:keys:?": "?",
   "i18n:a11y:keyboard-shortcuts:keys:tab": "Tab",

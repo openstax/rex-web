@@ -375,6 +375,24 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           Create a highlight or note after selecting text
         </div>
       </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            i18n:a11y:keyboard-shortcuts:keys:alt+s
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Navigate among search bar, search results, and main content region
+        </div>
+      </div>
     </div>
   </div>
 </div>
