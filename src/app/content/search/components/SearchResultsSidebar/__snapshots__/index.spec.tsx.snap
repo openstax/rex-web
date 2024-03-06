@@ -783,6 +783,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
     >
       <span
         className="c3"
+        id="search-results-title"
       >
         Search results
       </span>
@@ -849,7 +850,8 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       </div>
     </div>
   </div>
-  <div
+  <nav
+    aria-labelledby="search-results-title"
     className="c12 "
   >
     <div
@@ -1012,7 +1014,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         </details>
       </li>
     </ol>
-  </div>
+  </nav>
 </div>
 `;
 
@@ -1472,6 +1474,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     >
       <span
         className="c3"
+        id="search-results-title"
       >
         Search results
       </span>
@@ -1538,7 +1541,8 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       </div>
     </div>
   </div>
-  <div
+  <nav
+    aria-labelledby="search-results-title"
     className="c12 "
   >
     <ol
@@ -1766,7 +1770,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         </details>
       </li>
     </ol>
-  </div>
+  </nav>
 </div>
 `;
 
