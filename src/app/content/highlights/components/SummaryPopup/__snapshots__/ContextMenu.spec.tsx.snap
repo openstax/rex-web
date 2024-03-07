@@ -632,7 +632,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             name="yellow"
             onChange={[Function]}
             tabIndex={-1}
-            type="radio"
+            type="checkbox"
           />
           <span
             className="c19 c20"
@@ -681,7 +681,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             name="green"
             onChange={[Function]}
             tabIndex={-1}
-            type="radio"
+            type="checkbox"
           />
           <span
             className="c19 c22"
@@ -730,7 +730,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             name="blue"
             onChange={[Function]}
             tabIndex={-1}
-            type="radio"
+            type="checkbox"
           />
           <span
             className="c19 c24"
@@ -779,7 +779,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             name="purple"
             onChange={[Function]}
             tabIndex={-1}
-            type="radio"
+            type="checkbox"
           />
           <span
             className="c19 c26"
@@ -828,7 +828,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             name="pink"
             onChange={[Function]}
             tabIndex={-1}
-            type="radio"
+            type="checkbox"
           />
           <span
             className="c19 c28"

@@ -48,7 +48,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
     component={<label />}
     className={className}
   >
-    <input type='radio' {...props} />
+    <input type='checkbox' {...props} />
   </ColorIndicator>;
 })`
   cursor: pointer;
@@ -63,7 +63,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
   }
 `;
 
-type NavKeys = 'Home' | 'End' | 'ArrowLeft' | 'ArrowRight';
+type NavKeys = 'Home' | 'End' | 'ArrowLeft' | 'ArrowRight' | ' ' | 'Enter';
 
 function nextIdx(idx: number, itemCount: number, key: NavKeys) {
   if (key === 'Home') {
@@ -75,8 +75,11 @@ function nextIdx(idx: number, itemCount: number, key: NavKeys) {
   if (key === 'ArrowLeft') {
     return (idx + itemCount - 1) % itemCount;
   }
-  // ArrowRight
-  return (idx + 1) % itemCount;
+  if (key === 'ArrowRight') {
+    return (idx + 1) % itemCount;
+  }
+  // Just toggle
+  return idx;
 }
 
 // tslint:disable-next-line:variable-name
@@ -85,7 +88,7 @@ const ColorPicker = ({className, ...props}: Props) => {
   // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role#keyboard_interactions
   const handleKeyNavigation = React.useCallback(
     (event: React.KeyboardEvent) => {
-      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', ' ', 'Enter'].includes(event.key)) {
         return;
       }
       const assertedRef = ref as React.MutableRefObject<HTMLDivElement>;
@@ -106,8 +109,7 @@ const ColorPicker = ({className, ...props}: Props) => {
       if (!ref.current || event.currentTarget !== event.target) {
         return;
       }
-      // There will always be one checked
-      (ref.current.querySelector<HTMLInputElement>('input[checked]') as HTMLInputElement).focus();
+      (ref.current.querySelector<HTMLInputElement>('input[checked]'))?.focus();
     },
     []
   );

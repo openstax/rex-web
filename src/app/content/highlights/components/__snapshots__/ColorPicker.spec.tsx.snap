@@ -294,7 +294,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       name="yellow"
       onChange={[Function]}
       tabIndex={-1}
-      type="radio"
+      type="checkbox"
     />
     <span
       className="c6 c7"
@@ -341,7 +341,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       name="green"
       onChange={[Function]}
       tabIndex={-1}
-      type="radio"
+      type="checkbox"
     />
     <span
       className="c6 c9"
@@ -388,7 +388,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       name="blue"
       onChange={[Function]}
       tabIndex={-1}
-      type="radio"
+      type="checkbox"
     />
     <span
       className="c6 c11"
@@ -435,7 +435,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       name="purple"
       onChange={[Function]}
       tabIndex={-1}
-      type="radio"
+      type="checkbox"
     />
     <span
       className="c6 c13"
@@ -482,7 +482,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       name="pink"
       onChange={[Function]}
       tabIndex={-1}
-      type="radio"
+      type="checkbox"
     />
     <span
       className="c6 c15"

@@ -124,6 +124,15 @@ describe('ColorPicker', () => {
       key: 'Home',
     });
     expect(checkedIdx()).toBe(0);
+
+    // Space doesn't change the activeElement, but does toggle it
+    expect(inputs[checkedIdx()].checked).toBe(true);
+    dispatchKeyDownEvent({
+      element: rg as HTMLElement,
+      key: ' ',
+    });
+    expect(checkedIdx()).toBe(0);
+    
     // Ignores other keys
     dispatchKeyDownEvent({
       element: rg as HTMLElement,
