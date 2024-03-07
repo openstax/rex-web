@@ -39,17 +39,15 @@ const prepareRedirects = async(
         continue;
       }
 
-      const to = decodeURI(content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } })) + (query || '');
-
       redirects.push({
         from: pathname,
-        to,
+        to: decodeURI(content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } })) + (query || ''),
       });
 
       if (!pathname.endsWith('/')) {
         redirects.push({
           from: `${pathname}/`,
-          to,
+          to: pathname,
         });
       }
     }

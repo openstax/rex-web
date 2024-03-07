@@ -148,12 +148,7 @@ const resolvePage = async(
   const {dispatch, getState} = services;
   const state = getState();
 
-  if (match.params.book && 'slug' in match.params.book && !match.params.page) {
-    // book slug provided but no page
-    await processBrowserRedirect(services);
-    return;
-  }
-  const pageId = getPageIdFromUrlParam(book, match.params.page);
+  const pageId = match.params.page ? getPageIdFromUrlParam(book, match.params.page) : undefined;
 
   if (!pageId) {
     dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
