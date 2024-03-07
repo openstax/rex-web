@@ -147,7 +147,6 @@ const resolvePage = async(
 ) => {
   const {dispatch, getState} = services;
   const state = getState();
-
   const pageId = match.params.page ? getPageIdFromUrlParam(book, match.params.page) : undefined;
 
   if (!pageId) {
