@@ -11,7 +11,7 @@ import {
   clearSearch,
   openMobileToolbar,
   openSearchResultsMobile,
-  requestSearch
+  requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
@@ -19,6 +19,9 @@ import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
 import { TextResizer } from './TextResizer';
+import { useKeyCombination, useMatchMobileQuery } from '../../../reactUtils';
+import { searchKeyCombination } from '../../highlights/constants';
+import { HTMLElement } from '@openstax/types/lib.dom';
 
 interface Props {
   search: typeof requestSearch;
@@ -35,6 +38,7 @@ interface Props {
   bookTheme: string;
   textSize: TextResizerValue | null;
   setTextSize: (size: TextResizerValue) => void;
+  selectedResult: any;
 }
 
 type CommonSearchInputParams = Pick<
@@ -263,6 +267,42 @@ function Topbar(props: Props) {
     [props]
   );
 
+  const isMobile = useMatchMobileQuery();
+  const cycleSearchRegions = React.useCallback(
+    // Only in desktop layout
+    () => {
+      if (isMobile) {
+        return;
+      }
+      const targets = [
+        '[class*="SearchInputWrapper"] input',
+        '[class*="SearchResultsBar"]',
+        'main',
+      ].map((q) => document?.querySelector(q));
+
+      // Determine which region we are in (if any)
+      const currentSectionIndex = targets.findIndex((el) => el?.contains(document?.activeElement ?? null));
+
+      // If not in any, go to search input
+      if (currentSectionIndex < 0) {
+        (targets[0] as HTMLElement).focus();
+        return;
+      }
+      // If there are no search results, toggle between search input and main content
+      if (!props.hasSearchResults) {
+        (targets[currentSectionIndex === 0 ? 2 : 0] as HTMLElement).focus();
+        return;
+      }
+      const nextSectionIndex = (currentSectionIndex + 1) % targets.length;
+
+      (targets[nextSectionIndex] as HTMLElement).focus();
+      // Possibly we want to scroll the current result into view in results or content?
+    },
+    [isMobile, props.hasSearchResults]
+  );
+
+  useKeyCombination(searchKeyCombination, cycleSearchRegions);
+
   return (
     <Styled.TopBarWrapper data-testid='topbar'>
       <Styled.SearchPrintWrapper>
@@ -325,6 +365,7 @@ export default connect(
     searchInSidebar: selectSearch.searchInSidebar(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     textSize: selectContent.textSize(state),
+    selectedResult: selectSearch.selectedResult(state),
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),

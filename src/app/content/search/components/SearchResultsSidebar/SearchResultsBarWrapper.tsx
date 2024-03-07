@@ -63,6 +63,7 @@ const SearchResultsBar = React.forwardRef<
     aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
     data-testid='search-results-sidebar'
     ref={ref}
+    tabIndex={-1}
     {...props}
   />
 );
