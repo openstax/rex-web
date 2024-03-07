@@ -11,7 +11,7 @@ import {
   clearSearch,
   openMobileToolbar,
   openSearchResultsMobile,
-  requestSearch
+  requestSearch,
 } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
@@ -19,6 +19,8 @@ import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
 import { TextResizer } from './TextResizer';
+import { useKeyCombination, useMatchMobileQuery } from '../../../reactUtils';
+import { searchKeyCombination } from '../../highlights/constants';
 
 interface Props {
   search: typeof requestSearch;
@@ -35,6 +37,7 @@ interface Props {
   bookTheme: string;
   textSize: TextResizerValue | null;
   setTextSize: (size: TextResizerValue) => void;
+  selectedResult: any;
 }
 
 type CommonSearchInputParams = Pick<
@@ -263,6 +266,27 @@ function Topbar(props: Props) {
     [props]
   );
 
+  const isMobile = useMatchMobileQuery();
+  const cycleSearchRegions = React.useCallback(
+    // Only in desktop layout
+    () => {
+      if (isMobile) {
+        console.info('Mobile: ignore');
+        return;
+      }
+      // Identify which regions are available
+      const hasResults = props.hasSearchResults;
+      const ssr = props.selectedResult;
+      // Determine which region we are in (if any)
+      // Navigate to the next region in sequence
+      console.info('Next region!', {isMobile, hasResults, query, ssr});
+
+    },
+    [isMobile, props.hasSearchResults, props.selectedResult, query]
+  );
+
+  useKeyCombination(searchKeyCombination, cycleSearchRegions);
+
   return (
     <Styled.TopBarWrapper data-testid='topbar'>
       <Styled.SearchPrintWrapper>
@@ -325,6 +349,7 @@ export default connect(
     searchInSidebar: selectSearch.searchInSidebar(state),
     searchSidebarOpen: selectSearch.searchResultsOpen(state),
     textSize: selectContent.textSize(state),
+    selectedResult: selectSearch.selectedResult(state),
   }),
   (dispatch: Dispatch) => ({
     clearSearch: flow(clearSearch, dispatch),
