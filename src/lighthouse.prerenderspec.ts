@@ -1,6 +1,6 @@
 /** @jest-environment puppeteer */
 import asyncPool from 'tiny-async-pool';
-import { checkLighthouse, ScoreTargets } from './test/browserutils';
+import { checkLighthouse } from './test/browserutils';
 
 const TEST_PAGE_WITHOUT_MATH = '/books/book-slug-1/pages/2-test-page-3';
 const TEST_PAGE_WITH_LINKS_NAME = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
@@ -18,10 +18,11 @@ describe('lighthouse', () => {
   it('matches or exceeds target scores', async() => {
     const testPages: string[] = process.env.LIGHTHOUSE_PAGES ? JSON.parse(process.env.LIGHTHOUSE_PAGES) :
                                                                DEFAULT_LIGHTHOUSE_PAGES;
-    const scoreTargets: ScoreTargets = process.env.LIGHTHOUSE_TARGETS ? JSON.parse(process.env.LIGHTHOUSE_TARGETS) :
-                                                                        DEFAULT_LIGHTHOUSE_TARGETS;
+    const baseReportPath = process.env.LIGHTHOUSE_BASE_REPORT_PATH;
 
     await asyncPool(1, testPages, async(pageUrl) => {
+      const scoreTargets = baseReportPath ? `${baseReportPath}/${pageUrl.replace(/[^a-z0-9]+/gi, '-')}.json` :
+                                            DEFAULT_LIGHTHOUSE_TARGETS;
       await checkLighthouse(browser, pageUrl, scoreTargets);
     });
   });
