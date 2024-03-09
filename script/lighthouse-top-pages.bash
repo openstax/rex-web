@@ -15,13 +15,13 @@ lighthouse_base_report_path=/tmp/lighthouse-reports
 
 mkdir -p "$lighthouse_base_report_path"
 
-bucket_name=sandbox-unified-web-lighthouse
+bucket_name=unified-web-lighthouse
 
 # Note: this probably fails due to pagination if there are > 1,000 prefixes
-last_prefix=$(aws s3api list-objects-v2 --bucket sandbox-unified-web-lighthouse --delimiter / \
-              --query 'CommonPrefixes != 'null' && sort_by(CommonPrefixes, &Prefix)[-1].Prefix' --output text)
+last_prefix=$(aws s3api list-objects-v2 --bucket "$bucket_name" --delimiter / \
+              --query 'CommonPrefixes != "null" && sort_by(CommonPrefixes, &Prefix)[-1].Prefix' --output text)
 
-if [ "$last_prefix" != None ]; then
+if [ "$last_prefix" != False ]; then
   aws s3 sync "s3://$bucket_name/$last_prefix" "$lighthouse_base_report_path"
 fi
 
