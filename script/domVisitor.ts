@@ -191,8 +191,7 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
       });
     }
 
-    // accounts endpoint always 403s when logged out, so we ignore those errors
-    if ((status >= 200 && status < 300) || (status === 403 && url.includes('/accounts/api/user'))) {
+    if ((status >= 200 && status < 300)) {
       return;
     }
 
