@@ -1,7 +1,9 @@
 import createUserLoader, { AccountsUser } from '../../gateways/createUserLoader';
 
 export const testAccountsUser: AccountsUser = {
+  applications: [],
   contact_infos: [],
+  external_ids: [],
   faculty_status: 'no_faculty_info',
   first_name: 'testy',
   full_name: 'testy mctesterson',
