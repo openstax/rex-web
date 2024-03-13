@@ -3,9 +3,10 @@ import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { disablePrint } from '../content/components/utils/disablePrint';
+import { PlainButton } from './Button';
 
 // tslint:disable-next-line:variable-name
-export const GoToTopWrapper = styled.div`
+export const GoToTopWrapper = styled(PlainButton)`
   width: 4.8rem;
   height: 4.8rem;
   position: absolute;
@@ -47,6 +48,7 @@ interface GoToTopButtonProps {
 const GoToTopButton = ({ i18nAriaLabel, onClick, ...rest }: GoToTopButtonProps) => <GoToTopWrapper
   onClick={onClick}
   aria-label={useIntl().formatMessage({id: i18nAriaLabel})}
+  type='button'
   {...rest}
 >
   <GoToTop>
