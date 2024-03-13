@@ -144,6 +144,13 @@ describe('locationChange', () => {
       expect(helpers.archiveLoader.mock.loadPage).toHaveBeenCalledTimes(1);
     });
 
+    it('disptaches receivePageNotFoundId for empty page id', async() => {
+      match.params = {book: match.params.book} as any;
+      await hook(helpers, match);
+
+      expect(dispatch).toHaveBeenCalledWith(actions.receivePageNotFoundId(''));
+    });
+  
     it('doesn\'t query book slug when already loaded', async() => {
       mockUUIDBook();
       match.params = {
