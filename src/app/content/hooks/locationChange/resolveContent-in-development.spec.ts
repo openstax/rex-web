@@ -150,7 +150,7 @@ describe('locationChange', () => {
 
       expect(dispatch).toHaveBeenCalledWith(actions.receivePageNotFoundId(''));
     });
-  
+
     it('doesn\'t query book slug when already loaded', async() => {
       mockUUIDBook();
       match.params = {
