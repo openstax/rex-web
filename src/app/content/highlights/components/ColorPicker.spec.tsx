@@ -132,7 +132,7 @@ describe('ColorPicker', () => {
       key: ' ',
     });
     expect(checkedIdx()).toBe(0);
-    
+
     // Ignores other keys
     dispatchKeyDownEvent({
       element: rg as HTMLElement,
