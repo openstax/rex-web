@@ -408,7 +408,9 @@ export const useDisableContentTabbing = (isEnabled: boolean) => {
   React.useEffect(disableContentTabbingHandler(isEnabled), [isEnabled]);
 };
 
-export type KeyCombinationOptions = Partial<Pick<KeyboardEvent, 'altKey' | 'ctrlKey' | 'key' | 'metaKey' | 'shiftKey'>>;
+export type KeyCombinationOptions = Partial<Pick<
+  KeyboardEvent, 'altKey' | 'ctrlKey' | 'key' | 'code' | 'metaKey' | 'shiftKey'
+>>;
 
 /**
  * Compare @param options key-value pairs with properties from @param event
