@@ -22,6 +22,7 @@ const dynamicBase = dynamicPrefix + prerenderedBase;
  * config can be removed
  */
 const contentPaths = [
+  '/books/:book_slug',
   ...injectParamsToBaseUrl(prerenderedBase, {
     // switch this after a transition period starting with CORGI using the `dynamicBase` url on its previews
     book: [
