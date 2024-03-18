@@ -513,6 +513,8 @@ Array [
                   Content
                 </h3>
                 path: 
+                /books/:book_slug
+                <br />
                 /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion\\::book_archiveVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
                 <br />
                 /books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion\\::book_archiveVersion/pages/:page_slug

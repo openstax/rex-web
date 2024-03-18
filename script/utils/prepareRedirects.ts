@@ -10,6 +10,8 @@ import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
 
 const redirectsDataFolderPath = path.resolve(__dirname, '../../data/redirects/');
 
+const booksConfig = getBooksConfigSync();
+
 const redirectsDataFiles = APP_ENV === 'test'
   ? [path.resolve(__dirname, '../../src/mock-redirects.json')]
   : fs.readdirSync(redirectsDataFolderPath)
@@ -20,7 +22,7 @@ const prepareRedirects = async(
   archiveLoader: AppServices['archiveLoader'],
   osWebLoader: AppServices['osWebLoader']
 ) => {
-  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig: getBooksConfigSync()});
+  const bookLoader = makeUnifiedBookLoader(archiveLoader, osWebLoader, {booksConfig});
 
   const redirects: Array<{ from: string, to: string }> = [];
 
@@ -41,7 +43,26 @@ const prepareRedirects = async(
         from: pathname,
         to: decodeURI(content.getUrl({ book: { slug: bookSlug }, page: { slug: page.slug } })) + (query || ''),
       });
+
+      if (!pathname.endsWith('/')) {
+        redirects.push({
+          from: `${pathname}/`,
+          to: pathname,
+        });
+      }
     }
+  }
+
+  for (const [bookId] of Object.entries(booksConfig.books)) {
+    const slug = await osWebLoader.getBookSlugFromId(bookId);
+    redirects.push({
+      from: `/books/${slug}`,
+      to: `/details/books/${slug}`,
+    },
+    {
+      from: `/books/${slug}/`,
+      to: `/details/books/${slug}`,
+    });
   }
 
   return redirects;
