@@ -38,7 +38,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     [focusedId, highlights]);
   const setNewCardsPositionsRef = React.useRef<() => void>();
 
-  // This function is triggered by keyboard shortuct defined in useKeyCombination(...)
+  // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
   const moveFocus = React.useCallback((event: KeyboardEvent) => {
     const activeElement = isHtmlElement(event.target) ? event.target : null;
