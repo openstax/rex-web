@@ -5083,9 +5083,9 @@
   dependencies:
     uuid "^8.3.2"
 
-"@openstax/highlighter@https://github.com/openstax/highlighter#add-tabbable-test":
-  version "1.13.0"
-  resolved "https://github.com/openstax/highlighter#1e2b6c0ea150e64c83a24ff8e9a913ce50ea3d3b"
+"@openstax/highlighter@https://github.com/openstax/highlighter#v1.14.1":
+  version "1.14.0"
+  resolved "https://github.com/openstax/highlighter#60b8be9edb6ef1a1f189000c1c1a51f23e8c9c66"
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"
