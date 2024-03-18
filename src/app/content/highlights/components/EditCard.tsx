@@ -12,6 +12,7 @@ import { useFocusElement, useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
+import defer from 'lodash/fp/defer';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
@@ -272,7 +273,11 @@ function AnnotationEditor({
   );
   const initializeColor = React.useCallback(() => {
     if (!props.highlight.getStyle()) {
+      textarea.current?.blur();
       onColorChange(highlightStyles[0].label, true);
+      defer(() => {
+        textarea.current?.focus();
+      });
     }
   }, [onColorChange, props.highlight]);
 
