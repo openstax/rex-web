@@ -5083,10 +5083,9 @@
   dependencies:
     uuid "^8.3.2"
 
-"@openstax/highlighter@1.13.0":
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/@openstax/highlighter/-/highlighter-1.13.0.tgz#77536bea9b36ff3ec79f3fcd0355e94bc8e33580"
-  integrity sha512-1OLuqAKgN+oGZMIWB9dFQFHRHPh5YuoWBvyGW/cLXAm0Pl77U6WsJtjww3//Ej0bnsyL4AhxT5TAY4FmJzopFg==
+"@openstax/highlighter@https://github.com/openstax/highlighter#v1.14.1":
+  version "1.14.0"
+  resolved "https://github.com/openstax/highlighter#60b8be9edb6ef1a1f189000c1c1a51f23e8c9c66"
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"
