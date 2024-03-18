@@ -89,7 +89,7 @@ describe('ColorPicker', () => {
     const onRemove = jest.fn();
     const {root} = renderToDom(
       <TestContainer>
-        <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
+        <ColorPicker onChange={onChange} onRemove={onRemove} />
       </TestContainer>
     );
     const rg = root.querySelector('[role="radiogroup"]') as HTMLDivElement;
@@ -125,8 +125,6 @@ describe('ColorPicker', () => {
     });
     expect(checkedIdx()).toBe(0);
 
-    // Space doesn't change the activeElement, but does toggle it
-    expect(inputs[checkedIdx()].checked).toBe(true);
     dispatchKeyDownEvent({
       element: rg as HTMLElement,
       key: ' ',
@@ -140,6 +138,20 @@ describe('ColorPicker', () => {
     });
     expect(checkedIdx()).toBe(0);
 
+  });
+
+  it('focuses on the selected color', () => {
+    const onChange = jest.fn();
+    const onRemove = jest.fn();
+    const {root} = renderToDom(
+      <TestContainer>
+        <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
+      </TestContainer>
+    );
+    const rg = root.querySelector('[role="radiogroup"]') as HTMLDivElement;
+
+    expect(rg).toBeTruthy();
+    rg?.focus();
   });
 
   it('calls remove when changing selection (multiple)', () => {

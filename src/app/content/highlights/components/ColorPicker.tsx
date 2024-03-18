@@ -6,7 +6,7 @@ import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';
 import ColorIndicator from './ColorIndicator';
-import type { HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import { HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
 
 interface SingleSelectProps {
   color?: HighlightColorEnum;
@@ -109,7 +109,13 @@ const ColorPicker = ({className, ...props}: Props) => {
       if (!ref.current || event.currentTarget !== event.target) {
         return;
       }
-      (ref.current.querySelector<HTMLInputElement>('input[checked]'))?.focus();
+      const firstChecked = ref.current.querySelector<HTMLInputElement>('input[checked]');
+
+      if (firstChecked) {
+        firstChecked.focus();
+      } else {
+        ref.current.querySelector<HTMLInputElement>('input')?.focus();
+      }
     },
     []
   );

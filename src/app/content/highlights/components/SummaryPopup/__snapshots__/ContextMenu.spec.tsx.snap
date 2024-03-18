@@ -228,6 +228,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c15 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c21 {
@@ -259,6 +261,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c21 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c23 {
@@ -292,6 +296,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c23 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c25 {
@@ -323,6 +329,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c25 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c27 {
@@ -354,6 +362,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c27 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c16 {
