@@ -275,9 +275,12 @@ function AnnotationEditor({
     if (!props.highlight.getStyle()) {
       textarea.current?.blur();
       onColorChange(highlightStyles[0].label, true);
-      defer(() => {
+      const setFocus = () => {
         textarea.current?.focus();
-      });
+      };
+
+      setFocus();
+      defer(setFocus);
     }
   }, [onColorChange, props.highlight]);
 
@@ -466,10 +469,12 @@ function useSaveAnnotation(
   );
 }
 
+// tslint:disable-next-line
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
   user-select: none;
   overflow: visible;
+  padding-top: 0 !important;
 
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;
