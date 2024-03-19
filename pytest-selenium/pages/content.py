@@ -530,7 +530,10 @@ class Content(Page):
         )
         _figure_locator = (By.CSS_SELECTOR, "figure")
         _footnote_locator = (By.CSS_SELECTOR, "[data-type=footnote-ref]")
-        _highlight_box_locator = (By.CSS_SELECTOR, "form[class*=EditCard], div[class*=DisplayNote]")
+        _highlight_box_locator = (
+            By.CSS_SELECTOR,
+            "form div[class*=EditCard], div[class*=DisplayNote]",
+        )
         _highlighted_element_locator = (By.CSS_SELECTOR, ".highlight")
         _highlight_note_locator = (By.CSS_SELECTOR, "div[class*=DisplayNote]")
         _image_locator = (By.CSS_SELECTOR, "img")
