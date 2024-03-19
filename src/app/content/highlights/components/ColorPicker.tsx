@@ -6,6 +6,7 @@ import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';
 import ColorIndicator from './ColorIndicator';
+import { HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
 
 interface SingleSelectProps {
   color?: HighlightColorEnum;
@@ -51,7 +52,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
   </ColorIndicator>;
 })`
   cursor: pointer;
-  margin: 0 ${cardPadding}rem ${cardPadding}rem 0;
+  margin: 0;
 
   input {
     position: absolute;
@@ -62,28 +63,89 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
   }
 `;
 
+type NavKeys = 'Home' | 'End' | 'ArrowLeft' | 'ArrowRight' | ' ' | 'Enter';
+
+function nextIdx(idx: number, itemCount: number, key: NavKeys) {
+  if (key === 'Home') {
+    return 0;
+  }
+  if (key === 'End') {
+    return itemCount - 1;
+  }
+  if (key === 'ArrowLeft') {
+    return (idx + itemCount - 1) % itemCount;
+  }
+  if (key === 'ArrowRight') {
+    return (idx + 1) % itemCount;
+  }
+  // Just toggle
+  return idx;
+}
+
 // tslint:disable-next-line:variable-name
 const ColorPicker = ({className, ...props}: Props) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role#keyboard_interactions
+  const handleKeyNavigation = React.useCallback(
+    (event: React.KeyboardEvent) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End', ' ', 'Enter'].includes(event.key)) {
+        return;
+      }
+      const assertedRef = ref as React.MutableRefObject<HTMLDivElement>;
+      const activeElement = document?.activeElement as HTMLInputElement;
+      const inputs = Array.from(assertedRef.current.querySelectorAll('input'));
+      const idx = inputs.indexOf(activeElement);
+      const destIdx = nextIdx(idx, inputs.length, event.key as NavKeys);
+      const el = inputs[destIdx];
 
-  // its important that this be click focusable, because when clicking
-  // labels in chrome the focus is first moved to a background element
-  // before the input, and that might cause weird behavior in parent
-  // elements.
-  return <div className={className} tabIndex={-1}>
-    {highlightStyles.map((style) => <ColorButton key={style.label}
-      name={style.label}
-      checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
-      style={style}
-      size={props.size}
-      onChange={() => props.multiple
-        ? props.selected.includes(style.label)
-          ? props.onChange(props.selected.filter(not(match(style.label))))
-          : props.onChange([...props.selected, style.label])
-        : props.color === style.label
-          ? props.onRemove ? props.onRemove() : null
-          : props.onChange(style.label)}
-    />)}
-  </div>;
+      event.preventDefault();
+      el.focus();
+      el.click();
+    },
+    []
+  );
+  const initialFocus = React.useCallback(
+    (event: React.FocusEvent) => {
+      if (!ref.current || event.currentTarget !== event.target) {
+        return;
+      }
+      const firstChecked = ref.current.querySelector<HTMLInputElement>('input[checked]');
+
+      if (firstChecked) {
+        firstChecked.focus();
+      } else {
+        ref.current.querySelector<HTMLInputElement>('input')?.focus();
+      }
+    },
+    []
+  );
+
+  return (
+    <div
+      className={className}
+      tabIndex={0}
+      role='radiogroup'
+      aria-label='colors'
+      ref={ref}
+      onKeyDown={handleKeyNavigation}
+      onFocus={initialFocus}
+    >
+      {highlightStyles.map((style) => <ColorButton key={style.label}
+        name={style.label}
+        checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
+        style={style}
+        size={props.size}
+        tabIndex={-1}
+        onChange={() => props.multiple
+          ? props.selected.includes(style.label)
+            ? props.onChange(props.selected.filter(not(match(style.label))))
+            : props.onChange([...props.selected, style.label])
+          : props.color === style.label
+            ? props.onRemove ? props.onRemove() : null
+            : props.onChange(style.label)}
+      />)}
+    </div>
+  );
 };
 
 export default styled(ColorPicker)`
@@ -91,4 +153,6 @@ export default styled(ColorPicker)`
   display: flex;
   flex-direction: row;
   overflow: visible;
+  gap: ${cardPadding}rem;
+  padding: ${cardPadding}rem 0;
 `;
