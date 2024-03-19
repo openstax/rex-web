@@ -30,6 +30,8 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 
 .c6 input:focus + .c4 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c0 {
@@ -63,6 +65,8 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 
 .c0 input:focus + .c4 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 <div
@@ -147,6 +151,8 @@ exports[`ColorIndicator matches snapshot 1`] = `
 
 .c0 input:focus + .c4 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 <div

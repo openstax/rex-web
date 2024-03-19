@@ -271,6 +271,8 @@ input:checked + .c8 .c10 {
 
 .c13 input:focus + .c16 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c19 {
@@ -302,6 +304,8 @@ input:checked + .c8 .c10 {
 
 .c19 input:focus + .c16 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c22 {
@@ -333,6 +337,8 @@ input:checked + .c8 .c10 {
 
 .c22 input:focus + .c16 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c24 {
@@ -364,6 +370,8 @@ input:checked + .c8 .c10 {
 
 .c24 input:focus + .c16 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c26 {
@@ -395,6 +403,8 @@ input:checked + .c8 .c10 {
 
 .c26 input:focus + .c16 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c18 {
