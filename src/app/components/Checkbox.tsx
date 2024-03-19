@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { Check } from 'styled-icons/fa-solid/Check';
-import theme from '../theme';
+import theme, { defaultFocusOutline } from '../theme';
 import { disabledStyle } from './Typography';
 
 // tslint:disable-next-line:variable-name
@@ -47,14 +47,6 @@ const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props
   <CustomCheckbox />
   {children}
 </label>;
-
-// Browser default outline for focus items per
-// tslint:disable-next-line:max-line-length
-// https://stackoverflow.com/questions/20609485/what-is-the-default-style-of-the-blue-focus-outline-in-chrome/38498539#38498539
-const defaultFocusOutline = `
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
-`;
 
 export default styled(Checkbox)`
   cursor: pointer;
