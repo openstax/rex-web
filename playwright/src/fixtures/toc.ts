@@ -26,7 +26,7 @@ class TOC {
 
   async chapterCount() {
     // Total number of chapters in the book
-    const toc = this.page.locator('div[data-testid=toc]')
+    const toc = this.page.locator('nav[data-testid=toc]')
     const chapterLocator = toc.locator('[data-type=chapter]')
     return await chapterLocator.count()
   }
@@ -39,14 +39,14 @@ class TOC {
 
   async eobDropdownCount() {
     // Total number of eob dropdowns in the book
-    const toc = this.page.locator('div[data-testid=toc]')
+    const toc = this.page.locator('nav[data-testid=toc]')
     const eobDropdownLocator = toc.locator('[data-type=eob-dropdown]')
     return await eobDropdownLocator.count()
   }
 
   async standalonePagesCount() {
     // Total number of pages in the book that are not contained in chapter or EOB or unit categories
-    const standalonepageLocator = this.page.locator('div[aria-label="Table of contents"] > ol > [data-type="page"]')
+    const standalonepageLocator = this.page.locator('nav[aria-label="Table of contents"] > ol > [data-type="page"]')
     return await standalonepageLocator.count()
   }
 
@@ -131,7 +131,7 @@ class TOC {
 
   async ChapterName() {
     // Return chapter name of the current page
-    const toc = this.page.locator('div[data-testid=toc]')
+    const toc = this.page.locator('nav[data-testid=toc]')
     const chapterLocator = toc.locator('[data-type=chapter]', {
       has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
     })
@@ -141,7 +141,7 @@ class TOC {
 
   async UnitName() {
     // Return unit name of the current page
-    const toc = this.page.locator('div[data-testid=toc]')
+    const toc = this.page.locator('nav[data-testid=toc]')
     const unitLocator = toc
       .locator('css=[data-type=unit] >> details', {
         has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
@@ -153,7 +153,7 @@ class TOC {
 
   async eocSectionHeading() {
     // Return end of chapter nesting level heading of the current page
-    const toc = this.page.locator('div[data-testid=toc]')
+    const toc = this.page.locator('nav[data-testid=toc]')
     const eocLocator = toc.locator('[data-type=eoc-dropdown]', {
       has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
     })
@@ -163,7 +163,7 @@ class TOC {
 
   async eobSectionHeading() {
     // Return end of book nesting level heading of the current page
-    const toc = this.page.locator('div[data-testid=toc]')
+    const toc = this.page.locator('nav[data-testid=toc]')
     const eobLocator = toc.locator('[data-type=eob-dropdown]', {
       has: this.page.locator(`[href="${await this.CurrentPageSlug()}"]`),
     })
