@@ -7,6 +7,17 @@ on:
       - main
 
 jobs:
+  linked_issue:
+    name: Jira
+    runs-on: ubuntu-latest
+    steps:
+    - uses: openstax/jira-linked-action@v0.1.12
+      with:
+        jira_site: openstax
+        jira_project: DISCO
+        jira_email: ${{ secrets.JiraEmail }}
+        jira_token: ${{ secrets.JiraToken }}
+
   setup:
     name: Setup
     runs-on: ubuntu-latest
