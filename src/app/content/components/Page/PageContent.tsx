@@ -10,6 +10,7 @@ import {
   highlightIndicatorSizeForBlock,
 } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
+import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 export const contentTextStyle = css`
   @media screen { /* full page width in print */
@@ -22,18 +23,38 @@ export const contentTextStyle = css`
 // otherwise math elements won't have full height background color
 const SELF_AND_CHILD_MATH_SELECTOR = '&, & .math';
 
-const hideDataForScreenreaders = `
-  /* Hide data per https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark */
-  [data-for-screenreaders="true"] {
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
+const hideBeforeAndAfter = `
+  &::before,
+  &::after {
     clip-path: inset(100%);
     clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
     position: absolute;
     white-space: nowrap;
+    width: 1px;    
   }
 `;
+
+function decodeSpanishColor(color: HighlightColorEnum) {
+  return ({
+    blue: 'azul',
+    green: 'verde',
+    pink: 'rosado',
+    purple: 'morado',
+    yellow: 'amarillo'
+  }[color]);
+}
+
+function decodePolishColor(color: HighlightColorEnum) {
+  return ({
+    blue: 'niebieskiego',
+    green: 'zielonego',
+    pink: 'różowego',
+    purple: 'fioletowego',
+    yellow: 'żółtego'
+  }[color]);
+}
 
 export default styled(MainContent)`
   ${contentTextStyle}
@@ -64,11 +85,13 @@ export default styled(MainContent)`
     }
   }
 
-  ${hideDataForScreenreaders}
-
   .highlight {
     position: relative;
     z-index: 1;
+
+    @media screen {
+      ${hideBeforeAndAfter}
+    }
   }
 
   /* stylelint-disable selector-class-pattern */
@@ -110,7 +133,7 @@ export default styled(MainContent)`
         }
       }
 
-      &.first.text.has-note:after {
+      &.first.text.has-note::after {
         position: absolute;
         top: 0;
         left: 0;
@@ -124,6 +147,31 @@ export default styled(MainContent)`
       }
 
       @media screen {
+        &.english {
+          &.first::before {
+            content: ' Start ${style.label} highlight ';
+          }
+          &.last::after {
+            content: ' End of ${style.label} highlight ';
+          }
+        }
+        &.spanish {
+          &.first::before {
+            content: ' Comienzo de texto resaltado ${decodeSpanishColor(style.label)} ';
+          }
+          &.last::after {
+            content: ' Final de texto resaltado ${decodeSpanishColor(style.label)} ';
+          }
+        }
+        &.polish {
+          &.first::before {
+            content: ' Początek ${decodePolishColor(style.label)} zakreślenia ';
+          }
+          &.last::after {
+            content: ' Koniec ${decodePolishColor(style.label)} zakreślenia ';
+          }
+        }
+
         &[aria-current] {
           background-color: ${style.focused};
           border-bottom: 0.2rem solid ${style.focusBorder};
@@ -147,10 +195,36 @@ export default styled(MainContent)`
 
   @media screen {
     .search-highlight {
+      ${hideBeforeAndAfter}
       font-weight: bold;
 
       ${SELF_AND_CHILD_MATH_SELECTOR} {
         background-color: #ffea00;
+      }
+
+      &.english {
+        ::before {
+          content: ' Start search result ';
+        }
+        ::after {
+          content: ' End of search result ';
+        }
+      }
+      &.spanish {
+        ::before {
+          content: ' Comienzo de resultado de búsqueda ';
+        }
+        ::after {
+          content: ' Final de resultado de búsqueda ';
+        }
+      }
+      &.polish {
+        ::before {
+          content: ' Początek zakreślenia wyniku wyszukiwania ';
+        }
+        ::after {
+          content: ' Koniec zakreślenia wyniku wyszukiwania ';
+        }
       }
 
       &[aria-current] {

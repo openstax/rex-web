@@ -662,18 +662,6 @@ Array [
   overflow: visible;
 }
 
-.c78 [data-for-screenreaders="true"] {
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  -webkit-clip-path: inset(100%);
-  clip-path: inset(100%);
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-  position: absolute;
-  white-space: nowrap;
-}
-
 .c78 .highlight {
   position: relative;
   z-index: 1;
@@ -716,7 +704,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.yellow.first.text.has-note:after {
+.c78 .highlight.yellow.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -763,7 +751,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.green.first.text.has-note:after {
+.c78 .highlight.green.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -810,7 +798,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.blue.first.text.has-note:after {
+.c78 .highlight.blue.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -857,7 +845,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.purple.first.text.has-note:after {
+.c78 .highlight.purple.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -904,7 +892,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.pink.first.text.has-note:after {
+.c78 .highlight.pink.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -2228,6 +2216,45 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight::before,
+  .c78 .highlight::after {
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    -webkit-clip: rect(1px,1px,1px,1px);
+    clip: rect(1px,1px,1px,1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+}
+
+@media screen {
+  .c78 .highlight.yellow.english.first::before {
+    content: ' Start yellow highlight ';
+  }
+
+  .c78 .highlight.yellow.english.last::after {
+    content: ' End of yellow highlight ';
+  }
+
+  .c78 .highlight.yellow.spanish.first::before {
+    content: ' Comienzo de texto resaltado amarillo ';
+  }
+
+  .c78 .highlight.yellow.spanish.last::after {
+    content: ' Final de texto resaltado amarillo ';
+  }
+
+  .c78 .highlight.yellow.polish.first::before {
+    content: ' Początek żółtego zakreślenia ';
+  }
+
+  .c78 .highlight.yellow.polish.last::after {
+    content: ' Koniec żółtego zakreślenia ';
+  }
+
   .c78 .highlight.yellow[aria-current] {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
@@ -2244,6 +2271,30 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight.green.english.first::before {
+    content: ' Start green highlight ';
+  }
+
+  .c78 .highlight.green.english.last::after {
+    content: ' End of green highlight ';
+  }
+
+  .c78 .highlight.green.spanish.first::before {
+    content: ' Comienzo de texto resaltado verde ';
+  }
+
+  .c78 .highlight.green.spanish.last::after {
+    content: ' Final de texto resaltado verde ';
+  }
+
+  .c78 .highlight.green.polish.first::before {
+    content: ' Początek zielonego zakreślenia ';
+  }
+
+  .c78 .highlight.green.polish.last::after {
+    content: ' Koniec zielonego zakreślenia ';
+  }
+
   .c78 .highlight.green[aria-current] {
     background-color: #92d101;
     border-bottom: 0.2rem solid #4e6f01;
@@ -2260,6 +2311,30 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight.blue.english.first::before {
+    content: ' Start blue highlight ';
+  }
+
+  .c78 .highlight.blue.english.last::after {
+    content: ' End of blue highlight ';
+  }
+
+  .c78 .highlight.blue.spanish.first::before {
+    content: ' Comienzo de texto resaltado azul ';
+  }
+
+  .c78 .highlight.blue.spanish.last::after {
+    content: ' Final de texto resaltado azul ';
+  }
+
+  .c78 .highlight.blue.polish.first::before {
+    content: ' Początek niebieskiego zakreślenia ';
+  }
+
+  .c78 .highlight.blue.polish.last::after {
+    content: ' Koniec niebieskiego zakreślenia ';
+  }
+
   .c78 .highlight.blue[aria-current] {
     background-color: #00c3ed;
     border-bottom: 0.2rem solid #006880;
@@ -2276,6 +2351,30 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight.purple.english.first::before {
+    content: ' Start purple highlight ';
+  }
+
+  .c78 .highlight.purple.english.last::after {
+    content: ' End of purple highlight ';
+  }
+
+  .c78 .highlight.purple.spanish.first::before {
+    content: ' Comienzo de texto resaltado morado ';
+  }
+
+  .c78 .highlight.purple.spanish.last::after {
+    content: ' Final de texto resaltado morado ';
+  }
+
+  .c78 .highlight.purple.polish.first::before {
+    content: ' Początek fioletowego zakreślenia ';
+  }
+
+  .c78 .highlight.purple.polish.last::after {
+    content: ' Koniec fioletowego zakreślenia ';
+  }
+
   .c78 .highlight.purple[aria-current] {
     background-color: #545ec8;
     border-bottom: 0.2rem solid #141a3e;
@@ -2293,6 +2392,30 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight.pink.english.first::before {
+    content: ' Start pink highlight ';
+  }
+
+  .c78 .highlight.pink.english.last::after {
+    content: ' End of pink highlight ';
+  }
+
+  .c78 .highlight.pink.spanish.first::before {
+    content: ' Comienzo de texto resaltado rosado ';
+  }
+
+  .c78 .highlight.pink.spanish.last::after {
+    content: ' Final de texto resaltado rosado ';
+  }
+
+  .c78 .highlight.pink.polish.first::before {
+    content: ' Początek różowego zakreślenia ';
+  }
+
+  .c78 .highlight.pink.polish.last::after {
+    content: ' Koniec różowego zakreślenia ';
+  }
+
   .c78 .highlight.pink[aria-current] {
     background-color: #de017e;
     border-bottom: 0.2rem solid #560131;
@@ -2314,9 +2437,46 @@ li[aria-label="Current Page"] .c60 {
     font-weight: bold;
   }
 
+  .c78 .search-highlight::before,
+  .c78 .search-highlight::after {
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    -webkit-clip: rect(1px,1px,1px,1px);
+    clip: rect(1px,1px,1px,1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
   .c78 .search-highlight,
   .c78 .search-highlight .math {
     background-color: #ffea00;
+  }
+
+  .c78 .search-highlight.english::before {
+    content: ' Start search result ';
+  }
+
+  .c78 .search-highlight.english::after {
+    content: ' End of search result ';
+  }
+
+  .c78 .search-highlight.spanish::before {
+    content: ' Comienzo de resultado de búsqueda ';
+  }
+
+  .c78 .search-highlight.spanish::after {
+    content: ' Final de resultado de búsqueda ';
+  }
+
+  .c78 .search-highlight.polish::before {
+    content: ' Początek zakreślenia wyniku wyszukiwania ';
+  }
+
+  .c78 .search-highlight.polish::after {
+    content: ' Koniec zakreślenia wyniku wyszukiwania ';
   }
 
   .c78 .search-highlight[aria-current],
@@ -5378,18 +5538,6 @@ Array [
   overflow: visible;
 }
 
-.c78 [data-for-screenreaders="true"] {
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  -webkit-clip-path: inset(100%);
-  clip-path: inset(100%);
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-  position: absolute;
-  white-space: nowrap;
-}
-
 .c78 .highlight {
   position: relative;
   z-index: 1;
@@ -5432,7 +5580,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.yellow.first.text.has-note:after {
+.c78 .highlight.yellow.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -5479,7 +5627,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.green.first.text.has-note:after {
+.c78 .highlight.green.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -5526,7 +5674,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.blue.first.text.has-note:after {
+.c78 .highlight.blue.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -5573,7 +5721,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.purple.first.text.has-note:after {
+.c78 .highlight.purple.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -5620,7 +5768,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c78 .highlight.pink.first.text.has-note:after {
+.c78 .highlight.pink.first.text.has-note::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -6791,6 +6939,45 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight::before,
+  .c78 .highlight::after {
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    -webkit-clip: rect(1px,1px,1px,1px);
+    clip: rect(1px,1px,1px,1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+}
+
+@media screen {
+  .c78 .highlight.yellow.english.first::before {
+    content: ' Start yellow highlight ';
+  }
+
+  .c78 .highlight.yellow.english.last::after {
+    content: ' End of yellow highlight ';
+  }
+
+  .c78 .highlight.yellow.spanish.first::before {
+    content: ' Comienzo de texto resaltado amarillo ';
+  }
+
+  .c78 .highlight.yellow.spanish.last::after {
+    content: ' Final de texto resaltado amarillo ';
+  }
+
+  .c78 .highlight.yellow.polish.first::before {
+    content: ' Początek żółtego zakreślenia ';
+  }
+
+  .c78 .highlight.yellow.polish.last::after {
+    content: ' Koniec żółtego zakreślenia ';
+  }
+
   .c78 .highlight.yellow[aria-current] {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
@@ -6807,6 +6994,30 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight.green.english.first::before {
+    content: ' Start green highlight ';
+  }
+
+  .c78 .highlight.green.english.last::after {
+    content: ' End of green highlight ';
+  }
+
+  .c78 .highlight.green.spanish.first::before {
+    content: ' Comienzo de texto resaltado verde ';
+  }
+
+  .c78 .highlight.green.spanish.last::after {
+    content: ' Final de texto resaltado verde ';
+  }
+
+  .c78 .highlight.green.polish.first::before {
+    content: ' Początek zielonego zakreślenia ';
+  }
+
+  .c78 .highlight.green.polish.last::after {
+    content: ' Koniec zielonego zakreślenia ';
+  }
+
   .c78 .highlight.green[aria-current] {
     background-color: #92d101;
     border-bottom: 0.2rem solid #4e6f01;
@@ -6823,6 +7034,30 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight.blue.english.first::before {
+    content: ' Start blue highlight ';
+  }
+
+  .c78 .highlight.blue.english.last::after {
+    content: ' End of blue highlight ';
+  }
+
+  .c78 .highlight.blue.spanish.first::before {
+    content: ' Comienzo de texto resaltado azul ';
+  }
+
+  .c78 .highlight.blue.spanish.last::after {
+    content: ' Final de texto resaltado azul ';
+  }
+
+  .c78 .highlight.blue.polish.first::before {
+    content: ' Początek niebieskiego zakreślenia ';
+  }
+
+  .c78 .highlight.blue.polish.last::after {
+    content: ' Koniec niebieskiego zakreślenia ';
+  }
+
   .c78 .highlight.blue[aria-current] {
     background-color: #00c3ed;
     border-bottom: 0.2rem solid #006880;
@@ -6839,6 +7074,30 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight.purple.english.first::before {
+    content: ' Start purple highlight ';
+  }
+
+  .c78 .highlight.purple.english.last::after {
+    content: ' End of purple highlight ';
+  }
+
+  .c78 .highlight.purple.spanish.first::before {
+    content: ' Comienzo de texto resaltado morado ';
+  }
+
+  .c78 .highlight.purple.spanish.last::after {
+    content: ' Final de texto resaltado morado ';
+  }
+
+  .c78 .highlight.purple.polish.first::before {
+    content: ' Początek fioletowego zakreślenia ';
+  }
+
+  .c78 .highlight.purple.polish.last::after {
+    content: ' Koniec fioletowego zakreślenia ';
+  }
+
   .c78 .highlight.purple[aria-current] {
     background-color: #545ec8;
     border-bottom: 0.2rem solid #141a3e;
@@ -6856,6 +7115,30 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen {
+  .c78 .highlight.pink.english.first::before {
+    content: ' Start pink highlight ';
+  }
+
+  .c78 .highlight.pink.english.last::after {
+    content: ' End of pink highlight ';
+  }
+
+  .c78 .highlight.pink.spanish.first::before {
+    content: ' Comienzo de texto resaltado rosado ';
+  }
+
+  .c78 .highlight.pink.spanish.last::after {
+    content: ' Final de texto resaltado rosado ';
+  }
+
+  .c78 .highlight.pink.polish.first::before {
+    content: ' Początek różowego zakreślenia ';
+  }
+
+  .c78 .highlight.pink.polish.last::after {
+    content: ' Koniec różowego zakreślenia ';
+  }
+
   .c78 .highlight.pink[aria-current] {
     background-color: #de017e;
     border-bottom: 0.2rem solid #560131;
@@ -6877,9 +7160,46 @@ li[aria-label="Current Page"] .c60 {
     font-weight: bold;
   }
 
+  .c78 .search-highlight::before,
+  .c78 .search-highlight::after {
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    -webkit-clip: rect(1px,1px,1px,1px);
+    clip: rect(1px,1px,1px,1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
   .c78 .search-highlight,
   .c78 .search-highlight .math {
     background-color: #ffea00;
+  }
+
+  .c78 .search-highlight.english::before {
+    content: ' Start search result ';
+  }
+
+  .c78 .search-highlight.english::after {
+    content: ' End of search result ';
+  }
+
+  .c78 .search-highlight.spanish::before {
+    content: ' Comienzo de resultado de búsqueda ';
+  }
+
+  .c78 .search-highlight.spanish::after {
+    content: ' Final de resultado de búsqueda ';
+  }
+
+  .c78 .search-highlight.polish::before {
+    content: ' Początek zakreślenia wyniku wyszukiwania ';
+  }
+
+  .c78 .search-highlight.polish::after {
+    content: ' Koniec zakreślenia wyniku wyszukiwania ';
   }
 
   .c78 .search-highlight[aria-current],
