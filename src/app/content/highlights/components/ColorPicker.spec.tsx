@@ -89,7 +89,7 @@ describe('ColorPicker', () => {
     const onRemove = jest.fn();
     const {root} = renderToDom(
       <TestContainer>
-        <ColorPicker onChange={onChange} onRemove={onRemove} />
+        <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
       </TestContainer>
     );
     const rg = root.querySelector('[role="radiogroup"]') as HTMLDivElement;
