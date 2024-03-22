@@ -19,13 +19,20 @@ export const DotMenuIcon = styled(EllipsisV)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const DotMenuToggle = styled(React.forwardRef<HTMLDivElement>((props, ref) =>
-  <PlainButton {...props} ref={ref}>
-    <div tabIndex={-1}>
-      <DotMenuIcon />
-    </div>
-  </PlainButton>
-))`
+export const DotMenuToggle = styled(
+  React.forwardRef<HTMLDivElement, {isOpen: boolean}>(
+    ({isOpen, ...props}, ref) => {
+
+      return (
+        <PlainButton aria-label='Actions' aria-expanded={isOpen} {...props} ref={ref}>
+          <div tabIndex={-1}>
+            <DotMenuIcon />
+          </div>
+        </PlainButton>
+      );
+    }
+  )
+)`
   border: none;
   display: block;
 

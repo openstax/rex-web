@@ -202,6 +202,7 @@ exports[`Dropdown matches snapshot 1`] = `
     className="c3 c4"
   >
     <button
+      aria-label="Actions"
       className="c5 c6 c7 c8"
       tabIndex={0}
     >
@@ -247,6 +248,7 @@ exports[`Dropdown matches snapshot 1`] = `
     </ol>
   </div>
   <button
+    aria-label="Actions"
     className="c5 c6 c7 c8"
     tabIndex={0}
   >
@@ -473,6 +475,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     className="c3 c4"
   >
     <button
+      aria-label="Actions"
       className="c5 c6 c7 c8"
       tabIndex={0}
     >
@@ -518,6 +521,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     </ol>
   </div>
   <button
+    aria-label="Actions"
     className="c5 c6 c7 c8"
     tabIndex={0}
   >
