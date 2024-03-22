@@ -5093,6 +5093,16 @@
     serialize-selection "^1.1.1"
     uuid "^3.3.3"
 
+"@openstax/highlighter@openstax/highlighter#use-mark-dist-branch":
+  version "1.14.0"
+  resolved "https://codeload.github.com/openstax/highlighter/tar.gz/fd87f0b8c40cc1bbfc1fa539adadf3cb1b6f65b5"
+  dependencies:
+    "@openstax/highlights-client" "0.2.3"
+    change-case "^4.0.0"
+    lodash "^4.17.21"
+    serialize-selection "^1.1.1"
+    uuid "^3.3.3"
+
 "@openstax/highlights-client@0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@openstax/highlights-client/-/highlights-client-0.2.3.tgz#fb6983e0f6f7f142dc621a76651fed73982bdde1"

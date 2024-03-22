@@ -320,7 +320,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.yellow.first.text.has-note::after {
+.c4 .highlight.yellow.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -367,7 +367,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.green.first.text.has-note::after {
+.c4 .highlight.green.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -414,7 +414,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.blue.first.text.has-note::after {
+.c4 .highlight.blue.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -461,7 +461,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.purple.first.text.has-note::after {
+.c4 .highlight.purple.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -508,7 +508,7 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.pink.first.text.has-note::after {
+.c4 .highlight.pink.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -593,33 +593,17 @@ Array [
     white-space: nowrap;
     width: 1px;
   }
+
+  .c4 .highlight[data-start-message]::before {
+    content: attr(data-start-message);
+  }
+
+  .c4 .highlight[data-end-message]::after {
+    content: attr(data-end-message);
+  }
 }
 
 @media screen {
-  .c4 .highlight.yellow.english.first::before {
-    content: ' Start yellow highlight ';
-  }
-
-  .c4 .highlight.yellow.english.last::after {
-    content: ' End of yellow highlight ';
-  }
-
-  .c4 .highlight.yellow.spanish.first::before {
-    content: ' Comienzo de texto resaltado amarillo ';
-  }
-
-  .c4 .highlight.yellow.spanish.last::after {
-    content: ' Final de texto resaltado amarillo ';
-  }
-
-  .c4 .highlight.yellow.polish.first::before {
-    content: ' Początek żółtego zakreślenia ';
-  }
-
-  .c4 .highlight.yellow.polish.last::after {
-    content: ' Koniec żółtego zakreślenia ';
-  }
-
   .c4 .highlight.yellow[aria-current] {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
@@ -636,30 +620,6 @@ Array [
 }
 
 @media screen {
-  .c4 .highlight.green.english.first::before {
-    content: ' Start green highlight ';
-  }
-
-  .c4 .highlight.green.english.last::after {
-    content: ' End of green highlight ';
-  }
-
-  .c4 .highlight.green.spanish.first::before {
-    content: ' Comienzo de texto resaltado verde ';
-  }
-
-  .c4 .highlight.green.spanish.last::after {
-    content: ' Final de texto resaltado verde ';
-  }
-
-  .c4 .highlight.green.polish.first::before {
-    content: ' Początek zielonego zakreślenia ';
-  }
-
-  .c4 .highlight.green.polish.last::after {
-    content: ' Koniec zielonego zakreślenia ';
-  }
-
   .c4 .highlight.green[aria-current] {
     background-color: #92d101;
     border-bottom: 0.2rem solid #4e6f01;
@@ -676,30 +636,6 @@ Array [
 }
 
 @media screen {
-  .c4 .highlight.blue.english.first::before {
-    content: ' Start blue highlight ';
-  }
-
-  .c4 .highlight.blue.english.last::after {
-    content: ' End of blue highlight ';
-  }
-
-  .c4 .highlight.blue.spanish.first::before {
-    content: ' Comienzo de texto resaltado azul ';
-  }
-
-  .c4 .highlight.blue.spanish.last::after {
-    content: ' Final de texto resaltado azul ';
-  }
-
-  .c4 .highlight.blue.polish.first::before {
-    content: ' Początek niebieskiego zakreślenia ';
-  }
-
-  .c4 .highlight.blue.polish.last::after {
-    content: ' Koniec niebieskiego zakreślenia ';
-  }
-
   .c4 .highlight.blue[aria-current] {
     background-color: #00c3ed;
     border-bottom: 0.2rem solid #006880;
@@ -716,30 +652,6 @@ Array [
 }
 
 @media screen {
-  .c4 .highlight.purple.english.first::before {
-    content: ' Start purple highlight ';
-  }
-
-  .c4 .highlight.purple.english.last::after {
-    content: ' End of purple highlight ';
-  }
-
-  .c4 .highlight.purple.spanish.first::before {
-    content: ' Comienzo de texto resaltado morado ';
-  }
-
-  .c4 .highlight.purple.spanish.last::after {
-    content: ' Final de texto resaltado morado ';
-  }
-
-  .c4 .highlight.purple.polish.first::before {
-    content: ' Początek fioletowego zakreślenia ';
-  }
-
-  .c4 .highlight.purple.polish.last::after {
-    content: ' Koniec fioletowego zakreślenia ';
-  }
-
   .c4 .highlight.purple[aria-current] {
     background-color: #545ec8;
     border-bottom: 0.2rem solid #141a3e;
@@ -757,30 +669,6 @@ Array [
 }
 
 @media screen {
-  .c4 .highlight.pink.english.first::before {
-    content: ' Start pink highlight ';
-  }
-
-  .c4 .highlight.pink.english.last::after {
-    content: ' End of pink highlight ';
-  }
-
-  .c4 .highlight.pink.spanish.first::before {
-    content: ' Comienzo de texto resaltado rosado ';
-  }
-
-  .c4 .highlight.pink.spanish.last::after {
-    content: ' Final de texto resaltado rosado ';
-  }
-
-  .c4 .highlight.pink.polish.first::before {
-    content: ' Początek różowego zakreślenia ';
-  }
-
-  .c4 .highlight.pink.polish.last::after {
-    content: ' Koniec różowego zakreślenia ';
-  }
-
   .c4 .highlight.pink[aria-current] {
     background-color: #de017e;
     border-bottom: 0.2rem solid #560131;
@@ -820,28 +708,12 @@ Array [
     background-color: #ffea00;
   }
 
-  .c4 .search-highlight.english::before {
-    content: ' Start search result ';
+  .c4 .search-highlight[data-start-message]::before {
+    content: attr(data-start-message);
   }
 
-  .c4 .search-highlight.english::after {
-    content: ' End of search result ';
-  }
-
-  .c4 .search-highlight.spanish::before {
-    content: ' Comienzo de resultado de búsqueda ';
-  }
-
-  .c4 .search-highlight.spanish::after {
-    content: ' Final de resultado de búsqueda ';
-  }
-
-  .c4 .search-highlight.polish::before {
-    content: ' Początek zakreślenia wyniku wyszukiwania ';
-  }
-
-  .c4 .search-highlight.polish::after {
-    content: ' Koniec zakreślenia wyniku wyszukiwania ';
+  .c4 .search-highlight[data-end-message]::after {
+    content: attr(data-end-message);
   }
 
   .c4 .search-highlight[aria-current],

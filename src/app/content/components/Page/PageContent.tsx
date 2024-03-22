@@ -10,7 +10,6 @@ import {
   highlightIndicatorSizeForBlock
 } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
-import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 export const contentTextStyle = css`
   @media screen {
@@ -36,26 +35,6 @@ const hideBeforeAndAfter = `
     width: 1px;
   }
 `;
-
-function decodeSpanishColor(color: HighlightColorEnum) {
-  return {
-    blue: 'azul',
-    green: 'verde',
-    pink: 'rosado',
-    purple: 'morado',
-    yellow: 'amarillo',
-  }[color];
-}
-
-function decodePolishColor(color: HighlightColorEnum) {
-  return {
-    blue: 'niebieskiego',
-    green: 'zielonego',
-    pink: 'różowego',
-    purple: 'fioletowego',
-    yellow: 'żółtego',
-  }[color];
-}
 
 export default styled(MainContent)`
   ${contentTextStyle}
@@ -92,6 +71,14 @@ export default styled(MainContent)`
 
     @media screen {
       ${hideBeforeAndAfter}
+
+      &[data-start-message]::before {
+        content: attr(data-start-message);
+      }
+
+      &[data-end-message]::after {
+        content: attr(data-end-message);
+      }
     }
   }
 
@@ -137,7 +124,7 @@ export default styled(MainContent)`
         }
       }
 
-      &.first.text.has-note::after {
+      &.first.text.has-note:after {
         position: absolute;
         top: 0;
         left: 0;
@@ -151,35 +138,6 @@ export default styled(MainContent)`
       }
 
       @media screen {
-        &.english {
-          &.first::before {
-            content: ' Start ${style.label} highlight ';
-          }
-          &.last::after {
-            content: ' End of ${style.label} highlight ';
-          }
-        }
-        &.spanish {
-          &.first::before {
-            content: ' Comienzo de texto resaltado ${decodeSpanishColor(
-              style.label
-            )} ';
-          }
-          &.last::after {
-            content: ' Final de texto resaltado ${decodeSpanishColor(
-              style.label
-            )} ';
-          }
-        }
-        &.polish {
-          &.first::before {
-            content: ' Początek ${decodePolishColor(style.label)} zakreślenia ';
-          }
-          &.last::after {
-            content: ' Koniec ${decodePolishColor(style.label)} zakreślenia ';
-          }
-        }
-
         &[aria-current] {
           background-color: ${style.focused};
           border-bottom: 0.2rem solid ${style.focusBorder};
@@ -212,34 +170,12 @@ export default styled(MainContent)`
         background-color: #ffea00;
       }
 
-      &.english {
-        ::before {
-          content: " Start search result ";
-        }
-
-        ::after {
-          content: " End of search result ";
-        }
+      &[data-start-message]::before {
+        content: attr(data-start-message);
       }
 
-      &.spanish {
-        ::before {
-          content: " Comienzo de resultado de búsqueda ";
-        }
-
-        ::after {
-          content: " Final de resultado de búsqueda ";
-        }
-      }
-
-      &.polish {
-        ::before {
-          content: " Początek zakreślenia wyniku wyszukiwania ";
-        }
-
-        ::after {
-          content: " Koniec zakreślenia wyniku wyszukiwania ";
-        }
+      &[data-end-message]::after {
+        content: attr(data-end-message);
       }
 
       &[aria-current] {
