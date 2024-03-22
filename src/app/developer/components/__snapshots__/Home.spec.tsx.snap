@@ -621,6 +621,8 @@ Array [
                     className="c12 c13 c14"
                   >
                     <button
+                      aria-expanded={false}
+                      aria-label="Actions"
                       className="c15 c16 c17 c18"
                       onClick={[Function]}
                     >
@@ -667,6 +669,8 @@ Array [
                     className="c12 c13 c14"
                   >
                     <button
+                      aria-expanded={false}
+                      aria-label="Actions"
                       className="c15 c16 c17 c18"
                       onClick={[Function]}
                     >
