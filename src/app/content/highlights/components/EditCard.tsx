@@ -292,6 +292,7 @@ function AnnotationEditor({
       note={pendingAnnotation}
       onFocus={initializeColor}
       onChange={updateUnsavedHighlightStatus}
+      edit={Boolean(props.data?.annotation)}
     />
   );
 }
