@@ -91,6 +91,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
   -ms-user-select: none;
   user-select: none;
   overflow: visible;
+  padding-top: 0 !important;
 }
 
 .c0 .c1 {
@@ -115,6 +116,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
         onRemove={[Function]}
       />
       <div
+        edit={false}
         mock-note={true}
         note="asdf"
         onChange={[Function]}
@@ -158,6 +160,7 @@ exports[`EditCard matches snapshot when focused 1`] = `
   -ms-user-select: none;
   user-select: none;
   overflow: visible;
+  padding-top: 0 !important;
 }
 
 .c0 .c1 {
@@ -195,6 +198,7 @@ exports[`EditCard matches snapshot with data 1`] = `
   -ms-user-select: none;
   user-select: none;
   overflow: visible;
+  padding-top: 0 !important;
 }
 
 .c0 .c1 {
@@ -219,6 +223,7 @@ exports[`EditCard matches snapshot with data 1`] = `
         onRemove={[Function]}
       />
       <div
+        edit={false}
         mock-note={true}
         note=""
         onChange={[Function]}
@@ -242,6 +247,7 @@ exports[`EditCard matches snapshot without data 1`] = `
   -ms-user-select: none;
   user-select: none;
   overflow: visible;
+  padding-top: 0 !important;
 }
 
 .c0 .c1 {

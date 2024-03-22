@@ -442,6 +442,12 @@
         "search_term": "Procter & Gamble",
         "chapter_search_results_total": 16,
         "rkt_search_results_total": 0
+    },
+    "introduction-python-programming": {
+        "default_page": "1-introduction",
+        "search_term": "print()",
+        "chapter_search_results_total": 75,
+        "rkt_search_results_total": 0
     }
 }
 

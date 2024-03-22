@@ -102,6 +102,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
     className="c1 c2 c3"
   >
     <button
+      aria-expanded={false}
       aria-label="Edit this highlight"
       className="c4 c5 c6 c7 c8"
       onClick={[Function]}
@@ -228,6 +229,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c15 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c21 {
@@ -259,6 +262,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c21 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c23 {
@@ -292,6 +297,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c23 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c25 {
@@ -323,6 +330,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c25 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c27 {
@@ -354,11 +363,13 @@ exports[`ContextMenu match snapshot when open 1`] = `
 
 .c27 input:focus + .c19 {
   display: block;
+  outline: 0.1rem dotted #212121;
+  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c16 {
   cursor: pointer;
-  margin: 0 0.8rem 0.8rem 0;
+  margin: 0;
 }
 
 .c16 input {
@@ -379,6 +390,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
   -ms-flex-direction: row;
   flex-direction: row;
   overflow: visible;
+  gap: 0.8rem;
+  padding: 0.8rem 0;
 }
 
 .c4 {
@@ -563,6 +576,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
     className="c1 c2 c3"
   >
     <button
+      aria-expanded={true}
       aria-label="Edit this highlight"
       className="c4 c5 c6 c7 c8"
       onClick={[Function]}
@@ -589,8 +603,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
       className="c12"
     >
       <div
+        aria-label="colors"
         className="c13 c14"
-        tabIndex={-1}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        role="radiogroup"
+        tabIndex={0}
       >
         <label
           aria-label="Apply yellow highlight"
@@ -625,6 +643,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="yellow"
             onChange={[Function]}
+            tabIndex={-1}
             type="checkbox"
           />
           <span
@@ -673,6 +692,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="green"
             onChange={[Function]}
+            tabIndex={-1}
             type="checkbox"
           />
           <span
@@ -721,6 +741,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={true}
             name="blue"
             onChange={[Function]}
+            tabIndex={-1}
             type="checkbox"
           />
           <span
@@ -769,6 +790,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="purple"
             onChange={[Function]}
+            tabIndex={-1}
             type="checkbox"
           />
           <span
@@ -817,6 +839,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
             checked={false}
             name="pink"
             onChange={[Function]}
+            tabIndex={-1}
             type="checkbox"
           />
           <span
