@@ -7,13 +7,14 @@ import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
   highlightIndicatorSize,
-  highlightIndicatorSizeForBlock,
+  highlightIndicatorSizeForBlock
 } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 
 export const contentTextStyle = css`
-  @media screen { /* full page width in print */
+  @media screen {
+    /* full page width in print */
     max-width: ${contentTextWidth}rem;
     margin: 0 auto;
   }
@@ -32,28 +33,28 @@ const hideBeforeAndAfter = `
     overflow: hidden;
     position: absolute;
     white-space: nowrap;
-    width: 1px;    
+    width: 1px;
   }
 `;
 
 function decodeSpanishColor(color: HighlightColorEnum) {
-  return ({
+  return {
     blue: 'azul',
     green: 'verde',
     pink: 'rosado',
     purple: 'morado',
-    yellow: 'amarillo'
-  }[color]);
+    yellow: 'amarillo',
+  }[color];
 }
 
 function decodePolishColor(color: HighlightColorEnum) {
-  return ({
+  return {
     blue: 'niebieskiego',
     green: 'zielonego',
     pink: 'różowego',
     purple: 'fioletowego',
-    yellow: 'żółtego'
-  }[color]);
+    yellow: 'żółtego',
+  }[color];
 }
 
 export default styled(MainContent)`
@@ -101,7 +102,8 @@ export default styled(MainContent)`
   }
   /* stylelint-enable selector-class-pattern */
 
-  ${highlightStyles.map((style) => css`
+  ${highlightStyles.map(
+    style => css`
     .highlight.${style.label} {
       background-color: ${style.passive};
 
@@ -128,7 +130,9 @@ export default styled(MainContent)`
           width: 0;
           height: 0;
           opacity: 0.8;
-          border-left: ${highlightIndicatorSizeForBlock}em solid ${style.focused};
+          border-left: ${highlightIndicatorSizeForBlock}em solid ${
+      style.focused
+    };
           border-bottom: ${highlightIndicatorSizeForBlock}em solid transparent;
         }
       }
@@ -157,10 +161,14 @@ export default styled(MainContent)`
         }
         &.spanish {
           &.first::before {
-            content: ' Comienzo de texto resaltado ${decodeSpanishColor(style.label)} ';
+            content: ' Comienzo de texto resaltado ${decodeSpanishColor(
+              style.label
+            )} ';
           }
           &.last::after {
-            content: ' Final de texto resaltado ${decodeSpanishColor(style.label)} ';
+            content: ' Final de texto resaltado ${decodeSpanishColor(
+              style.label
+            )} ';
           }
         }
         &.polish {
@@ -177,9 +185,10 @@ export default styled(MainContent)`
           border-bottom: 0.2rem solid ${style.focusBorder};
           padding: 0.2rem 0 0;
 
-          ${Color(style.focused).isDark() && css`
-            color: ${theme.color.text.white};
-          `}
+          ${Color(style.focused).isDark() &&
+            css`
+              color: ${theme.color.text.white};
+            `}
 
           &.block:after {
             background-color: ${style.focused};
@@ -191,7 +200,8 @@ export default styled(MainContent)`
         }
       }
     }
-  `)}
+  `
+  )}
 
   @media screen {
     .search-highlight {
@@ -204,26 +214,31 @@ export default styled(MainContent)`
 
       &.english {
         ::before {
-          content: ' Start search result ';
+          content: " Start search result ";
         }
+
         ::after {
-          content: ' End of search result ';
+          content: " End of search result ";
         }
       }
+
       &.spanish {
         ::before {
-          content: ' Comienzo de resultado de búsqueda ';
+          content: " Comienzo de resultado de búsqueda ";
         }
+
         ::after {
-          content: ' Final de resultado de búsqueda ';
+          content: " Final de resultado de búsqueda ";
         }
       }
+
       &.polish {
         ::before {
-          content: ' Początek zakreślenia wyniku wyszukiwania ';
+          content: " Początek zakreślenia wyniku wyszukiwania ";
         }
+
         ::after {
-          content: ' Koniec zakreślenia wyniku wyszukiwania ';
+          content: " Koniec zakreślenia wyniku wyszukiwania ";
         }
       }
 
