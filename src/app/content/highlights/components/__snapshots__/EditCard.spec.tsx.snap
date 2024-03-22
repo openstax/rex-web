@@ -116,6 +116,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
         onRemove={[Function]}
       />
       <div
+        edit={false}
         mock-note={true}
         note="asdf"
         onChange={[Function]}
@@ -222,6 +223,7 @@ exports[`EditCard matches snapshot with data 1`] = `
         onRemove={[Function]}
       />
       <div
+        edit={false}
         mock-note={true}
         note=""
         onChange={[Function]}
