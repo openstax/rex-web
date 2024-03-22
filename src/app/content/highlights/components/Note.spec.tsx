@@ -11,7 +11,7 @@ describe('Note', () => {
     const textarea = assertDocument().createElement('textarea');
 
     const component = renderer.create(<TestContainer>
-      <Note textareaRef={{ current: textarea }} note='' onChange={() => null} onFocus={() => null} />
+      <Note textareaRef={{ current: textarea }} note='' onChange={() => null} edit={true} onFocus={() => null} />
     </TestContainer>);
 
     const tree = component.toJSON();
