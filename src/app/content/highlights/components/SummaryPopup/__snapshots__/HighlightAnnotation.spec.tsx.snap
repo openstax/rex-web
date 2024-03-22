@@ -195,7 +195,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
     className="c1"
     onChange={[Function]}
     onInput={[Function]}
-    placeholder="Add a note..."
+    placeholder="Add a note"
     style={
       Object {
         "height": "2px",
