@@ -30,7 +30,7 @@ export const HighlightsChapterWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const HighlightsChapter = styled.div`
+const HighlightsChapter = styled.h2`
   ${h4Style}
   font-weight: bold;
   display: flex;
@@ -66,7 +66,7 @@ export const HighlightWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const HighlightSection = styled.div`
+export const HighlightSection = styled.h3`
   ${labelStyle}
   padding: 0 ${popupBodyPadding}rem 0 ${popupPadding}rem;
   background: ${theme.color.neutral.darkest};
