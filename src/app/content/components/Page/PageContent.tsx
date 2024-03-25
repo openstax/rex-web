@@ -117,9 +117,7 @@ export default styled(MainContent)`
           width: 0;
           height: 0;
           opacity: 0.8;
-          border-left: ${highlightIndicatorSizeForBlock}em solid ${
-      style.focused
-    };
+          border-left: ${highlightIndicatorSizeForBlock}em solid ${style.focused};
           border-bottom: ${highlightIndicatorSizeForBlock}em solid transparent;
         }
       }
