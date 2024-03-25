@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Times from '../../../../src/app/components/Times';
 import { PlainButton } from '../../components/Button';
-import { H3 } from '../../components/Typography/headings';
+import { h3Style } from '../../components/Typography/headings';
 import theme from '../../theme';
 import { contentWrapperMaxWidth } from '../components/constants';
 import { applyBookTextColor } from '../components/utils/applyBookTextColor';
@@ -42,7 +42,8 @@ export const PopupWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Header = styled(H3)`
+export const Header = styled.h1`
+  ${h3Style}
   ${disablePrint}
   ${applyBookTextColor}
   background: ${({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) => theme.color.primary[colorSchema].base};
