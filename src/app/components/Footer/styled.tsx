@@ -165,8 +165,9 @@ export const TopBoxed = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Heading = styled.div`
+export const Heading = styled.h2`
   grid-area: headline;
+  margin: 0;
 
   @media (min-width: ${desktopMinWidth}em) {
     font-size: 2.4rem;
@@ -275,11 +276,12 @@ export const Column3 = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const ColumnHeading = styled.div`
+export const ColumnHeading = styled.h3`
   font-size: 1.8rem;
   font-weight: bold;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 
   @media (max-width: ${mobileMinWidth}em) {
     line-height: 4.5rem;

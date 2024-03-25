@@ -237,6 +237,7 @@ Array [
 
 .c96 {
   grid-area: headline;
+  margin: 0;
 }
 
 .c97 {
@@ -315,6 +316,7 @@ Array [
   -ms-letter-spacing: -0.072rem;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 }
 
 .c103 {
@@ -4373,13 +4375,11 @@ li[aria-label="Current Page"] .c60 {
                 <div
                   className="c95"
                 >
-                  <div
-                    aria-level={2}
+                  <h2
                     className="c96"
-                    role="heading"
                   >
                     Our mission is to improve educational access and learning for everyone.
-                  </div>
+                  </h2>
                   <div
                     className="c97"
                     dangerouslySetInnerHTML={
@@ -4394,11 +4394,11 @@ li[aria-label="Current Page"] .c60 {
                   <div
                     className="c98"
                   >
-                    <div
+                    <h3
                       className="c99"
                     >
                       Help
-                    </div>
+                    </h3>
                     <a
                       className="c100"
                       href="/contact"
@@ -4427,11 +4427,11 @@ li[aria-label="Current Page"] .c60 {
                   <div
                     className="c101"
                   >
-                    <div
+                    <h3
                       className="c99"
                     >
                       OpenStax
-                    </div>
+                    </h3>
                     <a
                       className="c100"
                       href="/press"
@@ -4460,11 +4460,11 @@ li[aria-label="Current Page"] .c60 {
                   <div
                     className="c102"
                   >
-                    <div
+                    <h3
                       className="c99"
                     >
                       Policies
-                    </div>
+                    </h3>
                     <a
                       className="c100"
                       href="/accessibility-statement"
@@ -4885,6 +4885,7 @@ Array [
 
 .c85 {
   grid-area: headline;
+  margin: 0;
 }
 
 .c86 {
@@ -4963,6 +4964,7 @@ Array [
   -ms-letter-spacing: -0.072rem;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 }
 
 .c92 {
@@ -8772,13 +8774,11 @@ li[aria-label="Current Page"] .c60 {
                 <div
                   className="c84"
                 >
-                  <div
-                    aria-level={2}
+                  <h2
                     className="c85"
-                    role="heading"
                   >
                     Our mission is to improve educational access and learning for everyone.
-                  </div>
+                  </h2>
                   <div
                     className="c86"
                     dangerouslySetInnerHTML={
@@ -8793,11 +8793,11 @@ li[aria-label="Current Page"] .c60 {
                   <div
                     className="c87"
                   >
-                    <div
+                    <h3
                       className="c88"
                     >
                       Help
-                    </div>
+                    </h3>
                     <a
                       className="c89"
                       href="/contact"
@@ -8826,11 +8826,11 @@ li[aria-label="Current Page"] .c60 {
                   <div
                     className="c90"
                   >
-                    <div
+                    <h3
                       className="c88"
                     >
                       OpenStax
-                    </div>
+                    </h3>
                     <a
                       className="c89"
                       href="/press"
@@ -8859,11 +8859,11 @@ li[aria-label="Current Page"] .c60 {
                   <div
                     className="c91"
                   >
-                    <div
+                    <h3
                       className="c88"
                     >
                       Policies
-                    </div>
+                    </h3>
                     <a
                       className="c89"
                       href="/accessibility-statement"

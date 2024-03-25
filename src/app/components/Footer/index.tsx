@@ -176,7 +176,7 @@ const Footer = ({
     <Styled.InnerFooter>
       <Styled.FooterTop>
         <Styled.TopBoxed>
-          <Styled.Heading role='heading' aria-level={2}>
+          <Styled.Heading>
             <BareMessage id='i18n:footer:heading' />
           </Styled.Heading>
           <Mission />
