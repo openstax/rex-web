@@ -772,6 +772,7 @@ Array [
 
 .c4 {
   grid-area: headline;
+  margin: 0;
 }
 
 .c5 {
@@ -850,6 +851,7 @@ Array [
   -ms-letter-spacing: -0.072rem;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 }
 
 .c11 {
@@ -1094,13 +1096,11 @@ Array [
         <div
           className="c3"
         >
-          <div
-            aria-level={2}
+          <h2
             className="c4"
-            role="heading"
           >
             Our mission is to improve educational access and learning for everyone.
-          </div>
+          </h2>
           <div
             className="c5"
             dangerouslySetInnerHTML={
@@ -1115,11 +1115,11 @@ Array [
           <div
             className="c6"
           >
-            <div
+            <h3
               className="c7"
             >
               Help
-            </div>
+            </h3>
             <a
               className="c8"
               href="/contact"
@@ -1148,11 +1148,11 @@ Array [
           <div
             className="c9"
           >
-            <div
+            <h3
               className="c7"
             >
               OpenStax
-            </div>
+            </h3>
             <a
               className="c8"
               href="/press"
@@ -1181,11 +1181,11 @@ Array [
           <div
             className="c10"
           >
-            <div
+            <h3
               className="c7"
             >
               Policies
-            </div>
+            </h3>
             <a
               className="c8"
               href="/accessibility-statement"
