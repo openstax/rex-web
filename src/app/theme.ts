@@ -101,7 +101,7 @@ const color = {
     gold: {base: '#fdbd3e'},
     lightBlue: {base: '#0dc0dc'},
     lightGray: {
-      base: '#959595',
+      base: '#949494',
       darker: '#8b8b8b',
       darkest: '#818181',
       foreground: textColors.white,
