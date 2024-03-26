@@ -250,7 +250,7 @@ exports[`Button matches snapshot - secondary 1`] = `
   height: 4rem;
   padding: 0 3rem;
   color: #fff;
-  background-color: #959595;
+  background-color: #949494;
   font-weight: bold;
   border: none;
 }

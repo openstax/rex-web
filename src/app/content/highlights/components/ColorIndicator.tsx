@@ -28,15 +28,31 @@ const CheckIcon = styled(Check)`
 const FocusedStyle = styled.span`
   display: none;
   position: absolute;
-  height: ${(props: StyleProps) => indicatorSize(props) + 0.6}rem;
-  width: ${(props: StyleProps) => indicatorSize(props) + 0.6}rem;
-  background-color: ${(props: {style: typeof highlightStyles[number]}) => props.style.passive};
+  height: ${(props: StyleProps) => indicatorSize(props) + 0.4}rem;
+  width: ${(props: StyleProps) => indicatorSize(props) + 0.4}rem;
+  background-color: transparent;
   z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   ${(props: StyleProps) => (props.shape === 'circle' || props.shape === undefined) && css`
-    border-radius: 2rem;
+    border-radius: 50%;
   `}
+`;
+
+// tslint:disable-next-line:variable-name
+const ColorRing = styled.span`
+  height: ${(props: StyleProps) => indicatorSize(props) - 0.2}rem;
+  width: ${(props: StyleProps) => indicatorSize(props) - 0.2}rem;
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  ${(props: StyleProps) => (props.shape === 'circle' || props.shape === undefined) && css`
+    border-radius: 50%;
+  `}
+  border: 1px solid ${(props: {style: typeof highlightStyles[number]}) => props.style.focused};
 `;
 
 // tslint:disable-next-line:variable-name
@@ -50,10 +66,16 @@ function Hoc<T extends React.ComponentType | undefined>(props: React.PropsWithCh
       props,
       <CheckIcon key='check' />,
       children,
-      <FocusedStyle {...focusedProps} />
+      <FocusedStyle {...focusedProps} />,
+      <ColorRing {...focusedProps} />
     );
   }
-  return <div {...otherProps}><CheckIcon />{children}<FocusedStyle {...focusedProps} /></div>;
+  return <div {...otherProps}>
+    <CheckIcon />
+    {children}
+    <FocusedStyle {...focusedProps} />
+    <ColorRing {...focusedProps} />
+  </div>;
 }
 
 const indicatorSize = (props: {size?: 'small'}) => props.size === 'small' ? 1.6 : 2.4;
@@ -63,7 +85,7 @@ const checkSize = (props: {size?: 'small'}) => props.size === 'small' ? 1 : 1.6;
 const ColorIndicator = styled(Hoc)`
   position: relative;
   background-color: ${(props: {style: typeof highlightStyles[number]}) => props.style.passive};
-  border: 1px solid ${(props: {style: typeof highlightStyles[number]}) => props.style.focused};
+  border: 1px solid ${(props: {style: typeof highlightStyles[number]}) => props.style.focusBorder};
   height: ${(props: Props) => indicatorSize(props)}rem;
   width: ${(props: Props) => indicatorSize(props)}rem;
   display: flex;
@@ -79,6 +101,8 @@ const ColorIndicator = styled(Hoc)`
     width: ${(props: Props) => checkSize(props)}rem;
     ${(props: Props) => props.checked && css`
       color: ${props.style.focused};
+      stroke: ${props.style.focusBorder};
+      stroke-width: 5%;
       display: block;
     `}
   }

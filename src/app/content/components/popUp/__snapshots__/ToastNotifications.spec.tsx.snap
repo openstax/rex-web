@@ -94,7 +94,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
   margin: 0;
   padding: 0;
   background: none;
-  color: #EDBFC5;
+  color: #C22032;
   overflow: visible;
 }
 

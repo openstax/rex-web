@@ -154,5 +154,5 @@ export default styled(ColorPicker)`
   flex-direction: row;
   overflow: visible;
   gap: ${cardPadding}rem;
-  padding: ${cardPadding}rem 0;
+  padding: ${cardPadding}rem 0.3rem;
 `;
