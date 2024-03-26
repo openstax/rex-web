@@ -119,7 +119,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
       )
       : null}
     <Row>
-      {sectionChunks.map((sectionChunk, index) => <Column key={index}>
+      {sectionChunks.map((sectionChunk, index) => <Column key={index} role='group' aria-label='Filter by chapters'>
         {sectionChunk.map((location) => {
           const { section, children } = location;
           if (!children) {

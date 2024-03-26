@@ -294,7 +294,9 @@ input:checked + .c10 .c12 {
     className="c5"
   >
     <div
+      aria-label="Filter by chapters"
       className="c6"
+      role="group"
     >
       <label
         className="c7 c8"
