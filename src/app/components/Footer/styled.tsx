@@ -357,7 +357,8 @@ export const Social = styled.ul`
 const InnerSocialIcon = styled.a`
   ${columnLink}
   ${textRegularSize}
-  background-color: #959595;
+  background-color: #878787;
+  color: #fff;
   align-content: center;
   border-radius: 50%;
   display: grid;
