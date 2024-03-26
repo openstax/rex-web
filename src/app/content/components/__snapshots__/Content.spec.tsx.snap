@@ -398,7 +398,8 @@ Array [
   color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  background-color: #959595;
+  background-color: #878787;
+  color: #fff;
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
@@ -5045,7 +5046,8 @@ Array [
   color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  background-color: #959595;
+  background-color: #878787;
+  color: #fff;
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
