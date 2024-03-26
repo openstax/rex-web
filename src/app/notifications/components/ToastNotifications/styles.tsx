@@ -11,7 +11,7 @@ import { ToastProps } from './Toast';
 
 const bannerBackground = '#F8E8EB';
 const errorBorderColor = '#E297A0';
-const closeIconColor = '#EDBFC5';
+const closeIconColor = '#C22032';
 const errorTextColor = '#C23834';
 const hoveredCloseIconColor = errorBorderColor;
 
