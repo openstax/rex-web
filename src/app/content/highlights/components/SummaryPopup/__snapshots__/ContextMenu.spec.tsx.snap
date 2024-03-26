@@ -38,7 +38,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #949494;
+  color: #424242;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -143,61 +143,86 @@ exports[`ContextMenu match snapshot when open 1`] = `
 .c20 {
   display: none;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #ffff8a;
+  height: 2rem;
+  width: 2rem;
+  background-color: transparent;
   z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
 }
 
-.c22 {
-  display: none;
+.c21 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #def99f;
-  z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #fed200;
 }
 
-.c24 {
-  display: none;
+.c23 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #c8f5ff;
-  z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #92d101;
 }
 
-.c26 {
-  display: none;
+.c25 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #cbcfff;
-  z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #00c3ed;
 }
 
-.c28 {
-  display: none;
+.c27 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #ffc5e1;
-  z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #545ec8;
+}
+
+.c29 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #de017e;
 }
 
 .c15 {
@@ -233,7 +258,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c21 {
+.c22 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -255,18 +280,18 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c21 .c17 {
+.c22 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c21 input:focus + .c19 {
+.c22 input:focus + .c19 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c23 {
+.c24 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -288,20 +313,22 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c23 .c17 {
+.c24 .c17 {
   height: 1rem;
   width: 1rem;
-  color: #006880;
+  color: #00c3ed;
+  stroke: #006880;
+  stroke-width: 5%;
   display: block;
 }
 
-.c23 input:focus + .c19 {
+.c24 input:focus + .c19 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c25 {
+.c26 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -323,18 +350,18 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c25 .c17 {
+.c26 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c25 input:focus + .c19 {
+.c26 input:focus + .c19 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c27 {
+.c28 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -356,12 +383,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c27 .c17 {
+.c28 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c27 input:focus + .c19 {
+.c28 input:focus + .c19 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
@@ -391,7 +418,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   flex-direction: row;
   overflow: visible;
   gap: 0.8rem;
-  padding: 0.8rem 0;
+  padding: 0.8rem 0.3rem;
 }
 
 .c4 {
@@ -425,7 +452,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #949494;
+  color: #424242;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -470,7 +497,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   margin-right: 0.2rem;
 }
 
-.c29 {
+.c30 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
@@ -478,12 +505,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
   padding: 0;
 }
 
-.c29 li {
+.c30 li {
   padding: 0.2rem;
 }
 
-.c29 li button,
-.c29 li a {
+.c30 li button,
+.c30 li a {
   white-space: nowrap;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -509,31 +536,24 @@ exports[`ContextMenu match snapshot when open 1`] = `
   line-height: 2rem;
 }
 
-.c29 li button:hover,
-.c29 li a:hover,
-.c29 li button:focus,
-.c29 li a:focus {
+.c30 li button:hover,
+.c30 li a:hover,
+.c30 li button:focus,
+.c30 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem inset -webkit-focus-ring-color;
 }
 
-.c29 li {
+.c30 li {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c29 li a {
+.c30 li a {
   width: 100%;
-}
-
-.c30 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
 }
 
 .c31 {
@@ -544,6 +564,13 @@ exports[`ContextMenu match snapshot when open 1`] = `
 }
 
 .c32 {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: #424242;
+}
+
+.c33 {
   width: 15px;
   height: 15px;
   margin-right: 10px;
@@ -658,11 +685,23 @@ exports[`ContextMenu match snapshot when open 1`] = `
               }
             }
           />
+          <span
+            className="c21"
+            size="small"
+            style={
+              Object {
+                "focusBorder": "#8f7700",
+                "focused": "#fed200",
+                "label": "yellow",
+                "passive": "#ffff8a",
+              }
+            }
+          />
         </label>
         <label
           aria-label="Apply green highlight"
           checked={false}
-          className="c21 c16"
+          className="c22 c16"
           component={<label />}
           size="small"
           style={
@@ -696,7 +735,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="c19 c22"
+            className="c19 c20"
+            size="small"
+            style={
+              Object {
+                "focusBorder": "#4e6f01",
+                "focused": "#92d101",
+                "label": "green",
+                "passive": "#def99f",
+              }
+            }
+          />
+          <span
+            className="c23"
             size="small"
             style={
               Object {
@@ -711,7 +762,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply blue highlight"
           checked={true}
-          className="c23 c16"
+          className="c24 c16"
           component={<label />}
           size="small"
           style={
@@ -745,7 +796,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="c19 c24"
+            className="c19 c20"
+            size="small"
+            style={
+              Object {
+                "focusBorder": "#006880",
+                "focused": "#00c3ed",
+                "label": "blue",
+                "passive": "#c8f5ff",
+              }
+            }
+          />
+          <span
+            className="c25"
             size="small"
             style={
               Object {
@@ -760,7 +823,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply purple highlight"
           checked={false}
-          className="c25 c16"
+          className="c26 c16"
           component={<label />}
           size="small"
           style={
@@ -794,7 +857,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="c19 c26"
+            className="c19 c20"
+            size="small"
+            style={
+              Object {
+                "focusBorder": "#141a3e",
+                "focused": "#545ec8",
+                "label": "purple",
+                "passive": "#cbcfff",
+              }
+            }
+          />
+          <span
+            className="c27"
             size="small"
             style={
               Object {
@@ -809,7 +884,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <label
           aria-label="Apply pink highlight"
           checked={false}
-          className="c27 c16"
+          className="c28 c16"
           component={<label />}
           size="small"
           style={
@@ -843,7 +918,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
             type="checkbox"
           />
           <span
-            className="c19 c28"
+            className="c19 c20"
+            size="small"
+            style={
+              Object {
+                "focusBorder": "#560131",
+                "focused": "#de017e",
+                "label": "pink",
+                "passive": "#ffc5e1",
+              }
+            }
+          />
+          <span
+            className="c29"
             size="small"
             style={
               Object {
@@ -857,7 +944,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         </label>
       </div>
       <ol
-        className="c29"
+        className="c30"
       >
         <li
           aria-label="Add note"
@@ -869,7 +956,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c9 c30"
+              className="c9 c31"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 576 512"
@@ -893,7 +980,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c9 c31"
+              className="c9 c32"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 448 512"
@@ -916,7 +1003,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c9 c32"
+              className="c9 c33"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"

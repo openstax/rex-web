@@ -14,21 +14,38 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 .c5 {
   display: none;
   position: absolute;
-  height: 3rem;
-  width: 3rem;
-  background-color: #ffff8a;
+  height: 2.8rem;
+  width: 2.8rem;
+  background-color: transparent;
   z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
 }
 
-.c6 .c2 {
+.c6 {
+  height: 2.1999999999999997rem;
+  width: 2.1999999999999997rem;
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #fed200;
+}
+
+.c7 .c2 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c6 input:focus + .c4 {
+.c7 input:focus + .c4 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
@@ -59,7 +76,9 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 .c0 .c2 {
   height: 1.6rem;
   width: 1.6rem;
-  color: #8f7700;
+  color: #fed200;
+  stroke: #8f7700;
+  stroke-width: 5%;
   display: block;
 }
 
@@ -96,6 +115,17 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
       }
     }
   />
+  <span
+    className="c6"
+    style={
+      Object {
+        "focusBorder": "#8f7700",
+        "focused": "#fed200",
+        "label": "yellow",
+        "passive": "#ffff8a",
+      }
+    }
+  />
 </div>
 `;
 
@@ -113,13 +143,30 @@ exports[`ColorIndicator matches snapshot 1`] = `
 .c5 {
   display: none;
   position: absolute;
-  height: 3rem;
-  width: 3rem;
-  background-color: #ffff8a;
+  height: 2.8rem;
+  width: 2.8rem;
+  background-color: transparent;
   z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+}
+
+.c6 {
+  height: 2.1999999999999997rem;
+  width: 2.1999999999999997rem;
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #fed200;
 }
 
 .c0 {
@@ -173,6 +220,17 @@ exports[`ColorIndicator matches snapshot 1`] = `
   </svg>
   <span
     className="c4 c5"
+    style={
+      Object {
+        "focusBorder": "#8f7700",
+        "focused": "#fed200",
+        "label": "yellow",
+        "passive": "#ffff8a",
+      }
+    }
+  />
+  <span
+    className="c6"
     style={
       Object {
         "focusBorder": "#8f7700",

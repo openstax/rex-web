@@ -132,7 +132,7 @@ input:checked + .c8 .c10 {
   border: 1px solid #b03808;
 }
 
-.c21 {
+.c22 {
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -150,7 +150,7 @@ input:checked + .c8 .c10 {
   opacity: 0.4;
 }
 
-.c21 input {
+.c22 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -158,23 +158,23 @@ input:checked + .c8 .c10 {
   width: 0;
 }
 
-.c21:focus-within {
+.c22:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c21:focus-within .c7 {
+.c22:focus-within .c7 {
   border: 1px solid #b03808;
 }
 
-.c21.focus-within {
+.c22.focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
 }
 
-.c21.focus-within .c7 {
+.c22.focus-within .c7 {
   border: 1px solid #b03808;
 }
 
@@ -185,61 +185,86 @@ input:checked + .c8 .c10 {
 .c17 {
   display: none;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #ffff8a;
+  height: 2rem;
+  width: 2rem;
+  background-color: transparent;
   z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
 }
 
-.c20 {
-  display: none;
+.c18 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #def99f;
-  z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #fed200;
 }
 
-.c23 {
-  display: none;
+.c21 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #c8f5ff;
-  z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #92d101;
 }
 
-.c25 {
-  display: none;
+.c24 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #cbcfff;
-  z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #00c3ed;
 }
 
-.c27 {
-  display: none;
+.c26 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
   position: absolute;
-  height: 2.2rem;
-  width: 2.2rem;
-  background-color: #ffc5e1;
-  z-index: -1;
-  left: -0.4rem;
-  top: -0.4rem;
-  border-radius: 2rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #545ec8;
+}
+
+.c28 {
+  height: 1.4000000000000001rem;
+  width: 1.4000000000000001rem;
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  border-radius: 50%;
+  border: 1px solid #de017e;
 }
 
 .c13 {
@@ -275,7 +300,7 @@ input:checked + .c8 .c10 {
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c19 {
+.c20 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -297,18 +322,18 @@ input:checked + .c8 .c10 {
   overflow: visible;
 }
 
-.c19 .c14 {
+.c20 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c19 input:focus + .c16 {
+.c20 input:focus + .c16 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c22 {
+.c23 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -330,18 +355,18 @@ input:checked + .c8 .c10 {
   overflow: visible;
 }
 
-.c22 .c14 {
+.c23 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c22 input:focus + .c16 {
+.c23 input:focus + .c16 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c24 {
+.c25 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -363,18 +388,18 @@ input:checked + .c8 .c10 {
   overflow: visible;
 }
 
-.c24 .c14 {
+.c25 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c24 input:focus + .c16 {
+.c25 input:focus + .c16 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c26 {
+.c27 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -396,18 +421,18 @@ input:checked + .c8 .c10 {
   overflow: visible;
 }
 
-.c26 .c14 {
+.c27 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c26 input:focus + .c16 {
+.c27 input:focus + .c16 {
   display: block;
   outline: 0.1rem dotted #212121;
   outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
-.c18 {
+.c19 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -528,9 +553,21 @@ input:checked + .c8 .c10 {
           }
         }
       />
+      <span
+        className="c18"
+        size="small"
+        style={
+          Object {
+            "focusBorder": "#8f7700",
+            "focused": "#fed200",
+            "label": "yellow",
+            "passive": "#ffff8a",
+          }
+        }
+      />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       yellow
     </span>
@@ -562,7 +599,7 @@ input:checked + .c8 .c10 {
       </svg>
     </span>
     <div
-      className="c12 c19"
+      className="c12 c20"
     >
       <svg
         aria-hidden="true"
@@ -578,7 +615,19 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16 c20"
+        className="c16 c17"
+        size="small"
+        style={
+          Object {
+            "focusBorder": "#4e6f01",
+            "focused": "#92d101",
+            "label": "green",
+            "passive": "#def99f",
+          }
+        }
+      />
+      <span
+        className="c21"
         size="small"
         style={
           Object {
@@ -591,13 +640,13 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       green
     </span>
   </label>
   <label
-    className="c5 c21"
+    className="c5 c22"
   >
     <input
       checked={false}
@@ -623,7 +672,7 @@ input:checked + .c8 .c10 {
       </svg>
     </span>
     <div
-      className="c12 c22"
+      className="c12 c23"
     >
       <svg
         aria-hidden="true"
@@ -639,7 +688,19 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16 c23"
+        className="c16 c17"
+        size="small"
+        style={
+          Object {
+            "focusBorder": "#006880",
+            "focused": "#00c3ed",
+            "label": "blue",
+            "passive": "#c8f5ff",
+          }
+        }
+      />
+      <span
+        className="c24"
         size="small"
         style={
           Object {
@@ -652,13 +713,13 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       blue
     </span>
   </label>
   <label
-    className="c5 c21"
+    className="c5 c22"
   >
     <input
       checked={false}
@@ -684,7 +745,7 @@ input:checked + .c8 .c10 {
       </svg>
     </span>
     <div
-      className="c12 c24"
+      className="c12 c25"
     >
       <svg
         aria-hidden="true"
@@ -700,7 +761,19 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16 c25"
+        className="c16 c17"
+        size="small"
+        style={
+          Object {
+            "focusBorder": "#141a3e",
+            "focused": "#545ec8",
+            "label": "purple",
+            "passive": "#cbcfff",
+          }
+        }
+      />
+      <span
+        className="c26"
         size="small"
         style={
           Object {
@@ -713,7 +786,7 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       purple
     </span>
@@ -745,7 +818,7 @@ input:checked + .c8 .c10 {
       </svg>
     </span>
     <div
-      className="c12 c26"
+      className="c12 c27"
     >
       <svg
         aria-hidden="true"
@@ -761,7 +834,19 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16 c27"
+        className="c16 c17"
+        size="small"
+        style={
+          Object {
+            "focusBorder": "#560131",
+            "focused": "#de017e",
+            "label": "pink",
+            "passive": "#ffc5e1",
+          }
+        }
+      />
+      <span
+        className="c28"
         size="small"
         style={
           Object {
@@ -774,7 +859,7 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       pink
     </span>

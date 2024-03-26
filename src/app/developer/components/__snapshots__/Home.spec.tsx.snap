@@ -288,7 +288,7 @@ Array [
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: #949494;
+  color: #424242;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
