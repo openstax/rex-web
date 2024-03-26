@@ -356,6 +356,15 @@ export const Social = styled.ul`
 `;
 
 // tslint:disable-next-line:variable-name
+export const LinkListWrapper = styled.ul`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+// tslint:disable-next-line:variable-name
 const InnerSocialIcon = styled.a`
   ${columnLink}
   ${textRegularSize}
