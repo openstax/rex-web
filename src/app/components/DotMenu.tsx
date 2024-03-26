@@ -10,7 +10,7 @@ export const DotMenuIcon = styled(EllipsisV)`
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
-  color: ${theme.color.neutral.darkest};
+  color: ${theme.color.primary.gray.darker};
   user-select: none;
 
   &:hover {
