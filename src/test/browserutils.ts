@@ -1,3 +1,4 @@
+import { readFile, writeFile } from 'fs';
 import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
 import * as lighthouseConfig from './audits';
@@ -115,13 +116,34 @@ export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
   return h1 && h1.textContent;
 });
 
-export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string) => {
+type Categories = Awaited<ReturnType<typeof lighthouse>>['lhr']['categories'];
+export type ScoreTargets = { [key in keyof Categories]?: number };
 
+export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string, scores: ScoreTargets | string) => {
+  const absoluteUrl = urlPath.startsWith('https://') || urlPath.startsWith('http://') ? urlPath : url(urlPath);
   const port = Number((new URL(target.wsEndpoint())).port);
-  const { lhr } = await lighthouse(url(urlPath), {port}, lighthouseConfig);
+  const { lhr } = await lighthouse(absoluteUrl, {port}, lighthouseConfig);
 
-  expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);
-  expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
-  expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.69);
-  expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.79);
+  const scoreTargets = typeof scores === 'string' ?
+    await new Promise<ScoreTargets>(
+      (resolve) => readFile(scores, { encoding: 'utf8' }, (err, data) => err ? resolve({
+        accessibility: 0, 'best-practices': 0, customAccessibility: 0, pwa: 0, seo: 0,
+      }) : resolve(JSON.parse(data)))
+    ) : scores;
+
+  const result: ScoreTargets = {};
+  Object.entries(scoreTargets).forEach(([category, minScore]) => {
+    if (category in lhr.categories) {
+      const categoryKey = category as keyof Categories;
+      const { score } = lhr.categories[categoryKey];
+      if (score < minScore) {
+        throw new Error(`${category} score of ${score} was less than the minimum of ${minScore}`);
+      }
+      result[categoryKey] = score;
+    }
+  });
+
+  if (typeof scores === 'string') {
+    return new Promise<void>((resolve) => writeFile(scores, JSON.stringify(result), () => resolve()));
+  }
 };

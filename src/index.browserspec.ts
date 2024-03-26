@@ -46,5 +46,10 @@ describe('Browser sanity tests', () => {
 });
 
 it('a11y lighthouse check', async() => {
-  await checkLighthouse(browser, TEST_PAGE_URL);
+  await checkLighthouse(browser, TEST_PAGE_URL, {
+    accessibility: 1,
+    'best-practices': 0.79,
+    customAccessibility: 1,
+    seo: 0.69,
+  });
 });
