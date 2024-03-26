@@ -104,21 +104,17 @@ const ColorPicker = ({className, ...props}: Props) => {
     },
     []
   );
-  const initialFocus = React.useCallback(
-    (event: React.FocusEvent) => {
-      if (!ref.current || event.currentTarget !== event.target) {
-        return;
-      }
-      const firstChecked = ref.current.querySelector<HTMLInputElement>('input[checked]');
-
-      if (firstChecked) {
-        firstChecked.focus();
-      } else {
-        ref.current.querySelector<HTMLInputElement>('input')?.focus();
+  const color = (props as SingleSelectProps).color;
+  const focusOnSelected = React.useCallback(
+    () => {
+      if (color && document?.activeElement === ref.current) {
+        ref.current?.querySelector<HTMLInputElement>(`input[name="${color}"]`)?.focus();
       }
     },
-    []
+    [color]
   );
+
+  React.useEffect(focusOnSelected, [focusOnSelected]);
 
   return (
     <div
@@ -128,7 +124,7 @@ const ColorPicker = ({className, ...props}: Props) => {
       aria-label='colors'
       ref={ref}
       onKeyDown={handleKeyNavigation}
-      onFocus={initialFocus}
+      onFocus={focusOnSelected}
     >
       {highlightStyles.map((style) => <ColorButton key={style.label}
         name={style.label}
