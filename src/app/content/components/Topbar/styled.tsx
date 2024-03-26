@@ -50,7 +50,6 @@ const hideSearchChrome = css`
 const closeIconStyles = css`
   height: 1.6rem;
   width: 1.6rem;
-  color: #cdcdcd;
 `;
 
 export const shadow = css`
