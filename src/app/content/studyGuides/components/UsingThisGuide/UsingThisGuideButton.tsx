@@ -19,7 +19,7 @@ const QuestionIcon = styled(QuestionCircle)`
 `;
 
 // tslint:disable-next-line:variable-name
-const UsingThisGuideButtonInnerStyles = styled.div`
+export const UsingThisGuideButtonWrapper = styled(PlainButton)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,29 +28,19 @@ const UsingThisGuideButtonInnerStyles = styled.div`
   color: ${theme.color.primary.gray.base};
   position: relative;
   padding: ${buttonPaddingTopDesktop}rem ${mobilePaddingSides}rem ${buttonPaddingBottomDesktop}rem;
-  outline: none;
-  ${({isOpen}) => isOpen && css`
-    color: ${theme.color.white};
-  `}
-  ${theme.breakpoints.mobile(css`
-    padding-right: 1.4rem;
-    padding-left: 1.4rem;
-  `)}
-  ${disablePrint}
-`;
-
-// tslint:disable-next-line:variable-name
-export const UsingThisGuideButtonWrapper = styled(PlainButton)`
-  position: relative;
   height: 100%;
   margin-right: 3.2rem;
   margin-top: ${buttonMarginTopDesktop}rem;
   ${({isOpen}) => isOpen && css`
     background: ${theme.color.black};
+    color: ${theme.color.white};
   `}
   ${theme.breakpoints.mobile(css`
     margin-right: 0.8rem;
+    padding-right: 1.4rem;
+    padding-left: 1.4rem;
   `)}
+  ${disablePrint}
 `;
 
 // tslint:disable-next-line:variable-name
@@ -81,10 +71,8 @@ const UsingThisGuideButton = (props: Props) => {
     isOpen={props.open}
     data-analytics-disable-track={true}
   >
-    <UsingThisGuideButtonInnerStyles isOpen={props.open} tabIndex={-1}>
-      <QuestionIcon/>
-      <UsingThisGuideText id='using-this-guide-text'>{text}</UsingThisGuideText>
-    </UsingThisGuideButtonInnerStyles>
+    <QuestionIcon/>
+    <UsingThisGuideText id='using-this-guide-text'>{text}</UsingThisGuideText>
   </UsingThisGuideButtonWrapper>;
 };
 
