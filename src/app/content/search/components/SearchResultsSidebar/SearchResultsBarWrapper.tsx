@@ -78,7 +78,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public blankState = () => <Styled.BlankStateWrapper>
     <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
       <Styled.SearchResultsHeader>
-        <Styled.SearchResultsHeaderTitle>
+        <Styled.SearchResultsHeaderTitle id='search-results-title'>
           <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
             {(msg) => msg}
           </FormattedMessage>
@@ -103,7 +103,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
     <Styled.SearchResultsHeader>
-      <Styled.SearchResultsHeaderTitle>
+      <Styled.SearchResultsHeaderTitle id='search-results-title'>
         <FormattedMessage id={this.headerTitle}>
           {(msg) => msg}
         </FormattedMessage>
@@ -164,7 +164,7 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
       assertDefined(a.highlight.title, 'highlight should have title')
       .localeCompare(assertDefined(b.highlight.title, 'highlight should have title')));
 
-    return <Styled.NavWrapper>
+    return <Styled.NavWrapper aria-labelledby='search-results-title'>
       {displayRelatedKeyTerms && <RelatedKeyTerms
         book={book}
         selectedResult={this.props.selectedResult}

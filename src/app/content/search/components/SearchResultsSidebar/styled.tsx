@@ -54,7 +54,7 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 `;
 
 // tslint:disable-next-line:variable-name
-export const NavWrapper = styled.div``;
+export const NavWrapper = styled.nav``;
 
 // tslint:disable-next-line:variable-name
 export const SearchResultsOl = styled.ol`
