@@ -73,14 +73,17 @@ const UsingThisGuideButton = (props: Props) => {
   const text = useIntl().formatMessage({id: 'i18n:studyguides:popup:using-this-guide'});
 
   return <UsingThisGuideButtonWrapper
+    type='button'
     aria-label={text}
+    aria-expanded={props.open}
+    aria-controls='using-this-guide-text'
     onClick={props.onClick}
     isOpen={props.open}
     data-analytics-disable-track={true}
   >
     <UsingThisGuideButtonInnerStyles isOpen={props.open} tabIndex={-1}>
       <QuestionIcon/>
-      <UsingThisGuideText>{text}</UsingThisGuideText>
+      <UsingThisGuideText id='using-this-guide-text'>{text}</UsingThisGuideText>
     </UsingThisGuideButtonInnerStyles>
   </UsingThisGuideButtonWrapper>;
 };

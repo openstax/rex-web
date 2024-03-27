@@ -1773,10 +1773,13 @@ input:checked + .c21 .c22 {
         </span>
       </button>
       <button
+        aria-controls="using-this-guide-text"
+        aria-expanded={true}
         aria-label="Using This Guide"
         className="c47"
         data-analytics-disable-track={true}
         onClick={[Function]}
+        type="button"
       >
         <div
           className="c48"
@@ -1797,6 +1800,7 @@ input:checked + .c21 .c22 {
           </svg>
           <span
             className="c50"
+            id="using-this-guide-text"
           >
             Using This Guide
           </span>
