@@ -75,7 +75,7 @@ const SocialIconMessage: React.FunctionComponent<{
 function LinkList({children}: React.PropsWithChildren<{}>) {
   return (
     <Styled.LinkListWrapper>
-      {React.Children.toArray(children).map((c) => <li>{c}</li>)}
+      {React.Children.toArray(children).map((c, i) => <li key={i}>{c}</li>)}
     </Styled.LinkListWrapper>
   );
 }
