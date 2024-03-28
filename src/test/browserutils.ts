@@ -119,7 +119,7 @@ type Categories = Awaited<ReturnType<typeof lighthouse>>['lhr']['categories'];
 export type ScoreTargets = { [key in keyof Categories]?: number };
 
 const testedCategories: Array<keyof Categories> = [
-  'accessibility', 'best-practices', 'customAccessibility', 'pwa', 'seo'
+  'accessibility', 'best-practices', 'customAccessibility', 'pwa', 'seo',
 ];
 
 export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string, scoreTargets?: ScoreTargets) => {
