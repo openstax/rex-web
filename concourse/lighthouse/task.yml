@@ -1,0 +1,27 @@
+---
+platform: linux
+
+input_mapping:
+  - 'lighthouse-report': previous-lighthouse-report
+inputs:
+- name: rex-web
+- name: lighthouse-report
+outputs:
+- name: lighthouse-report
+
+params:
+  AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
+  AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
+  LIGHTHOUSE_PAGES: ((lighthouse-pages))
+  LIGHTHOUSE_PREVIOUS_REPORT_DIR: previous-lighthouse-report
+  LIGHTHOUSE_REPORT_DIR: lighthouse-report
+
+run:
+  path: /bin/deno
+  args:
+    - run
+    - --allow-read
+    - --allow-write
+    - --allow-net
+    - --allow-env
+    - rex-web/concourse/lighthouse/script.deno.ts
