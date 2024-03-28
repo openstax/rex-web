@@ -1627,6 +1627,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       className="c13 c14 c15"
     >
       <button
+        aria-expanded={true}
         aria-label="Change text size"
         className="c16 c17 c18 c19"
         data-analytics-label="Change text size"
@@ -1771,6 +1772,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         className="c13 c14 c15"
       >
         <button
+          aria-expanded={false}
           aria-label="Change text size"
           className="c16 c28 c18 c19"
           data-analytics-label="Change text size"

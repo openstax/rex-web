@@ -835,6 +835,8 @@ input:checked + .c21 .c22 {
       className="c2 c3 c4"
     >
       <button
+        aria-controls="summary-filter-chapter"
+        aria-expanded={true}
         aria-label="Filter highlights by Chapter"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter highlights by Chapter"
@@ -862,6 +864,7 @@ input:checked + .c21 .c22 {
       </button>
       <div
         className="c11"
+        id="summary-filter-chapter"
         tabIndex={-1}
       >
         <div
@@ -892,6 +895,8 @@ input:checked + .c21 .c22 {
       className="c2 c3 c4"
     >
       <button
+        aria-controls="summary-filter-color"
+        aria-expanded={true}
         aria-label="Filter highlights by Color"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter highlights by Color"
@@ -919,6 +924,7 @@ input:checked + .c21 .c22 {
       </button>
       <div
         className="c17"
+        id="summary-filter-color"
         tabIndex={-1}
       >
         <div

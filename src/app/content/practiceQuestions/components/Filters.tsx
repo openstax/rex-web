@@ -40,8 +40,10 @@ export default () => {
         dataAnalyticsLabel='Filter PQ by Chapter & Section'
         open={open}
         setOpen={(isOpen: boolean) => setOpen(isOpen)}
+        controlsId='practice-filter-chapter'
       >
         <StyledChapterFilters
+          id='practice-filter-chapter'
           locationFilters={locationFilters}
           selectedLocationFilters={selectedLocationFilters}
           setFilters={setFilters}

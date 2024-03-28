@@ -349,6 +349,8 @@ exports[`Filters matches snapshot 1`] = `
       className="c2 c3 c4"
     >
       <button
+        aria-controls="summary-filter-chapter"
+        aria-expanded={false}
         aria-label="Filter highlights by Chapter"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter highlights by Chapter"
@@ -379,6 +381,8 @@ exports[`Filters matches snapshot 1`] = `
       className="c2 c3 c4"
     >
       <button
+        aria-controls="summary-filter-color"
+        aria-expanded={false}
         aria-label="Filter highlights by Color"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter highlights by Color"
@@ -1000,6 +1004,8 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       className="c2 c3 c4"
     >
       <button
+        aria-controls="summary-filter-chapter"
+        aria-expanded={false}
         aria-label="Filter highlights by Chapter"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter highlights by Chapter"
@@ -1030,6 +1036,8 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       className="c2 c3 c4"
     >
       <button
+        aria-controls="summary-filter-color"
+        aria-expanded={true}
         aria-label="Filter highlights by Color"
         className="c5 c11 c7 c8"
         data-analytics-label="Filter highlights by Color"
@@ -1057,6 +1065,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
       </button>
       <div
         colorFiltersWithContent={Set {}}
+        id="summary-filter-color"
         labelKey={[Function]}
         mock-color-filter={true}
         selectedColorFilters={Set {}}

@@ -81,15 +81,18 @@ export default () =>
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
         dataAnalyticsLabel='Filter highlights by Chapter'
+        controlsId='summary-filter-chapter'
       >
-        <ConnectedChapterFilter multiselect={true} />
+        <ConnectedChapterFilter multiselect={true} id='summary-filter-chapter' />
       </FilterDropdown>
       <FilterDropdown
         label='i18n:highlighting:filters:colors'
         ariaLabelId='i18n:highlighting:filters:filter-by:aria-label'
         dataAnalyticsLabel='Filter highlights by Color'
+        controlsId='summary-filter-color'
       >
         <ConnectedColorFilter
+          id='summary-filter-color'
           styles={highlightStyles}
           labelKey={(label: HighlightColorEnum) => `i18n:highlighting:colors:${label}`}
         />

@@ -3188,6 +3188,7 @@ li[aria-label="Current Page"] .c60 {
             className="c23 c24 c25"
           >
             <button
+              aria-expanded={false}
               aria-label="Change text size"
               className="c26 c27 c28 c29"
               data-analytics-label="Change text size"
@@ -3284,6 +3285,7 @@ li[aria-label="Current Page"] .c60 {
               className="c23 c24 c25"
             >
               <button
+                aria-expanded={false}
                 aria-label="Change text size"
                 className="c26 c27 c28 c29"
                 data-analytics-label="Change text size"
@@ -7683,6 +7685,7 @@ li[aria-label="Current Page"] .c60 {
             className="c23 c24 c25"
           >
             <button
+              aria-expanded={false}
               aria-label="Change text size"
               className="c26 c27 c28 c29"
               data-analytics-label="Change text size"
@@ -7779,6 +7782,7 @@ li[aria-label="Current Page"] .c60 {
               className="c23 c24 c25"
             >
               <button
+                aria-expanded={false}
                 aria-label="Change text size"
                 className="c26 c27 c28 c29"
                 data-analytics-label="Change text size"

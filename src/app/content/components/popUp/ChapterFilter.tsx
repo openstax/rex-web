@@ -65,6 +65,7 @@ interface ChapterFilterProps {
   selectedLocationFilters: Set<string>;
   multiselect: boolean;
   setFilters: (filters: FiltersChange<LinkedArchiveTreeNode>) => void;
+  id: string;
 }
 
 // tslint:disable-next-line:variable-name
@@ -107,7 +108,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
   const hasFiltersWithChildren = Boolean(values.find((filter) => filter.children));
   const sectionChunks = hasFiltersWithChildren ? [values] : chunk(values);
 
-  return <div className={props.className} tabIndex={-1}>
+  return <div className={props.className} tabIndex={-1} id={props.id}>
     {props.multiselect
       ? (
         <AllOrNone
