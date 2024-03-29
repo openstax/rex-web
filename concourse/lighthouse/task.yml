@@ -4,9 +4,10 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: hayd/deno
     password: ((dockerhub-password))
     username: ((dockerhub-username))
+    repository: openstax/rex-web
+    tag: CI-2023-08-10
 
 inputs:
 - name: rex-web
