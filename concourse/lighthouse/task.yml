@@ -11,7 +11,7 @@ image_resource:
 
 inputs:
 - name: rex-web
-- name: previous-lighthouse-report
+- name: most-recent-lighthouse-report
 outputs:
 - name: lighthouse-report
 
@@ -19,7 +19,7 @@ params:
   AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
   AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
   LIGHTHOUSE_PAGES: ((lighthouse-pages))
-  LIGHTHOUSE_PREVIOUS_REPORT_DIR: previous-lighthouse-report
+  LIGHTHOUSE_MOST_RECENT_REPORT_DIR: most-recent-lighthouse-report
   LIGHTHOUSE_REPORT_DIR: lighthouse-report
 
 run:
