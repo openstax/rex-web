@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs';
 import asyncPool from 'tiny-async-pool';
-import { checkLighthouse, ScoreTargets } from '../../src/test/browserutils';
+import { checkLighthouse, ScoreTargets } from '../../src/test/browserutils.ts';
 
 if (!process.env.LIGHTHOUSE_PAGES ||
     !process.env.LIGHTHOUSE_MOST_RECENT_REPORT_DIR ||
