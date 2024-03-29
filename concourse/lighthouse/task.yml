@@ -9,11 +9,9 @@ image_resource:
     repository: openstax/rex-web
     tag: CI-2023-08-10
 
-input_mapping:
-  - 'lighthouse-report': previous-lighthouse-report
 inputs:
 - name: rex-web
-- name: lighthouse-report
+- name: previous-lighthouse-report
 outputs:
 - name: lighthouse-report
 
