@@ -23,11 +23,4 @@ params:
   LIGHTHOUSE_REPORT_DIR: lighthouse-report
 
 run:
-  path: /bin/deno
-  args:
-    - run
-    - --allow-read
-    - --allow-write
-    - --allow-net
-    - --allow-env
-    - rex-web/concourse/lighthouse/script.deno.ts
+  path: rex-web/concourse/lighthouse/script.bash
