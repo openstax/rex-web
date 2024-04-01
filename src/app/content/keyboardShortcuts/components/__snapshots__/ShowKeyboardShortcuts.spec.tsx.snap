@@ -201,7 +201,13 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            Alt+h
+            Option (Mac) or Alt (other)
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            h
           </span>
         </div>
         <div
@@ -237,13 +243,31 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            Space
+            Arrows
           </span>
         </div>
         <div
           className="c5"
         >
           Select a different highlight color
+        </div>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            Space
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Deselect current highlight color
         </div>
       </div>
       <div
@@ -336,7 +360,13 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            Alt+h
+            Option (Mac) or Alt (other)
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            h
           </span>
         </div>
         <div
