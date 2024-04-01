@@ -3,7 +3,7 @@ set -euxo pipefail
 
 cd rex-web
 
-yarn
+yarn install --network-timeout 60000
 
 node script/entry.js lighthouse --pages="$LIGHTHOUSE_PAGES" \
                                 --mostRecentReportDir="$LIGHTHOUSE_MOST_RECENT_REPORT_DIR" \

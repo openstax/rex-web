@@ -30,5 +30,5 @@ run:
     - |
       DEST=$(pwd)/test-plans
       cd rex-web/concourse/create-test-plan-configs
-      yarn install
+      yarn install --network-timeout 60000
       ./script.js $DEST
