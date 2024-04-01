@@ -11,7 +11,7 @@ const {
 async function run() {
   if (!pages) { throw new Error('You must specify some --pages to test'); }
 
-  browser = await puppeteer.launch();
+  browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 
   // This checks the global browser variable so it needs to occur after it is initialized
   const { checkLighthouse } = require('../src/test/browserutils');
