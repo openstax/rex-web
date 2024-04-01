@@ -135,9 +135,10 @@ const ShowKeyboardShortcuts = () => (
         <Shortcut keys={['shift', '?']} msgKey='open-menu'/>
         <Shortcut keys={['tab']} msgKey='move-forward'/>
         <Shortcut keys={['shift', 'tab']} msgKey='move-backward'/>
-        <Shortcut keys={['alt+h']} msgKey='move-focus-in-out'/>
+        <Shortcut keys={['alt', 'h']} msgKey='move-focus-in-out'/>
         <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
-        <Shortcut keys={['space']} msgKey='select-highlight-color'/>
+        <Shortcut keys={['arrows']} msgKey='select-highlight-color'/>
+        <Shortcut keys={['space']} msgKey='deselect-highlight-color'/>
         <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
       </ShortcutsTable>
     </ShortcutsCard>
@@ -150,7 +151,7 @@ const ShowKeyboardShortcuts = () => (
       <ShortcutsTable>
         <Shortcut keys={['arrows']} msgKey='move-focus-through-each-line'/>
         <Shortcut keys={['shift', 'arrows']} msgKey='select-text'/>
-        <Shortcut keys={['alt+h']} msgKey='create-highlight-or-note'/>
+        <Shortcut keys={['alt', 'h']} msgKey='create-highlight-or-note'/>
       </ShortcutsTable>
     </ShortcutsCard>
   </ShowKeyboardShortcutsBody>
