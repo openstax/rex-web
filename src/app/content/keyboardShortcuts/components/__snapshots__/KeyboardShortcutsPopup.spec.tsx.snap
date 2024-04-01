@@ -419,7 +419,13 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               <span
                 className="c13"
               >
-                Alt+h
+                Option (Mac) or Alt (other)
+              </span>
+               + 
+              <span
+                className="c13"
+              >
+                h
               </span>
             </div>
             <div
@@ -455,13 +461,31 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               <span
                 className="c13"
               >
-                Space
+                Arrows
               </span>
             </div>
             <div
               className="c12"
             >
               Select a different highlight color
+            </div>
+          </div>
+          <div
+            className="c11"
+          >
+            <div
+              className="c12"
+            >
+              <span
+                className="c13"
+              >
+                Space
+              </span>
+            </div>
+            <div
+              className="c12"
+            >
+              Deselect current highlight color
             </div>
           </div>
           <div
@@ -554,7 +578,13 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               <span
                 className="c13"
               >
-                Alt+h
+                Option (Mac) or Alt (other)
+              </span>
+               + 
+              <span
+                className="c13"
+              >
+                h
               </span>
             </div>
             <div
