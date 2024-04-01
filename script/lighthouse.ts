@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'fs';
 import puppeteer from 'puppeteer';
 import asyncPool from 'tiny-async-pool';
 import argv from 'yargs';
-import type { ScoreTargets } from '../src/test/browserutils';
+import { checkLighthouse, ScoreTargets } from '../src/test/lighthouse';
 
 const {
   pages, mostRecentReportDir, reportDir,
@@ -11,10 +11,7 @@ const {
 async function run() {
   if (!pages) { throw new Error('You must specify some --pages to test'); }
 
-  global.browser = await puppeteer.launch({ args: ['--no-sandbox'] });
-
-  // This checks the global browser variable so it needs to occur after it is initialized
-  const { checkLighthouse } = require('../src/test/browserutils');
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
 
   const pageArray: string[] = JSON.parse(pages);
 
@@ -28,7 +25,7 @@ async function run() {
       )
     ) : undefined;
 
-    const result = await checkLighthouse(global.browser, pageUrl, targets);
+    const result = await checkLighthouse(browser, pageUrl, targets);
 
     if (reportDir) {
       await new Promise<void>((resolve) => writeFile(

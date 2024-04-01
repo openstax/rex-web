@@ -1,6 +1,9 @@
-import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
-import * as lighthouseConfig from './audits';
+import url from './url';
+import { checkLighthouse, ScoreTargets } from './lighthouse';
+
+export { checkLighthouse, url };
+export type { ScoreTargets };
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 declare global {
@@ -41,8 +44,6 @@ export const setTallerDesktopViewport = (target: puppeteer.Page) =>
   target.setViewport({height: 1074, width: desktopWidth});
 export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: desktopWidth});
 export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({height: 731, width: 411});
-
-export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
 const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   if (window && window.__APP_ASYNC_HOOKS) {
@@ -114,31 +115,3 @@ export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
   const h1 = document && document.querySelector('h1');
   return h1 && h1.textContent;
 });
-
-type Categories = Awaited<ReturnType<typeof lighthouse>>['lhr']['categories'];
-export type ScoreTargets = { [key in keyof Categories]?: number };
-
-const testedCategories: Array<keyof Categories> = [
-  'accessibility', 'best-practices', 'customAccessibility', 'pwa', 'seo',
-];
-
-export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string, scoreTargets?: ScoreTargets) => {
-  const absoluteUrl = urlPath.startsWith('https://') || urlPath.startsWith('http://') ? urlPath : url(urlPath);
-  const port = Number((new URL(target.wsEndpoint())).port);
-  const { lhr } = await lighthouse(absoluteUrl, {port}, lighthouseConfig);
-
-  const result: ScoreTargets = {};
-  testedCategories.forEach((category) => {
-    const { score } = lhr.categories[category];
-    if (scoreTargets) {
-      const minScore = scoreTargets[category];
-
-      if (minScore && score < minScore) {
-        throw new Error(`${category} score of ${score} was less than the minimum of ${minScore}`);
-      }
-    }
-    result[category] = score;
-  });
-
-  return result;
-};
