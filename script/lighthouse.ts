@@ -16,7 +16,7 @@ async function run() {
   const pageArray: string[] = JSON.parse(pages);
 
   await asyncPool(1, pageArray, async(pageUrl) => {
-    const filename = `${pageUrl.replace(/[^a-z0-9]+/gi, '-')}.json`;
+    const filename = `${pageUrl.replace(/[^a-z0-9]+/gi, '-').replace(/^-+/i, '')}.json`;
     const targets = mostRecentReportDir ? await new Promise<ScoreTargets | undefined>(
       (resolve) => readFile(
         `${mostRecentReportDir}/${filename}`,
