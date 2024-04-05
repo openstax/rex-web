@@ -5,9 +5,10 @@ import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
 import { contentWrapperMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
-import theme from '../../theme';
+import theme, { hiddenButAccessible } from '../../theme';
 import Times from '../Times';
 import { h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
+import { PageTitleConfirmation as PTC } from '../PageTitleConfirmation';
 
 export const maxNavWidth = contentWrapperMaxWidth;
 export const navDesktopHeight = 6.0;
@@ -42,6 +43,11 @@ export const TopBar = styled.div`
     height: ${navMobileHeight}rem;
   `)}
   ${disablePrint}
+`;
+
+// tslint:disable-next-line:variable-name
+export const PageTitleConfirmation = styled(PTC)`
+  ${hiddenButAccessible}
 `;
 
 // tslint:disable-next-line:variable-name

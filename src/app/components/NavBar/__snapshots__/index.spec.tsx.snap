@@ -77,6 +77,58 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   margin: 0 auto;
 }
 
+.c4 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.c4 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.c4 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.c4 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .c2 {
   display: block;
   width: auto;
@@ -307,6 +359,13 @@ exports[`content in browser matches snapshot for logged out 1`] = `
        
       Log in
     </a>
+    <div
+      aria-live="polite"
+      className="c4"
+      id="page-title-confirmation"
+    >
+      Loaded page ""
+    </div>
   </div>
 </div>
 `;
@@ -329,6 +388,19 @@ exports[`content in browser matches snapshot for null state 1`] = `
   height: 6rem;
   max-width: 128rem;
   margin: 0 auto;
+}
+
+.c3 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .c2 {
@@ -388,6 +460,13 @@ exports[`content in browser matches snapshot for null state 1`] = `
         src="logo.svg"
       />
     </a>
+    <div
+      aria-live="polite"
+      className="c3"
+      id="page-title-confirmation"
+    >
+      Loaded page ""
+    </div>
   </div>
 </div>
 `;
@@ -429,6 +508,32 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   height: 6rem;
   max-width: 128rem;
   margin: 0 auto;
+}
+
+.c13 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.c13 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .c2 {
@@ -852,6 +957,13 @@ exports[`content in browser when logged in matches snapshot 1`] = `
           </g>
         </svg>
       </button>
+    </div>
+    <div
+      aria-live="polite"
+      className="c13"
+      id="page-title-confirmation"
+    >
+      Loaded page ""
     </div>
   </div>
 </div>

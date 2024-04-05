@@ -1,5 +1,6 @@
 import { ActionHookBody } from '../../types';
 import { actionHook, assertNotNull } from '../../utils';
+import announcePageTitle from '../../components/PageTitleConfirmation';
 import * as actions from '../actions';
 
 export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({
@@ -10,6 +11,7 @@ export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({
   }
 
   window.document.title = title;
+  announcePageTitle(title);
 
   const head = assertNotNull(window.document.head, 'document must have a head');
 
