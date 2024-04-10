@@ -8,7 +8,7 @@ import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import * as selectAuth from '../../../auth/selectors';
 import Button, { ButtonGroup } from '../../../components/Button';
-import { useFocusElement, useOnEsc } from '../../../reactUtils';
+import { useFocusElement, useOnEsc, useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
@@ -174,8 +174,12 @@ function ActiveEditCard({
   const onColorChange = useOnColorChange(props);
   const saveAnnotation = useSaveAnnotation(props, element, pendingAnnotation);
 
+  const ref = React.useRef<HTMLElement>(null);
+
+  useTrapTabNavigation(ref, editingAnnotation);
+
   return (
-    <HiddenOnMobile>
+    <HiddenOnMobile ref={ref}>
       <ColorPicker
         color={props.data?.color}
         onChange={onColorChange}
