@@ -86,21 +86,26 @@ export function createTrapTab(...elements: HTMLElement[]) {
   };
 }
 
-export function useTrapTabNavigation(ref: React.MutableRefObject<HTMLElement | null>) {
-  React.useEffect(
-    () => {
-      const el = ref.current;
-      if (!el) {
-        return;
-      }
-      const trapTab = createTrapTab(el);
+  // Supply otherDep in cases where the focusable elements might change due to
+  // additional dependencies (combine them into one variable): see EditCard
+  export function useTrapTabNavigation(
+    ref: React.MutableRefObject<HTMLElement | null>,
+    otherDep?: unknown
+  ) {
+    React.useEffect(
+      () => {
+        const el = ref.current;
+        if (!el?.addEventListener) {
+          return;
+        }
+        const trapTab = createTrapTab(el);
 
-      document?.addEventListener('keydown', trapTab, true);
+        el.addEventListener('keydown', trapTab, true);
 
-      return () => document?.removeEventListener('keydown', trapTab, true);
-    },
-    [ref]
-  );
+        return () => el.removeEventListener('keydown', trapTab, true);
+      },
+      [ref, otherDep]
+    );
 }
 
 export const onFocusInOrOutHandler = (
