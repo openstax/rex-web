@@ -56,6 +56,9 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
 
+  // Allow to move back to highlight from EditCard using Escape key
+  useKeyCombination({key: 'Escape'}, moveFocus);
+
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
   useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), [setShouldFocusCard]));
