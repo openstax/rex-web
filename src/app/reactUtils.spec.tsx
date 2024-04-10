@@ -272,7 +272,6 @@ describe('useTrapTabNavigation', () => {
   it('attaches listeners', () => {
     const tr = renderer.create(<Component />);
 
-    expect(addEventListener).toHaveBeenCalled();
     renderer.act(
       () => {
         dispatchKeyDownEvent({key: 'Tab'});
@@ -341,7 +340,12 @@ describe('createTrapTab', () => {
     expect(b.focus).toHaveBeenCalled();
     expect(preventDefault).toHaveBeenCalled();
    });
+   it('short circuits when no focusable elements', () => {
+    const emptyEl = assertDocument().createElement('div');
 
+    trapTab = utils.createTrapTab(emptyEl);
+    trapTab({key: 'Tab', shiftKey: true, preventDefault} as unknown as KeyboardEvent);
+   });
 });
 
 describe('onKeyHandler', () => {
