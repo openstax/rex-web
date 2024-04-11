@@ -20,6 +20,7 @@ export interface OSWebBook {
   book_categories: Array<{subject_name: string; subject_category: string}>;
   cnx_id: string;
   amazon_link: string;
+  polish_site_link: string;
 }
 
 interface OSWebResponse {
@@ -35,6 +36,7 @@ export const fields = [
   'publish_date',
   'cover_color',
   'amazon_link',
+  'polish_site_link',
   'book_state',
   'promote_image',
   'book_subjects',
