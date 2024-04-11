@@ -582,6 +582,29 @@ Array [
 }
 
 @media screen {
+  .c4 .highlight::before,
+  .c4 .highlight::after {
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    -webkit-clip: rect(1px,1px,1px,1px);
+    clip: rect(1px,1px,1px,1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .c4 .highlight[data-start-message]::before {
+    content: attr(data-start-message);
+  }
+
+  .c4 .highlight[data-end-message]::after {
+    content: attr(data-end-message);
+  }
+}
+
+@media screen {
   .c4 .highlight.yellow[aria-current] {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
@@ -668,9 +691,30 @@ Array [
     font-weight: bold;
   }
 
+  .c4 .search-highlight::before,
+  .c4 .search-highlight::after {
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    -webkit-clip: rect(1px,1px,1px,1px);
+    clip: rect(1px,1px,1px,1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
   .c4 .search-highlight,
   .c4 .search-highlight .math {
     background-color: #ffea00;
+  }
+
+  .c4 .search-highlight[data-start-message]::before {
+    content: attr(data-start-message);
+  }
+
+  .c4 .search-highlight[data-end-message]::after {
+    content: attr(data-end-message);
   }
 
   .c4 .search-highlight[aria-current],
