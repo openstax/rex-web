@@ -211,6 +211,7 @@ describe('contentRouteHookBody', () => {
       meta: {
         slug: 'new-book',
       },
+      polish_site_link: '',
       promote_image: null,
       publish_date: '2012-06-21',
     };
