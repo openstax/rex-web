@@ -2,6 +2,7 @@ import { OSWebBook } from '../../gateways/createOSWebLoader';
 
 export const mockCmsBook: OSWebBook = {
   amazon_link: '',
+  polish_site_link: '',
   authors: [{value: {name: 'Bam Bammerson', senior_author: true}}],
   book_categories: [{subject_name: 'test subject', subject_category: 'test category'}],
   book_state: 'live',
