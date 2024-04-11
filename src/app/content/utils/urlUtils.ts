@@ -6,7 +6,7 @@ import { findArchiveTreeNodeById, findArchiveTreeNodeByPageParam } from './archi
 import { stripIdVersion } from './idUtils';
 
 export function bookDetailsUrl(book: BookWithOSWebData) {
-  return `/details/books/${book.slug}`;
+  return book.polish_site_link || `/details/books/${book.slug}`;
 }
 
 export const getBookPageUrlAndParams = (
