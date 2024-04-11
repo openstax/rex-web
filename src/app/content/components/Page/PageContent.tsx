@@ -7,12 +7,13 @@ import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
   highlightIndicatorSize,
-  highlightIndicatorSizeForBlock,
+  highlightIndicatorSizeForBlock
 } from '../../highlights/constants';
 import { contentTextWidth } from '../constants';
 
 export const contentTextStyle = css`
-  @media screen { /* full page width in print */
+  @media screen {
+    /* full page width in print */
     max-width: ${contentTextWidth}rem;
     margin: 0 auto;
   }
@@ -21,6 +22,19 @@ export const contentTextStyle = css`
 // Search and key term highlights need to target .math as well,
 // otherwise math elements won't have full height background color
 const SELF_AND_CHILD_MATH_SELECTOR = '&, & .math';
+
+const hideBeforeAndAfter = `
+  &::before,
+  &::after {
+    clip-path: inset(100%);
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+`;
 
 export default styled(MainContent)`
   ${contentTextStyle}
@@ -54,6 +68,18 @@ export default styled(MainContent)`
   .highlight {
     position: relative;
     z-index: 1;
+
+    @media screen {
+      ${hideBeforeAndAfter}
+
+      &[data-start-message]::before {
+        content: attr(data-start-message);
+      }
+
+      &[data-end-message]::after {
+        content: attr(data-end-message);
+      }
+    }
   }
 
   /* stylelint-disable selector-class-pattern */
@@ -63,7 +89,8 @@ export default styled(MainContent)`
   }
   /* stylelint-enable selector-class-pattern */
 
-  ${highlightStyles.map((style) => css`
+  ${highlightStyles.map(
+    style => css`
     .highlight.${style.label} {
       background-color: ${style.passive};
 
@@ -114,9 +141,10 @@ export default styled(MainContent)`
           border-bottom: 0.2rem solid ${style.focusBorder};
           padding: 0.2rem 0 0;
 
-          ${Color(style.focused).isDark() && css`
-            color: ${theme.color.text.white};
-          `}
+          ${Color(style.focused).isDark() &&
+            css`
+              color: ${theme.color.text.white};
+            `}
 
           &.block:after {
             background-color: ${style.focused};
@@ -128,14 +156,24 @@ export default styled(MainContent)`
         }
       }
     }
-  `)}
+  `
+  )}
 
   @media screen {
     .search-highlight {
+      ${hideBeforeAndAfter}
       font-weight: bold;
 
       ${SELF_AND_CHILD_MATH_SELECTOR} {
         background-color: #ffea00;
+      }
+
+      &[data-start-message]::before {
+        content: attr(data-start-message);
+      }
+
+      &[data-end-message]::after {
+        content: attr(data-end-message);
       }
 
       &[aria-current] {
