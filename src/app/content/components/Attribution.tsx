@@ -14,6 +14,8 @@ import { hasOSWebData } from '../guards';
 import * as select from '../selectors';
 import { Book, BookWithOSWebData, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
+import { splitTitleParts } from '../utils/archiveTreeUtils';
+import { createTitle } from '../utils/seoUtils';
 import { contentTextStyle } from './Page/PageContent';
 import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate, } from './utils/attributionValues';
 import { disablePrint } from './utils/disablePrint';
@@ -153,6 +155,9 @@ class Attribution extends Component<Props> {
       ...book,
       loadOptions: {booksConfig: book.loadOptions.booksConfig},
     };
+
+    const [_, titlePart] = splitTitleParts(introPage.title);
+    const introPageTitle = `${titlePart} - ${book.title} | OpenStax`;
     const introPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
     const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
 
@@ -174,6 +179,7 @@ class Attribution extends Component<Props> {
       bookTitle: book.title,
       copyrightHolder: 'OpenStax',
       currentPath: currentPageUrl,
+      introPageTitle,
       introPageUrl,
       originalMaterialLink: null,
       ...bookIdsWithSpecialAttributionText[book.id] || {},
