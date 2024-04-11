@@ -105,6 +105,7 @@ export const formatBookData = <O extends OSWebBook | undefined>(
   return {
     ...pickArchiveFields(archiveBook),
     amazon_link: osWebBook.amazon_link,
+    polish_site_link: osWebBook.polish_site_link,
     authors: osWebBook.authors,
     book_state: osWebBook.book_state,
     categories: osWebBook.book_categories,
