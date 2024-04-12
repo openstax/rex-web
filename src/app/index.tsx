@@ -24,6 +24,7 @@ import { matchPathname } from './navigation/utils';
 import * as notifications from './notifications';
 import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
+import { createRouterService } from "./navigation/routerService";
 
 export const actions = {
   app: appAactions,
@@ -94,6 +95,7 @@ export default (options: AppOptions) => {
   const services: AppServices = {
     ...defaultServices(),
     ...options.services,
+    router: createRouterService(routes),
     history,
   };
 

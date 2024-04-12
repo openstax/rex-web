@@ -1,8 +1,9 @@
 import { History } from 'history';
 import { Redirects } from '../../../../data/redirects/types';
 import { assertWindow } from '../../utils';
+import { RouterService } from "../../navigation/routerService";
 
-export const processBrowserRedirect = async(services: {history: History}) => {
+export const processBrowserRedirect = async(services: {router: RouterService, history: History}) => {
   const window = assertWindow();
   const redirects: Redirects = await fetch('/rex/redirects.json')
     .then((res) => res.json())
@@ -10,7 +11,7 @@ export const processBrowserRedirect = async(services: {history: History}) => {
 
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
-      if (!to.startsWith('/books')) {
+      if (!services.router.findRoute(to)) {
         window.location.assign(to);
         return true;
       }
