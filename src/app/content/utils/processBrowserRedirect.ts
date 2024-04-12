@@ -11,7 +11,7 @@ export const processBrowserRedirect = async(services: {history: History}) => {
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
       if (!to.startsWith('/books')) {
-        window.location.pathname = to;
+        window.location.assign(to);
         return true;
       }
       services.history.replace(to);

@@ -1,6 +1,7 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { MiddlewareAPI, Store } from '../../types';
+import { assertWindow } from '../../utils';
 import { receivePageNotFoundId } from '../actions';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
@@ -16,9 +17,17 @@ describe('receivePageNotFoundId hook', () => {
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   let historyReplaceSpy: jest.SpyInstance;
   let fetchBackup: any;
+  let window: Window;
+  let assign: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
+    window = assertWindow();
+    delete (window as any).location;
+
+    window.location = {
+      assign: jest.fn(),
+    } as any as Window['location'];
 
     helpers = {
       ...createTestServices(),
@@ -32,6 +41,8 @@ describe('receivePageNotFoundId hook', () => {
 
     historyReplaceSpy = jest.spyOn(helpers.history, 'replace')
       .mockImplementation(jest.fn());
+    
+    assign = jest.spyOn(window.location, 'assign');
 
     fetchBackup = (globalThis as any).fetch;
 
@@ -58,11 +69,19 @@ describe('receivePageNotFoundId hook', () => {
     expect(historyReplaceSpy).not.toHaveBeenCalled();
   });
 
-  it('calls history.replace if redirect is found', async() => {
+  it('sets window.location if non-rex redirect is found', async() => {
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'redirected' }]);
 
     await hook(receivePageNotFoundId('asdf'));
 
-    expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
+    expect(assign).toHaveBeenCalledWith('redirected');
+  });
+
+  it('calls history.replace if rex redirect is found', async() => {
+    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/books/redirected' }]);
+
+    await hook(receivePageNotFoundId('asdf'));
+
+    expect(historyReplaceSpy).toHaveBeenCalledWith('/books/redirected');
   });
 });
