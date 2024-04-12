@@ -41,7 +41,7 @@ describe('receivePageNotFoundId hook', () => {
 
     historyReplaceSpy = jest.spyOn(helpers.history, 'replace')
       .mockImplementation(jest.fn());
-    
+
     assign = jest.spyOn(window.location, 'assign');
 
     fetchBackup = (globalThis as any).fetch;
