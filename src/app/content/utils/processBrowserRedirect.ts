@@ -8,7 +8,6 @@ export const processBrowserRedirect = async(services: {history: History}) => {
     .then((res) => res.json())
     .catch(() => []);
 
-
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
       if (!to.startsWith('/books')) {
