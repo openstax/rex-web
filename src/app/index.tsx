@@ -24,7 +24,7 @@ import { matchPathname } from './navigation/utils';
 import * as notifications from './notifications';
 import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
-import { createRouterService } from "./navigation/routerService";
+import { createRouterService } from './navigation/routerService';
 
 export const actions = {
   app: appAactions,
@@ -63,6 +63,7 @@ const defaultServices = () => ({
   fontCollector: new FontCollector(),
   intl: {current: null},
   promiseCollector: new PromiseCollector(),
+  router: null,
 });
 
 export interface AppOptions {

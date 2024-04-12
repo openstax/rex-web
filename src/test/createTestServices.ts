@@ -13,6 +13,8 @@ import mockbookConfigLoader from './mocks/bookConfigLoader';
 import mockOsWebLoader from './mocks/osWebLoader';
 import mockUserLoader from './mocks/userLoader';
 import createImageCDNUtils from '../gateways/createImageCDNUtils';
+import { createRouterService } from '../app/navigation/routerService';
+import * as content from '../app/content';
 
 jest.mock('@openstax/open-search-client');
 jest.mock('@openstax/highlighter/dist/api');
@@ -35,6 +37,7 @@ export const createTestServices = (args?: {prefetchResolutions: boolean}) => ({
   searchClient: new SearchApi(),
   userLoader: mockUserLoader(),
   imageCDNUtils: createImageCDNUtils(args),
+  router: createRouterService(Object.values(content.routes)),
 });
 
 export default createTestServices;

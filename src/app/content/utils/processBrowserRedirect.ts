@@ -1,7 +1,7 @@
 import { History } from 'history';
 import { Redirects } from '../../../../data/redirects/types';
 import { assertWindow } from '../../utils';
-import { RouterService } from "../../navigation/routerService";
+import { RouterService } from '../../navigation/routerService';
 
 export const processBrowserRedirect = async(services: {router: RouterService, history: History}) => {
   const window = assertWindow();

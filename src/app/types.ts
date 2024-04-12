@@ -29,7 +29,7 @@ import { State as featureFlagsState } from './featureFlags/types';
 import { State as headState } from './head/types';
 import { State as navigationState } from './navigation/types';
 import { State as notificationState } from './notifications/types';
-import { RouterService } from "./navigation/routerService";
+import { RouterService } from './navigation/routerService';
 
 export interface AppState {
   content: contentState;

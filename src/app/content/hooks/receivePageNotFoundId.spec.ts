@@ -1,5 +1,6 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import { AnyMatch } from '../../navigation/types';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { receivePageNotFoundId } from '../actions';
@@ -16,6 +17,7 @@ describe('receivePageNotFoundId hook', () => {
   let store: Store;
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   let historyReplaceSpy: jest.SpyInstance;
+  // let findRouteSpy: jest.SpyInstance;
   let fetchBackup: any;
   let window: Window;
   let assign: jest.SpyInstance;
@@ -41,6 +43,9 @@ describe('receivePageNotFoundId hook', () => {
 
     historyReplaceSpy = jest.spyOn(helpers.history, 'replace')
       .mockImplementation(jest.fn());
+
+    // findRouteSpy = jest.spyOn(helpers.router, 'findRoute')
+    //   .mockImplementation(jest.fn());
 
     assign = jest.spyOn(window.location, 'assign');
 
@@ -73,6 +78,7 @@ describe('receivePageNotFoundId hook', () => {
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'redirected' }]);
 
     await hook(receivePageNotFoundId('asdf'));
+    jest.spyOn(helpers.router, 'findRoute').mockReturnValue(undefined);
 
     expect(assign).toHaveBeenCalledWith('redirected');
   });
@@ -81,6 +87,9 @@ describe('receivePageNotFoundId hook', () => {
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/books/redirected' }]);
 
     await hook(receivePageNotFoundId('asdf'));
+    const match = {route: {getUrl: jest.fn(() => 'url')}} as unknown as AnyMatch;
+
+    jest.spyOn(helpers.router, 'findRoute').mockReturnValue(match);
 
     expect(historyReplaceSpy).toHaveBeenCalledWith('/books/redirected');
   });
