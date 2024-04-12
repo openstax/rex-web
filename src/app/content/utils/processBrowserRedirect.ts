@@ -4,7 +4,6 @@ import { assertWindow } from '../../utils';
 
 export const processBrowserRedirect = async(services: {history: History}) => {
   const window = assertWindow();
-  console.log('loc', window.location)
   const redirects: Redirects = await fetch('/rex/redirects.json')
     .then((res) => res.json())
     .catch(() => []);
