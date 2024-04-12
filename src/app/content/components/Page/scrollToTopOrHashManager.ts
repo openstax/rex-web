@@ -36,8 +36,8 @@ const scrollToTargetOrTop = (container: HTMLElement | null, hash: string) => {
 
 const scrollToTop = () => {
   const window = assertWindow();
-  resetTabIndex(window.document);
   window.scrollTo(0, 0);
+  document?.querySelector('main')?.focus();
 };
 
 const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLElement | null => {
@@ -58,7 +58,12 @@ const scrollToTopOrHashManager = (
   ) {
     return;
   }
-  if (previous?.page !== current.page) {
+  if (!previous) {
+    const window = assertWindow();
+
+    scrollToTop();
+    resetTabIndex(window.document);
+  } else if (previous.page !== current.page) {
     scrollToTargetOrTop(container, current.hash);
   } else if (previous?.hash !== current.hash) {
     scrollToTarget(container, current.hash);
