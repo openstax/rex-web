@@ -13,7 +13,6 @@ const OuterErrorBoundary = (props: React.PropsWithChildren<{ intl: IntlShape | n
     const setUpIntl = async() => {
       let language = assertWindow().navigator.language;
       language = availableLocaleOrDefault(language.substring(0, 2));
-      console.log('lang:', language)
       const intlObject = await createIntl(language);
 
       setIntl(intlObject);
