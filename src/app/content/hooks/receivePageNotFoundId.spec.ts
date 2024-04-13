@@ -81,7 +81,7 @@ describe('receivePageNotFoundId hook', () => {
 
   it('does not call history.replace if target is not within rex', async() => {
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/redirected' }]);
-    
+
     const match = {route: notFound, state: false} as unknown as AnyMatch;
     jest.spyOn(helpers.router, 'findRoute').mockReturnValue(match);
 
