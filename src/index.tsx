@@ -58,7 +58,7 @@ const userLoader = createUserLoader(accountsUrl);
 
 export const routes = Object.values({
   ...(
-    process.env.REACT_APP_ENV !== 'production'
+    config.APP_ENV !== 'production'
       ? developer.routes
       : /* istanbul ignore next */ {} as typeof developer.routes
   ),
