@@ -63,7 +63,6 @@ const defaultServices = () => ({
   fontCollector: new FontCollector(),
   intl: {current: null},
   promiseCollector: new PromiseCollector(),
-  router: null,
 });
 
 export interface AppOptions {

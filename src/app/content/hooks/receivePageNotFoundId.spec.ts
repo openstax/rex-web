@@ -1,5 +1,6 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import { notFound } from '../../errors/routes';
 import { AnyMatch } from '../../navigation/types';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
@@ -17,10 +18,8 @@ describe('receivePageNotFoundId hook', () => {
   let store: Store;
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   let historyReplaceSpy: jest.SpyInstance;
-  // let findRouteSpy: jest.SpyInstance;
   let fetchBackup: any;
   let window: Window;
-  let assign: jest.SpyInstance;
 
   beforeEach(() => {
     store = createTestStore();
@@ -28,7 +27,7 @@ describe('receivePageNotFoundId hook', () => {
     delete (window as any).location;
 
     window.location = {
-      assign: jest.fn(),
+      pathname: '',
     } as any as Window['location'];
 
     helpers = {
@@ -43,11 +42,6 @@ describe('receivePageNotFoundId hook', () => {
 
     historyReplaceSpy = jest.spyOn(helpers.history, 'replace')
       .mockImplementation(jest.fn());
-
-    // findRouteSpy = jest.spyOn(helpers.router, 'findRoute')
-    //   .mockImplementation(jest.fn());
-
-    assign = jest.spyOn(window.location, 'assign');
 
     fetchBackup = (globalThis as any).fetch;
 
@@ -74,23 +68,25 @@ describe('receivePageNotFoundId hook', () => {
     expect(historyReplaceSpy).not.toHaveBeenCalled();
   });
 
-  it('sets window.location if non-rex redirect is found', async() => {
-    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'redirected' }]);
-
-    await hook(receivePageNotFoundId('asdf'));
-    jest.spyOn(helpers.router, 'findRoute').mockReturnValue(undefined);
-
-    expect(assign).toHaveBeenCalledWith('redirected');
-  });
-
-  it('calls history.replace if rex redirect is found', async() => {
+  it('calls history.replace if redirect is found and target is within rex', async() => {
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/books/redirected' }]);
 
-    await hook(receivePageNotFoundId('asdf'));
-    const match = {route: {getUrl: jest.fn(() => 'url')}} as unknown as AnyMatch;
-
+    const match = {route: {getUrl: jest.fn(() => 'url')}, state: true} as unknown as AnyMatch;
     jest.spyOn(helpers.router, 'findRoute').mockReturnValue(match);
 
+    await hook(receivePageNotFoundId('asdf'));
+
     expect(historyReplaceSpy).toHaveBeenCalledWith('/books/redirected');
+  });
+
+  it('does not call history.replace if target is not within rex', async() => {
+    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/redirected' }]);
+    
+    const match = {route: notFound, state: false} as unknown as AnyMatch;
+    jest.spyOn(helpers.router, 'findRoute').mockReturnValue(match);
+
+    await hook(receivePageNotFoundId('asdf'));
+
+    expect(historyReplaceSpy).not.toHaveBeenCalled();
   });
 });

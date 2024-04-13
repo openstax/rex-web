@@ -28,6 +28,10 @@ import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import { createRouterService } from './app/navigation/routerService';
+import * as developer from './app/developer';
+import * as errors from './app/errors';
+import * as content from './app/content';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -52,6 +56,16 @@ const mainContent = document.getElementById('main-content');
 
 const userLoader = createUserLoader(accountsUrl);
 
+export const routes = Object.values({
+  ...(
+    process.env.REACT_APP_ENV !== 'production'
+      ? developer.routes
+      : /* istanbul ignore next */ {} as typeof developer.routes
+  ),
+  ...content.routes,
+  ...errors.routes,
+});
+
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,
   services: {
@@ -66,6 +80,7 @@ const app = createApp({
     searchClient: createSearchClient(searchUrl),
     userLoader,
     imageCDNUtils: createImageCDNUtils(),
+    router: createRouterService(routes),
   },
 });
 

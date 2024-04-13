@@ -2,6 +2,8 @@ import { History } from 'history';
 import { Redirects } from '../../../../data/redirects/types';
 import { assertWindow } from '../../utils';
 import { RouterService } from '../../navigation/routerService';
+import { notFound } from '../../errors/routes';
+import { matchForRoute } from '../../navigation/utils';
 
 export const processBrowserRedirect = async(services: {router: RouterService, history: History}) => {
   const window = assertWindow();
@@ -11,8 +13,9 @@ export const processBrowserRedirect = async(services: {router: RouterService, hi
 
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
-      if (!services.router.findRoute(to)) {
-        window.location.assign(to);
+      if (matchForRoute(notFound, services.router.findRoute(to))) {
+        const origin = window.location.origin;
+        window.location.href = origin + to;
         return true;
       }
       services.history.replace(to);

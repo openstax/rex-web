@@ -1,6 +1,6 @@
 import { findRouteMatch } from './utils';
 import { Location } from 'history';
-import { AnyMatch, AnyRoute } from 'components./types';
+import { AnyMatch, AnyRoute } from './types';
 
 export interface RouterService {
   findRoute: (input: Location | string) => AnyMatch | undefined;
