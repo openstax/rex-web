@@ -15,7 +15,6 @@ import * as select from '../selectors';
 import { Book, BookWithOSWebData, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { splitTitleParts } from '../utils/archiveTreeUtils';
-import { createTitle } from '../utils/seoUtils';
 import { contentTextStyle } from './Page/PageContent';
 import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate, } from './utils/attributionValues';
 import { disablePrint } from './utils/disablePrint';
