@@ -2,7 +2,7 @@ import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
-import createApp from './app';
+import createApp, { routes } from './app';
 import { onPageFocusChange } from './app/domUtils';
 import * as selectHead from './app/head/selectors';
 import createIntl from './app/messages/createIntl';
@@ -29,9 +29,6 @@ import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { createRouterService } from './app/navigation/routerService';
-import * as developer from './app/developer';
-import * as errors from './app/errors';
-import * as content from './app/content';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -55,16 +52,6 @@ const buyPrintConfigUrl = assertDefined(
 const mainContent = document.getElementById('main-content');
 
 const userLoader = createUserLoader(accountsUrl);
-
-export const routes = Object.values({
-  ...(
-    config.APP_ENV !== 'production'
-      ? developer.routes
-      : /* istanbul ignore next */ {} as typeof developer.routes
-  ),
-  ...content.routes,
-  ...errors.routes,
-});
 
 const app = createApp({
   initialState: window.__PRELOADED_STATE__,

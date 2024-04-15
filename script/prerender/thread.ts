@@ -39,6 +39,8 @@ import {
   SitemapPayload,
 } from './sitemap';
 import userLoader from './stubbedUserLoader';
+import { createRouterService } from '../../src/app/navigation/routerService';
+import { routes } from './local';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
 
@@ -128,6 +130,7 @@ async function makeTaskFunctionsMap() {
   const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
+  const router = createRouterService(routes);
 
   const services = {
     archiveLoader,
@@ -140,6 +143,7 @@ async function makeTaskFunctionsMap() {
     searchClient,
     userLoader,
     imageCDNUtils: createImageCDNUtils({prefetchResolutions: true}),
+    router,
   };
 
   return {
