@@ -155,7 +155,7 @@ class Attribution extends Component<Props> {
       loadOptions: {booksConfig: book.loadOptions.booksConfig},
     };
 
-    const [_, titlePart] = splitTitleParts(introPage.title);
+    const [, titlePart] = splitTitleParts(introPage.title);
     const introPageTitle = `${titlePart} - ${book.title} | OpenStax`;
     const introPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
     const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
