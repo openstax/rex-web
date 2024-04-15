@@ -39,7 +39,6 @@ import {
   SitemapPayload,
 } from './sitemap';
 import userLoader from './stubbedUserLoader';
-import { createRouterService } from '../../src/app/navigation/routerService';
 
 const MAX_CONCURRENT_CONNECTIONS = 5;
 
