@@ -29,7 +29,6 @@ import { renderSitemap, renderSitemapIndex } from './sitemap';
 import userLoader from './stubbedUserLoader';
 
 const {
-  APP_ENV,
   REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
