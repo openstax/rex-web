@@ -2,7 +2,7 @@ import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
-import createApp, { routes } from './app';
+import createApp from './app';
 import { onPageFocusChange } from './app/domUtils';
 import * as selectHead from './app/head/selectors';
 import createIntl from './app/messages/createIntl';
@@ -28,7 +28,6 @@ import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { createRouterService } from './app/navigation/routerService';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;
@@ -67,7 +66,6 @@ const app = createApp({
     searchClient: createSearchClient(searchUrl),
     userLoader,
     imageCDNUtils: createImageCDNUtils(),
-    router: createRouterService(routes),
   },
 });
 

@@ -27,10 +27,6 @@ import { createDiskCache } from './fileUtils';
 import renderManifest from './renderManifest';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 import userLoader from './stubbedUserLoader';
-import { createRouterService } from '../../src/app/navigation/routerService';
-import * as developer from '../../src/app/developer';
-import * as errors from '../../src/app/errors';
-import * as content from '../../src/app/content';
 
 const {
   APP_ENV,
@@ -39,16 +35,6 @@ const {
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_SEARCH_URL,
 } = config;
-
-export const routes = Object.values({
-  ...(
-    APP_ENV !== 'production'
-      ? developer.routes
-      : /* istanbul ignore next */ {} as typeof developer.routes
-  ),
-  ...content.routes,
-  ...errors.routes,
-});
 
 let networkTime = 0;
 (global as any).fetch = (...args: Parameters<typeof fetch>) => {
@@ -79,7 +65,6 @@ async function render() {
   });
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
-  const router = createRouterService(routes);
 
   const {server} = await startServer({port, onlyProxy: true});
   const renderHelpers = {
@@ -93,7 +78,6 @@ async function render() {
     searchClient,
     userLoader,
     imageCDNUtils: createImageCDNUtils({prefetchResolutions: true}),
-    router,
   };
 
   const books = await prepareBooks(archiveLoader, osWebLoader);

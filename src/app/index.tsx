@@ -68,7 +68,8 @@ const defaultServices = () => ({
 export interface AppOptions {
   initialState?: Partial<AppState>;
   initialEntries?: AnyMatch[];
-  services: Pick<AppServices, Exclude<keyof AppServices, 'history' | keyof ReturnType<typeof defaultServices>>>;
+  services:
+    Pick<AppServices, Exclude<keyof AppServices, 'history' | 'router' | keyof ReturnType<typeof defaultServices>>>;
 }
 
 export default (options: AppOptions) => {
