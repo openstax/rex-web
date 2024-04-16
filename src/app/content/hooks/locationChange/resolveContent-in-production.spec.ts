@@ -5,9 +5,7 @@ import { resetModules } from '../../../../test/utils';
 import { Match } from '../../../navigation/types';
 import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import * as routes from '../../routes';
-import * as content from '../../../content';
 import { Params, SlugParams } from '../../types';
-import { createRouterService } from '../../../navigation/routerService';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -30,7 +28,6 @@ describe('locationChange', () => {
   let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI & Pick<AppServices, 'router'>;
   let match: Match<typeof routes.content>;
   let hook: typeof import ('./resolveContent').default;
-  let router: ReturnType<typeof createRouterService>;
   let resolveExternalBookReference: typeof import ('./resolveContent').resolveExternalBookReference;
 
   const mockUUIDBook = () => {
@@ -78,12 +75,10 @@ describe('locationChange', () => {
   beforeEach(() => {
     resetModules();
     store = createTestStore();
-    router = createRouterService(Object.values(content.routes));
     helpers = {
       ...createTestServices(),
       dispatch: store.dispatch,
       getState: store.getState,
-      router,
     };
 
     match = {
@@ -181,7 +176,7 @@ describe('locationChange', () => {
         },
       };
 
-      jest.spyOn(router, 'findRoute').mockReturnValue(match);
+      jest.spyOn(helpers.router, 'findRoute').mockReturnValue(match);
 
       mockUUIDBook();
 

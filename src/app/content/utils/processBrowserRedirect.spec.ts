@@ -1,12 +1,10 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { notFound } from '../../errors/routes';
-import { createRouterService } from '../../navigation/routerService';
 import { AnyMatch } from '../../navigation/types';
 import { AppServices, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { processBrowserRedirect } from './processBrowserRedirect';
-import * as content from '../../content';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -20,17 +18,12 @@ describe('processBrowserRedirect', () => {
   let store: Store;
   let historyReplaceSpy: jest.SpyInstance;
   let fetchBackup: any;
-  let router: ReturnType<typeof createRouterService>;
   let window: Window;
 
   beforeEach(() => {
     store = createTestStore();
     window = assertWindow();
-    router = createRouterService(Object.values(content.routes));
-    services = {
-      ...createTestServices(),
-      router,
-    };
+    services = createTestServices();
     delete (window as any).location;
 
     window.location = {
@@ -55,7 +48,7 @@ describe('processBrowserRedirect', () => {
     (globalThis as any).fetch = mockFetch([{ from: services.history.location.pathname, to: 'redirected' }]);
 
     const match = {route: {getUrl: jest.fn(() => 'url')}} as unknown as AnyMatch;
-    jest.spyOn(router, 'findRoute').mockReturnValue(match);
+    jest.spyOn(services.router, 'findRoute').mockReturnValue(match);
 
     await processBrowserRedirect(services);
 
@@ -66,7 +59,7 @@ describe('processBrowserRedirect', () => {
     (globalThis as any).fetch = mockFetch([{ from: services.history.location.pathname, to: '/redirected' }]);
 
     const match = {route: notFound, state: false} as unknown as AnyMatch;
-    jest.spyOn(router, 'findRoute').mockReturnValue(match);
+    jest.spyOn(services.router, 'findRoute').mockReturnValue(match);
 
     await processBrowserRedirect(services);
 
