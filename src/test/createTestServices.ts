@@ -37,6 +37,7 @@ export const createTestServices = (args?: {prefetchResolutions: boolean}) => ({
   searchClient: new SearchApi(),
   userLoader: mockUserLoader(),
   imageCDNUtils: createImageCDNUtils(args),
+  router: createRouterService(routes),
 });
 
 export default createTestServices;
