@@ -1,7 +1,6 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
 import { MiddlewareAPI, Store } from '../../types';
-import { assertWindow } from '../../utils';
 import { receivePageNotFoundId } from '../actions';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
@@ -17,16 +16,9 @@ describe('receivePageNotFoundId hook', () => {
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   let historyReplaceSpy: jest.SpyInstance;
   let fetchBackup: any;
-  let window: Window;
 
   beforeEach(() => {
     store = createTestStore();
-    window = assertWindow();
-    delete (window as any).location;
-
-    window.location = {
-      pathname: '',
-    } as any as Window['location'];
 
     helpers = {
       ...createTestServices(),

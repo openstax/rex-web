@@ -25,7 +25,7 @@ const testPage = 'test-page-1';
 
 describe('locationChange', () => {
   let store: Store;
-  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI & Pick<AppServices, 'router'>;
+  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let match: Match<typeof routes.content>;
   let hook: typeof import ('./resolveContent').default;
   let resolveExternalBookReference: typeof import ('./resolveContent').resolveExternalBookReference;
@@ -164,8 +164,6 @@ describe('locationChange', () => {
       helpers.history.location = { pathname: 'asd' } as any;
       helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0', retired: true };
       helpers.osWebLoader.getBookIdFromSlug.mockResolvedValue(testUUID);
-
-      // const match = {route: {getUrl: jest.fn(() => 'url')}} as unknown as AnyMatch;
 
       match.params = {
         book: {
