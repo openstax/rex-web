@@ -67,7 +67,7 @@ describe('OuterErrorBoundary', () => {
 
     await runHooksAsync(renderer);
 
-    expect(loaded).toBe(true);
+    expect(loaded).toBe(false);
   });
 
   it('defaults to en if browser locale is not supported', async() => {

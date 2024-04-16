@@ -150,7 +150,10 @@ const resolvePage = async(
   const pageId = match.params.page ? getPageIdFromUrlParam(book, match.params.page) : undefined;
 
   if (!pageId) {
-    dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
+    const hasRedirects = await processBrowserRedirect(services);
+    if (!hasRedirects) {
+      dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
+    }
     return;
   }
 

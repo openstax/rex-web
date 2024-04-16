@@ -45,7 +45,7 @@ export interface AppServices {
   analytics: typeof analytics;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   buyPrintConfigLoader: ReturnType<typeof createBuyPrintConfigLoader>;
-  router: RouterService;
+  router?: RouterService;
   config: typeof config;
   fontCollector: FontCollector;
   highlightClient: ReturnType<typeof createHighlightClient>;

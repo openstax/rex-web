@@ -14,9 +14,7 @@ export const processBrowserRedirect = async(services: {router: RouterService, hi
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
       if (matchForRoute(notFound, services.router.findRoute(to))) {
-        const origin = window.location.origin;
-        window.location.href = origin + to;
-        return true;
+        window.location.href = window.location.origin + to;
       }
       services.history.replace(to);
       return true;

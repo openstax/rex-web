@@ -13,6 +13,8 @@ import mockbookConfigLoader from './mocks/bookConfigLoader';
 import mockOsWebLoader from './mocks/osWebLoader';
 import mockUserLoader from './mocks/userLoader';
 import createImageCDNUtils from '../gateways/createImageCDNUtils';
+import { createRouterService } from '../app/navigation/routerService';
+import { routes } from '../app';
 
 jest.mock('@openstax/open-search-client');
 jest.mock('@openstax/highlighter/dist/api');

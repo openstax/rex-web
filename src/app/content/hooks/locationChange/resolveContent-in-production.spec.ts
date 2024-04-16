@@ -3,9 +3,11 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import { resetModules } from '../../../../test/utils';
 import { Match } from '../../../navigation/types';
-import { MiddlewareAPI, Store } from '../../../types';
+import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import * as routes from '../../routes';
+import * as content from '../../../content';
 import { Params, SlugParams } from '../../types';
+import { createRouterService } from '../../../navigation/routerService';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -25,9 +27,10 @@ const testPage = 'test-page-1';
 
 describe('locationChange', () => {
   let store: Store;
-  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI;
+  let helpers: ReturnType<typeof createTestServices> & MiddlewareAPI & Pick<AppServices, 'router'>;
   let match: Match<typeof routes.content>;
   let hook: typeof import ('./resolveContent').default;
+  let router: ReturnType<typeof createRouterService>;
   let resolveExternalBookReference: typeof import ('./resolveContent').resolveExternalBookReference;
 
   const mockUUIDBook = () => {
@@ -75,10 +78,12 @@ describe('locationChange', () => {
   beforeEach(() => {
     resetModules();
     store = createTestStore();
+    router = createRouterService(Object.values(content.routes));
     helpers = {
       ...createTestServices(),
       dispatch: store.dispatch,
       getState: store.getState,
+      router,
     };
 
     match = {
@@ -165,6 +170,8 @@ describe('locationChange', () => {
       helpers.bookConfigLoader.localBookConfig[testUUID] = { defaultVersion: '1.0', retired: true };
       helpers.osWebLoader.getBookIdFromSlug.mockResolvedValue(testUUID);
 
+      // const match = {route: {getUrl: jest.fn(() => 'url')}} as unknown as AnyMatch;
+
       match.params = {
         book: {
           slug: 'book-slug-1',
@@ -173,6 +180,8 @@ describe('locationChange', () => {
           slug: testPage,
         },
       };
+
+      jest.spyOn(router, 'findRoute').mockReturnValue(match);
 
       mockUUIDBook();
 
