@@ -34,7 +34,7 @@ export const createTestServices = (args?: {prefetchResolutions: boolean}) => ({
   promiseCollector: new PromiseCollector(),
   searchClient: new SearchApi(),
   userLoader: mockUserLoader(),
-  imageCDNUtils: createImageCDNUtils(args)
+  imageCDNUtils: createImageCDNUtils(args),
 });
 
 export default createTestServices;
