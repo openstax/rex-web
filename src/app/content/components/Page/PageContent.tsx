@@ -21,6 +21,15 @@ export const contentTextStyle = css`
 // Search and key term highlights need to target .math as well,
 // otherwise math elements won't have full height background color
 const SELF_AND_CHILD_MATH_SELECTOR = '&, & .math';
+const screenreaderOnly = `
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+`;
 
 export default styled(MainContent)`
   ${contentTextStyle}
@@ -54,6 +63,21 @@ export default styled(MainContent)`
   .highlight {
     position: relative;
     z-index: 1;
+
+    @media screen {
+      &[data-start-message]::before,
+      &[data-end-message]::after {
+        ${screenreaderOnly}
+      }
+
+      &.first[data-start-message]::before {
+        content: attr(data-start-message);
+      }
+
+      &.last[data-end-message]::after {
+        content: attr(data-end-message);
+      }
+    }
   }
 
   /* stylelint-disable selector-class-pattern */
@@ -95,17 +119,21 @@ export default styled(MainContent)`
         }
       }
 
-      &.first.text.has-note:after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        width: 0;
-        height: 0;
-        opacity: 0.8;
-        border-left: ${highlightIndicatorSize}em solid ${style.focused};
-        border-top: ${highlightIndicatorSize}em solid transparent;
-        transform: rotate(90deg);
+      &.first.text.has-note {
+        &:not(.last)::before {
+          content: "";
+        }
+
+        ::before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          clip-path: initial;
+          clip: initial;
+          opacity: 0.8;
+          border-left: ${highlightIndicatorSize}em solid ${style.focused};
+          border-bottom: ${highlightIndicatorSize}em solid transparent;
+        }
       }
 
       @media screen {
