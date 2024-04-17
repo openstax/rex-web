@@ -321,19 +321,21 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.yellow.first.text.has-note:after {
+.c4 .highlight.yellow.first.text.has-note:not(.last)::before {
+  content: "";
+}
+
+.c4 .highlight.yellow.first.text.has-note::before {
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
-  width: 0;
-  height: 0;
+  -webkit-clip-path: initial;
+  clip-path: initial;
+  -webkit-clip: initial;
+  clip: initial;
   opacity: 0.8;
   border-left: 0.9em solid #fed200;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+  border-bottom: 0.9em solid transparent;
 }
 
 .c4 .highlight.green {
@@ -368,19 +370,21 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.green.first.text.has-note:after {
+.c4 .highlight.green.first.text.has-note:not(.last)::before {
+  content: "";
+}
+
+.c4 .highlight.green.first.text.has-note::before {
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
-  width: 0;
-  height: 0;
+  -webkit-clip-path: initial;
+  clip-path: initial;
+  -webkit-clip: initial;
+  clip: initial;
   opacity: 0.8;
   border-left: 0.9em solid #92d101;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+  border-bottom: 0.9em solid transparent;
 }
 
 .c4 .highlight.blue {
@@ -415,19 +419,21 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.blue.first.text.has-note:after {
+.c4 .highlight.blue.first.text.has-note:not(.last)::before {
+  content: "";
+}
+
+.c4 .highlight.blue.first.text.has-note::before {
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
-  width: 0;
-  height: 0;
+  -webkit-clip-path: initial;
+  clip-path: initial;
+  -webkit-clip: initial;
+  clip: initial;
   opacity: 0.8;
   border-left: 0.9em solid #00c3ed;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+  border-bottom: 0.9em solid transparent;
 }
 
 .c4 .highlight.purple {
@@ -462,19 +468,21 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.purple.first.text.has-note:after {
+.c4 .highlight.purple.first.text.has-note:not(.last)::before {
+  content: "";
+}
+
+.c4 .highlight.purple.first.text.has-note::before {
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
-  width: 0;
-  height: 0;
+  -webkit-clip-path: initial;
+  clip-path: initial;
+  -webkit-clip: initial;
+  clip: initial;
   opacity: 0.8;
   border-left: 0.9em solid #545ec8;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+  border-bottom: 0.9em solid transparent;
 }
 
 .c4 .highlight.pink {
@@ -509,19 +517,21 @@ Array [
   border-bottom: 1.2em solid transparent;
 }
 
-.c4 .highlight.pink.first.text.has-note:after {
+.c4 .highlight.pink.first.text.has-note:not(.last)::before {
+  content: "";
+}
+
+.c4 .highlight.pink.first.text.has-note::before {
   position: absolute;
   top: 0;
   left: 0;
-  content: "";
-  width: 0;
-  height: 0;
+  -webkit-clip-path: initial;
+  clip-path: initial;
+  -webkit-clip: initial;
+  clip: initial;
   opacity: 0.8;
   border-left: 0.9em solid #de017e;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
+  border-bottom: 0.9em solid transparent;
 }
 
 .c4 .os-figure,
@@ -578,6 +588,29 @@ Array [
   .c4 #main-content > [data-type="page"],
   .c4 #main-content > [data-type="composite-page"] {
     margin-top: 3.2rem;
+  }
+}
+
+@media screen {
+  .c4 .highlight[data-start-message]::before,
+  .c4 .highlight[data-end-message]::after {
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    -webkit-clip-path: inset(100%);
+    clip-path: inset(100%);
+    -webkit-clip: rect(1px,1px,1px,1px);
+    clip: rect(1px,1px,1px,1px);
+  }
+
+  .c4 .highlight.first[data-start-message]::before {
+    content: attr(data-start-message);
+  }
+
+  .c4 .highlight.last[data-end-message]::after {
+    content: attr(data-end-message);
   }
 }
 
