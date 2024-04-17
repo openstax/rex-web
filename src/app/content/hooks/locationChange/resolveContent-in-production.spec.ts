@@ -3,7 +3,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { book, page } from '../../../../test/mocks/archiveLoader';
 import { resetModules } from '../../../../test/utils';
 import { Match } from '../../../navigation/types';
-import { AppServices, MiddlewareAPI, Store } from '../../../types';
+import { MiddlewareAPI, Store } from '../../../types';
 import * as routes from '../../routes';
 import { Params, SlugParams } from '../../types';
 

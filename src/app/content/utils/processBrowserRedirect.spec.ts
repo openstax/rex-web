@@ -1,8 +1,7 @@
 import createTestServices from '../../../test/createTestServices';
-import createTestStore from '../../../test/createTestStore';
 import { notFound } from '../../errors/routes';
 import { AnyMatch } from '../../navigation/types';
-import { AppServices, Store } from '../../types';
+import { AppServices } from '../../types';
 import { assertWindow } from '../../utils';
 import { processBrowserRedirect } from './processBrowserRedirect';
 
@@ -15,13 +14,11 @@ const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolv
 
 describe('processBrowserRedirect', () => {
   let services: AppServices;
-  let store: Store;
   let historyReplaceSpy: jest.SpyInstance;
   let fetchBackup: any;
   let window: Window;
 
   beforeEach(() => {
-    store = createTestStore();
     window = assertWindow();
     services = createTestServices();
     delete (window as any).location;
