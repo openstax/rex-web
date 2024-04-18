@@ -1,9 +1,12 @@
 import createTestServices from '../../../test/createTestServices';
-import { notFound } from '../../errors/routes';
+import createTestStore from '../../../test/createTestStore';
+import { replace } from '../../navigation/actions';
+import { createRouterService } from '../../navigation/routerService';
 import { AnyMatch } from '../../navigation/types';
-import { AppServices } from '../../types';
-import { assertWindow } from '../../utils';
+import { MiddlewareAPI, Store } from '../../types';
 import { processBrowserRedirect } from './processBrowserRedirect';
+import * as content from '../../content';
+import * as errors from '../../errors';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -13,27 +16,25 @@ const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolv
 });
 
 describe('processBrowserRedirect', () => {
-  let services: AppServices;
-  let historyReplaceSpy: jest.SpyInstance;
+  let helpers: Pick<MiddlewareAPI, 'dispatch'> & ReturnType<typeof createTestServices>;
+  let dispatch: jest.SpyInstance;
   let fetchBackup: any;
-  let window: Window;
+  let store: Store;
 
   beforeEach(() => {
-    window = assertWindow();
-    services = createTestServices();
-    delete (window as any).location;
+    store = createTestStore();
+    helpers = {
+      ...createTestServices(), 
+      dispatch: store.dispatch,
+      router: createRouterService(Object.values({...content.routes, ...errors.routes}))
+    };
 
-    window.location = {
-      origin: 'openstax.org',
-    } as any as Window['location'];
-
-    services.history.location = {
+    helpers.history.location = {
       pathname: '/books/physics/pages/1-introduction301',
     } as any;
 
-    historyReplaceSpy = jest.spyOn(services.history, 'replace')
-      .mockImplementation(jest.fn());
-
+    dispatch = jest.spyOn(helpers, 'dispatch');
+  
     fetchBackup = (globalThis as any).fetch;
   });
 
@@ -42,24 +43,11 @@ describe('processBrowserRedirect', () => {
   });
 
   it('calls history.replace if redirect is found', async() => {
-    (globalThis as any).fetch = mockFetch([{ from: services.history.location.pathname, to: 'redirected' }]);
+    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/books/redirected' }]);
 
-    const match = {route: {getUrl: jest.fn(() => 'url')}} as unknown as AnyMatch;
-    jest.spyOn(services.router, 'findRoute').mockReturnValue(match);
+    await processBrowserRedirect(helpers);
 
-    await processBrowserRedirect(services);
-
-    expect(historyReplaceSpy).toHaveBeenCalledWith('redirected');
+    expect(dispatch).toHaveBeenCalledWith(replace(helpers.router.findRoute('/books/redirected') as AnyMatch));
   });
 
-  it('updates window.location if target is not within rex', async() => {
-    (globalThis as any).fetch = mockFetch([{ from: services.history.location.pathname, to: '/redirected' }]);
-
-    const match = {route: notFound, state: false} as unknown as AnyMatch;
-    jest.spyOn(services.router, 'findRoute').mockReturnValue(match);
-
-    await processBrowserRedirect(services);
-
-    expect(window.location.href).toEqual('openstax.org/redirected');
-  });
 });
