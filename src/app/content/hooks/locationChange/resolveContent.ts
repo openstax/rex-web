@@ -150,7 +150,7 @@ const resolvePage = async(
   const pageId = match.params.page ? getPageIdFromUrlParam(book, match.params.page) : undefined;
 
   if (!pageId) {
-      dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
+    dispatch(receivePageNotFoundId(getIdFromPageParam(match.params.page)));
     return;
   }
 

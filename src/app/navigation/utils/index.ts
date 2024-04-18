@@ -86,6 +86,7 @@ export const matchPathname = <M extends Match<Route<any, any>>>(action: M) => ac
 export const matchUrl = <M extends Match<Route<any, any>>>(action: M) => {
   const path = matchPathname(action);
   const search = matchSearch(action);
+  console.log(path, search)
   return `${path}${search ? `?${search}` : ''}`;
 };
 
