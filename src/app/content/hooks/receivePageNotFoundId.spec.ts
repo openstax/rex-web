@@ -1,5 +1,7 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import { replace } from '../../navigation/actions';
+import { AnyMatch } from '../../navigation/types';
 import { MiddlewareAPI, Store } from '../../types';
 import { receivePageNotFoundId } from '../actions';
 
@@ -15,6 +17,7 @@ describe('receivePageNotFoundId hook', () => {
   let store: Store;
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   let historyReplaceSpy: jest.SpyInstance;
+  let dispatch: jest.SpyInstance;
   let fetchBackup: any;
 
   beforeEach(() => {
@@ -29,6 +32,8 @@ describe('receivePageNotFoundId hook', () => {
     helpers.history.location = {
       pathname: '/books/physics/pages/1-introduction301',
     } as any;
+
+    dispatch = jest.spyOn(helpers, 'dispatch');
 
     historyReplaceSpy = jest.spyOn(helpers.history, 'replace')
       .mockImplementation(jest.fn());
@@ -56,5 +61,13 @@ describe('receivePageNotFoundId hook', () => {
     await hook(receivePageNotFoundId('asdf'));
 
     expect(historyReplaceSpy).not.toHaveBeenCalled();
+  });
+
+  it('calls history.replace if redirect is found', async() => {
+    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/books/redirected' }]);
+
+    await hook(receivePageNotFoundId('asdf'));
+
+    expect(dispatch).toHaveBeenCalledWith(replace(helpers.router.findRoute('/books/redirected') as AnyMatch));
   });
 });
