@@ -24,9 +24,9 @@ describe('processBrowserRedirect', () => {
   beforeEach(() => {
     store = createTestStore();
     helpers = {
-      ...createTestServices(), 
+      ...createTestServices(),
       dispatch: store.dispatch,
-      router: createRouterService(Object.values({...content.routes, ...errors.routes}))
+      router: createRouterService(Object.values({...content.routes, ...errors.routes})),
     };
 
     helpers.history.location = {
@@ -34,7 +34,7 @@ describe('processBrowserRedirect', () => {
     } as any;
 
     dispatch = jest.spyOn(helpers, 'dispatch');
-  
+
     fetchBackup = (globalThis as any).fetch;
   });
 

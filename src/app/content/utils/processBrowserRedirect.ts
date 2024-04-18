@@ -5,7 +5,11 @@ import { Dispatch } from '../../types';
 import { replace } from '../../navigation/actions';
 import { AnyMatch } from '../../navigation/types';
 
-export const processBrowserRedirect = async(services: {router: RouterService, history: History, dispatch: Dispatch}) => {
+export const processBrowserRedirect = async(services: {
+  router: RouterService,
+  history: History,
+  dispatch: Dispatch
+}) => {
   const redirects: Redirects = await fetch('/rex/redirects.json')
     .then((res) => res.json())
     .catch(() => []);
