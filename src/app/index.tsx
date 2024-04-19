@@ -24,6 +24,7 @@ import { matchPathname } from './navigation/utils';
 import * as notifications from './notifications';
 import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
+import { createRouterService } from './navigation/routerService';
 
 export const actions = {
   app: appAactions,
@@ -67,7 +68,8 @@ const defaultServices = () => ({
 export interface AppOptions {
   initialState?: Partial<AppState>;
   initialEntries?: AnyMatch[];
-  services: Pick<AppServices, Exclude<keyof AppServices, 'history' | keyof ReturnType<typeof defaultServices>>>;
+  services:
+    Pick<AppServices, Exclude<keyof AppServices, 'history' | 'router' | keyof ReturnType<typeof defaultServices>>>;
 }
 
 export default (options: AppOptions) => {
@@ -94,6 +96,7 @@ export default (options: AppOptions) => {
   const services: AppServices = {
     ...defaultServices(),
     ...options.services,
+    router: createRouterService(routes),
     history,
   };
 
