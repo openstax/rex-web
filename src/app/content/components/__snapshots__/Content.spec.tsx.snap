@@ -393,6 +393,7 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  list-style: none;
   overflow: visible;
 }
 
@@ -407,6 +408,7 @@ Array [
   -ms-flex-direction: column;
   flex-direction: column;
   gap: 0.5rem;
+  list-style: none;
 }
 
 .c108 {
@@ -4315,7 +4317,7 @@ li[aria-label="Current Page"] .c60 {
   </a> and you must attribute OpenStax.
 </p>
 
-<strong>Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -4333,7 +4335,7 @@ li[aria-label="Current Page"] .c60 {
   </li>
 </ul>
 
-<strong>Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
@@ -4412,7 +4414,7 @@ li[aria-label="Current Page"] .c60 {
                     >
                       Help
                     </h3>
-                    <ul
+                    <menu
                       className="c100"
                     >
                       <li>
@@ -4445,7 +4447,7 @@ li[aria-label="Current Page"] .c60 {
                           FAQ
                         </a>
                       </li>
-                    </ul>
+                    </menu>
                   </div>
                   <div
                     className="c102"
@@ -4455,7 +4457,7 @@ li[aria-label="Current Page"] .c60 {
                     >
                       OpenStax
                     </h3>
-                    <ul
+                    <menu
                       className="c100"
                     >
                       <li>
@@ -4488,7 +4490,7 @@ li[aria-label="Current Page"] .c60 {
                           Careers
                         </a>
                       </li>
-                    </ul>
+                    </menu>
                   </div>
                   <div
                     className="c103"
@@ -4498,7 +4500,7 @@ li[aria-label="Current Page"] .c60 {
                     >
                       Policies
                     </h3>
-                    <ul
+                    <menu
                       className="c100"
                     >
                       <li>
@@ -4542,7 +4544,7 @@ li[aria-label="Current Page"] .c60 {
                         </a>
                       </li>
                       <li />
-                    </ul>
+                    </menu>
                   </div>
                 </div>
               </div>
@@ -4570,7 +4572,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                   />
-                  <ul
+                  <menu
                     className="c107"
                   >
                     <li>
@@ -4682,7 +4684,7 @@ li[aria-label="Current Page"] .c60 {
                         />
                       </a>
                     </li>
-                  </ul>
+                  </menu>
                 </div>
               </div>
             </div>
@@ -5087,6 +5089,7 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  list-style: none;
   overflow: visible;
 }
 
@@ -5101,6 +5104,7 @@ Array [
   -ms-flex-direction: column;
   flex-direction: column;
   gap: 0.5rem;
+  list-style: none;
 }
 
 .c97 {
@@ -8857,7 +8861,7 @@ li[aria-label="Current Page"] .c60 {
                     >
                       Help
                     </h3>
-                    <ul
+                    <menu
                       className="c89"
                     >
                       <li>
@@ -8890,7 +8894,7 @@ li[aria-label="Current Page"] .c60 {
                           FAQ
                         </a>
                       </li>
-                    </ul>
+                    </menu>
                   </div>
                   <div
                     className="c91"
@@ -8900,7 +8904,7 @@ li[aria-label="Current Page"] .c60 {
                     >
                       OpenStax
                     </h3>
-                    <ul
+                    <menu
                       className="c89"
                     >
                       <li>
@@ -8933,7 +8937,7 @@ li[aria-label="Current Page"] .c60 {
                           Careers
                         </a>
                       </li>
-                    </ul>
+                    </menu>
                   </div>
                   <div
                     className="c92"
@@ -8943,7 +8947,7 @@ li[aria-label="Current Page"] .c60 {
                     >
                       Policies
                     </h3>
-                    <ul
+                    <menu
                       className="c89"
                     >
                       <li>
@@ -8987,7 +8991,7 @@ li[aria-label="Current Page"] .c60 {
                         </a>
                       </li>
                       <li />
-                    </ul>
+                    </menu>
                   </div>
                 </div>
               </div>
@@ -9015,7 +9019,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                   />
-                  <ul
+                  <menu
                     className="c96"
                   >
                     <li>
@@ -9127,7 +9131,7 @@ li[aria-label="Current Page"] .c60 {
                         />
                       </a>
                     </li>
-                  </ul>
+                  </menu>
                 </div>
               </div>
             </div>

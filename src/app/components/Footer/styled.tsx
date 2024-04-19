@@ -346,22 +346,24 @@ export const Copyrights = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Social = styled.ul`
+export const Social = styled.menu`
   align-items: center;
   display: grid;
   grid-auto-flow: column;
   grid-gap: 1rem;
   justify-content: end;
+  list-style: none;
   overflow: visible;
 `;
 
 // tslint:disable-next-line:variable-name
-export const LinkListWrapper = styled.ul`
+export const LinkListWrapper = styled.menu`
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  list-style: none;
 `;
 
 // tslint:disable-next-line:variable-name

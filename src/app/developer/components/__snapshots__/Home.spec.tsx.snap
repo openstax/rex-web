@@ -928,6 +928,7 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  list-style: none;
   overflow: visible;
 }
 
@@ -942,6 +943,7 @@ Array [
   -ms-flex-direction: column;
   flex-direction: column;
   gap: 0.5rem;
+  list-style: none;
 }
 
 .c16 {
@@ -1133,7 +1135,7 @@ Array [
             >
               Help
             </h3>
-            <ul
+            <menu
               className="c8"
             >
               <li>
@@ -1166,7 +1168,7 @@ Array [
                   FAQ
                 </a>
               </li>
-            </ul>
+            </menu>
           </div>
           <div
             className="c10"
@@ -1176,7 +1178,7 @@ Array [
             >
               OpenStax
             </h3>
-            <ul
+            <menu
               className="c8"
             >
               <li>
@@ -1209,7 +1211,7 @@ Array [
                   Careers
                 </a>
               </li>
-            </ul>
+            </menu>
           </div>
           <div
             className="c11"
@@ -1219,7 +1221,7 @@ Array [
             >
               Policies
             </h3>
-            <ul
+            <menu
               className="c8"
             >
               <li>
@@ -1263,7 +1265,7 @@ Array [
                 </a>
               </li>
               <li />
-            </ul>
+            </menu>
           </div>
         </div>
       </div>
@@ -1291,7 +1293,7 @@ Array [
               }
             }
           />
-          <ul
+          <menu
             className="c15"
           >
             <li>
@@ -1403,7 +1405,7 @@ Array [
                 />
               </a>
             </li>
-          </ul>
+          </menu>
         </div>
       </div>
     </div>
