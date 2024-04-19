@@ -1,7 +1,7 @@
 import { History } from 'history';
 import queryString from 'query-string';
 import { getType } from 'typesafe-actions';
-import { notFound } from '../errors/routes';
+import { external, notFound } from '../errors/routes';
 import { AnyAction, Dispatch, Middleware } from '../types';
 import { assertWindow } from '../utils/browser-assertions';
 import * as actions from './actions';
@@ -17,10 +17,7 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
       return next(action);
     }
 
-    // special case for notFound because we want to hit the osweb page
-    // this could be made more generic with an `external` flag on the
-    // route or something
-    if (matchForRoute(notFound, action.payload)) {
+    if (matchForRoute(notFound, action.payload) || matchForRoute(external, action.payload)) {
       const { location } = assertWindow();
       const method = action.payload.method === 'push'
         ? location.assign.bind(location)
