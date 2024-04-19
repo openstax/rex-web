@@ -1,12 +1,10 @@
 import pathToRegexp from 'path-to-regexp';
-import { notFound } from './routes';
+import { external, notFound } from './routes';
 
 describe('notFound', () => {
-  it('matches any route', () => {
+  it('matches any rex route', () => {
     const path = notFound.paths[0];
     const re = pathToRegexp(path, [], {end: true});
-    expect(re.exec('/woooo')).not.toEqual(null);
-    expect(re.exec('/foo/bar')).not.toEqual(null);
     expect(re.exec('/books/book/pages/page')).not.toEqual(null);
   });
 
@@ -19,5 +17,25 @@ describe('notFound', () => {
       return expect(notFound.getSearch).toBeTruthy();
     }
     expect(notFound.getSearch({url: 'url'})).toEqual('path=url');
+  });
+});
+
+describe('external', () => {
+  it('matches any route', () => {
+    const path = external.paths[0];
+    const re = pathToRegexp(path, [], {end: true});
+    expect(re.exec('/woooo')).not.toEqual(null);
+    expect(re.exec('/foo/bar')).not.toEqual(null);
+  });
+
+  it('produces a relative url', () => {
+    expect(external.getUrl({url: 'url'})).toEqual('url');
+  });
+
+  it('produces a query string', () => {
+    if (!external.getSearch) {
+      return expect(notFound.getSearch).toBeTruthy();
+    }
+    expect(external.getSearch({url: 'url'})).toEqual('path=url');
   });
 });

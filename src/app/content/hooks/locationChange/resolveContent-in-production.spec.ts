@@ -174,6 +174,8 @@ describe('locationChange', () => {
         },
       };
 
+      jest.spyOn(helpers.router, 'findRoute').mockReturnValue(match);
+
       mockUUIDBook();
 
       await expect(hook(helpers, match)).resolves.toMatchInlineSnapshot(`
