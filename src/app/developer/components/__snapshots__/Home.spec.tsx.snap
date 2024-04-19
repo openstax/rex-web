@@ -573,7 +573,17 @@ Array [
                   NotFound
                 </h3>
                 path: 
-                /(.*)
+                /books/(.*)
+                <br />
+              </div>
+              <div>
+                <h3
+                  className="c9"
+                >
+                  External
+                </h3>
+                path: 
+                :url(/.*)
                 <br />
               </div>
             </div>

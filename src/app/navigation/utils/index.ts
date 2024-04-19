@@ -55,14 +55,14 @@ const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, ke
   state,
 } as AnyMatch);
 
-export const findRouteMatch = (routes: AnyRoute[], location: Location): AnyMatch | undefined => {
+export const findRouteMatch = (routes: AnyRoute[], location: Location | string): AnyMatch | undefined => {
   for (const route of routes) {
     for (const path of route.paths) {
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
-      const match = re.exec(location.pathname);
+      const match = re.exec(typeof location === 'string' ? location : location.pathname);
       if (match) {
-        return formatRouteMatch(route, location.state || {}, keys, match);
+        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match);
       }
     }
   }
