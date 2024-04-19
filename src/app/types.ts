@@ -29,6 +29,7 @@ import { State as featureFlagsState } from './featureFlags/types';
 import { State as headState } from './head/types';
 import { State as navigationState } from './navigation/types';
 import { State as notificationState } from './notifications/types';
+import { RouterService } from './navigation/routerService';
 
 export interface AppState {
   content: contentState;
@@ -44,6 +45,7 @@ export interface AppServices {
   analytics: typeof analytics;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
   buyPrintConfigLoader: ReturnType<typeof createBuyPrintConfigLoader>;
+  router: RouterService;
   config: typeof config;
   fontCollector: FontCollector;
   highlightClient: ReturnType<typeof createHighlightClient>;
