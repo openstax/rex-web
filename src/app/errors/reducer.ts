@@ -3,7 +3,7 @@ import { getType } from 'typesafe-actions';
 import * as navigation from '../navigation';
 import { AnyAction } from '../types';
 import * as actions from './actions';
-import { notFound } from './routes';
+import { external, notFound } from './routes';
 import { State } from './types';
 
 export const initialState: State = {
@@ -23,6 +23,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
       return { ...state, sentryMessageIdStack: [ action.payload, ...state.sentryMessageIdStack] };
     case getType(navigation.actions.locationChange):
       return navigation.utils.matchForRoute(notFound, action.payload.match)
+        || navigation.utils.matchForRoute(external, action.payload.match)
         || action.payload.match === undefined
         ? {...state, code: 404}
         : {...state, code: 200};
