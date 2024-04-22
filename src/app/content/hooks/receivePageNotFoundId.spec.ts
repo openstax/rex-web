@@ -1,9 +1,6 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
-import { notFound } from '../../errors/routes';
-import { replace } from '../../navigation/actions';
 import { createRouterService } from '../../navigation/routerService';
-import { AnyMatch } from '../../navigation/types';
 import { MiddlewareAPI, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { receivePageNotFoundId } from '../actions';
@@ -23,7 +20,6 @@ describe('receivePageNotFoundId hook', () => {
   let store: Store;
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   let historyReplaceSpy: jest.SpyInstance;
-  let dispatch: jest.SpyInstance;
   let fetchBackup: any;
   let window: Window;
 
@@ -46,8 +42,6 @@ describe('receivePageNotFoundId hook', () => {
     helpers.history.location = {
       pathname: '/books/physics/pages/1-introduction301',
     } as any;
-
-    dispatch = jest.spyOn(helpers, 'dispatch');
 
     historyReplaceSpy = jest.spyOn(helpers.history, 'replace')
       .mockImplementation(jest.fn());
