@@ -1,9 +1,15 @@
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
+import { notFound } from '../../errors/routes';
 import { replace } from '../../navigation/actions';
+import { createRouterService } from '../../navigation/routerService';
 import { AnyMatch } from '../../navigation/types';
 import { MiddlewareAPI, Store } from '../../types';
+import { assertWindow } from '../../utils';
 import { receivePageNotFoundId } from '../actions';
+import { processBrowserRedirect } from '../utils/processBrowserRedirect';
+import * as errors from '../../errors';
+import * as content from '../../content';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -19,12 +25,20 @@ describe('receivePageNotFoundId hook', () => {
   let historyReplaceSpy: jest.SpyInstance;
   let dispatch: jest.SpyInstance;
   let fetchBackup: any;
+  let window: Window;
 
   beforeEach(() => {
     store = createTestStore();
+    window = assertWindow();
+    delete (window as any).location;
+
+    window.location = {
+      origin: 'openstax.org',
+    } as any as Window['location'];
 
     helpers = {
       ...createTestServices(),
+      router: createRouterService([...Object.values(content.routes), ...Object.values(errors.routes)]),
       dispatch: store.dispatch,
       getState: store.getState,
     };
@@ -66,8 +80,16 @@ describe('receivePageNotFoundId hook', () => {
   it('calls history.replace if redirect is found', async() => {
     (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/books/redirected' }]);
 
-    await hook(receivePageNotFoundId('asdf'));
+    await processBrowserRedirect(helpers);
 
-    expect(dispatch).toHaveBeenCalledWith(replace(helpers.router.findRoute('/books/redirected') as AnyMatch));
+    expect(historyReplaceSpy).toHaveBeenCalledWith('/books/redirected');
+  });
+
+  it('updates window.location if target is not within rex', async() => {
+    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/redirected' }]);
+
+    await processBrowserRedirect(helpers);
+
+    expect(window.location.href).toEqual('openstax.org/redirected');
   });
 });
