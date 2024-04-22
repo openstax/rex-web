@@ -34,6 +34,9 @@
     } ],
     "font-family-no-duplicate-names": true,
     "font-family-no-missing-generic-family-keyword": true,
+    "function-comma-space-after": [ "always", {
+      "severity": "warning"
+    } ],
     "function-max-empty-lines": 0,
     "function-url-quotes": "always",
     "indentation": 2,
@@ -74,7 +77,7 @@
     } ],
     "unit-no-unknown": true,
     "unit-case": "lower",
-    "value-keyword-case": ["lower", {"ignoreKeywords": ["dummyValue"]}],
+    "value-keyword-case": ["lower", ignoreKeywords: ["dummyValue"]],
     "value-list-max-empty-lines": 0,
     "value-no-vendor-prefix": [ true, {
       "severity": "warning"
