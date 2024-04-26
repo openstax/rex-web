@@ -2,7 +2,7 @@ import Color from 'color';
 import styled, { css } from 'styled-components/macro';
 import MainContent from '../../../components/MainContent';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
-import theme from '../../../theme';
+import theme, { screenreaderOnly } from '../../../theme';
 import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
@@ -21,15 +21,6 @@ export const contentTextStyle = css`
 // Search and key term highlights need to target .math as well,
 // otherwise math elements won't have full height background color
 const SELF_AND_CHILD_MATH_SELECTOR = '&, & .math';
-const screenreaderOnly = `
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  clip-path: inset(100%);
-  clip: rect(1px, 1px, 1px, 1px);
-`;
 
 export default styled(MainContent)`
   ${contentTextStyle}
