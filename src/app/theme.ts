@@ -2,6 +2,16 @@ import { FlattenSimpleInterpolation } from 'styled-components';
 import { css } from 'styled-components/macro';
 // based on https://sketchviewer.com/sketches/59766aabb57e8900114c89ce/latest/
 
+export const screenreaderOnly = `
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+`;
+
 export interface ColorSet {
   base: string;
   foreground: string;
