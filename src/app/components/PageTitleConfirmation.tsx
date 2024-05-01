@@ -3,13 +3,13 @@ import React from 'react';
 type FunctionWithProperty = {
   (title: string): void;
   fn?: (title: string) => void;
-}
+};
 
 const announcePageTitle: FunctionWithProperty = (title: string) => {
   if (announcePageTitle?.fn) {
     announcePageTitle.fn(title);
   }
-}
+};
 
 export default announcePageTitle;
 
