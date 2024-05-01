@@ -30,6 +30,7 @@
   "i18n:a11y:keyboard-shortcuts:keys:enter": "Enter",
   "i18n:a11y:keyboard-shortcuts:keys:arrows": "Arrows",
   "i18n:attribution:toggle": "Citation/Attribution",
+  "i18n:attribution:code-runner": "This book utilizes the OpenStax Python Code Runner. The code runner is developed by Wiley and is All Rights Reserved.",
   "i18n:content:footnotes:title": "Footnotes",
   "i18n:content:solution:hide": "hide solution",
   "i18n:content:solution:show": "show solution",
