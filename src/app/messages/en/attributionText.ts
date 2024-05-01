@@ -56,10 +56,10 @@ export const defaultText = `
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a target="_blank" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+        Book URL: <a target="_blank" href="https://openstax.org{introPageUrl}" aria-label="{introPageTitle}">https://openstax.org{introPageUrl}</a>
       </li>
       <li>
-        Section URL: <a target="_blank" href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+        Section URL: <a target="_blank" href="https://openstax.org{currentPath}" aria-label="{introPageTitle}">https://openstax.org{currentPath}</a>
       </li>
     </ul>
   </li>
