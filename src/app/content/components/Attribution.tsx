@@ -101,6 +101,8 @@ const AttributionDetails = styled(Details)`
 
 // tslint:disable-next-line:variable-name
 const AttributionContent = htmlMessage('i18n:attribution:text', Content);
+// tslint:disable-next-line:variable-name
+const CodeRunnerNote = htmlMessage('i18n:attribution:code-runner', Content);
 
 interface Props {
   book: Book | undefined;
@@ -145,6 +147,9 @@ class Attribution extends Component<Props> {
     >
       <AttributionSummary />
       <AttributionContent values={this.getValues(book, page)} />
+      {
+        book.slug.includes('python') && <strong><CodeRunnerNote /></strong>
+      }
     </AttributionDetails>;
   }
 
