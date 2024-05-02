@@ -15,7 +15,7 @@
     "defaultVersion": "7927138"
   },
   "6c322e32-9fb0-4c4d-a1d7-20c95c5c7af2": {
-    "defaultVersion": "fc22b3f"
+    "defaultVersion": "7927138"
   },
   "914ac66e-e1ec-486d-8a9c-97b0f7a99774": {
     "defaultVersion": "cc76535"
@@ -328,5 +328,8 @@
   },
   "7db4d55f-5c0e-4c05-8b72-841685444165": {
     "defaultVersion": "4b072ad"
+  },
+  "9331ec14-7ea7-4415-a8dd-ee34f0c5f9c4": {
+    "defaultVersion": "a770108"
   }
 }
