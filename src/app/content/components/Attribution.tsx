@@ -160,10 +160,12 @@ class Attribution extends Component<Props> {
       loadOptions: {booksConfig: book.loadOptions.booksConfig},
     };
 
-    const [, titlePart] = splitTitleParts(introPage.title);
-    const introPageTitle = `${titlePart} - ${book.title} | OpenStax`;
+    const [, introTitlePart] = splitTitleParts(introPage.title);
+    const [, currentTitlePart] = splitTitleParts(page.title);
+    const introPageTitle = `${introTitlePart} - ${book.title} | OpenStax`;
     const introPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
     const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
+    const currentPageTitle = `${currentTitlePart} - ${book.title} | OpenStax`;
 
     assertNotNull(book.publish_date, `BUG: Could not find publication date`);
     const bookPublishDate = getPublishDate(book);
@@ -183,6 +185,7 @@ class Attribution extends Component<Props> {
       bookTitle: book.title,
       copyrightHolder: 'OpenStax',
       currentPath: currentPageUrl,
+      currentPageTitle,
       introPageTitle,
       introPageUrl,
       originalMaterialLink: null,

@@ -59,7 +59,7 @@ export const defaultText = `
         Book URL: <a target="_blank" href="https://openstax.org{introPageUrl}" aria-label="{introPageTitle}">https://openstax.org{introPageUrl}</a>
       </li>
       <li>
-        Section URL: <a target="_blank" href="https://openstax.org{currentPath}" aria-label="{introPageTitle}">https://openstax.org{currentPath}</a>
+        Section URL: <a target="_blank" href="https://openstax.org{currentPath}" aria-label="{currentPageTitle}">https://openstax.org{currentPath}</a>
       </li>
     </ul>
   </li>
