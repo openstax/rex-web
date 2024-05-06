@@ -182,15 +182,15 @@ Array [
   overflow: hidden;
 }
 
-.c108 {
+.c109 {
+  height: 1em;
+}
+
+.c111 {
   height: 1em;
 }
 
 .c110 {
-  height: 1em;
-}
-
-.c109 {
   height: 1em;
 }
 
@@ -237,6 +237,7 @@ Array [
 
 .c96 {
   grid-area: headline;
+  margin: 0;
 }
 
 .c97 {
@@ -255,24 +256,24 @@ Array [
   color: inherit;
 }
 
-.c100 {
+.c101 {
   color: #d5d5d5;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c100:hover,
-.c100:active,
-.c100:focus {
+.c101:hover,
+.c101:active,
+.c101:focus {
   color: inherit;
 }
 
-.c100:hover {
+.c101:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c111 {
+.c112 {
   color: #d5d5d5;
   display: inline-grid;
   grid-auto-flow: column;
@@ -280,9 +281,9 @@ Array [
   overflow: hidden;
 }
 
-.c111:hover,
-.c111:active,
-.c111:focus {
+.c112:hover,
+.c112:active,
+.c112:focus {
   color: inherit;
 }
 
@@ -293,14 +294,14 @@ Array [
   grid-area: col1;
 }
 
-.c101 {
+.c102 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col2;
 }
 
-.c102 {
+.c103 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
@@ -315,9 +316,10 @@ Array [
   -ms-letter-spacing: -0.072rem;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 }
 
-.c103 {
+.c104 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -328,7 +330,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c104 {
+.c105 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -350,28 +352,28 @@ Array [
   overflow: visible;
 }
 
-.c105 {
+.c106 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c105 [data-html="copyright"] {
+.c106 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c105 a {
+.c106 a {
   color: #d5d5d5;
   overflow: visible;
 }
 
-.c105 a:hover,
-.c105 a:active,
-.c105 a:focus {
+.c106 a:hover,
+.c106 a:active,
+.c106 a:focus {
   color: inherit;
 }
 
-.c105 sup {
+.c106 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -379,7 +381,7 @@ Array [
   vertical-align: top;
 }
 
-.c106 {
+.c107 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -391,10 +393,25 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  list-style: none;
   overflow: visible;
 }
 
-.c107 {
+.c100 {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.c108 {
   color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -414,13 +431,13 @@ Array [
   width: 3rem;
 }
 
-.c107:hover,
-.c107:active,
-.c107:focus {
+.c108:hover,
+.c108:active,
+.c108:focus {
   color: inherit;
 }
 
-.c112 {
+.c113 {
   height: 4rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -2077,7 +2094,7 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media (max-width:37.5em) {
-  .c100 {
+  .c101 {
     line-height: 4.5rem;
   }
 }
@@ -2089,25 +2106,25 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media (min-width:37.6em) {
-  .c103 {
+  .c104 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c103 {
+  .c104 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c104 {
+  .c105 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c104 {
+  .c105 {
     padding: 0;
   }
 }
@@ -4302,7 +4319,7 @@ li[aria-label="Current Page"] .c60 {
   </a> and you must attribute OpenStax.
 </p>
 
-<strong>Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -4320,7 +4337,7 @@ li[aria-label="Current Page"] .c60 {
   </li>
 </ul>
 
-<strong>Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
@@ -4375,13 +4392,11 @@ li[aria-label="Current Page"] .c60 {
                 <div
                   className="c95"
                 >
-                  <div
-                    aria-level={2}
+                  <h2
                     className="c96"
-                    role="heading"
                   >
                     Our mission is to improve educational access and learning for everyone.
-                  </div>
+                  </h2>
                   <div
                     className="c97"
                     dangerouslySetInnerHTML={
@@ -4396,120 +4411,153 @@ li[aria-label="Current Page"] .c60 {
                   <div
                     className="c98"
                   >
-                    <div
+                    <h3
                       className="c99"
                     >
                       Help
-                    </div>
-                    <a
+                    </h3>
+                    <menu
                       className="c100"
-                      href="/contact"
-                      rel=""
-                      target="_self"
                     >
-                      Contact Us
-                    </a>
-                    <a
-                      className="c100"
-                      href="https://help.openstax.org/s/"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Support Center
-                    </a>
-                    <a
-                      className="c100"
-                      href="/faq"
-                      rel=""
-                      target="_self"
-                    >
-                      FAQ
-                    </a>
-                  </div>
-                  <div
-                    className="c101"
-                  >
-                    <div
-                      className="c99"
-                    >
-                      OpenStax
-                    </div>
-                    <a
-                      className="c100"
-                      href="/press"
-                      rel=""
-                      target="_self"
-                    >
-                      Press
-                    </a>
-                    <a
-                      className="c100"
-                      href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Newsletter
-                    </a>
-                    <a
-                      className="c100"
-                      href="/careers"
-                      rel=""
-                      target="_self"
-                    >
-                      Careers
-                    </a>
+                      <li>
+                        <a
+                          className="c101"
+                          href="/contact"
+                          rel=""
+                          target="_self"
+                        >
+                          Contact Us
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c101"
+                          href="https://help.openstax.org/s/"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          Support Center
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c101"
+                          href="/faq"
+                          rel=""
+                          target="_self"
+                        >
+                          FAQ
+                        </a>
+                      </li>
+                    </menu>
                   </div>
                   <div
                     className="c102"
                   >
-                    <div
+                    <h3
+                      className="c99"
+                    >
+                      OpenStax
+                    </h3>
+                    <menu
+                      className="c100"
+                    >
+                      <li>
+                        <a
+                          className="c101"
+                          href="/press"
+                          rel=""
+                          target="_self"
+                        >
+                          Press
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c101"
+                          href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          Newsletter
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c101"
+                          href="/careers"
+                          rel=""
+                          target="_self"
+                        >
+                          Careers
+                        </a>
+                      </li>
+                    </menu>
+                  </div>
+                  <div
+                    className="c103"
+                  >
+                    <h3
                       className="c99"
                     >
                       Policies
-                    </div>
-                    <a
+                    </h3>
+                    <menu
                       className="c100"
-                      href="/accessibility-statement"
-                      rel=""
-                      target="_self"
                     >
-                      Accessibility Statement
-                    </a>
-                    <a
-                      className="c100"
-                      href="/tos"
-                      rel=""
-                      target="_self"
-                    >
-                      Terms of Use
-                    </a>
-                    <a
-                      className="c100"
-                      href="/license"
-                      rel=""
-                      target="_self"
-                    >
-                      Licensing
-                    </a>
-                    <a
-                      className="c100"
-                      href="/privacy-policy"
-                      rel=""
-                      target="_self"
-                    >
-                      Privacy Policy
-                    </a>
+                      <li>
+                        <a
+                          className="c101"
+                          href="/accessibility-statement"
+                          rel=""
+                          target="_self"
+                        >
+                          Accessibility Statement
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c101"
+                          href="/tos"
+                          rel=""
+                          target="_self"
+                        >
+                          Terms of Use
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c101"
+                          href="/license"
+                          rel=""
+                          target="_self"
+                        >
+                          Licensing
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c101"
+                          href="/privacy-policy"
+                          rel=""
+                          target="_self"
+                        >
+                          Privacy Policy
+                        </a>
+                      </li>
+                      <li />
+                    </menu>
                   </div>
                 </div>
               </div>
               <div
-                className="c103"
+                className="c104"
               >
                 <div
-                  className="c104"
+                  className="c105"
                 >
                   <div
-                    className="c105"
+                    className="c106"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "
@@ -4526,20 +4574,20 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                   />
-                  <ul
-                    className="c106"
+                  <menu
+                    className="c107"
                   >
                     <li>
                       <a
                         aria-label="facebook"
-                        className="c107"
+                        className="c108"
                         href="https://www.facebook.com/openstax"
                         rel="noopener"
                         target="_blank"
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c108"
+                          className="c16 c109"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 320 512"
@@ -4555,7 +4603,7 @@ li[aria-label="Current Page"] .c60 {
                     <li>
                       <a
                         aria-label="twitter"
-                        className="c107"
+                        className="c108"
                         href="https://twitter.com/openstax"
                         rel="noopener"
                         target="_blank"
@@ -4581,14 +4629,14 @@ li[aria-label="Current Page"] .c60 {
                     <li>
                       <a
                         aria-label="linkedin"
-                        className="c107"
+                        className="c108"
                         href="https://www.linkedin.com/company/openstax"
                         rel="noopener"
                         target="_blank"
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c109"
+                          className="c16 c110"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 448 512"
@@ -4604,14 +4652,14 @@ li[aria-label="Current Page"] .c60 {
                     <li>
                       <a
                         aria-label="instagram"
-                        className="c107"
+                        className="c108"
                         href="https://www.instagram.com/openstax/"
                         rel="noopener"
                         target="_blank"
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c110"
+                          className="c16 c111"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 448 512"
@@ -4626,19 +4674,19 @@ li[aria-label="Current Page"] .c60 {
                     </li>
                     <li>
                       <a
-                        className="c111"
+                        className="c112"
                         href="http://www.rice.edu"
                         rel="noopener"
                         target="_blank"
                       >
                         <img
                           alt="Rice University logo"
-                          className="c112"
+                          className="c113"
                           src="rice-white-text.png"
                         />
                       </a>
                     </li>
-                  </ul>
+                  </menu>
                 </div>
               </div>
             </div>
@@ -4832,15 +4880,15 @@ Array [
   overflow: hidden;
 }
 
-.c97 {
+.c98 {
+  height: 1em;
+}
+
+.c100 {
   height: 1em;
 }
 
 .c99 {
-  height: 1em;
-}
-
-.c98 {
   height: 1em;
 }
 
@@ -4887,6 +4935,7 @@ Array [
 
 .c85 {
   grid-area: headline;
+  margin: 0;
 }
 
 .c86 {
@@ -4905,24 +4954,24 @@ Array [
   color: inherit;
 }
 
-.c89 {
+.c90 {
   color: #d5d5d5;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c89:hover,
-.c89:active,
-.c89:focus {
+.c90:hover,
+.c90:active,
+.c90:focus {
   color: inherit;
 }
 
-.c89:hover {
+.c90:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c100 {
+.c101 {
   color: #d5d5d5;
   display: inline-grid;
   grid-auto-flow: column;
@@ -4930,9 +4979,9 @@ Array [
   overflow: hidden;
 }
 
-.c100:hover,
-.c100:active,
-.c100:focus {
+.c101:hover,
+.c101:active,
+.c101:focus {
   color: inherit;
 }
 
@@ -4943,14 +4992,14 @@ Array [
   grid-area: col1;
 }
 
-.c90 {
+.c91 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col2;
 }
 
-.c91 {
+.c92 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
@@ -4965,9 +5014,10 @@ Array [
   -ms-letter-spacing: -0.072rem;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 }
 
-.c92 {
+.c93 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -4978,7 +5028,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c93 {
+.c94 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -5000,28 +5050,28 @@ Array [
   overflow: visible;
 }
 
-.c94 {
+.c95 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c94 [data-html="copyright"] {
+.c95 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c94 a {
+.c95 a {
   color: #d5d5d5;
   overflow: visible;
 }
 
-.c94 a:hover,
-.c94 a:active,
-.c94 a:focus {
+.c95 a:hover,
+.c95 a:active,
+.c95 a:focus {
   color: inherit;
 }
 
-.c94 sup {
+.c95 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -5029,7 +5079,7 @@ Array [
   vertical-align: top;
 }
 
-.c95 {
+.c96 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -5041,10 +5091,25 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  list-style: none;
   overflow: visible;
 }
 
-.c96 {
+.c89 {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.c97 {
   color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -5064,13 +5129,13 @@ Array [
   width: 3rem;
 }
 
-.c96:hover,
-.c96:active,
-.c96:focus {
+.c97:hover,
+.c97:active,
+.c97:focus {
   color: inherit;
 }
 
-.c101 {
+.c102 {
   height: 4rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -5635,11 +5700,11 @@ Array [
   grid-template-columns: 8rem auto auto;
 }
 
-.c102[open] > summary .c66 {
+.c103[open] > summary .c66 {
   display: none;
 }
 
-.c102:not([open]) > summary .c68 {
+.c103:not([open]) > summary .c68 {
   display: none;
 }
 
@@ -6630,7 +6695,7 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media (max-width:37.5em) {
-  .c89 {
+  .c90 {
     line-height: 4.5rem;
   }
 }
@@ -6642,25 +6707,25 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media (min-width:37.6em) {
-  .c92 {
+  .c93 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c92 {
+  .c93 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c93 {
+  .c94 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c93 {
+  .c94 {
     padding: 0;
   }
 }
@@ -6878,7 +6943,7 @@ li[aria-label="Current Page"] .c60 {
 }
 
 @media screen and (max-width:75em) {
-  .c102 > .c63 {
+  .c103 > .c63 {
     margin-bottom: 0.8rem;
   }
 }
@@ -8776,13 +8841,11 @@ li[aria-label="Current Page"] .c60 {
                 <div
                   className="c84"
                 >
-                  <div
-                    aria-level={2}
+                  <h2
                     className="c85"
-                    role="heading"
                   >
                     Our mission is to improve educational access and learning for everyone.
-                  </div>
+                  </h2>
                   <div
                     className="c86"
                     dangerouslySetInnerHTML={
@@ -8797,120 +8860,153 @@ li[aria-label="Current Page"] .c60 {
                   <div
                     className="c87"
                   >
-                    <div
+                    <h3
                       className="c88"
                     >
                       Help
-                    </div>
-                    <a
+                    </h3>
+                    <menu
                       className="c89"
-                      href="/contact"
-                      rel=""
-                      target="_self"
                     >
-                      Contact Us
-                    </a>
-                    <a
-                      className="c89"
-                      href="https://help.openstax.org/s/"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Support Center
-                    </a>
-                    <a
-                      className="c89"
-                      href="/faq"
-                      rel=""
-                      target="_self"
-                    >
-                      FAQ
-                    </a>
-                  </div>
-                  <div
-                    className="c90"
-                  >
-                    <div
-                      className="c88"
-                    >
-                      OpenStax
-                    </div>
-                    <a
-                      className="c89"
-                      href="/press"
-                      rel=""
-                      target="_self"
-                    >
-                      Press
-                    </a>
-                    <a
-                      className="c89"
-                      href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Newsletter
-                    </a>
-                    <a
-                      className="c89"
-                      href="/careers"
-                      rel=""
-                      target="_self"
-                    >
-                      Careers
-                    </a>
+                      <li>
+                        <a
+                          className="c90"
+                          href="/contact"
+                          rel=""
+                          target="_self"
+                        >
+                          Contact Us
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c90"
+                          href="https://help.openstax.org/s/"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          Support Center
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c90"
+                          href="/faq"
+                          rel=""
+                          target="_self"
+                        >
+                          FAQ
+                        </a>
+                      </li>
+                    </menu>
                   </div>
                   <div
                     className="c91"
                   >
-                    <div
+                    <h3
+                      className="c88"
+                    >
+                      OpenStax
+                    </h3>
+                    <menu
+                      className="c89"
+                    >
+                      <li>
+                        <a
+                          className="c90"
+                          href="/press"
+                          rel=""
+                          target="_self"
+                        >
+                          Press
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c90"
+                          href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          Newsletter
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c90"
+                          href="/careers"
+                          rel=""
+                          target="_self"
+                        >
+                          Careers
+                        </a>
+                      </li>
+                    </menu>
+                  </div>
+                  <div
+                    className="c92"
+                  >
+                    <h3
                       className="c88"
                     >
                       Policies
-                    </div>
-                    <a
+                    </h3>
+                    <menu
                       className="c89"
-                      href="/accessibility-statement"
-                      rel=""
-                      target="_self"
                     >
-                      Accessibility Statement
-                    </a>
-                    <a
-                      className="c89"
-                      href="/tos"
-                      rel=""
-                      target="_self"
-                    >
-                      Terms of Use
-                    </a>
-                    <a
-                      className="c89"
-                      href="/license"
-                      rel=""
-                      target="_self"
-                    >
-                      Licensing
-                    </a>
-                    <a
-                      className="c89"
-                      href="/privacy-policy"
-                      rel=""
-                      target="_self"
-                    >
-                      Privacy Policy
-                    </a>
+                      <li>
+                        <a
+                          className="c90"
+                          href="/accessibility-statement"
+                          rel=""
+                          target="_self"
+                        >
+                          Accessibility Statement
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c90"
+                          href="/tos"
+                          rel=""
+                          target="_self"
+                        >
+                          Terms of Use
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c90"
+                          href="/license"
+                          rel=""
+                          target="_self"
+                        >
+                          Licensing
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c90"
+                          href="/privacy-policy"
+                          rel=""
+                          target="_self"
+                        >
+                          Privacy Policy
+                        </a>
+                      </li>
+                      <li />
+                    </menu>
                   </div>
                 </div>
               </div>
               <div
-                className="c92"
+                className="c93"
               >
                 <div
-                  className="c93"
+                  className="c94"
                 >
                   <div
-                    className="c94"
+                    className="c95"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "
@@ -8927,20 +9023,20 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                   />
-                  <ul
-                    className="c95"
+                  <menu
+                    className="c96"
                   >
                     <li>
                       <a
                         aria-label="facebook"
-                        className="c96"
+                        className="c97"
                         href="https://www.facebook.com/openstax"
                         rel="noopener"
                         target="_blank"
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c97"
+                          className="c16 c98"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 320 512"
@@ -8956,7 +9052,7 @@ li[aria-label="Current Page"] .c60 {
                     <li>
                       <a
                         aria-label="twitter"
-                        className="c96"
+                        className="c97"
                         href="https://twitter.com/openstax"
                         rel="noopener"
                         target="_blank"
@@ -8982,14 +9078,14 @@ li[aria-label="Current Page"] .c60 {
                     <li>
                       <a
                         aria-label="linkedin"
-                        className="c96"
+                        className="c97"
                         href="https://www.linkedin.com/company/openstax"
                         rel="noopener"
                         target="_blank"
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c98"
+                          className="c16 c99"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 448 512"
@@ -9005,14 +9101,14 @@ li[aria-label="Current Page"] .c60 {
                     <li>
                       <a
                         aria-label="instagram"
-                        className="c96"
+                        className="c97"
                         href="https://www.instagram.com/openstax/"
                         rel="noopener"
                         target="_blank"
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c99"
+                          className="c16 c100"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 448 512"
@@ -9027,19 +9123,19 @@ li[aria-label="Current Page"] .c60 {
                     </li>
                     <li>
                       <a
-                        className="c100"
+                        className="c101"
                         href="http://www.rice.edu"
                         rel="noopener"
                         target="_blank"
                       >
                         <img
                           alt="Rice University logo"
-                          className="c101"
+                          className="c102"
                           src="rice-white-text.png"
                         />
                       </a>
                     </li>
-                  </ul>
+                  </menu>
                 </div>
               </div>
             </div>
