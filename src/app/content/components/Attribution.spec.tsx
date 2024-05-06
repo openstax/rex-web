@@ -199,5 +199,17 @@ describe('Attribution', () => {
       const component = renderer.create(render());
       expect(component).toMatchSnapshot();
     });
+
+    it('renders CodeRunnerNote when slug includes python', async() => {
+      const saveSlug = mockCmsBook.meta.slug;
+
+      mockCmsBook.meta.slug = 'programming-python';
+      store.dispatch(
+        actions.receiveBook({...formatBookData(book, mockCmsBook), id: '1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1'})
+      );
+      const component = renderer.create(render());
+      expect(component).toMatchSnapshot();
+      mockCmsBook.meta.slug = saveSlug;
+    });
   });
 });
