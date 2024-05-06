@@ -165,8 +165,9 @@ export const TopBoxed = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Heading = styled.div`
+export const Heading = styled.h2`
   grid-area: headline;
+  margin: 0;
 
   @media (min-width: ${desktopMinWidth}em) {
     font-size: 2.4rem;
@@ -275,11 +276,12 @@ export const Column3 = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const ColumnHeading = styled.div`
+export const ColumnHeading = styled.h3`
   font-size: 1.8rem;
   font-weight: bold;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 
   @media (max-width: ${mobileMinWidth}em) {
     line-height: 4.5rem;
@@ -344,13 +346,24 @@ export const Copyrights = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Social = styled.ul`
+export const Social = styled.menu`
   align-items: center;
   display: grid;
   grid-auto-flow: column;
   grid-gap: 1rem;
   justify-content: end;
+  list-style: none;
   overflow: visible;
+`;
+
+// tslint:disable-next-line:variable-name
+export const LinkListWrapper = styled.menu`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
 `;
 
 // tslint:disable-next-line:variable-name
