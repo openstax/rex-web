@@ -1,5 +1,1879 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Attribution in browser renders CodeRunnerNote when slug includes python 1`] = `
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c5 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c7 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c10 {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c2 {
+  list-style: none;
+  cursor: pointer;
+}
+
+.c2::before {
+  display: none;
+}
+
+.c2::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.c2::-webkit-details-marker {
+  display: none;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c8 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c11 {
+  margin-left: -0.3rem;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c4 {
+  font-weight: 500;
+  list-style: none;
+}
+
+.c4,
+.c4 span {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4 a,
+.c4 span a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4 a:hover,
+.c4 span a:hover {
+  color: #0064A0;
+}
+
+.c4:hover,
+.c4 span:hover,
+.c4:focus,
+.c4 span:focus {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c12 blockquote {
+  margin-left: 0;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c6 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c9 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c4 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen {
+  .c12 {
+    max-width: 82.5rem;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    min-height: 4rem;
+    padding-top: 0.8rem;
+  }
+
+  .c0 > .c1 {
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+<details
+  className="c0"
+  data-analytics-region="attribution"
+  data-testid="attribution-details"
+>
+  <summary
+    aria-label="Citation/Attribution"
+    className="c1 c2 c3 c4"
+  >
+    <svg
+      aria-hidden="true"
+      className="c5 c6 c7 c8"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 192 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+        fill="currentColor"
+      />
+    </svg>
+    <svg
+      aria-hidden="true"
+      className="c5 c9 c10 c11"
+      fill="currentColor"
+      focusable="false"
+      viewBox="0 0 320 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Citation/Attribution
+    </span>
+  </summary>
+  <div
+    className="c12"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "
+<p>This book may not be used in the training of large language models or otherwise be ingested into large language models or generative AI offerings without OpenStax's permission.</p>
+<p>
+  Want to cite, share, or modify this book? This book uses the
+  <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"http://example.com\\">
+    Sweet License 1.0
+  </a> and you must attribute The Michelson 20MM Foundation. Changes were made to the original material, including updates to art, structure, and other content updates.
+</p>
+
+<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
+<ul>
+  <li>
+    If you are redistributing all or part of this book in a print format,
+    then you must include on every physical page the following attribution:
+    <blockquote>
+      Access for free at https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units
+    </blockquote>
+  </li>
+  <li>
+    If you are redistributing all or part of this book in a digital format,
+    then you must include on every digital page view the following attribution:
+    <blockquote>
+      Access for free at <a target=\\"_blank\\" href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" aria-label=\\"Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Test Book 1 | OpenStax\\">https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+    </blockquote>
+  </li>
+</ul>
+
+<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
+<ul>
+  <li>
+    Use the information below to generate a citation. We recommend using a
+    citation tool such as
+    <a target=\\"_blank\\" rel=\\"noopener\\" href=\\"https://www.lib.ncsu.edu/citationbuilder/#/default/default\\">this one</a>.
+    <ul>
+      <li>
+        Authors: Bam Bammerson
+      </li>
+      <li>
+        Publisher/website: OpenStax
+      </li>
+      <li>
+        Book title: Test Book 1
+      </li>
+      <li>
+        Publication date: Jun 21, 2012
+      </li>
+      <li>
+        Location: Houston, Texas
+      </li>
+      <li>
+        Book URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" aria-label=\\"Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Test Book 1 | OpenStax\\">https://openstax.org/books/programming-python/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      </li>
+      <li>
+        Section URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/programming-python/pages/test-page-1\\" aria-label=\\"Test Page 1 - Test Book 1 | OpenStax\\">https://openstax.org/books/programming-python/pages/test-page-1</a>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>
+  © Jun 21, 2012 The Michelson 20MM Foundation. <strong>The OpenStax name, OpenStax logo, OpenStax book covers, OpenStax CNX name, and OpenStax CNX logo
+  are not subject to the Creative Commons license and may not be reproduced without the prior and express written
+  consent of Rice University.</strong>
+</p>
+",
+      }
+    }
+  />
+  <strong>
+    <div
+      className="c12"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "This book utilizes the OpenStax Python Code Runner. The code runner is developed by Wiley and is All Rights Reserved.",
+        }
+      }
+    />
+  </strong>
+</details>
+`;
+
 exports[`Attribution in browser renders default attribution 1`] = `
 .c5 {
   display: inline-block;
