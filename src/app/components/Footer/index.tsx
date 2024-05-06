@@ -72,18 +72,28 @@ const SocialIconMessage: React.FunctionComponent<{
   </Styled.SocialIcon>
 );
 
+function LinkList({children}: React.PropsWithChildren<{}>) {
+  return (
+    <Styled.LinkListWrapper>
+      {React.Children.toArray(children).map((c, i) => <li key={i}>{c}</li>)}
+    </Styled.LinkListWrapper>
+  );
+}
+
 // tslint:disable-next-line:variable-name
 const Column1 = () => (
   <Styled.Column1>
     <ColumnHeadingMessage id='i18n:footer:column1:help' />
-    <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
-    <FooterLinkMessage
-      href={supportCenterLink}
-      id='i18n:footer:column1:support-center'
-      target='_blank'
-      rel='noopener'
-    />
-    <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
+    <LinkList>
+      <FooterLinkMessage href='/contact' id='i18n:footer:column1:contact-us' />
+      <FooterLinkMessage
+        href={supportCenterLink}
+        id='i18n:footer:column1:support-center'
+        target='_blank'
+        rel='noopener'
+      />
+      <FooterLinkMessage href='/faq' id='i18n:footer:column1:faqs' />
+    </LinkList>
   </Styled.Column1>
 );
 
@@ -91,14 +101,16 @@ const Column1 = () => (
 const Column2 = () => (
   <Styled.Column2>
     <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
-    <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
-    <FooterLinkMessage
-      href={newsletterLink}
-      target='_blank'
-      rel='noopener'
-      id='i18n:footer:column2:newsletter'
-    />
-    <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
+    <LinkList>
+      <FooterLinkMessage href='/press' id='i18n:footer:column2:press' />
+      <FooterLinkMessage
+        href={newsletterLink}
+        target='_blank'
+        rel='noopener'
+        id='i18n:footer:column2:newsletter'
+      />
+      <FooterLinkMessage href='/careers' id='i18n:footer:column2:careers' />
+    </LinkList>
   </Styled.Column2>
 );
 
@@ -106,19 +118,21 @@ const Column2 = () => (
 const Column3 = () => (
   <Styled.Column3>
     <ColumnHeadingMessage id='i18n:footer:column3:policies' />
-    <FooterLinkMessage
-      href='/accessibility-statement'
-      id='i18n:footer:column3:accessibility'
-    />
-    <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
-    <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
-    <FooterLinkMessage
-      href='/privacy-policy'
-      id='i18n:footer:column3:privacy-policy'
-    />
-    <Styled.ManageCookiesLink>
-      <BareMessage id='i18n:footer:column3:manage-cookies' />
-    </Styled.ManageCookiesLink>
+    <LinkList>
+      <FooterLinkMessage
+        href='/accessibility-statement'
+        id='i18n:footer:column3:accessibility'
+      />
+      <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
+      <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
+      <FooterLinkMessage
+        href='/privacy-policy'
+        id='i18n:footer:column3:privacy-policy'
+      />
+      <Styled.ManageCookiesLink>
+        <BareMessage id='i18n:footer:column3:manage-cookies' />
+      </Styled.ManageCookiesLink>
+    </LinkList>
   </Styled.Column3>
 );
 
@@ -176,7 +190,7 @@ const Footer = ({
     <Styled.InnerFooter>
       <Styled.FooterTop>
         <Styled.TopBoxed>
-          <Styled.Heading role='heading' aria-level={2}>
+          <Styled.Heading>
             <BareMessage id='i18n:footer:heading' />
           </Styled.Heading>
           <Mission />
