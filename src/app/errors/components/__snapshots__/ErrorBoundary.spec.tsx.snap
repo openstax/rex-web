@@ -68,21 +68,21 @@ Array [
       }
     />
   </div>,
-  .c16 {
+  .c17 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c17 {
+.c18 {
+  height: 1em;
+}
+
+.c20 {
   height: 1em;
 }
 
 .c19 {
-  height: 1em;
-}
-
-.c18 {
   height: 1em;
 }
 
@@ -129,6 +129,7 @@ Array [
 
 .c4 {
   grid-area: headline;
+  margin: 0;
 }
 
 .c5 {
@@ -147,24 +148,24 @@ Array [
   color: inherit;
 }
 
-.c8 {
+.c9 {
   color: #d5d5d5;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c8:hover,
-.c8:active,
-.c8:focus {
+.c9:hover,
+.c9:active,
+.c9:focus {
   color: inherit;
 }
 
-.c8:hover {
+.c9:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c20 {
+.c21 {
   color: #d5d5d5;
   display: inline-grid;
   grid-auto-flow: column;
@@ -172,9 +173,9 @@ Array [
   overflow: hidden;
 }
 
-.c20:hover,
-.c20:active,
-.c20:focus {
+.c21:hover,
+.c21:active,
+.c21:focus {
   color: inherit;
 }
 
@@ -185,14 +186,14 @@ Array [
   grid-area: col1;
 }
 
-.c9 {
+.c10 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col2;
 }
 
-.c10 {
+.c11 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
@@ -207,9 +208,10 @@ Array [
   -ms-letter-spacing: -0.072rem;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 }
 
-.c11 {
+.c12 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -220,7 +222,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c12 {
+.c13 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -242,28 +244,28 @@ Array [
   overflow: visible;
 }
 
-.c13 {
+.c14 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c13 [data-html="copyright"] {
+.c14 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c13 a {
+.c14 a {
   color: #d5d5d5;
   overflow: visible;
 }
 
-.c13 a:hover,
-.c13 a:active,
-.c13 a:focus {
+.c14 a:hover,
+.c14 a:active,
+.c14 a:focus {
   color: inherit;
 }
 
-.c13 sup {
+.c14 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -271,7 +273,7 @@ Array [
   vertical-align: top;
 }
 
-.c14 {
+.c15 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -283,10 +285,25 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  list-style: none;
   overflow: visible;
 }
 
-.c15 {
+.c8 {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.c16 {
   color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -306,13 +323,13 @@ Array [
   width: 3rem;
 }
 
-.c15:hover,
-.c15:active,
-.c15:focus {
+.c16:hover,
+.c16:active,
+.c16:focus {
   color: inherit;
 }
 
-.c21 {
+.c22 {
   height: 4rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -403,7 +420,7 @@ Array [
 }
 
 @media (max-width:37.5em) {
-  .c8 {
+  .c9 {
     line-height: 4.5rem;
   }
 }
@@ -415,25 +432,25 @@ Array [
 }
 
 @media (min-width:37.6em) {
-  .c11 {
+  .c12 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c11 {
+  .c12 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c12 {
+  .c13 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c12 {
+  .c13 {
     padding: 0;
   }
 }
@@ -451,13 +468,11 @@ Array [
         <div
           className="c3"
         >
-          <div
-            aria-level={2}
+          <h2
             className="c4"
-            role="heading"
           >
             Our mission is to improve educational access and learning for everyone.
-          </div>
+          </h2>
           <div
             className="c5"
             dangerouslySetInnerHTML={
@@ -472,120 +487,153 @@ Array [
           <div
             className="c6"
           >
-            <div
+            <h3
               className="c7"
             >
               Help
-            </div>
-            <a
+            </h3>
+            <menu
               className="c8"
-              href="/contact"
-              rel=""
-              target="_self"
             >
-              Contact Us
-            </a>
-            <a
-              className="c8"
-              href="https://help.openstax.org/s/"
-              rel="noopener"
-              target="_blank"
-            >
-              Support Center
-            </a>
-            <a
-              className="c8"
-              href="/faq"
-              rel=""
-              target="_self"
-            >
-              FAQ
-            </a>
-          </div>
-          <div
-            className="c9"
-          >
-            <div
-              className="c7"
-            >
-              OpenStax
-            </div>
-            <a
-              className="c8"
-              href="/press"
-              rel=""
-              target="_self"
-            >
-              Press
-            </a>
-            <a
-              className="c8"
-              href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-              rel="noopener"
-              target="_blank"
-            >
-              Newsletter
-            </a>
-            <a
-              className="c8"
-              href="/careers"
-              rel=""
-              target="_self"
-            >
-              Careers
-            </a>
+              <li>
+                <a
+                  className="c9"
+                  href="/contact"
+                  rel=""
+                  target="_self"
+                >
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="https://help.openstax.org/s/"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Support Center
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/faq"
+                  rel=""
+                  target="_self"
+                >
+                  FAQ
+                </a>
+              </li>
+            </menu>
           </div>
           <div
             className="c10"
           >
-            <div
+            <h3
+              className="c7"
+            >
+              OpenStax
+            </h3>
+            <menu
+              className="c8"
+            >
+              <li>
+                <a
+                  className="c9"
+                  href="/press"
+                  rel=""
+                  target="_self"
+                >
+                  Press
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Newsletter
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/careers"
+                  rel=""
+                  target="_self"
+                >
+                  Careers
+                </a>
+              </li>
+            </menu>
+          </div>
+          <div
+            className="c11"
+          >
+            <h3
               className="c7"
             >
               Policies
-            </div>
-            <a
+            </h3>
+            <menu
               className="c8"
-              href="/accessibility-statement"
-              rel=""
-              target="_self"
             >
-              Accessibility Statement
-            </a>
-            <a
-              className="c8"
-              href="/tos"
-              rel=""
-              target="_self"
-            >
-              Terms of Use
-            </a>
-            <a
-              className="c8"
-              href="/license"
-              rel=""
-              target="_self"
-            >
-              Licensing
-            </a>
-            <a
-              className="c8"
-              href="/privacy-policy"
-              rel=""
-              target="_self"
-            >
-              Privacy Policy
-            </a>
+              <li>
+                <a
+                  className="c9"
+                  href="/accessibility-statement"
+                  rel=""
+                  target="_self"
+                >
+                  Accessibility Statement
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/tos"
+                  rel=""
+                  target="_self"
+                >
+                  Terms of Use
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/license"
+                  rel=""
+                  target="_self"
+                >
+                  Licensing
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/privacy-policy"
+                  rel=""
+                  target="_self"
+                >
+                  Privacy Policy
+                </a>
+              </li>
+              <li />
+            </menu>
           </div>
         </div>
       </div>
       <div
-        className="c11"
+        className="c12"
       >
         <div
-          className="c12"
+          className="c13"
         >
           <div
-            className="c13"
+            className="c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -602,20 +650,20 @@ Array [
               }
             }
           />
-          <ul
-            className="c14"
+          <menu
+            className="c15"
           >
             <li>
               <a
                 aria-label="facebook"
-                className="c15"
+                className="c16"
                 href="https://www.facebook.com/openstax"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c16 c17"
+                  className="c17 c18"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 320 512"
@@ -631,7 +679,7 @@ Array [
             <li>
               <a
                 aria-label="twitter"
-                className="c15"
+                className="c16"
                 href="https://twitter.com/openstax"
                 rel="noopener"
                 target="_blank"
@@ -657,14 +705,14 @@ Array [
             <li>
               <a
                 aria-label="linkedin"
-                className="c15"
+                className="c16"
                 href="https://www.linkedin.com/company/openstax"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c16 c18"
+                  className="c17 c19"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 448 512"
@@ -680,14 +728,14 @@ Array [
             <li>
               <a
                 aria-label="instagram"
-                className="c15"
+                className="c16"
                 href="https://www.instagram.com/openstax/"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c16 c19"
+                  className="c17 c20"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 448 512"
@@ -702,19 +750,19 @@ Array [
             </li>
             <li>
               <a
-                className="c20"
+                className="c21"
                 href="http://www.rice.edu"
                 rel="noopener"
                 target="_blank"
               >
                 <img
                   alt="Rice University logo"
-                  className="c21"
+                  className="c22"
                   src="rice-white-text.png"
                 />
               </a>
             </li>
-          </ul>
+          </menu>
         </div>
       </div>
     </div>
@@ -790,21 +838,21 @@ Array [
       }
     />
   </div>,
-  .c16 {
+  .c17 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c17 {
+.c18 {
+  height: 1em;
+}
+
+.c20 {
   height: 1em;
 }
 
 .c19 {
-  height: 1em;
-}
-
-.c18 {
   height: 1em;
 }
 
@@ -851,6 +899,7 @@ Array [
 
 .c4 {
   grid-area: headline;
+  margin: 0;
 }
 
 .c5 {
@@ -869,24 +918,24 @@ Array [
   color: inherit;
 }
 
-.c8 {
+.c9 {
   color: #d5d5d5;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c8:hover,
-.c8:active,
-.c8:focus {
+.c9:hover,
+.c9:active,
+.c9:focus {
   color: inherit;
 }
 
-.c8:hover {
+.c9:hover {
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c20 {
+.c21 {
   color: #d5d5d5;
   display: inline-grid;
   grid-auto-flow: column;
@@ -894,9 +943,9 @@ Array [
   overflow: hidden;
 }
 
-.c20:hover,
-.c20:active,
-.c20:focus {
+.c21:hover,
+.c21:active,
+.c21:focus {
   color: inherit;
 }
 
@@ -907,14 +956,14 @@ Array [
   grid-area: col1;
 }
 
-.c9 {
+.c10 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col2;
 }
 
-.c10 {
+.c11 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
@@ -929,9 +978,10 @@ Array [
   -ms-letter-spacing: -0.072rem;
   letter-spacing: -0.072rem;
   line-height: normal;
+  margin: 0;
 }
 
-.c11 {
+.c12 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -942,7 +992,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c12 {
+.c13 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -964,28 +1014,28 @@ Array [
   overflow: visible;
 }
 
-.c13 {
+.c14 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c13 [data-html="copyright"] {
+.c14 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c13 a {
+.c14 a {
   color: #d5d5d5;
   overflow: visible;
 }
 
-.c13 a:hover,
-.c13 a:active,
-.c13 a:focus {
+.c14 a:hover,
+.c14 a:active,
+.c14 a:focus {
   color: inherit;
 }
 
-.c13 sup {
+.c14 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -993,7 +1043,7 @@ Array [
   vertical-align: top;
 }
 
-.c14 {
+.c15 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1005,10 +1055,25 @@ Array [
   -webkit-justify-content: end;
   -ms-flex-pack: end;
   justify-content: end;
+  list-style: none;
   overflow: visible;
 }
 
-.c15 {
+.c8 {
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.c16 {
   color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -1028,13 +1093,13 @@ Array [
   width: 3rem;
 }
 
-.c15:hover,
-.c15:active,
-.c15:focus {
+.c16:hover,
+.c16:active,
+.c16:focus {
   color: inherit;
 }
 
-.c21 {
+.c22 {
   height: 4rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -1125,7 +1190,7 @@ Array [
 }
 
 @media (max-width:37.5em) {
-  .c8 {
+  .c9 {
     line-height: 4.5rem;
   }
 }
@@ -1137,25 +1202,25 @@ Array [
 }
 
 @media (min-width:37.6em) {
-  .c11 {
+  .c12 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c11 {
+  .c12 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c12 {
+  .c13 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c12 {
+  .c13 {
     padding: 0;
   }
 }
@@ -1173,13 +1238,11 @@ Array [
         <div
           className="c3"
         >
-          <div
-            aria-level={2}
+          <h2
             className="c4"
-            role="heading"
           >
             Our mission is to improve educational access and learning for everyone.
-          </div>
+          </h2>
           <div
             className="c5"
             dangerouslySetInnerHTML={
@@ -1194,120 +1257,153 @@ Array [
           <div
             className="c6"
           >
-            <div
+            <h3
               className="c7"
             >
               Help
-            </div>
-            <a
+            </h3>
+            <menu
               className="c8"
-              href="/contact"
-              rel=""
-              target="_self"
             >
-              Contact Us
-            </a>
-            <a
-              className="c8"
-              href="https://help.openstax.org/s/"
-              rel="noopener"
-              target="_blank"
-            >
-              Support Center
-            </a>
-            <a
-              className="c8"
-              href="/faq"
-              rel=""
-              target="_self"
-            >
-              FAQ
-            </a>
-          </div>
-          <div
-            className="c9"
-          >
-            <div
-              className="c7"
-            >
-              OpenStax
-            </div>
-            <a
-              className="c8"
-              href="/press"
-              rel=""
-              target="_self"
-            >
-              Press
-            </a>
-            <a
-              className="c8"
-              href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-              rel="noopener"
-              target="_blank"
-            >
-              Newsletter
-            </a>
-            <a
-              className="c8"
-              href="/careers"
-              rel=""
-              target="_self"
-            >
-              Careers
-            </a>
+              <li>
+                <a
+                  className="c9"
+                  href="/contact"
+                  rel=""
+                  target="_self"
+                >
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="https://help.openstax.org/s/"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Support Center
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/faq"
+                  rel=""
+                  target="_self"
+                >
+                  FAQ
+                </a>
+              </li>
+            </menu>
           </div>
           <div
             className="c10"
           >
-            <div
+            <h3
+              className="c7"
+            >
+              OpenStax
+            </h3>
+            <menu
+              className="c8"
+            >
+              <li>
+                <a
+                  className="c9"
+                  href="/press"
+                  rel=""
+                  target="_self"
+                >
+                  Press
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  Newsletter
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/careers"
+                  rel=""
+                  target="_self"
+                >
+                  Careers
+                </a>
+              </li>
+            </menu>
+          </div>
+          <div
+            className="c11"
+          >
+            <h3
               className="c7"
             >
               Policies
-            </div>
-            <a
+            </h3>
+            <menu
               className="c8"
-              href="/accessibility-statement"
-              rel=""
-              target="_self"
             >
-              Accessibility Statement
-            </a>
-            <a
-              className="c8"
-              href="/tos"
-              rel=""
-              target="_self"
-            >
-              Terms of Use
-            </a>
-            <a
-              className="c8"
-              href="/license"
-              rel=""
-              target="_self"
-            >
-              Licensing
-            </a>
-            <a
-              className="c8"
-              href="/privacy-policy"
-              rel=""
-              target="_self"
-            >
-              Privacy Policy
-            </a>
+              <li>
+                <a
+                  className="c9"
+                  href="/accessibility-statement"
+                  rel=""
+                  target="_self"
+                >
+                  Accessibility Statement
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/tos"
+                  rel=""
+                  target="_self"
+                >
+                  Terms of Use
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/license"
+                  rel=""
+                  target="_self"
+                >
+                  Licensing
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="/privacy-policy"
+                  rel=""
+                  target="_self"
+                >
+                  Privacy Policy
+                </a>
+              </li>
+              <li />
+            </menu>
           </div>
         </div>
       </div>
       <div
-        className="c11"
+        className="c12"
       >
         <div
-          className="c12"
+          className="c13"
         >
           <div
-            className="c13"
+            className="c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -1324,20 +1420,20 @@ Array [
               }
             }
           />
-          <ul
-            className="c14"
+          <menu
+            className="c15"
           >
             <li>
               <a
                 aria-label="facebook"
-                className="c15"
+                className="c16"
                 href="https://www.facebook.com/openstax"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c16 c17"
+                  className="c17 c18"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 320 512"
@@ -1353,7 +1449,7 @@ Array [
             <li>
               <a
                 aria-label="twitter"
-                className="c15"
+                className="c16"
                 href="https://twitter.com/openstax"
                 rel="noopener"
                 target="_blank"
@@ -1379,14 +1475,14 @@ Array [
             <li>
               <a
                 aria-label="linkedin"
-                className="c15"
+                className="c16"
                 href="https://www.linkedin.com/company/openstax"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c16 c18"
+                  className="c17 c19"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 448 512"
@@ -1402,14 +1498,14 @@ Array [
             <li>
               <a
                 aria-label="instagram"
-                className="c15"
+                className="c16"
                 href="https://www.instagram.com/openstax/"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c16 c19"
+                  className="c17 c20"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 448 512"
@@ -1424,19 +1520,19 @@ Array [
             </li>
             <li>
               <a
-                className="c20"
+                className="c21"
                 href="http://www.rice.edu"
                 rel="noopener"
                 target="_blank"
               >
                 <img
                   alt="Rice University logo"
-                  className="c21"
+                  className="c22"
                   src="rice-white-text.png"
                 />
               </a>
             </li>
-          </ul>
+          </menu>
         </div>
       </div>
     </div>
