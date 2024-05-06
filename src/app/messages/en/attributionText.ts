@@ -28,7 +28,7 @@ export const defaultText = `
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
     <blockquote>
-      Access for free at <a target="_blank" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+      Access for free at <a target="_blank" href="https://openstax.org{introPageUrl}" aria-label="{introPageTitle}">https://openstax.org{introPageUrl}</a>
     </blockquote>
   </li>
 </ul>
@@ -56,10 +56,10 @@ export const defaultText = `
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a target="_blank" href="https://openstax.org{introPageUrl}">https://openstax.org{introPageUrl}</a>
+        Book URL: <a target="_blank" href="https://openstax.org{introPageUrl}" aria-label="{introPageTitle}">https://openstax.org{introPageUrl}</a>
       </li>
       <li>
-        Section URL: <a target="_blank" href="https://openstax.org{currentPath}">https://openstax.org{currentPath}</a>
+        Section URL: <a target="_blank" href="https://openstax.org{currentPath}" aria-label="{currentPageTitle}">https://openstax.org{currentPath}</a>
       </li>
     </ul>
   </li>
