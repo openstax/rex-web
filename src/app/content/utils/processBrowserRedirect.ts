@@ -2,10 +2,15 @@ import { History } from 'history';
 import { Redirects } from '../../../../data/redirects/types';
 import { RouterService } from '../../navigation/routerService';
 import { assertWindow } from '../../utils';
-import { matchForRoute } from '../../navigation/utils';
-import { external } from '../../errors/routes';
+import { Dispatch } from '../../types';
+import { replace } from '../../navigation/actions';
+import { AnyMatch } from '../../navigation/types';
 
-export const processBrowserRedirect = async(services: {router: RouterService, history: History}) => {
+export const processBrowserRedirect = async(services: {
+  router: RouterService,
+  history: History,
+  dispatch: Dispatch
+}) => {
   const window = assertWindow();
   const redirects: Redirects = await fetch('/rex/redirects.json')
     .then((res) => res.json())
@@ -13,10 +18,9 @@ export const processBrowserRedirect = async(services: {router: RouterService, hi
 
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
-      if (matchForRoute(external, services.router.findRoute(to))) {
-        window.location.href = window.location.origin + to;
-      }
-      services.history.replace(to);
+      const {pathname, search, hash} = new URL(to, window.location.origin);
+      const match = services.router.findRoute({pathname, search, hash, state: {}});
+      services.dispatch(replace(match as AnyMatch));
       return true;
     }
   }

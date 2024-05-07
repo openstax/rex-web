@@ -49,10 +49,11 @@ const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   }, {}), {delimiter});
 };
 
-const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray) => ({
+const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray, search?: string) => ({
   params: getMatchParams(keys, match),
   route,
   state,
+  search
 } as AnyMatch);
 
 export const findRouteMatch = (routes: AnyRoute[], location: Location | string): AnyMatch | undefined => {
@@ -61,8 +62,9 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location | string):
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
       const match = re.exec(typeof location === 'string' ? location : location.pathname);
+      const search = typeof location.search === 'string' ? location.search : '';
       if (match) {
-        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match);
+        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search);
       }
     }
   }
@@ -83,9 +85,9 @@ export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?
 export const matchPathname = <M extends Match<Route<any, any>>>(action: M) => action.route.getUrl(action.params);
 
 // issue with passing AnyMatch into this https://stackoverflow.com/q/65727184/14809536
-export const matchUrl = <M extends Match<Route<any, any>>>(action: M) => {
+export const matchUrl = <M extends Match<Route<any, any>>>(action: M, searchInput?: queryString.OutputParams) => {
   const path = matchPathname(action);
-  const search = matchSearch(action);
+  const search = matchSearch(action, searchInput);
   return `${path}${search ? `?${search}` : ''}`;
 };
 

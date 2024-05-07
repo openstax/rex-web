@@ -17,13 +17,15 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
       return next(action);
     }
 
+    console.log('payload', action.payload)
+
     if (matchForRoute(notFound, action.payload) || matchForRoute(external, action.payload)) {
       const { location } = assertWindow();
       const method = action.payload.method === 'push'
         ? location.assign.bind(location)
         : location.replace.bind(location);
 
-      method(matchUrl(action.payload));
+      method(matchUrl(action.payload, queryString.parse(action.payload.search || '')));
       return;
     }
 
@@ -32,6 +34,9 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
     if (action.payload.method === 'push') {
       locationState.depth++;
     }
+
+    console.log('search: ', systemQueryParameters(getState()),
+        queryString.parse(action.payload.search || ''))
 
     history[action.payload.method]({
       hash: action.payload.hash,
