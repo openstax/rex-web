@@ -12,13 +12,15 @@ export const processBrowserRedirect = async(services: {
   dispatch: Dispatch
 }) => {
   const window = assertWindow();
+  const base = window.location.origin;
+
   const redirects: Redirects = await fetch('/rex/redirects.json')
     .then((res) => res.json())
     .catch(() => []);
 
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
-      const {pathname, search, hash} = new URL(to, window.location.origin);
+      const {pathname, search, hash} = new URL(to, base);
       const match = services.router.findRoute({pathname, search, hash, state: {}});
       services.dispatch(replace(match as AnyMatch));
       return true;
