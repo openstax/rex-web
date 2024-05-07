@@ -23,7 +23,7 @@ export default (routes: AnyRoute[], history: History): Middleware => ({getState,
         ? location.assign.bind(location)
         : location.replace.bind(location);
 
-      method(matchUrl(action.payload));
+      method(matchUrl(action.payload, queryString.parse(action.payload.search || '')));
       return;
     }
 

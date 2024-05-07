@@ -83,9 +83,9 @@ export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?
 export const matchPathname = <M extends Match<Route<any, any>>>(action: M) => action.route.getUrl(action.params);
 
 // issue with passing AnyMatch into this https://stackoverflow.com/q/65727184/14809536
-export const matchUrl = <M extends Match<Route<any, any>>>(action: M) => {
+export const matchUrl = <M extends Match<Route<any, any>>>(action: M, searchInput?: queryString.OutputParams) => {
   const path = matchPathname(action);
-  const search = matchSearch(action);
+  const search = matchSearch(action, searchInput);
   return `${path}${search ? `?${search}` : ''}`;
 };
 
