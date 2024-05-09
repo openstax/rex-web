@@ -19,7 +19,7 @@ archive_version="$(jq -r '.REACT_APP_ARCHIVE' "src/config.archive-url.json")"
 search="consumer=REX&code_version=$archive_version"
 abl_url="https://corgi.ce.openstax.org/api/abl/?$search"
 
-data="$(curl -sL --fail "$abl_url")"
+data="$(curl -sL --fail --show-error "$abl_url")"
 configured_books="$(cat src/config.books.json)"
 
 # If there is an error, print it and exit with status 1
