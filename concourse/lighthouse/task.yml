@@ -1,0 +1,26 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    password: ((dockerhub-password))
+    username: ((dockerhub-username))
+    repository: openstax/rex-web
+    tag: CI-2023-08-10
+
+inputs:
+- name: rex-web
+- name: most-recent-lighthouse-report
+outputs:
+- name: lighthouse-report
+
+params:
+  AWS_ACCESS_KEY_ID: ((prod-aws-access-key-id))
+  AWS_SECRET_ACCESS_KEY: ((prod-aws-secret-access-key))
+  LIGHTHOUSE_PAGES: ((lighthouse-pages))
+  LIGHTHOUSE_MOST_RECENT_REPORT_DIR: most-recent-lighthouse-report
+  LIGHTHOUSE_REPORT_DIR: lighthouse-report
+
+run:
+  path: rex-web/concourse/lighthouse/script.bash
