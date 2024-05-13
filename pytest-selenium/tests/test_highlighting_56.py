@@ -66,8 +66,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_another_highlight(
 
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
-    highlight = book.content.get_highlight(by_id=id_2)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(id_2), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: click the 1st highlight again
@@ -79,8 +78,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_another_highlight(
 
     # THEN: Unsaved note is abandoned and the highlight box is opened for the 1st highlight
     assert book.content.highlight_box.is_open, "Highlight box not open"
-    highlight = book.content.get_highlight(by_id=id_1)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(id_1), "highlight is not in focus"
     assert book.content.highlight_box.note == ""
 
 
@@ -127,8 +125,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
     # THEN: The modal is closed and the unsaved note is retained on the page
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
-    highlight = book.content.get_highlight(by_id=highlight_id)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(highlight_id), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: Click the TOC link again
@@ -156,6 +153,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
 
     # THEN: The unsaved note in the initial page is not saved
     highlight = book.content.get_highlight(by_id=highlight_id)[0]
+    # assert book.content.highlight_selected(highlight_id), "highlight is not in focus"
     assert not selenium.execute_script(HAS_INDICATOR, highlight), "note is saved for the highlight"
 
 
@@ -202,8 +200,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
     # THEN: The modal is closed and the unsaved note is retained on the page
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
-    highlight = book.content.get_highlight(by_id=highlight_id)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(highlight_id), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: Click previous link again
@@ -277,8 +274,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
     # THEN: The modal is closed and the unsaved note is retained on the page
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
-    highlight = book.content.get_highlight(by_id=highlight_id)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(highlight_id), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: Click next link again
@@ -351,8 +347,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
     # THEN: The modal is closed and the unsaved note is retained on the page
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
-    highlight = book.content.get_highlight(by_id=highlight_id)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(highlight_id), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: Click on book title again
@@ -424,8 +419,7 @@ def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
     # THEN: The modal is closed and the unsaved note is retained in the page
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
-    highlight = book.content.get_highlight(by_id=id_1)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(id_1), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: Select some text in the page again
@@ -500,8 +494,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
     # THEN: The modal is closed and the unsaved note is retained in the page
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
-    highlight = book.content.get_highlight(by_id=id_1)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(id_1), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: Click the same search result again
@@ -512,6 +505,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
     book.wait_for_page_to_load()
 
     # THEN: Unsaved note of the user highlight is abandoned
+    highlight = book.content.get_highlight(by_id=id_1)[0]
     assert not selenium.execute_script(HAS_INDICATOR, highlight), "note is saved for the highlight"
 
     # AND: The selected search result is highlighted
@@ -573,8 +567,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_pag
     # THEN: The modal is closed and the unsaved note is retained in the page
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
-    highlight = book.content.get_highlight(by_id=id_1)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(id_1), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: Click the same search result again
@@ -654,7 +647,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_content_links(
     assert book.content.highlight_box.is_open, "Highlight box not open"
     assert book.content.highlight_box.is_edit_box
     highlight = book.content.get_highlight(by_id=id_1)[0]
-    assert "focus" in highlight.get_attribute("class"), "highlight is not in focus"
+    assert book.content.highlight_selected(id_1), "highlight is not in focus"
     assert book.content.highlight_box.note == note
 
     # WHEN: Click the same link again
