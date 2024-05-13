@@ -2,13 +2,13 @@
 
 set -e
 
-data="$1"
-data="${data:?}"
-configured_books="$2"
-configured_books="${configured_books:?}"
+: "${1:?'First argument should be a file containing CORGI ABL array'}"
+: "${2:?'Second argument should be a file containing configured books object'}"
 
-# shellcheck disable=SC2016
-new_version_filter='[
+jq --slurp --compact-output '
+.[0] as $corgi_abl |
+.[1] as $configured_books |
+[
   # Get the newest version of each book
   $corgi_abl | group_by(.uuid) | .[] | sort_by(.commited_at) | .[-1] |
 
@@ -19,11 +19,5 @@ new_version_filter='[
   # Select entries that do not match configured books
   select($configured_books | .[$uuid] | .defaultVersion != $commit_sha) |
   { key: .uuid, value: $commit_sha }
-] | from_entries'
-
-jq \
-  --null-input \
-  --compact-output \
-  --argjson configured_books "$configured_books" \
-  --argjson corgi_abl "$data" \
-  "$new_version_filter"
+] | from_entries
+' "$1" "$2"
