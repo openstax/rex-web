@@ -14,6 +14,7 @@ import { hasOSWebData } from '../guards';
 import * as select from '../selectors';
 import { Book, BookWithOSWebData, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
+import { splitTitleParts } from '../utils/archiveTreeUtils';
 import { contentTextStyle } from './Page/PageContent';
 import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate, } from './utils/attributionValues';
 import { disablePrint } from './utils/disablePrint';
@@ -100,6 +101,8 @@ const AttributionDetails = styled(Details)`
 
 // tslint:disable-next-line:variable-name
 const AttributionContent = htmlMessage('i18n:attribution:text', Content);
+// tslint:disable-next-line:variable-name
+const CodeRunnerNote = htmlMessage('i18n:attribution:code-runner', Content);
 
 interface Props {
   book: Book | undefined;
@@ -144,6 +147,9 @@ class Attribution extends Component<Props> {
     >
       <AttributionSummary />
       <AttributionContent values={this.getValues(book, page)} />
+      {
+        book.slug.includes('python') && <strong><CodeRunnerNote /></strong>
+      }
     </AttributionDetails>;
   }
 
@@ -153,8 +159,13 @@ class Attribution extends Component<Props> {
       ...book,
       loadOptions: {booksConfig: book.loadOptions.booksConfig},
     };
+
+    const [, introTitlePart] = splitTitleParts(introPage.title);
+    const [, currentTitlePart] = splitTitleParts(page.title);
+    const introPageTitle = `${introTitlePart} - ${book.title} | OpenStax`;
     const introPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, introPage).url;
     const currentPageUrl = getBookPageUrlAndParams(bookWithoutExplicitVersions, page).url;
+    const currentPageTitle = `${currentTitlePart} - ${book.title} | OpenStax`;
 
     assertNotNull(book.publish_date, `BUG: Could not find publication date`);
     const bookPublishDate = getPublishDate(book);
@@ -174,6 +185,8 @@ class Attribution extends Component<Props> {
       bookTitle: book.title,
       copyrightHolder: 'OpenStax',
       currentPath: currentPageUrl,
+      currentPageTitle,
+      introPageTitle,
       introPageUrl,
       originalMaterialLink: null,
       ...bookIdsWithSpecialAttributionText[book.id] || {},

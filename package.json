@@ -9,7 +9,7 @@
     "@craco/craco": "<7",
     "@formatjs/intl-pluralrules": "^5.2.3",
     "@openstax/event-capture-client": "^2.0.2",
-    "@openstax/highlighter": "https://github.com/openstax/highlighter#v1.14.3",
+    "@openstax/highlighter": "https://github.com/openstax/highlighter#v1.14.2",
     "@openstax/open-search-client": "0.1.0-build.7",
     "@openstax/ts-utils": "1.6.0",
     "@openstax/ui-components": "https://github.com/openstax/ui-components#1.3.4-post2",
@@ -88,7 +88,7 @@
     "test:prerender:specs": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)prerenderspec\\.tsx?\" --config jest-puppeteer.config.json",
     "test:prerender:browser": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)browserspec\\.tsx?\" --config jest-puppeteer.config.json -i",
     "test:prerender:screenshots": "REACT_APP_ENV=test SERVER_MODE=built jest --testPathPattern=\"(\\.|/)screenshotspec\\.tsx?\" --config jest-puppeteer.config.json",
-    "test:lighthouse-manual": "REACT_APP_ENV=test lighthouse --view --config-path=./src/test/audits/index.js",
+    "test:lighthouse:manual": "REACT_APP_ENV=test lighthouse --view --config-path=./src/test/audits/index.js",
     "analyze:bundle": "craco build && source-map-explorer 'build/static/js/*.js' -m",
     "analyze:dom": "node ./script/entry.js domVisitor",
     "heroku-postbuild": "npm run-script build:clean"

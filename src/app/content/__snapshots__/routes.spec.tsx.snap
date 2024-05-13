@@ -581,29 +581,6 @@ Array [
 }
 
 @media screen {
-  .c4 .highlight::before,
-  .c4 .highlight::after {
-    -webkit-clip-path: inset(100%);
-    clip-path: inset(100%);
-    -webkit-clip: rect(1px,1px,1px,1px);
-    clip: rect(1px,1px,1px,1px);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
-
-  .c4 .highlight[data-start-message]::before {
-    content: attr(data-start-message);
-  }
-
-  .c4 .highlight[data-end-message]::after {
-    content: attr(data-end-message);
-  }
-}
-
-@media screen {
   .c4 .highlight.yellow[aria-current] {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
@@ -690,30 +667,9 @@ Array [
     font-weight: bold;
   }
 
-  .c4 .search-highlight::before,
-  .c4 .search-highlight::after {
-    -webkit-clip-path: inset(100%);
-    clip-path: inset(100%);
-    -webkit-clip: rect(1px,1px,1px,1px);
-    clip: rect(1px,1px,1px,1px);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
-
   .c4 .search-highlight,
   .c4 .search-highlight .math {
     background-color: #ffea00;
-  }
-
-  .c4 .search-highlight[data-start-message]::before {
-    content: attr(data-start-message);
-  }
-
-  .c4 .search-highlight[data-end-message]::after {
-    content: attr(data-end-message);
   }
 
   .c4 .search-highlight[aria-current],
@@ -1028,7 +984,7 @@ Array [
   </a> and you must attribute OpenStax.
 </p>
 
-<strong>Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -1041,12 +997,12 @@ Array [
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
     <blockquote>
-      Access for free at <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+      Access for free at <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" aria-label=\\"Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Test Book 1 | OpenStax\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
     </blockquote>
   </li>
 </ul>
 
-<strong>Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
@@ -1069,10 +1025,10 @@ Array [
         Location: Houston, Texas
       </li>
       <li>
-        Book URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
+        Book URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" aria-label=\\"Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Test Book 1 | OpenStax\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
       </li>
       <li>
-        Section URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
+        Section URL: <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/test-page-1\\" aria-label=\\"Test Page 1 - Test Book 1 | OpenStax\\">https://openstax.org/books/book-slug-1/pages/test-page-1</a>
       </li>
     </ul>
   </li>

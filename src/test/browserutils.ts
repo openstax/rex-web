@@ -1,6 +1,9 @@
-import lighthouse from 'lighthouse';
 import puppeteer from 'puppeteer';
-import * as lighthouseConfig from './audits';
+import url from './url';
+import { checkLighthouse, ScoreTargets } from './lighthouse';
+
+export { checkLighthouse, url };
+export type { ScoreTargets };
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 declare global {
@@ -41,8 +44,6 @@ export const setTallerDesktopViewport = (target: puppeteer.Page) =>
   target.setViewport({height: 1074, width: desktopWidth});
 export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: desktopWidth});
 export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({height: 731, width: 411});
-
-export const url = (path: string) => `http://localhost:${puppeteerConfig.server.port}/${path.replace(/^\/+/, '')}`;
 
 const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   if (window && window.__APP_ASYNC_HOOKS) {
@@ -114,14 +115,3 @@ export const h1Content = (target: puppeteer.Page) => target.evaluate(() => {
   const h1 = document && document.querySelector('h1');
   return h1 && h1.textContent;
 });
-
-export const checkLighthouse = async(target: puppeteer.Browser, urlPath: string) => {
-
-  const port = Number((new URL(target.wsEndpoint())).port);
-  const { lhr } = await lighthouse(url(urlPath), {port}, lighthouseConfig);
-
-  expect(lhr.categories.customAccessibility.score).toBeGreaterThanOrEqual(1);
-  expect(lhr.categories.accessibility.score).toBeGreaterThanOrEqual(1);
-  expect(lhr.categories.seo.score).toBeGreaterThanOrEqual(0.69);
-  expect(lhr.categories['best-practices'].score).toBeGreaterThanOrEqual(0.79);
-};
