@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -e
 
@@ -26,11 +26,10 @@ for input_file in "$my_dir"/*.input.json; do
     # -------------------------
     # Actual test goes here
     # -------------------------
-    json=$(cat "$input_file")
-    configured_books="{}"
 
     bash "$my_dir/../transform-approved-books-data.bash" \
-        "$json" "$configured_books" > "$output_file"
+        <(jq -e '.abl_data' "$input_file") \
+        <(jq -e '.configured_books' "$input_file") > "$output_file"
 
     diff "$snapshot_file" "$output_file"
     
