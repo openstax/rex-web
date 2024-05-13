@@ -134,7 +134,6 @@ const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
       </a>
       {loggedOut && <LoggedOutState currentPath={currentPath} />}
       {user && <LoggedInState user={user} currentPath={currentPath} />}
-      <Styled.PageTitleConfirmation />
     </Styled.TopBar>
   </Styled.BarWrapper>;
 

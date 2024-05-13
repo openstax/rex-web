@@ -1,16 +1,33 @@
 import React from 'react';
 import { renderToDom } from '../../test/reactutils';
-import { act } from 'react-dom/test-utils';
-import announcePageTitle, {
-  PageTitleConfirmation
-} from './PageTitleConfirmation';
+// import { act } from 'react-dom/test-utils';
+import { initialState } from '../reducer';
+import createTestStore from '../../test/createTestStore';
+import PageTitleConfirmation from './PageTitleConfirmation';
+import TestContainer from '../../test/TestContainer';
+import { setHead } from '../head/actions';
 
-describe('On scroll', () => {
-  it('doesn\'t throw when it has no children', async() => {
-    const component = renderToDom(<PageTitleConfirmation className='any' />);
+describe('PageTitleConfirmation', () => {
+  it('skips blank, skips first non-blank, announces subsequent', async() => {
+    const state = {
+      ...initialState,
+    };
 
-    act(() => announcePageTitle('something'));
-    expect(component.node.textContent).toBe('Loaded page "something"');
+    state.head.title = 'initial';
+    const store = createTestStore(state);
+
+    store.dispatch(setHead({...initialState.head, title: ''}));
+    const component = renderToDom(
+      <TestContainer store={store}>
+        <PageTitleConfirmation className='any' />
+      </TestContainer>
+    );
+
+    expect(component.node.textContent).toBe('');
+    store.dispatch(setHead({...initialState.head, title: 'initial'}));
+    expect(component.node.textContent).toBe('');
+    store.dispatch(setHead({...initialState.head, title: 'something'}));
+    expect(component.node.textContent).toBe('Loaded page something');
     component.unmount();
   });
 });

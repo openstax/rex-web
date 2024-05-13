@@ -1,30 +1,37 @@
 import React from 'react';
+import { hiddenButAccessible } from '../theme';
+import { AppState } from '../types';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
 
-type FunctionWithProperty = {
-  (title: string): void;
-  fn?: (title: string) => void;
-};
-
-const announcePageTitle: FunctionWithProperty = (title: string) => {
-  if (announcePageTitle?.fn) {
-    announcePageTitle.fn(title);
-  }
-};
-
-export default announcePageTitle;
-
-export function PageTitleConfirmation({ className }: { className: string }) {
-  const [docTitle, setDocTitle] = React.useState('');
-
-  announcePageTitle.fn = setDocTitle;
+function PageTitleConfirmation({
+  className,
+  title,
+}: {
+  className: string;
+  title: string;
+}) {
+  const skipFirst = React.useRef(true);
+  const message = React.useMemo(() => {
+    if (!title) {
+      return '';
+    }
+    if (skipFirst.current) {
+      skipFirst.current = false;
+      return '';
+    }
+    return `Loaded page ${title}`;
+  }, [title]);
 
   return (
-    <div
-      id='page-title-confirmation'
-      className={className}
-      aria-live='polite'
-    >
-      {`Loaded page "${docTitle}"`}
+    <div id='page-title-confirmation' className={className} aria-live='polite'>
+      {message}
     </div>
   );
 }
+
+export default connect(({ head: { title } }: AppState) => ({ title }))(styled(
+  PageTitleConfirmation
+)`
+  ${hiddenButAccessible}
+`);
