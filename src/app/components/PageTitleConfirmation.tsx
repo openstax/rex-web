@@ -3,6 +3,7 @@ import { hiddenButAccessible } from '../theme';
 import { AppState } from '../types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { title as titleSelector } from '../head/selectors';
 
 function PageTitleConfirmation({
   className,
@@ -30,7 +31,7 @@ function PageTitleConfirmation({
   );
 }
 
-export default connect(({ head: { title } }: AppState) => ({ title }))(styled(
+export default connect((state: AppState) => ({title: titleSelector(state)}))(styled(
   PageTitleConfirmation
 )`
   ${hiddenButAccessible}
