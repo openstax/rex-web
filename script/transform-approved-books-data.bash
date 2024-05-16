@@ -8,8 +8,10 @@ set -e
 jq --slurp --compact-output '
 .[0] as $corgi_abl |
 .[1] as $configured_books |
-$corgi_abl | if (type != "array") then error("Bad ABL data") end |
-$configured_books | if (type != "object") then error("Bad book config") end |
+$corgi_abl |
+if (type != "array") then error("Bad ABL data") else . end |
+$configured_books |
+if (type != "object") then error("Bad book config") else . end |
 [
   # Get the newest version of each book
   $corgi_abl | group_by(.uuid) | .[] | sort_by(.commited_at) | .[-1] |
