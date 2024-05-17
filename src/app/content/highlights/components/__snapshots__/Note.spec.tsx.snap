@@ -50,7 +50,7 @@ exports[`Note matches snapshot 1`] = `
 
 <label
   className="c0"
-  for="note-textarea"
+  htmlFor="note-textarea"
 >
   <textarea
     className="c1"
