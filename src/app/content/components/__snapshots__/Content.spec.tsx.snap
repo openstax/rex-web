@@ -3359,6 +3359,7 @@ li[aria-label="Current Page"] .c61 {
         className="c36 c37"
       >
         <div
+          aria-live="polite"
           className="c38"
         />
         <div
@@ -7940,6 +7941,7 @@ li[aria-label="Current Page"] .c61 {
         className="c36 c37"
       >
         <div
+          aria-live="polite"
           className="c38"
         />
         <div
