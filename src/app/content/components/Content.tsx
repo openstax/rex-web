@@ -32,6 +32,7 @@ import PrevNextBar from './PrevNextBar';
 
 import Navigation from './Navigation';
 import Topbar from './Topbar';
+import { ConfirmationToastProvider } from './ConfirmationToast';
 import Wrapper from './Wrapper';
 
 // tslint:disable-next-line:variable-name
@@ -68,6 +69,7 @@ const OuterWrapper = styled.div`
   }
 `;
 
+
 // tslint:disable-next-line:variable-name
 const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
   <ScrollOffset
@@ -93,17 +95,19 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
       <OuterWrapper>
         <Topbar />
         <Wrapper>
-          <Navigation />
-          <ContentPane>
-            <ContentNotifications mobileExpanded={mobileExpanded} />
-            <Page>
-              <PrevNextBar />
-              <LabsCTA />
-              <BuyBook />
-            </Page>
-            <Attribution />
-            <Footer />
-          </ContentPane>
+          <ConfirmationToastProvider>
+            <Navigation />
+            <ContentPane>
+              <ContentNotifications mobileExpanded={mobileExpanded} />
+              <Page>
+                <PrevNextBar />
+                <LabsCTA />
+                <BuyBook />
+              </Page>
+              <Attribution />
+              <Footer />
+            </ContentPane>
+          </ConfirmationToastProvider>
         </Wrapper>
       </OuterWrapper>
     </ErrorBoundary>

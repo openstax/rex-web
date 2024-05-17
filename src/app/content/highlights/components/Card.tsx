@@ -28,6 +28,7 @@ import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
+import { useConfirmationToastContext } from '../../components/ConfirmationToast';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -144,17 +145,13 @@ function useLocationFilterId(page: CardProps['page']): string | undefined {
 
 function Card(props: CardProps) {
   const locationFilterId = useLocationFilterId(props.page);
-  const [highlightRemoved, setHighlightRemoved] = React.useState<boolean>(
-    false
-  );
   const computedProps = useComputedProps(props);
 
   if (
     !props.highlight.range ||
     !props.page ||
     !props.book ||
-    !locationFilterId ||
-    highlightRemoved
+    !locationFilterId
   ) {
     return null;
   }
@@ -162,7 +159,6 @@ function Card(props: CardProps) {
   return (
     <NoteOrCard
       props={props as CardPropsWithBookAndPage}
-      setHighlightRemoved={setHighlightRemoved}
       locationFilterId={locationFilterId}
       computedProps={computedProps}
     />
@@ -171,12 +167,10 @@ function Card(props: CardProps) {
 
 function NoteOrCard({
   props,
-  setHighlightRemoved,
   locationFilterId,
   computedProps,
 }: {
   props: CardPropsWithBookAndPage;
-  setHighlightRemoved: React.Dispatch<React.SetStateAction<boolean>>;
   locationFilterId: string;
   computedProps: ReturnType<typeof useComputedProps>;
 }) {
@@ -188,15 +182,18 @@ function NoteOrCard({
     hasUnsavedHighlight,
     commonProps,
   } = computedProps;
+  const showToast = useConfirmationToastContext();
   const onRemove = React.useCallback(() => {
     if (props.data) {
-      setHighlightRemoved(true);
       props.remove(props.data, {
         locationFilterId,
         pageId: props.page.id,
       });
-    }
-  }, [locationFilterId, props, setHighlightRemoved]);
+      showToast({
+        message: 'Highlight removed',
+      });
+  }
+  }, [locationFilterId, props, showToast]);
   const style = highlightStyles.find(
     search => props.data && search.label === props.data.color
   );
