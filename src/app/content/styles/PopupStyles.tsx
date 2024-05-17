@@ -42,7 +42,7 @@ export const PopupWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Header = styled.h1`
+export const Header = styled.div`
   ${h3Style}
   ${disablePrint}
   ${applyBookTextColor}
@@ -57,6 +57,11 @@ export const Header = styled.h1`
   ${theme.breakpoints.mobile(css`
     padding: ${mobilePaddingSides}rem;
   `)}
+
+  h1 {
+    font-size: inherit;
+    letter-spacing: inherit;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
