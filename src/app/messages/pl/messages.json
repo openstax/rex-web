@@ -125,6 +125,7 @@
   "i18n:notification:toast:highlights:popup:load-failure": "Niektóre zakreślenia na tej stronie nie mogą zostać załadowane. Sprawdź połączenie z internetem i spróbuj ponownie.",
   "i18n:notification:toast:highlights:popup:print-failure": "Nie możemy wydrukować tej strony. Sprawdź połączenie z internetem i spróbuj ponownie.",
   "i18n:notification:toast:study-guides:load-failure": "Nie możemy załadować zawartości Kompendium na tej stronie. Sprawdź połączenie z internetem i spróbuj ponownie.",
+  "i18n:notification:toast:highlights:select-overlap": "Nakładające się zaznaczenia nie są obsługiwane.",
   "i18n:notification:toast:study-guides:popup:load-failure": "Nie możemy załadować zawartości strony. Sprawdź połączenie z internetem i spróbuj ponownie.",
   "i18n:notification:toast:study-guides:popup:print-failure": "Nie możemy wydrukować tej strony. Sprawdź połączenie z internetem i spróbuj ponownie.",
   "i18n:nudge:study-tools:heading": "Narzędzia, których potrzebujesz. <strong>100% ZA DARMO!</strong>",

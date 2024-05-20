@@ -125,6 +125,7 @@
   "i18n:notification:toast:highlights:popup:load-failure": "No se pudo cargar algunos textos resaltados. Por favor, compruebe su conexión y vuelva a intentarlo.",
   "i18n:notification:toast:highlights:popup:print-failure": "No podemos imprimir esta página. Por favor, compruebe su conexión y vuelva a intentarlo.",
   "i18n:notification:toast:study-guides:load-failure": "No podemos cargar las guías de estudio en esta página. Por favor, compruebe su conexión y vuelva a intentarlo.",
+  "i18n:notification:toast:highlights:select-overlap": "No se admiten resaltados superpuestos.",
   "i18n:notification:toast:study-guides:popup:load-failure": "No podemos cargar el contenido de esta página. Por favor, compruebe su conexión y vuelva a intentarlo",
   "i18n:notification:toast:study-guides:popup:print-failure": "No podemos imprimir esta página. Por favor, compruebe su conexión y vuelva a intentarlo.",
   "i18n:nudge:study-tools:heading": "Las herramientas de estudio que necesita. <strong>¡100 % GRATIS!</strong>",
