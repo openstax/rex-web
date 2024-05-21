@@ -31,7 +31,7 @@ pytest-testrail==2.9.0
 pytest-variables==2.0.0
 python-dateutil==2.8.2
 PyYAML==6.0
-requests==2.31.0
+requests==2.32.0
 selenium==3.141.0
 simplejson==3.17.6
 six==1.16.0
