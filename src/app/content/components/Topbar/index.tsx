@@ -201,6 +201,47 @@ function MobileSearchInputWrapper({
   );
 }
 
+// Effectively a conditionally executed hook
+function AltSCycler({hasSearchResults}: {hasSearchResults: boolean}) {
+  const isMobile = useMatchMobileQuery();
+  const cycleSearchRegions = React.useCallback(
+    // Only in desktop layout
+    () => {
+      if (isMobile) {
+        return;
+      }
+      const targets = [
+        '[class*="SearchInputWrapper"] input',
+        '[class*="SearchResultsBar"]',
+        'main',
+      ].map((q) => document?.querySelector(q));
+
+      // Determine which region we are in (if any)
+      const currentSectionIndex = targets.findIndex((el) => el?.contains(document?.activeElement!));
+
+      // If not in any, go to search input
+      if (currentSectionIndex < 0) {
+        (targets[0] as HTMLElement).focus();
+        return;
+      }
+      // If there are no search results, toggle between search input and main content
+      if (!hasSearchResults) {
+        (targets[currentSectionIndex === 0 ? 2 : 0] as HTMLElement).focus();
+        return;
+      }
+      const nextSectionIndex = (currentSectionIndex + 1) % targets.length;
+
+      (targets[nextSectionIndex] as HTMLElement).focus();
+      // Possibly we want to scroll the current result into view in results or content?
+    },
+    [isMobile, hasSearchResults]
+  );
+
+  useKeyCombination(searchKeyCombination, cycleSearchRegions);
+
+  return null;
+}
+
 function Topbar(props: Props) {
   const openMenu = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -267,44 +308,9 @@ function Topbar(props: Props) {
     [props]
   );
 
-  const isMobile = useMatchMobileQuery();
-  const cycleSearchRegions = React.useCallback(
-    // Only in desktop layout
-    () => {
-      if (isMobile) {
-        return;
-      }
-      const targets = [
-        '[class*="SearchInputWrapper"] input',
-        '[class*="SearchResultsBar"]',
-        'main',
-      ].map((q) => document?.querySelector(q));
-
-      // Determine which region we are in (if any)
-      const currentSectionIndex = targets.findIndex((el) => el?.contains(document?.activeElement!));
-
-      // If not in any, go to search input
-      if (currentSectionIndex < 0) {
-        (targets[0] as HTMLElement).focus();
-        return;
-      }
-      // If there are no search results, toggle between search input and main content
-      if (!props.hasSearchResults) {
-        (targets[currentSectionIndex === 0 ? 2 : 0] as HTMLElement).focus();
-        return;
-      }
-      const nextSectionIndex = (currentSectionIndex + 1) % targets.length;
-
-      (targets[nextSectionIndex] as HTMLElement).focus();
-      // Possibly we want to scroll the current result into view in results or content?
-    },
-    [isMobile, props.hasSearchResults]
-  );
-
-  useKeyCombination(searchKeyCombination, cycleSearchRegions);
-
   return (
     <Styled.TopBarWrapper data-testid='topbar'>
+      {typeof window !== 'undefined' && <AltSCycler hasSearchResults={props.hasSearchResults} />}
       <Styled.SearchPrintWrapper>
         <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
           <Styled.MenuButton type='button' onClick={openMenu} />
