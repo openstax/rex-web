@@ -384,7 +384,13 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            i18n:a11y:keyboard-shortcuts:keys:alt+s
+            Option (Mac) or Alt (other)
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            i18n:a11y:keyboard-shortcuts:keys:s
           </span>
         </div>
         <div
