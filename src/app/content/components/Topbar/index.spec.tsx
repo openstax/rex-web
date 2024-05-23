@@ -103,8 +103,9 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
     );
     const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
 
+    expect(document?.activeElement?.tagName).toBe('INPUT');
     act(() => dispatchSearchShortcut(tb!));
-    act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.tagName).toBe('MAIN');
   });
 
   it('goes to search results when provided', () => {
@@ -124,7 +125,9 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
     store.dispatch(receiveSearchResults(makeSearchResults()));
 
     act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.tagName).toBe('INPUT');
     act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.classList.contains('SearchResultsBar')).toBe(true);
   });
 
   it('aborts on mobile', () => {
@@ -142,9 +145,10 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
     const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
 
     act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.tagName).toBe('INPUT');
     act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.tagName).not.toBe('MAIN');
   });
-
 
   it('doesn\'t dispatch search for empty string', () => {
     const component = render();
