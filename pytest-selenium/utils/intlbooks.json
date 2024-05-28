@@ -8,7 +8,7 @@
       "psychologia-polska": {
           "default_page": "1-wprowadzenie",
           "search_term": "MIT",
-          "chapter_search_results_total": 21,
+          "chapter_search_results_total": 20,
           "rkt_search_results_total": 0
       },
       "fizyka-dla-szkół-wyższych-tom-1": {
@@ -26,8 +26,8 @@
       "fizyka-dla-szkół-wyższych-tom-3": {
           "default_page": "1-wstep",
           "search_term": "fale",
-          "chapter_search_results_total": 859,
-          "rkt_search_results_total": 9
+          "chapter_search_results_total": 117,
+          "rkt_search_results_total": 2
       },
       "física-universitaria-volumen-1": {
           "default_page": "1-introduccion",
