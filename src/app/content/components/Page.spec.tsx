@@ -1081,7 +1081,7 @@ describe('Page', () => {
     await new Promise((resolve) => setImmediate(resolve));
 
     expect(dispatch).toHaveBeenCalledWith(
-      addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
+      addToast(toastMessageKeys.highlights.failure.search, {destination: 'page'}));
     dispatch.mockClear();
 
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
@@ -1099,7 +1099,7 @@ describe('Page', () => {
     await new Promise((resolve) => setImmediate(resolve));
 
     expect(dispatch).not.toHaveBeenCalledWith(
-      addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'}));
+      addToast(toastMessageKeys.highlights.failure.search, {destination: 'page'}));
 
     dateMock.mockRestore();
   });
