@@ -158,6 +158,8 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
       className="c2 c3 c4"
     >
       <button
+        aria-controls="practice-filter-chapter"
+        aria-expanded={false}
         aria-label="Filter PQ by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
@@ -557,6 +559,8 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
       className="c2 c3 c4"
     >
       <button
+        aria-controls="practice-filter-chapter"
+        aria-expanded={true}
         aria-label="Filter PQ by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
@@ -584,6 +588,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
       </button>
       <div
         className="c12"
+        id="practice-filter-chapter"
         tabIndex={-1}
       >
         <div
@@ -1054,6 +1059,8 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
       className="c2 c3 c4"
     >
       <button
+        aria-controls="practice-filter-chapter"
+        aria-expanded={true}
         aria-label="Filter PQ by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
@@ -1081,6 +1088,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
       </button>
       <div
         className="c12"
+        id="practice-filter-chapter"
         tabIndex={-1}
       >
         <div

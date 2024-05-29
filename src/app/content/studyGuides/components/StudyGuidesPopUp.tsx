@@ -51,9 +51,11 @@ const StudyguidesPopUp = () => {
       }}
     >
       <Header colorSchema={bookTheme}>
-        <FormattedMessage id='i18n:toolbar:studyguides:popup:heading'>
-          {(msg) => msg}
-        </FormattedMessage>
+        <h1>
+          <FormattedMessage id='i18n:toolbar:studyguides:popup:heading'>
+            {(msg) => msg}
+          </FormattedMessage>
+        </h1>
         <CloseIconWrapper
           data-testid='close-studyguides-popup'
           aria-label={intl.formatMessage({id: 'i18n:toolbar:studyguides:popup:close-button:aria-label'})}
