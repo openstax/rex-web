@@ -1,3 +1,4 @@
+
 import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import isUndefined from 'lodash/fp/isUndefined';
@@ -5,7 +6,7 @@ import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { useFocusLost } from '../reactUtils';
+import { useFocusLost, useTrapTabNavigation } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme from '../theme';
 import { preventDefault } from '../utils';
@@ -165,8 +166,19 @@ const TabTransparentDropdown = styled((
   `}
 `;
 
+function TrappingDropdownList(props: object) {
+  const ref = React.useRef(null);
+
+  useTrapTabNavigation(ref);
+
+  return (
+    <ol ref={ref} {...props} />
+  );
+}
+
+
 // tslint:disable-next-line:variable-name
-export const DropdownList = styled.ol`
+export const DropdownList = styled(TrappingDropdownList)`
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.formBackground};
@@ -203,6 +215,7 @@ export const DropdownList = styled.ol`
     }
   }
 `;
+
 
 interface DropdownItemProps {
   message: string;

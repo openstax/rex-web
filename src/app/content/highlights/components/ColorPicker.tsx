@@ -61,6 +61,11 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
     height: 0;
     width: 0;
   }
+
+  :focus-within {
+    outline: 0.2rem auto Highlight;
+    outline: 0.2rem inset -webkit-focus-ring-color;
+  }
 `;
 
 type NavKeys = 'Home' | 'End' | 'ArrowLeft' | 'ArrowRight' | ' ' | 'Enter';

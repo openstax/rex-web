@@ -274,6 +274,11 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   width: 0;
 }
 
+.c2:focus-within {
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
+}
+
 .c0 {
   border: 0;
   outline: none;
