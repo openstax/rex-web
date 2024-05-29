@@ -8,7 +8,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { useFocusLost, useTrapTabNavigation } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
-import theme from '../theme';
+import theme, { defaultFocusOutline } from '../theme';
 import { preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
 
@@ -210,8 +210,7 @@ export const DropdownList = styled(TrappingDropdownList)`
     &:hover,
     &:focus {
       background: ${theme.color.neutral.formBorder};
-      outline: 0.2rem auto Highlight;
-      outline: 0.2rem inset -webkit-focus-ring-color;
+      ${defaultFocusOutline}
     }
   }
 `;
