@@ -94,5 +94,11 @@
           "search_term": "las empresas",
           "chapter_search_results_total": 4,
           "rkt_search_results_total": 0
+      },
+      "makroekonomia-podstawy": {
+          "default_page": "1-wprowadzenie-do-rozdzialu",
+          "search_term": "Funkcja",
+          "chapter_search_results_total": 141,
+          "rkt_search_results_total": 2
       }
 }

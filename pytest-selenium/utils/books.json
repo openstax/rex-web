@@ -211,8 +211,8 @@
     },
     "microbiology": {
         "default_page": "1-introduction",
-        "search_term": "ecosystems",
-        "chapter_search_results_total": 21,
+        "search_term": "halophile",
+        "chapter_search_results_total": 10,
         "rkt_search_results_total": 0
     },
     "organizational-behavior": {
@@ -447,6 +447,24 @@
         "default_page": "1-introduction",
         "search_term": "print()",
         "chapter_search_results_total": 106,
+        "rkt_search_results_total": 0
+    },
+    "pharmacology": {
+        "default_page": "1-introduction",
+        "search_term": "corticosteroids",
+        "chapter_search_results_total": 54,
+        "rkt_search_results_total": 1
+    },
+    "population-health": {
+        "default_page": "1-introduction",
+        "search_term": "population health",
+        "chapter_search_results_total": 3689,
+        "rkt_search_results_total": 11
+    },
+    "nutrition": {
+        "default_page": "1-introduction",
+        "search_term": "NIH, 2022d",
+        "chapter_search_results_total": 65,
         "rkt_search_results_total": 0
     }
 }
