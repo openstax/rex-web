@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components/macro';
 import { Check } from 'styled-icons/fa-solid/Check';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
-import { defaultFocusOutline } from '../../../theme';
 
 interface StyleProps {
   style: typeof highlightStyles[number];
@@ -105,11 +104,6 @@ const ColorIndicator = styled(Hoc)`
       stroke-width: 5%;
       display: block;
     `}
-  }
-
-  input:focus + ${FocusedStyle} {
-    display: block;
-    ${defaultFocusOutline}
   }
 `;
 

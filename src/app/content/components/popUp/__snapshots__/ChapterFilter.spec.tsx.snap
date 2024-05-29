@@ -115,8 +115,8 @@ input:checked + .c10 .c12 {
 .c8:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
 }
 
 .c8:focus-within .c9 {
@@ -161,8 +161,8 @@ input:checked + .c10 .c12 {
 .c15:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem inset -webkit-focus-ring-color;
 }
 
 .c15:focus-within .c9 {
