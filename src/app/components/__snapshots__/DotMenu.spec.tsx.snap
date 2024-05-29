@@ -499,6 +499,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     </button>
     <ol
       className="c12"
+      rightAlign={true}
     >
       <li>
         <a
