@@ -11,7 +11,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   display: none;
 }
 
-.c5 {
+.c4 {
   display: none;
   position: absolute;
   height: 2.8rem;
@@ -26,7 +26,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   border-radius: 50%;
 }
 
-.c6 {
+.c5 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -40,15 +40,9 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   border: 1px solid #fed200;
 }
 
-.c7 .c2 {
+.c6 .c2 {
   height: 1.6rem;
   width: 1.6rem;
-}
-
-.c7 input:focus + .c4 {
-  display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
 }
 
 .c0 {
@@ -82,12 +76,6 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   display: block;
 }
 
-.c0 input:focus + .c4 {
-  display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
-}
-
 <div
   className="c0"
 >
@@ -105,7 +93,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
     />
   </svg>
   <span
-    className="c4 c5"
+    className="c4"
     style={
       Object {
         "focusBorder": "#8f7700",
@@ -116,7 +104,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
     }
   />
   <span
-    className="c6"
+    className="c5"
     style={
       Object {
         "focusBorder": "#8f7700",
@@ -140,7 +128,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
   display: none;
 }
 
-.c5 {
+.c4 {
   display: none;
   position: absolute;
   height: 2.8rem;
@@ -155,7 +143,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
   border-radius: 50%;
 }
 
-.c6 {
+.c5 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -196,12 +184,6 @@ exports[`ColorIndicator matches snapshot 1`] = `
   width: 1.6rem;
 }
 
-.c0 input:focus + .c4 {
-  display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
-}
-
 <div
   className="c0"
 >
@@ -219,7 +201,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
     />
   </svg>
   <span
-    className="c4 c5"
+    className="c4"
     style={
       Object {
         "focusBorder": "#8f7700",
@@ -230,7 +212,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
     }
   />
   <span
-    className="c6"
+    className="c5"
     style={
       Object {
         "focusBorder": "#8f7700",
