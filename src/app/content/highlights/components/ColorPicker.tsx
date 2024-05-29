@@ -7,6 +7,7 @@ import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';
 import ColorIndicator from './ColorIndicator';
 import { HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import { defaultFocusOutline } from '../../../theme';
 
 interface SingleSelectProps {
   color?: HighlightColorEnum;
@@ -63,8 +64,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
   }
 
   :focus-within {
-    outline: 0.2rem auto Highlight;
-    outline: 0.2rem inset -webkit-focus-ring-color;
+    ${defaultFocusOutline}
   }
 `;
 
