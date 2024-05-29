@@ -2,26 +2,26 @@ import { makeToastMessageError } from '../../../helpers/applicationMessageError'
 import { toastMessageKeys } from '../../notifications/components/ToastNotifications/constants';
 
 // tslint:disable-next-line: variable-name
-export const HighlightCreateError = makeToastMessageError(toastMessageKeys.higlights.failure.create);
+export const HighlightCreateError = makeToastMessageError(toastMessageKeys.highlights.failure.create);
 
 // tslint:disable-next-line: variable-name
-export const HighlightDeleteError = makeToastMessageError(toastMessageKeys.higlights.failure.delete);
+export const HighlightDeleteError = makeToastMessageError(toastMessageKeys.highlights.failure.delete);
 
 // tslint:disable-next-line: variable-name
-export const HighlightLoadError = makeToastMessageError(toastMessageKeys.higlights.failure.load);
+export const HighlightLoadError = makeToastMessageError(toastMessageKeys.highlights.failure.load);
 
 // tslint:disable-next-line: variable-name
-export const HighlightPopupLoadError = makeToastMessageError(toastMessageKeys.higlights.failure.popUp.load);
+export const HighlightPopupLoadError = makeToastMessageError(toastMessageKeys.highlights.failure.popUp.load);
 
 // tslint:disable-next-line: variable-name
-export const HighlightPopupPrintError = makeToastMessageError(toastMessageKeys.higlights.failure.popUp.print);
+export const HighlightPopupPrintError = makeToastMessageError(toastMessageKeys.highlights.failure.popUp.print);
 
 // tslint:disable-next-line: variable-name
 export const HighlightUpdateAnnotationError = makeToastMessageError(
-  toastMessageKeys.higlights.failure.update.annotation);
+  toastMessageKeys.highlights.failure.update.annotation);
 
 // tslint:disable-next-line: variable-name
-export const HighlightUpdateColorError = makeToastMessageError(toastMessageKeys.higlights.failure.update.color);
+export const HighlightUpdateColorError = makeToastMessageError(toastMessageKeys.highlights.failure.update.color);
 
 // tslint:disable-next-line: variable-name
 export const StudyGuidesLoadError = makeToastMessageError(toastMessageKeys.studyGuides.failure.load);
