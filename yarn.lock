@@ -5085,7 +5085,7 @@
 
 "@openstax/highlighter@https://github.com/openstax/highlighter#use-mark-dist-branch":
   version "1.14.0"
-  resolved "https://github.com/openstax/highlighter#3da1c3824b59477b79d180f04b711b144b964c2c"
+  resolved "https://github.com/openstax/highlighter#0ef7228f54270372f7c67da80e716df58fbfc643"
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"
