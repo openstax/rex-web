@@ -128,7 +128,7 @@ export default styled(MainContent)`
       }
 
       @media screen {
-        &[aria-current] {
+        &.focus {
           background-color: ${style.focused};
           border-bottom: 0.2rem solid ${style.focusBorder};
           padding: 0.2rem 0 0;
@@ -157,7 +157,7 @@ export default styled(MainContent)`
         background-color: #ffea00;
       }
 
-      &[aria-current] {
+      &.focus {
         ${SELF_AND_CHILD_MATH_SELECTOR} {
           background-color: #ff9e4b;
           padding: 0.2rem 0;
