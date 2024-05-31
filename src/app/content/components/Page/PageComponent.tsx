@@ -81,6 +81,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       });
     }
     this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
+    lazyResources.checkLazyResources();
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
