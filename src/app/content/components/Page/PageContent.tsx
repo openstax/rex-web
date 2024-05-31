@@ -115,6 +115,8 @@ export default styled(MainContent)`
           content: "";
         }
 
+        padding-left: 0.5rem;
+
         ::before {
           position: absolute;
           top: 0;
