@@ -103,7 +103,7 @@ describe('createHighlight', () => {
       await hook(createHighlight(mock, meta));
     } catch (error: any) {
       expect(createHighlightClient).toHaveBeenCalledWith({ highlight: mock });
-      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.create);
+      expect(error.messageKey).toBe(toastMessageKeys.highlights.failure.create);
       expect(error.meta).toEqual({ destination: 'page' });
     }
   });

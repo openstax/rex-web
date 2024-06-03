@@ -188,7 +188,7 @@ describe('loadHighlights', () => {
       try {
         await hook(receivePage({...page, references: []}));
       } catch (error: any) {
-        expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.load);
+        expect(error.messageKey).toBe(toastMessageKeys.highlights.failure.load);
         expect(error.meta).toEqual({destination: 'page', shouldAutoDismiss: false});
       }
     });

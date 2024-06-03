@@ -147,7 +147,7 @@ describe('updateHighlight', () => {
       await hook(updateHighlight(colorUpdate, meta));
     } catch (error: any) {
       expect(updateHighlightClient).toHaveBeenCalledWith(colorUpdate);
-      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.color);
+      expect(error.messageKey).toBe(toastMessageKeys.highlights.failure.update.color);
       expect(error.meta).toEqual({ destination: 'page' });
     }
   });
@@ -169,7 +169,7 @@ describe('updateHighlight', () => {
       await hook(updateHighlight(annotationUpdate, meta));
     } catch (error: any) {
       expect(updateHighlightClient).toHaveBeenCalledWith(annotationUpdate);
-      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.annotation);
+      expect(error.messageKey).toBe(toastMessageKeys.highlights.failure.update.annotation);
       expect(error.meta).toEqual({ destination: 'page' });
     }
 
@@ -180,7 +180,7 @@ describe('updateHighlight', () => {
       await hook(updateHighlight(annotationUpdate, meta));
     } catch (error: any) {
       expect(updateHighlightClient).toHaveBeenCalledWith(annotationUpdate);
-      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.update.annotation);
+      expect(error.messageKey).toBe(toastMessageKeys.highlights.failure.update.annotation);
       expect(error.meta).toEqual({ destination: 'myHighlights' });
     }
   });
