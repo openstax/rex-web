@@ -9,7 +9,7 @@ export const toastMessageKeys = {
       load: 'i18n:notification:toast:archive:load-failure',
     },
   },
-  higlights: {
+  highlights: {
     failure: {
       create: 'i18n:notification:toast:highlights:create-failure',
       delete: 'i18n:notification:toast:highlights:delete-failure',
