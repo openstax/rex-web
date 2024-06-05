@@ -299,7 +299,6 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 }
 
 <fieldset
-  aria-label="colors"
   className="c0"
   onFocus={[Function]}
   onKeyDown={[Function]}

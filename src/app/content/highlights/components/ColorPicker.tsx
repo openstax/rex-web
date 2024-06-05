@@ -120,7 +120,6 @@ const ColorPicker = ({className, ...props}: Props) => {
     <fieldset
       className={className}
       tabIndex={0}
-      aria-label='colors'
       ref={ref}
       onKeyDown={handleKeyNavigation}
       onFocus={focusOnSelected}
