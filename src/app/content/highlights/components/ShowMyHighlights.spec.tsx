@@ -267,8 +267,9 @@ describe('Show my highlights', () => {
       }));
     });
 
+    const container = window.document.createElement('div');
     const {root} = renderToDom(<TestContainer store={store}>
-      <ShowMyHighlights/>
+      <ShowMyHighlights topElRef={container} />
     </TestContainer>);
 
     const target = root.querySelector('[data-testid="show-myhighlights-body"]');
