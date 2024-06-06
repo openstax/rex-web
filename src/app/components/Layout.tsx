@@ -6,11 +6,13 @@ import theme from '../theme';
 import AccessibilityButtonsWrapper from './AccessibilityButtonsWrapper';
 import NavBar from './NavBar';
 import OnEsc from './OnEsc';
+import PageTitleConfirmation from './PageTitleConfirmation';
 
 // tslint:disable-next-line:variable-name
 const Layout: SFC = ({ children }) => <AccessibilityButtonsWrapper>
   <NavBar />
   <OnEsc />
+  <PageTitleConfirmation />
   <ErrorModal />
   <ErrorBoundary>
     {children}
