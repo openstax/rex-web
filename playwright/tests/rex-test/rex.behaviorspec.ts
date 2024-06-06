@@ -576,3 +576,132 @@ test('MH page dropdown filters', async ({ page, isMobile }) => {
   const highlightcount = await bookPage.highlightCount()
   expect(highlightcount).toBe(2)
 })
+
+
+test('C543224 canonicals for books with no shared content', async ({ page, isMobile, browserName }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+  test.skip(browserName == 'webkit', 'test only chrome')
+  test.skip(browserName == 'firefox', 'test only chrome')
+
+  // GIVEN: Open Rex page
+  const bookPage = new ContentPage(page)
+  const path = '/books/chemistry-2e/pages/1-1-chemistry-in-context'
+  await bookPage.open(path)
+
+  // THEN: Canonical page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/chemistry-2e/pages/1-1-chemistry-in-context')
+
+  // WHEN: click EOC page
+  const Toc = new TOC(page)
+  await Toc.pageClick(9)
+  // THEN: Canonical page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/chemistry-2e/pages/1-key-equations')
+
+  // WHEN: Click EOB page
+  await Toc.pageClick(221)
+  // THEN: Canonical page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/chemistry-2e/pages/e-water-properties')
+
+  // WHEN: click nested EOB page
+  await Toc.pageClick(230)
+  // THEN: Canonical page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/chemistry-2e/pages/chapter-1')
+})
+
+
+test('C543225 canonicals for pages derived from another book', async ({ page, isMobile, browserName }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+  test.skip(browserName == 'webkit', 'test only chrome')
+  test.skip(browserName == 'firefox', 'test only chrome')
+
+  // GIVEN: Open Rex page derived from another book
+  const bookPage = new ContentPage(page)
+  const path = '/books/preparing-for-college-success/pages/2-1-why-college'
+  await bookPage.open(path)
+
+  // THEN: Canonical page points to original content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/college-success-concise/pages/1-1-why-college')
+
+  // WHEN: click EOC page from a chapter derived from another book
+  const Toc = new TOC(page)
+  await Toc.pageClick(14)
+  // THEN: Canonical page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/preparing-for-college-success/pages/2-summary')
+
+
+  // WHEN: Open page unique to this book
+  await Toc.pageClick(3)
+  // THEN: Canonical page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/preparing-for-college-success/pages/1-2-your-academic-journey-and-personal-story')
+
+  // WHEN: Open EOC page from the chapter unique to this book
+  await Toc.pageClick(6)
+  // THEN: Canonical page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/preparing-for-college-success/pages/1-family-friends-matter')
+  
+  // WHEN: Open EOB page from the chapter unique to this book
+  await Toc.pageClick(71)
+  // THEN: Canonical page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/preparing-for-college-success/pages/index')
+})
+
+test('C543225 canonicals for old editions point to the latest edition', async ({ page, isMobile, browserName }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+  test.skip(browserName == 'webkit', 'test only chrome')
+  test.skip(browserName == 'firefox', 'test only chrome')
+
+  // GIVEN: Open older edition of Rex page derived from another book
+  const bookPage = new ContentPage(page)
+  const path = '/books/principles-macroeconomics-2e/pages/1-introduction'
+  await bookPage.open(path)
+  // THEN: Canonical page points to latest edition of the original content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/1-introduction')
+
+  // WHEN: Open older edition of EOC page of a book derived from another book
+  const Toc = new TOC(page)
+  await Toc.pageClick(7)
+  // THEN: Canonical page points to itself 
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-macroeconomics-2e/pages/1-key-concepts-and-summary')
+
+  // WHEN: Open older edition of nested EOB page of a book derived from another book
+  await Toc.pageClick(243)
+  // THEN: Canonical page points to itself 
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-macroeconomics-2e/pages/chapter-2')
+
+
+  // WHEN: Open older edition of appendix page of a book derived from another book
+  await Toc.pageClick(241)
+  // THEN: Canonical page points to latest edition of the original content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/d-the-expenditure-output-model')
+})
+
+
+test('C543225 canonicals for volumed books point to the first volume', async ({ page, isMobile, browserName }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+  test.skip(browserName == 'webkit', 'test only chrome')
+  test.skip(browserName == 'firefox', 'test only chrome')
+
+  // GIVEN: Open older edition of Rex page derived from another book
+  const bookPage = new ContentPage(page)
+  const path = '/books/calculus-volume-1/pages/1-introduction'
+  await bookPage.open(path)
+  // THEN: Canonical page points to latest edition of the original content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/1-introduction')
+
+  // WHEN: Open older edition of EOC page of a book derived from another book
+  const Toc = new TOC(page)
+  await Toc.pageClick(7)
+  // THEN: Canonical page points to itself 
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-macroeconomics-2e/pages/1-key-concepts-and-summary')
+
+  // WHEN: Open older edition of nested EOB page of a book derived from another book
+  await Toc.pageClick(243)
+  // THEN: Canonical page points to itself 
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-macroeconomics-2e/pages/chapter-2')
+
+
+  // WHEN: Open older edition of appendix page of a book derived from another book
+  await Toc.pageClick(241)
+  // THEN: Canonical page points to latest edition of the original content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/a-the-use-of-mathematics-in-principles-of-economics')
+})

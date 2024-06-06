@@ -1,6 +1,6 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
-import { MobileNavigation } from '../utilities/utilities'
+import { MobileNavigation, sleep } from '../utilities/utilities'
 
 class ContentPage {
   colorlocator: any
@@ -33,6 +33,7 @@ class ContentPage {
   osanoManageButton: Locator
   osanoAccept: Locator
   osanoDialog: Locator
+  canonicalLocator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -59,6 +60,7 @@ class ContentPage {
     this.textarea = this.page.locator('textarea[class*="TextArea"]')
     this.osanoCloseButton = this.page.locator('button[class*="osano-cm-dialog__close"]')
     this.osanoAccept = this.page.locator('button[class*="type_accept"]')
+    this.canonicalLocator = this.page.locator('[rel="canonical"]')
   }
 
   async open(path: string) {
@@ -89,6 +91,24 @@ class ContentPage {
       .context()
       .addCookies([{ name: 'nudge_study_guides_date', value: current_date, url: this.page.url() }])
   }
+
+  async canonical() {
+
+    let canonicalPageSelector = await this.page.$('[rel="canonical"]')
+    const canonicalPage = await canonicalPageSelector.evaluate((e) => e.getAttribute('href'))
+    // console.log(x)
+    // const canonicallocatorString = this.canonicalLocator.toString().split('@')
+    // console.log(canonicallocatorString)
+    // console.log(canonicallocatorString[1])
+    // await this.page.waitForSelector('[rel="canonical"]')
+    // await this.canonicalLocator.waitFor({ state: 'hidden' })
+    // sleep(2)
+    // const canonicalPage = await this.page.getAttribute(canonicallocatorString[1], 'href')
+    // console.log(canonicalPage)
+    return canonicalPage
+  }
+
+
 
   async colorLocator(color: string) {
     // Return locator of the color
