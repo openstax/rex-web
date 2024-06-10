@@ -10,6 +10,7 @@ import GoToTopButton from '../../../components/GoToTopButton';
 import { Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import { loadMoreStudyGuides } from '../actions';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import * as selectors from '../selectors';
 import ShowStudyGuides, { StudyGuidesBody } from './ShowStudyGuides';
 
@@ -23,6 +24,14 @@ describe('ShowStudyGuides', () => {
     window = assertWindow();
   });
 
+  function createComponent(container: HTMLElement) {
+    const ref: React.RefObject<HTMLElement> = {current: container};
+
+    return renderer.create(<TestContainer store={store}>
+      <ShowStudyGuides topElRef={ref}/>
+    </TestContainer>, { createNodeMock: () => container });
+  }
+
   it('doesn\'t request more if not at bottom', () => {
     const container = window.document.createElement('div');
     const dispatch = jest.spyOn(store, 'dispatch');
@@ -30,9 +39,7 @@ describe('ShowStudyGuides', () => {
     jest.spyOn(selectors, 'hasMoreResults')
       .mockReturnValue(true);
 
-    const component = renderer.create(<TestContainer store={store}>
-      <ShowStudyGuides />
-    </TestContainer>, { createNodeMock: () => container });
+    const component = createComponent(container);
 
     Object.defineProperty(container, 'scrollHeight', { value: 1000 });
     Object.defineProperty(container, 'offsetHeight', { value: 100 });
@@ -54,9 +61,7 @@ describe('ShowStudyGuides', () => {
     jest.spyOn(selectors, 'hasMoreResults')
       .mockReturnValue(true);
 
-    const component = renderer.create(<TestContainer store={store}>
-      <ShowStudyGuides />
-    </TestContainer>, { createNodeMock: () => container});
+    const component = createComponent(container);
 
     Object.defineProperty(container, 'scrollHeight', { value: 1000 });
     Object.defineProperty(container, 'offsetHeight', { value: 100 });
@@ -79,9 +84,7 @@ describe('ShowStudyGuides', () => {
     jest.spyOn(selectors, 'summaryIsLoading').mockReturnValue(false);
     jest.spyOn(selectors, 'summaryStudyGuides').mockReturnValue({});
 
-    renderer.create(<TestContainer store={store}>
-      <ShowStudyGuides />
-    </TestContainer>, { createNodeMock: () => container});
+    createComponent(container);
 
     runHooks(renderer);
 
@@ -95,9 +98,7 @@ describe('ShowStudyGuides', () => {
     jest.spyOn(selectors, 'hasMoreResults')
       .mockReturnValue(false);
 
-    const component = renderer.create(<TestContainer store={store}>
-      <ShowStudyGuides />
-    </TestContainer>, { createNodeMock: () => container});
+    const component = createComponent(container);
 
     Object.defineProperty(container, 'scrollHeight', { value: 1000 });
     Object.defineProperty(container, 'offsetHeight', { value: 100 });
@@ -122,9 +123,7 @@ describe('ShowStudyGuides', () => {
     jest.spyOn(selectors, 'hasMoreResults')
       .mockReturnValue(true);
 
-    const component = renderer.create(<TestContainer store={store}>
-      <ShowStudyGuides />
-    </TestContainer>, { createNodeMock: () => container});
+    const component = createComponent(container);
 
     Object.defineProperty(container, 'scrollHeight', { value: 1000 });
     Object.defineProperty(container, 'offsetHeight', { value: 100 });
@@ -148,9 +147,7 @@ describe('ShowStudyGuides', () => {
   it('shows back to top button on scroll and works on click', async() => {
     const container = window.document.createElement('div');
 
-    const component = renderer.create(<TestContainer store={store}>
-      <ShowStudyGuides />
-    </TestContainer>, { createNodeMock: () => container });
+    const component = createComponent(container);
 
     Object.defineProperty(container, 'height', { value: 1000 });
     Object.defineProperty(container, 'scrollTop', { value: 10, writable: true });
@@ -175,7 +172,7 @@ describe('ShowStudyGuides', () => {
 
   it('does not scroll to top without ref', () => {
     const {root} = renderToDom(<TestContainer store={store}>
-      <ShowStudyGuides />
+      <ShowStudyGuides topElRef={{} as React.RefObject<HTMLElement>} />
     </TestContainer>);
 
     const target = root.querySelector('[data-testid="show-studyguides-body"]');
