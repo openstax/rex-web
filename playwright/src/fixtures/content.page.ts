@@ -33,7 +33,6 @@ class ContentPage {
   osanoManageButton: Locator
   osanoAccept: Locator
   osanoDialog: Locator
-  canonicalLocator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -60,7 +59,6 @@ class ContentPage {
     this.textarea = this.page.locator('textarea[class*="TextArea"]')
     this.osanoCloseButton = this.page.locator('button[class*="osano-cm-dialog__close"]')
     this.osanoAccept = this.page.locator('button[class*="type_accept"]')
-    this.canonicalLocator = this.page.locator('[rel="canonical"]')
   }
 
   async open(path: string) {
@@ -93,22 +91,11 @@ class ContentPage {
   }
 
   async canonical() {
-
+    // Return canonical link of the current page
     let canonicalPageSelector = await this.page.$('[rel="canonical"]')
     const canonicalPage = await canonicalPageSelector.evaluate((e) => e.getAttribute('href'))
-    // console.log(x)
-    // const canonicallocatorString = this.canonicalLocator.toString().split('@')
-    // console.log(canonicallocatorString)
-    // console.log(canonicallocatorString[1])
-    // await this.page.waitForSelector('[rel="canonical"]')
-    // await this.canonicalLocator.waitFor({ state: 'hidden' })
-    // sleep(2)
-    // const canonicalPage = await this.page.getAttribute(canonicallocatorString[1], 'href')
-    // console.log(canonicalPage)
     return canonicalPage
   }
-
-
 
   async colorLocator(color: string) {
     // Return locator of the color
