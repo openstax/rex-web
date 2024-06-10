@@ -1,6 +1,6 @@
 // Content page locators and functions
 import { Locator, Page } from 'playwright'
-import { MobileNavigation, sleep } from '../utilities/utilities'
+import { MobileNavigation } from '../utilities/utilities'
 
 class ContentPage {
   colorlocator: any
