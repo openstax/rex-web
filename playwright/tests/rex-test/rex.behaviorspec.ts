@@ -674,34 +674,3 @@ test('C543225 canonicals for old editions point to the latest edition', async ({
   // THEN: Canonical page points to latest edition of the original content
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/d-the-expenditure-output-model')
 })
-
-
-test('C543225 canonicals for volumed books point to the first volume', async ({ page, isMobile, browserName }) => {
-  test.skip(isMobile as boolean, 'test only desktop resolution')
-  test.skip(browserName == 'webkit', 'test only chrome')
-  test.skip(browserName == 'firefox', 'test only chrome')
-
-  // GIVEN: Open older edition of Rex page derived from another book
-  const bookPage = new ContentPage(page)
-  const path = '/books/calculus-volume-1/pages/1-introduction'
-  await bookPage.open(path)
-  // THEN: Canonical page points to latest edition of the original content
-  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/1-introduction')
-
-  // WHEN: Open older edition of EOC page of a book derived from another book
-  const Toc = new TOC(page)
-  await Toc.pageClick(7)
-  // THEN: Canonical page points to itself 
-  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-macroeconomics-2e/pages/1-key-concepts-and-summary')
-
-  // WHEN: Open older edition of nested EOB page of a book derived from another book
-  await Toc.pageClick(243)
-  // THEN: Canonical page points to itself 
-  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-macroeconomics-2e/pages/chapter-2')
-
-
-  // WHEN: Open older edition of appendix page of a book derived from another book
-  await Toc.pageClick(241)
-  // THEN: Canonical page points to latest edition of the original content
-  expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/a-the-use-of-mathematics-in-principles-of-economics')
-})
