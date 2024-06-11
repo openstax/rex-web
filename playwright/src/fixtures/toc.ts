@@ -89,7 +89,7 @@ class TOC {
       if ((await titleAfterClick) != (await titleBeforeClick)) {
         return
       } else {
-        sleep(1)
+        sleep(2)
       }
     } else {
       console.log('The page number specified exceeds the total pages in the book')
