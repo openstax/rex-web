@@ -2,7 +2,7 @@ import { Window } from '@openstax/types/lib.dom';
 import { useServices } from '../context/Services';
 
 export const decodeToken = (launchToken: string | undefined) => {
-  if (!launchToken || typeof window === 'undefined') return {};
+  if (!launchToken || typeof window === 'undefined') return undefined;
 
   // https://stackoverflow.com/a/38552302/14809536
   const base64Url = launchToken.split('.')[1];
@@ -12,7 +12,7 @@ export const decodeToken = (launchToken: string | undefined) => {
   }).join(''));
 
   const token = JSON.parse(jsonPayload);
-  return 'sub' in token ? JSON.parse(token.sub) : {};
+  return 'sub' in token ? JSON.parse(token.sub) : undefined;
 };
 
 export const pullToken = (window: Window) => {
@@ -28,7 +28,13 @@ export const pullToken = (window: Window) => {
   const search = searchParams.toString();
   window.history.replaceState({}, window.document.title, window.location.pathname + (search ? `?${search}` : ''));
 
-  return {tokenString: launchToken, tokenData: decodeToken(launchToken)};
+  const tokenData = decodeToken(launchToken);
+
+  if (!tokenData) {
+    return undefined;
+  }
+
+  return {tokenString: launchToken, tokenData};
 };
 
 
