@@ -41,7 +41,7 @@ const StyledSectionTitle = styled.h2`
     text-overflow: ellipsis;
   `)}
 `;
-    
+
 declare const window: any;
 
 const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => void) => {

@@ -1,26 +1,26 @@
 import * as jwt from 'jsonwebtoken';
-import { pullToken, decodeToken } from "./launchToken";
-import { assertWindow } from "../utils/browser-assertions";
+import { pullToken, decodeToken } from './launchToken';
+import { assertWindow } from '../utils/browser-assertions';
 
 describe('launchToken', () => {
 
   it('decodes token', () => {
     const token = jwt.sign({
-      sub: JSON.stringify({stuff: 'things'})
+      sub: JSON.stringify({stuff: 'things'}),
     }, 'secret');
 
     const replaceStateSpy = jest.fn();
     Object.defineProperty(assertWindow().history, 'replaceState', {
       writable: true,
-      value: replaceStateSpy
+      value: replaceStateSpy,
     });
 
     Object.defineProperty(assertWindow(), 'location', {
       writable: true,
       value: {
         ...assertWindow().location,
-        search: `t=${token}&other=thing`
-      }
+        search: `t=${token}&other=thing`,
+      },
     });
 
     const result = pullToken(assertWindow());
@@ -36,15 +36,15 @@ describe('launchToken', () => {
   it('works without token', () => {
     const replaceStateSpy = jest.fn();
     Object.defineProperty(assertWindow().history, 'replaceState', {
-      value: replaceStateSpy
+      value: replaceStateSpy,
     });
 
     Object.defineProperty(assertWindow(), 'location', {
       writable: true,
       value: {
         ...assertWindow().location,
-        search: `other=thing`
-      }
+        search: `other=thing`,
+      },
     });
 
     const result = pullToken(assertWindow());
@@ -60,15 +60,15 @@ describe('launchToken', () => {
     const replaceStateSpy = jest.fn();
     Object.defineProperty(assertWindow().history, 'replaceState', {
       writable: true,
-      value: replaceStateSpy
+      value: replaceStateSpy,
     });
 
     Object.defineProperty(assertWindow(), 'location', {
       writable: true,
       value: {
         ...assertWindow().location,
-        search: `t=${token}`
-      }
+        search: `t=${token}`,
+      },
     });
 
     const result = pullToken(assertWindow());

@@ -11,7 +11,7 @@ import { MiddlewareAPI, Store } from '../../types';
 import { setTextSize } from '../actions';
 import { LinkedArchiveTreeSection } from '../types';
 import { AssignedTopBar } from './AssignedTopBar';
-import { assertDocument, assertWindow } from "../../utils/browser-assertions";
+import { assertDocument, assertWindow } from '../../utils/browser-assertions';
 
 jest.mock('react', () => {
   const react = (jest as any).requireActual('react');
@@ -119,9 +119,9 @@ describe('AssignedTopBar', () => {
         if (event === 'message') {
           handler({
             data: {type: 'TextSizeUpdate', value: 2},
-            origin: assertWindow().location.origin
-          })
-        };
+            origin: assertWindow().location.origin,
+          });
+        }
       });
     });
 
@@ -156,9 +156,9 @@ describe('AssignedTopBar', () => {
         if (event === 'message') {
           handler({
             data: {type: 'TextSizeUpdate', value: 2},
-            origin: 'https://google.com'
-          })
-        };
+            origin: 'https://google.com',
+          });
+        }
       });
     });
 
