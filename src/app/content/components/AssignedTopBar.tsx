@@ -55,7 +55,7 @@ const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => voi
 
     const handler = (event: MessageEvent<any>) => {
       if (
-        event.data.type === 'FontSizeUpdate' &&
+        event.data.type === 'TextSizeUpdate' &&
         event.origin === referrer.origin &&
         textResizerValues.includes(event.data.value as TextResizerValue)
       ) {
@@ -67,7 +67,7 @@ const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => voi
     return () => win.removeEventListener('message', handler);
   }, [handleChange]);
 
-  return typeof launchToken.fontSize === 'number';
+  return typeof launchToken.textSize === 'number';
 };
 
 // tslint:disable-next-line:variable-name

@@ -18,11 +18,11 @@ export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => asy
     return;
   }
  
-  if (typeof launchToken?.tokenData.fontSize === 'number') {
-    storedTextSize = launchToken.tokenData.fontSize;
+  if (typeof launchToken?.tokenData.textSize === 'number') {
+    storedTextSize = launchToken.tokenData.textSize;
   }
 
-  if (!storedTextSize && typeof window !== 'undefined') {
+  if (storedTextSize === undefined && typeof window !== 'undefined') {
     try {
       storedTextSize = parseInt(window.localStorage.getItem(textResizerStorageKey) ?? '', 10);
     } catch {
