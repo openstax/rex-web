@@ -28,7 +28,7 @@ import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import { pullToken } from "./app/content/launchToken";
+import { pullToken } from './app/content/launchToken';
 
 const window = assertWindow('Browser entrypoint must be used in the browser');
 const document = window.document;

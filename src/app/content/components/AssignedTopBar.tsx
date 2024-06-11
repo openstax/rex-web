@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import {MessageEvent} from '@openstax/types/lib.dom';
+import { MessageEvent } from '@openstax/types/lib.dom';
 import theme from '../../theme';
 import { setTextSize } from '../actions';
 import * as selectContent from '../selectors';
@@ -9,8 +9,8 @@ import { LinkedArchiveTreeSection } from '../types';
 import { shadow, TopBarWrapper } from './Topbar/styled';
 import { TextResizer } from './Topbar/TextResizer';
 import { topbarDesktopHeight, topbarMobileHeight } from './constants';
-import { TextResizerValue, textResizerValues } from "../constants";
-import { useLaunchToken } from "../launchToken";
+import { TextResizerValue, textResizerValues } from '../constants';
+import { useLaunchToken } from '../launchToken';
 
 // tslint:disable-next-line:variable-name
 const StyledTopBarWrapper = styled(TopBarWrapper)`
@@ -61,7 +61,7 @@ const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => voi
       ) {
         handleChange(event.data.value);
       }
-    }
+    };
 
     win.addEventListener('message', handler);
     return () => win.removeEventListener('message', handler);
@@ -79,7 +79,7 @@ export const AssignedTopBar = (props: {
   const dispatch = useDispatch();
 
   const handleValueChange = React.useCallback((value: TextResizerValue) => {
-    dispatch(setTextSize(value))
+    dispatch(setTextSize(value));
   }, [dispatch]);
 
   const hasIntegration = useTextResizeIntegration(handleValueChange);

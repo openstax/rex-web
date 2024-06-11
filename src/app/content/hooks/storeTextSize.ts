@@ -17,7 +17,7 @@ export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => asy
   if (state.content.textSize !== null) {
     return;
   }
- 
+
   if (typeof launchToken?.tokenData.textSize === 'number') {
     storedTextSize = launchToken.tokenData.textSize;
   }

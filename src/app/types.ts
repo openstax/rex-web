@@ -52,7 +52,7 @@ export interface AppServices {
   highlightClient: ReturnType<typeof createHighlightClient>;
   history: History;
   intl: {current: IntlShape | null};
-  launchToken?: {tokenString: string, tokenData: JsonCompatibleStruct}
+  launchToken?: {tokenString: string, tokenData: JsonCompatibleStruct};
   osWebLoader: ReturnType<typeof createOSWebLoader>;
   practiceQuestionsLoader: ReturnType<typeof createPracticeQuestionsLoader>;
   prerenderedContent?: string;
