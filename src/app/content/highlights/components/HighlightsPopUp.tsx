@@ -142,7 +142,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
           <CloseIcon colorSchema={props.bookTheme}/>
         </CloseIconWrapper>
       </Header>
-      {props.user ? <ShowMyHighlights /> : <LoginForHighlights />}
+      {props.user ? <ShowMyHighlights topElRef={popUpRef} /> : <LoginForHighlights />}
       <HighlightsHelpInfo />
     </Modal>
     : null;
