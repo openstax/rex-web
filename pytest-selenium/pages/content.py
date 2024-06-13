@@ -28,6 +28,7 @@ from utils.utility import Color, Highlight, Utilities
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
 COMPUTED_STYLES = "return window.getComputedStyle(arguments[0]){field};"
 ELEMENT_SELECT = "return document.querySelector('{selector}');"
+FOCUSED_HIGHLIGHT_LOCATOR = "[data-highlight-id='{n}'][aria-current=true]"
 
 
 class ContentError(Exception):
@@ -745,6 +746,18 @@ class Content(Page):
             return list(
                 set([highlight.get_attribute("data-highlight-id") for highlight in self.highlights])
             )
+
+        def highlight_focused(self, highlight_id) -> bool:
+            """Return True if the highlight is focused.
+
+            :return: ``True`` if the highlight is focused
+            :rtype: bool
+
+            """
+            focused_highlight_locator = self.find_elements(
+                By.CSS_SELECTOR, FOCUSED_HIGHLIGHT_LOCATOR.format(n=highlight_id)
+            )
+            return bool(focused_highlight_locator)
 
         @property
         def images(self) -> List[WebElement]:

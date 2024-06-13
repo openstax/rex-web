@@ -224,7 +224,7 @@ describe('printHighlights', () => {
         await asyncHelper(helpers);
       } catch (error: any) {
         expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-        expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.print);
+        expect(error.messageKey).toBe(toastMessageKeys.highlights.failure.popUp.print);
         expect(error.meta).toEqual({ destination: 'myHighlights' });
       }
     });

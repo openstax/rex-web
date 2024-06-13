@@ -124,8 +124,10 @@ export default () => {
         label='i18n:highlighting:filters:chapters'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
         dataAnalyticsLabel='Filter study guides by Chapter'
+        controlsId='guide-filter-chapter'
       >
         <ConnectedChapterFilter
+          id='guide-filter-chapter'
           disabled={userLoggedOut}
           multiselect={true}
           setFilters={(change: FiltersChange<LinkedArchiveTreeNode>) =>
@@ -136,8 +138,10 @@ export default () => {
         label='i18n:highlighting:filters:colors'
         ariaLabelId='i18n:studyguides:popup:filters:filter-by:aria-label'
         dataAnalyticsLabel='Filter study guides by Color'
+        controlsId='guide-filter-color'
       >
         <ConnectedColorFilter
+          id='guide-filter-color'
           disabled={userLoggedOut}
           styles={highlightStyles}
           labelKey={(label: HighlightColorEnum) => `i18n:studyguides:popup:filters:${label}`}
