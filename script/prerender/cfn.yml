@@ -20,17 +20,17 @@ Parameters:
     ConstraintDescription: Must be a valid Rex code version
 
   PublicUrl:
-    Description: Public URL to use, for example "/rex/releases/${ReleaseId}"
+    Description: Public URL to use, for example "/rex/releases/ReleaseId"
     Type: String
     ConstraintDescription: Must be a path starting with /
 
   ReleaseId:
-    Description: Release ID to use, for example "v4/${someHash}"
+    Description: Release ID to use, for example "v4/someHash"
     Type: String
     ConstraintDescription: Must be a valid Rex Release ID
 
   ImageTag:
-    Description: Prerender Docker container image tag, for example "v4-${someHash}"
+    Description: Prerender Docker container image tag, for example "v4-someHash"
     Type: String
     AllowedPattern: ^[_0-9A-Za-z][-_.0-9A-Za-z]{0,127}$
     ConstraintDescription: >-
@@ -198,12 +198,6 @@ Resources:
           Tags:
             - Key: Name
               Value: !Sub ${AWS::StackName}-fleet
-            - Key: Project
-              Value: Unified
-            - Key: Application
-              Value: Rex Prerender
-            - Key: Environment
-              Value: production
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
         TotalTargetCapacity: 8

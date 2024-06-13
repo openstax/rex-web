@@ -334,7 +334,7 @@ describe('filtersChange errors', () => {
       await hook(store.dispatch(setSummaryFilters({locationIds})));
     } catch (error: any) {
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.popUp.load);
+      expect(error.messageKey).toBe(toastMessageKeys.highlights.failure.popUp.load);
       expect(error.meta).toEqual({ destination: 'myHighlights' });
     }
   });
