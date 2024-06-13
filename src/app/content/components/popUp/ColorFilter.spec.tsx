@@ -29,6 +29,7 @@ describe('ColorFilter', () => {
       ]),
       styles: highlightStyles,
       updateSummaryFilters: jest.fn(),
+      id: 'color-filter',
     };
   });
 

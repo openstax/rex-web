@@ -372,7 +372,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     <div
       className="c2 c3"
     >
-      <div
+      <h2
         className="c4"
         dangerouslySetInnerHTML={
           Object {
@@ -385,7 +385,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     <div
       className="c5 c6"
     >
-      <div
+      <h3
         className="c7 c8"
         dangerouslySetInnerHTML={
           Object {
@@ -516,7 +516,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     <div
       className="c2 c3"
     >
-      <div
+      <h2
         className="c4"
         dangerouslySetInnerHTML={
           Object {
@@ -529,7 +529,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     <div
       className="c5 c6"
     >
-      <div
+      <h3
         className="c7 c8"
         dangerouslySetInnerHTML={
           Object {
