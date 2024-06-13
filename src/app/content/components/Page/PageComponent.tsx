@@ -81,6 +81,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       });
     }
     this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
+    lazyResources.checkLazyResources();
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
@@ -126,7 +127,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
     if (!selectedHighlight) {
-      this.props.addToast(toastMessageKeys.higlights.failure.search, {destination: 'page'});
+      this.props.addToast(toastMessageKeys.highlights.failure.search, {destination: 'page'});
     }
   };
 

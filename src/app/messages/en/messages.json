@@ -127,6 +127,7 @@
   "i18n:notification:toast:highlights:update-failure:color": "The highlight color could not be changed. Please check your connection and try again.",
   "i18n:notification:toast:highlights:update-failure:annotation": "The note could not be saved. Please check your connection and try again.",
   "i18n:notification:toast:highlights:load-failure": "We're unable to load Highlights on this page. Please check your connection and try again.",
+  "i18n:notification:toast:highlights:select-overlap": "Overlapping highlights are not supported.",
   "i18n:notification:toast:highlights:popup:load-failure": "Some highlights could not be loaded. Please check your connection and try again.",
   "i18n:notification:toast:highlights:popup:print-failure": "We're unable to print this page. Please check your connection and try again.",
   "i18n:notification:toast:study-guides:load-failure": "We're unable to load Study Guides on this page. Please check your connection and try again.",

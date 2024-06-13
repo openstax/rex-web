@@ -32,7 +32,7 @@ export const StudyGuidesBody = styled(PopupBody)`
 `;
 
 // tslint:disable-next-line: variable-name
-const ShowStudyGuides = () => {
+const ShowStudyGuides = ({topElRef}: {topElRef: React.RefObject<HTMLElement>}) => {
   const ref = React.useRef<HTMLElement>(null);
   const [showGoToTop, setShowGoToTop] = React.useState(false);
   const dispatch = useDispatch();
@@ -54,6 +54,7 @@ const ShowStudyGuides = () => {
     }
 
     refElement.scrollTop = 0;
+    topElRef.current?.focus();
     setShowGoToTop(false);
   };
 
