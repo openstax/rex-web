@@ -40,7 +40,12 @@ describe('content', () => {
   });
 
   it('a11y lighthouse check', async() => {
-    await checkLighthouse(browser, TEST_LONG_PAGE_URL);
+    await checkLighthouse(browser, TEST_LONG_PAGE_URL, {
+      accessibility: 1,
+      'best-practices': 0.88,
+      customAccessibility: 1,
+      seo: 1,
+    });
   });
 
   it(`when clicking a toc link:

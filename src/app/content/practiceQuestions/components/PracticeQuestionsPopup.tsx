@@ -59,9 +59,11 @@ const PracticeQuestionsPopup = () => {
       }}
     >
       <Header colorSchema={bookTheme}>
-        <FormattedMessage id='i18n:practice-questions:popup:heading'>
-          {(msg) => msg}
-        </FormattedMessage>
+        <h1>
+          <FormattedMessage id='i18n:practice-questions:popup:heading'>
+            {(msg) => msg}
+          </FormattedMessage>
+        </h1>
         <CloseIconWrapper
           data-testid='close-practice-questions-popup'
           aria-label={intl.formatMessage({id: 'i18n:practice-questions:popup:close'})}
