@@ -65,7 +65,7 @@ const StudyguidesPopUp = () => {
           <CloseIcon colorSchema={bookTheme} />
         </CloseIconWrapper>
       </Header>
-      <ShowStudyGuides />
+      <ShowStudyGuides topElRef={popUpRef} />
     </Modal>
     : null;
 };

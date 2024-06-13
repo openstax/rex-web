@@ -5,11 +5,11 @@ certifi==2023.7.22
 cffi==1.15.0
 cfgv==3.3.1
 chardet==4.0.0
-chromedriver-binary==122.0.6261.94
+chromedriver-binary==124.0.6367.78.0
 cryptography==42.0.4
 Faker==13.3.4
 identify==2.4.12
-idna==2.10 # pyup: ignore
+idna==3.7 # pyup: ignore
 importlib-metadata==4.11.3
 more-itertools==8.12.0
 nodeenv==1.6.0
