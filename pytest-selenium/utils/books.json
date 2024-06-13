@@ -466,6 +466,12 @@
         "search_term": "NIH, 2022d",
         "chapter_search_results_total": 65,
         "rkt_search_results_total": 0
+    },
+    "psychiatric-mental-health": {
+        "default_page": "1-introduction",
+        "search_term": "mental health",
+        "chapter_search_results_total": 2674,
+        "rkt_search_results_total": 4
     }
 }
 

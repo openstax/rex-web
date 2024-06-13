@@ -117,15 +117,14 @@ const ColorPicker = ({className, ...props}: Props) => {
   React.useEffect(focusOnSelected, [focusOnSelected]);
 
   return (
-    <div
+    <fieldset
       className={className}
       tabIndex={0}
-      role='radiogroup'
-      aria-label='colors'
       ref={ref}
       onKeyDown={handleKeyNavigation}
       onFocus={focusOnSelected}
     >
+      <legend>Choose highlight color</legend>
       {highlightStyles.map((style) => <ColorButton key={style.label}
         name={style.label}
         checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
@@ -140,15 +139,24 @@ const ColorPicker = ({className, ...props}: Props) => {
             ? props.onRemove ? props.onRemove() : null
             : props.onChange(style.label)}
       />)}
-    </div>
+    </fieldset>
   );
 };
 
 export default styled(ColorPicker)`
+  border: 0;
   outline: none;
   display: flex;
   flex-direction: row;
   overflow: visible;
   gap: ${cardPadding}rem;
   padding: ${cardPadding}rem 0.3rem;
+
+  legend {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
 `;
