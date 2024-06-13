@@ -81,7 +81,7 @@ describe('receiveDeleteHighlight', () => {
       await hook(receiveDeleteHighlight(highlight as unknown as HighlightData, meta));
     } catch (error: any) {
       expect(deleteHighlightClient).toHaveBeenCalled();
-      expect(error.messageKey).toBe(toastMessageKeys.higlights.failure.delete);
+      expect(error.messageKey).toBe(toastMessageKeys.highlights.failure.delete);
       expect(error.meta).toEqual({ destination: 'page' });
     }
   });
