@@ -35,26 +35,50 @@ interface ToggleProps {
   isOpen: boolean;
   ariaLabelId: string;
   showAngleIcon: boolean;
+  controlsId: string;
 }
 // tslint:disable-next-line:variable-name
-const Toggle = styled(React.forwardRef<HTMLButtonElement, ToggleProps>(
-  ({label, isOpen, ariaLabelId, showAngleIcon = true, showLabel = true, toggleChildren, ...props}, ref) => (
-    <PlainButton ref={ref} {...props} aria-label={useIntl().formatMessage({id: ariaLabelId}, {filter: label})}>
-      <div tabIndex={-1}>
-        {showLabel && label}
-        {toggleChildren}
-        {showAngleIcon && <AngleIcon direction={isOpen ? 'up' : 'down'} />}
-      </div>
-    </PlainButton>
+const Toggle = styled(
+  React.forwardRef<HTMLButtonElement, ToggleProps>(
+    (
+      {
+        label,
+        isOpen,
+        ariaLabelId,
+        showAngleIcon = true,
+        showLabel = true,
+        toggleChildren,
+        controlsId,
+        ...props
+      },
+      ref
+    ) => (
+      <PlainButton
+        ref={ref}
+        {...props}
+        aria-label={useIntl().formatMessage(
+          { id: ariaLabelId },
+          { filter: label }
+        )}
+        aria-expanded={isOpen}
+        aria-controls={controlsId}
+      >
+        <div tabIndex={-1}>
+          {showLabel && label}
+          {toggleChildren}
+          {showAngleIcon && <AngleIcon direction={isOpen ? 'up' : 'down'} />}
+        </div>
+      </PlainButton>
+    )
   )
-))`
+)`
   position: relative;
   border-left: ${filters.border}rem solid transparent;
   border-right: ${filters.border}rem solid transparent;
   ${(props: ToggleProps) => props.isOpen
     ? css`
       z-index: 2;
-      box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+      box-shadow: 0 0 0.6rem 0 rgba(0, 0, 0, 0.2);
       clip-path: inset(0 -0.6rem 0px -0.6rem);
       background-color: ${theme.color.white};
       border-left: ${filters.border}rem solid ${theme.color.neutral.formBorder};
@@ -85,6 +109,7 @@ type FilterDropdownProps = {
   dataAnalyticsLabel: string;
   showAngleIcon?: boolean;
   toggleChildren?: JSX.Element;
+  controlsId: string;
 } & Partial<TabHiddenDropdownProps>;
 
 // tslint:disable-next-line:variable-name
@@ -97,7 +122,8 @@ React.PropsWithChildren<FilterDropdownProps>) => (
       toggleChildren={toggleChildren}
       ariaLabelId={ariaLabelId}
       data-analytics-label={dataAnalyticsLabel}
-      showAngleIcon={props.showAngleIcon} />}
+      showAngleIcon={props.showAngleIcon}
+      controlsId={props.controlsId} />}
     transparentTab={false}
     {...props}
   >

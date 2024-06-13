@@ -497,6 +497,7 @@ input:checked + .c9 .c11 {
 
 <div
   className="c0"
+  id="color-filter"
   tabIndex={-1}
 >
   <div

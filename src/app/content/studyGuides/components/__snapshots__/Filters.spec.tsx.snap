@@ -1098,6 +1098,8 @@ input:checked + .c21 .c22 {
       className="c2 c3 c4"
     >
       <button
+        aria-controls="guide-filter-chapter"
+        aria-expanded={true}
         aria-label="Filter study guides by Chapter"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter study guides by Chapter"
@@ -1125,6 +1127,7 @@ input:checked + .c21 .c22 {
       </button>
       <div
         className="c11"
+        id="guide-filter-chapter"
         tabIndex={-1}
       >
         <div
@@ -1409,6 +1412,8 @@ input:checked + .c21 .c22 {
       className="c2 c3 c4"
     >
       <button
+        aria-controls="guide-filter-color"
+        aria-expanded={true}
         aria-label="Filter study guides by Color"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter study guides by Color"
@@ -1436,6 +1441,7 @@ input:checked + .c21 .c22 {
       </button>
       <div
         className="c26"
+        id="guide-filter-color"
         tabIndex={-1}
       >
         <div

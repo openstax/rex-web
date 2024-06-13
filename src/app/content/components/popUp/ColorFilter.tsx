@@ -38,6 +38,7 @@ export interface ColorFilterProps {
   colorFiltersWithContent: Set<HighlightColorEnum>;
   updateSummaryFilters: (change: FiltersChange<HighlightColorEnum>) => void;
   labelKey: (label: HighlightColorEnum) => string;
+  id: string;
 }
 
 // tslint:disable-next-line:variable-name
@@ -49,6 +50,7 @@ const ColorFilter = ({
   colorFiltersWithContent,
   updateSummaryFilters,
   labelKey,
+  id,
 }: ColorFilterProps) => {
 
   const setSelectedColors = (change: FiltersChange<HighlightColorEnum>) => {
@@ -63,7 +65,7 @@ const ColorFilter = ({
     }
   };
 
-  return <div className={className} tabIndex={-1}>
+  return <div className={className} tabIndex={-1} id={id}>
     <AllOrNone
       onNone={() => setSelectedColors({ remove: Array.from(colorFiltersWithContent), new: [] })}
       onAll={() => setSelectedColors({ remove: [], new: Array.from(colorFiltersWithContent) })}
