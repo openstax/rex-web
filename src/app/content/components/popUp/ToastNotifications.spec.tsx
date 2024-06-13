@@ -26,13 +26,13 @@ describe('ToastNotifications', () => {
   it('matches snapshots with toasts', () => {
     const toasts: ToastNotification[] = [{
       destination: 'myHighlights',
-      messageKey: toastMessageKeys.higlights.failure.delete,
+      messageKey: toastMessageKeys.highlights.failure.delete,
       shouldAutoDismiss: true,
       timestamp: 1,
     }, {
       destination: 'myHighlights',
       errorId: 'error-id',
-      messageKey: toastMessageKeys.higlights.failure.update.annotation,
+      messageKey: toastMessageKeys.highlights.failure.update.annotation,
       shouldAutoDismiss: true,
       timestamp: 2,
     }];

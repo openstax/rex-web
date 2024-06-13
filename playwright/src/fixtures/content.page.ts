@@ -90,6 +90,13 @@ class ContentPage {
       .addCookies([{ name: 'nudge_study_guides_date', value: current_date, url: this.page.url() }])
   }
 
+  async canonical() {
+    // Return canonical link of the current page
+    let canonicalPageSelector = await this.page.$('[rel="canonical"]')
+    const canonicalPage = await canonicalPageSelector.evaluate((e) => e.getAttribute('href'))
+    return canonicalPage
+  }
+
   async colorLocator(color: string) {
     // Return locator of the color
     if (color === 'blue') {

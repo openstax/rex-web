@@ -60,9 +60,11 @@ const KeyboardShortcutsPopup = () => {
       }}
     >
       <Header colorSchema={bookTheme}>
-        <FormattedMessage id='i18n:a11y:keyboard-shortcuts:heading'>
-          {(msg) => msg}
-        </FormattedMessage>
+        <h1>
+          <FormattedMessage id='i18n:a11y:keyboard-shortcuts:heading'>
+            {(msg) => msg}
+          </FormattedMessage>
+        </h1>
         <CloseIconWrapper
           data-testid='close-keyboard-shortcuts-popup'
           aria-label={intl.formatMessage({id: 'i18n:a11y:keyboard-shortcuts:close'})}

@@ -4,7 +4,7 @@ import { renderToDom, dispatchKeyDownEvent } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { highlightStyles } from '../../constants';
 import ColorPicker from './ColorPicker';
-import { HTMLElement, HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLFieldSetElement, HTMLInputElement } from '@openstax/types/lib.dom';
 import { assertDocument } from '../../../utils';
 
 describe('ColorPicker', () => {
@@ -89,10 +89,10 @@ describe('ColorPicker', () => {
     const onRemove = jest.fn();
     const {root} = renderToDom(
       <TestContainer>
-        <ColorPicker onChange={onChange} onRemove={onRemove} />
+        <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
       </TestContainer>
     );
-    const rg = root.querySelector('[role="radiogroup"]') as HTMLDivElement;
+    const rg = root.querySelector('fieldset') as HTMLFieldSetElement;
 
     expect(rg).toBeTruthy();
     rg?.focus();
@@ -148,7 +148,7 @@ describe('ColorPicker', () => {
         <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
       </TestContainer>
     );
-    const rg = root.querySelector('[role="radiogroup"]') as HTMLDivElement;
+    const rg = root.querySelector('fieldset') as HTMLFieldSetElement;
 
     expect(rg).toBeTruthy();
     rg?.focus();
