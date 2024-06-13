@@ -24,11 +24,11 @@ import * as select from '../../selectors';
 import { expandClosestSolution } from '../../utils/domUtils';
 import attachHighlight from '../utils/attachHighlight';
 import { erase, highlightData, insertPendingCardInOrder, isUnknownHighlightData, updateStyle } from './highlightUtils';
+import { addToast } from '../../../notifications/actions';
 
 export interface HighlightManagerServices {
   getProp: () => HighlightProp;
   setPendingHighlight: (highlight: Highlight) => void;
-  clearPendingHighlight: () => void;
   highlighter: Highlighter;
   container: HTMLElement;
 }
@@ -94,6 +94,11 @@ const onSelectHighlight = (
   highlight: Highlight | undefined
 ) => defer(async() => {
   if (highlights.length > 0 || !highlight) {
+    appServices.dispatch(
+      addToast('i18n:notification:toast:highlights:select-overlap', {
+        destination: 'page',
+      })
+    );
     return;
   }
 
@@ -107,7 +112,7 @@ const onSelectHighlight = (
 });
 
 const createHighlighter = (
-  highlightManagerServices: Omit<HighlightManagerServices, 'highlighter' | 'intl'>,
+  highlightManagerServices: Omit<HighlightManagerServices, 'highlighter'>,
   appServices: AppServices & MiddlewareAPI,
   intl: IntlShape
 ) => {
@@ -152,7 +157,6 @@ export interface UpdateOptions {
 
 // tslint:disable-next-line: max-line-length
 export default (container: HTMLElement, getProp: () => HighlightProp, appServices: AppServices & MiddlewareAPI, intl: IntlShape) => {
-  let highlighter: Highlighter;
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;
@@ -209,13 +213,12 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
   };
 
   const highlightManagerServices = {
-    clearPendingHighlight,
     container,
     getProp,
     setPendingHighlight,
   };
 
-  highlighter = createHighlighter(highlightManagerServices, appServices, intl);
+  const highlighter = createHighlighter(highlightManagerServices, appServices, intl);
   setListHighlighter(highlighter);
 
   return {
