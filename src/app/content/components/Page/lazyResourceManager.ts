@@ -23,7 +23,6 @@ export const checkLazyResources = () => {
         element.setAttribute('src', src);
       }
       element.removeAttribute('data-lazy-src');
-
     }
   });
 };
