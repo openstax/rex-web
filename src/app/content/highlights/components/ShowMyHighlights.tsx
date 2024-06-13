@@ -25,6 +25,7 @@ interface ShowMyHighlightsProps {
   loadMore: () => void;
   initMyHighlights: () => void;
   services: AppServices;
+  topElRef: React.RefObject<HTMLElement>;
 }
 
 class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: boolean }> {
@@ -41,6 +42,7 @@ class ShowMyHighlights extends Component<ShowMyHighlightsProps, { showGoToTop: b
       return;
     }
 
+    this.props.topElRef.current?.focus();
     highlightsBodyRef.scrollTop = 0;
   };
 
