@@ -84,7 +84,7 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
   React.useEffect(setTextAreaHeight, [note, setTextAreaHeight]);
 
   return (
-    <WrapperLabel for='note-textarea'>
+    <WrapperLabel htmlFor='note-textarea'>
       <TextArea
         id='note-textarea'
         ref={textareaRef}
