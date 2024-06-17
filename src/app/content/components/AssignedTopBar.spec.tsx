@@ -20,7 +20,7 @@ jest.mock('react', () => {
 
 describe('AssignedTopBar', () => {
   const windowBack = assertWindow();
-  const addEventListnerBackup = windowBack.addEventListener;
+  const addEventListenerBackup = windowBack.addEventListener;
   let addEventListener: jest.SpyInstance;
   let store: Store;
   let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
@@ -39,7 +39,7 @@ describe('AssignedTopBar', () => {
   });
 
   afterEach(() => {
-    windowBack.addEventListener = addEventListnerBackup;
+    windowBack.addEventListener = addEventListenerBackup;
   });
 
   it('renders', async() => {

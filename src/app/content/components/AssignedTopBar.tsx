@@ -42,8 +42,6 @@ const StyledSectionTitle = styled.h2`
   `)}
 `;
 
-declare const window: any;
-
 const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => void) => {
   const launchToken = useLaunchToken();
 

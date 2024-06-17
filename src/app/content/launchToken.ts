@@ -18,7 +18,7 @@ export const decodeToken = (launchToken: string | undefined) => {
 export const pullToken = (window: Window) => {
   const searchParams = new URLSearchParams(window.location.search);
 
-  const launchToken = searchParams.get('t') ?? undefined;
+  const launchToken = searchParams.get('t');
 
   if (!launchToken) {
     return undefined;
