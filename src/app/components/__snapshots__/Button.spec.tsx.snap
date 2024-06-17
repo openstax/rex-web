@@ -219,6 +219,11 @@ exports[`Button matches snapshot - primary 1`] = `
   background-color: ,#b03808,;
 }
 
+.c0:focus {
+  outline: solid #fff;
+  box-shadow: inset 0 0 0 3px #000;
+}
+
 <button
   className="c0"
 />
@@ -358,7 +363,6 @@ exports[`ButtonLink matches snapshot (decorated and disabled) 1`] = `
   margin: 0;
   padding: 0;
   background: none;
-  outline: none;
   color: #424242;
   color: #027EB5;
   cursor: pointer;
@@ -394,7 +398,6 @@ exports[`ButtonLink matches snapshot (decorated) 1`] = `
   margin: 0;
   padding: 0;
   background: none;
-  outline: none;
   color: #424242;
   color: #027EB5;
   cursor: pointer;
@@ -421,7 +424,6 @@ exports[`ButtonLink matches snapshot 1`] = `
   margin: 0;
   padding: 0;
   background: none;
-  outline: none;
   color: #424242;
   color: #027EB5;
   cursor: pointer;

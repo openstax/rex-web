@@ -53,7 +53,7 @@ const Button = styled(ButtonHoc)`
   display: flex;
   cursor: pointer;
   align-items: center;
-  justify-content: center;
+  justify-content: center;  
   border-radius: 0.5rem;
   box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black), 0.2);
   text-decoration: none;
@@ -82,6 +82,11 @@ const Button = styled(ButtonHoc)`
     border: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    &:focus {
+      outline: solid ${theme.color.white};
+      box-shadow: inset 0 0 0 3px ${theme.color.black};
+    }
   `}
   ${(props) => props.variant === 'secondary' && `
     ${applyColor(theme.color.secondary.lightGray)}
@@ -130,7 +135,6 @@ export const PlainButton = styled.button`
 
 // tslint:disable-next-line:variable-name
 export const ButtonLink = styled(PlainButton)`
-  outline: none;
   ${textStyle}
   ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
 `;
