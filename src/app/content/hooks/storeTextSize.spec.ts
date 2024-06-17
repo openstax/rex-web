@@ -80,6 +80,13 @@ describe('loadStoredTextSize', () => {
     expect(storeDispatch).toHaveBeenCalledWith(setTextSize(2));
   });
 
+  it('loads the value from launchToken', async() => {
+    helpers.launchToken = {tokenString: '', tokenData: {textSize: 2}};
+    await hook();
+    expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
+    expect(storeDispatch).toHaveBeenCalledWith(setTextSize(2));
+  });
+
   it('noops if textSize is already set', async() => {
     mockLocalStorage(2);
     store.dispatch(setTextSize(3));
@@ -97,7 +104,7 @@ describe('loadStoredTextSize', () => {
     global.window = window;
   });
 
-  Object.entries(invalidValues).map((entry) => {
+  Object.entries(invalidValues).forEach((entry) => {
     it(`uses the default if loaded value is ${entry[0]}`, async() => {
       mockLocalStorage(entry[1]);
       await hook();
