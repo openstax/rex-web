@@ -174,3 +174,5 @@ exports[`AssignedTopBar renders 1`] = `
   </div>
 </div>
 `;
+
+exports[`AssignedTopBar renders null with textSize integration 1`] = `null`;
