@@ -472,6 +472,18 @@
         "search_term": "mental health",
         "chapter_search_results_total": 2674,
         "rkt_search_results_total": 4
+    },
+     "maternal-newborn": {
+        "default_page": "1-introduction",
+        "search_term": "newborn babies",
+        "chapter_search_results_total": 446,
+        "rkt_search_results_total": 0
+    },
+     "clinical-nursing-skills": {
+        "default_page": "1-introduction",
+        "search_term": "clinical nursing skills",
+        "chapter_search_results_total": 118,
+        "rkt_search_results_total": 1
     }
 }
 
