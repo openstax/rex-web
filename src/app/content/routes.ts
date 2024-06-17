@@ -11,6 +11,18 @@ const dynamicPrefix = '/apps/rex';
 
 const prerenderedBase = '/books/:book/pages/:page';
 const dynamicBase = dynamicPrefix + prerenderedBase;
+const courseBase = `${dynamicPrefix}/course/:courseId/resources/:resourceId${prerenderedBase}`;
+
+const paramVariants = {
+  book: [
+    `book_uuid(${MATCH_UUID})@:book_contentVersion\\::book_archiveVersion`,
+    `book_uuid(${MATCH_UUID})@:book_contentVersion`,
+    'book_slug@:book_contentVersion\\::book_archiveVersion',
+    'book_slug@:book_contentVersion',
+    'book_slug',
+  ],
+  page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
+}
 
 /*
  * this is in a transition phase. we are moving all of the more dynamic routing
@@ -23,29 +35,11 @@ const dynamicBase = dynamicPrefix + prerenderedBase;
  */
 const contentPaths = [
   '/books/:book_slug',
-  ...injectParamsToBaseUrl(prerenderedBase, {
-    // switch this after a transition period starting with CORGI using the `dynamicBase` url on its previews
-    book: [
-      `book_uuid(${MATCH_UUID})@:book_contentVersion\\::book_archiveVersion`,
-      `book_uuid(${MATCH_UUID})@:book_contentVersion`,
-      'book_slug@:book_contentVersion\\::book_archiveVersion',
-      'book_slug@:book_contentVersion',
-      'book_slug',
-    ],
-    page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
-    // book: ['book_slug'],
-    // page: ['page_slug'],
-  }),
-  ...injectParamsToBaseUrl(dynamicBase, {
-    book: [
-      `book_uuid(${MATCH_UUID})@:book_contentVersion\\::book_archiveVersion`,
-      `book_uuid(${MATCH_UUID})@:book_contentVersion`,
-      'book_slug@:book_contentVersion\\::book_archiveVersion',
-      'book_slug@:book_contentVersion',
-      'book_slug',
-    ],
-    page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
-  }),
+  ...injectParamsToBaseUrl(prerenderedBase, paramVariants),
+  // switch this after a transition period starting with CORGI using the `dynamicBase` url on its previews
+  // ...injectParamsToBaseUrl(prerenderedBase, { book: ['book_slug'], page: ['page_slug'] }),
+  ...injectParamsToBaseUrl(dynamicBase, paramVariants),
+  ...injectParamsToBaseUrl(courseBase, paramVariants),
 ];
 
 // tslint:disable-next-line:variable-name

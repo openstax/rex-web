@@ -69,9 +69,13 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location | string):
 };
 
 export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: queryString.OutputParams) => {
-  const route = querystring.parse(
-    action.route.getSearch ? action.route.getSearch(action.params) : ''
-  );
+  const existing = action.search ? queryString.parse(action.search) : {};
+
+  const route = action.route.getSearch
+    ? querystring.parse(
+      action.route.getSearch(action.params, existing)
+    )
+    : existing;
 
   return querystring.stringify({
     ...search,

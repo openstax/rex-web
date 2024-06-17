@@ -2,6 +2,7 @@ export interface User {
   firstName: string;
   lastName: string;
   uuid: string;
+  faculty_status?: string;
   isNotGdprLocation: boolean;
 }
 

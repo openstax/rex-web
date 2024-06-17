@@ -21,6 +21,7 @@ import PrintButton from './PrintButton';
 import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 import { createTrapTab } from '../../../reactUtils';
+import { MoreToolbarButtons } from "./MoreLinks";
 
 // tslint:disable-next-line: variable-name
 const VerticalNav = () => {
@@ -83,6 +84,7 @@ const VerticalNav = () => {
           <HighlightButton />
         </NudgeElementTarget>
         {!isPracticeQuestionsEnabled ? <PrintButton /> : null}
+        <MoreToolbarButtons />
       </Styled.ToolbarElements>
     </Styled.ToolbarWrapper>
   );

@@ -12,6 +12,11 @@ export const user = createSelector(
   (state) => state.user
 );
 
+export const isConfirmedFaculty = createSelector(
+  localState,
+  (state) => state.user?.faculty_status === 'confirmed_faculty'
+);
+
 export const loggedOut = createSelector(
   localState,
   user,

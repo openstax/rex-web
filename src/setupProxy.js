@@ -14,11 +14,13 @@ const {
   OS_WEB_URL,
   SEARCH_URL,
   HIGHLIGHTS_URL,
+  COURSES_URL,
   ACCOUNTS_URL,
   REACT_APP_ACCOUNTS_URL,
   REACT_APP_IMAGE_CDN_URL,
   REACT_APP_SEARCH_URL,
   REACT_APP_HIGHLIGHTS_URL,
+  REACT_APP_COURSES_URL,
   REACT_APP_OS_WEB_API_URL
 } = require('./config');
 const requireBabelConfig = require('./babel-config');
@@ -177,6 +179,14 @@ function highlightsProxy(app) {
   }));
 }
 
+function coursesProxy(app) {
+  app.use(proxy(REACT_APP_COURSES_URL, {
+    target: COURSES_URL,
+    changeOrigin: true,
+    autoRewrite: true,
+  }));
+}
+
 function osWebApiProxy(app) {
   app.use(proxy(REACT_APP_OS_WEB_API_URL, {
     target: OS_WEB_URL,
@@ -245,6 +255,7 @@ async function setupProxy(app) {
   imageCdnProxy(app);
   searchProxy(app);
   highlightsProxy(app);
+  coursesProxy(app);
   osWebApiProxy(app);
   stubEnvironment(app);
   stubRedirects(app);

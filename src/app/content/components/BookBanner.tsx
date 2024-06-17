@@ -25,6 +25,8 @@ import {
 } from './constants';
 import { applyBookTextColor } from './utils/applyBookTextColor';
 import { disablePrint } from './utils/disablePrint';
+import { useLaunchToken } from "../launchToken";
+
 
 const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'blue': '#004aa2',
@@ -51,6 +53,13 @@ const TopBar = styled.div`
   width: 100%;
   max-width: ${maxNavWidth}rem;
   margin: 0 auto;
+`;
+
+// tslint:disable-next-line:variable-name
+const SpaceBetween = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const bookBannerTextStyle = css`
@@ -194,6 +203,7 @@ const BookBanner = () => {
   const miniBanner = React.useRef<HTMLDivElement>();
   const bigBanner = React.useRef<HTMLDivElement>();
   const services = useServices();
+  const launchToken = useLaunchToken();
 
   const handleScroll = () => {
     if (miniBanner.current && bigBanner.current && typeof(window) !== 'undefined') {
@@ -235,11 +245,15 @@ const BookBanner = () => {
     return <BarWrapper colorSchema={undefined} up={false} />;
   }
 
-  const bookUrl = hasOSWebData(book)
-    ? book.book_state !== 'retired'
-      ? bookDetailsUrl(book)
-      : undefined
-    : undefined;
+  const bookUrl = typeof launchToken.contextUrl === 'string'
+    ? launchToken.contextUrl
+    : hasOSWebData(book)
+      ? book.book_state !== 'retired'
+        ? bookDetailsUrl(book)
+        : undefined
+      : undefined;
+
+  const contextName = launchToken.contextName ?? book.tree.title;
 
   return <>
     <BarWrapper
@@ -251,10 +265,11 @@ const BookBanner = () => {
       data-analytics-region='book-banner-expanded'
     >
       <TopBar>
+        <SpaceBetween>
         {
           bookUrl === undefined
             ? <BookTitle data-testid='book-title-expanded' colorSchema={bookTheme}>
-              {book.tree.title}
+              {contextName}
             </BookTitle>
             : <BookTitleLink
               data-testid='details-link-expanded'
@@ -265,9 +280,11 @@ const BookBanner = () => {
               }}
               tabIndex={bookBannerState.tabbableBanner === 'big' ? undefined : -1}
             >
-              <LeftArrow colorSchema={bookTheme} />{book.tree.title}
+              <LeftArrow colorSchema={bookTheme} />{contextName}
             </BookTitleLink>
         }
+          {launchToken.instructorName ? <BookTitle colorSchema={bookTheme}>{launchToken.instructorName}</BookTitle> : null}
+        </SpaceBetween>
         {treeSection
           ? <BookChapter
             colorSchema={bookTheme}
@@ -288,7 +305,7 @@ const BookBanner = () => {
         {
           bookUrl === undefined
             ? <BookTitle data-testid='book-title-collapsed' colorSchema={bookTheme} variant='mini'>
-              {book.title}
+              {contextName}
             </BookTitle>
             : <BookTitleLink
               data-testid='details-link-collapsed'
@@ -300,7 +317,7 @@ const BookBanner = () => {
               }}
               tabIndex={bookBannerState.tabbableBanner === 'mini' ? undefined : -1}
             >
-              <LeftArrow colorSchema={bookTheme} />{book.tree.title}
+              <LeftArrow colorSchema={bookTheme} />{contextName}
             </BookTitleLink>
         }
         {treeSection

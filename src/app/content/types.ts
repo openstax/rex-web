@@ -35,6 +35,8 @@ type VersionedUuidParams = UuidParams & VersionParams;
 
 // Really could be ContentParams, but the content route is currently the only route in Rex
 export type Params = {
+  courseId?: string;
+  resourceId?: string;
   book: SlugParams | VersionedSlugParams | VersionedUuidParams | UuidParams;
   page: SlugParams | UuidParams;
 };

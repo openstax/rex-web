@@ -23,12 +23,17 @@ export const pullToken = (window: Window) => {
   if (!launchToken) {
     return undefined;
   }
+  
+  const tokenData = decodeToken(launchToken);
+  const contextId = typeof tokenData.contextId === 'string' ? tokenData.contextId : undefined;
+  const resourceId = typeof tokenData.resourceId === 'string' ? tokenData.resourceId : undefined;
+  const pathPrefix = contextId && resourceId && window.location.pathname.startsWith('/books')
+    ? `/apps/rex/course/${contextId}/resources/${resourceId}`
+    : '';
 
   searchParams.delete('t');
   const search = searchParams.toString();
-  window.history.replaceState({}, window.document.title, window.location.pathname + (search ? `?${search}` : ''));
-
-  const tokenData = decodeToken(launchToken);
+  window.history.replaceState({}, window.document.title, pathPrefix + window.location.pathname + (search ? `?${search}` : ''));
 
   if (!tokenData) {
     return undefined;

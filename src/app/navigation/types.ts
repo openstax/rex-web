@@ -19,6 +19,7 @@ export type Match<R> = R extends Route<infer P, infer S>
   ? {
     route: R,
     params: P,
+    search?: string;
     state: S,
   }
   : never;
@@ -49,7 +50,7 @@ export interface Route<
   name: string;
   paths: string[];
   getUrl: (p: P) => string;
-  getSearch?: (p: P) => string;
+  getSearch?: (p: P, query: OutputParams) => string;
   component: ComponentType;
   locale?: string;
 }

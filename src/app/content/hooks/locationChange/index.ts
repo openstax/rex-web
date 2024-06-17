@@ -1,6 +1,6 @@
 import { actions } from '../../../navigation';
 import * as selectNavigation from '../../../navigation/selectors';
-import { RouteHookBody } from '../../../navigation/types';
+import { RouteHookBody, AnyMatch } from '../../../navigation/types';
 import { assertString } from '../../../utils/assertions';
 import { loadPracticeQuestions } from '../../practiceQuestions/hooks';
 import { assigned, content } from '../../routes';
@@ -11,11 +11,24 @@ import receiveContent from '../receiveContent';
 import registerPageView from '../registerPageView';
 import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent, { resolveBook } from './resolveContent';
+import { replace } from "../../../navigation/actions";
+import { assertWindow } from "../../../utils/browser-assertions";
 
 export const contentRouteHookBody: RouteHookBody<typeof content> = (services) => {
   const boundRegisterPageView = registerPageView(services);
 
   return async(action) => {
+
+    if ('courseId' in action.match.params && 'resourceId' in action.match.params && services.launchToken === undefined) {
+      const window = assertWindow();
+      const tokenRedirect = services.router.findRoute(
+        `/courses/launch/${action.match.params.courseId}/resources/${action.match.params.resourceId}`,
+      );
+      return services.dispatch(replace(tokenRedirect as AnyMatch, {
+        search: `?r=${encodeURIComponent(window.location.toString())}`,
+      }));
+    }
+
     // this hook guarantees that a book is loaded for the logic below
     // missing page is ok, that shows the toc with a page not found placeholder
     if ((await resolveContent(services, action.match)).book === undefined) {

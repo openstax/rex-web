@@ -7,7 +7,7 @@ import { linkStyle } from '../../components/Typography';
 import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';
 import * as selectNavigation from '../../navigation/selectors';
-import { ScrollTarget } from '../../navigation/types';
+import { ScrollTarget, AnyMatch } from '../../navigation/types';
 import { createNavigationOptions, navigationOptionsToString } from '../../navigation/utils';
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
@@ -38,6 +38,7 @@ interface Props {
   target?: string;
   myForwardedRef: React.Ref<HTMLAnchorElement>;
   systemQueryParams?: SystemQueryParams;
+  currentMatch: AnyMatch;
   ignoreModal?: boolean;
 }
 
@@ -48,6 +49,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     page,
     currentBook,
     currentPath,
+    currentMatch,
     queryParams,
     scrollTarget,
     navigate,
@@ -59,8 +61,8 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     systemQueryParams,
     ...anchorProps
   } = props;
-
-  const {url, params} = getBookPageUrlAndParams(book, page);
+  const {courseId, resourceId} = currentMatch.params as AnyMatch & {courseId?: string; resourceId?: string};
+  const {url, params} = getBookPageUrlAndParams(book, page, {courseId, resourceId});
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
@@ -106,6 +108,7 @@ export const ConnectedContentLink = connect(
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
+    currentMatch: selectNavigation.match(state),
     systemQueryParams: {
       ...selectNavigation.systemQueryParameters(state),
       ...ownProps.queryParams,
