@@ -363,6 +363,7 @@ exports[`ButtonLink matches snapshot (decorated and disabled) 1`] = `
   margin: 0;
   padding: 0;
   background: none;
+  outline: none;
   color: #424242;
   color: #027EB5;
   cursor: pointer;
@@ -398,6 +399,7 @@ exports[`ButtonLink matches snapshot (decorated) 1`] = `
   margin: 0;
   padding: 0;
   background: none;
+  outline: none;
   color: #424242;
   color: #027EB5;
   cursor: pointer;
@@ -424,6 +426,7 @@ exports[`ButtonLink matches snapshot 1`] = `
   margin: 0;
   padding: 0;
   background: none;
+  outline: none;
   color: #424242;
   color: #027EB5;
   cursor: pointer;

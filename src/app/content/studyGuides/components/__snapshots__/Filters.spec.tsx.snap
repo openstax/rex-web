@@ -165,6 +165,7 @@ input:checked + .c21 .c22 {
   margin: 0;
   padding: 0;
   background: none;
+  outline: none;
   color: #424242;
   color: #027EB5;
   cursor: pointer;
