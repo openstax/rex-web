@@ -674,3 +674,62 @@ test('C543225 canonicals for old editions point to the latest edition', async ({
   // THEN: Canonical page points to latest edition of the original content
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/d-the-expenditure-output-model')
 })
+
+
+test('C543225 canonicals for multi-volumed books point to a single volume', async ({ page, isMobile, browserName }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+  test.skip(browserName == 'webkit', 'test only chrome')
+  test.skip(browserName == 'firefox', 'test only chrome')
+
+  // GIVEN: Open Volume 1 of calculus book
+  const bookPage = new ContentPage(page)
+  const path = '/books/calculus-volume-1/pages/1-introduction'
+  await bookPage.open(path)
+  // THEN: Canonical of Volume 1 points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/1-introduction')
+
+  // WHEN: Open EOC page
+  const Toc = new TOC(page)
+  await Toc.pageClick(17)
+  // THEN: Canonical of volume 1 EOC page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/2-key-terms')
+
+  // WHEN: Open EOB nested page
+  await Toc.pageClick(81)
+  // THEN: Canonical of volume 1 EOB nested page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/chapter-3')
+
+  // WHEN: Open EOB page
+  await Toc.pageClick(76)
+  // THEN: Canonical of volume 1 EOB page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/a-table-of-integrals')
+})
+
+test('C543225 canonicals for multi-volumed books point to a single volume', async ({ page, isMobile, browserName }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+  test.skip(browserName == 'webkit', 'test only chrome')
+  test.skip(browserName == 'firefox', 'test only chrome')
+
+  // GIVEN: Open Volume 1 of calculus book
+  const bookPage = new ContentPage(page)
+  const path = '/books/calculus-volume-2/pages/1-introduction'
+  await bookPage.open(path)
+  // THEN: Canonical of Volume 1 points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/1-introduction')
+
+  // WHEN: Open EOC page
+  const Toc = new TOC(page)
+  await Toc.pageClick(17)
+  // THEN: Canonical of volume 1 EOC page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/2-key-terms')
+
+  // WHEN: Open EOB nested page
+  await Toc.pageClick(81)
+  // THEN: Canonical of volume 1 EOB nested page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/chapter-3')
+
+  // WHEN: Open EOB page
+  await Toc.pageClick(76)
+  // THEN: Canonical of volume 1 EOB page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/a-table-of-integrals')
+})
