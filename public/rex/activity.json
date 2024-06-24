@@ -2,19 +2,9 @@
   "activities":{
     "reading":{
       "icon":{"url":"/rex/icons/reading.svg"},
-      "launch":{"url":"/apps/rex/assigned/:id","navigation":true,"xapi":false},
+      "launch":{"url":"/apps/rex/assigned/:id","navigation":true,"xapi":false,"textSize":true},
       "objectIRI":"https://openstax.org/orn/reading/:id",
       "objectTypeIRI":"http://id.tincanapi.com/activitytype/school-assignment"
-    },
-    "youtube_video":{
-      "launch":{"url":"https://www.youtube.com/embed/:id","navigation":false,"xapi":false},
-      "objectIRI":"https://openstax.org/orn/video-youtube/:id",
-      "objectTypeIRI":"http://adlnet.gov/expapi/activities/media"
-    },
-    "pressbooks_interactive": {
-      "launch":{"url":"https://ecampusontario.pressbooks.pub/apinteractives/wp-admin/admin-ajax.php","navigation":false,"xapi":false},
-      "objectIRI":"https://openstax.org/orn/interactives-pressbooks/:id",
-      "objectTypeIRI":"http://adlnet.gov/expapi/activities/media"
     }
   }
 }
