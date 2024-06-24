@@ -50,8 +50,8 @@ describe('ToastNotifications', () => {
       .mockReturnValueOnce(1)
       .mockReturnValueOnce(2);
 
-    store.dispatch(addToast(toastMessageKeys.higlights.failure.create, {destination}));
-    store.dispatch(addToast(toastMessageKeys.higlights.failure.delete, {destination}));
+    store.dispatch(addToast(toastMessageKeys.highlights.failure.create, {destination}));
+    store.dispatch(addToast(toastMessageKeys.highlights.failure.delete, {destination}));
 
     const component = renderer.create(<TestContainer store={store}>
       <ToastNotifications />

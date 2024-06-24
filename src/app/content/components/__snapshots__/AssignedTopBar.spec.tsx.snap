@@ -155,6 +155,7 @@ exports[`AssignedTopBar renders 1`] = `
     className="c2 c3 c4"
   >
     <button
+      aria-expanded={false}
       aria-label="Change text size"
       className="c5 c6 c7 c8"
       data-analytics-label="Change text size"
@@ -173,3 +174,5 @@ exports[`AssignedTopBar renders 1`] = `
   </div>
 </div>
 `;
+
+exports[`AssignedTopBar renders null with textSize integration 1`] = `null`;
