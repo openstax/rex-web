@@ -43,7 +43,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
 
 .c2:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c3 {

@@ -42,7 +42,7 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
 
 .c7:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c2 {

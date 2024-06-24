@@ -42,7 +42,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
 
 .c3:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c4 {

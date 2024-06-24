@@ -42,7 +42,7 @@ exports[`IntroScreen for practice questions renders properly for 1 question 1`] 
 
 .c3:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c0 {
@@ -120,7 +120,7 @@ exports[`IntroScreen for practice questions renders properly for 2 questions 1`]
 
 .c3:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c0 {

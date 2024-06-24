@@ -43,7 +43,7 @@ exports[`Notifications matches snapshot for acceptCookies 1`] = `
 
 .c6:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c5 {
@@ -272,7 +272,7 @@ exports[`Notifications matches snapshot for appMessage 1`] = `
 
 .c6:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c5 {
@@ -501,7 +501,7 @@ exports[`Notifications matches snapshot for retiredBookRedirect 1`] = `
 
 .c6:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c5 {
@@ -732,7 +732,7 @@ exports[`Notifications matches snapshot for updateAvailable 1`] = `
 
 .c6:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c5 {

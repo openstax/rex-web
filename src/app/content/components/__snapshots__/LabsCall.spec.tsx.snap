@@ -146,7 +146,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
 
 .c9:focus {
   outline: solid #fff;
-  box-shadow: inset 0 0 0 3px #000;
+  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 @media screen and (max-width:50em) {
