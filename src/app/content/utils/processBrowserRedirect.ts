@@ -20,8 +20,7 @@ export const processBrowserRedirect = async(services: {
 
   for (const {from, to} of redirects) {
     if (from === services.history.location.pathname) {
-      const {pathname, search, hash} = new URL(to, base);
-      const match = services.router.findRoute({pathname, search, hash, state: {}});
+      const match = services.router.findRoute(base + to);
       services.history.replace(to); // hack to show blank page instead of flashing rex when target is external
       services.dispatch(replace(match as AnyMatch));
       return true;

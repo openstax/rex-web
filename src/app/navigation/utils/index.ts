@@ -1,5 +1,5 @@
 import { flatten, unflatten } from 'flat';
-import { Action, Location } from 'history';
+import { Action, Location, Search } from 'history';
 import curry from 'lodash/fp/curry';
 import isNull from 'lodash/fp/isNull';
 import omit from 'lodash/fp/omit';
@@ -31,7 +31,7 @@ if (typeof(document) !== 'undefined') {
 const delimiter = '_';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: AnyMatch | undefined): match is Match<R> =>
-  !!match && match.route.name === route.name;
+  !!match && match.route?.name === route.name;
 
 export const locationChangeForRoute = <R extends AnyRoute>(
   route: R,
@@ -49,7 +49,7 @@ const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   }, {}), {delimiter});
 };
 
-const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray, search?: string) => ({
+const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray, search?: Search | string) => ({
   params: getMatchParams(keys, match),
   route,
   state,
@@ -61,8 +61,8 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location | string):
     for (const path of route.paths) {
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
-      const match = re.exec(typeof location === 'string' ? location : location.pathname);
-      const search = typeof location.search === 'string' ? location.search : '';
+      const { pathname, search } = typeof location === 'string' ? new URL(location) : location;
+      const match = re.exec(pathname);
       if (match) {
         return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search);
       }
