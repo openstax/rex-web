@@ -29,7 +29,7 @@ describe('receivePageNotFoundId hook', () => {
     delete (window as any).location;
 
     window.location = {
-      origin: 'openstax.org',
+      origin: 'https://openstax.org',
     } as any as Window['location'];
 
     helpers = {
@@ -84,6 +84,6 @@ describe('receivePageNotFoundId hook', () => {
 
     await processBrowserRedirect(helpers);
 
-    expect(window.location.href).toEqual('openstax.org/redirected');
+    expect(window.location.href).toEqual('/redirected');
   });
 });

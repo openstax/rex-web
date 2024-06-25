@@ -64,7 +64,7 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location | string):
       const { pathname, search } = typeof location === 'string' ? new URL(location) : location;
       const match = re.exec(pathname);
       if (match) {
-        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search);
+        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search || undefined);
       }
     }
   }
