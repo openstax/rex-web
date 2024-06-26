@@ -29,7 +29,7 @@ describe('receivePageNotFoundId hook', () => {
     delete (window as any).location;
 
     window.location = {
-      origin: 'https://openstax.org',
+      origin: 'openstax.org',
     } as any as Window['location'];
 
     helpers = {

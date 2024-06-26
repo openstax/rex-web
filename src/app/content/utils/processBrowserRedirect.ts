@@ -13,7 +13,6 @@ export const processBrowserRedirect = async(services: {
 }) => {
   const window = assertWindow();
   const base = window.location.origin;
-
   const redirects: Redirects = await fetch('/rex/redirects.json')
     .then((res) => res.json())
     .catch(() => []);

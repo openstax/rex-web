@@ -78,7 +78,6 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location | string):
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
       const match = re.exec(pathname)
-
       if (match) {
         return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search);
       }
