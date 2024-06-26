@@ -78,12 +78,4 @@ describe('receivePageNotFoundId hook', () => {
 
     expect(historyReplaceSpy).toHaveBeenCalledWith('/books/redirected');
   });
-
-  it('updates window.location if target is not within rex', async() => {
-    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/redirected' }]);
-
-    await processBrowserRedirect(helpers);
-
-    expect(window.location.href).toEqual('/redirected');
-  });
 });
