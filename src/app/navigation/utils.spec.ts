@@ -65,7 +65,7 @@ describe('findRouteMatch', () => {
   });
 
   it('returns undefined for missing param values', () => {
-    const location = {pathname: '/with'} as Location;;
+    const location = '/with';
     const result = findRouteMatch(routes, location);
     expect(result).toEqual({route: routes[1], params: {param: undefined}, state: false});
   });

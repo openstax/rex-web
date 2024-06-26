@@ -53,18 +53,34 @@ const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, ke
   params: getMatchParams(keys, match),
   route,
   state,
-  search
+  ...(search && {search})
 } as AnyMatch);
 
 export const findRouteMatch = (routes: AnyRoute[], location: Location | string): AnyMatch | undefined => {
+  let pathname, search;
+
+  if (typeof location === 'string') {
+    try {
+      const locationUrl = new URL(location);
+      pathname = locationUrl.pathname;
+      search = locationUrl.search;
+    } catch {
+      // location is a string but not a valid URL
+      pathname = location;
+    }
+  } else {
+    pathname = location.pathname;
+    search = location.search;
+  };
+
   for (const route of routes) {
     for (const path of route.paths) {
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
-      const { pathname, search } = typeof location === 'string' ? new URL(location) : location;
-      const match = re.exec(pathname);
+      const match = re.exec(pathname)
+
       if (match) {
-        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search || undefined);
+        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search);
       }
     }
   }
