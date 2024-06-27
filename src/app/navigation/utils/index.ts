@@ -49,15 +49,22 @@ const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   }, {}), {delimiter});
 };
 
-const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray, search?: Search | string) => ({
+const formatRouteMatch = <R extends AnyRoute>(
+  route: R,
+  state: RouteState<R>,
+  keys: Key[],
+  match: RegExpExecArray,
+  search?: Search | string
+) => ({
   params: getMatchParams(keys, match),
   route,
   state,
-  ...(search && {search})
+  ...(search && {search}),
 } as AnyMatch);
 
 export const findRouteMatch = (routes: AnyRoute[], location: Location | string): AnyMatch | undefined => {
-  let pathname, search;
+  let pathname;
+  let search;
 
   if (typeof location === 'string') {
     try {
@@ -71,13 +78,13 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location | string):
   } else {
     pathname = location.pathname;
     search = location.search;
-  };
+  }
 
   for (const route of routes) {
     for (const path of route.paths) {
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
-      const match = re.exec(pathname)
+      const match = re.exec(pathname);
       if (match) {
         return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search);
       }
