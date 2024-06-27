@@ -7,6 +7,8 @@ import { receivePageNotFoundId } from '../actions';
 import { processBrowserRedirect } from '../utils/processBrowserRedirect';
 import * as errors from '../../errors';
 import * as content from '../../content';
+import { AnyMatch } from '../../navigation/types';
+import { replace } from '../../navigation/actions';
 
 const mockFetch = (valueToReturn: any, error?: any) => () => new Promise((resolve, reject) => {
   if (error) {
@@ -20,6 +22,7 @@ describe('receivePageNotFoundId hook', () => {
   let store: Store;
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
   let historyReplaceSpy: jest.SpyInstance;
+  let dispatch: jest.SpyInstance;
   let fetchBackup: any;
   let window: Window;
 
@@ -42,6 +45,8 @@ describe('receivePageNotFoundId hook', () => {
     helpers.history.location = {
       pathname: '/books/physics/pages/1-introduction301',
     } as any;
+
+    dispatch = jest.spyOn(helpers, 'dispatch');
 
     historyReplaceSpy = jest.spyOn(helpers.history, 'replace')
       .mockImplementation(jest.fn());
@@ -72,10 +77,10 @@ describe('receivePageNotFoundId hook', () => {
   });
 
   it('calls history.replace if redirect is found', async() => {
-    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: '/books/redirected' }]);
+    (globalThis as any).fetch = mockFetch([{ from: helpers.history.location.pathname, to: 'https://openstax.org/books/redirected' }]);
 
     await processBrowserRedirect(helpers);
 
-    expect(historyReplaceSpy).toHaveBeenCalledWith('/books/redirected');
+    expect(dispatch).toHaveBeenCalledWith(replace(helpers.router.findRoute('https://openstax.org/books/redirected') as AnyMatch));
   });
 });
