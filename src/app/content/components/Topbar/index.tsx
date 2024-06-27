@@ -21,7 +21,7 @@ import * as Styled from './styled';
 import { TextResizer } from './TextResizer';
 import { useKeyCombination, useMatchMobileQuery } from '../../../reactUtils';
 import { searchKeyCombination } from '../../highlights/constants';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLInputElement } from '@openstax/types/lib.dom';
 
 interface Props {
   search: typeof requestSearch;
@@ -214,24 +214,24 @@ function AltSCycler({hasSearchResults}: {hasSearchResults: boolean}) {
         '[class*="SearchInputWrapper"] input',
         '[class*="SearchResultsBar"]',
         'main',
-      ].map((q) => document?.querySelector(q));
+      ].map((q) => document?.querySelector<HTMLElement>(q));
 
       // Determine which region we are in (if any)
       const currentSectionIndex = targets.findIndex((el) => el?.contains(document?.activeElement!));
 
       // If not in any, go to search input
       if (currentSectionIndex < 0) {
-        (targets[0] as HTMLElement).focus();
+        targets[0]?.focus();
         return;
       }
       // If there are no search results, toggle between search input and main content
       if (!hasSearchResults) {
-        (targets[currentSectionIndex === 0 ? 2 : 0] as HTMLElement).focus();
+        targets[currentSectionIndex === 0 ? 2 : 0]?.focus();
         return;
       }
       const nextSectionIndex = (currentSectionIndex + 1) % targets.length;
 
-      (targets[nextSectionIndex] as HTMLElement).focus();
+      targets[nextSectionIndex]?.focus();
       // Possibly we want to scroll the current result into view in results or content?
     },
     [isMobile, hasSearchResults]
@@ -267,8 +267,8 @@ function Topbar(props: Props) {
   }
 
   const onSearchChange = React.useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => {
-      setQuery((e.currentTarget as any).value);
+    ({currentTarget}: React.FormEvent<HTMLInputElement>) => {
+      setQuery(currentTarget.value);
       setFormSubmitted(false);
     },
     []
