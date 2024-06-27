@@ -81,6 +81,7 @@ describe('receivePageNotFoundId hook', () => {
 
     await processBrowserRedirect(helpers);
 
-    expect(dispatch).toHaveBeenCalledWith(replace(helpers.router.findRoute('https://openstax.org/books/redirected') as AnyMatch));
+    expect(dispatch)
+    .toHaveBeenCalledWith(replace(helpers.router.findRoute('https://openstax.org/books/redirected') as AnyMatch));
   });
 });
