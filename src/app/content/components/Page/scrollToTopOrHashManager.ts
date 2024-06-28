@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import { scrollTo } from '../../../domUtils';
 import * as selectNavigation from '../../../navigation/selectors';
 import { AppState } from '../../../types';
-import { assertWindow, memoizeStateToProps, resetTabIndex } from '../../../utils';
+import { assertWindow, memoizeStateToProps } from '../../../utils';
 import { isSearchScrollTarget } from '../../search/guards';
 import { selectedResult } from '../../search/selectors';
 import * as select from '../../selectors';
@@ -26,18 +26,20 @@ const scrollToTarget = (container: HTMLElement | null, hash: string) => {
   }
 };
 
-const scrollToTargetOrTop = (container: HTMLElement | null, hash: string) => {
+const scrollToTargetOrTop = (container: HTMLElement | null, hash: string, previous: boolean) => {
   if (getScrollTarget(container, hash)) {
     scrollToTarget(container, hash);
   } else {
-    scrollToTop();
+    scrollToTop(previous);
   }
 };
 
-const scrollToTop = () => {
+const scrollToTop = (previous: boolean) => {
   const window = assertWindow();
+  if (previous) {
+    document?.querySelector('main')?.focus();
+  }
   window.scrollTo(0, 0);
-  document?.querySelector('main')?.focus();
 };
 
 const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLElement | null => {
@@ -58,13 +60,8 @@ const scrollToTopOrHashManager = (
   ) {
     return;
   }
-  if (!previous) {
-    const window = assertWindow();
-
-    scrollToTop();
-    resetTabIndex(window.document);
-  } else if (previous.page !== current.page) {
-    scrollToTargetOrTop(container, current.hash);
+  if (previous?.page !== current.page) {
+    scrollToTargetOrTop(container, current.hash, Boolean(previous));
   } else if (previous?.hash !== current.hash) {
     scrollToTarget(container, current.hash);
   }
