@@ -219,5 +219,28 @@ describe('setHead hook', () => {
         ]),
       })));
     });
+
+    it('dispatches sethead with robots:noindex tag if page has noindex set', async() => {
+      store.dispatch(receiveBook(combinedBook));
+      store.dispatch(receivePage({
+        ...page,
+        references: [],
+        noindex: true,
+      }));
+      const bookId = book.id;
+      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+
+      await hook(receivePage({
+        ...page,
+        references: [],
+        noindex: true,
+      }));
+
+      expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
+        meta: expect.arrayContaining([
+          {name: 'robots', content: 'noindex'},
+        ]),
+      })));
+    });
   });
 });
