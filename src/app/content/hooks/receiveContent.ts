@@ -77,7 +77,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
     meta.push({ property: 'og:image', content: book.promote_image.meta.download_url });
   }
 
-  if (book.loadOptions.archiveVersion || book.loadOptions.contentVersion) {
+  if (book.loadOptions.archiveVersion || book.loadOptions.contentVersion || page.noindex) {
     meta.push({ name: 'robots', content: 'noindex' });
   }
 
