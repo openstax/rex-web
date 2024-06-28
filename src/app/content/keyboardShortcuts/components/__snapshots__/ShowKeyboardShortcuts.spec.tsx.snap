@@ -390,7 +390,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            i18n:a11y:keyboard-shortcuts:keys:s
+            s
           </span>
         </div>
         <div

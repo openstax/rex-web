@@ -618,7 +618,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               <span
                 className="c13"
               >
-                i18n:a11y:keyboard-shortcuts:keys:s
+                s
               </span>
             </div>
             <div
