@@ -107,6 +107,7 @@ export interface Page {
   id: string;
   title: string;
   slug: string;
+  noindex?: boolean;
 }
 
 export interface ArchiveTreeNode {
@@ -165,6 +166,7 @@ export interface ArchivePage {
   title: string;
   revised: string;
   slug: string;
+  noindex?: boolean;
 }
 
 export type ArchiveContent = ArchivePage | ArchiveBook;
