@@ -15,7 +15,7 @@ export const renderAndSaveContentManfiest = async(
     .reduce((result, item) => ([...result, ...item]), [] as string[][])
 
   const manifestText = [
-    ['id', 'title', 'text title', 'slug', 'url', 'toc type', 'toc target type'],
+    ['id', 'title', 'text title', 'language', 'slug', 'url', 'toc type', 'toc target type'],
     ...rows
   ].map(row => row.map(quoteValue).join(',')).join('\n');
 
@@ -29,9 +29,11 @@ function getContentsRows(book: BookWithOSWebData, node: ArchiveTree | ArchiveTre
   const id = stripIdVersion(node.id);
   const toc_type = node.toc_type ?? (id === book.id ? 'book' : '')
 
-  const urlParams = 'contents' in node
-    ? ['', '']
-    : [node.slug, content.getUrl({book: {slug: book.slug}, page: {slug: node.slug}})]
+  const urlParams = toc_type === 'book'
+    ? [node.slug, '']
+    : 'contents' in node
+      ? ['', '']
+      : [node.slug, content.getUrl({book: {slug: book.slug}, page: {slug: node.slug}})]
 
   const contents = 'contents' in node
     ? node.contents.map(child => getContentsRows(book, child, titleNumber || chapterNumber))
@@ -39,7 +41,7 @@ function getContentsRows(book: BookWithOSWebData, node: ArchiveTree | ArchiveTre
     : [];
 
   return [
-    [stripIdVersion(id), title, textTitle, ...urlParams, toc_type, toc_target_type ?? ''],
+    [stripIdVersion(id), title, textTitle, book.language, ...urlParams, toc_type, toc_target_type ?? ''],
     ...contents
   ]
 }

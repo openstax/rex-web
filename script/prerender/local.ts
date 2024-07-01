@@ -82,12 +82,14 @@ async function render() {
 
   const books = await prepareBooks(archiveLoader, osWebLoader);
 
+  /*
   for (const book of books) {
     const bookPages = prepareBookPages(book);
     const sitemap = await renderPages(renderHelpers, bookPages);
 
     await renderSitemap(book.slug, sitemap);
   }
+  */
 
   await renderSitemapIndex(books);
   await renderContentManifest(books);
