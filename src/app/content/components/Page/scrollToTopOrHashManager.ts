@@ -37,7 +37,9 @@ const scrollToTargetOrTop = (container: HTMLElement | null, hash: string, previo
 const scrollToTop = (previous: boolean) => {
   const window = assertWindow();
   if (previous) {
-    document?.querySelector('main')?.focus();
+    window.document.querySelector('main')?.focus();
+  } else {
+    window.document.body.focus();
   }
   window.scrollTo(0, 0);
 };
