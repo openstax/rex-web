@@ -152,6 +152,7 @@ const ShowKeyboardShortcuts = () => (
         <Shortcut keys={['arrows']} msgKey='move-focus-through-each-line'/>
         <Shortcut keys={['shift', 'arrows']} msgKey='select-text'/>
         <Shortcut keys={['alt', 'h']} msgKey='create-highlight-or-note'/>
+        <Shortcut keys={['alt', 's']} msgKey='cycle-search-regions'/>
       </ShortcutsTable>
     </ShortcutsCard>
   </ShowKeyboardShortcutsBody>

@@ -2,7 +2,6 @@ import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { IntlShape } from 'react-intl';
-import { scrollTo } from '../../../domUtils';
 import { AppState } from '../../../types';
 import { memoizeStateToProps } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
@@ -75,10 +74,9 @@ const selectResult = (services: Services, previous: HighlightProp | null, curren
     allImagesLoaded(services.container).then(
       () => {
         const target = selectedElements[0] as HTMLElement;
-        const container = target.closest('[tabindex]') as HTMLElement;
+        const focusTarget: HTMLElement | null = target.querySelector('[tabindex="0"]');
 
-        scrollTo(target);
-        container?.focus();
+        focusTarget?.focus();
       }
     );
   }
