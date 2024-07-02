@@ -22,14 +22,18 @@ export const renderAndSaveContentManfiest = async(
   await saveFile('/rex/content-metadata.csv', manifestText);
 };
 
-function getContentsRows(book: BookWithOSWebData, node: ArchiveTree | ArchiveTreeNode, chapterNumber?: string): string[][] {
+function getContentsRows(
+  book: BookWithOSWebData,
+  node: ArchiveTree | ArchiveTreeNode,
+  chapterNumber?: string
+): string[][] {
   const {title, toc_target_type} = node;
   const [titleNumber, titleString] = splitTitleParts(node.title);
   const textTitle = `${titleNumber || chapterNumber || ''} ${titleString}`.replace(/\s+/, ' ').trim();
   const id = stripIdVersion(node.id);
-  const toc_type = node.toc_type ?? (id === book.id ? 'book' : '');
+  const tocType = node.toc_type ?? (id === book.id ? 'book' : '');
 
-  const urlParams = toc_type === 'book'
+  const urlParams = tocType === 'book'
     ? [node.slug, '']
     : 'contents' in node
       ? ['', '']
@@ -41,7 +45,7 @@ function getContentsRows(book: BookWithOSWebData, node: ArchiveTree | ArchiveTre
     : [];
 
   return [
-    [stripIdVersion(id), title, textTitle, book.language, ...urlParams, toc_type, toc_target_type ?? ''],
+    [stripIdVersion(id), title, textTitle, book.language, ...urlParams, tocType, toc_target_type ?? ''],
     ...contents,
   ];
 }
