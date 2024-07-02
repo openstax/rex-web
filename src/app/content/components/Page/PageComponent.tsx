@@ -47,7 +47,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
       lazyResources.makeResourcesLazy(parsedContent);
 
-      transformContent(parsedContent, parsedContent.body, this.props.intl, services);
+      transformContent(parsedContent, parsedContent.body, this.props, services);
 
       if (this.props.lockNavigation) {
         linksToOtherPagesOpenInNewTab(parsedContent.body, this.props.currentPath);
