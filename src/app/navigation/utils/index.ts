@@ -1,5 +1,5 @@
 import { flatten, unflatten } from 'flat';
-import { Action, Location } from 'history';
+import { Action, Location, Search } from 'history';
 import curry from 'lodash/fp/curry';
 import isNull from 'lodash/fp/isNull';
 import omit from 'lodash/fp/omit';
@@ -31,7 +31,7 @@ if (typeof(document) !== 'undefined') {
 const delimiter = '_';
 
 export const matchForRoute = <R extends AnyRoute>(route: R, match: AnyMatch | undefined): match is Match<R> =>
-  !!match && match.route.name === route.name;
+  !!match && match.route?.name === route.name;
 
 export const locationChangeForRoute = <R extends AnyRoute>(
   route: R,
@@ -49,20 +49,44 @@ const getMatchParams = (keys: Key[], match: RegExpExecArray) => {
   }, {}), {delimiter});
 };
 
-const formatRouteMatch = <R extends AnyRoute>(route: R, state: RouteState<R>, keys: Key[], match: RegExpExecArray) => ({
+const formatRouteMatch = <R extends AnyRoute>(
+  route: R,
+  state: RouteState<R>,
+  keys: Key[],
+  match: RegExpExecArray,
+  search?: Search | string
+) => ({
   params: getMatchParams(keys, match),
   route,
   state,
+  ...(search && {search}),
 } as AnyMatch);
 
 export const findRouteMatch = (routes: AnyRoute[], location: Location | string): AnyMatch | undefined => {
+  let pathname;
+  let search;
+
+  if (typeof location === 'string') {
+    try {
+      const locationUrl = new URL(location);
+      pathname = locationUrl.pathname;
+      search = locationUrl.search;
+    } catch {
+      // location is a string but not a valid URL
+      pathname = location;
+    }
+  } else {
+    pathname = location.pathname;
+    search = location.search;
+  }
+
   for (const route of routes) {
     for (const path of route.paths) {
       const keys: Key[] = [];
       const re = pathToRegexp(path, keys, {end: true});
-      const match = re.exec(typeof location === 'string' ? location : location.pathname);
+      const match = re.exec(pathname);
       if (match) {
-        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match);
+        return formatRouteMatch(route, (typeof location !== 'string' && location.state) ?? {}, keys, match, search);
       }
     }
   }
