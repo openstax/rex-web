@@ -48,8 +48,8 @@ import createRedirects from './createRedirects';
 import './logUnhandledRejectionsAndExit';
 import renderManifest from './renderManifest';
 import { SitemapPayload, renderAndSaveSitemapIndex } from './sitemap';
-import { writeS3ReleaseXmlFile } from "./fileUtils";
-import { renderAndSaveContentManfiest } from "./contentManifest";
+import { writeS3ReleaseXmlFile } from './fileUtils';
+import { renderAndSaveContentManfiest } from './contentManifest';
 
 const {
   ARCHIVE_URL,

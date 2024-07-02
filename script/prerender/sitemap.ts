@@ -1,8 +1,8 @@
 import sitemap, { SitemapItemOptions } from 'sitemap';
 import { SerializedPageMatch } from './contentRoutes';
 import { writeAssetFile } from './fileUtils';
-import { BookWithOSWebData } from "../../src/app/content/types";
-import { getSitemapItemOptions } from "./contentPages";
+import { BookWithOSWebData } from '../../src/app/content/types';
+import { getSitemapItemOptions } from './contentPages';
 
 export const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`;
 export const contentManifestPath = (pathName: string) => `/rex/manifest/${pathName}.xml`;
@@ -25,9 +25,9 @@ export const renderAndSaveSitemap = async(
 
 export const renderAndSaveSitemapIndex = async(
   saveFile: (path: string, contents: string) => Promise<unknown>,
-  books: BookWithOSWebData[] 
+  books: BookWithOSWebData[]
 ) => {
-  const sitemapIndex = sitemap.buildSitemapIndex({urls: books.map(book =>  
+  const sitemapIndex = sitemap.buildSitemapIndex({urls: books.map(book =>
     getSitemapItemOptions(book, `https://openstax.org${sitemapPath(book.slug)}`)
   )});
 

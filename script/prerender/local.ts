@@ -27,7 +27,7 @@ import { createDiskCache } from './fileUtils';
 import renderManifest from './renderManifest';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 import userLoader from './stubbedUserLoader';
-import { renderContentManifest } from "./contentManifest";
+import { renderContentManifest } from './contentManifest';
 
 const {
   REACT_APP_BUY_PRINT_CONFIG_URL,

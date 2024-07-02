@@ -1,8 +1,8 @@
-import { BookWithOSWebData, ArchiveTreeNode, ArchiveTree } from "../../src/app/content/types";
-import { content } from "../../src/app/content/routes";
-import { writeAssetFile } from "./fileUtils";
-import { stripIdVersion } from "../../src/app/content/utils/idUtils";
-import { splitTitleParts } from "../../src/app/content/utils/archiveTreeUtils";
+import { BookWithOSWebData, ArchiveTreeNode, ArchiveTree } from '../../src/app/content/types';
+import { content } from '../../src/app/content/routes';
+import { writeAssetFile } from './fileUtils';
+import { stripIdVersion } from '../../src/app/content/utils/idUtils';
+import { splitTitleParts } from '../../src/app/content/utils/archiveTreeUtils';
 
 const quoteValue = (value?: string) => value ? `"${value.replace(/"/g, '""')}"` : '""';
 
@@ -12,11 +12,11 @@ export const renderAndSaveContentManfiest = async(
 ) => {
 
   const rows = books.map(book => getContentsRows(book, book.tree))
-    .reduce((result, item) => ([...result, ...item]), [] as string[][])
+    .reduce((result, item) => ([...result, ...item]), [] as string[][]);
 
   const manifestText = [
     ['id', 'title', 'text title', 'language', 'slug', 'url', 'toc type', 'toc target type'],
-    ...rows
+    ...rows,
   ].map(row => row.map(quoteValue).join(',')).join('\n');
 
   await saveFile('/rex/content-metadata.csv', manifestText);
@@ -27,13 +27,13 @@ function getContentsRows(book: BookWithOSWebData, node: ArchiveTree | ArchiveTre
   const [titleNumber, titleString] = splitTitleParts(node.title);
   const textTitle = `${titleNumber || chapterNumber || ''} ${titleString}`.replace(/\s+/, ' ').trim();
   const id = stripIdVersion(node.id);
-  const toc_type = node.toc_type ?? (id === book.id ? 'book' : '')
+  const toc_type = node.toc_type ?? (id === book.id ? 'book' : '');
 
   const urlParams = toc_type === 'book'
     ? [node.slug, '']
     : 'contents' in node
       ? ['', '']
-      : [node.slug, content.getUrl({book: {slug: book.slug}, page: {slug: node.slug}})]
+      : [node.slug, content.getUrl({book: {slug: book.slug}, page: {slug: node.slug}})];
 
   const contents = 'contents' in node
     ? node.contents.map(child => getContentsRows(book, child, titleNumber || chapterNumber))
@@ -42,8 +42,8 @@ function getContentsRows(book: BookWithOSWebData, node: ArchiveTree | ArchiveTre
 
   return [
     [stripIdVersion(id), title, textTitle, book.language, ...urlParams, toc_type, toc_target_type ?? ''],
-    ...contents
-  ]
+    ...contents,
+  ];
 }
 
 
