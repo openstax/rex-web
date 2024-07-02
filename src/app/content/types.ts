@@ -114,6 +114,8 @@ export interface ArchiveTreeNode {
   id: string;
   title: string;
   slug: string;
+  toc_type?: string;
+  toc_target_type?: string;
 }
 
 export type ArchiveTreeSectionType = 'book' | 'unit' | 'chapter' | 'page' | 'eoc-dropdown' | 'eob-dropdown';
