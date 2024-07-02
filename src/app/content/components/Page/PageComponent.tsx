@@ -21,6 +21,7 @@ import RedoPadding from './RedoPadding';
 import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scrollToTopOrHashManager';
 import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
+import ContentWarning from './ContentWarning';
 import isEqual from 'lodash/fp/isEqual';
 
 if (typeof(document) !== 'undefined') {
@@ -151,6 +152,7 @@ export default class PageComponent extends Component<PagePropTypes> {
       <this.highlightManager.CardList />
       <PT />
       <RedoPadding>
+        <ContentWarning book={this.props.book} />
         {this.props.pageNotFound
           ? this.renderPageNotFound()
           : pageIsReady
