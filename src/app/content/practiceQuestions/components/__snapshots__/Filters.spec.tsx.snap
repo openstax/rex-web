@@ -595,7 +595,9 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
           className="c13"
         >
           <div
+            aria-label="Filter by chapters"
             className="c14"
+            role="group"
           >
             <details
               className="c15 c16"
@@ -1095,7 +1097,9 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
           className="c13"
         >
           <div
+            aria-label="Filter by chapters"
             className="c14"
+            role="group"
           >
             <details
               className="c15 c16"
