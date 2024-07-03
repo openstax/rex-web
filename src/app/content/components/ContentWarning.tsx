@@ -1,10 +1,10 @@
 import React from 'react';
-import { PagePropTypes } from './connector';
-import { useServices } from '../../../context/Services';
-import { OSWebBook } from '../../../../gateways/createOSWebLoader';
+import { useServices } from '../../context/Services';
+import { OSWebBook } from '../../../gateways/createOSWebLoader';
+import { Book } from '../types';
 import styled from 'styled-components/macro';
-import Button from '../../../components/Button';
-import ModalWithScrollLock from '../Modal';
+import Button from '../../components/Button';
+import ModalWithScrollLock from './Modal';
 import cookie from './cookie';
 
 // tslint:disable-next-line
@@ -28,7 +28,7 @@ const WarningDiv = styled.div`
 export default function ContentWarning({
   book,
 }: {
-  book: PagePropTypes['book'];
+  book: Book;
 }) {
   const services = useServices();
   const [bookInfo, setBookInfo] = React.useState<OSWebBook | undefined>();
@@ -42,9 +42,7 @@ export default function ContentWarning({
   );
 
   React.useEffect(() => {
-    if (book) {
-      services.osWebLoader.getBookFromId(book.id).then(setBookInfo);
-    }
+    services.osWebLoader.getBookFromId(book.id).then(setBookInfo);
   }, [book, services]);
 
   if (!bookInfo?.content_warning_text || checkCookie(bookInfo.id.toString())) {

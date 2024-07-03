@@ -1,11 +1,11 @@
 import React from 'react';
-import { renderToDom } from '../../../../test/reactutils';
+import { renderToDom } from '../../../test/reactutils';
 import ContentWarning from './ContentWarning';
-import { useServices } from '../../../context/Services';
-import { OSWebBook } from '../../../../gateways/createOSWebLoader';
-import { BookWithOSWebData } from '../../types';
+import { useServices } from '../../context/Services';
+import { OSWebBook } from '../../../gateways/createOSWebLoader';
+import { BookWithOSWebData } from '../types';
 import { act } from 'react-dom/test-utils';
-import TestContainer from '../../../../test/TestContainer';
+import TestContainer from '../../../test/TestContainer';
 import ReactTestUtils from 'react-dom/test-utils';
 
 const dummyBook = ({
@@ -23,8 +23,8 @@ const services = {
   },
 };
 
-jest.mock('../../../context/Services', () => ({
-  ...jest.requireActual('../../../context/Services'),
+jest.mock('../../context/Services', () => ({
+  ...jest.requireActual('../../context/Services'),
   useServices: jest.fn(),
 }));
 

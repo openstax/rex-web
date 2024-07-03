@@ -11,4 +11,10 @@ describe('cookie', () => {
         cookie.deleteKey('foo');
         expect(cookieSpy).toBeCalledWith(expect.stringMatching(/^foo=true;path=\/;expires.*1970/));
     });
+    it('is ok without document', () => {
+        delete global.document;
+        cookie.setKey('foo');
+        cookie.deleteKey('foo');
+        expect('foo' in cookie.hash).toBe(false);
+    });
 });
