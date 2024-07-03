@@ -5,7 +5,6 @@ import { BookWithOSWebData } from '../../src/app/content/types';
 import { getSitemapItemOptions } from './contentPages';
 
 export const sitemapPath = (pathName: string) => `/rex/sitemaps/${pathName}.xml`;
-export const contentManifestPath = (pathName: string) => `/rex/manifest/${pathName}.xml`;
 
 export type SitemapPayload = { pages: SerializedPageMatch[], slug: string };
 

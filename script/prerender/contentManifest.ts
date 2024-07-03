@@ -6,7 +6,7 @@ import { splitTitleParts } from '../../src/app/content/utils/archiveTreeUtils';
 
 const quoteValue = (value?: string) => value ? `"${value.replace(/"/g, '""')}"` : '""';
 
-export const renderAndSaveContentManfiest = async(
+export const renderAndSaveContentManifest = async(
   saveFile: (path: string, contents: string) => Promise<unknown>,
   books: BookWithOSWebData[]
 ) => {
@@ -56,5 +56,5 @@ const writeAssetFileAsync = async(filepath: string, contents: string) => {
   return writeAssetFile(filepath, contents);
 };
 export const renderContentManifest = async(books: BookWithOSWebData[]) => {
-  return renderAndSaveContentManfiest(writeAssetFileAsync, books);
+  return renderAndSaveContentManifest(writeAssetFileAsync, books);
 };
