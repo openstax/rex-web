@@ -22,6 +22,7 @@ export interface OSWebBook {
   amazon_link: string;
   polish_site_link: string;
   content_warning_text: string | null;
+  id: number;
 }
 
 interface OSWebResponse {
@@ -43,6 +44,7 @@ export const fields = [
   'book_subjects',
   'book_categories',
   'content_warning_text',
+  'id',
 ].join(',');
 
 interface Options {

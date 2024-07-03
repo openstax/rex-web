@@ -5,6 +5,7 @@ import { OSWebBook } from '../../../../gateways/createOSWebLoader';
 import styled from 'styled-components/macro';
 import Button from '../../../components/Button';
 import ModalWithScrollLock from '../Modal';
+import cookie from './cookie';
 
 // tslint:disable-next-line
 const WarningDiv = styled.div`
@@ -31,7 +32,14 @@ export default function ContentWarning({
 }) {
   const services = useServices();
   const [bookInfo, setBookInfo] = React.useState<OSWebBook | undefined>();
-  const dismiss = React.useCallback(() => setBookInfo(undefined), []);
+  const dismiss = React.useCallback(
+    () => {
+      // This is only called when bookInfo is populated
+      cookie.setKey(cookieKey(bookInfo!.id.toString()), 'true', inAWeek());
+      setBookInfo(undefined);
+    },
+    [bookInfo]
+  );
 
   React.useEffect(() => {
     if (book) {
@@ -39,7 +47,7 @@ export default function ContentWarning({
     }
   }, [book, services]);
 
-  if (!bookInfo?.content_warning_text) {
+  if (!bookInfo?.content_warning_text || checkCookie(bookInfo.id.toString())) {
     return null;
   }
 
@@ -53,4 +61,16 @@ export default function ContentWarning({
       </WarningDiv>
     </ModalWithScrollLock>
   );
+}
+
+function checkCookie(id: string) {
+  return cookieKey(id) in cookie.hash;
+}
+
+function cookieKey(id: string) {
+  return `content-warning-${id}`;
+}
+
+function inAWeek() {
+  return new Date(Date.now() + 7 * 24 * 3600 * 1000);
 }

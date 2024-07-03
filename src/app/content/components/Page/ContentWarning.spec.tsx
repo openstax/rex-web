@@ -4,7 +4,7 @@ import ContentWarning from './ContentWarning';
 import { useServices } from '../../../context/Services';
 import { OSWebBook } from '../../../../gateways/createOSWebLoader';
 import { BookWithOSWebData } from '../../types';
-import {act} from 'react-dom/test-utils';
+import { act } from 'react-dom/test-utils';
 import TestContainer from '../../../../test/TestContainer';
 import ReactTestUtils from 'react-dom/test-utils';
 
@@ -14,6 +14,7 @@ const dummyBook = ({
 
 const dummyBookInfo = ({
   content_warning_text: 'some warning text',
+  id: 72,
 } as unknown) as OSWebBook;
 
 const services = {
@@ -30,7 +31,7 @@ jest.mock('../../../context/Services', () => ({
 (useServices as jest.Mock).mockReturnValue(services);
 
 describe('ContentWarning', () => {
-  it('renders warning modal', async () => {
+  it('renders warning modal', async() => {
     renderToDom(<TestContainer><ContentWarning book={dummyBook} /></TestContainer>);
 
     expect(services.osWebLoader.getBookFromId).toBeCalledWith(dummyBook.id);
