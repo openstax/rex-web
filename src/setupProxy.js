@@ -2,7 +2,6 @@
  * this file is shared between webpack-dev-server and the pre-renderer
  */
 const url = require('url');
-const util = require('util');
 const fs = require('fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
@@ -32,7 +31,7 @@ const { default: createOSWebLoader } = require('./gateways/createOSWebLoader');
 const archiveLoader = createArchiveLoader({
   archivePrefix: ARCHIVE_URL
 });
-const osWebLoader = createOSWebLoader(`${ARCHIVE_URL}${REACT_APP_OS_WEB_API_URL}`);
+const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
 
 const archivePaths = [
   '/apps/archive',
