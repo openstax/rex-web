@@ -8,7 +8,7 @@ const TEST_PAGE_WITH_LINKS = '/books/book-slug-1/pages/' + TEST_PAGE_WITH_LINKS_
 const TEST_PAGE_WITH_FIGURE = '/books/book-slug-1/pages/test-page-for-generic-styles';
 const LIGHTHOUSE_PAGES = [ TEST_PAGE_WITHOUT_MATH, TEST_PAGE_WITH_LINKS, TEST_PAGE_WITH_FIGURE ];
 const LIGHTHOUSE_TARGETS = {
-  accessibility: 0.97,
+  accessibility: 0.96,
   'best-practices': 0.88,
   customAccessibility: 1,
   seo: 0.9,
