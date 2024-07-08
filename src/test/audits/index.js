@@ -17,12 +17,11 @@ module.exports = {
   audits: ALL_AUDITS.map(a => { return { implementation: a } }),
 
   settings: {
-    // osano.js breaks this in a weird way, it causes the audit to return null
-    // which null sout the whole best-practices category score. updating lighthouse
-    // might allow us to block loading osano.js by pre-setting the page handle as
-    // shown in this example https://github.com/GoogleChrome/lighthouse/tree/main/docs/recipes/auth
-    // the version of lighthouse we currently use doesn't allow access to the page
-    // handle so we don't have access to request blocking
+    blockedUrlPatterns: [
+      'googletagmanager.com',
+      'osano.com',
+      'pulseinsights.com',
+    ],
     skipAudits: [
       'errors-in-console',
       'geolocation-on-start',
