@@ -683,11 +683,11 @@ test('C543225 canonicals for multi-volumed books point to a single volume', asyn
 
   // GIVEN: Open Volume 1 of calculus book
   const bookPage = new ContentPage(page)
-  const path1 = '/books/calculus-volume-1/pages/1-introduction'
+  const path1 = '/books/calculus-volume-1/pages/1-1-review-of-functions'
   sleep(1)
   await bookPage.open(path1)
   // THEN: Canonical of Volume 1 points to itself
-  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/1-introduction')
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/1-1-review-of-functions')
 
   // WHEN: Open EOC page
   const Toc = new TOC(page)

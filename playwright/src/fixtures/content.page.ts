@@ -33,6 +33,7 @@ class ContentPage {
   osanoManageButton: Locator
   osanoAccept: Locator
   osanoDialog: Locator
+  mathLocator: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -59,11 +60,20 @@ class ContentPage {
     this.textarea = this.page.locator('textarea[class*="TextArea"]')
     this.osanoCloseButton = this.page.locator('button[class*="osano-cm-dialog__close"]')
     this.osanoAccept = this.page.locator('button[class*="type_accept"]')
+    this.mathLocator = this.page.locator(".math")
   }
 
   async open(path: string) {
     // Open a Rex page with base url
     await this.page.goto(path)
+    // await Promise.all([this.mathLocator.waitFor()])
+
+    if(await this.page.$$(".math")) {
+  
+      await Promise.all([await this.page.$$("[id*=MathJax][id*=Frame] .math")])
+    }
+    
+
 
     // Close the osano cookie management widget
     if (await this.osanoAccept.isVisible()) {
@@ -93,7 +103,7 @@ class ContentPage {
   async canonical() {
     // Return canonical link of the current page
     let canonicalPageSelector = await this.page.$('[rel="canonical"]')
-    sleep(4)
+    // sleep(4)
     const canonicalPage = await canonicalPageSelector.evaluate((e) => e.getAttribute('href'))
     return canonicalPage
   }
