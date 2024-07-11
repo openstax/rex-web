@@ -17,7 +17,7 @@ export const checkLighthouse = async(target: Browser, urlPath: string, scoreTarg
 
   const result: ScoreTargets = {};
   testedCategories.forEach((category) => {
-    const categoryReport = lhr.categories[category]
+    const categoryReport = lhr.categories[category];
     const { score, auditRefs } = categoryReport;
     if (scoreTargets) {
       const minScore = scoreTargets[category];
@@ -25,9 +25,9 @@ export const checkLighthouse = async(target: Browser, urlPath: string, scoreTarg
       if (minScore && score < minScore) {
 
         auditRefs.forEach(auditRef => {
-          const audit = lhr.audits[auditRef.id]
+          const audit = lhr.audits[auditRef.id];
           if (auditRef.weight > 0 && audit.score < 1) {
-            console.log(JSON.stringify(audit, null, 2));
+            console.log(JSON.stringify(audit, null, 2)); // tslint:disable-line:no-console
           }
         });
         throw new Error(`${category} score of ${score} was less than the minimum of ${minScore}`);
