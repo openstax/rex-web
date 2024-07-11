@@ -3272,7 +3272,6 @@ li[aria-label="Current Page"] .c60 {
             >
               <input
                 aria-label="Search this book"
-                autoFocus={true}
                 className="c35"
                 data-testid="mobile-search-input"
                 onChange={[Function]}
@@ -7837,7 +7836,6 @@ li[aria-label="Current Page"] .c60 {
             >
               <input
                 aria-label="Search this book"
-                autoFocus={true}
                 className="c35"
                 data-testid="mobile-search-input"
                 onChange={[Function]}
