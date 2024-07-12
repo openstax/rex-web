@@ -29,6 +29,10 @@ noscript {
   }
 }
 
+#root {
+  min-width: 15.4rem;
+}
+
 * {
   box-sizing: border-box;
 }
