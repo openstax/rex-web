@@ -5,7 +5,7 @@ import { Book } from '../types';
 import styled from 'styled-components/macro';
 import Button from '../../components/Button';
 import ModalWithScrollLock from './Modal';
-import * as Cookies from 'js-cookie';
+import Cookies from 'js-cookie';
 
 // tslint:disable-next-line
 const WarningDiv = styled.div`
@@ -32,20 +32,21 @@ export default function ContentWarning({
 }) {
   const services = useServices();
   const [bookInfo, setBookInfo] = React.useState<OSWebBook | undefined>();
+  const cookieKey = `content-warning-${bookInfo?.id}`;
   const dismiss = React.useCallback(
     () => {
       // This is only called when bookInfo is populated
-      Cookies.set(cookieKey(bookInfo!.id.toString()), 'true', {expires: 28});
+      Cookies.set(cookieKey, 'true', {expires: 28});
       setBookInfo(undefined);
     },
-    [bookInfo]
+    [cookieKey]
   );
 
   React.useEffect(() => {
     services.osWebLoader.getBookFromId(book.id).then(setBookInfo);
   }, [book, services]);
 
-  if (!bookInfo?.content_warning_text || Cookies.get(bookInfo.id.toString())) {
+  if (!bookInfo?.content_warning_text || Cookies.get(cookieKey)) {
     return null;
   }
 
@@ -59,8 +60,4 @@ export default function ContentWarning({
       </WarningDiv>
     </ModalWithScrollLock>
   );
-}
-
-function cookieKey(id: string) {
-  return `content-warning-${id}`;
 }
