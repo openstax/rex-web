@@ -2,10 +2,12 @@ import React from 'react';
 import { useServices } from '../../context/Services';
 import { OSWebBook } from '../../../gateways/createOSWebLoader';
 import { Book } from '../types';
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import styled from 'styled-components/macro';
 import Button from '../../components/Button';
 import ModalWithScrollLock from './Modal';
 import Cookies from 'js-cookie';
+import { useTrapTabNavigation } from '../../reactUtils';
 
 // tslint:disable-next-line
 const WarningDiv = styled.div`
@@ -41,6 +43,12 @@ export default function ContentWarning({
     },
     [cookieKey]
   );
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    setTimeout(() => ref.current?.focus(), 10);
+  }, []);
+  useTrapTabNavigation(ref);
 
   React.useEffect(() => {
     services.osWebLoader.getBookFromId(book.id).then(setBookInfo);
@@ -52,7 +60,7 @@ export default function ContentWarning({
 
   return (
     <ModalWithScrollLock>
-      <WarningDiv>
+      <WarningDiv tabIndex='-1' ref={ref}>
         <div>{bookInfo.content_warning_text}</div>
         <Button type='button' onClick={dismiss}>
           Ok
