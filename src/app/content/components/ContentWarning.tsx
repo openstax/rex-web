@@ -59,7 +59,7 @@ export default function ContentWarning({
   }
 
   return (
-    <ModalWithScrollLock>
+    <ModalWithScrollLock ariaLabel='Content warning'>
       <WarningDiv tabIndex='-1' ref={ref}>
         <div>{bookInfo.content_warning_text}</div>
         <Button type='button' onClick={dismiss}>
