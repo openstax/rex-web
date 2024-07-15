@@ -28,28 +28,38 @@ const WarningDiv = styled.div`
   }
 `;
 
-export default function ContentWarning({
-  book,
+function WarningDivWithTrap({
+  text,
+  dismiss,
 }: {
-  book: Book;
+  text: string;
+  dismiss: () => void;
 }) {
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => ref.current?.focus(), []);
+
+  useTrapTabNavigation(ref);
+
+  return (
+    <WarningDiv tabIndex='-1' ref={ref}>
+      <div>{text}</div>
+      <Button type='button' onClick={dismiss}>
+        Ok
+      </Button>
+    </WarningDiv>
+  );
+}
+
+export default function ContentWarning({ book }: { book: Book }) {
   const services = useServices();
   const [bookInfo, setBookInfo] = React.useState<OSWebBook | undefined>();
   const cookieKey = `content-warning-${bookInfo?.id}`;
-  const dismiss = React.useCallback(
-    () => {
-      // This is only called when bookInfo is populated
-      Cookies.set(cookieKey, 'true', {expires: 28});
-      setBookInfo(undefined);
-    },
-    [cookieKey]
-  );
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    setTimeout(() => ref.current?.focus(), 10);
-  }, []);
-  useTrapTabNavigation(ref);
+  const dismiss = React.useCallback(() => {
+    // This is only called when bookInfo is populated
+    Cookies.set(cookieKey, 'true', { expires: 28 });
+    setBookInfo(undefined);
+  }, [cookieKey]);
 
   React.useEffect(() => {
     services.osWebLoader.getBookFromId(book.id).then(setBookInfo);
@@ -69,12 +79,10 @@ export default function ContentWarning({
         zIndex: theme.zIndex.highlightSummaryPopup,
       }}
     >
-      <WarningDiv tabIndex='-1' ref={ref}>
-        <div>{bookInfo.content_warning_text}</div>
-        <Button type='button' onClick={dismiss}>
-          Ok
-        </Button>
-      </WarningDiv>
+      <WarningDivWithTrap
+        text={bookInfo.content_warning_text}
+        dismiss={dismiss}
+      />
     </Modal>
   );
 }
