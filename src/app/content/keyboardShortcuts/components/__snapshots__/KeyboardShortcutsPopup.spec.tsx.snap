@@ -279,9 +279,10 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
   }
 }
 
-<dialog
+<div
   aria-modal="true"
   className="c0"
+  role="dialog"
 >
   <div
     className="c1"
@@ -606,5 +607,5 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
       </div>
     </div>
   </div>
-</dialog>
+</div>
 `;

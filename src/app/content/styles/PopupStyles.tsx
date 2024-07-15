@@ -28,7 +28,7 @@ const swapColors = ({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) =>
 };
 
 // tslint:disable-next-line:variable-name
-export const PopupWrapper = styled.dialog`
+export const PopupWrapper = styled.div`
   display: flex;
   justify-content: center;
 

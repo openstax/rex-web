@@ -405,9 +405,10 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   }
 }
 
-<dialog
+<div
   aria-modal="true"
   className="c0"
+  role="dialog"
 >
   <div
     className="c1"
@@ -524,5 +525,5 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
       </div>
     </div>
   </div>
-</dialog>
+</div>
 `;

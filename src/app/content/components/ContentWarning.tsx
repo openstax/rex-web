@@ -5,7 +5,8 @@ import { Book } from '../types';
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import styled from 'styled-components/macro';
 import Button from '../../components/Button';
-import ModalWithScrollLock from './Modal';
+import Modal from './Modal';
+import theme from '../../theme';
 import Cookies from 'js-cookie';
 import { useTrapTabNavigation } from '../../reactUtils';
 
@@ -59,13 +60,21 @@ export default function ContentWarning({
   }
 
   return (
-    <ModalWithScrollLock ariaLabel='Content warning'>
+    <Modal
+      ariaLabel='Content warning'
+      tabIndex='-1'
+      scrollLockProps={{
+        mediumScreensOnly: false,
+        overlay: true,
+        zIndex: theme.zIndex.highlightSummaryPopup,
+      }}
+    >
       <WarningDiv tabIndex='-1' ref={ref}>
         <div>{bookInfo.content_warning_text}</div>
         <Button type='button' onClick={dismiss}>
           Ok
         </Button>
       </WarningDiv>
-    </ModalWithScrollLock>
+    </Modal>
   );
 }
