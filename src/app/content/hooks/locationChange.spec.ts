@@ -214,6 +214,8 @@ describe('contentRouteHookBody', () => {
       polish_site_link: '',
       promote_image: null,
       publish_date: '2012-06-21',
+      content_warning_text: '',
+      id: 72,
     };
 
     beforeEach(() => {
