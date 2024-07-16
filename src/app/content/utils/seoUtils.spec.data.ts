@@ -75,6 +75,8 @@ export const mockOsWebBook: OSWebBook = {
   cnx_id: '',
   amazon_link: '',
   polish_site_link: '',
+  content_warning_text: '',
+  id: 72,
 };
 
 export const emptyPage = {
