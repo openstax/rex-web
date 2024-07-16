@@ -88,6 +88,11 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   background-color: ,#b03808,;
 }
 
+.c3:focus {
+  outline: solid #fff;
+  box-shadow: inset 0 0 0 0.3rem #000;
+}
+
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
