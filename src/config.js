@@ -32,7 +32,6 @@ let config = {
   REACT_APP_OS_WEB_API_URL: '/apps/cms/api',
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
   REACT_APP_HIGHLIGHTS_URL: '/highlights/api/v0',
-  REACT_APP_BUY_PRINT_CONFIG_URL: 'https://buyprint.openstax.org',
   SENTRY_ENABLED: process.env.REACT_APP_SENTRY_ENABLED || false,
 };
 

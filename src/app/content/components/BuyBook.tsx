@@ -1,10 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { textRegularSize, textRegularStyle } from '../../components/Typography';
+import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
-import { buyPrintConfig } from '../selectors';
 import { contentTextWidth } from './constants';
 import { disablePrint } from './utils/disablePrint';
 
@@ -34,23 +32,14 @@ const BuyBookLink = styled.a`
   font-weight: 700;
 `;
 
-// tslint:disable-next-line:variable-name
-const BuyPrintDisclosure = styled.p`
-  flex: 1;
-  align-self: stretch;
-  margin: 1.6rem 0 0 0;
-  ${textRegularStyle}
-  font-size: 1.2rem;
-  line-height: 1.7rem;
-`;
-
 // tslint:disable-next-line: variable-name
 const BuyBook = () => {
-  const config = useSelector(buyPrintConfig);
+  const config = {
+    url: '*** placeholder ***',
+  };
 
-  if (!config) { return null; }
-
-  return <BuyBookAlignment>
+return <BuyBookAlignment>
+    <div>*** Book link needs updated ***</div>
     <BuyBookLink
       target='_blank'
       rel='noopener'
@@ -61,7 +50,6 @@ const BuyBook = () => {
         {(msg) => msg}
       </FormattedMessage>
     </BuyBookLink>
-    {config.disclosure && <BuyPrintDisclosure>{config.disclosure}</BuyPrintDisclosure>}
   </BuyBookAlignment>;
 };
 

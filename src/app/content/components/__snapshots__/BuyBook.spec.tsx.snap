@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BuyBook renders when config is available 1`] = `
+exports[`BuyBook renders 1`] = `
 .c0 {
   width: 100%;
   display: -webkit-box;
@@ -40,19 +40,68 @@ exports[`BuyBook renders when config is available 1`] = `
   font-weight: 700;
 }
 
-.c2 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  margin: 1.6rem 0 0 0;
-  color: #424242;
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div>
+    *** Book link needs updated ***
+  </div>
+  <a
+    className="c1"
+    data-analytics-label="buy-book"
+    href="*** placeholder ***"
+    rel="noopener"
+    target="_blank"
+  >
+    Order a print copy
+  </a>
+</div>
+`;
+
+exports[`BuyBook returns null 1`] = `
+.c0 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 82.5rem;
+  overflow: visible;
+}
+
+.c1 {
   font-size: 1.6rem;
   line-height: 2.5rem;
-  font-size: 1.2rem;
-  line-height: 1.7rem;
+  font-size: 1.6rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  height: 5rem;
+  width: 19rem;
+  color: #d4450c;
+  border: solid 0.1rem;
+  font-weight: 700;
 }
 
 @media print {
@@ -64,21 +113,17 @@ exports[`BuyBook renders when config is available 1`] = `
 <div
   className="c0"
 >
+  <div>
+    *** Book link needs updated ***
+  </div>
   <a
     className="c1"
     data-analytics-label="buy-book"
-    href="https://example.com"
+    href="*** placeholder ***"
     rel="noopener"
     target="_blank"
   >
     Order a print copy
   </a>
-  <p
-    className="c2"
-  >
-    asdf
-  </p>
 </div>
 `;
-
-exports[`BuyBook returns null 1`] = `null`;

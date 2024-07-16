@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer';
 import createTestStore from '../../../test/createTestStore';
 import TestContainer from '../../../test/TestContainer';
 import { Store } from '../../types';
-import { receiveBuyPrintConfig } from '../actions';
 import BuyBook from './BuyBook';
 
 describe('BuyBook', () => {
@@ -13,8 +12,7 @@ describe('BuyBook', () => {
     store = createTestStore();
   });
 
-  it('renders when config is available', () => {
-    store.dispatch(receiveBuyPrintConfig({url: 'https://example.com', disclosure: 'asdf'}));
+  it('renders', () => {
     const component = renderer.create(<TestContainer store={store}>
       <BuyBook />
     </TestContainer>);
