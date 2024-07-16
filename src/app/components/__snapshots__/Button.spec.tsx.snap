@@ -219,6 +219,11 @@ exports[`Button matches snapshot - primary 1`] = `
   background-color: ,#b03808,;
 }
 
+.c0:focus {
+  outline: solid #fff;
+  box-shadow: inset 0 0 0 0.3rem #000;
+}
+
 <button
   className="c0"
 />
