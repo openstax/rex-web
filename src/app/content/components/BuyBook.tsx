@@ -5,6 +5,7 @@ import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { contentTextWidth } from './constants';
 import { disablePrint } from './utils/disablePrint';
+import { Book, BookWithOSWebData } from '../types';
 
 // tslint:disable-next-line:variable-name
 const BuyBookAlignment = styled.div`
@@ -33,17 +34,17 @@ const BuyBookLink = styled.a`
 `;
 
 // tslint:disable-next-line: variable-name
-const BuyBook = () => {
-  const config = {
-    url: '*** placeholder ***',
-  };
+const BuyBook = ({book}: {book: Book}) => {
+  const bookWithOSwebData = book as BookWithOSWebData;
 
-return <BuyBookAlignment>
-    <div>*** Book link needs updated ***</div>
+  if (!bookWithOSwebData.amazon_link) {
+    return null;
+  }
+  return <BuyBookAlignment>
     <BuyBookLink
       target='_blank'
       rel='noopener'
-      href={config.url}
+      href={bookWithOSwebData.amazon_link}
       data-analytics-label='buy-book'
     >
       <FormattedMessage id='i18n:toolbar:buy-book:text'>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BuyBook renders 1`] = `
+exports[`BuyBook renders when book has amazon_link 1`] = `
 .c0 {
   width: 100%;
   display: -webkit-box;
@@ -49,13 +49,10 @@ exports[`BuyBook renders 1`] = `
 <div
   className="c0"
 >
-  <div>
-    *** Book link needs updated ***
-  </div>
   <a
     className="c1"
     data-analytics-label="buy-book"
-    href="*** placeholder ***"
+    href="https://amazon.com/some-book"
     rel="noopener"
     target="_blank"
   >
@@ -64,66 +61,4 @@ exports[`BuyBook renders 1`] = `
 </div>
 `;
 
-exports[`BuyBook returns null 1`] = `
-.c0 {
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  margin: 0 auto;
-  max-width: 82.5rem;
-  overflow: visible;
-}
-
-.c1 {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-size: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  height: 5rem;
-  width: 19rem;
-  color: #d4450c;
-  border: solid 0.1rem;
-  font-weight: 700;
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-<div
-  className="c0"
->
-  <div>
-    *** Book link needs updated ***
-  </div>
-  <a
-    className="c1"
-    data-analytics-label="buy-book"
-    href="*** placeholder ***"
-    rel="noopener"
-    target="_blank"
-  >
-    Order a print copy
-  </a>
-</div>
-`;
+exports[`BuyBook returns null when book lacks amazon_link 1`] = `null`;
