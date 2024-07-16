@@ -144,6 +144,11 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
   background-color: ,#b03808,;
 }
 
+.c9:focus {
+  outline: solid #fff;
+  box-shadow: inset 0 0 0 0.3rem #000;
+}
+
 @media screen and (max-width:50em) {
   .c0 {
     background-position: center center;
