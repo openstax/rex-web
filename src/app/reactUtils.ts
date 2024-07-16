@@ -7,7 +7,7 @@ import theme from './theme';
 import { assertDefined, assertDocument, assertWindow } from './utils';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
-  const ref = React.useRef<E | null>(null);
+  const ref = React.useRef<E>(null);
 
   React.useEffect(() => {
     if (ref && ref.current) {
@@ -99,10 +99,11 @@ export function createTrapTab(...elements: HTMLElement[]) {
           return;
         }
         const trapTab = createTrapTab(el);
+        const document = assertDocument();
 
-        el.addEventListener('keydown', trapTab, true);
+        document.body.addEventListener('keydown', trapTab, true);
 
-        return () => el.removeEventListener('keydown', trapTab, true);
+        return () => document.body.removeEventListener('keydown', trapTab, true);
       },
       [ref, otherDep]
     );
