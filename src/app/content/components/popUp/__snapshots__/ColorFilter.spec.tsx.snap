@@ -298,6 +298,7 @@ input:checked + .c8 .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c20 {
@@ -331,6 +332,7 @@ input:checked + .c8 .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c23 {
@@ -364,6 +366,7 @@ input:checked + .c8 .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c25 {
@@ -397,6 +400,7 @@ input:checked + .c8 .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c27 {
@@ -430,6 +434,7 @@ input:checked + .c8 .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c19 {

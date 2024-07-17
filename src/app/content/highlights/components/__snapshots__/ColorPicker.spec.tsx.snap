@@ -127,6 +127,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c9 {
@@ -160,6 +161,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c11 {
@@ -193,6 +195,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c13 {
@@ -226,6 +229,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c15 {
@@ -259,6 +263,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c2 {
