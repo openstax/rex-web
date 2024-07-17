@@ -33,7 +33,7 @@ const textColors = {
 // https://css-tricks.com/copy-the-browsers-native-focus-styles/
 export const defaultFocusOutline = `
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 `;
 
 const greyColors = {

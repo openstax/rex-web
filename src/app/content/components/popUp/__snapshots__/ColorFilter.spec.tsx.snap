@@ -116,7 +116,7 @@ input:checked + .c8 .c10 {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c6:focus-within .c7 {
@@ -132,7 +132,7 @@ input:checked + .c8 .c10 {
   border: 1px solid #b03808;
 }
 
-.c21 {
+.c22 {
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -150,7 +150,7 @@ input:checked + .c8 .c10 {
   opacity: 0.4;
 }
 
-.c21 input {
+.c22 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -158,23 +158,23 @@ input:checked + .c8 .c10 {
   width: 0;
 }
 
-.c21:focus-within {
+.c22:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-.c21:focus-within .c7 {
+.c22:focus-within .c7 {
   border: 1px solid #b03808;
 }
 
-.c21.focus-within {
+.c22.focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
 }
 
-.c21.focus-within .c7 {
+.c22.focus-within .c7 {
   border: 1px solid #b03808;
 }
 
@@ -182,7 +182,7 @@ input:checked + .c8 .c10 {
   display: none;
 }
 
-.c16 {
+.c17 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -197,7 +197,7 @@ input:checked + .c8 .c10 {
   border-radius: 50%;
 }
 
-.c17 {
+.c18 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -211,7 +211,7 @@ input:checked + .c8 .c10 {
   border: 1px solid #fed200;
 }
 
-.c20 {
+.c21 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -225,7 +225,7 @@ input:checked + .c8 .c10 {
   border: 1px solid #92d101;
 }
 
-.c23 {
+.c24 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -239,7 +239,7 @@ input:checked + .c8 .c10 {
   border: 1px solid #00c3ed;
 }
 
-.c25 {
+.c26 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -253,7 +253,7 @@ input:checked + .c8 .c10 {
   border: 1px solid #545ec8;
 }
 
-.c27 {
+.c28 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -294,7 +294,13 @@ input:checked + .c8 .c10 {
   width: 1rem;
 }
 
-.c19 {
+.c13 input:focus + .c16 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c20 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -316,12 +322,18 @@ input:checked + .c8 .c10 {
   overflow: visible;
 }
 
-.c19 .c14 {
+.c20 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c22 {
+.c20 input:focus + .c16 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c23 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -343,12 +355,18 @@ input:checked + .c8 .c10 {
   overflow: visible;
 }
 
-.c22 .c14 {
+.c23 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c24 {
+.c23 input:focus + .c16 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c25 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -370,12 +388,18 @@ input:checked + .c8 .c10 {
   overflow: visible;
 }
 
-.c24 .c14 {
+.c25 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c26 {
+.c25 input:focus + .c16 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c27 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -397,12 +421,18 @@ input:checked + .c8 .c10 {
   overflow: visible;
 }
 
-.c26 .c14 {
+.c27 .c14 {
   height: 1rem;
   width: 1rem;
 }
 
-.c18 {
+.c27 input:focus + .c16 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c19 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -513,7 +543,7 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16"
+        className="c16 c17"
         size="small"
         style={
           Object {
@@ -525,7 +555,7 @@ input:checked + .c8 .c10 {
         }
       />
       <span
-        className="c17"
+        className="c18"
         size="small"
         style={
           Object {
@@ -538,7 +568,7 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       yellow
     </span>
@@ -570,7 +600,7 @@ input:checked + .c8 .c10 {
       </svg>
     </span>
     <div
-      className="c12 c19"
+      className="c12 c20"
     >
       <svg
         aria-hidden="true"
@@ -586,7 +616,7 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16"
+        className="c16 c17"
         size="small"
         style={
           Object {
@@ -598,7 +628,7 @@ input:checked + .c8 .c10 {
         }
       />
       <span
-        className="c20"
+        className="c21"
         size="small"
         style={
           Object {
@@ -611,13 +641,13 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       green
     </span>
   </label>
   <label
-    className="c5 c21"
+    className="c5 c22"
   >
     <input
       checked={false}
@@ -643,7 +673,7 @@ input:checked + .c8 .c10 {
       </svg>
     </span>
     <div
-      className="c12 c22"
+      className="c12 c23"
     >
       <svg
         aria-hidden="true"
@@ -659,7 +689,7 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16"
+        className="c16 c17"
         size="small"
         style={
           Object {
@@ -671,7 +701,7 @@ input:checked + .c8 .c10 {
         }
       />
       <span
-        className="c23"
+        className="c24"
         size="small"
         style={
           Object {
@@ -684,13 +714,13 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       blue
     </span>
   </label>
   <label
-    className="c5 c21"
+    className="c5 c22"
   >
     <input
       checked={false}
@@ -716,7 +746,7 @@ input:checked + .c8 .c10 {
       </svg>
     </span>
     <div
-      className="c12 c24"
+      className="c12 c25"
     >
       <svg
         aria-hidden="true"
@@ -732,7 +762,7 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16"
+        className="c16 c17"
         size="small"
         style={
           Object {
@@ -744,7 +774,7 @@ input:checked + .c8 .c10 {
         }
       />
       <span
-        className="c25"
+        className="c26"
         size="small"
         style={
           Object {
@@ -757,7 +787,7 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       purple
     </span>
@@ -789,7 +819,7 @@ input:checked + .c8 .c10 {
       </svg>
     </span>
     <div
-      className="c12 c26"
+      className="c12 c27"
     >
       <svg
         aria-hidden="true"
@@ -805,7 +835,7 @@ input:checked + .c8 .c10 {
         />
       </svg>
       <span
-        className="c16"
+        className="c16 c17"
         size="small"
         style={
           Object {
@@ -817,7 +847,7 @@ input:checked + .c8 .c10 {
         }
       />
       <span
-        className="c27"
+        className="c28"
         size="small"
         style={
           Object {
@@ -830,7 +860,7 @@ input:checked + .c8 .c10 {
       />
     </div>
     <span
-      className="c18"
+      className="c19"
     >
       pink
     </span>

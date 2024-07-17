@@ -11,7 +11,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   display: none;
 }
 
-.c6 {
+.c7 {
   display: none;
   position: absolute;
   height: 2.8rem;
@@ -26,7 +26,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border-radius: 50%;
 }
 
-.c7 {
+.c8 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -40,7 +40,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #fed200;
 }
 
-.c9 {
+.c10 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -54,7 +54,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #92d101;
 }
 
-.c11 {
+.c12 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -68,7 +68,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c13 {
+.c14 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -82,7 +82,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c15 {
+.c16 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -123,7 +123,13 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   width: 1.6rem;
 }
 
-.c8 {
+.c1 input:focus + .c6 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c9 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -145,12 +151,18 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c8 .c4 {
+.c9 .c4 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c10 {
+.c9 input:focus + .c6 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c11 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -172,12 +184,18 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c10 .c4 {
+.c11 .c4 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c12 {
+.c11 input:focus + .c6 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c13 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -199,12 +217,18 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c12 .c4 {
+.c13 .c4 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c14 {
+.c13 input:focus + .c6 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+.c15 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -226,9 +250,15 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c14 .c4 {
+.c15 .c4 {
   height: 1.6rem;
   width: 1.6rem;
+}
+
+.c15 input:focus + .c6 {
+  display: block;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c2 {
@@ -242,11 +272,6 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   cursor: pointer;
   height: 0;
   width: 0;
-}
-
-.c2:focus-within {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
 }
 
 .c0 {
@@ -318,7 +343,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       type="checkbox"
     />
     <span
-      className="c6"
+      className="c6 c7"
       style={
         Object {
           "focusBorder": "#8f7700",
@@ -329,7 +354,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       }
     />
     <span
-      className="c7"
+      className="c8"
       style={
         Object {
           "focusBorder": "#8f7700",
@@ -343,7 +368,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply green highlight"
     checked={false}
-    className="c8 c2"
+    className="c9 c2"
     component={<label />}
     style={
       Object {
@@ -376,7 +401,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       type="checkbox"
     />
     <span
-      className="c6"
+      className="c6 c7"
       style={
         Object {
           "focusBorder": "#4e6f01",
@@ -387,7 +412,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       }
     />
     <span
-      className="c9"
+      className="c10"
       style={
         Object {
           "focusBorder": "#4e6f01",
@@ -401,7 +426,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply blue highlight"
     checked={false}
-    className="c10 c2"
+    className="c11 c2"
     component={<label />}
     style={
       Object {
@@ -434,7 +459,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       type="checkbox"
     />
     <span
-      className="c6"
+      className="c6 c7"
       style={
         Object {
           "focusBorder": "#006880",
@@ -445,7 +470,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       }
     />
     <span
-      className="c11"
+      className="c12"
       style={
         Object {
           "focusBorder": "#006880",
@@ -459,7 +484,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply purple highlight"
     checked={false}
-    className="c12 c2"
+    className="c13 c2"
     component={<label />}
     style={
       Object {
@@ -492,7 +517,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       type="checkbox"
     />
     <span
-      className="c6"
+      className="c6 c7"
       style={
         Object {
           "focusBorder": "#141a3e",
@@ -503,7 +528,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       }
     />
     <span
-      className="c13"
+      className="c14"
       style={
         Object {
           "focusBorder": "#141a3e",
@@ -517,7 +542,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   <label
     aria-label="Apply pink highlight"
     checked={false}
-    className="c14 c2"
+    className="c15 c2"
     component={<label />}
     style={
       Object {
@@ -550,7 +575,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       type="checkbox"
     />
     <span
-      className="c6"
+      className="c6 c7"
       style={
         Object {
           "focusBorder": "#560131",
@@ -561,7 +586,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       }
     />
     <span
-      className="c15"
+      className="c16"
       style={
         Object {
           "focusBorder": "#560131",
