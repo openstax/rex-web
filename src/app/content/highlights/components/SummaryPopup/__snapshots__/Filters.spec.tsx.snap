@@ -72,8 +72,8 @@ input:checked + .c22 .c23 {
 .c20:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c20:focus-within .c21 {
@@ -280,8 +280,9 @@ input:checked + .c22 .c23 {
 
 .c26 input:focus + .c29 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c33 {
@@ -313,8 +314,9 @@ input:checked + .c22 .c23 {
 
 .c33 input:focus + .c29 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c35 {
@@ -346,8 +348,9 @@ input:checked + .c22 .c23 {
 
 .c35 input:focus + .c29 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c37 {
@@ -379,8 +382,9 @@ input:checked + .c22 .c23 {
 
 .c37 input:focus + .c29 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c39 {
@@ -412,8 +416,9 @@ input:checked + .c22 .c23 {
 
 .c39 input:focus + .c29 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c49 {

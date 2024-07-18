@@ -118,8 +118,8 @@ input:checked + .c9 .c11 {
 .c7:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c7:focus-within .c8 {
@@ -164,8 +164,8 @@ input:checked + .c9 .c11 {
 .c23:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c23:focus-within .c8 {
@@ -299,8 +299,9 @@ input:checked + .c9 .c11 {
 
 .c14 input:focus + .c17 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c21 {
@@ -332,8 +333,9 @@ input:checked + .c9 .c11 {
 
 .c21 input:focus + .c17 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c24 {
@@ -365,8 +367,9 @@ input:checked + .c9 .c11 {
 
 .c24 input:focus + .c17 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c26 {
@@ -398,8 +401,9 @@ input:checked + .c9 .c11 {
 
 .c26 input:focus + .c17 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c28 {
@@ -431,8 +435,9 @@ input:checked + .c9 .c11 {
 
 .c28 input:focus + .c17 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c20 {
