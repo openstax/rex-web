@@ -1,0 +1,333 @@
+{
+  "abl_data": [
+    {
+      "commit_sha": "247752b30f009818f9ae90b0e6fe1a0b0fdbac4e",
+      "uuid": "02040312-72c8-441e-a685-20e9333f3e1d",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.771759",
+      "committed_at": "2022-02-09T20:30:37",
+      "repository_name": "osbooks-introduction-sociology",
+      "slug": "introduction-sociology-2e",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "eb2e29d69a6af78e64788c1239c3081555b2cefd",
+      "uuid": "02776133-d49d-49cb-bfaa-67c7f61b25a1",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.778992",
+      "committed_at": "2022-02-09T19:59:17",
+      "repository_name": "osbooks-prealgebra-bundle",
+      "slug": "intermediate-algebra",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "1aa3e7a901c0f0ddc37d34f890055d61a7476946",
+      "uuid": "031da8d3-b525-429c-80cf-6c8ed997733a",
+      "code_version": "20220411.192702",
+      "created_at": "2024-05-06T22:13:27.787006",
+      "committed_at": "2022-03-03T22:30:52",
+      "repository_name": "osbooks-college-physics-bundle",
+      "slug": "college-physics",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "1c16cb9a91dde855a8a2d6f6618231a8144a7908",
+      "uuid": "052b8372-0c5e-4ff6-8fd3-326377e9e91f",
+      "code_version": "20220228.174637",
+      "created_at": "2024-05-06T22:13:27.796131",
+      "committed_at": "2024-01-08T19:05:00",
+      "repository_name": "osbooks-principles-finance",
+      "slug": "principles-finance",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "eafe3108d09f49be0e6d579fc99635a651123047",
+      "uuid": "06aba565-9432-40f6-97ee-b8a361f118a8",
+      "code_version": "20220509.174553",
+      "created_at": "2024-05-06T22:13:27.806717",
+      "committed_at": "2024-01-06T01:09:12",
+      "repository_name": "osbooks-psychology",
+      "slug": "psychology-2e",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "eb2e29d69a6af78e64788c1239c3081555b2cefd",
+      "uuid": "0889907c-f0ef-496a-bcb8-2a5bb121717f",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.812499",
+      "committed_at": "2022-02-09T19:59:17",
+      "repository_name": "osbooks-prealgebra-bundle",
+      "slug": "elementary-algebra",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "ebc5beb15766e5a72d4d5085c1d470ae868007fb",
+      "uuid": "13ac107a-f15f-49d2-97e8-60ab2e3b519c",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.818943",
+      "committed_at": "2021-12-08T15:52:59",
+      "repository_name": "osbooks-college-algebra-bundle",
+      "slug": "algebra-and-trigonometry",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "ccce7805ec4d5fb209a5b48327ffd2ac0e2edc88",
+      "uuid": "14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.824574",
+      "committed_at": "2022-01-27T17:52:49",
+      "repository_name": "osbooks-anatomy-physiology",
+      "slug": "anatomy-and-physiology",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "0cd082f5b1f2317b760783f54621704444842c08",
+      "uuid": "16ab5b96-4598-45f9-993c-b8d78d82b0c6",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.831062",
+      "committed_at": "2022-09-21T10:27:19",
+      "repository_name": "osbooks-fizyka-bundle",
+      "slug": "fizyka-dla-szkół-wyższych-tom-2",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "9281eb634a3cdd2557cf2c797d7231c5b548321c",
+      "uuid": "175c88b6-f89b-4eba-9514-bc45e2139a1d",
+      "code_version": "20210823.155019",
+      "created_at": "2024-05-06T22:13:27.841009",
+      "committed_at": "2022-04-13T20:20:33",
+      "repository_name": "osbooks-fisica-universitaria-bundle",
+      "slug": "física-universitaria-volumen-1",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "e989ec347d89ce8acc03487d801ff4851325fe53",
+      "uuid": "185cbf87-c72e-48f5-b51e-f14f21b5eabd",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.847867",
+      "committed_at": "2022-02-14T20:38:05",
+      "repository_name": "osbooks-biology-bundle",
+      "slug": "biology",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "be114384439f2b443be1fdcc6fb5685c065cfc2b",
+      "uuid": "1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.856094",
+      "committed_at": "2023-03-31T19:10:56",
+      "repository_name": "osbooks-introduction-intellectual-property",
+      "slug": "introduction-intellectual-property",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "3dd0a5c763c526a3bc5b8b7b843b9ab5bbf32275",
+      "uuid": "1d39a348-071f-4537-85b6-c98912458c3c",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.862277",
+      "committed_at": "2024-02-05T20:09:17",
+      "repository_name": "osbooks-calculus-bundle",
+      "slug": "calculus-volume-2",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "da492e7d1d0cab75aeca41f08b5c88fd2132a5f9",
+      "uuid": "21b1d0df-a716-4205-8e86-0d0787b2c991",
+      "code_version": "20220228.174637",
+      "created_at": "2024-05-06T22:13:27.868109",
+      "committed_at": "2022-03-02T20:06:21",
+      "repository_name": "osbooks-calculo-bundle",
+      "slug": "cálculo-volumen-3",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "059cfc90e49b315c277a509828152f2238273ef7",
+      "uuid": "2731eee8-0eb1-4d80-ae83-01b4af642ff6",
+      "code_version": "20221219.191545",
+      "created_at": "2024-05-06T22:13:27.876341",
+      "committed_at": "2024-01-09T00:07:54",
+      "repository_name": "osbooks-principles-marketing",
+      "slug": "principles-marketing",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "a6dd6c50f231bbc95e5bbccb2a3520a258bb4e6e",
+      "uuid": "27f59064-990e-48f1-b604-5188b9086c29",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.889738",
+      "committed_at": "2022-06-15T20:12:25",
+      "repository_name": "osbooks-principles-economics-bundle",
+      "slug": "principles-macroeconomics-2e",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "fc1c69bf570191c823ee64ff253906ca2c7d215f",
+      "uuid": "2d941ab9-ac5b-4eb8-b21c-965d36a4f296",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.896148",
+      "committed_at": "2024-01-09T00:05:47",
+      "repository_name": "osbooks-principles-of-management-bundle",
+      "slug": "organizational-behavior",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "faae451497734eb5aeda1dfee47005c257acd57c",
+      "uuid": "2e737be8-ea65-48c3-aa0a-9f35b4c6a966",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.902392",
+      "committed_at": "2022-01-28T13:56:12",
+      "repository_name": "osbooks-astronomy",
+      "slug": "astronomy",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "1d2397028421d06fb045bba8be7621133831497b",
+      "uuid": "30189442-6998-4686-ac05-ed152b91b9de",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.909973",
+      "committed_at": "2022-06-23T18:00:34",
+      "repository_name": "osbooks-introductory-statistics-bundle",
+      "slug": "introductory-statistics",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "a48fde53c720db62b1dde7439805d2a4ce7c639b",
+      "uuid": "30e47181-f52c-4a91-9c11-33380c428268",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.916145",
+      "committed_at": "2024-01-05T16:30:28",
+      "repository_name": "osbooks-american-government",
+      "slug": "american-government-3e",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "444e84e333a10b4d5fca63c2d166331c4a5794f2",
+      "uuid": "33076054-ec1d-4417-8824-ce354efe42d0",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.922088",
+      "committed_at": "2022-01-31T16:01:17",
+      "repository_name": "osbooks-principles-economics-bundle",
+      "slug": "principles-macroeconomics-ap-courses",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "8608bfb8fd1e6b9fc11fc6f9e4c79de7a3e5c148",
+      "uuid": "35d7cce2-48dd-4403-b6a5-e828cb5a17da",
+      "code_version": "20211111.153520",
+      "created_at": "2024-05-06T22:13:27.931897",
+      "committed_at": "2024-01-09T17:11:34",
+      "repository_name": "osbooks-college-algebra-bundle",
+      "slug": "college-algebra-2e",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "c85bf38081665afaf221297a3781a99981b1faf7",
+      "uuid": "394a1101-fd8f-4875-84fa-55f15b06ba66",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.937679",
+      "committed_at": "2024-01-23T17:36:23",
+      "repository_name": "osbooks-statistics",
+      "slug": "statistics",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "b6c3469b1d633c7313f36c703ae609e746525ff7",
+      "uuid": "3d2454dc-2735-4e24-a7e0-f89a79893699",
+      "code_version": "20231109.173216",
+      "created_at": "2024-05-06T22:13:27.947907",
+      "committed_at": "2024-01-03T20:03:40",
+      "repository_name": "osbooks-workplace-software-skills",
+      "slug": "workplace-software-skills",
+      "consumer": "REX"
+    },
+    {
+      "commit_sha": "444e84e333a10b4d5fca63c2d166331c4a5794f2",
+      "uuid": "4061c832-098e-4b3c-a1d9-7eb593a2cb31",
+      "code_version": "20210224.204120",
+      "created_at": "2024-05-06T22:13:27.954716",
+      "committed_at": "2022-01-31T16:01:17",
+      "repository_name": "osbooks-principles-economics-bundle",
+      "slug": "principles-macroeconomics",
+      "consumer": "REX"
+    }
+  ],
+  "configured_books": {
+    "02040312-72c8-441e-a685-20e9333f3e1d": {
+      "defaultVersion": "247752b"
+    },
+    "02776133-d49d-49cb-bfaa-67c7f61b25a1": {
+      "defaultVersion": "eb2e29d"
+    },
+    "031da8d3-b525-429c-80cf-6c8ed997733a": {
+      "defaultVersion": "1aa3e7a"
+    },
+    "052b8372-0c5e-4ff6-8fd3-326377e9e91f": {
+      "defaultVersion": "1c16cb9"
+    },
+    "06aba565-9432-40f6-97ee-b8a361f118a8": {
+      "defaultVersion": "eafe310"
+    },
+    "0889907c-f0ef-496a-bcb8-2a5bb121717f": {
+      "defaultVersion": "eb2e29d"
+    },
+    "13ac107a-f15f-49d2-97e8-60ab2e3b519c": {
+      "defaultVersion": "ebc5beb"
+    },
+    "14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22": {
+      "defaultVersion": "ccce780"
+    },
+    "16ab5b96-4598-45f9-993c-b8d78d82b0c6": {
+      "defaultVersion": "0cd082f"
+    },
+    "175c88b6-f89b-4eba-9514-bc45e2139a1d": {
+      "defaultVersion": "9281eb6"
+    },
+    "185cbf87-c72e-48f5-b51e-f14f21b5eabd": {
+      "defaultVersion": "e989ec3"
+    },
+    "1b4ee0ce-ee89-44fa-a5e7-a0db9f0c94b1": {
+      "defaultVersion": "be11438"
+    },
+    "1d39a348-071f-4537-85b6-c98912458c3c": {
+      "defaultVersion": "3dd0a5c"
+    },
+    "21b1d0df-a716-4205-8e86-0d0787b2c991": {
+      "defaultVersion": "da492e7"
+    },
+    "2731eee8-0eb1-4d80-ae83-01b4af642ff6": {
+      "defaultVersion": "059cfc9"
+    },
+    "27f59064-990e-48f1-b604-5188b9086c29": {
+      "defaultVersion": "a6dd6c5"
+    },
+    "2d941ab9-ac5b-4eb8-b21c-965d36a4f296": {
+      "defaultVersion": "fc1c69b"
+    },
+    "2e737be8-ea65-48c3-aa0a-9f35b4c6a966": {
+      "defaultVersion": "faae451"
+    },
+    "30189442-6998-4686-ac05-ed152b91b9de": {
+      "defaultVersion": "1d23970"
+    },
+    "30e47181-f52c-4a91-9c11-33380c428268": {
+      "defaultVersion": "a48fde5"
+    },
+    "33076054-ec1d-4417-8824-ce354efe42d0": {
+      "defaultVersion": "444e84e",
+      "retired": true
+    },
+    "35d7cce2-48dd-4403-b6a5-e828cb5a17da": {
+      "defaultVersion": "8608bfb"
+    },
+    "394a1101-fd8f-4875-84fa-55f15b06ba66": {
+      "defaultVersion": "c85bf38"
+    },
+    "3d2454dc-2735-4e24-a7e0-f89a79893699": {
+      "defaultVersion": "b6c3469"
+    },
+    "4061c832-098e-4b3c-a1d9-7eb593a2cb31": {
+      "defaultVersion": "444e84e",
+      "retired": true
+    }
+  }
+}
