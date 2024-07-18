@@ -110,6 +110,7 @@ const ColorIndicator = styled(Hoc)`
   input:focus + ${FocusedStyle} {
     display: block;
     ${defaultFocusOutline}
+    z-index: 1;
   }
 `;
 
