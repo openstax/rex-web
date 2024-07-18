@@ -30,10 +30,10 @@ const textColors = {
 
 // Browser default outline for focus items per
 // tslint:disable-next-line:max-line-length
-// https://stackoverflow.com/questions/20609485/what-is-the-default-style-of-the-blue-focus-outline-in-chrome/38498539#38498539
+// https://css-tricks.com/copy-the-browsers-native-focus-styles/
 export const defaultFocusOutline = `
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 `;
 
 const greyColors = {
