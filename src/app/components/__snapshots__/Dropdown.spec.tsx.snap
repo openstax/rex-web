@@ -135,7 +135,7 @@ exports[`Dropdown matches snapshot 1`] = `
 .c6 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c1 {
@@ -443,7 +443,7 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
 .c4 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c1 {
