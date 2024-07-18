@@ -125,8 +125,9 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 
 .c1 input:focus + .c6 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c9 {
@@ -158,8 +159,9 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 
 .c9 input:focus + .c6 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c11 {
@@ -191,8 +193,9 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 
 .c11 input:focus + .c6 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c13 {
@@ -224,8 +227,9 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 
 .c13 input:focus + .c6 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c15 {
@@ -257,8 +261,9 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 
 .c15 input:focus + .c6 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
 .c2 {
