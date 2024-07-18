@@ -35,13 +35,14 @@ describe('ContentWarning', () => {
     renderToDom(<TestContainer><ContentWarning book={dummyBook} /></TestContainer>);
 
     expect(services.osWebLoader.getBookFromId).toBeCalledWith(dummyBook.id);
-
     await act(() => new Promise((resolve) => setTimeout(resolve, 1)));
 
     const root = document?.body;
     const b = root?.querySelector('button');
 
     expect(b).toBeTruthy();
+    // Exercises the when-focus-is-already-in-the-modal branch
+    b!.focus();
     act(() => ReactTestUtils.Simulate.click(b!));
     expect(root?.querySelector('button')).toBeFalsy();
   });

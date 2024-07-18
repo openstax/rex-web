@@ -9,6 +9,7 @@ import Modal from './Modal';
 import theme from '../../theme';
 import Cookies from 'js-cookie';
 import { useTrapTabNavigation } from '../../reactUtils';
+import { assertDocument } from '../../utils';
 
 // tslint:disable-next-line
 const WarningDiv = styled.div`
@@ -37,7 +38,23 @@ function WarningDivWithTrap({
 }) {
   const ref = React.useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => ref.current?.focus(), []);
+  // Demand focus
+  React.useEffect(
+    () => {
+      const document = assertDocument();
+      const grabFocus = () => {
+        if (!ref.current?.contains(document.activeElement)) {
+          ref.current?.focus();
+        }
+      };
+
+      grabFocus();
+      document.body.addEventListener('focusin', grabFocus);
+
+      return () => document.body.removeEventListener('focusin', grabFocus);
+    },
+    []
+  );
 
   useTrapTabNavigation(ref);
 
