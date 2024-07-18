@@ -99,11 +99,10 @@ export function createTrapTab(...elements: HTMLElement[]) {
           return;
         }
         const trapTab = createTrapTab(el);
-        const document = assertDocument();
 
-        document.body.addEventListener('keydown', trapTab, true);
+        el.addEventListener('keydown', trapTab, true);
 
-        return () => document.body.removeEventListener('keydown', trapTab, true);
+        return () => el.removeEventListener('keydown', trapTab, true);
       },
       [ref, otherDep]
     );
