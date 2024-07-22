@@ -712,6 +712,10 @@ Array [
   overflow: visible;
 }
 
+.c79:focus-visible {
+  outline: none;
+}
+
 .c79 .highlight {
   position: relative;
   z-index: 1;
@@ -5514,6 +5518,10 @@ Array [
 
 .c79 {
   overflow: visible;
+}
+
+.c79:focus-visible {
+  outline: none;
 }
 
 .c79 .highlight {

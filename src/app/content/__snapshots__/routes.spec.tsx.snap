@@ -279,6 +279,10 @@ Array [
   overflow: visible;
 }
 
+.c4:focus-visible {
+  outline: none;
+}
+
 .c4 .highlight {
   position: relative;
   z-index: 1;
