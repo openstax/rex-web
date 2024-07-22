@@ -711,6 +711,7 @@ test('C543225 canonicals for multi-volumed books point to a single volume', asyn
   // WHEN: Open Volume 2 of calculus book
   const path2 = '/books/calculus-volume-2/pages/1-3-the-fundamental-theorem-of-calculus'
   await bookPage.open(path2)
+  sleep(3)
   
   // THEN: Canonical of Volume 2 points to volume 1 for shared content
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/5-3-the-fundamental-theorem-of-calculus')
@@ -742,6 +743,7 @@ test('C543225 canonicals for multi-volumed books point to a single volume', asyn
   // WHEN: Open volume 3 page that is shared with previous volumes
   const path3 = '/books/calculus-volume-3/pages/1-1-parametric-equations'
   await bookPage.open(path3)
+  sleep(3)
   
   // THEN: Canonical of Volume 3 points to shared content
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-2/pages/7-1-parametric-equations')

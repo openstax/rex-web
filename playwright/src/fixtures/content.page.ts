@@ -104,8 +104,9 @@ class ContentPage {
 
   async canonical() {
     // Return canonical link of the current page
-    let canonicalPageSelector = await this.page.$('[rel="canonical"]')
-    // sleep(4)
+    const canonicalPageSelector = await this.page.$('[rel="canonical"]')
+   
+    sleep(1)
     const canonicalPage = await canonicalPageSelector.evaluate((e) => e.getAttribute('href'))
     return canonicalPage
   }
