@@ -674,3 +674,101 @@ test('C543225 canonicals for old editions point to the latest edition', async ({
   // THEN: Canonical page points to latest edition of the original content
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/d-the-expenditure-output-model')
 })
+
+
+test('C543225 canonicals for multi-volumed books point to a single volume', async ({ page, isMobile, browserName }) => {
+  test.skip(isMobile as boolean, 'test only desktop resolution')
+  test.skip(browserName == 'webkit', 'test only chrome')
+  test.skip(browserName == 'firefox', 'test only chrome')
+
+  // GIVEN: Open Volume 1 of calculus book
+  const bookPage = new ContentPage(page)
+  const path1 = '/books/calculus-volume-1/pages/1-introduction'
+
+  await bookPage.open(path1)
+  // THEN: Canonical of Volume 1 points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/1-introduction')
+
+  // WHEN: Open EOC page
+  const Toc = new TOC(page)
+  await Toc.pageClick(17)
+
+  // THEN: Canonical of volume 1 EOC page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/2-key-terms')
+
+  // WHEN: Open EOB nested page
+  await Toc.pageClick(81)
+
+  // THEN: Canonical of volume 1 EOB nested page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/chapter-3')
+
+  // WHEN: Open EOB page
+  await Toc.pageClick(76)
+
+  // THEN: Canonical of volume 1 EOB page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/a-table-of-integrals')
+
+  // WHEN: Open Volume 2 of calculus book
+  const path2 = '/books/calculus-volume-2/pages/1-3-the-fundamental-theorem-of-calculus'
+  await bookPage.open(path2)
+  sleep(3)
+
+  // THEN: Canonical of Volume 2 points to volume 1 for shared content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/5-3-the-fundamental-theorem-of-calculus')
+
+  // WHEN: Open volume 2 page that is not shared with previous volume
+  await Toc.pageClick(71)
+
+  // THEN: Canonical of Volume 2 points to self for non-shared content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-2/pages/7-2-calculus-of-parametric-curves')
+
+  // WHEN: Open EOC page
+  await Toc.pageClick(11)
+
+  // THEN: Canonical of volume 2 EOC page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-2/pages/1-key-concepts')
+
+  // WHEN: Open EOB nested page
+  await Toc.pageClick(84)
+
+  // THEN: Canonical of volume 2 EOB nested page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-2/pages/chapter-3')
+
+  // WHEN: Open EOB page
+  await Toc.pageClick(81)
+
+  // THEN: Canonical of volume 2 EOB page points to volume 1
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/c-review-of-pre-calculus')
+
+  // WHEN: Open volume 3 page that is shared with previous volumes
+  const path3 = '/books/calculus-volume-3/pages/1-1-parametric-equations'
+  await bookPage.open(path3)
+  sleep(3)
+
+  // THEN: Canonical of Volume 3 points to shared content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-2/pages/7-1-parametric-equations')
+
+  // WHEN: Open volume 3 page that is not shared with previous volume
+  await Toc.pageClick(13)
+
+  // THEN: Canonical of Volume 3 points to self for non-shared content
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-3/pages/2-2-vectors-in-three-dimensions')
+
+  // WHEN: Open EOC page
+  await Toc.pageClick(10)
+
+  // THEN: Canonical of volume 3 EOC page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-3/pages/1-review-exercises')
+
+  // WHEN: Open EOB nested page
+  await Toc.pageClick(84)
+
+  // THEN: Canonical of volume 3 EOB nested page points to itself
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-3/pages/chapter-3')
+
+  // WHEN: Open EOB page
+  await Toc.pageClick(81)
+
+  // THEN: Canonical of volume 2 EOB page points to volume 1
+  expect(await bookPage.canonical()).toBe('https://openstax.org/books/calculus-volume-1/pages/c-review-of-pre-calculus')
+})
