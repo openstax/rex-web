@@ -582,8 +582,8 @@ class MyHighlights(Region):
     class Highlights(Region):
         """The modal body containing the filtered list of highlights."""
 
-        _chapter_locator = (By.XPATH, "//div[@data-testid='chapter-title']")
-        _section_locator = (By.XPATH, "//div[@data-testid='section-title']")
+        _chapter_locator = (By.XPATH, "//h2[@data-testid='chapter-title']")
+        _section_locator = (By.XPATH, "//h3[@data-testid='section-title']")
         _no_results_message_locator = (By.CSS_SELECTOR, "[class*=GeneralTextWrapper]")
         _highlight_locator = (By.CSS_SELECTOR, "[class*=HighlightOuterWrapper]")
         _empty_state_nudge_locator = (By.CSS_SELECTOR, "[class*=MyHighlightsWrapper]")
@@ -1041,11 +1041,11 @@ class MyHighlights(Region):
             """A chapter section with highlights."""
 
             _number_locator = (
-                By.CSS_SELECTOR, "div:first-child .os-number")
+                By.CSS_SELECTOR, "h3:first-child .os-number")
             _highlight_locator = (
                 By.XPATH, "./following-sibling::div//div[@data-highlight-id]")
             _title_locator = (
-                By.CSS_SELECTOR, "div:first-child .os-text")
+                By.CSS_SELECTOR, "h3:first-child .os-text")
 
             @property
             def highlights(self) -> List[Highlight]:
