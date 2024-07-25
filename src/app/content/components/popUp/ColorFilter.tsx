@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
-import theme from '../../../theme';
+import theme, { hiddenButAccessible } from '../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
@@ -17,6 +17,17 @@ const ColorLabel = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+// tslint:disable-next-line: variable-name
+const Fieldset = styled.fieldset`
+  padding: 0;
+  border: none;
+  margin: 0;
+
+  legend {
+    ${hiddenButAccessible}
+  }
 `;
 
 export interface ColorFilterProps {
@@ -60,19 +71,22 @@ const ColorFilter = ({
       onAll={() => setSelectedColors({ remove: [], new: Array.from(colorFiltersWithContent) })}
       disabled={disabled}
     />
-    {styles.map((style) => <Checkbox
-      key={style.label}
-      checked={selectedColorFilters.has(style.label)}
-      disabled={disabled || !colorFiltersWithContent.has(style.label)}
-      onChange={() => handleChange(style.label)}
-    >
-      <ColorIndicator style={style} size='small'/>
-      <ColorLabel>
-        <FormattedMessage id={labelKey(style.label)}>
-          {(msg) => msg}
-        </FormattedMessage>
-      </ColorLabel>
-    </Checkbox>)}
+    <Fieldset>
+      <legend>Filter by colors</legend>
+      {styles.map((style) => <Checkbox
+        key={style.label}
+        checked={selectedColorFilters.has(style.label)}
+        disabled={disabled || !colorFiltersWithContent.has(style.label)}
+        onChange={() => handleChange(style.label)}
+      >
+        <ColorIndicator style={style} size='small'/>
+        <ColorLabel>
+          <FormattedMessage id={labelKey(style.label)}>
+            {(msg) => msg}
+          </FormattedMessage>
+        </ColorLabel>
+      </Checkbox>)}
+    </Fieldset>
   </div>;
 };
 
