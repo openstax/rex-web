@@ -24,10 +24,13 @@ const Row = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const Column = styled.div`
+const Column = styled.ul`
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -119,11 +122,11 @@ const ChapterFilter = (props: ChapterFilterProps) => {
       )
       : null}
     <Row>
-      {sectionChunks.map((sectionChunk, index) => <Column key={index}>
+      {sectionChunks.map((sectionChunk, index) => <Column key={index} aria-label='Filter by chapters'>
         {sectionChunk.map((location) => {
           const { section, children } = location;
           if (!children) {
-            return <ChapterFilterItem
+            return <li><ChapterFilterItem
               key={section.id}
               selected={props.selectedLocationFilters.has(section.id)}
               disabled={props.disabled || !props.locationFiltersWithContent.has(section.id)}
@@ -132,9 +135,9 @@ const ChapterFilter = (props: ChapterFilterProps) => {
               onChange={() => handleChange(section)}
               ariaLabel={getAriaLabel(section)}
               dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(section.title).join(' ')}`}
-            />;
+            /></li>;
           } else {
-            return <StyledDetails key={section.id} open={openChapterId === section.id}>
+            return <li><StyledDetails key={section.id} open={openChapterId === section.id}>
               <StyledSummary onClick={(ev: React.MouseEvent) => {
                 ev.preventDefault();
                 setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
@@ -156,7 +159,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                   />
                 ))}
               </StyledChapterFilterItemWrapper>
-            </StyledDetails>;
+            </StyledDetails></li>;
           }
         })}
       </Column>)}
