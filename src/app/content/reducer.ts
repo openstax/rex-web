@@ -20,7 +20,6 @@ import { State } from './types';
 
 export const initialState = {
   bookStylesUrl: null,
-  buyPrint: null,
   highlights: initialHighlightState,
   loading: {},
   mobileMenuOpen: false,
@@ -95,9 +94,6 @@ function reduceContent(state: State, action: AnyAction) {
     case getType(actions.receivePageNotFoundId): {
       const loading = omit('page', state.loading);
       return {...omit(['page', 'references'], state), loading, pageNotFoundId: action.payload};
-    }
-    case getType(actions.receiveBuyPrintConfig): {
-      return {...state, buyPrint: action.payload};
     }
     case getType(locationChange): {
       if (!matchForRoute(content, action.payload.match)) {
