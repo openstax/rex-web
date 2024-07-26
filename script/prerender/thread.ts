@@ -16,7 +16,6 @@ import { assertDefined, assertNotNull, assertObject, assertString, tuple } from 
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
-import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
@@ -46,7 +45,6 @@ const {
   ARCHIVE_URL,
   HIGHLIGHTS_URL,
   OS_WEB_URL,
-  REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_SEARCH_URL,
@@ -125,14 +123,12 @@ async function makeTaskFunctionsMap() {
   const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
   const searchClient = createSearchClient(`${SEARCH_URL}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`${HIGHLIGHTS_URL}${REACT_APP_HIGHLIGHTS_URL}`);
-  const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
 
   const services = {
     archiveLoader,
     bookConfigLoader,
-    buyPrintConfigLoader,
     config,
     highlightClient,
     osWebLoader,
