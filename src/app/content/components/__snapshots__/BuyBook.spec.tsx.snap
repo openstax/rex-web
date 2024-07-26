@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BuyBook renders when config is available 1`] = `
+exports[`BuyBook renders when book has amazon_link 1`] = `
 .c0 {
   width: 100%;
   display: -webkit-box;
@@ -40,21 +40,6 @@ exports[`BuyBook renders when config is available 1`] = `
   font-weight: 700;
 }
 
-.c2 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  margin: 1.6rem 0 0 0;
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  font-size: 1.2rem;
-  line-height: 1.7rem;
-}
-
 @media print {
   .c0 {
     display: none;
@@ -67,18 +52,13 @@ exports[`BuyBook renders when config is available 1`] = `
   <a
     className="c1"
     data-analytics-label="buy-book"
-    href="https://example.com"
+    href="https://amazon.com/some-book"
     rel="noopener"
     target="_blank"
   >
     Order a print copy
   </a>
-  <p
-    className="c2"
-  >
-    asdf
-  </p>
 </div>
 `;
 
-exports[`BuyBook returns null 1`] = `null`;
+exports[`BuyBook returns null when book lacks amazon_link 1`] = `null`;
