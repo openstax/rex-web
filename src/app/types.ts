@@ -12,7 +12,6 @@ import { actions } from '.';
 import config from '../config';
 import createArchiveLoader from '../gateways/createArchiveLoader';
 import createBookConfigLoader from '../gateways/createBookConfigLoader';
-import createBuyPrintConfigLoader from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createOSWebLoader from '../gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
@@ -45,7 +44,6 @@ export interface AppState {
 export interface AppServices {
   analytics: typeof analytics;
   archiveLoader: ReturnType<typeof createArchiveLoader>;
-  buyPrintConfigLoader: ReturnType<typeof createBuyPrintConfigLoader>;
   router: RouterService;
   config: typeof config;
   fontCollector: FontCollector;

@@ -1,5 +1,4 @@
 import { BooksConfig } from '../../gateways/createBookConfigLoader';
-import { BuyPrintResponse } from '../../gateways/createBuyPrintConfigLoader';
 import { Route, RouteParams } from '../navigation/types';
 import { TextResizerValue } from './constants';
 import { State as HighlightState } from './highlights/types';
@@ -55,7 +54,6 @@ export interface State {
   book?: Book;
   page?: Page;
   references: Array<PageReferenceMap | PageReferenceError>;
-  buyPrint: Pick<BuyPrintResponse['buy_urls'][number], 'url' | 'disclosure'> | null;
   textSize: TextResizerValue | null;
   bookStylesUrl: string | null;
 }
