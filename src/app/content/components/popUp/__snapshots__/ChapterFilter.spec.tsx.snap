@@ -75,6 +75,9 @@ exports[`ChapterFilter matches snapshot 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
 }
 
 input:not(:checked) + .c10 {
@@ -115,8 +118,8 @@ input:checked + .c10 .c12 {
 .c8:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c8:focus-within .c9 {
@@ -161,8 +164,8 @@ input:checked + .c10 .c12 {
 .c15:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c15:focus-within .c9 {
@@ -197,6 +200,9 @@ input:checked + .c10 .c12 {
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-x: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .c14 {
@@ -293,395 +299,418 @@ input:checked + .c10 .c12 {
   <div
     className="c5"
   >
-    <div
+    <ul
+      aria-label="Filter by chapters"
       className="c6"
     >
-      <label
-        className="c7 c8"
-      >
-        <input
-          checked={true}
-          disabled={false}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+      <li>
+        <label
+          className="c7 c8"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={true}
+            disabled={false}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-text\\">Test Page 1</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-text\\">Test Page 1</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
+              }
             }
-          }
-        />
-      </label>
-      <label
-        className="c7 c15"
-      >
-        <input
-          checked={false}
-          disabled={true}
-          onChange={[Function]}
-          type="checkbox"
-        />
-        <span
-          className="c9 c10"
+          />
+        </label>
+      </li>
+      <li>
+        <label
+          className="c7 c15"
         >
-          <svg
-            aria-hidden="true"
-            className="c11 c12 c13"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
+          <input
+            checked={false}
+            disabled={true}
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="c9 c10"
           >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+            <svg
+              aria-hidden="true"
+              className="c11 c12 c13"
               fill="currentColor"
-            />
-          </svg>
-        </span>
-        <span
-          className="c14"
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
+              focusable="false"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span
+            className="c14"
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
+              }
             }
-          }
-        />
-      </label>
-    </div>
+          />
+        </label>
+      </li>
+    </ul>
   </div>
 </div>
 `;
