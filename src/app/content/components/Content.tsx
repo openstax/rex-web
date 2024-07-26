@@ -103,7 +103,7 @@ const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) 
             <Page>
               <PrevNextBar />
               <LabsCTA />
-              <BuyBook />
+              <BuyBook book={book} />
             </Page>
             <Attribution />
             <Footer />
