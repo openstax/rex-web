@@ -30,11 +30,6 @@ export const book = createSelector(
   (state) => state.book
 );
 
-export const buyPrintConfig = createSelector(
-  localState,
-  (state) => state.buyPrint
-);
-
 export const bookTheme = createSelector(
   book,
   (currentBook) => hasOSWebData(currentBook) ? currentBook.theme : defaultTheme
