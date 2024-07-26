@@ -2,7 +2,6 @@ import { SearchApi } from '@openstax/open-search-client';
 import { createMemoryHistory } from 'history';
 import config from '../config';
 import type { JsonCompatibleStruct } from '@openstax/ts-utils/routing';
-import { BuyPrintResponse } from '../gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../gateways/createHighlightClient';
 import createPracticeQuestionsLoader from '../gateways/createPracticeQuestionsLoader';
 import analytics from '../helpers/analytics';
@@ -23,9 +22,6 @@ export const createTestServices = (args?: {prefetchResolutions: boolean}) => ({
   analytics,
   archiveLoader: mockArchiveLoader(),
   bookConfigLoader: mockbookConfigLoader(),
-  buyPrintConfigLoader: {load: jest.fn(() => Promise.resolve({
-    buy_urls: [{url: 'https://example.com', disclosure: null}],
-  } as BuyPrintResponse))},
   config,
   fontCollector: new FontCollector(),
   highlightClient: createHighlightClient('asdf'),
