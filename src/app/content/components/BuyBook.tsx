@@ -1,12 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import { textRegularSize, textRegularStyle } from '../../components/Typography';
+import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
-import { buyPrintConfig } from '../selectors';
 import { contentTextWidth } from './constants';
 import { disablePrint } from './utils/disablePrint';
+import { Book, BookWithOSWebData } from '../types';
 
 // tslint:disable-next-line:variable-name
 const BuyBookAlignment = styled.div`
@@ -34,34 +33,24 @@ const BuyBookLink = styled.a`
   font-weight: 700;
 `;
 
-// tslint:disable-next-line:variable-name
-const BuyPrintDisclosure = styled.p`
-  flex: 1;
-  align-self: stretch;
-  margin: 1.6rem 0 0 0;
-  ${textRegularStyle}
-  font-size: 1.2rem;
-  line-height: 1.7rem;
-`;
-
 // tslint:disable-next-line: variable-name
-const BuyBook = () => {
-  const config = useSelector(buyPrintConfig);
+const BuyBook = ({book}: {book: Book}) => {
+  const bookWithOSwebData = book as BookWithOSWebData;
 
-  if (!config) { return null; }
-
+  if (!bookWithOSwebData.amazon_link) {
+    return null;
+  }
   return <BuyBookAlignment>
     <BuyBookLink
       target='_blank'
       rel='noopener'
-      href={config.url}
+      href={bookWithOSwebData.amazon_link}
       data-analytics-label='buy-book'
     >
       <FormattedMessage id='i18n:toolbar:buy-book:text'>
         {(msg) => msg}
       </FormattedMessage>
     </BuyBookLink>
-    {config.disclosure && <BuyPrintDisclosure>{config.disclosure}</BuyPrintDisclosure>}
   </BuyBookAlignment>;
 };
 
