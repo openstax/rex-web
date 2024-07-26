@@ -5,8 +5,6 @@ import { ArchivePage, VersionedArchiveBookWithConfig } from '../../src/app/conte
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
-import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
-import { BuyPrintResponse } from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { OSWebBook } from '../../src/gateways/createOSWebLoader';
@@ -29,7 +27,6 @@ import { renderSitemap, renderSitemapIndex } from './sitemap';
 import userLoader from './stubbedUserLoader';
 
 const {
-  REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_SEARCH_URL,
@@ -59,9 +56,6 @@ async function render() {
   });
   const searchClient = createSearchClient(`http://localhost:${port}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`http://localhost:${port}${REACT_APP_HIGHLIGHTS_URL}`);
-  const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL, {
-    cache: createDiskCache<string, BuyPrintResponse>('buy-print'),
-  });
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
 
@@ -69,7 +63,6 @@ async function render() {
   const renderHelpers = {
     archiveLoader,
     bookConfigLoader,
-    buyPrintConfigLoader,
     config,
     highlightClient,
     osWebLoader,
