@@ -97,6 +97,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     // Wait for the mathjax promise set by postProcess from previous or current componentDidUpdate call.
     await Promise.all(this.processing);
 
+    this.container.current?.focus();
     this.scrollToTopOrHashManager(prevProps.scrollToTopOrHash, this.props.scrollToTopOrHash);
 
     const searchHighlightsChanged = !isEqual(

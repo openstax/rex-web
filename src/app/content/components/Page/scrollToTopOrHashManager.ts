@@ -30,16 +30,8 @@ const scrollToTargetOrTop = (container: HTMLElement | null, hash: string, previo
   if (getScrollTarget(container, hash)) {
     scrollToTarget(container, hash);
   } else if (previous) {
-    scrollToTop();
+    assertWindow().scrollTo(0, 0);
   }
-};
-
-const scrollToTop = () => {
-  const window = assertWindow();
-  const document = window.document;
-
-  document.querySelector('main')?.focus();
-  window.scrollTo(0, 0);
 };
 
 const getScrollTarget = (container: HTMLElement | null, hash: string): HTMLElement | null => {

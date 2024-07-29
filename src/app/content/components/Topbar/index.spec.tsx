@@ -90,7 +90,7 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
 
   });
 
-  it('goes between main and search input when no search results', () => {
+  it('goes to main when no search results', () => {
     const {node} = renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -103,7 +103,6 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
     );
     const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
 
-    expect(document?.activeElement?.tagName).toBe('INPUT');
     act(() => dispatchSearchShortcut(tb!));
     expect(document?.activeElement?.tagName).toBe('MAIN');
   });
