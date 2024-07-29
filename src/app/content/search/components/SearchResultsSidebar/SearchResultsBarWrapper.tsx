@@ -1,5 +1,5 @@
 import { SearchResultHit } from '@openstax/open-search-client';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import searchIcon from '../.../../../../../../assets/search-icon-v2.svg';
@@ -59,13 +59,31 @@ const SearchResultsBar = React.forwardRef<
     children: React.ReactNode,
   }
 >(
-  (props, ref) => <Styled.SearchResultsBar
-    aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
-    data-testid='search-results-sidebar'
-    ref={ref}
-    tabIndex={-1}
-    {...props}
-  />
+  (props, ref) => {
+    const forwardFocus = React.useCallback(
+      ({target, currentTarget}: FocusEvent) => {
+        if (target !== currentTarget) {
+          return;
+        }
+        const currentResult = (ref as React.MutableRefObject<HTMLDivElement>)
+          .current.querySelector<HTMLElement>('[aria-current="true"]');
+
+        currentResult?.focus();
+      },
+      [ref]
+    );
+
+    return (
+      <Styled.SearchResultsBar
+        aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
+        data-testid='search-results-sidebar'
+        ref={ref}
+        tabIndex={-1}
+        onFocus={forwardFocus}
+        {...props}
+      />
+    );
+  }
 );
 
 export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {

@@ -202,6 +202,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   className="c0"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
+  onFocus={[Function]}
   tabIndex={-1}
 >
   <div>
@@ -775,6 +776,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   className="c0"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
+  onFocus={[Function]}
   tabIndex={-1}
 >
   <div
@@ -1470,6 +1472,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   className="c0"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
+  onFocus={[Function]}
   tabIndex={-1}
 >
   <div
@@ -2005,6 +2008,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   className="c0"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
+  onFocus={[Function]}
   tabIndex={-1}
 >
   <div
