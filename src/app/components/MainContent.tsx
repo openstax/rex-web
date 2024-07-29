@@ -13,6 +13,7 @@ interface Props {
   className?: string;
   dangerouslySetInnerHTML?: { __html: string; };
   textSize?: TextResizerValue;
+  doFocus?: boolean;
 }
 // tslint:disable-next-line:variable-name
 const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {...props} />)`
@@ -29,6 +30,34 @@ const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {
   }
 `;
 
+function InnerContent({
+  book,
+  children,
+  doFocus,
+  ...props
+}: React.PropsWithChildren<Omit<Props, 'className'>>) {
+  React.useEffect(
+    () => {
+      if (window && doFocus) {
+        window.document.querySelector('main')?.focus();
+        window.scrollTo(0, 0);
+      }
+    },
+    [doFocus]
+  );
+
+  return (
+    <ContentStyles
+      id={MAIN_CONTENT_ID}
+      book={book}
+      tabIndex={-1}
+      {...props}
+    >
+      {children}
+    </ContentStyles>
+  );
+}
+
 // tslint:disable-next-line:variable-name
 const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(
   ({book, children, className, ...props}, ref) => <Consumer>
@@ -37,14 +66,9 @@ const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Pro
       className={className}
       tabIndex={-1}
     >
-      <ContentStyles
-        id={MAIN_CONTENT_ID}
-        book={book}
-        tabIndex={-1}
-        {...props}
-      >
+      <InnerContent book={book} {...props}>
         {children}
-      </ContentStyles>
+      </InnerContent>
     </main>}
   </Consumer>
 );
