@@ -173,6 +173,7 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('closes mobile search results when related key term is clicked', () => {
+    jest.useFakeTimers();
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('term'));
     store.dispatch(
@@ -197,6 +198,8 @@ describe('SearchResultsSidebar', () => {
     renderer.act(() => {
       findById('related-key-term-result').props.onClick(makeEvent());
     });
+
+    jest.runAllTimers();
 
     expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
   });
