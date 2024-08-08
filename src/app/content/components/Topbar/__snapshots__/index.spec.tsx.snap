@@ -690,7 +690,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
       >
         <input
           aria-label="Search this book"
-          autoFocus={true}
           className="c18"
           data-testid="mobile-search-input"
           onChange={[Function]}
@@ -1722,7 +1721,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       >
         <input
           aria-label="Search this book"
-          autoFocus={true}
           className="c27"
           data-testid="mobile-search-input"
           onChange={[Function]}

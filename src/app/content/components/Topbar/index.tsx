@@ -182,9 +182,14 @@ class Topbar extends React.Component<Props, State> {
             colorSchema={this.props.searchButtonColor}
             searchInSidebar={this.props.searchInSidebar}
           >
-            <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
-              autoFocus
-              onChange={onSearchChange} value={this.state.query} />
+            <Styled.SearchInput
+              mobile
+              autoFocus={this.props.mobileToolbarOpen}
+              type='search'
+              data-testid='mobile-search-input'
+              onChange={onSearchChange}
+              value={this.state.query}
+            />
             {!this.state.formSubmitted && !newButtonEnabled &&
               <Styled.SearchButton desktop colorSchema={this.props.searchButtonColor} data-experiment />
             }
