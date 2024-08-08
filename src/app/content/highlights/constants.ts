@@ -17,3 +17,8 @@ export const highlightKeyCombination: KeyCombinationOptions = {
   code: 'KeyH', // key isn't always h when alt is pressed
   altKey: true,
 };
+
+export const searchKeyCombination: KeyCombinationOptions = {
+  code: 'KeyS',
+  altKey: true,
+};

@@ -66,6 +66,14 @@ const SearchResult = (props: {
   const formatMessage = useIntl().formatMessage;
   const active = props.page && props.currentPage
     && stripIdVersion(props.currentPage.id) === stripIdVersion(props.page.id);
+  const selectResultAndFocus = React.useCallback(
+    (result: SelectedResult) => {
+      props.selectResult(result);
+      // Timeout may not be necessary after #2221 is merged
+      setTimeout(() => document?.querySelector('main')?.focus(), 20);
+    },
+    [props]
+  );
 
   return <Styled.NavItem>
     <Styled.LinkWrapper {...(active ? {
@@ -81,7 +89,7 @@ const SearchResult = (props: {
       hits={props.page.results}
       testId='search-result'
       getPage={() => props.page}
-      onClick={(result: SelectedResult) => props.selectResult(result)}
+      onClick={selectResultAndFocus}
       selectedResult={props.selectedResult}
     />
   </Styled.NavItem>;

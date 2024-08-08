@@ -1,13 +1,21 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import renderer from 'react-test-renderer';
+import renderer, { TestRendererOptions } from 'react-test-renderer';
 import Topbar from '.';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import MessageProvider from '../../../../test/MessageProvider';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
-import { makeEvent, makeFindByTestId, makeFindOrNullByTestId, makeInputEvent } from '../../../../test/reactutils';
+import {
+  makeEvent,
+  makeFindByTestId,
+  makeFindOrNullByTestId,
+  makeInputEvent,
+  dispatchKeyDownEvent,
+  renderToDom,
+} from '../../../../test/reactutils';
+import { act } from 'react-dom/test-utils';
 import { makeSearchResults } from '../../../../test/searchResults';
 import TestContainer from '../../../../test/TestContainer';
 import * as Services from '../../../context/Services';
@@ -15,6 +23,8 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openMobileMenu, setTextSize } from '../../actions';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
+import { HTMLElement } from '@openstax/types/lib.dom';
+import { searchKeyCombination } from '../../highlights/constants';
 import {
   clearSearch,
   closeSearchResultsMobile,
@@ -25,8 +35,14 @@ import {
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
 import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerMenu } from './styled';
+import { useMatchMobileQuery } from '../../../reactUtils';
 
 const book = formatBookData(archiveBook, mockCmsBook);
+
+jest.mock('../../../reactUtils', () => ({
+  ...(jest as any).requireActual('../../../reactUtils'),
+  useMatchMobileQuery: jest.fn(),
+}));
 
 describe('search', () => {
   let store: Store;
@@ -43,13 +59,17 @@ describe('search', () => {
     };
   });
 
-  const render = () => renderer.create(<Provider store={store}>
+  const render = (options?: TestRendererOptions) => renderer.create(<Provider store={store}>
     <Services.Provider value={services}>
       <MessageProvider>
         <Topbar />
       </MessageProvider>
     </Services.Provider>
-  </Provider>);
+  </Provider>, options);
+
+const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
+  dispatchKeyDownEvent({code: searchKeyCombination.code, altKey: searchKeyCombination.altKey, target});
+};
 
   it('opens and closes mobile interface', () => {
     const component = render();
@@ -67,6 +87,67 @@ describe('search', () => {
     });
     expect(mobileSearch.props.mobileToolbarOpen).toBe(false);
     expect(event.preventDefault).toHaveBeenCalledTimes(2);
+
+  });
+
+  it('goes between main and search input when no search results', () => {
+    const {node} = renderToDom(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Topbar />
+            <main tabIndex={-1} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+
+    expect(document?.activeElement?.tagName).toBe('INPUT');
+    act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.tagName).toBe('MAIN');
+  });
+
+  it('goes to search results when provided', () => {
+    const {node} = renderToDom(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Topbar />
+            <div className='SearchResultsBar' tabIndex={-1} />
+            <main tabIndex={-1} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+
+    store.dispatch(receiveSearchResults(makeSearchResults()));
+
+    act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.tagName).toBe('INPUT');
+    act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.classList.contains('SearchResultsBar')).toBe(true);
+  });
+
+  it('aborts on mobile', () => {
+    (useMatchMobileQuery as jest.Mock).mockReturnValue(true);
+    const {node} = renderToDom(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Topbar />
+            <main tabIndex={-1} />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+
+    act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.tagName).toBe('INPUT');
+    act(() => dispatchSearchShortcut(tb!));
+    expect(document?.activeElement?.tagName).not.toBe('MAIN');
   });
 
   it('doesn\'t dispatch search for empty string', () => {
@@ -127,7 +208,9 @@ describe('search', () => {
     const findById = makeFindByTestId(component.root);
 
     const inputEvent = makeInputEvent('cool search');
-    findById('desktop-search-input').props.onChange(inputEvent);
+    renderer.act(() => {
+      findById('desktop-search-input').props.onChange(inputEvent);
+    });
 
     const event = makeEvent();
     renderer.act(() => findById('desktop-search').props.onSubmit(event));
@@ -315,7 +398,9 @@ describe('search button', () => {
     const findById = makeFindByTestId(component.root);
 
     const inputEvent = makeInputEvent('cool search');
-    findById('desktop-search-input').props.onChange(inputEvent);
+    renderer.act(
+      () => findById('desktop-search-input').props.onChange(inputEvent)
+    );
 
     const event = makeEvent();
     renderer.act(() => findById('desktop-search').props.onSubmit(event));
