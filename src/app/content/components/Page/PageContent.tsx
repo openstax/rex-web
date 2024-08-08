@@ -2,7 +2,7 @@ import Color from 'color';
 import styled, { css } from 'styled-components/macro';
 import MainContent from '../../../components/MainContent';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
-import theme from '../../../theme';
+import theme, { screenreaderOnly } from '../../../theme';
 import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
@@ -54,6 +54,21 @@ export default styled(MainContent)`
   .highlight {
     position: relative;
     z-index: 1;
+
+    @media screen {
+      &[data-start-message]::before,
+      &[data-end-message]::after {
+        ${screenreaderOnly}
+      }
+
+      &.first[data-start-message]::before {
+        content: attr(data-start-message);
+      }
+
+      &.last[data-end-message]::after {
+        content: attr(data-end-message);
+      }
+    }
   }
 
   /* stylelint-disable selector-class-pattern */
@@ -95,21 +110,27 @@ export default styled(MainContent)`
         }
       }
 
-      &.first.text.has-note:after {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        width: 0;
-        height: 0;
-        opacity: 0.8;
-        border-left: ${highlightIndicatorSize}em solid ${style.focused};
-        border-top: ${highlightIndicatorSize}em solid transparent;
-        transform: rotate(90deg);
+      &.first.text.has-note {
+        &:not(.last)::before {
+          content: "";
+        }
+
+        padding-left: 0.5rem;
+
+        ::before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          clip-path: initial;
+          clip: initial;
+          opacity: 0.8;
+          border-left: ${highlightIndicatorSize}em solid ${style.focused};
+          border-bottom: ${highlightIndicatorSize}em solid transparent;
+        }
       }
 
       @media screen {
-        &[aria-current] {
+        &.focus {
           background-color: ${style.focused};
           border-bottom: 0.2rem solid ${style.focusBorder};
           padding: 0.2rem 0 0;
@@ -138,7 +159,7 @@ export default styled(MainContent)`
         background-color: #ffea00;
       }
 
-      &[aria-current] {
+      &.focus {
         ${SELF_AND_CHILD_MATH_SELECTOR} {
           background-color: #ff9e4b;
           padding: 0.2rem 0;
