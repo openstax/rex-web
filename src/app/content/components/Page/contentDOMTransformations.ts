@@ -21,15 +21,19 @@ export function linksToOtherPagesOpenInNewTab(rootEl: HTMLElement, currentPath: 
 // .../src/scripts/modules/media/body/body.coffee#L123
 // We are passing Document because it is required to prerender.
 export const transformContent = (
-  document: Document, rootEl: HTMLElement, intl: IntlShape, services: AppServices & MiddlewareAPI
+  document: Document,
+  rootEl: HTMLElement,
+  props: { intl: IntlShape, topHeadingLevel?: number },
+  services: AppServices & MiddlewareAPI
 ) => {
   removeDocumentTitle(rootEl);
+  if (props.topHeadingLevel) { changeHeadingLevels(rootEl, props.topHeadingLevel); }
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
-  wrapSolutions(document, rootEl, intl);
+  wrapSolutions(document, rootEl, props.intl);
   expandSolutionForFragment(document);
-  moveFootnotes(document, rootEl, intl);
+  moveFootnotes(document, rootEl, props.intl);
   optimizeImages(rootEl, services);
 };
 
@@ -40,6 +44,23 @@ function removeDocumentTitle(rootEl: HTMLElement) {
     'h3[data-type="document-subtitle"]',
     'div[data-type="document-title"]',
   ].join(',')).forEach((el) => el.remove());
+}
+
+// Set the top heading's level to topHeadingLevel and make them all consecutive, based on contents
+function changeHeadingLevels(rootEl: HTMLElement, topHeadingLevel: number) {
+  let currentLevel = topHeadingLevel;
+
+  [ 1, 2, 3, 4, 5, 6 ].forEach((level) => {
+    const origTagName = `h${level}`;
+    const tags = rootEl.querySelectorAll(origTagName);
+
+    if (tags.length > 0) {
+      const newTagName = `h${currentLevel}`;
+      tags.forEach((el) => el.outerHTML = el.outerHTML.replace(RegExp(`<${origTagName}`, 'g'), `<${newTagName}`)
+                                                      .replace(RegExp(`</${origTagName}>`, 'g'), `</${newTagName}>`));
+      if (currentLevel < 6) { currentLevel += 1; }
+    }
+  });
 }
 
 // Wrap title and content elements in header and section elements, respectively
