@@ -49,7 +49,7 @@ import './logUnhandledRejectionsAndExit';
 import renderManifest from './renderManifest';
 import { SitemapPayload, renderAndSaveSitemapIndex } from './sitemap';
 import { writeS3ReleaseXmlFile } from './fileUtils';
-import { renderAndSaveContentManfiest } from './contentManifest';
+import { renderAndSaveContentManifest } from './contentManifest';
 
 const {
   ARCHIVE_URL,
@@ -368,7 +368,7 @@ async function queueWork(workQueueUrl: string) {
   );
 
   renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, books);
-  renderAndSaveContentManfiest(writeS3ReleaseXmlFile, books);
+  renderAndSaveContentManifest(writeS3ReleaseXmlFile, books);
 
   return stats;
 }
