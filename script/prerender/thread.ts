@@ -24,17 +24,13 @@ import createImageCDNUtils from '../../src/gateways/createImageCDNUtils';
 import { getSitemapItemOptions, renderAndSavePage } from './contentPages';
 import {
   deserializePageMatch,
-  getArchiveBook,
   getArchivePage,
-  SerializedBookMatch,
   SerializedPageMatch,
 } from './contentRoutes';
 import { writeS3ReleaseHtmlFile, writeS3ReleaseXmlFile } from './fileUtils';
 import './logUnhandledRejectionsAndExit';
 import {
   renderAndSaveSitemap,
-  renderAndSaveSitemapIndex,
-  sitemapPath,
   SitemapPayload,
 } from './sitemap';
 import userLoader from './stubbedUserLoader';
@@ -90,24 +86,8 @@ function makeSitemapTask(services: AppOptions['services']) {
   };
 }
 
-function makeSitemapIndexTask(services: AppOptions['services']) {
-  return async(payload: SerializedBookMatch[]) => {
-    const books = payload.map(
-      (book: SerializedBookMatch, index: number) => assertObject(
-        book, `Sitemap Index task payload[${index}] is not an object: ${payload}`
-      )
-    );
-    const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
-      const archiveBook = await getArchiveBook(services, book);
-      return getSitemapItemOptions(archiveBook, `https://openstax.org${sitemapPath(book.params.book.slug)}`);
-    });
-    return renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, items);
-  };
-}
-
 type AnyTaskFunction = ((payload: SerializedPageMatch) => void) |
-                       ((payload: SitemapPayload) => void) |
-                       ((payload: SerializedBookMatch[]) => void);
+                       ((payload: SitemapPayload) => void);
 
 type TaskFunctionsMap = { [key: string]: AnyTaskFunction | undefined };
 
@@ -141,7 +121,6 @@ async function makeTaskFunctionsMap() {
   return {
     page: makePageTask(services),
     sitemap: makeSitemapTask(services),
-    sitemapIndex: makeSitemapIndexTask(services),
   } as TaskFunctionsMap;
 }
 
