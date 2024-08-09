@@ -82,6 +82,7 @@ const OneSearchResultHit = ({
       return (
         <Styled.SectionContentPreview
           selectedResult={isSelected}
+          aria-current={isSelected}
           data-testid={testId}
           key={index}
           book={book}
