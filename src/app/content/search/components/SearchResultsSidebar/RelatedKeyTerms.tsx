@@ -27,7 +27,11 @@ const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
       hits={keyTermHits}
       testId='related-key-term-result'
       getPage={(hit: SearchResultHit) => assertDefined(findArchiveTreeNodeById(book.tree, hit.source.pageId), 'hit has to be in a book')}
-      onClick={() => dispatch(closeSearchResultsMobile())}
+      onClick={() => {
+        dispatch(closeSearchResultsMobile());
+        // Timeout may not be necessary after #2221 is merged
+        setTimeout(() => document?.querySelector('main')?.focus(), 20);
+      }}
       selectedResult={selectedResult}
     />
   </Styled.RelatedKeyTerms>;
