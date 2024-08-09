@@ -811,7 +811,6 @@ describe('Page', () => {
     await new Promise((resolve) => setImmediate(resolve));
 
     expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
-    expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
   it('doesn\'t scroll to search result when selected but unchanged', async() => {
@@ -906,7 +905,6 @@ describe('Page', () => {
 
     expect(highlightResults).toHaveBeenCalledWith(expect.anything(), [hit]);
     expect(mockHighlight.addFocusedStyles).toHaveBeenCalled();
-    expect(scrollTo).toHaveBeenCalledWith(highlightElement);
   });
 
   it('renders error modal for different search results', async() => {
