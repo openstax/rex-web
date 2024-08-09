@@ -43,11 +43,13 @@ import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
 import { globalMinuteCounter, prepareBookPages } from './contentPages';
-import { SerializedBookMatch, SerializedPageMatch } from './contentRoutes';
+import { SerializedPageMatch } from './contentRoutes';
 import createRedirects from './createRedirects';
 import './logUnhandledRejectionsAndExit';
 import renderManifest from './renderManifest';
-import { SitemapPayload } from './sitemap';
+import { SitemapPayload, renderAndSaveSitemapIndex } from './sitemap';
+import { writeS3ReleaseXmlFile } from './fileUtils';
+import { renderAndSaveContentManifest } from './contentManifest';
 
 const {
   ARCHIVE_URL,
@@ -86,7 +88,6 @@ const sqsClient = new SQSClient({ region: WORK_REGION });
 
 type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
-type SitemapIndexTask = { payload: SerializedBookMatch[], type: 'sitemapIndex' };
 
 const booksConfig = getBooksConfigSync();
 const archiveLoader = createArchiveLoader({
@@ -288,8 +289,7 @@ async function getQueueUrls(workersStackName: string) {
 class Stats {
   public pages = 0;
   public sitemaps = 0;
-  public sitemapIndexes = 0;
-  get total() { return this.pages + this.sitemaps + this.sitemapIndexes; }
+  get total() { return this.pages + this.sitemaps; }
 }
 
 function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
@@ -347,11 +347,7 @@ function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
 
     console.log(`[${book.title}] Sitemap queued`);
 
-    // Used in the sitemap index
-    return {
-      params: { book: { slug: book.slug } },
-      state: { bookUid: book.id, bookVersion: book.version },
-    };
+    return book;
   };
 }
 
@@ -371,14 +367,8 @@ async function queueWork(workQueueUrl: string) {
     `All ${stats.pages} page prerendering jobs and all ${stats.sitemaps} sitemap jobs queued`
   );
 
-  await sendWithRetries(sqsClient, new SendMessageCommand({
-    MessageBody: JSON.stringify({ payload: books, type: 'sitemapIndex' } as SitemapIndexTask),
-    QueueUrl: workQueueUrl,
-  }));
-
-  stats.sitemapIndexes = 1;
-
-  console.log('1 sitemap index job queued');
+  renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, books);
+  renderAndSaveContentManifest(writeS3ReleaseXmlFile, books);
 
   return stats;
 }
@@ -463,8 +453,8 @@ async function finishRendering(stats: Stats) {
   const elapsedMinutes = globalMinuteCounter();
 
   console.log(
-    `Prerender complete in ${elapsedMinutes} minutes. Rendered ${stats.pages} pages, ${
-    stats.sitemaps} sitemaps and ${stats.sitemapIndexes} sitemap index. ${
+    `Prerender complete in ${elapsedMinutes} minutes. Rendered ${stats.pages} pages, and ${
+    stats.sitemaps} sitemaps. ${
     stats.total / elapsedMinutes}ppm`
   );
 }
