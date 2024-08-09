@@ -25,6 +25,7 @@ import { createDiskCache } from './fileUtils';
 import renderManifest from './renderManifest';
 import { renderSitemap, renderSitemapIndex } from './sitemap';
 import userLoader from './stubbedUserLoader';
+import { renderContentManifest } from './contentManifest';
 
 const {
   REACT_APP_HIGHLIGHTS_URL,
@@ -81,7 +82,8 @@ async function render() {
     await renderSitemap(book.slug, sitemap);
   }
 
-  await renderSitemapIndex();
+  await renderSitemapIndex(books);
+  await renderContentManifest(books);
   await renderManifest();
   await createRedirects(archiveLoader, osWebLoader);
 
