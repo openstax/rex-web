@@ -355,7 +355,7 @@ async function queueWork(workQueueUrl: string) {
 
   await Promise.all([
     renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, books),
-    renderAndSaveContentManifest(writeS3ReleaseXmlFile, books)
+    renderAndSaveContentManifest(writeS3ReleaseXmlFile, books),
   ]);
 
   return stats;

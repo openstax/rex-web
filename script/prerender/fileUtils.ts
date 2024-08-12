@@ -7,7 +7,7 @@ import once from 'lodash/once';
 import path from 'path';
 import createCache, { Cache } from '../../src/helpers/createCache';
 import { directoryExists, readFile, writeFile } from '../../src/helpers/fileUtils';
-import { BUCKET_REGION, PUBLIC_URL, BUCKET_NAME } from "./constants";
+import { BUCKET_REGION, PUBLIC_URL, BUCKET_NAME } from './constants';
 
 const ASSET_DIR = path.resolve(__dirname, '../../build');
 const CACHE_DIR = path.resolve(__dirname, '../../cache');
