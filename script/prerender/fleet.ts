@@ -36,7 +36,6 @@ import path from 'path';
 import asyncPool from 'tiny-async-pool';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { assertDefined } from '../../src/app/utils';
-import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
@@ -50,16 +49,8 @@ import renderManifest from './renderManifest';
 import { SitemapPayload, renderAndSaveSitemapIndex } from './sitemap';
 import { writeS3ReleaseXmlFile } from './fileUtils';
 import { renderAndSaveContentManifest } from './contentManifest';
-
-const {
-  ARCHIVE_URL,
-  CODE_VERSION,
-  OS_WEB_URL,
-  REACT_APP_OS_WEB_API_URL,
-  RELEASE_ID,
-} = config;
-
-assertDefined(RELEASE_ID, 'REACT_APP_RELEASE_ID environment variable must be set');
+import { ARCHIVE_URL, OS_WEB_URL, REACT_APP_OS_WEB_API_URL, CODE_VERSION } from '../../src/config';
+import { RELEASE_ID, WORK_REGION, BUCKET_NAME, BUCKET_REGION, PUBLIC_URL } from './constants';
 
 // Increasing this too much can lead to connection issues and greater memory usage in the manager
 const MAX_CONCURRENT_BOOKS = 5;
@@ -74,11 +65,6 @@ const PRERENDER_TIMEOUT_SECONDS = 3600;
 // Abort the build if the workers stack is not created/deleted within this many seconds
 const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 300;
 const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECONDS;
-
-const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
-const BUCKET_REGION = process.env.BUCKET_REGION || 'us-east-1';
-const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
-const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
 
 // Docker does not accept forward slashes in the image tag
 const IMAGE_TAG = process.env.IMAGE_TAG || `${RELEASE_ID.replace(/\//g, '-')}`;
