@@ -51,7 +51,7 @@ export const createDiskCache = <K extends string, V>(prefix: string): Cache<K, V
 
 // Generates a release path for a file without a leading /, used when uploading the release to S3
 function prefixReleasePath(filepath: string) {
-  let basePath = `${PUBLIC_URL}`; // clone string to not leak the potential slice on next line.
+  let basePath = PUBLIC_URL;
   if (basePath[0] === '/') { basePath = basePath.slice(1); }
   return `${basePath}${filepath}`;
 }
