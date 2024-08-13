@@ -5,9 +5,9 @@ import { fromContainerMetadata } from '@aws-sdk/credential-providers';
 import flow from 'lodash/fp/flow';
 import once from 'lodash/once';
 import path from 'path';
-import { assertDefined } from '../../src/app/utils';
 import createCache, { Cache } from '../../src/helpers/createCache';
 import { directoryExists, readFile, writeFile } from '../../src/helpers/fileUtils';
+import { BUCKET_REGION, PUBLIC_URL, BUCKET_NAME } from './constants';
 
 const ASSET_DIR = path.resolve(__dirname, '../../build');
 const CACHE_DIR = path.resolve(__dirname, '../../cache');
@@ -51,7 +51,7 @@ export const createDiskCache = <K extends string, V>(prefix: string): Cache<K, V
 
 // Generates a release path for a file without a leading /, used when uploading the release to S3
 function prefixReleasePath(filepath: string) {
-  let basePath = assertDefined(process.env.PUBLIC_URL, 'PUBLIC_URL environment variable not set');
+  let basePath = PUBLIC_URL;
   if (basePath[0] === '/') { basePath = basePath.slice(1); }
   return `${basePath}${filepath}`;
 }
@@ -61,7 +61,7 @@ const getS3Client = once(async() => {
   const credentials = await fromContainerMetadata();
 
   console.log('Initializing S3 client');
-  return new S3Client({ credentials, region: process.env.BUCKET_REGION });
+  return new S3Client({ credentials, region: BUCKET_REGION });
 });
 
 async function writeS3File(key: string, contents: string, contentType: string) {
@@ -70,7 +70,7 @@ async function writeS3File(key: string, contents: string, contentType: string) {
   console.log(`Writing s3 file: /${key}`);
   return s3Client.send(new PutObjectCommand({
     Body: contents,
-    Bucket: process.env.BUCKET_NAME,
+    Bucket: BUCKET_NAME,
     CacheControl: 'max-age=0',
     ContentType: contentType,
     Key: key,
