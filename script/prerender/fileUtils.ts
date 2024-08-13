@@ -58,7 +58,10 @@ function prefixReleasePath(filepath: string) {
 
 const getS3Client = once(async() => {
   console.log('Fetching container credentials');
-  const credentials = await fromContainerMetadata();
+
+  const credentials = process.env.AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
+    ? await fromContainerMetadata()
+    : undefined;
 
   console.log('Initializing S3 client');
   return new S3Client({ credentials, region: BUCKET_REGION });
