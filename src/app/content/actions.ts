@@ -20,8 +20,6 @@ export const resetToc = createStandardAction('Content/resetToc')<void>();
 export const openMobileMenu = createStandardAction('Content/openMobileMenu')<void>();
 export const closeMobileMenu = createStandardAction('Content/closeMobileMenu')<void>();
 
-export const receiveBuyPrintConfig = createStandardAction('Content/receiveBuyPrintConfig')<State['buyPrint']>();
-
 export const requestBook = createStandardAction('Content/requestBook')<Params['book']>();
 export const receiveBook = createStandardAction('Content/receiveBook')<Book>();
 

@@ -462,7 +462,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 .c12 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c3 {

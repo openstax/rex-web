@@ -40,6 +40,11 @@ exports[`EditCard matches snapshot when editing 1`] = `
   background-color: ,#b03808,;
 }
 
+.c3:focus {
+  outline: solid #fff;
+  box-shadow: inset 0 0 0 0.3rem #000;
+}
+
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;

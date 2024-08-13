@@ -40,6 +40,11 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   background-color: ,#b03808,;
 }
 
+.c2:focus {
+  outline: solid #fff;
+  box-shadow: inset 0 0 0 0.3rem #000;
+}
+
 .c3 {
   display: -webkit-box;
   display: -webkit-flex;

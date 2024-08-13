@@ -9,7 +9,6 @@ import { loadStudyGuides } from '../../studyGuides/hooks';
 import initializeIntl from '../intlHook';
 import receiveContent from '../receiveContent';
 import registerPageView from '../registerPageView';
-import loadBuyPrintConfig from './buyPrintConfig';
 import resolveContent, { resolveBook } from './resolveContent';
 
 export const contentRouteHookBody: RouteHookBody<typeof content> = (services) => {
@@ -28,7 +27,6 @@ export const contentRouteHookBody: RouteHookBody<typeof content> = (services) =>
     await Promise.all([
       boundRegisterPageView(action),
       syncSearch(services)(action),
-      loadBuyPrintConfig(services)(),
       loadStudyGuides(services)(),
       loadPracticeQuestions(services)(),
       initializeIntl(services)(),

@@ -1,0 +1,67 @@
+{
+  "abl_data": [
+    {
+      "repository_name": "osbooks-writing-guide",
+      "code_version": "00000000.000000",
+      "uuid": "ee7ce46b-0972-4b2c-bc6e-8998c785cd57",
+      "slug": "writing-guide",
+      "committed_at": "2021-12-02T10:47:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "c3f7f0a3aca2f342294c1befdaffb6ec93486e2b",
+      "test_case": "Existing book where version differs (in output)"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "13ac107a-f15f-49d2-97e8-60ab2e3b519c",
+      "slug": "algebra-and-trigonometry",
+      "committed_at": "2021-09-20T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "test_case": "New book older than same new book (not in output)"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "13ac107a-f15f-49d2-97e8-60ab2e3b519c",
+      "slug": "algebra-and-trigonometry",
+      "committed_at": "2021-09-21T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "test_case": "Newest version of new book (in output)"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e",
+      "slug": "algebra-and-trigonometry-2e",
+      "committed_at": "2023-06-22T21:35:16+00:00",
+      "consumer": "REX",
+      "commit_sha": "8608bfb8fd1e6b9fc11fc6f9e4c79de7a3e5c148",
+      "test_case": "Existing book where version is the same (not in output)"
+    }
+  ],
+  "configured_books": {
+    "eaefdaf1-bda0-4ada-a9fe-f1c065bfcc4e": {
+      "defaultVersion": "8608bfb"
+    },
+    "35d7cce2-48dd-4403-b6a5-e828cb5a17da": {
+      "defaultVersion": "8608bfb"
+    },
+    "59024a63-2b1a-4631-94c5-ae275a77b587": {
+      "defaultVersion": "8608bfb"
+    },
+    "f021395f-fd63-46cd-ab95-037c6f051730": {
+      "defaultVersion": "8608bfb"
+    },
+    "ee7ce46b-0972-4b2c-bc6e-8998c785cd57": {
+      "defaultVersion": "bafaaf8"
+    },
+    "e53d6c8b-fd9e-4a28-8930-c564ca6fd77d": {
+      "defaultVersion": "dc4550b"
+    },
+    "f346fe75-ae39-4d11-ad32-d80c03df58cb": {
+      "defaultVersion": "dc4550b"
+    }
+  }
+}

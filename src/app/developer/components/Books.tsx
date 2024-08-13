@@ -56,8 +56,9 @@ const Books = () => {
     }
   }, [archiveLoader, osWebLoader]);
 
-  const renderBookLink = (id: string, book: Book | undefined) => {
+  function BookLink({id, book}: {id: string, book: Book | undefined}) {
     const page = book && findDefaultBookPage(book);
+
     return <>
       <div>
         <H3>{book && page
@@ -75,12 +76,12 @@ const Books = () => {
         : null
       }
     </>;
-  };
+  }
 
   return <Panel title='Books'>
     <ul style={{paddingBottom: '5rem'}}>
       {books.map(([id, config, book]) => <BookLI key={id}>
-        {renderBookLink(`${id}@${config.defaultVersion}`, book)}
+        <BookLink id={`${id}@${config.defaultVersion}`} book={book} />
       </BookLI>)}
     </ul>
   </Panel>;

@@ -1,0 +1,14 @@
+{
+  "abl_data": [
+    {
+      "repository_name": "osbooks-writing-guide",
+      "code_version": "00000000.000000",
+      "uuid": "ee7ce46b-0972-4b2c-bc6e-8998c785cd57",
+      "slug": "writing-guide",
+      "committed_at": "2021-12-02T10:47:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "c3f7f0a3aca2f342294c1befdaffb6ec93486e2b"
+    }
+  ],
+  "configured_books": {}
+}

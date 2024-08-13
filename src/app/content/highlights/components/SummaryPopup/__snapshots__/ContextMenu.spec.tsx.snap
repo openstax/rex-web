@@ -136,11 +136,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: hidden;
 }
 
-.c18 {
+.c19 {
   display: none;
 }
 
-.c20 {
+.c21 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -155,7 +155,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border-radius: 50%;
 }
 
-.c21 {
+.c22 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -169,7 +169,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #fed200;
 }
 
-.c23 {
+.c24 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -183,7 +183,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #92d101;
 }
 
-.c25 {
+.c26 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -197,7 +197,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c27 {
+.c28 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -211,7 +211,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c29 {
+.c30 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -225,7 +225,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #de017e;
 }
 
-.c15 {
+.c16 {
   position: relative;
   background-color: #ffff8a;
   border: 1px solid #8f7700;
@@ -247,18 +247,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c15 .c17 {
+.c16 .c18 {
   height: 1rem;
   width: 1rem;
 }
 
-.c15 input:focus + .c19 {
+.c16 input:focus + .c20 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
-.c22 {
+.c23 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -280,18 +281,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c22 .c17 {
+.c23 .c18 {
   height: 1rem;
   width: 1rem;
 }
 
-.c22 input:focus + .c19 {
+.c23 input:focus + .c20 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
-.c24 {
+.c25 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -313,7 +315,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c24 .c17 {
+.c25 .c18 {
   height: 1rem;
   width: 1rem;
   color: #00c3ed;
@@ -322,13 +324,14 @@ exports[`ContextMenu match snapshot when open 1`] = `
   display: block;
 }
 
-.c24 input:focus + .c19 {
+.c25 input:focus + .c20 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
-.c26 {
+.c27 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -350,18 +353,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c26 .c17 {
+.c27 .c18 {
   height: 1rem;
   width: 1rem;
 }
 
-.c26 input:focus + .c19 {
+.c27 input:focus + .c20 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
-.c28 {
+.c29 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -383,23 +387,24 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c28 .c17 {
+.c29 .c18 {
   height: 1rem;
   width: 1rem;
 }
 
-.c28 input:focus + .c19 {
+.c29 input:focus + .c20 {
   display: block;
-  outline: 0.1rem dotted #212121;
-  outline: 0.5rem auto -webkit-focus-ring-color;
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+  z-index: 1;
 }
 
-.c16 {
+.c17 {
   cursor: pointer;
   margin: 0;
 }
 
-.c16 input {
+.c17 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -407,7 +412,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   width: 0;
 }
 
-.c14 {
+.c15 {
   border: 0;
   outline: none;
   display: -webkit-box;
@@ -422,7 +427,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   padding: 0.8rem 0.3rem;
 }
 
-.c14 legend {
+.c15 legend {
   position: absolute;
   height: 1px;
   width: 1px;
@@ -498,7 +503,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   color: #818181;
 }
 
-.c0 .c13 {
+.c0 .c14 {
   margin: 0.6rem 0 0 0.6rem;
 }
 
@@ -507,7 +512,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   margin-right: 0.2rem;
 }
 
-.c30 {
+.c13 {
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
@@ -515,12 +520,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
   padding: 0;
 }
 
-.c30 li {
+.c13 li {
   padding: 0.2rem;
 }
 
-.c30 li button,
-.c30 li a {
+.c13 li button,
+.c13 li a {
   white-space: nowrap;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -546,23 +551,23 @@ exports[`ContextMenu match snapshot when open 1`] = `
   line-height: 2rem;
 }
 
-.c30 li button:hover,
-.c30 li a:hover,
-.c30 li button:focus,
-.c30 li a:focus {
+.c13 li button:hover,
+.c13 li a:hover,
+.c13 li button:focus,
+.c13 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-.c30 li {
+.c13 li {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c30 li a {
+.c13 li a {
   width: 100%;
 }
 
@@ -639,324 +644,326 @@ exports[`ContextMenu match snapshot when open 1`] = `
     <div
       className="c12"
     >
-      <fieldset
-        className="c13 c14"
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        tabIndex={0}
-      >
-        <legend>
-          Choose highlight color
-        </legend>
-        <label
-          aria-label="Apply yellow highlight"
-          checked={false}
-          className="c15 c16"
-          component={<label />}
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#8f7700",
-              "focused": "#fed200",
-              "label": "yellow",
-              "passive": "#ffff8a",
-            }
-          }
-          title="yellow"
-        >
-          <svg
-            aria-hidden="true"
-            className="c9 c17 c18"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-          <input
-            checked={false}
-            name="yellow"
-            onChange={[Function]}
-            tabIndex={-1}
-            type="checkbox"
-          />
-          <span
-            className="c19 c20"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#8f7700",
-                "focused": "#fed200",
-                "label": "yellow",
-                "passive": "#ffff8a",
-              }
-            }
-          />
-          <span
-            className="c21"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#8f7700",
-                "focused": "#fed200",
-                "label": "yellow",
-                "passive": "#ffff8a",
-              }
-            }
-          />
-        </label>
-        <label
-          aria-label="Apply green highlight"
-          checked={false}
-          className="c22 c16"
-          component={<label />}
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#4e6f01",
-              "focused": "#92d101",
-              "label": "green",
-              "passive": "#def99f",
-            }
-          }
-          title="green"
-        >
-          <svg
-            aria-hidden="true"
-            className="c9 c17 c18"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-          <input
-            checked={false}
-            name="green"
-            onChange={[Function]}
-            tabIndex={-1}
-            type="checkbox"
-          />
-          <span
-            className="c19 c20"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#4e6f01",
-                "focused": "#92d101",
-                "label": "green",
-                "passive": "#def99f",
-              }
-            }
-          />
-          <span
-            className="c23"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#4e6f01",
-                "focused": "#92d101",
-                "label": "green",
-                "passive": "#def99f",
-              }
-            }
-          />
-        </label>
-        <label
-          aria-label="Apply blue highlight"
-          checked={true}
-          className="c24 c16"
-          component={<label />}
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#006880",
-              "focused": "#00c3ed",
-              "label": "blue",
-              "passive": "#c8f5ff",
-            }
-          }
-          title="blue"
-        >
-          <svg
-            aria-hidden="true"
-            className="c9 c17 c18"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-          <input
-            checked={true}
-            name="blue"
-            onChange={[Function]}
-            tabIndex={-1}
-            type="checkbox"
-          />
-          <span
-            className="c19 c20"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#006880",
-                "focused": "#00c3ed",
-                "label": "blue",
-                "passive": "#c8f5ff",
-              }
-            }
-          />
-          <span
-            className="c25"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#006880",
-                "focused": "#00c3ed",
-                "label": "blue",
-                "passive": "#c8f5ff",
-              }
-            }
-          />
-        </label>
-        <label
-          aria-label="Apply purple highlight"
-          checked={false}
-          className="c26 c16"
-          component={<label />}
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#141a3e",
-              "focused": "#545ec8",
-              "label": "purple",
-              "passive": "#cbcfff",
-            }
-          }
-          title="purple"
-        >
-          <svg
-            aria-hidden="true"
-            className="c9 c17 c18"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-          <input
-            checked={false}
-            name="purple"
-            onChange={[Function]}
-            tabIndex={-1}
-            type="checkbox"
-          />
-          <span
-            className="c19 c20"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#141a3e",
-                "focused": "#545ec8",
-                "label": "purple",
-                "passive": "#cbcfff",
-              }
-            }
-          />
-          <span
-            className="c27"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#141a3e",
-                "focused": "#545ec8",
-                "label": "purple",
-                "passive": "#cbcfff",
-              }
-            }
-          />
-        </label>
-        <label
-          aria-label="Apply pink highlight"
-          checked={false}
-          className="c28 c16"
-          component={<label />}
-          size="small"
-          style={
-            Object {
-              "focusBorder": "#560131",
-              "focused": "#de017e",
-              "label": "pink",
-              "passive": "#ffc5e1",
-            }
-          }
-          title="pink"
-        >
-          <svg
-            aria-hidden="true"
-            className="c9 c17 c18"
-            fill="currentColor"
-            focusable="false"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-              fill="currentColor"
-            />
-          </svg>
-          <input
-            checked={false}
-            name="pink"
-            onChange={[Function]}
-            tabIndex={-1}
-            type="checkbox"
-          />
-          <span
-            className="c19 c20"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#560131",
-                "focused": "#de017e",
-                "label": "pink",
-                "passive": "#ffc5e1",
-              }
-            }
-          />
-          <span
-            className="c29"
-            size="small"
-            style={
-              Object {
-                "focusBorder": "#560131",
-                "focused": "#de017e",
-                "label": "pink",
-                "passive": "#ffc5e1",
-              }
-            }
-          />
-        </label>
-      </fieldset>
       <ol
-        className="c30"
+        className="c13"
       >
+        <li>
+          <fieldset
+            className="c14 c15"
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            tabIndex={0}
+          >
+            <legend>
+              Choose highlight color
+            </legend>
+            <label
+              aria-label="Apply yellow highlight"
+              checked={false}
+              className="c16 c17"
+              component={<label />}
+              size="small"
+              style={
+                Object {
+                  "focusBorder": "#8f7700",
+                  "focused": "#fed200",
+                  "label": "yellow",
+                  "passive": "#ffff8a",
+                }
+              }
+              title="yellow"
+            >
+              <svg
+                aria-hidden="true"
+                className="c9 c18 c19"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                  fill="currentColor"
+                />
+              </svg>
+              <input
+                checked={false}
+                name="yellow"
+                onChange={[Function]}
+                tabIndex={-1}
+                type="checkbox"
+              />
+              <span
+                className="c20 c21"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#8f7700",
+                    "focused": "#fed200",
+                    "label": "yellow",
+                    "passive": "#ffff8a",
+                  }
+                }
+              />
+              <span
+                className="c22"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#8f7700",
+                    "focused": "#fed200",
+                    "label": "yellow",
+                    "passive": "#ffff8a",
+                  }
+                }
+              />
+            </label>
+            <label
+              aria-label="Apply green highlight"
+              checked={false}
+              className="c23 c17"
+              component={<label />}
+              size="small"
+              style={
+                Object {
+                  "focusBorder": "#4e6f01",
+                  "focused": "#92d101",
+                  "label": "green",
+                  "passive": "#def99f",
+                }
+              }
+              title="green"
+            >
+              <svg
+                aria-hidden="true"
+                className="c9 c18 c19"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                  fill="currentColor"
+                />
+              </svg>
+              <input
+                checked={false}
+                name="green"
+                onChange={[Function]}
+                tabIndex={-1}
+                type="checkbox"
+              />
+              <span
+                className="c20 c21"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#4e6f01",
+                    "focused": "#92d101",
+                    "label": "green",
+                    "passive": "#def99f",
+                  }
+                }
+              />
+              <span
+                className="c24"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#4e6f01",
+                    "focused": "#92d101",
+                    "label": "green",
+                    "passive": "#def99f",
+                  }
+                }
+              />
+            </label>
+            <label
+              aria-label="Apply blue highlight"
+              checked={true}
+              className="c25 c17"
+              component={<label />}
+              size="small"
+              style={
+                Object {
+                  "focusBorder": "#006880",
+                  "focused": "#00c3ed",
+                  "label": "blue",
+                  "passive": "#c8f5ff",
+                }
+              }
+              title="blue"
+            >
+              <svg
+                aria-hidden="true"
+                className="c9 c18 c19"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                  fill="currentColor"
+                />
+              </svg>
+              <input
+                checked={true}
+                name="blue"
+                onChange={[Function]}
+                tabIndex={-1}
+                type="checkbox"
+              />
+              <span
+                className="c20 c21"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#006880",
+                    "focused": "#00c3ed",
+                    "label": "blue",
+                    "passive": "#c8f5ff",
+                  }
+                }
+              />
+              <span
+                className="c26"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#006880",
+                    "focused": "#00c3ed",
+                    "label": "blue",
+                    "passive": "#c8f5ff",
+                  }
+                }
+              />
+            </label>
+            <label
+              aria-label="Apply purple highlight"
+              checked={false}
+              className="c27 c17"
+              component={<label />}
+              size="small"
+              style={
+                Object {
+                  "focusBorder": "#141a3e",
+                  "focused": "#545ec8",
+                  "label": "purple",
+                  "passive": "#cbcfff",
+                }
+              }
+              title="purple"
+            >
+              <svg
+                aria-hidden="true"
+                className="c9 c18 c19"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                  fill="currentColor"
+                />
+              </svg>
+              <input
+                checked={false}
+                name="purple"
+                onChange={[Function]}
+                tabIndex={-1}
+                type="checkbox"
+              />
+              <span
+                className="c20 c21"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#141a3e",
+                    "focused": "#545ec8",
+                    "label": "purple",
+                    "passive": "#cbcfff",
+                  }
+                }
+              />
+              <span
+                className="c28"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#141a3e",
+                    "focused": "#545ec8",
+                    "label": "purple",
+                    "passive": "#cbcfff",
+                  }
+                }
+              />
+            </label>
+            <label
+              aria-label="Apply pink highlight"
+              checked={false}
+              className="c29 c17"
+              component={<label />}
+              size="small"
+              style={
+                Object {
+                  "focusBorder": "#560131",
+                  "focused": "#de017e",
+                  "label": "pink",
+                  "passive": "#ffc5e1",
+                }
+              }
+              title="pink"
+            >
+              <svg
+                aria-hidden="true"
+                className="c9 c18 c19"
+                fill="currentColor"
+                focusable="false"
+                viewBox="0 0 512 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                  fill="currentColor"
+                />
+              </svg>
+              <input
+                checked={false}
+                name="pink"
+                onChange={[Function]}
+                tabIndex={-1}
+                type="checkbox"
+              />
+              <span
+                className="c20 c21"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#560131",
+                    "focused": "#de017e",
+                    "label": "pink",
+                    "passive": "#ffc5e1",
+                  }
+                }
+              />
+              <span
+                className="c30"
+                size="small"
+                style={
+                  Object {
+                    "focusBorder": "#560131",
+                    "focused": "#de017e",
+                    "label": "pink",
+                    "passive": "#ffc5e1",
+                  }
+                }
+              />
+            </label>
+          </fieldset>
+        </li>
         <li
           aria-label="Add note"
         >
