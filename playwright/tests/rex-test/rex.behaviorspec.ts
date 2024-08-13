@@ -673,5 +673,4 @@ test('C543225 canonicals for old editions point to the latest edition', async ({
   await Toc.pageClick(241)
   // THEN: Canonical page points to latest edition of the original content
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-economics-3e/pages/d-the-expenditure-output-model')
-
 })

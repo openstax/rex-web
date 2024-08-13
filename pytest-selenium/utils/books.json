@@ -50,7 +50,7 @@
     "biology-2e": {
         "default_page": "1-introduction",
         "search_term": "evolution theory",
-        "chapter_search_results_total": 341,
+        "chapter_search_results_total": 344,
         "rkt_search_results_total": 0
     },
     "biology-ap-courses": {
@@ -140,7 +140,7 @@
     "calculus-volume-3": {
         "default_page": "1-introduction",
         "search_term": "zero vector",
-        "chapter_search_results_total": 9,
+        "chapter_search_results_total": 10,
         "rkt_search_results_total": 1
     },
     "college-success": {
@@ -416,7 +416,7 @@
     "introductory-statistics-2e": {
         "default_page": "1-introduction",
         "search_term": "Student's t-Distribution",
-        "chapter_search_results_total": 43,
+        "chapter_search_results_total": 45,
         "rkt_search_results_total": 2
     },
     "introductory-business-statistics-2e": {
@@ -459,7 +459,7 @@
         "default_page": "1-introduction",
         "search_term": "population health",
         "chapter_search_results_total": 3689,
-        "rkt_search_results_total": 11
+        "rkt_search_results_total": 12
     },
     "nutrition": {
         "default_page": "1-introduction",
@@ -471,9 +471,9 @@
         "default_page": "1-introduction",
         "search_term": "mental health",
         "chapter_search_results_total": 2674,
-        "rkt_search_results_total": 4
+        "rkt_search_results_total": 5
     },
-     "maternal-newborn": {
+     "maternal-newborn-nursing": {
         "default_page": "1-introduction",
         "search_term": "newborn babies",
         "chapter_search_results_total": 446,
