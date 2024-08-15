@@ -27,11 +27,9 @@ from utils.utility import Utilities
 
 
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
-XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
+XPATH_SEARCH = "//mark[contains(text(), '{term}') and (@aria-current='true') and (@class='search-highlight first text last')]"
 # If search term is inside a block of search highlight use this XPATH
-XPATH_SEARCH_BLOCK = (
-    "//span[contains(@class,'search-highlight text last focus') and contains(text(),'{term}')]"
-)
+XPATH_SEARCH_BLOCK = "//mark[contains(text(), '{term}') and (@aria-current='true') and (@class='search-highlight text last')]"
 
 
 class Page(pypom.Page):
