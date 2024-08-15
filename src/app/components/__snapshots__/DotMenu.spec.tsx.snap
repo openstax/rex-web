@@ -179,7 +179,7 @@ exports[`Dropdown matches snapshot 1`] = `
 .c12 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c12.c12 {
@@ -452,7 +452,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
 .c12 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem inset -webkit-focus-ring-color;
+  outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .c12.c12 {
@@ -499,6 +499,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     </button>
     <ol
       className="c12"
+      rightAlign={true}
     >
       <li>
         <a

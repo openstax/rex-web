@@ -82,6 +82,11 @@ const Button = styled(ButtonHoc)`
     border: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    &:focus {
+      outline: solid ${theme.color.white};
+      box-shadow: inset 0 0 0 0.3rem ${theme.color.black};
+    }
   `}
   ${(props) => props.variant === 'secondary' && `
     ${applyColor(theme.color.secondary.lightGray)}

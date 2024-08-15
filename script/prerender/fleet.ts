@@ -36,28 +36,21 @@ import path from 'path';
 import asyncPool from 'tiny-async-pool';
 import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { assertDefined } from '../../src/app/utils';
-import config from '../../src/config';
 import BOOKS from '../../src/config.books';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import { getBooksConfigSync } from '../../src/gateways/createBookConfigLoader';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import { readFile } from '../../src/helpers/fileUtils';
 import { globalMinuteCounter, prepareBookPages } from './contentPages';
-import { SerializedBookMatch, SerializedPageMatch } from './contentRoutes';
+import { SerializedPageMatch } from './contentRoutes';
 import createRedirects from './createRedirects';
 import './logUnhandledRejectionsAndExit';
 import renderManifest from './renderManifest';
-import { SitemapPayload } from './sitemap';
-
-const {
-  ARCHIVE_URL,
-  CODE_VERSION,
-  OS_WEB_URL,
-  REACT_APP_OS_WEB_API_URL,
-  RELEASE_ID,
-} = config;
-
-assertDefined(RELEASE_ID, 'REACT_APP_RELEASE_ID environment variable must be set');
+import { SitemapPayload, renderAndSaveSitemapIndex } from './sitemap';
+import { writeS3ReleaseXmlFile } from './fileUtils';
+import { renderAndSaveContentManifest } from './contentManifest';
+import { ARCHIVE_URL, OS_WEB_URL, REACT_APP_OS_WEB_API_URL, CODE_VERSION } from '../../src/config';
+import { RELEASE_ID, WORK_REGION, BUCKET_NAME, BUCKET_REGION, PUBLIC_URL } from './constants';
 
 // Increasing this too much can lead to connection issues and greater memory usage in the manager
 const MAX_CONCURRENT_BOOKS = 5;
@@ -73,11 +66,6 @@ const PRERENDER_TIMEOUT_SECONDS = 3600;
 const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 300;
 const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECONDS;
 
-const BUCKET_NAME = process.env.BUCKET_NAME || 'sandbox-unified-web-primary';
-const BUCKET_REGION = process.env.BUCKET_REGION || 'us-east-1';
-const PUBLIC_URL = process.env.PUBLIC_URL || `/rex/releases/${RELEASE_ID}`;
-const WORK_REGION = process.env.WORK_REGION || 'us-east-2';
-
 // Docker does not accept forward slashes in the image tag
 const IMAGE_TAG = process.env.IMAGE_TAG || `${RELEASE_ID.replace(/\//g, '-')}`;
 
@@ -86,7 +74,6 @@ const sqsClient = new SQSClient({ region: WORK_REGION });
 
 type PageTask = { payload: SerializedPageMatch, type: 'page' };
 type SitemapTask = { payload: SitemapPayload, type: 'sitemap' };
-type SitemapIndexTask = { payload: SerializedBookMatch[], type: 'sitemapIndex' };
 
 const booksConfig = getBooksConfigSync();
 const archiveLoader = createArchiveLoader({
@@ -288,8 +275,7 @@ async function getQueueUrls(workersStackName: string) {
 class Stats {
   public pages = 0;
   public sitemaps = 0;
-  public sitemapIndexes = 0;
-  get total() { return this.pages + this.sitemaps + this.sitemapIndexes; }
+  get total() { return this.pages + this.sitemaps; }
 }
 
 function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
@@ -347,11 +333,7 @@ function makePrepareAndQueueBook(workQueueUrl: string, stats: Stats) {
 
     console.log(`[${book.title}] Sitemap queued`);
 
-    // Used in the sitemap index
-    return {
-      params: { book: { slug: book.slug } },
-      state: { bookUid: book.id, bookVersion: book.version },
-    };
+    return book;
   };
 }
 
@@ -371,14 +353,10 @@ async function queueWork(workQueueUrl: string) {
     `All ${stats.pages} page prerendering jobs and all ${stats.sitemaps} sitemap jobs queued`
   );
 
-  await sendWithRetries(sqsClient, new SendMessageCommand({
-    MessageBody: JSON.stringify({ payload: books, type: 'sitemapIndex' } as SitemapIndexTask),
-    QueueUrl: workQueueUrl,
-  }));
-
-  stats.sitemapIndexes = 1;
-
-  console.log('1 sitemap index job queued');
+  await Promise.all([
+    renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, books),
+    renderAndSaveContentManifest(writeS3ReleaseXmlFile, books),
+  ]);
 
   return stats;
 }
@@ -463,8 +441,8 @@ async function finishRendering(stats: Stats) {
   const elapsedMinutes = globalMinuteCounter();
 
   console.log(
-    `Prerender complete in ${elapsedMinutes} minutes. Rendered ${stats.pages} pages, ${
-    stats.sitemaps} sitemaps and ${stats.sitemapIndexes} sitemap index. ${
+    `Prerender complete in ${elapsedMinutes} minutes. Rendered ${stats.pages} pages, and ${
+    stats.sitemaps} sitemaps. ${
     stats.total / elapsedMinutes}ppm`
   );
 }

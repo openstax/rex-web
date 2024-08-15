@@ -40,6 +40,7 @@ import {
 import * as selectSearch from '../../selectors';
 import { SearchScrollTarget } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 
 describe('SearchResultsSidebar', () => {
   let store: Store;
@@ -172,6 +173,7 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('closes mobile search results when related key term is clicked', () => {
+    jest.useFakeTimers();
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('term'));
     store.dispatch(
@@ -197,6 +199,8 @@ describe('SearchResultsSidebar', () => {
       findById('related-key-term-result').props.onClick(makeEvent());
     });
 
+    jest.runAllTimers();
+
     expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
   });
 
@@ -214,6 +218,7 @@ describe('SearchResultsSidebar', () => {
   });
 
   it('closes search results when one is clicked', () => {
+    jest.useFakeTimers();
     store.dispatch(requestSearch('cool search'));
     store.dispatch(
       receiveSearchResults(
@@ -229,6 +234,7 @@ describe('SearchResultsSidebar', () => {
     renderer.act(() => {
       findById('search-result').props.onClick(makeEvent());
     });
+    jest.runAllTimers();
 
     expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
   });
@@ -253,7 +259,32 @@ describe('SearchResultsSidebar', () => {
     expect(dispatch).toHaveBeenCalledWith(clearSearch());
   });
 
-  it ('scrolls to search scroll target if result selected by user', () => {
+  // This is purely a code coverage test.
+  // It should have a selected result that receives focus when the bar is focused,
+  // and when the button is focused, it should keep it.
+  it('sidebar tries to forward focus to current search result', () => {
+    jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
+    renderToDom(render());
+    ReactTestUtils.act(
+      () => {
+        store.dispatch(receivePage({ ...pageInChapter, references: [] }));
+        store.dispatch(requestSearch('cool search'));
+        store.dispatch(receiveSearchResults(makeSearchResults([])));
+      }
+    );
+
+    const document = assertDocument();
+    const bar = document.querySelector<HTMLDivElement>('[class*="SearchResultsBar"]');
+    const button = document.querySelector('button');
+
+    ReactTestUtils.act(() => bar?.focus());
+    expect(document.activeElement).toBe(bar);
+
+    ReactTestUtils.act(() => button?.focus());
+    expect(document.activeElement).toBe(button);
+  });
+
+  it('scrolls to search scroll target if result selected by user', () => {
     const searchResult = makeSearchResultHit({ book: archiveBook, page });
     const searchScrollTarget: SearchScrollTarget = { type: 'search', index: 0, elementId: 'elementId' };
     const scrollSidebarSectionIntoView = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');

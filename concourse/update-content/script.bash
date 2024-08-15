@@ -11,13 +11,19 @@ fi
 # this is here so the creds don't get pasted to the output
 set -e; if [ -n "$DEBUG" ]; then set -x; fi
 
-approved_books_default_branch=$(curl -s https://api.github.com/repos/openstax/content-manager-approved-books | jq -r .default_branch)
 rex_default_branch=$(curl -s https://api.github.com/repos/openstax/rex-web | jq -r .default_branch)
 
-data=$(curl -sL "https://github.com/openstax/content-manager-approved-books/raw/$approved_books_default_branch/approved-book-list.json")
+# consumer: Limit entries to those where consumer == <consumer>
+# code_version: Limit entries to those where code_version <= <code_version>
+archive_version="$(jq -r '.REACT_APP_ARCHIVE' "src/config.archive-url.json")"
+search="consumer=REX&code_version=$archive_version"
+abl_url="https://corgi.ce.openstax.org/api/abl/?$search"
 
-# script will return a JSON object with book ids and new versions only for books that doesn't mach current config
-book_ids_and_versions=$(node script/entry.js transform-approved-books-data --data "$data")
+book_ids_and_versions="$(
+  bash script/transform-approved-books-data.bash \
+    <(curl -sL --fail --show-error "$abl_url") \
+    "src/config.books.json"
+)"
 book_entries=$(echo "$book_ids_and_versions" | jq -c 'to_entries | .[]')
 
 git remote set-branches origin 'update-content-*'

@@ -126,12 +126,14 @@ const ContextMenu = ({
       transparentTab={false}
     >
       <HighlightToggleEditContent>
-        <ColorPicker
-          color={color}
-          size='small'
-          onChange={onColorChange}
-        />
         <StyledDropdownList>
+          <li>
+            <ColorPicker
+            color={color}
+            size='small'
+            onChange={onColorChange}
+            />
+          </li>
           <DropdownItem
             data-testid='edit'
             ariaMessage={editMessage}

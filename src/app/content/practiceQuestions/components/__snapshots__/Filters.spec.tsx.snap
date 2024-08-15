@@ -342,6 +342,9 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-x: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .c19 {
@@ -594,127 +597,132 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
         <div
           className="c13"
         >
-          <div
+          <ul
+            aria-label="Filter by chapters"
             className="c14"
           >
-            <details
-              className="c15 c16"
-              open={false}
-            >
-              <summary
-                className="c17"
-                onClick={[Function]}
+            <li>
+              <details
+                className="c15 c16"
+                open={false}
               >
-                <span
-                  className="c18 c19"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "chapterId",
-                    }
-                  }
-                />
-                <svg
-                  aria-hidden="true"
-                  className="c9 c10 c20"
-                  direction="down"
-                  fill="currentColor"
-                  focusable="false"
-                  viewBox="0 0 320 512"
-                  xmlns="http://www.w3.org/2000/svg"
+                <summary
+                  className="c17"
+                  onClick={[Function]}
                 >
-                  <path
-                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                  <span
+                    className="c18 c19"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "chapterId",
+                      }
+                    }
+                  />
+                  <svg
+                    aria-hidden="true"
+                    className="c9 c10 c20"
+                    direction="down"
                     fill="currentColor"
-                  />
-                </svg>
-              </summary>
-              <div
-                className="c21"
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </summary>
+                <div
+                  className="c21"
+                >
+                  <button
+                    aria-label="Filter PQ by  section1"
+                    className="c22"
+                    data-analytics-label="Filter PQ by  section1"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="c18 c19"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "section1",
+                        }
+                      }
+                    />
+                  </button>
+                  <button
+                    aria-label="Filter PQ by  section2"
+                    className="c22"
+                    data-analytics-label="Filter PQ by  section2"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="c18 c19"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "section2",
+                        }
+                      }
+                    />
+                  </button>
+                </div>
+              </details>
+            </li>
+            <li>
+              <details
+                className="c15 c16"
+                open={true}
               >
-                <button
-                  aria-label="Filter PQ by  section1"
-                  className="c22"
-                  data-analytics-label="Filter PQ by  section1"
+                <summary
+                  className="c17"
                   onClick={[Function]}
                 >
                   <span
                     className="c18 c19"
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "section1",
+                        "__html": "chapterId2",
                       }
                     }
                   />
-                </button>
-                <button
-                  aria-label="Filter PQ by  section2"
-                  className="c22"
-                  data-analytics-label="Filter PQ by  section2"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="c18 c19"
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "section2",
-                      }
-                    }
-                  />
-                </button>
-              </div>
-            </details>
-            <details
-              className="c15 c16"
-              open={true}
-            >
-              <summary
-                className="c17"
-                onClick={[Function]}
-              >
-                <span
-                  className="c18 c19"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "chapterId2",
-                    }
-                  }
-                />
-                <svg
-                  aria-hidden="true"
-                  className="c9 c10 c11"
-                  direction="up"
-                  fill="currentColor"
-                  focusable="false"
-                  viewBox="0 0 320 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                  <svg
+                    aria-hidden="true"
+                    className="c9 c10 c11"
+                    direction="up"
                     fill="currentColor"
-                  />
-                </svg>
-              </summary>
-              <div
-                className="c21"
-              >
-                <button
-                  aria-label="Filter PQ by  section21"
-                  className="c23"
-                  data-analytics-label="Filter PQ by  section21"
-                  onClick={[Function]}
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </summary>
+                <div
+                  className="c21"
                 >
-                  <span
-                    className="c18 c19"
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "section21",
+                  <button
+                    aria-label="Filter PQ by  section21"
+                    className="c23"
+                    data-analytics-label="Filter PQ by  section21"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="c18 c19"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "section21",
+                        }
                       }
-                    }
-                  />
-                </button>
-              </div>
-            </details>
-          </div>
+                    />
+                  </button>
+                </div>
+              </details>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -874,6 +882,9 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-x: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .c19 {
@@ -1094,127 +1105,132 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
         <div
           className="c13"
         >
-          <div
+          <ul
+            aria-label="Filter by chapters"
             className="c14"
           >
-            <details
-              className="c15 c16"
-              open={false}
-            >
-              <summary
-                className="c17"
-                onClick={[Function]}
+            <li>
+              <details
+                className="c15 c16"
+                open={false}
               >
-                <span
-                  className="c18 c19"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "chapterId",
-                    }
-                  }
-                />
-                <svg
-                  aria-hidden="true"
-                  className="c9 c10 c20"
-                  direction="down"
-                  fill="currentColor"
-                  focusable="false"
-                  viewBox="0 0 320 512"
-                  xmlns="http://www.w3.org/2000/svg"
+                <summary
+                  className="c17"
+                  onClick={[Function]}
                 >
-                  <path
-                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                  <span
+                    className="c18 c19"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "chapterId",
+                      }
+                    }
+                  />
+                  <svg
+                    aria-hidden="true"
+                    className="c9 c10 c20"
+                    direction="down"
                     fill="currentColor"
-                  />
-                </svg>
-              </summary>
-              <div
-                className="c21"
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </summary>
+                <div
+                  className="c21"
+                >
+                  <button
+                    aria-label="Filter PQ by  section1"
+                    className="c22"
+                    data-analytics-label="Filter PQ by  section1"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="c18 c19"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "section1",
+                        }
+                      }
+                    />
+                  </button>
+                  <button
+                    aria-label="Filter PQ by  section2"
+                    className="c22"
+                    data-analytics-label="Filter PQ by  section2"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="c18 c19"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "section2",
+                        }
+                      }
+                    />
+                  </button>
+                </div>
+              </details>
+            </li>
+            <li>
+              <details
+                className="c15 c16"
+                open={false}
               >
-                <button
-                  aria-label="Filter PQ by  section1"
-                  className="c22"
-                  data-analytics-label="Filter PQ by  section1"
+                <summary
+                  className="c17"
                   onClick={[Function]}
                 >
                   <span
                     className="c18 c19"
                     dangerouslySetInnerHTML={
                       Object {
-                        "__html": "section1",
+                        "__html": "chapterId2",
                       }
                     }
                   />
-                </button>
-                <button
-                  aria-label="Filter PQ by  section2"
-                  className="c22"
-                  data-analytics-label="Filter PQ by  section2"
-                  onClick={[Function]}
-                >
-                  <span
-                    className="c18 c19"
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "section2",
-                      }
-                    }
-                  />
-                </button>
-              </div>
-            </details>
-            <details
-              className="c15 c16"
-              open={false}
-            >
-              <summary
-                className="c17"
-                onClick={[Function]}
-              >
-                <span
-                  className="c18 c19"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "chapterId2",
-                    }
-                  }
-                />
-                <svg
-                  aria-hidden="true"
-                  className="c9 c10 c20"
-                  direction="down"
-                  fill="currentColor"
-                  focusable="false"
-                  viewBox="0 0 320 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                  <svg
+                    aria-hidden="true"
+                    className="c9 c10 c20"
+                    direction="down"
                     fill="currentColor"
-                  />
-                </svg>
-              </summary>
-              <div
-                className="c21"
-              >
-                <button
-                  aria-label="Filter PQ by  section21"
-                  className="c22"
-                  data-analytics-label="Filter PQ by  section21"
-                  onClick={[Function]}
+                    focusable="false"
+                    viewBox="0 0 320 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </summary>
+                <div
+                  className="c21"
                 >
-                  <span
-                    className="c18 c19"
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "section21",
+                  <button
+                    aria-label="Filter PQ by  section21"
+                    className="c22"
+                    data-analytics-label="Filter PQ by  section21"
+                    onClick={[Function]}
+                  >
+                    <span
+                      className="c18 c19"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "section21",
+                        }
                       }
-                    }
-                  />
-                </button>
-              </div>
-            </details>
-          </div>
+                    />
+                  </button>
+                </div>
+              </details>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

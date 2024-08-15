@@ -1,0 +1,77 @@
+{
+  "abl_data": [
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "13ac107a-f15f-49d2-97e8-60ab2e3b519c",
+      "slug": "algebra-and-trigonometry",
+      "committed_at": "2021-09-20T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "9b08c294-057f-4201-9f48-5d6ad992740d",
+      "slug": "college-algebra",
+      "committed_at": "2021-09-20T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "fd53eae1-fa23-47c7-bb1b-972349835c3c",
+      "slug": "precalculus",
+      "committed_at": "2021-09-20T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "507feb1e-cfff-4b54-bc07-d52636cecfe3",
+      "slug": "college-algebra-corequisite-support",
+      "committed_at": "2021-09-20T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "13ac107a-f15f-49d2-97e8-60ab2e3b519c",
+      "slug": "algebra-and-trigonometry",
+      "committed_at": "2021-09-21T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "9b08c294-057f-4201-9f48-5d6ad992740d",
+      "slug": "college-algebra",
+      "committed_at": "2021-09-21T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "fd53eae1-fa23-47c7-bb1b-972349835c3c",
+      "slug": "precalculus",
+      "committed_at": "2021-09-21T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "repository_name": "osbooks-college-algebra-bundle",
+      "code_version": "00000000.000000",
+      "uuid": "507feb1e-cfff-4b54-bc07-d52636cecfe3",
+      "slug": "college-algebra-corequisite-support",
+      "committed_at": "2021-09-21T18:42:06+00:00",
+      "consumer": "REX",
+      "commit_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "configured_books": {}
+}

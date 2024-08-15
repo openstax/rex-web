@@ -62,18 +62,6 @@ self.addEventListener('message', (event) => {
 });
 
 registerRoute(
-  /https:\/\/buyprint\.openstax\.org/,
-  new StaleWhileRevalidate({ // can't use cachefirst because responses are opaque
-    cacheName: 'buy-print',
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 20,
-      }),
-    ],
-  })
-);
-
-registerRoute(
   /https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/mathjax\//,
   new StaleWhileRevalidate({ // can't use cachefirst because responses are opaque
     cacheName: 'cdn-assets',

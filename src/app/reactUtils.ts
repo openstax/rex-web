@@ -7,7 +7,7 @@ import theme from './theme';
 import { assertDefined, assertDocument, assertWindow } from './utils';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
-  const ref = React.useRef<E | null>(null);
+  const ref = React.useRef<E>(null);
 
   React.useEffect(() => {
     if (ref && ref.current) {

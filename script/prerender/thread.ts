@@ -16,7 +16,6 @@ import { assertDefined, assertNotNull, assertObject, assertString, tuple } from 
 import config from '../../src/config';
 import createArchiveLoader from '../../src/gateways/createArchiveLoader';
 import createBookConfigLoader from '../../src/gateways/createBookConfigLoader';
-import createBuyPrintConfigLoader from '../../src/gateways/createBuyPrintConfigLoader';
 import createHighlightClient from '../../src/gateways/createHighlightClient';
 import createOSWebLoader from '../../src/gateways/createOSWebLoader';
 import createPracticeQuestionsLoader from '../../src/gateways/createPracticeQuestionsLoader';
@@ -25,17 +24,13 @@ import createImageCDNUtils from '../../src/gateways/createImageCDNUtils';
 import { getSitemapItemOptions, renderAndSavePage } from './contentPages';
 import {
   deserializePageMatch,
-  getArchiveBook,
   getArchivePage,
-  SerializedBookMatch,
   SerializedPageMatch,
 } from './contentRoutes';
 import { writeS3ReleaseHtmlFile, writeS3ReleaseXmlFile } from './fileUtils';
 import './logUnhandledRejectionsAndExit';
 import {
   renderAndSaveSitemap,
-  renderAndSaveSitemapIndex,
-  sitemapPath,
   SitemapPayload,
 } from './sitemap';
 import userLoader from './stubbedUserLoader';
@@ -46,7 +41,6 @@ const {
   ARCHIVE_URL,
   HIGHLIGHTS_URL,
   OS_WEB_URL,
-  REACT_APP_BUY_PRINT_CONFIG_URL,
   REACT_APP_HIGHLIGHTS_URL,
   REACT_APP_OS_WEB_API_URL,
   REACT_APP_SEARCH_URL,
@@ -92,24 +86,8 @@ function makeSitemapTask(services: AppOptions['services']) {
   };
 }
 
-function makeSitemapIndexTask(services: AppOptions['services']) {
-  return async(payload: SerializedBookMatch[]) => {
-    const books = payload.map(
-      (book: SerializedBookMatch, index: number) => assertObject(
-        book, `Sitemap Index task payload[${index}] is not an object: ${payload}`
-      )
-    );
-    const items = await asyncPool(MAX_CONCURRENT_CONNECTIONS, books, async(book) => {
-      const archiveBook = await getArchiveBook(services, book);
-      return getSitemapItemOptions(archiveBook, `https://openstax.org${sitemapPath(book.params.book.slug)}`);
-    });
-    return renderAndSaveSitemapIndex(writeS3ReleaseXmlFile, items);
-  };
-}
-
 type AnyTaskFunction = ((payload: SerializedPageMatch) => void) |
-                       ((payload: SitemapPayload) => void) |
-                       ((payload: SerializedBookMatch[]) => void);
+                       ((payload: SitemapPayload) => void);
 
 type TaskFunctionsMap = { [key: string]: AnyTaskFunction | undefined };
 
@@ -125,14 +103,12 @@ async function makeTaskFunctionsMap() {
   const osWebLoader = createOSWebLoader(`${OS_WEB_URL}${REACT_APP_OS_WEB_API_URL}`);
   const searchClient = createSearchClient(`${SEARCH_URL}${REACT_APP_SEARCH_URL}`);
   const highlightClient = createHighlightClient(`${HIGHLIGHTS_URL}${REACT_APP_HIGHLIGHTS_URL}`);
-  const buyPrintConfigLoader = createBuyPrintConfigLoader(REACT_APP_BUY_PRINT_CONFIG_URL);
   const practiceQuestionsLoader = createPracticeQuestionsLoader();
   const bookConfigLoader = createBookConfigLoader();
 
   const services = {
     archiveLoader,
     bookConfigLoader,
-    buyPrintConfigLoader,
     config,
     highlightClient,
     osWebLoader,
@@ -145,7 +121,6 @@ async function makeTaskFunctionsMap() {
   return {
     page: makePageTask(services),
     sitemap: makeSitemapTask(services),
-    sitemapIndex: makeSitemapIndexTask(services),
   } as TaskFunctionsMap;
 }
 

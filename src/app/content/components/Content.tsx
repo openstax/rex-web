@@ -7,10 +7,12 @@ import ErrorBoundary from '../../errors/components/ErrorBoundary';
 import Notifications from '../../notifications/components/Notifications';
 import theme from '../../theme';
 import { AppState } from '../../types';
+import { Book } from '../types';
 import HighlightsPopUp from '../highlights/components/HighlightsPopUp';
 import KeyboardShortcutsPopup from '../keyboardShortcuts/components/KeyboardShortcutsPopup';
 import PracticeQuestionsPopup from '../practiceQuestions/components/PracticeQuestionsPopup';
 import { mobileToolbarOpen } from '../search/selectors';
+import { book as bookSelector } from '../selectors';
 import StudyguidesPopUp from '../studyGuides/components/StudyGuidesPopUp';
 import Footer from './../../components/Footer';
 import Attribution from './Attribution';
@@ -25,6 +27,7 @@ import {
   topbarMobileHeight
 } from './constants';
 import ContentPane from './ContentPane';
+import ContentWarning from './ContentWarning';
 import LabsCTA from './LabsCall';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
@@ -69,7 +72,7 @@ const OuterWrapper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
+const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) => <Layout>
   <ScrollOffset
     desktopOffset={
       bookBannerDesktopMiniHeight
@@ -96,10 +99,11 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
           <Navigation />
           <ContentPane>
             <ContentNotifications mobileExpanded={mobileExpanded} />
+            <ContentWarning book={book} />
             <Page>
               <PrevNextBar />
               <LabsCTA />
-              <BuyBook />
+              <BuyBook book={book} />
             </Page>
             <Attribution />
             <Footer />
@@ -113,5 +117,6 @@ const Content = ({mobileExpanded}: {mobileExpanded: boolean}) => <Layout>
 export default connect(
   (state: AppState) => ({
     mobileExpanded: mobileToolbarOpen(state),
+    book: bookSelector(state),
   })
 )(Content);
