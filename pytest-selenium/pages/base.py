@@ -27,11 +27,9 @@ from utils.utility import Utilities
 
 
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
-XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'search-highlight first text last focus')]"
+XPATH_SEARCH = "//mark[contains(text(), '{term}') and (@aria-current='true') and (@class='search-highlight first text last')]"
 # If search term is inside a block of search highlight use this XPATH
-XPATH_SEARCH_BLOCK = (
-    "//span[contains(@class,'search-highlight text last focus') and contains(text(),'{term}')]"
-)
+XPATH_SEARCH_BLOCK = "//mark[contains(text(), '{term}') and (@aria-current='true') and (@class='search-highlight text last')]"
 
 
 class Page(pypom.Page):
@@ -62,6 +60,9 @@ class Page(pypom.Page):
         self.driver.add_cookie({"name": "nudge_study_guides_counter", "value": "1"})
         self.driver.add_cookie({"name": "nudge_study_guides_page_counter", "value": "1"})
         self.driver.add_cookie({"name": "nudge_study_guides_date", "value": current_date})
+        self.driver.add_cookie({"name": "content-warning-545", "value": "true"})
+        self.driver.add_cookie({"name": "content-warning-548", "value": "true"})
+        self.driver.add_cookie({"name": "content-warning-549", "value": "true"})
         self.driver.add_cookie({"name": "ANALYTICS_OPT_OUT", "value": "1"})
         return self
 

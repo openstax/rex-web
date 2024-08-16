@@ -202,6 +202,8 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
   className="c0"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
+  onFocus={[Function]}
+  tabIndex={-1}
 >
   <div>
     <h2
@@ -774,6 +776,8 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   className="c0"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
+  onFocus={[Function]}
+  tabIndex={-1}
 >
   <div
     className="c1"
@@ -783,6 +787,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
     >
       <span
         className="c3"
+        id="search-results-title"
       >
         Search results
       </span>
@@ -849,7 +854,8 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
       </div>
     </div>
   </div>
-  <div
+  <nav
+    aria-labelledby="search-results-title"
     className="c12 "
   >
     <div
@@ -863,6 +869,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         Related key terms
       </h3>
       <a
+        aria-current={true}
         className="c15 c16"
         data-testid="related-key-term-result"
         href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page1"
@@ -886,6 +893,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         </div>
       </a>
       <a
+        aria-current={false}
         className="c15 c19"
         data-testid="related-key-term-result"
         href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page6"
@@ -989,6 +997,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
                 />
               </div>
               <a
+                aria-current={false}
                 className="c15 c19"
                 data-testid="search-result"
                 href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
@@ -1012,7 +1021,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         </details>
       </li>
     </ol>
-  </div>
+  </nav>
 </div>
 `;
 
@@ -1463,6 +1472,8 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   className="c0"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
+  onFocus={[Function]}
+  tabIndex={-1}
 >
   <div
     className="c1"
@@ -1472,6 +1483,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     >
       <span
         className="c3"
+        id="search-results-title"
       >
         Search results
       </span>
@@ -1538,7 +1550,8 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
       </div>
     </div>
   </div>
-  <div
+  <nav
+    aria-labelledby="search-results-title"
     className="c12 "
   >
     <ol
@@ -1561,6 +1574,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
           />
         </div>
         <a
+          aria-current={true}
           className="c18 c19"
           data-testid="search-result"
           href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
@@ -1651,6 +1665,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 />
               </div>
               <a
+                aria-current={false}
                 className="c18 c33"
                 data-testid="search-result"
                 href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
@@ -1743,6 +1758,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 />
               </div>
               <a
+                aria-current={false}
                 className="c18 c33"
                 data-testid="search-result"
                 href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
@@ -1766,7 +1782,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         </details>
       </li>
     </ol>
-  </div>
+  </nav>
 </div>
 `;
 
@@ -1992,6 +2008,8 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
   className="c0"
   data-analytics-region="search-results"
   data-testid="search-results-sidebar"
+  onFocus={[Function]}
+  tabIndex={-1}
 >
   <div
     aria-label="Loading results"
