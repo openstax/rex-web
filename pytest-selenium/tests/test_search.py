@@ -525,9 +525,7 @@ def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slu
     book.assert_search_term_is_highlighted_in_content_page(search_term)
 
     # THEN: Entire search element is highlighted in content page
-    xpath_search_block = (
-        "//span[contains(@class,'search-highlight text last focus')][contains(text(),'{term}')]"
-    )
+    xpath_search_block = "//mark[contains(text(), '{term}') and (@aria-current='true') and (@class='search-highlight text last')]"
     focussed_search_term = book.find_elements(By.XPATH, xpath_search_block.format(term=search_term))
 
     try:
