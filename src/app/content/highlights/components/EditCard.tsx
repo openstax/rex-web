@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { HTMLElement, HTMLTextAreaElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLTextAreaElement, FocusEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,6 +29,7 @@ import {
   useOnClickOutside
 } from './utils/onClickOutside';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
+import { MAIN_CONTENT_ID } from '../../../context/constants';
 
 export interface EditCardProps {
   isActive: boolean;
@@ -134,22 +135,43 @@ function ActiveEditCard({
   const resetAnnotation = React.useCallback(() => {
     setPendingAnnotation(defaultAnnotation);
   }, [defaultAnnotation]);
-  const [editingAnnotation, setEditing] = React.useState<boolean>(
-    !!props.data && !!props.data.annotation
+  const [editingAnnotation, setEditing] = React.useState(
+    Boolean(props?.data?.annotation)
   );
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(
     false
   );
 
-  const onBlur = props.onBlur;
+  const {onBlur, hasUnsavedHighlight} = props;
   const blurIfNotEditing = React.useCallback(() => {
-    if (!props.hasUnsavedHighlight && !editingAnnotation) {
+    if (!hasUnsavedHighlight && !editingAnnotation) {
       onBlur();
     }
-  }, [props.hasUnsavedHighlight, editingAnnotation, onBlur]);
+  }, [onBlur, hasUnsavedHighlight, editingAnnotation]);
+
+  const deselectRange = React.useCallback(
+    ({target}: FocusEvent) => {
+      const targetAsNode = target as HTMLElement;
+      const mainEl = document?.getElementById(MAIN_CONTENT_ID);
+
+      if (!props.data?.color && mainEl?.contains(targetAsNode)) {
+        blurIfNotEditing();
+        document?.getSelection()?.removeAllRanges();
+      }
+    },
+    [blurIfNotEditing, props.data?.color]
+  );
 
   const elements = [element, ...props.highlight.elements].filter(
     isElementForOnClickOutside
+  );
+
+  React.useEffect(
+    () => {
+      document?.addEventListener('focusin', deselectRange);
+      return () => document?.removeEventListener('focusin', deselectRange);
+    },
+    [deselectRange]
   );
 
   useOnClickOutside(elements, props.isActive, blurIfNotEditing, {
