@@ -68,7 +68,7 @@ const onFocusHighlight = (
   highlightManagerServices.getProp().focus(highlight.id);
 });
 
-// Without defer when user focus highlight with TAB and then click on the card the activeElement
+// Without defer, when user focus highlight with TAB and then click on the card the activeElement
 // will be set to a <body> element for some reason
 const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
   // Do not clear focus from highlight if it was moved to the Card component or to another highlight
