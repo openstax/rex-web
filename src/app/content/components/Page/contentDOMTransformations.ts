@@ -24,8 +24,6 @@ export const transformContent = (
   document: Document, rootEl: HTMLElement, intl: IntlShape, services: AppServices & MiddlewareAPI
 ) => {
   removeDocumentTitle(rootEl);
-  wrapElements(document, rootEl);
-  tweakFigures(rootEl);
   fixLists(rootEl);
   wrapSolutions(document, rootEl, intl);
   expandSolutionForFragment(document);
@@ -40,47 +38,6 @@ function removeDocumentTitle(rootEl: HTMLElement) {
     'h3[data-type="document-subtitle"]',
     'div[data-type="document-title"]',
   ].join(',')).forEach((el) => el.remove());
-}
-
-// Wrap title and content elements in header and section elements, respectively
-function wrapElements(document: Document, rootEl: HTMLElement) {
-  rootEl.querySelectorAll(`.example, .exercise, .note, .abstract,
-    [data-type="example"], [data-type="exercise"],
-    [data-type="note"], [data-type="abstract"]`).forEach((el) => {
-    // JSDOM does not support `:scope` in .querySelectorAll() so use .matches()
-    const titles = Array.from(el.children).filter((child) => child.matches('.title, [data-type="title"], .os-title'));
-
-    const bodyWrap = document.createElement('section');
-    bodyWrap.append(...Array.from(el.childNodes));
-
-    const titleWrap = document.createElement('header');
-    titleWrap.append(...titles);
-
-    el.append(titleWrap, bodyWrap);
-
-    // Add an attribute for the parents' `data-label`
-    // since CSS does not support `parent(attr(data-label))`.
-    // When the title exists, this attribute is added before it
-    const label = el.getAttribute('data-label');
-    if (label) {
-      titles.forEach((title) => title.setAttribute('data-label-parent', label));
-    }
-
-    // Add a class for styling since CSS does not support `:has(> .title)`
-    // NOTE: `.toggleClass()` explicitly requires a `false` (not falsy) 2nd argument
-    if (titles.length > 0) {
-      el.classList.add('ui-has-child-title');
-    }
-  });
-}
-
-function tweakFigures(rootEl: HTMLElement) {
-  // move caption to bottom of figure
-  rootEl.querySelectorAll('figure > figcaption').forEach((el) => {
-    const parent = assertNotNull(el.parentElement, 'figcaption parent should always be defined');
-    parent.classList.add('ui-has-child-figcaption');
-    parent.appendChild(el);
-  });
 }
 
 function optimizeImages(rootEl: HTMLElement, services: AppServices & MiddlewareAPI) {
