@@ -25,7 +25,7 @@ export default memoize(async(loc: string) => {
   let locale = loc;
 
   try {
-    const localeMessages = await import(/* webpackChunkName: "intl-[request]" */  `./${locale}/index`);
+    const localeMessages = await import(/* webpackChunkName: "intl-[request]" */  `./es/index`);
     messages = localeMessages.default;
   } catch (e) {
     const enMessages = await import(/* webpackChunkName: "intl-en-index" */ `./en/index`);
