@@ -48,7 +48,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
     component={<label />}
     className={className}
   >
-    <input type='checkbox' {...props} />
+    <input type='checkbox' role='radio' aria-checked={props.checked} {...props} />
   </ColorIndicator>;
 })`
   cursor: pointer;

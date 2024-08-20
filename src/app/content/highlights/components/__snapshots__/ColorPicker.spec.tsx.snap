@@ -341,9 +341,11 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       />
     </svg>
     <input
+      aria-checked={false}
       checked={false}
       name="yellow"
       onChange={[Function]}
+      role="radio"
       tabIndex={-1}
       type="checkbox"
     />
@@ -399,9 +401,11 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       />
     </svg>
     <input
+      aria-checked={false}
       checked={false}
       name="green"
       onChange={[Function]}
+      role="radio"
       tabIndex={-1}
       type="checkbox"
     />
@@ -457,9 +461,11 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       />
     </svg>
     <input
+      aria-checked={false}
       checked={false}
       name="blue"
       onChange={[Function]}
+      role="radio"
       tabIndex={-1}
       type="checkbox"
     />
@@ -515,9 +521,11 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       />
     </svg>
     <input
+      aria-checked={false}
       checked={false}
       name="purple"
       onChange={[Function]}
+      role="radio"
       tabIndex={-1}
       type="checkbox"
     />
@@ -573,9 +581,11 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       />
     </svg>
     <input
+      aria-checked={false}
       checked={false}
       name="pink"
       onChange={[Function]}
+      role="radio"
       tabIndex={-1}
       type="checkbox"
     />
