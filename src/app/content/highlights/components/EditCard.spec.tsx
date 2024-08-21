@@ -599,7 +599,7 @@ describe('EditCard', () => {
     document?.getElementById(MAIN_CONTENT_ID)?.focus();
     document?.querySelector('a')?.focus();
     document?.getElementById(MAIN_CONTENT_ID)?.focus();
-    expect(editCardProps.onBlur).toHaveBeenCalledTimes(3);
+    expect(editCardProps.onBlur).toHaveBeenCalledTimes(1);
     mockSpyUser.mockClear();
     jest.resetAllMocks();
   });

@@ -154,7 +154,7 @@ function ActiveEditCard({
       const targetAsNode = target as HTMLElement;
       const mainEl = document?.getElementById(MAIN_CONTENT_ID);
 
-      if (!props.data?.color && mainEl?.contains(targetAsNode)) {
+      if (!props.data?.color && targetAsNode !== mainEl && mainEl?.contains(targetAsNode)) {
         blurIfNotEditing();
         document?.getSelection()?.removeAllRanges();
       }
