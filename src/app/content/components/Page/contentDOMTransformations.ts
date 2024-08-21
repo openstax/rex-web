@@ -78,9 +78,7 @@ function tweakFigures(rootEl: HTMLElement) {
   // move caption to bottom of figure
   rootEl.querySelectorAll('figure > figcaption').forEach((el) => {
     const parent = assertNotNull(el.parentElement, 'figcaption parent should always be defined');
-    if (!parent.classList.contains('ui-has-child-figcaption')) {
-      parent.classList.add('ui-has-child-figcaption');
-    }
+    parent.classList.add('ui-has-child-figcaption');
     parent.appendChild(el);
   });
 }
