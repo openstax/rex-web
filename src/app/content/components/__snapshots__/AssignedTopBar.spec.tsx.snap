@@ -156,7 +156,7 @@ exports[`AssignedTopBar renders 1`] = `
   >
     <button
       aria-expanded={false}
-      aria-label="Change text size"
+      aria-label="Cambiar el tamaño del texto"
       className="c5 c6 c7 c8"
       data-analytics-label="Change text size"
       onClick={[Function]}

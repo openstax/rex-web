@@ -117,8 +117,7 @@ function wrapSolutions(document: Document, rootEl: HTMLElement, intl: IntlShape)
 
   // Wrap solutions in a details element so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
-    console.log(el.tagName)
-    if (el.tagName !== 'DETAILS') {
+    if (el.tagName.toLowerCase() !== 'details') {
       el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
       const contents = el.innerHTML;
       const detailsEl = document.createElement('details');
