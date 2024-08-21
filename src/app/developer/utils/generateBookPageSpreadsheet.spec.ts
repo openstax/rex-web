@@ -1,25 +1,21 @@
 // tslint:disable: max-line-length
-import createTestServices from "../../../test/createTestServices";
-import { book, bookWithUnits } from "../../../test/mocks/archiveLoader";
-import { mockCmsBook } from "../../../test/mocks/osWebLoader";
-import { formatBookData } from "../../content/utils";
-import { generateBookPageSpreadsheet } from "./generateBookPageSpreadsheet";
+import createTestServices from '../../../test/createTestServices';
+import { book, bookWithUnits } from '../../../test/mocks/archiveLoader';
+import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import { formatBookData } from '../../content/utils';
+import { generateBookPageSpreadsheet } from './generateBookPageSpreadsheet';
 
-describe("generateBookPageSpreadsheet", () => {
-  it("works with units and a canonical url map", async () => {
+describe('generateBookPageSpreadsheet', () => {
+  it('works with units and a canonical url map', async() => {
     const combinedBook = {
       ...formatBookData(bookWithUnits, mockCmsBook),
-      id: "3f6e0e03-46ac-485e-a737-ab3690d0b879",
+      id: '3f6e0e03-46ac-485e-a737-ab3690d0b879',
       loadOptions: {
         booksConfig: {
-          archiveUrl: "/test/archive",
-          books: {
-            "3f6e0e03-46ac-485e-a737-ab3690d0b879": {
-              defaultVersion: bookWithUnits.version
-            }
-          }
-        }
-      }
+          archiveUrl: '/test/archive',
+          books: {'3f6e0e03-46ac-485e-a737-ab3690d0b879': {defaultVersion: bookWithUnits.version}},
+        },
+      },
     };
     const services = createTestServices();
     expect(await generateBookPageSpreadsheet(combinedBook, services))
@@ -40,16 +36,16 @@ describe("generateBookPageSpreadsheet", () => {
     `);
   });
 
-  it("works without units or a canonical url map", async () => {
+  it('works without units or a canonical url map', async() => {
     const combinedBook = {
       ...formatBookData(book, undefined),
-      id: "e0ae033d-c34b-4518-8872-906ceb0b25b7",
+      id: 'e0ae033d-c34b-4518-8872-906ceb0b25b7',
       loadOptions: {
         booksConfig: {
-          archiveUrl: "/test/archive",
-          books: {}
-        }
-      }
+          archiveUrl: '/test/archive',
+          books: {},
+        },
+      },
     };
     const services = createTestServices();
     expect(await generateBookPageSpreadsheet(combinedBook, services))
