@@ -173,13 +173,14 @@ function TrappingDropdownList(props: object) {
   useTrapTabNavigation(ref);
 
   return (
-    <ol ref={ref} {...props} />
+    <menu ref={ref} {...props} />
   );
 }
 
 
 // tslint:disable-next-line:variable-name
 export const DropdownList = styled(TrappingDropdownList)`
+  list-style: none;
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.formBackground};
@@ -238,22 +239,23 @@ const DropdownItemContent = ({
   });
   return <FormattedMessage id={message}>
     {(msg) => href
-      ? <a href={href} tabIndex={0} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
-      /*
-        this should be a button but Safari and firefox don't support focusing buttons
-        which breaks the tab transparent dropdown
-        https://bugs.webkit.org/show_bug.cgi?id=22261
-        https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-      */
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      : <a
+      ? <a
+        role='button'
+        href={href}
         tabIndex={0}
-        href=''
+        onClick={onClick}
+        target={target}
+        {...analyticsDataProps}
+      >{prefix}{msg}</a>
+      // Safari support tab-navigation of buttons; this operates with space or Enter
+      : <button
+        type='button'
+        tabIndex={0}
         onClick={onClick ? flow(preventDefault, onClick) : preventDefault}
         {...analyticsDataProps}
       >
         {prefix}{msg}
-      </a>
+      </button>
     }
   </FormattedMessage>;
 };
@@ -262,9 +264,9 @@ const DropdownItemContent = ({
 export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) => {
   const intl = useIntl();
 
-  return ariaMessage
-    ? <li aria-label={intl.formatMessage({id: ariaMessage})}><DropdownItemContent {...contentProps}/></li>
-    : <li><DropdownItemContent {...contentProps} /></li>;
+  return <li aria-label={ariaMessage ? intl.formatMessage({id: ariaMessage}) : undefined}>
+    <DropdownItemContent {...contentProps}/>
+  </li>;
 };
 
 interface CommonDropdownProps {

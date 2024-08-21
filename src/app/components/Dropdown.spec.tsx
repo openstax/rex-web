@@ -149,9 +149,10 @@ describe('Dropdown', () => {
     </TestContainer>);
 
     renderer.act(() => {
-      const [button1, button2] = component.root.findAllByType('a');
-      button1.props.onClick(mockEv);
-      button2.props.onClick(mockEv);
+      const items = component.root.findAll((i) => i.props.onClick && i.type === 'button');
+
+      items.forEach((i) => i.props.onClick(mockEv));
+      expect(items.length).toBe(2);
     });
 
     expect(mockEv.preventDefault).toHaveBeenCalledTimes(2);
