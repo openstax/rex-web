@@ -583,8 +583,17 @@ exports[`ContextMenu match snapshot when open 1`] = `
   display: flex;
 }
 
+.c13 li button,
 .c13 li a {
+  border: 0;
   width: 100%;
+}
+
+.c13 li button:focus,
+.c13 li a:focus,
+.c13 li button:hover,
+.c13 li a:hover {
+  outline-width: 0;
 }
 
 .c32 {
