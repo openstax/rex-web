@@ -107,6 +107,7 @@ describe('Dropdown', () => {
     const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
 
     const focus = jest.fn();
+    const focus2 = jest.fn();
     const addEventListener = jest.fn();
     const removeEventListener = jest.fn();
     const createNodeMock = () => ({focus, addEventListener, removeEventListener});
@@ -127,11 +128,18 @@ describe('Dropdown', () => {
     expect(() => component.root.findByType(DropdownList)).not.toThrow();
 
     renderer.act(() => {
+      const buttons = component.root.findAllByType('button');
+
+      buttons[1].props.onMouseEnter({target: {focus: focus2}});
+    });
+
+    renderer.act(() => {
       useOnEscSpy.mock.calls[0][1]();
     });
 
     expect(() => component.root.findByType(DropdownList)).toThrow();
     expect(focus).toHaveBeenCalled();
+    expect(focus2).toHaveBeenCalled();
 
     useOnEscSpy.mockClear();
   });
