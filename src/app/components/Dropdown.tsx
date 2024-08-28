@@ -246,7 +246,12 @@ const DropdownItemContent = ({
     'data-analytics-label': dataAnalyticsLabel,
     'data-analytics-region': dataAnalyticsRegion,
   });
-  return <FormattedMessage id={message}>
+  const focusMe = React.useCallback(
+    ({target: me}) => me.focus(),
+    []
+  );
+
+return <FormattedMessage id={message}>
     {(msg) => href
       ? <a
         role='button'
@@ -254,6 +259,7 @@ const DropdownItemContent = ({
         tabIndex={0}
         onClick={onClick}
         target={target}
+        onMouseEnter={focusMe}
         {...analyticsDataProps}
       >{prefix}{msg}</a>
       // Safari support tab-navigation of buttons; this operates with space or Enter
@@ -261,6 +267,7 @@ const DropdownItemContent = ({
         type='button'
         tabIndex={0}
         onClick={onClick ? flow(preventDefault, onClick) : preventDefault}
+        onMouseEnter={focusMe}
         {...analyticsDataProps}
       >
         {prefix}{msg}

@@ -231,6 +231,7 @@ exports[`Dropdown matches snapshot 1`] = `
       <li>
         <button
           onClick={[Function]}
+          onMouseEnter={[Function]}
           tabIndex={0}
           type="button"
         >
@@ -241,6 +242,7 @@ exports[`Dropdown matches snapshot 1`] = `
         <a
           href="/wooo"
           onClick={[Function]}
+          onMouseEnter={[Function]}
           role="button"
           tabIndex={0}
         >
@@ -507,6 +509,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       <li>
         <button
           onClick={[Function]}
+          onMouseEnter={[Function]}
           tabIndex={0}
           type="button"
         >
@@ -517,6 +520,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
         <a
           href="/wooo"
           onClick={[Function]}
+          onMouseEnter={[Function]}
           role="button"
           tabIndex={0}
         >
