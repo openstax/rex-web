@@ -979,6 +979,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <button
             onClick={[Function]}
+            onMouseEnter={[Function]}
             tabIndex={0}
             type="button"
           >
@@ -1003,6 +1004,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         >
           <button
             onClick={[Function]}
+            onMouseEnter={[Function]}
             tabIndex={0}
             type="button"
           >
@@ -1026,6 +1028,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           <a
             data-analytics-region="MH gotohighlight"
             href="/link/to/highlight"
+            onMouseEnter={[Function]}
             role="button"
             tabIndex={0}
             target="_blank"
