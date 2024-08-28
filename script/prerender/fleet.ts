@@ -396,9 +396,9 @@ async function waitUntilWorkDone(
       '[SQS] [GetQueueAttributes] Unexpected response: missing Attributes key'
     );
 
-    const numMessages = parseInt(attributes.ApproximateNumberOfMessages, 10) +
-      parseInt(attributes.ApproximateNumberOfMessagesDelayed, 10) +
-      parseInt(attributes.ApproximateNumberOfMessagesNotVisible, 10);
+    const numMessages = parseInt(attributes.ApproximateNumberOfMessages!, 10) +
+      parseInt(attributes.ApproximateNumberOfMessagesDelayed!, 10) +
+      parseInt(attributes.ApproximateNumberOfMessagesNotVisible!, 10);
 
     if (numMessages === 0) { break; }
 
