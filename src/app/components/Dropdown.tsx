@@ -1,12 +1,12 @@
 
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLMenuElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { useFocusLost, useTrapTabNavigation } from '../reactUtils';
+import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme, { defaultFocusOutline } from '../theme';
 import { preventDefault } from '../utils';
@@ -168,9 +168,18 @@ const TabTransparentDropdown = styled((
 `;
 
 function TrappingDropdownList(props: object) {
-  const ref = React.useRef(null);
+  const ref = React.useRef<HTMLMenuElement>(null);
 
   useTrapTabNavigation(ref);
+
+  React.useEffect(
+    () => {
+      if (ref.current?.querySelector) {
+        ref.current?.querySelector<HTMLElement>(focusableItemQuery)?.focus();
+      }
+    },
+    []
+  );
 
   return (
     <menu ref={ref} {...props} />
