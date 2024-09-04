@@ -457,8 +457,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   line-height: 2rem;
 }
 
-.c12 li button:hover,
-.c12 li a:hover,
 .c12 li button:focus,
 .c12 li a:focus {
   background: #d5d5d5;
