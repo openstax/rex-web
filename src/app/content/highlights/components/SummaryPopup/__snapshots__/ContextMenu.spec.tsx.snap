@@ -567,8 +567,6 @@ exports[`ContextMenu match snapshot when open 1`] = `
   line-height: 2rem;
 }
 
-.c13 li button:hover,
-.c13 li a:hover,
 .c13 li button:focus,
 .c13 li a:focus {
   background: #d5d5d5;

@@ -174,8 +174,6 @@ exports[`Dropdown matches snapshot 1`] = `
   line-height: 2rem;
 }
 
-.c12 li button:hover,
-.c12 li a:hover,
 .c12 li button:focus,
 .c12 li a:focus {
   background: #d5d5d5;
@@ -451,8 +449,6 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   line-height: 2rem;
 }
 
-.c12 li button:hover,
-.c12 li a:hover,
 .c12 li button:focus,
 .c12 li a:focus {
   background: #d5d5d5;
