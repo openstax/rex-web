@@ -217,7 +217,6 @@ export const DropdownList = styled(TrappingDropdownList)`
     font-size: 1.4rem;
     line-height: 2rem;
 
-    &:hover,
     &:focus {
       background: ${theme.color.neutral.formBorder};
       ${defaultFocusOutline}
