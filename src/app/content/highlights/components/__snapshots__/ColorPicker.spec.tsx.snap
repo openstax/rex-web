@@ -266,6 +266,11 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   z-index: 1;
 }
 
+.c17 img {
+  height: 1.9rem;
+  width: 1.9rem;
+}
+
 .c2 {
   cursor: pointer;
   margin: 0;
@@ -346,9 +351,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="yellow"
       onChange={[Function]}
-      role="radio"
       tabIndex={-1}
-      type="checkbox"
+      type="radio"
     />
     <span
       className="c6 c7"
@@ -406,9 +410,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="green"
       onChange={[Function]}
-      role="radio"
       tabIndex={-1}
-      type="checkbox"
+      type="radio"
     />
     <span
       className="c6 c7"
@@ -466,9 +469,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="blue"
       onChange={[Function]}
-      role="radio"
       tabIndex={-1}
-      type="checkbox"
+      type="radio"
     />
     <span
       className="c6 c7"
@@ -526,9 +528,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="purple"
       onChange={[Function]}
-      role="radio"
       tabIndex={-1}
-      type="checkbox"
+      type="radio"
     />
     <span
       className="c6 c7"
@@ -586,9 +587,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       checked={false}
       name="pink"
       onChange={[Function]}
-      role="radio"
       tabIndex={-1}
-      type="checkbox"
+      type="radio"
     />
     <span
       className="c6 c7"
@@ -613,5 +613,16 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       }
     />
   </label>
+  <button
+    aria-label="remove highlight"
+    className="c17"
+    onClick={[Function]}
+    type="button"
+  >
+    <img
+      alt=""
+      src="trash-347.svg"
+    />
+  </button>
 </fieldset>
 `;

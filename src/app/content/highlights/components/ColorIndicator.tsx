@@ -4,6 +4,7 @@ import { Check } from 'styled-icons/fa-solid/Check';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
 import { defaultFocusOutline } from '../../../theme';
+import trashIcon from '../../../../assets/trash-347.svg';
 
 interface StyleProps {
   style: typeof highlightStyles[number];
@@ -111,6 +112,33 @@ const ColorIndicator = styled(Hoc)`
     display: block;
     ${defaultFocusOutline}
     z-index: 1;
+  }
+`;
+
+function TB({
+  onClick,
+  className,
+}: {
+  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  className: string;
+}) {
+  return (
+    <button
+      type='button'
+      className={className}
+      aria-label='remove highlight'
+      onClick={onClick}
+    >
+      <img src={trashIcon} alt='' />
+    </button>
+  );
+}
+
+// tslint:disable-next-line:variable-name
+export const TrashButton = styled(TB)`
+  img {
+    height: ${(props: Props) => indicatorSize(props) - 0.5}rem;
+    width: ${(props: Props) => indicatorSize(props) - 0.5}rem;
   }
 `;
 
