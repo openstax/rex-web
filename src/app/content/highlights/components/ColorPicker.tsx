@@ -5,7 +5,7 @@ import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';
-import ColorIndicator from './ColorIndicator';
+import ColorIndicator, { TrashButton } from './ColorIndicator';
 import { HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
 
 interface SingleSelectProps {
@@ -48,7 +48,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
     component={<label />}
     className={className}
   >
-    <input type='checkbox' role='radio' aria-checked={props.checked} {...props} />
+    <input type='radio' aria-checked={props.checked} {...props} />
   </ColorIndicator>;
 })`
   cursor: pointer;
@@ -98,9 +98,11 @@ const ColorPicker = ({className, ...props}: Props) => {
       const destIdx = nextIdx(idx, inputs.length, event.key as NavKeys);
       const el = inputs[destIdx];
 
-      event.preventDefault();
-      el.focus();
-      el.click();
+      if (el) {
+        event.preventDefault();
+        el.focus();
+        el.click();
+      }
     },
     []
   );
@@ -140,6 +142,12 @@ const ColorPicker = ({className, ...props}: Props) => {
             ? props.onRemove ? props.onRemove() : null
             : props.onChange(style.label)}
       />)}
+      { props.size === 'small' ? null :
+        <TrashButton
+          size={props.size}
+          onClick={() => 'onRemove' in props && props.onRemove ? props.onRemove() : null}
+        />
+      }
     </fieldset>
   );
 };

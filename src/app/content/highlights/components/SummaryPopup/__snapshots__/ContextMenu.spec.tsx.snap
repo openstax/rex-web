@@ -692,9 +692,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 checked={false}
                 name="yellow"
                 onChange={[Function]}
-                role="radio"
                 tabIndex={-1}
-                type="checkbox"
+                type="radio"
               />
               <span
                 className="c20 c21"
@@ -755,9 +754,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 checked={false}
                 name="green"
                 onChange={[Function]}
-                role="radio"
                 tabIndex={-1}
-                type="checkbox"
+                type="radio"
               />
               <span
                 className="c20 c21"
@@ -818,9 +816,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 checked={true}
                 name="blue"
                 onChange={[Function]}
-                role="radio"
                 tabIndex={-1}
-                type="checkbox"
+                type="radio"
               />
               <span
                 className="c20 c21"
@@ -881,9 +878,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 checked={false}
                 name="purple"
                 onChange={[Function]}
-                role="radio"
                 tabIndex={-1}
-                type="checkbox"
+                type="radio"
               />
               <span
                 className="c20 c21"
@@ -944,9 +940,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 checked={false}
                 name="pink"
                 onChange={[Function]}
-                role="radio"
                 tabIndex={-1}
-                type="checkbox"
+                type="radio"
               />
               <span
                 className="c20 c21"

@@ -4,7 +4,7 @@ import { renderToDom, dispatchKeyDownEvent } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { highlightStyles } from '../../constants';
 import ColorPicker from './ColorPicker';
-import { HTMLElement, HTMLFieldSetElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLFieldSetElement, HTMLInputElement, HTMLButtonElement } from '@openstax/types/lib.dom';
 import { assertDocument } from '../../../utils';
 
 describe('ColorPicker', () => {
@@ -81,6 +81,39 @@ describe('ColorPicker', () => {
     first.props.onChange();
 
     expect(onRemove).toHaveBeenCalled();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('calls remove when trashcan is clicked', () => {
+    const onChange = jest.fn();
+    const onRemove = jest.fn();
+
+    const {root} = renderToDom(<TestContainer>
+      <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
+    </TestContainer>);
+
+    const button = root.querySelector('button') as HTMLButtonElement;
+
+    // This should trigger the button, but does not in testing
+    dispatchKeyDownEvent({
+      element: button as HTMLElement,
+      key: 'Enter',
+    });
+
+    button.click();
+    expect(onRemove).toHaveBeenCalled();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('handles having no onRemove when trashcan is clicked', () => {
+    const onChange = jest.fn();
+    const component = renderer.create(<TestContainer>
+      <ColorPicker color={highlightStyles[0].label} onChange={onChange} />
+    </TestContainer>);
+
+    const button = component.root.findByType('button');
+
+    button.props.onClick();
     expect(onChange).not.toHaveBeenCalled();
   });
 
