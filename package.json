@@ -25,7 +25,7 @@
     "lodash": "^4.17.21",
     "mdn-polyfills": "^5.20.0",
     "mime": "^3.0.0",
-    "path-to-regexp": "<4",
+    "path-to-regexp": "<9",
     "prop-types": "^15.8.1",
     "query-string": "~6.2",
     "quick-lru": "^4.0.1",
