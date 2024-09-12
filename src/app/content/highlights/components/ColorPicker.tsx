@@ -115,6 +115,7 @@ const ColorPicker = ({className, ...props}: Props) => {
     },
     [color]
   );
+  const hasOnRemove = 'onRemove' in props && props.onRemove;
 
   React.useEffect(focusOnSelected, [focusOnSelected]);
 
@@ -142,10 +143,10 @@ const ColorPicker = ({className, ...props}: Props) => {
             ? props.onRemove ? props.onRemove() : null
             : props.onChange(style.label)}
       />)}
-      { props.size === 'small' ? null :
+      { (!hasOnRemove || props.size === 'small') ? null :
         <TrashButton
           size={props.size}
-          onClick={() => 'onRemove' in props && props.onRemove ? props.onRemove() : null}
+          onClick={props.onRemove}
         />
       }
     </fieldset>
