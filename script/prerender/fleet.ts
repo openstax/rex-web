@@ -395,10 +395,22 @@ async function waitUntilWorkDone(
       getQueueAttributesResult.Attributes,
       '[SQS] [GetQueueAttributes] Unexpected response: missing Attributes key'
     );
+    const numberOfMessages = assertDefined(
+      attributes.ApproximateNumberOfMessages,
+      '[SQS] [GetQueueAttributes] Unexpected response: missing attributes value'
+    );
+    const messagesDelayed = assertDefined(
+      attributes.ApproximateNumberOfMessagesDelayed,
+      '[SQS] [GetQueueAttributes] Unexpected response: missing attributes value'
+    );
+    const messagesNotVisible = assertDefined(
+      attributes.ApproximateNumberOfMessagesNotVisible,
+      '[SQS] [GetQueueAttributes] Unexpected response: missing attributes value'
+    );
 
-    const numMessages = parseInt(attributes.ApproximateNumberOfMessages!, 10) +
-      parseInt(attributes.ApproximateNumberOfMessagesDelayed!, 10) +
-      parseInt(attributes.ApproximateNumberOfMessagesNotVisible!, 10);
+    const numMessages = parseInt(numberOfMessages, 10) +
+      parseInt(messagesDelayed, 10) +
+      parseInt(messagesNotVisible, 10);
 
     if (numMessages === 0) { break; }
 
