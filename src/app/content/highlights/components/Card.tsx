@@ -28,6 +28,7 @@ import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
+import { useConfirmationToastContext } from '../../components/ConfirmationToast';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -188,6 +189,7 @@ function NoteOrCard({
     hasUnsavedHighlight,
     commonProps,
   } = computedProps;
+  const showToast = useConfirmationToastContext();
   const onRemove = React.useCallback(() => {
     if (props.data) {
       setHighlightRemoved(true);
@@ -195,8 +197,11 @@ function NoteOrCard({
         locationFilterId,
         pageId: props.page.id,
       });
-    }
-  }, [locationFilterId, props, setHighlightRemoved]);
+      showToast({
+        message: 'Highlight removed',
+      });
+  }
+  }, [locationFilterId, props, showToast, setHighlightRemoved]);
   const style = highlightStyles.find(
     search => props.data && search.label === props.data.color
   );
