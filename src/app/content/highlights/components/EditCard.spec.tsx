@@ -17,6 +17,8 @@ import ColorPicker from './ColorPicker';
 import EditCard, { EditCardProps } from './EditCard';
 import Note from './Note';
 import * as onClickOutsideModule from './utils/onClickOutside';
+import { MAIN_CONTENT_ID } from '../../../context/constants';
+import { renderToDom } from '../../../../test/reactutils';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker {...props} />);
 jest.mock('./Note', () => (props: any) => <div mock-note {...props} ref={props.textareaRef} />);
@@ -573,6 +575,65 @@ describe('EditCard', () => {
     expect(component).toBeTruthy();
     expect(onClickOutside.mock.calls.length).toBe(1);
     expect(editCardProps.onBlur).toHaveBeenCalled();
+    mockSpyUser.mockClear();
+  });
+
+  it('blurs and removes selections when navigating to different elements', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
+    const onHeightChange = jest.fn();
+
+    renderToDom(
+      <div id={MAIN_CONTENT_ID} tabIndex={-1}>
+        <TestContainer services={services} store={store}>
+          <a href='#foo'>text</a>
+          <EditCard
+            {...{...editCardProps, hasUnsavedHighlight: false}}
+            onHeightChange={onHeightChange}
+            isActive={true}
+          />
+        </TestContainer>
+      </div>
+    );
+
+    document?.getElementById(MAIN_CONTENT_ID)?.focus();
+    document?.querySelector('a')?.focus();
+    document?.getElementById(MAIN_CONTENT_ID)?.focus();
+    expect(editCardProps.onBlur).toHaveBeenCalledTimes(1);
+    mockSpyUser.mockClear();
+    jest.resetAllMocks();
+  });
+
+  it('doesn\'t blur when there is data (existing highlight)', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
+    const onHeightChange = jest.fn();
+    const data = {
+      color: highlightStyles[0].label,
+      ...highlightData,
+    };
+
+    renderToDom(
+      <div id={MAIN_CONTENT_ID} tabIndex={-1}>
+        <TestContainer services={services} store={store}>
+          <a href='#foo'>text</a>
+          <EditCard
+            {...{
+              ...editCardProps,
+              hasUnsavedHighlight: false,
+            }}
+            data={data}
+            onHeightChange={onHeightChange}
+            isActive={true}
+          />
+        </TestContainer>
+      </div>
+    );
+
+    document?.getElementById(MAIN_CONTENT_ID)?.focus();
+    document?.querySelector('a')?.focus();
+    document?.getElementById(MAIN_CONTENT_ID)?.focus();
+    expect(editCardProps.onBlur).not.toHaveBeenCalled();
     mockSpyUser.mockClear();
   });
 
