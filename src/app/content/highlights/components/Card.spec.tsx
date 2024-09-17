@@ -31,6 +31,7 @@ import Card, { CardProps } from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import showConfirmation from './utils/showConfirmation';
+import { ConfirmationToastProvider } from '../../components/ConfirmationToast';
 
 jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-display-note {...props} />
@@ -228,8 +229,11 @@ describe('Card', () => {
     const location = getHighlightLocationFilterForPage(locationFilters, page);
     expect(location).toBeDefined();
 
+    jest.useFakeTimers();
     const component = renderer.create(<TestContainer store={store}>
-      <Card {...cardProps} />
+      <ConfirmationToastProvider>
+        <Card {...cardProps} />
+      </ConfirmationToastProvider>
     </TestContainer>, {createNodeMock});
 
     const picker = component.root.findByType(DisplayNote);
@@ -241,6 +245,7 @@ describe('Card', () => {
       locationFilterId: location!.id,
       pageId: page.id,
     }));
+    jest.runAllTimers();
   });
 
   it('noops when remove is called but there isn\'t anything to remove', () => {
