@@ -12,7 +12,7 @@
     "@openstax/highlighter": "https://github.com/openstax/highlighter#v1.14.2",
     "@openstax/open-search-client": "0.1.0-build.7",
     "@openstax/ts-utils": "1.6.0",
-    "@openstax/ui-components": "https://github.com/openstax/ui-components#1.3.4-post2",
+    "@openstax/ui-components": "openstax/ui-components#1.6.4",
     "@sentry/integrations": "^7.54.0",
     "@sentry/react": "^7.54.0",
     "color": "^3.1.2",
