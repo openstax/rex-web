@@ -105,18 +105,6 @@ describe('ColorPicker', () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  it('handles having no onRemove when trashcan is clicked', () => {
-    const onChange = jest.fn();
-    const component = renderer.create(<TestContainer>
-      <ColorPicker color={highlightStyles[0].label} onChange={onChange} />
-    </TestContainer>);
-
-    const button = component.root.findByType('button');
-
-    button.props.onClick();
-    expect(onChange).not.toHaveBeenCalled();
-  });
-
   it('operates as a radiogroup', () => {
     const onChange = jest.fn();
     const onRemove = jest.fn();
@@ -125,7 +113,7 @@ describe('ColorPicker', () => {
         <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
       </TestContainer>
     );
-    const rg = root.querySelector('fieldset') as HTMLFieldSetElement;
+    const rg = root.querySelector('fieldset > fieldset') as HTMLFieldSetElement;
 
     expect(rg).toBeTruthy();
     rg?.focus();

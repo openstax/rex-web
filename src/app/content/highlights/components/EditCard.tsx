@@ -253,10 +253,10 @@ function useOnRemove(props: EditCardProps, pendingAnnotation: string) {
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
   const removeAndTrack = React.useCallback(
     () => {
-      if (props.data) {
-        onRemove();
-        trackDeleteHighlight(props.data.color);
-      }
+      const data = assertDefined(props.data, 'props.data must be defined');
+
+      onRemove();
+      trackDeleteHighlight(data.color);
     },
     [onRemove, props.data, trackDeleteHighlight]
   );
