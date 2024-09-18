@@ -50,20 +50,9 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     if (element.current.contains(activeElement)) {
       focusedHighlight.focus();
     } else {
-      setShouldFocusCard(true);
+      setShouldFocusCard(focusedId !== undefined);
     }
-  }, [element, focusedHighlight]);
-
-  // Reset shouldFocusCard on new highlight -- otherwise it doesn't
-  // get reset soon enough for Firefox
-  React.useLayoutEffect(
-    () => {
-      if (focusedId === undefined) {
-        setShouldFocusCard(false);
-      }
-    },
-    [focusedId]
-  );
+  }, [focusedHighlight, focusedId]);
 
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
 
