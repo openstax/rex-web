@@ -83,6 +83,13 @@ function nextIdx(idx: number, itemCount: number, key: NavKeys) {
 }
 
 // tslint:disable-next-line:variable-name
+const FSWrapper = styled.fieldset`
+  border: 0;
+  display: flex;
+  flex-direction: row;
+`;
+
+// tslint:disable-next-line:variable-name
 const ColorPicker = ({className, ...props}: Props) => {
   const ref = React.useRef<HTMLDivElement>(null);
   // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role#keyboard_interactions
@@ -98,11 +105,9 @@ const ColorPicker = ({className, ...props}: Props) => {
       const destIdx = nextIdx(idx, inputs.length, event.key as NavKeys);
       const el = inputs[destIdx];
 
-      if (el) {
-        event.preventDefault();
-        el.focus();
-        el.click();
-      }
+      event.preventDefault();
+      el.focus();
+      el.click();
     },
     []
   );
@@ -120,36 +125,39 @@ const ColorPicker = ({className, ...props}: Props) => {
   React.useEffect(focusOnSelected, [focusOnSelected]);
 
   return (
-    <fieldset
-      className={className}
-      tabIndex={0}
-      ref={ref}
-      onKeyDown={handleKeyNavigation}
-      onFocus={focusOnSelected}
-      role='radiogroup'
-    >
-      <legend>Choose highlight color</legend>
-      {highlightStyles.map((style) => <ColorButton key={style.label}
-        name={style.label}
-        checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
-        style={style}
-        size={props.size}
-        tabIndex={-1}
-        onChange={() => props.multiple
-          ? props.selected.includes(style.label)
-            ? props.onChange(props.selected.filter(not(match(style.label))))
-            : props.onChange([...props.selected, style.label])
-          : props.color === style.label
-            ? props.onRemove ? props.onRemove() : null
-            : props.onChange(style.label)}
-      />)}
+    <FSWrapper>
+      <legend>Select or clear highlight color</legend>
+      <fieldset
+        className={className}
+        tabIndex={0}
+        ref={ref}
+        onKeyDown={handleKeyNavigation}
+        onFocus={focusOnSelected}
+        role='radiogroup'
+      >
+        <legend>Choose highlight color</legend>
+        {highlightStyles.map((style) => <ColorButton key={style.label}
+          name={style.label}
+          checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
+          style={style}
+          size={props.size}
+          tabIndex={-1}
+          onChange={() => props.multiple
+            ? props.selected.includes(style.label)
+              ? props.onChange(props.selected.filter(not(match(style.label))))
+              : props.onChange([...props.selected, style.label])
+            : props.color === style.label
+              ? props.onRemove ? props.onRemove() : null
+              : props.onChange(style.label)}
+        />)}
+      </fieldset>
       { (!hasOnRemove || props.size === 'small') ? null :
         <TrashButton
           size={props.size}
           onClick={props.onRemove}
         />
       }
-    </fieldset>
+    </FSWrapper>
   );
 };
 
