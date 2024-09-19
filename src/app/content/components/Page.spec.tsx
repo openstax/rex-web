@@ -342,14 +342,14 @@ describe('Page', () => {
               + `data-print-placement="here" `
               + `aria-label="Show/Hide Solution"`
             + `>
-      <summary class="btn-link ui-toggle" title="Show/Hide Solution" data-content="Show/Hide Solution"></summary>
-      <section class="ui-body" role="alert">
+        <summary class="btn-link ui-toggle" title="Show/Hide Solution" data-content="Show/Hide Solution"></summary>
+        <section class="ui-body" role="alert">
               <h4 data-type="title" class="solution-title"><span class="os-text">Solution</span></h4>
               <div class="os-solution-container">
                 <p id="paragraph2">answer answer answer.</p>
               </div>
             </section>
-    </details>
+      </details>
           </section></div>
         `);
       });
