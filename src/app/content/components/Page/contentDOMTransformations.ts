@@ -136,19 +136,22 @@ function wrapSolutions(document: Document, rootEl: HTMLElement, intl: IntlShape)
 
   // Wrap solutions in a details element so "Show/Hide Solutions" work
   rootEl.querySelectorAll('.exercise .solution, [data-type="exercise"] [data-type="solution"]').forEach((el) => {
-    el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
-    const contents = el.innerHTML;
-    const detailsEl = document.createElement('details');
+    // this markup will already be baked into content in some cases
+    if (el.tagName.toLowerCase() !== 'details') {
+      el.setAttribute('aria-label', intl.formatMessage({id: 'i18n:content:solution:toggle-title'}));
+      const contents = el.innerHTML;
+      const detailsEl = document.createElement('details');
 
-    Array.from(el.attributes).forEach((attr) => {
-      detailsEl.setAttribute(attr.name, attr.value);
-    });
+      Array.from(el.attributes).forEach((attr) => {
+        detailsEl.setAttribute(attr.name, attr.value);
+      });
 
-    detailsEl.innerHTML = `
-      <summary class="btn-link ui-toggle" title="${title}" data-content="${title}"></summary>
-      <section class="ui-body" role="alert">${contents}</section>
-    `;
-    el.replaceWith(detailsEl);
+      detailsEl.innerHTML = `
+        <summary class="btn-link ui-toggle" title="${title}" data-content="${title}"></summary>
+        <section class="ui-body" role="alert">${contents}</section>
+      `;
+      el.replaceWith(detailsEl);
+    }
   });
 }
 
