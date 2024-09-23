@@ -1,6 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useIntl } from 'react-intl';
+import { hiddenButAccessible } from '../../../theme';
 import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
@@ -87,6 +88,10 @@ const FSWrapper = styled.fieldset`
   border: 0;
   display: flex;
   flex-direction: row;
+
+  legend {
+    ${hiddenButAccessible}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
@@ -169,12 +174,4 @@ export default styled(ColorPicker)`
   overflow: visible;
   gap: ${cardPadding}rem;
   padding: ${cardPadding}rem 0.3rem;
-
-  legend {
-    position: absolute;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-  }
 `;
