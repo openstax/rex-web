@@ -4,6 +4,7 @@ import { Check } from 'styled-icons/fa-solid/Check';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
 import { defaultFocusOutline } from '../../../theme';
+import { useIntl } from 'react-intl';
 import trashIcon from '../../../../assets/trash-347.svg';
 
 interface StyleProps {
@@ -126,7 +127,7 @@ function TB({
     <button
       type='button'
       className={className}
-      aria-label='remove highlight'
+      aria-label={useIntl().formatMessage({id: 'i18n:a11y:keyboard-shortcuts:deselect-highlight-color'})}
       onClick={onClick}
     >
       <img src={trashIcon} alt='' />

@@ -295,6 +295,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   flex-direction: row;
 }
 
+.c0 legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .c1 {
   border: 0;
   outline: none;
@@ -308,15 +321,6 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
   gap: 0.8rem;
   padding: 0.8rem 0.3rem;
-}
-
-.c1 legend {
-  position: absolute;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
 }
 
 <fieldset
@@ -632,7 +636,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     </label>
   </fieldset>
   <button
-    aria-label="remove highlight"
+    aria-label="Deselect current highlight color"
     className="c18"
     onClick={[MockFunction]}
     type="button"
