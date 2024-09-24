@@ -354,6 +354,51 @@ describe('Page', () => {
         `);
       });
 
+      it("are not transformed if already formatted correctly", async () => {
+        expect(
+          await htmlHelper(`
+          <div data-type="solution" id="exercise1" data-element-type="check-understanding"><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
+            <div data-type="problem" id="problem1"><div class="os-problem-container">
+              <p id="paragraph1">blah blah blah</p>
+            </div></div>
+            <details data-type="solution" id="fs-id2913818" data-print-placement="here" aria-label="Show/Hide Solution">
+              <summary title="Show/Hide Solution" data-content="Show/Hide Solution">[Show/Hide Solution]</summary>
+              <section class="ui-body" role="alert">
+                <h2 data-type="solution-title">
+                  <span class="os-title-label">Solution</span>
+                </h2>
+                <div class="os-solution-container">
+                  <p id="paragraph2">answer answer answer.</p>
+                </div>
+              </section>
+            </details>
+          </div>`)
+        ).toEqual(`<div data-type="solution" id="exercise1" data-element-type="check-understanding">` +
+`<h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>` +
+            `
+            <div data-type="problem" id="problem1"><div class="os-problem-container">
+              <p id="paragraph1">blah blah blah</p>
+            </div></div>
+            <details ` +
+            `data-type="solution" ` +
+            `id="fs-id2913818" ` +
+            `data-print-placement="here" ` +
+            `aria-label="Show/Hide Solution"` +
+            `>
+              <summary title="Show/Hide Solution" data-content="Show/Hide Solution">[Show/Hide Solution]</summary>
+              <section class="ui-body" role="alert">
+                <h2 data-type="solution-title">
+                  <span class="os-title-label">Solution</span>
+                </h2>
+                <div class="os-solution-container">
+                  <p id="paragraph2">answer answer answer.</p>
+                </div>
+              </section>
+            </details>
+          </div>`
+        );;
+      });
+
       it('doesn\'t use display none to hide solutions', async() => {
         if (!window) {
           return expect(window).toBeTruthy();
