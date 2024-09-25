@@ -663,12 +663,9 @@ exports[`ContextMenu match snapshot when open 1`] = `
         className="c13"
       >
         <li>
-          <fieldset
+          <div
             className="c14"
           >
-            <legend>
-              Select or clear highlight color
-            </legend>
             <fieldset
               className="c15 c16"
               onFocus={[Function]}
@@ -990,7 +987,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                 />
               </label>
             </fieldset>
-          </fieldset>
+          </div>
         </li>
         <li
           aria-label="Add note"
