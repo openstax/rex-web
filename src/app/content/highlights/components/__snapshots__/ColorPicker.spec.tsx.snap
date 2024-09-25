@@ -323,12 +323,9 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   padding: 0.8rem 0.3rem;
 }
 
-<fieldset
+<div
   className="c0"
 >
-  <legend>
-    Select or clear highlight color
-  </legend>
   <fieldset
     className="c1"
     onFocus={[Function]}
@@ -646,5 +643,5 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
       src="trash-347.svg"
     />
   </button>
-</fieldset>
+</div>
 `;

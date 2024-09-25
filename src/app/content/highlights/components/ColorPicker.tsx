@@ -84,7 +84,7 @@ function nextIdx(idx: number, itemCount: number, key: NavKeys) {
 }
 
 // tslint:disable-next-line:variable-name
-const FSWrapper = styled.fieldset`
+const FSWrapper = styled.div`
   border: 0;
   display: flex;
   flex-direction: row;
@@ -131,7 +131,6 @@ const ColorPicker = ({className, ...props}: Props) => {
 
   return (
     <FSWrapper>
-      <legend>Select or clear highlight color</legend>
       <fieldset
         className={className}
         tabIndex={0}

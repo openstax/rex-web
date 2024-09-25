@@ -113,7 +113,7 @@ describe('ColorPicker', () => {
         <ColorPicker color={highlightStyles[0].label} onChange={onChange} onRemove={onRemove} />
       </TestContainer>
     );
-    const rg = root.querySelector('fieldset > fieldset') as HTMLFieldSetElement;
+    const rg = root.querySelector('fieldset') as HTMLFieldSetElement;
 
     expect(rg).toBeTruthy();
     rg?.focus();
