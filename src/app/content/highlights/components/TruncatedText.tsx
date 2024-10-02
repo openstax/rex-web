@@ -8,6 +8,7 @@ import theme from '../../../theme';
 import { cardPadding } from '../constants';
 
 interface Props {
+  id: string;
   text: string;
   isActive: boolean;
   className?: string;
@@ -29,7 +30,7 @@ const Link = styled.span`
 `;
 
 // tslint:disable-next-line:variable-name
-const NoteText = ({text, isActive, className, onChange }: Props) => {
+const NoteText = ({id, text, isActive, className, onChange }: Props) => {
   const noteTextRef = React.useRef<HTMLElement>(null);
   const [showLink, setShowLink] = React.useState<boolean>(false);
 
@@ -44,7 +45,7 @@ const NoteText = ({text, isActive, className, onChange }: Props) => {
   }, [isActive]);
 
   return <React.Fragment>
-    <p ref={noteTextRef} className={className}>{text}</p>
+    <p id={id} ref={noteTextRef} className={className}>{text}</p>
     {showLink && <FormattedMessage id='i18n:highlighting:card:show-more'>
       {(msg) => <Link>{msg}</Link>}
     </FormattedMessage>}
