@@ -103,11 +103,6 @@ exports[`DisplayNote matches snapshot 1`] = `
   color: #5e6062;
 }
 
-.c0 .c2 > button:focus {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-}
-
 @media screen and (max-width:75em) {
   .c0 {
     margin-left: 8rem;
@@ -125,6 +120,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   className="c0"
   data-highlight-card={true}
   role="dialog"
+  tabIndex={-1}
 >
   <div
     className="c1 c2 c3"
@@ -279,11 +275,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   color: #5e6062;
 }
 
-.c12 .c2 > button:focus {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-}
-
 .c0 {
   width: 20rem;
   overflow: visible;
@@ -318,11 +309,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   color: #5e6062;
 }
 
-.c0 .c2 > button:focus {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-}
-
 @media screen and (max-width:75em) {
   .c0 {
     margin-left: 8rem;
@@ -340,6 +326,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   className="c0"
   data-highlight-card={true}
   role="dialog"
+  tabIndex={-1}
 >
   <div
     className="c1 c2 c3"
@@ -544,11 +531,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   color: #5e6062;
 }
 
-.c14 .c2 > button:focus {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-}
-
 .c0 {
   width: 20rem;
   overflow: visible;
@@ -583,11 +565,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   color: #5e6062;
 }
 
-.c0 .c2 > button:focus {
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-}
-
 @media screen and (max-width:75em) {
   .c0 {
     margin-left: 8rem;
@@ -605,6 +582,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   className="c0"
   data-highlight-card={true}
   role="dialog"
+  tabIndex={-1}
 >
   <div
     className="c1 c2 c3"
