@@ -116,7 +116,7 @@ exports[`DisplayNote matches snapshot 1`] = `
 }
 
 <div
-  aria-label="Highlighted note"
+  aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
   role="dialog"
@@ -184,6 +184,7 @@ exports[`DisplayNote matches snapshot 1`] = `
     Note:
   </label>
   <div
+    id="display-note-undefined"
     isActive={false}
     mock-truncated-text={true}
     onChange={[Function]}
@@ -322,7 +323,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 }
 
 <div
-  aria-label="Highlighted note"
+  aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
   role="dialog"
@@ -390,6 +391,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
     Note:
   </label>
   <div
+    id="display-note-undefined"
     isActive={true}
     mock-truncated-text={true}
     onChange={[Function]}
@@ -578,7 +580,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 }
 
 <div
-  aria-label="Highlighted note"
+  aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
   role="dialog"
@@ -670,6 +672,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
     Note:
   </label>
   <div
+    id="display-note-undefined"
     isActive={true}
     mock-truncated-text={true}
     onChange={[Function]}
