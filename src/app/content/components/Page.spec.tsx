@@ -354,7 +354,7 @@ describe('Page', () => {
         `);
       });
 
-      it("are not transformed if already formatted correctly", async () => {
+      it('are not transformed if already formatted correctly', async() => {
         expect(
           await htmlHelper(`
           <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
