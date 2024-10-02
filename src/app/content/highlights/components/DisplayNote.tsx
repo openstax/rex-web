@@ -7,7 +7,7 @@ import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdo
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
 import { useDebouncedWindowSize, useFocusElement } from '../../../reactUtils';
-import theme, { defaultFocusOutline } from '../../../theme';
+import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
 import { query } from '../../search/selectors';
@@ -98,6 +98,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     <div
       className={className}
       ref={mergeRefs(ref, element)}
+      tabIndex={-1}
       data-highlight-card
       role='dialog'
       aria-label={formatMessage({id: 'i18n:highlighter:display-note:label'})}
@@ -162,10 +163,6 @@ export default styled(DisplayNote)`
 
     :focus-within ${MenuIcon} {
       color: ${theme.color.primary.gray.base};
-    }
-
-    > button:focus {
-      ${defaultFocusOutline}
     }
   }
 
