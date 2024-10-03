@@ -2367,7 +2367,7 @@ li[aria-label="Current Page"] .c61 {
     background-color: unset;
   }
 
-  .c78 .search-highlight [data-for-screenreaders="true"]::before {
+  .c79 .search-highlight [data-for-screenreaders="true"]::before {
     content: attr(data-message);
     position: absolute;
     width: 1px;
@@ -7019,7 +7019,7 @@ li[aria-label="Current Page"] .c61 {
     background-color: unset;
   }
 
-  .c78 .search-highlight [data-for-screenreaders="true"]::before {
+  .c79 .search-highlight [data-for-screenreaders="true"]::before {
     content: attr(data-message);
     position: absolute;
     width: 1px;
