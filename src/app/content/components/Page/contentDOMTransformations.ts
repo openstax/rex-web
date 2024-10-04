@@ -73,7 +73,7 @@ function changeHeadingLevels(document: Document, rootEl: HTMLElement, topHeading
         });
 
         newTagEl.innerHTML = contents;
-  
+
         tag.replaceWith(newTagEl);
       });
     }
