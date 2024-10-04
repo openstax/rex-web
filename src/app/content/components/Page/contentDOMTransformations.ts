@@ -46,7 +46,7 @@ function removeDocumentTitle(rootEl: HTMLElement) {
   ].join(',')).forEach((el) => el.remove());
 }
 
-// Set the top heading's level to topHeadingLevel and make them all consecutive, based on contents
+// set the top heading's level to topHeadingLevel and adjust other headings accordingly
 function changeHeadingLevels(document: Document, rootEl: HTMLElement, topHeadingLevel: number) {
   const headingLevels = [ 1, 2, 3, 4, 5, 6 ];
   const currentTopHeading = headingLevels.find((level) => rootEl.querySelectorAll(`h${level}`)?.length);
