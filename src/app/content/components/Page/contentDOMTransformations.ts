@@ -77,9 +77,7 @@ function changeHeadingLevels(document: Document, rootEl: HTMLElement, topHeading
         tag.replaceWith(newTagEl);
       });
     }
-  })
-
-
+  });
 }
 
 // Wrap title and content elements in header and section elements, respectively
