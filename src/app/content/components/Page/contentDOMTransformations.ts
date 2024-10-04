@@ -27,7 +27,7 @@ export const transformContent = (
   services: AppServices & MiddlewareAPI
 ) => {
   removeDocumentTitle(rootEl);
-  if (props.topHeadingLevel) { changeHeadingLevels(rootEl, props.topHeadingLevel); }
+  if (props.topHeadingLevel) { changeHeadingLevels(document, rootEl, props.topHeadingLevel); }
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
@@ -47,20 +47,39 @@ function removeDocumentTitle(rootEl: HTMLElement) {
 }
 
 // Set the top heading's level to topHeadingLevel and make them all consecutive, based on contents
-function changeHeadingLevels(rootEl: HTMLElement, topHeadingLevel: number) {
-  let currentLevel = topHeadingLevel;
+function changeHeadingLevels(document: Document, rootEl: HTMLElement, topHeadingLevel: number) {
+  const headingLevels = [ 1, 2, 3, 4, 5, 6 ];
+  const currentTopHeading = headingLevels.find((level) => rootEl.querySelectorAll(`h${level}`)?.length);
 
-  [ 1, 2, 3, 4, 5, 6 ].forEach((level) => {
+  if (!currentTopHeading || topHeadingLevel >= currentTopHeading) {
+    return;
+  }
+
+  const differenceInLevels = topHeadingLevel - currentTopHeading;
+
+  headingLevels.forEach((level) => {
     const origTagName = `h${level}`;
     const tags = rootEl.querySelectorAll(origTagName);
 
     if (tags.length > 0) {
-      const newTagName = `h${currentLevel}`;
-      tags.forEach((el) => el.outerHTML = el.outerHTML.replace(RegExp(`<${origTagName}`, 'g'), `<${newTagName}`)
-                                                      .replace(RegExp(`</${origTagName}>`, 'g'), `</${newTagName}>`));
-      if (currentLevel < 6) { currentLevel += 1; }
+      const newTagName = `h${level + differenceInLevels}`;
+
+      tags.forEach((tag) => {
+        const contents = tag.innerHTML;
+        const newTagEl = document.createElement(newTagName);
+
+        Array.from(tag.attributes).forEach((attr) => {
+          newTagEl.setAttribute(attr.name, attr.value);
+        });
+
+        newTagEl.innerHTML = contents;
+  
+        tag.replaceWith(newTagEl);
+      });
     }
-  });
+  })
+
+
 }
 
 // Wrap title and content elements in header and section elements, respectively
