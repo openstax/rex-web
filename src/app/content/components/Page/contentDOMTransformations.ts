@@ -51,7 +51,7 @@ function changeHeadingLevels(document: Document, rootEl: HTMLElement, topHeading
   const headingLevels = [ 1, 2, 3, 4, 5, 6 ];
   const currentTopHeading = headingLevels.find((level) => rootEl.querySelectorAll(`h${level}`)?.length);
 
-  if (!currentTopHeading || topHeadingLevel <= currentTopHeading) {
+  if (!currentTopHeading || topHeadingLevel === currentTopHeading) {
     return;
   }
 

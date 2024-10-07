@@ -17,6 +17,7 @@ import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
+import * as selectNavigation from '../../navigation/selectors';
 import { scrollTo } from '../../domUtils';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
@@ -37,6 +38,7 @@ import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
+import Assigned from './Assigned';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
@@ -156,6 +158,45 @@ describe('Page', () => {
       </Provider>
     );
   };
+
+  describe('Content tweaks for assignable', () => {
+    let pageElement: HTMLElement;
+
+    const htmlHelper = async(html: string) => {
+      archiveLoader.mock.cachedPage.mockImplementation(() => ({
+        ...page,
+        content: html,
+      }));
+
+      const {root} = renderToDom(
+        <Provider store={store}>
+          <Services.Provider value={services}>
+            <Assigned />
+          </Services.Provider>
+        </Provider>
+      );
+      const query = root.querySelector<HTMLElement>('#main-content');
+
+      if (!query) {
+        return expect(query).toBeTruthy();
+      }
+      pageElement = query;
+
+      // page lifecycle hooks
+      await Promise.resolve();
+
+      return pageElement.innerHTML;
+    };
+
+    it('changes heading levels when specified', async() => {
+      jest.spyOn(selectNavigation, 'query').mockReturnValue({
+        section: [page.id, shortPage.id],
+      });
+  
+      expect(await htmlHelper('<h3 data-type="document-title" id="100_copy_1\><span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">A Section, Probably</span></h3>'))
+      .toEqual('<h2 data-type="document-title" id="100_copy_1\><span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">A Section, Probably</span></h2>')
+    });
+  });
 
   describe('Content tweaks for generic styles', () => {
     let pageElement: HTMLElement;
@@ -478,7 +519,7 @@ describe('Page', () => {
         '</ul>' +
       '</div>';
       expect(input).toEqual(expectedOutput);
-    });
+    });    
   });
 
   it('updates content link with new hrefs', async() => {
