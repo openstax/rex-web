@@ -38,7 +38,6 @@ import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
-import Assigned from './Assigned';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
@@ -171,7 +170,11 @@ describe('Page', () => {
       const {root} = renderToDom(
         <Provider store={store}>
           <Services.Provider value={services}>
-            <Assigned />
+            <MessageProvider>
+              <AccessibilityButtonsWrapper>
+                <ConnectedPage topHeadingLevel={2} />
+              </AccessibilityButtonsWrapper>
+            </MessageProvider>
           </Services.Provider>
         </Provider>
       );
@@ -192,9 +195,11 @@ describe('Page', () => {
       jest.spyOn(selectNavigation, 'query').mockReturnValue({
         section: [page.id, shortPage.id],
       });
+      jest.spyOn(select, 'book')
+        .mockReturnValue(formatBookData(book, mockCmsBook));
   
-      expect(await htmlHelper('<h3 data-type="document-title" id="100_copy_1\><span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">A Section, Probably</span></h3>'))
-      .toEqual('<h2 data-type="document-title" id="100_copy_1\><span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">A Section, Probably</span></h2>')
+      expect(await htmlHelper('<h3>Largest heading</h3><h4>Second largest heading</h4>'))
+      .toEqual('<h2>Largest heading</h2><h3>Second largest heading</h3>')
     });
   });
 
