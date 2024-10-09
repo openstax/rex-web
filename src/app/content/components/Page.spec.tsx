@@ -197,9 +197,9 @@ describe('Page', () => {
       });
       jest.spyOn(select, 'book')
         .mockReturnValue(formatBookData(book, mockCmsBook));
-  
+
       expect(await htmlHelper('<h3>Largest heading</h3><h4>Second largest heading</h4>'))
-      .toEqual('<h2>Largest heading</h2><h3>Second largest heading</h3>')
+      .toEqual('<h2>Largest heading</h2><h3>Second largest heading</h3>');
     });
   });
 
@@ -571,7 +571,7 @@ describe('Page', () => {
         '</ul>' +
       '</div>';
       expect(input).toEqual(expectedOutput);
-    });    
+    });
   });
 
   it('updates content link with new hrefs', async() => {
