@@ -21,15 +21,19 @@ export function linksToOtherPagesOpenInNewTab(rootEl: HTMLElement, currentPath: 
 // .../src/scripts/modules/media/body/body.coffee#L123
 // We are passing Document because it is required to prerender.
 export const transformContent = (
-  document: Document, rootEl: HTMLElement, intl: IntlShape, services: AppServices & MiddlewareAPI
+  document: Document,
+  rootEl: HTMLElement,
+  props: { intl: IntlShape, topHeadingLevel?: number },
+  services: AppServices & MiddlewareAPI
 ) => {
   removeDocumentTitle(rootEl);
+  if (props.topHeadingLevel) { changeHeadingLevels(document, rootEl, props.topHeadingLevel); }
   wrapElements(document, rootEl);
   tweakFigures(rootEl);
   fixLists(rootEl);
-  wrapSolutions(document, rootEl, intl);
+  wrapSolutions(document, rootEl, props.intl);
   expandSolutionForFragment(document);
-  moveFootnotes(document, rootEl, intl);
+  moveFootnotes(document, rootEl, props.intl);
   optimizeImages(rootEl, services);
 };
 
@@ -40,6 +44,40 @@ function removeDocumentTitle(rootEl: HTMLElement) {
     'h3[data-type="document-subtitle"]',
     'div[data-type="document-title"]',
   ].join(',')).forEach((el) => el.remove());
+}
+
+// set the top heading's level to topHeadingLevel and adjust other headings accordingly
+function changeHeadingLevels(document: Document, rootEl: HTMLElement, topHeadingLevel: number) {
+  const headingLevels = [ 1, 2, 3, 4, 5, 6 ];
+  const currentTopHeading = headingLevels.find((level) => rootEl.querySelectorAll(`h${level}`)?.length);
+
+  if (!currentTopHeading || topHeadingLevel === currentTopHeading) {
+    return;
+  }
+
+  const differenceInLevels = topHeadingLevel - currentTopHeading;
+
+  headingLevels.forEach((level) => {
+    const origTagName = `h${level}`;
+    const tags = rootEl.querySelectorAll(origTagName);
+
+    if (tags.length > 0) {
+      const newTagName = `h${level + differenceInLevels}`;
+
+      tags.forEach((tag) => {
+        const contents = tag.innerHTML;
+        const newTagEl = document.createElement(newTagName);
+
+        Array.from(tag.attributes).forEach((attr) => {
+          newTagEl.setAttribute(attr.name, attr.value);
+        });
+
+        newTagEl.innerHTML = contents;
+
+        tag.replaceWith(newTagEl);
+      });
+    }
+  });
 }
 
 // Wrap title and content elements in header and section elements, respectively
