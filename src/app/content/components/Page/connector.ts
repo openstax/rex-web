@@ -34,6 +34,7 @@ export interface PagePropTypes {
   textSize: TextResizerValue;
   lockNavigation: boolean;
   ToastOverride: StyledComponent<'div', any, {}, never>;
+  topHeadingLevel?: number;
 }
 
 export default connect(

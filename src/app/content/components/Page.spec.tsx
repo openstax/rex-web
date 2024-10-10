@@ -17,6 +17,7 @@ import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
+import * as selectNavigation from '../../navigation/selectors';
 import { scrollTo } from '../../domUtils';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
@@ -156,6 +157,51 @@ describe('Page', () => {
       </Provider>
     );
   };
+
+  describe('Content tweaks for assignable', () => {
+    let pageElement: HTMLElement;
+
+    const htmlHelper = async(html: string) => {
+      archiveLoader.mock.cachedPage.mockImplementation(() => ({
+        ...page,
+        content: html,
+      }));
+
+      const {root} = renderToDom(
+        <Provider store={store}>
+          <Services.Provider value={services}>
+            <MessageProvider>
+              <AccessibilityButtonsWrapper>
+                <ConnectedPage topHeadingLevel={2} />
+              </AccessibilityButtonsWrapper>
+            </MessageProvider>
+          </Services.Provider>
+        </Provider>
+      );
+      const query = root.querySelector<HTMLElement>('#main-content');
+
+      if (!query) {
+        return expect(query).toBeTruthy();
+      }
+      pageElement = query;
+
+      // page lifecycle hooks
+      await Promise.resolve();
+
+      return pageElement.innerHTML;
+    };
+
+    it('changes heading levels when specified', async() => {
+      jest.spyOn(selectNavigation, 'query').mockReturnValue({
+        section: [page.id, shortPage.id],
+      });
+      jest.spyOn(select, 'book')
+        .mockReturnValue(formatBookData(book, mockCmsBook));
+
+      expect(await htmlHelper('<h3>Largest heading</h3><h4>Second largest heading</h4>'))
+      .toEqual('<h2>Largest heading</h2><h3>Second largest heading</h3>');
+    });
+  });
 
   describe('Content tweaks for generic styles', () => {
     let pageElement: HTMLElement;
