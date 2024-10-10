@@ -109,7 +109,7 @@ export default () => {
     <ErrorModal />
     <ErrorBoundary>
       <AssignedTopBar section={section} />
-      <Page lockNavigation={true} ToastOverride={ToastOverride}>
+      <Page topHeadingLevel={2} lockNavigation={true} ToastOverride={ToastOverride}>
         {prevNext
           ? <PrevNextBar
             book={book}
