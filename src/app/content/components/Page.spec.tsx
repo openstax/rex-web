@@ -17,6 +17,7 @@ import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
+import * as selectNavigation from '../../navigation/selectors';
 import { scrollTo } from '../../domUtils';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
@@ -156,6 +157,51 @@ describe('Page', () => {
       </Provider>
     );
   };
+
+  describe('Content tweaks for assignable', () => {
+    let pageElement: HTMLElement;
+
+    const htmlHelper = async(html: string) => {
+      archiveLoader.mock.cachedPage.mockImplementation(() => ({
+        ...page,
+        content: html,
+      }));
+
+      const {root} = renderToDom(
+        <Provider store={store}>
+          <Services.Provider value={services}>
+            <MessageProvider>
+              <AccessibilityButtonsWrapper>
+                <ConnectedPage topHeadingLevel={2} />
+              </AccessibilityButtonsWrapper>
+            </MessageProvider>
+          </Services.Provider>
+        </Provider>
+      );
+      const query = root.querySelector<HTMLElement>('#main-content');
+
+      if (!query) {
+        return expect(query).toBeTruthy();
+      }
+      pageElement = query;
+
+      // page lifecycle hooks
+      await Promise.resolve();
+
+      return pageElement.innerHTML;
+    };
+
+    it('changes heading levels when specified', async() => {
+      jest.spyOn(selectNavigation, 'query').mockReturnValue({
+        section: [page.id, shortPage.id],
+      });
+      jest.spyOn(select, 'book')
+        .mockReturnValue(formatBookData(book, mockCmsBook));
+
+      expect(await htmlHelper('<h3>Largest heading</h3><h4>Second largest heading</h4>'))
+      .toEqual('<h2>Largest heading</h2><h3>Second largest heading</h3>');
+    });
+  });
 
   describe('Content tweaks for generic styles', () => {
     let pageElement: HTMLElement;
@@ -352,6 +398,53 @@ describe('Page', () => {
       </details>
           </section></div>
         `);
+      });
+
+      it('are not transformed if already formatted correctly', async() => {
+        expect(
+          await htmlHelper(`
+          <div data-type="exercise" id="exercise1" data-element-type="check-understanding">
+            <h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
+            <div data-type="problem" id="problem1"><div class="os-problem-container">
+              <p id="paragraph1">blah blah blah</p>
+            </div></div>
+            <div data-type="solution" id="exercise1" data-element-type="check-understanding"><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
+              <div data-type="problem" id="problem1"><div class="os-problem-container">
+                <p id="paragraph1">blah blah blah</p>
+              </div></div>
+              <details data-type="solution" id="fs-id2913818" data-print-placement="here" aria-label="Show/Hide Solution">
+                <summary title="Show/Hide Solution" data-content="Show/Hide Solution">[Show/Hide Solution]</summary>
+                <section class="ui-body" role="alert">
+                  <h2 data-type="solution-title">
+                    <span class="os-title-label">Solution</span>
+                  </h2>
+                  <div class="os-solution-container">
+                    <p id="paragraph2">answer answer answer.</p>
+                  </div>
+                </section>
+              </details>
+            </div>
+          </div>`)
+        ).toEqual(`<div data-type="exercise" id="exercise1" data-element-type="check-understanding" class="ui-has-child-title"><header><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3></header><section><div data-type="problem" id="problem1"><div class="os-problem-container">
+                <p id="paragraph1">blah blah blah</p>
+              </div></div>
+              <details ` +
+              `data-type="solution" ` +
+              `id="fs-id2913818" ` +
+              `data-print-placement="here" ` +
+              `aria-label="Show/Hide Solution"` +
+              `>
+                <summary title="Show/Hide Solution" data-content="Show/Hide Solution">[Show/Hide Solution]</summary>
+                <section class="ui-body" role="alert">
+                  <h2 data-type="solution-title">
+                    <span class="os-title-label">Solution</span>
+                  </h2>
+                  <div class="os-solution-container">
+                    <p id="paragraph2">answer answer answer.</p>
+                  </div>
+                </section>
+              </details>
+                  </section></div>`);
       });
 
       it('doesn\'t use display none to hide solutions', async() => {
