@@ -116,7 +116,7 @@ exports[`DisplayNote matches snapshot 1`] = `
 }
 
 <div
-  aria-label="Highlighted note"
+  aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
   role="dialog"
@@ -184,6 +184,7 @@ exports[`DisplayNote matches snapshot 1`] = `
     Note:
   </label>
   <div
+    id="display-note-undefined"
     isActive={false}
     mock-truncated-text={true}
     onChange={[Function]}
@@ -322,7 +323,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
 }
 
 <div
-  aria-label="Highlighted note"
+  aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
   role="dialog"
@@ -390,6 +391,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
     Note:
   </label>
   <div
+    id="display-note-undefined"
     isActive={true}
     mock-truncated-text={true}
     onChange={[Function]}
@@ -419,6 +421,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 }
 
 .c12 {
+  list-style: none;
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
@@ -456,8 +459,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   line-height: 2rem;
 }
 
-.c12 li button:hover,
-.c12 li a:hover,
 .c12 li button:focus,
 .c12 li a:focus {
   background: #d5d5d5;
@@ -579,7 +580,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
 }
 
 <div
-  aria-label="Highlighted note"
+  aria-labelledby="display-note-undefined"
   className="c0"
   data-highlight-card={true}
   role="dialog"
@@ -612,28 +613,30 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
         </svg>
       </div>
     </button>
-    <ol
+    <menu
       className="c11 c12"
     >
       <li>
-        <a
-          href=""
+        <button
           onClick={[Function]}
+          onMouseEnter={[Function]}
           tabIndex={0}
+          type="button"
         >
           Edit
-        </a>
+        </button>
       </li>
       <li>
-        <a
-          href=""
+        <button
           onClick={[Function]}
+          onMouseEnter={[Function]}
           tabIndex={0}
+          type="button"
         >
           Delete
-        </a>
+        </button>
       </li>
-    </ol>
+    </menu>
   </div>
   <svg
     aria-hidden="true"
@@ -669,6 +672,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
     Note:
   </label>
   <div
+    id="display-note-undefined"
     isActive={true}
     mock-truncated-text={true}
     onChange={[Function]}
