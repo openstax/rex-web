@@ -37,6 +37,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
+  private doFocus = false;
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
@@ -89,8 +90,13 @@ export default class PageComponent extends Component<PagePropTypes> {
     // per rerender. componentDidUpdate is called multiple times when user navigates quickly.
     const runId = this.getRunId();
 
-    // If page has changed, call postProcess that will remove old and attach new listerns and start mathjax typesetting.
+    // If page has changed, call postProcess that will remove old and attach new listeners
+    // and start mathjax typesetting.
     if (prevProps.page !== this.props.page) {
+      const activeEl = document?.activeElement as HTMLElement;
+
+      this.doFocus = true;
+      activeEl.blur();
       this.postProcess();
     }
 
@@ -171,6 +177,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         ref={this.container}
         dangerouslySetInnerHTML={{ __html: html}}
         textSize={this.props.textSize}
+        doFocus={this.doFocus}
       />
       {this.props.children}
     </React.Fragment>;
