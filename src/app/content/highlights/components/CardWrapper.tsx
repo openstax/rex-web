@@ -50,9 +50,9 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     if (element.current.contains(activeElement)) {
       focusedHighlight.focus();
     } else {
-      setShouldFocusCard(true);
+      setShouldFocusCard(focusedId !== undefined);
     }
-  }, [element, focusedHighlight]);
+  }, [focusedHighlight, focusedId]);
 
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
 
