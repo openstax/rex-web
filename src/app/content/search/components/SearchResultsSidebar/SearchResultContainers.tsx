@@ -69,8 +69,6 @@ const SearchResult = (props: {
   const selectResultAndFocus = React.useCallback(
     (result: SelectedResult) => {
       props.selectResult(result);
-      // Timeout may not be necessary after #2221 is merged
-      setTimeout(() => document?.querySelector('main')?.focus(), 20);
     },
     [props]
   );
