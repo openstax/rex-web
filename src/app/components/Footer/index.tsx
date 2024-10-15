@@ -2,6 +2,9 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import RiceWhiteLogo from '../../../assets/rice-white-text.png';
 import htmlMessage from '../../components/htmlMessage';
+import { connect } from 'react-redux';
+import { AppState } from '../../types';
+import * as select from '../../content/selectors';
 import { isVerticalNavOpenConnector } from '../../content/components/utils/sidebar';
 import { State } from '../../content/types';
 import * as Styled from './styled';
@@ -209,4 +212,19 @@ const Footer = ({
   </Styled.FooterWrapper>
 );
 
-export default isVerticalNavOpenConnector(Footer);
+// tslint:disable-next-line:variable-name
+const VcFooter = isVerticalNavOpenConnector(Footer);
+
+// Weirdness: When navigating to a new page, JAWS starts to read the footer.
+// This hides the footer while pageId is changing
+function PidFooter({page}: {page?: {id: string}}) {
+  const pageId = page ? page.id : null;
+
+  return pageId ? <VcFooter /> : null;
+}
+
+export default connect(
+  (state: AppState) => ({
+    page: select.page(state),
+  })
+  )(PidFooter);
