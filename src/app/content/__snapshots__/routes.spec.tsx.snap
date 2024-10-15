@@ -682,6 +682,20 @@ Array [
   .c4 .search-highlight[aria-current] .search-highlight {
     background-color: unset;
   }
+
+  .c4 .search-highlight [data-for-screenreaders="true"]::before {
+    content: attr(data-message);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    -webkit-clip: rect(0,0,0,0);
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
 }
 
 @media screen and (max-width:90em) {
