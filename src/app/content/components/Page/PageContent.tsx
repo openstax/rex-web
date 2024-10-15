@@ -2,7 +2,7 @@ import Color from 'color';
 import styled, { css } from 'styled-components/macro';
 import MainContent from '../../../components/MainContent';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
-import theme from '../../../theme';
+import theme, { hiddenButAccessible } from '../../../theme';
 import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
@@ -147,6 +147,11 @@ export default styled(MainContent)`
         .search-highlight {
           background-color: unset;
         }
+      }
+
+      [data-for-screenreaders="true"]::before {
+        content: attr(data-message);
+        ${hiddenButAccessible}
       }
     }
   }
