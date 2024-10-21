@@ -83,7 +83,7 @@ export const Dropdown: FunctionComponent<{user: User, currentPath: string}> = ({
 const DropdownToggle: FunctionComponent<{ user: User }> = ({
   user: { firstName, lastName },
 }) => {
-  const initials = (firstName[0] + lastName[0]).toUpperCase();
+  const initials = ((firstName || 'A')[0] + (lastName || 'U')[0]).toUpperCase();
   return (
     <Styled.DropdownToggle
       tabIndex='0'
