@@ -18,8 +18,13 @@ export const loadStoredTextSize = (services: MiddlewareAPI & AppServices) => asy
     return;
   }
 
-  if (typeof launchToken?.tokenData.textSize === 'number') {
-    storedTextSize = launchToken.tokenData.textSize;
+  const tokenData = launchToken?.tokenData ?? {};
+
+  // transitioning to snake case parameters in launch jwt for consistency
+  const tokenTextSize = 'text_size' in tokenData ? tokenData.text_size : tokenData.textSize
+
+  if (typeof tokenTextSize === 'number') {
+    storedTextSize = tokenTextSize;
   }
 
   if (storedTextSize === undefined && typeof window !== 'undefined') {
