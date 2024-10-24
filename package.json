@@ -152,7 +152,7 @@
     "date-fns-tz": "^2.0.0",
     "express": "~4.20",
     "glob": "<9",
-    "http-proxy-middleware": "<1",
+    "http-proxy-middleware": "<3",
     "ignore-styles": "~5.0",
     "jest-image-snapshot": "^6",
     "jest-puppeteer": "^5",

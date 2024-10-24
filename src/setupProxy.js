@@ -4,7 +4,7 @@
 const url = require('url');
 const fs = require('fs');
 const path = require('path');
-const proxy = require('http-proxy-middleware');
+const {createProxyMiddleware} = require('http-proxy-middleware');
 const {
   SKIP_OS_WEB_PROXY,
   FIXTURES,
@@ -130,7 +130,7 @@ function setupTestProxy(app) {
 }
 
 function archiveProxy(app) {
-  archivePaths.forEach(path => app.use(proxy(path, {
+  archivePaths.forEach(path => app.use(createProxyMiddleware(path, {
     target: `${ARCHIVE_URL}${path}`,
     prependPath: false,
     changeOrigin: true,
@@ -138,7 +138,7 @@ function archiveProxy(app) {
 }
 
 function accountsProxy(app) {
-  app.use(proxy(REACT_APP_ACCOUNTS_URL, {
+  app.use(createProxyMiddleware(REACT_APP_ACCOUNTS_URL, {
     target: ACCOUNTS_URL,
     changeOrigin: true,
     autoRewrite: true,
@@ -153,7 +153,7 @@ function accountsProxy(app) {
 }
 
 function imageCdnProxy(app) {
-  app.use(proxy(REACT_APP_IMAGE_CDN_URL, {
+  app.use(createProxyMiddleware(REACT_APP_IMAGE_CDN_URL, {
     target: IMAGE_CDN_URL,
     changeOrigin: true,
     autoRewrite: true,
@@ -161,7 +161,7 @@ function imageCdnProxy(app) {
 }
 
 function searchProxy(app) {
-  app.use(proxy(REACT_APP_SEARCH_URL, {
+  app.use(createProxyMiddleware(REACT_APP_SEARCH_URL, {
     target: SEARCH_URL,
     changeOrigin: true,
     autoRewrite: true,
@@ -169,7 +169,7 @@ function searchProxy(app) {
 }
 
 function highlightsProxy(app) {
-  app.use(proxy(REACT_APP_HIGHLIGHTS_URL, {
+  app.use(createProxyMiddleware(REACT_APP_HIGHLIGHTS_URL, {
     target: HIGHLIGHTS_URL,
     changeOrigin: true,
     autoRewrite: true,
@@ -177,14 +177,14 @@ function highlightsProxy(app) {
 }
 
 function osWebApiProxy(app) {
-  app.use(proxy(REACT_APP_OS_WEB_API_URL, {
+  app.use(createProxyMiddleware(REACT_APP_OS_WEB_API_URL, {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));
 }
 
 function osWebProxy(app) {
-  app.use(proxy((path) => !path.match(/^\/((books\/.*)|(apps\/rex\/.*)|static.*|errors.*|rex.*|asset-manifest.json|precache-manifest.*|index.html|\/)?$/) , {
+  app.use(createProxyMiddleware((path) => !path.match(/^\/((books\/.*)|(apps\/rex\/.*)|static.*|errors.*|rex.*|asset-manifest.json|precache-manifest.*|index.html|\/)?$/) , {
     target: OS_WEB_URL,
     changeOrigin: true,
   }));
