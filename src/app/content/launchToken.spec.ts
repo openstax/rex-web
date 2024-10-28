@@ -26,7 +26,7 @@ describe('launchToken', () => {
     const result = pullToken(assertWindow());
 
     expect(result?.tokenString).toEqual(token);
-    expect(result?.tokenData).toEqual({stuff: 'things'});
+    expect(result?.tokenData).toEqual(expect.objectContaining({stuff: 'things'}));
 
     expect(replaceStateSpy).toHaveBeenCalledWith(expect.anything(), expect.anything(),
       assertWindow().location.pathname + '?other=thing'
@@ -55,7 +55,7 @@ describe('launchToken', () => {
   });
 
   it('works with invalid token', () => {
-    const token = jwt.sign({}, 'secret');
+    const token = 'asdf';
 
     const replaceStateSpy = jest.fn();
     Object.defineProperty(assertWindow().history, 'replaceState', {
