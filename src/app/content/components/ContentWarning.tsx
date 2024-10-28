@@ -1,6 +1,4 @@
 import React from 'react';
-import { useServices } from '../../context/Services';
-import { OSWebBook } from '../../../gateways/createOSWebLoader';
 import { Book } from '../types';
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import styled from 'styled-components/macro';
@@ -10,6 +8,8 @@ import theme from '../../theme';
 import Cookies from 'js-cookie';
 import { useTrapTabNavigation } from '../../reactUtils';
 import { assertDocument } from '../../utils';
+import { hasOSWebData } from '../guards';
+import { tuple } from '../../utils';
 
 // tslint:disable-next-line
 const WarningDiv = styled.div`
@@ -68,21 +68,26 @@ function WarningDivWithTrap({
   );
 }
 
-export default function ContentWarning({ book }: { book: Book }) {
-  const services = useServices();
-  const [bookInfo, setBookInfo] = React.useState<OSWebBook | undefined>();
-  const cookieKey = `content-warning-${bookInfo?.id}`;
-  const dismiss = React.useCallback(() => {
-    // This is only called when bookInfo is populated
-    Cookies.set(cookieKey, 'true', { expires: 28 });
-    setBookInfo(undefined);
-  }, [cookieKey]);
+const useDismiss = (book: Book) => {
+  const cookieKey = `content-warning-${book.id}`;
+  const [dismissed, setDismissed] = React.useState<string>(Cookies.get(cookieKey) || 'false');
 
   React.useEffect(() => {
-    services.osWebLoader.getBookFromId(book.id).then(setBookInfo);
-  }, [book, services]);
+    setDismissed(Cookies.get(cookieKey) || 'false');
+  }, [book]);
 
-  if (!bookInfo?.content_warning_text || Cookies.get(cookieKey)) {
+  const dismiss = React.useCallback(() => {
+    Cookies.set(cookieKey, 'true', { expires: 28 });
+    setDismissed('true');
+  }, [cookieKey]);
+
+  return tuple(dismissed === 'true', dismiss);
+};
+
+export default function ContentWarning({ book }: { book: Book }) {
+  const [dismissed, dismiss] = useDismiss(book);
+
+  if (!hasOSWebData(book) || !book.content_warning_text || dismissed) {
     return null;
   }
 
@@ -97,7 +102,7 @@ export default function ContentWarning({ book }: { book: Book }) {
       }}
     >
       <WarningDivWithTrap
-        text={bookInfo.content_warning_text}
+        text={book.content_warning_text}
         dismiss={dismiss}
       />
     </Modal>
