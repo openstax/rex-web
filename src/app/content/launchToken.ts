@@ -17,8 +17,8 @@ export const decodeToken = (launchToken: string | undefined) => {
     // transitioning launch token parameters out of json encoded sub claim
     // and into their own claims of the token. during transition try to decode
     // sub and apply it to the token data so it works either way.
-    Object.assign(token, JSON.parse(token.sub))
-  } catch (e) { }
+    Object.assign(token, JSON.parse(token.sub));
+  } catch (e) { } // tslint:disable-line
 
   return token;
 };
