@@ -56,6 +56,10 @@ describe('SearchResultsSidebar', () => {
     store.dispatch(receiveBook(formatBookData(archiveBook, mockCmsBook)));
   });
 
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   const render = () => (
     <TestContainer store={store}>
       <SearchResultsSidebar/>
@@ -109,6 +113,7 @@ describe('SearchResultsSidebar', () => {
 
   it('matches snapshot for no search results', () => {
     jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
+
     store.dispatch(requestSearch('cool search'));
     store.dispatch(receiveSearchResults(makeSearchResults([])));
 
@@ -121,6 +126,7 @@ describe('SearchResultsSidebar', () => {
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('cool search'));
     const selectedResult = makeSearchResultHit({ book: archiveBook, page });
+
     store.dispatch(
       receiveSearchResults(
         makeSearchResults([
@@ -199,7 +205,9 @@ describe('SearchResultsSidebar', () => {
       findById('related-key-term-result').props.onClick(makeEvent());
     });
 
-    jest.runAllTimers();
+    renderer.act(() => {
+      jest.runAllTimers();
+    });
 
     expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
   });
@@ -210,9 +218,11 @@ describe('SearchResultsSidebar', () => {
 
     expect(assertDocument().activeElement).toBe(activeElement);
 
-    store.dispatch(receivePage({ ...page, references: [] }));
-    store.dispatch(requestSearch('cool search'));
-    store.dispatch(receiveSearchResults(makeSearchResults([])));
+    ReactTestUtils.act(() => {
+      store.dispatch(receivePage({ ...page, references: [] }));
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([])));
+    });
 
     expect(assertDocument().activeElement).toBe(activeElement);
   });
@@ -233,8 +243,8 @@ describe('SearchResultsSidebar', () => {
 
     renderer.act(() => {
       findById('search-result').props.onClick(makeEvent());
+      jest.runAllTimers();
     });
-    jest.runAllTimers();
 
     expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
   });
@@ -265,13 +275,11 @@ describe('SearchResultsSidebar', () => {
   it('sidebar tries to forward focus to current search result', () => {
     jest.spyOn(selectNavigation, 'persistentQueryParameters').mockReturnValue({query: 'cool search'});
     renderToDom(render());
-    ReactTestUtils.act(
-      () => {
-        store.dispatch(receivePage({ ...pageInChapter, references: [] }));
-        store.dispatch(requestSearch('cool search'));
-        store.dispatch(receiveSearchResults(makeSearchResults([])));
-      }
-    );
+    ReactTestUtils.act(() => {
+      store.dispatch(receivePage({ ...pageInChapter, references: [] }));
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([])));
+    });
 
     const document = assertDocument();
     const bar = document.querySelector<HTMLDivElement>('[class*="SearchResultsBar"]');
@@ -295,7 +303,10 @@ describe('SearchResultsSidebar', () => {
     store.dispatch(selectSearchResult({result: searchResult, highlight: 0}));
 
     renderer.create(render());
-    runHooks(renderer);
+
+    renderer.act(() => {
+      runHooks(renderer);
+    });
 
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
   });
@@ -306,18 +317,22 @@ describe('SearchResultsSidebar', () => {
     const firstResult = makeSearchResultHit({ book: archiveBook, page });
     const secondResult = makeSearchResultHit({ book: archiveBook, page: pageInChapter });
 
-    store.dispatch(requestSearch('cool search'));
-    store.dispatch(receiveSearchResults(makeSearchResults([firstResult, secondResult])));
-    store.dispatch(selectSearchResult({result: firstResult, highlight: 0}));
-    store.dispatch(selectSearchResult({result: secondResult, highlight: 0}));
+    ReactTestUtils.act(() => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([firstResult, secondResult])));
+      store.dispatch(selectSearchResult({result: firstResult, highlight: 0}));
+      store.dispatch(selectSearchResult({result: secondResult, highlight: 0}));
+    });
 
     const sidebar = ReactTestUtils.findRenderedComponentWithType(tree, SearchResultsBarWrapper);
 
-    jest.useFakeTimers();
-    if (sidebar.searchSidebar.current) {
-      sidebar.searchSidebar.current.dispatchEvent(animationEvent());
-    }
-    jest.runAllTimers();
+    ReactTestUtils.act(() => {
+      jest.useFakeTimers();
+      if (sidebar.searchSidebar.current) {
+        sidebar.searchSidebar.current.dispatchEvent(animationEvent());
+      }
+      jest.runAllTimers();
+    });
 
     expect(fixForSafariMock).toHaveBeenCalled();
   });
