@@ -344,9 +344,9 @@ describe('SearchResultsSidebar', () => {
     store.dispatch(receiveSearchResults(makeSearchResults([searchResult]), { searchScrollTarget }));
 
     renderer.create(render());
-    
+
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
-    
+
     renderer.act(() => {
       store.dispatch(selectSearchResult({result: searchResult, highlight: 0}));
     });

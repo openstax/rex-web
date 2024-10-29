@@ -406,7 +406,7 @@ describe('Page', () => {
             </details>
           </div>`)
         ).toEqual(`<div data-type="exercise" id="exercise1" data-element-type="check-understanding" class="ui-has-child-title"><header><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3></header><section>
-            
+` + '            ' + `
             <div data-type="problem" id="problem1"><div class="os-problem-container">
               <p id="paragraph1">blah blah blah</p>
             </div></div>
@@ -757,7 +757,7 @@ describe('Page', () => {
     const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
 
     // rewrite this link href so that jsdom doesn't complain about the navigation
-    firstLink.href = '#a-hash-link'
+    firstLink.href = '#a-hash-link';
 
     if (!document || !firstLink) {
       expect(document).toBeTruthy();
@@ -1221,7 +1221,7 @@ describe('Page', () => {
     const spy = jest.spyOn(window, 'scrollTo');
     spy.mockImplementation(() => null);
 
-    renderDomWithReferences()
+    renderDomWithReferences();
 
     store.dispatch(actions.receivePage({
       abstract: '',

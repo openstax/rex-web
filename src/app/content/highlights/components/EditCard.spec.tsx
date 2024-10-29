@@ -20,9 +20,9 @@ import * as onClickOutsideModule from './utils/onClickOutside';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import { renderToDom } from '../../../../test/reactutils';
 
-jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker="true" data-props={props} />);
-jest.mock('./Note', () => (props: any) => <div mock-note="true" data-props={props} ref={props.textareaRef} />);
-jest.mock('./Confirmation', () => (props: any) => <div mock-confirmation="true" data-props={props} />);
+jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker='true' data-props={props} />);
+jest.mock('./Note', () => (props: any) => <div mock-note='true' data-props={props} ref={props.textareaRef} />);
+jest.mock('./Confirmation', () => (props: any) => <div mock-confirmation='true' data-props={props} />);
 
 describe('EditCard', () => {
   const highlight = createMockHighlight('asdf');

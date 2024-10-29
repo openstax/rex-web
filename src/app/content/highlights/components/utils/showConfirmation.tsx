@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { AppServices, MiddlewareAPI } from '../../../../types';
 import { assertDocument, assertNotNull } from '../../../../utils';
 import { focusHighlight } from '../../actions';
