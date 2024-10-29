@@ -881,12 +881,12 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
           <span
             className="c18"
           >
-            ...
+            test term
           </span>
           <div
             dangerouslySetInnerHTML={
               Object {
-                "__html": "description 1",
+                "__html": "test definition with …",
               }
             }
           />
@@ -905,12 +905,12 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
           <span
             className="c18"
           >
-            ...
+            test term
           </span>
           <div
             dangerouslySetInnerHTML={
               Object {
-                "__html": "description 2",
+                "__html": "test definition",
               }
             }
           />

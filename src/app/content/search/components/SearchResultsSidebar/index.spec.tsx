@@ -83,6 +83,7 @@ describe('SearchResultsSidebar', () => {
     const findById = makeFindOrNullByTestId(component.root);
 
     expect(findById('search-results-sidebar')).toBe(null);
+    component.unmount();
   });
 
   it('is hidden after search is cleared', () => {
@@ -99,6 +100,7 @@ describe('SearchResultsSidebar', () => {
     const findById = makeFindByTestId(component.root);
 
     expect(findById('search-results-sidebar').props.searchResultsOpen).toBe(false);
+    component.unmount();
   });
 
   it('shows sidebar with loading state if there is a search', () => {
@@ -109,6 +111,7 @@ describe('SearchResultsSidebar', () => {
 
     expect(() => findById('loader')).not.toThrow();
     expect(component.toJSON()).toMatchSnapshot();
+    component.unmount();
   });
 
   it('matches snapshot for no search results', () => {
@@ -117,8 +120,11 @@ describe('SearchResultsSidebar', () => {
     store.dispatch(requestSearch('cool search'));
     store.dispatch(receiveSearchResults(makeSearchResults([])));
 
-    const tree = renderer.create(render()).toJSON();
+    const component = renderer.create(render());
+    const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+
+    component.unmount();
   });
 
   it('matches snapshot with results', () => {
@@ -138,8 +144,11 @@ describe('SearchResultsSidebar', () => {
     );
     store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
 
-    const tree = renderer.create(render()).toJSON();
+    const component = renderer.create(render());
+    const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+
+    component.unmount();
   });
 
   it('matches snapshot with related key terms', async() => {
@@ -161,52 +170,66 @@ describe('SearchResultsSidebar', () => {
       sourceId: 'test-pair-page6',
       title: 'term2',
     });
-    store.dispatch(
-      receiveSearchResults(
-        makeSearchResults([
-          selectedResult,
-          otherResult,
-          makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
-        ])
-      )
-    );
-    store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
 
     const component = renderer.create(render());
+
+    await renderer.act(async() => {
+      store.dispatch(
+        receiveSearchResults(
+          makeSearchResults([
+            selectedResult,
+            otherResult,
+            makeSearchResultHit({ book: archiveBook, page: pageInOtherChapter }),
+          ])
+        )
+      );
+      await Promise.resolve();
+    });
+
+    await renderer.act(async() => {
+      store.dispatch(selectSearchResult({result: selectedResult, highlight: 0}));
+      await Promise.resolve();
+    });
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+    component.unmount();
   });
 
-  it('closes mobile search results when related key term is clicked', () => {
-    jest.useFakeTimers();
+  it('closes mobile search results when related key term is clicked', async() => {
     store.dispatch(receivePage({ ...pageInChapter, references: [] }));
     store.dispatch(requestSearch('term'));
-    store.dispatch(
-      receiveSearchResults(
-        makeSearchResults([
-          makeSearchResultHit({
-            book: archiveBook,
-            elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
-            highlights: ['descritpion'],
-            page: pageInChapter,
-            title: 'term',
-          }),
-        ])
-      )
-    );
 
     const component = renderer.create(render());
-    const findById = makeFindByTestId(component.root);
 
-    expect(dispatch).not.toHaveBeenCalledWith(closeSearchResultsMobile());
+    await renderer.act(async() => {
+      store.dispatch(
+        receiveSearchResults(
+          makeSearchResults([
+            makeSearchResultHit({
+              book: archiveBook,
+              elementType: SearchResultHitSourceElementTypeEnum.KeyTerm,
+              highlights: ['descritpion'],
+              sourceId: 'test-pair-page6',
+              page: pageInChapter,
+              title: 'term',
+            }),
+          ])
+        )
+      );
 
-    renderer.act(() => {
-      findById('related-key-term-result').props.onClick(makeEvent());
+      await Promise.resolve();
     });
 
+    const findById = makeFindByTestId(component.root);
+
     renderer.act(() => {
-      jest.runAllTimers();
+      expect(dispatch).not.toHaveBeenCalledWith(closeSearchResultsMobile());
+    });
+
+    await renderer.act(async() => {
+      findById('related-key-term-result').props.onClick(makeEvent());
+      await Promise.resolve();
     });
 
     expect(dispatch).toHaveBeenCalledWith(closeSearchResultsMobile());
