@@ -15,7 +15,6 @@ import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
-import type { ArchiveTree } from '../../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 

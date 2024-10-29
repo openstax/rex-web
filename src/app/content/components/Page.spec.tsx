@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { SearchResult } from '@openstax/open-search-client';
-import { Document, HTMLDetailsElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLDetailsElement, HTMLElement, HTMLAnchorElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -17,7 +17,6 @@ import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
-import * as selectNavigation from '../../navigation/selectors';
 import { scrollTo } from '../../domUtils';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
@@ -97,7 +96,7 @@ describe('Page', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let services: AppServices & MiddlewareAPI;
-  let rootComponent;
+  let rootComponent: HTMLElement | undefined;
 
   beforeEach(() => {
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
@@ -757,7 +756,7 @@ describe('Page', () => {
     const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
 
     // rewrite this link href so that jsdom doesn't complain about the navigation
-    firstLink.href = '#a-hash-link';
+    (firstLink as HTMLAnchorElement).href = '#a-hash-link';
 
     if (!document || !firstLink) {
       expect(document).toBeTruthy();
