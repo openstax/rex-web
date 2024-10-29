@@ -13,7 +13,7 @@ import {
   makeFindOrNullByTestId,
   makeInputEvent,
   dispatchKeyDownEvent,
-  renderToDom,
+  renderToDom
 } from '../../../../test/reactutils';
 import { act } from 'react-dom/test-utils';
 import { makeSearchResults } from '../../../../test/searchResults';
@@ -34,7 +34,13 @@ import {
 } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import { formatBookData } from '../../utils';
-import { CloseButtonNew, MenuButton, MobileSearchWrapper, SearchButton, TextResizerMenu } from './styled';
+import {
+  CloseButtonNew,
+  MenuButton,
+  MobileSearchWrapper,
+  SearchButton,
+  TextResizerMenu
+} from './styled';
 import { useMatchMobileQuery } from '../../../reactUtils';
 
 const book = formatBookData(archiveBook, mockCmsBook);
@@ -59,17 +65,25 @@ describe('search', () => {
     };
   });
 
-  const render = (options?: TestRendererOptions) => renderer.create(<Provider store={store}>
-    <Services.Provider value={services}>
-      <MessageProvider>
-        <Topbar />
-      </MessageProvider>
-    </Services.Provider>
-  </Provider>, options);
+  const render = (options?: TestRendererOptions) =>
+    renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <Topbar />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>,
+      options
+    );
 
-const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
-  dispatchKeyDownEvent({code: searchKeyCombination.code, altKey: searchKeyCombination.altKey, target});
-};
+  const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
+    dispatchKeyDownEvent({
+      code: searchKeyCombination.code,
+      altKey: searchKeyCombination.altKey,
+      target,
+    });
+  };
 
   it('opens and closes mobile interface', () => {
     const component = render();
@@ -87,11 +101,10 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
     });
     expect(mobileSearch.props.mobileToolbarOpen).toBe(false);
     expect(event.preventDefault).toHaveBeenCalledTimes(2);
-
   });
 
   it('goes to main when no search results', () => {
-    const {node} = renderToDom(
+    const { node } = renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
@@ -108,7 +121,7 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
   });
 
   it('goes to search results when provided', () => {
-    const {node} = renderToDom(
+    const { node } = renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
@@ -126,12 +139,14 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
     act(() => dispatchSearchShortcut(tb!));
     expect(document?.activeElement?.tagName).toBe('INPUT');
     act(() => dispatchSearchShortcut(tb!));
-    expect(document?.activeElement?.classList.contains('SearchResultsBar')).toBe(true);
+    expect(
+      document?.activeElement?.classList.contains('SearchResultsBar')
+    ).toBe(true);
   });
 
   it('aborts on mobile', () => {
     (useMatchMobileQuery as jest.Mock).mockReturnValue(true);
-    const {node} = renderToDom(
+    const { node } = renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
@@ -189,14 +204,20 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
     });
 
     const htmlelement = document.createElement('div');
-    Object.defineProperty(document, 'activeElement', {value: htmlelement, writable: true});
+    Object.defineProperty(document, 'activeElement', {
+      value: htmlelement,
+      writable: true,
+    });
     const blur1 = jest.spyOn(htmlelement, 'blur');
     renderer.act(() => findById('desktop-search').props.onSubmit(makeEvent()));
     expect(blur1).toHaveBeenCalled();
 
     // test non HTMLElement branch
-    const svgelement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    Object.defineProperty(document, 'activeElement', {value: svgelement});
+    const svgelement = document.createElementNS(
+      'http://www.w3.org/2000/svg',
+      'path'
+    );
+    Object.defineProperty(document, 'activeElement', { value: svgelement });
     const blur2 = jest.spyOn(svgelement, 'blur');
     renderer.act(() => findById('desktop-search').props.onSubmit(makeEvent()));
     expect(blur2).not.toHaveBeenCalled();
@@ -339,7 +360,10 @@ const dispatchSearchShortcut = (target: HTMLElement | undefined) => {
     jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValue(true);
 
     const component = render();
-    expect(component.root.findByProps({ 'data-testid': 'desktop-search' }).props.searchInSidebar).toBe(true);
+    expect(
+      component.root.findByProps({ 'data-testid': 'desktop-search' }).props
+        .searchInSidebar
+    ).toBe(true);
   });
 });
 
@@ -354,37 +378,60 @@ describe('search button', () => {
     jest.restoreAllMocks();
   });
 
-  const render = () => renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+  const render = () =>
+    renderer.create(
+      <TestContainer store={store}>
+        <Topbar />
+      </TestContainer>
+    );
 
   it('button has theme bg color applied', () => {
-    const color = searchSelectors.searchButtonColor.resultFunc('bannerColorButton', book, 'blue');
+    const color = searchSelectors.searchButtonColor.resultFunc(
+      'bannerColorButton',
+      book,
+      'blue'
+    );
     jest.spyOn(searchSelectors, 'searchButtonColor').mockReturnValue(color);
     jest.spyOn(searchSelectors, 'mobileToolbarOpen').mockReturnValue(true);
 
     const component = render();
-    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(
+      SearchButton
+    );
 
     expect(searchButton.props.colorSchema).toEqual('blue');
     expect(searchButtonMobile.props.colorSchema).toEqual('blue');
   });
 
   it('button has gray bg color applied', () => {
-    const color = searchSelectors.searchButtonColor.resultFunc('grayButton', book, 'red');
+    const color = searchSelectors.searchButtonColor.resultFunc(
+      'grayButton',
+      book,
+      'red'
+    );
     jest.spyOn(searchSelectors, 'searchButtonColor').mockReturnValue(color);
 
     const component = render();
-    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(
+      SearchButton
+    );
 
     expect(searchButton.props.colorSchema).toEqual('gray');
     expect(searchButtonMobile.props.colorSchema).toEqual('gray');
   });
 
   it('button has no bg color applied', () => {
-    const color = searchSelectors.searchButtonColor.resultFunc(null, book, 'blue');
+    const color = searchSelectors.searchButtonColor.resultFunc(
+      null,
+      book,
+      'blue'
+    );
     jest.spyOn(searchSelectors, 'searchButtonColor').mockReturnValue(color);
 
     const component = render();
-    const [searchButton, searchButtonMobile] = component.root.findAllByType(SearchButton);
+    const [searchButton, searchButtonMobile] = component.root.findAllByType(
+      SearchButton
+    );
 
     expect(searchButton.props.colorSchema).toEqual(null);
     expect(searchButtonMobile.props.colorSchema).toEqual(null);
@@ -397,8 +444,8 @@ describe('search button', () => {
     const findById = makeFindByTestId(component.root);
 
     const inputEvent = makeInputEvent('cool search');
-    renderer.act(
-      () => findById('desktop-search-input').props.onChange(inputEvent)
+    renderer.act(() =>
+      findById('desktop-search-input').props.onChange(inputEvent)
     );
 
     const event = makeEvent();
@@ -420,10 +467,16 @@ describe('mobile menu button', () => {
   });
 
   it('opens mobile menu', () => {
-    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    const component = renderer.create(
+      <TestContainer store={store}>
+        <Topbar />
+      </TestContainer>
+    );
 
     renderer.act(() => {
-      component.root.findByType(MenuButton).props.onClick({preventDefault: jest.fn()});
+      component.root
+        .findByType(MenuButton)
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(dispatch).toHaveBeenCalledWith(openMobileMenu());
@@ -442,18 +495,28 @@ describe('text resizer', () => {
 
   it('does not render if textSize is null', () => {
     store.dispatch((setTextSize as any)(null));
-    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    const component = renderer.create(
+      <TestContainer store={store}>
+        <Topbar />
+      </TestContainer>
+    );
     expect(component.root.findAllByType(TextResizerMenu)).toEqual([]);
     expect(component).toMatchSnapshot();
   });
 
   it('opens menu when clicking menu button', () => {
-    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    const component = renderer.create(
+      <TestContainer store={store}>
+        <Topbar />
+      </TestContainer>
+    );
     expect(component.root.findAllByType(TextResizerMenu)).toEqual([]);
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'text-resizer' })
-        .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
+      component.root
+        .findByProps({ 'data-testid': 'text-resizer' })
+        .findByProps({ isOpen: false })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(component.root.findByType(TextResizerMenu)).toBeDefined();
@@ -461,27 +524,39 @@ describe('text resizer', () => {
   });
 
   it('changes the text size with buttons', () => {
-    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    const component = renderer.create(
+      <TestContainer store={store}>
+        <Topbar />
+      </TestContainer>
+    );
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'text-resizer' })
-        .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
+      component.root
+        .findByProps({ 'data-testid': 'text-resizer' })
+        .findByProps({ isOpen: false })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+      component.root
+        .findByProps({ 'data-testid': 'decrease-text-size' })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(-1));
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+      component.root
+        .findByProps({ 'data-testid': 'increase-text-size' })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(0));
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn()  });
+      component.root
+        .findByProps({ 'data-testid': 'increase-text-size' })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
     expect(dispatch).toHaveBeenCalledWith(setTextSize(1));
@@ -489,7 +564,8 @@ describe('text resizer', () => {
     dispatch.mockReset();
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'change-text-size' })
+      component.root
+        .findByProps({ 'data-testid': 'change-text-size' })
         .props.onChange({ currentTarget: { value: '3' } });
     });
 
@@ -499,24 +575,38 @@ describe('text resizer', () => {
   it('keeps values within bounds', () => {
     store.dispatch(setTextSize(textResizerMaxValue));
     dispatch.mockClear();
-    const component = renderer.create(<TestContainer store={store}><Topbar /></TestContainer>);
+    const component = renderer.create(
+      <TestContainer store={store}>
+        <Topbar />
+      </TestContainer>
+    );
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'text-resizer' })
-        .findByProps({ isOpen: false }).props.onClick({ preventDefault: jest.fn() });
+      component.root
+        .findByProps({ 'data-testid': 'text-resizer' })
+        .findByProps({ isOpen: false })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'increase-text-size' }).props.onClick({ preventDefault: jest.fn() });
+      component.root
+        .findByProps({ 'data-testid': 'increase-text-size' })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).not.toHaveBeenCalledWith(setTextSize((textResizerMaxValue + 1) as any));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      setTextSize((textResizerMaxValue + 1) as any)
+    );
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
+      component.root
+        .findByProps({ 'data-testid': 'decrease-text-size' })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).toHaveBeenCalledWith(setTextSize((textResizerMaxValue - 1 as any)));
+    expect(dispatch).toHaveBeenCalledWith(
+      setTextSize((textResizerMaxValue - 1) as any)
+    );
 
     renderer.act(() => {
       store.dispatch(setTextSize(textResizerMinValue));
@@ -524,31 +614,41 @@ describe('text resizer', () => {
     });
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'decrease-text-size' }).props.onClick({ preventDefault: jest.fn() });
+      component.root
+        .findByProps({ 'data-testid': 'decrease-text-size' })
+        .props.onClick({ preventDefault: jest.fn() });
     });
 
-    expect(dispatch).not.toHaveBeenCalledWith(setTextSize((textResizerMinValue - 1 as any)));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      setTextSize((textResizerMinValue - 1) as any)
+    );
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'change-text-size' })
+      component.root
+        .findByProps({ 'data-testid': 'change-text-size' })
         .props.onChange({ currentTarget: { value: textResizerMaxValue + 1 } });
     });
 
-    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMaxValue + 1 as any));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      setTextSize((textResizerMaxValue + 1) as any)
+    );
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'change-text-size' })
+      component.root
+        .findByProps({ 'data-testid': 'change-text-size' })
         .props.onChange({ currentTarget: { value: textResizerMinValue - 1 } });
     });
 
-    expect(dispatch).not.toHaveBeenCalledWith(setTextSize(textResizerMinValue - 1 as any));
+    expect(dispatch).not.toHaveBeenCalledWith(
+      setTextSize((textResizerMinValue - 1) as any)
+    );
 
     renderer.act(() => {
-      component.root.findByProps({ 'data-testid': 'change-text-size' })
+      component.root
+        .findByProps({ 'data-testid': 'change-text-size' })
         .props.onChange({ currentTarget: { value: 'invalid' } });
     });
 
     expect(dispatch).not.toHaveBeenCalled();
   });
-
 });
