@@ -74,7 +74,7 @@ const useDismiss = (book: Book) => {
 
   React.useEffect(() => {
     setDismissed(Cookies.get(cookieKey) || 'false');
-  }, [book]);
+  }, [cookieKey]);
 
   const dismiss = React.useCallback(() => {
     Cookies.set(cookieKey, 'true', { expires: 28 });
