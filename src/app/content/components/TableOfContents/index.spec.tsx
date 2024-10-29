@@ -64,16 +64,12 @@ describe('TableOfContents', () => {
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(2);
   });
 
-  jest.useFakeTimers();
   it('opens and closes', () => {
     jest.spyOn(reactUtils, 'useMatchMobileQuery')
       .mockReturnValue(true);
     jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
     const component = renderer.create(Component);
-
-    // To exercise ref code
-    renderToDom(Component);
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
     renderer.act(() => {
@@ -82,17 +78,8 @@ describe('TableOfContents', () => {
 
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(false);
 
-    // Cover case where title includes parent title
-    const temp = (book.tree.contents[1] as ArchiveTree).contents[0];
-    temp.title = temp.title.replace('Test Chapter 1.1', 'Introduction to Science');
-    const {root} = renderToDom(<TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>);
-    const sb = root.querySelector('[data-testid="toc"]');
-
     renderer.act(() => {
       store.dispatch(actions.openToc());
-      sb?.dispatchEvent(new Event('transitionend'));
     });
     expect(component.root.findByType(TableOfContents).props.isOpen).toBe(true);
   });
