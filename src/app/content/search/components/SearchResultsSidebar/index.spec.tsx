@@ -334,6 +334,30 @@ describe('SearchResultsSidebar', () => {
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
   });
 
+  it('scrolls to search scroll target if result selected by user after render', () => {
+    const searchResult = makeSearchResultHit({ book: archiveBook, page });
+    const searchScrollTarget: SearchScrollTarget = { type: 'search', index: 0, elementId: 'elementId' };
+    const scrollSidebarSectionIntoView = jest.spyOn(domUtils, 'scrollSidebarSectionIntoView');
+    jest.spyOn(selectSearch, 'userSelectedResult').mockReturnValue(true);
+
+    store.dispatch(requestSearch('cool search'));
+    store.dispatch(receiveSearchResults(makeSearchResults([searchResult]), { searchScrollTarget }));
+
+    renderer.create(render());
+    
+    expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
+    
+    renderer.act(() => {
+      store.dispatch(selectSearchResult({result: searchResult, highlight: 0}));
+    });
+
+    renderer.act(() => {
+      runHooks(renderer);
+    });
+
+    expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(2);
+  });
+
   it('fixes overscroll in safari', () => {
     const {tree} = renderToDom(render());
     const fixForSafariMock = jest.spyOn(domUtils, 'fixSafariScrolling');
