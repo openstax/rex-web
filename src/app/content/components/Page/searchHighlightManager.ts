@@ -74,7 +74,7 @@ const selectResult = (services: Services, previous: HighlightProp | null, curren
     allImagesLoaded(services.container).then(
       () => {
         const target = selectedElements[0] as HTMLElement;
-        const focusTarget: HTMLElement | null = target.querySelector('[tabindex="0"]');
+        const focusTarget: HTMLElement | null = target.querySelector('[tabindex="0"],[tabindex="-1"]');
 
         focusTarget?.focus();
       }
