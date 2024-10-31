@@ -2,7 +2,7 @@
   "release_id": "development",
   "messages": [],
   "configs": {
-    "quasar_api": "default",
+    "quasar_api": "https://api-dante.ec.sandbox.openstax.org/api/v0",
     "feature_flags": [
       "practiceQuestionsEnabled",
       "studyGuidesEnabled"
