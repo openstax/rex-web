@@ -34,7 +34,7 @@ export const track = (
       ...getElementStruct('target', element),
       ...getElementStruct('context', contextElement || element.ownerDocument.body),
       contextRegion,
-      contextStateChange: stateChange,
+      targetStateChange: stateChange,
       sourceMetadata: {
         contentId: page.id,
         contentIndex: archiveTreeUtils.getPageIndex(book.tree, page.id),
