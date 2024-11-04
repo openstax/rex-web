@@ -126,8 +126,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
         {sectionChunk.map((location) => {
           const { section, children } = location;
           if (!children) {
-            return <li><ChapterFilterItem
-              key={section.id}
+            return <li key={section.id}><ChapterFilterItem
               selected={props.selectedLocationFilters.has(section.id)}
               disabled={props.disabled || !props.locationFiltersWithContent.has(section.id)}
               multiselect={Boolean(props.multiselect)}
@@ -137,7 +136,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
               dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(section.title).join(' ')}`}
             /></li>;
           } else {
-            return <li><StyledDetails key={section.id} open={openChapterId === section.id}>
+            return <li key={section.id}><StyledDetails open={openChapterId === section.id}>
               <StyledSummary onClick={(ev: React.MouseEvent) => {
                 ev.preventDefault();
                 setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);

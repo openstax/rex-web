@@ -4,15 +4,29 @@ import { useServices } from '../context/Services';
 export const decodeToken = (launchToken: string | undefined) => {
   if (!launchToken || typeof window === 'undefined') return undefined;
 
-  // https://stackoverflow.com/a/38552302/14809536
-  const base64Url = launchToken.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  const jsonPayload = decodeURIComponent(window.atob(base64).split('').map((c) => {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
+  let jsonPayload: string;
+
+  try {
+    // https://stackoverflow.com/a/38552302/14809536
+    const base64Url = launchToken.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    jsonPayload = decodeURIComponent(window.atob(base64).split('').map((c) => {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  } catch (e) {
+    return undefined;
+  }
 
   const token = JSON.parse(jsonPayload);
-  return 'sub' in token ? JSON.parse(token.sub) : undefined;
+
+  try {
+    // transitioning launch token parameters out of json encoded sub claim
+    // and into their own claims of the token. during transition try to decode
+    // sub and apply it to the token data so it works either way.
+    Object.assign(token, JSON.parse(token.sub));
+  } catch (e) { } // tslint:disable-line
+
+  return token;
 };
 
 export const pullToken = (window: Window) => {
