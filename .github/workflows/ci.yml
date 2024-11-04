@@ -104,6 +104,7 @@ jobs:
         path: node_modules
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
     - run: yarn install
+    - run: yarn ci:test:${{ matrix.suite }}
 
   lint:
     name: Lint
