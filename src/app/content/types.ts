@@ -84,6 +84,7 @@ export interface BookWithOSWebData extends VersionedArchiveBookWithConfig {
       download_url: string;
     }
   };
+  content_warning_text: string | null;
   publish_date: string;
   amazon_link: string;
   polish_site_link: string;
