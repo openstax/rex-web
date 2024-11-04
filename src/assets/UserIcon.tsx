@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // tslint:disable:max-line-length
 // tslint:disable-next-line:variable-name
