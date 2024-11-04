@@ -81,6 +81,13 @@ describe('loadStoredTextSize', () => {
   });
 
   it('loads the value from launchToken', async() => {
+    helpers.launchToken = {tokenString: '', tokenData: {text_size: 2}};
+    await hook();
+    expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
+    expect(storeDispatch).toHaveBeenCalledWith(setTextSize(2));
+  });
+
+  it('loads the legacy value from launchToken', async() => {
     helpers.launchToken = {tokenString: '', tokenData: {textSize: 2}};
     await hook();
     expect(assertWindow().localStorage.getItem).toHaveBeenCalled();
