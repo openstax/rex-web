@@ -66,8 +66,10 @@ describe('toolbar', () => {
 
     expect(dispatchSpy).toHaveBeenCalledWith(closeMobileMenu());
 
-    // exercise teardown of useEffect
-    store.dispatch(openToc());
+    renderer.act(() => {
+      // exercise teardown of useEffect
+      store.dispatch(openToc());
+    });
     expect(selectors.tocOpen(store.getState())).toEqual(true);
   });
 

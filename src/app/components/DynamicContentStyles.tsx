@@ -61,7 +61,7 @@ const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesP
       return;
     }
 
-    const cssfileUrl = queryParams['content-style'];
+    const cssfileUrl = queryParams?.['content-style'];
     if (cssfileUrl && typeof cssfileUrl === 'string') {
       if (cacheStyles.has(cssfileUrl)) {
         setQueryStyles(assertDefined(cacheStyles.get(cssfileUrl), `we've just checked for this`));
