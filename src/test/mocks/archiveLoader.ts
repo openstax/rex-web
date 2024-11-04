@@ -72,6 +72,7 @@ const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
   [`${book.id}@${book.version}`]: {
     [page.id]: page,
     [shortPage.id]: shortPage,
+    [pageInChapter.id]: pageInChapter,
   },
 };
 
