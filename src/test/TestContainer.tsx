@@ -12,22 +12,21 @@ interface TestContainerProps {
   children: ReactNode;
 }
 
-const testStore = createTestStore();
-const testServices = createTestServices();
-
-const reduxMiddleware = {
-  dispatch: testStore.dispatch,
-  getState: testStore.getState,
-};
-
 // tslint:disable-next-line:variable-name max-line-length
-const TestContainer = ({services = testServices, store = testStore, children}: TestContainerProps) =>
-  <Provider store={store}>
+const TestContainer = (props: TestContainerProps) => {
+  const services = props.services || createTestServices();
+  const store = props.store || createTestStore();
+  const reduxMiddleware = {
+    dispatch: store.dispatch,
+    getState: store.getState,
+  };
+  return <Provider store={store}>
     <Services.Provider value={{...services, ...reduxMiddleware}}>
       <MessageProvider>
-        {children}
+        {props.children}
       </MessageProvider>
     </Services.Provider>
   </Provider>;
+};
 
 export default TestContainer;
