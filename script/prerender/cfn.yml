@@ -136,10 +136,7 @@ Resources:
           {{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}
         InstanceInitiatedShutdownBehavior: terminate
         # Having less, larger instances is generally cheaper due to lower EBS costs
-        # However, our main thread code seems to struggle to keep all the worker threads busy
-        # on instances larger than c6i.2xlarge
-        # We would probably need to add multiple queuing threads for the larger instances
-        InstanceType: c6i.2xlarge
+        InstanceType: c6i.4xlarge
         SecurityGroupIds:
           - !ImportValue RexPrerenderWorkersSecurityGroupID
         TagSpecifications:
