@@ -245,7 +245,10 @@ describe('Card', () => {
       locationFilterId: location!.id,
       pageId: page.id,
     }));
-    jest.runAllTimers();
+
+    renderer.act(() => {
+      jest.runAllTimers();
+    });
   });
 
   it('noops when remove is called but there isn\'t anything to remove', () => {
