@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { SearchResult } from '@openstax/open-search-client';
-import { Document, HTMLDetailsElement, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLDetailsElement, HTMLElement, HTMLAnchorElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -17,7 +17,6 @@ import { renderToDom } from '../../../test/reactutils';
 import { makeSearchResultHit, makeSearchResults } from '../../../test/searchResults';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import * as Services from '../../context/Services';
-import * as selectNavigation from '../../navigation/selectors';
 import { scrollTo } from '../../domUtils';
 import { locationChange, push } from '../../navigation/actions';
 import { addToast } from '../../notifications/actions';
@@ -97,20 +96,20 @@ describe('Page', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let services: AppServices & MiddlewareAPI;
+  let rootComponent: HTMLElement | undefined;
 
   beforeEach(() => {
-    jest.resetAllMocks();
-
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
 
     store = createTestStore({
       content: {
         ...initialState,
         book: formatBookData(book, mockCmsBook),
-        page,
+        page: shortPage,
         textSize: textResizerDefaultValue,
       },
     });
+
     state = store.getState();
 
     const testServices = createTestServices({prefetchResolutions: true});
@@ -122,12 +121,37 @@ describe('Page', () => {
     };
     dispatch = jest.spyOn(store, 'dispatch');
     archiveLoader = testServices.archiveLoader;
+    rootComponent = undefined;
   });
 
-  const renderDomWithReferences = () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetAllMocks();
+    unmountDom();
+  });
+
+  const renderDomHelper = ({topHeadingLevel}: {topHeadingLevel?: number} = {}) => {
+    const result = renderToDom(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider>
+            <AccessibilityButtonsWrapper>
+              <ConnectedPage topHeadingLevel={topHeadingLevel} />
+            </AccessibilityButtonsWrapper>
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+
+    rootComponent = result.root;
+
+    return result;
+  };
+
+  const renderDomWithReferences = ({html, topHeadingLevel}: {html?: string, topHeadingLevel?: number} = {}) => {
     const pageWithRefereces = {
       ...page,
-      content: `
+      content: html || `
         some text
         <a href="/content/link">some link</a>
         some more text
@@ -145,39 +169,20 @@ describe('Page', () => {
 
     store.dispatch(receivePage({...pageWithRefereces, references }));
 
-    return renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-              <ConnectedPage />
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
+    return renderDomHelper({topHeadingLevel});
+  };
+
+  const unmountDom = () => {
+    if (rootComponent) {
+      ReactDOM.unmountComponentAtNode(rootComponent);
+    }
   };
 
   describe('Content tweaks for assignable', () => {
     let pageElement: HTMLElement;
 
     const htmlHelper = async(html: string) => {
-      archiveLoader.mock.cachedPage.mockImplementation(() => ({
-        ...page,
-        content: html,
-      }));
-
-      const {root} = renderToDom(
-        <Provider store={store}>
-          <Services.Provider value={services}>
-            <MessageProvider>
-              <AccessibilityButtonsWrapper>
-                <ConnectedPage topHeadingLevel={2} />
-              </AccessibilityButtonsWrapper>
-            </MessageProvider>
-          </Services.Provider>
-        </Provider>
-      );
+      const {root} = renderDomWithReferences({html, topHeadingLevel: 2});
       const query = root.querySelector<HTMLElement>('#main-content');
 
       if (!query) {
@@ -192,14 +197,8 @@ describe('Page', () => {
     };
 
     it('changes heading levels when specified', async() => {
-      jest.spyOn(selectNavigation, 'query').mockReturnValue({
-        section: [page.id, shortPage.id],
-      });
-      jest.spyOn(select, 'book')
-        .mockReturnValue(formatBookData(book, mockCmsBook));
-
       expect(await htmlHelper('<h3>Largest heading</h3><h4>Second largest heading</h4>'))
-      .toEqual('<h2>Largest heading</h2><h3>Second largest heading</h3>');
+        .toEqual('<h2>Largest heading</h2><h3>Second largest heading</h3>');
     });
   });
 
@@ -207,22 +206,7 @@ describe('Page', () => {
     let pageElement: HTMLElement;
 
     const htmlHelper = async(html: string) => {
-      archiveLoader.mock.cachedPage.mockImplementation(() => ({
-        ...page,
-        content: html,
-      }));
-
-      const {root} = renderToDom(
-        <Provider store={store}>
-          <Services.Provider value={services}>
-            <MessageProvider>
-              <AccessibilityButtonsWrapper>
-                <ConnectedPage />
-              </AccessibilityButtonsWrapper>
-            </MessageProvider>
-          </Services.Provider>
-        </Provider>
-      );
+      const {root} = renderDomWithReferences({html});
       const query = root.querySelector<HTMLElement>('#main-content');
 
       if (!query) {
@@ -408,43 +392,39 @@ describe('Page', () => {
             <div data-type="problem" id="problem1"><div class="os-problem-container">
               <p id="paragraph1">blah blah blah</p>
             </div></div>
-            <div data-type="solution" id="exercise1" data-element-type="check-understanding"><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3>
-              <div data-type="problem" id="problem1"><div class="os-problem-container">
-                <p id="paragraph1">blah blah blah</p>
-              </div></div>
-              <details data-type="solution" id="fs-id2913818" data-print-placement="here" aria-label="Show/Hide Solution">
-                <summary title="Show/Hide Solution" data-content="Show/Hide Solution">[Show/Hide Solution]</summary>
-                <section class="ui-body" role="alert">
-                  <h2 data-type="solution-title">
-                    <span class="os-title-label">Solution</span>
-                  </h2>
-                  <div class="os-solution-container">
-                    <p id="paragraph2">answer answer answer.</p>
-                  </div>
-                </section>
-              </details>
-            </div>
+            <details data-type="solution" id="exercise1" data-element-type="check-understanding">
+              <summary title="Show/Hide Solution" data-content="Show/Hide Solution">[Show/Hide Solution]</summary>
+              <section class="ui-body" role="alert">
+                <h2 data-type="solution-title">
+                  <span class="os-title-label">Solution</span>
+                </h2>
+                <div class="os-solution-container">
+                  <p id="paragraph2">answer answer answer.</p>
+                </div>
+              </section>
+            </details>
           </div>`)
-        ).toEqual(`<div data-type="exercise" id="exercise1" data-element-type="check-understanding" class="ui-has-child-title"><header><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3></header><section><div data-type="problem" id="problem1"><div class="os-problem-container">
-                <p id="paragraph1">blah blah blah</p>
-              </div></div>
-              <details ` +
+        ).toEqual(`<div data-type="exercise" id="exercise1" data-element-type="check-understanding" class="ui-has-child-title"><header><h3 class="os-title"><span class="os-title-label">Check Your Understanding</span></h3></header><section>
+` + '            ' + `
+            <div data-type="problem" id="problem1"><div class="os-problem-container">
+              <p id="paragraph1">blah blah blah</p>
+            </div></div>
+            <details ` +
               `data-type="solution" ` +
-              `id="fs-id2913818" ` +
-              `data-print-placement="here" ` +
-              `aria-label="Show/Hide Solution"` +
+              `id="exercise1" ` +
+              `data-element-type="check-understanding"` +
               `>
-                <summary title="Show/Hide Solution" data-content="Show/Hide Solution">[Show/Hide Solution]</summary>
-                <section class="ui-body" role="alert">
-                  <h2 data-type="solution-title">
-                    <span class="os-title-label">Solution</span>
-                  </h2>
-                  <div class="os-solution-container">
-                    <p id="paragraph2">answer answer answer.</p>
-                  </div>
-                </section>
-              </details>
-                  </section></div>`);
+              <summary title="Show/Hide Solution" data-content="Show/Hide Solution">[Show/Hide Solution]</summary>
+              <section class="ui-body" role="alert">
+                <h2 data-type="solution-title">
+                  <span class="os-title-label">Solution</span>
+                </h2>
+                <div class="os-solution-container">
+                  <p id="paragraph2">answer answer answer.</p>
+                </div>
+              </section>
+            </details>
+          </section></div>`);
       });
 
       it('doesn\'t use display none to hide solutions', async() => {
@@ -770,10 +750,13 @@ describe('Page', () => {
     expect(dispatch).toHaveBeenCalledWith(receivePage(expect.objectContaining({ references })));
   });
 
-  it('does not intercept clicking content links when meta key is pressed', () => {
+  it('does not intercept clicking content links when meta key is pressed', async() => {
     const {root} = renderDomWithReferences();
     dispatch.mockReset();
     const [firstLink] = Array.from(root.querySelectorAll('#main-content a'));
+
+    // rewrite this link href so that jsdom doesn't complain about the navigation
+    (firstLink as HTMLAnchorElement).href = '#a-hash-link';
 
     if (!document || !firstLink) {
       expect(document).toBeTruthy();
@@ -799,12 +782,15 @@ describe('Page', () => {
         event.button,
         event.relatedTarget);
       event.preventDefault = jest.fn();
+
       return event;
     };
 
     const evt1 = makeMetaEvent(document);
 
     firstLink.dispatchEvent(evt1);
+
+    await new Promise((resolve) => defer(resolve));
 
     expect(evt1.preventDefault).not.toHaveBeenCalled();
     expect(dispatch).not.toHaveBeenCalled();
@@ -847,16 +833,20 @@ describe('Page', () => {
 
     const hit = makeSearchResultHit({book, page});
 
-    store.dispatch(requestSearch('asdf'));
+    ReactTestUtils.act(() => {
+      store.dispatch(requestSearch('asdf'));
 
-    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
-    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    });
 
     // after images are loaded
     await new Promise((resolve) => setImmediate(resolve));
 
-    // click again for selectedSearchResult to update
-    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    ReactTestUtils.act(() => {
+      // click again for selectedSearchResult to update
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    });
 
     expect(scrollTo).not.toHaveBeenCalled();
 
@@ -866,7 +856,7 @@ describe('Page', () => {
       return expect(button).toBeTruthy();
     }
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(button);
     });
 
@@ -1012,7 +1002,7 @@ describe('Page', () => {
 
     highlightResults.mockReturnValue([]);
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
       store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
@@ -1029,13 +1019,13 @@ describe('Page', () => {
       return expect(errorModalCloseButton).toBeTruthy();
     }
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(errorModalCloseButton);
     });
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       store.dispatch(selectSearchResult({result: hit2, highlight: 0}));
     });
 
@@ -1045,7 +1035,7 @@ describe('Page', () => {
     await Promise.resolve();
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(errorModalCloseButton);
     });
 
@@ -1064,7 +1054,7 @@ describe('Page', () => {
 
     highlightResults.mockReturnValue([]);
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveSearchResults(makeSearchResults([hit])));
       store.dispatch(selectSearchResult(searchResultToSelect));
@@ -1081,13 +1071,13 @@ describe('Page', () => {
       return expect(errorModalCloseButton).toBeTruthy();
     }
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(errorModalCloseButton);
     });
 
     expect(root.querySelector('[data-testid=banner-body]')).toBeFalsy();
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       store.dispatch(selectSearchResult(searchResultToSelect));
     });
 
@@ -1115,7 +1105,7 @@ describe('Page', () => {
 
     highlightResults.mockReturnValue([]);
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
       store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
@@ -1131,7 +1121,7 @@ describe('Page', () => {
     );
     dispatch.mockClear();
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       store.dispatch(selectSearchResult({result: hit2, highlight: 0}));
     });
 
@@ -1160,7 +1150,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       store.dispatch(locationChange({
         action: 'REPLACE',
         location: { hash: 'does-not-matter', search: mockScrollTarget },
@@ -1181,7 +1171,7 @@ describe('Page', () => {
       return expect(errorModalCloseButton).toBeTruthy();
     }
 
-    renderer.act(() => {
+    ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(errorModalCloseButton);
       store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
     });
@@ -1195,7 +1185,7 @@ describe('Page', () => {
     dateMock.mockRestore();
   });
 
-  it('mounts, updates, and unmounts without a dom', () => {
+  it('mounts, updates, and unmounts without a dom', async() => {
     const element = renderer.create(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -1212,7 +1202,7 @@ describe('Page', () => {
       store.dispatch(receiveSearchResults(makeSearchResults()));
     });
 
-    expect(element.unmount).not.toThrow();
+    expect(() => element.unmount()).not.toThrow();
   });
 
   it('renders math', () => {
@@ -1230,17 +1220,7 @@ describe('Page', () => {
     const spy = jest.spyOn(window, 'scrollTo');
     spy.mockImplementation(() => null);
 
-    renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-                <ConnectedPage />
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
+    renderDomWithReferences();
 
     store.dispatch(actions.receivePage({
       abstract: '',
@@ -1252,7 +1232,7 @@ describe('Page', () => {
       title: 'qerqwer',
     }));
 
-    await new Promise((resolve) => setImmediate(resolve));
+    await new Promise((resolve) => defer(resolve));
 
     expect(spy).toHaveBeenCalledWith(0, 0);
   });
@@ -1274,17 +1254,7 @@ describe('Page', () => {
     state.navigation.hash = '#somehash';
     archiveLoader.mockPage(book, someHashPage, 'unused3');
 
-    const {root} = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-                <ConnectedPage />
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
+    const {root} = renderDomWithReferences();
 
     let resolveImageLoaded: undefined | ((value?: void | PromiseLike<void> | undefined) => void);
     const allImagesLoadedPromise = new Promise<void>((resolve) => {
@@ -1335,17 +1305,7 @@ describe('Page', () => {
 
     archiveLoader.mockPage(book, someHashPage, 'unused?2');
 
-    const {root} = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-                <ConnectedPage />
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
+    const {root} = renderDomHelper();
 
     const target = root.querySelector('[id="somehash"]');
 
@@ -1370,17 +1330,7 @@ describe('Page', () => {
     state.navigation.hash = '#somehash';
     archiveLoader.mockPage(book, someHashPage, 'unused?3');
 
-    const {root} = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-                <ConnectedPage />
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
+    const {root} = renderDomWithReferences();
 
     expect(scrollTo).not.toHaveBeenCalled();
 
@@ -1431,20 +1381,7 @@ describe('Page', () => {
   it('does not focus main content on initial load', () => {
     state.content = initialState;
 
-    const {tree} = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <AccessibilityButtonsWrapper>
-                <ConnectedPage />
-            </AccessibilityButtonsWrapper>
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
-
-    store.dispatch(receivePage({...shortPage, references: []}));
-
+    const {tree} = renderDomHelper();
     const wrapper = ReactTestUtils.findRenderedComponentWithType(tree, PageComponent);
 
     if (!window) {
@@ -1493,18 +1430,7 @@ describe('Page', () => {
       services.prerenderedContent = 'prerendered content';
       archiveLoader.mock.cachedPage.mockImplementation(() => undefined);
 
-      const {root} = renderToDom(
-        <Provider store={store}>
-          <Services.Provider value={services}>
-            <MessageProvider>
-              <AccessibilityButtonsWrapper>
-                  <ConnectedPage />
-              </AccessibilityButtonsWrapper>
-            </MessageProvider>
-          </Services.Provider>
-        </Provider>
-      );
-
+      const {root} = renderDomHelper();
       const target = root.querySelector('[id="main-content"]');
 
       if (!target) {
@@ -1517,18 +1443,7 @@ describe('Page', () => {
     it('defaults to empty page', () => {
       archiveLoader.mock.cachedPage.mockImplementation(() => undefined);
 
-      const {root} = renderToDom(
-        <Provider store={store}>
-          <Services.Provider value={services}>
-            <MessageProvider>
-              <AccessibilityButtonsWrapper>
-                  <ConnectedPage />
-              </AccessibilityButtonsWrapper>
-            </MessageProvider>
-          </Services.Provider>
-        </Provider>
-      );
-
+      const {root} = renderDomHelper();
       const target = root.querySelector('[id="main-content"]');
 
       if (!target) {
