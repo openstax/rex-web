@@ -70,24 +70,26 @@ function WarningDivWithTrap({
 
 const useDismiss = (book: Book) => {
   const cookieKey = `content-warning-${book.id}`;
-  const [dismissed, setDismissed] = React.useState<string>(Cookies.get(cookieKey) || 'false');
+  const [isShown, setIsShown] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    setDismissed(Cookies.get(cookieKey) || 'false');
+    if (typeof window !== 'undefined') {
+      setIsShown(Cookies.get(cookieKey) !== 'true');
+    }
   }, [cookieKey]);
 
   const dismiss = React.useCallback(() => {
     Cookies.set(cookieKey, 'true', { expires: 28 });
-    setDismissed('true');
+    setIsShown(false);
   }, [cookieKey]);
 
-  return tuple(dismissed === 'true', dismiss);
+  return tuple(isShown, dismiss);
 };
 
 export default function ContentWarning({ book }: { book: Book }) {
-  const [dismissed, dismiss] = useDismiss(book);
+  const [isShown, dismiss] = useDismiss(book);
 
-  if (!hasOSWebData(book) || !book.content_warning_text || dismissed) {
+  if (!hasOSWebData(book) || !book.content_warning_text || !isShown) {
     return null;
   }
 
