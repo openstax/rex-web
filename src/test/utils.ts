@@ -19,6 +19,7 @@ export const reactAndFriends = () => {
     Provider: require('react-redux').Provider,
     React: require('react'),
     ReactDOM: require('react-dom') as typeof import ('react-dom'),
+    ReactDOMTestUtils: require('react-dom/test-utils') as typeof import ('react-dom/test-utils'),
     Services: require('../app/context/Services'),
     TestContainer: require('./TestContainer').default,
     _jestStyledComponents: require('jest-styled-components'),
