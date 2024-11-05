@@ -1,5 +1,6 @@
 import { book as archiveBook } from '../../../test/mocks/archiveLoader';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import type rendererType from 'react-test-renderer';
+import type { ComponentType } from 'react';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { formatBookData } from '../utils';
@@ -16,7 +17,6 @@ describe('ContentWarning', () => {
 
   describe('in browser', () => {
     let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-    let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
     let ReactDOMTestUtils: ReturnType<typeof reactAndFriends>['ReactDOMTestUtils']; // tslint:disable-line:variable-name
 
     beforeEach(() => {
@@ -26,7 +26,7 @@ describe('ContentWarning', () => {
         return { ...react, useEffect: react.useLayoutEffect };
       });
 
-      ({React, renderToDom, ReactDOM, ReactDOMTestUtils} = reactAndFriends());
+      ({React, renderToDom, ReactDOMTestUtils} = reactAndFriends());
 
       ContentWarningDynamic = require('./ContentWarning').default;
     });
@@ -34,7 +34,7 @@ describe('ContentWarning', () => {
     it('renders warning modal and hides it after clicking', async() => {
       renderToDom(<ContentWarningDynamic book={dummyBook} />);
 
-      const b = document.querySelector('button');
+      const b = document!.querySelector('button');
 
       expect(b).toBeTruthy();
       // Exercises the when-focus-is-already-in-the-modal branch
@@ -42,7 +42,7 @@ describe('ContentWarning', () => {
 
       ReactDOMTestUtils.act(() => ReactDOMTestUtils.Simulate.click(b!));
 
-      expect(document.querySelector('button')).toBeFalsy();
+      expect(document!.querySelector('button')).toBeFalsy();
     });
   });
 
