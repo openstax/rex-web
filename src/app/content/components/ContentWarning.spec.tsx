@@ -13,7 +13,7 @@ const dummyBook = {
 
 describe('ContentWarning', () => {
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
-  let ContentWarningDynamic: ComponentType; // tslint:disable-line:variable-name
+  let ContentWarningDynamic: ComponentType<any>; // tslint:disable-line:variable-name
 
   describe('in browser', () => {
     let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
