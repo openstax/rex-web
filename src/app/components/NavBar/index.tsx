@@ -9,6 +9,7 @@ import * as selectNavigation from '../../navigation/selectors';
 import { AppState } from '../../types';
 import OnScroll, { OnScrollCallback } from '../OnScroll';
 import * as Styled from './styled';
+import UserIcon from '../../../assets/UserIcon';
 
 export { maxNavWidth, navDesktopHeight, navMobileHeight } from './styled';
 
@@ -83,7 +84,7 @@ export const Dropdown: FunctionComponent<{user: User, currentPath: string}> = ({
 const DropdownToggle: FunctionComponent<{ user: User }> = ({
   user: { firstName, lastName },
 }) => {
-  const initials = (firstName[0] + lastName[0]).toUpperCase();
+  const renderEl = firstName && lastName ? (firstName[0] + lastName[0]).toUpperCase() : <UserIcon />;
   return (
     <Styled.DropdownToggle
       tabIndex='0'
@@ -92,7 +93,7 @@ const DropdownToggle: FunctionComponent<{ user: User }> = ({
       aria-haspopup='true'
       aria-controls='dropdown-menu'
     >
-      {initials}
+      {renderEl}
     </Styled.DropdownToggle>
   );
 };
