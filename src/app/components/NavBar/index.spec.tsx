@@ -82,6 +82,21 @@ describe('content', () => {
       });
     });
 
+    describe('assignable user', () => {
+      beforeEach(() => {
+        // Assignable students do not have first and last names
+        store.dispatch(receiveUser({...user, firstName: '', lastName: '' }));
+      });
+
+      it('renders', () => {
+        const component = renderer.create(render());
+        const tree = component.toJSON();
+        component.unmount();
+
+        expect(tree).toMatchSnapshot();
+      });
+    });
+
     it('matches snapshot for logged out', () => {
       store.dispatch(receiveLoggedOut());
 

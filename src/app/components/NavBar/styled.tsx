@@ -165,6 +165,10 @@ export const DropdownToggle = styled.div`
   ${theme.breakpoints.mobile(css`
     margin-top: 0;
   `)}
+
+  svg {
+    width: 1.5rem;
+  }
 `;
 
 // tslint:disable-next-line:variable-name
