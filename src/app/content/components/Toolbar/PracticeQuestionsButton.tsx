@@ -4,13 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import practiceQuestionsIcon from '../../../../assets/practiceQuestionsIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { useServices } from '../../../context/Services';
-import { replace } from '../../../navigation/actions';
-import * as navSelect from '../../../navigation/selectors';
-import { AnyMatch } from '../../../navigation/types';
-import { getQueryForParam } from '../../../navigation/utils';
-import { modalQueryParameterName } from '../../constants';
-import { modalUrlName } from '../../practiceQuestions/constants';
+import { openPracticeQuestions } from '../../practiceQuestions/actions';
 import {
   hasPracticeQuestions,
   isPracticeQuestionsOpen,
@@ -47,9 +41,6 @@ const PracticeQuestionsText = styled.span`
 const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();
   const intl = useIntl();
-  const state = useServices().getState();
-  const match = navSelect.match(state);
-  const existingQuery = navSelect.query(state);
   const isEnabled = useSelector(practiceQuestionsEnabled);
   const isPracticeQOpen = useSelector(isPracticeQuestionsOpen);
   const trackOpenClose = useAnalyticsEvent('openClosePracticeQuestions');
@@ -58,17 +49,15 @@ const PracticeQuestionsButton = () => {
 
   if (!isEnabled || !hasPracticeQs || !book || !page) { return null; }
 
-  const openPracticeQuestions = () => {
-    dispatch(replace(match as AnyMatch, {
-      search: getQueryForParam({[modalQueryParameterName]: modalUrlName}, existingQuery),
-    }));
+  const showPracticeQuestions = () => {
+    dispatch(openPracticeQuestions());
     trackOpenClose();
   };
 
   const text = intl.formatMessage({id: 'i18n:toolbar:practice-questions:button:text'});
 
   return <StyledPracticeQuestionsButton
-    onClick={() => openPracticeQuestions()}
+    onClick={() => showPracticeQuestions()}
     aria-label={text}
     isActive={isPracticeQOpen}>
     <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />

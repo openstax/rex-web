@@ -3,14 +3,13 @@ import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { push } from '../../../navigation/actions';
-import * as navigation from '../../../navigation/selectors';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
-import { assertDefined, assertWindow } from '../../../utils';
+import { assertWindow } from '../../../utils';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
+import { closePracticeQuestions } from '../actions';
 import * as pqSelectors from '../selectors';
 import ShowPracticeQuestions from './ShowPracticeQuestions';
 
@@ -23,7 +22,6 @@ const PracticeQuestionsPopup = () => {
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
   const bookTheme = useSelector(bookThemeSelector);
   const intl = useIntl();
-  const match = useSelector(navigation.match);
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     if (currentQuestionIndex !== null) {
@@ -31,18 +29,10 @@ const PracticeQuestionsPopup = () => {
       if (!assertWindow().confirm(message)) { return; }
     }
 
-    const definedMatch = assertDefined(match, 'match should be always defined at this step');
-
-    if ('search' in definedMatch && typeof definedMatch.search === 'string') {
-      const params = new URLSearchParams(definedMatch.search);
-      params.delete('modal');
-      definedMatch.search = params.toString();
-    }
-
-    dispatch(push(definedMatch));
+    dispatch(closePracticeQuestions());
 
     trackOpenClosePQ(method);
-  }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch, match]);
+  }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch]);
 
   useOnEsc(isPracticeQuestionsOpen, closeAndTrack('esc'));
 
