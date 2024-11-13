@@ -7,12 +7,12 @@ import createTestStore from '../../../../test/createTestStore';
 import { dispatchKeyDownEvent, renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import OnEsc from '../../../components/OnEsc';
-import { push } from '../../../navigation/actions';
 import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
 import { content } from '../../routes';
-import { nextQuestion } from '../actions';
+import { closePracticeQuestions, nextQuestion } from '../actions';
+import { modalUrlName } from '../constants';
 import * as pqSelectors from '../selectors';
 import PracticeQuestionsPopup from './PracticeQuestionsPopup';
 
@@ -37,6 +37,7 @@ const mockMatch = {
   },
   route: content,
   state: {},
+  search: `?modal=${modalUrlName}`,
 };
 
 describe('PracticeQuestions', () => {
@@ -108,7 +109,7 @@ describe('PracticeQuestions', () => {
     });
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
   });
 
   it('tracks analytics and removes modal-url when pressing esc', async() => {
@@ -128,7 +129,7 @@ describe('PracticeQuestions', () => {
     dispatchKeyDownEvent({element, key: 'Escape'});
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
   });
 
   it('tracks analytics and removes modal-url on overlay click', async() => {
@@ -150,7 +151,7 @@ describe('PracticeQuestions', () => {
     ReactTestUtils.Simulate.click(element, {preventDefault}); // this checks for react onClick prop
 
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
   });
 
   it('show warning prompt and tracks analytics after confirm', async() => {
@@ -178,7 +179,7 @@ describe('PracticeQuestions', () => {
     expect(spyConfirm)
       .toHaveBeenCalledWith('Are you sure you want to exit this page? Your progress will not be saved.');
     expect(track).toHaveBeenCalled();
-    expect(dispatch).toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).toHaveBeenCalledWith(closePracticeQuestions());
   });
 
   it('show warning prompt and do not tracks analytics after cancel', async() => {
@@ -207,6 +208,6 @@ describe('PracticeQuestions', () => {
     expect(spyConfirm)
       .toHaveBeenCalledWith('Are you sure you want to exit this page? Your progress will not be saved.');
     expect(track).not.toHaveBeenCalled();
-    expect(dispatch).not.toHaveBeenCalledWith(push(mockMatch));
+    expect(dispatch).not.toHaveBeenCalledWith(closePracticeQuestions());
   });
 });
