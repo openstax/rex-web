@@ -38,7 +38,7 @@ const mockMatch = {
   },
   route: content,
   state: {},
-  search: `?modal=${modalUrlName}`
+  search: `?modal=${modalUrlName}`,
 };
 
 describe('PracticeQuestions', () => {
