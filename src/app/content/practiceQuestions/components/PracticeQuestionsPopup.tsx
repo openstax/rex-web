@@ -33,7 +33,7 @@ const PracticeQuestionsPopup = () => {
 
     const definedMatch = assertDefined(match, 'match should be always defined at this step');
 
-    if ('search' in definedMatch && typeof definedMatch.search ===  'string') {
+    if ('search' in definedMatch && typeof definedMatch.search === 'string') {
       const params = new URLSearchParams(definedMatch.search);
       params.delete('modal');
       definedMatch.search = params.toString();
