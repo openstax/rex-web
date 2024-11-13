@@ -57,7 +57,7 @@ const PracticeQuestionsButton = () => {
   const text = intl.formatMessage({id: 'i18n:toolbar:practice-questions:button:text'});
 
   return <StyledPracticeQuestionsButton
-    onClick={() => showPracticeQuestions()}
+    onClick={showPracticeQuestions}
     aria-label={text}
     isActive={isPracticeQOpen}>
     <PracticeQuestionsIcon aria-hidden='true' src={practiceQuestionsIcon} />
