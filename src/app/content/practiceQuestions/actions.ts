@@ -13,3 +13,6 @@ export const finishQuestions = createStandardAction('Content/PracticeQuestions/f
 export const receivePracticeQuestionsSummary = createStandardAction(
   'Content/PracticeQuestions/Summary/receive'
 )<PracticeQuestionsSummary>();
+
+export const openPracticeQuestions = createStandardAction('Content/PracticeQuestions/open')<void>();
+export const closePracticeQuestions = createStandardAction('Content/PracticeQuestions/close')<void>();
