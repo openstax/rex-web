@@ -90,6 +90,11 @@ const color = {
       foreground: textColors.black,
       foregroundHover: greyColors.light,
     },
+    'midnight': {
+      base: '#003e52',
+      foreground: textColors.white,
+      foregroundHover: greyColors.darker,
+    },
     'orange': {
       base: '#d4450c',
       darker: '#be3c08',
