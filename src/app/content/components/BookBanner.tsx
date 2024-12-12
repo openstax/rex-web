@@ -32,6 +32,7 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'gray': '#97999b',
   'green': '#9cd14a',
   'light-blue': '#1EE1F0',
+  'midnight': '#003e52',
   'orange': '#FAA461',
   'red': '#E34361',
   'yellow': '#faea36',
