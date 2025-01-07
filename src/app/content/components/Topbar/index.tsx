@@ -38,7 +38,7 @@ interface Props {
   bookTheme: string;
   textSize: TextResizerValue | null;
   setTextSize: (size: TextResizerValue) => void;
-  selectedResult: any;
+  selectedResult: unknown;
 }
 
 type CommonSearchInputParams = Pick<
@@ -217,7 +217,9 @@ function AltSCycler({hasSearchResults}: {hasSearchResults: boolean}) {
       ].map((q) => document?.querySelector<HTMLElement>(q));
 
       // Determine which region we are in (if any)
-      const currentSectionIndex = targets.findIndex((el) => el?.contains(document?.activeElement!));
+      const currentSectionIndex = targets.findIndex((el) =>
+        document?.activeElement && el?.contains(document.activeElement)
+      );
 
       // If not in any, go to search input
       if (currentSectionIndex < 0) {

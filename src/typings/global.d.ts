@@ -56,7 +56,7 @@ declare global {
       prototype: Event;
       new<T>(typeArg: string, eventInitDict?: EventInit<T>): Event<T>;
     };
-    MathJax: any;
+    MathJax: any; // eslint-disable-line @typescript-eslint/no-explicit-any
     ga: UniversalAnalytics.ga;
     dataLayer: object[];
     oxDLF: object[];
@@ -64,6 +64,7 @@ declare global {
     gtag: (eventKey?: string, eventVal?: string, eventObj?: object) => boolean | void;
   }
 
+  /* eslint-disable no-var */
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
   var window: Window | undefined;
   var document: dom.Document | undefined;
