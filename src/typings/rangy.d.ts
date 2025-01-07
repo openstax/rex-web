@@ -57,6 +57,6 @@ declare module 'rangy' {
   }
 
   export default rangy;
-  declare var rangy: RangyStatic;
+  declare const rangy: RangyStatic;
   type NativeRange = import ('@openstax/types/lib.dom').Range;
 }

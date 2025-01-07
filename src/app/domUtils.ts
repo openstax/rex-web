@@ -7,8 +7,8 @@ import { AppServices, Store } from './types';
 import { assertDefined, assertDocument, assertWindow } from './utils';
 import debounce from 'lodash/debounce';
 
-export const SCROLL_UP: 'scroll_up' = 'scroll_up';
-export const SCROLL_DOWN: 'scroll_down' = 'scroll_down';
+export const SCROLL_UP = 'scroll_up';
+export const SCROLL_DOWN = 'scroll_down';
 
 export const getTouchDirection = (last: TouchEvent, next: TouchEvent) =>
   next.touches[0].clientY > last.touches[0].clientY
@@ -174,8 +174,8 @@ export const onPageFocusChange = (
 };
 
 const eventTypeMap = {
-  focusin: 'FocusEvent' as 'FocusEvent',
-  focusout: 'FocusEvent' as 'FocusEvent',
+  focusin: 'FocusEvent' as const,
+  focusout: 'FocusEvent' as const,
 };
 type EventTypeMap = typeof eventTypeMap;
 // this ['prototype'] is only necessary because of the duplicate names in lib.dom.d.ts, if we

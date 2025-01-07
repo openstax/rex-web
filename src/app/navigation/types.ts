@@ -42,7 +42,7 @@ export interface RouteStateType {
 
 export interface Route<
   P extends RouteParamsType = {},
-  // @ts-ignore: 'S' is declared but its value is never read.
+  // @ts-expect-error: 'S' is declared but its value is never read.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   S extends RouteStateType = {}
 > {

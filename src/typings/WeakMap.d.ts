@@ -35,10 +35,6 @@ declare module 'weak-map' {
     clear(): void;
   }
 
-  interface WeakMapConstructor {
-    new(): WeakMap;
-  }
-
   class WeakMap {
     constructor();
   }

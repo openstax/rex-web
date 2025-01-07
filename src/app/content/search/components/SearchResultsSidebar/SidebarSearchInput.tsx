@@ -5,6 +5,7 @@ import theme from '../../../../theme';
 import { assertDocument } from '../../../../utils';
 import * as TopbarStyled from '../../../components/Topbar/styled';
 import { ResultsSidebarProps } from './SearchResultsBarWrapper';
+import { HTMLInputElement } from '@openstax/types/lib.dom';
 import * as Styled from './styled';
 
 interface State {
@@ -59,7 +60,7 @@ export class SidebarSearchInput extends Component<ResultsSidebarProps> {
   public newButtonEnabled = !!this.props.searchButtonColor;
 
   public onSearchChange = (e: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ query: (e.currentTarget as any).value, formSubmitted: false });
+    this.setState({ query: (e.currentTarget as HTMLInputElement).value, formSubmitted: false });
   };
 
   public onSearchSubmit = (e: React.FormEvent) => {
