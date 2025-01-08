@@ -10,7 +10,7 @@ export type State = Location & {
 };
 
 export type RouteParams<R> = R extends Route<infer P> ? P : never;
-export type RouteState<R> = R extends Route<any, infer S> ? S : never;
+export type RouteState<R> = R extends Route<never, infer S> ? S : never;
 
 type UnionRouteMatches<R> = R extends AnyRoute ? Match<R> : never;
 type UnionHistoryActions<R> = R extends AnyRoute ? HistoryAction<R> : never;
@@ -37,7 +37,7 @@ export interface RouteParamsType {
   [key: string]: string | RouteParamsType;
 }
 export interface RouteStateType {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface Route<
@@ -65,7 +65,7 @@ export type AnyMatch = UnionRouteMatches<AnyRoute>;
 
 export type RouteHookBody<R extends AnyRoute> = (helpers: MiddlewareAPI & AppServices) =>
   (locationChange: Required<LocationChange<Match<R>>>) =>
-    Promise<any> | void;
+    Promise<unknown> | void;
 
 export interface ScrollTarget {
   type: string;

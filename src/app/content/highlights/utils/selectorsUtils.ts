@@ -42,6 +42,12 @@ export const getLoadedCountsPerSource = (sources: SummaryHighlights | null) => f
   mapValues(size)
 )(sources);
 
-export const checkIfHasMoreResults = (loaded: any, filteredCounts: any, pagination: SummaryHighlightsPagination) => {
-  return !!(pagination || Object.keys(omit(Object.keys(loaded), filteredCounts)).length);
+export const checkIfHasMoreResults = (
+  loaded: object,
+  filteredCounts: object,
+  pagination: SummaryHighlightsPagination
+) => {
+  return !!(
+    pagination || Object.keys(omit(Object.keys(loaded), filteredCounts)).length
+  );
 };

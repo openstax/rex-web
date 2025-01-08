@@ -20,7 +20,7 @@ export {
   Provider,
 };
 
-interface ServiceConsumer {
+export interface ServiceConsumer {
   services: AppServices & MiddlewareAPI;
 }
 

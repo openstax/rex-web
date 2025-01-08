@@ -1,5 +1,5 @@
 declare module 'weak-map' {
-  interface WeakMap<K = any, V = any> {
+  interface WeakMap<K = unknown, V = unknown> {
     /**
      * Removes `key` and its value from the cache.
      * @param key The key of the value to remove.
