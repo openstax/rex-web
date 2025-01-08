@@ -3,7 +3,7 @@ import { isPlainObject } from '../../guards';
 import { ScrollTarget } from '../types';
 
 export const isScrollTarget = (
-  object: { [key: string]: any }
+  object: Record<string, unknown>
 ): object is ScrollTarget => {
   if (
     !object.elementId
@@ -18,14 +18,14 @@ export const getScrollTargetFromQuery = (
   hash: string
 ): ScrollTarget | null => {
   if (!hash || !query.target || Array.isArray(query.target)) { return null; }
-  let parsed: any;
+  let parsed: Record<string, unknown>;
   try {
     parsed = JSON.parse(decodeURIComponent(query.target));
   } catch {
     return null;
   }
   if (isPlainObject(parsed)) {
-    (parsed as {[key: string]: any}).elementId = hash.replace('#', '');
+    (parsed as {[key: string]: unknown}).elementId = hash.replace('#', '');
     if (isScrollTarget(parsed)) { return parsed; }
   }
   return null;

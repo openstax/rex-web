@@ -107,8 +107,8 @@ if (window.__PRELOADED_STATE__) {
 function doneRendering() {
   const initialActions = queryString.parse(window.location.search).initialActions;
   if (typeof(initialActions) === 'string') {
-    const actions = JSON.parse(initialActions);
-    actions.forEach((action: any) => app.store.dispatch(action));
+    const actions: Parameters<typeof app.store.dispatch>[0][] = JSON.parse(initialActions);
+    actions.forEach((action) => app.store.dispatch(action));
   }
 }
 

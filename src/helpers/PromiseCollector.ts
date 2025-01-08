@@ -1,11 +1,11 @@
 export default class PromiseCollector {
-  private _promises: Array<Promise<any>> = [];
+  private _promises: Array<Promise<unknown>> = [];
 
-  public get promises(): ReadonlyArray<Promise<any>> {
+  public get promises(): ReadonlyArray<Promise<unknown>> {
     return this._promises;
   }
 
-  public add(promise: Promise<any>): void {
+  public add(promise: Promise<unknown>): void {
     this._promises.push(promise);
     // ignore thrown errors because we are forking to remove from the collection
     promise.catch(() => null).finally(() => {

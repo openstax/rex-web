@@ -74,6 +74,7 @@ export const findFirstAncestorOrSelfOfType =
 
 export const findFirstAncestorOrSelf = <T = HTMLElement>(
   node: Node,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   predicate: ((e: any) => boolean) | ((e: any) => e is T)
 ): T | void => {
   if (isHtmlElement(node) && predicate(node)) {
