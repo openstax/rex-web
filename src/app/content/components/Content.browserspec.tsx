@@ -23,6 +23,8 @@ beforeAll(async() => {
 });
 
 describe('Content', () => {
+  const page = global.page;
+
   for (const testCase of Object.keys(TEST_CASES)) {
     describe(testCase, () => {
       beforeEach(async() => {

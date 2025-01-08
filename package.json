@@ -55,7 +55,7 @@
   "scripts": {
     "trust-localhost": "./script/trust-localhost.bash",
     "lint": "npm run-script lint:bash && npm run-script lint:css && npm run-script lint:typescript",
-    "lint:typescript": "tslint -p ./tsconfig.json && tsc",
+    "lint:typescript": "eslint src && tslint -p ./tsconfig.json && tsc",
     "lint:exports": "ts-unused-exports ./tsconfig.json",
     "lint:css": "stylelint 'src/**/*.tsx'",
     "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
