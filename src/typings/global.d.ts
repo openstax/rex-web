@@ -59,7 +59,6 @@ declare global {
     MathJax: any;
     ga: UniversalAnalytics.ga;
     dataLayer: object[];
-    Osano?: {cm: {mode: 'debug' | 'permissive' | 'production'}};
     gtag: (eventKey?: string, eventVal?: string, eventObj?: object) => boolean | void;
   }
 
@@ -74,4 +73,6 @@ declare global {
   var KeyboardEvent: dom.KeyboardEventConstructor;
   // tslint:disable-next-line:variable-name
   var ResizeObserver: dom.ResizeObserverConstructor;
+
+  var performBannerAction: (action: string) => void;
 }

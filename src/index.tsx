@@ -80,31 +80,6 @@ app.services.promiseCollector.calm().then(() => {
   }
 });
 
-// GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
-})(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
-
-window.dataLayer = window.dataLayer || [];
-function gtag(..._args: any[]) { window.dataLayer.push(arguments); }
-gtag('consent', 'default', {
-  ad_storage: 'denied',
-  ad_user_data: 'denied',
-  ad_personalization: 'denied',
-  analytics_storage: 'denied',
-  functionality_storage: 'denied',
-  personalization_storage: 'denied',
-  security_storage: 'granted',
-  wait_for_update: 2000,
-});
-gtag('set', 'ads_data_redaction', true);
-gtag('set', 'url_passthrough', false);
-gtag('js', new Date());
-
-window.dataLayer.push({app: 'rex'});
-
 if (window.__PRELOADED_STATE__) {
   // content isn't received in a preloaded state its in the state already,
   // so trigger it here
@@ -150,6 +125,85 @@ loadOptimize(window, app.store);
 function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
+
+type ConsentPreferences = {
+  accepted: string[],
+  rejected: string[],
+};
+
+const sendConsentToAccounts = (consentPreferences: ConsentPreferences) => {
+  fetch(`/lti/api/v0/consent${window.location.search}`, {
+    body: JSON.stringify(consentPreferences),
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PUT',
+  }).then(
+    (response) => {
+      if (response.status === 200) {
+        window.location.reload();
+      } else {
+        Sentry.captureMessage(`Failed to save cookie consent (HTTP status code: ${response.status})`, 'error');
+      }
+    }, (error) => Sentry.captureException(error)
+  );
+};
+
+app.services.userLoader.getCurrentUser().then((user) => {
+  document.addEventListener('cookieyes_banner_load', (eventData: unknown) => {
+    const consentPreferences = user?.consent_preferences;
+    const typedEventData = eventData as {
+      detail: { categories: Record<string, boolean>, isUserActionCompleted: boolean; },
+    };
+
+    if (consentPreferences) {
+      // Accounts remembers some state
+      // We always defer to Accounts in this case
+
+      // Only call the CookieYes API if it doesn't match what's in Accounts
+      let doUpdate = !typedEventData.detail.isUserActionCompleted;
+
+      consentPreferences.accepted.forEach((accepted) => {
+        // There is no "necessary" switch
+        if (accepted !== 'necessary') {
+          (document.getElementById(`ckySwitch${accepted}`) as any).checked = true;
+          if (!typedEventData.detail.categories[accepted]) { doUpdate = true; }
+        }
+      });
+      consentPreferences.rejected.forEach((rejected) => {
+        (document.getElementById(`ckySwitch${rejected}`) as any).checked = false;
+        if (typedEventData.detail.categories[rejected]) { doUpdate = true; }
+      });
+      if (doUpdate) { performBannerAction('accept_partial'); }
+    } else if (typedEventData.detail.isUserActionCompleted) {
+      // Accounts doesn't have state but somehow CookieYes does
+      // This can happen because of 3rd party cookies enabled, non-embedded launch, etc
+      // Ideally we'd clear the CookieYes consent and let users click the banner again,
+      // but there's no API to do that
+      // So instead we make a request to save the user consent to Accounts
+      const currentConsentPreferences: ConsentPreferences = { accepted: [], rejected: [] };
+      Object.entries(typedEventData.detail.categories).forEach(([category, accepted]) => {
+        const arr = accepted ? currentConsentPreferences.accepted : currentConsentPreferences.rejected;
+        arr.push(category);
+      });
+      if (user) { sendConsentToAccounts(currentConsentPreferences); }
+    } else {
+      // If we don't have a recorded consent and they click the X button, interpret it as "reject all"
+      document.getElementsByClassName('cky-banner-btn-close')[0]?.addEventListener(
+        'click', () => performBannerAction('reject')
+      );
+    }
+
+    document.addEventListener('cookieyes_consent_update', (eventData: unknown) => {
+      if (user) { sendConsentToAccounts((eventData as { detail: ConsentPreferences }).detail); }
+    });
+  });
+
+  // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
+  })(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
+});
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()

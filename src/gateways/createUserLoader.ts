@@ -4,6 +4,10 @@ import { assertWindow } from '../app/utils';
 
 // TODO - update tst to include these fields
 export type AccountsUser = ApiUser & {
+  consent_preferences: {
+    accepted: string[],
+    rejected: string[],
+  } | null,
   self_reported_role: string;
   using_openstax: boolean;
 };
