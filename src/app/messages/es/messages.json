@@ -220,7 +220,7 @@
   "i18n:toolbar:highlights:popup:heading": "Mis textos resaltados y notas",
   "i18n:toolbar:highlights:popup:heading:no-highlights": "No hay resultados.",
   "i18n:toolbar:highlights:popup:heading:no-highlights-tip": "Intente seleccionar diferentes <strong> filtros de color o de capítulo </strong> para ver diferentes resultados.",
-  "i18n:toolbar:highlights:popup:help-info": "¿Necesita ayuda? Visite <a data-testid='support-link' data-analytics-label='support-link' target=\"_blank\" href=\"https://help.openstax.org/s/article/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting\">Support Center</a>",
+  "i18n:toolbar:highlights:popup:help-info": "Las notas y los resaltados no se pueden editar en dispositivos móviles. <a data-testid='support-link' data-analytics-label='support-link' target=\"_blank\" href=\"https://help.openstax.org/s/article/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting\">Leer más</a>",
   "i18n:toolbar:highlights:text": "Textos resaltados",
   "i18n:toolbar:practice-questions:button:text": "Práctica",
   "i18n:toolbar:print:aria-label": "Imprimir",
