@@ -1,3 +1,5 @@
+import type { HTMLInputElement } from '@openstax/types/lib.dom';
+import type { ConsentPreferences, CookieYesBannerLoadEvent, CookieYesConsentUpdateEvent } from 'cookieyes';
 import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -126,11 +128,6 @@ function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
 
-type ConsentPreferences = {
-  accepted: string[],
-  rejected: string[],
-};
-
 const sendConsentToAccounts = (consentPreferences: ConsentPreferences) => {
   fetch(`/lti/api/v0/consent${window.location.search}`, {
     body: JSON.stringify(consentPreferences),
@@ -148,11 +145,9 @@ const sendConsentToAccounts = (consentPreferences: ConsentPreferences) => {
 };
 
 app.services.userLoader.getCurrentUser().then((user) => {
-  document.addEventListener('cookieyes_banner_load', (eventData: unknown) => {
+  document.addEventListener('cookieyes_banner_load', (bannerLoadEventData: unknown) => {
     const consentPreferences = user?.consent_preferences;
-    const typedEventData = eventData as {
-      detail: { categories: Record<string, boolean>, isUserActionCompleted: boolean; },
-    };
+    const typedEventData = bannerLoadEventData as CookieYesBannerLoadEvent;
 
     if (consentPreferences) {
       // Accounts remembers some state
@@ -164,13 +159,19 @@ app.services.userLoader.getCurrentUser().then((user) => {
       consentPreferences.accepted.forEach((accepted) => {
         // There is no "necessary" switch
         if (accepted !== 'necessary') {
-          (document.getElementById(`ckySwitch${accepted}`) as any).checked = true;
-          if (!typedEventData.detail.categories[accepted]) { doUpdate = true; }
+          const checkbox = document.getElementById(`ckySwitch${accepted}`) as HTMLInputElement | null;
+          if (checkbox) {
+            checkbox.checked = true;
+            if (!typedEventData.detail.categories[accepted]) { doUpdate = true; }
+          }
         }
       });
       consentPreferences.rejected.forEach((rejected) => {
-        (document.getElementById(`ckySwitch${rejected}`) as any).checked = false;
-        if (typedEventData.detail.categories[rejected]) { doUpdate = true; }
+        const checkbox = document.getElementById(`ckySwitch${rejected}`) as HTMLInputElement | null;
+        if (checkbox) {
+          checkbox.checked = false;
+          if (typedEventData.detail.categories[rejected]) { doUpdate = true; }
+        }
       });
       if (doUpdate) { performBannerAction('accept_partial'); }
     } else if (typedEventData.detail.isUserActionCompleted) {
@@ -192,17 +193,21 @@ app.services.userLoader.getCurrentUser().then((user) => {
       );
     }
 
-    document.addEventListener('cookieyes_consent_update', (eventData: unknown) => {
-      if (user) { sendConsentToAccounts((eventData as { detail: ConsentPreferences }).detail); }
+    document.addEventListener('cookieyes_consent_update', (consentUpdateEventData: unknown) => {
+      if (user) { sendConsentToAccounts((consentUpdateEventData as CookieYesConsentUpdateEvent).detail); }
     });
+
+    window.cookieYesActive = true;
   });
 
   // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
+  // tslint:disable
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
-  })(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
+    })(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
+  // tslint:enable
 });
 
 // Learn more about service workers: http://bit.ly/CRA-PWA

@@ -2,6 +2,10 @@ import createUserLoader, { AccountsUser } from '../../gateways/createUserLoader'
 
 export const testAccountsUser: AccountsUser = {
   applications: [],
+  consent_preferences: {
+    accepted: [],
+    rejected: [],
+  },
   contact_infos: [],
   external_ids: [],
   faculty_status: 'no_faculty_info',

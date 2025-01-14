@@ -60,6 +60,7 @@ declare global {
     ga: UniversalAnalytics.ga;
     dataLayer: object[];
     gtag: (eventKey?: string, eventVal?: string, eventObj?: object) => boolean | void;
+    cookieYesActive?: boolean;
   }
 
   var fetch: (input: dom.RequestInfo, init?: dom.RequestInit) => Promise<Response>;
@@ -74,5 +75,6 @@ declare global {
   // tslint:disable-next-line:variable-name
   var ResizeObserver: dom.ResizeObserverConstructor;
 
-  var performBannerAction: (action: string) => void;
+  const performBannerAction: (action: string) => void;
+
 }
