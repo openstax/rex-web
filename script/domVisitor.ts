@@ -17,7 +17,6 @@ import progressBar from './utils/progressBar';
 const blockedRequests = [
   /^https?:\/\/(?:www\.)?googletagmanager\.com/,
   /^https?:\/\/js\.pulseinsights\.com/,
-  /^https?:\/\/cmp\.osano\.com/,
 ];
 
 // Most pages perform less than 10 requests when GTM is blocked

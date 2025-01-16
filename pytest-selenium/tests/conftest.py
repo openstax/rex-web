@@ -160,3 +160,9 @@ def password(store):
     """
     user_info = random.choice((store.get("_user_info")))
     return user_info["password"]
+
+
+@pytest.fixture(autouse=True)
+def block_external_requests(requests_mock):
+    requests_mock.get('googletagmanager.com', status_code=403)
+    requests_mock.get('pulseinsights.com', status_code=403)

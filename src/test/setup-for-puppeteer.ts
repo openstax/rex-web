@@ -8,7 +8,6 @@ if (process.env.CI) {
 const blockedRequests = [
   /^https?:\/\/(?:www\.)?googletagmanager\.com/,
   /^https?:\/\/js\.pulseinsights\.com/,
-  /^https?:\/\/cmp\.osano\.com/,
 ];
 
 beforeAll(async() => {
