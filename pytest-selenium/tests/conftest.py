@@ -166,3 +166,4 @@ def password(store):
 def block_external_requests(requests_mock):
     requests_mock.get('googletagmanager.com', status_code=403)
     requests_mock.get('pulseinsights.com', status_code=403)
+    requests_mock.get('cdn-cookieyes.com', status_code=403)

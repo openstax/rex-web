@@ -20,6 +20,7 @@ module.exports = {
     blockedUrlPatterns: [
       'googletagmanager.com',
       'pulseinsights.com',
+      'cdn-cookieyes.com',
     ],
     skipAudits: [
       'errors-in-console',
