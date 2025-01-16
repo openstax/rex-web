@@ -39,6 +39,12 @@ const test = base.extend<BaseURL>({
       await use('https://staging.openstax.org')
     }
   },
-})
+});
+
+test.beforeEach(async ({ context }) => {
+  // Block GTM and pulseinsights
+  await context.route(/^https?:\/\/(?:www\.)?googletagmanager\.com/, route => route.abort());
+  await context.route(/^https?:\/\/js\.pulseinsights\.com/, route => route.abort());
+});
 
 export default test
