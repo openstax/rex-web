@@ -10,6 +10,7 @@ jobs:
   linked_issue:
     name: Jira
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
     - uses: openstax/jira-linked-action@v0.1.12
       with:
