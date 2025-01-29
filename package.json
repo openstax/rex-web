@@ -11,7 +11,7 @@
     "@openstax/event-capture-client": "^2.0.2",
     "@openstax/highlighter": "https://github.com/openstax/highlighter#release-1.14.3",
     "@openstax/open-search-client": "0.1.0-build.7",
-    "@openstax/ts-utils": "1.18.0",
+    "@openstax/ts-utils": "1.19.0",
     "@openstax/ui-components": "openstax/ui-components#1.12.0",
     "@sentry/integrations": "^7.54.0",
     "@sentry/react": "^7.54.0",

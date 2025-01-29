@@ -5223,10 +5223,10 @@
   resolved "https://registry.yarnpkg.com/@openstax/open-search-client/-/open-search-client-0.1.0-build.7.tgz#0456ccea8e0825f55cff399934bcb4c83ac3ddff"
   integrity sha512-pfhtUxpm5KJQc6/HRzgT7jOtq60MGgqQ4fvW+Gz9ca/7DiYB7p1vxoF4nw9VMyUxWxzsYuCrnZPHaE/X0+RJiQ==
 
-"@openstax/ts-utils@1.18.0":
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/@openstax/ts-utils/-/ts-utils-1.18.0.tgz#e4a764b9fde9f8e0b024a17205d00e280d8c06b0"
-  integrity sha512-34JubbGQ8pDQ0UXRZOH8V62LXy66iC0Dwqqfl2ZGYtZ1Fb35XmCPLOgCCKtEde4tL1QcX7eobL8wdtV8d0sZRQ==
+"@openstax/ts-utils@1.19.0":
+  version "1.19.0"
+  resolved "https://registry.yarnpkg.com/@openstax/ts-utils/-/ts-utils-1.19.0.tgz#af0cfd75ce5e5c7ad4f8e26bbf42b672b1a0cdd0"
+  integrity sha512-tOPVcWDdJY9iq3L6CHKhgPvq66/9PZOchuPtID06IHU4nrHSWtHBjsJesrqb28poxUbGJCW6r3dZ9BhGS2BAYg==
   dependencies:
     "@aws-sdk/client-dynamodb" "^3.171.0"
     "@aws-sdk/client-s3" "^3.171.0"
