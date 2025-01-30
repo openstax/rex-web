@@ -128,21 +128,10 @@ function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
 
-const sendConsentToAccounts = (consentPreferences: ConsentPreferences) => {
-  fetch(`/lti/api/v0/consent${window.location.search}`, {
-    body: JSON.stringify(consentPreferences),
-    headers: { 'Content-Type': 'application/json' },
-    method: 'PUT',
-  }).then(
-    (response) => {
-      if (response.status === 200) {
-        window.location.reload();
-      } else {
-        Sentry.captureMessage(`Failed to save cookie consent (HTTP status code: ${response.status})`, 'error');
-      }
-    }, (error) => Sentry.captureException(error)
-  );
-};
+const sendConsentToAccounts = (consent_preferences: ConsentPreferences) =>
+  userLoader.updateUser({ consent_preferences })
+    .then(() => window.location.reload())
+    .catch((error: any) => Sentry.captureException(error));
 
 app.services.userLoader.getCurrentUser().then((user) => {
   document.addEventListener('cookieyes_banner_load', (bannerLoadEventData: unknown) => {
