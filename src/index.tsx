@@ -128,8 +128,8 @@ function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
 
-const sendConsentToAccounts = (consent_preferences: ConsentPreferences) =>
-  userLoader.updateUser({ consent_preferences })
+const sendConsentToAccounts = (consentPreferences: ConsentPreferences) =>
+  userLoader.updateUser({ consent_preferences: consentPreferences })
     .then(() => window.location.reload())
     .catch((error: any) => Sentry.captureException(error));
 
