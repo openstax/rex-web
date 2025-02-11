@@ -10,7 +10,7 @@ const initializer: Initializer = async({dispatch, userLoader}) => {
   const user = await userLoader.getCurrentUser();
 
   // TODO - consider moving this into the ts-utils auth loader
-  window.oxDLF.push({user});
+  window.dataLayer.push({user});
 
   if (user) {
     dispatch(receiveUser(formatUser(user)));

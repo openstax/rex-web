@@ -27,7 +27,7 @@ export const hookBody: ActionHookBody<typeof actions.setHead> = () => ({
     head.appendChild(tag);
   }
 
-  window.oxDLF.push({contentTags});
+  window.dataLayer.push({contentTags});
 };
 
 export default actionHook(actions.setHead, hookBody);

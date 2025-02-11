@@ -200,7 +200,7 @@ function NoteOrCard({
       showToast({
         message: 'Highlight removed',
       });
-  }
+    }
   }, [locationFilterId, props, showToast, setHighlightRemoved]);
   const style = highlightStyles.find(
     search => props.data && search.label === props.data.color

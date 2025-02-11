@@ -32,6 +32,7 @@ import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import showConfirmation from './utils/showConfirmation';
 import { ConfirmationToastProvider } from '../../components/ConfirmationToast';
+import ReactDOM from 'react-dom';
 
 jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-display-note {...props} />
@@ -48,6 +49,12 @@ describe('Card', () => {
   let highlightData: ReturnType<ReturnType<typeof createMockHighlight>['serialize']>['data'];
   let cardProps: Partial<CardProps> & { highlight: Highlight };
   let createNodeMock: () => HTMLElement;
+  let createPortalMock: jest.Mock<React.ReactPortal, [elt: React.ReactNode]>;
+
+  beforeAll(() => {
+    createPortalMock = jest.fn((elt) => elt as React.ReactPortal);
+    ReactDOM.createPortal = createPortalMock;
+  });
 
   beforeEach(() => {
     store = createTestStore();
@@ -62,6 +69,10 @@ describe('Card', () => {
       onHeightChange: () => null,
     };
     createNodeMock = () => assertDocument().createElement('div');
+  });
+
+  afterEach(() => {
+    createPortalMock.mockClear();
   });
 
   it('matches snapshot when focused without note', () => {
