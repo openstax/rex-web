@@ -12,7 +12,6 @@ import pypom
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import (
     ElementNotInteractableException,
-    NoSuchElementException,
     StaleElementReferenceException,
     TimeoutException,
     WebDriverException,
@@ -23,7 +22,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as expected
 
 from tests.conftest import DESKTOP, MOBILE
-from utils.utility import Utilities
 
 
 BOUNDING_RECTANGLE = "return arguments[0].getBoundingClientRect();"
@@ -38,21 +36,9 @@ class Page(pypom.Page):
 
     _math_equation_locator = (By.CSS_SELECTOR, "[id*=MathJax][id*=Frame] .math")
     _title_locator = (By.TAG_NAME, "title")
-    _osano_accept_locator = (By.CSS_SELECTOR, 'button[class*="type_accept"]')
-    _osano_close_locator = (By.CSS_SELECTOR, 'button[class*="osano-cm-dialog__close"]')
 
     def open(self):
         super().open()
-
-        # Close osano cookie widget
-        try:
-            osano_accept = self.find_element(*self._osano_accept_locator)
-            Utilities.click_option(self.driver, element=osano_accept)
-        except NoSuchElementException:
-            osano_close = self.find_element(*self._osano_close_locator)
-            Utilities.click_option(self.driver, element=osano_close)
-        else:
-            pass
 
         # Add cookies to close the nudge
         now = datetime.now()
