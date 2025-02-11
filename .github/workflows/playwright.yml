@@ -35,4 +35,4 @@ jobs:
         BASE_URL: ${{ github.event.inputs.base_url }}
     - run: pip install -r requirements.txt
     - run: playwright install chromium --with-deps
-    - run: pytest --tb=long --showlocals -vvv e2e
+    - run: pytest --tb=long --showlocals --base-url="$BASE_URL" -vvv e2e
