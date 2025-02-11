@@ -75,9 +75,15 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [element.current, highlight]);
 
+  // Focus the highlight when clicking outside the Card in order to keep navigation in order
+  const onBlurring = React.useCallback(() => {
+    highlight.focus();
+    onBlur();
+  }, [highlight, onBlur]);
+
   // Change Event phase so when clicking on another Card,
   // onBlur is called before this Card calls focus.
-  useOnClickOutside(elements, isActive, onBlur, { capture: true });
+  useOnClickOutside(elements, isActive, onBlurring, { capture: true });
 
   React.useEffect(() => {
     if (!isActive) {
