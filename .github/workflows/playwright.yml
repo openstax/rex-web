@@ -7,8 +7,8 @@ defaults:
     working-directory: playwright
 
 jobs:
-  Test:
-    runs-on: ubuntu-latest
+  playwright-typescript:
+    runs-on: ubuntu-22.04
 
     steps:
     - uses: actions/checkout@v2
@@ -21,4 +21,18 @@ jobs:
     - run: npx playwright install-deps
     - run: npx playwright install
     - run: npm run test
-        
+
+  playwright-python:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip' # caching pip dependencies
+      env:
+        BASE_URL: ${{ github.event.inputs.base_url }}
+    - run: pip install -r requirements.txt
+    - run: playwright install chromium --with-deps
+    - run: pytest --tb=long --showlocals -vvv e2e
