@@ -1,3 +1,5 @@
+import type { HTMLInputElement } from '@openstax/types/lib.dom';
+import type { ConsentPreferences, CookieYesBannerLoadEvent, CookieYesConsentUpdateEvent } from 'cookieyes';
 import queryString from 'query-string';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -83,7 +85,7 @@ app.services.promiseCollector.calm().then(() => {
 if (window.__PRELOADED_STATE__) {
   // content isn't received in a preloaded state its in the state already,
   // so trigger it here
-  window.oxDLF.push({contentTags: selectHead.contentTags(app.store.getState())});
+  window.dataLayer.push({contentTags: selectHead.contentTags(app.store.getState())});
 
   Loadable.preloadReady()
     .then(() => {
@@ -125,6 +127,85 @@ loadOptimize(window, app.store);
 function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
+
+const sendConsentToAccounts = (consentPreferences: ConsentPreferences) =>
+  userLoader.updateUser({ consent_preferences: consentPreferences })
+    .then(() => window.location.reload())
+    .catch((error: any) => Sentry.captureException(error));
+
+app.services.userLoader.getCurrentUser().then((user) => {
+  document.addEventListener('cookieyes_banner_load', (bannerLoadEventData: unknown) => {
+    const consentPreferences = user?.consent_preferences;
+    const typedEventData = bannerLoadEventData as CookieYesBannerLoadEvent;
+
+    if (consentPreferences) {
+      // Accounts remembers some state
+      // We always defer to Accounts in this case
+
+      // Only call the CookieYes API if it doesn't match what's in Accounts
+      let doUpdate = !typedEventData.detail.isUserActionCompleted;
+
+      consentPreferences.accepted.forEach((accepted) => {
+        // There is no "necessary" switch
+        if (accepted !== 'necessary') {
+          const checkbox = document.getElementById(`ckySwitch${accepted}`) as HTMLInputElement | null;
+          if (checkbox) {
+            checkbox.checked = true;
+            if (!typedEventData.detail.categories[accepted]) { doUpdate = true; }
+          }
+        }
+      });
+      consentPreferences.rejected.forEach((rejected) => {
+        const checkbox = document.getElementById(`ckySwitch${rejected}`) as HTMLInputElement | null;
+        if (checkbox) {
+          checkbox.checked = false;
+          if (typedEventData.detail.categories[rejected]) { doUpdate = true; }
+        }
+      });
+      if (doUpdate) { performBannerAction('accept_partial'); }
+    } else if (typedEventData.detail.isUserActionCompleted) {
+      // Accounts doesn't have state but somehow CookieYes does
+      // This can happen because of 3rd party cookies enabled, non-embedded launch, etc
+      // Ideally we'd clear the CookieYes consent and let users click the banner again,
+      // but there's no API to do that
+      // So instead we make a request to save the user consent to Accounts
+      const currentConsentPreferences: ConsentPreferences = { accepted: [], rejected: [] };
+      Object.entries(typedEventData.detail.categories).forEach(([category, accepted]) => {
+        const arr = accepted ? currentConsentPreferences.accepted : currentConsentPreferences.rejected;
+        arr.push(category);
+      });
+      if (user) { sendConsentToAccounts(currentConsentPreferences); }
+    } else {
+      // If we don't have a recorded consent and they click the X button, interpret it as "reject all"
+      document.getElementsByClassName('cky-banner-btn-close')[0]?.addEventListener(
+        'click', () => performBannerAction('reject')
+      );
+    }
+
+    document.addEventListener('cookieyes_consent_update', (consentUpdateEventData: unknown) => {
+      if (user) { sendConsentToAccounts((consentUpdateEventData as CookieYesConsentUpdateEvent).detail); }
+    });
+
+    window.cookieYesActive = true;
+  });
+
+  // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
+  // tslint:disable
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
+    })(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
+  // tslint:enable
+
+  // The code below similar logic to the GTM script but to insert the CookieYes script instead
+  // Both scripts are async so they run in an unpredictable order and the position on the page does not matter
+  const cookieYesScript = document.createElement('script');
+  cookieYesScript.async = true;
+  cookieYesScript.src = 'https://cdn-cookieyes.com/client_data/7c03144a7ef8b7f646f1ce01/script.js';
+  const firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode!.insertBefore(cookieYesScript, firstScriptTag);
+});
 
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register()
