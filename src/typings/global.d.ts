@@ -59,9 +59,8 @@ declare global {
     MathJax: any; // eslint-disable-line @typescript-eslint/no-explicit-any
     ga: UniversalAnalytics.ga;
     dataLayer: object[];
-    oxDLF: object[];
-    Osano?: {cm: {mode: 'debug' | 'permissive' | 'production'}};
     gtag: (eventKey?: string, eventVal?: string, eventObj?: object) => boolean | void;
+    cookieYesActive?: boolean;
   }
 
   /* eslint-disable no-var */
@@ -76,4 +75,7 @@ declare global {
   var KeyboardEvent: dom.KeyboardEventConstructor;
   // tslint:disable-next-line:variable-name
   var ResizeObserver: dom.ResizeObserverConstructor;
+
+  const performBannerAction: (action: string) => void;
+
 }
