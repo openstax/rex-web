@@ -29,15 +29,14 @@ jobs:
       uses: styfle/cancel-workflow-action@0.4.0
       with:
         access_token: ${{ github.token }}
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-    - uses: actions/cache@v2
-      id: node_modules
+    - uses: actions/setup-node@v4
       with:
-        path: node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-    - run: yarn install
+        node-version-file: '.nvmrc'
+        cache: 'yarn'
+    - run: yarn install --immutable --immutable-cache
     - name: Find Deployment
       id: find-deployment
       env:
@@ -53,7 +52,7 @@ jobs:
     container: python:3.10
     needs: setup
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
     - env:
@@ -71,15 +70,14 @@ jobs:
     container: openstax/rex-web:CI-2023-08-10
     needs: setup
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-    - uses: actions/cache@v2
-      id: node_modules
+    - uses: actions/setup-node@v4
       with:
-        path: node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-    - run: yarn install
+        node-version-file: '.nvmrc'
+        cache: 'yarn'
+    - run: yarn install --immutable --immutable-cache
     - run: ./script/validate-modified-books.bash
       env:
         BASE_URL: ${{ needs.setup.outputs.deployment-url }}
@@ -95,15 +93,14 @@ jobs:
     env:
       CI: true
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-    - uses: actions/cache@v2
-      id: node_modules
+    - uses: actions/setup-node@v4
       with:
-        path: node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-    - run: yarn install
+        node-version-file: '.nvmrc'
+        cache: 'yarn'
+    - run: yarn install --immutable --immutable-cache
     - run: yarn ci:test:${{ matrix.suite }}
 
   lint:
@@ -111,15 +108,14 @@ jobs:
     runs-on: ubuntu-latest
     container: openstax/rex-web:CI-2023-08-10
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-    - uses: actions/cache@v2
-      id: node_modules
+    - uses: actions/setup-node@v4
       with:
-        path: node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-    - run: yarn install
+        node-version-file: '.nvmrc'
+        cache: 'yarn'
+    - run: yarn install --immutable --immutable-cache
     - run: yarn lint
 
   abl:
@@ -128,13 +124,12 @@ jobs:
     container: openstax/rex-web:CI-2023-08-10
     needs: setup
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         ref: ${{ github.event.pull_request.head.sha }}
-    - uses: actions/cache@v2
-      id: node_modules
+    - uses: actions/setup-node@v4
       with:
-        path: node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-    - run: yarn install
+        node-version-file: '.nvmrc'
+        cache: 'yarn'
+    - run: yarn install --immutable --immutable-cache
     - run: ./script/validate-abl-import/test.bash
