@@ -19,8 +19,8 @@ module.exports = {
   settings: {
     blockedUrlPatterns: [
       'googletagmanager.com',
-      'osano.com',
       'pulseinsights.com',
+      'cdn-cookieyes.com',
     ],
     skipAudits: [
       'errors-in-console',

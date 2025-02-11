@@ -2,6 +2,10 @@ import createUserLoader, { AccountsUser } from '../../gateways/createUserLoader'
 
 export const testAccountsUser: AccountsUser = {
   applications: [],
+  consent_preferences: {
+    accepted: [],
+    rejected: [],
+  },
   contact_infos: [],
   external_ids: [],
   faculty_status: 'no_faculty_info',
@@ -21,4 +25,5 @@ export const testAccountsUser: AccountsUser = {
 export default (): ReturnType<typeof createUserLoader> => ({
   getAuthorizedFetchConfig: () => Promise.resolve({credentials: 'include'}),
   getCurrentUser: () => Promise.resolve(testAccountsUser),
+  updateUser: () => Promise.resolve({user: testAccountsUser, token: null}),
 });

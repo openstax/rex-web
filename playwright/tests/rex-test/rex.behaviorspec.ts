@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test'
+import { expect } from '@playwright/test'
+import test from '../../src/fixtures/base'
 import {
   ContentPage,
   Actions,
@@ -638,7 +639,7 @@ test('C543225 canonicals for pages derived from another book', async ({ page, is
   await Toc.pageClick(6)
   // THEN: Canonical page points to itself
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/preparing-for-college-success/pages/1-family-friends-matter')
-  
+
   // WHEN: Open EOB page from the chapter unique to this book
   await Toc.pageClick(71)
   // THEN: Canonical page points to itself
@@ -660,12 +661,12 @@ test('C543225 canonicals for old editions point to the latest edition', async ({
   // WHEN: Open older edition of EOC page of a book derived from another book
   const Toc = new TOC(page)
   await Toc.pageClick(7)
-  // THEN: Canonical page points to itself 
+  // THEN: Canonical page points to itself
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-macroeconomics-2e/pages/1-key-concepts-and-summary')
 
   // WHEN: Open older edition of nested EOB page of a book derived from another book
   await Toc.pageClick(243)
-  // THEN: Canonical page points to itself 
+  // THEN: Canonical page points to itself
   expect(await bookPage.canonical()).toBe('https://openstax.org/books/principles-macroeconomics-2e/pages/chapter-2')
 
 
