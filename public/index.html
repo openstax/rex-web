@@ -10,27 +10,25 @@
     -->
     <link rel="manifest" href="/dist/assets/manifest.json">
 
-    <link rel="stylesheet" href="https://ram.openstax.org/osano/osano.css">
-    <script src="https://cmp.osano.com/AzZqbXTbzhHsU3cv1/68d8e8ae-4024-4489-a000-72766ad284a6/osano.js"></script>
-
-    <!-- Google Tag Manager -->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-TFCS56G');
-    </script>
-    <!-- End Google Tag Manager -->
-
     <script>
       window.dataLayer = window.dataLayer || [];
-      /* oxDLF is provided by https://github.com/openstax/analytics-helpers/blob/main/src/data-layer-factories.ts */
-      window.oxDLF = window.oxDLF || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       window.dataLayer.push({app: 'rex'})
+
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 2000,
+      });
+      gtag('set', 'ads_data_redaction', true);
+      gtag('set', 'url_passthrough', false);
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML-full&delayStartupUntil=configured" async></script>
