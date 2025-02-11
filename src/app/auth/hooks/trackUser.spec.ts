@@ -60,19 +60,19 @@ describe('trackUser', () => {
         });
       });
 
-      describe('with osano', () => {
+      describe('with CookieYes', () => {
         afterEach(() => {
-          delete window.Osano;
+          delete window.cookieYesActive;
         });
 
-        it('doesn\'t prompt if osano is running', async() => {
-          window.Osano = {cm: {mode: 'production'}};
+        it('doesn\'t prompt if CookieYes is running', async() => {
+          window.cookieYesActive = true;
           await (trackUserHookBody(helpers))(receiveUser(user));
           expect(dispatchMock).not.toHaveBeenCalled();
         });
 
-        it('prompts to accept cookies in debug', async() => {
-          window.Osano = {cm: {mode: 'debug'}};
+        it('prompts to accept if CookieYes is not running', async() => {
+          window.cookieYesActive = false;
           await (trackUserHookBody(helpers))(receiveUser(user));
           expect(dispatchMock).toHaveBeenCalledWith({
             meta: undefined,
