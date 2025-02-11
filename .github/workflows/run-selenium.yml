@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     container: python:3.10
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: selenium
       env:
         BASE_URL: ${{ github.event.inputs.base_url }}
