@@ -120,7 +120,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
           Object {
             "color": undefined,
             "onChange": [Function],
-            "onRemove": [Function],
+            "onRemove": null,
           }
         }
         mock-color-picker="true"
@@ -238,7 +238,7 @@ exports[`EditCard matches snapshot with data 1`] = `
           Object {
             "color": undefined,
             "onChange": [Function],
-            "onRemove": [Function],
+            "onRemove": null,
           }
         }
         mock-color-picker="true"
