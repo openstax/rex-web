@@ -114,7 +114,7 @@ export const onFocusInOrOutHandler = (
   cb: () => void,
   type: 'focusin' | 'focusout'
 ) => () => {
-  const el = ref && ref.current;
+  const el = ref?.current;
   if (!el) { return; }
 
   const handler = (event: FocusEvent) => {
@@ -124,12 +124,12 @@ export const onFocusInOrOutHandler = (
 
     if (
       type === 'focusout'
-      && (!isElement(target) || !ref.current!.contains(target))
+      && (!isElement(target) || !(ref.current as HTMLElement).contains(target))
     ) {
       cb();
     } else if (
       type === 'focusin'
-      && (isElement(target) && ref.current!.contains(target))
+      && (isElement(target) && (ref.current as HTMLElement).contains(target))
     ) {
       cb();
     }

@@ -53,7 +53,7 @@ const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => voi
     const win = window;
     const referrer = new URL(win.document.referrer);
 
-    const handler = (event: MessageEvent<any>) => {
+    const handler = (event: MessageEvent) => {
       if (
         event.data.type === 'TextSizeUpdate' &&
         event.origin === referrer.origin &&

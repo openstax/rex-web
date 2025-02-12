@@ -1,4 +1,5 @@
 import { HTMLDetailsElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import React from 'react';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "Node.children" */ 'mdn-polyfills/Node.prototype.children');
@@ -99,9 +100,11 @@ export const setSidebarHeight = (sidebar: HTMLElement, window: Window) => {
   };
 };
 
-export const fixSafariScrolling = (event: any) => {
-  event.target.style.overflowY = 'hidden';
-  setTimeout(() => { event.target.style.overflowY = 'auto'; });
+export const fixSafariScrolling = (event: Event) => {
+  const target = event.target as HTMLElement;
+
+  target.style.overflowY = 'hidden';
+  setTimeout(() => { target.style.overflowY = 'auto'; });
 };
 
 export const isClickWithModifierKeys = (e: React.MouseEvent | MouseEvent) =>

@@ -12,7 +12,7 @@ const Wrappper = styled.div`
 `;
 
 // tslint:disable-next-line:variable-name
-const Panel: React.SFC<Props> = ({title, children}) => <div>
+const Panel = ({title, children}: React.PropsWithChildren<Props>) => <div>
   <H2>{title}</H2>
   <Wrappper>
     {children}
