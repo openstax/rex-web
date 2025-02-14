@@ -1,11 +1,12 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useIntl } from 'react-intl';
+import { hiddenButAccessible } from '../../../theme';
 import styled from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';
-import ColorIndicator from './ColorIndicator';
+import ColorIndicator, { TrashButton } from './ColorIndicator';
 import { HTMLDivElement, HTMLInputElement } from '@openstax/types/lib.dom';
 
 interface SingleSelectProps {
@@ -48,7 +49,7 @@ const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps
     component={<label />}
     className={className}
   >
-    <input type='checkbox' {...props} />
+    <input type='radio' aria-checked={props.checked} {...props} />
   </ColorIndicator>;
 })`
   cursor: pointer;
@@ -83,6 +84,17 @@ function nextIdx(idx: number, itemCount: number, key: NavKeys) {
 }
 
 // tslint:disable-next-line:variable-name
+const FSWrapper = styled.div`
+  border: 0;
+  display: flex;
+  flex-direction: row;
+
+  legend {
+    ${hiddenButAccessible}
+  }
+`;
+
+// tslint:disable-next-line:variable-name
 const ColorPicker = ({className, ...props}: Props) => {
   const ref = React.useRef<HTMLDivElement>(null);
   // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role#keyboard_interactions
@@ -113,33 +125,43 @@ const ColorPicker = ({className, ...props}: Props) => {
     },
     [color]
   );
+  const hasOnRemove = 'onRemove' in props && props.onRemove;
 
   React.useEffect(focusOnSelected, [focusOnSelected]);
 
   return (
-    <fieldset
-      className={className}
-      tabIndex={0}
-      ref={ref}
-      onKeyDown={handleKeyNavigation}
-      onFocus={focusOnSelected}
-    >
-      <legend>Choose highlight color</legend>
-      {highlightStyles.map((style) => <ColorButton key={style.label}
-        name={style.label}
-        checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
-        style={style}
-        size={props.size}
-        tabIndex={-1}
-        onChange={() => props.multiple
-          ? props.selected.includes(style.label)
-            ? props.onChange(props.selected.filter(not(match(style.label))))
-            : props.onChange([...props.selected, style.label])
-          : props.color === style.label
-            ? props.onRemove ? props.onRemove() : null
-            : props.onChange(style.label)}
-      />)}
-    </fieldset>
+    <FSWrapper>
+      <fieldset
+        className={className}
+        tabIndex={0}
+        ref={ref}
+        onKeyDown={handleKeyNavigation}
+        onFocus={focusOnSelected}
+        role='radiogroup'
+      >
+        <legend>Choose highlight color</legend>
+        {highlightStyles.map((style) => <ColorButton key={style.label}
+          name={style.label}
+          checked={props.multiple ? props.selected.includes(style.label) : props.color === style.label}
+          style={style}
+          size={props.size}
+          tabIndex={-1}
+          onChange={() => props.multiple
+            ? props.selected.includes(style.label)
+              ? props.onChange(props.selected.filter(not(match(style.label))))
+              : props.onChange([...props.selected, style.label])
+            : props.color === style.label
+              ? props.onRemove ? props.onRemove() : null
+              : props.onChange(style.label)}
+        />)}
+      </fieldset>
+      { (!hasOnRemove || props.size === 'small') ? null :
+        <TrashButton
+          size={props.size}
+          onClick={props.onRemove}
+        />
+      }
+    </FSWrapper>
   );
 };
 
@@ -151,12 +173,4 @@ export default styled(ColorPicker)`
   overflow: visible;
   gap: ${cardPadding}rem;
   padding: ${cardPadding}rem 0.3rem;
-
-  legend {
-    position: absolute;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-  }
 `;
