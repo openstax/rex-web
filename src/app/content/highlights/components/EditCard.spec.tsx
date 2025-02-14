@@ -120,8 +120,9 @@ describe('EditCard', () => {
     const data = {
       ...highlightData,
       annotation: '',
+      color: 'red',
     };
-    const component = renderer.create(
+    const {root} = renderer.create(
       <TestContainer services={services} store={store}>
         <EditCard
           {...editCardProps}
@@ -131,7 +132,8 @@ describe('EditCard', () => {
       </TestContainer>
     );
 
-    const picker = component.root.findByType(ColorPicker);
+    const picker = root.findByType(ColorPicker);
+
     renderer.act(() => {
       picker.props.onRemove();
     });
@@ -154,14 +156,25 @@ describe('EditCard', () => {
     );
 
     const picker = component.root.findByType(ColorPicker);
-    renderer.act(() => {
-      picker.props.onRemove();
-    });
 
-    expect(editCardProps.onRemove).not.toHaveBeenCalled();
+    expect(picker.props.onRemove).toBeNull();
     mockSpyUser.mockClear();
   });
 
+  it('doesn\'t chain ColorPicker onRemove if there is no data', () => {
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
+    const component = renderer.create(
+      <TestContainer services={services} store={store}>
+            <EditCard {...editCardProps} isActive={true} />
+      </TestContainer>
+    );
+
+    const picker = component.root.findByType(ColorPicker);
+
+    expect(picker.props.onRemove).toBeNull();
+    mockSpyUser.mockClear();
+  });
   it('doesn\'t chain ColorPicker onRemove if there is a pending note', () => {
     highlight.getStyle.mockReturnValue('red');
     const mockSpyUser = jest.spyOn(selectAuth, 'user')
@@ -186,11 +199,8 @@ describe('EditCard', () => {
     });
 
     const picker = component.root.findByType(ColorPicker);
-    renderer.act(() => {
-      picker.props.onRemove();
-    });
 
-    expect(editCardProps.onRemove).not.toHaveBeenCalled();
+    expect(picker.props.onRemove).toBeNull();
     mockSpyUser.mockClear();
   });
 
