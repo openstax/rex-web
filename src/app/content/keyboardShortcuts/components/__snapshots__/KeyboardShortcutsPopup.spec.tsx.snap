@@ -489,24 +489,6 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               <span
                 className="c13"
               >
-                Space
-              </span>
-            </div>
-            <div
-              className="c12"
-            >
-              Deselect current highlight color
-            </div>
-          </div>
-          <div
-            className="c11"
-          >
-            <div
-              className="c12"
-            >
-              <span
-                className="c13"
-              >
                 Enter
               </span>
             </div>
