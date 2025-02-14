@@ -138,7 +138,6 @@ const ShowKeyboardShortcuts = () => (
         <Shortcut keys={['alt', 'h']} msgKey='move-focus-in-out'/>
         <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
         <Shortcut keys={['arrows']} msgKey='select-highlight-color'/>
-        <Shortcut keys={['space']} msgKey='deselect-highlight-color'/>
         <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
       </ShortcutsTable>
     </ShortcutsCard>
