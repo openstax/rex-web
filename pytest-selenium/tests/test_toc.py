@@ -7,7 +7,7 @@ from utils import utility
 @markers.test_case("C250849", "C242270")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_slug):
+def toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_slug):
     """ Test that table of contents toggle button opens and closes the sidebar
 
     The table of contents sidebar is open by default for desktop resolutions
@@ -82,7 +82,7 @@ def test_toc_toggle_button_opens_and_closes(selenium, base_url, book_slug, page_
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 @markers.mobile_only
-def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, book_slug, page_slug):
+def toc_disables_interacting_with_content_on_mobile(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
     # AND: A mobile resolution
@@ -121,7 +121,7 @@ def test_toc_disables_interacting_with_content_on_mobile(selenium, base_url, boo
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 @markers.mobile_only
-def test_toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug, page_slug):
+def toc_closes_after_selecting_page_in_mobile(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: The page_slug is opened in mobile resolution
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()

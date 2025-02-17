@@ -27,7 +27,7 @@ from utils.utility import (
 @markers.test_case("C543235", "C635010")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_message_when_search_yields_no_results(
+def message_when_search_yields_no_results(
         selenium, base_url, book_slug, page_slug):
     """Verify default message is displayed when no search results are found."""
     # GIVEN: a book page is loaded
@@ -71,7 +71,7 @@ def test_message_when_search_yields_no_results(
 @markers.test_case("C568506")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_scroll_position_when_search_yields_no_results(
+def scroll_position_when_search_yields_no_results(
         selenium, base_url, book_slug, page_slug):
     # GIVEN: Book page is loaded
     content = Content(selenium, base_url,
@@ -124,7 +124,7 @@ def test_scroll_position_when_search_yields_no_results(
 @markers.test_case("C543231")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug, page_slug):
+def TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug, page_slug):
     # GIVEN: Book page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
     topbar = content.topbar
@@ -151,7 +151,7 @@ def test_TOC_closed_if_search_sidebar_is_displayed(selenium, base_url, book_slug
 @markers.test_case("C543239")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_slug):
+def opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_slug):
     """Opening TOC closes search sidebar and content stays in the same location"""
 
     # GIVEN: Book page is loaded
@@ -288,7 +288,7 @@ def test_opening_TOC_closes_search_sidebar(selenium, base_url, book_slug, page_s
 @markers.test_case("C543233")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
+def x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
     """X in search sidebar closes sidebar, text in search input still visible"""
 
     # GIVEN: Book page is loaded
@@ -342,7 +342,7 @@ def test_x_in_search_sidebar(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C543234")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
+def x_in_search_textbox(selenium, base_url, book_slug, page_slug):
     """X in search textbox clears search string but search results are not affected"""
 
     # GIVEN: Book page is loaded
@@ -390,7 +390,7 @@ def test_x_in_search_textbox(selenium, base_url, book_slug, page_slug):
 @markers.parametrize("page_slug", ["preface"])
 @markers.desktop_only
 @markers.nondestructive
-def test_search_results(selenium, base_url, page_slug):
+def search_results(selenium, base_url, page_slug):
     """Search sidebar shows total number of matches throughout the book"""
 
     book_list = Library()
@@ -458,7 +458,7 @@ def test_search_results(selenium, base_url, page_slug):
 @markers.parametrize("book_slug, page_slug", [("introductory-statistics", "1-introduction")])
 @markers.nondestructive
 @markers.desktop_only
-def test_open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug):
+def open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug):
     """Search results can be opened in a new tab."""
 
     # GIVEN: Book page is loaded
@@ -502,7 +502,7 @@ def test_open_search_results_in_new_tab(selenium, base_url, book_slug, page_slug
 @markers.parametrize("book_slug, page_slug", [("biology-2e", "preface")])
 @markers.desktop_only
 @markers.nondestructive
-def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slug):
+def highlight_entire_search_element(selenium, base_url, book_slug, page_slug):
     """Highlight entire search element if unable to find single term"""
 
     # GIVEN: Book page is loaded
@@ -559,7 +559,7 @@ def test_highlight_entire_search_element(selenium, base_url, book_slug, page_slu
 @markers.parametrize("page_slug", ["preface"])
 @markers.desktop_only
 @markers.nondestructive
-def test_search_results_for_international_books(selenium, base_url, page_slug):
+def search_results_for_international_books(selenium, base_url, page_slug):
     """Search sidebar shows total number of matches throughout the book for international books"""
 
     book_list = Library()

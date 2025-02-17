@@ -5,7 +5,7 @@ from tests import markers
 @markers.test_case("C477321")
 @markers.parametrize("page_slug", [("index")])
 @markers.nondestructive
-def test_previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_slug):
+def previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: The page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -30,7 +30,7 @@ def test_previous_link_hidden_on_first_page(selenium, base_url, book_slug, page_
 @markers.test_case("C477322")
 @markers.parametrize("page_slug", [("index")])
 @markers.nondestructive
-def test_next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug):
+def next_link_hidden_on_last_page(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: The page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()

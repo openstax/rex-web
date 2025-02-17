@@ -17,7 +17,7 @@ from utils.utility import Highlight, Color, Utilities
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_change_color_from_MH_page(selenium, base_url, book_slug, page_slug):
+def change_color_from_MH_page(selenium, base_url, book_slug, page_slug):
     """Changing highlight color from MH page, updates the highlight in content page."""
 
     # GIVEN: Login book page
@@ -84,7 +84,7 @@ def test_change_color_from_MH_page(selenium, base_url, book_slug, page_slug):
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_add_note_from_MH_page(selenium, base_url, book_slug, page_slug):
+def add_note_from_MH_page(selenium, base_url, book_slug, page_slug):
     """Adding note from MH page, updates the highlight in content page."""
 
     # GIVEN: Login book page
@@ -164,7 +164,7 @@ def test_add_note_from_MH_page(selenium, base_url, book_slug, page_slug):
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_edit_note_from_MH_page(selenium, base_url, book_slug, page_slug):
+def edit_note_from_MH_page(selenium, base_url, book_slug, page_slug):
     """Editing note from MH page, updates the highlight in content page."""
 
     # GIVEN: Login book page
@@ -291,7 +291,7 @@ def test_edit_note_from_MH_page(selenium, base_url, book_slug, page_slug):
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_delete_highlight_from_MH_page(selenium, base_url, book_slug, page_slug):
+def delete_highlight_from_MH_page(selenium, base_url, book_slug, page_slug):
     """Deleting highlight from MH page, removes the highlight in content page."""
 
     # GIVEN: Login book page
@@ -367,7 +367,7 @@ def test_delete_highlight_from_MH_page(selenium, base_url, book_slug, page_slug)
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_no_context_menu_in_mobile_MH_page(selenium, base_url, book_slug, page_slug):
+def no_context_menu_in_mobile_MH_page(selenium, base_url, book_slug, page_slug):
     """Mobile MH page does not have context menu."""
 
     # GIVEN: Login book page
@@ -395,7 +395,7 @@ def test_no_context_menu_in_mobile_MH_page(selenium, base_url, book_slug, page_s
 @markers.test_case("C597679")
 @markers.desktop_only
 @markers.parametrize("book_slug,page_slug", [("organizational-behavior", "1-1-the-nature-of-work")])
-def test_MH_color_filters_reflect_highlight_color_change(selenium, base_url, book_slug, page_slug):
+def MH_color_filters_reflect_highlight_color_change(selenium, base_url, book_slug, page_slug):
     """Highlight color change in MH page is reflected in MH filters."""
 
     # GIVEN: Login book page

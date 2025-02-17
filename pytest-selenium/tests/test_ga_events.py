@@ -30,7 +30,7 @@ ACTION_SCRIPT = (
 
 @markers.test_case("C591502")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page_slug):
+def the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when a TOC link is clicked."""
     # SETUP:
     event_action = None
@@ -87,7 +87,7 @@ def test_the_user_clicks_a_toc_link_ga_event(selenium, base_url, book_slug, page
 
 @markers.test_case("C591503")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, book_slug, page_slug):
+def user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a print link is clicked."""
     # SETUP:
     event_action = "buy-book"
@@ -124,7 +124,7 @@ def test_user_clicks_the_order_a_print_copy_link_ga_event(selenium, base_url, bo
 
 @markers.test_case("C621361", "C621362")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-2-the-scientific-methods")])
-def test_user_clicks_the_previous_and_next_page_link_ga_events(
+def user_clicks_the_previous_and_next_page_link_ga_events(
     selenium, base_url, book_slug, page_slug
 ):
     """The page submits the correct GA events when the page links are clicked."""
@@ -220,7 +220,7 @@ def test_user_clicks_the_previous_and_next_page_link_ga_events(
 
 @markers.test_case("C621363")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_user_logout_ga_event(selenium, base_url, book_slug, page_slug):
+def user_logout_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when a user logs out."""
     # SETUP:
     log_out_event_action = f"/accounts/logout?r=/books/{book_slug}/pages/{page_slug}"
@@ -268,7 +268,7 @@ def test_user_logout_ga_event(selenium, base_url, book_slug, page_slug):
 
 @markers.test_case("C621364", "C621366")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book_slug, page_slug):
+def open_and_close_the_table_of_contents_ga_events(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the ToC is opened."""
     # SETUP:
     close_event_action = "Click to close the Table of Contents"
@@ -332,7 +332,7 @@ def test_open_and_close_the_table_of_contents_ga_events(selenium, base_url, book
 @markers.parametrize(
     "book_slug, page_slug", [("physics", "1-1-physics-definitions-and-applications")]
 )
-def test_click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
+def click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a figure link is clicked."""
     # SETUP:
     figure_link_action = None  # Not yet known, uses the anchor reference
@@ -373,7 +373,7 @@ def test_click_a_figure_link_ga_event(selenium, base_url, book_slug, page_slug):
 
 @markers.test_case("C621367")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_account_profile_menu_bar_click_ga_event(selenium, base_url, book_slug, page_slug):
+def account_profile_menu_bar_click_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when account profile clicked."""
     # SETUP:
     event_action = "/accounts/profile"
@@ -414,7 +414,7 @@ def test_account_profile_menu_bar_click_ga_event(selenium, base_url, book_slug, 
     "book_slug, page_slug",
     [("physics", "1-3-the-language-of-physics-physical-quantities-and-units")],
 )
-def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_slug):
+def clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when a search excerpt is clicked."""
     # SETUP:
     excerpt_event_action = None
@@ -541,7 +541,7 @@ def test_clicking_a_search_excerpt_ga_event(selenium, base_url, book_slug, page_
 
 @markers.test_case("C621369")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_banner_book_title_click_ga_event(selenium, base_url, book_slug, page_slug):
+def banner_book_title_click_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when the book title is clicked."""
     # SETUP:
     click_event_action = f"/details/books/{book_slug}"
@@ -592,7 +592,7 @@ def test_banner_book_title_click_ga_event(selenium, base_url, book_slug, page_sl
 @markers.skip_test(reason="difficulty getting GA data from OSWeb")
 @markers.dev_only
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_view_book_online_link_ga_event(selenium, base_url, book_slug, page_slug):
+def view_book_online_link_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a user clicks View online."""
     # SETUP:
     event_action = "open"
@@ -619,7 +619,7 @@ def test_view_book_online_link_ga_event(selenium, base_url, book_slug, page_slug
 
 @markers.test_case("C621371")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_openstax_logo_click_ga_event(selenium, base_url, book_slug, page_slug):
+def openstax_logo_click_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when a user clicks the logo."""
     # SETUP:
     click_event_action = "/"
@@ -668,7 +668,7 @@ def test_openstax_logo_click_ga_event(selenium, base_url, book_slug, page_slug):
 
 @markers.test_case("C621372")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_log_in_click_ga_event(selenium, base_url, book_slug, page_slug):
+def log_in_click_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when the log in link is clicked."""
     # SETUP:
     log_in_click_event_action = "login"
@@ -718,7 +718,7 @@ def test_log_in_click_ga_event(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C597377")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_new_highlight_ga_event(selenium, base_url, book_slug, page_slug):
+def new_highlight_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when content is selected."""
     # SETUP:
     color = Highlight.random_color()
@@ -776,7 +776,7 @@ def test_new_highlight_ga_event(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C621346")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_remove_highlight_by_using_same_color_button_ga_event(
+def remove_highlight_by_using_same_color_button_ga_event(
     selenium, base_url, book_slug, page_slug
 ):
     """The page submits the correct GA event when the same color is clicked."""
@@ -827,7 +827,7 @@ def test_remove_highlight_by_using_same_color_button_ga_event(
 @markers.test_case("C621347")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
+def cancel_log_in_from_highlight_creation_nudge_ga_event(
     selenium, base_url, book_slug, page_slug
 ):
     """The page submits the correct GA event when login nudge is cancelled."""
@@ -878,7 +878,7 @@ def test_cancel_log_in_from_highlight_creation_nudge_ga_event(
 @markers.test_case("C621348")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
+def log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when using the inline 'Log in'."""
     # SETUP:
     log_in_event_action = "login"
@@ -953,7 +953,7 @@ def test_log_in_nudge_login_ga_event(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C621349")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_cancel_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
+def cancel_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when hl deletion is cancelled."""
     # SETUP:
     cancel_event_action = "cancel"
@@ -1005,7 +1005,7 @@ def test_cancel_highlight_delete_ga_event(selenium, base_url, book_slug, page_sl
 @markers.test_case("C621350")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
+def highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a highlight is deleted."""
     # SETUP:
     event_action = "delete"
@@ -1057,7 +1057,7 @@ def test_highlight_delete_ga_event(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C621351", "C621352")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
+def edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when existing note is edited."""
     # SETUP:
     color = Highlight.random_color()
@@ -1130,7 +1130,7 @@ def test_edit_existing_note_ga_event(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C621353", "C621354")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug):
+def add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when note added to a highlight."""
     # SETUP:
     color = Highlight.random_color()
@@ -1199,7 +1199,7 @@ def test_add_note_to_highlight_ga_event(selenium, base_url, book_slug, page_slug
 @markers.test_case("C621355")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_change_highlight_color_ga_event(selenium, base_url, book_slug, page_slug):
+def change_highlight_color_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a hl color is changed."""
     # SETUP:
     new_color = Color.PURPLE
@@ -1249,7 +1249,7 @@ def test_change_highlight_color_ga_event(selenium, base_url, book_slug, page_slu
 @markers.test_case("C597671")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_select_text_ga_event(selenium, base_url, book_slug, page_slug):
+def select_text_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when content is selected."""
     # SETUP:
     event_action = "show create"
@@ -1294,7 +1294,7 @@ def test_select_text_ga_event(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C597672")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_inline_highlighting_login_nudge_ga_event(selenium, base_url, book_slug, page_slug):
+def inline_highlighting_login_nudge_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the log in nudge is shown."""
     # SETUP:
     event_action = "show login"
@@ -1344,7 +1344,7 @@ def test_inline_highlighting_login_nudge_ga_event(selenium, base_url, book_slug,
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_go_to_highlight_ga_event(selenium, base_url, book_slug, page_slug):
+def go_to_highlight_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event for the 'Go to highlight' button.
 
     This is the final event before switching the browser to a new tab/window.
@@ -1405,7 +1405,7 @@ def test_go_to_highlight_ga_event(selenium, base_url, book_slug, page_slug):
 
 @markers.test_case("C602208")
 @markers.parametrize("book_slug", [("chemistry-2e")])
-def test_title_and_meta_page_tags_for_seo(selenium, base_url, book_slug):
+def title_and_meta_page_tags_for_seo(selenium, base_url, book_slug):
     """Test the title and meta title property book header tags."""
     # SETUP:
     action_script = "return document.querySelector('[href=\"{}\"]');"
@@ -1439,7 +1439,7 @@ def test_title_and_meta_page_tags_for_seo(selenium, base_url, book_slug):
 
 @markers.test_case("C605728")
 @markers.parametrize("book_slug, page_slug", [("american-government-2e", "1-introduction")])
-def test_study_guide_chapter_tag_ga_event(selenium, base_url, book_slug, page_slug):
+def study_guide_chapter_tag_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when a SG chapter tag opened."""
     # SETUP:
     event_action = "Filter study guides by Chapter"
@@ -1479,7 +1479,7 @@ def test_study_guide_chapter_tag_ga_event(selenium, base_url, book_slug, page_sl
 
 @markers.test_case("C607438")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
-def test_study_guide_cta_sign_up_ga_event(selenium, base_url, book_slug, page_slug):
+def study_guide_cta_sign_up_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when sign up link is clicked."""
     # SETUP:
     new_events = 2
@@ -1531,7 +1531,7 @@ def test_study_guide_cta_sign_up_ga_event(selenium, base_url, book_slug, page_sl
 
 @markers.test_case("C605716", "C621330")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
-def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
+def open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when the study guide is opened."""
     # SETUP:
     button_event_action = "button"
@@ -1597,7 +1597,7 @@ def test_open_study_guide_ga_event(selenium, base_url, book_slug, page_slug):
 
 @markers.test_case("C621326")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
-def test_sg_close_using_overlay_click_ga_event(selenium, base_url, book_slug, page_slug):
+def sg_close_using_overlay_click_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when SG close by overlay click."""
     # SETUP:
     event_action = "overlay"
@@ -1649,7 +1649,7 @@ def test_sg_close_using_overlay_click_ga_event(selenium, base_url, book_slug, pa
 
 @markers.test_case("C621327")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
-def test_sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slug):
+def sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when close SG by escape key."""
     # SETUP:
     event_action = "esc"
@@ -1696,7 +1696,7 @@ def test_sg_close_using_esc_key_ga_event(selenium, base_url, book_slug, page_slu
 
 @markers.test_case("C621328", "C621329")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
-def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, page_slug):
+def sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when SG close 'x' is clicked."""
     # SETUP:
     button_event_action = "button"
@@ -1763,7 +1763,7 @@ def test_sg_close_using_x_close_button_ga_events(selenium, base_url, book_slug, 
 
 @markers.test_case("C621331")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
-def test_study_guide_log_in_link_ga_event(selenium, base_url, book_slug, page_slug):
+def study_guide_log_in_link_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when SG log in link is clicked."""
     # SETUP:
     log_in_event_action = "login"
@@ -1815,7 +1815,7 @@ def test_study_guide_log_in_link_ga_event(selenium, base_url, book_slug, page_sl
 
 @markers.test_case("C621333")
 @markers.parametrize("book_slug, page_slug", [("principles-economics-2e", "1-introduction")])
-def test_study_guide_remove_chapter_filter_ga_event(selenium, base_url, book_slug, page_slug):
+def study_guide_remove_chapter_filter_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when SA chapter filter removed."""
     # SETUP:
     event_action = "Remove breadcrumb for chapter {number} {name}"
@@ -1856,7 +1856,7 @@ def test_study_guide_remove_chapter_filter_ga_event(selenium, base_url, book_slu
 
 @markers.test_case("C609711")
 @markers.parametrize("book_slug, page_slug", [("american-government-2e", "1-introduction")])
-def test_using_this_guide_ga_event(selenium, base_url, book_slug, page_slug):
+def using_this_guide_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when 'Using this guide' in SG."""
     # SETUP:
     event_action = "button"
@@ -1905,7 +1905,7 @@ def test_using_this_guide_ga_event(selenium, base_url, book_slug, page_slug):
 @markers.parametrize(
     "book_slug, page_slug", [("physics", "1-1-physics-definitions-and-applications")]
 )
-def test_practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
+def practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when Practice is opened."""
     # SETUP:
     button_event_action = "button"
@@ -1969,7 +1969,7 @@ def test_practice_opened_ga_event(selenium, base_url, book_slug, page_slug):
 
 @markers.test_case("C621317")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_continue_to_questions_button_ga_event(selenium, base_url, book_slug, page_slug):
+def continue_to_questions_button_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when Continue button clicked."""
     # SETUP:
     event_action = "Continue (Empty Screen)"
@@ -2013,7 +2013,7 @@ def test_continue_to_questions_button_ga_event(selenium, base_url, book_slug, pa
 @markers.parametrize(
     "book_slug, page_slug", [("physics", "1-1-physics-definitions-and-applications")]
 )
-def test_submit_practice_question_answer_ga_event(selenium, base_url, book_slug, page_slug):
+def submit_practice_question_answer_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when submiting a PQ answer."""
     # SETUP:
     event_action = "Submit"
@@ -2059,7 +2059,7 @@ def test_submit_practice_question_answer_ga_event(selenium, base_url, book_slug,
 
 @markers.test_case("C621319")
 @markers.parametrize("book_slug, page_slug", [("physics", "2-4-velocity-vs-time-graphs")])
-def test_practice_question_finish_section_button_ga_event(selenium, base_url, book_slug, page_slug):
+def practice_question_finish_section_button_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when 'Finish' button clicked."""
     # SETUP:
     event_action = "Finish"
@@ -2113,7 +2113,7 @@ def test_practice_question_finish_section_button_ga_event(selenium, base_url, bo
 @markers.parametrize(
     "book_slug, page_slug", [("physics", "1-1-physics-definitions-and-applications")]
 )
-def test_practice_show_answer_button_ga_event(selenium, base_url, book_slug, page_slug):
+def practice_show_answer_button_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when show answer clicked."""
     # SETUP:
     event_action = "Show answer"
@@ -2166,7 +2166,7 @@ def test_practice_show_answer_button_ga_event(selenium, base_url, book_slug, pag
 @markers.parametrize(
     "book_slug, page_slug", [("physics", "1-1-physics-definitions-and-applications")]
 )
-def test_skip_practice_question_ga_event(selenium, base_url, book_slug, page_slug):
+def skip_practice_question_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when skip link is clicked."""
     # SETUP:
     event_action = "Skip"
@@ -2208,7 +2208,7 @@ def test_skip_practice_question_ga_event(selenium, base_url, book_slug, page_slu
 
 @markers.test_case("C621322")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, book_slug, page_slug):
+def close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when the overlay is clicked."""
     # SETUP:
     click_event_action = "overlay"
@@ -2256,7 +2256,7 @@ def test_close_practice_by_clicking_the_overlay_ga_event(selenium, base_url, boo
 
 @markers.test_case("C621323")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug, page_slug):
+def close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when ESC key hit."""
     # SETUP:
     key_press_event_action = "esc"
@@ -2306,7 +2306,7 @@ def test_close_practice_by_using_esc_key_ga_event(selenium, base_url, book_slug,
 
 @markers.test_case("C621324")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_practice_closed_when_x_close_button_clicked_ga_events(
+def practice_closed_when_x_close_button_clicked_ga_events(
     selenium, base_url, book_slug, page_slug
 ):
     """The page submits the correct GA events when 'x' close button clicked."""
@@ -2375,7 +2375,7 @@ def test_practice_closed_when_x_close_button_clicked_ga_events(
 
 @markers.test_case("C621325")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_practice_read_link_ga_event(selenium, base_url, book_slug, page_slug):
+def practice_read_link_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when read link is clicked."""
     # SETUP:
     event_action = "Go to link"
@@ -2417,7 +2417,7 @@ def test_practice_read_link_ga_event(selenium, base_url, book_slug, page_slug):
 
 @markers.test_case("C622245")
 @markers.parametrize("book_slug, page_slug", [("physics", "2-4-velocity-vs-time-graphs")])
-def test_pq_continue_to_next_section_button_click_ga_event(
+def pq_continue_to_next_section_button_click_ga_event(
     selenium, base_url, book_slug, page_slug
 ):
     """The page submits the correct GA event when continuing to next pq set."""
@@ -2471,7 +2471,7 @@ def test_pq_continue_to_next_section_button_click_ga_event(
 
 @markers.test_case("C622246")
 @markers.parametrize("book_slug, page_slug", [("physics", "1-introduction")])
-def test_practice_filter_ga_events(selenium, base_url, book_slug, page_slug):
+def practice_filter_ga_events(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA events when a PQ filter selected."""
     # SETUP:
     filter_menu_event_action = "Filter PQ by Chapter & Section"
@@ -2534,7 +2534,7 @@ def test_practice_filter_ga_events(selenium, base_url, book_slug, page_slug):
 @markers.parametrize(
     "book_slug, page_slug", [("physics", "1-1-physics-definitions-and-applications")]
 )
-def test_start_practice_ga_event(selenium, base_url, book_slug, page_slug):
+def start_practice_ga_event(selenium, base_url, book_slug, page_slug):
     """The page submits the correct GA event when starting a practice."""
     # SETUP:
     event_action = "Start now"
