@@ -253,13 +253,17 @@ function ActiveEditCard({
 function useOnRemove(props: EditCardProps, pendingAnnotation: string) {
   const onRemove = props.onRemove;
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
+  const removeAndTrack = React.useCallback(
+    () => {
+      const data = assertDefined(props.data, 'props.data must be defined');
 
-  return React.useCallback(() => {
-    if (props.data && !props.data.annotation && !pendingAnnotation) {
       onRemove();
-      trackDeleteHighlight(props.data.color);
-    }
-  }, [onRemove, pendingAnnotation, props.data, trackDeleteHighlight]);
+      trackDeleteHighlight(data.color);
+    },
+    [onRemove, props.data, trackDeleteHighlight]
+  );
+
+  return props.data && !props.data.annotation && !pendingAnnotation && props.data.color ? removeAndTrack : null;
 }
 
 function AnnotationEditor({
