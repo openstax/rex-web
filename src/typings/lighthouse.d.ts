@@ -1,6 +1,6 @@
 declare module 'lighthouse' {
 
-  type NotYetTyped = any; // Anything that has not been defined yet.
+  type NotYetTyped = unknown; // Anything that has not been defined yet.
 
   type AuditId =
       'is-on-https'

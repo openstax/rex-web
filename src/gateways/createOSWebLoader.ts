@@ -58,7 +58,7 @@ const defaultOptions = () => ({
 export default (prefix: string, options: Options = {}) => {
   const {cache} = {...defaultOptions(), ...options};
   const baseUrl = `${prefix}/v2/pages`;
-  const toJson = (response: any) => response.json() as Promise<OSWebResponse>;
+  const toJson = (response: Response) => response.json();
 
   const firstRecord = (data: OSWebResponse) => data.items[0];
 

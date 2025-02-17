@@ -28,6 +28,7 @@ const MATHJAX_CONFIG = {
     displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]],
     inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]],
   },
+  AuthorInit: undefined as unknown,
 };
 
 const findProcessedMath = (root: Element): Element[] => Array.from(root.querySelectorAll('.MathJax math'));
@@ -160,7 +161,7 @@ function startMathJax() {
     // Call MathJax.Configured once MathJax loads and
     // loads this config JSON since the CDN URL
     // says to `delayStartupUntil=configured`
-    (MATHJAX_CONFIG as any).AuthorInit = configuredCallback;
+    MATHJAX_CONFIG.AuthorInit = configuredCallback;
     return window.MathJax = MATHJAX_CONFIG;
   }
 }

@@ -20,8 +20,8 @@ export const DotMenuIcon = styled(EllipsisV)`
 
 // tslint:disable-next-line:variable-name
 export const DotMenuToggle = styled(
-  React.forwardRef<HTMLDivElement, {isOpen: boolean}>(
-    ({isOpen, ...props}, ref) => {
+  React.forwardRef(
+    ({isOpen, ...props}: {isOpen: boolean}, ref) => {
 
       return (
         <PlainButton aria-label='Actions' aria-expanded={isOpen} {...props} ref={ref}>

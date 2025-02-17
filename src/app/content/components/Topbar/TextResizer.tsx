@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import decreaseTextSizeIcon from '../../../../assets/text-size-decrease.svg';
 import increaseTextSizeIcon from '../../../../assets/text-size-increase.svg';
 import textSizeIcon from '../../../../assets/text-size.svg';
+import { HTMLInputElement } from '@openstax/types/lib.dom';
 import {
   textResizerDefaultValue,
   textResizerMaxValue,
@@ -23,7 +24,7 @@ export interface TextResizerProps {
 // tslint:disable-next-line:variable-name
 export const TextResizer = (props: TextResizerProps) => {
   const onChangeTextSize = (e: React.FormEvent<HTMLInputElement>) => {
-    const target = (e as any).currentTarget;
+    const target = e.currentTarget;
     const value = parseInt(target.value, 10) as TextResizerValue;
     if (!textResizerValues.includes(value)) { return; }
     props.setTextSize(value);
