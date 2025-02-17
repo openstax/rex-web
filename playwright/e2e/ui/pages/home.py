@@ -1,6 +1,5 @@
 import asyncio
 import pytest
-from selenium.webdriver.common.devtools.v85.runtime import await_promise
 
 from playwright.async_api import expect
 
