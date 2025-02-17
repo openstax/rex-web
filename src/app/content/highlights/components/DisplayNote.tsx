@@ -63,7 +63,6 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const searchQuery = useSelector(query);
   const isTocOpen = useSelector(tocOpen);
   const {formatMessage} = useIntl();
-  
 
   // Focus the highlight when clicking outside the Card in order to keep navigation in order
   const onBlurring = React.useCallback(() => {
