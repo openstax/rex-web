@@ -72,7 +72,6 @@ describe('DisplayNote', () => {
 
   it('matches snapshot when click outside DisplayNote', () => {
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
-    onClickOutside.mockReturnValue();
 
     const highlight = {
       elements: [],

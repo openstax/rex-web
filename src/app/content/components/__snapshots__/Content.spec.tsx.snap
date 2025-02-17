@@ -193,7 +193,7 @@ Array [
   .c38 {
   position: fixed;
   right: 2rem;
-  z-index: 40;
+  z-index: 30;
   display: grid;
   justify-items: center;
   -webkit-box-pack: center;
@@ -4942,7 +4942,7 @@ Array [
   .c38 {
   position: fixed;
   right: 2rem;
-  z-index: 40;
+  z-index: 30;
   display: grid;
   justify-items: center;
   -webkit-box-pack: center;
