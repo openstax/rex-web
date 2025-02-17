@@ -14,7 +14,8 @@ jobs:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
-        node-version: 14
+        node-version-file: '.nvmrc'
+        cache: 'npm'
       env:
         BASE_URL: ${{ github.event.inputs.base_url }}
     - run: npm ci
