@@ -81,7 +81,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   <span
     dangerouslySetInnerHTML={
       Object {
-        "__html": "Need help? Visit the <a data-testid='support-link' data-analytics-label='support-link' target=\\"_blank\\" href=\\"https://help.openstax.org/s/article/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting\\">Support Center</a>",
+        "__html": "Notes and highlights cannot be edited on mobile devices. <a data-testid='support-link' data-analytics-label='support-link' target=\\"_blank\\" href=\\"https://help.openstax.org/s/article/Using-the-highlighting-and-note-taking-feature-on-mobile-or-tablet?search=highlighting\\">Read more</a>",
       }
     }
   />
