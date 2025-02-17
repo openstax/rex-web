@@ -11,6 +11,7 @@ import { assertDocument, assertWindow } from '../../../utils';
 import { openToc } from '../../actions';
 import { highlightStyles } from '../../constants';
 import { requestSearch } from '../../search/actions';
+import * as onClickOutsideModule from './utils/onClickOutside';
 import Confirmation from './Confirmation';
 import DisplayNote, { DisplayNoteProps } from './DisplayNote';
 import TruncatedText from './TruncatedText';
@@ -69,6 +70,26 @@ describe('DisplayNote', () => {
     expect(tree).toMatchSnapshot();
   });
 
+  it('matches snapshot when click outside DisplayNote', () => {
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
+
+    const highlight = {
+      elements: [],
+      id: 'outsideclick',
+      focus: jest.fn(),
+    } as any as Highlight;
+
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} highlight={highlight} isActive={true} />
+    </TestContainer>);
+
+    onClickOutside.mock.calls[0][2]({} as any);
+
+    expect(component).toBeTruthy();
+    expect(onClickOutside.mock.calls.length).toBe(1);
+    expect(displayNoteProps.onBlur).toHaveBeenCalled();
+  });
+
   it('shows delete confirmation', () => {
     const component = renderer.create(<TestContainer store={store}>
       <DisplayNote {...displayNoteProps} isActive={true} />
@@ -92,8 +113,8 @@ describe('DisplayNote', () => {
 
   it('confirmation deletes', () => {
     const component = renderer.create(<TestContainer store={store}>
-          <DisplayNote {...displayNoteProps} isActive={true} />
-    </TestContainer>, { createNodeMock: () => assertDocument().createElement('div')});
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>, { createNodeMock: () => assertDocument().createElement('div') });
 
     renderer.act(() => {
       const dropdownToggle = component.root.findByType(DropdownToggle);
@@ -232,10 +253,10 @@ describe('DisplayNote', () => {
       store.dispatch(requestSearch('asdf'));
     });
 
-    const event =  assertDocument().createEvent('UIEvent');
+    const event = assertDocument().createEvent('UIEvent');
     event.initEvent('resize');
     renderer.act(() => {
-      Object.defineProperty(assertWindow(), 'innerWidth', {value: 1000});
+      Object.defineProperty(assertWindow(), 'innerWidth', { value: 1000 });
       assertWindow().dispatchEvent(event);
       jest.runAllTimers();
     });

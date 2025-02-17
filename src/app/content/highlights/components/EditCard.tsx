@@ -142,12 +142,14 @@ function ActiveEditCard({
     false
   );
 
-  const {onBlur, hasUnsavedHighlight} = props;
+  const {onBlur, hasUnsavedHighlight, highlight} = props;
+  // Focus the highlight when clicking outside the Card in order to keep navigation in order
   const blurIfNotEditing = React.useCallback(() => {
     if (!hasUnsavedHighlight && !editingAnnotation) {
+      highlight.focus();
       onBlur();
     }
-  }, [onBlur, hasUnsavedHighlight, editingAnnotation]);
+  }, [onBlur, hasUnsavedHighlight, editingAnnotation, highlight]);
 
   const deselectRange = React.useCallback(
     ({target}: FocusEvent) => {
@@ -485,6 +487,8 @@ function useSaveAnnotation(
       trackEditAnnotation(addedNote, toSave.color);
       onCancel();
       scrollHighlightIntoView(highlight, element);
+      // Focus the highlight after save is successful
+      highlight.focus();
     },
     [
       dispatch,
