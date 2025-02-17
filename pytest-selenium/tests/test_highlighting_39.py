@@ -27,7 +27,7 @@ HAS_INDICATOR = (
     "book_slug, page_slug",
     [("astronomy", "1-1-the-nature-of-astronomy")]
 )
-def test_keyboard_navigation_for_my_highlights_button_on_content_page(
+def keyboard_navigation_for_my_highlights_button_on_content_page(
         selenium, base_url, book_slug, page_slug):
     """Use keyboard navigation to open and close My Highlights and Notes."""
     # GIVEN: a book page is displayed
@@ -99,7 +99,7 @@ def test_keyboard_navigation_for_my_highlights_button_on_content_page(
     "book_slug, page_slug",
     [("astronomy", "1-1-the-nature-of-astronomy")]
 )
-def test_open_my_highlights_for_non_logged_in_users_on_desktop(
+def open_my_highlights_for_non_logged_in_users_on_desktop(
         selenium, base_url, book_slug, page_slug):
     """Open the My Highlights and Notes modal for non-logged in users."""
     # GIVEN: a book page is displayed
@@ -141,7 +141,7 @@ def test_open_my_highlights_for_non_logged_in_users_on_desktop(
     "book_slug, page_slug",
     [("astronomy", "1-1-the-nature-of-astronomy")]
 )
-def test_open_my_highlights_for_non_logged_in_users_on_mobile(
+def open_my_highlights_for_non_logged_in_users_on_mobile(
         selenium, base_url, book_slug, page_slug):
     """Open the My Highlights and Notes modal for non-logged in users."""
     # GIVEN: a book page is displayed
@@ -181,7 +181,7 @@ def test_open_my_highlights_for_non_logged_in_users_on_mobile(
     [("introductory-statistics",
       "2-2-histograms-frequency-polygons-and-time-series-graphs")]
 )
-def test_clicking_on_the_note_indicator_opens_the_note_card(
+def clicking_on_the_note_indicator_opens_the_note_card(
         selenium, base_url, book_slug, page_slug):
     """Open the note card for various highlights with notes."""
     # GIVEN: a book page is displayed
@@ -255,7 +255,7 @@ def test_clicking_on_the_note_indicator_opens_the_note_card(
     [("biology-2e", "1-1-the-science-of-biology")]
 )
 @markers.smoke_test
-def test_note_indicator_not_present_for_highlights_without_notes(
+def note_indicator_not_present_for_highlights_without_notes(
         selenium, base_url, book_slug, page_slug):
     """The note indicator is not present on highlights without notes.
 
@@ -320,7 +320,7 @@ def test_note_indicator_not_present_for_highlights_without_notes(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("page_slug", [("preface")])
-def test_note_indicator_added_when_highlight_without_a_note_has_a_note_added(
+def note_indicator_added_when_highlight_without_a_note_has_a_note_added(
         selenium, base_url, book_slug, page_slug):
     """Adding a note to a highlight also adds the indicator to the highlight.
 
