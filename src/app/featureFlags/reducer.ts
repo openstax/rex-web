@@ -7,10 +7,12 @@ import { State } from './types';
 
 export const initialState: State = {};
 
-const reducer: Reducer<State, AnyAction> = (state = initialState, action): any => {
+const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
+
     switch (action.type) {
-        case getType(receiveExperiments):
+        case getType(receiveExperiments): {
             const [id, variant] = action.payload;
+
             if (variant && experimentIds[id]) {
                 const experimentName = experimentIds[id];
                 const variantIndex = parseInt(variant, 10);
@@ -18,6 +20,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): any =
                 return {...state, [experimentName]: variantName};
             }
             return state;
+        }
         case getType(receiveFeatureFlags):
             return action.payload.reduce((result, flag) => ({...result, [flag]: true}), {...state});
         default:

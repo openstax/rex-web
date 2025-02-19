@@ -71,7 +71,7 @@ const makeCatchError = ({dispatch, getState}: MiddlewareAPI) => (e: Error) => {
   dispatch(showErrorDialog());
 };
 
-export const isNetworkError = (error: any) => {
+export const isNetworkError = (error: unknown) => {
   return error instanceof TypeError && error.message.includes('Failed to fetch');
 };
 
@@ -81,7 +81,7 @@ export const mergeRefs = <T>(...refs: Array<Ref<T> | undefined>) => (ref: T) => 
     if (typeof resolvableRef === 'function') {
       resolvableRef(ref);
     } else if (resolvableRef) {
-      (resolvableRef as any).current = ref;
+      (resolvableRef as React.MutableRefObject<T>).current = ref;
     }
   });
 };
@@ -161,7 +161,7 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
   };
 };
 
-export const tuple = <A extends any[]>(...args: A) => args;
+export const tuple = <A extends unknown[]>(...args: A) => args;
 
 // tslint:disable-next-line: max-classes-per-file
 export class UnauthenticatedError extends ApplicationError {}

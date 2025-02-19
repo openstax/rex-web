@@ -98,10 +98,11 @@ const updateStackedCardsPositions = (
     const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
     const stackedTopOffset = Math.max(topOffset, lastVisibleCardBottom + marginToAdd);
+    const heightsForId = heights.get(highlight.id);
 
-    if (heights.get(highlight.id) && !checkIfHiddenByCollapsedAncestor(highlight)) {
+    if (heightsForId && !checkIfHiddenByCollapsedAncestor(highlight)) {
       lastVisibleCardPosition = stackedTopOffset;
-      lastVisibleCardHeight = heights.get(highlight.id)!;
+      lastVisibleCardHeight = heightsForId;
     }
 
     positions.set(highlight.id, stackedTopOffset);
