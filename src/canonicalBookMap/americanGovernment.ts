@@ -50,7 +50,7 @@ export default {
       'ed22cb13-2f14-460f-a603-fb1631f4c6f6': '7760a2b3-c3b9-416c-9520-b8cc4fa954fa',
       /* 4.4 Interpreting the Bill of Rights to the same module in 2e */
       'fdf44e79-776e-477e-963c-a6c0a98c434a': 'cb752abe-3cf9-4da4-8fc5-60b9e3752e5a',
-      /* 5.0 Introduction to the same module in 2e */
+      /* 5.0 Introduction to the same module in 2e */
       '9fab3e71-ddb5-4dd9-bfd4-c9bc9b98141e': '9d5dd1d4-a37c-45be-a6c5-1af41cabed33',
       /* 5.1 What Are Civil Rights and How Do We Identify Them? to the same module in 2e */
       '75bad956-ba62-4639-92cf-d25fc3bdd9f1': '2d27051a-78f8-4af2-acc1-d6ca2217ef70',

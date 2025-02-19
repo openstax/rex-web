@@ -1,9 +1,9 @@
 import { FirstArgumentType } from './types';
 
-export const and = <A extends any[]>(...predicates: Array<(...args: A) => boolean>) => (...args: A) =>
+export const and = <A extends unknown[]>(...predicates: Array<(...args: A) => boolean>) => (...args: A) =>
   predicates.reduce((result, predicate) => result && predicate(...args), true);
 
-export const or = <A extends any[]>(...predicates: Array<(...args: A) => boolean>) => (...args: A) =>
+export const or = <A extends unknown[]>(...predicates: Array<(...args: A) => boolean>) => (...args: A) =>
   predicates.reduce((result, predicate) => result || predicate(...args), false);
 
 export const ifUndefined = <I, D>(item: I | undefined, defaultValue: D): I | D  =>
@@ -12,13 +12,13 @@ export const ifUndefined = <I, D>(item: I | undefined, defaultValue: D): I | D  
 /*
  * returns a function that inverts the result of the passed in function
  */
-export const not = <A extends any[]>(wrapped: (...args: A) => any) => (...args: A) => !wrapped(...args);
+export const not = <A extends unknown[]>(wrapped: (...args: A) => unknown) => (...args: A) => !wrapped(...args);
 
 /*
  * returns a function that evaluates its argument against the given predicate
  */
 // tslint:disable-next-line:ban-types
-export const match = <T extends any>(predicate: T) => (arg: T extends Function ? FirstArgumentType<T> : T) => {
+export const match = <T extends unknown>(predicate: T) => (arg: T extends Function ? FirstArgumentType<T> : T) => {
   if (typeof predicate === 'function') {
     return !!predicate(arg);
   }

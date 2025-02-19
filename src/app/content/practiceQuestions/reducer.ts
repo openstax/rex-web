@@ -40,7 +40,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
       return {...state, currentQuestionIndex: state.currentQuestionIndex === null ? 0 : state.currentQuestionIndex + 1};
     case getType(actions.setQuestions):
       return {...state, loading: false, questions: action.payload};
-    case getType(actions.setAnswer):
+    case getType(actions.setAnswer): {
       const { questionId, answer } = action.payload;
       return {
         ...state,
@@ -49,6 +49,7 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action): State
           [questionId]: answer,
         },
       };
+    }
     case getType(actions.finishQuestions):
       return {...state, currentQuestionIndex: null};
     default:
