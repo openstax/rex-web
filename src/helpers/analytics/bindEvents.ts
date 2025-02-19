@@ -25,6 +25,7 @@ import * as openStudyGuides from './events/studyGuides/openPopUp';
 import * as openUTG from './events/studyGuides/openUTG';
 import * as unload from './events/unload';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type EventConstructor<Args extends any[] = any[]> = (...args: Args) => (AnalyticsEvent | void);
 type Selector = (state: AppState) => object;
 interface Event {track: EventConstructor; selector: Selector; }
@@ -41,7 +42,12 @@ const triggerEvent = <E extends Event>(event: E): E['track'] => (...args) => {
 };
 
 const bindTrackSelector = <E extends Event>(event: E, track: E['track']) => (state: AppState | (() => AppState)) =>  {
-  type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
+  type RemainingArgumentTypes = E['track'] extends (
+    d: ReturnType<E['selector']>,
+    ...args: infer A
+  ) => unknown
+    ? A
+    : never;
 
   return (...args: RemainingArgumentTypes) => {
     const data = event.selector(typeof state === 'function' ? state() : state);

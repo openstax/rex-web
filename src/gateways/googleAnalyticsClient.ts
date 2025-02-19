@@ -207,9 +207,9 @@ class GoogleAnalyticsClient {
     this.pendingCommands = [];
   }
 
-  private executeCommand(command: Command, queueTime: number = 0) {
+  private executeCommand(command: Command, queueTime = 0) {
     if (command.name === 'set') {
-      this.gtag('set', command.payload);
+      this.gtag('set', undefined, command.payload);
       return;
     }
 
@@ -231,7 +231,7 @@ class GoogleAnalyticsClient {
   }
 
   // The real, low-level Google Analytics gtag function
-  private gtag(commandName: string, ...params: any[]) {
+  private gtag(commandName: string, ...params: [string?, object?]) {
     return assertWindow().gtag(commandName, ...params);
   }
 

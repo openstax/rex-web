@@ -3,21 +3,23 @@ import { assertWindow } from './utils';
 
 export const isDefined = <X>(x: X): x is Exclude<X, undefined> => x !== undefined;
 
-export const isNode = (thing: any): thing is dom.Node =>
+type PossibleNode = {nodeType?: number; nodeName?: string};
+
+export const isNode = (thing: unknown): thing is dom.Node =>
   typeof thing === 'object'
   && thing !== null
-  && thing.nodeType === 1
-  && typeof thing.nodeName === 'string'
+  && (thing as PossibleNode).nodeType === 1
+  && typeof (thing as PossibleNode).nodeName === 'string'
 ;
 
-export const isElement = (thing: any): thing is dom.Element =>
+export const isElement = (thing: unknown): thing is dom.Element =>
   isNode(thing)
-  && (thing as any).tagName !== undefined
+  && (thing as {tagName?: unknown}).tagName !== undefined
 ;
 
-export const isHtmlElement = (thing: any): thing is dom.HTMLElement =>
+export const isHtmlElement = (thing: unknown): thing is dom.HTMLElement =>
   isElement(thing)
-  && (thing as any).title !== undefined
+  && (thing as {title?: unknown}).title !== undefined
 ;
 
 const inputTypesWithoutTextInput: Array<string | null> = [
@@ -26,7 +28,7 @@ const inputTypesWithoutTextInput: Array<string | null> = [
 
 const contenteditableEnabledValues: Array<string | null> = [ '', 'true' ];
 
-export const isTextInputHtmlElement = (thing: any): thing is dom.HTMLElement =>
+export const isTextInputHtmlElement = (thing: unknown): thing is dom.HTMLElement =>
   isHtmlElement(thing) && (
     thing.tagName === 'TEXTAREA' || (
       thing.tagName === 'INPUT' && !inputTypesWithoutTextInput.includes(thing.getAttribute('type'))
@@ -34,14 +36,14 @@ export const isTextInputHtmlElement = (thing: any): thing is dom.HTMLElement =>
   )
 ;
 
-export const isPlainObject = (thing: any): thing is {} =>
-  thing instanceof Object && thing.__proto__.constructor === Object;
+export const isPlainObject = (thing: object): thing is {} =>
+  thing instanceof Object && Object.getPrototypeOf(thing).constructor === Object;
 
-export const isWindow = (thing: any): thing is Window =>
+export const isWindow = (thing: unknown): thing is Window =>
   assertWindow() === thing;
 
-export const isHtmlElementWithHighlight = (thing: any): thing is dom.HTMLElement =>
+export const isHtmlElementWithHighlight = (thing: unknown): thing is dom.HTMLElement =>
   isHtmlElement(thing) && thing.hasAttribute('data-highlight-id');
 
-export const isKeyOf = <O extends {[key: string]: any}>(obj: O, thing: any): thing is keyof O =>
+export const isKeyOf = <O extends {[key: string]: unknown}>(obj: O, thing: unknown): thing is keyof O =>
   typeof thing === 'string' && thing in obj;

@@ -20,7 +20,7 @@ export {
   Provider,
 };
 
-interface ServiceConsumer {
+export interface ServiceConsumer {
   services: AppServices & MiddlewareAPI;
 }
 
@@ -28,7 +28,7 @@ interface ServiceConsumer {
 export default <P extends ServiceConsumer>(Component: React.ComponentType<P>) =>
   (props: Pick<P, Exclude<keyof P, keyof ServiceConsumer>>) => <Consumer>
     {(services) => {
-      // @ts-ignore - remove this when https://github.com/Microsoft/TypeScript/issues/28748 is resolved
+      // @ts-expect-error - remove this when https://github.com/Microsoft/TypeScript/issues/28748 is resolved
       return <Component services={services} {...props} />;
     }}
   </Consumer>;
