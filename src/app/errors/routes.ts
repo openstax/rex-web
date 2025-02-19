@@ -11,6 +11,7 @@ const loadableArgs = {
   loader: () => import(/* webpackChunkName: "LoaderCentered" */ './components/LoaderCentered'),
   loading: () => null,
   modules: ['LoaderCentered'],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   webpack: /* istanbul ignore next */ () => [(require as any).resolveWeak('./components/LoaderCentered')],
 };
 

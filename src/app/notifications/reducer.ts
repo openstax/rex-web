@@ -14,7 +14,7 @@ export const initialState: State = {
   toastNotifications: [],
 };
 
-export const appMessageType =  'Notification/appMessage' as 'Notification/appMessage';
+export const appMessageType =  'Notification/appMessage' as const;
 
 const isNewMessage = (state: State, message: Message) =>
   !state.modalNotifications.find((existingMessage) => {

@@ -2,9 +2,10 @@ import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
 import * as selectNavigation from '../../navigation/selectors';
 import { AnyRoute, RouteHookBody } from '../../navigation/types';
 import { AppServices, MiddlewareAPI } from '../../types';
+import { OutputParams } from 'query-string';
 
 export const hookBody: RouteHookBody<AnyRoute> = (services: MiddlewareAPI & AppServices) => {
-  let lastTrackedLocation: any;
+  let lastTrackedLocation: { query: OutputParams; pathname: string; };
 
   return async(action) => {
     const state = services.getState();
