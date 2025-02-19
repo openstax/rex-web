@@ -3527,7 +3527,6 @@ li[aria-label="Current Page"] .c61 {
           className="c49"
           data-analytics-region="toc"
           data-testid="toc"
-          role="navigation"
         >
           <div
             className="c50"
@@ -7939,7 +7938,6 @@ li[aria-label="Current Page"] .c61 {
           className="c49"
           data-analytics-region="toc"
           data-testid="toc"
-          role="navigation"
         >
           <div
             className="c50"
