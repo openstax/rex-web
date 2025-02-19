@@ -215,7 +215,7 @@ describe('GoogleAnalyticsClient', () => {
         client.setTagIds(['foo']);
         mockGtag.mockClear();
         client.trackPageView('/some/path', { utm_source: 'source' });
-        expect(mockGtag).toHaveBeenCalledWith('set', {
+        expect(mockGtag).toHaveBeenCalledWith('set', undefined, {
           campaignMedium: 'unset',
           campaignSource: 'source',
         });

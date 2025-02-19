@@ -107,7 +107,7 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
     }
   };
 
-  private checkScroll = (maxChecks: number = 1) => {
+  private checkScroll = (maxChecks = 1) => {
     let scrolls = 0;
     const handler = () => {
       scrolls++;

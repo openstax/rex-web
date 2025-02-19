@@ -11,7 +11,7 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices) => {
 
   try {
     response = await loadMore(services);
-  } catch (error: any) {
+  } catch (error: unknown) {
     services.dispatch(toggleStudyGuidesSummaryLoading(false));
     throw ensureApplicationErrorType(error, new StudyGuidesPopupPrintError({ destination: 'studyGuides' }));
   }
