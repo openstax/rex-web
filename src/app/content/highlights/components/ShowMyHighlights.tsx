@@ -16,6 +16,7 @@ import Highlights from './Highlights';
 import HighlightsToasts from './HighlightsToasts';
 import * as Styled from './ShowMyHighlightsStyles';
 import Filters from './SummaryPopup/Filters';
+import { ServiceConsumer } from '../../../context/Services';
 
 interface ShowMyHighlightsProps {
   authenticated: User | undefined;
@@ -119,4 +120,5 @@ const connector = connect(
   })
 );
 
-export default flow(withServices, connector)(ShowMyHighlights as React.ComponentType<any>);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default flow(withServices, connector)(ShowMyHighlights as unknown as React.ComponentType<ServiceConsumer>);
