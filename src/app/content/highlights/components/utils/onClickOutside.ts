@@ -52,10 +52,10 @@ export const useOnClickOutside = (
 
 export default onClickOutside;
 
-const isRefWithHtmlElement = (el: any): el is React.RefObject<HTMLElement> => {
+const isRefWithHtmlElement = (el: {current?: unknown}): el is React.RefObject<HTMLElement> => {
   return el instanceof Object && isHtmlElement(el.current);
 };
 
-export const isElementForOnClickOutside = (el: any): el is HTMLElement | React.RefObject<HTMLElement> => {
+export const isElementForOnClickOutside = (el: object): el is HTMLElement | React.RefObject<HTMLElement> => {
   return isHtmlElement(el) || isRefWithHtmlElement(el);
 };

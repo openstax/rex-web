@@ -175,7 +175,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       }
     </HighlightContentWrapper>
     {isDeleting && <HighlightDeleteWrapper
-      deletingWhat={Boolean(highlight.annotation) ? 'both' : 'highlight'}
+      deletingWhat={highlight.annotation ? 'both' : 'highlight'}
       onCancel={() => setIsDeleting(false)}
       onDelete={confirmDelete}
     />}
