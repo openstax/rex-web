@@ -1,4 +1,5 @@
 import {
+  Event,
   HTMLAnchorElement,
   HTMLButtonElement,
   HTMLDetailsElement,
@@ -18,7 +19,7 @@ type InteractableConfig<T, S> = {
   getState?: (element: T) => S,
   getStateChange: (element: T, state: S) => string | undefined;
   getTarget?: (element: T, state: S) => HTMLElement | undefined,
-  match: (element: any) => element is T;
+  match: (element: unknown) => element is T;
   state?: S;
 };
 
@@ -34,13 +35,13 @@ export const interactableElementEvents = [
       (summary.parentElement as HTMLDetailsElement | undefined)?.open ? 'close' : 'open',
     getTarget: (summary: HTMLElement) =>
       summary.parentElement?.tagName === 'DETAILS' ? summary.parentElement : undefined,
-    match: (element: any): element is HTMLElement =>
+    match: (element: unknown): element is HTMLElement =>
       isHtmlElement(element) && element.tagName === 'SUMMARY',
   }),
   makeInteractableConfig({
     events: ['click'],
     getStateChange: (_element: HTMLAnchorElement | HTMLButtonElement) => undefined,
-    match: (element: any): element is HTMLAnchorElement | HTMLButtonElement =>
+    match: (element: unknown): element is HTMLAnchorElement | HTMLButtonElement =>
       isHtmlElement(element) && ['A', 'BUTTON'].includes(element.tagName),
   }),
   makeInteractableConfig({
@@ -54,12 +55,12 @@ export const interactableElementEvents = [
       window.document.activeElement instanceof window.HTMLIFrameElement
         ? window.document.activeElement
         : state.iframe,
-    match: (element: any): element is Window => isWindow(element),
+    match: (element: unknown): element is Window => isWindow(element),
     state: {iframe: undefined} as {iframe: HTMLIFrameElement | undefined},
   }),
 ];
 
-type CombineGuardResults<I> = UnionToIntersection<I extends ((x: any) => x is infer T) ? T : never>;
+type CombineGuardResults<I> = UnionToIntersection<I extends ((x: unknown) => x is infer T) ? T : never>;
 
 export const addInteractiveListeners = (
   window: Window,
@@ -71,7 +72,7 @@ export const addInteractiveListeners = (
     for (const event of config.events) {
       // eslint-disable-next-line no-loop-func
       window.addEventListener(event, (e: Event) => {
-        const match = (el: any): el is CombineGuardResults<typeof config.match> => config.match(el);
+        const match = (el: unknown): el is CombineGuardResults<typeof config.match> => config.match(el);
 
         const target = e.target && match(e.target) ? e.target : (
           isNode(e.target) && findFirstAncestorOrSelf(e.target, match)
