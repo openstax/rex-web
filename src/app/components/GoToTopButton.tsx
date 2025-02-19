@@ -41,7 +41,7 @@ export const GoToTopIcon = styled(AngleUp)`
 interface GoToTopButtonProps {
   i18nAriaLabel: string;
   onClick: () => void;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // tslint:disable-next-line: variable-name

@@ -62,6 +62,7 @@ export interface AppServices {
   imageCDNUtils: ReturnType<typeof createImageCDNUtils>;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ActionCreator<T extends string = string> = (...args: any[]) => { type: T };
 type ActionCreatorMap<T> = { [K in keyof T]: FlattenedActionMap<T[K]> };
 
@@ -80,15 +81,16 @@ export type Middleware = ReduxMiddleware<{}, AppState, Dispatch>;
 export type MiddlewareAPI = ReduxMiddlewareAPI<Dispatch, AppState>;
 export type Store = ReduxStore<AppState, AnyAction>;
 
-export type Initializer = (helpers: MiddlewareAPI & AppServices) => Promise<any>;
+export type Initializer = (helpers: MiddlewareAPI & AppServices) => Promise<unknown>;
 
 export type ActionHookBody<C extends AnyActionCreator> = (helpers: MiddlewareAPI & AppServices) =>
-  (action: ReturnType<C>) => Promise<any> | void;
+  (action: ReturnType<C>) => Promise<unknown> | void;
 
 // helpers
-export type ArgumentTypes<F> = F extends (...args: infer A) => any ? A : never;
-export type FirstArgumentType<F> = F extends (first: infer A, ...args: any) => any ? A : never;
+export type ArgumentTypes<F> = F extends (...args: infer A) => unknown ? A : never;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FirstArgumentType<F> = F extends (first: infer A, ...args: any[]) => unknown ? A : never;
 export type Unpromisify<F> = F extends Promise<infer T> ? T : never;
 // https://stackoverflow.com/a/50375286/14809536
 export type UnionToIntersection<U> =
-  (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+  (U extends unknown ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;

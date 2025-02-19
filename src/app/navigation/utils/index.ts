@@ -92,7 +92,10 @@ export const findRouteMatch = (routes: AnyRoute[], location: Location | string):
   }
 };
 
-export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?: queryString.OutputParams) => {
+// issue with passing AnyMatch into these https://stackoverflow.com/q/65727184/14809536
+type MatchAnyRoute = Match<Route<any, any>>; // eslint-disable-line @typescript-eslint/no-explicit-any
+
+export const matchSearch = <M extends MatchAnyRoute>(action: M, search?: queryString.OutputParams) => {
   const route = querystring.parse(
     action.route.getSearch ? action.route.getSearch(action.params) : ''
   );
@@ -103,11 +106,9 @@ export const matchSearch = <M extends Match<Route<any, any>>>(action: M, search?
   });
 };
 
-// issue with passing AnyMatch into this https://stackoverflow.com/q/65727184/14809536
-export const matchPathname = <M extends Match<Route<any, any>>>(action: M) => action.route.getUrl(action.params);
+export const matchPathname = <M extends MatchAnyRoute>(action: M) => action.route.getUrl(action.params);
 
-// issue with passing AnyMatch into this https://stackoverflow.com/q/65727184/14809536
-export const matchUrl = <M extends Match<Route<any, any>>>(action: M) => {
+export const matchUrl = <M extends MatchAnyRoute>(action: M) => {
   const path = matchPathname(action);
   const search = matchSearch(action);
   return `${path}${search ? `?${search}` : ''}`;
@@ -153,7 +154,7 @@ export const findPathForParams = (params: object, paths: string[]) => {
 };
 
 export const getQueryForParam = (
-  values: Record<string, string | string[]>,
+  values: Record<string, string | string[] | null>,
   existingQuery?: string | OutputParams
 ) => {
   if (existingQuery) {

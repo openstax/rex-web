@@ -243,12 +243,16 @@ export const removeFromTotalCounts = (
   totalCounts: CountsPerSource,
   highlight: HighlightData
 ) => {
-  if (totalCounts[highlight.sourceId] && totalCounts[highlight.sourceId][highlight.color]) {
+  // Type issue: totalCounts does not allow members to be undefined,
+  // but in practice they are
+  const tc = totalCounts[highlight.sourceId]?.[highlight.color];
+
+  if (tc) {
     const newTotal = {
       ...totalCounts,
       [highlight.sourceId]: {
         ...totalCounts[highlight.sourceId],
-        [highlight.color]: totalCounts[highlight.sourceId][highlight.color]! - 1,
+        [highlight.color]: tc - 1,
       },
     };
 

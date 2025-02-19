@@ -33,7 +33,7 @@ export interface PagePropTypes {
   systemQueryParams: SystemQueryParams;
   textSize: TextResizerValue;
   lockNavigation: boolean;
-  ToastOverride: StyledComponent<'div', any, {}, never>;
+  ToastOverride: StyledComponent<'div', object, {}, never>;
   topHeadingLevel?: number;
 }
 

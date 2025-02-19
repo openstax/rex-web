@@ -12,6 +12,7 @@ import theme, { defaultFocusOutline } from '../theme';
 import { preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
 interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   className?: string;
