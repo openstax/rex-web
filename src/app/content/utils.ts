@@ -77,7 +77,7 @@ export const parseContents = (book: ArchiveBook, contents: Array<ArchiveTree | A
   return contents;
 };
 
-const pickArchiveFields = (archiveBook: VersionedArchiveBookWithConfig) => ({
+const pickArchiveFields = (archiveBook: VersionedArchiveBookWithConfig): VersionedArchiveBookWithConfig => ({
   archiveVersion: archiveBook.archiveVersion,
   contentVersion: archiveBook.contentVersion,
   id: archiveBook.id,
@@ -100,7 +100,8 @@ export const formatBookData = <O extends OSWebBook | undefined>(
 ): O extends OSWebBook ? BookWithOSWebData : VersionedArchiveBookWithConfig => {
   if (osWebBook === undefined) {
     // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-    return pickArchiveFields(archiveBook) as VersionedArchiveBookWithConfig as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return pickArchiveFields(archiveBook) as any;
   }
   return {
     ...pickArchiveFields(archiveBook),
@@ -116,8 +117,7 @@ export const formatBookData = <O extends OSWebBook | undefined>(
     subject: osWebBook.book_subjects[0]?.subject_name,
     subjects: osWebBook.book_subjects,
     theme: osWebBook.cover_color,
-  // as any necessary https://github.com/Microsoft/TypeScript/issues/13995
-  } as BookWithOSWebData as any;
+  } as BookWithOSWebData;
 };
 
 export const makeUnifiedBookLoader = (

@@ -112,7 +112,7 @@ describe('content', () => {
     await navigate(page, TEST_PAGE_WITHOUT_MATH);
 
     const pendingEvents = await page.evaluate(() =>
-      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+      window?.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
     );
 
     expect(pendingEvents).toContainEqual({
@@ -132,18 +132,18 @@ describe('content', () => {
     await navigate(page, TEST_PAGE_WITHOUT_MATH);
 
     const initialEvents = await page.evaluate(() =>
-      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+      window?.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
     );
 
     await page.click('a[data-analytics-label="next"]');
     await finishRender(page);
 
     const pendingEvents = await page.evaluate(() =>
-      window!.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
+      window?.__APP_ANALYTICS.googleAnalyticsClient.getPendingCommands()
     );
 
     const newEvents = pendingEvents.filter(
-      (event: any) => !initialEvents.find(equals(event))
+      (event: Event) => !initialEvents.find(equals(event))
     );
 
     expect(newEvents).toMatchObject([

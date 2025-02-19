@@ -64,13 +64,18 @@ export const useAnalyticsEvent = <T extends keyof typeof events>(eventType: T) =
   // but the returned function has the correct args so whatever
   const services = useServices();
   const event = services.analytics[eventType];
-  const data = useSelector(event.selector as any);
+  const data = useSelector(event.selector);
 
   type E = typeof services['analytics'][T];
-  type RemainingArgumentTypes = E['track'] extends (d: ReturnType<E['selector']>, ...args: infer A) => any ? A : never;
+  type RemainingArgumentTypes = E['track'] extends (
+    d: ReturnType<E['selector']>,
+    ...args: infer A
+  ) => unknown
+    ? A
+    : never;
 
   return (...args: RemainingArgumentTypes) => {
-    (event.track as any)(data, ...args);
+    (event.track as (...args: unknown[]) => void)(data, ...args);
   };
 };
 

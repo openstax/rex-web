@@ -54,7 +54,7 @@ const ChapterTitle = styled.span`
   }
 `;
 
-const chunk = <T extends any>(sections: T[]) => {
+const chunk = <T extends unknown>(sections: T[]) => {
   const cutoff = Math.max(20, Math.ceil(sections.length / 2));
   return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
 };
