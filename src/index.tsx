@@ -131,6 +131,7 @@ function cookiesBlocked(e: Error) {
 const sendConsentToAccounts = (consentPreferences: ConsentPreferences) =>
   userLoader.updateUser({ consent_preferences: consentPreferences })
     .then(() => window.location.reload())
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .catch((error: any) => Sentry.captureException(error));
 
 app.services.userLoader.getCurrentUser().then((user) => {
@@ -189,14 +190,16 @@ app.services.userLoader.getCurrentUser().then((user) => {
     window.cookieYesActive = true;
   });
 
-  // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
+  /* eslint-disable no-var, @typescript-eslint/no-non-null-assertion */
   // tslint:disable
+  // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
     })(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
   // tslint:enable
+  /* eslint-enable no-var, @typescript-eslint/no-non-null-assertion */
 
   // The code below similar logic to the GTM script but to insert the CookieYes script instead
   // Both scripts are async so they run in an unpredictable order and the position on the page does not matter
@@ -204,6 +207,7 @@ app.services.userLoader.getCurrentUser().then((user) => {
   cookieYesScript.async = true;
   cookieYesScript.src = 'https://cdn-cookieyes.com/client_data/7c03144a7ef8b7f646f1ce01/script.js';
   const firstScriptTag = document.getElementsByTagName('script')[0];
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   firstScriptTag.parentNode!.insertBefore(cookieYesScript, firstScriptTag);
 });
 
