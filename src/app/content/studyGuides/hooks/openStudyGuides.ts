@@ -20,7 +20,7 @@ export const hookBody: ActionHookBody<typeof openStudyGuides> = (services) => as
 
   if (loggedOutAndQueryMissingFirstChapter || (!notLoggedIn && defaultFilter)) {
     services.dispatch(replace(match as AnyMatch, {
-      search: getQueryForParam(summaryFilters as any as Record<string, string[]>, query),
+      search: getQueryForParam(summaryFilters as unknown as Record<string, string[]>, query),
     }));
   } else {
     const studyGuides = select.summaryStudyGuides(state);

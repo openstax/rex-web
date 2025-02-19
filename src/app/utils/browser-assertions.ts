@@ -1,4 +1,4 @@
-export const assertWindow = (message: string = 'BUG: Window is undefined') => {
+export const assertWindow = (message = 'BUG: Window is undefined') => {
   if (typeof(window) === 'undefined') {
     throw new Error(message);
   }
@@ -6,7 +6,7 @@ export const assertWindow = (message: string = 'BUG: Window is undefined') => {
   return window;
 };
 
-export const assertDocument = (message: string = 'BUG: Document is undefined') => {
+export const assertDocument = (message = 'BUG: Document is undefined') => {
   if (typeof(document) === 'undefined') {
     throw new Error(message);
   }
@@ -14,7 +14,7 @@ export const assertDocument = (message: string = 'BUG: Document is undefined') =
   return document;
 };
 
-export const assertDocumentElement = (message: string = 'BUG: Document Element is null') => {
+export const assertDocumentElement = (message = 'BUG: Document Element is null') => {
   const documentElement = assertDocument().documentElement;
 
   if (documentElement === null) {
