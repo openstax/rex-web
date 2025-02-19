@@ -26,18 +26,29 @@ export const getFiltersFromQuery = (query: OutputParams) => {
   return { colors, locationIds };
 };
 
-export const updateQueryFromFilterChange = (dispatch: Dispatch, state: AppState, change: SummaryFiltersUpdate) => {
-  const updatedFilters: {[key: string]: any} = updateSummaryFilters(selectors.summaryFilters(state), change);
+export const updateQueryFromFilterChange = (
+  dispatch: Dispatch,
+  state: AppState,
+  change: SummaryFiltersUpdate
+) => {
+  const updatedFilters = updateSummaryFilters(
+    selectors.summaryFilters(state),
+    change
+  ) as unknown as Parameters<typeof getQueryForParam>[0];
   // convert empty filter arrys to null so they are preserved in query
   for (const filter in updatedFilters) {
-    if (updatedFilters[filter] && !updatedFilters[filter].length) {
+    if (updatedFilters[filter] && !updatedFilters[filter]?.length) {
       updatedFilters[filter] = null;
     }
   }
   const match = navigation.match(state);
   const existingQuery = navigation.query(state);
-  if (!match ) { return; }
-  dispatch(replace(match, {
-    search: getQueryForParam(updatedFilters as any as Record<string, string[]>, existingQuery),
-  }));
+  if (!match) {
+    return;
+  }
+  dispatch(
+    replace(match, {
+      search: getQueryForParam(updatedFilters, existingQuery),
+    })
+  );
 };
