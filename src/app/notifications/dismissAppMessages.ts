@@ -2,7 +2,7 @@ import { differenceInDays } from 'date-fns';
 import * as Cookies from 'js-cookie';
 import { Message } from './types';
 
-const messageDismissedPrefix: string = 'message_dismissed';
+const messageDismissedPrefix = 'message_dismissed';
 const getMessageKey = (message: Message) => `${messageDismissedPrefix}_${message.id}`;
 
 export const dismissAppMessage = (message: Message) => {

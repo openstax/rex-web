@@ -1,6 +1,26 @@
 {
-  "extends": ["react-app"],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
   "rules": {
-    "import/no-anonymous-default-export": "off"
-  }
+    "import/no-anonymous-default-export": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "no-prototype-builtins": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off"
+  },
+  "ignorePatterns": [
+    "node_modules",
+    "build",
+    "coverage",
+    "src/test",
+    "*.js",
+    "*.spec.*"
+  ]
 }

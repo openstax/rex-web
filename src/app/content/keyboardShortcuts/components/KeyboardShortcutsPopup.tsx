@@ -14,7 +14,7 @@ import * as ksSelectors from '../selectors';
 import ShowKeyboardShortcuts from './ShowKeyboardShortcuts';
 
 // tslint:disable-next-line:variable-name
-const StyledModal = styled<any /* there is a bug in the styled-components types when using forwardRef */>(Modal)`
+const StyledModal = styled(Modal)`
   max-width: 92.8rem;
 `;
 
