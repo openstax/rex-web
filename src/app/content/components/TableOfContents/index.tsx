@@ -98,7 +98,6 @@ const SidebarBody = React.forwardRef<
         data-testid='toc'
         aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
         data-analytics-region='toc'
-        role="navigation"
         {...props}
       />
     </React.Fragment>
