@@ -172,7 +172,7 @@ function TocSection({
   section: ArchiveTree;
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
-  role: "tree" | "group";
+  role: 'tree' | 'group';
 }) {
   return (
     <Styled.NavOl role={role} section={section}>
@@ -186,7 +186,7 @@ function TocSection({
                 <TocSection
                   book={book} page={page} section={item} activeSection={activeSection}
                   onNavigate={onNavigate}
-                  role="group"
+                  role='group'
                 />
             </TocNode>
           </Styled.NavItem>
@@ -202,7 +202,7 @@ function TocSection({
             page={item}
             dangerouslySetInnerHTML={{__html: item.title}}
             {...maybeAriaLabel(item)}
-            role="treeitem"
+            role='treeitem'
           />
         </Styled.NavItem>;
       })}
@@ -231,7 +231,7 @@ export class TableOfContents extends Component<SidebarProps> {
             section={book.tree}
             activeSection={this.activeSection}
             onNavigate={this.props.onNavigate}
-            role="tree"
+            role='tree'
           />
         )}
       </SidebarBody>
