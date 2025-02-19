@@ -119,7 +119,8 @@ describe('TableOfContents', () => {
     const component = renderer.create(Component);
 
     renderer.act(() => {
-      component.root.findAllByType('a')[0].props.onClick({preventDefault: () => null});
+      component.root.findAllByType('a')[0].props.onClick({preventDefault: () => null, stopPropagation: () => null});
+      component.root.findAllByType('a')[1].props.onClick({preventDefault: () => null, stopPropagation: () => null});
     });
     expect(dispatchSpy).toHaveBeenCalledWith(actions.resetToc());
   });

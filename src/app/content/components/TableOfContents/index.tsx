@@ -98,6 +98,7 @@ const SidebarBody = React.forwardRef<
         data-testid='toc'
         aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
         data-analytics-region='toc'
+        role="navigation"
         {...props}
       />
     </React.Fragment>
@@ -122,8 +123,14 @@ function TocNode({
   title,
   children,
 }: React.PropsWithChildren<{ defaultOpen: boolean; title: string }>) {
+  const [isOpen, setOpen] = React.useState<boolean>(defaultOpen);
+  const toggleOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    event.stopPropagation();
+    setOpen((prevState) => !prevState);
+  };
+
   return (
-    <Styled.NavDetails {...(defaultOpen ? {defaultOpen} : {})}>
+    <Styled.NavDetails onClick={toggleOpen} open={isOpen} {...(defaultOpen ? {defaultOpen} : {})}>
       <Styled.Summary>
         <Styled.SummaryWrapper>
           <Styled.ExpandIcon/>
@@ -131,7 +138,7 @@ function TocNode({
           <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: title}}/>
         </Styled.SummaryWrapper>
       </Styled.Summary>
-        {children}
+      {isOpen && children}
     </Styled.NavDetails>
   );
 }
@@ -159,15 +166,17 @@ function TocSection({
   section,
   activeSection,
   onNavigate,
+  role,
 }: {
   book: Book | undefined;
   page: Page | undefined;
   section: ArchiveTree;
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
+  role: "tree" | "group";
 }) {
   return (
-    <Styled.NavOl section={section}>
+    <Styled.NavOl role={role} section={section}>
       {linkContents(section).map((item) => {
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
@@ -178,6 +187,7 @@ function TocSection({
                 <TocSection
                   book={book} page={page} section={item} activeSection={activeSection}
                   onNavigate={onNavigate}
+                  role="group"
                 />
             </TocNode>
           </Styled.NavItem>
@@ -193,6 +203,7 @@ function TocSection({
             page={item}
             dangerouslySetInnerHTML={{__html: item.title}}
             {...maybeAriaLabel(item)}
+            role="treeitem"
           />
         </Styled.NavItem>;
       })}
@@ -221,6 +232,7 @@ export class TableOfContents extends Component<SidebarProps> {
             section={book.tree}
             activeSection={this.activeSection}
             onNavigate={this.props.onNavigate}
+            role="tree"
           />
         )}
       </SidebarBody>

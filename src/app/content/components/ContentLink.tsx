@@ -79,6 +79,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         return;
       }
 
+      e.stopPropagation();
       e.preventDefault();
 
       if (hasUnsavedHighlight && !await showConfirmation(services)) {

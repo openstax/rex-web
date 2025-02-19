@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { Details } from '../../../../components/Details';
+import { DetailsTree } from '../../../../components/Details';
 import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
@@ -71,6 +71,7 @@ export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponent
     ref={ref}
     className={className}
     {...(active ? {'aria-label': 'Current Page'} : {})}
+    role='none'
   >{children}</li>
 );
 
@@ -128,7 +129,7 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
     const numberWidth = getNumberWidth(props.section.contents);
 
     return css`
-      & > ${NavItem} > details > summary,
+      & > ${NavItem} > a > summary,
       & > ${NavItem} > ${ContentLink} {
         .os-number {
           width: ${numberWidth}rem;
@@ -147,7 +148,7 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
         }
       }
 
-      & > ${NavItem} > details > ol {
+      & > ${NavItem} > a > ol {
         margin-left: ${numberWidth + dividerWidth}rem;
       }
     `;
@@ -162,9 +163,8 @@ class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOp
   }
   public render() {
     const {open, defaultOpen: _, ...props} = this.props;
-    const {defaultOpen} = this.state;
 
-    return <Details {...props} open={open || defaultOpen} />;
+    return <DetailsTree role='treeitem' {...props} open={open} />;
   }
 }
 
