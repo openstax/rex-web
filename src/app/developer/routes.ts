@@ -9,6 +9,7 @@ export const developerHome: Route = {
     loader: () => import(/* webpackChunkName: "route-developer-home" */ './components/Home'),
     loading: () => null,
     modules: ['route-developer-home'],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     webpack: /* istanbul ignore next */ () => [(require as any).resolveWeak('./components/Home')],
   }),
   getUrl: (): string => pathToRegexp.compile(ROUTES_PATH)(),

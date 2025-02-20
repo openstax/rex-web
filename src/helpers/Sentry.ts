@@ -59,7 +59,7 @@ export default {
     return typeof(window) !== 'undefined' && config.SENTRY_ENABLED;
   },
 
-  captureException(error: any, level: Sentry.SeverityLevel = 'error') {
+  captureException(error: unknown, level: Sentry.SeverityLevel = 'error') {
     if (!error) {
       return;
     }
