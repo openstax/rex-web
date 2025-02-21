@@ -5249,15 +5249,15 @@
   resolved "https://registry.yarnpkg.com/@openstax/types/-/types-3.1.0.tgz#364a73e321127dfb1cfa36adccdae8e21a0805dc"
   integrity sha512-vy9nFdfw/nRX7iYjpl1CPxHwr8dIog+WVlDQr+EeD31HQ9uQX4I+cNV7jmvx1oiMIofSdrM+OBbmPC9qzAJK+w==
 
-"@openstax/ui-components@openstax/ui-components#1.12.0":
-  version "1.12.0"
-  resolved "https://codeload.github.com/openstax/ui-components/tar.gz/5add25f12d3e82f63c3360f8b1c538b5d292fe6c"
+"@openstax/ui-components@openstax/ui-components#1.14.0":
+  version "1.14.0"
+  resolved "https://codeload.github.com/openstax/ui-components/tar.gz/0bfb85080fa47f33834716eef2677abffa39499e"
   dependencies:
     "@sentry/react" "^7.48.0"
     classnames "^2.3.1"
     crypto "npm:crypto-browserify@^3.12.0"
-    react-aria "^3.34.1"
-    react-aria-components "^1.3.1"
+    react-aria "^3.37.0"
+    react-aria-components "^1.6.0"
     stream "npm:stream-browserify@^3.0.0"
 
 "@pmmmwh/react-refresh-webpack-plugin@0.4.3":
@@ -18605,7 +18605,7 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
-react-aria-components@^1.3.1:
+react-aria-components@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-aria-components/-/react-aria-components-1.6.0.tgz#7a796747539b2b2c62567285da60c63775a9d9fd"
   integrity sha512-YfG9PUE7XrXtDDAqT4pLTGyYQaiHHTBFdAK/wNgGsypVnQSdzmyYlV3Ty8aHlZJI6hP9RWkbywvosXkU7KcPHg==
@@ -18645,7 +18645,7 @@ react-aria-components@^1.3.1:
     react-stately "^3.35.0"
     use-sync-external-store "^1.2.0"
 
-react-aria@^3.34.1, react-aria@^3.37.0:
+react-aria@^3.37.0:
   version "3.37.0"
   resolved "https://registry.yarnpkg.com/react-aria/-/react-aria-3.37.0.tgz#c561d605b19fe89e4056f98990486d17a56c5352"
   integrity sha512-u3WUEMTcbQFaoHauHO3KhPaBYzEv1o42EdPcLAs05GBw9Q6Axlqwo73UFgMrsc2ElwLAZ4EKpSdWHLo1R5gfiw==
