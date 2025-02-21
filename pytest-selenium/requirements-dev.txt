@@ -31,8 +31,12 @@ pytest-testrail==2.9.0
 pytest-variables==2.0.0
 python-dateutil==2.8.2
 PyYAML==6.0
+<<<<<<< HEAD
 requests==2.31.0
 requests-mock==1.12.1
+=======
+requests==2.32.0
+>>>>>>> 9e75bdc72976fdd85e93fdd2274fe8296f946ace
 selenium==3.141.0
 simplejson==3.17.6
 six==1.16.0
