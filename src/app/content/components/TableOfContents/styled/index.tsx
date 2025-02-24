@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { Details } from '../../../../components/Details';
-import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
+import { DetailsTree } from '../../../../components/Details';
+import { iconSize } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { ArchiveTree } from '../../../types';
@@ -71,6 +71,7 @@ export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponent
     ref={ref}
     className={className}
     {...(active ? {'aria-label': 'Current Page'} : {})}
+    role='none'
   >{children}</li>
 );
 
@@ -82,12 +83,36 @@ export const NavItem = styled(NavItemComponent)`
   ${theme.breakpoints.mobile(css`
     margin-top: 1.7rem;
   `)}
+
+  a[role='treeitem'] {
+    :focus,
+    :hover {
+      outline: none;
+      ${activeState}
+  }
+  }
 `;
 
 // tslint:disable-next-line:variable-name
-export const Summary = styled(BaseSummary)`
+export const Summary = styled.div`
+  
+  list-style: none;
+  cursor: pointer;
+
   :focus {
     outline: none;
+  }
+    
+  ::before {
+    display: none;
+  }
+
+  ::-moz-list-bullet {
+    list-style-type: none;
+  }
+
+  ::-webkit-details-marker {
+    display: none;
   }
 
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
@@ -128,7 +153,7 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
     const numberWidth = getNumberWidth(props.section.contents);
 
     return css`
-      & > ${NavItem} > details > summary,
+      & > ${NavItem} > a > div:first-child,
       & > ${NavItem} > ${ContentLink} {
         .os-number {
           width: ${numberWidth}rem;
@@ -147,28 +172,24 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
         }
       }
 
-      & > ${NavItem} > details > ol {
+      & > ${NavItem} > ol {
         margin-left: ${numberWidth + dividerWidth}rem;
       }
     `;
   }}
 `;
 
-interface DetailsComponentProps {defaultOpen: boolean; open: boolean; }
-class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOpen: boolean}> {
-  constructor(props: DetailsComponentProps) {
-    super(props);
-    this.state = {defaultOpen: props.defaultOpen};
-  }
+interface DetailsComponentProps {open: boolean; }
+class DetailsComponent extends React.Component<DetailsComponentProps> {
   public render() {
-    const {open, defaultOpen: _, ...props} = this.props;
-    const {defaultOpen} = this.state;
+    const {open, ...props} = this.props;
 
-    return <Details {...props} open={open || defaultOpen} />;
+    return <DetailsTree role='treeitem' {...props} open={open} />;
   }
 }
 
 // tslint:disable-next-line:variable-name
 export const NavDetails = styled(DetailsComponent)`
   overflow: visible;
+  list-style: none;
 `;
