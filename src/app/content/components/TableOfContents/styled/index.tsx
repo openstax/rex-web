@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { DetailsTree } from '../../../../components/Details';
-import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
+import { iconSize } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { ArchiveTree } from '../../../types';
@@ -86,7 +86,9 @@ export const NavItem = styled(NavItemComponent)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Summary = styled(BaseSummary)`
+export const SummaryWrapper = styled.div`
+  display: flex;
+
   :focus {
     outline: none;
   }
@@ -97,11 +99,6 @@ export const Summary = styled(BaseSummary)`
       ${activeState}
     }
   `}
-`;
-
-// tslint:disable-next-line:variable-name
-export const SummaryWrapper = styled.div`
-  display: flex;
 `;
 
 const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, {title}) => {
@@ -156,13 +153,10 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
 `;
 
 interface DetailsComponentProps {defaultOpen: boolean; open: boolean; }
-class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOpen: boolean}> {
-  constructor(props: DetailsComponentProps) {
-    super(props);
-    this.state = {defaultOpen: props.defaultOpen};
-  }
+class DetailsComponent extends React.Component<DetailsComponentProps> {
+
   public render() {
-    const {open, defaultOpen: _, ...props} = this.props;
+    const {open, ...props} = this.props;
 
     return <DetailsTree role='treeitem' {...props} open={open} />;
   }

@@ -7,7 +7,7 @@ import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
-import { ArchiveTree, Book, LinkedArchiveTreeSection, Page, State } from '../../types';
+import { ArchiveTree, Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page, State } from '../../types';
 import { archiveTreeContainsNode, getArchiveTreeSectionType, splitTitleParts } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -118,26 +118,22 @@ function TocHeader() {
 }
 
 function TocNode({
-  defaultOpen,
+  isOpen,
   title,
-  children,
-}: React.PropsWithChildren<{ defaultOpen: boolean; title: string }>) {
-  const [isOpen, setOpen] = React.useState<boolean>(defaultOpen);
-  const toggleOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    event.stopPropagation();
-    setOpen((prevState) => !prevState);
-  };
+  onClick,
+}: React.PropsWithChildren<{
+  title: string, 
+  isOpen: boolean, 
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void 
+}>) {
 
   return (
-    <Styled.NavDetails onClick={toggleOpen} open={isOpen} {...(defaultOpen ? {defaultOpen} : {})}>
-      <Styled.Summary>
-        <Styled.SummaryWrapper>
-          <Styled.ExpandIcon/>
-          <Styled.CollapseIcon/>
-          <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: title}}/>
-        </Styled.SummaryWrapper>
-      </Styled.Summary>
-      {isOpen && children}
+    <Styled.NavDetails onClick={onClick} open={isOpen}>
+      <Styled.SummaryWrapper>
+        <Styled.ExpandIcon />
+        <Styled.CollapseIcon />
+        <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
+      </Styled.SummaryWrapper>
     </Styled.NavDetails>
   );
 }
@@ -156,10 +152,11 @@ function maybeAriaLabel(page: LinkedArchiveTreeSection) {
     return {};
   }
 
-  return {'aria-label': `${titleText} - Chapter ${parentNum}`};
+  return { 'aria-label': `${titleText} - Chapter ${parentNum}` };
 }
 
 function TocSection({
+  id,
   book,
   page,
   section,
@@ -167,6 +164,7 @@ function TocSection({
   onNavigate,
   role,
 }: {
+  id?: string;
   book: Book | undefined;
   page: Page | undefined;
   section: ArchiveTree;
@@ -175,36 +173,58 @@ function TocSection({
   role: 'tree' | 'group';
 }) {
   return (
-    <Styled.NavOl role={role} section={section}>
+    <Styled.NavOl id={id} role={role} section={section}>
       {linkContents(section).map((item) => {
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
 
-        return isArchiveTree(item)
-        ? <Styled.NavItem key={item.id} sectionType={sectionType}>
-            <TocNode defaultOpen={shouldBeOpen(page, item)} title={item.title}>
+        
+
+        const ArchiveTreeComponent = (item: LinkedArchiveTree) => {
+          const [isOpen, setOpen] = React.useState<boolean>(shouldBeOpen(page, item));
+          const toggleOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+            event.stopPropagation();
+            setOpen((prevState) => !prevState);
+          };
+
+          return (
+            <Styled.NavItem key={item.id} sectionType={sectionType}>
+              <TocNode
+                aria-owns={item.id + '-subtree'}
+                aria-expanded={isOpen}
+                title={item.title}
+                isOpen={isOpen}
+                onClick={toggleOpen}
+              />
+              {isOpen &&
                 <TocSection
+                  id={item.id + '-subtree'}
                   book={book} page={page} section={item} activeSection={activeSection}
                   onNavigate={onNavigate}
                   role='group'
                 />
-            </TocNode>
-          </Styled.NavItem>
-        : <Styled.NavItem
-          key={item.id}
-          sectionType={sectionType}
-          ref={active ? activeSection : null}
-          active={active}
-        >
-          <Styled.ContentLink
-            onClick={onNavigate}
-            book={book}
-            page={item}
-            dangerouslySetInnerHTML={{__html: item.title}}
-            {...maybeAriaLabel(item)}
-            role='treeitem'
-          />
-        </Styled.NavItem>;
+              }
+            </Styled.NavItem>
+          );
+        };
+
+        return isArchiveTree(item)
+          ? {ArchiveTreeComponent}
+          : <Styled.NavItem
+            key={item.id}
+            sectionType={sectionType}
+            ref={active ? activeSection : null}
+            active={active}
+          >
+            <Styled.ContentLink
+              onClick={onNavigate}
+              book={book}
+              page={item}
+              dangerouslySetInnerHTML={{ __html: item.title }}
+              {...maybeAriaLabel(item)}
+              role='treeitem'
+            />
+          </Styled.NavItem>;
       })}
     </Styled.NavOl>
   );
@@ -242,11 +262,11 @@ export class TableOfContents extends Component<SidebarProps> {
     this.scrollToSelectedPage();
     const sidebar = this.sidebar.current;
 
-    if (!sidebar || typeof(window) === 'undefined') {
+    if (!sidebar || typeof (window) === 'undefined') {
       return;
     }
 
-    const {callback, deregister} = setSidebarHeight(sidebar, window);
+    const { callback, deregister } = setSidebarHeight(sidebar, window);
     callback();
     this.deregister = deregister;
   }
