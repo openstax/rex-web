@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactTestUtils from 'react-dom/test-utils';
+
 import { unmountComponentAtNode } from 'react-dom';
 import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
@@ -42,7 +44,7 @@ describe('TableOfContents', () => {
   });
 
   it('mounts and unmmounts with a dom', () => {
-    const {root} = renderToDom(Component);
+    const { root } = renderToDom(Component);
     expect(() => unmountComponentAtNode(root)).not.toThrow();
   });
 
@@ -56,7 +58,7 @@ describe('TableOfContents', () => {
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
 
     renderer.act(() => {
-      store.dispatch(actions.receivePage({...shortPage, references: []}));
+      store.dispatch(actions.receivePage({ ...shortPage, references: [] }));
     });
 
     expect(expandCurrentChapter).toHaveBeenCalled();
@@ -87,11 +89,11 @@ describe('TableOfContents', () => {
     jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
-    const {root} = renderToDom(<TestContainer store={store}>
+    const { root } = renderToDom(<TestContainer store={store}>
       <ConnectedTableOfContents />
     </TestContainer>);
     const sb = root.querySelector('[data-testid="toc"]')!;
-    const firstTocItem = sb.querySelector('ol > li a, old > li summary') as HTMLElement;
+    const firstTocItem = sb.querySelector('ol > li a, old > li div:first-child') as HTMLElement;
     const focusSpy = jest.spyOn(firstTocItem as any, 'focus');
 
     reactDomAct(() => {
@@ -119,10 +121,26 @@ describe('TableOfContents', () => {
     const component = renderer.create(Component);
 
     renderer.act(() => {
-      component.root.findAllByType('a')[0].props.onClick({preventDefault: () => null, stopPropagation: () => null});
-      component.root.findAllByType('a')[1].props.onClick({preventDefault: () => null, stopPropagation: () => null});
+      component.root.findAllByType('a')[0].props.onClick({ preventDefault: () => null });
+      component.root.findAllByType('a')[1].props.onClick({ preventDefault: () => null });
     });
     expect(dispatchSpy).toHaveBeenCalledWith(actions.resetToc());
+  });
+
+  it('toggles open state on Enter key press', () => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    const { root } = renderToDom(Component);
+
+    const anchor = root.querySelectorAll('a[role="treeitem"]')[2] as HTMLAnchorElement;
+
+    // Do not trigger on key other than Enter
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "Escape" });
+
+    // Trigger on Enter
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "Enter" });
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
   });
 
   it('resizes on scroll', () => {
@@ -131,7 +149,7 @@ describe('TableOfContents', () => {
       return expect(document).toBeTruthy();
     }
 
-    const {node} = renderToDom(Component);
+    const { node } = renderToDom(Component);
     const spy = jest.spyOn(node.style, 'setProperty');
 
     const event = document.createEvent('UIEvents');

@@ -83,14 +83,36 @@ export const NavItem = styled(NavItemComponent)`
   ${theme.breakpoints.mobile(css`
     margin-top: 1.7rem;
   `)}
+
+  a[role='treeitem'] {
+    :focus,
+    :hover {
+      outline: none;
+      ${activeState}
+  }
+  }
 `;
 
 // tslint:disable-next-line:variable-name
-export const SummaryWrapper = styled.div`
-  display: flex;
+export const Summary = styled.div`
+  
+  list-style: none;
+  cursor: pointer;
 
   :focus {
     outline: none;
+  }
+    
+  ::before {
+    display: none;
+  }
+
+  ::-moz-list-bullet {
+    list-style-type: none;
+  }
+
+  ::-webkit-details-marker {
+    display: none;
   }
 
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
@@ -99,6 +121,11 @@ export const SummaryWrapper = styled.div`
       ${activeState}
     }
   `}
+`;
+
+// tslint:disable-next-line:variable-name
+export const SummaryWrapper = styled.div`
+  display: flex;
 `;
 
 const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, {title}) => {
@@ -126,7 +153,7 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
     const numberWidth = getNumberWidth(props.section.contents);
 
     return css`
-      & > ${NavItem} > a > summary,
+      & > ${NavItem} > a > div:first-child,
       & > ${NavItem} > ${ContentLink} {
         .os-number {
           width: ${numberWidth}rem;
@@ -145,16 +172,15 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
         }
       }
 
-      & > ${NavItem} > a > ol {
+      & > ${NavItem} > ol {
         margin-left: ${numberWidth + dividerWidth}rem;
       }
     `;
   }}
 `;
 
-interface DetailsComponentProps {defaultOpen: boolean; open: boolean; }
+interface DetailsComponentProps {open: boolean; }
 class DetailsComponent extends React.Component<DetailsComponentProps> {
-
   public render() {
     const {open, ...props} = this.props;
 
@@ -165,4 +191,5 @@ class DetailsComponent extends React.Component<DetailsComponentProps> {
 // tslint:disable-next-line:variable-name
 export const NavDetails = styled(DetailsComponent)`
   overflow: visible;
+  list-style: none;
 `;

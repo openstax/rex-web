@@ -69,7 +69,7 @@ const SidebarBody = React.forwardRef<
   React.useEffect(
     () => {
       const firstItemInToc = mRef?.current?.querySelector(
-        'ol > li a, old > li summary'
+        'ol > li a, old > li div:first-child'
       ) as HTMLElement;
       const el = mRef.current;
       const transitionListener = () => {
@@ -121,19 +121,23 @@ function TocNode({
   isOpen,
   title,
   onClick,
+  onKeyDown,
 }: React.PropsWithChildren<{
-  title: string, 
-  isOpen: boolean, 
-  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void 
+  title: string,
+  isOpen: boolean,
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
+  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void,
 }>) {
 
   return (
-    <Styled.NavDetails onClick={onClick} open={isOpen}>
-      <Styled.SummaryWrapper>
-        <Styled.ExpandIcon />
-        <Styled.CollapseIcon />
-        <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
-      </Styled.SummaryWrapper>
+    <Styled.NavDetails onClick={onClick} onKeyDown={onKeyDown} open={isOpen} aria-expanded={isOpen} tabIndex={0}>
+      <Styled.Summary>
+        <Styled.SummaryWrapper>
+          <Styled.CollapseIcon />
+          <Styled.ExpandIcon />
+          <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
+        </Styled.SummaryWrapper>
+      </Styled.Summary>
     </Styled.NavDetails>
   );
 }
@@ -153,6 +157,54 @@ function maybeAriaLabel(page: LinkedArchiveTreeSection) {
   }
 
   return { 'aria-label': `${titleText} - Chapter ${parentNum}` };
+}
+
+function ArchiveTreeComponent({
+  item,
+  book,
+  page,
+  activeSection,
+  onNavigate,
+}: {
+  item: LinkedArchiveTree;
+  book: Book | undefined;
+  page: Page | undefined;
+  activeSection: React.RefObject<HTMLElement>;
+  onNavigate: () => void;
+}) {
+  const sectionType = getArchiveTreeSectionType(item);
+  const [isOpen, setOpen] = React.useState<boolean>(shouldBeOpen(page, item));
+  const toggleOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => {
+    if ('key' in event) {
+      if (event.key !== 'Enter' && event.key !== ' ') {
+        return;
+      }
+    }
+    setOpen((prevState) => !prevState);
+  };
+
+  return (
+    <Styled.NavItem key={item.id} sectionType={sectionType}>
+      <TocNode
+        aria-owns={item.id + '-subtree'}
+        title={item.title}
+        isOpen={isOpen}
+        onClick={toggleOpen}
+        onKeyDown={toggleOpen}
+      />
+      {isOpen && (
+        <TocSection
+          id={item.id + '-subtree'}
+          book={book}
+          page={page}
+          section={item}
+          activeSection={activeSection}
+          onNavigate={onNavigate}
+          role='group'
+        />
+      )}
+    </Styled.NavItem>
+  );
 }
 
 function TocSection({
@@ -178,39 +230,17 @@ function TocSection({
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
 
-        
-
-        const ArchiveTreeComponent = (item: LinkedArchiveTree) => {
-          const [isOpen, setOpen] = React.useState<boolean>(shouldBeOpen(page, item));
-          const toggleOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-            event.stopPropagation();
-            setOpen((prevState) => !prevState);
-          };
-
-          return (
-            <Styled.NavItem key={item.id} sectionType={sectionType}>
-              <TocNode
-                aria-owns={item.id + '-subtree'}
-                aria-expanded={isOpen}
-                title={item.title}
-                isOpen={isOpen}
-                onClick={toggleOpen}
-              />
-              {isOpen &&
-                <TocSection
-                  id={item.id + '-subtree'}
-                  book={book} page={page} section={item} activeSection={activeSection}
-                  onNavigate={onNavigate}
-                  role='group'
-                />
-              }
-            </Styled.NavItem>
-          );
-        };
-
-        return isArchiveTree(item)
-          ? {ArchiveTreeComponent}
-          : <Styled.NavItem
+        return isArchiveTree(item) ? (
+          <ArchiveTreeComponent
+            key={item.id}
+            item={item}
+            book={book}
+            page={page}
+            activeSection={activeSection}
+            onNavigate={onNavigate}
+          />
+        ) : (
+          <Styled.NavItem
             key={item.id}
             sectionType={sectionType}
             ref={active ? activeSection : null}
@@ -224,7 +254,8 @@ function TocSection({
               {...maybeAriaLabel(item)}
               role='treeitem'
             />
-          </Styled.NavItem>;
+          </Styled.NavItem>
+        );
       })}
     </Styled.NavOl>
   );

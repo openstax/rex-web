@@ -38,7 +38,6 @@ describe('ContentLink', () => {
   const click = async(component: renderer.ReactTestRenderer) => {
     const event = {
       preventDefault: jest.fn(),
-      stopPropagation: jest.fn(),
     };
 
     await component.root.findByType('a').props.onClick(event);
@@ -67,7 +66,6 @@ describe('ContentLink', () => {
         state: { },
       }));
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
     });
 
     it('dispatches navigation action with search if there is a search', async() => {
@@ -88,7 +86,6 @@ describe('ContentLink', () => {
         state: { },
       }, { search: 'query=asdf' }));
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
     });
 
     it('search passed as prop overwrites search from the redux state', async() => {
@@ -109,7 +106,6 @@ describe('ContentLink', () => {
         state: { },
       }, { search: `query=${mockSearch.query}` }));
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
     });
 
     it('dispatches navigation action with scroll target data and search if scroll target is passed', async() => {
@@ -139,7 +135,6 @@ describe('ContentLink', () => {
         }),
       }));
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
     });
 
     it('dispatches navigation action without search when linking to a different book', async() => {
@@ -157,7 +152,6 @@ describe('ContentLink', () => {
         state: { },
       }));
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
     });
 
     it('calls onClick when passed', async() => {
@@ -174,7 +168,6 @@ describe('ContentLink', () => {
         state: { },
       }));
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
       expect(clickSpy).toHaveBeenCalled();
     });
 
@@ -187,14 +180,12 @@ describe('ContentLink', () => {
       const event = {
         metaKey: true,
         preventDefault: jest.fn(),
-        stopPropagation: jest.fn(),
       };
 
       await component.root.findByType('a').props.onClick(event);
 
       expect(dispatch).not.toHaveBeenCalled();
       expect(event.preventDefault).not.toHaveBeenCalled();
-      expect(event.stopPropagation).not.toHaveBeenCalled();
       expect(clickSpy).not.toHaveBeenCalled();
     });
   });
@@ -226,7 +217,6 @@ describe('ContentLink', () => {
 
       expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
       expect(clickSpy).not.toHaveBeenCalled();
     });
 
@@ -241,7 +231,6 @@ describe('ContentLink', () => {
 
       expect(dispatch).toHaveBeenCalled();
       expect(event.preventDefault).toHaveBeenCalled();
-      expect(event.stopPropagation).toHaveBeenCalled();
       expect(clickSpy).toHaveBeenCalled();
     });
   });
