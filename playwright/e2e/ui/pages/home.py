@@ -263,6 +263,14 @@ class HomeRex:
         await self.cookies_accept_is_visible.click()
 
     @property
+    def cookieyes_accept_is_visible(self):
+        return self.page.locator("div.cky-notice-btn-wrapper > button.cky-btn.cky-btn-accept")
+
+    @pytest.mark.asyncio
+    async def click_cookieyes_accept(self):
+        await self.cookieyes_accept_is_visible.click()
+
+    @property
     def toc_is_visible(self):
         return self.page.locator("span").get_by_text("Table of contents")
 

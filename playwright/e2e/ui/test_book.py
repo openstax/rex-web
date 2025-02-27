@@ -92,8 +92,7 @@ async def test_accessibility_help(chrome_page, base_url, book_slug, page_slug):
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await chrome_page.keyboard.press("Tab")
-    await chrome_page.keyboard.press("Enter")
+    await home.click_cookies_osano_accept()
 
     await chrome_page.keyboard.press("Tab")
     await chrome_page.keyboard.press("Tab")
