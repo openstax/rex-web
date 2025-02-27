@@ -7,7 +7,7 @@ from utils.utility import Library, get_default_page
 @markers.test_case("C476302")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_section_url_in_citation_text_shows_url_for_current_page(
+def section_url_in_citation_text_shows_url_for_current_page(
     selenium, base_url, book_slug, page_slug
 ):
     """
@@ -30,7 +30,7 @@ def test_section_url_in_citation_text_shows_url_for_current_page(
 @markers.test_case("C476303")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_attribution_collapsed_by_default_expands_when_clicked(
+def attribution_collapsed_by_default_expands_when_clicked(
     selenium, base_url, book_slug, page_slug
 ):
 
@@ -55,7 +55,7 @@ def test_attribution_collapsed_by_default_expands_when_clicked(
 @markers.smoke_test
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, book_slug, page_slug):
+def attribution_collapses_on_navigating_to_new_page(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: A page URL in the format of {base_url}/books/{book_slug}/pages/{page_slug}
     # AND: The citation/attribution tab is open
@@ -97,7 +97,7 @@ def test_attribution_collapses_on_navigating_to_new_page(selenium, base_url, boo
 @markers.test_case("C480905")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_book_url_in_citation_text_shows_url_for_default_page(
+def book_url_in_citation_text_shows_url_for_default_page(
     selenium, base_url, book_slug, page_slug
 ):
     # GIVEN: A page is loaded
@@ -119,7 +119,7 @@ def test_book_url_in_citation_text_shows_url_for_default_page(
 @markers.test_case("C480906")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_access_free_url_in_citation_text_shows_url_for_default_page(
+def access_free_url_in_citation_text_shows_url_for_default_page(
     selenium, base_url, book_slug, page_slug
 ):
 
@@ -143,7 +143,7 @@ def test_access_free_url_in_citation_text_shows_url_for_default_page(
 @markers.parametrize("page_slug", ["preface"])
 @markers.desktop_only
 @markers.nondestructive
-def test_license_details(selenium, base_url, page_slug):
+def license_details(selenium, base_url, page_slug):
     """Verify license name, link address and copyright name"""
     book_list = Library()
     book_slugs = book_list.book_slugs_list
@@ -211,7 +211,7 @@ def test_license_details(selenium, base_url, page_slug):
 )
 @markers.desktop_only
 @markers.nondestructive
-def test_TEA_attribution_for_HS_books(selenium, base_url, book_slug, page_slug):
+def TEA_attribution_for_HS_books(selenium, base_url, book_slug, page_slug):
     """Verify TEA attribution for HS books."""
 
     # GIVEN: Book page is loaded
@@ -247,7 +247,7 @@ def test_TEA_attribution_for_HS_books(selenium, base_url, book_slug, page_slug):
 )
 @markers.desktop_only
 @markers.nondestructive
-def test_Michelson_20MM_Foundation_attribution_for_intellectual_property(
+def Michelson_20MM_Foundation_attribution_for_intellectual_property(
     selenium, base_url, book_slug, page_slug
 ):
     """Verify Michelson 20MM Foundation attribution for intellectual property."""
