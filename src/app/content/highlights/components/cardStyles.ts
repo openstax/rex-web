@@ -60,11 +60,12 @@ const overlapDisplay = css`
 `;
 
 const rightSideDisplay = css`
-  left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardContentMargin}rem);
-  right: unset;
+  left: unset;
+  right: 0;
   top: ${(props: CardProps) => `${props.topOffset || getHighlightBottomOffset(props.container, props.highlight)}px;`}
   ${(props: CardProps) => !!props.isActive && css`
-    left: calc(100% - ((100% - ${contentTextWidth}rem) / 2) + ${cardFocusedContentMargin}rem);
+    left: calc(50% + (${contentTextWidth}rem / 2) + ${cardFocusedContentMargin}rem);
+    right: unset;
   `}
 `;
 
