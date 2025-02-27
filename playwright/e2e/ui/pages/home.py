@@ -61,6 +61,10 @@ class HomeRex:
         await self.book_toc_link.click()
 
     @property
+    def book_toc_content(self):
+        return self.page.locator("div.toc-slideout-contents > div > div")
+
+    @property
     def book_toc_slideout_is_visible(self):
         return self.page.locator("div.toc-slideout-contents")
 
@@ -95,6 +99,19 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_go_to_your_book_link(self):
         await self.go_to_your_book_link.click()
+
+    @property
+    def highlights_option_is_visible(self):
+        return self.page.locator("nudge-study-tools > button").get_by_text("Highlights")
+
+    @property
+    def order_a_print_copy_link_is_visible(self):
+        return self.page.locator("div.BuyBook__BuyBook > a").get_by_text("Order a print copy")
+
+    @property
+    def citation_attribution_link_is_visible(self):
+        return self.page.locator("div.ContentPane__Wrapper-sc-6et83r-0.hPmLNC > details > summary > "
+                                 "span").get_by_text("Citation/Attribution")
 
     @property
     def giving_tuesday_popup_is_visible(self):
@@ -155,35 +172,43 @@ class HomeRex:
     @property
     @pytest.mark.asyncio
     async def footer_section_license_link(self):
-        return await (self.page.locator("div.copyrights").get_by_role("link").get_attribute("href"))
+        return await self.page.locator("div.copyrights").get_by_role("link").get_attribute("href")
 
     # Book page navigation
 
     @property
-    @pytest.mark.asyncio
-    async def content_page_previous_link_is_visible(self):
-        return await self.page.is_visible("a :text('Previous')")
+    def content_page_previous_next_page_bar_is_visible(self):
+        return self.page.locator("div.PrevNextBar__BarWrapper-sc-13m2i12-3.fEZPiF")
 
     @property
-    def content_page_previous_link(self):
-        return self.page.locator("a").get_by_text("Previous")
+    def content_page_previous_link_is_visible(self):
+        return self.page.locator("a").get_by_text('Previous')
 
     @pytest.mark.asyncio
     async def click_content_page_previous_link(self):
-        await self.content_page_previous_link.click()
+        await self.content_page_previous_link_is_visible.click()
 
     @property
-    @pytest.mark.asyncio
-    async def content_page_next_link_is_visible(self):
-        return await self.page.is_visible("a :text('Next')")
-
-    @property
-    def content_page_next_link(self):
-        return self.page.locator("a").get_by_text("Next")
+    def content_page_next_link_is_visible(self):
+        return self.page.locator("a").get_by_text('Next')
 
     @pytest.mark.asyncio
     async def click_content_page_next_link(self):
-        await self.content_page_next_link.click()
+        await self.content_page_next_link_is_visible.click()
+
+    @property
+    def content_page_black_overlay_is_visible(self):
+        return self.page.locator("div.styles__NudgeContentWrapper-hrv0cf-"
+                                 "1.fpMWRn").get_by_text("The study tools you need. 100% FREE! Highlight, take notes, "
+                                                         "and make your own study guides. It's all free.")
+
+    @property
+    def content_page_black_overlay_close(self):
+        return self.page.locator("div.styles__NudgeWrapper-hrv0cf-0.fJZGzd > button")
+
+    @pytest.mark.asyncio
+    async def click_content_page_black_overlay_close(self):
+        await self.content_page_black_overlay_close.click()
 
     @property
     def subject_listing_book_is_visible(self):
@@ -210,8 +235,16 @@ class HomeRex:
         await self.buy_print_copy_button_is_visible.click()
 
     @property
+    def bookstore_box_is_visible(self):
+        return self.page.locator("div").get_by_text("Bookstore")
+
+    @property
     def order_options_button_is_visible(self):
         return self.page.locator("a").get_by_text("Order options")
+
+    @pytest.mark.asyncio
+    async def order_options_href(self):
+        await self.page.locator("a").get_by_text("Order options").get_attribute('href')
 
     @pytest.mark.asyncio
     async def click_order_options_button(self):
@@ -223,7 +256,7 @@ class HomeRex:
 
     @property
     def cookies_accept_is_visible(self):
-        return self.page.locator("button.osano-cm-accept-all").get_by_text("Accept All")
+        return self.page.locator("div.osano-cm-dialog__buttons.osano-cm-buttons").get_by_text("Accept")
 
     @pytest.mark.asyncio
     async def click_cookies_accept(self):
@@ -236,4 +269,9 @@ class HomeRex:
     @property
     def bookbanner_is_visible(self):
         return self.page.locator("div.bookbanner")
-                #.get_by_text("Principles of Macroeconomics 3e"))
+
+    # Accessibility page (hidden link: go to accessibility page)
+
+    @property
+    def accessibility_help_content(self):
+        return self.page.locator("#maincontent > div")
