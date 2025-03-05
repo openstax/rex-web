@@ -10,10 +10,11 @@ exports[`Card matches snapshot when focused without note 1`] = `
   padding: 0.8rem;
   border-radius: 0.4rem;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-  right: unset;
+  left: unset;
+  right: 0;
   top: 150px;
-  left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  left: calc(50% + (82.5rem / 2) + 1rem);
+  right: unset;
   -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
   transition: opacity 0.3s,top 0.3s,left 0.3s;
 }
@@ -128,10 +129,11 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   padding: 0.8rem;
   border-radius: 0.4rem;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-  right: unset;
+  left: unset;
+  right: 0;
   top: undefinedpx;
-  left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  left: calc(50% + (82.5rem / 2) + 1rem);
+  right: unset;
   -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
   transition: opacity 0.3s,top 0.3s,left 0.3s;
 }
@@ -221,10 +223,11 @@ exports[`Card matches snapshot without data 1`] = `
   padding: 0.8rem;
   border-radius: 0.4rem;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  left: calc(100% - ((100% - 82.5rem) / 2) + 3rem);
-  right: unset;
+  left: unset;
+  right: 0;
   top: 200px;
-  left: calc(100% - ((100% - 82.5rem) / 2) + 1rem);
+  left: calc(50% + (82.5rem / 2) + 1rem);
+  right: unset;
   -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
   transition: opacity 0.3s,top 0.3s,left 0.3s;
 }
