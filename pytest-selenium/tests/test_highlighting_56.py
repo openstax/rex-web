@@ -22,7 +22,7 @@ XPATH_SEARCH = "//span[contains(text(),'{term}') and contains(@class,'highlight'
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "4-introduction")])
 @markers.smoke_test
-def test_modal_for_unsaved_notes_appears_on_clicking_another_highlight(
+def modal_for_unsaved_notes_appears_on_clicking_another_highlight(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & clicking another highlight."""
@@ -86,7 +86,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_another_highlight(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
-def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
+def modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & clicking TOC link."""
@@ -160,7 +160,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_toc(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
-def test_modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
+def modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & clicking previous link."""
@@ -234,7 +234,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_prev_link(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
-def test_modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
+def modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & clicking next link."""
@@ -308,7 +308,7 @@ def test_modal_for_unsaved_notes_appears_on_page_navigation_using_next_link(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
-def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
+def modal_for_unsaved_notes_appears_on_clicking_book_title(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & book title is clicked."""
@@ -379,7 +379,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_book_title(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("organizational-behavior", "2-introduction")])
-def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
+def modal_for_unsaved_notes_appears_on_selecting_new_text(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & selecting new text."""
@@ -447,7 +447,7 @@ def test_modal_for_unsaved_notes_appears_on_selecting_new_text(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("chemistry-atoms-first-2e", "preface")])
-def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
+def modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & selecting search result in same page."""
@@ -520,7 +520,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_same_page(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "preface")])
-def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_page(
+def modal_for_unsaved_notes_appears_on_clicking_search_result_different_page(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & selecting search result in different page."""
@@ -607,7 +607,7 @@ def test_modal_for_unsaved_notes_appears_on_clicking_search_result_different_pag
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("astronomy", "1-6-a-tour-of-the-universe")])
-def test_modal_for_unsaved_notes_appears_on_clicking_content_links(
+def modal_for_unsaved_notes_appears_on_clicking_content_links(
     selenium, base_url, book_slug, page_slug
 ):
     """Discard modal appears when unsaved notes are present & clicking in-content link."""

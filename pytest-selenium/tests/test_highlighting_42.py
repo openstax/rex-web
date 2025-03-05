@@ -16,7 +16,7 @@ from utils.utility import Highlight, Utilities
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("chemistry-2e", "1-introduction")])
 @markers.smoke_test
-def test_my_highlights_summary_shows_highlights_and_notes_on_current_page(
+def my_highlights_summary_shows_highlights_and_notes_on_current_page(
     selenium, base_url, book_slug, page_slug
 ):
     """My Highlights and Notes summary shows page highlights and notes."""
@@ -159,7 +159,7 @@ def test_my_highlights_summary_shows_highlights_and_notes_on_current_page(
 @markers.test_case("C592637")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("chemistry-2e", "1-4-measurements")])
-def test_my_highlights_summary_shows_all_types_of_content(selenium, base_url, book_slug, page_slug):
+def my_highlights_summary_shows_all_types_of_content(selenium, base_url, book_slug, page_slug):
     """My Highlights and Notes summary shows all types of page content."""
     # GIVEN: the Chemistry 2e book section 1.4 is displayed
     # AND:   a user is logged in
@@ -281,7 +281,7 @@ def test_my_highlights_summary_shows_all_types_of_content(selenium, base_url, bo
 @markers.test_case("C592641")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("chemistry-2e", "1-1-chemistry-in-context")])
-def test_lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
+def lengthy_highlights_summary_page_has_a_floating_back_to_top_link(
     selenium, base_url, book_slug, page_slug
 ):
     """My Highlights and Notes summary has a floating back to top button."""

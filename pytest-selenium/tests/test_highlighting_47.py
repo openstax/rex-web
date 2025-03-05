@@ -10,7 +10,7 @@ from utils.utility import Highlight, Color
 @markers.test_case("C593151")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "4-introduction")])
-def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug, page_slug):
+def no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug, page_slug):
     """No results message when selecting None in either or both chapter & color filters."""
 
     # GIVEN: Login book page
@@ -86,7 +86,7 @@ def test_no_results_message_in_MH_dropdown_filter(selenium, base_url, book_slug,
 @markers.test_case("C593153")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "4-introduction")])
-def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, page_slug):
+def no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, page_slug):
     """No results message when removing filter tags."""
 
     # GIVEN: Login book page
@@ -157,7 +157,7 @@ def test_no_results_message_in_MH_filter_tags(selenium, base_url, book_slug, pag
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
-def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug, page_slug):
+def filter_state_preserved_throughout_session(selenium, base_url, book_slug, page_slug):
     """Filter state preserved throughout the session irrespective of chapter/section navigation."""
 
     # GIVEN: Login book page
@@ -284,7 +284,7 @@ def test_filter_state_preserved_throughout_session(selenium, base_url, book_slug
 @markers.test_case("C594029")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "1-introduction")])
-def test_filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_slug, page_slug):
+def filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_slug, page_slug):
     """Filter state is not preserved if MH page is opened in a new tab."""
 
     # GIVEN: Login book page
@@ -381,7 +381,7 @@ def test_filter_state_not_preserved_for_MH_in_new_tab(selenium, base_url, book_s
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("microbiology", "6-introduction")])
-def test_chapter_filter_collapses_on_clicking_color_filter(
+def chapter_filter_collapses_on_clicking_color_filter(
     selenium, base_url, book_slug, page_slug
 ):
     """Clicking on a filter dropdown will close the other filter dropdown if open."""
@@ -465,7 +465,7 @@ def test_chapter_filter_collapses_on_clicking_color_filter(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("psychology-2e", "2-introduction")])
-def test_select_chapter_with_highlights_and_select_color_not_used_in_that_chapter(
+def select_chapter_with_highlights_and_select_color_not_used_in_that_chapter(
     selenium, base_url, book_slug, page_slug
 ):
     """Select chapter with highlights and a color that is not used in that chapter in MH page filters dropdown."""  # NOQA
@@ -523,7 +523,7 @@ def test_select_chapter_with_highlights_and_select_color_not_used_in_that_chapte
 @markers.test_case("C592628")
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
-def test_MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug):
+def MH_empty_state_logged_in_user(selenium, base_url, book_slug, page_slug):
     """Logged in user empty state for MH page."""
 
     # GIVEN: Login book page

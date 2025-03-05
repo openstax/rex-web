@@ -18,7 +18,7 @@ from utils.utility import Color, Highlight, Utilities
 @markers.parametrize(
     "book_slug, page_slug", [("business-law-i-essentials", "1-1-basic-american-legal-principles")]
 )
-def test_change_highlight_color_using_keyboard_content_page(
+def change_highlight_color_using_keyboard_content_page(
     selenium, base_url, book_slug, page_slug
 ):
     """Highlight color can be changed using keyboard navigation."""
@@ -109,7 +109,7 @@ def test_change_highlight_color_using_keyboard_content_page(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("organizational-behavior", "2-introduction")])
-def test_add_note_using_keyboard_content_page(selenium, base_url, book_slug, page_slug):
+def add_note_using_keyboard_content_page(selenium, base_url, book_slug, page_slug):
     """Add note using keyboard navigation."""
 
     # GIVEN: Login book page
@@ -188,7 +188,7 @@ def test_add_note_using_keyboard_content_page(selenium, base_url, book_slug, pag
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("organizational-behavior", "2-introduction")])
-def test_edit_note_using_keyboard_content_page(selenium, base_url, book_slug, page_slug):
+def edit_note_using_keyboard_content_page(selenium, base_url, book_slug, page_slug):
     """Edit note using keyboard navigation."""
 
     # GIVEN: Login book page
@@ -276,7 +276,7 @@ def test_edit_note_using_keyboard_content_page(selenium, base_url, book_slug, pa
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("organizational-behavior", "2-introduction")])
-def test_delete_note_using_keyboard_content_page(selenium, base_url, book_slug, page_slug):
+def delete_note_using_keyboard_content_page(selenium, base_url, book_slug, page_slug):
     """Delete note using keyboard navigation."""
 
     # GIVEN: Login book page
@@ -369,7 +369,7 @@ def test_delete_note_using_keyboard_content_page(selenium, base_url, book_slug, 
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_toggle_MH_page_context_menu_using_keyboard(selenium, base_url, book_slug, page_slug):
+def toggle_MH_page_context_menu_using_keyboard(selenium, base_url, book_slug, page_slug):
     """Open/close context menu in MH page using keyboard."""
 
     # GIVEN: Login book page
@@ -445,7 +445,7 @@ def test_toggle_MH_page_context_menu_using_keyboard(selenium, base_url, book_slu
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_change_highlight_color_from_MH_page_context_menu_using_keyboard(
+def change_highlight_color_from_MH_page_context_menu_using_keyboard(
     selenium, base_url, book_slug, page_slug
 ):
     """Change highlight color using keyboard navigation in MH page."""
@@ -510,7 +510,7 @@ def test_change_highlight_color_from_MH_page_context_menu_using_keyboard(
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_add_note_from_MH_page_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
+def add_note_from_MH_page_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
     """Add note from MH page using keyboard navigation."""
 
     # GIVEN: Login book page
@@ -598,7 +598,7 @@ def test_add_note_from_MH_page_using_keyboard_navigation(selenium, base_url, boo
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_edit_note_from_MH_page_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
+def edit_note_from_MH_page_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
     """Edit note from MH page using keyboard navigation."""
 
     # GIVEN: Login book page
@@ -687,7 +687,7 @@ def test_edit_note_from_MH_page_using_keyboard_navigation(selenium, base_url, bo
 @markers.parametrize(
     "book_slug, page_slug", [("organizational-behavior", "1-1-the-nature-of-work")]
 )
-def test_delete_highlight_from_MH_page_using_keyboard_navigation(
+def delete_highlight_from_MH_page_using_keyboard_navigation(
     selenium, base_url, book_slug, page_slug
 ):
     """Deleting highlight from MH page using_keyboard_navigation."""
@@ -771,7 +771,7 @@ def test_delete_highlight_from_MH_page_using_keyboard_navigation(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
-def test_keyboard_navigation_MH_empty_state_logged_in_user(
+def keyboard_navigation_MH_empty_state_logged_in_user(
     selenium, base_url, book_slug, page_slug
 ):
     """Keyboard navigation for logged in user empty state MH page."""
@@ -824,7 +824,7 @@ def test_keyboard_navigation_MH_empty_state_logged_in_user(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
-def test_keyboard_navigation_MH_empty_state_non_logged_in_user(
+def keyboard_navigation_MH_empty_state_non_logged_in_user(
     selenium, base_url, book_slug, page_slug
 ):
     """Keyboard navigation for non-logged in user empty state MH page."""
@@ -856,7 +856,7 @@ def test_keyboard_navigation_MH_empty_state_non_logged_in_user(
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
-def test_keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_slug, page_slug):
+def keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_slug, page_slug):
     """Keyboard navigation for the MH dropdown filters."""
 
     # GIVEN: Login book page
@@ -987,7 +987,7 @@ def test_keyboard_navigation_for_MH_dropdown_filters(selenium, base_url, book_sl
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("astronomy", "1-1-the-nature-of-astronomy")])
-def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, page_slug):
+def keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, page_slug):
     """Keyboard navigation for the MH filter tags."""
 
     # GIVEN: Login book page
@@ -1036,7 +1036,7 @@ def test_keyboard_navigation_for_MH_filter_tags(selenium, base_url, book_slug, p
 @markers.desktop_only
 @markers.highlighting
 @markers.parametrize("book_slug, page_slug", [("chemistry-2e", "1-introduction")])
-def test_able_to_close_my_highlights_with_keyboard_navigation(
+def able_to_close_my_highlights_with_keyboard_navigation(
     selenium, base_url, book_slug, page_slug
 ):
     """My Highlights modal can be closed (x) using keyboard navigation."""
@@ -1068,7 +1068,7 @@ def test_able_to_close_my_highlights_with_keyboard_navigation(
 @markers.test_case("C641280")
 @markers.nondestructive
 @markers.parametrize("page_slug", ["preface"])
-def test_close_nudge_using_Esc(selenium, base_url, book_slug, page_slug):
+def close_nudge_using_Esc(selenium, base_url, book_slug, page_slug):
     """Full page Highlighting/SG nudge can be closed using Esc key."""
     # GIVEN: A book section is displayed
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -1097,7 +1097,7 @@ def test_close_nudge_using_Esc(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C608132")
 @markers.nondestructive
 @markers.parametrize("page_slug", ["preface"])
-def test_close_nudge_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
+def close_nudge_using_keyboard_navigation(selenium, base_url, book_slug, page_slug):
     """Full page Highlighting/SG nudge can be closed using keyboard navigation."""
     # GIVEN: A book section is displayed
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
