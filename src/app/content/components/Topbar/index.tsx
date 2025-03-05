@@ -167,9 +167,14 @@ function MobileSearchInputWrapper({
         colorSchema={searchButtonColor}
         searchInSidebar={searchInSidebar}
       >
-        <Styled.SearchInput mobile type='search' data-testid='mobile-search-input'
-          autoFocus
-          onChange={onSearchChange} value={state.query} />
+        <Styled.SearchInput
+          mobile
+          autoFocus={mobileToolbarOpen}
+          type='search'
+          data-testid='mobile-search-input'
+          onChange={onSearchChange}
+          value={state.query}
+        />
         {!state.formSubmitted && !newButtonEnabled &&
           <Styled.SearchButton desktop colorSchema={searchButtonColor} data-experiment />
         }
