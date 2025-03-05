@@ -96,7 +96,6 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
   -webkit-transition: background 200ms;
   transition: background 200ms;
-  position: absolute;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -105,11 +104,13 @@ exports[`Confirmation matches snapshot no selection 1`] = `
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 1.6rem;
-  top: 0;
-  left: 0;
   overflow: visible;
   min-height: 100%;
   min-width: 100%;
+  position: static;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
 }
 
 .c0 label {
