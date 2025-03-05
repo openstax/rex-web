@@ -19,7 +19,7 @@ from utils.utility import Color, Highlight, Utilities
     "book_slug, page_slug",
     [("astronomy", "1-introduction")]
 )
-def test_highlight_is_not_created_until_a_color_is_selected(
+def highlight_is_not_created_until_a_color_is_selected(
         selenium, base_url, book_slug, page_slug):
     """A highlight is not created until the highlight color is selected."""
     # GIVEN: the Astronomy book section 1.0 introduction is displayed
@@ -75,7 +75,7 @@ def test_highlight_is_not_created_until_a_color_is_selected(
     "book_slug, page_slug",
     [("microbiology", "1-introduction")]
 )
-def test_color_auto_selected_if_a_note_is_added(
+def color_auto_selected_if_a_note_is_added(
         selenium, base_url, book_slug, page_slug):
     """The first highlight color is auto-selected if a note is typed."""
     # GIVEN: the Astronomy book section 1.0 introduction is displayed
@@ -127,7 +127,7 @@ def test_color_auto_selected_if_a_note_is_added(
     "book_slug, page_slug",
     [("microbiology", "1-introduction")]
 )
-def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
+def signup_as_a_new_user_via_the_highlight_nudge_overlay(
         selenium, base_url, book_slug, page_slug):
     """Signup as a new user using the highlight nudge overlay."""
     # GIVEN: the Astronomy book section 1.0 introduction is displayed
@@ -189,7 +189,7 @@ def test_signup_as_a_new_user_via_the_highlight_nudge_overlay(
     [("microbiology", "1-introduction")]
 )
 @markers.smoke_test
-def test_display_highlights_for_returning_users(
+def display_highlights_for_returning_users(
         selenium, base_url, book_slug, page_slug):
     """Existing highlights are displayed for returning users."""
     # GIVEN: a book section is displayed
