@@ -29,7 +29,7 @@ XPATH_SEARCH = (
 @markers.test_case("C476808")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_book_title_links_to_books_detail_page(selenium, base_url, book_slug, page_slug):
+def book_title_links_to_books_detail_page(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: A page is loaded
     content = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
@@ -50,7 +50,7 @@ def test_book_title_links_to_books_detail_page(selenium, base_url, book_slug, pa
 @markers.test_case("C583482")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_order_print_copy(selenium, base_url, book_slug, page_slug):
+def order_print_copy(selenium, base_url, book_slug, page_slug):
 
     # GIVEN: Open osweb book details page
     osweb = WebBase(selenium, base_url, book_slug=book_slug).open()
@@ -94,7 +94,7 @@ def test_order_print_copy(selenium, base_url, book_slug, page_slug):
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 @pytest.mark.xfail
-def test_redirect_to_osweb_404_when_book_is_incorrect(selenium, base_url, book_slug, page_slug):
+def redirect_to_osweb_404_when_book_is_incorrect(selenium, base_url, book_slug, page_slug):
     """User is redirected to osweb 404 page when book slug doesn't exist."""
     # GIVEN: A content page
     book = Content(selenium, base_url, book_slug=f"{book_slug}test", page_slug=page_slug)
@@ -112,7 +112,7 @@ def test_redirect_to_osweb_404_when_book_is_incorrect(selenium, base_url, book_s
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
 @pytest.mark.xfail
-def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
+def redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
     selenium, base_url, book_slug, page_slug
 ):
     """Rex 404 page is displayed when user opens incorrect page."""
@@ -131,7 +131,7 @@ def test_redirect_to_osweb_404_when_page_is_incorrect_in_first_session(
 @markers.test_case("C613212")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
+def redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
     selenium, base_url, book_slug, page_slug
 ):
     """Rex 404 displayed when opening incorrect page in an existing session."""
@@ -195,7 +195,7 @@ def test_redirect_to_rex_404_when_page_is_incorrect_in_existing_session(
 @markers.test_case("C619386")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_bookbanner_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
+def bookbanner_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
     """On a rex 404 page, book title is displayed but page title is not displayed."""
 
     # GIVEN: A page is loaded
@@ -236,7 +236,7 @@ def test_bookbanner_behavior_in_rex_404_page(selenium, base_url, book_slug, page
 @markers.test_case("C619384")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_attribution_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
+def attribution_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
     """On a rex 404 page, attribution can be expanded and the attribution links work as usual."""
 
     # GIVEN: A page is loaded
@@ -268,7 +268,7 @@ def test_attribution_behavior_in_rex_404_page(selenium, base_url, book_slug, pag
 @markers.test_case("C619385")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_navbar_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug, email, password):
+def navbar_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug, email, password):
     """On a rex 404 page, login/logout does not change rex 404 status."""
 
     # GIVEN: A page is loaded
@@ -303,7 +303,7 @@ def test_navbar_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
 @markers.test_case("C614422")
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
+def search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slug):
     """On a rex 404 page, search functionality works as usual."""
 
     # GIVEN: A page is loaded
@@ -357,7 +357,7 @@ def test_search_behavior_in_rex_404_page(selenium, base_url, book_slug, page_slu
 @markers.desktop_only
 @markers.parametrize("page_slug", ["preface"])
 @markers.nondestructive
-def test_accessibility_help_link(selenium, base_url, book_slug, page_slug):
+def accessibility_help_link(selenium, base_url, book_slug, page_slug):
     """On a rex page, accessibility help link shows on tabbing."""
 
     # GIVEN: A page is loaded
@@ -396,7 +396,7 @@ def test_accessibility_help_link(selenium, base_url, book_slug, page_slug):
 @markers.test_case("C647981")
 @markers.nondestructive
 @markers.parametrize("page_slug", ["preface"])
-def test_close_nudge_using_x_icon(selenium, base_url, book_slug, page_slug):
+def close_nudge_using_x_icon(selenium, base_url, book_slug, page_slug):
     """Full page Highlighting/SG nudge can be closed using x icon."""
     # GIVEN: A book section is displayed
     book = Content(selenium, base_url, book_slug=book_slug, page_slug=page_slug).open()
