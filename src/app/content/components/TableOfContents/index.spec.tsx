@@ -93,7 +93,7 @@ describe('TableOfContents', () => {
       <ConnectedTableOfContents />
     </TestContainer>);
     const sb = root.querySelector('[data-testid="toc"]')!;
-    const firstTocItem = sb.querySelector('ol > li a, old > li div:first-child') as HTMLElement;
+    const firstTocItem = sb.querySelector('ol > li a') as HTMLElement;
     const focusSpy = jest.spyOn(firstTocItem as any, 'focus');
 
     reactDomAct(() => {
@@ -127,18 +127,118 @@ describe('TableOfContents', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(actions.resetToc());
   });
 
-  it('toggles open state on Enter key press', () => {
+  it.each`
+    anchorNumber | description        | isDispatchCalled
+    ${2}         | ${'(TocNode)'}     | ${false}
+    ${18}        | ${'(ContentLink)'} | ${true}
+  `('toggles open state on Enter and Space key press %description', ({ anchorNumber, isDispatchCalled }) => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
     const { root } = renderToDom(Component);
 
-    const anchor = root.querySelectorAll('a[role="treeitem"]')[2] as HTMLAnchorElement;
-
-    // Do not trigger on key other than Enter
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "Escape" });
+    const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
 
     // Trigger on Enter
     ReactTestUtils.Simulate.keyDown(anchor, { key: "Enter" });
+
+    // Trigger on Enter
+    ReactTestUtils.Simulate.keyDown(anchor, { key: " " });
+
+    /* 
+      Trigger search and focus 
+      Test with different values for coverage
+    */
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "T" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "p" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "a" });
+
+    if (isDispatchCalled) {
+      expect(dispatchSpy).toHaveBeenCalled();
+    } else {
+      expect(dispatchSpy).not.toHaveBeenCalled();
+    }
+    // expect(Array.from(root.querySelectorAll('a[role="treeitem"]')).map(i => i.textContent?.trim().toLowerCase().startsWith('T'.toLowerCase()))).toHaveBeenCalled();
+  });
+
+  it.each`
+    anchorNumber | description
+    ${0}         | ${'(ContentLink)'}
+    ${2}         | ${'(TocNode)'}
+  `('open and closing using Arrow keys %description', ({ anchorNumber }) => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    const { root } = renderToDom(Component);
+
+    const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
+
+    // For ContentLink does nothing
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowRight" });
+
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowLeft" });
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
+  });
+
+  it.each`
+    anchorNumber | description
+    ${0}         | ${'(ContentLink)'}
+    ${2}         | ${'(TocNode)'}
+  `('move using Arrow keys %description', ({ anchorNumber }) => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    const { root } = renderToDom(Component);
+
+    const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
+
+    // Move using left when group is closed
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowLeft" });
+
+    // Open group and then move using right (ContentLink does nothing)
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowRight" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowRight" });
+
+    // Move using up and down
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowDown" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowUp" });
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
+  });
+
+  it.each`
+    anchorNumber | description
+    ${0}         | ${'(ContentLink)'}
+    ${2}         | ${'(TocNode)'}
+  `('move focus to start and end of treeitems %description', ({ anchorNumber }) => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    const { root } = renderToDom(Component);
+
+    const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
+
+    // Move focus to first treeitem
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "Home" });
+
+    // Move focus to last treeitem
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "End" });
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
+  });
+
+  it.each`
+    anchorNumber | description        | shiftKey
+    ${0}         | ${'(ContentLink)'} | ${true}
+    ${0}         | ${'(ContentLink)'} | ${false}
+    ${2}         | ${'(TocNode)'}     | ${true}
+    ${2}         | ${'(TocNode)'}     | ${false}
+    ${18}         | ${'(TocNode)'}     | ${false}
+  `('trigger tab navigation %description', ({ anchorNumber, shiftKey }) => {
+    const dispatchSpy = jest.spyOn(store, 'dispatch');
+
+    const { root } = renderToDom(Component);
+    const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
+
+    // Move focus to the first treeitem if shiftKey is false and to the last treeitem if is true
+    ReactTestUtils.Simulate.keyDown(anchor, { key: "Tab", shiftKey });
 
     expect(dispatchSpy).not.toHaveBeenCalled();
   });

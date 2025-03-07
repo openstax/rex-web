@@ -16,6 +16,7 @@ import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery } from '../../../reactUtils';
+import { useKeyboardSupport, KeyboardSupportProps } from './keyboardSupport.hook';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -118,11 +119,13 @@ function TocHeader() {
 }
 
 function TocNode({
+  id,
   isOpen,
   title,
   onClick,
   onKeyDown,
 }: React.PropsWithChildren<{
+  id: string;
   title: string,
   isOpen: boolean,
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
@@ -130,14 +133,10 @@ function TocNode({
 }>) {
 
   return (
-    <Styled.NavDetails onClick={onClick} onKeyDown={onKeyDown} open={isOpen} aria-expanded={isOpen} tabIndex={0}>
-      <Styled.Summary>
-        <Styled.SummaryWrapper>
-          <Styled.CollapseIcon />
-          <Styled.ExpandIcon />
-          <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
-        </Styled.SummaryWrapper>
-      </Styled.Summary>
+    <Styled.NavDetails id={id} onClick={onClick} onKeyDown={onKeyDown} open={isOpen} aria-expanded={isOpen} tabIndex={0}>
+      <Styled.CollapseIcon />
+      <Styled.ExpandIcon />
+      <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
     </Styled.NavDetails>
   );
 }
@@ -165,44 +164,52 @@ function ArchiveTreeComponent({
   page,
   activeSection,
   onNavigate,
+  onKeyDown,
 }: {
   item: LinkedArchiveTree;
   book: Book | undefined;
   page: Page | undefined;
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
+  onKeyDown: (props: KeyboardSupportProps) => void;
 }) {
   const sectionType = getArchiveTreeSectionType(item);
+
   const [isOpen, setOpen] = React.useState<boolean>(shouldBeOpen(page, item));
-  const toggleOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => {
-    if ('key' in event) {
-      if (event.key !== 'Enter' && event.key !== ' ') {
-        return;
-      }
-    }
+
+  const toggleOpen = () => {
     setOpen((prevState) => !prevState);
   };
+
+  const onKeyDownSupport = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+    onKeyDown({
+      event: e,
+      item,
+      isOpen,
+      onSelect: toggleOpen
+    });
+  }
 
   return (
     <Styled.NavItem key={item.id} sectionType={sectionType}>
       <TocNode
+        id={item.id}
         aria-owns={item.id + '-subtree'}
         title={item.title}
         isOpen={isOpen}
         onClick={toggleOpen}
-        onKeyDown={toggleOpen}
+        onKeyDown={onKeyDownSupport}
       />
-      {isOpen && (
-        <TocSection
-          id={item.id + '-subtree'}
-          book={book}
-          page={page}
-          section={item}
-          activeSection={activeSection}
-          onNavigate={onNavigate}
-          role='group'
-        />
-      )}
+      <TocSection
+        id={item.id + '-subtree'}
+        book={book}
+        page={page}
+        section={item}
+        activeSection={activeSection}
+        onNavigate={onNavigate}
+        role='group'
+        open={isOpen}
+      />
     </Styled.NavItem>
   );
 }
@@ -215,6 +222,7 @@ function TocSection({
   activeSection,
   onNavigate,
   role,
+  open,
 }: {
   id?: string;
   book: Book | undefined;
@@ -223,10 +231,15 @@ function TocSection({
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
   role: 'tree' | 'group';
+  open: boolean;
 }) {
+
+  const linkedContents = linkContents(section);
+  const { onKeyDownNavItemSupport, onKeyDownNavGroupSupport } = useKeyboardSupport();
+
   return (
-    <Styled.NavOl id={id} role={role} section={section}>
-      {linkContents(section).map((item) => {
+    <Styled.NavOl id={id} role={role} section={section} open={open}>
+      {linkedContents.map((item) => {
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
 
@@ -238,6 +251,7 @@ function TocSection({
             page={page}
             activeSection={activeSection}
             onNavigate={onNavigate}
+            onKeyDown={onKeyDownNavGroupSupport}
           />
         ) : (
           <Styled.NavItem
@@ -247,7 +261,16 @@ function TocSection({
             active={active}
           >
             <Styled.ContentLink
+              id={item.id}
               onClick={onNavigate}
+              onKeyDown={
+                (e: React.KeyboardEvent<HTMLAnchorElement>, onSelect: ()=> void) => 
+                  onKeyDownNavItemSupport({
+                    event: e, 
+                    item, 
+                    onSelect,
+                  })
+              }
               book={book}
               page={item}
               dangerouslySetInnerHTML={{ __html: item.title }}
@@ -283,6 +306,7 @@ export class TableOfContents extends Component<SidebarProps> {
             activeSection={this.activeSection}
             onNavigate={this.props.onNavigate}
             role='tree'
+            open
           />
         )}
       </SidebarBody>

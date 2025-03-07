@@ -35,12 +35,27 @@ describe('ContentLink', () => {
     consoleError.mockRestore();
   });
 
-  const click = async(component: renderer.ReactTestRenderer) => {
+  const click = async (component: renderer.ReactTestRenderer) => {
     const event = {
       preventDefault: jest.fn(),
     };
 
     await component.root.findByType('a').props.onClick(event);
+
+    return event;
+  };
+
+  const onKeyDownMock = (event: React.KeyboardEvent<HTMLAnchorElement>, method: () => void) => {
+    event.preventDefault();
+    method();
+  };
+
+  const keyDown = async (component: renderer.ReactTestRenderer) => {
+    const event = {
+      preventDefault: jest.fn(),
+    };
+
+    await component.root.findByType('a').props.onKeyDown(event);
 
     return event;
   };
@@ -53,125 +68,157 @@ describe('ContentLink', () => {
       ConnectedContentLink = require('./ContentLink').default;
     });
 
-    it('dispatches navigation action on click', async() => {
+    it.each`
+      method     | description                         
+      ${click}   | ${'using onClick'}                  
+      ${keyDown} | ${'using onKeyDown'}     
+    `('dispatches navigation action on click %description', async ({ method }) => {
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} />
+        <ConnectedContentLink book={book} page={page} onKeyDown={onKeyDownMock} />
       </TestContainer>);
 
-      const event = await click(component);
+      const event = await method(component);
 
       expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        params: { book: { slug: BOOK_SLUG }, page: { slug: PAGE_SLUG } },
         route: content,
-        state: { },
+        state: {},
       }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
 
-    it('dispatches navigation action with search if there is a search', async() => {
+    it.each`
+      method     | description                         
+      ${click}   | ${'using onClick'}                  
+      ${keyDown} | ${'using onKeyDown'}     
+    `('dispatches navigation action with search if there is a search %description', async ({ method }) => {
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
       const mockSearch = {
         query: 'asdf',
       };
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} />
+        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} onKeyDown={onKeyDownMock} />
       </TestContainer>);
 
-      const event = await click(component);
+      const event = await method(component);
 
       expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        params: { book: { slug: BOOK_SLUG }, page: { slug: PAGE_SLUG } },
         route: content,
-        state: { },
+        state: {},
       }, { search: 'query=asdf' }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
 
-    it('search passed as prop overwrites search from the redux state', async() => {
+    it.each`
+      method     | description                         
+      ${click}   | ${'using onClick'}                  
+      ${keyDown} | ${'using onKeyDown'}     
+    `('search passed as prop overwrites search from the redux state %description', async ({ method }) => {
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
       const mockSearch = {
         query: 'search-from-direct-prop',
       };
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} />
+        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} onKeyDown={onKeyDownMock} />
       </TestContainer>);
 
-      const event = await click(component);
+      const event = await method(component);
 
       expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        params: { book: { slug: BOOK_SLUG }, page: { slug: PAGE_SLUG } },
         route: content,
-        state: { },
+        state: {},
       }, { search: `query=${mockSearch.query}` }));
       expect(event.preventDefault).toHaveBeenCalled();
     });
 
-    it('dispatches navigation action with scroll target data and search if scroll target is passed', async() => {
-      const scrollTarget: SearchScrollTarget = { type: 'search', index: 1, elementId: 'anchor' };
-      store.dispatch(requestSearch('asdf'));
-      store.dispatch(receiveBook(book));
-      const mockSearch = {
-        query: 'asdf',
-      };
-      const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} queryParams={mockSearch} scrollTarget={scrollTarget} />
-      </TestContainer>);
-
-      dispatch.mockClear();
-
-      const event = await click(component);
-
-      expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
-        route: content,
-        state: { },
-      }, {
-        hash: `#${scrollTarget.elementId}`,
-        search: queryString.stringify({
+    it.each`
+      method     | description                         
+      ${click}   | ${'using onClick'}                  
+      ${keyDown} | ${'using onKeyDown'}     
+    `('dispatches navigation action with scroll target data and search if scroll target is passed %description',
+      async ({ method }) => {
+        const scrollTarget: SearchScrollTarget = { type: 'search', index: 1, elementId: 'anchor' };
+        store.dispatch(requestSearch('asdf'));
+        store.dispatch(receiveBook(book));
+        const mockSearch = {
           query: 'asdf',
-          target: JSON.stringify(omit('elementId', scrollTarget)),
-        }),
-      }));
-      expect(event.preventDefault).toHaveBeenCalled();
-    });
+        };
+        const component = renderer.create(<TestContainer store={store}>
+          <ConnectedContentLink
+            book={book}
+            page={page}
+            queryParams={mockSearch}
+            scrollTarget={scrollTarget}
+            onKeyDown={onKeyDownMock}
+          />
+        </TestContainer>);
 
-    it('dispatches navigation action without search when linking to a different book', async() => {
-      store.dispatch(requestSearch('asdf'));
-      store.dispatch(receiveBook({...book, id: 'differentid'}));
-      const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} />
-      </TestContainer>);
+        dispatch.mockClear();
 
-      const event = await click(component);
+        const event = await method(component);
 
-      expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
-        route: content,
-        state: { },
-      }));
-      expect(event.preventDefault).toHaveBeenCalled();
-    });
+        expect(dispatch).toHaveBeenCalledWith(push({
+          params: { book: { slug: BOOK_SLUG }, page: { slug: PAGE_SLUG } },
+          route: content,
+          state: {},
+        }, {
+          hash: `#${scrollTarget.elementId}`,
+          search: queryString.stringify({
+            query: 'asdf',
+            target: JSON.stringify(omit('elementId', scrollTarget)),
+          }),
+        }));
+        expect(event.preventDefault).toHaveBeenCalled();
+      });
 
-    it('calls onClick when passed', async() => {
+    it.each`
+      method     | description                         
+      ${click}   | ${'using onClick'}                  
+      ${keyDown} | ${'using onKeyDown'}     
+    `('dispatches navigation action without search when linking to a different book %description',
+      async ({ method }) => {
+        store.dispatch(requestSearch('asdf'));
+        store.dispatch(receiveBook({ ...book, id: 'differentid' }));
+        const component = renderer.create(<TestContainer store={store}>
+          <ConnectedContentLink book={book} page={page} onKeyDown={onKeyDownMock} />
+        </TestContainer>);
+
+        const event = await method(component);
+
+        expect(dispatch).toHaveBeenCalledWith(push({
+          params: { book: { slug: BOOK_SLUG }, page: { slug: PAGE_SLUG } },
+          route: content,
+          state: {},
+        }));
+        expect(event.preventDefault).toHaveBeenCalled();
+      });
+
+    it.each`
+      method     | description                         
+      ${click}   | ${'using onClick method'}                  
+      ${keyDown} | ${'using onKeyDown method'}     
+    `('calls onClick when passed %description', async ({ method }) => {
       const clickSpy = jest.fn();
       const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
+        <ConnectedContentLink book={book} page={page} onClick={clickSpy} onKeyDown={onKeyDownMock} />
       </TestContainer>);
 
-      const event = await click(component);
+      const event = await method(component);
 
       expect(dispatch).toHaveBeenCalledWith(push({
-        params: {book: {slug: BOOK_SLUG}, page: {slug: PAGE_SLUG}},
+        params: { book: { slug: BOOK_SLUG }, page: { slug: PAGE_SLUG } },
         route: content,
-        state: { },
+        state: {},
       }));
       expect(event.preventDefault).toHaveBeenCalled();
       expect(clickSpy).toHaveBeenCalled();
     });
 
-    it('does not call onClick or dispatch the event when the meta key is pressed', async() => {
+    it('does not call onClick or dispatch the event when the meta key is pressed', async () => {
       const clickSpy = jest.fn();
       const component = renderer.create(<TestContainer store={store}>
         <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
@@ -190,10 +237,11 @@ describe('ContentLink', () => {
     });
   });
 
-  describe('with unsaved changes' , () => {
+  describe('with unsaved changes', () => {
     // tslint:disable-next-line:variable-name
     let ConnectedContentLink: React.ElementType;
     const mockConfirmation = jest.fn()
+      .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(false), 300)))
       .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(false), 300)))
       .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(true), 300)));
 
@@ -206,21 +254,26 @@ describe('ContentLink', () => {
       ConnectedContentLink = require('./ContentLink').default;
     });
 
-    it('does not call onClick or dispatch if user decides not to discard changes' , async() => {
-      const clickSpy = jest.fn();
-      store.dispatch(setAnnotationChangesPending(true));
-      const component = renderer.create(<TestContainer store={store}>
-        <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
-      </TestContainer>);
+    it.each`
+      method     | description                         
+      ${click}   | ${'using onClick method'}                  
+      ${keyDown} | ${'using onKeyDown method'}     
+    `('does not call onClick or dispatch if user decides not to discard changes %description',
+      async ({ method }) => {
+        const clickSpy = jest.fn();
+        store.dispatch(setAnnotationChangesPending(true));
+        const component = renderer.create(<TestContainer store={store}>
+          <ConnectedContentLink book={book} page={page} onClick={clickSpy} onKeyDown={onKeyDownMock} />
+        </TestContainer>);
 
-      const event = await click(component);
+        const event = await method(component);
 
-      expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
-      expect(event.preventDefault).toHaveBeenCalled();
-      expect(clickSpy).not.toHaveBeenCalled();
-    });
+        expect(dispatch).not.toHaveBeenCalledWith(push(expect.anything()));
+        expect(event.preventDefault).toHaveBeenCalled();
+        expect(clickSpy).not.toHaveBeenCalled();
+      });
 
-    it('calls onClick and dispatch if user decides to discard changes' , async() => {
+    it('calls onClick and dispatch if user decides to discard changes', async () => {
       const clickSpy = jest.fn();
       store.dispatch(setAnnotationChangesPending(true));
       const component = renderer.create(<TestContainer store={store}>

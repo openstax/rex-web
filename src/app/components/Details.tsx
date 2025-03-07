@@ -55,11 +55,11 @@ export const Details = styled.details`
 // tslint:disable-next-line:variable-name
 export const DetailsTree = styled.a`
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
-    &[open] > div:first-child ${ExpandIcon} {
+    &[open] > ${ExpandIcon} {
       display: none;
     }
 
-    &:not([open]) > div:first-child  ${CollapseIcon} {
+    &:not([open]) > ${CollapseIcon} {
       display: none;
     }
   `}

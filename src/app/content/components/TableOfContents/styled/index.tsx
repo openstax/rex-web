@@ -66,11 +66,11 @@ interface NavItemComponentProps {
 }
 // tslint:disable-next-line:variable-name
 export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponentProps>(
-  ({active, className, children, sectionType}, ref) => <li
+  ({ active, className, children, sectionType }, ref) => <li
     data-type={sectionType}
     ref={ref}
     className={className}
-    {...(active ? {'aria-label': 'Current Page'} : {})}
+    {...(active ? { 'aria-label': 'Current Page' } : {})}
     role='none'
   >{children}</li>
 );
@@ -90,45 +90,11 @@ export const NavItem = styled(NavItemComponent)`
       outline: none;
       ${activeState}
   }
-  }
 `;
 
 // tslint:disable-next-line:variable-name
-export const Summary = styled.div`
-  
-  list-style: none;
-  cursor: pointer;
 
-  :focus {
-    outline: none;
-  }
-    
-  ::before {
-    display: none;
-  }
-
-  ::-moz-list-bullet {
-    list-style-type: none;
-  }
-
-  ::-webkit-details-marker {
-    display: none;
-  }
-
-  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
-    :hover ${SummaryTitle},
-    :focus ${SummaryTitle} {
-      ${activeState}
-    }
-  `}
-`;
-
-// tslint:disable-next-line:variable-name
-export const SummaryWrapper = styled.div`
-  display: flex;
-`;
-
-const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, {title}) => {
+const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, { title }) => {
   const num = splitTitleParts(title)[0];
 
   if (!num) {
@@ -146,15 +112,14 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
 }, 0);
 
 // tslint:disable-next-line:variable-name
-export const NavOl = styled.ol<{section: ArchiveTree}>`
+export const NavOl = styled.ol<{ section: ArchiveTree }>`
   margin: 0;
   padding: 0;
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
 
     return css`
-      & > ${NavItem} > a > div:first-child,
-      & > ${NavItem} > ${ContentLink} {
+      & > ${NavItem} > a {
         .os-number {
           width: ${numberWidth}rem;
           overflow: hidden;
@@ -175,21 +140,61 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
       & > ${NavItem} > ol {
         margin-left: ${numberWidth + dividerWidth}rem;
       }
+
+      ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
+        &:not([open]) {
+          display: none;
+
+          a[role='treeitem'] {
+            display: none;
+          }
+
+        }
+      `}
     `;
   }}
 `;
 
-interface DetailsComponentProps {open: boolean; }
+interface DetailsComponentProps { open: boolean; }
 class DetailsComponent extends React.Component<DetailsComponentProps> {
   public render() {
-    const {open, ...props} = this.props;
+    const { open, ...props } = this.props;
 
-    return <DetailsTree role='treeitem' {...props} open={open} />;
+    return <DetailsTree role='treeitem' href="#" {...props} open={open} />;
   }
 }
 
 // tslint:disable-next-line:variable-name
 export const NavDetails = styled(DetailsComponent)`
+  ${labelStyle}
+  display: flex;
   overflow: visible;
   list-style: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  :focus,
+  :hover {
+    outline: none;
+    ${activeState}
+  }
+    
+  ::before {
+    display: none;
+  }
+
+  ::-moz-list-bullet {
+    list-style-type: none;
+  }
+
+  ::-webkit-details-marker {
+    display: none;
+  }
+
+  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
+    :hover ${SummaryTitle},
+    :focus ${SummaryTitle} {
+      ${activeState}
+    }
+  `}
 `;
