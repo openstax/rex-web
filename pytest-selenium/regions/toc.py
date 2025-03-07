@@ -21,7 +21,7 @@ class TableOfContents(Region):
     _section_link_locator = (By.CSS_SELECTOR, "ol li a")
     _active_section_locator = (By.CSS_SELECTOR, "[aria-label='Current Page']")
 
-    _chapter_link_selector = "li details"
+    _chapter_link_selector = "li a"
 
     @property
     def active_section(self):
