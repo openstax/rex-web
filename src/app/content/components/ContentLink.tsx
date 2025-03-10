@@ -28,6 +28,7 @@ interface Props {
   };
   currentBook: Book | undefined;
   onClick?: () => void; // this one gets called before navigation
+  onKeyDown?: (event: React.KeyboardEvent<HTMLAnchorElement>, onSelect: () => void) => void;
   handleClick?: () => void; // this one gets called instead of navigation
   navigate: typeof push;
   currentPath: string;
@@ -52,6 +53,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     scrollTarget,
     navigate,
     onClick,
+    onKeyDown,
     handleClick,
     children,
     myForwardedRef,
@@ -60,12 +62,12 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
 
-  const {url, params} = getBookPageUrlAndParams(book, page);
+  const { url, params } = getBookPageUrlAndParams(book, page);
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
   const options = currentBook && currentBook.id === bookUid
-    ? createNavigationOptions({...systemQueryParams},
+    ? createNavigationOptions({ ...systemQueryParams },
       scrollTarget)
     : undefined;
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
@@ -73,8 +75,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
   return <a
     ref={myForwardedRef}
-    onClick={async(e) => {
-
+    onClick={async (e) => {
       if (isClickWithModifierKeys(e) || anchorProps.target === '_blank') {
         return;
       }
@@ -95,6 +96,22 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         navigate(navigationMatch, options);
       }
     }}
+    onKeyDown={(e) => onKeyDown && onKeyDown(e, async () => {
+      /*
+        All this logic has to be inside onKeyDown === Enter || Space
+      */
+      e.preventDefault();
+
+      if (hasUnsavedHighlight && !await showConfirmation(services)) {
+        return;
+      }
+
+      if (onClick) {
+        onClick();
+      }
+
+      navigate(navigationMatch, options);
+    })}
     href={URL}
     {...anchorProps}
   >{children}</a>;
@@ -102,7 +119,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
-  (state: AppState, ownProps: {queryParams?: OutputParams}) => ({
+  (state: AppState, ownProps: { queryParams?: OutputParams }) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
