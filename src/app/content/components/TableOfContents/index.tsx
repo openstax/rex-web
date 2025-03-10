@@ -70,7 +70,7 @@ const SidebarBody = React.forwardRef<
   React.useEffect(
     () => {
       const firstItemInToc = mRef?.current?.querySelector(
-        'ol > li a, old > li div:first-child'
+        'ol > li a'
       ) as HTMLElement;
       const el = mRef.current;
       const transitionListener = () => {
