@@ -142,14 +142,13 @@ function ActiveEditCard({
     false
   );
 
-  const {onBlur, hasUnsavedHighlight, highlight} = props;
+  const { onBlur, hasUnsavedHighlight } = props;
   // Focus the highlight when clicking outside the Card in order to keep navigation in order
   const blurIfNotEditing = React.useCallback(() => {
     if (!hasUnsavedHighlight && !editingAnnotation) {
-      highlight.focus();
       onBlur();
     }
-  }, [onBlur, hasUnsavedHighlight, editingAnnotation, highlight]);
+  }, [onBlur, hasUnsavedHighlight, editingAnnotation]);
 
   const deselectRange = React.useCallback(
     ({target}: FocusEvent) => {
