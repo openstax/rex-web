@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { Details } from '../../../../components/Details';
-import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
+import { DetailsTree } from '../../../../components/Details';
+import { iconSize } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { ArchiveTree } from '../../../types';
@@ -66,11 +66,12 @@ interface NavItemComponentProps {
 }
 // tslint:disable-next-line:variable-name
 export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponentProps>(
-  ({active, className, children, sectionType}, ref) => <li
+  ({ active, className, children, sectionType }, ref) => <li
     data-type={sectionType}
     ref={ref}
     className={className}
-    {...(active ? {'aria-label': 'Current Page'} : {})}
+    {...(active ? { 'aria-label': 'Current Page' } : {})}
+    role='none'
   >{children}</li>
 );
 
@@ -82,28 +83,18 @@ export const NavItem = styled(NavItemComponent)`
   ${theme.breakpoints.mobile(css`
     margin-top: 1.7rem;
   `)}
-`;
 
-// tslint:disable-next-line:variable-name
-export const Summary = styled(BaseSummary)`
-  :focus {
-    outline: none;
-  }
-
-  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
-    :hover ${SummaryTitle},
-    :focus ${SummaryTitle} {
+  a[role='treeitem'] {
+    :focus,
+    :hover {
+      outline: none;
       ${activeState}
-    }
-  `}
+  }
 `;
 
 // tslint:disable-next-line:variable-name
-export const SummaryWrapper = styled.div`
-  display: flex;
-`;
 
-const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, {title}) => {
+const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, { title }) => {
   const num = splitTitleParts(title)[0];
 
   if (!num) {
@@ -121,15 +112,14 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
 }, 0);
 
 // tslint:disable-next-line:variable-name
-export const NavOl = styled.ol<{section: ArchiveTree}>`
+export const NavOl = styled.ol<{ section: ArchiveTree }>`
   margin: 0;
   padding: 0;
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
 
     return css`
-      & > ${NavItem} > details > summary,
-      & > ${NavItem} > ${ContentLink} {
+      & > ${NavItem} > a {
         .os-number {
           width: ${numberWidth}rem;
           overflow: hidden;
@@ -147,28 +137,64 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
         }
       }
 
-      & > ${NavItem} > details > ol {
+      & > ${NavItem} > ol {
         margin-left: ${numberWidth + dividerWidth}rem;
       }
+
+      ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
+        &:not([open]) {
+          display: none;
+
+          a[role='treeitem'] {
+            display: none;
+          }
+
+        }
+      `}
     `;
   }}
 `;
 
-interface DetailsComponentProps {defaultOpen: boolean; open: boolean; }
-class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOpen: boolean}> {
-  constructor(props: DetailsComponentProps) {
-    super(props);
-    this.state = {defaultOpen: props.defaultOpen};
-  }
+interface DetailsComponentProps { open: boolean; }
+class DetailsComponent extends React.Component<DetailsComponentProps> {
   public render() {
-    const {open, defaultOpen: _, ...props} = this.props;
-    const {defaultOpen} = this.state;
+    const { open, ...props } = this.props;
 
-    return <Details {...props} open={open || defaultOpen} />;
+    return <DetailsTree role='treeitem' href="#" {...props} open={open} />;
   }
 }
 
 // tslint:disable-next-line:variable-name
 export const NavDetails = styled(DetailsComponent)`
+  ${labelStyle}
+  display: flex;
   overflow: visible;
+  list-style: none;
+  cursor: pointer;
+  text-decoration: none;
+
+  :focus,
+  :hover {
+    outline: none;
+    ${activeState}
+  }
+    
+  ::before {
+    display: none;
+  }
+
+  ::-moz-list-bullet {
+    list-style-type: none;
+  }
+
+  ::-webkit-details-marker {
+    display: none;
+  }
+
+  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
+    :hover ${SummaryTitle},
+    :focus ${SummaryTitle} {
+      ${activeState}
+    }
+  `}
 `;
