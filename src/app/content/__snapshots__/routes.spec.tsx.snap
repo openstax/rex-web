@@ -765,7 +765,7 @@ Array [
   >
     <div
       className="c1 c2"
-      role="alert"
+      role="alertdialog"
     />
     <div
       className="c3"
