@@ -63,7 +63,7 @@ const PageToasts = (props: ToastProps | {}) => {
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
 
   return (
-    <ToastContainerWrapper role='alert' {...props} mobileToolbarOpen={mobileToolbarOpen}>
+    <ToastContainerWrapper role='alertdialog' {...props} mobileToolbarOpen={mobileToolbarOpen}>
       {toasts ? <ToastNotifications toasts={toasts} /> : null}
     </ToastContainerWrapper>
   );

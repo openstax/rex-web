@@ -34,7 +34,7 @@ exports[`PageToasts matches snapshot 1`] = `
 
 <div
   className="c0"
-  role="alert"
+  role="alertdialog"
 />
 `;
 
@@ -182,7 +182,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 
 <div
   className="c0"
-  role="alert"
+  role="alertdialog"
 >
   <div
     className="c1"
@@ -386,7 +386,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
 
 <div
   className="c0"
-  role="alert"
+  role="alertdialog"
 >
   <div
     className="c1"

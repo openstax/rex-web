@@ -4247,7 +4247,7 @@ li[aria-label="Current Page"] .c61 {
           >
             <div
               className="c77"
-              role="alert"
+              role="alertdialog"
             />
             <div
               className="c78"
@@ -8841,7 +8841,7 @@ li[aria-label="Current Page"] .c61 {
           >
             <div
               className="c77"
-              role="alert"
+              role="alertdialog"
             />
             <div
               className="c78"
