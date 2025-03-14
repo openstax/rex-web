@@ -22,7 +22,7 @@ function isHidden(el: HTMLElement) {
   return el.offsetWidth === 0 && el.offsetHeight === 0;
 }
 
-const focusableItemQuery = [
+export const focusableItemQuery = [
   'button', 'input', 'select', 'textarea', '[href]', '[tabindex]:not([tabindex="-1"]',
 ].map((s) => s.includes('[') ? s : `${s}:not([disabled])`).join(',');
 
