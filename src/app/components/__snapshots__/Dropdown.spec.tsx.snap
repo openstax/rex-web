@@ -92,6 +92,7 @@ exports[`Dropdown matches snapshot 1`] = `
 }
 
 .c6 {
+  list-style: none;
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
@@ -129,8 +130,6 @@ exports[`Dropdown matches snapshot 1`] = `
   line-height: 2rem;
 }
 
-.c6 li button:hover,
-.c6 li a:hover,
 .c6 li button:focus,
 .c6 li a:focus {
   background: #d5d5d5;
@@ -155,28 +154,31 @@ exports[`Dropdown matches snapshot 1`] = `
     >
       show more
     </button>
-    <ol
+    <menu
       className="c6"
     >
       <li>
-        <a
-          href=""
+        <button
           onClick={[Function]}
+          onMouseEnter={[Function]}
           tabIndex={0}
+          type="button"
         >
           Delete
-        </a>
+        </button>
       </li>
       <li>
         <a
           href="/wooo"
           onClick={[Function]}
+          onMouseEnter={[Function]}
+          role="button"
           tabIndex={0}
         >
           Edit
         </a>
       </li>
-    </ol>
+    </menu>
   </div>
   <button
     className="c4 c5"
@@ -400,6 +402,7 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
 }
 
 .c4 {
+  list-style: none;
   margin: 0;
   padding: 0.6rem 0;
   background: #f5f5f5;
@@ -437,8 +440,6 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
   line-height: 2rem;
 }
 
-.c4 li button:hover,
-.c4 li a:hover,
 .c4 li button:focus,
 .c4 li a:focus {
   background: #d5d5d5;
@@ -461,27 +462,30 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
   >
     show more
   </button>
-  <ol
+  <menu
     className="c4"
   >
     <li>
-      <a
-        href=""
+      <button
         onClick={[Function]}
+        onMouseEnter={[Function]}
         tabIndex={0}
+        type="button"
       >
         Delete
-      </a>
+      </button>
     </li>
     <li>
       <a
         href="/wooo"
         onClick={[Function]}
+        onMouseEnter={[Function]}
+        role="button"
         tabIndex={0}
       >
         Edit
       </a>
     </li>
-  </ol>
+  </menu>
 </div>
 `;
