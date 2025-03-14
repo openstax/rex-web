@@ -1,12 +1,12 @@
 
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLMenuElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { useFocusLost, useTrapTabNavigation } from '../reactUtils';
+import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme, { defaultFocusOutline } from '../theme';
 import { preventDefault } from '../utils';
@@ -168,18 +168,28 @@ const TabTransparentDropdown = styled((
 `;
 
 function TrappingDropdownList(props: object) {
-  const ref = React.useRef(null);
+  const ref = React.useRef<HTMLMenuElement>(null);
 
   useTrapTabNavigation(ref);
 
+  React.useEffect(
+    () => {
+      if (ref.current?.querySelector) {
+        ref.current?.querySelector<HTMLElement>(focusableItemQuery)?.focus();
+      }
+    },
+    []
+  );
+
   return (
-    <ol ref={ref} {...props} />
+    <menu ref={ref} {...props} />
   );
 }
 
 
 // tslint:disable-next-line:variable-name
 export const DropdownList = styled(TrappingDropdownList)`
+  list-style: none;
   margin: 0;
   padding: 0.6rem 0;
   background: ${theme.color.neutral.formBackground};
@@ -208,7 +218,6 @@ export const DropdownList = styled(TrappingDropdownList)`
     font-size: 1.4rem;
     line-height: 2rem;
 
-    &:hover,
     &:focus {
       background: ${theme.color.neutral.formBorder};
       ${defaultFocusOutline}
@@ -236,24 +245,32 @@ const DropdownItemContent = ({
     'data-analytics-label': dataAnalyticsLabel,
     'data-analytics-region': dataAnalyticsRegion,
   });
-  return <FormattedMessage id={message}>
+  const focusMe = React.useCallback(
+    ({target: me}) => me.focus(),
+    []
+  );
+
+return <FormattedMessage id={message}>
     {(msg) => href
-      ? <a href={href} tabIndex={0} onClick={onClick} target={target} {...analyticsDataProps}>{prefix}{msg}</a>
-      /*
-        this should be a button but Safari and firefox don't support focusing buttons
-        which breaks the tab transparent dropdown
-        https://bugs.webkit.org/show_bug.cgi?id=22261
-        https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-      */
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
-      : <a
+      ? <a
+        role='button'
+        href={href}
         tabIndex={0}
-        href=''
+        onClick={onClick}
+        target={target}
+        onMouseEnter={focusMe}
+        {...analyticsDataProps}
+      >{prefix}{msg}</a>
+      // Safari support tab-navigation of buttons; this operates with space or Enter
+      : <button
+        type='button'
+        tabIndex={0}
         onClick={onClick ? flow(preventDefault, onClick) : preventDefault}
+        onMouseEnter={focusMe}
         {...analyticsDataProps}
       >
         {prefix}{msg}
-      </a>
+      </button>
     }
   </FormattedMessage>;
 };
@@ -262,9 +279,9 @@ const DropdownItemContent = ({
 export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) => {
   const intl = useIntl();
 
-  return ariaMessage
-    ? <li aria-label={intl.formatMessage({id: ariaMessage})}><DropdownItemContent {...contentProps}/></li>
-    : <li><DropdownItemContent {...contentProps} /></li>;
+  return <li aria-label={ariaMessage ? intl.formatMessage({id: ariaMessage}) : undefined}>
+    <DropdownItemContent {...contentProps}/>
+  </li>;
 };
 
 interface CommonDropdownProps {
