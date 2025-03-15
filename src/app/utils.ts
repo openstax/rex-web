@@ -1,4 +1,3 @@
-import { Document } from '@openstax/types/lib.dom';
 import React, { Ref } from 'react';
 import { getType } from 'typesafe-actions';
 import { ApplicationError, ToastMesssageError } from '../helpers/applicationMessageError';
@@ -121,14 +120,6 @@ export const getAllRegexMatches = (regex: RegExp) => {
     }
     return matches;
   };
-};
-
-export const resetTabIndex = (document: Document) => {
-  const index = document.body.tabIndex;
-  document.body.tabIndex = 0;
-
-  document.body.focus();
-  document.body.tabIndex = index;
 };
 
 export const preventDefault = (event: React.MouseEvent) => {

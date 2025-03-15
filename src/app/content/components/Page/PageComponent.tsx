@@ -89,9 +89,11 @@ export default class PageComponent extends Component<PagePropTypes> {
     // per rerender. componentDidUpdate is called multiple times when user navigates quickly.
     const runId = this.getRunId();
 
-    // If page has changed, call postProcess that will remove old and attach new listerns and start mathjax typesetting.
+    // If page has changed, call postProcess that will remove old and attach new listeners
+    // and start mathjax typesetting.
     if (prevProps.page !== this.props.page) {
       this.postProcess();
+      this.container.current?.focus();
     }
 
     // Wait for the mathjax promise set by postProcess from previous or current componentDidUpdate call.
