@@ -10,6 +10,7 @@ import { decoratedLinkStyle, textRegularStyle, textStyle } from '../../../compon
 import theme from '../../../theme';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import { BookWithOSWebData } from '../../types';
+import { HTMLInputElement } from '@openstax/types/lib.dom';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -226,29 +227,44 @@ export const SearchInputWrapper = styled.form`
 `;
 
 // tslint:disable-next-line:variable-name
-export const SearchInput = styled(({ desktop, mobile, ...props }) =>
-  <input {...props}
-    aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
-    placeholder={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
-  />)`
-      ${textStyle}
-      ${hideSearchChrome}
-      font-size: 1.6rem;
-      margin: 0 1rem 0 1rem;
-      height: ${toolbarSearchInputHeight}rem;
-      border: none;
-      outline: none;
-      width: 100%;
-      appearance: textfield;
+export const SearchInput = styled(({ desktop, mobile, autoFocus, ...props }) => {
+  const ref = React.useRef<HTMLInputElement>(null);
 
-      ::placeholder {
-        color: ${theme.color.text.label};
+  React.useEffect(
+    () => {
+      if (autoFocus) {
+        ref.current?.focus();
       }
+    },
+    [autoFocus]
+  );
 
-      ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
-        display: none;
-      `)}
-    `;
+  return (
+    <input {...props}
+      ref={ref}
+      aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
+      placeholder={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
+    />
+  );
+})`
+  ${textStyle}
+  ${hideSearchChrome}
+  font-size: 1.6rem;
+  margin: 0 1rem 0 1rem;
+  height: ${toolbarSearchInputHeight}rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  appearance: textfield;
+
+  ::placeholder {
+    color: ${theme.color.text.label};
+  }
+
+  ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
+    display: none;
+  `)}
+`;
 
 // tslint:disable-next-line:variable-name
 export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
