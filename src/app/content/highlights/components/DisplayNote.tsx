@@ -19,7 +19,6 @@ import Confirmation from './Confirmation';
 import MenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
-import { useIntl } from 'react-intl';
 
 // tslint:disable-next-line:variable-name
 const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
@@ -62,7 +61,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   const [width] = useDebouncedWindowSize();
   const searchQuery = useSelector(query);
   const isTocOpen = useSelector(tocOpen);
-  const {formatMessage} = useIntl();
+  const noteId = `display-note-${highlight.id}`;
 
   const elements = React.useMemo(
     () => [element, ...highlight.elements].filter(isElementForOnClickOutside),
@@ -101,7 +100,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       tabIndex={-1}
       data-highlight-card
       role='dialog'
-      aria-label={formatMessage({id: 'i18n:highlighter:display-note:label'})}
+      aria-labelledby={noteId}
     >
       <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
         <DropdownList>
@@ -115,7 +114,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       </Dropdown>
       <CloseIcon onClick={onBlur} />
       <label>Note:</label>
-      <TruncatedText text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
+      <TruncatedText id={noteId} text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
       {confirmingDelete && <Confirmation
         ref={confirmationRef}
         data-analytics-label='delete'

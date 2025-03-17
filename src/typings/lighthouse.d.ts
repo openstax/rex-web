@@ -2,127 +2,6 @@ declare module 'lighthouse' {
 
   type NotYetTyped = unknown; // Anything that has not been defined yet.
 
-  type AuditId =
-      'is-on-https'
-    | 'redirects-http'
-    | 'service-worker'
-    | 'works-offline'
-    | 'viewport'
-    | 'without-javascript'
-    | 'first-contentful-paint'
-    | 'first-meaningful-paint'
-    | 'load-fast-enough-for-pwa'
-    | 'speed-index'
-    | 'screenshot-thumbnails'
-    | 'final-screenshot'
-    | 'estimated-input-latency'
-    | 'errors-in-console'
-    | 'time-to-first-byte'
-    | 'first-cpu-idle'
-    | 'interactive'
-    | 'user-timings'
-    | 'critical-request-chains'
-    | 'redirects'
-    | 'webapp-install-banner'
-    | 'splash-screen'
-    | 'themed-omnibox'
-    | 'manifest-short-name-length'
-    | 'content-width'
-    | 'image-aspect-ratio'
-    | 'deprecations'
-    | 'mainthread-work-breakdown'
-    | 'bootup-time'
-    | 'uses-rel-preload'
-    | 'uses-rel-preconnect'
-    | 'font-display'
-    | 'network-requests'
-    | 'metrics'
-    | 'pwa-cross-browser'
-    | 'pwa-page-transitions'
-    | 'pwa-each-page-has-url'
-    | 'accesskeys'
-    | 'aria-allowed-attr'
-    | 'aria-required-attr'
-    | 'aria-required-children'
-    | 'aria-required-parent'
-    | 'aria-roles'
-    | 'aria-valid-attr-value'
-    | 'aria-valid-attr'
-    | 'audio-caption'
-    | 'button-name'
-    | 'bypass'
-    | 'color-contrast'
-    | 'definition-list'
-    | 'dlitem'
-    | 'document-title'
-    | 'duplicate-id'
-    | 'frame-title'
-    | 'html-has-lang'
-    | 'html-lang-valid'
-    | 'image-alt'
-    | 'input-image-alt'
-    | 'label'
-    | 'layout-table'
-    | 'link-name'
-    | 'list'
-    | 'listitem'
-    | 'meta-refresh'
-    | 'meta-viewport'
-    | 'object-alt'
-    | 'tabindex'
-    | 'td-headers-attr'
-    | 'th-has-data-cells'
-    | 'valid-lang'
-    | 'video-caption'
-    | 'video-description'
-    | 'custom-controls-labels'
-    | 'custom-controls-roles'
-    | 'focus-traps'
-    | 'focusable-controls'
-    | 'heading-levels'
-    | 'interactive-element-affordance'
-    | 'logical-tab-order'
-    | 'managed-focus'
-    | 'offscreen-content-hidden'
-    | 'use-landmarks'
-    | 'visual-order-follows-dom'
-    | 'uses-long-cache-ttl'
-    | 'total-byte-weight'
-    | 'offscreen-images'
-    | 'render-blocking-resources'
-    | 'unminified-css'
-    | 'unminified-javascript'
-    | 'unused-css-rules'
-    | 'uses-webp-images'
-    | 'uses-optimized-images'
-    | 'uses-text-compression'
-    | 'uses-responsive-images'
-    | 'efficient-animated-content'
-    | 'appcache-manifest'
-    | 'doctype'
-    | 'dom-size'
-    | 'external-anchors-use-rel-noopener'
-    | 'geolocation-on-start'
-    | 'no-document-write'
-    | 'no-vulnerable-libraries'
-    | 'js-libraries'
-    | 'no-websql'
-    | 'notification-on-start'
-    | 'password-inputs-can-be-pasted-into'
-    | 'uses-http2'
-    | 'uses-passive-event-listeners'
-    | 'meta-description'
-    | 'http-status-code'
-    | 'font-size'
-    | 'link-text'
-    | 'is-crawlable'
-    | 'robots-txt'
-    | 'hreflang'
-    | 'plugins'
-    | 'canonical'
-    | 'mobile-friendly'
-    | 'structured-data';
-
   type ScoreDisplayMode =
       'binary'
     | 'numeric'
@@ -131,7 +10,7 @@ declare module 'lighthouse' {
     | 'not-applicable';
 
   interface AuditResult {
-    id: AuditId;
+    id: string;
     title: string;
     description: string;
     score: number;
@@ -148,7 +27,7 @@ declare module 'lighthouse' {
     title: string;
     id: string;
     score: number;
-    auditRefs: NotYetTyped[];
+    auditRefs: Array<{id: string; weight: number}>;
     manualDescription?: string;
   }
 
@@ -169,7 +48,7 @@ declare module 'lighthouse' {
       message: string
     };
 
-    audits: {[k: AuditId]: AuditResult};
+    audits: {[k: string]: AuditResult};
 
     timing: { total: number };
 

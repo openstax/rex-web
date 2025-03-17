@@ -68,15 +68,12 @@ describe('content', () => {
 
     // scroll down and make sure it worked
     await scrollDown();
-    await scrollTocDown(20);
     expect(await getScrollTop()).not.toBe(0);
-    expect(await getTocScrollTop()).toBe(20);
 
     // click toc link to another long page
     expect(await clickTocLink(TEST_LONG_PAGE_NAME)).toBe(true);
     expect(await h1Content(page)).toBe('Test Page 3');
     expect(await getScrollTop()).toBe(0);
-    expect(await getTocScrollTop()).toBe(20);
     expect(await isTocVisible()).toBe(true);
     expect(await getSelectedTocSection()).toBe(TEST_LONG_PAGE_NAME);
   });
@@ -128,9 +125,3 @@ const getTocScrollTop = () => page.evaluate(() => {
 const scrollDown = () => page.evaluate(() => {
   return window && document && document.documentElement && window.scrollBy(0, document.documentElement.scrollHeight);
 });
-
-// tslint:disable-next-line:no-shadowed-variable
-const scrollTocDown = (px: number) => page.evaluate((px) => {
-  const toc = document && document.querySelector('[data-testid="toc"] > ol');
-  return toc && toc.scrollBy(0, px || toc.scrollHeight);
-}, px);

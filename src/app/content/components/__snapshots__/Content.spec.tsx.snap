@@ -712,6 +712,10 @@ Array [
   overflow: visible;
 }
 
+.c79:focus-visible {
+  outline: none;
+}
+
 .c79 .highlight {
   position: relative;
   z-index: 1;
@@ -3299,7 +3303,6 @@ li[aria-label="Current Page"] .c61 {
             >
               <input
                 aria-label="Search this book"
-                autoFocus={true}
                 className="c35"
                 data-testid="mobile-search-input"
                 onChange={[Function]}
@@ -4247,7 +4250,7 @@ li[aria-label="Current Page"] .c61 {
           >
             <div
               className="c77"
-              role="alert"
+              role="alertdialog"
             />
             <div
               className="c78"
@@ -5515,6 +5518,10 @@ Array [
 
 .c79 {
   overflow: visible;
+}
+
+.c79:focus-visible {
+  outline: none;
 }
 
 .c79 .highlight {
@@ -7895,7 +7902,6 @@ li[aria-label="Current Page"] .c61 {
             >
               <input
                 aria-label="Search this book"
-                autoFocus={true}
                 className="c35"
                 data-testid="mobile-search-input"
                 onChange={[Function]}
@@ -8841,7 +8847,7 @@ li[aria-label="Current Page"] .c61 {
           >
             <div
               className="c77"
-              role="alert"
+              role="alertdialog"
             />
             <div
               className="c78"

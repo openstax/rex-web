@@ -38,7 +38,7 @@ noscript {
 }
 
 :where(html, body, #root, #root *) {
-  overflow: auto;
+  overflow-wrap: break-word;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
