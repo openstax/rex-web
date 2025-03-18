@@ -51,8 +51,15 @@ const StyledDropdownList = styled(DropdownList)`
   li {
     display: flex;
 
+    button,
     a {
+      border: 0;
       width: 100%;
+
+      :focus,
+      :hover {
+        outline-width: 0;
+      }
     }
   }
 `;

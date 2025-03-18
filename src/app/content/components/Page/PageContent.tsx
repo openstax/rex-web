@@ -26,6 +26,10 @@ export default styled(MainContent)`
   ${contentTextStyle}
   overflow: visible;
 
+  :focus-visible {
+    outline: none;
+  }
+
   @media screen {
     flex: 1;
     display: flex;
