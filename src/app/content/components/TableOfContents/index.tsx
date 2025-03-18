@@ -207,7 +207,6 @@ function ArchiveTreeComponent({
         section={item}
         activeSection={activeSection}
         onNavigate={onNavigate}
-        role='group'
         open={isOpen}
       />
     </Styled.NavItem>
@@ -221,7 +220,6 @@ function TocSection({
   section,
   activeSection,
   onNavigate,
-  role,
   open,
 }: {
   id?: string;
@@ -230,7 +228,6 @@ function TocSection({
   section: ArchiveTree;
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
-  role: 'tree' | 'group';
   open: boolean;
 }) {
 
@@ -238,7 +235,12 @@ function TocSection({
   const { onKeyDownNavItemSupport, onKeyDownNavGroupSupport } = useKeyboardSupport();
 
   return (
-    <Styled.NavOl id={id} role={role} section={section} open={open}>
+    <Styled.NavOl 
+      id={id} 
+      role={book?.id === stripIdVersion(section.id) ? 'tree' : 'group' } 
+      section={section} 
+      open={open}
+    >
       {linkedContents.map((item) => {
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
@@ -305,7 +307,6 @@ export class TableOfContents extends Component<SidebarProps> {
             section={book.tree}
             activeSection={this.activeSection}
             onNavigate={this.props.onNavigate}
-            role='tree'
             open
           />
         )}
