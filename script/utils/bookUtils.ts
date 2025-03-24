@@ -4,6 +4,9 @@ import { makeUnifiedBookLoader } from '../../src/app/content/utils';
 import { AppServices } from '../../src/app/types';
 import { tuple } from '../../src/app/utils';
 import { BooksConfig } from '../../src/gateways/createBookConfigLoader';
+import asyncPool from 'tiny-async-pool';
+
+const MAX_CONCURRENT_BOOKS = 5;
 
 export async function findBooks({
   rootUrl,
@@ -38,5 +41,5 @@ export async function findBooks({
       .map(([id]) => tuple(id, undefined))
   ;
 
-  return await Promise.all(bookInfo.map(([id, versions]) => bookLoader(id, versions)));
+  return await asyncPool(MAX_CONCURRENT_BOOKS, bookInfo, ([id, versions]) => bookLoader(id, versions));
 }
