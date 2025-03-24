@@ -35,7 +35,7 @@ describe('ContentLink', () => {
     consoleError.mockRestore();
   });
 
-  const click = async (component: renderer.ReactTestRenderer) => {
+  const click = async(component: renderer.ReactTestRenderer) => {
     const event = {
       preventDefault: jest.fn(),
     };
@@ -50,7 +50,7 @@ describe('ContentLink', () => {
     method();
   };
 
-  const keyDown = async (component: renderer.ReactTestRenderer) => {
+  const keyDown = async(component: renderer.ReactTestRenderer) => {
     const event = {
       preventDefault: jest.fn(),
     };
@@ -69,10 +69,10 @@ describe('ContentLink', () => {
     });
 
     it.each`
-      method     | description                         
-      ${click}   | ${'using onClick'}                  
-      ${keyDown} | ${'using onKeyDown'}     
-    `('dispatches navigation action on click %description', async ({ method }) => {
+      method     | description
+      ${click}   | ${'using onClick'}
+      ${keyDown} | ${'using onKeyDown'}
+    `('dispatches navigation action on click %description', async({ method }) => {
       const component = renderer.create(<TestContainer store={store}>
         <ConnectedContentLink book={book} page={page} onKeyDown={onKeyDownMock} />
       </TestContainer>);
@@ -88,10 +88,10 @@ describe('ContentLink', () => {
     });
 
     it.each`
-      method     | description                         
-      ${click}   | ${'using onClick'}                  
-      ${keyDown} | ${'using onKeyDown'}     
-    `('dispatches navigation action with search if there is a search %description', async ({ method }) => {
+      method     | description
+      ${click}   | ${'using onClick'}
+      ${keyDown} | ${'using onKeyDown'}
+    `('dispatches navigation action with search if there is a search %description', async({ method }) => {
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
       const mockSearch = {
@@ -112,10 +112,10 @@ describe('ContentLink', () => {
     });
 
     it.each`
-      method     | description                         
-      ${click}   | ${'using onClick'}                  
-      ${keyDown} | ${'using onKeyDown'}     
-    `('search passed as prop overwrites search from the redux state %description', async ({ method }) => {
+      method     | description
+      ${click}   | ${'using onClick'}
+      ${keyDown} | ${'using onKeyDown'}
+    `('search passed as prop overwrites search from the redux state %description', async({ method }) => {
       store.dispatch(requestSearch('asdf'));
       store.dispatch(receiveBook(book));
       const mockSearch = {
@@ -136,11 +136,11 @@ describe('ContentLink', () => {
     });
 
     it.each`
-      method     | description                         
-      ${click}   | ${'using onClick'}                  
-      ${keyDown} | ${'using onKeyDown'}     
+      method     | description
+      ${click}   | ${'using onClick'}
+      ${keyDown} | ${'using onKeyDown'}
     `('dispatches navigation action with scroll target data and search if scroll target is passed %description',
-      async ({ method }) => {
+      async({ method }) => {
         const scrollTarget: SearchScrollTarget = { type: 'search', index: 1, elementId: 'anchor' };
         store.dispatch(requestSearch('asdf'));
         store.dispatch(receiveBook(book));
@@ -176,11 +176,11 @@ describe('ContentLink', () => {
       });
 
     it.each`
-      method     | description                         
-      ${click}   | ${'using onClick'}                  
-      ${keyDown} | ${'using onKeyDown'}     
+      method     | description
+      ${click}   | ${'using onClick'}
+      ${keyDown} | ${'using onKeyDown'}
     `('dispatches navigation action without search when linking to a different book %description',
-      async ({ method }) => {
+      async({ method }) => {
         store.dispatch(requestSearch('asdf'));
         store.dispatch(receiveBook({ ...book, id: 'differentid' }));
         const component = renderer.create(<TestContainer store={store}>
@@ -198,10 +198,10 @@ describe('ContentLink', () => {
       });
 
     it.each`
-      method     | description                         
-      ${click}   | ${'using onClick method'}                  
-      ${keyDown} | ${'using onKeyDown method'}     
-    `('calls onClick when passed %description', async ({ method }) => {
+      method     | description
+      ${click}   | ${'using onClick method'}
+      ${keyDown} | ${'using onKeyDown method'}
+    `('calls onClick when passed %description', async({ method }) => {
       const clickSpy = jest.fn();
       const component = renderer.create(<TestContainer store={store}>
         <ConnectedContentLink book={book} page={page} onClick={clickSpy} onKeyDown={onKeyDownMock} />
@@ -218,7 +218,7 @@ describe('ContentLink', () => {
       expect(clickSpy).toHaveBeenCalled();
     });
 
-    it('does not call onClick or dispatch the event when the meta key is pressed', async () => {
+    it('does not call onClick or dispatch the event when the meta key is pressed', async() => {
       const clickSpy = jest.fn();
       const component = renderer.create(<TestContainer store={store}>
         <ConnectedContentLink book={book} page={page} onClick={clickSpy} />
@@ -255,11 +255,11 @@ describe('ContentLink', () => {
     });
 
     it.each`
-      method     | description                         
-      ${click}   | ${'using onClick method'}                  
-      ${keyDown} | ${'using onKeyDown method'}     
+      method     | description
+      ${click}   | ${'using onClick method'}
+      ${keyDown} | ${'using onKeyDown method'}
     `('does not call onClick or dispatch if user decides not to discard changes %description',
-      async ({ method }) => {
+      async({ method }) => {
         const clickSpy = jest.fn();
         store.dispatch(setAnnotationChangesPending(true));
         const component = renderer.create(<TestContainer store={store}>
@@ -273,7 +273,7 @@ describe('ContentLink', () => {
         expect(clickSpy).not.toHaveBeenCalled();
       });
 
-    it('calls onClick and dispatch if user decides to discard changes', async () => {
+    it('calls onClick and dispatch if user decides to discard changes', async() => {
       const clickSpy = jest.fn();
       store.dispatch(setAnnotationChangesPending(true));
       const component = renderer.create(<TestContainer store={store}>

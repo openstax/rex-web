@@ -131,7 +131,7 @@ describe('TableOfContents', () => {
     anchorNumber | description        | isDispatchCalled
     ${2}         | ${'(TocNode)'}     | ${false}
     ${18}        | ${'(ContentLink)'} | ${true}
-  `('toggles open state on Enter and Space key press %description', ({ anchorNumber, isDispatchCalled }) => {
+  `('toggles open state on Enter and Space key press $description', ({ anchorNumber, isDispatchCalled }) => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
     const { root } = renderToDom(Component);
@@ -139,25 +139,25 @@ describe('TableOfContents', () => {
     const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
 
     // Trigger on Enter
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "Enter" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'Enter' });
 
     // Trigger on Enter
-    ReactTestUtils.Simulate.keyDown(anchor, { key: " " });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: ' ' });
 
-    /* 
-      Trigger search and focus 
+    /*
+      Trigger search and focus
       Test with different values for coverage
     */
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "T" });
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "p" });
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "a" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'T' });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'p' });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'a' });
 
     if (isDispatchCalled) {
       expect(dispatchSpy).toHaveBeenCalled();
     } else {
       expect(dispatchSpy).not.toHaveBeenCalled();
     }
-    // expect(Array.from(root.querySelectorAll('a[role="treeitem"]')).map(i => i.textContent?.trim().toLowerCase().startsWith('T'.toLowerCase()))).toHaveBeenCalled();
+
   });
 
   it.each`
@@ -172,9 +172,9 @@ describe('TableOfContents', () => {
     const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
 
     // For ContentLink does nothing
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowRight" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'ArrowRight' });
 
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowLeft" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'ArrowLeft' });
 
     expect(dispatchSpy).not.toHaveBeenCalled();
   });
@@ -191,15 +191,15 @@ describe('TableOfContents', () => {
     const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
 
     // Move using left when group is closed
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowLeft" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'ArrowLeft' });
 
     // Open group and then move using right (ContentLink does nothing)
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowRight" });
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowRight" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'ArrowRight' });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'ArrowRight' });
 
     // Move using up and down
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowDown" });
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "ArrowUp" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'ArrowDown' });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'ArrowUp' });
 
     expect(dispatchSpy).not.toHaveBeenCalled();
   });
@@ -216,10 +216,10 @@ describe('TableOfContents', () => {
     const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
 
     // Move focus to first treeitem
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "Home" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'Home' });
 
     // Move focus to last treeitem
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "End" });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'End' });
 
     expect(dispatchSpy).not.toHaveBeenCalled();
   });
@@ -238,7 +238,7 @@ describe('TableOfContents', () => {
     const anchor = root.querySelectorAll('a[role="treeitem"]')[anchorNumber] as HTMLAnchorElement;
 
     // Move focus to the first treeitem if shiftKey is false and to the last treeitem if is true
-    ReactTestUtils.Simulate.keyDown(anchor, { key: "Tab", shiftKey });
+    ReactTestUtils.Simulate.keyDown(anchor, { key: 'Tab', shiftKey });
 
     expect(dispatchSpy).not.toHaveBeenCalled();
   });

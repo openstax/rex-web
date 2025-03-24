@@ -84,11 +84,12 @@ export const NavItem = styled(NavItemComponent)`
     margin-top: 1.7rem;
   `)}
 
-  a[role='treeitem'] {
+  a[role="treeitem"] {
     :focus,
     :hover {
       outline: none;
       ${activeState}
+    }
   }
 `;
 
@@ -160,7 +161,7 @@ class DetailsComponent extends React.Component<DetailsComponentProps> {
   public render() {
     const { open, ...props } = this.props;
 
-    return <DetailsTree role='treeitem' href="#" {...props} open={open} />;
+    return <DetailsTree role='treeitem' href='#' {...props} open={open} />;
   }
 }
 
@@ -173,12 +174,13 @@ export const NavDetails = styled(DetailsComponent)`
   cursor: pointer;
   text-decoration: none;
 
+  /* stylelint-disable no-descending-specificity */
   :focus,
   :hover {
     outline: none;
     ${activeState}
   }
-    
+
   ::before {
     display: none;
   }

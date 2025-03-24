@@ -75,7 +75,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
   return <a
     ref={myForwardedRef}
-    onClick={async (e) => {
+    onClick={async(e) => {
       if (isClickWithModifierKeys(e) || anchorProps.target === '_blank') {
         return;
       }
@@ -96,7 +96,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         navigate(navigationMatch, options);
       }
     }}
-    onKeyDown={(e) => onKeyDown && onKeyDown(e, async () => {
+    onKeyDown={(e) => onKeyDown && onKeyDown(e, async() => {
       /*
         All this logic has to be inside onKeyDown === Enter || Space
       */

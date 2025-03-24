@@ -133,7 +133,14 @@ function TocNode({
 }>) {
 
   return (
-    <Styled.NavDetails id={id} onClick={onClick} onKeyDown={onKeyDown} open={isOpen} aria-expanded={isOpen} tabIndex={0}>
+    <Styled.NavDetails
+      id={id}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      open={isOpen}
+      aria-expanded={isOpen}
+      tabIndex={0}
+    >
       <Styled.CollapseIcon />
       <Styled.ExpandIcon />
       <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
@@ -186,9 +193,9 @@ function ArchiveTreeComponent({
       event: e,
       item,
       isOpen,
-      onSelect: toggleOpen
+      onSelect: toggleOpen,
     });
-  }
+  };
 
   return (
     <Styled.NavItem key={item.id} sectionType={sectionType}>
@@ -235,10 +242,10 @@ function TocSection({
   const { onKeyDownNavItemSupport, onKeyDownNavGroupSupport } = useKeyboardSupport();
 
   return (
-    <Styled.NavOl 
-      id={id} 
-      role={book?.id === stripIdVersion(section.id) ? 'tree' : 'group' } 
-      section={section} 
+    <Styled.NavOl
+      id={id}
+      role={book?.id === stripIdVersion(section.id) ? 'tree' : 'group'}
+      section={section}
       open={open}
     >
       {linkedContents.map((item) => {
@@ -266,10 +273,10 @@ function TocSection({
               id={item.id}
               onClick={onNavigate}
               onKeyDown={
-                (e: React.KeyboardEvent<HTMLAnchorElement>, onSelect: ()=> void) => 
+                (e: React.KeyboardEvent<HTMLAnchorElement>, onSelect: () => void) =>
                   onKeyDownNavItemSupport({
-                    event: e, 
-                    item, 
+                    event: e,
+                    item,
                     onSelect,
                   })
               }

@@ -51,7 +51,7 @@ const WrapperLabel = styled.label`
     top: 1.3rem;
 
     ::after {
-      content: '...';
+      content: "...";
     }
   }
 `;

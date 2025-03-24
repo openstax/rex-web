@@ -3,10 +3,10 @@ import { LinkedArchiveTreeNode } from '../../types';
 import React from 'react';
 
 export interface KeyboardSupportProps {
-  event: React.KeyboardEvent<HTMLAnchorElement>,
-  item: LinkedArchiveTreeNode,
-  isOpen?: boolean,
-  onSelect: () => void,
+  event: React.KeyboardEvent<HTMLAnchorElement>;
+  item: LinkedArchiveTreeNode;
+  isOpen?: boolean;
+  onSelect: () => void;
 }
 
 export const useKeyboardSupport = () => {
@@ -15,7 +15,7 @@ export const useKeyboardSupport = () => {
     const treeItems = Array.from(document?.querySelectorAll('a[role="treeitem"]') as ArrayLike<Element>);
     const treeItemResults = treeItems.filter((el) => {
       const style = window?.getComputedStyle(el);
-      return (style?.display !== 'none')
+      return (style?.display !== 'none');
     });
 
     return treeItemResults;
@@ -46,7 +46,9 @@ export const useKeyboardSupport = () => {
   };
 
   const focusOnTab = (filteredTreeItems: Element[], shiftKey: boolean) => {
-    const pageElements = Array.from(document?.querySelectorAll('input, button, select, textarea, a[href]') as ArrayLike<Element>);
+    const pageElements = Array.from(
+      document?.querySelectorAll('input, button, select, textarea, a[href]') as ArrayLike<Element>
+    );
     let index: number;
     if (shiftKey) {
       focusFirstTreeItem(filteredTreeItems);
@@ -59,8 +61,8 @@ export const useKeyboardSupport = () => {
   };
 
   const searchTreeItem = (filteredTreeItems: Element[], currentItemIndex: number, key: string) => {
-    /* 
-      According Keyboard Support for Navigation Tree, the search starts with treeItems 
+    /*
+      According Keyboard Support for Navigation Tree, the search starts with treeItems
       next to current treeItem and if there is no result, it will look for previous treeItems
     */
     const firstSearchOptions = filteredTreeItems.slice(currentItemIndex + 1, filteredTreeItems.length);
@@ -129,7 +131,7 @@ export const useKeyboardSupport = () => {
         focusOnTab(filteredTreeItems, event.shiftKey);
         break;
       default:
-        searchTreeItem(filteredTreeItems, currentItemIndex, event.key)
+        searchTreeItem(filteredTreeItems, currentItemIndex, event.key);
         break;
     }
   };
@@ -170,7 +172,7 @@ export const useKeyboardSupport = () => {
         focusOnTab(filteredTreeItems, event.shiftKey);
         break;
       default:
-        searchTreeItem(filteredTreeItems, currentItemIndex, event.key)
+        searchTreeItem(filteredTreeItems, currentItemIndex, event.key);
         break;
 
     }
