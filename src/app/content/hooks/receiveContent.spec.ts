@@ -10,14 +10,21 @@ import { formatBookData } from '../utils';
 import * as seoUtils from '../utils/seoUtils';
 
 const mockBookConfig = {
- [book.id]: {defaultVersion: book.version},
-} as {[key: string]: {defaultVersion: string}};
+  [book.id]: { defaultVersion: book.version },
+} as { [key: string]: { defaultVersion: string } };
 
 jest.doMock('../../../config.books', () => mockBookConfig);
 
 describe('setHead hook', () => {
   const combinedBook = formatBookData(book, mockCmsBook);
-  let hook: ReturnType<typeof import ('./receiveContent').default>;
+  const dataNotFoundState = {
+    contentTags: [],
+    initialized: false,
+    links: [],
+    meta: [],
+    title: 'OpenStax - Page Not Found',
+  };
+  let hook: ReturnType<typeof import('./receiveContent').default>;
   let store: Store;
   let dispatch: jest.SpyInstance;
   let helpers: MiddlewareAPI & ReturnType<typeof createTestServices>;
@@ -38,59 +45,59 @@ describe('setHead hook', () => {
 
   it('dispatches setHead when receivePage is dispatched', async() => {
     store.dispatch(receiveBook(combinedBook));
-    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receivePage({ ...page, references: [] }));
 
-    await hook(receivePage({...page, references: []}));
+    await hook(receivePage({ ...page, references: [] }));
 
     expect(dispatch).toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
   it('does nothing if book is loading', async() => {
     store.dispatch(receiveBook(combinedBook));
-    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receivePage({ ...page, references: [] }));
     store.dispatch(requestBook({
-        slug: 'asdf',
+      slug: 'asdf',
     }));
 
-    await hook(receivePage({...page, references: []}));
+    await hook(receivePage({ ...page, references: [] }));
 
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
   it('does nothing if page is loading', async() => {
     store.dispatch(receiveBook(combinedBook));
-    store.dispatch(receivePage({...page, references: []}));
-    store.dispatch(requestPage({slug: 'asdf'}));
+    store.dispatch(receivePage({ ...page, references: [] }));
+    store.dispatch(requestPage({ slug: 'asdf' }));
 
-    await hook(receivePage({...page, references: []}));
+    await hook(receivePage({ ...page, references: [] }));
 
-    expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
+    expect(dispatch).toHaveBeenCalledWith(setHead(dataNotFoundState));
   });
 
   it('does nothing if page is reloading', async() => {
     store.dispatch(receiveBook(combinedBook));
-    store.dispatch(receivePage({...page, references: []}));
-    store.getState().content.loading = {page: {slug: 'pageId'}};
+    store.dispatch(receivePage({ ...page, references: [] }));
+    store.getState().content.loading = { page: { slug: 'pageId' } };
 
-    await hook(receivePage({...page, references: []}));
+    await hook(receivePage({ ...page, references: [] }));
 
     expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
   });
 
-  it('does nothing if page is not loaded', async() => {
+  it('set title as page not found if page is not loaded', async() => {
     store.dispatch(receiveBook(combinedBook));
 
-    await hook(receivePage({...page, references: []}));
+    await hook(receivePage({ ...page, references: [] }));
 
-    expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
+    expect(dispatch).toHaveBeenCalledWith(setHead(dataNotFoundState));
   });
 
-  it('does nothing if book is not loaded', async() => {
-    store.dispatch(receivePage({...page, references: []}));
+  it('set title as page not found if book is not loaded', async() => {
+    store.dispatch(receivePage({ ...page, references: [] }));
 
-    await hook(receivePage({...page, references: []}));
+    await hook(receivePage({ ...page, references: [] }));
 
-    expect(dispatch).not.toHaveBeenCalledWith(setHead(expect.anything()));
+    expect(dispatch).toHaveBeenCalledWith(setHead(dataNotFoundState));
   });
 
   describe('metadata', () => {
@@ -101,7 +108,7 @@ describe('setHead hook', () => {
         references: [],
       }));
       const bookId = book.id;
-      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+      CANONICAL_MAP[bookId] = [[bookId, {}]];
 
       jest.spyOn(seoUtils, 'getPageDescription')
         .mockReturnValue('mock seo description');
@@ -113,8 +120,8 @@ describe('setHead hook', () => {
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          {name: 'description', content: 'mock seo description'},
-          {property: 'og:description', content: 'mock seo description'},
+          { name: 'description', content: 'mock seo description' },
+          { property: 'og:description', content: 'mock seo description' },
         ]),
       })));
     });
@@ -127,7 +134,7 @@ describe('setHead hook', () => {
         references: [],
       }));
       const bookId = book.id;
-      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+      CANONICAL_MAP[bookId] = [[bookId, {}]];
 
       await hook(receivePage({
         ...page,
@@ -137,8 +144,8 @@ describe('setHead hook', () => {
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          expect.objectContaining({name: 'description'}),
-          expect.objectContaining({property: 'og:description'}),
+          expect.objectContaining({ name: 'description' }),
+          expect.objectContaining({ property: 'og:description' }),
         ]),
       })));
     });
@@ -154,7 +161,7 @@ describe('setHead hook', () => {
         references: [],
       }));
       const bookId = book.id;
-      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+      CANONICAL_MAP[bookId] = [[bookId, {}]];
 
       await hook(receivePage({
         ...page,
@@ -164,7 +171,7 @@ describe('setHead hook', () => {
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          {property: 'og:image', content: 'mock_download_url'},
+          { property: 'og:image', content: 'mock_download_url' },
         ]),
       })));
     });
@@ -182,7 +189,7 @@ describe('setHead hook', () => {
         references: [],
       }));
       const bookId = book.id;
-      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+      CANONICAL_MAP[bookId] = [[bookId, {}]];
 
       await hook(receivePage({
         ...page,
@@ -191,7 +198,7 @@ describe('setHead hook', () => {
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          {name: 'robots', content: 'noindex'},
+          { name: 'robots', content: 'noindex' },
         ]),
       })));
     });
@@ -206,7 +213,7 @@ describe('setHead hook', () => {
         references: [],
       }));
       const bookId = book.id;
-      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+      CANONICAL_MAP[bookId] = [[bookId, {}]];
 
       await hook(receivePage({
         ...page,
@@ -215,7 +222,7 @@ describe('setHead hook', () => {
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.not.arrayContaining([
-          {name: 'robots', content: 'noindex'},
+          { name: 'robots', content: 'noindex' },
         ]),
       })));
     });
@@ -228,7 +235,7 @@ describe('setHead hook', () => {
         noindex: true,
       }));
       const bookId = book.id;
-      CANONICAL_MAP[bookId] = [ [bookId, {}] ];
+      CANONICAL_MAP[bookId] = [[bookId, {}]];
 
       await hook(receivePage({
         ...page,
@@ -238,7 +245,7 @@ describe('setHead hook', () => {
 
       expect(dispatch).toHaveBeenCalledWith(setHead(expect.objectContaining({
         meta: expect.arrayContaining([
-          {name: 'robots', content: 'noindex'},
+          { name: 'robots', content: 'noindex' },
         ]),
       })));
     });
