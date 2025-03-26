@@ -1,4 +1,5 @@
 import { SearchResultHit } from '@openstax/open-search-client';
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { OutputParams } from 'query-string';
 import React from 'react';
@@ -55,8 +56,7 @@ function useKeyTermPair({
   return pair;
 }
 
-// tslint:disable-next-line: variable-name
-const OneSearchResultHit = ({
+function HighlightPreview({
   activeSectionRef,
   book,
   hit,
@@ -65,47 +65,73 @@ const OneSearchResultHit = ({
   onClick,
   selectedResult,
   queryParams,
-  loader,
-}: OneSearchResultHitProps) => {
-  const pair = useKeyTermPair({ hit, loader });
-  // tslint:disable-next-line: variable-name
-  const HighlightPreview = React.useCallback(
-    (highlight: string, index: number) => {
-      const thisResult = { result: hit, highlight: index };
-      const isSelected = isEqual(selectedResult, thisResult);
-      const target: SearchScrollTarget = {
-        elementId: thisResult.result.source.elementId,
-        index,
-        type: 'search',
-      };
+  index,
+  highlight,
+}: OneSearchResultHitProps & {
+  index: number;
+  highlight: string;
+}) {
+  const thisResult = { result: hit, highlight: index };
+  const isSelected = isEqual(selectedResult, thisResult);
+  const target: SearchScrollTarget = {
+    elementId: thisResult.result.source.elementId,
+    index,
+    type: 'search',
+  };
+  const divRef = React.useRef<HTMLDivElement>(null);
+  const page = getPage(hit);
+  const [ariaLabel, setAriaLabel] = React.useState('...');
 
-      return (
-        <Styled.SectionContentPreview
-          selectedResult={isSelected}
-          aria-current={isSelected}
-          data-testid={testId}
-          key={index}
-          book={book}
-          page={getPage(hit)}
-          scrollTarget={target}
-          queryParams={queryParams}
-          onClick={() => onClick(thisResult)}
-          ref={isSelected ? activeSectionRef : undefined}
-        >
-          {isKeyTermHit(hit) ? (
-            <RelatedKeyTermContent keyTermHit={hit} />
-          ) : (
-            <Styled.SimpleResult>
-              <div
-                tabIndex={-1}
-                dangerouslySetInnerHTML={{ __html: highlight }}
-              />
-            </Styled.SimpleResult>
-          )}
-        </Styled.SectionContentPreview>
-      );
+  React.useEffect(
+    () => {
+      const excerptText = divRef.current?.textContent;
+
+      setAriaLabel(`Result ${index + 1} in ${page.slug}: ${excerptText}`);
     },
-    [activeSectionRef, book, getPage, hit, onClick, queryParams, selectedResult, testId]
+    [page.slug, index]
+  );
+
+  return (
+    <Styled.SectionContentPreview
+      selectedResult={isSelected}
+      aria-current={isSelected}
+      data-testid={testId}
+      book={book}
+      page={page}
+      scrollTarget={target}
+      queryParams={queryParams}
+      onClick={() => onClick(thisResult)}
+      ref={isSelected ? activeSectionRef : undefined}
+      ariaLabel={ariaLabel}
+    >
+      {isKeyTermHit(hit) ? (
+        <RelatedKeyTermContent keyTermHit={hit} />
+      ) : (
+        <Styled.SimpleResult>
+          <div
+            ref={divRef}
+            tabIndex={-1}
+            dangerouslySetInnerHTML={{ __html: highlight }}
+          />
+        </Styled.SimpleResult>
+      )}
+    </Styled.SectionContentPreview>
+  );
+}
+
+// tslint:disable-next-line: variable-name
+const OneSearchResultHit = (props: OneSearchResultHitProps) => {
+  const {hit, loader} = props;
+  const pair = useKeyTermPair({hit, loader});
+  // tslint:disable-next-line: variable-name
+  const BoundHighlightPreview = React.useCallback(
+    (highlight: string, index: number) => <HighlightPreview
+      key={index}
+      {...props}
+      highlight={highlight}
+      index={index}
+    />,
+    [props]
   );
 
   // inefficient data structure for search results should be addressed in the future
@@ -120,7 +146,7 @@ const OneSearchResultHit = ({
 
   return (
     <React.Fragment>
-      {hit.highlight.visibleContent?.map(HighlightPreview)}
+      {hit.highlight.visibleContent?.map(BoundHighlightPreview)}
     </React.Fragment>
   );
 };
@@ -136,8 +162,7 @@ const SearchResultHits = ({
   selectedResult,
   queryParams,
 }: SearchResultHitsProps) => {
-  const { archiveLoader } = useServices();
-  const loader = archiveLoader.forBook(book);
+  const loader = useServices().archiveLoader.forBook(book);
 
   return (
     <React.Fragment>
@@ -159,9 +184,6 @@ const SearchResultHits = ({
   );
 };
 
-// tslint:disable-next-line:variable-name
-export const ConnectedSearchResultHits = connect((state: AppState) => ({
+export default connect((state: AppState) => ({
   queryParams: navSelect.persistentQueryParameters(state),
 }))(SearchResultHits);
-
-export default ConnectedSearchResultHits;
