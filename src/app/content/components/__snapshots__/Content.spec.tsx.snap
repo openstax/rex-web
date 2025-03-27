@@ -2359,6 +2359,7 @@ li[aria-label="Current Page"] .c61 {
   .c79 .search-highlight,
   .c79 .search-highlight .math {
     background-color: #ffea00;
+    box-shadow: 0px 2px 3px 0px rgb(0,0,0,.41);
   }
 
   .c79 .search-highlight[aria-current],
@@ -7014,6 +7015,7 @@ li[aria-label="Current Page"] .c61 {
   .c79 .search-highlight,
   .c79 .search-highlight .math {
     background-color: #ffea00;
+    box-shadow: 0px 2px 3px 0px rgb(0,0,0,.41);
   }
 
   .c79 .search-highlight[aria-current],
