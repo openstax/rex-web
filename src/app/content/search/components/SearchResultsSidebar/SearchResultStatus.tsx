@@ -20,7 +20,6 @@ export const SearchResultsStatus = ({
   totalHits,
   totalHitsKeyTerms,
 }: SearchResultStatusProps) => {
-  const [messageState, setMessageState] = React.useState<string>('loadingState');
   const messageProperties = {
     loadingState: {
       id: 'i18n:search-results:bar:loading-state',
@@ -40,6 +39,8 @@ export const SearchResultsStatus = ({
     },
   };
 
+  const [messageState, setMessageState] = React.useState<keyof typeof messageProperties>('loadingState');
+
   React.useEffect(() => {
     setMessageState((prev) => {
       let message = prev;
@@ -55,8 +56,8 @@ export const SearchResultsStatus = ({
   return (
     <Styled.HiddenMessageContainer aria-live='assertive'>
       {useIntl().formatMessage(
-        { id: messageProperties[messageState as keyof typeof messageProperties].id },
-        messageProperties[messageState as keyof typeof messageProperties].values
+        { id: messageProperties[messageState].id },
+        messageProperties[messageState].values
       )}
     </Styled.HiddenMessageContainer>
   );
