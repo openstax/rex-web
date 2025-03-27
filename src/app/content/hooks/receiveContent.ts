@@ -1,4 +1,5 @@
 import { setHead } from '../../head/actions';
+import { initialState as headInitialState } from '../../head/reducer';
 import { Link } from '../../head/types';
 import createIntl from '../../messages/createIntl';
 import { locationChange } from '../../navigation/actions';
@@ -42,6 +43,9 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
   const currentPath = pathname(state);
 
   if (!page || !book) {
+    dispatch(
+      setHead({ ...headInitialState, title: 'OpenStax - Page Not Found'})
+    );
     return;
   }
   if (loadingBook) {
