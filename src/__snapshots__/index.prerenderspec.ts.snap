@@ -1,86 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Prerender sanity tests has a release manifest 1`] = `
-"<!DOCTYPE html>
-<html prefix=\\"og: http://ogp.me/ns#\\">
-  <head>
-    <meta charset=\\"utf-8\\">
-    <link rel=\\"shortcut icon\\" href=\\"/favicon.ico\\">
-    <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1, shrink-to-fit=no\\">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel=\\"manifest\\" href=\\"/dist/assets/manifest.json\\">
-
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      window.dataLayer.push({app: 'rex'})
-
-      gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-        functionality_storage: 'denied',
-        personalization_storage: 'denied',
-        security_storage: 'granted',
-        wait_for_update: 2000,
-      });
-      gtag('set', 'ads_data_redaction', true);
-      gtag('set', 'url_passthrough', false);
-    </script>
-
-    <script src=\\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML-full&delayStartupUntil=configured\\" async></script>
-    <!--
-      Notice the use of  in the tags above.
-      It will be replaced with the URL of the \`public\` folder during the build.
-      Only files inside the \`public\` folder can be referenced from the HTML.
-
-      Unlike \\"/favicon.ico\\" or \\"favicon.ico\\", \\"/favicon.ico\\" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running \`npm run build\`.
-    -->
-    <title>OpenStax</title>
-  </head>
-  <body class=\\"body\\">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src=\\"https://www.googletagmanager.com/ns.html?id=GTM-TFCS56G\\"
-    height=\\"0\\" width=\\"0\\" style=\\"display:none;visibility:hidden\\"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <div id=\\"root\\"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run \`npm start\` or \`yarn start\`.
-      To create a production bundle, use \`npm run build\` or \`yarn build\`.
-    -->
-
-    <script>
-      (function() {
-      var w = window, d = document;
-      w['pi']=function() {
-      w['pi'].commands = w['pi'].commands || [];
-      w['pi'].commands.push(arguments);
-      };
-      var s = d.createElement('script'); s.async = 1;
-      s.src = '//js.pulseinsights.com/surveys.js';
-      var f = d.getElementsByTagName('script')[0];
-      f.parentNode.insertBefore(s, f);
-
-      pi('identify', 'PI-16384954');
-      pi('get', 'surveys');
-      })();
-    </script>
-  <script defer src=\\"/static/js/bundle.js\\"></script><script defer src=\\"/static/js/vendors~main.chunk.js\\"></script><script defer src=\\"/static/js/main.chunk.js\\"></script></body>
-</html>
-"
+"{
+  \\"archiveUrl\\": \\"/apps/archive/codeversion\\",
+  \\"books\\": {
+    \\"testbook1-uuid\\": {
+      \\"defaultVersion\\": \\"1.0\\",
+      \\"dynamicStyles\\": true
+    }
+  },
+  \\"code\\": \\"test\\",
+  \\"id\\": \\"test\\"
+}"
 `;
