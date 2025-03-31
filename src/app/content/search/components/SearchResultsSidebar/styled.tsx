@@ -9,7 +9,7 @@ import {
   textRegularStyle,
   textStyle
 } from '../../../../components/Typography';
-import theme from '../../../../theme';
+import theme, { hiddenButAccessible } from '../../../../theme';
 import {
     bookBannerDesktopMiniHeight,
     bookBannerMobileMiniHeight,
@@ -474,4 +474,9 @@ export const BlankStateMessage = styled.div`
   justify-content: center;
   color: ${theme.color.text.default};
   font-size: 1.6rem;
+`;
+
+// tslint:disable-next-line: variable-name
+export const HiddenMessageContainer = styled.div`
+    ${hiddenButAccessible}
 `;

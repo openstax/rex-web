@@ -676,6 +676,7 @@ Array [
   .c4 .search-highlight,
   .c4 .search-highlight .math {
     background-color: #ffea00;
+    box-shadow: 0 0.2rem 0.3rem 0 rgb(0,0,0,0.41);
   }
 
   .c4 .search-highlight[aria-current],
