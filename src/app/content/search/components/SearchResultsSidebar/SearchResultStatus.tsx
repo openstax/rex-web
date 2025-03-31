@@ -39,13 +39,13 @@ export const SearchResultsStatus = ({
     },
   };
 
-  const messageState = 
-    results 
-    ? results.length > 0 
-      ? 'resultsState' 
-      : 'noResultsState' 
-    : query 
-      ? 'loadingState' 
+  const messageState =
+    results
+    ? results.length > 0
+      ? 'resultsState'
+      : 'noResultsState'
+    : query
+      ? 'loadingState'
       : 'blankState';
 
   return (
