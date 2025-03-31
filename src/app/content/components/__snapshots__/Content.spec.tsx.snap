@@ -1254,6 +1254,7 @@ Array [
   overflow: visible;
   z-index: 19;
   top: 12rem;
+  padding-bottom: 0;
 }
 
 .c42 {
@@ -2614,6 +2615,13 @@ li[aria-label="Current Page"] .c61 {
     left: 0;
     z-index: 21;
     top: 11.3rem;
+    padding-bottom: 0;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c77 {
+    padding-bottom: 0;
   }
 }
 
@@ -5981,6 +5989,7 @@ Array [
   overflow: visible;
   z-index: 19;
   top: 12rem;
+  padding-bottom: 0;
 }
 
 .c42 {
@@ -7238,6 +7247,13 @@ li[aria-label="Current Page"] .c61 {
     left: 0;
     z-index: 21;
     top: 11.3rem;
+    padding-bottom: 0;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c77 {
+    padding-bottom: 0;
   }
 }
 

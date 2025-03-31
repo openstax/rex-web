@@ -5,6 +5,9 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
+  toastHeightMediumRes,
+  toastHeightRes,
+  toastHeightSmallRes,
   toolbarMobileSearchWrapperHeight,
   topbarDesktopHeight,
   topbarMobileHeight,
@@ -18,7 +21,7 @@ import { contentWrapperAndNavWidthBreakpoint, contentWrapperWidthBreakpoint } fr
 import { ToastProps } from '../../../notifications/components/ToastNotifications/Toast';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
-export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
+export const getMobileSearchFailureTop = ({ mobileToolbarOpen }: { mobileToolbarOpen: boolean }) => mobileToolbarOpen
   ? bookBannerMobileMiniHeight + topbarMobileHeight + toolbarMobileSearchWrapperHeight
   : bookBannerMobileMiniHeight + topbarMobileHeight;
 
@@ -28,6 +31,7 @@ export const ToastContainerWrapper = styled.div`
   overflow: visible;
   z-index: ${theme.zIndex.contentNotifications - 1};
   top: ${desktopSearchFailureTop}rem;
+  padding-bottom: ${props => props.visibleToasts ? `${toastHeightRes * props.visibleToasts}rem` : '0'};
 
   @media screen and ${contentWrapperAndNavWidthBreakpoint} {
     max-width: calc(100vw - ((100vw - ${contentWrapperMaxWidth}rem) / 2) - ${verticalNavbarMaxWidth}rem);
@@ -44,6 +48,17 @@ export const ToastContainerWrapper = styled.div`
     left: 0;
     z-index: ${theme.zIndex.contentNotifications + 1};
     top: ${getMobileSearchFailureTop}rem;
+    padding-bottom: ${(props: { visibleToasts: number; }) => props.visibleToasts
+      ? `${toastHeightMediumRes * props.visibleToasts}rem`
+      : '0'
+    };
+  `)}
+
+  ${theme.breakpoints.mobileMedium(css`
+    padding-bottom: ${(props: { visibleToasts: number; }) => props.visibleToasts
+      ? `${toastHeightSmallRes * props.visibleToasts}rem`
+      : '0'
+    };
   `)}
 `;
 
@@ -63,7 +78,12 @@ const PageToasts = (props: ToastProps | {}) => {
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
 
   return (
-    <ToastContainerWrapper role='alertdialog' {...props} mobileToolbarOpen={mobileToolbarOpen}>
+    <ToastContainerWrapper 
+      role='alertdialog' 
+      {...props} 
+      mobileToolbarOpen={mobileToolbarOpen} 
+      visibleToasts={toasts?.length}
+    >
       {toasts ? <ToastNotifications toasts={toasts} /> : null}
     </ToastContainerWrapper>
   );
