@@ -140,6 +140,7 @@ export default styled(MainContent)`
 
       ${SELF_AND_CHILD_MATH_SELECTOR} {
         background-color: #ffea00;
+        box-shadow: 0 0.2rem 0.3rem 0 rgb(0, 0, 0, 0.41);
       }
 
       &[aria-current] {
