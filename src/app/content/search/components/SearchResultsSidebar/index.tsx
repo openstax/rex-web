@@ -9,6 +9,7 @@ import { clearSearch, requestSearch } from '../../actions';
 import * as selectSearch from '../../selectors';
 import { SearchResultContainer, SelectedResult } from '../../types';
 import { SearchResultsBarWrapper } from './SearchResultsBarWrapper';
+import { SearchResultsStatus } from './SearchResultStatus';
 
 interface Props {
   book?: Book;
@@ -72,11 +73,23 @@ export class SearchResultsSidebar extends Component<Props, State> {
   }
 
   public render() {
-    return this.props.searchResultsOpen || this.state.query ? <SearchResultsBarWrapper
-      {...this.props}
-      {...this.state}
-      data-analytics-region='search-results'
-    /> : null;
+    return (
+      <>
+        <SearchResultsStatus
+          query={this.state.query}
+          results={this.state.results}
+          totalHits={this.props.totalHits}
+          totalHitsKeyTerms={this.props.totalHitsKeyTerms}
+        />
+        {this.props.searchResultsOpen || this.state.query
+          ? <SearchResultsBarWrapper
+            {...this.props}
+            {...this.state}
+            data-analytics-region='search-results'
+          />
+          : null}
+      </>
+    );
   }
 }
 
