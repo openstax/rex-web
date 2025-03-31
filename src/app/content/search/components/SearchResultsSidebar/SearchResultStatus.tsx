@@ -39,19 +39,14 @@ export const SearchResultsStatus = ({
     },
   };
 
-  const [messageState, setMessageState] = React.useState<keyof typeof messageProperties>('loadingState');
-
-  React.useEffect(() => {
-    setMessageState((prev) => {
-      let message = prev;
-      if (!results) {
-        message = !query ? 'blankState' : 'loadingState';
-      } else {
-        message = results.length > 0 ? 'resultsState' : 'noResultsState';
-      }
-      return message;
-    });
-  }, [query, results]);
+  const messageState = 
+    results 
+    ? results.length > 0 
+      ? 'resultsState' 
+      : 'noResultsState' 
+    : query 
+      ? 'loadingState' 
+      : 'blankState';
 
   return (
     <Styled.HiddenMessageContainer aria-live='assertive'>

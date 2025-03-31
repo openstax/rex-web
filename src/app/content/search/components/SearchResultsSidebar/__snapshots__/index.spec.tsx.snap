@@ -19,7 +19,7 @@ Array [
     aria-live="assertive"
     className="c0"
   >
-    Loading results
+    Sorry, no results found for cool search
   </div>,
   .c6 {
   height: 2.5rem;
@@ -1086,7 +1086,7 @@ Array [
     aria-live="assertive"
     className="c0"
   >
-    Loading results
+    3 search results for cool search
   </div>,
   .c25 {
   display: inline-block;
