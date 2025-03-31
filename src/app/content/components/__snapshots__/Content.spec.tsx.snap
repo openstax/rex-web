@@ -2634,7 +2634,7 @@ li[aria-label="Current Page"] .c61 {
 }
 
 @media screen and (max-width:50em) {
-  .c77 {
+  .c78 {
     padding-bottom: 0;
   }
 }
@@ -7286,7 +7286,7 @@ li[aria-label="Current Page"] .c61 {
 }
 
 @media screen and (max-width:50em) {
-  .c77 {
+  .c78 {
     padding-bottom: 0;
   }
 }
