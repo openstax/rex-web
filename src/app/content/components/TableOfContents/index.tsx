@@ -16,7 +16,7 @@ import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery } from '../../../reactUtils';
-import { useKeyboardSupport, KeyboardSupportProps } from './keyboardSupport.hook';
+import { onKeyDownNavItemSupport, onKeyDownNavGroupSupport, KeyboardSupportProps } from './keyboardSupport.hook';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -239,7 +239,6 @@ function TocSection({
 }) {
 
   const linkedContents = linkContents(section);
-  const { onKeyDownNavItemSupport, onKeyDownNavGroupSupport } = useKeyboardSupport();
 
   return (
     <Styled.NavOl
