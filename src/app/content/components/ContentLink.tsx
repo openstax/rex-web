@@ -96,7 +96,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         navigate(navigationMatch, options);
       }
     }}
-    onKeyDown={(e) => onKeyDown && onKeyDown(e, async() => {
+    onKeyDown={(e) => onKeyDown?.(e, async() => {
       /*
         All this logic has to be inside onKeyDown === Enter || Space
       */

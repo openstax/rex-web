@@ -124,13 +124,13 @@ function TocNode({
   title,
   onClick,
   onKeyDown,
-}: React.PropsWithChildren<{
+}: {
   id: string;
   title: string,
   isOpen: boolean,
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
   onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void,
-}>) {
+}) {
 
   return (
     <Styled.NavDetails
