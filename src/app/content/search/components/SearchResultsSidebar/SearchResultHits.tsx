@@ -78,17 +78,18 @@ function HighlightPreview({
     index,
     type: 'search',
   };
-  const divRef = React.useRef<HTMLDivElement>(null);
   const page = getPage(hit);
   const [ariaLabel, setAriaLabel] = React.useState('...');
 
-  React.useEffect(
+  React.useLayoutEffect(
     () => {
-      const excerptText = divRef.current?.textContent;
+      const temp = document?.createElement('div') as HTMLDivElement;
 
-      setAriaLabel(`Result ${index + 1} in ${page.slug}: ${excerptText}`);
+      temp.innerHTML = highlight;
+
+      setAriaLabel(`Result ${index + 1} in ${page.slug}: ${temp.textContent}`);
     },
-    [page.slug, index]
+    [page.slug, index, highlight]
   );
 
   return (
@@ -109,7 +110,6 @@ function HighlightPreview({
       ) : (
         <Styled.SimpleResult>
           <div
-            ref={divRef}
             tabIndex={-1}
             dangerouslySetInnerHTML={{ __html: highlight }}
           />
