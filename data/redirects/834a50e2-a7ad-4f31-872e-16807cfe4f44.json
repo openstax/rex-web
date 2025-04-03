@@ -1,0 +1,17 @@
+[
+  {
+    "bookId": "834a50e2-a7ad-4f31-872e-16807cfe4f44",
+    "pageId": "1fb2bb66-173c-4f3e-83bd-42b11bf99f30",
+    "pathname": "/books/marketing-podstawy/pages/1-wprowadzenie"
+  },
+  {
+    "bookId": "834a50e2-a7ad-4f31-872e-16807cfe4f44",
+    "pageId": "ea3b12f4-6b9c-4166-8c48-e3927c3e5161",
+    "pathname": "/books/marketing-podstawy/pages/2-wybor-rynkow-docelowych"
+  },
+  {
+    "bookId": "834a50e2-a7ad-4f31-872e-16807cfe4f44",
+    "pageId": "5d8d2634-c942-43f0-a460-5a0f86c37d30",
+    "pathname": "/books/marketing-podstawy/pages/3-produkt-promocja-cena-i-dystrybucja"
+  }
+]
