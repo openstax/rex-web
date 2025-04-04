@@ -7,6 +7,7 @@ exports[`PageToasts matches snapshot 1`] = `
   overflow: visible;
   z-index: 19;
   top: 12rem;
+  padding-bottom: 0;
 }
 
 @media screen and (max-width:90em) {
@@ -29,6 +30,13 @@ exports[`PageToasts matches snapshot 1`] = `
     left: 0;
     z-index: 21;
     top: 11.3rem;
+    padding-bottom: 0;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    padding-bottom: 0;
   }
 }
 
@@ -131,6 +139,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
   overflow: visible;
   z-index: 19;
   top: 12rem;
+  padding-bottom: 4rem;
 }
 
 @media (max-width:75em) {
@@ -177,6 +186,13 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
     left: 0;
     z-index: 21;
     top: 16.6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    padding-bottom: 8rem;
   }
 }
 
@@ -335,6 +351,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
   overflow: visible;
   z-index: 19;
   top: 12rem;
+  padding-bottom: 4rem;
 }
 
 @media (max-width:75em) {
@@ -381,6 +398,13 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
     left: 0;
     z-index: 21;
     top: 11.3rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c0 {
+    padding-bottom: 8rem;
   }
 }
 
