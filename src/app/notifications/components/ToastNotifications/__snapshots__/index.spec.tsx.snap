@@ -134,13 +134,13 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
   className="c0"
 >
   <div
+    aria-live="polite"
     className="c1"
     data-testid="banner-body"
     onAnimationEnd={[Function]}
     role="alert"
   >
     <div
-      aria-live="polite"
       className="c2"
     >
       <div
@@ -186,13 +186,13 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
     </div>
   </div>
   <div
+    aria-live="polite"
     className="c7"
     data-testid="banner-body"
     onAnimationEnd={[Function]}
     role="alert"
   >
     <div
-      aria-live="polite"
       className="c2"
     >
       <div
