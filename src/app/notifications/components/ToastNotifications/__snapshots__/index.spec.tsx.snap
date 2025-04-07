@@ -140,6 +140,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
     role="alert"
   >
     <div
+      aria-live="polite"
       className="c2"
     >
       <div
@@ -191,6 +192,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
     role="alert"
   >
     <div
+      aria-live="polite"
       className="c2"
     >
       <div

@@ -112,6 +112,7 @@ exports[`Toast matches snapshot 1`] = `
   role="alert"
 >
   <div
+    aria-live="polite"
     className="c1"
   >
     <div
