@@ -105,7 +105,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
       data-testid='banner-body'
       role='alert'
     >
-      <BannerBody>
+      <BannerBody aria-live='polite'>
         <FormattedMessage id={notification.messageKey}>
           {(txt) =>  <Header>
             {txt}
