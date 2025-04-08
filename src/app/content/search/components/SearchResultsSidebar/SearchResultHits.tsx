@@ -1,4 +1,5 @@
 import { SearchResultHit } from '@openstax/open-search-client';
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { OutputParams } from 'query-string';
 import React from 'react';
@@ -55,6 +56,14 @@ function useKeyTermPair({
   return pair;
 }
 
+function uniqueSearchLabel(index: number, title: string, highlight: string) {
+  const temp = document?.createElement('div') as HTMLDivElement;
+
+  temp.innerHTML = highlight;
+  return `Result ${index + 1} in ${title}: ${temp.textContent}`;
+}
+
+
 // tslint:disable-next-line: variable-name
 const OneSearchResultHit = ({
   activeSectionRef,
@@ -78,6 +87,7 @@ const OneSearchResultHit = ({
         index,
         type: 'search',
       };
+      const page = getPage(hit);
 
       return (
         <Styled.SectionContentPreview
@@ -86,10 +96,11 @@ const OneSearchResultHit = ({
           data-testid={testId}
           key={index}
           book={book}
-          page={getPage(hit)}
+          page={page}
           scrollTarget={target}
           queryParams={queryParams}
           onClick={() => onClick(thisResult)}
+          ariaLabel={uniqueSearchLabel(index, page.title, highlight)}
           ref={isSelected ? activeSectionRef : undefined}
         >
           {isKeyTermHit(hit) ? (
