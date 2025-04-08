@@ -56,11 +56,11 @@ function useKeyTermPair({
   return pair;
 }
 
-function uniqueSearchLabel(index: number, slug: string, highlight: string) {
+function uniqueSearchLabel(index: number, title: string, highlight: string) {
   const temp = document?.createElement('div') as HTMLDivElement;
 
   temp.innerHTML = highlight;
-  return `Result ${index + 1} in ${slug}: ${temp.textContent}`;
+  return `Result ${index + 1} in ${title}: ${temp.textContent}`;
 }
 
 
@@ -100,7 +100,7 @@ const OneSearchResultHit = ({
           scrollTarget={target}
           queryParams={queryParams}
           onClick={() => onClick(thisResult)}
-          ariaLabel={uniqueSearchLabel(index, page.slug, highlight)}
+          ariaLabel={uniqueSearchLabel(index, page.title, highlight)}
           ref={isSelected ? activeSectionRef : undefined}
         >
           {isKeyTermHit(hit) ? (
