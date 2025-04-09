@@ -33,6 +33,7 @@ exports[`PageToasts matches snapshot 1`] = `
 }
 
 <div
+  aria-live="assertive"
   className="c0"
   role="alertdialog"
 />
@@ -181,6 +182,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 }
 
 <div
+  aria-live="assertive"
   className="c0"
   role="alertdialog"
 >
@@ -188,7 +190,6 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
     className="c1"
   >
     <div
-      aria-live="polite"
       className="c2"
       data-testid="banner-body"
       onAnimationEnd={[Function]}
@@ -386,6 +387,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
 }
 
 <div
+  aria-live="assertive"
   className="c0"
   role="alertdialog"
 >
@@ -393,7 +395,6 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
     className="c1"
   >
     <div
-      aria-live="polite"
       className="c2"
       data-testid="banner-body"
       onAnimationEnd={[Function]}

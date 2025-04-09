@@ -106,7 +106,6 @@ exports[`Toast matches snapshot 1`] = `
 }
 
 <div
-  aria-live="polite"
   className="c0"
   data-testid="banner-body"
   onAnimationEnd={[MockFunction]}
