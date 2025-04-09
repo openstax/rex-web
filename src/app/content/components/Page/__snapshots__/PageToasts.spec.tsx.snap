@@ -33,7 +33,7 @@ exports[`PageToasts matches snapshot 1`] = `
 }
 
 <div
-  aria-live="assertive"
+  aria-live="polite"
   className="c0"
   role="alertdialog"
 />
@@ -182,7 +182,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 }
 
 <div
-  aria-live="assertive"
+  aria-live="polite"
   className="c0"
   role="alertdialog"
 >
@@ -387,7 +387,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
 }
 
 <div
-  aria-live="assertive"
+  aria-live="polite"
   className="c0"
   role="alertdialog"
 >
