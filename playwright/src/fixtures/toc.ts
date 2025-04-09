@@ -13,7 +13,7 @@ class TOC {
   constructor(page: Page) {
     this.page = page
     this.pageLocator = this.page.locator('[data-type="page"]')
-    this.tocDropdownLocator = this.page.locator('a[class*="NavDetails"]')
+    this.tocDropdownLocator = this.page.locator('a[class*="NavCollapse"]')
     this.sectionNameLocator = this.page.locator('h1[class*="BookBanner"]')
     this.pageSlugLocator = this.page.locator('[data-type="page"] a')
     this.currentPageLocator = this.page.locator("[aria-label*='Current Page'] a")
@@ -33,7 +33,7 @@ class TOC {
 
   async unitIntroCount() {
     // Total number of unit introduction pages in the book
-    const unitIntroPageLocator = this.page.locator('//li[@data-type="unit"]/a/ol[1]/li[1][@data-type="page"]')
+    const unitIntroPageLocator = this.page.locator('//li[@data-type="unit"]/ol[1]/li[1][@data-type="page"]')
     return await unitIntroPageLocator.count()
   }
 
@@ -72,7 +72,7 @@ class TOC {
         await this.pageLocator.nth(pageNumber).click()
       } else {
         // expand the dropdowns in toc
-        await this.page.waitForSelector('a[class*="NavDetails"]')
+        await this.page.waitForSelector('a[class*="NavCollapse"]')
         const tocDropdownCounts = await this.tocDropdownLocator.count()
         let tocDropdownCount: number
         for (tocDropdownCount = 0; tocDropdownCount < tocDropdownCounts; tocDropdownCount++) {

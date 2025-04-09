@@ -129,7 +129,7 @@ describe('TableOfContents', () => {
 
   it.each`
     anchorNumber | description        | isDispatchCalled
-    ${2}         | ${'(TocNode)'}     | ${false}
+    ${2}         | ${'(TocSectionToggle)'}     | ${false}
     ${18}        | ${'(ContentLink)'} | ${true}
   `('toggles open state on Enter and Space key press $description', ({ anchorNumber, isDispatchCalled }) => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
@@ -163,7 +163,7 @@ describe('TableOfContents', () => {
   it.each`
     anchorNumber | description
     ${0}         | ${'(ContentLink)'}
-    ${2}         | ${'(TocNode)'}
+    ${2}         | ${'(TocSectionToggle)'}
   `('open and closing using Arrow keys %description', ({ anchorNumber }) => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
@@ -182,7 +182,7 @@ describe('TableOfContents', () => {
   it.each`
     anchorNumber | description
     ${0}         | ${'(ContentLink)'}
-    ${2}         | ${'(TocNode)'}
+    ${2}         | ${'(TocSectionToggle)'}
   `('move using Arrow keys %description', ({ anchorNumber }) => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
@@ -207,7 +207,7 @@ describe('TableOfContents', () => {
   it.each`
     anchorNumber | description
     ${0}         | ${'(ContentLink)'}
-    ${2}         | ${'(TocNode)'}
+    ${2}         | ${'(TocSectionToggle)'}
   `('move focus to start and end of treeitems %description', ({ anchorNumber }) => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
@@ -228,9 +228,9 @@ describe('TableOfContents', () => {
     anchorNumber | description        | shiftKey
     ${0}         | ${'(ContentLink)'} | ${true}
     ${0}         | ${'(ContentLink)'} | ${false}
-    ${2}         | ${'(TocNode)'}     | ${true}
-    ${2}         | ${'(TocNode)'}     | ${false}
-    ${18}         | ${'(TocNode)'}     | ${false}
+    ${2}         | ${'(TocSectionToggle)'}     | ${true}
+    ${2}         | ${'(TocSectionToggle)'}     | ${false}
+    ${18}         | ${'(TocSectionToggle)'}     | ${false}
   `('trigger tab navigation %description', ({ anchorNumber, shiftKey }) => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 

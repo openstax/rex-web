@@ -73,6 +73,16 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const URL = options ? relativeUrl + navigationOptionsToString(options) : relativeUrl;
   const services = useServices();
 
+  const onClickHandler = async() => {
+    if (hasUnsavedHighlight && !await showConfirmation(services)) {
+      return;
+    }
+
+    if (onClick) {
+      onClick();
+    }
+  };
+
   return <a
     ref={myForwardedRef}
     onClick={async(e) => {
@@ -82,13 +92,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
 
       e.preventDefault();
 
-      if (hasUnsavedHighlight && !await showConfirmation(services)) {
-        return;
-      }
-
-      if (onClick) {
-        onClick();
-      }
+      await onClickHandler();
 
       if (handleClick) {
         handleClick();
@@ -97,19 +101,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
       }
     }}
     onKeyDown={(e) => onKeyDown?.(e, async() => {
-      /*
-        All this logic has to be inside onKeyDown === Enter || Space
-      */
-      e.preventDefault();
-
-      if (hasUnsavedHighlight && !await showConfirmation(services)) {
-        return;
-      }
-
-      if (onClick) {
-        onClick();
-      }
-
+      await onClickHandler();
       navigate(navigationMatch, options);
     })}
     href={URL}

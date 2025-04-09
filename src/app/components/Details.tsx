@@ -53,7 +53,7 @@ export const Details = styled.details`
 
 // Other components than ToC use Details, so we need to style them separately
 // tslint:disable-next-line:variable-name
-export const DetailsTree = styled.a`
+export const CollapseToggle = styled.a`
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
     &[open] > ${ExpandIcon} {
       display: none;

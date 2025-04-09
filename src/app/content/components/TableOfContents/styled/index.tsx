@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { DetailsTree } from '../../../../components/Details';
+import { CollapseToggle } from '../../../../components/Details';
 import { iconSize } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
@@ -156,17 +156,17 @@ export const NavOl = styled.ol<{ section: ArchiveTree }>`
   }}
 `;
 
-interface DetailsComponentProps { open: boolean; }
-class DetailsComponent extends React.Component<DetailsComponentProps> {
+interface CollapseComponentProps { open: boolean; treeId: string | undefined; }
+class CollapseComponent extends React.Component<CollapseComponentProps> {
   public render() {
-    const { open, ...props } = this.props;
+    const { open, treeId, ...props } = this.props;
 
-    return <DetailsTree role='treeitem' href='#' {...props} open={open} />;
+    return <CollapseToggle role='treeitem' data-treeid={treeId} href='#' {...props} open={open} />;
   }
 }
 
 // tslint:disable-next-line:variable-name
-export const NavDetails = styled(DetailsComponent)`
+export const NavCollapse = styled(CollapseComponent)`
   ${labelStyle}
   display: flex;
   overflow: visible;
@@ -182,14 +182,6 @@ export const NavDetails = styled(DetailsComponent)`
   }
 
   ::before {
-    display: none;
-  }
-
-  ::-moz-list-bullet {
-    list-style-type: none;
-  }
-
-  ::-webkit-details-marker {
     display: none;
   }
 

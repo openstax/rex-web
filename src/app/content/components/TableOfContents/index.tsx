@@ -16,7 +16,7 @@ import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery } from '../../../reactUtils';
-import { onKeyDownNavItemSupport, onKeyDownNavGroupSupport, KeyboardSupportProps } from './keyboardSupport.hook';
+import { treeNavItemOnKeyDown, treeNavSubtreeOnKeyDown, KeyboardSupportProps } from './keyboardSupport';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -118,33 +118,36 @@ function TocHeader() {
   );
 }
 
-function TocNode({
+function TocSectionToggle({
   id,
   isOpen,
   title,
+  treeId,
   onClick,
   onKeyDown,
 }: {
   id: string;
   title: string,
   isOpen: boolean,
+  treeId: string | undefined;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
   onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void,
 }) {
 
   return (
-    <Styled.NavDetails
+    <Styled.NavCollapse
       id={id}
       onClick={onClick}
       onKeyDown={onKeyDown}
       open={isOpen}
       aria-expanded={isOpen}
       tabIndex={0}
+      treeId={treeId}
     >
       <Styled.CollapseIcon />
       <Styled.ExpandIcon />
       <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
-    </Styled.NavDetails>
+    </Styled.NavCollapse>
   );
 }
 
@@ -170,6 +173,7 @@ function ArchiveTreeComponent({
   book,
   page,
   activeSection,
+  treeId,
   onNavigate,
   onKeyDown,
 }: {
@@ -177,6 +181,7 @@ function ArchiveTreeComponent({
   book: Book | undefined;
   page: Page | undefined;
   activeSection: React.RefObject<HTMLElement>;
+  treeId: string | undefined;
   onNavigate: () => void;
   onKeyDown: (props: KeyboardSupportProps) => void;
 }) {
@@ -193,19 +198,21 @@ function ArchiveTreeComponent({
       event: e,
       item,
       isOpen,
+      treeId,
       onSelect: toggleOpen,
     });
   };
 
   return (
     <Styled.NavItem key={item.id} sectionType={sectionType}>
-      <TocNode
+      <TocSectionToggle
         id={item.id}
         aria-owns={item.id + '-subtree'}
         title={item.title}
         isOpen={isOpen}
         onClick={toggleOpen}
         onKeyDown={onKeyDownSupport}
+        treeId={treeId}
       />
       <TocSection
         id={item.id + '-subtree'}
@@ -215,6 +222,7 @@ function ArchiveTreeComponent({
         activeSection={activeSection}
         onNavigate={onNavigate}
         open={isOpen}
+        treeId={treeId}
       />
     </Styled.NavItem>
   );
@@ -228,6 +236,7 @@ function TocSection({
   activeSection,
   onNavigate,
   open,
+  treeId,
 }: {
   id?: string;
   book: Book | undefined;
@@ -236,6 +245,7 @@ function TocSection({
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
   open: boolean;
+  treeId: string | undefined;
 }) {
 
   const linkedContents = linkContents(section);
@@ -259,7 +269,8 @@ function TocSection({
             page={page}
             activeSection={activeSection}
             onNavigate={onNavigate}
-            onKeyDown={onKeyDownNavGroupSupport}
+            onKeyDown={treeNavSubtreeOnKeyDown}
+            treeId={treeId}
           />
         ) : (
           <Styled.NavItem
@@ -273,9 +284,10 @@ function TocSection({
               onClick={onNavigate}
               onKeyDown={
                 (e: React.KeyboardEvent<HTMLAnchorElement>, onSelect: () => void) =>
-                  onKeyDownNavItemSupport({
+                  treeNavItemOnKeyDown({
                     event: e,
                     item,
+                    treeId,
                     onSelect,
                   })
               }
@@ -284,6 +296,7 @@ function TocSection({
               dangerouslySetInnerHTML={{ __html: item.title }}
               {...maybeAriaLabel(item)}
               role='treeitem'
+              data-treeid={treeId}
             />
           </Styled.NavItem>
         );
@@ -314,6 +327,7 @@ export class TableOfContents extends Component<SidebarProps> {
             activeSection={this.activeSection}
             onNavigate={this.props.onNavigate}
             open
+            treeId={book.title}
           />
         )}
       </SidebarBody>
