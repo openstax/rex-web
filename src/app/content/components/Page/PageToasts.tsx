@@ -61,10 +61,16 @@ export const ToastContainerWrapper = styled.div`
 const PageToasts = (props: ToastProps | {}) => {
   const toasts = useSelector(groupedToastNotifications).page;
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
+  const [toastsHidden, setToastsHidden] = React.useState(true);
+
+
+  React.useEffect(() => {
+    setTimeout(() => setToastsHidden(false), 400);
+  }, [setToastsHidden]);
 
   return (
-    <ToastContainerWrapper aria-live='polite' role='alertdialog' {...props} mobileToolbarOpen={mobileToolbarOpen}>
-      {toasts ? <ToastNotifications toasts={toasts} /> : null}
+    <ToastContainerWrapper aria-live="polite" role="alertdialog" {...props} mobileToolbarOpen={mobileToolbarOpen}>
+      {toasts && !toastsHidden ? <ToastNotifications toasts={toasts} /> : null}
     </ToastContainerWrapper>
   );
 };
