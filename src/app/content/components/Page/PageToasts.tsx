@@ -66,11 +66,11 @@ const PageToasts = (props: ToastProps | {}) => {
   // timeout so that screenreaders will pick up the toasts populating the live region
   // https://tetralogical.com/blog/2024/05/01/why-are-my-live-regions-not-working/
   React.useEffect(() => {
-    setTimeout(() => setToastsHidden(false), 400);
+    setTimeout(() => setToastsHidden(false), 1000);
   }, [setToastsHidden]);
 
   return (
-    <ToastContainerWrapper aria-live="polite" role="alertdialog" {...props} mobileToolbarOpen={mobileToolbarOpen}>
+    <ToastContainerWrapper aria-live='polite' role='alertdialog' {...props} mobileToolbarOpen={mobileToolbarOpen}>
       {toasts && !toastsHidden ? <ToastNotifications toasts={toasts} /> : null}
     </ToastContainerWrapper>
   );
