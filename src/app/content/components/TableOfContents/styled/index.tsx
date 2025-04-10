@@ -161,7 +161,15 @@ class CollapseComponent extends React.Component<CollapseComponentProps> {
   public render() {
     const { open, treeId, visible, ...props } = this.props;
 
-    return <CollapseToggle role='treeitem' data-treeid={treeId} href='#' {...props} open={open} data-visible={visible} />;
+    return (
+      <CollapseToggle
+        role='treeitem'
+        data-treeid={treeId}
+        href='#'
+        {...props}
+        open={open}
+        data-visible={visible}
+      />);
   }
 }
 

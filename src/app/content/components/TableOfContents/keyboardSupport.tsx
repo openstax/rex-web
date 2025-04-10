@@ -12,11 +12,12 @@ export interface KeyboardSupportProps {
   onSelect: () => void;
 }
 
-const getTreeItems = (treeId: KeyboardSupportProps['treeId']) => 
-  Array.from(
+const getTreeItems = (treeId: KeyboardSupportProps['treeId']) => {
+  return Array.from(
     assertDocument()
     .querySelectorAll<HTMLElement>(`a[role="treeitem"][data-visible="true"][data-treeid="${treeId}"]`)
   );
+};
 
 const focusNextTreeItem = (filteredTreeItems: HTMLElement[], currentItemIndex: number) => {
   assertDocument().querySelector<HTMLElement>(`[id="${filteredTreeItems[currentItemIndex + 1]?.id}"]`)?.focus();
