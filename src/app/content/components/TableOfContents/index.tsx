@@ -125,13 +125,15 @@ function TocSectionToggle({
   treeId,
   onClick,
   onKeyDown,
+  visible,
 }: {
   id: string;
   title: string,
   isOpen: boolean,
   treeId: string | undefined;
-  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void,
-  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void,
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  visible: boolean;
 }) {
 
   return (
@@ -143,6 +145,7 @@ function TocSectionToggle({
       aria-expanded={isOpen}
       tabIndex={0}
       treeId={treeId}
+      visible={visible}
     >
       <Styled.CollapseIcon />
       <Styled.ExpandIcon />
@@ -176,6 +179,7 @@ function ArchiveTreeComponent({
   treeId,
   onNavigate,
   onKeyDown,
+  visible,
 }: {
   item: LinkedArchiveTree;
   book: Book | undefined;
@@ -184,6 +188,7 @@ function ArchiveTreeComponent({
   treeId: string | undefined;
   onNavigate: () => void;
   onKeyDown: (props: KeyboardSupportProps) => void;
+  visible: boolean;
 }) {
   const sectionType = getArchiveTreeSectionType(item);
 
@@ -213,6 +218,7 @@ function ArchiveTreeComponent({
         onClick={toggleOpen}
         onKeyDown={onKeyDownSupport}
         treeId={treeId}
+        visible={visible}
       />
       <TocSection
         id={item.id + '-subtree'}
@@ -223,6 +229,7 @@ function ArchiveTreeComponent({
         onNavigate={onNavigate}
         open={isOpen}
         treeId={treeId}
+        visible={isOpen}
       />
     </Styled.NavItem>
   );
@@ -236,6 +243,7 @@ function TocSection({
   activeSection,
   onNavigate,
   open,
+  visible,
   treeId,
 }: {
   id?: string;
@@ -245,6 +253,7 @@ function TocSection({
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
   open: boolean;
+  visible: boolean;
   treeId: string | undefined;
 }) {
 
@@ -271,6 +280,7 @@ function TocSection({
             onNavigate={onNavigate}
             onKeyDown={treeNavSubtreeOnKeyDown}
             treeId={treeId}
+            visible={visible}
           />
         ) : (
           <Styled.NavItem
@@ -297,6 +307,7 @@ function TocSection({
               {...maybeAriaLabel(item)}
               role='treeitem'
               data-treeid={treeId}
+              data-visible={visible}
             />
           </Styled.NavItem>
         );
@@ -327,6 +338,7 @@ export class TableOfContents extends Component<SidebarProps> {
             activeSection={this.activeSection}
             onNavigate={this.props.onNavigate}
             open
+            visible
             treeId={book.title}
           />
         )}

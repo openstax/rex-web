@@ -156,12 +156,12 @@ export const NavOl = styled.ol<{ section: ArchiveTree }>`
   }}
 `;
 
-interface CollapseComponentProps { open: boolean; treeId: string | undefined; }
+interface CollapseComponentProps { open: boolean; visible: boolean; treeId: string | undefined; }
 class CollapseComponent extends React.Component<CollapseComponentProps> {
   public render() {
-    const { open, treeId, ...props } = this.props;
+    const { open, treeId, visible, ...props } = this.props;
 
-    return <CollapseToggle role='treeitem' data-treeid={treeId} href='#' {...props} open={open} />;
+    return <CollapseToggle role='treeitem' data-treeid={treeId} href='#' {...props} open={open} data-visible={visible} />;
   }
 }
 

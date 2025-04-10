@@ -3714,6 +3714,7 @@ li[aria-label="Current Page"] .c60 {
                   }
                 }
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="test-page-1"
                 id="testbook1-testpage1-uuid@1.0"
                 onClick={[Function]}
@@ -3730,6 +3731,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter1-uuid@1.0"
                 onClick={[Function]}
@@ -3788,6 +3790,7 @@ li[aria-label="Current Page"] .c60 {
                     aria-expanded={false}
                     className="c61 c62"
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="#"
                     id="testbook1-testchapter10@1.0"
                     onClick={[Function]}
@@ -3851,6 +3854,7 @@ li[aria-label="Current Page"] .c60 {
                           }
                         }
                         data-treeid="Test Book 1"
+                        data-visible={false}
                         href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         id="testbook1-testpage2-uuid@1.0"
                         onClick={[Function]}
@@ -3873,6 +3877,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="1-1-physics-an-introduction"
                     id="testbook1-testpage11-uuid@1.0"
                     onClick={[Function]}
@@ -3893,6 +3898,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="23-12-rlc-series-ac-circuits"
                     id="testbook1-testpage8-uuid@1.0"
                     onClick={[Function]}
@@ -3911,6 +3917,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter2-uuid@1.0"
                 onClick={[Function]}
@@ -3974,6 +3981,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="2-test-page-3"
                     id="testbook1-testpage3-uuid@1.0"
                     onClick={[Function]}
@@ -3992,6 +4000,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={true}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter3-uuid@1.0"
                 onClick={[Function]}
@@ -4056,6 +4065,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={true}
                     href="3-test-page-4"
                     id="testbook1-testpage4-uuid@1.0"
                     onClick={[Function]}
@@ -4074,6 +4084,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter4-uuid@1.0"
                 onClick={[Function]}
@@ -4137,6 +4148,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="4-test-page-5"
                     id="testbook1-testpage5-uuid@1.0"
                     onClick={[Function]}
@@ -4155,6 +4167,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter5-uuid@1.0"
                 onClick={[Function]}
@@ -4218,6 +4231,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="10-test-page-6-f%C3%ADsica"
                     id="testbook1-testpage6-uuid@1.0"
                     onClick={[Function]}
@@ -4236,6 +4250,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter6-uuid@1.0"
                 onClick={[Function]}
@@ -4299,6 +4314,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="12-test-page-7"
                     id="testbook1-testpage7-uuid@1.0"
                     onClick={[Function]}
@@ -4321,6 +4337,7 @@ li[aria-label="Current Page"] .c60 {
                   }
                 }
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="a-atomic-masses"
                 id="testbook1-testpage9-uuid@1.0"
                 onClick={[Function]}
@@ -4341,6 +4358,7 @@ li[aria-label="Current Page"] .c60 {
                   }
                 }
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="d-glossary-of-key-symbols-and-notation"
                 id="testbook1-testpage10-uuid@1.0"
                 onClick={[Function]}
@@ -4361,6 +4379,7 @@ li[aria-label="Current Page"] .c60 {
                   }
                 }
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="test-page-for-generic-styles"
                 id="testbook1-testpage12-uuid@1.0"
                 onClick={[Function]}
@@ -8444,6 +8463,7 @@ li[aria-label="Current Page"] .c60 {
                   }
                 }
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="test-page-1"
                 id="testbook1-testpage1-uuid@1.0"
                 onClick={[Function]}
@@ -8460,6 +8480,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter1-uuid@1.0"
                 onClick={[Function]}
@@ -8518,6 +8539,7 @@ li[aria-label="Current Page"] .c60 {
                     aria-expanded={false}
                     className="c61 c62"
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="#"
                     id="testbook1-testchapter10@1.0"
                     onClick={[Function]}
@@ -8581,6 +8603,7 @@ li[aria-label="Current Page"] .c60 {
                           }
                         }
                         data-treeid="Test Book 1"
+                        data-visible={false}
                         href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         id="testbook1-testpage2-uuid@1.0"
                         onClick={[Function]}
@@ -8603,6 +8626,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="1-1-physics-an-introduction"
                     id="testbook1-testpage11-uuid@1.0"
                     onClick={[Function]}
@@ -8623,6 +8647,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="23-12-rlc-series-ac-circuits"
                     id="testbook1-testpage8-uuid@1.0"
                     onClick={[Function]}
@@ -8641,6 +8666,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter2-uuid@1.0"
                 onClick={[Function]}
@@ -8704,6 +8730,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="2-test-page-3"
                     id="testbook1-testpage3-uuid@1.0"
                     onClick={[Function]}
@@ -8722,6 +8749,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter3-uuid@1.0"
                 onClick={[Function]}
@@ -8785,6 +8813,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="3-test-page-4"
                     id="testbook1-testpage4-uuid@1.0"
                     onClick={[Function]}
@@ -8803,6 +8832,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter4-uuid@1.0"
                 onClick={[Function]}
@@ -8866,6 +8896,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="4-test-page-5"
                     id="testbook1-testpage5-uuid@1.0"
                     onClick={[Function]}
@@ -8884,6 +8915,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter5-uuid@1.0"
                 onClick={[Function]}
@@ -8947,6 +8979,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="10-test-page-6-f%C3%ADsica"
                     id="testbook1-testpage6-uuid@1.0"
                     onClick={[Function]}
@@ -8965,6 +8998,7 @@ li[aria-label="Current Page"] .c60 {
                 aria-expanded={false}
                 className="c61 c62"
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="#"
                 id="testbook1-testchapter6-uuid@1.0"
                 onClick={[Function]}
@@ -9028,6 +9062,7 @@ li[aria-label="Current Page"] .c60 {
                       }
                     }
                     data-treeid="Test Book 1"
+                    data-visible={false}
                     href="12-test-page-7"
                     id="testbook1-testpage7-uuid@1.0"
                     onClick={[Function]}
@@ -9050,6 +9085,7 @@ li[aria-label="Current Page"] .c60 {
                   }
                 }
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="a-atomic-masses"
                 id="testbook1-testpage9-uuid@1.0"
                 onClick={[Function]}
@@ -9070,6 +9106,7 @@ li[aria-label="Current Page"] .c60 {
                   }
                 }
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="d-glossary-of-key-symbols-and-notation"
                 id="testbook1-testpage10-uuid@1.0"
                 onClick={[Function]}
@@ -9090,6 +9127,7 @@ li[aria-label="Current Page"] .c60 {
                   }
                 }
                 data-treeid="Test Book 1"
+                data-visible={true}
                 href="test-page-for-generic-styles"
                 id="testbook1-testpage12-uuid@1.0"
                 onClick={[Function]}
