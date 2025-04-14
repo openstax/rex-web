@@ -49,7 +49,10 @@ async def test_buy_print_copy_link(chrome_page, base_url, book_slug):
     new_tab = await popup_info.value
     new_tab_content = await new_tab.content()
 
-    assert "openstax" and book_slug in new_tab_content.lower()
+    if "staging" in base_url:
+        assert "amazon.com" in new_tab_content.lower()
+    else:
+        assert "openstax" and book_slug in new_tab_content.lower()
 
 
 @pytest.mark.parametrize("book_slug", ["statistics"])
