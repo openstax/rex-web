@@ -57,7 +57,7 @@ export const TextResizer = (props: TextResizerProps) => {
       dataAnalyticsLabel='Change text size'
       {...props}
     >
-      <Styled.TextResizerMenu tabIndex={0} bookTheme={props.bookTheme} textSize={props.textSize}>
+      <Styled.TextResizerMenu tabIndex={-1} bookTheme={props.bookTheme} textSize={props.textSize}>
         <label id='text-resizer-label'><FormattedMessage id='i18n:toolbar:textresizer:popup:heading' /></label>
         <div className='controls'>
           <Styled.TextResizerChangeButton
