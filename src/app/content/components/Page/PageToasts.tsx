@@ -61,10 +61,17 @@ export const ToastContainerWrapper = styled.div`
 const PageToasts = (props: ToastProps | {}) => {
   const toasts = useSelector(groupedToastNotifications).page;
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);
+  const [toastsHidden, setToastsHidden] = React.useState(true);
+
+  // timeout so that screenreaders will pick up the toasts populating the live region
+  // https://tetralogical.com/blog/2024/05/01/why-are-my-live-regions-not-working/
+  React.useEffect(() => {
+    setTimeout(() => setToastsHidden(false), 1000);
+  }, [setToastsHidden]);
 
   return (
-    <ToastContainerWrapper role='alertdialog' {...props} mobileToolbarOpen={mobileToolbarOpen}>
-      {toasts ? <ToastNotifications toasts={toasts} /> : null}
+    <ToastContainerWrapper aria-live='polite' role='alertdialog' {...props} mobileToolbarOpen={mobileToolbarOpen}>
+      {toasts && !toastsHidden ? <ToastNotifications toasts={toasts} /> : null}
     </ToastContainerWrapper>
   );
 };
