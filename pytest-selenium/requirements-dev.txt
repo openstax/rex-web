@@ -6,7 +6,7 @@ cffi==1.15.0
 cfgv==3.3.1
 chardet==4.0.0
 chromedriver-binary==126.0.6478.62.0
-cryptography==43.0.1
+cryptography==44.0.1
 Faker==13.3.4
 identify==2.4.12
 idna==3.7 # pyup: ignore
