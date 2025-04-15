@@ -449,7 +449,8 @@ export const keyboardEventMatchesCombination = (options: KeyCombinationOptions, 
 export const useKeyCombination = (
   options: KeyCombinationOptions,
   callback: (event: KeyboardEvent) => void,
-  noopHandler?: (activeElement: Element) => boolean
+  noopHandler?: (activeElement: Element) => boolean,
+  preventDefault = true
 ) => {
   const document = assertDocument();
 
@@ -458,7 +459,7 @@ export const useKeyCombination = (
       return;
     }
     if (keyboardEventMatchesCombination(options, event)) {
-      event.preventDefault();
+      if (preventDefault) event.preventDefault();
       callback(event);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

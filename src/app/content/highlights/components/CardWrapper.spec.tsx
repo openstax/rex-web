@@ -28,7 +28,7 @@ const dispatchFocusOutEvent = (
 };
 
 const dispatchHighlightToggle = (target: HTMLElement | undefined) => {
-  dispatchKeyDownEvent({code: highlightKeyCombination.code, altKey: highlightKeyCombination.altKey, target});
+  dispatchKeyDownEvent({ code: highlightKeyCombination.code, altKey: highlightKeyCombination.altKey, target });
 };
 
 jest.mock('./Card', () => (props: any) => <span data-mock-card {...props} />);
@@ -297,52 +297,102 @@ describe('CardWrapper', () => {
     });
   });
 
+  it('handles useKeyCombination - hide/unhide cards', () => {
+    const document = assertDocument();
+    const highlight1 = createMockHighlight('id1');
+    const highlight2 = createMockHighlight('id2');
+    const highlightElement1 = document.createElement('span');
+    const highlightElement2 = document.createElement('span');
+    container.appendChild(highlightElement1);
+    container.appendChild(highlightElement2);
+    const component = renderer.create(
+      <Provider store={store}>
+        <CardWrapper
+          container={container}
+          highlights={[highlight1, highlight2]}
+        />
+      </Provider>
+    );
+
+    const cards = component.root.findAllByType(Card);
+
+    // Expect cards to be hidden
+    renderer.act(() => {
+      // Simulate pressing Escape to hide card
+      dispatchKeyDownEvent({
+        key: 'Escape',
+        target: highlightElement1,
+      });
+    });
+
+    // Expect cards to be visible again
+    renderer.act(() => {
+      // Simulate pressing Enter to unhide cards
+      dispatchKeyDownEvent({
+        key: 'Enter',
+        target: highlightElement1,
+      });
+    });
+
+    // Expect all cards to be visible
+    renderer.act(() => {
+      // Simulate pressing Tab to unhide all cards
+      dispatchKeyDownEvent({
+        key: 'Tab',
+        target: highlightElement1,
+      });
+    });
+
+    expect(cards[0].props.isHidden).toBe(false);
+    expect(cards[1].props.isHidden).toBe(false);
+  });
+
   it(
     'handles useKeyCombination - noop if trigerred in element that we dont support '
     + 'or with another key combination',
     () => {
-    const document = assertDocument();
-    const highlight = createMockHighlight();
-    const highlightElement = document.createElement('span');
-    container.appendChild(highlightElement);
+      const document = assertDocument();
+      const highlight = createMockHighlight();
+      const highlightElement = document.createElement('span');
+      container.appendChild(highlightElement);
 
-    const textarea = document.createElement('textarea');
-    container.appendChild(textarea);
+      const textarea = document.createElement('textarea');
+      container.appendChild(textarea);
 
-    const elementInsideContainer = document.createElement('div');
-    container.appendChild(elementInsideContainer);
+      const elementInsideContainer = document.createElement('div');
+      container.appendChild(elementInsideContainer);
 
-    const elementOutsideOfTheContainer = document.createElement('div');
-    document.body.appendChild(elementOutsideOfTheContainer);
+      const elementOutsideOfTheContainer = document.createElement('div');
+      document.body.appendChild(elementOutsideOfTheContainer);
 
-    const cardWrapperElement = document.createElement('div');
+      const cardWrapperElement = document.createElement('div');
 
-    store.dispatch(focusHighlight(highlight.id));
+      store.dispatch(focusHighlight(highlight.id));
 
-    const component = renderer.create(<Provider store={store}>
-      <CardWrapper container={container} highlights={[highlight]} />
-    </Provider>, { createNodeMock: () => cardWrapperElement });
+      const component = renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>, { createNodeMock: () => cardWrapperElement });
 
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      expect(card.props.shouldFocusCard).toEqual(false);
+      renderer.act(() => {
+        const card = component.root.findByType(Card);
+        expect(card.props.shouldFocusCard).toEqual(false);
+      });
+
+      renderer.act(() => {
+        dispatchHighlightToggle(textarea);
+
+        dispatchHighlightToggle(elementOutsideOfTheContainer);
+
+        dispatchKeyDownEvent({ key: 'anotherkeythatwedontsupport', target: elementInsideContainer });
+      });
+
+      renderer.act(() => {
+        const card = component.root.findByType(Card);
+        expect(card.props.shouldFocusCard).toEqual(false);
+      });
+
+      expect(highlight.focus).not.toHaveBeenCalled();
     });
-
-    renderer.act(() => {
-      dispatchHighlightToggle(textarea);
-
-      dispatchHighlightToggle(elementOutsideOfTheContainer);
-
-      dispatchKeyDownEvent({key: 'anotherkeythatwedontsupport', target: elementInsideContainer});
-    });
-
-    renderer.act(() => {
-      const card = component.root.findByType(Card);
-      expect(card.props.shouldFocusCard).toEqual(false);
-    });
-
-    expect(highlight.focus).not.toHaveBeenCalled();
-  });
 
   it('handles useKeyCombination - noop if focusedHighlight is undefined', () => {
     const document = assertDocument();
@@ -417,7 +467,7 @@ describe('CardWrapper', () => {
     expect(store.getState().content.highlights.currentPage.focused).toEqual(highlight.id);
 
     renderer.act(() => {
-      dispatchKeyDownEvent({key: highlightKeyCombination.key!, target: cardElement});
+      dispatchKeyDownEvent({ key: highlightKeyCombination.key!, target: cardElement });
     });
 
     expect(highlight.focus).not.toHaveBeenCalled();
@@ -427,7 +477,7 @@ describe('CardWrapper', () => {
     it('loads', () => {
       renderer.create(<Provider store={store}>
         <CardWrapper container={container} highlights={[]} />
-        </Provider>);
+      </Provider>);
 
       runHooks(renderer);
 

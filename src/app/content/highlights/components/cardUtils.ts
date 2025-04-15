@@ -215,3 +215,27 @@ export const noopKeyCombinationHandler = (
   if (activeElement.nodeName === 'TEXTAREA') { return true; }
   return false;
 };
+
+export const editCardVisibilityHandler = (state: Map<string, boolean>, action: { type: string; id?: string }) => {
+  switch (action.type) {
+    case 'SHOW': {
+      if (!action.id) return state;
+      const newState = new Map(state);
+      newState.set(action.id, false);
+      return newState;
+    }
+    case 'HIDE': {
+      if (!action.id) return state;
+      const updatedState = new Map(state);
+      updatedState.set(action.id, true);
+      return updatedState;
+    }
+    case 'SHOW_ALL': {
+      const allVisibleState = new Map(state);
+      allVisibleState.forEach((_, key) => allVisibleState.set(key, false));
+      return allVisibleState;
+    }
+    default:
+      return state;
+  }
+};

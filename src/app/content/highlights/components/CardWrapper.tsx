@@ -14,7 +14,7 @@ import { highlightKeyCombination } from '../constants';
 import { focused } from '../selectors';
 import Card from './Card';
 import { mainWrapperStyles } from './cardStyles';
-import { getHighlightOffset, noopKeyCombinationHandler, updateCardsPositions } from './cardUtils';
+import { editCardVisibilityHandler, getHighlightOffset, noopKeyCombinationHandler, updateCardsPositions } from './cardUtils';
 
 export interface WrapperProps {
   hasQuery: boolean;
@@ -37,6 +37,10 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
   const setNewCardsPositionsRef = React.useRef<() => void>();
+  const [isHiddenByEscape, dispatch] = React.useReducer(
+    editCardVisibilityHandler,
+    new Map(highlights.map((highlight) => [highlight.id, false]))
+  );
 
   // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -54,10 +58,29 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   }, [focusedHighlight, focusedId]);
 
+  const hideCard = () => {
+    dispatch({ type: 'HIDE', id: focusedId });
+  };
+
+  const showCard = () => {
+    dispatch({ type: 'SHOW', id: focusedId });
+  };
+
+  const showAllCards = () => {
+    dispatch({ type: 'SHOW_ALL' });
+  };
+
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
 
-  // Allow to move back to highlight from EditCard using Escape key
-  useKeyCombination({key: 'Escape'}, moveFocus);
+  // Allow to show EditCard using Enter key
+  useKeyCombination({key: 'Enter'}, showCard);
+
+  // Allow to hide EditCard using Escape key
+  useKeyCombination({key: 'Escape'}, hideCard);
+
+  // After move focus, reset visibility of all cards
+  useKeyCombination({ key: 'Tab' }, showAllCards, undefined, false);
+  useKeyCombination({ key: 'Tab', shiftKey: true }, showAllCards, undefined, false);
 
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
@@ -128,7 +151,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
           zIndex={highlights.length - index}
           shouldFocusCard={focusThisCard}
-          isHidden={checkIfHiddenByCollapsedAncestor(highlight)}
+          isHidden={checkIfHiddenByCollapsedAncestor(highlight) || isHiddenByEscape.get(highlight.id)}
+          onBlurOptional={showAllCards}
         />;
       })}
     </div>
