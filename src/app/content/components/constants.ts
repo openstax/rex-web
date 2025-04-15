@@ -48,4 +48,8 @@ export const mainContentBackground = '#fff';
 export const maxContentGutter = 6;
 export const contentWrapperMaxWidth = contentTextWidth + sidebarDesktopWidth + verticalNavbarMaxWidth;
 
+export const toastHeightRes = 4;
+export const toastHeightMediumRes = 6;
+export const toastHeightSmallRes = 8;
+
 export const defaultTheme = 'blue' as BookWithOSWebData['theme'];
