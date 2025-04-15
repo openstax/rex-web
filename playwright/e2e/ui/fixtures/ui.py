@@ -40,3 +40,23 @@ def abl_uuids_slugs():
         uuids_slugs[i["uuid"]] = i["slug"]
 
     return uuids_slugs
+
+
+@pytest.fixture
+def rex_user(request):
+    """Return a rex username"""
+    config = request.config
+    rex_user = config.getoption("rex_user") or config.getini("rex_user")
+    if rex_user is not None:
+        return rex_user
+
+
+@pytest.fixture
+def rex_password(request):
+    """Return a rex password"""
+    config = request.config
+    rex_password = config.getoption("rex_password") or config.getini(
+        "rex_password"
+    )
+    if rex_password is not None:
+        return rex_password
