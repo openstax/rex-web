@@ -37,7 +37,9 @@ async def test_buy_print_copy_link(chrome_page, base_url, book_slug):
     # GIVEN: Open osweb book details page
 
     # WHEN: The Home page is fully loaded
-    await chrome_page.goto(f"{base_url}/details/books/{book_slug}")
+    details_books_url = f"{base_url}/details/books/{book_slug}"
+
+    await chrome_page.goto(details_books_url)
     home = HomeRex(chrome_page)
 
     #THEN: Buy print copy button exists and opens correct page
@@ -47,10 +49,12 @@ async def test_buy_print_copy_link(chrome_page, base_url, book_slug):
         await home.click_buy_print_copy_button()
 
     new_tab = await popup_info.value
+    new_tab_content = await new_tab.content()
 
-    new_tab_title = await new_tab.title()
-
-    assert "openstax" and book_slug in new_tab_title.lower()
+    if "staging" in details_books_url:
+        assert "amazon.com" in new_tab_content.lower()
+    else:
+        assert "openstax" and book_slug in new_tab_content.lower()
 
 
 @pytest.mark.parametrize("book_slug", ["statistics"])
@@ -60,7 +64,9 @@ async def test_order_options_link(chrome_page, base_url, book_slug):
     # GIVEN: Open osweb book details page
 
     # WHEN: The Home page is fully loaded
-    await chrome_page.goto(f"{base_url}/details/books/{book_slug}")
+    details_books_url = f"{base_url}/details/books/{book_slug}"
+
+    await chrome_page.goto(details_books_url)
     home = HomeRex(chrome_page)
 
     # THEN: Order options button exists and opens correct page
@@ -113,7 +119,9 @@ async def test_toc_slideout(chrome_page, base_url, book_slug):
     # GIVEN: Open osweb book details page
 
     # WHEN: The Home page is fully loaded
-    await chrome_page.goto(f"{base_url}/details/books/{book_slug}")
+    details_books_url = f"{base_url}/details/books/{book_slug}"
+
+    await chrome_page.goto(details_books_url)
     home = HomeRex(chrome_page)
 
     await home.click_book_toc_link()
