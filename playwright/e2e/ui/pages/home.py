@@ -177,16 +177,6 @@ class HomeRex:
     def highlights_option_page_is_empty(self):
         return self.page.locator("div").get_by_test_id("show-myhighlights-body")
 
-    # Highlight box
-
-    @property
-    def highlight_box_trash_icon_is_visible(self):
-        return self.page.locator("div.sc-cIShpX.kepmsY > div > div > form > div > div > button")
-
-    @pytest.mark.asyncio
-    async def click_highlight_box_trash_icon(self):
-        await self.highlight_box_trash_icon_is_visible.click()
-
     # Print and Attribution
 
     @property
@@ -421,7 +411,15 @@ class HomeRex:
     async def close_cookies_info_dialog(self):
         await self.cookies_info_dialog_is_visible.click()
 
-    # Highlighting
+    # Highlight box and highlighting
+
+    @property
+    def highlight_box_trash_icon_is_visible(self):
+        return self.page.locator("div.sc-cIShpX.kepmsY > div > div > form > div > div > button")
+
+    @pytest.mark.asyncio
+    async def click_highlight_box_trash_icon(self):
+        await self.highlight_box_trash_icon_is_visible.click()
 
     @pytest.mark.asyncio
     async def highlight_box_is_visible(self):
