@@ -1644,7 +1644,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
       <div
         className="c20"
-        tabIndex={-1}
       >
         <label
           id="text-resizer-label"
