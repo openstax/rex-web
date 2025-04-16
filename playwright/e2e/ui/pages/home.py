@@ -496,3 +496,21 @@ class HomeRex:
     @property
     def overlapping_highlights_message_is_visible(self):
         return self.page.locator("div").get_by_test_id('banner-body')
+
+    # Error states and pages
+
+    @property
+    def subjects_error_page_is_visible(self):
+        return self.page.locator("h1").get_by_text('Subject not found')
+
+    @pytest.mark.asyncio
+    async def click_view_all_subjects_link(self):
+        await self.page.locator("a").get_by_text('View all').click()
+
+    @property
+    def incorrect_page_error_is_visible(self):
+        return self.page.locator("main > div").get_by_text("Uh-oh, no page here")
+
+    @property
+    def incorrect_page_error_text(self):
+        return self.page.locator("main > div > p")
