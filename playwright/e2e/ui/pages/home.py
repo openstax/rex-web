@@ -378,6 +378,10 @@ class HomeRex:
         await self.page.locator("a").get_by_text("Log in").click()
 
     @pytest.mark.asyncio
+    async def click_login_other(self):
+        await self.page.get_by_role("menuitem").get_by_text("Log in").click()
+
+    @pytest.mark.asyncio
     async def fill_user_field(self, value):
         await self.page.locator("id=login_form_email").fill(value)
 
@@ -388,6 +392,18 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_continue_login(self):
         await self.page.locator("input.primary").get_by_text("Continue").click()
+
+    @property
+    def logged_in_user_dropdown_is_visible(self):
+        return self.page.locator("div").get_by_test_id('user-nav-toggle')
+
+    @pytest.mark.asyncio
+    async def click_logged_in_user_dropdown(self):
+        await self.logged_in_user_dropdown_is_visible.click()
+
+    @property
+    def logout_link_is_visible(self):
+        return self.page.get_by_role("menuitem", name="Log out")
 
     # Book chapter section
 
