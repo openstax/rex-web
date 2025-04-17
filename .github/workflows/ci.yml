@@ -46,6 +46,24 @@ jobs:
         echo "url=$(./script/get-review-environment.bash)" >> $GITHUB_OUTPUT
       shell: bash
 
+  playwright-python:
+    name: playwright
+    runs-on: ubuntu-22.04
+    container: python:3.11
+    needs: setup
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip' # caching pip dependencies
+    - run: pip install -r requirements.txt
+    - run: playwright install chromium --with-deps
+    - env:
+        TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+        TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      run: pytest --tb=long --showlocals --base-url="${BASE_URL:-https://staging.openstax.org}" --rex_user $TEST_USER_EMAIL --rex_password $TEST_USER_PASSWORD -vvv e2e
+
   scan-books:
     name: Scan
     runs-on: ubuntu-latest
