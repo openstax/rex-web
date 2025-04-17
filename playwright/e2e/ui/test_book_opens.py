@@ -13,9 +13,6 @@ async def test_book_opens(chrome_page, base_url):
     await chrome_page.goto(f"{base_url}/subjects/business")
     home = HomeRex(chrome_page)
 
-    if home.cookies_accept_is_visible:
-        await home.click_cookies_accept()
-
     await home.click_book_cover_link()
 
     #THEN: Book details page opens

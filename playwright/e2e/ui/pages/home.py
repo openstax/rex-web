@@ -108,6 +108,18 @@ class HomeRex:
     async def click_book_contents_sidebar_option(self):
         await self.book_contents_is_visible.click()
 
+    @property
+    def resources_tabs_are_visible(self):
+        return self.page.locator("div.tabs-and-extras")
+
+    @pytest.mark.asyncio
+    async def click_instructor_resources_tab(self):
+        await self.page.locator("id=Instructor resources-tab").click()
+
+    @pytest.mark.asyncio
+    async def click_student_resources_tab(self):
+        await self.page.locator("id=Student resources-tab").click()
+
     # My Highlights and Notes
 
     @property
@@ -366,6 +378,10 @@ class HomeRex:
         await self.page.locator("a").get_by_text("Log in").click()
 
     @pytest.mark.asyncio
+    async def click_login_other(self):
+        await self.page.get_by_role("menuitem").get_by_text("Log in").click()
+
+    @pytest.mark.asyncio
     async def fill_user_field(self, value):
         await self.page.locator("id=login_form_email").fill(value)
 
@@ -376,6 +392,18 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_continue_login(self):
         await self.page.locator("input.primary").get_by_text("Continue").click()
+
+    @property
+    def logged_in_user_dropdown_is_visible(self):
+        return self.page.locator("div").get_by_test_id('user-nav-toggle')
+
+    @pytest.mark.asyncio
+    async def click_logged_in_user_dropdown(self):
+        await self.logged_in_user_dropdown_is_visible.click()
+
+    @property
+    def logout_link_is_visible(self):
+        return self.page.get_by_role("menuitem", name="Log out")
 
     # Book chapter section
 
@@ -496,3 +524,21 @@ class HomeRex:
     @property
     def overlapping_highlights_message_is_visible(self):
         return self.page.locator("div").get_by_test_id('banner-body')
+
+    # Error states and pages
+
+    @property
+    def subjects_error_page_is_visible(self):
+        return self.page.locator("h1").get_by_text('Subject not found')
+
+    @pytest.mark.asyncio
+    async def click_view_all_subjects_link(self):
+        await self.page.locator("a").get_by_text('View all').click()
+
+    @property
+    def incorrect_page_error_is_visible(self):
+        return self.page.locator("main > div").get_by_text("Uh-oh, no page here")
+
+    @property
+    def incorrect_page_error_text(self):
+        return self.page.locator("main > div > p")

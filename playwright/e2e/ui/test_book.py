@@ -130,3 +130,27 @@ async def test_toc_slideout(chrome_page, base_url, book_slug):
 
     # THEN: Book TOC slideout opens
     assert "Chapter" and "Index" in book_toc_content
+
+
+@pytest.mark.parametrize("book_slug", ["chemistry"])
+@pytest.mark.asyncio
+async def test_resources_tabs(chrome_page, base_url, book_slug):
+
+    # GIVEN: Open osweb book details page
+
+    # WHEN: The Home page is fully loaded
+    details_books_url = f"{base_url}/details/books/{book_slug}"
+
+    await chrome_page.goto(details_books_url)
+    home = HomeRex(chrome_page)
+
+    # THEN: Resources tabs are visible and clickable
+    assert home.resources_tabs_are_visible
+
+    await home.click_instructor_resources_tab()
+
+    assert "Instructor" in chrome_page.url
+
+    await home.click_student_resources_tab()
+
+    assert "Student" in chrome_page.url

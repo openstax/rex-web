@@ -1,5 +1,4 @@
 import pytest
-import random
 
 from e2e.ui.pages.home import HomeRex
 
