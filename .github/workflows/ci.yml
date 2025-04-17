@@ -46,6 +46,24 @@ jobs:
         echo "url=$(./script/get-review-environment.bash)" >> $GITHUB_OUTPUT
       shell: bash
 
+  selenium:
+    name: Selenium
+    runs-on: ubuntu-latest
+    container: python:3.10
+    needs: setup
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - env:
+        BROWSER: 'Chrome'
+        MARKER: 'smoke_test'
+        BASE_URL: ${{ needs.setup.outputs.deployment-url }}
+        SAUCELABS_USERNAME: ${{ secrets.saucelabs_username }}
+        SAUCELABS_API_KEY: ${{ secrets.saucelabs_api_key }}
+        SECURE_STORE_PASSWORD: ${{ secrets.secure_store_password }}
+      run: make sauce
+
   scan-books:
     name: Scan
     runs-on: ubuntu-latest
