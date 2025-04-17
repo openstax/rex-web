@@ -53,8 +53,6 @@ jobs:
     needs: setup
     steps:
     - uses: actions/checkout@v4
-      with:
-        cache: 'pip' # caching pip dependencies
     - run: pip install -r requirements.txt
     - run: playwright install chromium --with-deps
     - env:
