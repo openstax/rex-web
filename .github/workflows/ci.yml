@@ -53,8 +53,8 @@ jobs:
     needs: setup
     steps:
     - uses: actions/checkout@v4
-    - run: playwright install chromium --with-deps
     - env:
+        BASE_URL: ${{ github.event.inputs.base_url }}
         TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
         TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
       run: pytest --tb=long --showlocals --base-url="${BASE_URL:-https://staging.openstax.org}" --rex_user $TEST_USER_EMAIL --rex_password $TEST_USER_PASSWORD -vvv e2e
