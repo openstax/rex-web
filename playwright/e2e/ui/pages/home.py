@@ -108,6 +108,18 @@ class HomeRex:
     async def click_book_contents_sidebar_option(self):
         await self.book_contents_is_visible.click()
 
+    @property
+    def resources_tabs_are_visible(self):
+        return self.page.locator("div.tabs-and-extras")
+
+    @pytest.mark.asyncio
+    async def click_instructor_resources_tab(self):
+        await self.page.locator("id=Instructor resources-tab").click()
+
+    @pytest.mark.asyncio
+    async def click_student_resources_tab(self):
+        await self.page.locator("id=Student resources-tab").click()
+
     # My Highlights and Notes
 
     @property
