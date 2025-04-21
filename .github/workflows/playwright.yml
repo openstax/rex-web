@@ -7,22 +7,6 @@ defaults:
     working-directory: playwright
 
 jobs:
-  playwright-typescript:
-    runs-on: ubuntu-22.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version-file: '.nvmrc'
-        cache: 'npm'
-      env:
-        BASE_URL: ${{ github.event.inputs.base_url }}
-    - run: npm ci
-    - run: npx playwright install-deps
-    - run: npx playwright install
-    - run: npm run test
-
   playwright-python:
     runs-on: ubuntu-22.04
     env:
