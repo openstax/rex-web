@@ -46,20 +46,6 @@ describe('SearchResultsSidebar', () => {
     await finishRender(page);
   };
 
-  it('clears search input without affecting search results sidebar', async() => {
-    await setup();
-    await openAndTriggerSearchDesktop(workingSearchText);
-    await clearSearchInputDesktop();
-
-    expect(await page.waitForSelector(searchSidebarSelector, { visible: true })).toBeTruthy();
-
-    const searchInput = await page.$(selectSearchInputDesktop);
-    if (searchInput) {
-      const inputValue = await (await searchInput.getProperty('value')).jsonValue();
-      expect(inputValue).toBe('');
-    }
-  });
-
   it('closes the search results sidebar without affecting search input', async() => {
     await setup();
     await openAndTriggerSearchDesktop(workingSearchText);
@@ -71,6 +57,20 @@ describe('SearchResultsSidebar', () => {
     if (searchInput) {
       const inputValue = await (await searchInput.getProperty('value')).jsonValue();
       expect(await inputValue).toBe('moon');
+    }
+  });
+
+  it('clears search input without affecting search results sidebar', async() => {
+    await setup();
+    await openAndTriggerSearchDesktop(workingSearchText);
+    await clearSearchInputDesktop();
+
+    expect(await page.waitForSelector(searchSidebarSelector, { visible: true })).toBeTruthy();
+
+    const searchInput = await page.$(selectSearchInputDesktop);
+    if (searchInput) {
+      const inputValue = await (await searchInput.getProperty('value')).jsonValue();
+      expect(inputValue).toBe('');
     }
   });
 });
