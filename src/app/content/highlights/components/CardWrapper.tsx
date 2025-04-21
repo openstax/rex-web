@@ -72,11 +72,14 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
 
-  // Allow to show EditCard using Enter key
-  useKeyCombination({key: 'Enter'}, showCard);
+  /*
+  * Allow to show EditCard using Enter key
+  * It is important to preserve the default behavior of Enter key
+  */
+  useKeyCombination({key: 'Enter'}, showCard, undefined, false);
 
   // Allow to hide EditCard using Escape key
-  useKeyCombination({key: 'Escape'}, hideCard);
+  useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
 
   // After move focus, reset visibility of all cards
   useKeyCombination({ key: 'Tab' }, showAllCards, undefined, false);
