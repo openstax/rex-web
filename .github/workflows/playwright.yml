@@ -7,22 +7,6 @@ defaults:
     working-directory: playwright
 
 jobs:
-  playwright-typescript:
-    runs-on: ubuntu-22.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version-file: '.nvmrc'
-        cache: 'npm'
-      env:
-        BASE_URL: ${{ github.event.inputs.base_url }}
-    - run: npm ci
-    - run: npx playwright install-deps
-    - run: npx playwright install
-    - run: npm run test
-
   playwright-python:
     runs-on: ubuntu-22.04
     env:
@@ -35,4 +19,7 @@ jobs:
         cache: 'pip' # caching pip dependencies
     - run: pip install -r requirements.txt
     - run: playwright install chromium --with-deps
-    - run: pytest --tb=long --showlocals --base-url="${BASE_URL:-https://staging.openstax.org}" -vvv e2e
+    - env:
+        TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+        TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      run: pytest --tb=long --showlocals --base-url="${BASE_URL:-https://staging.openstax.org}" --rex_user $TEST_USER_EMAIL --rex_password $TEST_USER_PASSWORD -vvv e2e

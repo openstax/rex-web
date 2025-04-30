@@ -101,8 +101,95 @@ class HomeRex:
         await self.go_to_your_book_link.click()
 
     @property
+    def book_contents_is_visible(self):
+        return self.page.locator("div").get_by_test_id("toolbar").get_by_label("Click to close the Table of")
+
+    @pytest.mark.asyncio
+    async def click_book_contents_sidebar_option(self):
+        await self.book_contents_is_visible.click()
+
+    @property
+    def resources_tabs_are_visible(self):
+        return self.page.locator("div.tabs-and-extras")
+
+    @pytest.mark.asyncio
+    async def click_instructor_resources_tab(self):
+        await self.page.locator("id=Instructor resources-tab").click()
+
+    @pytest.mark.asyncio
+    async def click_student_resources_tab(self):
+        await self.page.locator("id=Student resources-tab").click()
+
+    # My Highlights and Notes
+
+    @property
     def highlights_option_is_visible(self):
-        return self.page.locator("nudge-study-tools > button").get_by_text("Highlights")
+        return self.page.locator("#nudge-study-tools > button")
+
+    @pytest.mark.asyncio
+    async def click_highlights_option(self):
+        await self.highlights_option_is_visible.click()
+
+    @property
+    def highlights_option_page_is_visible(self):
+        return self.page.locator("div").get_by_test_id("show-myhighlights-body")
+
+    @property
+    def highlights_option_page_menu_is_visible(self):
+        return self.page.locator(".ContextMenu__StyledContextMenu-a36hp5-0 > "
+                                 ".Dropdown__TabHiddenDropDown-rmc6yw-1 > .Button__PlainButton-ayg7nk-2").first
+
+    @pytest.mark.asyncio
+    async def click_highlights_option_page_menu(self):
+        await self.highlights_option_page_menu_is_visible.click()
+
+    @property
+    def highlights_option_page_menu_edit_is_visible(self):
+        return self.page.locator(
+            "li").get_by_role("button", name="Edit")
+
+    @pytest.mark.asyncio
+    async def click_highlights_option_page_menu_edit(self):
+        await self.highlights_option_page_menu_edit_is_visible.click()
+
+    @property
+    def highlights_option_page_menu_edit_note_field_is_visible(self):
+        return self.page.locator("div.HighlightAnnotation__HighlightNote-ppiq8t-0.kkNpZF > textarea")
+
+    @pytest.mark.asyncio
+    async def fill_highlights_option_edit_note_field(self, value):
+        await self.highlights_option_page_menu_edit_note_field_is_visible.fill(value)
+
+    @property
+    def highlights_option_page_menu_edit_save_is_visible(self):
+        return self.page.locator("div").get_by_role("button", name="Save")
+
+    @pytest.mark.asyncio
+    async def click_highlights_option_edit_save_button(self):
+        await self.highlights_option_page_menu_edit_save_is_visible.click()
+
+    @property
+    def highlights_option_page_menu_delete_is_visible(self):
+        return self.page.locator(
+            "li").get_by_role("button", name="Delete")
+
+    @pytest.mark.asyncio
+    async def click_highlights_option_page_menu_delete(self):
+        await self.highlights_option_page_menu_delete_is_visible.click()
+
+    @property
+    def highlights_option_page_menu_delete_delete_is_visible(self):
+        return self.page.locator("div").get_by_test_id("delete")
+
+    @pytest.mark.asyncio
+    async def click_highlights_option_page_menu_delete_delete(self):
+        await self.highlights_option_page_menu_delete_delete_is_visible.click()
+
+    @property
+    def highlights_option_page_is_empty(self):
+        return self.page.locator("div").get_by_test_id("show-myhighlights-body")
+
+    # Print and Attribution
 
     @property
     def order_a_print_copy_link_is_visible(self):
@@ -283,3 +370,175 @@ class HomeRex:
     @property
     def accessibility_help_content(self):
         return self.page.locator("#maincontent > div")
+
+    # Login
+
+    @pytest.mark.asyncio
+    async def click_login(self):
+        await self.page.locator("a").get_by_text("Log in").click()
+
+    @pytest.mark.asyncio
+    async def click_login_other(self):
+        await self.page.get_by_role("menuitem").get_by_text("Log in").click()
+
+    @pytest.mark.asyncio
+    async def fill_user_field(self, value):
+        await self.page.locator("id=login_form_email").fill(value)
+
+    @pytest.mark.asyncio
+    async def fill_password_field(self, value):
+        await self.page.locator("id=login_form_password").fill(value)
+
+    @pytest.mark.asyncio
+    async def click_continue_login(self):
+        await self.page.locator("input.primary").get_by_text("Continue").click()
+
+    @property
+    def logged_in_user_dropdown_is_visible(self):
+        return self.page.locator("div").get_by_test_id('user-nav-toggle')
+
+    @pytest.mark.asyncio
+    async def click_logged_in_user_dropdown(self):
+        await self.logged_in_user_dropdown_is_visible.click()
+
+    @property
+    def logout_link_is_visible(self):
+        return self.page.get_by_role("menuitem", name="Log out")
+
+    # Book chapter section
+
+    @pytest.mark.asyncio
+    async def double_click_text(self):
+        await self.page.locator("p#eip-342").dblclick()
+
+    @property
+    def select_text_locator(self):
+        return self.page.locator("p:has-text('impact history')")
+
+    @pytest.mark.asyncio
+    async def click_other_text(self):
+        await self.page.locator("#fs-id1170323854379").click()
+
+    @pytest.mark.asyncio
+    async def select_text(self):
+        await self.select_text_locator.select_text()
+
+    @property
+    def survey_dialog_is_visible(self):
+        return self.page.locator("div._pi_closeButton")
+
+    @pytest.mark.asyncio
+    async def close_survey_dialog(self):
+        await self.survey_dialog_is_visible.click()
+
+    @property
+    def cookies_info_dialog_is_visible(self):
+        return self.page.locator("div > button").get_by_text("Got it!")
+
+    @pytest.mark.asyncio
+    async def close_cookies_info_dialog(self):
+        await self.cookies_info_dialog_is_visible.click()
+
+    # Highlight box and highlighting
+
+    @property
+    def highlight_box_trash_icon_is_visible(self):
+        return self.page.locator("div.sc-cIShpX.kepmsY > div > div > form > div > div > button")
+
+    @pytest.mark.asyncio
+    async def click_highlight_box_trash_icon(self):
+        await self.highlight_box_trash_icon_is_visible.click()
+
+    @pytest.mark.asyncio
+    async def highlight_box_is_visible(self):
+        return await self.page.locator("id=note-textarea").all()
+
+    @property
+    def highlight_box_note_field_is_visible(self):
+        return self.page.locator("id=note-textarea")
+
+    @pytest.mark.asyncio
+    async def click_highlight_box_note_field(self):
+        await self.highlight_box_note_field_is_visible.click()
+
+    @pytest.mark.asyncio
+    async def fill_highlight_box_note_field(self, value):
+        await self.highlight_box_note_field_is_visible.fill(value)
+
+    @property
+    def highlight_box_colours_are_visible(self):
+        return self.page.locator("div > fieldset")
+
+    @pytest.mark.asyncio
+    async def click_highlight_box_purple_colour(self):
+        await self.page.locator("div").get_by_title("purple").first.click()
+
+    @pytest.mark.asyncio
+    async def click_highlights_option_green_colour(self):
+        await self.page.locator("div").get_by_title("green").first.click()
+
+    @pytest.mark.asyncio
+    async def highlights_option_text_colour_is_purple(self):
+        return await self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS").all()
+
+    @property
+    def highlights_option_text_colour_purple(self):
+        return self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS")
+
+    @property
+    def highlights_option_text_colour_green(self):
+        return self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.kuxHtj")
+
+    @property
+    def highlights_option_text_colour_check_purple(self):
+        return self.highlights_option_text_colour_purple.get_attribute("color")
+
+    @property
+    def highlights_option_text_colour_check_green(self):
+        return self.highlights_option_text_colour_green.get_attribute("color")
+
+    @pytest.mark.asyncio
+    async def small_highlighted_note_box_is_visible(self):
+        return await self.page.locator("div.sc-cIShpX.kepmsY > div > div > div").all()
+
+    @pytest.mark.asyncio
+    async def click_small_highlight_box_dropdown(self):
+        await self.page.locator("div.sc-cIShpX.kepmsY > div > div > div > button").click()
+
+    @pytest.mark.asyncio
+    async def click_small_highlight_box_delete_button(self):
+        await self.page.locator("div > menu").get_by_text("Delete").click()
+
+    @pytest.mark.asyncio
+    async def click_delete_highlight_button(self):
+        await self.page.locator("div").get_by_test_id('confirm').click()
+
+    @pytest.mark.asyncio
+    async def yellow_highlighted_text_is_visible(self):
+        return await self.page.locator("mark > span:nth-child(1)").all()
+
+    @pytest.mark.asyncio
+    async def click_highlight_box_save_button(self):
+        await self.page.locator("button.Button-ayg7nk-0.fROpYk").click()
+
+    @property
+    def overlapping_highlights_message_is_visible(self):
+        return self.page.locator("div").get_by_test_id('banner-body')
+
+    # Error states and pages
+
+    @property
+    def subjects_error_page_is_visible(self):
+        return self.page.locator("h1").get_by_text('Subject not found')
+
+    @pytest.mark.asyncio
+    async def click_view_all_subjects_link(self):
+        await self.page.locator("a").get_by_text('View all').click()
+
+    @property
+    def incorrect_page_error_is_visible(self):
+        return self.page.locator("main > div").get_by_text("Uh-oh, no page here")
+
+    @property
+    def incorrect_page_error_text(self):
+        return self.page.locator("main > div > p")
