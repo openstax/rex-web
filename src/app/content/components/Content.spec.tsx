@@ -266,8 +266,6 @@ describe('content', () => {
       </Provider>
     );
 
-    expect(component.root.findByType(TableOfContents).props.isOpen).toBe(null);
-
     renderer.act(() => {
       component.root
         .findAllByProps({

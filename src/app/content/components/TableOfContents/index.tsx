@@ -7,7 +7,7 @@ import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
-import { ArchiveTree, Book, LinkedArchiveTreeSection, Page, State } from '../../types';
+import { ArchiveTree, Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page, State } from '../../types';
 import { archiveTreeContainsNode, getArchiveTreeSectionType, splitTitleParts } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -69,7 +69,7 @@ const SidebarBody = React.forwardRef<
   React.useEffect(
     () => {
       const firstItemInToc = mRef?.current?.querySelector(
-        'ol > li a, old > li summary'
+        ' div > div a, div > div div span'
       ) as HTMLElement;
       const el = mRef.current;
       const transitionListener = () => {
@@ -117,40 +117,76 @@ function TocHeader() {
   );
 }
 
-function TocNode({
-  defaultOpen,
+function TocToggle({
   title,
-  children,
-}: React.PropsWithChildren<{ defaultOpen: boolean; title: string }>) {
+}: { title: string }) {
   return (
-    <Styled.NavDetails {...(defaultOpen ? {defaultOpen} : {})}>
-      <Styled.Summary>
-        <Styled.SummaryWrapper>
-          <Styled.ExpandIcon/>
-          <Styled.CollapseIcon/>
-          <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: title}}/>
-        </Styled.SummaryWrapper>
-      </Styled.Summary>
-        {children}
-    </Styled.NavDetails>
+    // TreeItemContent does not render a DOM node
+    <Styled.StyledTreeItemContent>
+      <Styled.SummaryWrapper>
+        <Styled.ExpandIcon />
+        <Styled.CollapseIcon />
+        <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
+      </Styled.SummaryWrapper>
+    </Styled.StyledTreeItemContent>
   );
 }
 
+function shouldBeOpen(page: Page | undefined, node: ArchiveTree) {
+  return Boolean(page && archiveTreeContainsNode(node, page.id));
+}
 
-function maybeAriaLabel(page: LinkedArchiveTreeSection) {
+function ArchiveTreeComponent({
+  item,
+  book,
+  page,
+  activeSection,
+  onNavigate,
+  expandedKeys,
+}: {
+  item: LinkedArchiveTree;
+  book: Book | undefined;
+  page: Page | undefined;
+  activeSection: React.RefObject<HTMLElement>;
+  onNavigate: () => void;
+  expandedKeys: Set<string>;
+}) {
+
+  if (shouldBeOpen(page, item)) { 
+    expandedKeys.add(item.id);
+  }
+
+  return (
+    <>
+      <TocToggle title={item.title} />
+      <TocSection
+        book={book}
+        page={page}
+        section={item}
+        activeSection={activeSection}
+        onNavigate={onNavigate}
+        expandedKeys={expandedKeys}
+      />
+    </>
+  );
+}
+
+function maybeAriaLabel(page: LinkedArchiveTreeSection, active?: boolean) {
   const [num, titleText] = splitTitleParts(page.title);
-
+  const currentPageAriaLabel = { 'aria-label': 'Current Page'};
   if (num) {
-    return {};
+    return active ? currentPageAriaLabel: {};
   }
 
   const [parentNum, parentTitleText] = splitTitleParts(page.parent.title);
 
   if (!parentNum || titleText.includes(parentTitleText)) {
-    return {};
+    return active ? currentPageAriaLabel: {};
   }
 
-  return {'aria-label': `${titleText} - Chapter ${parentNum}`};
+  const activeAriaLabel = active ? '- Current Page' : '';
+
+  return { 'aria-label': `${titleText} - Chapter ${parentNum} ${activeAriaLabel}` };
 }
 
 function TocSection({
@@ -159,54 +195,70 @@ function TocSection({
   section,
   activeSection,
   onNavigate,
+  expandedKeys,
 }: {
   book: Book | undefined;
   page: Page | undefined;
   section: ArchiveTree;
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
+  expandedKeys: Set<string>;
 }) {
   return (
-    <Styled.NavOl section={section}>
+    <>
       {linkContents(section).map((item) => {
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
 
-        return isArchiveTree(item)
-        ? <Styled.NavItem key={item.id} sectionType={sectionType}>
-            <TocNode defaultOpen={shouldBeOpen(page, item)} title={item.title}>
-                <TocSection
-                  book={book} page={page} section={item} activeSection={activeSection}
-                  onNavigate={onNavigate}
+        return (
+          <Styled.StyledTreeItem
+            section={section}
+            id={item.id}
+            key={item.id}
+            textValue={item.title}
+            onClick={()=> expandedKeys.delete(item.id)}
+          >
+            {isArchiveTree(item)
+              ?
+              <ArchiveTreeComponent
+                item={item}
+                book={book}
+                page={page}
+                activeSection={activeSection}
+                onNavigate={onNavigate}
+                expandedKeys={expandedKeys}
+              />
+              : <Styled.NavItem
+                data-type={sectionType}
+                ref={active ? activeSection : null}
+                textValue={item.title}
+              >
+                <Styled.ContentLink
+                  onClick={onNavigate}
+                  book={book}
+                  page={item}
+                  dangerouslySetInnerHTML={{ __html: item.title }}
+                  {...maybeAriaLabel(item, active)}
                 />
-            </TocNode>
-          </Styled.NavItem>
-        : <Styled.NavItem
-          key={item.id}
-          sectionType={sectionType}
-          ref={active ? activeSection : null}
-          active={active}
-        >
-          <Styled.ContentLink
-            onClick={onNavigate}
-            book={book}
-            page={item}
-            dangerouslySetInnerHTML={{__html: item.title}}
-            {...maybeAriaLabel(item)}
-          />
-        </Styled.NavItem>;
+              </Styled.NavItem>}
+          </Styled.StyledTreeItem>
+        );
       })}
-    </Styled.NavOl>
+    </>
   );
 }
 
-function shouldBeOpen(page: Page | undefined, node: ArchiveTree) {
-  return Boolean(page && archiveTreeContainsNode(node, page.id));
-}
-
-export class TableOfContents extends Component<SidebarProps> {
+export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set<string> }> {
   public sidebar = React.createRef<HTMLElement>();
   public activeSection = React.createRef<HTMLElement>();
+
+  constructor(props: SidebarProps) {
+    super(props);
+    this.state = {
+      expandedKeys: new Set(),
+    };
+    this.handleExpandedChange = this.handleExpandedChange.bind(this);
+  }
 
   public render() {
     const { isOpen, book } = this.props;
@@ -215,27 +267,38 @@ export class TableOfContents extends Component<SidebarProps> {
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
         <TocHeader />
         {book && (
-          <TocSection
-            book={book}
-            page={this.props.page}
-            section={book.tree}
-            activeSection={this.activeSection}
-            onNavigate={this.props.onNavigate}
-          />
+          <Styled.StyledTree 
+            aria-label="Table of Contents"
+            expandedKeys={this.state.expandedKeys}
+            onExpandedChange={this.handleExpandedChange}
+          >
+            <TocSection
+              book={book}
+              page={this.props.page}
+              section={book.tree}
+              activeSection={this.activeSection}
+              onNavigate={this.props.onNavigate}
+              expandedKeys={this.state.expandedKeys}
+            />
+          </Styled.StyledTree >
         )}
       </SidebarBody>
     );
+  }
+
+  handleExpandedChange(expandedKeys: Set<string>) {
+    this.setState({ expandedKeys });
   }
 
   public componentDidMount() {
     this.scrollToSelectedPage();
     const sidebar = this.sidebar.current;
 
-    if (!sidebar || typeof(window) === 'undefined') {
+    if (!sidebar || typeof (window) === 'undefined') {
       return;
     }
 
-    const {callback, deregister} = setSidebarHeight(sidebar, window);
+    const { callback, deregister } = setSidebarHeight(sidebar, window);
     callback();
     this.deregister = deregister;
   }
