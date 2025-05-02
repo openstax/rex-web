@@ -66,7 +66,7 @@ class HomeRex:
 
     @property
     def book_toc_slideout_is_visible(self):
-        return self.page.locator("div.toc-slideout-contents")
+        return self.page.get_by_test_id("toc")
 
     @property
     def book_link(self):
@@ -542,3 +542,37 @@ class HomeRex:
     @property
     def incorrect_page_error_text(self):
         return self.page.locator("main > div > p")
+
+    # Content search
+
+    @property
+    def content_search_field_is_visible(self):
+        return self.page.get_by_test_id("desktop-search-input")
+
+    @pytest.mark.asyncio
+    async def click_search(self):
+        await self.content_search_field_is_visible.click()
+
+    @pytest.mark.asyncio
+    async def click_search_icon(self):
+        await self.page.get_by_title("Search").click()
+
+    @pytest.mark.asyncio
+    async def fill_search_field(self, value):
+        await self.content_search_field_is_visible.fill(value)
+
+    @property
+    def search_result_is_visible(self):
+        return self.page.get_by_test_id("search-results-sidebar")
+
+    @pytest.mark.asyncio
+    async def close_unsuccessful_search_result_sidebar(self):
+        await self.page.locator("div.styled__SearchResultsBar-as3fh1-4.hpndbT > div > h2 > div > button").click()
+
+    @pytest.mark.asyncio
+    async def close_successful_search_result_sidebar(self):
+        await self.page.get_by_test_id("close-search").click()
+
+    @pytest.mark.asyncio
+    async def click_first_search_result(self):
+        await self.page.locator("details > ol > li > a:nth-child(2)").first.click()
