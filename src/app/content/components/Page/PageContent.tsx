@@ -166,6 +166,23 @@ export default styled(MainContent)`
     margin-bottom: 5px; /* fix double scrollbar bug */
   }
 
+@media screen {
+[data-type="media"] {
+    flex-direction: column;
+    ${theme.breakpoints.mobile(css`
+      &::after {
+        content: 'Tap to expand image';
+        display: block;
+        background-color: #F1F1F1;
+        border: 1px solid #D5D5D5;
+        text-align: center;
+        font-size: 1rem;
+        color: #424242;
+      }
+    `)}
+  }
+}
+
   #${MAIN_CONTENT_ID} * {
     overflow: initial; /* rex styles default to overflow hidden, breaks content */
   }
