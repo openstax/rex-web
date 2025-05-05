@@ -1,5 +1,6 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
+import type { ReactNode } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
@@ -22,14 +23,19 @@ import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scroll
 import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 import isEqual from 'lodash/fp/isEqual';
+import MediaModal from './MediaModal';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
 }
+interface PageComponentState {
+  isModalOpen: boolean;
+  modalContent: ReactNode;
+}
 
 const parser = new DOMParser();
 
-export default class PageComponent extends Component<PagePropTypes> {
+export default class PageComponent extends Component<PagePropTypes, PageComponentState> {
   public container = React.createRef<HTMLDivElement>();
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
@@ -37,6 +43,18 @@ export default class PageComponent extends Component<PagePropTypes> {
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
+  state: PageComponentState = {
+    isModalOpen: false,
+    modalContent: null
+  };
+
+
+  private closeMediaModal = () => {
+    this.setState({
+      isModalOpen: false,
+      modalContent: null
+    });
+  };
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
@@ -166,6 +184,12 @@ export default class PageComponent extends Component<PagePropTypes> {
     const html = this.getTransformedContent() || this.getPrerenderedContent();
 
     return <React.Fragment>
+      <MediaModal
+        isOpen={this.state.isModalOpen}
+        onClose={this.closeMediaModal}
+      >
+        {this.state.modalContent}
+      </MediaModal>
       <PageContent
         key='main-content'
         book={this.props.book}
@@ -211,6 +235,21 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   private listenersOn() {
     this.listenersOff();
+    if (this.container.current) {
+      const media = this.container.current.querySelectorAll('[data-type="media"]');
+      media.forEach((media) => {
+        const onMediaClick = () => {
+          if (typeof window !== 'undefined' && window.matchMedia(`(max-width: 1200px)`).matches) {
+            this.setState({
+              isModalOpen: true,
+              modalContent: <div dangerouslySetInnerHTML={{ __html: media.outerHTML }} />,
+            });
+          }
+        };
+        media.addEventListener('click', onMediaClick);
+        this.clickListeners.set(media as HTMLElement, onMediaClick);
+      });
+    }
 
     lazyResources.addScrollHandler();
 
@@ -232,6 +271,11 @@ export default class PageComponent extends Component<PagePropTypes> {
     };
 
     this.mapLinks(removeIfExists);
+    if (this.container.current) {
+      const media = this.container.current.querySelectorAll('[data-type="media"]');
+      media.forEach((el) => removeIfExists(el as HTMLElement));
+    }
+
   }
 
   private postProcess() {
