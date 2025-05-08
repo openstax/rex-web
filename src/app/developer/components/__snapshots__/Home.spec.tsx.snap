@@ -639,6 +639,7 @@ Array [
                         className="c11"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
+                        onKeyDown={[Function]}
                       >
                         booktitle
                       </a>
@@ -687,6 +688,7 @@ Array [
                         className="c11"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
+                        onKeyDown={[Function]}
                       >
                         booktitle2
                       </a>
