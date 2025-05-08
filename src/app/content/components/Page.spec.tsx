@@ -250,7 +250,7 @@ describe('Page', () => {
 
     it('throws if the value for start is invalid', async() => {
       await expect(htmlHelper('<ol start="abc"><li>item</li></ol>')).rejects.toThrow();
-    })
+    });
 
     it('adds prefix to list items', async() => {
       expect(await htmlHelper('<ol data-mark-prefix="[mark-prefix]"><li>item</li></ol>'))

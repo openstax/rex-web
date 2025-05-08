@@ -145,7 +145,7 @@ function fixLists(rootEl: HTMLElement) {
   });
   rootEl.querySelectorAll('ol[start], [data-type="list"][data-list-type="enumerated"][start]').forEach((el) => {
     const start = assertNotNull(el.getAttribute('start'), 'expected value for list start');
-    const startLessOne = parseInt(start) - 1;
+    const startLessOne = parseInt(start, 10) - 1;
     const counterValue = assertNotNull(
       isNaN(startLessOne) ? null : startLessOne,
       'expected number value for list start'
