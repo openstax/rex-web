@@ -144,7 +144,13 @@ function fixLists(rootEl: HTMLElement) {
     if (markSuffix) { el.setAttribute('data-mark-suffix', markSuffix); }
   });
   rootEl.querySelectorAll('ol[start], [data-type="list"][data-list-type="enumerated"][start]').forEach((el) => {
-    el.setAttribute('style', `counter-reset: list-item ${el.getAttribute('start')}`);
+    const start = assertNotNull(el.getAttribute('start'), 'expected value for list start');
+    const startLessOne = parseInt(start, 10) - 1;
+    const counterValue = assertNotNull(
+      isNaN(startLessOne) ? null : startLessOne,
+      'expected number value for list start'
+    );
+    el.setAttribute('style', `counter-reset: list-item ${counterValue}`);
   });
 }
 
