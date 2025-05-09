@@ -34,7 +34,6 @@ export const SidebarPaneBody = styled.nav`
   grid-area: 1 / 2 / auto / 3;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
-  margin-top: -${topbarDesktopHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
