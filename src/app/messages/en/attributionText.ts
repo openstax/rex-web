@@ -20,16 +20,16 @@ export const defaultText = `
   <li>
     If you are redistributing all or part of this book in a print format,
     then you must include on every physical page the following attribution:
-    <blockquote>
+    <p>
       Access for free at https://openstax.org{introPageUrl}
-    </blockquote>
+    </p>
   </li>
   <li>
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
-    <blockquote>
+    <p>
       Access for free at <a target="_blank" href="https://openstax.org{introPageUrl}" aria-label="{introPageTitle}">https://openstax.org{introPageUrl}</a>
-    </blockquote>
+    </p>
   </li>
 </ul>
 
