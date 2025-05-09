@@ -377,7 +377,7 @@ export const TextResizerDropdown = styled(FilterDropdown)`
     max-height: 5.2rem;
 
     > div {
-      padding: 1.5rem;
+      padding: 1.4rem;
     }
   }
 
