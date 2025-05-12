@@ -117,7 +117,7 @@ export const HeaderText = styled.span`
   line-height: 2.9rem;
   font-weight: 600;
   margin: 0;
-  padding: 0;
+  padding: 1rem 0;
   color: ${toolbarIconColor.base};
   flex: 1 1 0%;
   text-align: left;

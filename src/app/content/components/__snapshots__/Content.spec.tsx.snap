@@ -1820,7 +1820,7 @@ Array [
   line-height: 2.9rem;
   font-weight: 600;
   margin: 0;
-  padding: 0;
+  padding: 1rem 0;
   color: #5e6062;
   -webkit-flex: 1 1 0%;
   -ms-flex: 1 1 0%;
@@ -6493,7 +6493,7 @@ Array [
   line-height: 2.9rem;
   font-weight: 600;
   margin: 0;
-  padding: 0;
+  padding: 1rem 0;
   color: #5e6062;
   -webkit-flex: 1 1 0%;
   -ms-flex: 1 1 0%;
