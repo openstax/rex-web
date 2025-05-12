@@ -4534,16 +4534,16 @@ li[aria-label="Current Page"] .c60 {
   <li>
     If you are redistributing all or part of this book in a print format,
     then you must include on every physical page the following attribution:
-    <blockquote>
+    <p>
       Access for free at https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units
-    </blockquote>
+    </p>
   </li>
   <li>
     If you are redistributing all or part of this book in a digital format,
     then you must include on every digital page view the following attribution:
-    <blockquote>
+    <p>
       Access for free at <a target=\\"_blank\\" href=\\"https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units\\" aria-label=\\"Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Test Book 1 | OpenStax\\">https://openstax.org/books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units</a>
-    </blockquote>
+    </p>
   </li>
 </ul>
 
