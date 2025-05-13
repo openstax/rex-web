@@ -245,7 +245,11 @@ describe('Page', () => {
 
     it('numbers lists that have a start attribute', async() => {
       expect(await htmlHelper('<ol start="123"><li>item</li></ol>'))
-      .toEqual('<ol start="123" style="counter-reset: list-item 123"><li>item</li></ol>');
+      .toEqual('<ol start="123" style="counter-reset: list-item 122"><li>item</li></ol>');
+    });
+
+    it('throws if the value for start is invalid', async() => {
+      await expect(htmlHelper('<ol start="abc"><li>item</li></ol>')).rejects.toThrow();
     });
 
     it('adds prefix to list items', async() => {
