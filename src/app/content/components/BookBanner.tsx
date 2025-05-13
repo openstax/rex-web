@@ -13,6 +13,7 @@ import { hasOSWebData } from '../guards';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../highlights/selectors';
 import * as select from '../selectors';
+import * as selectNavigation from '../../navigation/selectors';
 import { BookWithOSWebData } from '../types';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { bookDetailsUrl } from '../utils/urlUtils';
@@ -191,6 +192,7 @@ const BookBanner = () => {
   const book = useSelector(select.book);
   const treeSection = useSelector(select.pageNode);
   const bookTheme = useSelector(select.bookTheme);
+  const portalName = useSelector(selectNavigation.portalName);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
   const miniBanner = React.useRef<HTMLDivElement>();
   const bigBanner = React.useRef<HTMLDivElement>();
@@ -237,7 +239,7 @@ const BookBanner = () => {
   }
 
   const bookUrl = hasOSWebData(book)
-    ? book.book_state !== 'retired'
+    ? book.book_state !== 'retired' && portalName === undefined
       ? bookDetailsUrl(book)
       : undefined
     : undefined;

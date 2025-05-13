@@ -121,12 +121,13 @@ interface NavigationBarProps {
   user?: User;
   loggedOut: boolean;
   currentPath: string;
+  portalName: string | undefined;
 }
 // tslint:disable-next-line:variable-name
-const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
+const NavigationBar = ({user, loggedOut, currentPath, portalName}: NavigationBarProps) =>
   <Styled.BarWrapper data-analytics-region='openstax-navbar'>
     <Styled.TopBar data-testid='navbar'>
-      <a href='/'>
+      <a href={portalName ? `/${portalName}/` : '/'}>
         <Styled.HeaderImage
           role='img'
           src={openstaxLogo}
@@ -141,6 +142,7 @@ const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
 export default connect(
   (state: AppState) => ({
     currentPath: selectNavigation.pathname(state),
+    portalName: selectNavigation.portalName(state),
     loggedOut: authSelect.loggedOut(state),
     user: authSelect.user(state),
   })

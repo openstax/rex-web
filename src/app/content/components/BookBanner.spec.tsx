@@ -109,6 +109,35 @@ describe('BookBanner', () => {
       expect(() => component.root.findByProps({ 'data-testid': 'details-link-collapsed'})).toThrow();
     });
 
+    it('renders BookTitle instead of BookTitleLink with a link to details page on portaled paths', () => {
+      const portalPrefix = 'portal';
+      const portalName = 'portalName';
+      const pathname = `/${portalPrefix}/${portalName}/a/b/c/`;
+      const state = (cloneDeep({
+        navigation: { pathname },
+        content: {
+          ...initialState,
+          book,
+          page,
+          params: {
+            book: {
+              slug: book.slug,
+            },
+            page: {
+              slug: page.slug,
+            },
+          },
+        },
+      }) as any) as AppState;
+      const store = createTestStore(state);
+      const component = renderer.create(<TestContainer store={store}><BookBanner /></TestContainer>);
+
+      expect(() => component.root.findByProps({ 'data-testid': 'book-title-expanded'})).not.toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'book-title-collapsed'})).not.toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'details-link-expanded'})).toThrow();
+      expect(() => component.root.findByProps({ 'data-testid': 'details-link-collapsed'})).toThrow();
+    });
+
     it('renders correctly without osweb data', () => {
       const state = (cloneDeep({
         content: {

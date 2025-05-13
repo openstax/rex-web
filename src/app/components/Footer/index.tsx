@@ -4,7 +4,10 @@ import RiceWhiteLogo from '../../../assets/rice-white-text.png';
 import htmlMessage from '../../components/htmlMessage';
 import { isVerticalNavOpenConnector } from '../../content/components/utils/sidebar';
 import { State } from '../../content/types';
+import * as selectNavigation from '../../navigation/selectors';
 import * as Styled from './styled';
+import { useSelector } from 'react-redux';
+import { MessageEvent } from '@openstax/types/lib.dom';
 
 const fbUrl = 'https://www.facebook.com/openstax';
 const twitterUrl = 'https://twitter.com/openstax';
@@ -178,7 +181,7 @@ function getValues() {
 }
 
 // tslint:disable-next-line:variable-name
-const Footer = ({
+const NormalFooter = ({
   isVerticalNavOpen,
 }: {
   isVerticalNavOpen: State['tocOpen'];
@@ -208,5 +211,141 @@ const Footer = ({
     </Styled.InnerFooter>
   </Styled.FooterWrapper>
 );
+
+const PortalColumn1 = () => (
+  <Styled.Column1>
+    <Copyrights values={getValues()} />
+  </Styled.Column1>
+);
+
+export function useContactDialog() {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
+
+  const ContactDialog = ({
+    contactFormParams,
+    className
+  }: {
+    contactFormParams?: {key: string; value: string}[];
+    className?: string;
+  }) => {
+    const contactFormUrl = React.useMemo(() => {
+      const formUrl = '/embedded/contact';
+
+      if (contactFormParams !== undefined) {
+        const params = contactFormParams
+          .map(({key, value}) => encodeURIComponent(`${key}=${value}`))
+          .map((p) => `body=${p}`)
+          .join('&');
+
+        return `${formUrl}?${params}`;
+      }
+
+      return formUrl;
+    }, [contactFormParams]);
+
+    React.useEffect(
+      () => {
+        if (typeof window === 'undefined' || !window.parent || window.parent === window) {
+          return;
+        }
+
+        const win = window;
+
+        const closeOnSubmit = ({data}: MessageEvent) => {
+          if (data === 'CONTACT_FORM_SUBMITTED') {
+            close();
+          }
+        };
+
+        win.addEventListener('message', closeOnSubmit);
+        return () => win.removeEventListener('message', closeOnSubmit);
+      },
+      []
+    );
+
+    return !isOpen ? null : (
+      <Styled.ContactDialog className={className} onModalClose={close} heading='i18n:footer:column1:contact-us'>
+        <iframe id="contact-us" title="contact-us" src={contactFormUrl} />
+      </Styled.ContactDialog>
+    );
+  }
+
+  return {ContactDialog, open};
+}
+
+const PortalColumn2 = () => {
+  const { ContactDialog, open } = useContactDialog();
+  const contactFormParams = [
+    {key: 'source_url', value: window?.location.href}
+  ].filter((p): p is { key: string; value: string } => !!p.value);
+
+  return (
+    <Styled.Column2>
+      <LinkList>
+        <Styled.FooterButton onClick={open}>
+          <BareMessage id='i18n:footer:column1:contact-us' />
+        </Styled.FooterButton>
+        <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
+        <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
+      </LinkList>
+      <ContactDialog contactFormParams={contactFormParams} />
+    </Styled.Column2>
+  );
+};
+
+
+const PortalColumn3 = () => (
+  <Styled.Column3>
+    <LinkList>
+      <FooterLinkMessage
+        href='/accessibility-statement'
+        id='i18n:footer:column3:accessibility'
+      />
+      <Styled.ManageCookiesLink>
+        <BareMessage id='i18n:footer:column3:manage-cookies' />
+      </Styled.ManageCookiesLink>
+    </LinkList>
+  </Styled.Column3>
+);
+
+const PortalFooter = ({
+  isVerticalNavOpen,
+}: {
+  isVerticalNavOpen: State['tocOpen'];
+}) => {
+  
+  return (
+    <Styled.FooterWrapper
+      data-analytics-region='footer'
+      data-testid='portal-footer'
+      isVerticalNavOpen={isVerticalNavOpen}
+    >
+      <Styled.InnerFooter>
+        <Styled.FooterBottom>
+          <Styled.PortalBottomBoxed>
+            <PortalColumn1 />
+            <PortalColumn2 />
+            <PortalColumn3 />
+          </Styled.PortalBottomBoxed>
+        </Styled.FooterBottom>
+      </Styled.InnerFooter>
+    </Styled.FooterWrapper>
+  );
+}
+
+const Footer = ({
+  isVerticalNavOpen,
+}: {
+  isVerticalNavOpen: State['tocOpen'];
+}) => {
+  const portalName = useSelector(selectNavigation.portalName);
+  return (
+    portalName === undefined
+      ? <NormalFooter isVerticalNavOpen={isVerticalNavOpen} />
+      : <PortalFooter isVerticalNavOpen={isVerticalNavOpen} />
+  );
+};
 
 export default isVerticalNavOpenConnector(Footer);
