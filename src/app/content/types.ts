@@ -36,6 +36,7 @@ type VersionedUuidParams = UuidParams & VersionParams;
 export type Params = {
   book: SlugParams | VersionedSlugParams | VersionedUuidParams | UuidParams;
   page: SlugParams | UuidParams;
+  portalName?: string;
 };
 
 export type ContentRoute = Route<Params>;

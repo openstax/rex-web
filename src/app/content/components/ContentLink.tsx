@@ -31,6 +31,7 @@ interface Props {
   handleClick?: () => void; // this one gets called instead of navigation
   navigate: typeof push;
   currentPath: string;
+  portalName: string | undefined,
   hasUnsavedHighlight: boolean;
   queryParams?: OutputParams;
   scrollTarget?: ScrollTarget;
@@ -48,6 +49,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     page,
     currentBook,
     currentPath,
+    portalName,
     queryParams,
     scrollTarget,
     navigate,
@@ -60,7 +62,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
 
-  const {url, params} = getBookPageUrlAndParams(book, page);
+  const {url, params} = getBookPageUrlAndParams(book, page, portalName);
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
@@ -105,6 +107,7 @@ export const ConnectedContentLink = connect(
   (state: AppState, ownProps: {queryParams?: OutputParams}) => ({
     currentBook: select.book(state),
     currentPath: selectNavigation.pathname(state),
+    portalName: selectNavigation.portalName(state),
     hasUnsavedHighlight: hasUnsavedHighlightSelector(state),
     systemQueryParams: {
       ...selectNavigation.systemQueryParameters(state),
