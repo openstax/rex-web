@@ -109,7 +109,7 @@ async def test_highlight_box_note_colours(chrome_page, base_url, book_slug, page
 
     await home.click_continue_login()
 
-    #THEN: Book page opens, highlight box appears with colours and highlighted text can have different colours
+    #THEN: Book page opens, highlight box appears with colours and highlighted text can get different colour
 
     await chrome_page.keyboard.press("Escape")
 
