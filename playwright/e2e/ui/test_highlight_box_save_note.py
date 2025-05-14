@@ -100,8 +100,6 @@ async def test_highlight_box_note_colours(chrome_page, base_url, book_slug, page
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await chrome_page.keyboard.press("Escape")
-
     await home.click_login()
 
     await home.fill_user_field(rex_user)
