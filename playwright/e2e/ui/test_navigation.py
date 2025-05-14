@@ -17,8 +17,6 @@ async def test_previous_link_hidden_on_first_page(chrome_page, base_url, abl_uui
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await chrome_page.keyboard.press("Escape")
-
     #THEN: Book page opens on the first page
 
     assert home.content_page_previous_next_page_bar_is_visible
