@@ -154,7 +154,7 @@ class HomeRex:
 
     @property
     def highlights_option_page_menu_edit_note_field_is_visible(self):
-        return self.page.locator("div.HighlightAnnotation__HighlightNote-ppiq8t-0.kkNpZF > textarea")
+        return self.page.locator("div.HighlightAnnotation__HighlightNote-ppiq8t-0 > textarea")
 
     @pytest.mark.asyncio
     async def fill_highlights_option_edit_note_field(self, value):
@@ -197,7 +197,7 @@ class HomeRex:
 
     @property
     def citation_attribution_link_is_visible(self):
-        return self.page.locator("div.ContentPane__Wrapper-sc-6et83r-0.hPmLNC > details > summary > "
+        return self.page.locator("div.ContentPane__Wrapper-sc-6et83r-0 > details > summary > "
                                  "span").get_by_text("Citation/Attribution")
 
     @property
@@ -265,7 +265,7 @@ class HomeRex:
 
     @property
     def content_page_previous_next_page_bar_is_visible(self):
-        return self.page.locator("div.PrevNextBar__BarWrapper-sc-13m2i12-3.fEZPiF")
+        return self.page.locator("div.PrevNextBar__BarWrapper-sc-13m2i12-3")
 
     @property
     def content_page_previous_link_is_visible(self):
@@ -282,20 +282,6 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_content_page_next_link(self):
         await self.content_page_next_link_is_visible.click()
-
-    @property
-    def content_page_black_overlay_is_visible(self):
-        return self.page.locator("div.styles__NudgeContentWrapper-hrv0cf-"
-                                 "1.fpMWRn").get_by_text("The study tools you need. 100% FREE! Highlight, take notes, "
-                                                         "and make your own study guides. It's all free.")
-
-    @property
-    def content_page_black_overlay_close(self):
-        return self.page.locator("div.styles__NudgeWrapper-hrv0cf-0.fJZGzd > button")
-
-    @pytest.mark.asyncio
-    async def click_content_page_black_overlay_close(self):
-        await self.content_page_black_overlay_close.click()
 
     @property
     def subject_listing_book_is_visible(self):
@@ -341,21 +327,9 @@ class HomeRex:
     def highlight_recommended_popup_is_visible(self):
         return self.page.locator("span").get_by_text("Recommended")
 
-    @property
-    def cookies_accept_is_visible(self):
-        return self.page.locator("div.osano-cm-dialog__buttons.osano-cm-buttons").get_by_text("Accept")
-
-    @pytest.mark.asyncio
-    async def click_cookies_accept(self):
-        await self.cookies_accept_is_visible.click()
-
-    @property
-    def cookieyes_accept_is_visible(self):
-        return self.page.locator("div.cky-notice-btn-wrapper > button.cky-btn.cky-btn-accept")
-
     @pytest.mark.asyncio
     async def click_cookieyes_accept(self):
-        await self.cookieyes_accept_is_visible.click()
+        await self.page.get_by_role("button", name="Accept All").click()
 
     @property
     def toc_is_visible(self):
@@ -431,14 +405,6 @@ class HomeRex:
     async def close_survey_dialog(self):
         await self.survey_dialog_is_visible.click()
 
-    @property
-    def cookies_info_dialog_is_visible(self):
-        return self.page.locator("div > button").get_by_text("Got it!")
-
-    @pytest.mark.asyncio
-    async def close_cookies_info_dialog(self):
-        await self.cookies_info_dialog_is_visible.click()
-
     # Highlight box and highlighting
 
     @property
@@ -479,15 +445,15 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def highlights_option_text_colour_is_purple(self):
-        return await self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS").all()
+        return await self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1").all()
 
     @property
     def highlights_option_text_colour_purple(self):
-        return self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS")
+        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1")
 
     @property
     def highlights_option_text_colour_green(self):
-        return self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.kuxHtj")
+        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1")
 
     @property
     def highlights_option_text_colour_check_purple(self):

@@ -17,8 +17,7 @@ async def test_previous_link_hidden_on_first_page(chrome_page, base_url, abl_uui
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    if home.cookieyes_accept_is_visible:
-        await home.click_cookieyes_accept()
+    await chrome_page.keyboard.press("Escape")
 
     #THEN: Book page opens on the first page
 
@@ -30,8 +29,7 @@ async def test_previous_link_hidden_on_first_page(chrome_page, base_url, abl_uui
 
     next_page = chrome_page.url
 
-    if home.content_page_black_overlay_is_visible:
-        await home.click_content_page_black_overlay_close()
+    await chrome_page.keyboard.press("Escape")
 
     assert home.content_page_previous_next_page_bar_is_visible
 
@@ -54,8 +52,7 @@ async def test_next_link_hidden_on_last_page(chrome_page, base_url, abl_uuids_sl
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    if home.cookieyes_accept_is_visible:
-        await home.click_cookieyes_accept()
+    await chrome_page.keyboard.press("Escape")
 
     #THEN: Book page opens on the last page
 
@@ -67,7 +64,6 @@ async def test_next_link_hidden_on_last_page(chrome_page, base_url, abl_uuids_sl
 
     next_page = chrome_page.url
 
-    if home.content_page_black_overlay_is_visible:
-        await home.click_content_page_black_overlay_close()
+    await chrome_page.keyboard.press("Escape")
 
     assert first_page != next_page
