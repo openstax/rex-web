@@ -15,8 +15,6 @@ async def test_highlight_box_dismiss_with_esc(chrome_page, base_url, book_slug, 
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await chrome_page.keyboard.press("Escape")
-
     await home.click_login()
 
     await home.fill_user_field(rex_user)
@@ -57,8 +55,6 @@ async def test_highlight_box_dismiss_with_click(chrome_page, base_url, book_slug
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await chrome_page.keyboard.press("Escape")
-
     await home.click_login()
 
     await home.fill_user_field(rex_user)
@@ -88,8 +84,6 @@ async def test_highlight_box_dismiss_with_esc_click(chrome_page, base_url, book_
     # WHEN: The Home page is fully loaded
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
-
-    await chrome_page.keyboard.press("Escape")
 
     await home.click_login()
 
@@ -137,8 +131,6 @@ async def test_highlight_box_click_highlights_option_after_highlighting_text(chr
     # WHEN: The Home page is fully loaded
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
-
-    await chrome_page.keyboard.press("Escape")
 
     await home.click_login()
 
