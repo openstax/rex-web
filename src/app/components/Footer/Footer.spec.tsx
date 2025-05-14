@@ -116,7 +116,7 @@ describe('useContactDialog', () => {
     expect(() => controller.iframe).not.toThrow();
 
     renderer.act(() => {
-      addEventListener.mock.calls.forEach(([, handler]) => {
+      messageHandlers.forEach(([, handler]) => {
         // Should close the dialog
         handler({
           data: 'CONTACT_FORM_SUBMITTED',
