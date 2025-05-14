@@ -31,7 +31,7 @@ interface Props {
   handleClick?: () => void; // this one gets called instead of navigation
   navigate: typeof push;
   currentPath: string;
-  portalName: string | undefined,
+  portalName: string | undefined;
   hasUnsavedHighlight: boolean;
   queryParams?: OutputParams;
   scrollTarget?: ScrollTarget;

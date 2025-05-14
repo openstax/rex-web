@@ -8,8 +8,8 @@ import { assertWindow } from '../../utils';
 
 describe('Footer', () => {
   it('uses normal footer', () => {
-    const pathname = '/anything'
-    const state = { navigation: { pathname } } as unknown as AppState;
+    const pathName = '/anything';
+    const state = { navigation: { pathname: pathName } } as unknown as AppState;
     const store = createTestStore(state);
     const component = renderer.create(<TestContainer store={store}>
       <Footer />
@@ -42,9 +42,10 @@ describe('useContactDialog', () => {
     addEventListener = jest.spyOn(windowBack, 'addEventListener');
   });
 
+  // tslint:disable-next-line:variable-name
   const ShowContactDialog = (props: Parameters<ReturnType<typeof useContactDialog>['ContactDialog']>[0]) => {
     const {ContactDialog, open: openContactDialog} = useContactDialog();
-  
+
     return (
       <>
         <button onClick={openContactDialog}>
@@ -54,10 +55,10 @@ describe('useContactDialog', () => {
       </>
     );
   };
-  
-  const testComponent = (store: Store, props?: Parameters<typeof ShowContactDialog>[0]) => {
+
+  const testComponent = (storeOverride: Store, props?: Parameters<typeof ShowContactDialog>[0]) => {
     const component = renderer.create(
-      <TestContainer store={store}>
+      <TestContainer store={storeOverride}>
         <ShowContactDialog {...props} />
       </TestContainer>
     );
@@ -75,7 +76,7 @@ describe('useContactDialog', () => {
     };
 
     return {component, controller};
-  }
+  };
 
   it('supports form params', () => {
     const contactFormParams = [{ key: 'userId', value: 'test' }];
@@ -102,7 +103,7 @@ describe('useContactDialog', () => {
     ));
 
     renderer.act(() => {
-      messageHandlers.forEach(([,handler]) => {
+      messageHandlers.forEach(([, handler]) => {
         // Should do nothing
         handler({
           data: 'Some Other Message',
@@ -115,7 +116,7 @@ describe('useContactDialog', () => {
     expect(() => controller.iframe).not.toThrow();
 
     renderer.act(() => {
-      addEventListener.mock.calls.forEach(([,handler]) => {
+      addEventListener.mock.calls.forEach(([, handler]) => {
         // Should close the dialog
         handler({
           data: 'CONTACT_FORM_SUBMITTED',

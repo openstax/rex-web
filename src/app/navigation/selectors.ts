@@ -16,7 +16,7 @@ export const pathname = createSelector(
 
 export const portalName = createSelector(
   pathname,
-  (pathname) => pathname.match(/\/portal\/([^/]+)\//)?.[1]
+  (state) => state.match(/\/portal\/([^/]+)\//)?.[1]
 );
 
 export const query = createSelector(

@@ -235,18 +235,17 @@ export const ManageCookiesLink = styled(RawCookiesLink)`
   }
 `;
 
+// tslint:disable-next-line:variable-name
 export const FooterButton = styled.button`
   ${footerLinkStyle}
-  
-  & {
-    font-size: inherit;
-    cursor: pointer;
-    padding: 0;
-    border: none;
-    background-color: transparent;
-  }
-`
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+`;
 
+// tslint:disable-next-line:variable-name
 export const ContactDialog = styled(Modal)`
   & > div > div {
     width: 75vw;
@@ -261,7 +260,7 @@ export const ContactDialog = styled(Modal)`
       height: 100%;
     }
   }
-`
+`;
 
 // tslint:disable-next-line:variable-name
 const InnerBottomLink = styled.a`
@@ -356,16 +355,18 @@ export const PortalBottomBoxed = styled.div`
   display: grid;
   grid-gap: 1.5rem 4rem;
   overflow: visible;
+  align-items: start;
 
   @media (min-width: ${desktopMinWidth}em) {
-    grid-template: 'col1 col2 col3' / minmax(auto, 70rem) auto auto;
+    grid-template: "col1 col2 col3" / minmax(auto, 70rem) auto auto;
   }
 
   @media (max-width: ${mobileMinWidth}em) {
     padding: 0;
-    grid-template: 'col1'
-                   'col2'
-                   'col3';
+    grid-template:
+      "col1"
+      "col2"
+      "col3";
   }
 `;
 

@@ -191,14 +191,14 @@ describe('content', () => {
         const portalPrefix = 'portal';
         const portalName = 'portalName';
         const pathname = `/${portalPrefix}/${portalName}/a/b/c/`;
-  
+
         beforeEach(() => {
           const state = {
             navigation: { pathname },
           } as unknown as AppState;
           store = createTestStore(state);
-        })
-  
+        });
+
         it('correctly sets href on icon', () => {
           const {node} = renderToDom(render());
           const anchor = assertNotNull(node.querySelector('[data-testid=\'navbar\'] > a'), '');

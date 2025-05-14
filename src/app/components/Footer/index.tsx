@@ -212,6 +212,7 @@ const NormalFooter = ({
   </Styled.FooterWrapper>
 );
 
+// tslint:disable-next-line:variable-name
 const PortalColumn1 = () => (
   <Styled.Column1>
     <Copyrights values={getValues()} />
@@ -223,9 +224,10 @@ export function useContactDialog() {
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
 
+  // tslint:disable-next-line:variable-name
   const ContactDialog = ({
     contactFormParams,
-    className
+    className,
   }: {
     contactFormParams?: {key: string; value: string}[];
     className?: string;
@@ -267,18 +269,19 @@ export function useContactDialog() {
 
     return !isOpen ? null : (
       <Styled.ContactDialog className={className} onModalClose={close} heading='i18n:footer:column1:contact-us'>
-        <iframe id="contact-us" title="contact-us" src={contactFormUrl} />
+        <iframe id='contact-us' title='contact-us' src={contactFormUrl} />
       </Styled.ContactDialog>
     );
-  }
+  };
 
   return {ContactDialog, open};
 }
 
+// tslint:disable-next-line:variable-name
 const PortalColumn2 = () => {
   const { ContactDialog, open } = useContactDialog();
   const contactFormParams = [
-    {key: 'source_url', value: window?.location.href}
+    {key: 'source_url', value: window?.location.href},
   ].filter((p): p is { key: string; value: string } => !!p.value);
 
   return (
@@ -295,7 +298,7 @@ const PortalColumn2 = () => {
   );
 };
 
-
+// tslint:disable-next-line:variable-name
 const PortalColumn3 = () => (
   <Styled.Column3>
     <LinkList>
@@ -310,12 +313,12 @@ const PortalColumn3 = () => (
   </Styled.Column3>
 );
 
+// tslint:disable-next-line:variable-name
 const PortalFooter = ({
   isVerticalNavOpen,
 }: {
   isVerticalNavOpen: State['tocOpen'];
 }) => {
-  
   return (
     <Styled.FooterWrapper
       data-analytics-region='footer'
@@ -333,8 +336,9 @@ const PortalFooter = ({
       </Styled.InnerFooter>
     </Styled.FooterWrapper>
   );
-}
+};
 
+// tslint:disable-next-line:variable-name
 const Footer = ({
   isVerticalNavOpen,
 }: {
