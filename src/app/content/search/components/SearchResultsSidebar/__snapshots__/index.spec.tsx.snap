@@ -40,7 +40,6 @@ Array [
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
-  margin-top: -5rem;
   width: 37.5rem;
   background-color: #fafafa;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
@@ -364,7 +363,6 @@ Array [
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
-  margin-top: -5rem;
   width: 37.5rem;
   background-color: #fafafa;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
@@ -1146,7 +1144,6 @@ Array [
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
-  margin-top: -5rem;
   width: 37.5rem;
   background-color: #fafafa;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);
@@ -1967,7 +1964,6 @@ Array [
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
-  margin-top: -5rem;
   width: 37.5rem;
   background-color: #fafafa;
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0,0,0,0.1);

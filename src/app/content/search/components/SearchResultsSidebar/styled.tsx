@@ -112,7 +112,6 @@ export const SearchResultsBar = styled.div`
   grid-area: 1 / 2 / auto / 3;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
-  margin-top: -${topbarDesktopHeight}rem;
   width: ${searchResultsBarDesktopWidth}rem;
   background-color: ${backgroundColor};
   box-shadow: 0.2rem 0 0.2rem 0 rgba(0, 0, 0, 0.1);
