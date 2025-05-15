@@ -89,8 +89,7 @@ async def test_search_result(chrome_page, base_url, book_slug, page_slug, rex_us
 
     # THEN: Correct page opens with the correct search result
 
-    if home.content_page_black_overlay_is_visible:
-        await home.click_content_page_black_overlay_close()
+    await chrome_page.keyboard.press("Escape")
 
     assert "6.2 Telescopes Today" in await chrome_page.title()
     assert "cannibal galaxy" in await chrome_page.content()
