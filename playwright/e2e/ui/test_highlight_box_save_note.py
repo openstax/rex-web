@@ -16,9 +16,6 @@ async def test_highlight_box_save_note(chrome_page, base_url, book_slug, page_sl
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    if home.cookieyes_accept_is_visible:
-        await home.click_cookieyes_accept()
-
     await chrome_page.keyboard.press("Escape")
 
     await home.click_login()
@@ -30,11 +27,7 @@ async def test_highlight_box_save_note(chrome_page, base_url, book_slug, page_sl
 
     #THEN: Book page opens, highlight box appears, note is saved
 
-    if home.content_page_black_overlay_is_visible:
-        await home.click_content_page_black_overlay_close()
-
-    if home.cookies_info_dialog_is_visible:
-        await home.close_cookies_info_dialog()
+    await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
     await home.double_click_text()
@@ -65,9 +58,6 @@ async def test_overlapping_highlights(chrome_page, base_url, book_slug, page_slu
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    if home.cookieyes_accept_is_visible:
-        await home.click_cookieyes_accept()
-
     await chrome_page.keyboard.press("Escape")
 
     await home.click_login()
@@ -79,11 +69,7 @@ async def test_overlapping_highlights(chrome_page, base_url, book_slug, page_slu
 
     # THEN: Book page opens, a highlight exists and adding another highlight brings up an overlapping warning message
 
-    if home.content_page_black_overlay_is_visible:
-        await home.click_content_page_black_overlay_close()
-
-    if home.cookies_info_dialog_is_visible:
-        await home.close_cookies_info_dialog()
+    await chrome_page.keyboard.press("Escape")
 
     assert await home.small_highlighted_note_box_is_visible()
 
@@ -114,11 +100,6 @@ async def test_highlight_box_note_colours(chrome_page, base_url, book_slug, page
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    if home.cookieyes_accept_is_visible:
-        await home.click_cookieyes_accept()
-
-    await chrome_page.keyboard.press("Escape")
-
     await home.click_login()
 
     await home.fill_user_field(rex_user)
@@ -126,13 +107,9 @@ async def test_highlight_box_note_colours(chrome_page, base_url, book_slug, page
 
     await home.click_continue_login()
 
-    #THEN: Book page opens, highlight box appears with colours and highlighted text can have different colours
+    #THEN: Book page opens, highlight box appears with colours and highlighted text can get different colour
 
-    if home.content_page_black_overlay_is_visible:
-        await home.click_content_page_black_overlay_close()
-
-    if home.cookies_info_dialog_is_visible:
-        await home.close_cookies_info_dialog()
+    await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
     await home.double_click_text()
