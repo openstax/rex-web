@@ -154,7 +154,7 @@ class HomeRex:
 
     @property
     def highlights_option_page_menu_edit_note_field_is_visible(self):
-        return self.page.locator("div.HighlightAnnotation__HighlightNote-ppiq8t-0 > textarea")
+        return self.page.locator("div.HighlightAnnotation__HighlightNote-ppiq8t-0.kkNpZF > textarea")
 
     @pytest.mark.asyncio
     async def fill_highlights_option_edit_note_field(self, value):
@@ -197,7 +197,7 @@ class HomeRex:
 
     @property
     def citation_attribution_link_is_visible(self):
-        return self.page.locator("div.ContentPane__Wrapper-sc-6et83r-0 > details > summary > "
+        return self.page.locator("div.ContentPane__Wrapper-sc-6et83r-0.hPmLNC > details > summary > "
                                  "span").get_by_text("Citation/Attribution")
 
     @property
@@ -265,7 +265,7 @@ class HomeRex:
 
     @property
     def content_page_previous_next_page_bar_is_visible(self):
-        return self.page.locator("div.PrevNextBar__BarWrapper-sc-13m2i12-3")
+        return self.page.locator("div.PrevNextBar__BarWrapper-sc-13m2i12-3.fEZPiF")
 
     @property
     def content_page_previous_link_is_visible(self):
@@ -445,15 +445,15 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def highlights_option_text_colour_is_purple(self):
-        return await self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS").all()
+        return await self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS").all()
 
     @property
     def highlights_option_text_colour_purple(self):
-        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS")
+        return self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS")
 
     @property
     def highlights_option_text_colour_green(self):
-        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.kuxHtj")
+        return self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.kuxHtj")
 
     @property
     def highlights_option_text_colour_check_purple(self):
