@@ -7,7 +7,7 @@ import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
-import { ArchiveTree, Book, LinkedArchiveTreeSection, Page, State } from '../../types';
+import { ArchiveTree, Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page, State } from '../../types';
 import { archiveTreeContainsNode, getArchiveTreeSectionType, splitTitleParts } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
@@ -16,6 +16,7 @@ import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery } from '../../../reactUtils';
+import { treeNavItemOnKeyDown, treeNavSubtreeOnKeyDown, KeyboardSupportProps } from './keyboardSupport';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -69,7 +70,7 @@ const SidebarBody = React.forwardRef<
   React.useEffect(
     () => {
       const firstItemInToc = mRef?.current?.querySelector(
-        'ol > li a, old > li summary'
+        'ol > li a'
       ) as HTMLElement;
       const el = mRef.current;
       const transitionListener = () => {
@@ -117,22 +118,39 @@ function TocHeader() {
   );
 }
 
-function TocNode({
-  defaultOpen,
+function TocSectionToggle({
+  id,
+  isOpen,
   title,
-  children,
-}: React.PropsWithChildren<{ defaultOpen: boolean; title: string }>) {
+  treeId,
+  onClick,
+  onKeyDown,
+  visible,
+}: {
+  id: string;
+  title: string,
+  isOpen: boolean,
+  treeId: string | undefined;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  visible: boolean;
+}) {
+
   return (
-    <Styled.NavDetails {...(defaultOpen ? {defaultOpen} : {})}>
-      <Styled.Summary>
-        <Styled.SummaryWrapper>
-          <Styled.ExpandIcon/>
-          <Styled.CollapseIcon/>
-          <Styled.SummaryTitle dangerouslySetInnerHTML={{__html: title}}/>
-        </Styled.SummaryWrapper>
-      </Styled.Summary>
-        {children}
-    </Styled.NavDetails>
+    <Styled.NavCollapse
+      id={id}
+      onClick={onClick}
+      onKeyDown={onKeyDown}
+      open={isOpen}
+      aria-expanded={isOpen}
+      tabIndex={0}
+      treeId={treeId}
+      visible={visible}
+    >
+      <Styled.CollapseIcon />
+      <Styled.ExpandIcon />
+      <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
+    </Styled.NavCollapse>
   );
 }
 
@@ -150,51 +168,149 @@ function maybeAriaLabel(page: LinkedArchiveTreeSection) {
     return {};
   }
 
-  return {'aria-label': `${titleText} - Chapter ${parentNum}`};
+  return { 'aria-label': `${titleText} - Chapter ${parentNum}` };
+}
+
+function ArchiveTreeComponent({
+  item,
+  book,
+  page,
+  activeSection,
+  treeId,
+  onNavigate,
+  onKeyDown,
+  visible,
+}: {
+  item: LinkedArchiveTree;
+  book: Book | undefined;
+  page: Page | undefined;
+  activeSection: React.RefObject<HTMLElement>;
+  treeId: string | undefined;
+  onNavigate: () => void;
+  onKeyDown: (props: KeyboardSupportProps) => void;
+  visible: boolean;
+}) {
+  const sectionType = getArchiveTreeSectionType(item);
+
+  const [isOpen, setOpen] = React.useState<boolean>(shouldBeOpen(page, item));
+
+  const toggleOpen = () => {
+    setOpen((prevState) => !prevState);
+  };
+
+  const onKeyDownSupport = (e: React.KeyboardEvent<HTMLAnchorElement>) => {
+    onKeyDown({
+      event: e,
+      item,
+      isOpen,
+      treeId,
+      onSelect: toggleOpen,
+    });
+  };
+
+  return (
+    <Styled.NavItem key={item.id} sectionType={sectionType}>
+      <TocSectionToggle
+        id={item.id}
+        aria-owns={item.id + '-subtree'}
+        title={item.title}
+        isOpen={isOpen}
+        onClick={toggleOpen}
+        onKeyDown={onKeyDownSupport}
+        treeId={treeId}
+        visible={visible}
+      />
+      <TocSection
+        id={item.id + '-subtree'}
+        book={book}
+        page={page}
+        section={item}
+        activeSection={activeSection}
+        onNavigate={onNavigate}
+        open={isOpen}
+        treeId={treeId}
+        visible={isOpen}
+      />
+    </Styled.NavItem>
+  );
 }
 
 function TocSection({
+  id,
   book,
   page,
   section,
   activeSection,
   onNavigate,
+  open,
+  visible,
+  treeId,
 }: {
+  id?: string;
   book: Book | undefined;
   page: Page | undefined;
   section: ArchiveTree;
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
+  open: boolean;
+  visible: boolean;
+  treeId: string | undefined;
 }) {
+
+  const linkedContents = linkContents(section);
+
   return (
-    <Styled.NavOl section={section}>
-      {linkContents(section).map((item) => {
+    <Styled.NavOl
+      id={id}
+      role={book?.id === stripIdVersion(section.id) ? 'tree' : 'group'}
+      section={section}
+      open={open}
+    >
+      {linkedContents.map((item) => {
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
 
-        return isArchiveTree(item)
-        ? <Styled.NavItem key={item.id} sectionType={sectionType}>
-            <TocNode defaultOpen={shouldBeOpen(page, item)} title={item.title}>
-                <TocSection
-                  book={book} page={page} section={item} activeSection={activeSection}
-                  onNavigate={onNavigate}
-                />
-            </TocNode>
-          </Styled.NavItem>
-        : <Styled.NavItem
-          key={item.id}
-          sectionType={sectionType}
-          ref={active ? activeSection : null}
-          active={active}
-        >
-          <Styled.ContentLink
-            onClick={onNavigate}
+        return isArchiveTree(item) ? (
+          <ArchiveTreeComponent
+            key={item.id}
+            item={item}
             book={book}
-            page={item}
-            dangerouslySetInnerHTML={{__html: item.title}}
-            {...maybeAriaLabel(item)}
+            page={page}
+            activeSection={activeSection}
+            onNavigate={onNavigate}
+            onKeyDown={treeNavSubtreeOnKeyDown}
+            treeId={treeId}
+            visible={visible}
           />
-        </Styled.NavItem>;
+        ) : (
+          <Styled.NavItem
+            key={item.id}
+            sectionType={sectionType}
+            ref={active ? activeSection : null}
+            active={active}
+          >
+            <Styled.ContentLink
+              id={item.id}
+              onClick={onNavigate}
+              onKeyDown={
+                (e: React.KeyboardEvent<HTMLAnchorElement>, onSelect: () => void) =>
+                  treeNavItemOnKeyDown({
+                    event: e,
+                    item,
+                    treeId,
+                    onSelect,
+                  })
+              }
+              book={book}
+              page={item}
+              dangerouslySetInnerHTML={{ __html: item.title }}
+              {...maybeAriaLabel(item)}
+              role='treeitem'
+              data-treeid={treeId}
+              data-visible={visible}
+            />
+          </Styled.NavItem>
+        );
       })}
     </Styled.NavOl>
   );
@@ -221,6 +337,9 @@ export class TableOfContents extends Component<SidebarProps> {
             section={book.tree}
             activeSection={this.activeSection}
             onNavigate={this.props.onNavigate}
+            open
+            visible
+            treeId={book.title}
           />
         )}
       </SidebarBody>
@@ -231,11 +350,11 @@ export class TableOfContents extends Component<SidebarProps> {
     this.scrollToSelectedPage();
     const sidebar = this.sidebar.current;
 
-    if (!sidebar || typeof(window) === 'undefined') {
+    if (!sidebar || typeof (window) === 'undefined') {
       return;
     }
 
-    const {callback, deregister} = setSidebarHeight(sidebar, window);
+    const { callback, deregister } = setSidebarHeight(sidebar, window);
     callback();
     this.deregister = deregister;
   }
