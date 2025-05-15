@@ -445,15 +445,15 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def highlights_option_text_colour_is_purple(self):
-        return await self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1").all()
+        return await self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS").all()
 
     @property
     def highlights_option_text_colour_purple(self):
-        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1")
+        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS")
 
     @property
     def highlights_option_text_colour_green(self):
-        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1")
+        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.kuxHtj")
 
     @property
     def highlights_option_text_colour_check_purple(self):
