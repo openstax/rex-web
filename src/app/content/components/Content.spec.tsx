@@ -28,6 +28,22 @@ jest.mock('../../../config.books', () => {
   return { [mockBook.id]: { defaultVersion: mockBook.version } };
 });
 
+jest.mock('react-aria-components', () => {
+  const actual = jest.requireActual('react-aria-components');
+  return {
+    ...actual,
+    Tree: ({ children, ...props }: any) => (
+      <div data-testid="mock-tree" {...props}>{children}</div>
+    ),
+    TreeItem: ({ children, ...props }: any) => (
+      <div data-testid="mock-tree-item" {...props}>{children}</div>
+    ),
+    TreeItemContent: ({ children, ...props }: any) => (
+      <div data-testid="mock-tree-item-content" {...props}>{children}</div>
+    ),
+  };
+});
+
 describe('content', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices> & MiddlewareAPI;

@@ -143,6 +143,7 @@ function ArchiveTreeComponent({
   activeSection,
   onNavigate,
   expandedKeys,
+  handleTreeItemClick,
 }: {
   item: LinkedArchiveTree;
   book: Book | undefined;
@@ -150,9 +151,10 @@ function ArchiveTreeComponent({
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
   expandedKeys: Set<string>;
+  handleTreeItemClick: (id: string) => void;
 }) {
 
-  if (shouldBeOpen(page, item)) { 
+  if (shouldBeOpen(page, item)) {
     expandedKeys.add(item.id);
   }
 
@@ -166,22 +168,23 @@ function ArchiveTreeComponent({
         activeSection={activeSection}
         onNavigate={onNavigate}
         expandedKeys={expandedKeys}
+        handleTreeItemClick={handleTreeItemClick}
       />
     </>
   );
 }
 
-function maybeAriaLabel(page: LinkedArchiveTreeSection, active?: boolean) {
+export function maybeAriaLabel(page: LinkedArchiveTreeSection, active?: boolean) {
   const [num, titleText] = splitTitleParts(page.title);
-  const currentPageAriaLabel = { 'aria-label': 'Current Page'};
+  const currentPageAriaLabel = { 'aria-label': 'Current Page' };
   if (num) {
-    return active ? currentPageAriaLabel: {};
+    return active ? currentPageAriaLabel : {};
   }
 
   const [parentNum, parentTitleText] = splitTitleParts(page.parent.title);
 
   if (!parentNum || titleText.includes(parentTitleText)) {
-    return active ? currentPageAriaLabel: {};
+    return active ? currentPageAriaLabel : {};
   }
 
   const activeAriaLabel = active ? '- Current Page' : '';
@@ -196,6 +199,7 @@ function TocSection({
   activeSection,
   onNavigate,
   expandedKeys,
+  handleTreeItemClick,
 }: {
   book: Book | undefined;
   page: Page | undefined;
@@ -203,6 +207,7 @@ function TocSection({
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
   expandedKeys: Set<string>;
+  handleTreeItemClick: (id: string) => void;
 }) {
   return (
     <>
@@ -216,7 +221,7 @@ function TocSection({
             id={item.id}
             key={item.id}
             textValue={item.title}
-            onClick={()=> expandedKeys.delete(item.id)}
+            onClick={() => handleTreeItemClick(item.id)}
           >
             {isArchiveTree(item)
               ?
@@ -227,6 +232,7 @@ function TocSection({
                 activeSection={activeSection}
                 onNavigate={onNavigate}
                 expandedKeys={expandedKeys}
+                handleTreeItemClick={handleTreeItemClick}
               />
               : <Styled.NavItem
                 data-type={sectionType}
@@ -258,6 +264,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
       expandedKeys: new Set(),
     };
     this.handleExpandedChange = this.handleExpandedChange.bind(this);
+    this.handleTreeItemClick = this.handleTreeItemClick.bind(this);
   }
 
   public render() {
@@ -267,7 +274,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
         <TocHeader />
         {book && (
-          <Styled.StyledTree 
+          <Styled.StyledTree
             aria-label="Table of Contents"
             expandedKeys={this.state.expandedKeys}
             onExpandedChange={this.handleExpandedChange}
@@ -279,6 +286,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
               activeSection={this.activeSection}
               onNavigate={this.props.onNavigate}
               expandedKeys={this.state.expandedKeys}
+              handleTreeItemClick={this.handleTreeItemClick}
             />
           </Styled.StyledTree >
         )}
@@ -289,6 +297,13 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
   handleExpandedChange(expandedKeys: Set<string>) {
     this.setState({ expandedKeys });
   }
+
+  handleTreeItemClick = (id: string) => {
+    const prev = this.state.expandedKeys;
+    const next = new Set(prev);
+    next.delete(id);
+    this.setState({ expandedKeys: next });
+  };
 
   public componentDidMount() {
     this.scrollToSelectedPage();
