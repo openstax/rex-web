@@ -16,11 +16,6 @@ async def test_highlight_box_delete_note(chrome_page, base_url, book_slug, page_
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    if home.cookieyes_accept_is_visible:
-        await home.click_cookieyes_accept()
-
-    await chrome_page.keyboard.press("Escape")
-
     await home.click_login()
 
     await home.fill_user_field(rex_user)
@@ -30,11 +25,7 @@ async def test_highlight_box_delete_note(chrome_page, base_url, book_slug, page_
 
     #THEN: Book page opens, highlight box appears, note is saved, then deleted and box disappears
 
-    if home.content_page_black_overlay_is_visible:
-        await home.click_content_page_black_overlay_close()
-
-    if home.cookies_info_dialog_is_visible:
-        await home.close_cookies_info_dialog()
+    await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
@@ -57,5 +48,3 @@ async def test_highlight_box_delete_note(chrome_page, base_url, book_slug, page_
     assert not await home.yellow_highlighted_text_is_visible()
 
     assert not await home.small_highlighted_note_box_is_visible()
-
-
