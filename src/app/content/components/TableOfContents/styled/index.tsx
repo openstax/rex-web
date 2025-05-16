@@ -121,10 +121,11 @@ export const StyledTreeItem = styled(TreeItem)<{ section: ArchiveTree }>`
   &[data-expanded] > div ${ExpandIcon} {
     display: none;
   }
-  
+
   &:not([data-expanded]) > div ${CollapseIcon} {
     display: none;
   }
+
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
 
