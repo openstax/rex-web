@@ -315,6 +315,7 @@ const PortalColumn3 = () => (
         href='/accessibility-statement'
         id='i18n:footer:column3:accessibility'
       />
+      <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
       <Styled.ManageCookiesLink>
         <BareMessage id='i18n:footer:column3:manage-cookies' />
       </Styled.ManageCookiesLink>
