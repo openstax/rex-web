@@ -277,18 +277,19 @@ export function useContactDialog() {
     [close]
   );
 
-  const WrappedDialog = React.useCallback((
+  // tslint:disable-next-line:variable-name
+  const Dialog = React.useCallback((
     props: Omit<Parameters<typeof ContactDialog>[0], 'isOpen' | 'close'>
   ) => (
     <ContactDialog {...props} close={close} isOpen={isOpen} />
   ), [close, isOpen]);
 
-  return {ContactDialog: WrappedDialog, open};
+  return { Dialog, open };
 }
 
 // tslint:disable-next-line:variable-name
 const PortalColumn2 = () => {
-  const { ContactDialog, open } = useContactDialog();
+  const { Dialog, open } = useContactDialog();
   const contactFormParams = [
     {key: 'source_url', value: window?.location.href},
   ].filter((p): p is { key: string; value: string } => !!p.value);
@@ -302,7 +303,7 @@ const PortalColumn2 = () => {
         <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
         <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
       </LinkList>
-      <ContactDialog contactFormParams={contactFormParams} />
+      <Dialog contactFormParams={contactFormParams} />
     </Styled.Column2>
   );
 };
