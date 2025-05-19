@@ -188,13 +188,13 @@ describe('content', () => {
       });
 
       describe('portal', () => {
-        const portalPrefix = 'portal';
         const portalName = 'portalName';
-        const pathname = `/${portalPrefix}/${portalName}/a/b/c/`;
 
         beforeEach(() => {
           const state = {
-            navigation: { pathname },
+            content: {
+              params: { portalName },
+            },
           } as unknown as AppState;
           store = createTestStore(state);
         });

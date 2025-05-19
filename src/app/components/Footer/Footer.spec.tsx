@@ -8,8 +8,7 @@ import { assertWindow } from '../../utils';
 
 describe('Footer', () => {
   it('uses normal footer', () => {
-    const pathName = '/anything';
-    const state = { navigation: { pathname: pathName } } as unknown as AppState;
+    const state = {} as unknown as AppState;
     const store = createTestStore(state);
     const component = renderer.create(<TestContainer store={store}>
       <Footer />
@@ -18,10 +17,12 @@ describe('Footer', () => {
   });
 
   it('uses portal footer', () => {
-    const portalPrefix = 'portal';
     const portalName = 'portalName';
-    const pathname = `/${portalPrefix}/${portalName}/a/b/c/`;
-    const state = { navigation: { pathname } } as unknown as AppState;
+    const state = {
+      content: {
+        params: { portalName },
+      },
+    } as unknown as AppState;
     const store = createTestStore(state);
     const component = renderer.create(<TestContainer store={store}>
       <Footer />
@@ -43,15 +44,15 @@ describe('useContactDialog', () => {
   });
 
   // tslint:disable-next-line:variable-name
-  const ShowContactDialog = (props: Parameters<ReturnType<typeof useContactDialog>['ContactDialog']>[0]) => {
-    const {ContactDialog, open: openContactDialog} = useContactDialog();
+  const ShowContactDialog = (props: Parameters<ReturnType<typeof useContactDialog>['Dialog']>[0]) => {
+    const { Dialog, open: openContactDialog } = useContactDialog();
 
     return (
       <>
         <button onClick={openContactDialog}>
           Contact Us
         </button>
-        <ContactDialog {...props} />
+        <Dialog {...props} />
       </>
     );
   };

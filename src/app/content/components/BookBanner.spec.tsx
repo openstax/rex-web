@@ -110,11 +110,8 @@ describe('BookBanner', () => {
     });
 
     it('renders BookTitle instead of BookTitleLink with a link to details page on portaled paths', () => {
-      const portalPrefix = 'portal';
       const portalName = 'portalName';
-      const pathname = `/${portalPrefix}/${portalName}/a/b/c/`;
       const state = (cloneDeep({
-        navigation: { pathname },
         content: {
           ...initialState,
           book,
@@ -126,6 +123,7 @@ describe('BookBanner', () => {
             page: {
               slug: page.slug,
             },
+            portalName,
           },
         },
       }) as any) as AppState;
