@@ -219,62 +219,71 @@ const PortalColumn1 = () => (
   </Styled.Column1>
 );
 
+// tslint:disable-next-line:variable-name
+export function ContactDialog({
+  isOpen,
+  close,
+  contactFormParams,
+  className,
+}: {
+  isOpen: boolean;
+  close: () => void;
+  contactFormParams?: {key: string; value: string}[];
+  className?: string;
+}) {
+  const contactFormUrl = React.useMemo(() => {
+    const formUrl = '/embedded/contact';
+
+    if (contactFormParams !== undefined) {
+      const params = contactFormParams
+        .map(({key, value}) => encodeURIComponent(`${key}=${value}`))
+        .map((p) => `body=${p}`)
+        .join('&');
+
+      return `${formUrl}?${params}`;
+    }
+
+    return formUrl;
+  }, [contactFormParams]);
+  return !isOpen ? null : (
+    <Styled.ContactDialog className={className} onModalClose={close} heading='i18n:footer:column1:contact-us'>
+      <iframe id='contact-us' title='contact-us' src={contactFormUrl} />
+    </Styled.ContactDialog>
+  );
+}
+
 export function useContactDialog() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  const open = React.useCallback(() => setIsOpen(true), [setIsOpen]);
+  const close = React.useCallback(() => setIsOpen(false), [setIsOpen]);
 
-  // tslint:disable-next-line:variable-name
-  const ContactDialog = ({
-    contactFormParams,
-    className,
-  }: {
-    contactFormParams?: {key: string; value: string}[];
-    className?: string;
-  }) => {
-    const contactFormUrl = React.useMemo(() => {
-      const formUrl = '/embedded/contact';
-
-      if (contactFormParams !== undefined) {
-        const params = contactFormParams
-          .map(({key, value}) => encodeURIComponent(`${key}=${value}`))
-          .map((p) => `body=${p}`)
-          .join('&');
-
-        return `${formUrl}?${params}`;
+  React.useEffect(
+    () => {
+      if (typeof window === 'undefined' || !window.parent || window.parent === window) {
+        return;
       }
 
-      return formUrl;
-    }, [contactFormParams]);
+      const win = window;
 
-    React.useEffect(
-      () => {
-        if (typeof window === 'undefined' || !window.parent || window.parent === window) {
-          return;
+      const closeOnSubmit = ({data}: MessageEvent) => {
+        if (data === 'CONTACT_FORM_SUBMITTED') {
+          close();
         }
+      };
 
-        const win = window;
+      win.addEventListener('message', closeOnSubmit);
+      return () => win.removeEventListener('message', closeOnSubmit);
+    },
+    [close]
+  );
 
-        const closeOnSubmit = ({data}: MessageEvent) => {
-          if (data === 'CONTACT_FORM_SUBMITTED') {
-            close();
-          }
-        };
+  const WrappedDialog = React.useCallback((
+    props: Omit<Parameters<typeof ContactDialog>[0], 'isOpen' | 'close'>
+  ) => (
+    <ContactDialog {...props} close={close} isOpen={isOpen} />
+  ), [close, isOpen]);
 
-        win.addEventListener('message', closeOnSubmit);
-        return () => win.removeEventListener('message', closeOnSubmit);
-      },
-      []
-    );
-
-    return !isOpen ? null : (
-      <Styled.ContactDialog className={className} onModalClose={close} heading='i18n:footer:column1:contact-us'>
-        <iframe id='contact-us' title='contact-us' src={contactFormUrl} />
-      </Styled.ContactDialog>
-    );
-  };
-
-  return {ContactDialog, open};
+  return {ContactDialog: WrappedDialog, open};
 }
 
 // tslint:disable-next-line:variable-name

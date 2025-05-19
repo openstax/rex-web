@@ -81,18 +81,19 @@ describe('useContactDialog', () => {
   it('supports form params', () => {
     const contactFormParams = [{ key: 'userId', value: 'test' }];
 
-    const {controller} = testComponent(store, {contactFormParams});
+    const {controller, component} = testComponent(store, {contactFormParams});
 
     renderer.act(() => {
       controller.button.props.onClick();
     });
     expect(controller.iframe.props.src.endsWith('body=userId%3Dtest')).toBe(true);
+    component.unmount();
   });
 
   it('opens and closes', () => {
     Object.defineProperty(assertWindow(), 'parent', {value: {...assertWindow()}});
 
-    const {controller} = testComponent(store);
+    const {controller, component} = testComponent(store);
     expect(() => controller.iframe).toThrow();
     renderer.act(() => {
       controller.button.props.onClick();
@@ -127,5 +128,6 @@ describe('useContactDialog', () => {
 
     // Should be closed
     expect(() => controller.iframe).toThrow();
+    component.unmount();
   });
 });
