@@ -91,6 +91,7 @@ async def test_order_options_link(chrome_page, base_url, book_slug):
 @pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "1-3-the-laws-of-nature")])
 @pytest.mark.asyncio
 async def test_accessibility_help(chrome_page, base_url, book_slug, page_slug):
+    # Verifies the hidden 'Go to accessibility page'
 
     # GIVEN: Open osweb book details page
 

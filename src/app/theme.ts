@@ -102,6 +102,11 @@ const color = {
       foreground: textColors.white,
       foregroundHover: greyColors.darker,
     },
+    'raise-green': {
+      base: '#0a5b50',
+      foreground: textColors.white,
+      foregroundHover: greyColors.darker,
+    },
     'red': {
       base: '#C22032',
       foreground: textColors.white,

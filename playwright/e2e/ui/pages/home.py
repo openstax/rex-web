@@ -66,7 +66,7 @@ class HomeRex:
 
     @property
     def book_toc_slideout_is_visible(self):
-        return self.page.locator("div.toc-slideout-contents")
+        return self.page.get_by_test_id("toc")
 
     @property
     def book_link(self):
@@ -284,20 +284,6 @@ class HomeRex:
         await self.content_page_next_link_is_visible.click()
 
     @property
-    def content_page_black_overlay_is_visible(self):
-        return self.page.locator("div.styles__NudgeContentWrapper-hrv0cf-"
-                                 "1.fpMWRn").get_by_text("The study tools you need. 100% FREE! Highlight, take notes, "
-                                                         "and make your own study guides. It's all free.")
-
-    @property
-    def content_page_black_overlay_close(self):
-        return self.page.locator("div.styles__NudgeWrapper-hrv0cf-0.fJZGzd > button")
-
-    @pytest.mark.asyncio
-    async def click_content_page_black_overlay_close(self):
-        await self.content_page_black_overlay_close.click()
-
-    @property
     def subject_listing_book_is_visible(self):
         return self.page.locator("a").get_by_text("Astronomy")
 
@@ -341,21 +327,9 @@ class HomeRex:
     def highlight_recommended_popup_is_visible(self):
         return self.page.locator("span").get_by_text("Recommended")
 
-    @property
-    def cookies_accept_is_visible(self):
-        return self.page.locator("div.osano-cm-dialog__buttons.osano-cm-buttons").get_by_text("Accept")
-
-    @pytest.mark.asyncio
-    async def click_cookies_accept(self):
-        await self.cookies_accept_is_visible.click()
-
-    @property
-    def cookieyes_accept_is_visible(self):
-        return self.page.locator("div.cky-notice-btn-wrapper > button.cky-btn.cky-btn-accept")
-
     @pytest.mark.asyncio
     async def click_cookieyes_accept(self):
-        await self.cookieyes_accept_is_visible.click()
+        await self.page.get_by_role("button", name="Accept All").click()
 
     @property
     def toc_is_visible(self):
@@ -431,14 +405,6 @@ class HomeRex:
     async def close_survey_dialog(self):
         await self.survey_dialog_is_visible.click()
 
-    @property
-    def cookies_info_dialog_is_visible(self):
-        return self.page.locator("div > button").get_by_text("Got it!")
-
-    @pytest.mark.asyncio
-    async def close_cookies_info_dialog(self):
-        await self.cookies_info_dialog_is_visible.click()
-
     # Highlight box and highlighting
 
     @property
@@ -479,15 +445,15 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def highlights_option_text_colour_is_purple(self):
-        return await self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS").all()
+        return await self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS").all()
 
     @property
     def highlights_option_text_colour_purple(self):
-        return self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS")
+        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS")
 
     @property
     def highlights_option_text_colour_green(self):
-        return self.page.locator("div > div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.kuxHtj")
+        return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.kuxHtj")
 
     @property
     def highlights_option_text_colour_check_purple(self):
@@ -542,3 +508,37 @@ class HomeRex:
     @property
     def incorrect_page_error_text(self):
         return self.page.locator("main > div > p")
+
+    # Content search
+
+    @property
+    def content_search_field_is_visible(self):
+        return self.page.get_by_test_id("desktop-search-input")
+
+    @pytest.mark.asyncio
+    async def click_search(self):
+        await self.content_search_field_is_visible.click()
+
+    @pytest.mark.asyncio
+    async def click_search_icon(self):
+        await self.page.get_by_title("Search").click()
+
+    @pytest.mark.asyncio
+    async def fill_search_field(self, value):
+        await self.content_search_field_is_visible.fill(value)
+
+    @property
+    def search_result_is_visible(self):
+        return self.page.get_by_test_id("search-results-sidebar")
+
+    @pytest.mark.asyncio
+    async def close_unsuccessful_search_result_sidebar(self):
+        await self.page.locator("div.styled__SearchResultsBar-as3fh1-4.hpndbT > div > h2 > div > button").click()
+
+    @pytest.mark.asyncio
+    async def close_successful_search_result_sidebar(self):
+        await self.page.get_by_test_id("close-search").click()
+
+    @pytest.mark.asyncio
+    async def click_first_search_result(self):
+        await self.page.locator("details > ol > li > a:nth-child(2)").first.click()
