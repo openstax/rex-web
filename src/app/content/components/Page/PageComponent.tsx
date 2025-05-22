@@ -24,7 +24,7 @@ import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptio
 import { validateDOMContent } from './validateDOMContent';
 import isEqual from 'lodash/fp/isEqual';
 import MediaModal from './MediaModal';
-
+import { mediaModalManager, MediaModalPortal } from './MediaModalManager';
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
 }
@@ -90,8 +90,10 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
     // tslint:disable-next-line: max-line-length
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
-
+    // use manager pattern for image preview. Use react portal to move modal into page body. 
+    // accept only media image because media has videos and animations. 
     // Sometimes data is already populated on mount, eg when navigating to a new tab
+    // tab index and add role for button for accessability
     if (this.props.searchHighlights.selectedResult) {
       this.searchHighlightManager.update(null, this.props.searchHighlights, {
         forceRedraw: true,
@@ -166,10 +168,11 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
   public render() {
     const pageIsReady = this.props.page && this.props.textSize !== null;
     const PT = this.props.ToastOverride ? this.props.ToastOverride : PageToasts;
-
+  
     return <MinPageHeight>
       <this.highlightManager.CardList />
       <PT />
+      <MediaModalPortal />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()
@@ -235,49 +238,42 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
 
   private listenersOn() {
     this.listenersOff();
-    if (this.container.current) {
-      const media = this.container.current.querySelectorAll('[data-type="media"]');
-      media.forEach((media) => {
-        const onMediaClick = () => {
-          if (typeof window !== 'undefined' && window.matchMedia(`(max-width: 1200px)`).matches) {
-            this.setState({
-              isModalOpen: true,
-              modalContent: <div dangerouslySetInnerHTML={{ __html: media.outerHTML }} />,
-            });
-          }
-        };
-        media.addEventListener('click', onMediaClick);
-        this.clickListeners.set(media as HTMLElement, onMediaClick);
-      });
-    }
+    const container = this.container.current;
+    if (!container) return;
+
+    const handleClick = (e: MouseEvent) => {
+      if (e.target instanceof HTMLImageElement) {
+        mediaModalManager.open(
+          <img src={e.target.src} alt={e.target.alt || ''} />
+        );
+      }
+    };
+
+    container.addEventListener('click', handleClick);
+    this.clickListeners.set(container, handleClick);
 
     lazyResources.addScrollHandler();
-
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });
   }
-
+  
   private listenersOff() {
     lazyResources.removeScrollHandler();
-
-    const removeIfExists = (el: HTMLElement) => {
+    this.mapLinks((el) => {
       const handler = this.clickListeners.get(el);
-      if (handler) {
-        el.removeEventListener('click', handler);
-      }
-    };
-
-    this.mapLinks(removeIfExists);
-    if (this.container.current) {
-      const media = this.container.current.querySelectorAll('[data-type="media"]');
-      media.forEach((el) => removeIfExists(el as HTMLElement));
+      if (handler) el.removeEventListener('click', handler);
+    });
+  
+    const container = this.container.current;
+    if (container) {
+      const handler = this.clickListeners.get(container);
+      if (handler) container.removeEventListener('click', handler);
     }
-
   }
-
+  
   private postProcess() {
     const container = this.container.current;
 
