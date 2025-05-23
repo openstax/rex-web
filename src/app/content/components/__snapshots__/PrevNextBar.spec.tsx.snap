@@ -92,6 +92,7 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
     data-analytics-label="next"
     href="books/book-slug-1/pages/test-page-1"
     onClick={[Function]}
+    onKeyDown={[Function]}
   >
     Next
     <svg
@@ -226,6 +227,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
     data-analytics-label="prev"
     href="books/book-slug-1/pages/2-test-page-3"
     onClick={[Function]}
+    onKeyDown={[Function]}
   >
     <svg
       aria-hidden="true"
@@ -247,6 +249,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
     data-analytics-label="next"
     href="books/book-slug-1/pages/4-test-page-5"
     onClick={[Function]}
+    onKeyDown={[Function]}
   >
     Next
     <svg
@@ -357,6 +360,7 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
     data-analytics-label="next"
     href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
     onClick={[Function]}
+    onKeyDown={[Function]}
   >
     Next
     <svg
@@ -463,6 +467,7 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
     data-analytics-label="prev"
     href="books/book-slug-1/pages/d-glossary-of-key-symbols-and-notation"
     onClick={[Function]}
+    onKeyDown={[Function]}
   >
     <svg
       aria-hidden="true"
