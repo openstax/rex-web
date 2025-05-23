@@ -1854,7 +1854,7 @@ Array [
   text-decoration: none;
 }
 
-.c59[aria-label*="Current Page"] {
+.c59[aria-label$="Current Page"] {
   font-weight: 600;
 }
 
@@ -9062,7 +9062,7 @@ Array [
   text-decoration: none;
 }
 
-.c59[aria-label*="Current Page"] {
+.c59[aria-label$="Current Page"] {
   font-weight: 600;
 }
 

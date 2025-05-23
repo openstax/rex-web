@@ -134,7 +134,7 @@ export const StyledTreeItem = styled(TreeItem)<{ section: ArchiveTree }>`
       margin-top: 1.2rem;
       margin-left: ${numberWidth + dividerWidth}rem;
 
-      .os-number {P
+      .os-number {
           width: ${numberWidth}rem;
           overflow: hidden;
         }
