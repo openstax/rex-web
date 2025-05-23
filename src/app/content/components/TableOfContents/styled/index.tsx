@@ -49,7 +49,7 @@ export const ContentLink = styled(ContentLinkComponent)`
   margin-left: ${iconSize}rem;
   text-decoration: none;
 
-  &[aria-label*="Current Page"] {
+  &[aria-label$="Current Page"] {
     font-weight: 600;
   }
 
@@ -133,7 +133,7 @@ export const StyledTreeItem = styled(TreeItem)<{ section: ArchiveTree }>`
       margin-top: 1.2rem;
       margin-left: ${numberWidth + dividerWidth}rem;
       
-      .os-number {
+      .os-number {P
           width: ${numberWidth}rem;
           overflow: hidden;
         }
