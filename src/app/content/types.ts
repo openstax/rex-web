@@ -74,7 +74,7 @@ export interface PageReference {
 
 export interface BookWithOSWebData extends VersionedArchiveBookWithConfig {
   book_state: 'coming_soon' | 'deprecated' | 'live' | 'new_edition_available' | 'retired';
-  theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'midnight' | 'orange' | 'red';
+  theme: 'blue' | 'green' | 'gray' | 'yellow' | 'deep-green' | 'light-blue' | 'midnight' | 'orange' | 'red' | 'raise-green';
   slug: string;
   promote_image: null | {
     id: number;
