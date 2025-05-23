@@ -14,6 +14,11 @@ export const pathname = createSelector(
   (state) => state.pathname
 );
 
+export const portalName = createSelector(
+  parentSelectors.localState,
+  (parentState) => parentState.content.params?.portalName
+);
+
 export const query = createSelector(
   localState,
   (state) => state.query
