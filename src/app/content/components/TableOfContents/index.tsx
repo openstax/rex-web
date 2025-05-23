@@ -275,7 +275,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
         <TocHeader />
         {book && (
           <Styled.StyledTree
-            aria-label="Table of Contents"
+            aria-label='Table of Contents'
             expandedKeys={this.state.expandedKeys}
             onExpandedChange={this.handleExpandedChange}
           >

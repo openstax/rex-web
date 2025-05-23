@@ -103,10 +103,11 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   );
 }, 0);
 
-export const StyledTree = styled(Tree)``;
+export const StyledTree = styled(Tree)``; // tslint:disable-line:variable-name
 
-export const StyledTreeItemContent = styled(TreeItemContent)``;
+export const StyledTreeItemContent = styled(TreeItemContent)``; // tslint:disable-line:variable-name
 
+ // tslint:disable-next-line:variable-name
 export const StyledTreeItem = styled(TreeItem)<{ section: ArchiveTree }>`
   margin: 0;
 
@@ -132,7 +133,7 @@ export const StyledTreeItem = styled(TreeItem)<{ section: ArchiveTree }>`
     return css`
       margin-top: 1.2rem;
       margin-left: ${numberWidth + dividerWidth}rem;
-      
+
       .os-number {P
           width: ${numberWidth}rem;
           overflow: hidden;

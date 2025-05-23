@@ -20,13 +20,13 @@ jest.mock('react-aria-components', () => {
   return {
     ...actual,
     Tree: ({ children, ...props }: any) =>
-      <div data-testid="mock-tree" {...props}>{children}</div>
+      <div data-testid='mock-tree' {...props}>{children}</div>
     ,
     TreeItem: ({ children, ...props }: any) =>
-      <div data-testid="mock-tree-item" {...props}>{children}</div>
+      <div data-testid='mock-tree-item' {...props}>{children}</div>
     ,
     TreeItemContent: ({ children, ...props }: any) =>
-      <div data-testid="mock-tree-item-content" {...props}>{children}</div>
+      <div data-testid='mock-tree-item-content' {...props}>{children}</div>
     ,
   };
 });
@@ -36,7 +36,7 @@ const book = formatBookData(archiveBook, mockCmsBook);
 describe('TableOfContents', () => {
   let store: Store;
   let Component: React.JSX.Element; // tslint:disable-line:variable-name
-  let SecondComponent: React.JSX.Element;
+  let SecondComponent: React.JSX.Element; // tslint:disable-line:variable-name
 
   const mockBook = {
     tree: {
@@ -51,7 +51,7 @@ describe('TableOfContents', () => {
           parent: { title: 'Chapter 1' },
         },
       ],
-    }
+    },
   } as any;
 
   beforeEach(() => {
