@@ -75,11 +75,12 @@ export const SummaryWrapper = styled.div`
   display: flex;
   list-style: none;
   overflow: visible;
-
-  :hover ${SummaryTitle},
-  :focus ${SummaryTitle} {
-    ${activeState}
-  }
+  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
+    :hover ${SummaryTitle},
+    :focus ${SummaryTitle} {
+      ${activeState}
+    }
+  `}
 
   ${theme.breakpoints.mobile(css`
     margin-top: 1.7rem;
