@@ -1107,7 +1107,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 .c15 > button > div {
-  padding: 1.5rem;
+  padding: 1.4rem;
 }
 
 .c20 {
