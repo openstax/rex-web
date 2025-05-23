@@ -164,7 +164,7 @@ const LabsCTA = () => {
         </Column>
         <Column maxWidth={35.4}>
           <LabsText>
-            Win prizes by participating in research and discover more insights about yourself!
+            Earn badges by participating in research and discover more insights about yourself!
           </LabsText>
         </Column>
       </LabsCallHeader>
