@@ -1,12 +1,13 @@
-import React from 'react';
+import { TreeItem, TreeItemContent } from 'react-aria-components';
 import styled, { css } from 'styled-components/macro';
-import { Details } from '../../../../components/Details';
-import { iconSize, Summary as BaseSummary } from '../../../../components/Details';
+import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
+import { iconSize } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { ArchiveTree } from '../../../types';
 import { splitTitleParts } from '../../../utils/archiveTreeUtils';
 import ContentLinkComponent from '../../ContentLink';
+import { Tree } from 'react-aria-components';
 
 export { ExpandIcon, CollapseIcon } from '../../../../components/Details';
 
@@ -48,7 +49,7 @@ export const ContentLink = styled(ContentLinkComponent)`
   margin-left: ${iconSize}rem;
   text-decoration: none;
 
-  li[aria-label="Current Page"] & {
+  &[aria-label$="Current Page"] {
     font-weight: 600;
   }
 
@@ -59,23 +60,8 @@ export const ContentLink = styled(ContentLinkComponent)`
   }
 `;
 
-interface NavItemComponentProps {
-  active?: boolean;
-  className?: string;
-  sectionType?: string;
-}
 // tslint:disable-next-line:variable-name
-export const NavItemComponent = React.forwardRef<HTMLLIElement, NavItemComponentProps>(
-  ({active, className, children, sectionType}, ref) => <li
-    data-type={sectionType}
-    ref={ref}
-    className={className}
-    {...(active ? {'aria-label': 'Current Page'} : {})}
-  >{children}</li>
-);
-
-// tslint:disable-next-line:variable-name
-export const NavItem = styled(NavItemComponent)`
+export const NavItem = styled(TreeItemContent)`
   list-style: none;
   overflow: visible;
   margin: 1.2rem 0 0 0;
@@ -85,25 +71,23 @@ export const NavItem = styled(NavItemComponent)`
 `;
 
 // tslint:disable-next-line:variable-name
-export const Summary = styled(BaseSummary)`
-  :focus {
-    outline: none;
-  }
-
+export const SummaryWrapper = styled.div`
+  display: flex;
+  list-style: none;
+  overflow: visible;
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
     :hover ${SummaryTitle},
     :focus ${SummaryTitle} {
       ${activeState}
     }
   `}
+
+  ${theme.breakpoints.mobile(css`
+    margin-top: 1.7rem;
+  `)}
 `;
 
-// tslint:disable-next-line:variable-name
-export const SummaryWrapper = styled.div`
-  display: flex;
-`;
-
-const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, {title}) => {
+const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((result, { title }) => {
   const num = splitTitleParts(title)[0];
 
   if (!num) {
@@ -120,17 +104,38 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   );
 }, 0);
 
-// tslint:disable-next-line:variable-name
-export const NavOl = styled.ol<{section: ArchiveTree}>`
+export const StyledTree = styled(Tree)``; // tslint:disable-line:variable-name
+
+export const StyledTreeItemContent = styled(TreeItemContent)``; // tslint:disable-line:variable-name
+
+ // tslint:disable-next-line:variable-name
+export const StyledTreeItem = styled(TreeItem)<{ section: ArchiveTree }>`
   margin: 0;
-  padding: 0;
+
+  > div > div {
+    padding-left: calc((var(--tree-item-level) - 1) * 2rem);
+  }
+
+  > div > a {
+    padding-left: calc((var(--tree-item-level) - 1) * 2.6rem);
+  }
+
+  &[data-expanded] > div ${ExpandIcon} {
+    display: none;
+  }
+
+  &:not([data-expanded]) > div ${CollapseIcon} {
+    display: none;
+  }
+
   ${(props) => {
     const numberWidth = getNumberWidth(props.section.contents);
 
     return css`
-      & > ${NavItem} > details > summary,
-      & > ${NavItem} > ${ContentLink} {
-        .os-number {
+      margin-top: 1.2rem;
+      margin-left: ${numberWidth + dividerWidth}rem;
+
+      .os-number {
           width: ${numberWidth}rem;
           overflow: hidden;
         }
@@ -145,30 +150,6 @@ export const NavOl = styled.ol<{section: ArchiveTree}>`
           flex: 1;
           overflow: hidden;
         }
-      }
-
-      & > ${NavItem} > details > ol {
-        margin-left: ${numberWidth + dividerWidth}rem;
-      }
     `;
   }}
-`;
-
-interface DetailsComponentProps {defaultOpen: boolean; open: boolean; }
-class DetailsComponent extends React.Component<DetailsComponentProps, {defaultOpen: boolean}> {
-  constructor(props: DetailsComponentProps) {
-    super(props);
-    this.state = {defaultOpen: props.defaultOpen};
-  }
-  public render() {
-    const {open, defaultOpen: _, ...props} = this.props;
-    const {defaultOpen} = this.state;
-
-    return <Details {...props} open={open || defaultOpen} />;
-  }
-}
-
-// tslint:disable-next-line:variable-name
-export const NavDetails = styled(DetailsComponent)`
-  overflow: visible;
 `;
