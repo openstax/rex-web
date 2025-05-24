@@ -270,6 +270,10 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
   public render() {
     const { isOpen, book } = this.props;
 
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return null;
+    }
+
     return (
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
         <TocHeader />
