@@ -478,3 +478,7 @@ export const useFocusElement = (element: React.RefObject<HTMLElement>, shouldFoc
     }
   }, [element, shouldFocus]);
 };
+
+export const isSSR = () => {
+  return typeof window === 'undefined' || typeof document === 'undefined';
+};

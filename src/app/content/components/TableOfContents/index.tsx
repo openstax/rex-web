@@ -15,7 +15,7 @@ import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../S
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
-import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery } from '../../../reactUtils';
+import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery, isSSR } from '../../../reactUtils';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -270,9 +270,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
   public render() {
     const { isOpen, book } = this.props;
 
-    if (typeof window === 'undefined' || typeof document === 'undefined') {
-      return null;
-    }
+    if (isSSR()) return null;
 
     return (
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>

@@ -15,6 +15,7 @@ import * as actions from '../../actions';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
+
 jest.mock('react-aria-components', () => {
   const actual = jest.requireActual('react-aria-components');
   return {
@@ -212,6 +213,13 @@ describe('TableOfContents', () => {
     });
 
     expect(instance.state.expandedKeys).toEqual(new Set());
+  });
+
+  it('returns null in SSR', () => {
+    jest.spyOn(reactUtils, 'isSSR').mockReturnValue(true);
+    const component = renderer.create(Component);
+    expect(component.toJSON()).toBeNull();
+    component.unmount();
   });
 });
 
