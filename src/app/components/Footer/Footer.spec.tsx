@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Footer, { useContactDialog } from '.';
+import Footer, { ContactDialog, useContactDialog } from '.';
 import TestContainer from '../../../test/TestContainer';
 import createTestStore from '../../../test/createTestStore';
 import { AppState, Store } from '../../types';
@@ -45,15 +45,15 @@ describe('useContactDialog', () => {
   });
 
   // tslint:disable-next-line:variable-name
-  const ShowContactDialog = (props: Parameters<ReturnType<typeof useContactDialog>['Dialog']>[0]) => {
-    const { Dialog, open: openContactDialog } = useContactDialog();
+  const ShowContactDialog = (props: Pick<Parameters<typeof ContactDialog>[0], 'contactFormParams'>) => {
+    const { isOpen, close, open } = useContactDialog();
 
     return (
       <>
-        <button onClick={openContactDialog}>
+        <button onClick={open}>
           Contact Us
         </button>
-        <Dialog {...props} />
+        <ContactDialog {...props} isOpen={isOpen} close={close} />
       </>
     );
   };
