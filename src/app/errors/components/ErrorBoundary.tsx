@@ -78,6 +78,7 @@ class ErrorBoundary extends React.Component<Props, State> {
               {(msg) => <H2>{msg}</H2>}
             </FormattedMessage>
           </HeadingWrapper>
+          {this.state.error.message}
           <BodyWithLink values={{supportCenterLink}}/>
           <ErrorIdList ids={this.props.stack} />
         </ErrorWrapper>
