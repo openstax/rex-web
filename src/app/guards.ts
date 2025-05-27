@@ -47,3 +47,7 @@ export const isHtmlElementWithHighlight = (thing: unknown): thing is dom.HTMLEle
 
 export const isKeyOf = <O extends {[key: string]: unknown}>(obj: O, thing: unknown): thing is keyof O =>
   typeof thing === 'string' && thing in obj;
+
+export const isPortaled = (thing: unknown): thing is {portalName: string} => (
+  typeof thing === 'object' && thing != null && 'portalName' in thing
+);

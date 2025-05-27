@@ -18,9 +18,10 @@ describe('Footer', () => {
 
   it('uses portal footer', () => {
     const portalName = 'portalName';
+    const params = {portalName};
     const state = {
-      content: {
-        params: { portalName },
+      navigation: {
+        match: {params},
       },
     } as unknown as AppState;
     const store = createTestStore(state);

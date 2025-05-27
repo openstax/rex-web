@@ -191,9 +191,10 @@ describe('content', () => {
         const portalName = 'portalName';
 
         beforeEach(() => {
+          const params = {portalName};
           const state = {
-            content: {
-              params: { portalName },
+            navigation: {
+              match: {params},
             },
           } as unknown as AppState;
           store = createTestStore(state);

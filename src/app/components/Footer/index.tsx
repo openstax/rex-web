@@ -5,9 +5,10 @@ import htmlMessage from '../../components/htmlMessage';
 import { isVerticalNavOpenConnector } from '../../content/components/utils/sidebar';
 import { State } from '../../content/types';
 import * as selectNavigation from '../../navigation/selectors';
+import * as guards from '../../guards';
 import * as Styled from './styled';
-import { useSelector } from 'react-redux';
 import { MessageEvent } from '@openstax/types/lib.dom';
+import { useSelector } from 'react-redux';
 
 const fbUrl = 'https://www.facebook.com/openstax';
 const twitterUrl = 'https://twitter.com/openstax';
@@ -355,9 +356,9 @@ const Footer = ({
 }: {
   isVerticalNavOpen: State['tocOpen'];
 }) => {
-  const portalName = useSelector(selectNavigation.portalName);
+  const params = useSelector(selectNavigation.params);
   return (
-    portalName === undefined
+    !guards.isPortaled(params)
       ? <NormalFooter isVerticalNavOpen={isVerticalNavOpen} />
       : <PortalFooter isVerticalNavOpen={isVerticalNavOpen} />
   );
