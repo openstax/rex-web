@@ -14,9 +14,9 @@ export const pathname = createSelector(
   (state) => state.pathname
 );
 
-export const portalName = createSelector(
-  parentSelectors.localState,
-  (parentState) => parentState.content.params?.portalName
+export const params = createSelector(
+  localState,
+  (state) => state.match?.params
 );
 
 export const query = createSelector(
