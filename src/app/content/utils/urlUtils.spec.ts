@@ -67,7 +67,7 @@ describe('getBookPageUrlAndParams', () => {
           books: {[testUUID]: {defaultVersion: mockArchiveBook.version}},
         },
       },
-    }, mockCmsBook), page, 'portalName');
+    }, mockCmsBook), page, {portalName: 'portalName'});
     expect((result.params.book as any).contentVersion).toBeUndefined();
     expect(result.params.portalName).toBe('portalName');
     expect(result.url).toMatch(/\/portal\/portalName\//);
