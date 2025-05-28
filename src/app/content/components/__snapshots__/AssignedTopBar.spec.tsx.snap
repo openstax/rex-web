@@ -67,7 +67,7 @@ exports[`AssignedTopBar renders 1`] = `
 }
 
 .c4 > button > div {
-  padding: 1.5rem;
+  padding: 1.4rem;
 }
 
 .c0 {
