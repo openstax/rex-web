@@ -10,24 +10,24 @@ const TEST_PAGE_WITH_FIGURE = '/books/book-slug-1/pages/test-page-for-generic-st
 
 describe('content', () => {
 
-  //Workaround until TS version and RAC work together
-  beforeEach(async () => {
+  // Workaround until TS version and RAC work together
+  beforeEach(async() => {
     await page.evaluateOnNewDocument(() => {
+      // eslint-disable-next-line no-extend-native
       Object.defineProperty(Array.prototype, 'at', {
         configurable: true,
         writable: true,
-        value: function (n: number) {
+        value: function(n: number) {
           n = Math.trunc(n) || 0;
           if (n < 0) n += this.length;
           if (n < 0 || n >= this.length) return undefined;
           return this[n];
         },
       });
-      console.log('[puppeteer] Array.prototype.at polyfill applied');
     });
   });
 
-  it('doesn\'t modify the markup on page load', async () => {
+  it('doesn\'t modify the markup on page load', async() => {
     const getHtml = () => {
       if (!document) {
         return 'no document';
@@ -89,12 +89,12 @@ describe('content', () => {
 
     const secondHTML = await page.evaluate(getHtml);
 
-    expect(typeof(firstHTML)).toEqual('string');
-    //With the use of RAC, new react-aria content is injected into the page
+    expect(typeof (firstHTML)).toEqual('string');
+    // With the use of RAC, new react-aria content is injected into the page
     expect(pretty(secondHTML)).not.toEqual(pretty(firstHTML));
   });
 
-  it('updates content links in content', async () => {
+  it('updates content links in content', async() => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE_WITH_LINKS);
 
@@ -110,7 +110,7 @@ describe('content', () => {
     ]);
   });
 
-  it('updates resource links in content', async () => {
+  it('updates resource links in content', async() => {
     await page.setJavaScriptEnabled(false);
     await navigate(page, TEST_PAGE_WITH_FIGURE);
 
@@ -126,7 +126,7 @@ describe('content', () => {
     ]);
   });
 
-  it('triggers google analytics pageview initially', async () => {
+  it('triggers google analytics pageview initially', async() => {
     await page.setJavaScriptEnabled(true);
     await navigate(page, TEST_PAGE_WITHOUT_MATH);
 
@@ -146,7 +146,7 @@ describe('content', () => {
     });
   });
 
-  it('triggers google analytics pageview after navigating again', async () => {
+  it('triggers google analytics pageview after navigating again', async() => {
     await page.setJavaScriptEnabled(true);
     await navigate(page, TEST_PAGE_WITHOUT_MATH);
 
