@@ -3697,7 +3697,7 @@ Array [
               className="c57"
               data-testid="mock-tree-item"
               id="testbook1-testpage1-uuid@1.0"
-              onClick={[Function]}
+              onAction={[Function]}
               section={
                 Object {
                   "contents": Array [
@@ -3831,6 +3831,7 @@ Array [
                       "__html": "<span class=\\"os-text\\">Test Page 1</span>",
                     }
                   }
+                  data-testid="content-link-test"
                   href="test-page-1"
                   onClick={[Function]}
                 />
@@ -4205,7 +4206,7 @@ Array [
                   className="c68"
                   data-testid="mock-tree-item"
                   id="testbook1-testpage2-uuid@1.0"
-                  onClick={[Function]}
+                  onAction={[Function]}
                   section={
                     Object {
                       "contents": Array [
@@ -4381,6 +4382,7 @@ Array [
                           "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
                         }
                       }
+                      data-testid="content-link-test"
                       href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                       onClick={[Function]}
                     />
@@ -4391,7 +4393,7 @@ Array [
                 className="c67"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage11-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -4554,6 +4556,7 @@ Array [
                         "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="1-1-physics-an-introduction"
                     onClick={[Function]}
                   />
@@ -4563,7 +4566,7 @@ Array [
                 className="c67"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage8-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -4726,6 +4729,7 @@ Array [
                         "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="23-12-rlc-series-ac-circuits"
                     onClick={[Function]}
                   />
@@ -4904,7 +4908,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage3-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -5051,6 +5055,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 3</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="2-test-page-3"
                     onClick={[Function]}
                   />
@@ -5229,7 +5234,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage4-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -5376,6 +5381,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 4</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="3-test-page-4"
                     onClick={[Function]}
                   />
@@ -5554,7 +5560,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage5-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -5701,6 +5707,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 5</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="4-test-page-5"
                     onClick={[Function]}
                   />
@@ -5879,7 +5886,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage6-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -6026,6 +6033,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="10-test-page-6-f%C3%ADsica"
                     onClick={[Function]}
                   />
@@ -6204,7 +6212,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage7-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -6351,6 +6359,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 7</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="12-test-page-7"
                     onClick={[Function]}
                   />
@@ -6361,7 +6370,7 @@ Array [
               className="c57"
               data-testid="mock-tree-item"
               id="testbook1-testpage9-uuid@1.0"
-              onClick={[Function]}
+              onAction={[Function]}
               section={
                 Object {
                   "contents": Array [
@@ -6495,6 +6504,7 @@ Array [
                       "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
                     }
                   }
+                  data-testid="content-link-test"
                   href="a-atomic-masses"
                   onClick={[Function]}
                 />
@@ -6504,7 +6514,7 @@ Array [
               className="c57"
               data-testid="mock-tree-item"
               id="testbook1-testpage10-uuid@1.0"
-              onClick={[Function]}
+              onAction={[Function]}
               section={
                 Object {
                   "contents": Array [
@@ -6638,6 +6648,7 @@ Array [
                       "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
                     }
                   }
+                  data-testid="content-link-test"
                   href="d-glossary-of-key-symbols-and-notation"
                   onClick={[Function]}
                 />
@@ -6647,7 +6658,7 @@ Array [
               className="c57"
               data-testid="mock-tree-item"
               id="testbook1-testpage12-uuid@1.0"
-              onClick={[Function]}
+              onAction={[Function]}
               section={
                 Object {
                   "contents": Array [
@@ -6781,6 +6792,7 @@ Array [
                       "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
                     }
                   }
+                  data-testid="content-link-test"
                   href="test-page-for-generic-styles"
                   onClick={[Function]}
                 />
@@ -6833,6 +6845,7 @@ Array [
                   aria-label="Previous Page"
                   className="c77"
                   data-analytics-label="prev"
+                  data-testid="content-link-test"
                   href="2-test-page-3"
                   onClick={[Function]}
                 >
@@ -6854,6 +6867,7 @@ Array [
                   aria-label="Next Page"
                   className="c79"
                   data-analytics-label="next"
+                  data-testid="content-link-test"
                   href="4-test-page-5"
                   onClick={[Function]}
                 >
@@ -10839,7 +10853,7 @@ Array [
               className="c57"
               data-testid="mock-tree-item"
               id="testbook1-testpage1-uuid@1.0"
-              onClick={[Function]}
+              onAction={[Function]}
               section={
                 Object {
                   "contents": Array [
@@ -10973,6 +10987,7 @@ Array [
                       "__html": "<span class=\\"os-text\\">Test Page 1</span>",
                     }
                   }
+                  data-testid="content-link-test"
                   href="test-page-1"
                   onClick={[Function]}
                 />
@@ -11347,7 +11362,7 @@ Array [
                   className="c68"
                   data-testid="mock-tree-item"
                   id="testbook1-testpage2-uuid@1.0"
-                  onClick={[Function]}
+                  onAction={[Function]}
                   section={
                     Object {
                       "contents": Array [
@@ -11523,6 +11538,7 @@ Array [
                           "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
                         }
                       }
+                      data-testid="content-link-test"
                       href="1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                       onClick={[Function]}
                     />
@@ -11533,7 +11549,7 @@ Array [
                 className="c67"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage11-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -11696,6 +11712,7 @@ Array [
                         "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="1-1-physics-an-introduction"
                     onClick={[Function]}
                   />
@@ -11705,7 +11722,7 @@ Array [
                 className="c67"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage8-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -11868,6 +11885,7 @@ Array [
                         "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="23-12-rlc-series-ac-circuits"
                     onClick={[Function]}
                   />
@@ -12046,7 +12064,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage3-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -12193,6 +12211,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 3</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="2-test-page-3"
                     onClick={[Function]}
                   />
@@ -12371,7 +12390,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage4-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -12518,6 +12537,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 4</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="3-test-page-4"
                     onClick={[Function]}
                   />
@@ -12696,7 +12716,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage5-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -12843,6 +12863,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 5</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="4-test-page-5"
                     onClick={[Function]}
                   />
@@ -13021,7 +13042,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage6-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -13168,6 +13189,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="10-test-page-6-f%C3%ADsica"
                     onClick={[Function]}
                   />
@@ -13346,7 +13368,7 @@ Array [
                 className="c68"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage7-uuid@1.0"
-                onClick={[Function]}
+                onAction={[Function]}
                 section={
                   Object {
                     "contents": Array [
@@ -13493,6 +13515,7 @@ Array [
                         "__html": "<span class=\\"os-text\\">Test Page 7</span>",
                       }
                     }
+                    data-testid="content-link-test"
                     href="12-test-page-7"
                     onClick={[Function]}
                   />
@@ -13503,7 +13526,7 @@ Array [
               className="c57"
               data-testid="mock-tree-item"
               id="testbook1-testpage9-uuid@1.0"
-              onClick={[Function]}
+              onAction={[Function]}
               section={
                 Object {
                   "contents": Array [
@@ -13637,6 +13660,7 @@ Array [
                       "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
                     }
                   }
+                  data-testid="content-link-test"
                   href="a-atomic-masses"
                   onClick={[Function]}
                 />
@@ -13646,7 +13670,7 @@ Array [
               className="c57"
               data-testid="mock-tree-item"
               id="testbook1-testpage10-uuid@1.0"
-              onClick={[Function]}
+              onAction={[Function]}
               section={
                 Object {
                   "contents": Array [
@@ -13780,6 +13804,7 @@ Array [
                       "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
                     }
                   }
+                  data-testid="content-link-test"
                   href="d-glossary-of-key-symbols-and-notation"
                   onClick={[Function]}
                 />
@@ -13789,7 +13814,7 @@ Array [
               className="c57"
               data-testid="mock-tree-item"
               id="testbook1-testpage12-uuid@1.0"
-              onClick={[Function]}
+              onAction={[Function]}
               section={
                 Object {
                   "contents": Array [
@@ -13923,6 +13948,7 @@ Array [
                       "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
                     }
                   }
+                  data-testid="content-link-test"
                   href="test-page-for-generic-styles"
                   onClick={[Function]}
                 />

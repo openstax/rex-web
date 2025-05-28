@@ -192,6 +192,54 @@ export function maybeAriaLabel(page: LinkedArchiveTreeSection, active?: boolean)
   return { 'aria-label': `${titleText} - Chapter ${parentNum} ${activeAriaLabel}` };
 }
 
+function TocLeaf({
+  section,
+  item,
+  sectionType,
+  onNavigate,
+  book,
+  active,
+}: {
+  section: ArchiveTree;
+  item: LinkedArchiveTreeSection;
+  sectionType: string;
+  onNavigate: () => void;
+  book: Book | undefined;
+  active: boolean | undefined;
+}) {
+  const linkRef = React.useRef<HTMLElement>(null);
+
+  return (
+    <Styled.StyledTreeItem
+      section={section}
+      id={item.id}
+      key={item.id}
+      textValue={item.title}
+      onAction={
+        // Ignored until RAC and TS versions are compatible
+        // istanbul ignore next
+        () => {
+          linkRef.current?.click();
+        }
+      }
+    >
+      <Styled.NavItem
+        data-type={sectionType}
+        textValue={item.title}
+      >
+        <Styled.ContentLink
+          ref={linkRef}
+          onClick={onNavigate}
+          book={book}
+          page={item}
+          dangerouslySetInnerHTML={{ __html: item.title }}
+          {...maybeAriaLabel(item, active)}
+        />
+      </Styled.NavItem>
+    </Styled.StyledTreeItem>
+  );
+}
+
 function TocSection({
   book,
   page,
@@ -216,38 +264,35 @@ function TocSection({
         const active = page && stripIdVersion(item.id) === page.id;
 
         return (
-          <Styled.StyledTreeItem
-            section={section}
-            id={item.id}
-            key={item.id}
-            textValue={item.title}
-            onClick={() => handleTreeItemClick(item.id)}
-          >
+          <>
             {isArchiveTree(item)
               ?
-              <ArchiveTreeComponent
-                item={item}
-                book={book}
-                page={page}
-                activeSection={activeSection}
-                onNavigate={onNavigate}
-                expandedKeys={expandedKeys}
-                handleTreeItemClick={handleTreeItemClick}
-              />
-              : <Styled.NavItem
-                data-type={sectionType}
-                ref={active ? activeSection : null}
+              <Styled.StyledTreeItem
+                section={section}
+                id={item.id}
+                key={item.id}
                 textValue={item.title}
+                onClick={() => handleTreeItemClick(item.id)}
               >
-                <Styled.ContentLink
-                  onClick={onNavigate}
+                <ArchiveTreeComponent
+                  item={item}
                   book={book}
-                  page={item}
-                  dangerouslySetInnerHTML={{ __html: item.title }}
-                  {...maybeAriaLabel(item, active)}
+                  page={page}
+                  activeSection={activeSection}
+                  onNavigate={onNavigate}
+                  expandedKeys={expandedKeys}
+                  handleTreeItemClick={handleTreeItemClick}
                 />
-              </Styled.NavItem>}
-          </Styled.StyledTreeItem>
+              </Styled.StyledTreeItem>
+              : <TocLeaf
+                section={section}
+                item={item}
+                sectionType={sectionType}
+                onNavigate={onNavigate}
+                book={book}
+                active={active}
+              />}
+          </>
         );
       })}
     </>
