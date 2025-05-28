@@ -190,7 +190,7 @@ Array [
   >
     
   </div>,
-  .c38 {
+  .c13 {
   position: fixed;
   right: 2rem;
   z-index: 40;
@@ -209,7 +209,7 @@ Array [
   overflow: hidden;
 }
 
-.c16 {
+.c23 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
@@ -477,7 +477,7 @@ Array [
   transform: translateY(0.2rem);
 }
 
-.c26 {
+.c61 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -485,11 +485,11 @@ Array [
   background: none;
 }
 
-.c29 {
+.c64 {
   cursor: pointer;
 }
 
-.c23 > *:not(.c28) {
+.c58 > *:not(.c63) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -499,18 +499,18 @@ Array [
   left: 0;
 }
 
-.c24 {
+.c59 {
   overflow: visible;
   position: relative;
 }
 
-.c27 {
+.c62 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c27 > div {
+.c62 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -533,7 +533,7 @@ Array [
   justify-content: flex-end;
 }
 
-.c14 {
+.c32 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -547,12 +547,12 @@ Array [
   min-width: 45px;
 }
 
-.c14:hover,
-.c14:focus {
+.c32:hover,
+.c32:focus {
   color: #424242;
 }
 
-.c46 {
+.c22 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -584,12 +584,12 @@ Array [
   padding: 0 10px;
 }
 
-.c46:hover,
-.c46:focus {
+.c22:hover,
+.c22:focus {
   color: #424242;
 }
 
-.c48 {
+.c25 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -597,19 +597,18 @@ Array [
   line-height: 1.5rem;
 }
 
-.c47 {
+.c24 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c39 {
+.c14 {
   grid-area: 1 / 1 / auto / 2;
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
   height: calc(100vh - 13rem);
-  margin-top: -5rem;
   max-height: calc(100vh - 7rem);
   max-width: 8rem;
   overflow: visible;
@@ -619,7 +618,7 @@ Array [
   border-left: 1px solid #d5d5d5;
 }
 
-.c39::before {
+.c14::before {
   content: "";
   position: absolute;
   top: 0;
@@ -629,7 +628,7 @@ Array [
   background-color: #fafafa;
 }
 
-.c56 {
+.c34 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
@@ -637,22 +636,22 @@ Array [
   color: #5e6062;
 }
 
-.c56:hover {
+.c34:hover {
   color: #424242;
 }
 
-.c53 {
+.c30 {
   width: 4rem;
   height: 4rem;
   color: #5e6062;
   margin: 0 -1rem;
 }
 
-.c53:hover {
+.c30:hover {
   color: #424242;
 }
 
-.c40 {
+.c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -662,12 +661,12 @@ Array [
   flex-direction: column;
 }
 
-.c62 {
+.c40 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c64 {
+.c42 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -962,12 +961,12 @@ Array [
   overflow: initial;
 }
 
-.c37 {
+.c12 {
   position: relative;
   overflow: visible;
 }
 
-.c36 {
+.c11 {
   width: 100%;
   max-width: 144rem;
   margin: 0 auto;
@@ -1036,11 +1035,11 @@ Array [
   padding-top: 1.8rem;
 }
 
-.c81[open] > summary .c61 {
+.c81[open] > summary .c39 {
   display: none;
 }
 
-.c81:not([open]) > summary .c63 {
+.c81:not([open]) > summary .c41 {
   display: none;
 }
 
@@ -1226,7 +1225,7 @@ Array [
   margin-top: -7rem;
 }
 
-.c70 {
+.c48 {
   grid-column: 1 / -1;
   grid-row: 1;
   justify-self: center;
@@ -1236,7 +1235,7 @@ Array [
   max-width: 128rem;
 }
 
-.c13 {
+.c19 {
   display: contents;
 }
 
@@ -1248,7 +1247,7 @@ Array [
   top: 12rem;
 }
 
-.c42 {
+.c17 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -1256,7 +1255,7 @@ Array [
   padding: 0;
 }
 
-.c41 {
+.c16 {
   background: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1282,17 +1281,17 @@ Array [
   display: none;
 }
 
-.c41:hover {
+.c16:hover {
   color: #424242;
 }
 
-.c41 > svg {
+.c16 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c43 {
+.c18 {
   background: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1322,17 +1321,17 @@ Array [
   display: flex;
 }
 
-.c43:hover {
+.c18:hover {
   color: #424242;
 }
 
-.c43 > svg {
+.c18 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c51 {
+.c28 {
   color: #5e6062;
   border: none;
   padding: 0;
@@ -1342,18 +1341,18 @@ Array [
   display: block;
 }
 
-.c51:hover {
+.c28:hover {
   color: #424242;
 }
 
-.c55 {
+.c33 {
   height: 40px;
   position: absolute;
   right: 0;
   display: none;
 }
 
-.c52 {
+.c29 {
   display: none;
 }
 
@@ -1433,7 +1432,7 @@ Array [
   display: flex;
 }
 
-.c69 {
+.c47 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1446,7 +1445,7 @@ Array [
   border: 0;
 }
 
-.c11 {
+.c49 {
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
@@ -1456,13 +1455,13 @@ Array [
   z-index: 30;
 }
 
-.c17 {
+.c52 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c15 {
+.c51 {
   display: none;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -1474,7 +1473,7 @@ Array [
   align-items: center;
 }
 
-.c21 {
+.c56 {
   height: 3.2rem;
   border-radius: 0;
   margin: 0;
@@ -1485,14 +1484,14 @@ Array [
   display: none;
 }
 
-.c21 > svg {
+.c56 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
   vertical-align: middle;
 }
 
-.c22 {
+.c57 {
   height: 3.2rem;
   border-radius: 0;
   margin: 0;
@@ -1502,14 +1501,14 @@ Array [
   color: #5e6062;
 }
 
-.c22 > svg {
+.c57 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
   vertical-align: middle;
 }
 
-.c19 {
+.c54 {
   margin-left: auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -1527,21 +1526,21 @@ Array [
   width: 38rem;
 }
 
-.c19:last-child {
+.c54:last-child {
   margin-right: auto;
 }
 
-.c19:focus-within {
+.c54:focus-within {
   border: solid 0.1rem #0dc0dc;
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
 
-.c19.focus-within {
+.c54.focus-within {
   border: solid 0.1rem #0dc0dc;
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
 
-.c20 {
+.c55 {
   color: #424242;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -1557,33 +1556,33 @@ Array [
   appearance: textfield;
 }
 
-.c20::-webkit-search-decoration,
-.c20::-webkit-search-cancel-button,
-.c20::-webkit-search-results-button,
-.c20::-webkit-search-results-decoration {
+.c55::-webkit-search-decoration,
+.c55::-webkit-search-cancel-button,
+.c55::-webkit-search-results-button,
+.c55::-webkit-search-results-decoration {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   display: none;
 }
 
-.c20::-webkit-input-placeholder {
+.c55::-webkit-input-placeholder {
   color: #6f6f6f;
 }
 
-.c20::-moz-placeholder {
+.c55::-moz-placeholder {
   color: #6f6f6f;
 }
 
-.c20:-ms-input-placeholder {
+.c55:-ms-input-placeholder {
   color: #6f6f6f;
 }
 
-.c20::placeholder {
+.c55::placeholder {
   color: #6f6f6f;
 }
 
-.c35 {
+.c70 {
   color: #424242;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -1599,33 +1598,33 @@ Array [
   appearance: textfield;
 }
 
-.c35::-webkit-search-decoration,
-.c35::-webkit-search-cancel-button,
-.c35::-webkit-search-results-button,
-.c35::-webkit-search-results-decoration {
+.c70::-webkit-search-decoration,
+.c70::-webkit-search-cancel-button,
+.c70::-webkit-search-results-button,
+.c70::-webkit-search-results-decoration {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   display: none;
 }
 
-.c35::-webkit-input-placeholder {
+.c70::-webkit-input-placeholder {
   color: #6f6f6f;
 }
 
-.c35::-moz-placeholder {
+.c70::-moz-placeholder {
   color: #6f6f6f;
 }
 
-.c35:-ms-input-placeholder {
+.c70:-ms-input-placeholder {
   color: #6f6f6f;
 }
 
-.c35::placeholder {
+.c70::placeholder {
   color: #6f6f6f;
 }
 
-.c12 {
+.c50 {
   height: 5rem;
   max-width: 128rem;
   margin: 0 auto;
@@ -1650,7 +1649,7 @@ Array [
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
-.c32 {
+.c67 {
   max-width: 128rem;
   margin: 0 auto;
   width: calc(100% - 3.2rem * 2);
@@ -1660,7 +1659,7 @@ Array [
   height: 3.2rem;
 }
 
-.c30 {
+.c65 {
   display: none;
   overflow: visible;
   height: 5.3rem;
@@ -1668,33 +1667,33 @@ Array [
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
-.c31 {
+.c66 {
   border: none;
   border-top: 0.1rem solid #efeff1;
   display: none;
   margin: 0;
 }
 
-.c34 {
+.c69 {
   white-space: nowrap;
   margin-right: 1rem;
   text-align: left;
 }
 
-.c25 {
+.c60 {
   margin-left: auto;
   z-index: 3;
 }
 
-.c25 > button {
+.c60 > button {
   max-height: 5.2rem;
 }
 
-.c25 > button > div {
-  padding: 1.5rem;
+.c60 > button > div {
+  padding: 1.4rem;
 }
 
-.c33 {
+.c68 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -1722,24 +1721,23 @@ Array [
   display: none;
 }
 
-.c33:hover,
-.c33:focus {
+.c68:hover,
+.c68:focus {
   color: #424242;
 }
 
-.c33:hover,
-.c33:focus {
+.c68:hover,
+.c68:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c49 {
+.c26 {
   grid-area: 1 / 2 / auto / 3;
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
-  margin-top: -5rem;
   overflow-y: auto;
   height: calc(100vh - 13rem);
   max-height: calc(100vh - 7rem);
@@ -1762,7 +1760,7 @@ Array [
   flex-direction: column;
 }
 
-.c49 > ol {
+.c26 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
   padding: 1.8rem 1.8rem 1.8rem 1.6rem;
@@ -1771,11 +1769,11 @@ Array [
   flex: 1;
 }
 
-.c49 > ol > li:first-child {
+.c26 > ol > li:first-child {
   margin-top: 0;
 }
 
-.c49 > ol::before {
+.c26 > ol::before {
   content: "";
   background: #fafafa;
   display: block;
@@ -1783,13 +1781,13 @@ Array [
   margin: -1.8rem -1.8rem 0 -1.8rem;
 }
 
-.c49 > * {
+.c26 > * {
   -webkit-transition: all 300ms;
   transition: all 300ms;
   opacity: 1;
 }
 
-.c50 {
+.c27 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1809,12 +1807,12 @@ Array [
   box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
 }
 
-.c54 {
+.c31 {
   font-size: 1.8rem;
   line-height: 2.9rem;
   font-weight: 600;
   margin: 0;
-  padding: 0;
+  padding: 1rem 0;
   color: #5e6062;
   -webkit-flex: 1 1 0%;
   -ms-flex: 1 1 0%;
@@ -1822,7 +1820,7 @@ Array [
   text-align: left;
 }
 
-.c66 {
+.c44 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -1838,7 +1836,7 @@ Array [
   flex: 1;
 }
 
-.c59 {
+.c37 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -1854,25 +1852,25 @@ Array [
   text-decoration: none;
 }
 
-.c59[aria-label$="Current Page"] {
+.c37[aria-label$="Current Page"] {
   font-weight: 600;
 }
 
-.c59:focus,
-.c59:hover {
+.c37:focus,
+.c37:hover {
   outline: none;
   color: #000;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c58 {
+.c36 {
   list-style: none;
   overflow: visible;
   margin: 1.2rem 0 0 0;
 }
 
-.c60 {
+.c38 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1881,134 +1879,134 @@ Array [
   overflow: visible;
 }
 
-.c60:hover .c65,
-.c60:focus .c65 {
+.c38:hover .c43,
+.c38:focus .c43 {
   color: #000;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c57 {
+.c35 {
   margin: 0;
   margin-top: 1.2rem;
   margin-left: 2.58125rem;
 }
 
-.c57 > div > div {
+.c35 > div > div {
   padding-left: calc((var(--tree-item-level) - 1) * 2rem);
 }
 
-.c57 > div > a {
+.c35 > div > a {
   padding-left: calc((var(--tree-item-level) - 1) * 2.6rem);
 }
 
-.c57[data-expanded] > div .c61 {
+.c35[data-expanded] > div .c39 {
   display: none;
 }
 
-.c57:not([data-expanded]) > div .c63 {
+.c35:not([data-expanded]) > div .c41 {
   display: none;
 }
 
-.c57 .os-number {
+.c35 .os-number {
   width: 1.78125rem;
   overflow: hidden;
 }
 
-.c57 .os-divider {
+.c35 .os-divider {
   width: 0.8rem;
   text-align: center;
   overflow: hidden;
 }
 
-.c57 .os-text {
+.c35 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
 }
 
-.c67 {
+.c45 {
   margin: 0;
   margin-top: 1.2rem;
   margin-left: 4.8078125rem;
 }
 
-.c67 > div > div {
+.c45 > div > div {
   padding-left: calc((var(--tree-item-level) - 1) * 2rem);
 }
 
-.c67 > div > a {
+.c45 > div > a {
   padding-left: calc((var(--tree-item-level) - 1) * 2.6rem);
 }
 
-.c67[data-expanded] > div .c61 {
+.c45[data-expanded] > div .c39 {
   display: none;
 }
 
-.c67:not([data-expanded]) > div .c63 {
+.c45:not([data-expanded]) > div .c41 {
   display: none;
 }
 
-.c67 .os-number {
+.c45 .os-number {
   width: 4.0078125rem;
   overflow: hidden;
 }
 
-.c67 .os-divider {
+.c45 .os-divider {
   width: 0.8rem;
   text-align: center;
   overflow: hidden;
 }
 
-.c67 .os-text {
+.c45 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
 }
 
-.c68 {
+.c46 {
   margin: 0;
   margin-top: 1.2rem;
   margin-left: 0.8rem;
 }
 
-.c68 > div > div {
+.c46 > div > div {
   padding-left: calc((var(--tree-item-level) - 1) * 2rem);
 }
 
-.c68 > div > a {
+.c46 > div > a {
   padding-left: calc((var(--tree-item-level) - 1) * 2.6rem);
 }
 
-.c68[data-expanded] > div .c61 {
+.c46[data-expanded] > div .c39 {
   display: none;
 }
 
-.c68:not([data-expanded]) > div .c63 {
+.c46:not([data-expanded]) > div .c41 {
   display: none;
 }
 
-.c68 .os-number {
+.c46 .os-number {
   width: 0rem;
   overflow: hidden;
 }
 
-.c68 .os-divider {
+.c46 .os-divider {
   width: 0.8rem;
   text-align: center;
   overflow: hidden;
 }
 
-.c68 .os-text {
+.c46 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
 }
 
-.c44 {
+.c20 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -2040,18 +2038,18 @@ Array [
   padding: 0;
 }
 
-.c44:hover,
-.c44:focus {
+.c20:hover,
+.c20:focus {
   color: #424242;
 }
 
-.c44 > svg {
+.c20 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c45 {
+.c21 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -2179,13 +2177,13 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c27 > div {
+  .c62 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c46 {
+  .c22 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -2200,7 +2198,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c48 {
+  .c25 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -2208,18 +2206,18 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c39 {
+  .c14 {
     top: 6rem;
     max-height: calc(100vh - 6rem);
   }
 
-  .c39::before {
+  .c14::before {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c39 {
+  .c14 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2246,7 +2244,7 @@ Array [
 }
 
 @media print {
-  .c39 {
+  .c14 {
     display: none;
   }
 }
@@ -2400,7 +2398,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c36 {
+  .c11 {
     grid-template-columns: 100%;
   }
 }
@@ -2587,19 +2585,19 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c70 {
+  .c48 {
     grid-column-start: 2;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c70 {
+  .c48 {
     grid-column: 1 / -1;
   }
 }
 
 @media screen {
-  .c70 {
+  .c48 {
     background-color: #fff;
     padding-left: 37.5rem;
     -webkit-transition: padding-left 300ms ease-in-out;
@@ -2648,7 +2646,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c42 {
+  .c17 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -2656,7 +2654,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c41 {
+  .c16 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -2671,7 +2669,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c41 {
+  .c16 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2680,7 +2678,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c43 {
+  .c18 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -2695,25 +2693,25 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c43 {
+  .c18 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c51 {
+  .c28 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c55 {
+  .c33 {
     display: block;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c52 {
+  .c29 {
     display: block;
   }
 }
@@ -2760,25 +2758,25 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c49 {
     top: 6rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c11 {
+  .c49 {
     z-index: 51;
   }
 }
 
 @media print {
-  .c11 {
+  .c49 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c15 {
+  .c51 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2787,68 +2785,68 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c21 {
+  .c56 {
     display: block;
     height: 100%;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c22 {
+  .c57 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c19 {
+  .c54 {
     height: 100%;
     overflow: hidden;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c19 {
+  .c54 {
     width: 100%;
   }
 
-  .c19,
-  .c19:last-child {
+  .c54,
+  .c54:last-child {
     margin-right: 0;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c20 {
+  .c55 {
     display: none;
   }
 }
 
 @media screen and (max-width:90em) {
-  .c12 {
+  .c50 {
     padding-left: calc(45.5rem - (100vw - 128rem) / 2);
   }
 }
 
 @media screen and (max-width:80em) {
-  .c12 {
+  .c50 {
     padding-left: 45.5rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c50 {
     padding-left: 0 !important;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c50 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c12 {
+  .c50 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2863,7 +2861,7 @@ Array [
     transition: none;
   }
 
-  .c12 .c18 {
+  .c50 .c53 {
     border: none;
     border-radius: 0;
     width: 45px;
@@ -2871,13 +2869,13 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c32 {
+  .c67 {
     width: calc(100% - 1.6rem * 2);
   }
 }
 
 @media screen and (max-width:75em) {
-  .c32 {
+  .c67 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -2894,7 +2892,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c32 {
+  .c67 {
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
@@ -2903,48 +2901,48 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c30 {
+  .c65 {
     padding-left: 8rem;
     display: block;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c30 {
+  .c65 {
     padding-left: 0;
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c31 {
+  .c66 {
     display: block;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c25 {
+  .c60 {
     margin-left: 0;
     display: block;
   }
 
-  .c25 > button {
+  .c60 > button {
     max-height: 4.6rem;
   }
 
-  .c25 > button > div {
+  .c60 > button > div {
     padding: 0.9rem 1.5rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c33 {
+  .c68 {
     display: block;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c49 {
+  .c26 {
     width: 30.4rem;
     top: 6rem;
     height: calc(100vh - 11.2rem);
@@ -2953,7 +2951,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c49 {
+  .c26 {
     z-index: 90;
     position: fixed;
     top: 0;
@@ -2967,7 +2965,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c49 {
+  .c26 {
     overflow-y: hidden;
     -webkit-transform: translateX(-100%);
     -ms-transform: translateX(-100%);
@@ -2978,43 +2976,43 @@ Array [
     opacity: 0;
   }
 
-  .c49 > * {
+  .c26 > * {
     opacity: 0;
   }
 }
 
 @media print {
-  .c49 {
+  .c26 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c50 {
+  .c27 {
     height: 5.3rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c54 {
+  .c31 {
     text-align: center;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c58 {
+  .c36 {
     margin-top: 1.7rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c60 {
+  .c38 {
     margin-top: 1.7rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c44 {
+  .c20 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -3029,7 +3027,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c45 {
+  .c21 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -3150,265 +3148,23 @@ Array [
       className="c10"
     >
       <div
-        className="c11"
-        data-testid="topbar"
-      >
-        <div
-          className="c12"
-        >
-          <div
-            className="c13"
-            id="mobile-menu-button"
-          >
-            <button
-              aria-label="Click to open menu"
-              className="c14 c15"
-              onClick={[Function]}
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                className="c16 c17"
-                fill="currentColor"
-                focusable="false"
-                viewBox="0 0 448 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-                  fill="currentColor"
-                />
-              </svg>
-            </button>
-          </div>
-          <form
-            className="c18 c19"
-            data-experiment={true}
-            data-testid="desktop-search"
-            onSubmit={[Function]}
-          >
-            <input
-              aria-label="Search this book"
-              className="c20"
-              data-testid="desktop-search-input"
-              onChange={[Function]}
-              placeholder="Search this book"
-              type="search"
-              value=""
-            />
-            <button
-              aria-label="Search"
-              className="c14 c21"
-              data-analytics-label="Search this book"
-              data-experiment={true}
-              data-testid="mobile-toggle"
-              onClick={[Function]}
-              type="button"
-              value="Search"
-            >
-              <svg
-                aria-hidden="true"
-                height="18px"
-                role="img"
-                version="1.1"
-                viewBox="0 0 18 18"
-                width="18px"
-              >
-                <title>
-                  Search
-                </title>
-                <g
-                  fill="none"
-                  fillRule="evenodd"
-                  stroke="none"
-                  strokeWidth="1"
-                >
-                  <g
-                    fill="currentColor"
-                    fillRule="nonzero"
-                    transform="translate(-938.000000, -206.000000)"
-                  >
-                    <path
-                      d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </button>
-            <button
-              aria-label="Search"
-              className="c14 c22"
-              data-experiment={true}
-              value="Search"
-            >
-              <svg
-                aria-hidden="true"
-                height="18px"
-                role="img"
-                version="1.1"
-                viewBox="0 0 18 18"
-                width="18px"
-              >
-                <title>
-                  Search
-                </title>
-                <g
-                  fill="none"
-                  fillRule="evenodd"
-                  stroke="none"
-                  strokeWidth="1"
-                >
-                  <g
-                    fill="currentColor"
-                    fillRule="nonzero"
-                    transform="translate(-938.000000, -206.000000)"
-                  >
-                    <path
-                      d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </button>
-          </form>
-          <div
-            className="c23 c24 c25"
-          >
-            <button
-              aria-expanded={false}
-              aria-label="Change text size"
-              className="c26 c27 c28 c29"
-              data-analytics-label="Change text size"
-              onClick={[Function]}
-            >
-              <div
-                tabIndex={-1}
-              >
-                <img
-                  alt=""
-                  aria-hidden="true"
-                  src="text-size.svg"
-                />
-              </div>
-            </button>
-          </div>
-        </div>
-        <div
-          className="c30"
-        >
-          <hr
-            className="c31"
-          />
-          <div
-            className="c32"
-          >
-            <button
-              className="c33"
-              data-testid="close-search-results"
-              onClick={[Function]}
-            >
-              <div
-                className="c34"
-              >
-                Close
-              </div>
-            </button>
-            <form
-              action="#"
-              className="c18 c19"
-              data-experiment={true}
-              data-testid="mobile-search"
-              onSubmit={[Function]}
-            >
-              <input
-                aria-label="Search this book"
-                className="c35"
-                data-testid="mobile-search-input"
-                onChange={[Function]}
-                placeholder="Search this book"
-                type="search"
-                value=""
-              />
-              <button
-                aria-label="Search"
-                className="c14 c22"
-                data-experiment={true}
-                value="Search"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="18px"
-                  role="img"
-                  version="1.1"
-                  viewBox="0 0 18 18"
-                  width="18px"
-                >
-                  <title>
-                    Search
-                  </title>
-                  <g
-                    fill="none"
-                    fillRule="evenodd"
-                    stroke="none"
-                    strokeWidth="1"
-                  >
-                    <g
-                      fill="currentColor"
-                      fillRule="nonzero"
-                      transform="translate(-938.000000, -206.000000)"
-                    >
-                      <path
-                        d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                      />
-                    </g>
-                  </g>
-                </svg>
-              </button>
-              
-              
-            </form>
-            <div
-              className="c23 c24 c25"
-            >
-              <button
-                aria-expanded={false}
-                aria-label="Change text size"
-                className="c26 c27 c28 c29"
-                data-analytics-label="Change text size"
-                onClick={[Function]}
-              >
-                <div
-                  tabIndex={-1}
-                >
-                  <img
-                    alt=""
-                    aria-hidden="true"
-                    src="text-size.svg"
-                  />
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="c36 c37"
+        className="c11 c12"
       >
         <div
           aria-live="polite"
-          className="c38"
+          className="c13"
         />
         <div
-          className="c39"
+          className="c14"
           data-analytics-region="toolbar"
           data-testid="toolbar"
         >
           <div
-            className="c40"
+            className="c15"
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="c41"
+              className="c16"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -3438,14 +3194,14 @@ Array [
                 </g>
               </svg>
               <span
-                className="c42"
+                className="c17"
               >
                 Contents
               </span>
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="c43"
+              className="c18"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -3475,18 +3231,18 @@ Array [
                 </g>
               </svg>
               <span
-                className="c42"
+                className="c17"
               >
                 Contents
               </span>
             </button>
             <div
-              className="c13"
+              className="c19"
               id="nudge-study-tools"
             >
               <button
                 aria-label="Highlights"
-                className="c44"
+                className="c20"
                 data-analytics-label="My highlights"
                 onClick={[Function]}
               >
@@ -3540,7 +3296,7 @@ Array [
                   </g>
                 </svg>
                 <span
-                  className="c45"
+                  className="c21"
                 >
                   Highlights
                 </span>
@@ -3548,14 +3304,14 @@ Array [
             </div>
             <button
               aria-label="print"
-              className="c46"
+              className="c22"
               data-analytics-label="print"
               data-testid="print"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c16 c47"
+                className="c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -3567,7 +3323,7 @@ Array [
                 />
               </svg>
               <span
-                className="c48"
+                className="c25"
               >
                 Print
               </span>
@@ -3576,24 +3332,24 @@ Array [
         </div>
         <nav
           aria-label="Table of contents"
-          className="c49"
+          className="c26"
           data-analytics-region="toc"
           data-testid="toc"
         >
           <div
-            className="c50"
+            className="c27"
             data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="c51 c52"
+              className="c28 c29"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c4 c53"
+                className="c4 c30"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 24 24"
@@ -3605,18 +3361,18 @@ Array [
               </svg>
             </button>
             <span
-              className="c54"
+              className="c31"
             >
               Table of contents
             </span>
             <button
               aria-label="Click to close menu"
-              className="c14 c55"
+              className="c32 c33"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c56"
+                className="c34"
                 focusable="false"
                 height="15px"
                 version="1.1"
@@ -3646,14 +3402,14 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="c51"
+              className="c28"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c56"
+                className="c34"
                 focusable="false"
                 height="15px"
                 version="1.1"
@@ -3694,7 +3450,7 @@ Array [
             onExpandedChange={[Function]}
           >
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testpage1-uuid@1.0"
               onAction={[Function]}
@@ -3819,13 +3575,13 @@ Array [
               textValue="<span class=\\"os-text\\">Test Page 1</span>"
             >
               <div
-                className="c58"
+                className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
                 textValue="<span class=\\"os-text\\">Test Page 1</span>"
               >
                 <a
-                  className="c59"
+                  className="c37"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -3838,7 +3594,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter1-uuid@1.0"
               onClick={[Function]}
@@ -3967,11 +3723,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -3984,7 +3740,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -3996,7 +3752,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -4006,7 +3762,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c67"
+                className="c45"
                 data-testid="mock-tree-item"
                 id="testbook1-testchapter10@1.0"
                 onClick={[Function]}
@@ -4164,11 +3920,11 @@ Array [
                   data-testid="mock-tree-item-content"
                 >
                   <div
-                    className="c60"
+                    className="c38"
                   >
                     <svg
                       aria-hidden="true"
-                      className="c16 c61 c62"
+                      className="c23 c39 c40"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 192 512"
@@ -4181,7 +3937,7 @@ Array [
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="c16 c63 c64"
+                      className="c23 c41 c42"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
@@ -4193,7 +3949,7 @@ Array [
                       />
                     </svg>
                     <span
-                      className="c65 c66"
+                      className="c43 c44"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -4203,7 +3959,7 @@ Array [
                   </div>
                 </div>
                 <div
-                  className="c68"
+                  className="c46"
                   data-testid="mock-tree-item"
                   id="testbook1-testpage2-uuid@1.0"
                   onAction={[Function]}
@@ -4369,14 +4125,14 @@ Array [
                   textValue="<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
                 >
                   <div
-                    className="c58"
+                    className="c36"
                     data-testid="mock-tree-item-content"
                     data-type="page"
                     textValue="<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
                   >
                     <a
                       aria-label="Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Chapter 1 "
-                      className="c59"
+                      className="c37"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
@@ -4390,7 +4146,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c67"
+                className="c45"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage11-uuid@1.0"
                 onAction={[Function]}
@@ -4544,13 +4300,13 @@ Array [
                 textValue="<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>"
                 >
                   <a
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
@@ -4563,7 +4319,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c67"
+                className="c45"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage8-uuid@1.0"
                 onAction={[Function]}
@@ -4717,13 +4473,13 @@ Array [
                 textValue="<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>"
                 >
                   <a
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
@@ -4737,7 +4493,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter2-uuid@1.0"
               onClick={[Function]}
@@ -4866,11 +4622,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -4883,7 +4639,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -4895,7 +4651,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -4905,7 +4661,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage3-uuid@1.0"
                 onAction={[Function]}
@@ -5042,14 +4798,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 3</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 3</span>"
                 >
                   <a
                     aria-label="Test Page 3 - Chapter 2 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 3</span>",
@@ -5063,7 +4819,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter3-uuid@1.0"
               onClick={[Function]}
@@ -5192,11 +4948,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -5209,7 +4965,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -5221,7 +4977,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -5231,7 +4987,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage4-uuid@1.0"
                 onAction={[Function]}
@@ -5368,14 +5124,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 4</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 4</span>"
                 >
                   <a
                     aria-label="Test Page 4 - Chapter 3 - Current Page"
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -5389,7 +5145,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter4-uuid@1.0"
               onClick={[Function]}
@@ -5518,11 +5274,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -5535,7 +5291,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -5547,7 +5303,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -5557,7 +5313,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage5-uuid@1.0"
                 onAction={[Function]}
@@ -5694,14 +5450,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 5</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 5</span>"
                 >
                   <a
                     aria-label="Test Page 5 - Chapter 4 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 5</span>",
@@ -5715,7 +5471,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter5-uuid@1.0"
               onClick={[Function]}
@@ -5844,11 +5600,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -5861,7 +5617,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -5873,7 +5629,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -5883,7 +5639,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage6-uuid@1.0"
                 onAction={[Function]}
@@ -6020,14 +5776,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 6 with special characters in url</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 6 with special characters in url</span>"
                 >
                   <a
                     aria-label="Test Page 6 with special characters in url - Chapter 10 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
@@ -6041,7 +5797,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter6-uuid@1.0"
               onClick={[Function]}
@@ -6170,11 +5926,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -6187,7 +5943,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -6199,7 +5955,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -6209,7 +5965,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage7-uuid@1.0"
                 onAction={[Function]}
@@ -6346,14 +6102,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 7</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 7</span>"
                 >
                   <a
                     aria-label="Test Page 7 - Chapter 12 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -6367,7 +6123,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testpage9-uuid@1.0"
               onAction={[Function]}
@@ -6492,13 +6248,13 @@ Array [
               textValue="<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>"
             >
               <div
-                className="c58"
+                className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
                 textValue="<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>"
               >
                 <a
-                  className="c59"
+                  className="c37"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
@@ -6511,7 +6267,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testpage10-uuid@1.0"
               onAction={[Function]}
@@ -6636,13 +6392,13 @@ Array [
               textValue="<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>"
             >
               <div
-                className="c58"
+                className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
                 textValue="<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>"
               >
                 <a
-                  className="c59"
+                  className="c37"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
@@ -6655,7 +6411,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testpage12-uuid@1.0"
               onAction={[Function]}
@@ -6780,13 +6536,13 @@ Array [
               textValue="<span class=\\"os-text\\">Test Page for Generic Styles</span>"
             >
               <div
-                className="c58"
+                className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
                 textValue="<span class=\\"os-text\\">Test Page for Generic Styles</span>"
               >
                 <a
-                  className="c59"
+                  className="c37"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
@@ -6802,14 +6558,256 @@ Array [
         </nav>
         <div
           aria-live="assertive"
-          className="c69"
+          className="c47"
         >
           Search for key terms or text.
         </div>
         <div
-          className="c70"
+          className="c48"
           data-testid="centered-content-row"
         >
+          <div
+            className="c49"
+            data-testid="topbar"
+          >
+            <div
+              className="c50"
+            >
+              <div
+                className="c19"
+                id="mobile-menu-button"
+              >
+                <button
+                  aria-label="Click to open menu"
+                  className="c32 c51"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="c23 c52"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 448 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <form
+                className="c53 c54"
+                data-experiment={true}
+                data-testid="desktop-search"
+                onSubmit={[Function]}
+              >
+                <input
+                  aria-label="Search this book"
+                  className="c55"
+                  data-testid="desktop-search-input"
+                  onChange={[Function]}
+                  placeholder="Search this book"
+                  type="search"
+                  value=""
+                />
+                <button
+                  aria-label="Search"
+                  className="c32 c56"
+                  data-analytics-label="Search this book"
+                  data-experiment={true}
+                  data-testid="mobile-toggle"
+                  onClick={[Function]}
+                  type="button"
+                  value="Search"
+                >
+                  <svg
+                    aria-hidden="true"
+                    height="18px"
+                    role="img"
+                    version="1.1"
+                    viewBox="0 0 18 18"
+                    width="18px"
+                  >
+                    <title>
+                      Search
+                    </title>
+                    <g
+                      fill="none"
+                      fillRule="evenodd"
+                      stroke="none"
+                      strokeWidth="1"
+                    >
+                      <g
+                        fill="currentColor"
+                        fillRule="nonzero"
+                        transform="translate(-938.000000, -206.000000)"
+                      >
+                        <path
+                          d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  aria-label="Search"
+                  className="c32 c57"
+                  data-experiment={true}
+                  value="Search"
+                >
+                  <svg
+                    aria-hidden="true"
+                    height="18px"
+                    role="img"
+                    version="1.1"
+                    viewBox="0 0 18 18"
+                    width="18px"
+                  >
+                    <title>
+                      Search
+                    </title>
+                    <g
+                      fill="none"
+                      fillRule="evenodd"
+                      stroke="none"
+                      strokeWidth="1"
+                    >
+                      <g
+                        fill="currentColor"
+                        fillRule="nonzero"
+                        transform="translate(-938.000000, -206.000000)"
+                      >
+                        <path
+                          d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </button>
+              </form>
+              <div
+                className="c58 c59 c60"
+              >
+                <button
+                  aria-expanded={false}
+                  aria-label="Change text size"
+                  className="c61 c62 c63 c64"
+                  data-analytics-label="Change text size"
+                  onClick={[Function]}
+                >
+                  <div
+                    tabIndex={-1}
+                  >
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      src="text-size.svg"
+                    />
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div
+              className="c65"
+            >
+              <hr
+                className="c66"
+              />
+              <div
+                className="c67"
+              >
+                <button
+                  className="c68"
+                  data-testid="close-search-results"
+                  onClick={[Function]}
+                >
+                  <div
+                    className="c69"
+                  >
+                    Close
+                  </div>
+                </button>
+                <form
+                  action="#"
+                  className="c53 c54"
+                  data-experiment={true}
+                  data-testid="mobile-search"
+                  onSubmit={[Function]}
+                >
+                  <input
+                    aria-label="Search this book"
+                    className="c70"
+                    data-testid="mobile-search-input"
+                    onChange={[Function]}
+                    placeholder="Search this book"
+                    type="search"
+                    value=""
+                  />
+                  <button
+                    aria-label="Search"
+                    className="c32 c57"
+                    data-experiment={true}
+                    value="Search"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      height="18px"
+                      role="img"
+                      version="1.1"
+                      viewBox="0 0 18 18"
+                      width="18px"
+                    >
+                      <title>
+                        Search
+                      </title>
+                      <g
+                        fill="none"
+                        fillRule="evenodd"
+                        stroke="none"
+                        strokeWidth="1"
+                      >
+                        <g
+                          fill="currentColor"
+                          fillRule="nonzero"
+                          transform="translate(-938.000000, -206.000000)"
+                        >
+                          <path
+                            d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                          />
+                        </g>
+                      </g>
+                    </svg>
+                  </button>
+                  
+                  
+                </form>
+                <div
+                  className="c58 c59 c60"
+                >
+                  <button
+                    aria-expanded={false}
+                    aria-label="Change text size"
+                    className="c61 c62 c63 c64"
+                    data-analytics-label="Change text size"
+                    onClick={[Function]}
+                  >
+                    <div
+                      tabIndex={-1}
+                    >
+                      <img
+                        alt=""
+                        aria-hidden="true"
+                        src="text-size.svg"
+                      />
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div
             className="c71"
           >
@@ -6899,7 +6897,7 @@ Array [
             >
               <svg
                 aria-hidden="true"
-                className="c16 c61 c62 c86"
+                className="c23 c39 c40 c86"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 192 512"
@@ -6912,7 +6910,7 @@ Array [
               </svg>
               <svg
                 aria-hidden="true"
-                className="c16 c63 c64 c87"
+                className="c23 c41 c42 c87"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 320 512"
@@ -7208,7 +7206,7 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c106"
+                          className="c23 c106"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 320 512"
@@ -7257,7 +7255,7 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c107"
+                          className="c23 c107"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 448 512"
@@ -7280,7 +7278,7 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c108"
+                          className="c23 c108"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 448 512"
@@ -7509,7 +7507,7 @@ Array [
   >
     
   </div>,
-  .c38 {
+  .c13 {
   position: fixed;
   right: 2rem;
   z-index: 40;
@@ -7528,7 +7526,7 @@ Array [
   overflow: hidden;
 }
 
-.c16 {
+.c23 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
@@ -7796,7 +7794,7 @@ Array [
   transform: translateY(0.2rem);
 }
 
-.c26 {
+.c61 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -7877,11 +7875,11 @@ Array [
   transform-origin: center;
 }
 
-.c29 {
+.c64 {
   cursor: pointer;
 }
 
-.c23 > *:not(.c28) {
+.c58 > *:not(.c63) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -7891,18 +7889,18 @@ Array [
   left: 0;
 }
 
-.c24 {
+.c59 {
   overflow: visible;
   position: relative;
 }
 
-.c27 {
+.c62 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c27 > div {
+.c62 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -7925,7 +7923,7 @@ Array [
   justify-content: flex-end;
 }
 
-.c14 {
+.c32 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -7939,12 +7937,12 @@ Array [
   min-width: 45px;
 }
 
-.c14:hover,
-.c14:focus {
+.c32:hover,
+.c32:focus {
   color: #424242;
 }
 
-.c46 {
+.c22 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -7976,12 +7974,12 @@ Array [
   padding: 0 10px;
 }
 
-.c46:hover,
-.c46:focus {
+.c22:hover,
+.c22:focus {
   color: #424242;
 }
 
-.c48 {
+.c25 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -7989,19 +7987,18 @@ Array [
   line-height: 1.5rem;
 }
 
-.c47 {
+.c24 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c39 {
+.c14 {
   grid-area: 1 / 1 / auto / 2;
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
   height: calc(100vh - 13rem);
-  margin-top: -5rem;
   max-height: calc(100vh - 7rem);
   max-width: 8rem;
   overflow: visible;
@@ -8011,7 +8008,7 @@ Array [
   border-left: 1px solid #d5d5d5;
 }
 
-.c39::before {
+.c14::before {
   content: "";
   position: absolute;
   top: 0;
@@ -8021,7 +8018,7 @@ Array [
   background-color: #fafafa;
 }
 
-.c56 {
+.c34 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
@@ -8029,22 +8026,22 @@ Array [
   color: #5e6062;
 }
 
-.c56:hover {
+.c34:hover {
   color: #424242;
 }
 
-.c53 {
+.c30 {
   width: 4rem;
   height: 4rem;
   color: #5e6062;
   margin: 0 -1rem;
 }
 
-.c53:hover {
+.c30:hover {
   color: #424242;
 }
 
-.c40 {
+.c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -8054,12 +8051,12 @@ Array [
   flex-direction: column;
 }
 
-.c62 {
+.c40 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c64 {
+.c42 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -8337,12 +8334,12 @@ Array [
   overflow: initial;
 }
 
-.c37 {
+.c12 {
   position: relative;
   overflow: visible;
 }
 
-.c36 {
+.c11 {
   width: 100%;
   max-width: 144rem;
   margin: 0 auto;
@@ -8350,11 +8347,11 @@ Array [
   grid-template-columns: 8rem auto auto;
 }
 
-.c99[open] > summary .c61 {
+.c99[open] > summary .c39 {
   display: none;
 }
 
-.c99:not([open]) > summary .c63 {
+.c99:not([open]) > summary .c41 {
   display: none;
 }
 
@@ -8520,7 +8517,7 @@ Array [
   margin-top: -7rem;
 }
 
-.c70 {
+.c48 {
   grid-column: 1 / -1;
   grid-row: 1;
   justify-self: center;
@@ -8530,7 +8527,7 @@ Array [
   max-width: 128rem;
 }
 
-.c13 {
+.c19 {
   display: contents;
 }
 
@@ -8542,7 +8539,7 @@ Array [
   top: 12rem;
 }
 
-.c42 {
+.c17 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -8550,7 +8547,7 @@ Array [
   padding: 0;
 }
 
-.c41 {
+.c16 {
   background: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -8576,17 +8573,17 @@ Array [
   display: none;
 }
 
-.c41:hover {
+.c16:hover {
   color: #424242;
 }
 
-.c41 > svg {
+.c16 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c43 {
+.c18 {
   background: none;
   display: -webkit-box;
   display: -webkit-flex;
@@ -8616,17 +8613,17 @@ Array [
   display: flex;
 }
 
-.c43:hover {
+.c18:hover {
   color: #424242;
 }
 
-.c43 > svg {
+.c18 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c51 {
+.c28 {
   color: #5e6062;
   border: none;
   padding: 0;
@@ -8636,18 +8633,18 @@ Array [
   display: block;
 }
 
-.c51:hover {
+.c28:hover {
   color: #424242;
 }
 
-.c55 {
+.c33 {
   height: 40px;
   position: absolute;
   right: 0;
   display: none;
 }
 
-.c52 {
+.c29 {
   display: none;
 }
 
@@ -8655,7 +8652,7 @@ Array [
   overflow: visible;
 }
 
-.c69 {
+.c47 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -8668,7 +8665,7 @@ Array [
   border: 0;
 }
 
-.c11 {
+.c49 {
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
@@ -8678,13 +8675,13 @@ Array [
   z-index: 30;
 }
 
-.c17 {
+.c52 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c15 {
+.c51 {
   display: none;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
@@ -8696,7 +8693,7 @@ Array [
   align-items: center;
 }
 
-.c21 {
+.c56 {
   height: 3.2rem;
   border-radius: 0;
   margin: 0;
@@ -8707,14 +8704,14 @@ Array [
   display: none;
 }
 
-.c21 > svg {
+.c56 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
   vertical-align: middle;
 }
 
-.c22 {
+.c57 {
   height: 3.2rem;
   border-radius: 0;
   margin: 0;
@@ -8724,14 +8721,14 @@ Array [
   color: #5e6062;
 }
 
-.c22 > svg {
+.c57 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
   vertical-align: middle;
 }
 
-.c19 {
+.c54 {
   margin-left: auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -8749,21 +8746,21 @@ Array [
   width: 38rem;
 }
 
-.c19:last-child {
+.c54:last-child {
   margin-right: auto;
 }
 
-.c19:focus-within {
+.c54:focus-within {
   border: solid 0.1rem #0dc0dc;
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
 
-.c19.focus-within {
+.c54.focus-within {
   border: solid 0.1rem #0dc0dc;
   box-shadow: 0 0 4px 0 rgba(13,192,220,0.5);
 }
 
-.c20 {
+.c55 {
   color: #424242;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -8779,33 +8776,33 @@ Array [
   appearance: textfield;
 }
 
-.c20::-webkit-search-decoration,
-.c20::-webkit-search-cancel-button,
-.c20::-webkit-search-results-button,
-.c20::-webkit-search-results-decoration {
+.c55::-webkit-search-decoration,
+.c55::-webkit-search-cancel-button,
+.c55::-webkit-search-results-button,
+.c55::-webkit-search-results-decoration {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   display: none;
 }
 
-.c20::-webkit-input-placeholder {
+.c55::-webkit-input-placeholder {
   color: #6f6f6f;
 }
 
-.c20::-moz-placeholder {
+.c55::-moz-placeholder {
   color: #6f6f6f;
 }
 
-.c20:-ms-input-placeholder {
+.c55:-ms-input-placeholder {
   color: #6f6f6f;
 }
 
-.c20::placeholder {
+.c55::placeholder {
   color: #6f6f6f;
 }
 
-.c35 {
+.c70 {
   color: #424242;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -8821,33 +8818,33 @@ Array [
   appearance: textfield;
 }
 
-.c35::-webkit-search-decoration,
-.c35::-webkit-search-cancel-button,
-.c35::-webkit-search-results-button,
-.c35::-webkit-search-results-decoration {
+.c70::-webkit-search-decoration,
+.c70::-webkit-search-cancel-button,
+.c70::-webkit-search-results-button,
+.c70::-webkit-search-results-decoration {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   display: none;
 }
 
-.c35::-webkit-input-placeholder {
+.c70::-webkit-input-placeholder {
   color: #6f6f6f;
 }
 
-.c35::-moz-placeholder {
+.c70::-moz-placeholder {
   color: #6f6f6f;
 }
 
-.c35:-ms-input-placeholder {
+.c70:-ms-input-placeholder {
   color: #6f6f6f;
 }
 
-.c35::placeholder {
+.c70::placeholder {
   color: #6f6f6f;
 }
 
-.c12 {
+.c50 {
   height: 5rem;
   max-width: 128rem;
   margin: 0 auto;
@@ -8872,7 +8869,7 @@ Array [
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
-.c32 {
+.c67 {
   max-width: 128rem;
   margin: 0 auto;
   width: calc(100% - 3.2rem * 2);
@@ -8882,7 +8879,7 @@ Array [
   height: 3.2rem;
 }
 
-.c30 {
+.c65 {
   display: none;
   overflow: visible;
   height: 5.3rem;
@@ -8890,33 +8887,33 @@ Array [
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
-.c31 {
+.c66 {
   border: none;
   border-top: 0.1rem solid #efeff1;
   display: none;
   margin: 0;
 }
 
-.c34 {
+.c69 {
   white-space: nowrap;
   margin-right: 1rem;
   text-align: left;
 }
 
-.c25 {
+.c60 {
   margin-left: auto;
   z-index: 3;
 }
 
-.c25 > button {
+.c60 > button {
   max-height: 5.2rem;
 }
 
-.c25 > button > div {
-  padding: 1.5rem;
+.c60 > button > div {
+  padding: 1.4rem;
 }
 
-.c33 {
+.c68 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -8944,24 +8941,23 @@ Array [
   display: none;
 }
 
-.c33:hover,
-.c33:focus {
+.c68:hover,
+.c68:focus {
   color: #424242;
 }
 
-.c33:hover,
-.c33:focus {
+.c68:hover,
+.c68:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c49 {
+.c26 {
   grid-area: 1 / 2 / auto / 3;
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
-  margin-top: -5rem;
   overflow-y: auto;
   height: calc(100vh - 13rem);
   max-height: calc(100vh - 7rem);
@@ -8984,7 +8980,7 @@ Array [
   flex-direction: column;
 }
 
-.c49 > ol {
+.c26 > ol {
   -webkit-overflow-scrolling: touch;
   position: relative;
   padding: 1.8rem 1.8rem 1.8rem 1.6rem;
@@ -8993,11 +8989,11 @@ Array [
   flex: 1;
 }
 
-.c49 > ol > li:first-child {
+.c26 > ol > li:first-child {
   margin-top: 0;
 }
 
-.c49 > ol::before {
+.c26 > ol::before {
   content: "";
   background: #fafafa;
   display: block;
@@ -9005,13 +9001,13 @@ Array [
   margin: -1.8rem -1.8rem 0 -1.8rem;
 }
 
-.c49 > * {
+.c26 > * {
   -webkit-transition: all 300ms;
   transition: all 300ms;
   opacity: 1;
 }
 
-.c50 {
+.c27 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -9031,12 +9027,12 @@ Array [
   box-shadow: 0 1rem 1rem -1rem rgba(0,0,0,0.14);
 }
 
-.c54 {
+.c31 {
   font-size: 1.8rem;
   line-height: 2.9rem;
   font-weight: 600;
   margin: 0;
-  padding: 0;
+  padding: 1rem 0;
   color: #5e6062;
   -webkit-flex: 1 1 0%;
   -ms-flex: 1 1 0%;
@@ -9044,7 +9040,7 @@ Array [
   text-align: left;
 }
 
-.c66 {
+.c44 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -9060,7 +9056,7 @@ Array [
   flex: 1;
 }
 
-.c59 {
+.c37 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -9076,25 +9072,25 @@ Array [
   text-decoration: none;
 }
 
-.c59[aria-label$="Current Page"] {
+.c37[aria-label$="Current Page"] {
   font-weight: 600;
 }
 
-.c59:focus,
-.c59:hover {
+.c37:focus,
+.c37:hover {
   outline: none;
   color: #000;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c58 {
+.c36 {
   list-style: none;
   overflow: visible;
   margin: 1.2rem 0 0 0;
 }
 
-.c60 {
+.c38 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -9103,134 +9099,134 @@ Array [
   overflow: visible;
 }
 
-.c60:hover .c65,
-.c60:focus .c65 {
+.c38:hover .c43,
+.c38:focus .c43 {
   color: #000;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c57 {
+.c35 {
   margin: 0;
   margin-top: 1.2rem;
   margin-left: 2.58125rem;
 }
 
-.c57 > div > div {
+.c35 > div > div {
   padding-left: calc((var(--tree-item-level) - 1) * 2rem);
 }
 
-.c57 > div > a {
+.c35 > div > a {
   padding-left: calc((var(--tree-item-level) - 1) * 2.6rem);
 }
 
-.c57[data-expanded] > div .c61 {
+.c35[data-expanded] > div .c39 {
   display: none;
 }
 
-.c57:not([data-expanded]) > div .c63 {
+.c35:not([data-expanded]) > div .c41 {
   display: none;
 }
 
-.c57 .os-number {
+.c35 .os-number {
   width: 1.78125rem;
   overflow: hidden;
 }
 
-.c57 .os-divider {
+.c35 .os-divider {
   width: 0.8rem;
   text-align: center;
   overflow: hidden;
 }
 
-.c57 .os-text {
+.c35 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
 }
 
-.c67 {
+.c45 {
   margin: 0;
   margin-top: 1.2rem;
   margin-left: 4.8078125rem;
 }
 
-.c67 > div > div {
+.c45 > div > div {
   padding-left: calc((var(--tree-item-level) - 1) * 2rem);
 }
 
-.c67 > div > a {
+.c45 > div > a {
   padding-left: calc((var(--tree-item-level) - 1) * 2.6rem);
 }
 
-.c67[data-expanded] > div .c61 {
+.c45[data-expanded] > div .c39 {
   display: none;
 }
 
-.c67:not([data-expanded]) > div .c63 {
+.c45:not([data-expanded]) > div .c41 {
   display: none;
 }
 
-.c67 .os-number {
+.c45 .os-number {
   width: 4.0078125rem;
   overflow: hidden;
 }
 
-.c67 .os-divider {
+.c45 .os-divider {
   width: 0.8rem;
   text-align: center;
   overflow: hidden;
 }
 
-.c67 .os-text {
+.c45 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
 }
 
-.c68 {
+.c46 {
   margin: 0;
   margin-top: 1.2rem;
   margin-left: 0.8rem;
 }
 
-.c68 > div > div {
+.c46 > div > div {
   padding-left: calc((var(--tree-item-level) - 1) * 2rem);
 }
 
-.c68 > div > a {
+.c46 > div > a {
   padding-left: calc((var(--tree-item-level) - 1) * 2.6rem);
 }
 
-.c68[data-expanded] > div .c61 {
+.c46[data-expanded] > div .c39 {
   display: none;
 }
 
-.c68:not([data-expanded]) > div .c63 {
+.c46:not([data-expanded]) > div .c41 {
   display: none;
 }
 
-.c68 .os-number {
+.c46 .os-number {
   width: 0rem;
   overflow: hidden;
 }
 
-.c68 .os-divider {
+.c46 .os-divider {
   width: 0.8rem;
   text-align: center;
   overflow: hidden;
 }
 
-.c68 .os-text {
+.c46 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
 }
 
-.c44 {
+.c20 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -9262,18 +9258,18 @@ Array [
   padding: 0;
 }
 
-.c44:hover,
-.c44:focus {
+.c20:hover,
+.c20:focus {
   color: #424242;
 }
 
-.c44 > svg {
+.c20 > svg {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c45 {
+.c21 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -9401,13 +9397,13 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c27 > div {
+  .c62 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c46 {
+  .c22 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -9422,7 +9418,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c48 {
+  .c25 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -9430,18 +9426,18 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c39 {
+  .c14 {
     top: 6rem;
     max-height: calc(100vh - 6rem);
   }
 
-  .c39::before {
+  .c14::before {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c39 {
+  .c14 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -9468,7 +9464,7 @@ Array [
 }
 
 @media print {
-  .c39 {
+  .c14 {
     display: none;
   }
 }
@@ -9622,7 +9618,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c36 {
+  .c11 {
     grid-template-columns: 100%;
   }
 }
@@ -9772,19 +9768,19 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c70 {
+  .c48 {
     grid-column-start: 2;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c70 {
+  .c48 {
     grid-column: 1 / -1;
   }
 }
 
 @media screen {
-  .c70 {
+  .c48 {
     background-color: #fff;
     padding-left: 37.5rem;
     -webkit-transition: padding-left 300ms ease-in-out;
@@ -9833,7 +9829,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c42 {
+  .c17 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -9841,7 +9837,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c41 {
+  .c16 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -9856,7 +9852,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c41 {
+  .c16 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -9865,7 +9861,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c43 {
+  .c18 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -9880,25 +9876,25 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c43 {
+  .c18 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c51 {
+  .c28 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c55 {
+  .c33 {
     display: block;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c52 {
+  .c29 {
     display: block;
   }
 }
@@ -9920,25 +9916,25 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c49 {
     top: 6rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c11 {
+  .c49 {
     z-index: 51;
   }
 }
 
 @media print {
-  .c11 {
+  .c49 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c15 {
+  .c51 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -9947,68 +9943,68 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c21 {
+  .c56 {
     display: block;
     height: 100%;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c22 {
+  .c57 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c19 {
+  .c54 {
     height: 100%;
     overflow: hidden;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c19 {
+  .c54 {
     width: 100%;
   }
 
-  .c19,
-  .c19:last-child {
+  .c54,
+  .c54:last-child {
     margin-right: 0;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c20 {
+  .c55 {
     display: none;
   }
 }
 
 @media screen and (max-width:90em) {
-  .c12 {
+  .c50 {
     padding-left: calc(45.5rem - (100vw - 128rem) / 2);
   }
 }
 
 @media screen and (max-width:80em) {
-  .c12 {
+  .c50 {
     padding-left: 45.5rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c50 {
     padding-left: 0 !important;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c50 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c12 {
+  .c50 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -10023,7 +10019,7 @@ Array [
     transition: none;
   }
 
-  .c12 .c18 {
+  .c50 .c53 {
     border: none;
     border-radius: 0;
     width: 45px;
@@ -10031,13 +10027,13 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c32 {
+  .c67 {
     width: calc(100% - 1.6rem * 2);
   }
 }
 
 @media screen and (max-width:75em) {
-  .c32 {
+  .c67 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -10054,7 +10050,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c32 {
+  .c67 {
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
@@ -10063,48 +10059,48 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c30 {
+  .c65 {
     padding-left: 8rem;
     display: block;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c30 {
+  .c65 {
     padding-left: 0;
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c31 {
+  .c66 {
     display: block;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c25 {
+  .c60 {
     margin-left: 0;
     display: block;
   }
 
-  .c25 > button {
+  .c60 > button {
     max-height: 4.6rem;
   }
 
-  .c25 > button > div {
+  .c60 > button > div {
     padding: 0.9rem 1.5rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c33 {
+  .c68 {
     display: block;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c49 {
+  .c26 {
     width: 30.4rem;
     top: 6rem;
     height: calc(100vh - 11.2rem);
@@ -10113,7 +10109,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c49 {
+  .c26 {
     z-index: 90;
     position: fixed;
     top: 0;
@@ -10127,7 +10123,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c49 {
+  .c26 {
     overflow-y: hidden;
     -webkit-transform: translateX(-100%);
     -ms-transform: translateX(-100%);
@@ -10138,43 +10134,43 @@ Array [
     opacity: 0;
   }
 
-  .c49 > * {
+  .c26 > * {
     opacity: 0;
   }
 }
 
 @media print {
-  .c49 {
+  .c26 {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c50 {
+  .c27 {
     height: 5.3rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c54 {
+  .c31 {
     text-align: center;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c58 {
+  .c36 {
     margin-top: 1.7rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c60 {
+  .c38 {
     margin-top: 1.7rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c44 {
+  .c20 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -10189,7 +10185,7 @@ Array [
 }
 
 @media screen and (max-width:50em) {
-  .c45 {
+  .c21 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -10310,265 +10306,23 @@ Array [
       className="c10"
     >
       <div
-        className="c11"
-        data-testid="topbar"
-      >
-        <div
-          className="c12"
-        >
-          <div
-            className="c13"
-            id="mobile-menu-button"
-          >
-            <button
-              aria-label="Click to open menu"
-              className="c14 c15"
-              onClick={[Function]}
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                className="c16 c17"
-                fill="currentColor"
-                focusable="false"
-                viewBox="0 0 448 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-                  fill="currentColor"
-                />
-              </svg>
-            </button>
-          </div>
-          <form
-            className="c18 c19"
-            data-experiment={true}
-            data-testid="desktop-search"
-            onSubmit={[Function]}
-          >
-            <input
-              aria-label="Search this book"
-              className="c20"
-              data-testid="desktop-search-input"
-              onChange={[Function]}
-              placeholder="Search this book"
-              type="search"
-              value=""
-            />
-            <button
-              aria-label="Search"
-              className="c14 c21"
-              data-analytics-label="Search this book"
-              data-experiment={true}
-              data-testid="mobile-toggle"
-              onClick={[Function]}
-              type="button"
-              value="Search"
-            >
-              <svg
-                aria-hidden="true"
-                height="18px"
-                role="img"
-                version="1.1"
-                viewBox="0 0 18 18"
-                width="18px"
-              >
-                <title>
-                  Search
-                </title>
-                <g
-                  fill="none"
-                  fillRule="evenodd"
-                  stroke="none"
-                  strokeWidth="1"
-                >
-                  <g
-                    fill="currentColor"
-                    fillRule="nonzero"
-                    transform="translate(-938.000000, -206.000000)"
-                  >
-                    <path
-                      d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </button>
-            <button
-              aria-label="Search"
-              className="c14 c22"
-              data-experiment={true}
-              value="Search"
-            >
-              <svg
-                aria-hidden="true"
-                height="18px"
-                role="img"
-                version="1.1"
-                viewBox="0 0 18 18"
-                width="18px"
-              >
-                <title>
-                  Search
-                </title>
-                <g
-                  fill="none"
-                  fillRule="evenodd"
-                  stroke="none"
-                  strokeWidth="1"
-                >
-                  <g
-                    fill="currentColor"
-                    fillRule="nonzero"
-                    transform="translate(-938.000000, -206.000000)"
-                  >
-                    <path
-                      d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                    />
-                  </g>
-                </g>
-              </svg>
-            </button>
-          </form>
-          <div
-            className="c23 c24 c25"
-          >
-            <button
-              aria-expanded={false}
-              aria-label="Change text size"
-              className="c26 c27 c28 c29"
-              data-analytics-label="Change text size"
-              onClick={[Function]}
-            >
-              <div
-                tabIndex={-1}
-              >
-                <img
-                  alt=""
-                  aria-hidden="true"
-                  src="text-size.svg"
-                />
-              </div>
-            </button>
-          </div>
-        </div>
-        <div
-          className="c30"
-        >
-          <hr
-            className="c31"
-          />
-          <div
-            className="c32"
-          >
-            <button
-              className="c33"
-              data-testid="close-search-results"
-              onClick={[Function]}
-            >
-              <div
-                className="c34"
-              >
-                Close
-              </div>
-            </button>
-            <form
-              action="#"
-              className="c18 c19"
-              data-experiment={true}
-              data-testid="mobile-search"
-              onSubmit={[Function]}
-            >
-              <input
-                aria-label="Search this book"
-                className="c35"
-                data-testid="mobile-search-input"
-                onChange={[Function]}
-                placeholder="Search this book"
-                type="search"
-                value=""
-              />
-              <button
-                aria-label="Search"
-                className="c14 c22"
-                data-experiment={true}
-                value="Search"
-              >
-                <svg
-                  aria-hidden="true"
-                  height="18px"
-                  role="img"
-                  version="1.1"
-                  viewBox="0 0 18 18"
-                  width="18px"
-                >
-                  <title>
-                    Search
-                  </title>
-                  <g
-                    fill="none"
-                    fillRule="evenodd"
-                    stroke="none"
-                    strokeWidth="1"
-                  >
-                    <g
-                      fill="currentColor"
-                      fillRule="nonzero"
-                      transform="translate(-938.000000, -206.000000)"
-                    >
-                      <path
-                        d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
-                      />
-                    </g>
-                  </g>
-                </svg>
-              </button>
-              
-              
-            </form>
-            <div
-              className="c23 c24 c25"
-            >
-              <button
-                aria-expanded={false}
-                aria-label="Change text size"
-                className="c26 c27 c28 c29"
-                data-analytics-label="Change text size"
-                onClick={[Function]}
-              >
-                <div
-                  tabIndex={-1}
-                >
-                  <img
-                    alt=""
-                    aria-hidden="true"
-                    src="text-size.svg"
-                  />
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="c36 c37"
+        className="c11 c12"
       >
         <div
           aria-live="polite"
-          className="c38"
+          className="c13"
         />
         <div
-          className="c39"
+          className="c14"
           data-analytics-region="toolbar"
           data-testid="toolbar"
         >
           <div
-            className="c40"
+            className="c15"
           >
             <button
               aria-label="Click to open the Table of Contents"
-              className="c41"
+              className="c16"
               data-analytics-label="Click to open the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -10598,14 +10352,14 @@ Array [
                 </g>
               </svg>
               <span
-                className="c42"
+                className="c17"
               >
                 Contents
               </span>
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="c43"
+              className="c18"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
@@ -10635,18 +10389,18 @@ Array [
                 </g>
               </svg>
               <span
-                className="c42"
+                className="c17"
               >
                 Contents
               </span>
             </button>
             <div
-              className="c13"
+              className="c19"
               id="nudge-study-tools"
             >
               <button
                 aria-label="Highlights"
-                className="c44"
+                className="c20"
                 data-analytics-label="My highlights"
                 onClick={[Function]}
               >
@@ -10700,7 +10454,7 @@ Array [
                   </g>
                 </svg>
                 <span
-                  className="c45"
+                  className="c21"
                 >
                   Highlights
                 </span>
@@ -10708,14 +10462,14 @@ Array [
             </div>
             <button
               aria-label="print"
-              className="c46"
+              className="c22"
               data-analytics-label="print"
               data-testid="print"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c16 c47"
+                className="c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -10727,7 +10481,7 @@ Array [
                 />
               </svg>
               <span
-                className="c48"
+                className="c25"
               >
                 Print
               </span>
@@ -10736,24 +10490,24 @@ Array [
         </div>
         <nav
           aria-label="Table of contents"
-          className="c49"
+          className="c26"
           data-analytics-region="toc"
           data-testid="toc"
         >
           <div
-            className="c50"
+            className="c27"
             data-testid="tocheader"
           >
             <button
               aria-label="Click to close the Table of Contents"
-              className="c51 c52"
+              className="c28 c29"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c4 c53"
+                className="c4 c30"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 24 24"
@@ -10765,18 +10519,18 @@ Array [
               </svg>
             </button>
             <span
-              className="c54"
+              className="c31"
             >
               Table of contents
             </span>
             <button
               aria-label="Click to close menu"
-              className="c14 c55"
+              className="c32 c33"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c56"
+                className="c34"
                 focusable="false"
                 height="15px"
                 version="1.1"
@@ -10806,14 +10560,14 @@ Array [
             </button>
             <button
               aria-label="Click to close the Table of Contents"
-              className="c51"
+              className="c28"
               data-analytics-label="Click to close the Table of Contents"
               data-testid="toc-button"
               onClick={[Function]}
             >
               <svg
                 aria-hidden="true"
-                className="c56"
+                className="c34"
                 focusable="false"
                 height="15px"
                 version="1.1"
@@ -10850,7 +10604,7 @@ Array [
             onExpandedChange={[Function]}
           >
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testpage1-uuid@1.0"
               onAction={[Function]}
@@ -10975,13 +10729,13 @@ Array [
               textValue="<span class=\\"os-text\\">Test Page 1</span>"
             >
               <div
-                className="c58"
+                className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
                 textValue="<span class=\\"os-text\\">Test Page 1</span>"
               >
                 <a
-                  className="c59"
+                  className="c37"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -10994,7 +10748,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter1-uuid@1.0"
               onClick={[Function]}
@@ -11123,11 +10877,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -11140,7 +10894,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -11152,7 +10906,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -11162,7 +10916,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c67"
+                className="c45"
                 data-testid="mock-tree-item"
                 id="testbook1-testchapter10@1.0"
                 onClick={[Function]}
@@ -11320,11 +11074,11 @@ Array [
                   data-testid="mock-tree-item-content"
                 >
                   <div
-                    className="c60"
+                    className="c38"
                   >
                     <svg
                       aria-hidden="true"
-                      className="c16 c61 c62"
+                      className="c23 c39 c40"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 192 512"
@@ -11337,7 +11091,7 @@ Array [
                     </svg>
                     <svg
                       aria-hidden="true"
-                      className="c16 c63 c64"
+                      className="c23 c41 c42"
                       fill="currentColor"
                       focusable="false"
                       viewBox="0 0 320 512"
@@ -11349,7 +11103,7 @@ Array [
                       />
                     </svg>
                     <span
-                      className="c65 c66"
+                      className="c43 c44"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -11359,7 +11113,7 @@ Array [
                   </div>
                 </div>
                 <div
-                  className="c68"
+                  className="c46"
                   data-testid="mock-tree-item"
                   id="testbook1-testpage2-uuid@1.0"
                   onAction={[Function]}
@@ -11525,14 +11279,14 @@ Array [
                   textValue="<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
                 >
                   <div
-                    className="c58"
+                    className="c36"
                     data-testid="mock-tree-item-content"
                     data-type="page"
                     textValue="<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
                   >
                     <a
                       aria-label="Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Chapter 1 "
-                      className="c59"
+                      className="c37"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>",
@@ -11546,7 +11300,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c67"
+                className="c45"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage11-uuid@1.0"
                 onAction={[Function]}
@@ -11700,13 +11454,13 @@ Array [
                 textValue="<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>"
                 >
                   <a
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>",
@@ -11719,7 +11473,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c67"
+                className="c45"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage8-uuid@1.0"
                 onAction={[Function]}
@@ -11873,13 +11627,13 @@ Array [
                 textValue="<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>"
                 >
                   <a
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>",
@@ -11893,7 +11647,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter2-uuid@1.0"
               onClick={[Function]}
@@ -12022,11 +11776,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -12039,7 +11793,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -12051,7 +11805,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -12061,7 +11815,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage3-uuid@1.0"
                 onAction={[Function]}
@@ -12198,14 +11952,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 3</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 3</span>"
                 >
                   <a
                     aria-label="Test Page 3 - Chapter 2 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 3</span>",
@@ -12219,7 +11973,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter3-uuid@1.0"
               onClick={[Function]}
@@ -12348,11 +12102,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -12365,7 +12119,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -12377,7 +12131,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -12387,7 +12141,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage4-uuid@1.0"
                 onAction={[Function]}
@@ -12524,14 +12278,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 4</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 4</span>"
                 >
                   <a
                     aria-label="Test Page 4 - Chapter 3 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -12545,7 +12299,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter4-uuid@1.0"
               onClick={[Function]}
@@ -12674,11 +12428,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -12691,7 +12445,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -12703,7 +12457,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -12713,7 +12467,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage5-uuid@1.0"
                 onAction={[Function]}
@@ -12850,14 +12604,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 5</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 5</span>"
                 >
                   <a
                     aria-label="Test Page 5 - Chapter 4 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 5</span>",
@@ -12871,7 +12625,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter5-uuid@1.0"
               onClick={[Function]}
@@ -13000,11 +12754,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -13017,7 +12771,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -13029,7 +12783,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -13039,7 +12793,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage6-uuid@1.0"
                 onAction={[Function]}
@@ -13176,14 +12930,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 6 with special characters in url</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 6 with special characters in url</span>"
                 >
                   <a
                     aria-label="Test Page 6 with special characters in url - Chapter 10 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 6 with special characters in url</span>",
@@ -13197,7 +12951,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testchapter6-uuid@1.0"
               onClick={[Function]}
@@ -13326,11 +13080,11 @@ Array [
                 data-testid="mock-tree-item-content"
               >
                 <div
-                  className="c60"
+                  className="c38"
                 >
                   <svg
                     aria-hidden="true"
-                    className="c16 c61 c62"
+                    className="c23 c39 c40"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 192 512"
@@ -13343,7 +13097,7 @@ Array [
                   </svg>
                   <svg
                     aria-hidden="true"
-                    className="c16 c63 c64"
+                    className="c23 c41 c42"
                     fill="currentColor"
                     focusable="false"
                     viewBox="0 0 320 512"
@@ -13355,7 +13109,7 @@ Array [
                     />
                   </svg>
                   <span
-                    className="c65 c66"
+                    className="c43 c44"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -13365,7 +13119,7 @@ Array [
                 </div>
               </div>
               <div
-                className="c68"
+                className="c46"
                 data-testid="mock-tree-item"
                 id="testbook1-testpage7-uuid@1.0"
                 onAction={[Function]}
@@ -13502,14 +13256,14 @@ Array [
                 textValue="<span class=\\"os-text\\">Test Page 7</span>"
               >
                 <div
-                  className="c58"
+                  className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
                   textValue="<span class=\\"os-text\\">Test Page 7</span>"
                 >
                   <a
                     aria-label="Test Page 7 - Chapter 12 "
-                    className="c59"
+                    className="c37"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -13523,7 +13277,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testpage9-uuid@1.0"
               onAction={[Function]}
@@ -13648,13 +13402,13 @@ Array [
               textValue="<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>"
             >
               <div
-                className="c58"
+                className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
                 textValue="<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>"
               >
                 <a
-                  className="c59"
+                  className="c37"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
@@ -13667,7 +13421,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testpage10-uuid@1.0"
               onAction={[Function]}
@@ -13792,13 +13546,13 @@ Array [
               textValue="<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>"
             >
               <div
-                className="c58"
+                className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
                 textValue="<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>"
               >
                 <a
-                  className="c59"
+                  className="c37"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
@@ -13811,7 +13565,7 @@ Array [
               </div>
             </div>
             <div
-              className="c57"
+              className="c35"
               data-testid="mock-tree-item"
               id="testbook1-testpage12-uuid@1.0"
               onAction={[Function]}
@@ -13936,13 +13690,13 @@ Array [
               textValue="<span class=\\"os-text\\">Test Page for Generic Styles</span>"
             >
               <div
-                className="c58"
+                className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
                 textValue="<span class=\\"os-text\\">Test Page for Generic Styles</span>"
               >
                 <a
-                  className="c59"
+                  className="c37"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",
@@ -13958,14 +13712,256 @@ Array [
         </nav>
         <div
           aria-live="assertive"
-          className="c69"
+          className="c47"
         >
           Search for key terms or text.
         </div>
         <div
-          className="c70"
+          className="c48"
           data-testid="centered-content-row"
         >
+          <div
+            className="c49"
+            data-testid="topbar"
+          >
+            <div
+              className="c50"
+            >
+              <div
+                className="c19"
+                id="mobile-menu-button"
+              >
+                <button
+                  aria-label="Click to open menu"
+                  className="c32 c51"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="c23 c52"
+                    fill="currentColor"
+                    focusable="false"
+                    viewBox="0 0 448 512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <form
+                className="c53 c54"
+                data-experiment={true}
+                data-testid="desktop-search"
+                onSubmit={[Function]}
+              >
+                <input
+                  aria-label="Search this book"
+                  className="c55"
+                  data-testid="desktop-search-input"
+                  onChange={[Function]}
+                  placeholder="Search this book"
+                  type="search"
+                  value=""
+                />
+                <button
+                  aria-label="Search"
+                  className="c32 c56"
+                  data-analytics-label="Search this book"
+                  data-experiment={true}
+                  data-testid="mobile-toggle"
+                  onClick={[Function]}
+                  type="button"
+                  value="Search"
+                >
+                  <svg
+                    aria-hidden="true"
+                    height="18px"
+                    role="img"
+                    version="1.1"
+                    viewBox="0 0 18 18"
+                    width="18px"
+                  >
+                    <title>
+                      Search
+                    </title>
+                    <g
+                      fill="none"
+                      fillRule="evenodd"
+                      stroke="none"
+                      strokeWidth="1"
+                    >
+                      <g
+                        fill="currentColor"
+                        fillRule="nonzero"
+                        transform="translate(-938.000000, -206.000000)"
+                      >
+                        <path
+                          d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  aria-label="Search"
+                  className="c32 c57"
+                  data-experiment={true}
+                  value="Search"
+                >
+                  <svg
+                    aria-hidden="true"
+                    height="18px"
+                    role="img"
+                    version="1.1"
+                    viewBox="0 0 18 18"
+                    width="18px"
+                  >
+                    <title>
+                      Search
+                    </title>
+                    <g
+                      fill="none"
+                      fillRule="evenodd"
+                      stroke="none"
+                      strokeWidth="1"
+                    >
+                      <g
+                        fill="currentColor"
+                        fillRule="nonzero"
+                        transform="translate(-938.000000, -206.000000)"
+                      >
+                        <path
+                          d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </button>
+              </form>
+              <div
+                className="c58 c59 c60"
+              >
+                <button
+                  aria-expanded={false}
+                  aria-label="Change text size"
+                  className="c61 c62 c63 c64"
+                  data-analytics-label="Change text size"
+                  onClick={[Function]}
+                >
+                  <div
+                    tabIndex={-1}
+                  >
+                    <img
+                      alt=""
+                      aria-hidden="true"
+                      src="text-size.svg"
+                    />
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div
+              className="c65"
+            >
+              <hr
+                className="c66"
+              />
+              <div
+                className="c67"
+              >
+                <button
+                  className="c68"
+                  data-testid="close-search-results"
+                  onClick={[Function]}
+                >
+                  <div
+                    className="c69"
+                  >
+                    Close
+                  </div>
+                </button>
+                <form
+                  action="#"
+                  className="c53 c54"
+                  data-experiment={true}
+                  data-testid="mobile-search"
+                  onSubmit={[Function]}
+                >
+                  <input
+                    aria-label="Search this book"
+                    className="c70"
+                    data-testid="mobile-search-input"
+                    onChange={[Function]}
+                    placeholder="Search this book"
+                    type="search"
+                    value=""
+                  />
+                  <button
+                    aria-label="Search"
+                    className="c32 c57"
+                    data-experiment={true}
+                    value="Search"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      height="18px"
+                      role="img"
+                      version="1.1"
+                      viewBox="0 0 18 18"
+                      width="18px"
+                    >
+                      <title>
+                        Search
+                      </title>
+                      <g
+                        fill="none"
+                        fillRule="evenodd"
+                        stroke="none"
+                        strokeWidth="1"
+                      >
+                        <g
+                          fill="currentColor"
+                          fillRule="nonzero"
+                          transform="translate(-938.000000, -206.000000)"
+                        >
+                          <path
+                            d="M945,206 C948.865993,206 952,209.134007 952,213 C952,214.662837 951.420201,216.190255 950.45174,217.391118 L955.03033,221.96967 C955.323223,222.262563 955.323223,222.737437 955.03033,223.03033 C954.764064,223.296597 954.3474,223.320803 954.053788,223.102948 L953.96967,223.03033 L949.391118,218.45174 C948.190255,219.420201 946.662837,220 945,220 C941.134007,220 938,216.865993 938,213 C938,209.134007 941.134007,206 945,206 Z M945,207.5 C941.962434,207.5 939.5,209.962434 939.5,213 C939.5,216.037566 941.962434,218.5 945,218.5 C948.037566,218.5 950.5,216.037566 950.5,213 C950.5,209.962434 948.037566,207.5 945,207.5 Z"
+                          />
+                        </g>
+                      </g>
+                    </svg>
+                  </button>
+                  
+                  
+                </form>
+                <div
+                  className="c58 c59 c60"
+                >
+                  <button
+                    aria-expanded={false}
+                    aria-label="Change text size"
+                    className="c61 c62 c63 c64"
+                    data-analytics-label="Change text size"
+                    onClick={[Function]}
+                  >
+                    <div
+                      tabIndex={-1}
+                    >
+                      <img
+                        alt=""
+                        aria-hidden="true"
+                        src="text-size.svg"
+                      />
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div
             className="c71"
           >
@@ -14268,7 +14264,7 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c94"
+                          className="c23 c94"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 320 512"
@@ -14317,7 +14313,7 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c95"
+                          className="c23 c95"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 448 512"
@@ -14340,7 +14336,7 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c96"
+                          className="c23 c96"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 448 512"
