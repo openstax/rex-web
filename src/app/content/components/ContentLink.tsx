@@ -15,7 +15,7 @@ import {
   hasUnsavedHighlight as hasUnsavedHighlightSelector
 } from '../highlights/selectors';
 import * as select from '../selectors';
-import { Book, SystemQueryParams } from '../types';
+import { Book, Params, SystemQueryParams } from '../types';
 import { getBookPageUrlAndParams, stripIdVersion, toRelativeUrl } from '../utils';
 import { isClickWithModifierKeys } from '../utils/domUtils';
 import { createNavigationMatch } from '../utils/navigationUtils';
@@ -31,7 +31,7 @@ interface Props {
   handleClick?: () => void; // this one gets called instead of navigation
   navigate: typeof push;
   currentPath: string;
-  navigationParams: unknown;
+  navigationParams: Partial<Params> | undefined;
   hasUnsavedHighlight: boolean;
   queryParams?: OutputParams;
   scrollTarget?: ScrollTarget;
