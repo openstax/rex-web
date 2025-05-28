@@ -88,11 +88,11 @@ describe('content', () => {
     await scrollDown();
     expect(await getScrollTop()).not.toBe(0);
 
-    /* 
-      - click toc link to another long page 
+    /*
+      - click toc link to another long page
       Due to compatibility issues with RAC version and TS
-      next line is commented out for missing TocLinks when render 
-    
+      next line is commented out for missing TocLinks when render
+
     expect(await clickTocLink(TEST_LONG_PAGE_NAME)).toBe(true);
     expect(await h1Content(page)).toBe('Test Page 3');
     expect(await getScrollTop()).toBe(0);
