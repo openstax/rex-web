@@ -100,7 +100,7 @@ const OneSearchResultHit = ({
           scrollTarget={target}
           queryParams={queryParams}
           onClick={() => onClick(thisResult)}
-          ariaLabel={uniqueSearchLabel(index, page.title, highlight)}
+          aria-label={uniqueSearchLabel(index, page.title, highlight)}
           ref={isSelected ? activeSectionRef : undefined}
         >
           {isKeyTermHit(hit) ? (
