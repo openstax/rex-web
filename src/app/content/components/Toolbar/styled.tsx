@@ -13,7 +13,6 @@ import {
   bookBannerMobileMiniHeight,
   sidebarDesktopWidth,
   toolbarIconColor,
-  topbarDesktopHeight,
   verticalNavbarMaxWidth,
 } from '../constants';
 import { disablePrint } from '../utils/disablePrint';
@@ -130,7 +129,6 @@ export const ToolbarWrapper = styled.div`
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
   height: calc(100vh - 13rem);
-  margin-top: -${topbarDesktopHeight}rem;
   max-height: calc(100vh - 7rem);
   max-width: ${verticalNavbarMaxWidth}rem;
   overflow: visible;

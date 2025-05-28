@@ -34,7 +34,6 @@ export const SidebarPaneBody = styled.nav`
   grid-area: 1 / 2 / auto / 3;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
-  margin-top: -${topbarDesktopHeight}rem;
   overflow-y: auto;
   height: calc(100vh - ${navDesktopHeight + bookBannerDesktopMiniHeight}rem);
   max-height: calc(100vh - ${bookBannerDesktopMiniHeight}rem);
@@ -118,7 +117,7 @@ export const HeaderText = styled.span`
   line-height: 2.9rem;
   font-weight: 600;
   margin: 0;
-  padding: 0;
+  padding: 1rem 0;
   color: ${toolbarIconColor.base};
   flex: 1 1 0%;
   text-align: left;
