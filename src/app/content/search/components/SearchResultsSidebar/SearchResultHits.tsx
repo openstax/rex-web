@@ -56,13 +56,16 @@ function useKeyTermPair({
   return pair;
 }
 
-function uniqueSearchLabel(index: number, title: string, highlight: string) {
+function htmlToText(s: string) {
   const temp = document?.createElement('div') as HTMLDivElement;
 
-  temp.innerHTML = highlight;
-  return `Result ${index + 1} in ${title}: ${temp.textContent}`;
+  temp.innerHTML = s;
+  return temp.textContent;
 }
 
+function uniqueSearchLabel(index: number, title: string, highlight: string) {
+  return `Result ${index + 1} in ${htmlToText(title)}: ${htmlToText(highlight)}`;
+}
 
 // tslint:disable-next-line: variable-name
 const OneSearchResultHit = ({
