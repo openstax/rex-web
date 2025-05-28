@@ -260,10 +260,6 @@ export function useContactDialog() {
 
   React.useEffect(
     () => {
-      if (typeof window === 'undefined' || !window.parent || window.parent === window) {
-        return;
-      }
-
       const win = window;
 
       const closeOnSubmit = ({data}: MessageEvent) => {
@@ -272,8 +268,8 @@ export function useContactDialog() {
         }
       };
 
-      win.addEventListener('message', closeOnSubmit);
-      return () => win.removeEventListener('message', closeOnSubmit);
+      win?.addEventListener('message', closeOnSubmit);
+      return () => win?.removeEventListener('message', closeOnSubmit);
     },
     [close]
   );

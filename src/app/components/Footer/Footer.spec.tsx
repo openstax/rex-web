@@ -39,6 +39,7 @@ describe('useContactDialog', () => {
   let addEventListener: jest.SpyInstance;
 
   beforeEach(() => {
+    jest.restoreAllMocks();
     store = createTestStore();
 
     addEventListener = jest.spyOn(windowBack, 'addEventListener');
@@ -93,8 +94,6 @@ describe('useContactDialog', () => {
   });
 
   it('opens and closes', () => {
-    Object.defineProperty(assertWindow(), 'parent', {value: {...assertWindow()}});
-
     const {controller, component} = testComponent(store);
     expect(() => controller.iframe).toThrow();
     renderer.act(() => {
