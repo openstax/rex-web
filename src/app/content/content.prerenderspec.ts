@@ -17,7 +17,7 @@ describe('content', () => {
       Object.defineProperty(Array.prototype, 'at', {
         configurable: true,
         writable: true,
-        value: function(n: number) {
+        value(n: number) {
           n = Math.trunc(n) || 0;
           if (n < 0) n += this.length;
           if (n < 0 || n >= this.length) return undefined;
