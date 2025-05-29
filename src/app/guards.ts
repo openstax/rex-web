@@ -51,8 +51,6 @@ export const isKeyOf = <O extends {[key: string]: unknown}>(obj: O, thing: unkno
 export const isPortaled = (thing: unknown): thing is {portalName: string} => (
   typeof thing === 'object' &&
   thing !== null &&
-  'portalName' in thing && (
-    typeof thing.portalName === 'undefined' ||
-    typeof thing.portalName === 'string'
-  )
+  'portalName' in thing &&
+  typeof thing.portalName === 'string'
 );

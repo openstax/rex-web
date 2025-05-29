@@ -62,10 +62,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     ...anchorProps
   } = props;
 
-  const baseParams = navigationParams && typeof navigationParams === 'object'
-    ? navigationParams
-    : undefined;
-  const {url, params} = getBookPageUrlAndParams(book, page, baseParams);
+  const {url, params} = getBookPageUrlAndParams(book, page, navigationParams);
   const navigationMatch = createNavigationMatch(page, book, params);
   const relativeUrl = toRelativeUrl(currentPath, url);
   const bookUid = stripIdVersion(book.id);
