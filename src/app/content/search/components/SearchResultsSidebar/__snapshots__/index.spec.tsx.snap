@@ -909,7 +909,7 @@ Array [
         </h3>
         <a
           aria-current={true}
-          ariaLabel="Result 1 in <span class=\\"os-text\\">Test Page 1</span>: test definition with …"
+          aria-label="Result 1 in Test Page 1: test definition with …"
           className="c15 c16"
           data-testid="related-key-term-result"
           href="books/book-slug-1/pages/test-page-1?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page1"
@@ -934,7 +934,7 @@ Array [
         </a>
         <a
           aria-current={false}
-          ariaLabel="Result 1 in <span class=\\"os-text\\">Test Page 6 with special characters in url</span>: test definition"
+          aria-label="Result 1 in Test Page 6 with special characters in url: test definition"
           className="c15 c19"
           data-testid="related-key-term-result"
           href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#test-pair-page6"
@@ -1039,7 +1039,7 @@ Array [
                 </div>
                 <a
                   aria-current={false}
-                  ariaLabel="Result 1 in <span class=\\"os-text\\">Test Page 7</span>: cool highlight bruh"
+                  aria-label="Result 1 in Test Page 7: cool highlight bruh"
                   className="c15 c19"
                   data-testid="search-result"
                   href="books/book-slug-1/pages/12-test-page-7?target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
@@ -1637,7 +1637,7 @@ Array [
           </div>
           <a
             aria-current={true}
-            ariaLabel="Result 1 in <span class=\\"os-text\\">Test Page 1</span>: cool highlight bruh"
+            aria-label="Result 1 in Test Page 1: cool highlight bruh"
             className="c18 c19"
             data-testid="search-result"
             href="books/book-slug-1/pages/test-page-1?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
@@ -1729,7 +1729,7 @@ Array [
                 </div>
                 <a
                   aria-current={false}
-                  ariaLabel="Result 1 in <span class=\\"os-text\\">Test Page 6 with special characters in url</span>: cool highlight bruh"
+                  aria-label="Result 1 in Test Page 6 with special characters in url: cool highlight bruh"
                   className="c18 c33"
                   data-testid="search-result"
                   href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
@@ -1823,7 +1823,7 @@ Array [
                 </div>
                 <a
                   aria-current={false}
-                  ariaLabel="Result 1 in <span class=\\"os-text\\">Test Page 7</span>: cool highlight bruh"
+                  aria-label="Result 1 in Test Page 7: cool highlight bruh"
                   className="c18 c33"
                   data-testid="search-result"
                   href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
