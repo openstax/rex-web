@@ -4267,6 +4267,7 @@ li[aria-label="Current Page"] .c39 {
             className="c77"
           >
             <div
+              aria-live="polite"
               className="c78"
               role="alertdialog"
             />
@@ -8882,6 +8883,7 @@ li[aria-label="Current Page"] .c39 {
             className="c77"
           >
             <div
+              aria-live="polite"
               className="c78"
               role="alertdialog"
             />
