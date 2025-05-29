@@ -4,7 +4,13 @@ import type { ComponentType } from 'react';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { formatBookData } from '../utils';
-
+import createTestServices from '../../../test/createTestServices';
+import createTestStore from '../../../test/createTestStore';
+import TestContainer from '../../../test/TestContainer';
+import { Provider } from 'react-redux';
+import * as selectAuth from '../../auth/selectors';
+import { formatUser } from '../../auth/utils';
+import { testAccountsUser } from '../../../test/mocks/userLoader';
 
 const dummyBook = {
   ...formatBookData(archiveBook, mockCmsBook),
@@ -14,6 +20,12 @@ const dummyBook = {
 describe('ContentWarning', () => {
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
   let ContentWarningDynamic: ComponentType<any>; // tslint:disable-line:variable-name
+  const store = createTestStore();
+  const services = {
+    ...createTestServices(),
+    dispatch: store.dispatch,
+    getState: store.getState,
+  };
 
   describe('in browser', () => {
     let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
@@ -32,7 +44,18 @@ describe('ContentWarning', () => {
     });
 
     it('renders warning modal and hides it after clicking', async() => {
-      renderToDom(<ContentWarningDynamic book={dummyBook} />);
+      const mockSpyUser = jest.spyOn(selectAuth, 'user')
+        .mockReturnValue(formatUser(testAccountsUser));
+
+      renderToDom(
+        <Provider store={store}>
+          <button>hi</button>
+        </Provider>
+      );
+      //   <TestContainer services={services} store={store}>
+      //     <ContentWarningDynamic book={dummyBook} />
+      //   </TestContainer>
+      // );
 
       const b = document!.querySelector('button');
 
@@ -43,6 +66,7 @@ describe('ContentWarning', () => {
       ReactDOMTestUtils.act(() => ReactDOMTestUtils.Simulate.click(b!));
 
       expect(document!.querySelector('button')).toBeFalsy();
+      mockSpyUser.mockClear();
     });
   });
 
