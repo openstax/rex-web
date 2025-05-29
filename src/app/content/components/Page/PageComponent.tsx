@@ -45,9 +45,9 @@ export default class PageComponent extends Component<PagePropTypes> {
       const parsedContent = parser.parseFromString(content, 'text/html');
 
       contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
-      lazyResources.makeResourcesLazy(parsedContent);
 
       transformContent(parsedContent, parsedContent.body, this.props, services);
+      lazyResources.makeResourcesLazy(parsedContent);
 
       if (this.props.lockNavigation) {
         linksToOtherPagesOpenInNewTab(parsedContent.body, this.props.currentPath);

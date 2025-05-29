@@ -122,7 +122,7 @@ function tweakFigures(rootEl: HTMLElement) {
 }
 
 function optimizeImages(rootEl: HTMLElement, services: AppServices & MiddlewareAPI) {
-  const images = Array.from(rootEl.querySelectorAll('img[src^="/apps/archive"'));
+  const images = Array.from(rootEl.querySelectorAll('img[src^="/apps/archive"]'));
 
   for (const i of images) {
     const src = assertNotNull(i.getAttribute('src'), 'Somehow got a null src attribute');
