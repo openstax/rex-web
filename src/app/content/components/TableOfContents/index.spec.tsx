@@ -2,7 +2,7 @@ import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
-import ConnectedTableOfContents, { TableOfContents } from '.';
+import ConnectedTableOfContents, { TableOfContents, maybeAriaLabel } from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
@@ -16,11 +16,44 @@ import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
 
+jest.mock('react-aria-components', () => {
+  const actual = jest.requireActual('react-aria-components');
+  return {
+    ...actual,
+    Tree: ({ children, ...props }: any) =>
+      <div data-testid='mock-tree' {...props}>{children}</div>
+    ,
+    TreeItem: ({ children, ...props }: any) =>
+      <div data-testid='mock-tree-item' {...props}>{children}</div>
+    ,
+    TreeItemContent: ({ children, ...props }: any) =>
+      <div data-testid='mock-tree-item-content' {...props}>{children}</div>
+    ,
+  };
+});
+
 const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('TableOfContents', () => {
   let store: Store;
   let Component: React.JSX.Element; // tslint:disable-line:variable-name
+  let SecondComponent: React.JSX.Element; // tslint:disable-line:variable-name
+
+  const mockBook = {
+    tree: {
+      id: 'root',
+      title: 'Root Section',
+      children: [],
+      contents: [
+        {
+          id: 'item-1',
+          title: 'Item 1',
+          contents: [],
+          parent: { title: 'Chapter 1' },
+        },
+      ],
+    },
+  } as any;
 
   beforeEach(() => {
     const state = {
@@ -34,6 +67,15 @@ describe('TableOfContents', () => {
       <TestContainer store={store}>
         <ConnectedTableOfContents />
       </TestContainer>;
+    SecondComponent =
+      <TestContainer store={store}>
+        <TableOfContents
+          isOpen={true}
+          book={mockBook}
+          page={undefined}
+          onNavigate={jest.fn()}
+        />
+      </TestContainer>;
   });
 
   it('mounts and unmounts without a dom', () => {
@@ -42,7 +84,7 @@ describe('TableOfContents', () => {
   });
 
   it('mounts and unmmounts with a dom', () => {
-    const {root} = renderToDom(Component);
+    const { root } = renderToDom(Component);
     expect(() => unmountComponentAtNode(root)).not.toThrow();
   });
 
@@ -56,7 +98,7 @@ describe('TableOfContents', () => {
     expect(scrollSidebarSectionIntoView).toHaveBeenCalledTimes(1);
 
     renderer.act(() => {
-      store.dispatch(actions.receivePage({...shortPage, references: []}));
+      store.dispatch(actions.receivePage({ ...shortPage, references: [] }));
     });
 
     expect(expandCurrentChapter).toHaveBeenCalled();
@@ -87,11 +129,11 @@ describe('TableOfContents', () => {
     jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
-    const {root} = renderToDom(<TestContainer store={store}>
+    const { root } = renderToDom(<TestContainer store={store}>
       <ConnectedTableOfContents />
     </TestContainer>);
     const sb = root.querySelector('[data-testid="toc"]')!;
-    const firstTocItem = sb.querySelector('ol > li a, old > li summary') as HTMLElement;
+    const firstTocItem = sb.querySelector('div > div a, div > div div span') as HTMLElement;
     const focusSpy = jest.spyOn(firstTocItem as any, 'focus');
 
     reactDomAct(() => {
@@ -119,7 +161,7 @@ describe('TableOfContents', () => {
     const component = renderer.create(Component);
 
     renderer.act(() => {
-      component.root.findAllByType('a')[0].props.onClick({preventDefault: () => null});
+      component.root.findAllByType('a')[0].props.onClick({ preventDefault: () => null });
     });
     expect(dispatchSpy).toHaveBeenCalledWith(actions.resetToc());
   });
@@ -130,7 +172,7 @@ describe('TableOfContents', () => {
       return expect(document).toBeTruthy();
     }
 
-    const {node} = renderToDom(Component);
+    const { node } = renderToDom(Component);
     const spy = jest.spyOn(node.style, 'setProperty');
 
     const event = document.createEvent('UIEvents');
@@ -140,5 +182,63 @@ describe('TableOfContents', () => {
     });
 
     expect(spy).toHaveBeenCalledWith('height', expect.anything());
+  });
+
+  it('updates expandedKeys with handleExpandedChange', () => {
+
+    const component = renderer.create(SecondComponent);
+
+    const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
+
+    renderer.act(() => {
+      instance.handleExpandedChange(new Set(['abc', 'xyz']));
+    });
+
+    expect(instance.state.expandedKeys).toEqual(new Set(['abc', 'xyz']));
+  });
+
+  it('removes item from expandedKeys via handleTreeItemClick', () => {
+    const component = renderer.create(SecondComponent);
+
+    const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
+
+    renderer.act(() => {
+      instance.setState({ expandedKeys: new Set(['item-1']) });
+    });
+
+    const treeItem = component.root.findAllByProps({ 'data-testid': 'mock-tree-item' })[0];
+
+    renderer.act(() => {
+      treeItem.props.onClick();
+    });
+
+    expect(instance.state.expandedKeys).toEqual(new Set());
+  });
+
+  it('returns null in SSR', () => {
+    jest.spyOn(reactUtils, 'isSSR').mockReturnValue(true);
+    const component = renderer.create(Component);
+    expect(component.toJSON()).toBeNull();
+    component.unmount();
+  });
+});
+
+describe('maybeAriaLabel', () => {
+  const mockPage = {
+    id: 'some-id',
+    title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
+    parent: {
+      title: 'Chapter 1',
+    },
+  } as any;
+
+  it('returns aria-label when active is true', () => {
+    const result = maybeAriaLabel(mockPage, true);
+    expect(result).toEqual({ 'aria-label': 'Current Page' });
+  });
+
+  it('returns empty object when active is false', () => {
+    const result = maybeAriaLabel(mockPage, false);
+    expect(result).toEqual({});
   });
 });

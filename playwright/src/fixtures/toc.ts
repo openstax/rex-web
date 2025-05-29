@@ -13,7 +13,7 @@ class TOC {
   constructor(page: Page) {
     this.page = page
     this.pageLocator = this.page.locator('[data-type="page"]')
-    this.tocDropdownLocator = this.page.locator('details[class*="NavDetails"]')
+    this.tocDropdownLocator = this.page.locator('div[class*="StyledTreeItemContent"]')
     this.sectionNameLocator = this.page.locator('h1[class*="BookBanner"]')
     this.pageSlugLocator = this.page.locator('[data-type="page"] a')
     this.currentPageLocator = this.page.locator("[aria-label*='Current Page'] a")
@@ -72,7 +72,7 @@ class TOC {
         await this.pageLocator.nth(pageNumber).click()
       } else {
         // expand the dropdowns in toc
-        await this.page.waitForSelector('details[class*="NavDetails"]')
+        await this.page.waitForSelector('div[class*="StyledTreeItemContent"]')
         const tocDropdownCounts = await this.tocDropdownLocator.count()
         let tocDropdownCount: number
         for (tocDropdownCount = 0; tocDropdownCount < tocDropdownCounts; tocDropdownCount++) {
