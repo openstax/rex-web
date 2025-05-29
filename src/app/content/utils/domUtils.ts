@@ -1,4 +1,4 @@
-import { HTMLDetailsElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLDetailsElement, HTMLElement, MouseEvent, Event } from '@openstax/types/lib.dom';
 import React from 'react';
 
 if (typeof(document) !== 'undefined') {
