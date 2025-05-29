@@ -12,6 +12,9 @@ const dynamicPrefix = '/apps/rex';
 const prerenderedBase = '/books/:book/pages/:page';
 const dynamicBase = dynamicPrefix + prerenderedBase;
 
+const portalPrefix = '/portal/:portalName';
+const portalBase = dynamicPrefix + portalPrefix + prerenderedBase;
+
 /*
  * this is in a transition phase. we are moving all of the more dynamic routing
  * under a different url prefix, so anything not under that new url prefix
@@ -21,31 +24,34 @@ const dynamicBase = dynamicPrefix + prerenderedBase;
  * need to be updated with the new url base, then the first section of the route path
  * config can be removed
  */
-const contentPaths = [
+const bookPaths = [
+  `book_uuid(${MATCH_UUID})@:book_contentVersion\\::book_archiveVersion`,
+  `book_uuid(${MATCH_UUID})@:book_contentVersion`,
+  'book_slug@:book_contentVersion\\::book_archiveVersion',
+  'book_slug@:book_contentVersion',
+  'book_slug',
+];
+const pagePaths = [
+  `page_uuid(${MATCH_UUID})`,
+  'page_slug',
+];
+
+const portalContentPaths = [
+  portalBase + '/books/:book_slug',
+  ...injectParamsToBaseUrl(portalBase, { book: bookPaths, page: pagePaths }),
+];
+
+const contentPaths =  [
   '/books/:book_slug',
   ...injectParamsToBaseUrl(prerenderedBase, {
     // switch this after a transition period starting with CORGI using the `dynamicBase` url on its previews
-    book: [
-      `book_uuid(${MATCH_UUID})@:book_contentVersion\\::book_archiveVersion`,
-      `book_uuid(${MATCH_UUID})@:book_contentVersion`,
-      'book_slug@:book_contentVersion\\::book_archiveVersion',
-      'book_slug@:book_contentVersion',
-      'book_slug',
-    ],
-    page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
+    book: bookPaths,
+    page: pagePaths,
     // book: ['book_slug'],
     // page: ['page_slug'],
   }),
-  ...injectParamsToBaseUrl(dynamicBase, {
-    book: [
-      `book_uuid(${MATCH_UUID})@:book_contentVersion\\::book_archiveVersion`,
-      `book_uuid(${MATCH_UUID})@:book_contentVersion`,
-      'book_slug@:book_contentVersion\\::book_archiveVersion',
-      'book_slug@:book_contentVersion',
-      'book_slug',
-    ],
-    page: [`page_uuid(${MATCH_UUID})`, 'page_slug'],
-  }),
+  ...injectParamsToBaseUrl(dynamicBase, { book: bookPaths, page: pagePaths }),
+  ...portalContentPaths,
 ];
 
 // tslint:disable-next-line:variable-name

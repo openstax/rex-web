@@ -4,7 +4,11 @@ import RiceWhiteLogo from '../../../assets/rice-white-text.png';
 import htmlMessage from '../../components/htmlMessage';
 import { isVerticalNavOpenConnector } from '../../content/components/utils/sidebar';
 import { State } from '../../content/types';
+import * as selectNavigation from '../../navigation/selectors';
+import * as guards from '../../guards';
 import * as Styled from './styled';
+import { MessageEvent } from '@openstax/types/lib.dom';
+import { useSelector } from 'react-redux';
 
 const fbUrl = 'https://www.facebook.com/openstax';
 const twitterUrl = 'https://twitter.com/openstax';
@@ -178,7 +182,7 @@ function getValues() {
 }
 
 // tslint:disable-next-line:variable-name
-const Footer = ({
+const NormalFooter = ({
   isVerticalNavOpen,
 }: {
   isVerticalNavOpen: State['tocOpen'];
@@ -208,5 +212,145 @@ const Footer = ({
     </Styled.InnerFooter>
   </Styled.FooterWrapper>
 );
+
+// tslint:disable-next-line:variable-name
+const PortalColumn1 = () => (
+  <Styled.Column1>
+    <Copyrights values={getValues()} />
+  </Styled.Column1>
+);
+
+// tslint:disable-next-line:variable-name
+export function ContactDialog({
+  isOpen,
+  close,
+  contactFormParams,
+  className,
+}: {
+  isOpen: boolean;
+  close: () => void;
+  contactFormParams?: {key: string; value: string}[];
+  className?: string;
+}) {
+  const contactFormUrl = React.useMemo(() => {
+    const formUrl = '/embedded/contact';
+
+    if (contactFormParams !== undefined) {
+      const params = contactFormParams
+        .map(({key, value}) => encodeURIComponent(`${key}=${value}`))
+        .map((p) => `body=${p}`)
+        .join('&');
+
+      return `${formUrl}?${params}`;
+    }
+
+    return formUrl;
+  }, [contactFormParams]);
+  return !isOpen ? null : (
+    <Styled.ContactDialog className={className} onModalClose={close} heading='i18n:footer:column1:contact-us'>
+      <iframe id='contact-us' title='contact-us' src={contactFormUrl} />
+    </Styled.ContactDialog>
+  );
+}
+
+export function useContactDialog() {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const open = React.useCallback(() => setIsOpen(true), [setIsOpen]);
+  const close = React.useCallback(() => setIsOpen(false), [setIsOpen]);
+
+  React.useEffect(
+    () => {
+      const win = window;
+
+      const closeOnSubmit = ({data}: MessageEvent) => {
+        if (data === 'CONTACT_FORM_SUBMITTED') {
+          close();
+        }
+      };
+
+      win?.addEventListener('message', closeOnSubmit);
+      return () => win?.removeEventListener('message', closeOnSubmit);
+    },
+    [close]
+  );
+
+  return { isOpen, open, close };
+}
+
+// tslint:disable-next-line:variable-name
+const PortalColumn2 = () => {
+  const { isOpen, open, close } = useContactDialog();
+  const contactFormParams = [
+    {key: 'source_url', value: window?.location.href},
+  ].filter((p): p is { key: string; value: string } => !!p.value);
+
+  return (
+    <Styled.Column2>
+      <LinkList>
+        <Styled.FooterButton onClick={open}>
+          <BareMessage id='i18n:footer:column1:contact-us' />
+        </Styled.FooterButton>
+        <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
+        <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
+      </LinkList>
+      <ContactDialog isOpen={isOpen} contactFormParams={contactFormParams} close={close} />
+    </Styled.Column2>
+  );
+};
+
+// tslint:disable-next-line:variable-name
+const PortalColumn3 = () => (
+  <Styled.Column3>
+    <LinkList>
+      <FooterLinkMessage
+        href='/accessibility-statement'
+        id='i18n:footer:column3:accessibility'
+      />
+      <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
+      <Styled.ManageCookiesLink>
+        <BareMessage id='i18n:footer:column3:manage-cookies' />
+      </Styled.ManageCookiesLink>
+    </LinkList>
+  </Styled.Column3>
+);
+
+// tslint:disable-next-line:variable-name
+const PortalFooter = ({
+  isVerticalNavOpen,
+}: {
+  isVerticalNavOpen: State['tocOpen'];
+}) => {
+  return (
+    <Styled.FooterWrapper
+      data-analytics-region='footer'
+      data-testid='portal-footer'
+      isVerticalNavOpen={isVerticalNavOpen}
+    >
+      <Styled.InnerFooter>
+        <Styled.FooterBottom>
+          <Styled.PortalBottomBoxed>
+            <PortalColumn1 />
+            <PortalColumn2 />
+            <PortalColumn3 />
+          </Styled.PortalBottomBoxed>
+        </Styled.FooterBottom>
+      </Styled.InnerFooter>
+    </Styled.FooterWrapper>
+  );
+};
+
+// tslint:disable-next-line:variable-name
+const Footer = ({
+  isVerticalNavOpen,
+}: {
+  isVerticalNavOpen: State['tocOpen'];
+}) => {
+  const params = useSelector(selectNavigation.params);
+  return (
+    !guards.isPortaled(params)
+      ? <NormalFooter isVerticalNavOpen={isVerticalNavOpen} />
+      : <PortalFooter isVerticalNavOpen={isVerticalNavOpen} />
+  );
+};
 
 export default isVerticalNavOpenConnector(Footer);

@@ -13,6 +13,7 @@ import {
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { remsToEms } from '../../utils';
+import Modal from '../Modal';
 
 const desktopMinWidth = '37.6';
 const mobileMaxWidth = '60.1';
@@ -235,6 +236,34 @@ export const ManageCookiesLink = styled(RawCookiesLink)`
 `;
 
 // tslint:disable-next-line:variable-name
+export const FooterButton = styled.button`
+  ${footerLinkStyle}
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+`;
+
+// tslint:disable-next-line:variable-name
+export const ContactDialog = styled(Modal)`
+  & > div > div {
+    width: 75vw;
+    height: 75vh;
+
+    & > header {
+      margin-bottom: 0;
+    }
+
+    & > iframe {
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+  }
+`;
+
+// tslint:disable-next-line:variable-name
 const InnerBottomLink = styled.a`
   ${columnLink}
   display: inline-grid;
@@ -318,6 +347,27 @@ export const BottomBoxed = styled.div`
 
   @media (max-width: ${mobileMinWidth}em) {
     padding: 0;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
+export const PortalBottomBoxed = styled.div`
+  ${boxed}
+  display: grid;
+  grid-gap: 1.5rem 4rem;
+  overflow: visible;
+  align-items: start;
+
+  @media (min-width: ${desktopMinWidth}em) {
+    grid-template: "col1 col2 col3" / minmax(auto, 70rem) auto auto;
+  }
+
+  @media (max-width: ${mobileMinWidth}em) {
+    padding: 0;
+    grid-template:
+      "col1"
+      "col2"
+      "col3";
   }
 `;
 

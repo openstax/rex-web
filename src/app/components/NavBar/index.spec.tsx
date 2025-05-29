@@ -3,7 +3,7 @@ import createTestStore from '../../../test/createTestStore';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
 import { User } from '../../auth/types';
-import { Store } from '../../types';
+import { AppState, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { assertNotNull } from '../../utils/assertions';
 
@@ -168,6 +168,43 @@ describe('content', () => {
 
         expect(getComputedStyle).not.toHaveBeenCalled();
         expect(preventDefault).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('logo href', () => {
+      describe('default', () => {
+        beforeEach(() => {
+          const state = {
+            navigation: { pathname: '/anything/' },
+          } as unknown as AppState;
+          store = createTestStore(state);
+        });
+
+        it('correctly sets href on icon', () => {
+          const {node} = renderToDom(render());
+          const anchor = assertNotNull(node.querySelector('[data-testid=\'navbar\'] > a'), '');
+          expect(anchor.href).toMatch(/^https?:\/\/[^/]+\/$/);
+        });
+      });
+
+      describe('portal', () => {
+        const portalName = 'portalName';
+
+        beforeEach(() => {
+          const params = {portalName};
+          const state = {
+            navigation: {
+              match: {params},
+            },
+          } as unknown as AppState;
+          store = createTestStore(state);
+        });
+
+        it('correctly sets href on icon', () => {
+          const {node} = renderToDom(render());
+          const anchor = assertNotNull(node.querySelector('[data-testid=\'navbar\'] > a'), '');
+          expect(anchor.href).toMatch(new RegExp(`^https?://[^/]+/${portalName}/$`));
+        });
       });
     });
   });
