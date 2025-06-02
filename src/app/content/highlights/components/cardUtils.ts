@@ -230,11 +230,6 @@ export const editCardVisibilityHandler = (state: Map<string, boolean>, action: {
       updatedState.set(action.id, true);
       return updatedState;
     }
-    case 'SHOW_ALL': {
-      const allVisibleState = new Map(state);
-      allVisibleState.forEach((_, key) => allVisibleState.set(key, false));
-      return allVisibleState;
-    }
     default:
       return state;
   }

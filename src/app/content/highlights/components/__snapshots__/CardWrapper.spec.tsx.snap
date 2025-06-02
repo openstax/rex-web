@@ -61,7 +61,6 @@ exports[`CardWrapper matches snapshot 1`] = `
       }
     }
     isHidden={false}
-    onBlurOptional={[Function]}
     onHeightChange={[Function]}
     shouldFocusCard={false}
     zIndex={1}

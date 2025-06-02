@@ -66,10 +66,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     dispatch({ type: 'SHOW', id: focusedId });
   };
 
-  const showAllCards = () => {
-    dispatch({ type: 'SHOW_ALL' });
-  };
-
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
 
   /*
@@ -80,10 +76,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   // Allow to hide EditCard using Escape key
   useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
-
-  // After move focus, reset visibility of all cards
-  useKeyCombination({ key: 'Tab' }, showAllCards, undefined, false);
-  useKeyCombination({ key: 'Tab', shiftKey: true }, showAllCards, undefined, false);
 
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
@@ -155,7 +147,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           zIndex={highlights.length - index}
           shouldFocusCard={focusThisCard}
           isHidden={checkIfHiddenByCollapsedAncestor(highlight) || isHiddenByEscape.get(highlight.id)}
-          onBlurOptional={showAllCards}
         />;
       })}
     </div>
