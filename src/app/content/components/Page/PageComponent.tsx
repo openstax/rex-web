@@ -45,9 +45,9 @@ export default class PageComponent extends Component<PagePropTypes> {
       const parsedContent = parser.parseFromString(content, 'text/html');
 
       contentLinks.reduceReferences(parsedContent, this.props.contentLinks);
+      lazyResources.makeResourcesLazy(parsedContent);
 
       transformContent(parsedContent, parsedContent.body, this.props, services);
-      lazyResources.makeResourcesLazy(parsedContent);
 
       if (this.props.lockNavigation) {
         linksToOtherPagesOpenInNewTab(parsedContent.body, this.props.currentPath);
@@ -81,7 +81,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       });
     }
     this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
-    lazyResources.checkLazyResources();
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
@@ -123,8 +122,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       forceRedraw: highlightsAddedOrRemoved,
       onSelect: this.onSearchHighlightSelect,
     });
-
-    lazyResources.checkLazyResources();
   }
 
   public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {
@@ -212,8 +209,6 @@ export default class PageComponent extends Component<PagePropTypes> {
   private listenersOn() {
     this.listenersOff();
 
-    lazyResources.addScrollHandler();
-
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
@@ -222,8 +217,6 @@ export default class PageComponent extends Component<PagePropTypes> {
   }
 
   private listenersOff() {
-    lazyResources.removeScrollHandler();
-
     const removeIfExists = (el: HTMLElement) => {
       const handler = this.clickListeners.get(el);
       if (handler) {
