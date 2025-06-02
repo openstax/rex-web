@@ -36,7 +36,7 @@ const closeSearchSidebarDesktop = async() => {
 describe('SearchResultsSidebar', () => {
 
   // Workaround until TS version and RAC work together
-  beforeEach(async() => {
+  beforeAll(async() => {
     await page.evaluateOnNewDocument(() => {
       // eslint-disable-next-line no-extend-native
       Object.defineProperty(Array.prototype, 'at', {

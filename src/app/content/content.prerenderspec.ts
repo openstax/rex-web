@@ -11,7 +11,7 @@ const TEST_PAGE_WITH_FIGURE = '/books/book-slug-1/pages/test-page-for-generic-st
 describe('content', () => {
 
   // Workaround until TS version and RAC work together
-  beforeEach(async() => {
+  beforeAll(async() => {
     await page.evaluateOnNewDocument(() => {
       // eslint-disable-next-line no-extend-native
       Object.defineProperty(Array.prototype, 'at', {
