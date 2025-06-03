@@ -95,6 +95,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
         navigate(navigationMatch, options);
       }
     }}
+    data-testid='content-link-test'
     href={URL}
     {...anchorProps}
   >{children}</a>;
