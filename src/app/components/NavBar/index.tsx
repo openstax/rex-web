@@ -10,6 +10,7 @@ import { AppState } from '../../types';
 import OnScroll, { OnScrollCallback } from '../OnScroll';
 import * as Styled from './styled';
 import UserIcon from '../../../assets/UserIcon';
+import * as guards from '../../guards';
 
 export { maxNavWidth, navDesktopHeight, navMobileHeight } from './styled';
 
@@ -121,12 +122,13 @@ interface NavigationBarProps {
   user?: User;
   loggedOut: boolean;
   currentPath: string;
+  params: unknown;
 }
 // tslint:disable-next-line:variable-name
-const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
+const NavigationBar = ({user, loggedOut, currentPath, params}: NavigationBarProps) =>
   <Styled.BarWrapper data-analytics-region='openstax-navbar'>
     <Styled.TopBar data-testid='navbar'>
-      <a href='/'>
+      <a href={guards.isPortaled(params) ? `/${params.portalName}/` : '/'}>
         <Styled.HeaderImage
           role='img'
           src={openstaxLogo}
@@ -141,6 +143,7 @@ const NavigationBar = ({user, loggedOut, currentPath}: NavigationBarProps) =>
 export default connect(
   (state: AppState) => ({
     currentPath: selectNavigation.pathname(state),
+    params: selectNavigation.params(state),
     loggedOut: authSelect.loggedOut(state),
     user: authSelect.user(state),
   })

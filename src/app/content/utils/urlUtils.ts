@@ -11,9 +11,11 @@ export function bookDetailsUrl(book: BookWithOSWebData) {
 
 export const getBookPageUrlAndParams = (
   book: Pick<Book, 'id' | 'tree' | 'title' | 'version' | 'contentVersion' | 'loadOptions'> & Partial<{slug: string}>,
-  page: Pick<Page, 'id' | 'title'>
+  page: Pick<Page, 'id' | 'title'>,
+  baseParams?: Partial<Params>
 ) => {
   const params: Params = {
+    ...baseParams,
     book: getUrlParamsForBook(book),
     page: getUrlParamForPageId(book, page.id),
   };
