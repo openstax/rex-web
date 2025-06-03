@@ -659,6 +659,7 @@ Array [
                     >
                       <a
                         className="c11"
+                        data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
                       >
@@ -707,6 +708,7 @@ Array [
                     >
                       <a
                         className="c11"
+                        data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
                       >
