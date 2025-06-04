@@ -62,8 +62,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     dispatch({ type: 'HIDE', id: focusedId });
   };
 
-  const showCard = (focusedId: string | undefined) => {
-    dispatch({ type: 'SHOW', id: focusedId });
+  const showCard = (cardId: string | undefined) => {
+    dispatch({ type: 'SHOW', id: cardId });
   };
 
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
@@ -72,7 +72,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   * Allow to show EditCard using Enter key
   * It is important to preserve the default behavior of Enter key
   */
-  useKeyCombination({key: 'Enter'}, ()=> showCard(focusedId), undefined, false);
+  useKeyCombination({key: 'Enter'}, () => showCard(focusedId), undefined, false);
 
   // Allow to hide EditCard using Escape key
   useKeyCombination({key: 'Escape'}, hideCard, undefined, false);

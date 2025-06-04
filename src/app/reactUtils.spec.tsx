@@ -672,19 +672,20 @@ describe('useFocusHighlight', () => {
   let highlightElement: HTMLElement;
   let highlights: Highlight[];
 
+  // tslint:disable-next-line: variable-name
   const TestComponent = ({
-    highlights,
-    showCard,
+    highlightsList,
+    callback,
   }: {
-    highlights: Highlight[];
-    showCard: (id: string) => void;
+    highlightsList: Highlight[];
+    callback: (id: string) => void;
   }) => {
-    utils.useFocusHighlight(showCard, highlights);
+    utils.useFocusHighlight(callback, highlightsList);
     return (
       <div>
-        <div tabIndex={0} id="outside">Outside</div>
-        <mark id="highlight" tabIndex={0}>
-          <span id="highlight-span" tabIndex={0}>Highlight text</span>
+        <div tabIndex={0} id='outside'>Outside</div>
+        <mark id='highlight' tabIndex={0}>
+          <span id='highlight-span' tabIndex={0}>Highlight text</span>
         </mark>
       </div>
     );
@@ -698,7 +699,7 @@ describe('useFocusHighlight', () => {
     // Initial mount to access <span>
     act(() => {
       ReactDOM.render(
-        <TestComponent highlights={[]} showCard={showCard} />,
+        <TestComponent highlightsList={[]} callback={showCard} />,
         container
       );
     });
@@ -709,7 +710,7 @@ describe('useFocusHighlight', () => {
     // Re-mount with highlights
     act(() => {
       ReactDOM.render(
-        <TestComponent highlights={highlights} showCard={showCard} />,
+        <TestComponent highlightsList={highlights} callback={showCard} />,
         container
       );
     });
@@ -747,6 +748,7 @@ describe('useFocusHighlight', () => {
   });
 
   it('does not call showCard if event.target is not an element', () => {
+    const document = assertDocument();
     const fakeEvent = new Event('click');
     Object.defineProperty(fakeEvent, 'target', { value: null });
     document.dispatchEvent(fakeEvent);

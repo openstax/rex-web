@@ -488,10 +488,10 @@ export const useFocusHighlight = (showCard: (id: string) => void, highlights: Hi
       let target: EventTarget | null;
       if (event.type === 'click') {
         if (isElement(event.target)) {
-          /* 
+          /*
             When clicking on a highlight, the target is a mark element and
             we need to find the first span inside it to get the highlight as expected
-          */ 
+          */
           target = event.target.querySelectorAll('span')[0];
         }
       } else {
@@ -519,7 +519,7 @@ export const useFocusHighlight = (showCard: (id: string) => void, highlights: Hi
       document.removeEventListener('click', handler);
     };
   }, [document, highlights, showCard]);
-}
+};
 export const isSSR = () => {
   return typeof window === 'undefined' || typeof document === 'undefined';
 };
