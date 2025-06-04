@@ -5,6 +5,7 @@ import { addSafeEventListener } from './domUtils';
 import { isElement, isTextInputHtmlElement, isWindow } from './guards';
 import theme from './theme';
 import { assertDefined, assertDocument, assertWindow } from './utils';
+import { Highlight } from '@openstax/highlighter';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E>(null);
@@ -478,3 +479,44 @@ export const useFocusElement = (element: React.RefObject<HTMLElement>, shouldFoc
     }
   }, [element, shouldFocus]);
 };
+
+export const useFocusHighlight = (showCard: (id: string) => void, highlights: Highlight[]) => {
+  const document = assertDocument();
+  React.useEffect(() => {
+    if (!highlights || highlights.length === 0) return;
+    const handler = (event: Event) => {
+      let target: EventTarget | null;
+      if (event.type === 'click') {
+        if (isElement(event.target)) {
+          /* 
+            When clicking on a highlight, the target is a mark element and
+            we need to find the first span inside it to get the highlight as expected
+          */ 
+          target = event.target.querySelectorAll('span')[0];
+        }
+      } else {
+        target = event.target;
+      }
+      const highlight = highlights.find(h =>
+        h.elements && h.elements.some(el =>
+          el === target ||
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (!!el && typeof (el as any).contains === 'function' && (el as any).contains(target))
+        )
+      );
+
+      if (highlight) {
+        showCard(highlight.id);
+      }
+    };
+
+    // Listen for focusin and click events to show the card
+    // For some reason when focus using click, the focused element is div main-content
+    document.addEventListener('focusin', handler);
+    document.addEventListener('click', handler);
+    return () => {
+      document.removeEventListener('focusin', handler);
+      document.removeEventListener('click', handler);
+    };
+  }, [document, highlights, showCard]);
+}
