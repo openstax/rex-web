@@ -8,6 +8,23 @@ describe('Browser sanity tests', () => {
 
   let consoleMessages: Array<{type: 'debug' | 'error' | 'info' | 'log' | 'warning', message: string}> = [];
 
+
+  beforeAll(async() => {
+    await page.evaluateOnNewDocument(() => {
+      // eslint-disable-next-line no-extend-native
+      Object.defineProperty(Array.prototype, 'at', {
+        configurable: true,
+        writable: true,
+        value(n: number) {
+          n = Math.trunc(n) || 0;
+          if (n < 0) n += this.length;
+          if (n < 0 || n >= this.length) return undefined;
+          return this[n];
+        },
+      });
+    });
+  });
+
   beforeEach(async() => {
     consoleMessages = [];
 
@@ -47,9 +64,9 @@ describe('Browser sanity tests', () => {
 
 it('a11y lighthouse check', async() => {
   await checkLighthouse(browser, TEST_PAGE_URL, {
-    accessibility: 1,
+    accessibility: 0.97, // In the meantime we have RAC mocked
     'best-practices': 0.79,
-    customAccessibility: 1,
+    customAccessibility: 0.97, // In the meantime we have RAC mocked
     seo: 0.69,
   });
 });

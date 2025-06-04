@@ -520,3 +520,6 @@ export const useFocusHighlight = (showCard: (id: string) => void, highlights: Hi
     };
   }, [document, highlights, showCard]);
 }
+export const isSSR = () => {
+  return typeof window === 'undefined' || typeof document === 'undefined';
+};

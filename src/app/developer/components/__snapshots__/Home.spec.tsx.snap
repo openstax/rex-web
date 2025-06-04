@@ -575,6 +575,28 @@ Array [
                 <br />
                 /apps/rex/books/:book_slug/pages/:page_slug
                 <br />
+                /apps/rex/portal/:portalName/books/:book/pages/:page/books/:book_slug
+                <br />
+                /apps/rex/portal/:portalName/books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion\\::book_archiveVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/portal/:portalName/books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion\\::book_archiveVersion/pages/:page_slug
+                <br />
+                /apps/rex/portal/:portalName/books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/portal/:portalName/books/:book_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})@:book_contentVersion/pages/:page_slug
+                <br />
+                /apps/rex/portal/:portalName/books/:book_slug@:book_contentVersion\\::book_archiveVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/portal/:portalName/books/:book_slug@:book_contentVersion\\::book_archiveVersion/pages/:page_slug
+                <br />
+                /apps/rex/portal/:portalName/books/:book_slug@:book_contentVersion/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/portal/:portalName/books/:book_slug@:book_contentVersion/pages/:page_slug
+                <br />
+                /apps/rex/portal/:portalName/books/:book_slug/pages/:page_uuid([\\da-z]{8}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{4}-[\\da-z]{12})
+                <br />
+                /apps/rex/portal/:portalName/books/:book_slug/pages/:page_slug
+                <br />
               </div>
               <div>
                 <h3
@@ -637,6 +659,7 @@ Array [
                     >
                       <a
                         className="c11"
+                        data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
                       >
@@ -685,6 +708,7 @@ Array [
                     >
                       <a
                         className="c11"
+                        data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
                       >
