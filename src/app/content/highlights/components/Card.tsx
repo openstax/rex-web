@@ -53,7 +53,6 @@ export interface CardProps {
   highlightOffsets?: { top: number; bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   isHidden: boolean;
-  onBlurOptional?: () => void;
 }
 
 type CardPropsWithBookAndPage = Omit<CardProps, 'book' | 'page'> & {
@@ -82,10 +81,7 @@ function useComputedProps(props: CardProps) {
       className: props.className,
       highlight: props.highlight,
       isActive: props.isActive,
-      onBlur: /* istanbul ignore next */ () => {
-        props.blur();
-        if (props.onBlurOptional) props.onBlurOptional();
-      },
+      onBlur: props.blur,
       onHeightChange: props.onHeightChange,
       ref: element,
       shouldFocusCard: props.shouldFocusCard,

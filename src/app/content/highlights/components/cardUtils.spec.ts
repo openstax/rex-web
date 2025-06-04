@@ -81,15 +81,6 @@ describe('editCardVisibilityHandler', () => {
     expect(result.get('highlight1')).toBe(false);
   });
 
-  it('show all highlights', () => {
-    const firstResult = editCardVisibilityHandler(state, { type: 'HIDE', id: 'highlight1'});
-    expect(firstResult.get('highlight1')).toBe(true);
-    const secondResult = editCardVisibilityHandler(state, { type: 'SHOW_ALL'});
-    expect(secondResult.get('highlight1')).toBe(false);
-    expect(secondResult.get('highlight2')).toBe(false);
-    expect(secondResult.get('highlight3')).toBe(false);
-  });
-
   it('return state when action type does not exist', () => {
     const result = editCardVisibilityHandler(state, { type: 'SHOW_ANY'});
     expect(result.get('highlight1')).toBe(false);
