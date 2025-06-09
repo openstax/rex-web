@@ -72,10 +72,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     // tslint:disable-next-line: max-line-length
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
-    // use manager pattern for image preview. Use react portal to move modal into page body. 
-    // accept only media image because media has videos and animations. 
-    // Sometimes data is already populated on mount, eg when navigating to a new tab
-    // tab index and add role for button for accessability
     if (this.props.searchHighlights.selectedResult) {
       this.searchHighlightManager.update(null, this.props.searchHighlights, {
         forceRedraw: true,
@@ -147,7 +143,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   public render() {
     const pageIsReady = this.props.page && this.props.textSize !== null;
     const PT = this.props.ToastOverride ? this.props.ToastOverride : PageToasts;
-  
+
     return <MinPageHeight>
       <this.highlightManager.CardList />
       <PT />
@@ -225,14 +221,14 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     const handleInteraction = (e: MouseEvent | KeyboardEvent) => {
       const target = e.target as HTMLElement;
-    
+
       if (target.tagName !== 'IMG' || !target.hasAttribute('tabindex')) return;
-    
+
       if (e.type === 'keydown') {
         const keyEvent = e as KeyboardEvent;
-    
+
         if (keyEvent.key !== 'Enter' && keyEvent.key !== ' ') return;
-    
+
         keyEvent.preventDefault();
       }
 
@@ -264,7 +260,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     }
     this.mapLinks(removeIfExists);
   }
-  
+
   private postProcess() {
     const container = this.container.current;
 

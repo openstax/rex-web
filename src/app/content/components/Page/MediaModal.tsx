@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import ScrollLock from '../../../components/ScrollLock';
 
+// tslint:disable-next-line:variable-name
 const Overlay = styled.div`
   position: fixed;
   inset: 0;
@@ -12,7 +13,7 @@ const Overlay = styled.div`
   align-items: center;
 `;
 
-
+// tslint:disable-next-line:variable-name
 const Modal = styled.div`
   background: white;
   border-radius: 8px;
@@ -26,6 +27,7 @@ const Modal = styled.div`
   overflow: hidden;
 `;
 
+// tslint:disable-next-line:variable-name
 const ScrollableContent = styled.div`
   overflow-y: auto;
   flex: 1;
@@ -35,6 +37,7 @@ const ScrollableContent = styled.div`
   box-sizing: border-box;
 `;
 
+// tslint:disable-next-line:variable-name
 const FloatingCloseButton = styled.button`
   position: absolute;
   top: -3rem;
@@ -49,6 +52,7 @@ const FloatingCloseButton = styled.button`
   transform: translateY(-3rem);
 `;
 
+// tslint:disable-next-line:variable-name
 const ModalWrapper = styled.div`
   position: relative;
   max-width: 100vw;
@@ -56,11 +60,12 @@ const ModalWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+// tslint:disable-next-line:variable-name
 const CloseIcon = () => (
-  <svg width="42" height="42" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
-    <rect x="1" y="1" width="40" height="40" rx="20" stroke="white" fill="none" />
-    <line x1="16" y1="16" x2="26" y2="26" stroke="white" strokeWidth="2" strokeLinecap="round" />
-    <line x1="26" y1="16" x2="16" y2="26" stroke="white" strokeWidth="2" strokeLinecap="round" />
+  <svg width='42' height='42' viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'>
+    <rect x='1' y='1' width='40' height='40' rx='20' stroke='white' fill='none' />
+    <line x1='16' y1='16' x2='26' y2='26' stroke='white' strokeWidth='2' strokeLinecap='round' />
+    <line x1='26' y1='16' x2='16' y2='26' stroke='white' strokeWidth='2' strokeLinecap='round' />
   </svg>
 );
 
@@ -69,7 +74,7 @@ interface MediaModalProps {
   onClose: () => void;
   children: React.ReactNode;
 }
-
+// tslint:disable-next-line:variable-name
 const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
@@ -78,7 +83,7 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
       <ScrollLock onClick={onClose} overlay={true} />
       <Overlay onClick={onClose}>
         <ModalWrapper onClick={onClose}>
-          <FloatingCloseButton onClick={onClose} aria-label="Close media preview">
+          <FloatingCloseButton onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />
           </FloatingCloseButton>
           <Modal>

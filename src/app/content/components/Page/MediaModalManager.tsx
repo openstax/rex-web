@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import MediaModal from './MediaModal';
-import {HTMLElement, HTMLDivElement } from '@openstax/types/lib.dom';
+import { HTMLElement, HTMLDivElement } from '@openstax/types/lib.dom';
 
 type ShowModal = (content: ReactNode) => void;
 
