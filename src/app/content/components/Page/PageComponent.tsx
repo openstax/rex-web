@@ -92,7 +92,6 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
       });
     }
     this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
-    lazyResources.checkLazyResources();
   }
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
@@ -134,8 +133,6 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
       forceRedraw: highlightsAddedOrRemoved,
       onSelect: this.onSearchHighlightSelect,
     });
-
-    lazyResources.checkLazyResources();
   }
 
   public onHighlightSelect: HighlightUpdateOptions['onSelect'] = (selectedHighlight) => {

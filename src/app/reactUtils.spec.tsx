@@ -1,10 +1,13 @@
 import type { KeyboardEvent, MediaQueryList, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
 import { resetModules, runHooks } from '../test/utils';
 import * as utils from './reactUtils';
 import { assertDocument, assertWindow } from './utils';
 import { dispatchKeyDownEvent } from '../test/reactutils';
+import { Highlight } from '@openstax/highlighter';
+import { act } from 'react-dom/test-utils';
 
 describe('onFocusInOrOutHandler focusout', () => {
   let ref: React.RefObject<HTMLElement>;
@@ -152,8 +155,8 @@ describe('useTimeout', () => {
     };
   });
 
-  it('resets after delay changes' , () => {
-    const {root} = renderer.create(<Component />);
+  it('resets after delay changes', () => {
+    const { root } = renderer.create(<Component />);
 
     expect(callback).not.toHaveBeenCalled();
 
@@ -182,7 +185,7 @@ describe('useOnDOMEvent', () => {
     resetModules();
   });
 
-  describe('on html element' , () => {
+  describe('on html element', () => {
     let ref: React.RefObject<HTMLElement>;
     let htmlElement: HTMLElement;
 
@@ -197,11 +200,11 @@ describe('useOnDOMEvent', () => {
     });
 
     it('doesn\'t do anything without a target', () => {
-      const cleanup = utils.onDOMEventHandler({current: null}, true, 'click', cb)();
+      const cleanup = utils.onDOMEventHandler({ current: null }, true, 'click', cb)();
       expect(cleanup).not.toBeDefined();
     });
 
-    it('registers event listenr' , () => {
+    it('registers event listenr', () => {
       utils.onDOMEventHandler(ref, true, 'click', cb)();
       expect(addEventListener).toHaveBeenCalledWith('click', cb);
     });
@@ -222,7 +225,7 @@ describe('useOnDOMEvent', () => {
     });
   });
 
-  describe('on window' , () => {
+  describe('on window', () => {
     let window: Window;
 
     beforeEach(() => {
@@ -274,7 +277,7 @@ describe('useTrapTabNavigation', () => {
 
     renderer.act(
       () => {
-        dispatchKeyDownEvent({key: 'Tab'});
+        dispatchKeyDownEvent({ key: 'Tab' });
       }
     );
     tr.unmount();
@@ -306,12 +309,12 @@ describe('createTrapTab', () => {
     trapTab = utils.createTrapTab(htmlElement);
   });
   it('ignores non-Tab events', () => {
-    trapTab({key: 'a'} as KeyboardEvent);
+    trapTab({ key: 'a' } as KeyboardEvent);
   });
   it('tabs forward (wrap around)', () => {
     b.focus = jest.fn();
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
-    trapTab({key: 'Tab', preventDefault} as unknown as KeyboardEvent);
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
     expect(b.focus).toHaveBeenCalled();
     expect(preventDefault).toHaveBeenCalled();
   });
@@ -319,33 +322,33 @@ describe('createTrapTab', () => {
     i.focus = jest.fn();
     Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
     preventDefault.mockClear();
-    trapTab({key: 'Tab', shiftKey: true, preventDefault} as unknown as KeyboardEvent);
+    trapTab({ key: 'Tab', shiftKey: true, preventDefault } as unknown as KeyboardEvent);
     expect(i.focus).toHaveBeenCalled();
     expect(preventDefault).toHaveBeenCalled();
-   });
-   it('tabs normally otherwise', () => {
+  });
+  it('tabs normally otherwise', () => {
     preventDefault.mockClear();
-    trapTab({key: 'Tab', preventDefault} as unknown as KeyboardEvent);
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
-    trapTab({key: 'Tab', shiftKey: true, preventDefault} as unknown as KeyboardEvent);
+    trapTab({ key: 'Tab', shiftKey: true, preventDefault } as unknown as KeyboardEvent);
     expect(preventDefault).not.toHaveBeenCalled();
-   });
-   it('brings focus back from outside', () => {
+  });
+  it('brings focus back from outside', () => {
     const outsideEl = assertDocument().createElement('button');
     b.focus = jest.fn();
     expect(b.focus).not.toHaveBeenCalled();
     Object.defineProperty(document, 'activeElement', { value: outsideEl, writable: false, configurable: true });
     preventDefault.mockClear();
-    trapTab({key: 'Tab', shiftKey: true, preventDefault} as unknown as KeyboardEvent);
+    trapTab({ key: 'Tab', shiftKey: true, preventDefault } as unknown as KeyboardEvent);
     expect(b.focus).toHaveBeenCalled();
     expect(preventDefault).toHaveBeenCalled();
-   });
-   it('short circuits when no focusable elements', () => {
+  });
+  it('short circuits when no focusable elements', () => {
     const emptyEl = assertDocument().createElement('div');
 
     trapTab = utils.createTrapTab(emptyEl);
-    trapTab({key: 'Tab', shiftKey: true, preventDefault} as unknown as KeyboardEvent);
-   });
+    trapTab({ key: 'Tab', shiftKey: true, preventDefault } as unknown as KeyboardEvent);
+  });
 });
 
 describe('onKeyHandler', () => {
@@ -364,17 +367,17 @@ describe('onKeyHandler', () => {
   });
 
   it('registers event listener', () => {
-    utils.onKeyHandler({key: 'Escape'}, ref, true, () => null)();
+    utils.onKeyHandler({ key: 'Escape' }, ref, true, () => null)();
     expect(addEventListener).toHaveBeenCalled();
   });
 
   it('doesn\'t register event listener when ref.current doesn\'t exist', () => {
-    utils.onKeyHandler({key: 'Escape'}, { current: null }, true, () => null)();
+    utils.onKeyHandler({ key: 'Escape' }, { current: null }, true, () => null)();
     expect(addEventListener).not.toHaveBeenCalled();
   });
 
   it('removes event listener', () => {
-    const removeEvListener = utils.onKeyHandler({key: 'Escape'}, ref, true, () => null)();
+    const removeEvListener = utils.onKeyHandler({ key: 'Escape' }, ref, true, () => null)();
     expect(removeEvListener).toBeDefined();
     removeEvListener!();
     expect(removeEventListener).toHaveBeenCalled();
@@ -383,7 +386,7 @@ describe('onKeyHandler', () => {
   it('clicking Escape invokes callback', () => {
     const window = assertWindow();
     const cb = jest.fn();
-    utils.onKeyHandler({key: 'Escape'}, ref, true, cb)();
+    utils.onKeyHandler({ key: 'Escape' }, ref, true, cb)();
 
     const keyboardEvent = new KeyboardEvent('keydown', {
       bubbles: true,
@@ -400,7 +403,7 @@ describe('onKeyHandler', () => {
   it('clicking other button doesn\'t invokes callback', () => {
     const window = assertWindow();
     const cb = jest.fn();
-    utils.onKeyHandler({key: 'Escape'}, ref, true, cb)();
+    utils.onKeyHandler({ key: 'Escape' }, ref, true, cb)();
 
     const keyboardEvent = new KeyboardEvent('keydown', {
       bubbles: true,
@@ -437,7 +440,7 @@ describe('useMatchMobileQuery', () => {
     jest.spyOn(assertWindow(), 'matchMedia')
       .mockImplementation(() => mock);
 
-    const component = renderer.create(<Component/>);
+    const component = renderer.create(<Component />);
 
     runHooks(renderer);
 
@@ -457,7 +460,7 @@ describe('useMatchMobileQuery', () => {
     jest.spyOn(assertWindow(), 'matchMedia')
       .mockImplementation(() => mock);
 
-    const component = renderer.create(<Component/>);
+    const component = renderer.create(<Component />);
 
     runHooks(renderer);
 
@@ -477,7 +480,7 @@ describe('useMatchMobileQuery', () => {
     jest.spyOn(assertWindow(), 'matchMedia')
       .mockImplementation(() => mock);
 
-    const component = renderer.create(<Component/>);
+    const component = renderer.create(<Component />);
 
     runHooks(renderer);
 
@@ -517,7 +520,7 @@ describe('useOnScrollTopOffset', () => {
     const spyAddListener = jest.spyOn(assertDocument(), 'addEventListener');
     const spyRemoveListener = jest.spyOn(assertDocument(), 'removeEventListener');
 
-    const component = renderer.create(<Component/>);
+    const component = renderer.create(<Component />);
 
     runHooks(renderer);
 
@@ -535,7 +538,7 @@ describe('useOnScrollTopOffset', () => {
     const document = assertDocument();
     const spyAddListener = jest.spyOn(document, 'addEventListener');
 
-    const component = renderer.create(<Component/>);
+    const component = renderer.create(<Component />);
 
     runHooks(renderer);
 
@@ -660,5 +663,95 @@ describe('keyboardEventMatchesCombination', () => {
       { key: 'a', ctrlKey: true },
       { key: 'a', ctrlKey: true, altKey: false } as any
     )).toEqual(true);
+  });
+});
+
+describe('useFocusHighlight', () => {
+  let showCard: jest.Mock;
+  let container: HTMLElement;
+  let highlightElement: HTMLElement;
+  let highlights: Highlight[];
+
+  // tslint:disable-next-line: variable-name
+  const TestComponent = ({
+    highlightsList,
+    callback,
+  }: {
+    highlightsList: Highlight[];
+    callback: (id: string) => void;
+  }) => {
+    utils.useFocusHighlight(callback, highlightsList);
+    return (
+      <div>
+        <div tabIndex={0} id='outside'>Outside</div>
+        <mark id='highlight' tabIndex={0}>
+          <span id='highlight-span' tabIndex={0}>Highlight text</span>
+        </mark>
+      </div>
+    );
+  };
+
+  beforeEach(() => {
+    showCard = jest.fn();
+    container = assertDocument().createElement('div');
+    assertDocument().body.appendChild(container);
+
+    // Initial mount to access <span>
+    act(() => {
+      ReactDOM.render(
+        <TestComponent highlightsList={[]} callback={showCard} />,
+        container
+      );
+    });
+
+    highlightElement = container.querySelector('#highlight-span')!;
+    highlights = [{ id: 'h1', elements: [highlightElement] } as any as Highlight];
+
+    // Re-mount with highlights
+    act(() => {
+      ReactDOM.render(
+        <TestComponent highlightsList={highlights} callback={showCard} />,
+        container
+      );
+    });
+  });
+
+  afterEach(() => {
+    ReactDOM.unmountComponentAtNode(container);
+    container.remove();
+    showCard.mockReset();
+    jest.clearAllMocks();
+  });
+
+  it('calls showCard on focusin of highlight span', () => {
+    const span = container.querySelector('#highlight-span')!;
+    span.dispatchEvent(new Event('focusin', { bubbles: true }));
+    expect(showCard).toHaveBeenCalledWith('h1');
+  });
+
+  it('calls showCard on click on mark', () => {
+    const mark = container.querySelector('#highlight')!;
+    mark.dispatchEvent(new Event('click', { bubbles: true }));
+    expect(showCard).toHaveBeenCalledWith('h1');
+  });
+
+  it('does not call showCard when clicking outside', () => {
+    const outside = container.querySelector('#outside')!;
+    outside.dispatchEvent(new Event('click', { bubbles: true }));
+    expect(showCard).not.toHaveBeenCalled();
+  });
+
+  it('does not call showCard when focusing outside', () => {
+    const outside = container.querySelector('#outside')!;
+    outside.dispatchEvent(new Event('focusin', { bubbles: true }));
+    expect(showCard).not.toHaveBeenCalled();
+  });
+
+  it('does not call showCard if event.target is not an element', () => {
+    const document = assertDocument();
+    const fakeEvent = new Event('click');
+    Object.defineProperty(fakeEvent, 'target', { value: null });
+    document.dispatchEvent(fakeEvent);
+    expect(showCard).not.toHaveBeenCalled();
   });
 });

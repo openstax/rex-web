@@ -42,8 +42,7 @@ async def test_logged_and_unlogged_page_content(chrome_page, base_url, book_slug
 
     await home.click_continue_login()
 
-    if home.content_page_black_overlay_is_visible:
-        await home.click_content_page_black_overlay_close()
+    await chrome_page.keyboard.press("Escape")
 
     assert "impact craters" in await chrome_page.content()
 
@@ -52,5 +51,3 @@ async def test_logged_and_unlogged_page_content(chrome_page, base_url, book_slug
     await home.click_logged_in_user_dropdown()
 
     assert home.logout_link_is_visible
-
-

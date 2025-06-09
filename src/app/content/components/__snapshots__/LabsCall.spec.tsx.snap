@@ -299,7 +299,7 @@ exports[`LabsCTA renders cta when selector is true 1`] = `
       <div
         className="c7"
       >
-        Win prizes by participating in research and discover more insights about yourself!
+        Earn badges by participating in research and discover more insights about yourself!
       </div>
     </div>
   </div>

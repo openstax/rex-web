@@ -10,6 +10,7 @@ import { useServices } from '../../context/Services';
 import theme from '../../theme';
 import { assertDefined, assertWindow } from '../../utils';
 import { hasOSWebData } from '../guards';
+import { isPortaled } from '../../guards';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../highlights/selectors';
 import * as select from '../selectors';
@@ -34,6 +35,7 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'light-blue': '#1EE1F0',
   'midnight': '#005a72',
   'orange': '#FAA461',
+  'raise-green': '#107b70',
   'red': '#E34361',
   'yellow': '#faea36',
 };
@@ -191,6 +193,7 @@ const BookBanner = () => {
   const book = useSelector(select.book);
   const treeSection = useSelector(select.pageNode);
   const bookTheme = useSelector(select.bookTheme);
+  const params = useSelector(select.contentParams);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
   const miniBanner = React.useRef<HTMLDivElement>();
   const bigBanner = React.useRef<HTMLDivElement>();
@@ -237,7 +240,7 @@ const BookBanner = () => {
   }
 
   const bookUrl = hasOSWebData(book)
-    ? book.book_state !== 'retired'
+    ? book.book_state !== 'retired' && !isPortaled(params)
       ? bookDetailsUrl(book)
       : undefined
     : undefined;
