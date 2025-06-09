@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import ScrollLock from '../../../components/ScrollLock';
 
 const Overlay = styled.div`
   position: fixed;
@@ -74,9 +75,10 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
 
   return (
     <>
+      <ScrollLock onClick={onClose} overlay={true} />
       <Overlay onClick={onClose}>
         <ModalWrapper onClick={onClose}>
-          <FloatingCloseButton onClick={onClose}>
+          <FloatingCloseButton onClick={onClose} aria-label="Close media preview">
             <CloseIcon />
           </FloatingCloseButton>
           <Modal>

@@ -1,4 +1,4 @@
-import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import type { ReactNode } from 'react';
 import WeakMap from 'weak-map';
@@ -23,7 +23,6 @@ import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scroll
 import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 import isEqual from 'lodash/fp/isEqual';
-import MediaModal from './MediaModal';
 import { mediaModalManager, MediaModalPortal } from './MediaModalManager';
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -46,14 +45,6 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
   state: PageComponentState = {
     isModalOpen: false,
     modalContent: null
-  };
-
-
-  private closeMediaModal = () => {
-    this.setState({
-      isModalOpen: false,
-      modalContent: null
-    });
   };
 
   public getTransformedContent = () => {
@@ -187,12 +178,6 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
     const html = this.getTransformedContent() || this.getPrerenderedContent();
 
     return <React.Fragment>
-      <MediaModal
-        isOpen={this.state.isModalOpen}
-        onClose={this.closeMediaModal}
-      >
-        {this.state.modalContent}
-      </MediaModal>
       <PageContent
         key='main-content'
         book={this.props.book}
@@ -241,16 +226,34 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
     const container = this.container.current;
     if (!container) return;
 
-    const handleClick = (e: MouseEvent) => {
-      if (e.target instanceof HTMLImageElement) {
+    const triggerMediaModal = (target: HTMLElement) => {
+      if (typeof window !== 'undefined' && window.matchMedia(`(max-width: 1200px)`).matches) {
+        const outerHTML = target.outerHTML;
         mediaModalManager.open(
-          <img src={e.target.src} alt={e.target.alt || ''} />
+          <div dangerouslySetInnerHTML={{ __html: outerHTML }} />
         );
       }
     };
 
-    container.addEventListener('click', handleClick);
-    this.clickListeners.set(container, handleClick);
+    const handleInteraction = (e: MouseEvent | KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+    
+      if (target.tagName !== 'IMG' || !target.hasAttribute('tabindex')) return;
+    
+      if (e.type === 'keydown') {
+        const keyEvent = e as KeyboardEvent;
+    
+        if (keyEvent.key !== 'Enter' && keyEvent.key !== ' ') return;
+    
+        keyEvent.preventDefault();
+      }
+
+      triggerMediaModal(target);
+    };
+
+    container.addEventListener('click', handleInteraction);
+    container.addEventListener('keydown', handleInteraction);
+    this.clickListeners.set(container, handleInteraction);
 
     lazyResources.addScrollHandler();
     this.mapLinks((a) => {

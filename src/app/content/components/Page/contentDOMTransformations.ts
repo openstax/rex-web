@@ -35,6 +35,7 @@ export const transformContent = (
   expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, props.intl);
   optimizeImages(rootEl, services);
+  enhanceImagesForAccessibility(rootEl);
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -242,4 +243,16 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
     link.replaceWith(sup);
     sup.appendChild(link);
   }
+}
+
+function enhanceImagesForAccessibility(rootEl: HTMLElement) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 1200;
+
+  if (!isMobile) return;
+
+  rootEl.querySelectorAll('img').forEach((img) => {
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', 'Open media preview');
+  });
 }

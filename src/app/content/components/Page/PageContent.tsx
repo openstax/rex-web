@@ -166,7 +166,6 @@ export default styled(MainContent)`
     margin-bottom: 5px; /* fix double scrollbar bug */
   }
 
-
   #${MAIN_CONTENT_ID} * {
     overflow: initial; /* rex styles default to overflow hidden, breaks content */
   }

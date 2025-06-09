@@ -1,29 +1,26 @@
 import React, { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import MediaModal from './MediaModal';
+import {HTMLElement, HTMLDivElement } from '@openstax/types/lib.dom';
 
 type ShowModal = (content: ReactNode) => void;
 
 class ModalManager {
-  private container: HTMLElement;
+  private container: HTMLElement | null = null;
   private showModal: ShowModal | null = null;
-
-  constructor() {
-    this.container = document.createElement('div');
-    this.container.id = 'media-modal-root';
-    document.body.appendChild(this.container);
-  }
 
   mount(setModalContent: ShowModal) {
     this.showModal = setModalContent;
+
+    if (typeof document !== 'undefined' && !this.container) {
+      this.container = document.createElement('div') as HTMLDivElement;
+      this.container.id = 'media-modal-root';
+      document.body.appendChild(this.container);
+    }
   }
 
   open(content: ReactNode) {
     this.showModal?.(content);
-  }
-
-  unmount() {
-    this.showModal = null;
   }
 }
 
@@ -38,13 +35,16 @@ export function MediaModalPortal() {
       setModalContent(content);
       setIsOpen(true);
     });
-    return () => mediaModalManager.unmount();
   }, []);
 
+  if (typeof document === 'undefined') return null;
+
   return createPortal(
-    <MediaModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-      {modalContent}
-    </MediaModal>,
+    <>
+      <MediaModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        {modalContent}
+      </MediaModal>
+    </>,
     document.body
   );
 }
