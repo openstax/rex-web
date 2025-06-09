@@ -1,6 +1,5 @@
 import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
-import type { ReactNode } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
 import { typesetMath } from '../../../../helpers/mathjax';
@@ -27,14 +26,10 @@ import { mediaModalManager, MediaModalPortal } from './MediaModalManager';
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
 }
-interface PageComponentState {
-  isModalOpen: boolean;
-  modalContent: ReactNode;
-}
 
 const parser = new DOMParser();
 
-export default class PageComponent extends Component<PagePropTypes, PageComponentState> {
+export default class PageComponent extends Component<PagePropTypes> {
   public container = React.createRef<HTMLDivElement>();
   private clickListeners = new WeakMap<HTMLElement, (e: MouseEvent) => void>();
   private searchHighlightManager = stubManager;
@@ -42,10 +37,6 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
-  state: PageComponentState = {
-    isModalOpen: false,
-    modalContent: null
-  };
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
