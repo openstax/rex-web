@@ -252,26 +252,26 @@ export default class PageComponent extends Component<PagePropTypes, PageComponen
     container.addEventListener('keydown', handleInteraction);
     this.clickListeners.set(container, handleInteraction);
 
-    lazyResources.addScrollHandler();
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
       a.addEventListener('click', handler);
     });
   }
-  
+
   private listenersOff() {
-    lazyResources.removeScrollHandler();
-    this.mapLinks((el) => {
+    const removeIfExists = (el: HTMLElement) => {
       const handler = this.clickListeners.get(el);
-      if (handler) el.removeEventListener('click', handler);
-    });
-  
+      if (handler) {
+        el.removeEventListener('click', handler);
+      }
+    };
     const container = this.container.current;
     if (container) {
       const handler = this.clickListeners.get(container);
       if (handler) container.removeEventListener('click', handler);
     }
+    this.mapLinks(removeIfExists);
   }
   
   private postProcess() {
