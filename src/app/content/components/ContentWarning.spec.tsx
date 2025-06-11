@@ -18,6 +18,7 @@ describe('ContentWarning', () => {
   describe('in browser', () => {
     let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
     let ReactDOMTestUtils: ReturnType<typeof reactAndFriends>['ReactDOMTestUtils']; // tslint:disable-line:variable-name
+    let TestContainer: any;
 
     beforeEach(() => {
       resetModules();
@@ -26,13 +27,17 @@ describe('ContentWarning', () => {
         return { ...react, useEffect: react.useLayoutEffect };
       });
 
-      ({React, renderToDom, ReactDOMTestUtils} = reactAndFriends());
+      ({React, renderToDom, TestContainer, ReactDOMTestUtils} = reactAndFriends());
 
       ContentWarningDynamic = require('./ContentWarning').default;
     });
 
     it('renders warning modal and hides it after clicking', async() => {
-      renderToDom(<ContentWarningDynamic book={dummyBook} />);
+      renderToDom(
+        <TestContainer>
+          <ContentWarningDynamic book={dummyBook} />
+        </TestContainer>
+      );
 
       const b = document!.querySelector('button');
 
