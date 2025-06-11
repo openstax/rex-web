@@ -6,7 +6,7 @@ import ScrollLock from '../../../components/ScrollLock';
 const Overlay = styled.div`
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.90);
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 1000;
   display: flex;
   justify-content: center;
