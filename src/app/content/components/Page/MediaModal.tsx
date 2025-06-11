@@ -6,7 +6,7 @@ import ScrollLock from '../../../components/ScrollLock';
 const Overlay = styled.div`
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.90);
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -16,7 +16,6 @@ const Overlay = styled.div`
 // tslint:disable-next-line:variable-name
 const Modal = styled.div`
   background: white;
-  border-radius: 8px;
   width: 100%;
   min-width: 100vw;
   max-height: 90vh;
@@ -31,7 +30,6 @@ const Modal = styled.div`
 const ScrollableContent = styled.div`
   overflow-y: auto;
   flex: 1;
-  padding: 1rem;
   display: block;
   width: 100%;
   box-sizing: border-box;
