@@ -56,7 +56,7 @@ function useKeyTermPair({
   return pair;
 }
 
-function htmlToText(s: string) {
+export function htmlToText(s: string) {
   const temp = document?.createElement('div') as HTMLDivElement;
 
   temp.innerHTML = s;
