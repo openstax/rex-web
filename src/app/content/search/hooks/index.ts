@@ -5,6 +5,7 @@ import { replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
+import { SearchResultHits } from '@openstax/open-search-client';
 import { actionHook, isNetworkError } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
@@ -19,6 +20,7 @@ import * as select from '../selectors';
 import { findSearchResultHit } from '../utils';
 import trackSearch from './trackSearch';
 import Sentry from '../../../../helpers/Sentry';
+import { htmlToText } from '../components/SearchResultsSidebar/SearchResultHits';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
@@ -41,10 +43,45 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
       error,
       new SearchLoadError({ destination: 'page', shouldAutoDismiss: false })
     );
+  }).then((results1) => {
+    const quotedTerms = getQuotedTerms(payload);
+
+    if (quotedTerms.length) {
+      results1.hits = filterByQuotedTerms(results1.hits, quotedTerms);
+    }
+    return results1;
   });
 
   services.dispatch(receiveSearchResults(results, meta));
 };
+
+function getQuotedTerms(terms: string) {
+  const matches = terms.match(/".*?"/g) ?? [];
+
+  return matches.map((m) => m.replace(/"/g, ''));
+}
+
+function filterByQuotedTerms(hits: SearchResultHits, quotedTerms: string[]) {
+  for (const h of hits.hits) {
+    h.highlight.visibleContent = h.highlight.visibleContent.filter((c) => {
+      const plain = htmlToText(c);
+      // We could require all the quoted terms, but I think we want results with any of them
+      // We are NOT checking for word boundaries, so Europa will match Europan
+      return quotedTerms.some((t) => plain?.toLowerCase().includes(t.toLowerCase()));
+    });
+  }
+  // Rebuilding so the fields are approximately correct, though probably unnecessary
+  const newHitsArray = hits.hits.filter((h) => h.highlight.visibleContent.length > 0);
+  const scores = newHitsArray.map((h) => h.score);
+  const maxScore = Math.max(...scores);
+
+  return {
+    total: newHitsArray.length,
+    maxScore,
+    hits: newHitsArray,
+  };
+}
+
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({meta}) => {
   const state = services.getState();
