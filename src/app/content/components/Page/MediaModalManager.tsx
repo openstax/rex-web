@@ -26,7 +26,7 @@ class ModalManager {
 
 export const mediaModalManager = new ModalManager();
 
-export function MediaModalPortal() {
+export function MediaModalPortal(): React.ReactPortal | null {
   const [isOpen, setIsOpen] = React.useState(false);
   const [modalContent, setModalContent] = React.useState<ReactNode>(null);
 

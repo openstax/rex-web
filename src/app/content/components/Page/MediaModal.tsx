@@ -29,7 +29,6 @@ const Modal = styled.div`
 // tslint:disable-next-line:variable-name
 const ScrollableContent = styled.div`
   overflow-y: auto;
-  flex: 1;
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -58,6 +57,7 @@ const ModalWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+
 // tslint:disable-next-line:variable-name
 const CloseIcon = () => (
   <svg width='42' height='42' viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'>
@@ -80,7 +80,7 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
     <>
       <ScrollLock onClick={onClose} overlay={true} />
       <Overlay onClick={onClose}>
-        <ModalWrapper onClick={onClose}>
+        <ModalWrapper aria-modal='true'>
           <FloatingCloseButton onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />
           </FloatingCloseButton>
