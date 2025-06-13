@@ -1,4 +1,4 @@
-import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLAnchorElement, HTMLImageElement, HTMLDivElement, HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
@@ -22,7 +22,7 @@ import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scroll
 import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 import isEqual from 'lodash/fp/isEqual';
-
+import { mediaModalManager, MediaModalPortal } from './MediaModalManager';
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
 }
@@ -72,8 +72,6 @@ export default class PageComponent extends Component<PagePropTypes> {
     // tslint:disable-next-line: max-line-length
     this.highlightManager = highlightManager(this.container.current, () => this.props.highlights, this.props.services, this.props.intl);
     this.scrollToTopOrHashManager = scrollToTopOrHashManager(this.container.current);
-
-    // Sometimes data is already populated on mount, eg when navigating to a new tab
     if (this.props.searchHighlights.selectedResult) {
       this.searchHighlightManager.update(null, this.props.searchHighlights, {
         forceRedraw: true,
@@ -149,6 +147,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     return <MinPageHeight>
       <this.highlightManager.CardList />
       <PT />
+      <MediaModalPortal />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()
@@ -208,6 +207,37 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   private listenersOn() {
     this.listenersOff();
+    const container = this.container.current;
+    if (!container) return;
+
+    const triggerMediaModal = (target: HTMLImageElement) => {
+      mediaModalManager.open(
+        <img src={target.dataset.originalSrc ?? target.src} alt={target.alt || ''}
+          width={target.getAttribute('width') ?? undefined}
+          height={target.getAttribute('height') ?? undefined}
+        />
+      );
+    };
+
+    const handleInteraction = (e: MouseEvent | KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+
+      if (target.tagName !== 'IMG' || !target.hasAttribute('tabindex')) return;
+
+      if (e.type === 'keydown') {
+        const keyEvent = e as KeyboardEvent;
+
+        if (keyEvent.key !== 'Enter' && keyEvent.key !== ' ') return;
+
+        keyEvent.preventDefault();
+      }
+
+      triggerMediaModal(target as HTMLImageElement);
+    };
+
+    container.addEventListener('click', handleInteraction);
+    container.addEventListener('keydown', handleInteraction);
+    this.clickListeners.set(container, handleInteraction);
 
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
@@ -223,7 +253,11 @@ export default class PageComponent extends Component<PagePropTypes> {
         el.removeEventListener('click', handler);
       }
     };
-
+    const container = this.container.current;
+    if (container) {
+      const handler = this.clickListeners.get(container);
+      if (handler) container.removeEventListener('click', handler);
+    }
     this.mapLinks(removeIfExists);
   }
 
