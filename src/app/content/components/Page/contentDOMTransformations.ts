@@ -252,10 +252,6 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
 }
 
 function enhanceImagesForAccessibility(rootEl: HTMLElement) {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 1200;
-
-  if (!isMobile) return;
-
   rootEl.querySelectorAll('img').forEach((img) => {
     img.setAttribute('tabindex', '0');
     img.setAttribute('role', 'button');

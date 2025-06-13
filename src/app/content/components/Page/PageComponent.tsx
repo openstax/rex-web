@@ -1,4 +1,4 @@
-import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
+import { HTMLAnchorElement, HTMLImageElement, HTMLDivElement, HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
@@ -210,13 +210,10 @@ export default class PageComponent extends Component<PagePropTypes> {
     const container = this.container.current;
     if (!container) return;
 
-    const triggerMediaModal = (target: HTMLElement) => {
-      if (typeof window !== 'undefined' && window.matchMedia(`(max-width: 1200px)`).matches) {
-        const outerHTML = target.outerHTML;
-        mediaModalManager.open(
-          <div dangerouslySetInnerHTML={{ __html: outerHTML }} />
-        );
-      }
+    const triggerMediaModal = (target: HTMLImageElement) => {
+      mediaModalManager.open(
+        <img src={target.src} alt={target.alt || ''} width={target.width} height={target.height} />
+      );
     };
 
     const handleInteraction = (e: MouseEvent | KeyboardEvent) => {
@@ -232,7 +229,7 @@ export default class PageComponent extends Component<PagePropTypes> {
         keyEvent.preventDefault();
       }
 
-      triggerMediaModal(target);
+      triggerMediaModal(target as HTMLImageElement);
     };
 
     container.addEventListener('click', handleInteraction);

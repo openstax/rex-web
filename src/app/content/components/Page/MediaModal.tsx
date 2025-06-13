@@ -1,60 +1,48 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import ScrollLock from '../../../components/ScrollLock';
+import theme from '../../../theme';
 
-// tslint:disable-next-line:variable-name
-const Overlay = styled.div`
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.9);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-// tslint:disable-next-line:variable-name
-const Modal = styled.div`
-  background: white;
-  width: 100%;
-  min-width: 100vw;
-  max-height: 90vh;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-`;
+const buttonHeight = 4.2; // rem
+const buttonMargin = 0.5; // rem
 
 // tslint:disable-next-line:variable-name
 const ScrollableContent = styled.div`
-  overflow-y: auto;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
+  background: white;
+  max-width: 100vw;
+  max-height: calc(100vh - ${(buttonHeight + buttonMargin * 2) * 2}rem);
+  overflow: auto;
 `;
+
 
 // tslint:disable-next-line:variable-name
 const FloatingCloseButton = styled.button`
   position: absolute;
-  top: -3rem;
-  right: 2.5rem;
+  top: -${buttonHeight + buttonMargin}rem;
+  right: ${buttonMargin}rem;
   z-index: 10;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  transform: translateY(-3rem);
+  width: ${buttonHeight}rem;
+  height: ${buttonHeight}rem;
+`;
+
+// tslint:disable-next-line:variable-name
+const ContentContainer = styled.div`
+  position: relative;
 `;
 
 // tslint:disable-next-line:variable-name
 const ModalWrapper = styled.div`
-  position: relative;
-  max-width: 100vw;
-  width: 100%;
-  box-sizing: border-box;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: ${theme.zIndex.highlightSummaryPopup + 1};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 
@@ -78,17 +66,19 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
 
   return (
     <>
-      <ScrollLock onClick={onClose} overlay={true} />
-      <Overlay onClick={onClose}>
-        <ModalWrapper aria-modal='true'>
+      <ScrollLock
+        onClick={onClose}
+        overlay={true}
+        zIndex={theme.zIndex.highlightSummaryPopup}
+      />
+      <ModalWrapper aria-modal='true'>
+        <ContentContainer>
           <FloatingCloseButton onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />
           </FloatingCloseButton>
-          <Modal>
-            <ScrollableContent>{children}</ScrollableContent>
-          </Modal>
-        </ModalWrapper>
-      </Overlay>
+          <ScrollableContent>{children}</ScrollableContent>
+        </ContentContainer>
+      </ModalWrapper>
     </>
   );
 };
