@@ -212,7 +212,7 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     const triggerMediaModal = (target: HTMLImageElement) => {
       mediaModalManager.open(
-        <img src={target.src} alt={target.alt || ''} width={target.width} height={target.height} />
+        <img src={target.dataset.originalSrc ?? target.src} alt={target.alt || ''} width={target.width} height={target.height} />
       );
     };
 

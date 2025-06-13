@@ -129,6 +129,7 @@ function optimizeImages(rootEl: HTMLElement, services: AppServices & MiddlewareA
     const src = assertNotNull(i.getAttribute('src'), 'Somehow got a null src attribute');
 
     i.setAttribute('src', services.imageCDNUtils.getOptimizedImageUrl(src));
+    i.setAttribute('data-original-src', src);
   }
 }
 
