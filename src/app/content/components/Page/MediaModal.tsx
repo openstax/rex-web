@@ -12,6 +12,13 @@ const ScrollableContent = styled.div`
   max-width: 100vw;
   max-height: calc(100vh - ${(buttonHeight + buttonMargin * 2) * 2}rem);
   overflow: auto;
+
+  > img {
+    ${/*
+      fix ScrollableContent height issue where it is slightly larger than
+      the image and leaves a gap at the bottom */ ''}
+    display: block;
+  }
 `;
 
 
