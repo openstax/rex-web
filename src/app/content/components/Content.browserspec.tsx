@@ -25,6 +25,23 @@ beforeAll(async() => {
 describe('Content', () => {
   const page = global.page;
 
+  // Workaround until TS version and RAC work together
+  beforeAll(async() => {
+    await page.evaluateOnNewDocument(() => {
+      // eslint-disable-next-line no-extend-native
+      Object.defineProperty(Array.prototype, 'at', {
+        configurable: true,
+        writable: true,
+        value(n: number) {
+          n = Math.trunc(n) || 0;
+          if (n < 0) n += this.length;
+          if (n < 0 || n >= this.length) return undefined;
+          return this[n];
+        },
+      });
+    });
+  });
+
   for (const testCase of Object.keys(TEST_CASES)) {
     describe(testCase, () => {
       beforeEach(async() => {

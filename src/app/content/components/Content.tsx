@@ -96,11 +96,11 @@ const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) 
       <PracticeQuestionsPopup />
       <NudgeStudyTools />
       <OuterWrapper>
-        <Topbar />
         <Wrapper>
           <ConfirmationToastProvider>
             <Navigation />
             <ContentPane>
+              <Topbar />
               <ContentNotifications mobileExpanded={mobileExpanded} />
               <ContentWarning book={book} />
               <Page>

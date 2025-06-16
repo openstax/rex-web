@@ -57,6 +57,21 @@ describe('getBookPageUrlAndParams', () => {
     expect((result.params.book as any)).not.toHaveProperty('slug');
     expect((result.params.book as any)).toMatchObject({uuid: testUUID, contentVersion: mockArchiveBook.version});
   });
+  it('generates params for books with portal', () => {
+    const result = getBookPageUrlAndParams(formatBookData({
+      ...mockArchiveBook,
+      id: testUUID,
+      loadOptions: {
+        booksConfig: {
+          archiveUrl: '/test/archive',
+          books: {[testUUID]: {defaultVersion: mockArchiveBook.version}},
+        },
+      },
+    }, mockCmsBook), page, {portalName: 'portalName'});
+    expect((result.params.book as any).contentVersion).toBeUndefined();
+    expect(result.params.portalName).toBe('portalName');
+    expect(result.url).toMatch(/\/portal\/portalName\//);
+  });
 });
 
 describe('getUrlParamForPageId', () => {

@@ -90,6 +90,7 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
     aria-label="Next Page"
     className="c1"
     data-analytics-label="next"
+    data-testid="content-link-test"
     href="books/book-slug-1/pages/test-page-1"
     onClick={[Function]}
   >
@@ -224,6 +225,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
     aria-label="Previous Page"
     className="c1"
     data-analytics-label="prev"
+    data-testid="content-link-test"
     href="books/book-slug-1/pages/2-test-page-3"
     onClick={[Function]}
   >
@@ -245,6 +247,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
     aria-label="Next Page"
     className="c4"
     data-analytics-label="next"
+    data-testid="content-link-test"
     href="books/book-slug-1/pages/4-test-page-5"
     onClick={[Function]}
   >
@@ -355,6 +358,7 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
     aria-label="Next Page"
     className="c1"
     data-analytics-label="next"
+    data-testid="content-link-test"
     href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
     onClick={[Function]}
   >
@@ -461,6 +465,7 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
     aria-label="Previous Page"
     className="c1"
     data-analytics-label="prev"
+    data-testid="content-link-test"
     href="books/book-slug-1/pages/d-glossary-of-key-symbols-and-notation"
     onClick={[Function]}
   >

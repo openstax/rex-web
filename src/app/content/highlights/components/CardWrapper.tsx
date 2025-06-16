@@ -5,7 +5,7 @@ import { connect, useSelector } from 'react-redux';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
-import { useFocusLost, useKeyCombination } from '../../../reactUtils';
+import { useFocusLost, useKeyCombination, useFocusHighlight } from '../../../reactUtils';
 import { AppState } from '../../../types';
 import { assertDefined } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
@@ -62,12 +62,8 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     dispatch({ type: 'HIDE', id: focusedId });
   };
 
-  const showCard = () => {
-    dispatch({ type: 'SHOW', id: focusedId });
-  };
-
-  const showAllCards = () => {
-    dispatch({ type: 'SHOW_ALL' });
+  const showCard = (cardId: string | undefined) => {
+    dispatch({ type: 'SHOW', id: cardId });
   };
 
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
@@ -76,18 +72,15 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   * Allow to show EditCard using Enter key
   * It is important to preserve the default behavior of Enter key
   */
-  useKeyCombination({key: 'Enter'}, showCard, undefined, false);
+  useKeyCombination({key: 'Enter'}, () => showCard(focusedId), undefined, false);
 
   // Allow to hide EditCard using Escape key
   useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
 
-  // After move focus, reset visibility of all cards
-  useKeyCombination({ key: 'Tab' }, showAllCards, undefined, false);
-  useKeyCombination({ key: 'Tab', shiftKey: true }, showAllCards, undefined, false);
-
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
   useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), [setShouldFocusCard]));
+  useFocusHighlight(showCard, highlights);
 
   const onHeightChange = React.useCallback((id: string, ref: React.RefObject<HTMLElement>) => {
     const height = ref.current && ref.current.offsetHeight;
@@ -155,7 +148,6 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           zIndex={highlights.length - index}
           shouldFocusCard={focusThisCard}
           isHidden={checkIfHiddenByCollapsedAncestor(highlight) || isHiddenByEscape.get(highlight.id)}
-          onBlurOptional={showAllCards}
         />;
       })}
     </div>
