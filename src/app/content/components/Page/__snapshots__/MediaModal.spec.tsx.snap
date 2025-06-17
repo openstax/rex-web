@@ -6,6 +6,7 @@ Array [
   -webkit-animation: 300ms bcCCNc ease-out;
   animation: 300ms bcCCNc ease-out;
   background-color: rgba(0,0,0,0.8);
+  z-index: 110;
   position: absolute;
   content: "";
   top: -5rem;
@@ -25,11 +26,40 @@ Array [
     data-testid="scroll-lock-overlay"
     onClick={[MockFunction]}
   />,
-  .c0 {
+  .c3 {
+  background: white;
+  max-width: 100vw;
+  max-height: calc(100vh - 10.4rem);
+  overflow: auto;
+}
+
+.c3 > img {
+  display: block;
+}
+
+.c2 {
+  position: absolute;
+  top: -4.7rem;
+  right: 0.5rem;
+  z-index: 10;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 4.2rem;
+  height: 4.2rem;
+}
+
+.c1 {
+  position: relative;
+  pointer-events: auto;
+}
+
+.c0 {
   position: fixed;
   inset: 0;
-  background-color: rgba(0,0,0,0.9);
-  z-index: 1000;
+  overflow: hidden;
+  z-index: 111;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -42,65 +72,15 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-}
-
-.c3 {
-  background: white;
-  width: 100%;
-  min-width: 100vw;
-  max-height: 90vh;
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-.c4 {
-  overflow-y: auto;
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.c2 {
-  position: absolute;
-  top: -3rem;
-  right: 2.5rem;
-  z-index: 10;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  -webkit-transform: translateY(-3rem);
-  -ms-transform: translateY(-3rem);
-  transform: translateY(-3rem);
-}
-
-.c1 {
-  position: relative;
-  max-width: 100vw;
-  width: 100%;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  box-sizing: border-box;
+  pointer-events: none;
 }
 
 <div
+    aria-modal="true"
     className="c0"
-    onClick={[MockFunction]}
+    role="dialog"
   >
     <div
-      aria-modal="true"
       className="c1"
     >
       <button
@@ -146,12 +126,8 @@ Array [
       <div
         className="c3"
       >
-        <div
-          className="c4"
-        >
-          <div>
-            Test Content
-          </div>
+        <div>
+          Test Content
         </div>
       </div>
     </div>

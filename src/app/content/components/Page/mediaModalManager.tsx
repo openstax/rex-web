@@ -3,13 +3,14 @@ import { createPortal } from 'react-dom';
 import MediaModal from './MediaModal';
 import { HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
 
-export type MediaModalManager = ReturnType<typeof createMediaModalManager>;
 
 export function createMediaModalManager(container: HTMLElement | null) {
   let setModalContent: ((content: ReactNode) => void) | null = null;
 
   const mount = (setContentHandler: (content: ReactNode) => void) => {
     setModalContent = setContentHandler;
+    attachListeners();
+
   };
 
   const open = (content: ReactNode) => {
@@ -23,7 +24,6 @@ export function createMediaModalManager(container: HTMLElement | null) {
 
     useEffect(() => {
       if (!isOpen || typeof document === 'undefined') return;
-      console.log('Escape key listener added');
       const onKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           setIsOpen(false);
@@ -88,7 +88,6 @@ export function createMediaModalManager(container: HTMLElement | null) {
     mount,
     open,
     MediaModalPortal,
-    attachListeners,
     detachListeners,
   };
 }
