@@ -39,6 +39,7 @@ const FloatingCloseButton = styled.button`
 // tslint:disable-next-line:variable-name
 const ContentContainer = styled.div`
   position: relative;
+  pointer-events: auto;
 `;
 
 // tslint:disable-next-line:variable-name
@@ -50,6 +51,7 @@ const ModalWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
 `;
 
 
@@ -78,8 +80,8 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
         overlay={true}
         zIndex={theme.zIndex.highlightSummaryPopup}
       />
-      <ModalWrapper aria-modal='true'>
-        <ContentContainer>
+      <ModalWrapper aria-modal='true' role='dialog'>
+        <ContentContainer >
           <FloatingCloseButton onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />
           </FloatingCloseButton>
