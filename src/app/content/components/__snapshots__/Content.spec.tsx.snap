@@ -6812,7 +6812,8 @@ Array [
             className="c71"
           >
             <div
-              className="c72"
+              aria-live="polite"
+              className="c78"
               role="alertdialog"
             />
             <div
@@ -13966,7 +13967,8 @@ Array [
             className="c71"
           >
             <div
-              className="c72"
+              aria-live="polite"
+              className="c78"
               role="alertdialog"
             />
             <div
