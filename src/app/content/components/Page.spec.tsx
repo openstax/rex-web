@@ -202,7 +202,7 @@ describe('Page', () => {
     });
   });
 
-  describe('Content tweaks for generic styles', () => {  
+  describe('Content tweaks for generic styles', () => {
     let pageElement: HTMLElement;
 
     const htmlHelper = async(html: string) => {

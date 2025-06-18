@@ -30,6 +30,12 @@ describe('PageToasts', () => {
   });
 
   it('matches snapshots with toasts', () => {
+    // ignore PageToasts timeout
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
+
     store.dispatch(addToast(toastMessageKeys.highlights.failure.create, {destination: 'page'}));
     const toasts = groupedToastNotifications(store.getState()).page;
 
