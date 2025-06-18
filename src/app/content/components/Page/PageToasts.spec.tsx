@@ -38,6 +38,8 @@ describe('PageToasts', () => {
     store.dispatch(addToast(toastMessageKeys.highlights.failure.create, {destination: 'page'}));
     const toasts = groupedToastNotifications(store.getState()).page;
 
+    jest.runAllTimers();
+
     if (!toasts) {
       return expect(toasts).toBeTruthy();
     }
@@ -45,8 +47,6 @@ describe('PageToasts', () => {
     const component = renderer.create(<TestContainer store={store}>
       <ToastNotifications />
     </TestContainer>);
-
-    jest.runAllTimers();
 
     expect(component.root.findAllByType(Toast).length).toBe(1);
 
