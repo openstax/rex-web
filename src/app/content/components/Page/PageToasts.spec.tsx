@@ -16,8 +16,13 @@ describe('PageToasts', () => {
 
   beforeEach(() => {
     resetModules();
+    jest.useFakeTimers();
 
     store = createTestStore();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('matches snapshot', () => {
@@ -30,12 +35,6 @@ describe('PageToasts', () => {
   });
 
   it('matches snapshots with toasts', () => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
-
     store.dispatch(addToast(toastMessageKeys.highlights.failure.create, {destination: 'page'}));
     const toasts = groupedToastNotifications(store.getState()).page;
 
@@ -46,6 +45,8 @@ describe('PageToasts', () => {
     const component = renderer.create(<TestContainer store={store}>
       <ToastNotifications />
     </TestContainer>);
+
+    jest.runAllTimers();
 
     expect(component.root.findAllByType(Toast).length).toBe(1);
 
@@ -60,6 +61,8 @@ describe('PageToasts', () => {
     const component = renderer.create(<TestContainer store={store}>
       <ToastNotifications />
     </TestContainer>);
+
+    jest.runAllTimers();
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
