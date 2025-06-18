@@ -202,7 +202,7 @@ describe('Page', () => {
     });
   });
 
-  describe('Content tweaks for generic styles', () => {
+  describe('Content tweaks for generic styles', () => {  
     let pageElement: HTMLElement;
 
     const htmlHelper = async(html: string) => {
@@ -833,6 +833,11 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
+
     const {root} = renderDomWithReferences();
 
     const hit = makeSearchResultHit({book, page});
@@ -995,6 +1000,11 @@ describe('Page', () => {
   });
 
   it('renders error modal for different search results', async() => {
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -1047,6 +1057,11 @@ describe('Page', () => {
   });
 
   it('doesn\'t render error modal for the same result twice', async() => {
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -1095,6 +1110,10 @@ describe('Page', () => {
   });
 
   it('refresh error modal for different search results if they are of the same type', async() => {
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
     const {root} = renderDomWithReferences();
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1144,6 +1163,10 @@ describe('Page', () => {
   });
 
   it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1217,6 +1240,11 @@ describe('Page', () => {
   });
 
   it('scrolls to top on new content', async() => {
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
+
     if (!window) {
       return expect(window).toBeTruthy();
     }
