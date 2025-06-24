@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import MediaModal from './MediaModal';
-import { HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
+import { HTMLElement, MouseEvent, KeyboardEvent, HTMLImageElement } from '@openstax/types/lib.dom';
 
 
 export function createMediaModalManager(container: HTMLElement | null) {
@@ -57,7 +57,7 @@ export function createMediaModalManager(container: HTMLElement | null) {
   };
 
   const handleMediaInteraction = (e: MouseEvent | KeyboardEvent) => {
-    const target = e.target as HTMLElement;
+    const target = e.target as HTMLImageElement;
     if (target.tagName !== 'IMG') return;
 
     if (e.type === 'keydown') {
@@ -66,9 +66,8 @@ export function createMediaModalManager(container: HTMLElement | null) {
       e.preventDefault();
     }
 
-    const outerHTML = target.outerHTML;
     if (typeof window !== 'undefined') {
-      open(<div dangerouslySetInnerHTML={{ __html: outerHTML }} />);
+      open(<img tabIndex={0} src={target.src} alt={target.alt || ''} width={target.width} height={target.height} />);
     }
   };
 

@@ -256,6 +256,8 @@ function enhanceImagesForAccessibility(rootEl: HTMLElement) {
   rootEl.querySelectorAll('img').forEach((img) => {
     img.setAttribute('tabindex', '0');
     img.setAttribute('role', 'button');
-    img.setAttribute('aria-label', 'Open media preview');
+    const alt = img.getAttribute('alt');
+    const label = alt ? `Open preview of ${alt}` : 'Open media preview';
+    img.setAttribute('aria-label', label);
   });
 }
