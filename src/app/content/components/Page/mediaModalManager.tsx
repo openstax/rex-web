@@ -66,9 +66,9 @@ export function createMediaModalManager(container: HTMLElement | null) {
       e.preventDefault();
     }
 
-    if (typeof window !== 'undefined') {
-      open(<img tabIndex={0} src={target.src} alt={target.alt || ''} width={target.width} height={target.height} />);
-    }
+    open(<img tabIndex={0} src={target.src} alt={target.alt || ''}
+        width={target.width} height={target.height} />);
+
   };
 
   const attachListeners = () => {
