@@ -160,6 +160,7 @@ Array [
     >
       <a
         href="/"
+        onClick={[Function]}
       >
         <img
           alt="OpenStax Logo"
@@ -7478,6 +7479,7 @@ Array [
     >
       <a
         href="/"
+        onClick={[Function]}
       >
         <img
           alt="OpenStax Logo"
