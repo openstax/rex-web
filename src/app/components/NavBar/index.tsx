@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import openstaxLogo from '../../../assets/logo.svg';
 import * as authSelect from '../../auth/selectors';
+import * as selectHighlights from '../../content/highlights/selectors';
 import { User } from '../../auth/types';
 import * as selectNavigation from '../../navigation/selectors';
 import { AppState } from '../../types';
@@ -11,6 +12,9 @@ import OnScroll, { OnScrollCallback } from '../OnScroll';
 import * as Styled from './styled';
 import UserIcon from '../../../assets/UserIcon';
 import * as guards from '../../guards';
+import showConfirmation from '../../content/highlights/components/utils/showConfirmation';
+import { useServices } from '../../context/Services';
+import { assertWindow } from '../../utils';
 
 export { maxNavWidth, navDesktopHeight, navMobileHeight } from './styled';
 
@@ -18,9 +22,29 @@ if (typeof(window) !== 'undefined') {
   import(/* webpackChunkName: "focus-within-polyfill" */ 'focus-within-polyfill');
 }
 
+export const useUnsavedHighlightsValidator = (hasUnsavedHighlight: boolean) => {
+  const services = useServices();
+  return async(e: React.MouseEvent, url: string) => {
+    if (hasUnsavedHighlight) {
+      e.preventDefault();
+      const window = assertWindow();
+      const confirmed = await showConfirmation(services);
+      if (confirmed) {
+        window.location.assign(url);
+      }
+    }
+  };
+};
+
 // tslint:disable-next-line:variable-name
-export const Dropdown: FunctionComponent<{user: User, currentPath: string}> = ({user, currentPath}) => {
+export const Dropdown: FunctionComponent<{
+  user: User,
+  currentPath: string,
+  logOutHandler: (e: React.MouseEvent, url: string) => void
+}> = ({user, currentPath, logOutHandler}) => {
+
   const overlay = React.useRef<HTMLElement>();
+  const logOutUrl = '/accounts/logout?r=' + currentPath;
 
   const blockScroll: OnScrollCallback = (e) => {
     if (typeof(window) === 'undefined' || !overlay.current) {
@@ -68,7 +92,11 @@ export const Dropdown: FunctionComponent<{user: User, currentPath: string}> = ({
             <li role='presentation'>
               <FormattedMessage id='i18n:nav:logout:text'>
                 {msg => (
-                  <a href={'/accounts/logout?r=' + currentPath} role='menuitem'>
+                  <a
+                    href={logOutUrl}
+                    role='menuitem'
+                    onClick={e => logOutHandler(e, logOutUrl)}
+                  >
                     {msg}
                   </a>
                 )}
@@ -100,13 +128,18 @@ const DropdownToggle: FunctionComponent<{ user: User }> = ({
 };
 
 // tslint:disable-next-line:variable-name
-const LoggedInState: FunctionComponent<{ user: User; currentPath: string }> = ({
+const LoggedInState: FunctionComponent<{
+  user: User;
+  currentPath: string;
+  logOutHandler: (e: React.MouseEvent, url: string) => void
+}> = ({
   user,
   currentPath,
+  logOutHandler,
 }) => (
   <Styled.DropdownContainer data-testid='user-nav'>
     <DropdownToggle user={user} />
-    <Dropdown user={user} currentPath={currentPath} />
+    <Dropdown user={user} currentPath={currentPath} logOutHandler={logOutHandler} />
     <Styled.TimesIcon />
   </Styled.DropdownContainer>
 );
@@ -123,22 +156,33 @@ interface NavigationBarProps {
   loggedOut: boolean;
   currentPath: string;
   params: unknown;
+  hasUnsavedHighlight: boolean;
 }
 // tslint:disable-next-line:variable-name
-const NavigationBar = ({user, loggedOut, currentPath, params}: NavigationBarProps) =>
-  <Styled.BarWrapper data-analytics-region='openstax-navbar'>
-    <Styled.TopBar data-testid='navbar'>
-      <a href={guards.isPortaled(params) ? `/${params.portalName}/` : '/'}>
-        <Styled.HeaderImage
-          role='img'
-          src={openstaxLogo}
-          alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
-        />
-      </a>
-      {loggedOut && <LoggedOutState currentPath={currentPath} />}
-      {user && <LoggedInState user={user} currentPath={currentPath} />}
-    </Styled.TopBar>
-  </Styled.BarWrapper>;
+const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, params}: NavigationBarProps) => {
+  const logoUrl = guards.isPortaled(params) ? `/${params.portalName}/` : '/';
+  const unsavedHighlightsHandler = useUnsavedHighlightsValidator(hasUnsavedHighlight);
+
+
+  return (
+    <Styled.BarWrapper data-analytics-region='openstax-navbar'>
+      <Styled.TopBar data-testid='navbar'>
+        <a
+          href={logoUrl}
+          onClick={(e) => unsavedHighlightsHandler(e, logoUrl)}
+        >
+          <Styled.HeaderImage
+            role='img'
+            src={openstaxLogo}
+            alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
+          />
+        </a>
+        {loggedOut && <LoggedOutState currentPath={currentPath} />}
+        {user && <LoggedInState user={user} currentPath={currentPath} logOutHandler={unsavedHighlightsHandler} />}
+      </Styled.TopBar>
+    </Styled.BarWrapper>
+  );
+};
 
 export default connect(
   (state: AppState) => ({
@@ -146,5 +190,6 @@ export default connect(
     params: selectNavigation.params(state),
     loggedOut: authSelect.loggedOut(state),
     user: authSelect.user(state),
+    hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
   })
 )(NavigationBar);
