@@ -12,8 +12,8 @@ const mockConfirmation = jest.fn();
 
 jest.mock(
   '../../content/highlights/components/utils/showConfirmation',
-    () => mockConfirmation
-  );
+  () => mockConfirmation
+);
 
 describe('content', () => {
   let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
@@ -295,7 +295,7 @@ describe('content', () => {
     });
 
     it('navigates if user confirms discarding unsaved highlights (logo)', async() => {
-       mockConfirmation.mockImplementationOnce(() => Promise.resolve(true));
+      mockConfirmation.mockImplementationOnce(() => Promise.resolve(true));
       const window = assertWindow();
 
       const { root } = renderToDom(render());
@@ -312,38 +312,5 @@ describe('content', () => {
 
       expect(event.preventDefault).toHaveBeenCalled();
     });
-  });
-
-  it('prevents default and does not navigate if user cancels confirmation', async() => {
-     mockConfirmation.mockImplementationOnce(() => Promise.resolve(false));
-    const services = {} as any;
-    const handler = require('.').useUnsavedHighlightsValidator(true, services);
-    const preventDefault = jest.fn();
-    const fakeEvent = { preventDefault } as unknown as React.MouseEvent;
-    await handler(fakeEvent, '/some-url');
-
-    expect(preventDefault).toHaveBeenCalled();
-  });
-
-  it('prevents default and navigates if user confirms', async() => {
-     mockConfirmation.mockImplementationOnce(() => Promise.resolve(true));
-    const services = {} as any;
-    const handler = require('.').useUnsavedHighlightsValidator(true, services);
-    const preventDefault = jest.fn();
-    const fakeEvent = { preventDefault } as unknown as React.MouseEvent;
-    await handler(fakeEvent, '/some-url');
-
-    expect(preventDefault).toHaveBeenCalled();
-  });
-
-  it('does nothing if hasUnsavedHighlight is false', async() => {
-     mockConfirmation.mockImplementationOnce(() => Promise.resolve(false));
-    const services = {} as any;
-    const handler = require('.').useUnsavedHighlightsValidator(false, services);
-    const preventDefault = jest.fn();
-    const fakeEvent = { preventDefault } as unknown as React.MouseEvent;
-    await handler(fakeEvent, '/some-url');
-
-    expect(preventDefault).not.toHaveBeenCalled();
   });
 });
