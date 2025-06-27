@@ -18,6 +18,7 @@ import {
   Middleware,
   MiddlewareAPI
 } from './types';
+import { assertDocument } from './utils/browser-assertions';
 export { merge, getCommonProperties } from '@openstax/ts-utils';
 export * from './utils/assertions';
 export * from './utils/browser-assertions';
@@ -150,6 +151,14 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
     prev = current;
     return current;
   };
+};
+
+export const stripHtml = (html: string) => {
+  const document = assertDocument();
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  const text = div.textContent || div.innerText || '';
+  return text.replace(/\s+/g, ' ').trim();
 };
 
 export const tuple = <A extends unknown[]>(...args: A) => args;
