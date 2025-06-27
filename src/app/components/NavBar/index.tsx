@@ -7,7 +7,7 @@ import * as authSelect from '../../auth/selectors';
 import * as selectHighlights from '../../content/highlights/selectors';
 import { User } from '../../auth/types';
 import * as selectNavigation from '../../navigation/selectors';
-import { AppServices, AppState, MiddlewareAPI } from '../../types';
+import { AppState } from '../../types';
 import OnScroll, { OnScrollCallback } from '../OnScroll';
 import * as Styled from './styled';
 import UserIcon from '../../../assets/UserIcon';
@@ -22,7 +22,8 @@ if (typeof(window) !== 'undefined') {
   import(/* webpackChunkName: "focus-within-polyfill" */ 'focus-within-polyfill');
 }
 
-export const useUnsavedHighlightsValidator = (hasUnsavedHighlight: boolean, services: AppServices & MiddlewareAPI) => {
+export const useUnsavedHighlightsValidator = (hasUnsavedHighlight: boolean) => {
+  const services = useServices();
   return async(e: React.MouseEvent, url: string) => {
     if (hasUnsavedHighlight) {
       e.preventDefault();
@@ -159,9 +160,8 @@ interface NavigationBarProps {
 }
 // tslint:disable-next-line:variable-name
 const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, params}: NavigationBarProps) => {
-  const services = useServices();
   const logoUrl = guards.isPortaled(params) ? `/${params.portalName}/` : '/';
-  const unsavedHighlightsHandler = useUnsavedHighlightsValidator(hasUnsavedHighlight, services);
+  const unsavedHighlightsHandler = useUnsavedHighlightsValidator(hasUnsavedHighlight);
 
 
   return (

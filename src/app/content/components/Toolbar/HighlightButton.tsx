@@ -57,7 +57,7 @@ const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
 
   return <MyHighlightsWrapper
     isActive={myHighlightsOpen}
-    onClick={async() => await openHighlightsSummary()}
+    onClick={openHighlightsSummary}
     aria-label={text}
     data-analytics-label='My highlights'
     practiceQuestionsEnabled={practiceQuestionsEnabled}
