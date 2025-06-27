@@ -10,6 +10,9 @@ import * as selectors from '../../highlights/selectors';
 import { practiceQuestionsEnabled as practiceQuestionsEnabledSelector } from '../../practiceQuestions/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
+import showConfirmation from '../../highlights/components/utils/showConfirmation';
+import { useServices } from '../../../context/Services';
+import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
 
 interface Props {
   openMyHighlights: () => void;
@@ -37,9 +40,15 @@ const MyHighlightsText = styled.span`
 // tslint:disable-next-line:variable-name
 const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
   const practiceQuestionsEnabled = useSelector(practiceQuestionsEnabledSelector);
+  const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
+  const services = useServices();
   const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
 
-  const openHighlightsSummary = () => {
+  const openHighlightsSummary = async() => {
+    if (hasUnsavedHighlight) {
+      const confirmed = await showConfirmation(services);
+      if (!confirmed) return;
+    }
     openMyHighlights();
     trackOpenCloseMH();
   };
@@ -48,7 +57,7 @@ const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
 
   return <MyHighlightsWrapper
     isActive={myHighlightsOpen}
-    onClick={() => openHighlightsSummary()}
+    onClick={openHighlightsSummary}
     aria-label={text}
     data-analytics-label='My highlights'
     practiceQuestionsEnabled={practiceQuestionsEnabled}
