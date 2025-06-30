@@ -18,6 +18,7 @@ export const searchResultsBarMobileWidth = 33.8;
 export const toolbarIconColor = theme.color.primary.gray;
 
 export const mobileSearchContainerMargin = 1;
+export const textResizerIconWidth = 5;
 export const toolbarWidth = 8;
 export const toolbarSearchInputHeight = 3.2;
 export const toolbarSearchInputMobileHeight = 3.2;
