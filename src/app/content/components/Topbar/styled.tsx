@@ -463,6 +463,7 @@ export const TextResizerMenu = styled.div`
       height: 0.4rem;
       width: 12rem;
       margin: 0.8rem 0.7rem;
+      cursor: pointer;
     }
 
     input[type="range"]::-webkit-slider-runnable-track,
