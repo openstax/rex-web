@@ -32,7 +32,10 @@ describe('hooks', () => {
     dispatch = jest.spyOn(helpers, 'dispatch');
     helpers.searchClient.search = jest.fn().mockReturnValue(Promise.resolve({
       hits: {
-        hits: [{highlight: {visibleContent: ['asdf', 'moon']}, score: 1}],
+        hits: [
+          {highlight: {visibleContent: ['asdf', 'moon']}, score: 1},
+          {highlight: {title: ['asdf']}, score: 1},
+        ],
       },
     }));
   });
