@@ -61,17 +61,26 @@ function getQuotedTerms(terms: string) {
   return matches.map((m) => m.replace(/"/g, ''));
 }
 
+function termsAppearIn(terms: string[], html: string) {
+  const plain = htmlToText(html);
+
+  return terms.some((t) => plain?.toLowerCase().includes(t.toLowerCase()));
+}
+
 function filterByQuotedTerms(hits: SearchResultHits, quotedTerms: string[]) {
   for (const h of hits.hits) {
-    h.highlight.visibleContent = h.highlight.visibleContent.filter((c) => {
-      const plain = htmlToText(c);
-      // We could require all the quoted terms, but I think we want results with any of them
-      // We are NOT checking for word boundaries, so Europa will match Europan
-      return quotedTerms.some((t) => plain?.toLowerCase().includes(t.toLowerCase()));
-    });
+    if (h.highlight.visibleContent) {
+      h.highlight.visibleContent = h.highlight.visibleContent.filter((c) => termsAppearIn(quotedTerms, c));
+    }
   }
   // Rebuilding so the fields are approximately correct, though probably unnecessary
-  const newHitsArray = hits.hits.filter((h) => h.highlight.visibleContent.length > 0);
+  const newHitsArray = hits.hits.filter((h) => {
+    if (h.highlight.visibleContent) {
+      return h.highlight.visibleContent.length > 0;
+    }
+
+    return termsAppearIn(quotedTerms, h.highlight.title as string);
+  });
   const scores = newHitsArray.map((h) => h.score);
   const maxScore = Math.max(...scores);
 
