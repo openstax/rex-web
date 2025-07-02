@@ -1,5 +1,4 @@
 import { SearchResultHit } from '@openstax/open-search-client';
-import { HTMLDivElement } from '@openstax/types/lib.dom';
 import isEqual from 'lodash/fp/isEqual';
 import { OutputParams } from 'query-string';
 import React from 'react';
@@ -15,6 +14,7 @@ import { SearchScrollTarget, SelectedResult } from '../../types';
 import { getKeyTermPair } from '../../utils';
 import RelatedKeyTermContent from './RelatedKeyTermContent';
 import * as Styled from './styled';
+import { stripHtml } from '../../../../utils';
 
 interface SearchResultHitsProps {
   activeSectionRef?: React.RefObject<HTMLAnchorElement>;
@@ -56,15 +56,8 @@ function useKeyTermPair({
   return pair;
 }
 
-function htmlToText(s: string) {
-  const temp = document?.createElement('div') as HTMLDivElement;
-
-  temp.innerHTML = s;
-  return temp.textContent;
-}
-
 function uniqueSearchLabel(index: number, title: string, highlight: string) {
-  return `Result ${index + 1} in ${htmlToText(title)}: ${htmlToText(highlight)}`;
+  return `Result ${index + 1} in ${stripHtml(title)}: ${stripHtml(highlight)}`;
 }
 
 // tslint:disable-next-line: variable-name

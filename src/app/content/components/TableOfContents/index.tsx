@@ -16,6 +16,7 @@ import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery, isSSR } from '../../../reactUtils';
+import { stripHtml } from '../../../utils';
 
 interface SidebarProps {
   onNavigate: () => void;
@@ -126,7 +127,7 @@ function TocToggle({
       <Styled.SummaryWrapper>
         <Styled.ExpandIcon />
         <Styled.CollapseIcon />
-        <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }} />
+        <Styled.SummaryTitle dangerouslySetInnerHTML={{ __html: title }}/>
       </Styled.SummaryWrapper>
     </Styled.StyledTreeItemContent>
   );
@@ -214,7 +215,7 @@ function TocLeaf({
       section={section}
       id={item.id}
       key={item.id}
-      textValue={item.title}
+      textValue={stripHtml(item.title, true)}
       onAction={
         // Ignored until RAC and TS versions are compatible
         // istanbul ignore next
@@ -225,7 +226,7 @@ function TocLeaf({
     >
       <Styled.NavItem
         data-type={sectionType}
-        textValue={item.title}
+        textValue={stripHtml(item.title, true)}
       >
         <Styled.ContentLink
           ref={linkRef}
@@ -271,7 +272,7 @@ function TocSection({
                 section={section}
                 id={item.id}
                 key={item.id}
-                textValue={item.title}
+                textValue={stripHtml(item.title, true)}
                 onClick={() => handleTreeItemClick(item.id)}
               >
                 <ArchiveTreeComponent

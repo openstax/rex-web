@@ -152,6 +152,13 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
   };
 };
 
+export const stripHtml = (html: string, trimResult = false) => {
+  const domParser = new DOMParser();
+  const doc = domParser.parseFromString(html, 'text/html');
+  const text = doc.body.textContent || '';
+  return trimResult ? text.replace(/\s+/g, ' ').trim() : text;
+};
+
 export const tuple = <A extends unknown[]>(...args: A) => args;
 
 // tslint:disable-next-line: max-classes-per-file
