@@ -151,6 +151,13 @@ const LoggedOutState: FunctionComponent<{currentPath: string}> = ({currentPath})
   </Styled.Link>}
 </FormattedMessage>;
 
+// tslint:disable-next-line:variable-name
+export const ConnectedLoginButton = connect(
+  (state: AppState) => ({
+    currentPath: selectNavigation.pathname(state),
+  })
+)(LoggedOutState);
+
 interface NavigationBarProps {
   user?: User;
   loggedOut: boolean;
