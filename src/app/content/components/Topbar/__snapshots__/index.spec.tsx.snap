@@ -36,6 +36,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
   top: 7rem;
   width: 100%;
   overflow: visible;
+  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
@@ -95,6 +96,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
 
 .c8 {
   margin-left: auto;
+  margin-right: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -103,7 +105,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-right: -5.2rem;
   position: relative;
   color: #5e6062;
   border: solid 0.1rem;
@@ -230,7 +231,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
   background-color: #fff;
   -webkit-transition: padding-left 300ms;
   transition: padding-left 300ms;
-  padding-left: 37.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
@@ -364,25 +364,25 @@ exports[`text resizer does not render if textSize is null 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .gPsjnW .c10 {
+  .fNEgfW .c10 {
     color: #5e6062;
   }
 }
 
 @media screen and (max-width:75em) {
-  .kXPpuK .c10 {
+  .WUYvv .c10 {
     color: #fff;
   }
 
-  .kXPpuK .c10:hover,
-  .kXPpuK .c10:focus {
+  .WUYvv .c10:hover,
+  .WUYvv .c10:focus {
     color: #fff;
     -webkit-transition: color 200ms;
     transition: color 200ms;
   }
 
-  .kXPpuK .c10:hover::before,
-  .kXPpuK .c10:focus::before {
+  .WUYvv .c10:hover::before,
+  .WUYvv .c10:focus::before {
     content: "";
     display: block;
     height: 100%;
@@ -395,19 +395,19 @@ exports[`text resizer does not render if textSize is null 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .ulpVr .c10 {
+  .eLelrJ .c10 {
     color: #000;
   }
 
-  .ulpVr .c10:hover,
-  .ulpVr .c10:focus {
+  .eLelrJ .c10:hover,
+  .eLelrJ .c10:focus {
     color: #000;
     -webkit-transition: color 200ms;
     transition: color 200ms;
   }
 
-  .ulpVr .c10:hover::before,
-  .ulpVr .c10:focus::before {
+  .eLelrJ .c10:hover::before,
+  .eLelrJ .c10:focus::before {
     content: "";
     display: block;
     height: 100%;
@@ -422,18 +422,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
 @media screen and (max-width:50em) {
   .c9 {
     display: none;
-  }
-}
-
-@media screen and (max-width:90em) {
-  .c1 {
-    padding-left: calc(45.5rem - (100vw - 128rem) / 2);
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c1 {
-    padding-left: 45.5rem;
   }
 }
 
@@ -473,7 +461,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
 }
 
 @media screen and (max-width:50em) {
-  .gjWAAG .c7 {
+  .fcMFyh .c7 {
     border: none;
     border-radius: 0;
     width: 45px;
@@ -514,7 +502,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
 
 @media screen and (max-width:75em) {
   .c13 {
-    padding-left: 8rem;
     display: block;
   }
 }
@@ -868,6 +855,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   top: 7rem;
   width: 100%;
   overflow: visible;
+  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
@@ -927,6 +915,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 
 .c8 {
   margin-left: auto;
+  margin-right: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -935,7 +924,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-right: -5.2rem;
   position: relative;
   color: #5e6062;
   border: solid 0.1rem;
@@ -1062,7 +1050,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   background-color: #fff;
   -webkit-transition: padding-left 300ms;
   transition: padding-left 300ms;
-  padding-left: 37.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
@@ -1098,7 +1085,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 .c15 {
-  margin-left: auto;
   z-index: 3;
 }
 
@@ -1155,6 +1141,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   height: 0.4rem;
   width: 12rem;
   margin: 0.8rem 0.7rem;
+  cursor: pointer;
 }
 
 .c20 .controls input[type="range"]::-webkit-slider-runnable-track,
@@ -1311,25 +1298,25 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .gPsjnW .c10 {
+  .fNEgfW .c10 {
     color: #5e6062;
   }
 }
 
 @media screen and (max-width:75em) {
-  .kXPpuK .c10 {
+  .WUYvv .c10 {
     color: #fff;
   }
 
-  .kXPpuK .c10:hover,
-  .kXPpuK .c10:focus {
+  .WUYvv .c10:hover,
+  .WUYvv .c10:focus {
     color: #fff;
     -webkit-transition: color 200ms;
     transition: color 200ms;
   }
 
-  .kXPpuK .c10:hover::before,
-  .kXPpuK .c10:focus::before {
+  .WUYvv .c10:hover::before,
+  .WUYvv .c10:focus::before {
     content: "";
     display: block;
     height: 100%;
@@ -1342,19 +1329,19 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .ulpVr .c10 {
+  .eLelrJ .c10 {
     color: #000;
   }
 
-  .ulpVr .c10:hover,
-  .ulpVr .c10:focus {
+  .eLelrJ .c10:hover,
+  .eLelrJ .c10:focus {
     color: #000;
     -webkit-transition: color 200ms;
     transition: color 200ms;
   }
 
-  .ulpVr .c10:hover::before,
-  .ulpVr .c10:focus::before {
+  .eLelrJ .c10:hover::before,
+  .eLelrJ .c10:focus::before {
     content: "";
     display: block;
     height: 100%;
@@ -1369,18 +1356,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 @media screen and (max-width:50em) {
   .c9 {
     display: none;
-  }
-}
-
-@media screen and (max-width:90em) {
-  .c1 {
-    padding-left: calc(45.5rem - (100vw - 128rem) / 2);
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c1 {
-    padding-left: 45.5rem;
   }
 }
 
@@ -1420,7 +1395,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:50em) {
-  .gjWAAG .c7 {
+  .fcMFyh .c7 {
     border: none;
     border-radius: 0;
     width: 45px;
@@ -1461,7 +1436,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 
 @media screen and (max-width:75em) {
   .c22 {
-    padding-left: 8rem;
     display: block;
   }
 }

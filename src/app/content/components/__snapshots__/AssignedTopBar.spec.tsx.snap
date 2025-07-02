@@ -58,7 +58,6 @@ exports[`AssignedTopBar renders 1`] = `
 }
 
 .c4 {
-  margin-left: auto;
   z-index: 3;
 }
 
@@ -76,6 +75,7 @@ exports[`AssignedTopBar renders 1`] = `
   top: 7rem;
   width: 100%;
   overflow: visible;
+  padding-left: 5rem;
   display: block;
   z-index: 30;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
