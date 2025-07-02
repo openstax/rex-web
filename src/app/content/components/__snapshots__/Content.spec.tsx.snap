@@ -1452,6 +1452,7 @@ Array [
   top: 7rem;
   width: 100%;
   overflow: visible;
+  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
@@ -1511,6 +1512,7 @@ Array [
 
 .c54 {
   margin-left: auto;
+  margin-right: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1519,7 +1521,6 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-right: -5.2rem;
   position: relative;
   color: #5e6062;
   border: solid 0.1rem;
@@ -1646,7 +1647,6 @@ Array [
   background-color: #fff;
   -webkit-transition: padding-left 300ms;
   transition: padding-left 300ms;
-  padding-left: 37.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
@@ -1682,7 +1682,6 @@ Array [
 }
 
 .c60 {
-  margin-left: auto;
   z-index: 3;
 }
 
@@ -2822,18 +2821,6 @@ Array [
   }
 }
 
-@media screen and (max-width:90em) {
-  .c50 {
-    padding-left: calc(45.5rem - (100vw - 128rem) / 2);
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c50 {
-    padding-left: 45.5rem;
-  }
-}
-
 @media screen and (max-width:75em) {
   .c50 {
     padding-left: 0 !important;
@@ -2903,7 +2890,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c65 {
-    padding-left: 8rem;
     display: block;
   }
 }
@@ -8674,6 +8660,7 @@ Array [
   top: 7rem;
   width: 100%;
   overflow: visible;
+  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
@@ -8733,6 +8720,7 @@ Array [
 
 .c54 {
   margin-left: auto;
+  margin-right: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -8741,7 +8729,6 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-right: -5.2rem;
   position: relative;
   color: #5e6062;
   border: solid 0.1rem;
@@ -8868,7 +8855,6 @@ Array [
   background-color: #fff;
   -webkit-transition: padding-left 300ms;
   transition: padding-left 300ms;
-  padding-left: 37.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
@@ -8904,7 +8890,6 @@ Array [
 }
 
 .c60 {
-  margin-left: auto;
   z-index: 3;
 }
 
@@ -9982,18 +9967,6 @@ Array [
   }
 }
 
-@media screen and (max-width:90em) {
-  .c50 {
-    padding-left: calc(45.5rem - (100vw - 128rem) / 2);
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c50 {
-    padding-left: 45.5rem;
-  }
-}
-
 @media screen and (max-width:75em) {
   .c50 {
     padding-left: 0 !important;
@@ -10063,7 +10036,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c65 {
-    padding-left: 8rem;
     display: block;
   }
 }
