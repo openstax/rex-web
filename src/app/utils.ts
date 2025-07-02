@@ -155,9 +155,7 @@ export const memoizeStateToProps = <T extends object>(fun: (state: AppState) => 
 export const stripHtml = (html: string, trimResult = false) => {
   const domParser = new DOMParser();
   const doc = domParser.parseFromString(html, 'text/html');
-  const temp = doc.createElement('div');
-  temp.innerHTML = html;
-  const text = temp.textContent || '';
+  const text = doc.body.textContent || '';
   return trimResult ? text.replace(/\s+/g, ' ').trim() : text;
 };
 
