@@ -137,15 +137,20 @@ describe('addInteractiveListeners', () => {
     });
 
     it('strips simple HTML tags', () => {
-      expect(stripHtml('<b>Hello</b> <i>world</i>')).toBe('Hello world');
+      expect(stripHtml('<b>Hello</b> <i>world</i>', true)).toBe('Hello world');
     });
 
     it('strips nested HTML tags', () => {
-      expect(stripHtml('<div><span>Nested <b>text</b></span></div>')).toBe('Nested text');
+      expect(stripHtml('<div><span>Nested <b>text</b></span></div>', true)).toBe('Nested text');
     });
 
     it('collapses multiple spaces and trims', () => {
-      expect(stripHtml('<div>   Hello    <b>world</b>   </div>')).toBe('Hello world');
+      expect(stripHtml('<div>   Hello    <b>world</b>   </div>', true)).toBe('Hello world');
+    });
+
+    it('Do not collapses multiple spaces and trims', () => {
+      expect(stripHtml('<div>   Hello    <b>world</b>   </div>', false)).toBe('   Hello    world   ');
+      expect(stripHtml('<div>   Hello    <b>world</b>   </div>')).toBe('   Hello    world   ');
     });
 
     it('returns empty string for HTML with only tags', () => {
@@ -155,19 +160,6 @@ describe('addInteractiveListeners', () => {
     it('returns textContent if present', () => {
       const html = '<div>foo <b>bar</b></div>';
       expect(stripHtml(html)).toBe('foo bar');
-    });
-
-    it('returns innerText if textContent is falsy', () => {
-      // Simulate a case where textContent is falsy and innerText is present
-      const originalCreateElement = document.createElement;
-      document.createElement = ((tagName: string) => {
-        const el = originalCreateElement.call(document, tagName);
-        Object.defineProperty(el, 'textContent', { get: () => '', configurable: true });
-        Object.defineProperty(el, 'innerText', { get: () => 'fallback', configurable: true });
-        return el;
-      }) as any;
-      expect(stripHtml('<div>ignored</div>')).toBe('fallback');
-      document.createElement = originalCreateElement;
     });
   });
 });

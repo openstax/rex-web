@@ -215,7 +215,7 @@ function TocLeaf({
       section={section}
       id={item.id}
       key={item.id}
-      textValue={stripHtml(item.title)}
+      textValue={stripHtml(item.title, true)}
       onAction={
         // Ignored until RAC and TS versions are compatible
         // istanbul ignore next
@@ -226,7 +226,7 @@ function TocLeaf({
     >
       <Styled.NavItem
         data-type={sectionType}
-        textValue={stripHtml(item.title)}
+        textValue={stripHtml(item.title, true)}
       >
         <Styled.ContentLink
           ref={linkRef}
@@ -272,7 +272,7 @@ function TocSection({
                 section={section}
                 id={item.id}
                 key={item.id}
-                textValue={stripHtml(item.title)}
+                textValue={stripHtml(item.title, true)}
                 onClick={() => handleTreeItemClick(item.id)}
               >
                 <ArchiveTreeComponent
