@@ -66,18 +66,45 @@ interface Props {
   onToggle?: () => void;
 }
 
+function useIsOpen(props: {open?: boolean, setOpen?: ControlledProps['setOpen']}) {
+  const { open: controlledOpen, setOpen: controlledSetOpen } = props;
+  const [open, setOpenState] = React.useState<boolean>(false);
+  const isOpen = controlledOpen !== undefined ? controlledOpen : open;
+  const setOpen = controlledSetOpen !== undefined ? controlledSetOpen : setOpenState;
+
+  return {isOpen, setOpen};
+}
+
+// Safari always registers loss of focus on a mousedown, even when it's on a
+// focusable element in the same container. If that happens, just restore focus
+// to the toggleElement so it's still listening for a real loss of focus.
+export function callOrRefocus(
+  cb: () => void,
+  containerEl: HTMLElement | null,
+  toggleEl: HTMLElement | null
+) {
+  if (containerEl?.matches(':hover')) {
+    toggleEl?.focus();
+  } else {
+    cb();
+  }
+}
+
 // tslint:disable-next-line:variable-name
 const TabHiddenDropDown = styled((
   {toggle, children, className, onToggle, ...props}: React.PropsWithChildren<Props | Props & ControlledProps>
 ) => {
-  const { open: controlledOpen, setOpen: controlledSetOpen } = props as Props & ControlledProps;
-  const [open, setOpenState] = React.useState<boolean>(false);
-  const isOpen = controlledOpen !== undefined ? controlledOpen : open;
-  const setOpen = controlledSetOpen !== undefined ? controlledSetOpen : setOpenState;
+  const {isOpen, setOpen} = useIsOpen(props);
   const container = React.useRef<HTMLElement>(null);
   const toggleElement = React.useRef<HTMLElement>(null);
+  const onFocusLost = React.useCallback(
+    () => callOrRefocus(
+      () => setOpen(false),
+      container.current,
+      toggleElement.current
+    ), [setOpen]);
 
-  useFocusLost(container, isOpen, React.useCallback(() => setOpen(false), [setOpen]));
+  useFocusLost(container, isOpen, onFocusLost);
   useOnEsc(isOpen, () => {
     setOpen(false);
     if (toggleElement.current) { toggleElement.current.focus(); }
@@ -89,7 +116,7 @@ const TabHiddenDropDown = styled((
       component={toggle}
       onClick={() => {
         setOpen(!isOpen);
-        if (onToggle) { onToggle(); }
+        onToggle?.();
       }}
       isOpen={isOpen}
     />

@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import * as reactUtils from '../../app/reactUtils';
 import TestContainer from '../../test/TestContainer';
-import Dropdown, { DropdownItem, DropdownList } from './Dropdown';
+import Dropdown, { DropdownItem, DropdownList, callOrRefocus } from './Dropdown';
 
 describe('Dropdown', () => {
   it('matches snapshot', () => {
@@ -74,6 +74,17 @@ describe('Dropdown', () => {
     });
 
     expect(() => component.root.findByType(DropdownList)).toThrow();
+  });
+
+  it('callOrRefocus refocuses when container.match(:hover)', () => {
+    const cb = jest.fn();
+    const matches = jest.fn().mockReturnValue(true);
+    const focus = jest.fn();
+
+    // @ts-expect-error not HTMLElements
+    callOrRefocus(cb, {matches}, {focus});
+    expect(cb).not.toHaveBeenCalled();
+    expect(focus).toHaveBeenCalled();
   });
 
   it('tab hidden closes on Esc', () => {
