@@ -30,7 +30,14 @@ describe('hooks', () => {
       getState: store.getState,
     };
     dispatch = jest.spyOn(helpers, 'dispatch');
-    helpers.searchClient.search = jest.fn().mockReturnValue(Promise.resolve());
+    helpers.searchClient.search = jest.fn().mockReturnValue(Promise.resolve({
+      hits: {
+        hits: [
+          {highlight: {visibleContent: ['asdf', 'moon']}, score: 1},
+          {highlight: {title: ['asdf']}, score: 1},
+        ],
+      },
+    }));
   });
 
   describe('requestSearchHook', () => {
@@ -43,6 +50,12 @@ describe('hooks', () => {
     it('searches', async() => {
       store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
       await hook(requestSearch('asdf'));
+      expect(helpers.searchClient.search).toHaveBeenCalled();
+    });
+
+    it('searches with quoted term', async() => {
+      store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+      await hook(requestSearch('asdf "moon"'));
       expect(helpers.searchClient.search).toHaveBeenCalled();
     });
 
