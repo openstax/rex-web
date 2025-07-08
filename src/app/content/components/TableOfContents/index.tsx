@@ -265,13 +265,12 @@ function TocSection({
         const active = page && stripIdVersion(item.id) === page.id;
 
         return (
-          <>
+          <React.Fragment key={item.id}>
             {isArchiveTree(item)
               ?
               <Styled.StyledTreeItem
                 section={section}
                 id={item.id}
-                key={item.id}
                 textValue={stripHtml(item.title, true)}
                 onClick={() => handleTreeItemClick(item.id)}
               >
@@ -293,7 +292,7 @@ function TocSection({
                 book={book}
                 active={active}
               />}
-          </>
+          </React.Fragment>
         );
       })}
     </>
