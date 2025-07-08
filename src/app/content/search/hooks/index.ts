@@ -20,7 +20,7 @@ import * as select from '../selectors';
 import { findSearchResultHit } from '../utils';
 import trackSearch from './trackSearch';
 import Sentry from '../../../../helpers/Sentry';
-import { htmlToText } from '../components/SearchResultsSidebar/SearchResultHits';
+import { stripHtml } from '../../../utils';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
@@ -62,7 +62,7 @@ function getQuotedTerms(terms: string) {
 }
 
 function termsAppearIn(terms: string[], html: string) {
-  const plain = htmlToText(html);
+  const plain = stripHtml(html);
 
   return terms.some((t) => plain?.toLowerCase().includes(t.toLowerCase()));
 }
