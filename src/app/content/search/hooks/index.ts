@@ -5,6 +5,7 @@ import { replace } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import { RouteHookBody } from '../../../navigation/types';
 import { ActionHookBody } from '../../../types';
+import { SearchResultHits } from '@openstax/open-search-client';
 import { actionHook, isNetworkError } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { openToc } from '../../actions';
@@ -19,6 +20,7 @@ import * as select from '../selectors';
 import { findSearchResultHit } from '../utils';
 import trackSearch from './trackSearch';
 import Sentry from '../../../../helpers/Sentry';
+import { stripHtml } from '../../../utils';
 
 export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services) => async({payload, meta}) => {
   const state = services.getState();
@@ -41,10 +43,54 @@ export const requestSearchHook: ActionHookBody<typeof requestSearch> = (services
       error,
       new SearchLoadError({ destination: 'page', shouldAutoDismiss: false })
     );
+  }).then((results1) => {
+    const quotedTerms = getQuotedTerms(payload);
+
+    if (quotedTerms.length) {
+      results1.hits = filterByQuotedTerms(results1.hits, quotedTerms);
+    }
+    return results1;
   });
 
   services.dispatch(receiveSearchResults(results, meta));
 };
+
+function getQuotedTerms(terms: string) {
+  const matches = terms.match(/".*?"/g) ?? [];
+
+  return matches.map((m) => m.replace(/"/g, ''));
+}
+
+function termsAppearIn(terms: string[], html: string) {
+  const plain = stripHtml(html);
+
+  return terms.some((t) => plain?.toLowerCase().includes(t.toLowerCase()));
+}
+
+function filterByQuotedTerms(hits: SearchResultHits, quotedTerms: string[]) {
+  for (const h of hits.hits) {
+    if (h.highlight.visibleContent) {
+      h.highlight.visibleContent = h.highlight.visibleContent.filter((c) => termsAppearIn(quotedTerms, c));
+    }
+  }
+  // Rebuilding so the fields are approximately correct, though probably unnecessary
+  const newHitsArray = hits.hits.filter((h) => {
+    if (h.highlight.visibleContent) {
+      return h.highlight.visibleContent.length > 0;
+    }
+
+    return termsAppearIn(quotedTerms, h.highlight.title as string);
+  });
+  const scores = newHitsArray.map((h) => h.score);
+  const maxScore = Math.max(...scores);
+
+  return {
+    total: newHitsArray.length,
+    maxScore,
+    hits: newHitsArray,
+  };
+}
+
 
 export const receiveSearchHook: ActionHookBody<typeof receiveSearchResults> = (services) => ({meta}) => {
   const state = services.getState();
