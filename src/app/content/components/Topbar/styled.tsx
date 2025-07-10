@@ -16,19 +16,16 @@ import {
   bookBannerMobileMiniHeight,
   contentWrapperMaxWidth,
   mobileSearchContainerMargin,
-  sidebarDesktopWidth,
   sidebarTransitionTime,
-  toolbarButtonWidth,
+  textResizerIconWidth,
   toolbarHrHeight,
   toolbarIconColor,
   toolbarMobileSearchWrapperHeight,
   toolbarSearchInputHeight,
   toolbarSearchInputMobileHeight,
   topbarDesktopHeight,
-  topbarMobileHeight,
-  verticalNavbarMaxWidth
+  topbarMobileHeight
 } from '../constants';
-import { contentWrapperBreakpointStyles } from '../ContentPane';
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
@@ -63,6 +60,7 @@ export const TopBarWrapper = styled.div`
   top: ${bookBannerDesktopMiniHeight}rem;
   width: 100%;
   overflow: visible;
+  padding-left: ${textResizerIconWidth}rem;
   display: block;
   z-index: ${theme.zIndex.topbar}; /* stay above book content */
   ${theme.breakpoints.mobile(css`
@@ -181,9 +179,9 @@ export const CloseButtonNew = styled.button`
 // tslint:disable-next-line:variable-name
 export const SearchInputWrapper = styled.form`
   margin-left: auto;
+  margin-right: auto;
   display: flex;
   align-items: center;
-  margin-right: -${toolbarButtonWidth}rem;
   position: relative;
   color: ${toolbarIconColor.base};
   border: solid 0.1rem;
@@ -278,8 +276,6 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   overflow: visible;
   background-color: ${theme.color.neutral.base};
   transition: padding-left ${sidebarTransitionTime}ms;
-  padding-left: ${sidebarDesktopWidth}rem;
-  ${contentWrapperBreakpointStyles}
   ${styleWhenSidebarClosed(css`
       padding-left: 0 !important;
   `)}
@@ -326,7 +322,6 @@ export const MobileSearchWrapper = styled.div`
   background-color: ${theme.color.neutral.base};
   ${shadow}
   ${theme.breakpoints.mobile(css`
-    padding-left: ${verticalNavbarMaxWidth}rem;
     display: block;
   `)}
   ${theme.breakpoints.mobileMedium(css`
@@ -370,7 +365,6 @@ export const SeachResultsTextButton = styled(PlainButton)`
 
 // tslint:disable-next-line:variable-name
 export const TextResizerDropdown = styled(FilterDropdown)`
-  margin-left: auto;
   z-index: 3;
 
   > button {
@@ -469,6 +463,7 @@ export const TextResizerMenu = styled.div`
       height: 0.4rem;
       width: 12rem;
       margin: 0.8rem 0.7rem;
+      cursor: pointer;
     }
 
     input[type="range"]::-webkit-slider-runnable-track,

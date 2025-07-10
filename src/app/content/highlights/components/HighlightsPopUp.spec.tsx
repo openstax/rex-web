@@ -21,6 +21,7 @@ import { CloseIcon, Header } from '../../styles/PopupStyles';
 import { formatBookData } from '../../utils';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
+import { setAnnotationChangesPending } from '../../highlights/actions';
 
 // this is a hack because useEffect is currently not called
 // when using jsdom? https://github.com/facebook/react/issues/14050
@@ -35,6 +36,16 @@ jest.mock('react-dom', () => ({
   ...jest.requireActual('react-dom'),
   createPortal: (children: any) => children,
 }));
+
+jest.mock(
+  './utils/showConfirmation',
+  () => {
+    const mockConfirmation = jest.fn()
+      .mockImplementationOnce(() => Promise.resolve(false))
+      .mockImplementationOnce(() => Promise.resolve(true));
+    return mockConfirmation;
+  }
+);
 
 describe('MyHighlights button and PopUp', () => {
   let dispatch: jest.SpyInstance;
@@ -212,5 +223,54 @@ describe('MyHighlights button and PopUp', () => {
 
     expect(header.props.colorSchema).toBe('yellow');
     expect(closeIcon.props.colorSchema).toBe('yellow');
+  });
+
+  describe('with unsaved highlights', () => {
+
+    beforeEach(() => {
+      store = createTestStore();
+      services = {
+        ...createTestServices(),
+        dispatch: store.dispatch,
+        getState: store.getState,
+      };
+      user = {firstName: 'test', isNotGdprLocation: true, lastName: 'test', uuid: 'some_uuid'};
+
+      dispatch = jest.spyOn(store, 'dispatch');
+      store.dispatch(setAnnotationChangesPending(true));
+      store.dispatch(receiveUser(user));
+    });
+
+    it('does NOT open MyHighlights if user cancels confirmation', async() => {
+      const component = renderer.create(
+        <TestContainer services={services} store={store}>
+          <HighlightButton />
+        </TestContainer>
+      );
+
+      act(() => {
+        component.root.findByType('button').props.onClick();
+      });
+
+      expect(dispatch).not.toHaveBeenCalledWith(openMyHighlights());
+    });
+
+    it('opens MyHighlights if user confirms discarding changes', async() => {
+      const component = renderer.create(
+        <TestContainer services={services} store={store}>
+          <HighlightButton />
+        </TestContainer>
+      );
+
+      act(() => {
+        component.root.findByType('button').props.onClick();
+      });
+
+      act(() => {
+        component.root.findByType('button').props.onClick();
+      });
+
+      expect(dispatch).toHaveBeenCalled();
+    });
   });
 });
