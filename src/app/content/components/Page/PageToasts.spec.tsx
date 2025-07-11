@@ -16,17 +16,11 @@ describe('PageToasts', () => {
 
   beforeEach(() => {
     resetModules();
-    jest.useFakeTimers();
 
     store = createTestStore();
   });
 
-  afterEach(() => {
-    jest.useRealTimers();
-  });
-
   it('matches snapshot', () => {
-    jest.runAllTimers();
     const component = renderer.create(<TestContainer store={store}>
       <ToastNotifications />
     </TestContainer>);
@@ -36,7 +30,6 @@ describe('PageToasts', () => {
   });
 
   it('matches snapshots with toasts', () => {
-    jest.runAllTimers();
     store.dispatch(addToast(toastMessageKeys.highlights.failure.create, {destination: 'page'}));
     const toasts = groupedToastNotifications(store.getState()).page;
 
@@ -55,8 +48,6 @@ describe('PageToasts', () => {
   });
 
   it('matches snapshot with toasts when mobile toolbar is open', () => {
-    jest.runAllTimers();
-
     store.dispatch(addToast(toastMessageKeys.highlights.failure.create, {destination: 'page'}));
     store.dispatch(openMobileToolbar());
 
