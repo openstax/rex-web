@@ -15,6 +15,10 @@ describe('PageToasts', () => {
   let store: Store;
 
   beforeEach(() => {
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
     resetModules();
 
     store = createTestStore();

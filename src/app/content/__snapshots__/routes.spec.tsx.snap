@@ -769,6 +769,7 @@ Array [
     className="c0"
   >
     <div
+      aria-live="polite"
       className="c1 c2"
       role="alertdialog"
     />
