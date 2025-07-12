@@ -40,12 +40,124 @@ exports[`PageToasts matches snapshot 1`] = `
 `;
 
 exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
+.c5 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  background-color: #fafafa;
+  line-height: 4rem;
+}
+
+.c5 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 a:hover {
+  color: #0064A0;
+}
+
+.c1 {
+  width: 100%;
+  position: absolute;
+  overflow: visible;
+}
+
+.c2 {
+  width: 100%;
+  margin: 0;
+  overflow: visible;
+  -webkit-transition: -webkit-transform 0.6s;
+  -webkit-transition: transform 0.6s;
+  transition: transform 0.6s;
+  z-index: 1;
+  -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  transform: translateY(0%);
+  -webkit-animation: hSsjZP 1s forwards;
+  animation: hSsjZP 1s forwards;
+}
+
+.c3 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5rem 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #F8E8EB;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border: 1px solid #E297A0;
+}
+
+.c3 .c4 {
+  background: inherit;
+  color: #C23834;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+.c7 {
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+}
+
+.c6 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: #C22032;
+  overflow: visible;
+}
+
+.c6:hover {
+  color: #E297A0;
+}
+
 .c0 {
   position: -webkit-sticky;
   position: sticky;
   overflow: visible;
   z-index: 19;
   top: 12rem;
+}
+
+@media (max-width:75em) {
+  .c5 {
+    padding: 0;
+    line-height: 2rem;
+    background-color: initial;
+  }
+}
+
+@media print {
+  .c2 {
+    display: none;
+  }
+}
+
+@media (max-width:75em) {
+  .c3 {
+    -webkit-align-items: flex-start;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    padding: 1.6rem 1.6rem;
+  }
 }
 
 @media screen and (max-width:90em) {
@@ -75,7 +187,63 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
   aria-live="polite"
   className="c0"
   role="alertdialog"
-/>
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+      data-testid="banner-body"
+      onAnimationEnd={[Function]}
+      role="alert"
+    >
+      <div
+        className="c3"
+      >
+        <div
+          className="c4 c5"
+        >
+          The highlight could not be saved. Please check your connection and try again.
+        </div>
+        <button
+          aria-label="dismiss"
+          className="c6"
+          onClick={[Function]}
+        >
+          <svg
+            aria-hidden="true"
+            className="c7"
+            focusable="false"
+            height="15px"
+            version="1.1"
+            viewBox="0 0 15 15"
+            width="15px"
+          >
+            <g
+              fill="none"
+              fillRule="evenodd"
+              stroke="none"
+              strokeWidth="1"
+            >
+              <g
+                fill="currentColor"
+                transform="translate(-302.000000, -18.000000)"
+              >
+                <g
+                  transform="translate(302.000000, 18.000000)"
+                >
+                  <path
+                    d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                  />
+                </g>
+              </g>
+            </g>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`PageToasts matches snapshots with toasts 1`] = `
