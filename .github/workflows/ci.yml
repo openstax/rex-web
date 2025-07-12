@@ -2,14 +2,12 @@ name: CI
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited]
   push:
     branches:
       - main
 
 jobs:
   linked_issue:
-    if: github.event.action == 'edited'
     name: Jira
     runs-on: ubuntu-latest
     steps:
