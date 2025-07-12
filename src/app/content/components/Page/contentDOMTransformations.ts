@@ -35,6 +35,7 @@ export const transformContent = (
   expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, props.intl);
   optimizeImages(rootEl, services);
+  enhanceImagesForAccessibility(rootEl);
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -128,6 +129,7 @@ function optimizeImages(rootEl: HTMLElement, services: AppServices & MiddlewareA
     const src = assertNotNull(i.getAttribute('src'), 'Somehow got a null src attribute');
 
     i.setAttribute('src', services.imageCDNUtils.getOptimizedImageUrl(src));
+    i.setAttribute('data-original-src', src);
   }
 }
 
@@ -248,4 +250,14 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
     link.replaceWith(sup);
     sup.appendChild(link);
   }
+}
+
+function enhanceImagesForAccessibility(rootEl: HTMLElement) {
+  rootEl.querySelectorAll('img').forEach((img) => {
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('role', 'button');
+    const alt = img.getAttribute('alt');
+    const label = alt ? `Open preview of ${alt}` : 'Open media preview';
+    img.setAttribute('aria-label', label);
+  });
 }
