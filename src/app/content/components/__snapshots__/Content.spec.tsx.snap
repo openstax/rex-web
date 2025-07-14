@@ -968,8 +968,8 @@ Array [
 }
 
 .c74 .image-button-wrapper:focus {
-  outline: 2px solid Highlight;
-  outline: 2px solid -webkit-focus-ring-color;
+  outline: 1px solid Highlight;
+  outline: 1px solid -webkit-focus-ring-color;
   outline-offset: 2px;
 }
 
@@ -8349,8 +8349,8 @@ Array [
 }
 
 .c74 .image-button-wrapper:focus {
-  outline: 2px solid Highlight;
-  outline: 2px solid -webkit-focus-ring-color;
+  outline: 1px solid Highlight;
+  outline: 1px solid -webkit-focus-ring-color;
   outline-offset: 2px;
 }
 
