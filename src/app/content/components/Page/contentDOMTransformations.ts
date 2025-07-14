@@ -35,7 +35,7 @@ export const transformContent = (
   expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, props.intl);
   optimizeImages(rootEl, services);
-  enhanceImagesForAccessibility(rootEl);
+  enhanceImagesForAccessibility(document, rootEl);
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -252,14 +252,12 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
   }
 }
 
-function enhanceImagesForAccessibility(rootEl: HTMLElement) {
+function enhanceImagesForAccessibility(document: Document, rootEl: HTMLElement) {
   rootEl.querySelectorAll('img').forEach((img) => {
     if (img.parentElement?.tagName.toLowerCase() === 'button') {
       return;
     }
-    if (document === undefined) {
-      return;
-    }
+
     const button = document.createElement('button');
     button.type = 'button';
     const alt = img.getAttribute('alt');
