@@ -160,6 +160,7 @@ Array [
     >
       <a
         href="/"
+        onClick={[Function]}
       >
         <img
           alt="OpenStax Logo"
@@ -1472,6 +1473,7 @@ Array [
   top: 7rem;
   width: 100%;
   overflow: visible;
+  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
@@ -1531,6 +1533,7 @@ Array [
 
 .c54 {
   margin-left: auto;
+  margin-right: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1539,7 +1542,6 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-right: -5.2rem;
   position: relative;
   color: #5e6062;
   border: solid 0.1rem;
@@ -1666,7 +1668,6 @@ Array [
   background-color: #fff;
   -webkit-transition: padding-left 300ms;
   transition: padding-left 300ms;
-  padding-left: 37.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
@@ -1702,7 +1703,6 @@ Array [
 }
 
 .c60 {
-  margin-left: auto;
   z-index: 3;
 }
 
@@ -2842,18 +2842,6 @@ Array [
   }
 }
 
-@media screen and (max-width:90em) {
-  .c50 {
-    padding-left: calc(45.5rem - (100vw - 128rem) / 2);
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c50 {
-    padding-left: 45.5rem;
-  }
-}
-
 @media screen and (max-width:75em) {
   .c50 {
     padding-left: 0 !important;
@@ -2923,7 +2911,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c65 {
-    padding-left: 8rem;
     display: block;
   }
 }
@@ -3593,13 +3580,13 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-text\\">Test Page 1</span>"
+              textValue="Test Page 1"
             >
               <div
                 className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
-                textValue="<span class=\\"os-text\\">Test Page 1</span>"
+                textValue="Test Page 1"
               >
                 <a
                   className="c37"
@@ -3737,7 +3724,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>"
+              textValue="1 Test Chapter 1"
             >
               <div
                 className=""
@@ -3934,7 +3921,7 @@ Array [
                     "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
                   }
                 }
-                textValue="<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>"
+                textValue="1 Test Chapter 1.1"
               >
                 <div
                   className=""
@@ -4143,13 +4130,13 @@ Array [
                       "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
                     }
                   }
-                  textValue="<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
+                  textValue="Introduction to Science and the Realm of Physics, Physical Quantities, and Units"
                 >
                   <div
                     className="c36"
                     data-testid="mock-tree-item-content"
                     data-type="page"
-                    textValue="<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
+                    textValue="Introduction to Science and the Realm of Physics, Physical Quantities, and Units"
                   >
                     <a
                       aria-label="Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Chapter 1 "
@@ -4318,13 +4305,13 @@ Array [
                     "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
                   }
                 }
-                textValue="<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>"
+                textValue="1.1 Physics: An Introduction"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>"
+                  textValue="1.1 Physics: An Introduction"
                 >
                   <a
                     className="c37"
@@ -4491,13 +4478,13 @@ Array [
                     "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
                   }
                 }
-                textValue="<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>"
+                textValue="23.12 RLC Series AC Circuits"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>"
+                  textValue="23.12 RLC Series AC Circuits"
                 >
                   <a
                     className="c37"
@@ -4636,7 +4623,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>"
+              textValue="2 Test Chapter 2"
             >
               <div
                 className=""
@@ -4816,13 +4803,13 @@ Array [
                     "title": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 3</span>"
+                textValue="Test Page 3"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 3</span>"
+                  textValue="Test Page 3"
                 >
                   <a
                     aria-label="Test Page 3 - Chapter 2 "
@@ -4962,7 +4949,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>"
+              textValue="3 Test Chapter 3"
             >
               <div
                 className=""
@@ -5142,13 +5129,13 @@ Array [
                     "title": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 4</span>"
+                textValue="Test Page 4"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 4</span>"
+                  textValue="Test Page 4"
                 >
                   <a
                     aria-label="Test Page 4 - Chapter 3 - Current Page"
@@ -5288,7 +5275,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>"
+              textValue="4 Test Chapter 4"
             >
               <div
                 className=""
@@ -5468,13 +5455,13 @@ Array [
                     "title": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 5</span>"
+                textValue="Test Page 5"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 5</span>"
+                  textValue="Test Page 5"
                 >
                   <a
                     aria-label="Test Page 5 - Chapter 4 "
@@ -5614,7 +5601,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>"
+              textValue="10 Test Chapter 5"
             >
               <div
                 className=""
@@ -5794,13 +5781,13 @@ Array [
                     "title": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 6 with special characters in url</span>"
+                textValue="Test Page 6 with special characters in url"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 6 with special characters in url</span>"
+                  textValue="Test Page 6 with special characters in url"
                 >
                   <a
                     aria-label="Test Page 6 with special characters in url - Chapter 10 "
@@ -5940,7 +5927,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>"
+              textValue="12 Test Chapter 6"
             >
               <div
                 className=""
@@ -6120,13 +6107,13 @@ Array [
                     "title": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 7</span>"
+                textValue="Test Page 7"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 7</span>"
+                  textValue="Test Page 7"
                 >
                   <a
                     aria-label="Test Page 7 - Chapter 12 "
@@ -6266,13 +6253,13 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>"
+              textValue="A | Atomic Masses"
             >
               <div
                 className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
-                textValue="<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>"
+                textValue="A | Atomic Masses"
               >
                 <a
                   className="c37"
@@ -6410,13 +6397,13 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>"
+              textValue="D | Glossary of Key Symbols and Notation"
             >
               <div
                 className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
-                textValue="<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>"
+                textValue="D | Glossary of Key Symbols and Notation"
               >
                 <a
                   className="c37"
@@ -6554,13 +6541,13 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-text\\">Test Page for Generic Styles</span>"
+              textValue="Test Page for Generic Styles"
             >
               <div
                 className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
-                textValue="<span class=\\"os-text\\">Test Page for Generic Styles</span>"
+                textValue="Test Page for Generic Styles"
               >
                 <a
                   className="c37"
@@ -7498,6 +7485,7 @@ Array [
     >
       <a
         href="/"
+        onClick={[Function]}
       >
         <img
           alt="OpenStax Logo"
@@ -8713,6 +8701,7 @@ Array [
   top: 7rem;
   width: 100%;
   overflow: visible;
+  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
@@ -8772,6 +8761,7 @@ Array [
 
 .c54 {
   margin-left: auto;
+  margin-right: auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -8780,7 +8770,6 @@ Array [
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-right: -5.2rem;
   position: relative;
   color: #5e6062;
   border: solid 0.1rem;
@@ -8907,7 +8896,6 @@ Array [
   background-color: #fff;
   -webkit-transition: padding-left 300ms;
   transition: padding-left 300ms;
-  padding-left: 37.5rem;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
@@ -8943,7 +8931,6 @@ Array [
 }
 
 .c60 {
-  margin-left: auto;
   z-index: 3;
 }
 
@@ -10021,18 +10008,6 @@ Array [
   }
 }
 
-@media screen and (max-width:90em) {
-  .c50 {
-    padding-left: calc(45.5rem - (100vw - 128rem) / 2);
-  }
-}
-
-@media screen and (max-width:80em) {
-  .c50 {
-    padding-left: 45.5rem;
-  }
-}
-
 @media screen and (max-width:75em) {
   .c50 {
     padding-left: 0 !important;
@@ -10102,7 +10077,6 @@ Array [
 
 @media screen and (max-width:75em) {
   .c65 {
-    padding-left: 8rem;
     display: block;
   }
 }
@@ -10768,13 +10742,13 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-text\\">Test Page 1</span>"
+              textValue="Test Page 1"
             >
               <div
                 className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
-                textValue="<span class=\\"os-text\\">Test Page 1</span>"
+                textValue="Test Page 1"
               >
                 <a
                   className="c37"
@@ -10912,7 +10886,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>"
+              textValue="1 Test Chapter 1"
             >
               <div
                 className=""
@@ -11109,7 +11083,7 @@ Array [
                     "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
                   }
                 }
-                textValue="<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>"
+                textValue="1 Test Chapter 1.1"
               >
                 <div
                   className=""
@@ -11318,13 +11292,13 @@ Array [
                       "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
                     }
                   }
-                  textValue="<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
+                  textValue="Introduction to Science and the Realm of Physics, Physical Quantities, and Units"
                 >
                   <div
                     className="c36"
                     data-testid="mock-tree-item-content"
                     data-type="page"
-                    textValue="<span class=\\"os-text\\">Introduction to Science and the Realm of Physics, Physical Quantities, and Units</span>"
+                    textValue="Introduction to Science and the Realm of Physics, Physical Quantities, and Units"
                   >
                     <a
                       aria-label="Introduction to Science and the Realm of Physics, Physical Quantities, and Units - Chapter 1 "
@@ -11493,13 +11467,13 @@ Array [
                     "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
                   }
                 }
-                textValue="<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>"
+                textValue="1.1 Physics: An Introduction"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Physics: An Introduction</span>"
+                  textValue="1.1 Physics: An Introduction"
                 >
                   <a
                     className="c37"
@@ -11666,13 +11640,13 @@ Array [
                     "title": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
                   }
                 }
-                textValue="<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>"
+                textValue="23.12 RLC Series AC Circuits"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-number\\">23.12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">RLC Series AC Circuits</span>"
+                  textValue="23.12 RLC Series AC Circuits"
                 >
                   <a
                     className="c37"
@@ -11811,7 +11785,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>"
+              textValue="2 Test Chapter 2"
             >
               <div
                 className=""
@@ -11991,13 +11965,13 @@ Array [
                     "title": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 3</span>"
+                textValue="Test Page 3"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 3</span>"
+                  textValue="Test Page 3"
                 >
                   <a
                     aria-label="Test Page 3 - Chapter 2 "
@@ -12137,7 +12111,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>"
+              textValue="3 Test Chapter 3"
             >
               <div
                 className=""
@@ -12317,13 +12291,13 @@ Array [
                     "title": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 4</span>"
+                textValue="Test Page 4"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 4</span>"
+                  textValue="Test Page 4"
                 >
                   <a
                     aria-label="Test Page 4 - Chapter 3 "
@@ -12463,7 +12437,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>"
+              textValue="4 Test Chapter 4"
             >
               <div
                 className=""
@@ -12643,13 +12617,13 @@ Array [
                     "title": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 5</span>"
+                textValue="Test Page 5"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 5</span>"
+                  textValue="Test Page 5"
                 >
                   <a
                     aria-label="Test Page 5 - Chapter 4 "
@@ -12789,7 +12763,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>"
+              textValue="10 Test Chapter 5"
             >
               <div
                 className=""
@@ -12969,13 +12943,13 @@ Array [
                     "title": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 6 with special characters in url</span>"
+                textValue="Test Page 6 with special characters in url"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 6 with special characters in url</span>"
+                  textValue="Test Page 6 with special characters in url"
                 >
                   <a
                     aria-label="Test Page 6 with special characters in url - Chapter 10 "
@@ -13115,7 +13089,7 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>"
+              textValue="12 Test Chapter 6"
             >
               <div
                 className=""
@@ -13295,13 +13269,13 @@ Array [
                     "title": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
                   }
                 }
-                textValue="<span class=\\"os-text\\">Test Page 7</span>"
+                textValue="Test Page 7"
               >
                 <div
                   className="c36"
                   data-testid="mock-tree-item-content"
                   data-type="page"
-                  textValue="<span class=\\"os-text\\">Test Page 7</span>"
+                  textValue="Test Page 7"
                 >
                   <a
                     aria-label="Test Page 7 - Chapter 12 "
@@ -13441,13 +13415,13 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>"
+              textValue="A | Atomic Masses"
             >
               <div
                 className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
-                textValue="<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>"
+                textValue="A | Atomic Masses"
               >
                 <a
                   className="c37"
@@ -13585,13 +13559,13 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>"
+              textValue="D | Glossary of Key Symbols and Notation"
             >
               <div
                 className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
-                textValue="<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>"
+                textValue="D | Glossary of Key Symbols and Notation"
               >
                 <a
                   className="c37"
@@ -13729,13 +13703,13 @@ Array [
                   "title": "Test Book 1",
                 }
               }
-              textValue="<span class=\\"os-text\\">Test Page for Generic Styles</span>"
+              textValue="Test Page for Generic Styles"
             >
               <div
                 className="c36"
                 data-testid="mock-tree-item-content"
                 data-type="page"
-                textValue="<span class=\\"os-text\\">Test Page for Generic Styles</span>"
+                textValue="Test Page for Generic Styles"
               >
                 <a
                   className="c37"
