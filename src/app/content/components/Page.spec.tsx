@@ -310,7 +310,7 @@ describe('Page', () => {
       `)).toEqual(`<div class="os-figure" id="figure-id1">
           <figure data-id="figure-id1">
             <span data-alt="Something happens." data-type="media" id="span-id1">
-              <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300" tabindex="0" role="button" aria-label="Open preview of Something happens.">
+              <button type="button" aria-label="Click to enlarge image of Something happens." class="image-button-wrapper"><img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300"></button>
             </span>
           </figure>
           <div class="os-caption-container">

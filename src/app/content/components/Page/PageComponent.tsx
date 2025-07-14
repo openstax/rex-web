@@ -10,7 +10,7 @@ import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import PageToasts from '../Page/PageToasts';
 import { PagePropTypes } from './connector';
-import { transformContent, linksToOtherPagesOpenInNewTab } from './contentDOMTransformations';
+import { transformContent, linksToOtherPagesOpenInNewTab, enhanceImagesForAccessibility } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import * as lazyResources from './lazyResourceManager';
@@ -38,7 +38,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
-  private mediaModalManager = createMediaModalManager(this.container.current);
+  private mediaModalManager = createMediaModalManager();
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
@@ -83,13 +83,20 @@ export default class PageComponent extends Component<PagePropTypes> {
       });
     }
     this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
-    this.mediaModalManager = createMediaModalManager(this.container.current);
-  }
+    enhanceImagesForAccessibility(this.container.current);
+    this.mediaModalManager.mount(this.container.current);
+}
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
     // Store the id of this update. We need it because we want to update highlight managers only once
     // per rerender. componentDidUpdate is called multiple times when user navigates quickly.
     const runId = this.getRunId();
+
+    // When the page changes we want to mount the media modal manager
+    if (this.container.current){
+      enhanceImagesForAccessibility(this.container.current);
+      this.mediaModalManager.mount(this.container.current);
+    }
 
     // If page has changed, call postProcess that will remove old and attach new listeners
     // and start mathjax typesetting.
@@ -143,7 +150,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOff();
     this.searchHighlightManager.unmount();
     this.highlightManager.unmount();
-    this.mediaModalManager.detachListeners();
+    this.mediaModalManager.unmount();
   }
 
   public render() {
@@ -245,6 +252,9 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     return promise.then(() => {
       this.processing = this.processing.filter((p) => p !== promise);
+      // enhanceImagesForAccessibility(container);
+      this.mediaModalManager.mount(container);
+  
     });
   }
 
