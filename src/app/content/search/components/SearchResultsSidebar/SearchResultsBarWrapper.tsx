@@ -158,7 +158,10 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         </FormattedMessage>
       </Styled.SearchResultsHeaderTitle> : null}
       <Styled.CloseIconWrapper>
-        <Styled.CloseIconButton onClick={this.props.onClose}>
+        <Styled.CloseIconButton
+        onClick={this.props.onClose}
+        data-testid='close-search-noresults'
+        >
           <Styled.CloseIcon />
         </Styled.CloseIconButton>
       </Styled.CloseIconWrapper>
