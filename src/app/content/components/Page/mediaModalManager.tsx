@@ -11,6 +11,7 @@ export function createMediaModalManager() {
     setModalContent?.(content);
   };
 
+// tslint:disable-next-line:variable-name
   const MediaModalPortal = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [modalContent, setContent] = React.useState<ReactNode>(null);

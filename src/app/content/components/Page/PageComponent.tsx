@@ -10,7 +10,7 @@ import { preloadedPageIdIs } from '../../utils';
 import getCleanContent from '../../utils/getCleanContent';
 import PageToasts from '../Page/PageToasts';
 import { PagePropTypes } from './connector';
-import { transformContent, linksToOtherPagesOpenInNewTab, enhanceImagesForAccessibility } from './contentDOMTransformations';
+import { transformContent, linksToOtherPagesOpenInNewTab } from './contentDOMTransformations';
 import * as contentLinks from './contentLinkHandler';
 import highlightManager, { stubHighlightManager, UpdateOptions as HighlightUpdateOptions } from './highlightManager';
 import * as lazyResources from './lazyResourceManager';
@@ -83,7 +83,6 @@ export default class PageComponent extends Component<PagePropTypes> {
       });
     }
     this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
-    enhanceImagesForAccessibility(this.container.current);
     this.mediaModalManager.mount(this.container.current);
 }
 
@@ -92,9 +91,8 @@ export default class PageComponent extends Component<PagePropTypes> {
     // per rerender. componentDidUpdate is called multiple times when user navigates quickly.
     const runId = this.getRunId();
 
-    // When the page changes we want to mount the media modal manager
-    if (this.container.current){
-      enhanceImagesForAccessibility(this.container.current);
+    // When the page changes we want to mount it to the media modal manager
+    if (this.container.current) {
       this.mediaModalManager.mount(this.container.current);
     }
 
@@ -252,9 +250,6 @@ export default class PageComponent extends Component<PagePropTypes> {
 
     return promise.then(() => {
       this.processing = this.processing.filter((p) => p !== promise);
-      // enhanceImagesForAccessibility(container);
-      this.mediaModalManager.mount(container);
-  
     });
   }
 

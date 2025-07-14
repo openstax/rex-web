@@ -35,6 +35,7 @@ export const transformContent = (
   expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, props.intl);
   optimizeImages(rootEl, services);
+  enhanceImagesForAccessibility(rootEl);
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -251,18 +252,18 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
   }
 }
 
-export function enhanceImagesForAccessibility(rootEl: HTMLElement) {
+function enhanceImagesForAccessibility(rootEl: HTMLElement) {
   rootEl.querySelectorAll('img').forEach((img) => {
     if (img.parentElement?.tagName.toLowerCase() === 'button') {
       return;
     }
     if (document === undefined) {
-      return
+      return;
     }
     const button = document.createElement('button');
     button.type = 'button';
     const alt = img.getAttribute('alt');
-    const label = alt ? `Click to enlarge image of ${alt}` : 'Open media preview';
+    const label = alt ? `Click to enlarge image of ${alt}` : 'Click to enlarge this image';
     button.setAttribute('aria-label', label);
 
     button.classList.add('image-button-wrapper');
