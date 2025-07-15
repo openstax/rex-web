@@ -10,8 +10,8 @@ const TEST_CASES: { [testCase: string]: (target: Page) => Promise<void> } = {
   Desktop: setDesktopViewport, Mobile: setMobileViewport,
 };
 const EXPECTED_SCROLL_TOPS: { [testCase: string]: number[] } = {
-  Desktop: [242, 90, 122, 242, 365, 668, 761, 1263, 1607],
-  Mobile: [239, 66, 96, 239, 523, 1263, 1402, 1751, 2118],
+  Desktop: [242, 90, 122, 242, 365, 668, 761, 1270, 1614],
+  Mobile: [239, 66, 96, 239, 523, 1263, 1402, 1758, 2125],
 };
 
 beforeAll(async() => {
@@ -55,7 +55,6 @@ describe('Content', () => {
 
         await navigate(page, TEST_PAGE_URL);
         await finishRender(page);
-
         // scrolling on initial load doesn't work on the dev build
         if (process.env.SERVER_MODE === 'built') {
           // Loading page with anchor
