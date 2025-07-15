@@ -233,6 +233,7 @@ Array [
         >
           <button
             className="c4 c5"
+            data-testid="close-search-noresults"
             onClick={[Function]}
           >
             <svg
