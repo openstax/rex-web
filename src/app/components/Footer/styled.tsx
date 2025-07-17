@@ -235,8 +235,7 @@ export const ManageCookiesLink = styled(RawCookiesLink)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
-export const FooterButton = styled.button`
+const flexFooterLinkStyle = css`
   ${footerLinkStyle}
   font-size: inherit;
   cursor: pointer;
@@ -244,6 +243,16 @@ export const FooterButton = styled.button`
   border: none;
   background-color: transparent;
 `;
+
+// tslint:disable-next-line:variable-name
+export const FooterButton = styled.button`
+  ${flexFooterLinkStyle}
+`;
+
+// tslint:disable-next-line:variable-name
+export const ManageCookiesFlexLink = styled(RawCookiesLink)`
+  ${flexFooterLinkStyle}
+`
 
 // tslint:disable-next-line:variable-name
 export const ContactDialog = styled(Modal)`

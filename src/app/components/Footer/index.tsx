@@ -307,9 +307,9 @@ const PortalColumn3 = () => (
         id='i18n:footer:column3:accessibility'
       />
       <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
-      <Styled.ManageCookiesLink>
+      <Styled.ManageCookiesFlexLink>
         <BareMessage id='i18n:footer:column3:manage-cookies' />
-      </Styled.ManageCookiesLink>
+      </Styled.ManageCookiesFlexLink>
     </LinkList>
   </Styled.Column3>
 );
