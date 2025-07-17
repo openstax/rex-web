@@ -40,7 +40,6 @@ import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
-jest.mock('./Page/PageToasts', () => (props: any) => <div data-mock-toast {...props} />);
 
 jest.mock('../../../config.books', () => {
   const mockBook = (jest as any).requireActual('../../../test/mocks/archiveLoader').book;
@@ -128,6 +127,7 @@ describe('Page', () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.resetAllMocks();
+    jest.restoreAllMocks();
     unmountDom();
   });
 
