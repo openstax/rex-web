@@ -127,7 +127,6 @@ describe('Page', () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.resetAllMocks();
-    jest.restoreAllMocks();
     unmountDom();
   });
 
@@ -1246,6 +1245,8 @@ describe('Page', () => {
   });
 
   it('scrolls to top on new content', async() => {
+    jest.useRealTimers();
+
     if (!window) {
       return expect(window).toBeTruthy();
     }
