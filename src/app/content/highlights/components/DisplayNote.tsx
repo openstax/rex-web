@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
-import { useDebouncedWindowSize, useFocusElement } from '../../../reactUtils';
+import { useDebouncedWindowSize, useFocusElement, useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
@@ -73,6 +73,9 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   useOnClickOutside(elements, isActive, onBlur, { capture: true });
 
   useFocusElement(element, shouldFocusCard);
+
+  // Trap tab navigation when the card is active
+  useTrapTabNavigation(element, isActive);
 
   React.useEffect(() => {
     if (!isActive) {

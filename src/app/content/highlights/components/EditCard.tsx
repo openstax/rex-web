@@ -72,6 +72,7 @@ function LoginOrEdit({
       className={props.className}
       role='dialog'
       aria-label={formatMessage({id: 'i18n:highlighter:edit-note:label'})}
+      aria-live='polite'
     >
       <form
         ref={mergeRefs(fref, element)}

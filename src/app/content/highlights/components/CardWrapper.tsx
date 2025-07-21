@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight } from '../../../reactUtils';
 import { AppState } from '../../../types';
-import { assertDefined } from '../../../utils';
+import { assertDefined, assertDocument } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { highlightKeyCombination } from '../constants';
@@ -36,6 +36,27 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
   const focusedHighlight = React.useMemo(
     () => highlights.find((highlight) => highlight.id === focusedId),
     [focusedId, highlights]);
+
+  // Walk backwards through DOM to find the closest previous focusable element
+  const findPreviousFocusableElement = React.useCallback((startElement: HTMLElement): HTMLElement | null => {
+    let current: HTMLElement | null = startElement.previousElementSibling as HTMLElement;
+
+    // Check previous siblings first
+    while (current) {
+      if (current.tabIndex >=0  && current.offsetWidth > 0 && current.offsetHeight > 0) {
+        return current;
+      }
+      current = current.previousElementSibling as HTMLElement;
+    }
+
+    // If no focusable siblings, move up to parent and check its previous siblings
+    if (startElement.parentElement && startElement.parentElement !== container) {
+      return findPreviousFocusableElement(startElement.parentElement);
+    }
+
+    return null;
+  }, [container]);
+
   const setNewCardsPositionsRef = React.useRef<() => void>();
   const [isHiddenByEscape, dispatch] = React.useReducer(
     editCardVisibilityHandler,
@@ -58,8 +79,37 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
     }
   }, [focusedHighlight, focusedId]);
 
+  const restorePreviousFocus = React.useCallback((targetHighlightId?: string) => {
+    if (targetHighlightId) {
+      // When deleting, focus the specified highlight (previous one in tab order)
+      const targetHighlight = highlights.find(h => h.id === targetHighlightId);
+      if (targetHighlight) {
+        setTimeout(() => {
+          targetHighlight.focus();
+        }, 0);
+        return;
+      }
+    }
+
+    // When closing with Escape, focus should go back to the current highlight
+    // so that the next Tab continues the natural tab flow
+    if (focusedHighlight && focusedHighlight.elements[0]) {
+      setTimeout(() => {
+        focusedHighlight.focus();
+      }, 0);
+      return;
+    }
+
+    // Fallback: focus the container or document body
+    setTimeout(() => {
+      container.focus();
+    }, 0);
+  }, [focusedHighlight, highlights, container]);
+
   const hideCard = () => {
     dispatch({ type: 'HIDE', id: focusedId });
+    setShouldFocusCard(false); // Reset focus card state when closing
+    restorePreviousFocus();
   };
 
   const showCard = (cardId: string | undefined) => {
@@ -76,6 +126,25 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
 
   // Allow to hide EditCard using Escape key
   useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
+
+  // Allow Tab key to focus inside the card when a highlight card is shown
+  const focusInsideCard = React.useCallback((event?: KeyboardEvent) => {
+    // Only focus inside the card if there's a focused highlight AND its card is already visible
+    // Check if we're not already inside a card element
+    const activeElement = assertDocument().activeElement as HTMLElement;
+    const isInsideCard = element.current?.contains(activeElement);
+
+    if (focusedHighlight && element.current && !isInsideCard) {
+      // Only focus inside if the card is already active/visible (not just appearing)
+      const cardIsAlreadyVisible = focusedId && !isHiddenByEscape.get(focusedId);
+      if (cardIsAlreadyVisible) {
+        setShouldFocusCard(true);
+      }
+    }
+  }, [focusedHighlight, focusedId, isHiddenByEscape]);
+
+  // useKeyCombination({key: 'Tab'}, focusInsideCard, noopKeyCombinationHandler([container, element]), false);
+  useKeyCombination({key: 'Tab'}, moveFocus, noopKeyCombinationHandler([container, element]), false);
 
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
@@ -148,6 +217,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
           zIndex={highlights.length - index}
           shouldFocusCard={focusThisCard}
           isHidden={checkIfHiddenByCollapsedAncestor(highlight) || isHiddenByEscape.get(highlight.id)}
+          restorePreviousFocus={restorePreviousFocus}
         />;
       })}
     </div>

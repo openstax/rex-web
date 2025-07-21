@@ -53,6 +53,7 @@ export interface CardProps {
   highlightOffsets?: { top: number; bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   isHidden: boolean;
+  restorePreviousFocus?: (highlightId?: string) => void;
 }
 
 type CardPropsWithBookAndPage = Omit<CardProps, 'book' | 'page'> & {
@@ -200,6 +201,10 @@ function NoteOrCard({
       showToast({
         message: 'Highlight removed',
       });
+      // Restore focus to the previous element after removal
+      if (props.restorePreviousFocus) {
+        props.restorePreviousFocus(props.data.prevHighlightId);
+      }
     }
   }, [locationFilterId, props, showToast, setHighlightRemoved]);
   const style = highlightStyles.find(
@@ -267,7 +272,13 @@ function EditCardWithOnCreate({
     },
     [book, create, highlight, highlighter, locationFilterId, page.id]
   );
-  const stopEditing = React.useCallback(() => setEditing(false), [setEditing]);
+  const stopEditing = React.useCallback(() => {
+    setEditing(false);
+    // Restore focus to the previous element when canceling
+    if (cardProps.restorePreviousFocus) {
+      cardProps.restorePreviousFocus();
+    }
+  }, [setEditing, cardProps]);
 
   return (
     <EditCard
