@@ -252,7 +252,7 @@ export const FooterButton = styled.button`
 // tslint:disable-next-line:variable-name
 export const ManageCookiesFlexLink = styled(RawCookiesLink)`
   ${flexFooterLinkStyle}
-`
+`;
 
 // tslint:disable-next-line:variable-name
 export const ContactDialog = styled(Modal)`
