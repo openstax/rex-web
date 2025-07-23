@@ -78,7 +78,7 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
     onClick={async(e) => {
       e.stopPropagation();
       e.preventDefault();
-      
+
       if (isClickWithModifierKeys(e) || anchorProps.target === '_blank') {
         return;
       }
