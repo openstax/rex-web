@@ -76,12 +76,12 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   return <a
     ref={myForwardedRef}
     onClick={async(e) => {
-
+      e.stopPropagation();
+      e.preventDefault();
+      
       if (isClickWithModifierKeys(e) || anchorProps.target === '_blank') {
         return;
       }
-
-      e.preventDefault();
 
       if (hasUnsavedHighlight && !await showConfirmation(services)) {
         return;
