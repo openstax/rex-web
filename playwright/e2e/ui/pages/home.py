@@ -533,7 +533,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def close_unsuccessful_search_result_sidebar(self):
-        await self.page.locator("div.styled__SearchResultsBar-as3fh1-4.hpndbT > div > h2 > div > button").click()
+        await self.page.get_by_test_id("close-search-noresults").click()
 
     @pytest.mark.asyncio
     async def close_successful_search_result_sidebar(self):
