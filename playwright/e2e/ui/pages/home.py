@@ -542,3 +542,9 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_first_search_result(self):
         await self.page.locator("details > ol > li > a:nth-child(2)").first.click()
+
+    # Deleting highlights before highlights tests
+
+    @pytest.mark.asyncio
+    async def section_count(self):
+        return await self.page.locator("section").all()
