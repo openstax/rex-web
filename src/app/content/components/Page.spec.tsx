@@ -833,6 +833,12 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
+    // ignore PageToasts timeout
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
+
     const {root} = renderDomWithReferences();
 
     const hit = makeSearchResultHit({book, page});
@@ -995,6 +1001,12 @@ describe('Page', () => {
   });
 
   it('renders error modal for different search results', async() => {
+    // ignore PageToasts timeout
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -1047,6 +1059,12 @@ describe('Page', () => {
   });
 
   it('doesn\'t render error modal for the same result twice', async() => {
+    // ignore PageToasts timeout
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
+
     const {root} = renderDomWithReferences();
 
     // page lifecycle hooks
@@ -1095,6 +1113,11 @@ describe('Page', () => {
   });
 
   it('refresh error modal for different search results if they are of the same type', async() => {
+    // ignore PageToasts timeout
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
     const {root} = renderDomWithReferences();
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1144,6 +1167,11 @@ describe('Page', () => {
   });
 
   it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
+    // ignore PageToasts timeout
+    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
+      cb();
+      return 0 as any;
+    });
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1217,6 +1245,8 @@ describe('Page', () => {
   });
 
   it('scrolls to top on new content', async() => {
+    jest.useRealTimers();
+
     if (!window) {
       return expect(window).toBeTruthy();
     }

@@ -33,6 +33,7 @@ exports[`PageToasts matches snapshot 1`] = `
 }
 
 <div
+  aria-live="polite"
   className="c0"
   role="alertdialog"
 />
@@ -74,9 +75,11 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
   -webkit-transition: transform 0.6s;
   transition: transform 0.6s;
   z-index: 1;
-  -webkit-transform: translateY(-100%);
-  -ms-transform: translateY(-100%);
-  transform: translateY(-100%);
+  -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  transform: translateY(0%);
+  -webkit-animation: hSsjZP 1s forwards;
+  animation: hSsjZP 1s forwards;
 }
 
 .c3 {
@@ -181,6 +184,7 @@ exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`]
 }
 
 <div
+  aria-live="polite"
   className="c0"
   role="alertdialog"
 >
@@ -278,9 +282,11 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
   -webkit-transition: transform 0.6s;
   transition: transform 0.6s;
   z-index: 1;
-  -webkit-transform: translateY(-100%);
-  -ms-transform: translateY(-100%);
-  transform: translateY(-100%);
+  -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  transform: translateY(0%);
+  -webkit-animation: hSsjZP 1s forwards;
+  animation: hSsjZP 1s forwards;
 }
 
 .c3 {
@@ -385,6 +391,7 @@ exports[`PageToasts matches snapshots with toasts 1`] = `
 }
 
 <div
+  aria-live="polite"
   className="c0"
   role="alertdialog"
 >
