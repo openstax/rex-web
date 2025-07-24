@@ -22,6 +22,7 @@ import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scroll
 import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 import isEqual from 'lodash/fp/isEqual';
+import { createMediaModalManager } from './mediaModalManager';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -37,6 +38,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
+  private mediaModalManager = createMediaModalManager();
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
@@ -81,12 +83,18 @@ export default class PageComponent extends Component<PagePropTypes> {
       });
     }
     this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
-  }
+    this.mediaModalManager.mount(this.container.current);
+}
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
     // Store the id of this update. We need it because we want to update highlight managers only once
     // per rerender. componentDidUpdate is called multiple times when user navigates quickly.
     const runId = this.getRunId();
+
+    // When the page changes we want to mount it to the media modal manager
+    if (this.container.current) {
+      this.mediaModalManager.mount(this.container.current);
+    }
 
     // If page has changed, call postProcess that will remove old and attach new listeners
     // and start mathjax typesetting.
@@ -140,6 +148,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     this.listenersOff();
     this.searchHighlightManager.unmount();
     this.highlightManager.unmount();
+    this.mediaModalManager.unmount();
   }
 
   public render() {
@@ -149,6 +158,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     return <MinPageHeight>
       <this.highlightManager.CardList />
       <PT />
+      <this.mediaModalManager.MediaModalPortal />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()
@@ -208,7 +218,6 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   private listenersOn() {
     this.listenersOff();
-
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
@@ -223,7 +232,6 @@ export default class PageComponent extends Component<PagePropTypes> {
         el.removeEventListener('click', handler);
       }
     };
-
     this.mapLinks(removeIfExists);
   }
 
