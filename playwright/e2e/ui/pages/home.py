@@ -405,7 +405,7 @@ class HomeRex:
     async def close_survey_dialog(self):
         await self.survey_dialog_is_visible.click()
 
-    # Highlight box and highlighting
+    # Highlight box and highlights
 
     @property
     def highlight_box_trash_icon_is_visible(self):
