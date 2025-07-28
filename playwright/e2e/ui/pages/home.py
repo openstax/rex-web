@@ -409,7 +409,7 @@ class HomeRex:
 
     @property
     def highlight_box_trash_icon_is_visible(self):
-        return self.page.locator("div.sc-cIShpX.kepmsY > div > div > form > div > div > button")
+        return self.page.locator("div").get_by_test_id('editcard-trash-icon')
 
     @pytest.mark.asyncio
     async def click_highlight_box_trash_icon(self):
@@ -433,7 +433,7 @@ class HomeRex:
 
     @property
     def highlight_box_colours_are_visible(self):
-        return self.page.locator("div > fieldset")
+        return self.page.locator("div").get_by_test_id('highlight-colours-picker')
 
     @pytest.mark.asyncio
     async def click_highlight_box_purple_colour(self):
@@ -485,7 +485,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_highlight_box_save_button(self):
-        await self.page.locator("button.Button-ayg7nk-0.fROpYk").click()
+        await self.page.locator("div").get_by_test_id("save").click()
 
     @property
     def overlapping_highlights_message_is_visible(self):
