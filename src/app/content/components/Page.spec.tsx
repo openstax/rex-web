@@ -1308,13 +1308,15 @@ describe('Page', () => {
 
     await Promise.resolve();
     await Promise.resolve();
+    // deferred scroll execution (scrollToTarget uses setImmediate)
+    await new Promise((resolve) => setImmediate(resolve));
 
     const target = root.querySelector('[id="somehash"]');
     expect(target).toBeTruthy();
     expect(scrollTo).toHaveBeenCalledWith(target);
   });
 
-  it('scrolls to selected content on initial load', () => {
+  it('scrolls to selected content on initial load', async() => {
     if (!document) {
       return expect(document).toBeTruthy();
     }
@@ -1334,6 +1336,8 @@ describe('Page', () => {
     archiveLoader.mockPage(book, someHashPage, 'unused?2');
 
     const {root} = renderDomHelper();
+    // deferred scroll execution (scrollToTarget uses setImmediate)
+    await new Promise((resolve) => setImmediate(resolve));
 
     const target = root.querySelector('[id="somehash"]');
 
@@ -1371,8 +1375,8 @@ describe('Page', () => {
     await Promise.resolve();
     // previous processing
     await Promise.resolve();
-    // images loaded
-    await Promise.resolve();
+    // deferred scroll execution (scrollToTarget uses setImmediate)
+    await new Promise((resolve) => setImmediate(resolve));
 
     const target = root.querySelector('[id="somehash"]');
 

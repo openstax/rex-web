@@ -19,7 +19,7 @@ const scrollToTarget = (container: HTMLElement | null, hash: string) => {
   const target = getScrollTarget(container, hash);
 
   if (target) {
-    scrollTo(target);
+    setImmediate(() => scrollTo(target));
   }
 };
 
