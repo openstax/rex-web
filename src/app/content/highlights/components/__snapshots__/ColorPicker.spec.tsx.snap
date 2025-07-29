@@ -328,6 +328,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
 >
   <fieldset
     className="c1"
+    data-testid="highlight-colours-picker"
     onFocus={[Function]}
     onKeyDown={[Function]}
     role="radiogroup"
