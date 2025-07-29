@@ -1271,7 +1271,7 @@ describe('Page', () => {
     expect(spy).toHaveBeenCalledWith(0, 0);
   });
 
-  it('waits for images to load before scrolling to a target element', async() => {
+  it('does not wait for images to load before scrolling to a target element', async() => {
     if (!document) {
       return expect(document).toBeTruthy();
     }
@@ -1309,18 +1309,12 @@ describe('Page', () => {
     await Promise.resolve();
     await Promise.resolve();
 
-    expect(scrollTo).not.toHaveBeenCalled();
-
-    resolveImageLoaded();
-    await Promise.resolve();
-
     const target = root.querySelector('[id="somehash"]');
-
     expect(target).toBeTruthy();
     expect(scrollTo).toHaveBeenCalledWith(target);
   });
 
-  it('does not scroll to selected content on initial load', () => {
+  it('scrolls to selected content on initial load', () => {
     if (!document) {
       return expect(document).toBeTruthy();
     }
@@ -1344,7 +1338,7 @@ describe('Page', () => {
     const target = root.querySelector('[id="somehash"]');
 
     expect(target).toBeTruthy();
-    expect(scrollTo).not.toHaveBeenCalled();
+    expect(scrollTo).toHaveBeenCalled();
   });
 
   it('scrolls to selected content on update', async() => {
