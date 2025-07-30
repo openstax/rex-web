@@ -6,7 +6,6 @@ import { assertWindow, memoizeStateToProps } from '../../../utils';
 import { isSearchScrollTarget } from '../../search/guards';
 import { selectedResult } from '../../search/selectors';
 import * as select from '../../selectors';
-import allImagesLoaded from '../utils/allImagesLoaded';
 
 export const mapStateToScrollToTopOrHashProp = memoizeStateToProps((state: AppState) => ({
   hash: selectNavigation.hash(state),
@@ -19,10 +18,8 @@ type ScrollTargetProp = ReturnType<typeof mapStateToScrollToTopOrHashProp>;
 const scrollToTarget = (container: HTMLElement | null, hash: string) => {
   const target = getScrollTarget(container, hash);
 
-  if (target && container) {
-    allImagesLoaded(container).then(
-      () => scrollTo(target)
-    );
+  if (target) {
+    setImmediate(() => scrollTo(target));
   }
 };
 
