@@ -10,6 +10,12 @@ class HomeRex:
     def __init__(self, page):
         self.page = page
 
+    # openstax.org homepage
+
+    @pytest.mark.asyncio
+    async def click_openstax_logo(self):
+        await self.page.locator("div.styled__BarWrapper-sc-3syvnw-12.ePgITh > div > a").click()
+
     # Subjects homepage
 
     @property
@@ -379,6 +385,10 @@ class HomeRex:
     def logout_link_is_visible(self):
         return self.page.get_by_role("menuitem", name="Log out")
 
+    @pytest.mark.asyncio
+    async def click_logout_link(self):
+        await self.logout_link_is_visible.click()
+
     # Book chapter section
 
     @pytest.mark.asyncio
@@ -487,9 +497,39 @@ class HomeRex:
     async def click_highlight_box_save_button(self):
         await self.page.locator("div").get_by_test_id("save").click()
 
+    @pytest.mark.asyncio
+    async def click_highlight_box_cancel_button(self):
+        await self.page.locator("div").get_by_test_id("cancel").click()
+
     @property
     def overlapping_highlights_message_is_visible(self):
         return self.page.locator("div").get_by_test_id('banner-body')
+
+    @pytest.mark.asyncio
+    async def click_new_chapter(self):
+        await self.page.locator("div").get_by_text("The Origin of the Moon").click()
+
+    # Unsaved highlight dialog
+
+    @pytest.mark.asyncio
+    async def unsaved_highlight_dialog_is_visible(self):
+        return await self.page.locator("div").get_by_text('Discard unsaved changes?').is_visible()
+
+    @property
+    def unsaved_highlight_dialog_discard_button_is_visible(self):
+        return self.page.locator("div").get_by_test_id('discard-changes')
+
+    @property
+    def unsaved_highlight_dialog_cancel_button_is_visible(self):
+        return self.page.locator("div").get_by_test_id('cancel-discard')
+
+    @pytest.mark.asyncio
+    async def click_discard_changes_button(self):
+        await self.unsaved_highlight_dialog_discard_button_is_visible.click()
+
+    @pytest.mark.asyncio
+    async def click_cancel_changes_button(self):
+        await self.unsaved_highlight_dialog_cancel_button_is_visible.click()
 
     # Error states and pages
 
@@ -542,3 +582,7 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_first_search_result(self):
         await self.page.locator("details > ol > li > a:nth-child(2)").first.click()
+
+    @pytest.mark.asyncio
+    async def click_search_result(self):
+        await self.page.locator("div").get_by_test_id("search-result").get_by_text("about the Sun (88").click()
