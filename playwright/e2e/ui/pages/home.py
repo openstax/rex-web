@@ -586,3 +586,7 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_search_result(self):
         await self.page.locator("div").get_by_test_id("search-result").get_by_text("about the Sun (88").click()
+
+    @pytest.mark.asyncio
+    async def section_count(self):
+        return await self.page.locator("section").all()
