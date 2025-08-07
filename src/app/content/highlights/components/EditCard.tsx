@@ -454,24 +454,22 @@ function useOnColorChange(props: EditCardProps) {
 }
 
 function useSaveAnnotation(
-  props: EditCardProps,
+  { data, pageId, locationFilterId, highlight, onCancel }: EditCardProps,
   element: React.RefObject<HTMLElement>,
   pendingAnnotation: string
 ) {
   const dispatch = useDispatch();
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
-  const { pageId, locationFilterId, highlight } = props;
-  const onCancel = props.onCancel;
 
   return React.useCallback(
     (toSave: HighlightData) => {
-      const data = assertDefined(
-        props.data,
+      const definedData = assertDefined(
+        data,
         'Can\'t update highlight that doesn\'t exist'
       );
 
-      const addedNote = data.annotation === undefined;
-      const { updatePayload, preUpdateData } = generateUpdatePayload(data, {
+      const addedNote = definedData.annotation === undefined;
+      const { updatePayload, preUpdateData } = generateUpdatePayload(definedData, {
         id: toSave.id,
         annotation: pendingAnnotation,
       });
@@ -490,6 +488,7 @@ function useSaveAnnotation(
       highlight.focus();
     },
     [
+      data,
       dispatch,
       element,
       highlight,
@@ -497,7 +496,6 @@ function useSaveAnnotation(
       onCancel,
       pageId,
       pendingAnnotation,
-      props.data,
       trackEditAnnotation,
     ]
   );
