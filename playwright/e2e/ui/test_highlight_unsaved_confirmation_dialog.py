@@ -63,3 +63,20 @@ async def test_highlight_unsaved_confirmation_dialog(chrome_page, base_url, book
     await home.click_logged_in_user_dropdown()
     await home.click_logout_link()
     assert await home.unsaved_highlight_dialog_is_visible()
+    await home.click_cancel_changes_button()
+
+    # THEN: Click Highlights option with unsaved highlights and confirmation dialog pops up
+
+    await home.click_highlights_option()
+    assert await home.unsaved_highlight_dialog_is_visible()
+    await home.click_cancel_changes_button()
+
+    # THEN: Delete any existing highlights
+
+    await chrome_page.keyboard.press("Escape")
+
+    await home.click_highlights_option()
+    await home.click_highlights_option_page_menu()
+
+    await home.click_highlights_option_page_menu_delete()
+    await home.click_highlights_option_page_menu_delete_delete()
