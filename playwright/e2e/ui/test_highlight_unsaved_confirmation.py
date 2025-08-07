@@ -64,3 +64,11 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(chrome_page, bas
 
     assert "9-4-the-origin-of-the-moon" in chrome_page.url
     assert "Ideas for the Origin of the Moon" in await chrome_page.content()
+
+    # THEN: Delete any existing highlights
+
+    await home.click_highlights_option()
+    await home.click_highlights_option_page_menu()
+
+    await home.click_highlights_option_page_menu_delete()
+    await home.click_highlights_option_page_menu_delete_delete()
