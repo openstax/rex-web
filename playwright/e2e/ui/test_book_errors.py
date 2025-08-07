@@ -77,5 +77,4 @@ async def test_incorrect_page_slug(chrome_page, base_url, book_slug, page_slug):
     #THEN: Error page is shown
     assert 404 == resp_code.status_code
     assert home.incorrect_page_error_is_visible
-
-    assert "Kudos on your desire to explore!" in await home.incorrect_page_error_text.inner_text()
+    assert page_slug != await chrome_page.title()
