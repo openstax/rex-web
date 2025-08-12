@@ -40,6 +40,94 @@ exports[`PageToasts matches snapshot 1`] = `
 `;
 
 exports[`PageToasts matches snapshot with toasts when mobile toolbar is open 1`] = `
+.c5 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  background-color: #fafafa;
+  line-height: 4rem;
+}
+
+.c5 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c5 a:hover {
+  color: #0064A0;
+}
+
+.c1 {
+  width: 100%;
+  position: absolute;
+  overflow: visible;
+}
+
+.c2 {
+  width: 100%;
+  margin: 0;
+  overflow: visible;
+  -webkit-transition: -webkit-transform 0.6s;
+  -webkit-transition: transform 0.6s;
+  transition: transform 0.6s;
+  z-index: 1;
+  -webkit-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  transform: translateY(0%);
+  -webkit-animation: hSsjZP 1s forwards;
+  animation: hSsjZP 1s forwards;
+}
+
+.c3 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5rem 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #F8E8EB;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border: 1px solid #E297A0;
+}
+
+.c3 .c4 {
+  background: inherit;
+  color: #C23834;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
+.c7 {
+  width: 1.8rem;
+  height: 1.8rem;
+  cursor: pointer;
+}
+
+.c6 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: #C22032;
+  overflow: visible;
+}
+
+.c6:hover {
+  color: #E297A0;
+}
+
 .c0 {
   position: -webkit-sticky;
   position: sticky;
