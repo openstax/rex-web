@@ -1,5 +1,5 @@
 # this dockerfile is not for production, its for QA and CI
-FROM debian:buster AS utils
+FROM debian:bullseye AS utils
 
 # general utils
 RUN apt-get update && apt-get install -y \
