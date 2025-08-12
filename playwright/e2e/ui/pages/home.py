@@ -475,15 +475,15 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def small_highlighted_note_box_is_visible(self):
-        return await self.page.locator("div.sc-cIShpX.kepmsY > div > div > div").all()
+        return await self.page.get_by_test_id("card").get_by_role("dialog").is_visible()
 
     @pytest.mark.asyncio
     async def click_small_highlight_box_dropdown(self):
-        await self.page.locator("div.sc-cIShpX.kepmsY > div > div > div > button").click()
+        await self.page.get_by_test_id("card").get_by_role("button").click()
 
     @pytest.mark.asyncio
     async def click_small_highlight_box_delete_button(self):
-        await self.page.locator("div > menu").get_by_text("Delete").click()
+        await self.page.get_by_test_id("card").get_by_text("Delete").click()
 
     @pytest.mark.asyncio
     async def click_delete_highlight_button(self):
