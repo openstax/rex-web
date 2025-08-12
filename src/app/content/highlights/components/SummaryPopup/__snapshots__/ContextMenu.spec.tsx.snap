@@ -676,6 +676,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <fieldset
               className="c15 c16"
+              data-testid="highlight-colours-picker"
               onFocus={[Function]}
               onKeyDown={[Function]}
               role="radiogroup"

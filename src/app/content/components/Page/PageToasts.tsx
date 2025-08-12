@@ -67,7 +67,7 @@ const PageToasts = (props: ToastProps | {}) => {
   // https://tetralogical.com/blog/2024/05/01/why-are-my-live-regions-not-working/
   React.useEffect(() => {
     setTimeout(() => setToastsHidden(false), 1000);
-  }, [setToastsHidden]);
+  }, [setToastsHidden, toastsHidden]);
 
   return (
     <ToastContainerWrapper aria-live='polite' role='alertdialog' {...props} mobileToolbarOpen={mobileToolbarOpen}>

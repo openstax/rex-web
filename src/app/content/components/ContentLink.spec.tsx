@@ -38,6 +38,7 @@ describe('ContentLink', () => {
   const click = async(component: renderer.ReactTestRenderer) => {
     const event = {
       preventDefault: jest.fn(),
+      stopPropagation: jest.fn(),
     };
 
     await component.root.findByType('a').props.onClick(event);
@@ -180,12 +181,13 @@ describe('ContentLink', () => {
       const event = {
         metaKey: true,
         preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
       };
 
       await component.root.findByType('a').props.onClick(event);
 
       expect(dispatch).not.toHaveBeenCalled();
-      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(event.preventDefault).toHaveBeenCalled();
       expect(clickSpy).not.toHaveBeenCalled();
     });
   });

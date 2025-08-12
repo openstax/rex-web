@@ -154,7 +154,7 @@ describe('Assigned', () => {
           'aria-label': 'Next Page',
           'href': 'books/book-slug-1/pages/3-test-page-4',
         })
-        .props.onClick({ preventDefault: jest.fn() });
+        .props.onClick({ preventDefault: jest.fn(), stopPropagation: jest.fn() });
 
       await services.promiseCollector.calm();
     });
@@ -209,7 +209,7 @@ describe('Assigned', () => {
           'aria-label': 'Next Page',
           'href': 'books/book-slug-1/pages/3-test-page-4',
         })
-        .props.onClick({ preventDefault: jest.fn() });
+        .props.onClick({ preventDefault: jest.fn(), stopPropagation: jest.fn() });
 
       await services.promiseCollector.calm();
     });
@@ -223,7 +223,7 @@ describe('Assigned', () => {
           'aria-label': 'Previous Page',
           'href': 'books/book-slug-1/pages/test-page-1',
         })
-        .props.onClick({ preventDefault: jest.fn() });
+        .props.onClick({ preventDefault: jest.fn(), stopPropagation: jest.fn() });
 
       await services.promiseCollector.calm();
     });

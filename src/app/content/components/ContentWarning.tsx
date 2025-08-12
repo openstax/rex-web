@@ -10,9 +10,6 @@ import { useTrapTabNavigation } from '../../reactUtils';
 import { assertDocument } from '../../utils';
 import { hasOSWebData } from '../guards';
 import { tuple } from '../../utils';
-import { user } from '../../auth/selectors';
-import { useSelector } from 'react-redux';
-import { ConnectedLoginButton } from '../../components/NavBar';
 
 // tslint:disable-next-line
 const WarningDiv = styled.div`
@@ -40,7 +37,6 @@ function WarningDivWithTrap({
   dismiss: () => void;
 }) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const authenticated = !!useSelector(user);
 
   // Demand focus
   React.useEffect(
@@ -65,12 +61,9 @@ function WarningDivWithTrap({
   return (
     <WarningDiv tabIndex='-1' ref={ref}>
       <div>{text}</div>
-      { authenticated ?
-        <Button type='button' onClick={dismiss}>
-          Ok
-        </Button> :
-        <ConnectedLoginButton />
-      }
+      <Button type='button' onClick={dismiss}>
+        Ok
+      </Button>
     </WarningDiv>
   );
 }
