@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight } from '../../../reactUtils';
 import { AppState } from '../../../types';
-import { assertDefined } from '../../../utils';
+import { assertDefined, assertDocument } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { highlightKeyCombination } from '../constants';
@@ -87,6 +87,83 @@ function useCardsHeights() {
   return [cardsHeights, onHeightChange] as const;
 }
 
+function rangeString({startOffset, endOffset}: Highlight['range']) {
+  return `${startOffset}-${endOffset}`;
+}
+
+const ELAPSED_LIMIT = 100;
+
+function useFocusedHighlight(
+  highlights: Highlight[],
+  element: React.RefObject<HTMLElement>,
+  container: HTMLElement
+) {
+  const focusedId = useSelector(focused);
+  const focusedHighlight = React.useMemo(
+    () => highlights.find((highlight) => highlight.id === focusedId),
+    [focusedId, highlights]);
+  const [shouldFocusCard, setShouldFocusCard] = React.useState(false);
+  const document = assertDocument();
+  const previousRange = React.useRef<string>('');
+  const [dblclickStamp, setDblclickStamp] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    const handler = () => setDblclickStamp(Date.now());
+
+    document.addEventListener('dblclick', handler);
+    return () => document.removeEventListener('dblclick', handler);
+  }, [document]);
+
+  // Tracking double clicks
+  // double-click events trigger updates to focusedHighlight, but the order and
+  // timing of processing can vary, so we check conditions within a short time
+  // of a double click.
+  React.useEffect(() => {
+    if (focusedHighlight) {
+      const elapsed = Date.now() - dblclickStamp;
+      const isDoubleClick = elapsed < ELAPSED_LIMIT;
+
+      // Existing highlight
+      if (focusedHighlight.elements.length > 0) {
+        if (isDoubleClick) {
+          // Unselect text inside existing highlight.
+          document.getSelection()?.removeAllRanges();
+          setShouldFocusCard(true);
+        }
+        return;
+      }
+
+      // Text selection that could be a highlight
+      const newRange = rangeString(focusedHighlight.range);
+      const isExistingSelection = newRange === previousRange.current
+
+      if (isExistingSelection && isDoubleClick) {
+        setShouldFocusCard(true);
+      }
+      previousRange.current = newRange;
+    }
+  }, [focusedHighlight, document, dblclickStamp]);
+
+  // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
+  // It moves focus between Card component and highlight in the content.
+  const moveFocus = React.useCallback(({target}: KeyboardEvent) => {
+    const activeElement = isHtmlElement(target) ? target : null;
+    const cardIsFocused = focusedHighlight && element.current?.contains(activeElement);
+
+    if (cardIsFocused) {
+      focusedHighlight.focus();
+    }
+    setShouldFocusCard(!cardIsFocused);
+  }, [element, focusedHighlight]);
+
+  useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
+  // Clear shouldFocusCard when focus is lost from the CardWrapper.
+  // If we don't do this then card related for the focused highlight will be focused automatically.
+  useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), []));
+
+  return [focusedHighlight, shouldFocusCard] as const;
+}
+
 function CardsForHighlights({highlights, container, focusedHighlight, shouldFocusCard, highlighter}: {
   highlights: Highlight[];
   container: HTMLElement;
@@ -121,7 +198,6 @@ function CardsForHighlights({highlights, container, focusedHighlight, shouldFocu
   // Allow to hide EditCard using Escape key
   useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
   useFocusHighlight(showCard, highlights);
-
   return <>
     {highlights.map((highlight, index) => {
       const focusThisCard = shouldFocusCard && focusedHighlight === highlight;
@@ -144,32 +220,7 @@ function CardsForHighlights({highlights, container, focusedHighlight, shouldFocu
 // tslint:disable-next-line:variable-name
 const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
-  const [shouldFocusCard, setShouldFocusCard] = React.useState(false);
-  const focusedId = useSelector(focused);
-  const focusedHighlight = React.useMemo(
-    () => highlights.find((highlight) => highlight.id === focusedId),
-    [focusedId, highlights]);
-
-  // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
-  // It moves focus between Card component and highlight in the content.
-  const moveFocus = React.useCallback(({target}: KeyboardEvent) => {
-    const activeElement = isHtmlElement(target) ? target : null;
-
-    if (!focusedHighlight || !activeElement || !element.current) {
-      return;
-    }
-
-    if (element.current.contains(activeElement)) {
-      focusedHighlight.focus();
-    } else {
-      setShouldFocusCard(focusedHighlight !== undefined);
-    }
-  }, [focusedHighlight]);
-
-  useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
-  // Clear shouldFocusCard when focus is lost from the CardWrapper.
-  // If we don't do this then card related for the focused highlight will be focused automatically.
-  useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), []));
+  const [focusedHighlight, shouldFocusCard] = useFocusedHighlight(highlights, element, container);
 
   return <div className={className} ref={element}>
     <CardsForHighlights
