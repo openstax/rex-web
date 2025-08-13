@@ -135,7 +135,7 @@ function useFocusedHighlight(
 
       // Text selection that could be a highlight
       const newRange = rangeString(focusedHighlight.range);
-      const isExistingSelection = newRange === previousRange.current
+      const isExistingSelection = newRange === previousRange.current;
 
       if (isExistingSelection && isDoubleClick) {
         setShouldFocusCard(true);
@@ -143,6 +143,13 @@ function useFocusedHighlight(
       previousRange.current = newRange;
     }
   }, [focusedHighlight, document, dblclickStamp]);
+
+  // Let Enter go from a highlight to the editor
+  const editOnEnter = React.useCallback(() => {
+    if (focusedHighlight) {
+      setShouldFocusCard(true);
+    }
+  }, [focusedHighlight]);
 
   // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -156,6 +163,7 @@ function useFocusedHighlight(
     setShouldFocusCard(!cardIsFocused);
   }, [element, focusedHighlight]);
 
+  useKeyCombination({key: 'Enter'}, editOnEnter);
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
