@@ -38,7 +38,9 @@ async def test_highlights_page_edit_note(chrome_page, base_url, book_slug, page_
 
     await home.click_highlight_box_save_button()
 
-    assert home.small_highlighted_note_box_is_visible
+    await chrome_page.keyboard.press("Escape")
+
+    assert not await home.small_highlighted_note_box_is_visible()
 
     await home.click_highlights_option()
 

@@ -40,7 +40,7 @@ async def test_highlight_box_save_note(chrome_page, base_url, book_slug, page_sl
 
     await home.click_highlight_box_save_button()
 
-    assert home.small_highlighted_note_box_is_visible
+    assert await home.small_highlighted_note_box_is_visible()
 
     await home.click_highlights_option()
 
@@ -71,7 +71,7 @@ async def test_overlapping_highlights(chrome_page, base_url, book_slug, page_slu
 
     await chrome_page.keyboard.press("Escape")
 
-    assert await home.small_highlighted_note_box_is_visible()
+    assert not await home.small_highlighted_note_box_is_visible()
 
     await home.double_click_text()
 
@@ -124,7 +124,7 @@ async def test_highlight_box_note_colours(chrome_page, base_url, book_slug, page
 
     await home.click_highlight_box_save_button()
 
-    assert home.small_highlighted_note_box_is_visible
+    assert await home.small_highlighted_note_box_is_visible()
 
     await home.click_highlights_option()
 
