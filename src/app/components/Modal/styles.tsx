@@ -37,7 +37,6 @@ export const Heading = styled.h1`
   display: flex;
   align-items: center;
   margin: 0;
-  padding: ${modalPadding * 0.5}rem 0;
 `;
 
 // tslint:disable-next-line:variable-name
