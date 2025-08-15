@@ -170,6 +170,9 @@ function Card(props: CardProps) {
   );
 }
 
+type ComputedProps = ReturnType<typeof useComputedProps>;
+type CommonProps = ComputedProps['commonProps'];
+
 function NoteOrCard({
   props,
   setHighlightRemoved,
@@ -179,7 +182,7 @@ function NoteOrCard({
   props: CardPropsWithBookAndPage;
   setHighlightRemoved: React.Dispatch<React.SetStateAction<boolean>>;
   locationFilterId: string;
-  computedProps: ReturnType<typeof useComputedProps>;
+  computedProps: ComputedProps;
 }) {
   const {
     focusCard,
@@ -219,7 +222,7 @@ function NoteOrCard({
         />
       ) : (
         <EditCardWithOnCreate
-          cardProps={props as CardPropsWithBookAndPage}
+          cardProps={props}
           commonProps={{ ...commonProps, onRemove }}
           locationFilterId={locationFilterId}
           hasUnsavedHighlight={hasUnsavedHighlight}
@@ -230,9 +233,8 @@ function NoteOrCard({
   );
 }
 
-type ComputedProps = ReturnType<typeof useComputedProps>;
 type EditCardProps = {
-  commonProps: object;
+  commonProps: CommonProps & {onRemove: () => void};
   cardProps: CardPropsWithBookAndPage;
   locationFilterId: string;
 } & Pick<ComputedProps, 'hasUnsavedHighlight' | 'setEditing'>;
@@ -291,12 +293,13 @@ const StyledCard = styled(Card)`
 // Styling is expensive and most Cards don't need to render
 function PreCard(props: CardProps) {
   const computedProps = useComputedProps(props);
+  const hideUnfocusedEditCard = computedProps.annotation ? {} : {isHidden: !props.shouldFocusCard};
 
   if (!computedProps.annotation && (!props.isActive)) {
     return null;
   }
   return (
-    <StyledCard {...props} />
+    <StyledCard {...{...props, ...hideUnfocusedEditCard}} />
   );
 }
 
