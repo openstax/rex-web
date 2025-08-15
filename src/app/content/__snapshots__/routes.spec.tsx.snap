@@ -286,6 +286,10 @@ Array [
 .c4 .highlight {
   position: relative;
   z-index: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .c4 .MathJax_Display .highlight,
