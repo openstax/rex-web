@@ -14,7 +14,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_openstax_logo(self):
-        await self.page.locator("div.styled__BarWrapper-sc-3syvnw-12.ePgITh > div > a").click()
+        await self.page.get_by_test_id("navbar").get_by_role("img").click()
 
     # Subjects homepage
 
@@ -126,7 +126,7 @@ class HomeRex:
     async def click_student_resources_tab(self):
         await self.page.locator("id=Student resources-tab").click()
 
-    # My Highlights and Notes
+    # Highlights and Notes
 
     @property
     def highlights_option_is_visible(self):
@@ -142,8 +142,7 @@ class HomeRex:
 
     @property
     def highlights_option_page_menu_is_visible(self):
-        return self.page.locator(".ContextMenu__StyledContextMenu-a36hp5-0 > "
-                                 ".Dropdown__TabHiddenDropDown-rmc6yw-1 > .Button__PlainButton-ayg7nk-2").first
+        return self.page.get_by_test_id("highlight-dropdown-menu-toggle").get_by_role("button").first
 
     @pytest.mark.asyncio
     async def click_highlights_option_page_menu(self):
@@ -203,8 +202,7 @@ class HomeRex:
 
     @property
     def citation_attribution_link_is_visible(self):
-        return self.page.locator("div.ContentPane__Wrapper-sc-6et83r-0.hPmLNC > details > summary > "
-                                 "span").get_by_text("Citation/Attribution")
+        return self.page.get_by_test_id("attribution-details")
 
     @property
     def giving_tuesday_popup_is_visible(self):
