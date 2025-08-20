@@ -126,7 +126,7 @@ class HomeRex:
     async def click_student_resources_tab(self):
         await self.page.locator("id=Student resources-tab").click()
 
-    # My Highlights and Notes
+    # Highlights and Notes
 
     @property
     def highlights_option_is_visible(self):
