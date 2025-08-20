@@ -142,7 +142,7 @@ class HomeRex:
 
     @property
     def highlights_option_page_menu_is_visible(self):
-        return self.page.get_by_test_id("dot-menu-dropdown").get_by_role("button").first
+        return self.page.get_by_test_id("highlight-dropdown-menu-toggle").get_by_role("button").first
 
     @pytest.mark.asyncio
     async def click_highlights_option_page_menu(self):
