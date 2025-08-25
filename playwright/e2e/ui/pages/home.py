@@ -78,10 +78,6 @@ class HomeRex:
     def book_link(self):
         return self.page.locator("menu > li:nth-child(5) > a").get_by_text("Economics")
 
-    @pytest.mark.asyncio
-    async def click_book_link(self):
-        await self.book_link.click()
-
     @property
     def book_cover_link(self):
         return self.page.locator("a").get_by_text("Principles of Macroeconomics 3e")
@@ -109,10 +105,6 @@ class HomeRex:
     @property
     def book_contents_is_visible(self):
         return self.page.locator("div").get_by_test_id("toolbar").get_by_label("Click to close the Table of")
-
-    @pytest.mark.asyncio
-    async def click_book_contents_sidebar_option(self):
-        await self.book_contents_is_visible.click()
 
     @property
     def resources_tabs_are_visible(self):
@@ -142,7 +134,7 @@ class HomeRex:
 
     @property
     def highlights_option_page_menu_is_visible(self):
-        return self.page.get_by_test_id("highlight-dropdown-menu-toggle").get_by_role("button").first
+        return self.page.get_by_test_id("highlight-dropdown-menu-toggle").first
 
     @pytest.mark.asyncio
     async def click_highlights_option_page_menu(self):
@@ -203,6 +195,8 @@ class HomeRex:
     @property
     def citation_attribution_link_is_visible(self):
         return self.page.get_by_test_id("attribution-details")
+
+    # Random/seasonal popups
 
     @property
     def giving_tuesday_popup_is_visible(self):
@@ -451,10 +445,6 @@ class HomeRex:
     async def click_highlights_option_green_colour(self):
         await self.page.locator("div").get_by_title("green").first.click()
 
-    @pytest.mark.asyncio
-    async def highlights_option_text_colour_is_purple(self):
-        return await self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS").all()
-
     @property
     def highlights_option_text_colour_purple(self):
         return self.page.locator("div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS")
@@ -507,6 +497,14 @@ class HomeRex:
     async def click_new_chapter(self):
         await self.page.locator("div").get_by_text("The Origin of the Moon").click()
 
+    @pytest.mark.asyncio
+    async def click_show_hide_solution_link(self):
+        await self.page.locator("id=fs-id1165134108429").get_by_title("Show/Hide Solution").click()
+
+    @pytest.mark.asyncio
+    async def click_text_in_solution_block(self):
+        await self.page.locator("p#fs-id1165134108431").dblclick()
+
     # Unsaved highlight dialog
 
     @pytest.mark.asyncio
@@ -543,10 +541,6 @@ class HomeRex:
     def incorrect_page_error_is_visible(self):
         return self.page.locator("main > div").get_by_text("Uh-oh, no page here")
 
-    @property
-    def incorrect_page_error_text(self):
-        return self.page.locator("main > div > p")
-
     # Content search
 
     @property
@@ -556,10 +550,6 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_search(self):
         await self.content_search_field_is_visible.click()
-
-    @pytest.mark.asyncio
-    async def click_search_icon(self):
-        await self.page.get_by_title("Search").click()
 
     @pytest.mark.asyncio
     async def fill_search_field(self, value):
