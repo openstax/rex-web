@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight } from '../../../reactUtils';
 import { AppState } from '../../../types';
-import { assertDefined } from '../../../utils';
+import { assertDefined, assertDocument } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { highlightKeyCombination } from '../constants';
@@ -25,134 +25,228 @@ export interface WrapperProps {
   className?: string;
 }
 
-// tslint:disable-next-line:variable-name
-const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
-  const element = React.useRef<HTMLElement>(null);
-  const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
-  const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
+function checkIfHiddenByCollapsedAncestor(highlight: Highlight) {
+  const highlightElement = highlight.elements[0] as HTMLElement;
+  const collapsedAncestor = highlightElement
+    ? highlightElement.closest('details[data-type="solution"]:not([open])')
+    : null;
+  return Boolean(collapsedAncestor);
+}
+
+function useCardPositionObserver(
+  container: HTMLElement,
+  focusedHighlight: Highlight | undefined,
+  highlights: Highlight[],
+  cardsHeights: Map<string, number>
+) {
   const [offsets, setOffsets] = React.useState<Map<string, { top: number, bottom: number }>>(new Map());
-  const [shouldFocusCard, setShouldFocusCard] = React.useState(false);
-  const focusedId = useSelector(focused);
-  const focusedHighlight = React.useMemo(
-    () => highlights.find((highlight) => highlight.id === focusedId),
-    [focusedId, highlights]);
-  const setNewCardsPositionsRef = React.useRef<() => void>();
-  const [isHiddenByEscape, dispatch] = React.useReducer(
-    editCardVisibilityHandler,
-    new Map(highlights.map((highlight) => [highlight.id, false]))
-  );
-
-  // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
-  // It moves focus between Card component and highlight in the content.
-  const moveFocus = React.useCallback((event: KeyboardEvent) => {
-    const activeElement = isHtmlElement(event.target) ? event.target : null;
-
-    if (!focusedHighlight || !activeElement || !element.current) {
-      return;
-    }
-
-    if (element.current.contains(activeElement)) {
-      focusedHighlight.focus();
-    } else {
-      setShouldFocusCard(focusedId !== undefined);
-    }
-  }, [focusedHighlight, focusedId]);
-
-  const hideCard = () => {
-    dispatch({ type: 'HIDE', id: focusedId });
-  };
-
-  const showCard = (cardId: string | undefined) => {
-    dispatch({ type: 'SHOW', id: cardId });
-  };
-
-  useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
-
-  /*
-  * Allow to show EditCard using Enter key
-  * It is important to preserve the default behavior of Enter key
-  */
-  useKeyCombination({key: 'Enter'}, () => showCard(focusedId), undefined, false);
-
-  // Allow to hide EditCard using Escape key
-  useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
-
-  // Clear shouldFocusCard when focus is lost from the CardWrapper.
-  // If we don't do this then card related for the focused highlight will be focused automatically.
-  useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), [setShouldFocusCard]));
-  useFocusHighlight(showCard, highlights);
-
-  const onHeightChange = React.useCallback((id: string, ref: React.RefObject<HTMLElement>) => {
-    const height = ref.current && ref.current.offsetHeight;
-    if (cardsHeights.get(id) !== height) {
-      setCardsHeights((previous) => new Map(previous).set(id, height === null ? 0 : height));
-    }
-  }, [cardsHeights]);
-
+  const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
   const getOffsetsForHighlight = React.useCallback((highlight: Highlight) => {
     const newOffsets = assertDefined(
       getHighlightOffset(container, highlight),
       `Couldn't get offsets for highlight with an id: ${highlight.id}`
     );
+
     setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
     return newOffsets;
   }, [container]);
+  const updatePositions = React.useCallback(() => updateCardsPositions(
+      focusedHighlight,
+      highlights,
+      cardsHeights,
+      getOffsetsForHighlight,
+      checkIfHiddenByCollapsedAncestor
+    ), [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
+  // This creates a function that doesn't require dependency updates, for use by
+  // the resizeObserver effect. A little nicer than using a ref.
+  const [, dispatchPositions] = React.useReducer(
+    () => setCardsPositions(updatePositions()),
+    undefined
+  );
 
-  const checkIfHiddenByCollapsedAncestor = (highlight: Highlight) => {
-    const highlightElement = highlight.elements[0] as HTMLElement;
-    const collapsedAncestor = highlightElement
-      ? highlightElement.closest('details[data-type="solution"]:not([open])')
-      : null;
-    return Boolean(collapsedAncestor);
-  };
-
-  React.useEffect(() => {
-    setNewCardsPositionsRef.current = () => {
-      const positions = updateCardsPositions(
-        focusedHighlight,
-        highlights,
-        cardsHeights,
-        getOffsetsForHighlight,
-        checkIfHiddenByCollapsedAncestor
-      );
-      setCardsPositions(positions);
-    };
-    setNewCardsPositionsRef.current();
-  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
+  React.useEffect(() => dispatchPositions(), [updatePositions]);
 
   React.useEffect(() => {
-    const resizeObserver = new ResizeObserver(() => {
-      assertDefined(
-        setNewCardsPositionsRef.current,
-        'setNewCardsPositionsRef should be already defined by useEffect'
-      )();
-    });
+    const resizeObserver = new ResizeObserver(dispatchPositions);
     resizeObserver.observe(container);
-    return () => {
-        resizeObserver.disconnect();
-    };
+    return () => resizeObserver.disconnect();
   }, [container]);
 
-  return highlights.length
-    ? <div className={className} ref={element}>
-      {highlights.map((highlight, index) => {
-        const focusThisCard = shouldFocusCard && focusedId === highlight.id;
-        return <Card
-          highlighter={highlighter}
-          highlight={highlight}
-          key={highlight.id}
-          container={container}
-          topOffset={cardsPositions.get(highlight.id)}
-          highlightOffsets={offsets.get(highlight.id)}
-          onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
-          zIndex={highlights.length - index}
-          shouldFocusCard={focusThisCard}
-          isHidden={checkIfHiddenByCollapsedAncestor(highlight) || isHiddenByEscape.get(highlight.id)}
-        />;
-      })}
-    </div>
-    : null;
+  return [cardsPositions, offsets];
+}
+
+function useCardsHeights() {
+  const [cardsHeights, setCardsHeights] = React.useState<Map<string, number>>(new Map());
+  const onHeightChange = React.useCallback((id: string, ref: React.RefObject<HTMLElement>) => {
+    const height = ref.current ? ref.current.offsetHeight : 0;
+    if (cardsHeights.get(id) !== height) {
+      setCardsHeights((previous) => new Map(previous).set(id, height));
+    }
+  }, [cardsHeights]);
+
+  return [cardsHeights, onHeightChange] as const;
+}
+
+function rangeString({startOffset, endOffset}: Highlight['range']) {
+  return `${startOffset}-${endOffset}`;
+}
+
+const ELAPSED_LIMIT = 100;
+
+function useFocusedHighlight(
+  highlights: Highlight[],
+  element: React.RefObject<HTMLElement>,
+  container: HTMLElement
+) {
+  const focusedId = useSelector(focused);
+  const focusedHighlight = React.useMemo(
+    () => highlights.find((highlight) => highlight.id === focusedId),
+    [focusedId, highlights]);
+  const [shouldFocusCard, setShouldFocusCard] = React.useState(false);
+  const document = assertDocument();
+  const previousRange = React.useRef<string>('');
+  const [dblclickStamp, setDblclickStamp] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    const handler = () => setDblclickStamp(Date.now());
+
+    document.addEventListener('dblclick', handler);
+    return () => document.removeEventListener('dblclick', handler);
+  }, [document]);
+
+  // Tracking double clicks
+  // double-click events trigger updates to focusedHighlight, but the order and
+  // timing of processing can vary, so we check conditions within a short time
+  // of a double click.
+  React.useEffect(() => {
+    if (focusedHighlight) {
+      const elapsed = Date.now() - dblclickStamp;
+      const isDoubleClick = elapsed < ELAPSED_LIMIT;
+
+      // Existing highlight
+      if (focusedHighlight.elements.length > 0) {
+        if (isDoubleClick) {
+          // Unselect text inside existing highlight.
+          document.getSelection()?.removeAllRanges();
+          setShouldFocusCard(true);
+        }
+        return;
+      }
+
+      // Text selection that could be a highlight
+      const newRange = rangeString(focusedHighlight.range);
+      const isExistingSelection = newRange === previousRange.current;
+
+      if (isExistingSelection && isDoubleClick) {
+        setShouldFocusCard(true);
+      }
+      previousRange.current = newRange;
+    }
+  }, [focusedHighlight, document, dblclickStamp]);
+
+  // Let Enter go from a highlight to the editor
+  const editOnEnter = React.useCallback(() => {
+    if (focusedHighlight) {
+      setShouldFocusCard(true);
+    }
+  }, [focusedHighlight]);
+
+  // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
+  // It moves focus between Card component and highlight in the content.
+  const moveFocus = React.useCallback(({target}: KeyboardEvent) => {
+    const activeElement = isHtmlElement(target) ? target : null;
+    const cardIsFocused = focusedHighlight && element.current?.contains(activeElement);
+
+    if (cardIsFocused) {
+      focusedHighlight.focus();
+    }
+    setShouldFocusCard(!cardIsFocused);
+  }, [element, focusedHighlight]);
+
+  useKeyCombination({key: 'Enter'}, editOnEnter);
+  useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
+  // Clear shouldFocusCard when focus is lost from the CardWrapper.
+  // If we don't do this then card related for the focused highlight will be focused automatically.
+  useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), []));
+
+  return [focusedHighlight, shouldFocusCard] as const;
+}
+
+function CardsForHighlights({highlights, container, focusedHighlight, shouldFocusCard, highlighter}: {
+  highlights: Highlight[];
+  container: HTMLElement;
+  focusedHighlight: Highlight | undefined;
+  shouldFocusCard: boolean;
+  highlighter: Highlighter;
+}) {
+  const [cardsHeights, onHeightChange] = useCardsHeights();
+  const [cardsPositions, offsets] = useCardPositionObserver(
+    container,
+    focusedHighlight,
+    highlights,
+    cardsHeights
+  );
+  const [isHiddenByEscape, dispatch] = React.useReducer(
+    editCardVisibilityHandler,
+    new Map(highlights.map((highlight) => [highlight.id, false]))
+  );
+  const hideCard = () => {
+    focusedHighlight?.focus();
+    dispatch({ type: 'HIDE', id: focusedHighlight?.id });
+  };
+  const showCard = (cardId: string | undefined) => {
+    dispatch({ type: 'SHOW', id: cardId });
+  };
+  /*
+  * Allow to show EditCard using Enter key
+  * It is important to preserve the default behavior of Enter key
+  */
+  useKeyCombination({key: 'Enter'}, () => showCard(focusedHighlight?.id), undefined, false);
+
+  // Allow to hide EditCard using Escape key
+  useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
+  useFocusHighlight(showCard, highlights);
+  return <>
+    {highlights.map((highlight, index) => {
+      const focusThisCard = shouldFocusCard && focusedHighlight === highlight;
+      return <Card
+        highlighter={highlighter}
+        highlight={highlight}
+        key={highlight.id}
+        container={container}
+        topOffset={cardsPositions.get(highlight.id)}
+        highlightOffsets={offsets.get(highlight.id)}
+        onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
+        zIndex={highlights.length - index}
+        shouldFocusCard={focusThisCard}
+        isHidden={checkIfHiddenByCollapsedAncestor(highlight) || isHiddenByEscape.get(highlight.id)}
+      />;
+    })}
+  </>;
+}
+
+// tslint:disable-next-line:variable-name
+const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
+  const element = React.useRef<HTMLElement>(null);
+  const [focusedHighlight, shouldFocusCard] = useFocusedHighlight(highlights, element, container);
+
+  return <div className={className} ref={element}>
+    <CardsForHighlights
+      highlights={highlights}
+      container={container}
+      focusedHighlight={focusedHighlight}
+      shouldFocusCard={shouldFocusCard}
+      highlighter={highlighter}
+    />
+  </div>;
 };
+
+function MaybeWrapper(props: WrapperProps) {
+  if (!props.highlights.length) {
+    return null;
+  }
+  return <Wrapper {...props} />;
+}
 
 export default connect(
   (state: AppState) => ({
@@ -160,6 +254,6 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isTocOpen: contentSelect.tocOpen(state),
   })
-)(styled(Wrapper)`
+)(styled(MaybeWrapper)`
   ${mainWrapperStyles}
 `);
