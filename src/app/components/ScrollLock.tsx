@@ -21,7 +21,7 @@ const ScrollLockBodyClass = createGlobalStyle`
       `)}
     `}
 
-    ${(props: {mediumScreensOnly?: boolean}) => props.mediumScreensOnly === false && css`
+    ${(props: {mediumScreensOnly?: boolean}) => !props.mediumScreensOnly && css`
       @media print {
         #root {
           display: none;
