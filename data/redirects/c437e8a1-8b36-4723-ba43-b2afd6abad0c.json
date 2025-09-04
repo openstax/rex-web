@@ -1,6 +1,11 @@
 [
   {
     "bookId": "c437e8a1-8b36-4723-ba43-b2afd6abad0c",
+    "pageId": "856df525-b7be-4e94-90ca-2c30e77c17f5",
+    "pathname": "/books/algebra-1/pages/4-analyze-percent-change-over-time"
+  },
+  {
+    "bookId": "c437e8a1-8b36-4723-ba43-b2afd6abad0c",
     "pageId": "4c75e607-3daf-4dd5-8149-39bf47140801",
     "pathname": "/books/algebra-1/pages/1-3-1-finding-a-relationship-between-and"
   },
