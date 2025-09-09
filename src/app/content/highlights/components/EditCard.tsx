@@ -46,6 +46,7 @@ export interface EditCardProps {
   data?: HighlightData;
   className: string;
   shouldFocusCard: boolean;
+  minimize?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -73,18 +74,22 @@ function LoginOrEdit({
       role='dialog'
       aria-label={formatMessage({id: 'i18n:highlighter:edit-note:label'})}
     >
-      <form
-        ref={mergeRefs(fref, element)}
-        data-analytics-region='edit-note'
-        data-highlight-card
-      >
-        {authenticated ? (
-          <ActiveEditCard props={props} element={element}
-          />
-        ) : (
-          <LoginConfirmation onBlur={props.onBlur} />
-        )}
-      </form>
+      {
+        (authenticated || props.shouldFocusCard || props.data?.annotation) ?
+          <form
+            ref={mergeRefs(fref, element)}
+            data-analytics-region='edit-note'
+            data-highlight-card
+          >
+            {authenticated ? (
+              <ActiveEditCard props={props} element={element}
+              />
+            ) : (
+              <LoginConfirmation onBlur={props.onBlur} />
+            )}
+          </form> :
+          <i>Press Enter or double-click highlight to edit highlight</i>
+      }
     </div>
   );
 }
@@ -506,7 +511,6 @@ export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
   user-select: none;
   overflow: visible;
-  padding-top: 0 !important;
 
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;

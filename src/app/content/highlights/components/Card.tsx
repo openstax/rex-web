@@ -293,13 +293,12 @@ const StyledCard = styled(Card)`
 // Styling is expensive and most Cards don't need to render
 function PreCard(props: CardProps) {
   const computedProps = useComputedProps(props);
-  const hideUnfocusedEditCard = computedProps.annotation ? {} : {isHidden: !props.shouldFocusCard};
 
   if (!computedProps.annotation && (!props.isActive)) {
     return null;
   }
   return (
-    <StyledCard {...{...props, ...hideUnfocusedEditCard}} />
+    <StyledCard {...props} />
   );
 }
 
