@@ -1504,7 +1504,7 @@ describe('Page', () => {
     </div>
   `;
 
-    it('opens the media modal when clicking the image button', async () => {
+    it('opens the media modal when clicking the image button', async() => {
       const { root } = renderDomWithReferences({ html: figureHtml });
 
       const img = root.querySelector<HTMLImageElement>('.image-button-wrapper img');
@@ -1523,7 +1523,7 @@ describe('Page', () => {
       expect(opened.getAttribute('alt')).toBe('Something happens.');
     });
 
-    it('closes the media modal on Escape', async () => {
+    it('closes the media modal on Escape', async() => {
       const { root } = renderDomWithReferences({ html: figureHtml });
       await Promise.resolve();
 
@@ -1551,7 +1551,7 @@ describe('Page', () => {
 
     it('mount does nothing when container is missing', () => {
       const { mount, MediaModalPortal } = createMediaModalManager();
-      if (!document) return
+      const document = assertDocument();
       // Render portal
       const host = document.createElement('div');
       document.body.appendChild(host);
@@ -1565,7 +1565,7 @@ describe('Page', () => {
       expect(document.body.querySelector('img[tabindex="0"]')).toBeFalsy();
     });
 
-    it('does not open after unmount', async () => {
+    it('does not open after unmount', async() => {
       const { root } = renderDomWithReferences({ html: figureHtml });
       await Promise.resolve();
 
@@ -1582,7 +1582,7 @@ describe('Page', () => {
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
     });
 
-    it('opens via Enter/Space keydown and ignores other keys', async () => {
+    it('opens via Enter/Space keydown and ignores other keys', async() => {
       const { root } = renderDomWithReferences({ html: figureHtml });
       await Promise.resolve();
 
@@ -1635,7 +1635,7 @@ describe('Page', () => {
     </div>
   `;
 
-    it('returns early when wrapper has no img', async () => {
+    it('returns early when wrapper has no img', async() => {
       const { root } = renderDomWithReferences({ html: htmlNoImg });
       await Promise.resolve();
 
@@ -1661,7 +1661,7 @@ describe('Page', () => {
     </div>
   `;
 
-    it('calls onClose and closes the modal', async () => {
+    it('calls onClose and closes the modal', async() => {
       const { root } = renderDomWithReferences({ html: figureHtml });
       await Promise.resolve();
 
@@ -1674,7 +1674,7 @@ describe('Page', () => {
       expect(img.getAttribute('alt')).toBe(null);
 
       // Click the close button
-      const closeBtn = assertDocument().body.querySelector('[aria-label="Close media preview"]') as HTMLButtonElement | null;
+      const closeBtn = assertDocument().body.querySelector('[aria-label="Close media preview"]');
       expect(closeBtn).toBeTruthy();
 
       if (closeBtn) {
