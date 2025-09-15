@@ -1,41 +1,20 @@
 import React, { ReactNode, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import MediaModal from './MediaModal';
-import { HTMLElement, MouseEvent, KeyboardEvent, HTMLButtonElement, HTMLImageElement } from '@openstax/types/lib.dom';
+import {
+  HTMLElement,
+  MouseEvent,
+  KeyboardEvent,
+  HTMLButtonElement,
+  HTMLImageElement,
+} from '@openstax/types/lib.dom';
+import { assertDocument } from '../../../utils';
 
-export function createMediaModalManager() {
-  let container: HTMLElement | null = null;
-  let setModalContent: ((content: ReactNode) => void) | null = null;
-
-  const open = (content: ReactNode) => {
-    setModalContent?.(content);
-  };
-
-// tslint:disable-next-line:variable-name
-  const MediaModalPortal = () => {
-    const [isOpen, setIsOpen] = React.useState(false);
-    const [modalContent, setContent] = React.useState<ReactNode>(null);
-
-    useEffect(() => {
-      setModalContent = (content) => {
-        setContent(content);
-        setIsOpen(true);
-      };
-      return () => { setModalContent = null; };
-    }, []);
-    if (typeof document === 'undefined') return null;
-
-    return isOpen ? createPortal(
-      <MediaModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        {modalContent}
-      </MediaModal>,
-      document.body
-    ) : null;
-  };
-
-  const handleInteraction = (e: MouseEvent | KeyboardEvent) => {
+function createInteractionHandler(open: (content: ReactNode) => void) {
+  return (e: MouseEvent | KeyboardEvent) => {
     const target = e.target as HTMLElement;
-    const button = target.closest('button.image-button-wrapper') as HTMLButtonElement | null;
+
+    const button = target.closest('button.image-button-wrapper') as HTMLButtonElement;
     if (!button) return;
 
     if (e.type === 'keydown') {
@@ -57,33 +36,91 @@ export function createMediaModalManager() {
       />
     );
   };
+}
 
-  const attachListeners = () => {
+function createMediaModalPortal() {
+  let setModalContent: ((content: ReactNode) => void) | null = null;
+
+  const open = (content: ReactNode) => {
+    setModalContent?.(content);
+  };
+
+  const MediaModalPortal: React.FC = () => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    const [modalContent, setContent] = React.useState<ReactNode>(null);
+    const document = assertDocument();
+
+    useEffect(() => {
+      setModalContent = (content) => {
+        setContent(content);
+        setIsOpen(true);
+      };
+      return () => {
+        setModalContent = null;
+      };
+    }, []);
+
+    useEffect(() => {
+      if (!isOpen || typeof document === 'undefined') return;
+      const onKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          setIsOpen(false);
+        }
+      };
+
+
+      document.addEventListener('keydown', onKeyDown);
+      return () => {
+        document.removeEventListener('keydown', onKeyDown);
+      };
+    }, [document, isOpen]);
+    return createPortal(
+      <MediaModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        {modalContent}
+      </MediaModal>,
+      document.body
+    );
+  };
+
+  return { open, MediaModalPortal };
+}
+
+function createListeners(open: (content: ReactNode) => void) {
+  let container: HTMLElement | null = null;
+  const handleInteraction = createInteractionHandler(open);
+
+  const attach = () => {
     if (!container) return;
     container.addEventListener('click', handleInteraction);
     container.addEventListener('keydown', handleInteraction);
   };
 
-  const detachListeners = () => {
-    if (!container) return;
+  const detach = () => {
+    if (!container ) return;
     container.removeEventListener('click', handleInteraction);
     container.removeEventListener('keydown', handleInteraction);
   };
 
   const mount = (newContainer: HTMLElement) => {
-    // detach from previous if different container
-    if (container && container !== newContainer) {
-      detachListeners();
+    if (container !== newContainer) {
+      detach();
+      container = newContainer;
     }
-
-    container = newContainer;
-    attachListeners();
+    attach();
   };
+
 
   const unmount = () => {
-    detachListeners();
+    detach();
     container = null;
   };
+
+  return { mount, unmount };
+}
+
+export function createMediaModalManager() {
+  const { open, MediaModalPortal } = createMediaModalPortal();
+  const { mount, unmount } = createListeners(open);
 
   return {
     open,

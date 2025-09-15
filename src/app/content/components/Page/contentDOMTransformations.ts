@@ -254,7 +254,7 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
 
 function enhanceImagesForAccessibility(document: Document, rootEl: HTMLElement) {
   rootEl.querySelectorAll('img').forEach((img) => {
-    if (img.parentElement?.tagName.toLowerCase() === 'button') {
+    if (img.closest('button')) {
       return;
     }
 
