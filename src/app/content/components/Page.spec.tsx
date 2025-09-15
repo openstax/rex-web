@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { SearchResult } from '@openstax/open-search-client';
-import { Document, HTMLDetailsElement, HTMLElement, HTMLAnchorElement } from '@openstax/types/lib.dom';
+import { Document, HTMLDetailsElement, HTMLElement, HTMLAnchorElement, HTMLImageElement, HTMLButtonElement } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -37,6 +37,7 @@ import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import PageNotFound from './Page/PageNotFound';
 import allImagesLoaded from './utils/allImagesLoaded';
+import { createMediaModalManager } from '../components/Page/mediaModalManager'; // fix path
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation', () => () => new Promise((resolve) => resolve(false)));
@@ -1485,4 +1486,206 @@ describe('Page', () => {
       expect(target.innerHTML).toEqual('');
     });
   });
+  describe('media modal interactions', () => {
+    const figureHtml = `
+    <div class="os-figure">
+      <figure id="figure-id1">
+        <span data-alt="Something happens." data-type="media" id="span-id1">
+          <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300">
+          <button><img data-media-type="image/png" id="img-id1" src="/resources/hash" width="300"></button>
+        </span>
+      </figure>
+      <div class="os-caption-container">
+        <span class="os-title-label">Figure </span>
+        <span class="os-number">1.1</span>
+        <span class="os-divider"> </span>
+        <span class="os-caption">Some explanation.</span>
+      </div>
+    </div>
+  `;
+
+    it('opens the media modal when clicking the image button', async () => {
+      const { root } = renderDomWithReferences({ html: figureHtml });
+
+      const img = root.querySelector<HTMLImageElement>('.image-button-wrapper img');
+      if (!img) return expect(img).toBeTruthy();
+
+      // use the same click helper as other tests
+      const evt = makeClickEvent();
+      img.dispatchEvent(evt);
+
+      // the modal portal renders into document.body
+      const opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      expect(opened).toBeTruthy();
+      if (!opened) return;
+
+      expect(opened.getAttribute('src')).toBe('http://localhost/resources/hash');
+      expect(opened.getAttribute('alt')).toBe('Something happens.');
+    });
+
+    it('closes the media modal on Escape', async () => {
+      const { root } = renderDomWithReferences({ html: figureHtml });
+      await Promise.resolve();
+
+      const img = root.querySelector<HTMLImageElement>('.image-button-wrapper img');
+      if (!img) return expect(img).toBeTruthy();
+
+      // open first
+      img.dispatchEvent(makeClickEvent());
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+
+      // send escape
+      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+
+      img.dispatchEvent(makeClickEvent());
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+
+      // send Esc event
+      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+
+    });
+
+    it('mount does nothing when container is missing', () => {
+      const { mount, MediaModalPortal } = createMediaModalManager();
+      if (!document) return
+      // Render portal
+      const host = document.createElement('div');
+      document.body.appendChild(host);
+      ReactDOM.render(<MediaModalPortal />, host);
+
+      // Intentionally pass an invalid container to hit if (!container) return;
+      expect(() => mount(undefined!)).not.toThrow();
+
+      // Sanity: nothing opened (no listeners were attached)
+      document.body.dispatchEvent(makeClickEvent());
+      expect(document.body.querySelector('img[tabindex="0"]')).toBeFalsy();
+    });
+
+    it('does not open after unmount', async () => {
+      const { root } = renderDomWithReferences({ html: figureHtml });
+      await Promise.resolve();
+
+      const img = root.querySelector<HTMLImageElement>('.image-button-wrapper img');
+      if (!img) return expect(img).toBeTruthy();
+
+      // unmount page
+      ReactDOM.unmountComponentAtNode(root);
+
+      // try clicking again
+      img.dispatchEvent(makeClickEvent());
+
+      // still query document.body
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+    });
+
+    it('opens via Enter/Space keydown and ignores other keys', async () => {
+      const { root } = renderDomWithReferences({ html: figureHtml });
+      await Promise.resolve();
+
+      const button = root.querySelector<HTMLButtonElement>('.image-button-wrapper');
+      if (!button) return expect(button).toBeTruthy();
+
+      // Enter
+      const enterEvt = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
+      Object.defineProperty(enterEvt, 'preventDefault', { value: jest.fn() });
+      button.dispatchEvent(enterEvt);
+
+      let opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      expect(opened).toBeTruthy();
+      expect((enterEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
+
+      // Close again
+      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+
+      // Space
+      const spaceEvt = new KeyboardEvent('keydown', { key: ' ', bubbles: true });
+      Object.defineProperty(spaceEvt, 'preventDefault', { value: jest.fn() });
+      button.dispatchEvent(spaceEvt);
+
+      opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      expect(opened).toBeTruthy();
+      expect((spaceEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
+
+      // Close again
+      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+
+      // Irrelevant key
+      const otherEvt = new KeyboardEvent('keydown', { key: 'a', bubbles: true });
+      Object.defineProperty(otherEvt, 'preventDefault', { value: jest.fn() });
+      button.dispatchEvent(otherEvt);
+
+      // should not open or call preventDefault
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect((otherEvt.preventDefault as jest.Mock)).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('media modal guard: no <img> inside wrapper', () => {
+    const htmlNoImg = `
+    <div class="os-figure">
+      <figure>
+        <span data-type="media">
+          <button type="button" class="image-button-wrapper"></button>
+        </span>
+      </figure>
+    </div>
+  `;
+
+    it('returns early when wrapper has no img', async () => {
+      const { root } = renderDomWithReferences({ html: htmlNoImg });
+      await Promise.resolve();
+
+      const button = root.querySelector<HTMLButtonElement>('.image-button-wrapper');
+      if (!button) return expect(button).toBeTruthy();
+
+      const evt = makeClickEvent();
+      button.dispatchEvent(evt);
+
+      // assert nothing opened
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+    });
+  });
+
+  describe('media modal onClose', () => {
+    const figureHtml = `
+    <div class="os-figure">
+      <figure>
+        <span data-alt="Alt" data-type="media">
+          <img src="/resources/hash" width="300">
+        </span>
+      </figure>
+    </div>
+  `;
+
+    it('calls onClose and closes the modal', async () => {
+      const { root } = renderDomWithReferences({ html: figureHtml });
+      await Promise.resolve();
+
+      const img = root.querySelector<HTMLImageElement>('.image-button-wrapper img');
+      if (!img) return expect(img).toBeTruthy();
+
+      // Open via click
+      img.dispatchEvent(makeClickEvent());
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+      expect(img.getAttribute('alt')).toBe(null);
+
+      // Click the close button
+      const closeBtn = assertDocument().body.querySelector('[aria-label="Close media preview"]') as HTMLButtonElement | null;
+      expect(closeBtn).toBeTruthy();
+
+      if (closeBtn) {
+        closeBtn.dispatchEvent(makeClickEvent());
+      }
+
+      // Closed
+      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[aria-label="Close media preview"]')).toBeFalsy();
+    });
+
+  });
+
 });
