@@ -16,6 +16,22 @@ class HomeRex:
     async def click_openstax_logo(self):
         await self.page.get_by_test_id("navbar").get_by_role("img").click()
 
+    @pytest.mark.asyncio
+    async def main_menu_and_openstax_logo_is_visible(self):
+        return await self.page.locator("div.menus.desktop > nav.nav").is_visible()
+
+    @pytest.mark.asyncio
+    async def osweb_homepage_content_is_visible(self):
+        return await self.page.locator("main > section:nth-child(5)").is_visible()
+
+    @property
+    def osweb_homepage_sections(self):
+        return self.page.locator("main")
+
+    @pytest.mark.asyncio
+    async def osweb_homepage_content_sections(self):
+        return await self.page.locator(f"main > section:nth-child(5)").is_visible()
+
     # Subjects homepage
 
     @property
@@ -117,6 +133,22 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_student_resources_tab(self):
         await self.page.locator("id=Student resources-tab").click()
+
+    @pytest.mark.asyncio
+    async def click_subjects_science_link(self):
+        await self.subjects_science_link.click()
+
+    @property
+    def subjects_list(self):
+        return self.page.locator("#ddId-Subjects > a")
+
+    @pytest.mark.asyncio
+    async def subjects_intro(self):
+        return await self.page.locator("section.subject-intro").is_visible()
+
+    @pytest.mark.asyncio
+    async def subjects_title(self):
+        return (await self.page.locator("section.subject-intro > div > h1").inner_text()).lower()
 
     # Highlights and Notes
 
