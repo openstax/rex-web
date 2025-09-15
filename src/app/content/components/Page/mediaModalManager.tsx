@@ -49,7 +49,6 @@ function createMediaModalPortal() {
   const MediaModalPortal: React.FC = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [modalContent, setContent] = React.useState<ReactNode>(null);
-    const document = assertDocument();
 
     useEffect(() => {
       setModalContent = (content) => {
@@ -63,18 +62,20 @@ function createMediaModalPortal() {
 
     useEffect(() => {
       if (!isOpen || typeof document === 'undefined') return;
+      const doc = assertDocument();
       const onKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape' || e.key === 'Esc') {
           setIsOpen(false);
         }
       };
-
-
-      document.addEventListener('keydown', onKeyDown);
+      doc.addEventListener('keydown', onKeyDown);
       return () => {
-        document.removeEventListener('keydown', onKeyDown);
+        doc.removeEventListener('keydown', onKeyDown);
       };
-    }, [document, isOpen]);
+    }, [isOpen]);
+
+  if (typeof document === 'undefined' || !document?.body) return null;
+
     return createPortal(
       <MediaModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {modalContent}

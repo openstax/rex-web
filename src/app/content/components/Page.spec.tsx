@@ -1686,6 +1686,32 @@ describe('Page', () => {
       expect(assertDocument().body.querySelector('[aria-label="Close media preview"]')).toBeFalsy();
     });
 
+    it('returns null when document.body is unavailable', () => {
+      const { MediaModalPortal } = createMediaModalManager();
+
+      // Create a host before the mock
+      const doc = assertDocument();
+      const host = doc.createElement('div');
+      doc.body.appendChild(host);
+
+      // Make document.body appear unavailable
+      const getBody = jest.spyOn(doc, 'body', 'get');
+      getBody.mockReturnValue(undefined as unknown as any);
+
+      try {
+        // Should render nothing and not throw
+        expect(() => {
+          ReactDOM.render(<MediaModalPortal />, host);
+        }).not.toThrow();
+
+        expect(host.innerHTML).toBe('');
+      } finally {
+        getBody.mockRestore();
+        ReactDOM.unmountComponentAtNode(host);
+        host.remove();
+      }
+    });
+
   });
 
 });
