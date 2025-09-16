@@ -26,6 +26,7 @@ async def test_subjects_footer(chrome_page, base_url):
 
     assert home.footer_section_bottom_is_visible
 
-    assert "Rice University" and "license" in await home.footer_section_bottom_is_visible.inner_text()
+    assert ("Rice University" in await home.footer_section_bottom_is_visible.inner_text()
+            and "license" in await home.footer_section_bottom_is_visible.inner_text())
 
     assert "https://creativecommons.org" in await home.footer_section_license_link
