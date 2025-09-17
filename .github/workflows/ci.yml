@@ -11,7 +11,7 @@ jobs:
     name: Jira
     runs-on: ubuntu-latest
     steps:
-    - uses: openstax/jira-linked-action@v0.1.14
+    - uses: openstax/jira-linked-action@v0.1.15
       with:
         jira_site: openstax
         jira_project: DISCO
