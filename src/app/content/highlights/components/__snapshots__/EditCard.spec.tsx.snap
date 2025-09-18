@@ -182,25 +182,20 @@ exports[`EditCard matches snapshot when focused 1`] = `
   className="c0"
   role="dialog"
 >
-  <form
-    data-analytics-region="edit-note"
-    data-highlight-card={true}
-  >
-    <div
-      data-props={
-        Object {
-          "confirmLink": "/accounts/login?r=/",
-          "confirmMessage": "i18n:highlighting:login:link",
-          "data-analytics-label": "login",
-          "data-analytics-region": "highlighting-login",
-          "drawFocus": false,
-          "message": "i18n:highlighting:login:prompt",
-          "onCancel": [MockFunction],
-        }
+  <div
+    data-props={
+      Object {
+        "confirmLink": "/accounts/login?r=/",
+        "confirmMessage": "i18n:highlighting:login:link",
+        "data-analytics-label": "login",
+        "data-analytics-region": "highlighting-login",
+        "drawFocus": false,
+        "message": "i18n:highlighting:login:prompt",
+        "onCancel": [MockFunction],
       }
-      mock-confirmation="true"
-    />
-  </form>
+    }
+    mock-confirmation="true"
+  />
 </div>
 `;
 
@@ -278,8 +273,19 @@ exports[`EditCard matches snapshot without data 1`] = `
   className="c0"
   role="dialog"
 >
-  <i>
-    Press Enter or double-click highlight to edit highlight
-  </i>
+  <div
+    data-props={
+      Object {
+        "confirmLink": "/accounts/login?r=/",
+        "confirmMessage": "i18n:highlighting:login:link",
+        "data-analytics-label": "login",
+        "data-analytics-region": "highlighting-login",
+        "drawFocus": false,
+        "message": "i18n:highlighting:login:prompt",
+        "onCancel": [MockFunction],
+      }
+    }
+    mock-confirmation="true"
+  />
 </div>
 `;

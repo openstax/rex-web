@@ -75,20 +75,18 @@ function LoginOrEdit({
       aria-label={formatMessage({id: 'i18n:highlighter:edit-note:label'})}
     >
       {
-        (authenticated || props.shouldFocusCard || props.data?.annotation) ?
-          <form
-            ref={mergeRefs(fref, element)}
-            data-analytics-region='edit-note'
-            data-highlight-card
-          >
-            {authenticated ? (
-              <ActiveEditCard props={props} element={element}
-              />
-            ) : (
-              <LoginConfirmation onBlur={props.onBlur} />
-            )}
-          </form> :
+        authenticated ? (
+          (props.shouldFocusCard || props.data?.annotation) ? (
+            <form
+              ref={mergeRefs(fref, element)}
+              data-analytics-region='edit-note'
+              data-highlight-card
+            >
+              <ActiveEditCard props={props} element={element} />
+            </form>
+          ) :
           <i>Press Enter or double-click highlight to edit highlight</i>
+        ) : <LoginConfirmation onBlur={props.onBlur} />
       }
     </div>
   );
