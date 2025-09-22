@@ -57,7 +57,7 @@ describe('EditCard', () => {
     };
     const component = renderer.create(
       <TestContainer services={services} store={store}>
-        <EditCard {...editCardProps} data={data} isActive={true} />
+        <EditCard {...editCardProps} data={data} isActive={true} shouldFocusCard={true} />
       </TestContainer>
     );
 
@@ -70,7 +70,7 @@ describe('EditCard', () => {
       .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
-        <EditCard {...editCardProps} isActive={true} />
+        <EditCard {...editCardProps} isActive={true} shouldFocusCard={true} />
       </TestContainer>
     );
 
@@ -89,6 +89,7 @@ describe('EditCard', () => {
           {...editCardProps}
           data={highlightData}
           isActive={true}
+          shouldFocusCard={true}
         />
       </TestContainer>
     );
@@ -128,6 +129,7 @@ describe('EditCard', () => {
           {...editCardProps}
           isActive={true}
           data={data}
+          shouldFocusCard={true}
         />
       </TestContainer>
     );
@@ -166,7 +168,7 @@ describe('EditCard', () => {
       .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
-            <EditCard {...editCardProps} isActive={true} />
+            <EditCard {...editCardProps} isActive={true} shouldFocusCard={true} />
       </TestContainer>
     );
 
@@ -189,6 +191,7 @@ describe('EditCard', () => {
           {...editCardProps}
           data={data}
           isActive={true}
+          shouldFocusCard={true}
         />
       </TestContainer>
     );
@@ -254,6 +257,7 @@ describe('EditCard', () => {
           pageId='pageId'
           isActive={true}
           onCreate={jest.fn()}
+          shouldFocusCard={true}
         />
       </TestContainer>
     );
@@ -483,6 +487,7 @@ describe('EditCard', () => {
           locationFilterId='locationId'
           pageId='pageId'
           isActive={true}
+          shouldFocusCard={true}
         />
       </TestContainer>
     );
@@ -515,7 +520,7 @@ describe('EditCard', () => {
       .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
-        <EditCard {...editCardProps} isActive={true} />
+        <EditCard {...editCardProps} isActive={true} shouldFocusCard={true} />
       </TestContainer>
     );
 
@@ -534,7 +539,7 @@ describe('EditCard', () => {
       .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
-        <EditCard {...editCardProps} />
+        <EditCard {...editCardProps} shouldFocusCard={true} />
       </TestContainer>
     );
 
@@ -554,7 +559,7 @@ describe('EditCard', () => {
       .mockReturnValue(formatUser(testAccountsUser));
     const component = renderer.create(
       <TestContainer services={services} store={store}>
-        <EditCard {...editCardProps} data={highlightData} />
+        <EditCard {...editCardProps} data={highlightData} shouldFocusCard={true} />
       </TestContainer>
     );
 
@@ -576,7 +581,7 @@ describe('EditCard', () => {
 
     const component = renderer.create(
       <TestContainer services={services} store={store}>
-        <EditCard {...editCardProps} isActive={true} />
+        <EditCard {...editCardProps} isActive={true} shouldFocusCard={true} />
       </TestContainer>
     );
 
@@ -601,6 +606,7 @@ describe('EditCard', () => {
             {...{...editCardProps, hasUnsavedHighlight: false}}
             onHeightChange={onHeightChange}
             isActive={true}
+            shouldFocusCard={true}
           />
         </TestContainer>
       </div>
@@ -662,6 +668,7 @@ describe('EditCard', () => {
           isActive={true}
           data={highlightData}
           hasUnsavedHighlight={true}
+          shouldFocusCard={true}
         />
       </TestContainer>
     );
@@ -696,6 +703,7 @@ describe('EditCard', () => {
           {...editCardProps}
           isActive={true}
           data={undefined}
+          shouldFocusCard={true}
         />
       </TestContainer>
     );
@@ -760,6 +768,23 @@ describe('EditCard', () => {
     expect(spyAnalytics).not.toHaveBeenCalled();
   });
 
+  it('shows login for unauthenticated user if the card is active', () => {
+    renderer.create(
+      <TestContainer services={services} store={store}>
+        <EditCard
+          {...editCardProps}
+          isActive={false}
+          data={undefined}
+          shouldFocusCard={true}
+        />
+      </TestContainer>
+    );
+
+    // Wait for React.useEffect
+    renderer.act(() => undefined);
+
+  });
+
   it('call onHeightChange when element mounts', () => {
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'default');
     onClickOutside.mockReturnValue(() => () => null);
@@ -775,6 +800,7 @@ describe('EditCard', () => {
           {...editCardProps}
           isActive={true}
           onHeightChange={onHeightChange}
+          shouldFocusCard={true}
         />
       </TestContainer>,
       {createNodeMock}
