@@ -34,13 +34,13 @@ class HomeRex:
 
     # Subjects homepage
 
-    @property
-    def subjects_page_menu(self):
-        return self.page.get_by_role("button", name="Subjects")
+    @pytest.mark.asyncio
+    async def subjects_page_menu(self):
+        return await self.page.get_by_role("button", name="Subjects").is_visible()
 
     @pytest.mark.asyncio
     async def click_subjects_page_menu(self):
-        await self.subjects_page_menu.hover()
+        await self.page.get_by_role("button", name="Subjects").hover()
 
     @property
     def subjects_homepage_link(self):
@@ -244,9 +244,9 @@ class HomeRex:
 
     # Philanthropic support
 
-    @property
-    def philanthropic_support_section(self):
-        return self.page.locator("section.philanthropic-support")
+    @pytest.mark.asyncio
+    async def philanthropic_support_section(self):
+        return await self.page.locator("section.philanthropic-support").is_visible()
 
     @property
     def our_impact_link(self):
@@ -256,37 +256,40 @@ class HomeRex:
     async def click_our_impact_link(self):
         await self.our_impact_link.click()
 
-    @property
-    def give_today_link_is_visible(self):
-        return self.page.locator("#footer").get_by_role("link", name="Give today")
+    @pytest.mark.asyncio
+    async def give_today_link_is_visible(self):
+        return await self.page.locator("#footer").get_by_role("link", name="Give today").is_visible()
 
     @pytest.mark.asyncio
     async def click_give_today_link(self):
-        await self.give_today_link_is_visible.click()
+        await self.page.locator("#footer").get_by_role("link", name="Give today").click()
 
     # Subjects page footer section
 
-    @property
-    def footer_section(self):
-        return self.page.locator("id=footer")
+    @pytest.mark.asyncio
+    async def footer_section(self):
+        return await self.page.locator("id=footer").is_visible()
+
+    @pytest.mark.asyncio
+    async def footer_section_help_is_visible(self):
+        return await self.page.locator("div.column.col1").is_visible()
+
+    @pytest.mark.asyncio
+    async def footer_section_openstax_is_visible(self):
+        return await self.page.locator("div.column.col2").is_visible()
+
+    @pytest.mark.asyncio
+    async def footer_section_policies_is_visible(self):
+        return await self.page.locator("div.column.col3").is_visible()
+
+    @pytest.mark.asyncio
+    async def footer_section_bottom_is_visible(self):
+        return await self.page.locator("div.bottom").is_visible()
 
     @property
-    def footer_section_help_is_visible(self):
-        return self.page.locator("div.column.col1")
-
-    @property
-    def footer_section_openstax_is_visible(self):
-        return self.page.locator("div.column.col2")
-
-    @property
-    def footer_section_policies_is_visible(self):
-        return self.page.locator("div.column.col3")
-
-    @property
-    def footer_section_bottom_is_visible(self):
+    def footer_section_bottom(self):
         return self.page.locator("div.bottom")
 
-    @property
     @pytest.mark.asyncio
     async def footer_section_license_link(self):
         return await self.page.locator("div.copyrights").get_by_role("link").get_attribute("href")

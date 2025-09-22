@@ -13,7 +13,7 @@ async def test_subjects_homepage(chrome_page, base_url):
     await chrome_page.goto(base_url)
     home = HomeRex(chrome_page)
 
-    assert home.subjects_page_menu
+    assert await home.subjects_page_menu()
 
     await home.click_subjects_page_menu()
 

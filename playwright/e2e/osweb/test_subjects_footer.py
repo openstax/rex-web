@@ -18,15 +18,15 @@ async def test_subjects_footer(chrome_page, base_url):
     await home.click_subjects_homepage_link()
 
     # THEN: Footer section loads
-    assert home.footer_section
+    assert await home.footer_section()
 
-    assert home.footer_section_help_is_visible
-    assert home.footer_section_openstax_is_visible
-    assert home.footer_section_policies_is_visible
+    assert await home.footer_section_help_is_visible()
+    assert await home.footer_section_openstax_is_visible()
+    assert await home.footer_section_policies_is_visible()
 
-    assert home.footer_section_bottom_is_visible
+    assert await home.footer_section_bottom_is_visible()
 
-    assert ("Rice University" in await home.footer_section_bottom_is_visible.inner_text()
-            and "license" in await home.footer_section_bottom_is_visible.inner_text())
+    assert ("Rice University" in await home.footer_section_bottom.inner_text()
+            and "license" in await home.footer_section_bottom.inner_text())
 
-    assert "https://creativecommons.org" in await home.footer_section_license_link
+    assert "https://creativecommons.org" in await home.footer_section_license_link()

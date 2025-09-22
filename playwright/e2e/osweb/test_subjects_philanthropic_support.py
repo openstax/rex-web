@@ -17,14 +17,14 @@ async def test_subjects_philanthropic_support(chrome_page, base_url):
 
     await home.click_subjects_homepage_link()
 
-    assert home.philanthropic_support_section
+    assert await home.philanthropic_support_section()
 
     # THEN: Philanthropic support section opens
     await home.click_our_impact_link()
 
     assert f"{base_url}/impact" == chrome_page.url
 
-    assert home.give_today_link_is_visible
+    assert await home.give_today_link_is_visible()
 
     async with chrome_page.expect_popup() as popup_info:
         await home.click_give_today_link()
