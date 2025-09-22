@@ -1307,8 +1307,7 @@ describe('Page', () => {
       references: [],
     }));
 
-    await Promise.resolve();
-    await Promise.resolve();
+    await new Promise((resolve) => setTimeout(resolve, 10));
     // deferred scroll execution (scrollToTarget uses setImmediate)
     await new Promise((resolve) => setImmediate(resolve));
 

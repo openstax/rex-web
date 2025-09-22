@@ -94,59 +94,63 @@ interface Props {
   loggedOut: boolean;
 }
 
+function useCloseAndTrack(closeFn: () => void) {
+    const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
+
+    return React.useCallback((method: string) => () => {
+    closeFn();
+    trackOpenCloseMH(method);
+  }, [closeFn, trackOpenCloseMH]);
+}
+
 // tslint:disable-next-line: variable-name
-const HighlightsPopUp = ({ closeMyHighlights, ...props }: Props) => {
+const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlightsOpen'>) => {
   const popUpRef = React.useRef<HTMLElement>(null);
   const intl = useIntl();
-  const trackOpenCloseMH = useAnalyticsEvent('openCloseMH');
+  const closeAndTrack = useCloseAndTrack(closeMyHighlights);
 
-  const closeAndTrack = React.useCallback((method: string) => () => {
-    closeMyHighlights();
-    trackOpenCloseMH(method);
-  }, [closeMyHighlights, trackOpenCloseMH]);
+  useOnEsc(true, closeAndTrack('esc'));
 
-  useOnEsc(props.myHighlightsOpen, closeAndTrack('esc'));
+  React.useEffect(() => popUpRef.current?.focus(), []);
 
-  React.useEffect(() => {
-    const popUp = popUpRef.current;
-
-    if (popUp && props.myHighlightsOpen) {
-      popUp.focus();
-    }
-  }, [props.myHighlightsOpen]);
-
-  return props.myHighlightsOpen ?
-    <Modal
-      ref={popUpRef}
-      tabIndex='-1'
-      data-testid='highlights-popup-wrapper'
-      scrollLockProps={{
-        mediumScreensOnly: false,
-        onClick: closeAndTrack('overlay'),
-        overlay: true,
-        zIndex: theme.zIndex.highlightSummaryPopup,
-      }}
-    >
-      <Header colorSchema={props.bookTheme}>
-        <h1>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-            {(msg) => msg}
-          </FormattedMessage>
-        </h1>
-        <CloseIconWrapper
-          data-testid='close-highlights-popup'
-          aria-label={intl.formatMessage({id: 'i18n:toolbar:highlights:popup:close-button:aria-label'})}
-          data-analytics-label='Close My Highlights'
-          onClick={closeAndTrack('button')}
-        >
-          <CloseIcon colorSchema={props.bookTheme}/>
-        </CloseIconWrapper>
-      </Header>
-      {props.user ? <ShowMyHighlights topElRef={popUpRef} /> : <LoginForHighlights />}
-      <HighlightsHelpInfo />
-    </Modal>
-    : null;
+  return <Modal
+    ref={popUpRef}
+    tabIndex='-1'
+    data-testid='highlights-popup-wrapper'
+    scrollLockProps={{
+      mediumScreensOnly: false,
+      onClick: closeAndTrack('overlay'),
+      overlay: true,
+      zIndex: theme.zIndex.highlightSummaryPopup,
+    }}
+  >
+    <Header colorSchema={props.bookTheme}>
+      <h1>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </h1>
+      <CloseIconWrapper
+        data-testid='close-highlights-popup'
+        aria-label={intl.formatMessage({id: 'i18n:toolbar:highlights:popup:close-button:aria-label'})}
+        data-analytics-label='Close My Highlights'
+        onClick={closeAndTrack('button')}
+      >
+        <CloseIcon colorSchema={props.bookTheme}/>
+      </CloseIconWrapper>
+    </Header>
+    {props.user ? <ShowMyHighlights topElRef={popUpRef} /> : <LoginForHighlights />}
+    <HighlightsHelpInfo />
+  </Modal>;
 };
+
+function MaybeHighlightsPopUp({myHighlightsOpen, ...props}: Props) {
+  if (!myHighlightsOpen) {
+    return null;
+  }
+
+  return <HighlightsPopUp {...props} />;
+}
 
 export default connect(
   (state: AppState) => ({
@@ -158,4 +162,4 @@ export default connect(
   (dispatch: Dispatch) => ({
     closeMyHighlights: () => dispatch(closeMyHighlightsAction()),
   })
-)(HighlightsPopUp);
+)(MaybeHighlightsPopUp);
