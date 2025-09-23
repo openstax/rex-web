@@ -71,21 +71,15 @@ describe('notifications reducer', () => {
   });
 
   it('dismissesNotification', () => {
-    const acceptCookiesNotification = actions.acceptCookies();
+    const retiredNotification = actions.retiredBookRedirect();
 
     const newState = flow(
       (state) => reducer(state, actions.updateAvailable()),
-      (state) => reducer(state, acceptCookiesNotification),
-      (state) => reducer(state, actions.dismissNotification(acceptCookiesNotification))
+      (state) => reducer(state, retiredNotification),
+      (state) => reducer(state, actions.dismissNotification(retiredNotification))
     )(initialState);
 
-    expect(newState.modalNotifications).not.toContainEqual(actions.acceptCookies());
-    expect(newState.toastNotifications).toEqual([]);
-  });
-
-  it('reduces acceptCookies', () => {
-    const newState = reducer(initialState, actions.acceptCookies());
-    expect(newState.modalNotifications).toContainEqual(actions.acceptCookies());
+    expect(newState.modalNotifications).not.toContainEqual(actions.retiredBookRedirect());
     expect(newState.toastNotifications).toEqual([]);
   });
 

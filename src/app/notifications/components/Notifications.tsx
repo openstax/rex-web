@@ -6,7 +6,6 @@ import * as actions from '../actions';
 import { appMessageType } from '../reducer';
 import * as select from '../selectors';
 import { ModalNotification } from '../types';
-import AcceptCookies from './AcceptCookies';
 import AppMessage from './AppMessage';
 import RetiredBookRedirect from './RetiredBookRedirect';
 import UpdatesAvailable from './UpdatesAvailable';
@@ -26,11 +25,6 @@ const renderNotificationModal = (
     }
     case getType(actions.updateAvailable): {
       return <UpdatesAvailable className={className} />;
-    }
-    case getType(actions.acceptCookies): {
-      return (
-        <AcceptCookies notification={notification} className={className} />
-      );
     }
     case appMessageType: {
       return <AppMessage notification={notification} className={className} />;

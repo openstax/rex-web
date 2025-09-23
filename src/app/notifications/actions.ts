@@ -3,7 +3,6 @@ import { AnyNotification, Message, ToastMeta } from './types';
 
 export const retiredBookRedirect = createStandardAction('Notification/retiredBookRedirect')();
 export const updateAvailable = createStandardAction('Notification/updateAvailable')();
-export const acceptCookies = createStandardAction('Notification/acceptCookies')();
 
 export const addToast = createStandardAction('Notification/toasts/add')
   .map((messageKey: string, meta: ToastMeta) => ({

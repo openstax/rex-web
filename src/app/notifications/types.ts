@@ -18,7 +18,7 @@ export interface AppMessageNotification {
 export type Messages = Message[];
 
 export type ModalNotification = ActionType<Pick<typeof actions,
-  'updateAvailable' | 'acceptCookies' | 'retiredBookRedirect'
+  'updateAvailable' | 'retiredBookRedirect'
 >>
   | AppMessageNotification;
 
