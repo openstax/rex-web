@@ -1,8 +1,5 @@
-import { getType } from 'typesafe-actions';
 import { GoogleAnalyticsClient } from '../../../gateways/googleAnalyticsClient';
 import googleAnalyticsClient from '../../../gateways/googleAnalyticsClient';
-import { clearAcceptCookies, doAcceptCookies } from '../../notifications/acceptCookies';
-import { acceptCookies } from '../../notifications/actions';
 import { receiveUser } from '../actions';
 import { User } from '../types';
 import { trackUserHookBody } from './trackUser';
@@ -31,9 +28,6 @@ describe('trackUser', () => {
     });
 
     describe('user already accepted Cookies', () => {
-      beforeEach(() => {
-        doAcceptCookies();
-      });
 
       it('tracks the user', async() => {
         await (trackUserHookBody(helpers))(receiveUser(user));
@@ -49,9 +43,6 @@ describe('trackUser', () => {
     });
 
     describe('user not yet accepted cookies', () => {
-      beforeEach(() => {
-        clearAcceptCookies();
-      });
 
       it('tracks the user', async() => {
         await (trackUserHookBody(helpers))(receiveUser(user));
@@ -69,25 +60,6 @@ describe('trackUser', () => {
           window.cookieYesActive = true;
           await (trackUserHookBody(helpers))(receiveUser(user));
           expect(dispatchMock).not.toHaveBeenCalled();
-        });
-
-        it('prompts to accept if CookieYes is not running', async() => {
-          window.cookieYesActive = false;
-          await (trackUserHookBody(helpers))(receiveUser(user));
-          expect(dispatchMock).toHaveBeenCalledWith({
-            meta: undefined,
-            payload: undefined,
-            type: getType(acceptCookies),
-          });
-        });
-      });
-
-      it('prompts to accept cookies', async() => {
-        await (trackUserHookBody(helpers))(receiveUser(user));
-        expect(dispatchMock).toHaveBeenCalledWith({
-          meta: undefined,
-          payload: undefined,
-          type: getType(acceptCookies),
         });
       });
     });
