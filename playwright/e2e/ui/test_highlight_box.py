@@ -2,12 +2,14 @@ import pytest
 
 from e2e.ui.pages.home import HomeRex
 
-import asyncio
-
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")])
-async def test_highlight_box_dismiss_with_esc(chrome_page, base_url, book_slug, page_slug, rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_highlight_box_dismiss_with_esc(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -22,7 +24,7 @@ async def test_highlight_box_dismiss_with_esc(chrome_page, base_url, book_slug, 
 
     await home.click_continue_login()
 
-    #THEN: Book page opens, highlight box appears, then disappears on Escape key
+    # THEN: Book page opens, highlight box appears, then disappears on Escape key
 
     await chrome_page.keyboard.press("Escape")
 
@@ -30,7 +32,7 @@ async def test_highlight_box_dismiss_with_esc(chrome_page, base_url, book_slug, 
 
     assert await home.highlight_box_is_visible()
 
-    assert home.highlight_box_colours_are_visible
+    assert await home.highlight_box_colours_are_visible()
 
     await chrome_page.keyboard.press("Escape")
 
@@ -41,8 +43,12 @@ async def test_highlight_box_dismiss_with_esc(chrome_page, base_url, book_slug, 
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")])
-async def test_highlight_box_dismiss_with_click(chrome_page, base_url, book_slug, page_slug, rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_highlight_box_dismiss_with_click(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -57,7 +63,7 @@ async def test_highlight_box_dismiss_with_click(chrome_page, base_url, book_slug
 
     await home.click_continue_login()
 
-    #THEN: Book page opens, highlight box appears, then disappears on clicking away from the box
+    # THEN: Book page opens, highlight box appears, then disappears on clicking away from the box
 
     await chrome_page.keyboard.press("Escape")
 
@@ -71,13 +77,19 @@ async def test_highlight_box_dismiss_with_click(chrome_page, base_url, book_slug
 
     await home.click_highlights_option()
 
-    assert "You have no highlights in this book" in await home.highlights_option_page_is_empty.inner_text()
+    assert (
+        "You have no highlights in this book"
+        in await home.highlights_option_page_is_empty.inner_text()
+    )
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")])
-async def test_highlight_box_click_highlights_option_after_highlighting_text(chrome_page, base_url, book_slug,
-                                                                             page_slug, rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_highlight_box_click_highlights_option_after_highlighting_text(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -92,7 +104,7 @@ async def test_highlight_box_click_highlights_option_after_highlighting_text(chr
 
     await home.click_continue_login()
 
-    #THEN: Book page opens, highlight box appears, then disappears on clicking the highlights option page
+    # THEN: Book page opens, highlight box appears, then disappears on clicking the highlights option page
 
     await chrome_page.keyboard.press("Escape")
 
@@ -102,7 +114,10 @@ async def test_highlight_box_click_highlights_option_after_highlighting_text(chr
 
     await home.click_highlights_option()
 
-    assert "You have no highlights in this book" in await home.highlights_option_page_is_empty.inner_text()
+    assert (
+        "You have no highlights in this book"
+        in await home.highlights_option_page_is_empty.inner_text()
+    )
 
     await chrome_page.keyboard.press("Escape")
 

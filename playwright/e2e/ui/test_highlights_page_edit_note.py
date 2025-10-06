@@ -2,13 +2,14 @@ import pytest
 
 from e2e.ui.pages.home import HomeRex
 
-import asyncio
-
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug",
-                         [("astronomy-2e", "9-3-impact-craters")])
-async def test_highlights_page_edit_note(chrome_page, base_url, book_slug, page_slug, rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_highlights_page_edit_note(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -23,7 +24,7 @@ async def test_highlights_page_edit_note(chrome_page, base_url, book_slug, page_
 
     await home.click_continue_login()
 
-    #THEN: Book page opens, highlight box appears and note can be edited
+    # THEN: Book page opens, highlight box appears and note can be edited
 
     await chrome_page.keyboard.press("Escape")
 
@@ -34,7 +35,7 @@ async def test_highlights_page_edit_note(chrome_page, base_url, book_slug, page_
 
     await home.click_highlight_box_note_field()
 
-    await home.fill_highlight_box_note_field('autotest highlight')
+    await home.fill_highlight_box_note_field("autotest highlight")
 
     await home.click_highlight_box_save_button()
 
@@ -44,7 +45,9 @@ async def test_highlights_page_edit_note(chrome_page, base_url, book_slug, page_
 
     await home.click_highlights_option()
 
-    assert "\nNote:\nautotest highlight" in await home.highlights_option_page_is_visible.inner_text()
+    assert (
+        "\nNote:\nautotest highlight" in await home.highlights_option_page.inner_text()
+    )
 
     await home.click_highlights_option_page_menu()
     await home.click_highlights_option_page_menu_edit()
@@ -57,8 +60,14 @@ async def test_highlights_page_edit_note(chrome_page, base_url, book_slug, page_
 
     await home.click_highlights_option()
 
-    assert "\nNote:\nautotest highlight" not in await home.highlights_option_page_is_visible.inner_text()
-    assert "\nNote:\nedited highlight test notes" in await home.highlights_option_page_is_visible.inner_text()
+    assert (
+        "\nNote:\nautotest highlight"
+        not in await home.highlights_option_page.inner_text()
+    )
+    assert (
+        "\nNote:\nedited highlight test notes"
+        in await home.highlights_option_page.inner_text()
+    )
 
     await chrome_page.keyboard.press("Escape")
 
@@ -68,4 +77,7 @@ async def test_highlights_page_edit_note(chrome_page, base_url, book_slug, page_
     await home.click_highlights_option_page_menu_delete()
     await home.click_highlights_option_page_menu_delete_delete()
 
-    assert "You have no highlights in this book" in await home.highlights_option_page_is_empty.inner_text()
+    assert (
+        "You have no highlights in this book"
+        in await home.highlights_option_page_is_empty.inner_text()
+    )

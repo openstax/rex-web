@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 
 from e2e.ui.pages.home import HomeRex
 
@@ -16,3 +15,5 @@ async def test_osweb_homepage_loads(chrome_page, base_url):
     # THEN: Openstax logo and osweb homepage sections are is visible
     assert await home.main_menu_and_openstax_logo_is_visible()
     assert await home.osweb_homepage_content_sections()
+
+    assert await home.upper_menu_options() is not None
