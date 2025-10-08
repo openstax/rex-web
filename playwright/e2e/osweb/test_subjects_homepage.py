@@ -1,5 +1,4 @@
 import pytest
-import asyncio
 
 from e2e.ui.pages.home import HomeRex
 
@@ -19,11 +18,22 @@ async def test_subjects_homepage(chrome_page, base_url):
 
     await home.click_subjects_homepage_link()
 
-    subjects_list = ["Business", "College Success", "Computer Science", "Humanities", "Math", "Nursing",
-                     "Science", "Social Sciences"]
+    subjects_list = [
+        "Business",
+        "College Success",
+        "Computer Science",
+        "Humanities",
+        "Math",
+        "Nursing",
+        "Science",
+        "Social Sciences",
+    ]
 
     # THEN: Book subjects homepage opens
-    assert "English, Spanish, and Polish" in await home.language_selector_section.inner_text()
+    assert (
+        "English, Spanish, and Polish"
+        in await home.language_selector_section.inner_text()
+    )
 
     for subject in subjects_list:
         assert subject in await home.subjects_listing_section.inner_text()
@@ -34,5 +44,8 @@ async def test_subjects_homepage(chrome_page, base_url):
     await home.click_learn_about_openstax_link()
 
     assert f"{base_url}/about" == chrome_page.url
-    assert ("Who we are" in await home.about_page.inner_text() and "What we do" in await home.about_page.inner_text()
-            and "Where we're going" in await home.about_page.inner_text())
+    assert (
+        "Who we are" in await home.about_page.inner_text()
+        and "What we do" in await home.about_page.inner_text()
+        and "Where we're going" in await home.about_page.inner_text()
+    )
