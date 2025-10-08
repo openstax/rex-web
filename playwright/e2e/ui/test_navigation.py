@@ -2,14 +2,12 @@ import pytest
 
 from e2e.ui.pages.home import HomeRex
 
-import asyncio
-
-from playwright.async_api import TimeoutError
-
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "preface")])
-async def test_previous_link_hidden_on_first_page(chrome_page, base_url, abl_uuids_slugs, book_slug, page_slug):
+async def test_previous_link_hidden_on_first_page(
+    chrome_page, base_url, abl_uuids_slugs, book_slug, page_slug
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -17,9 +15,9 @@ async def test_previous_link_hidden_on_first_page(chrome_page, base_url, abl_uui
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    #THEN: Book page opens on the first page
+    # THEN: Book page opens on the first page
 
-    assert home.content_page_previous_next_page_bar_is_visible
+    assert await home.content_page_previous_next_page_bar_is_visible()
 
     first_page = chrome_page.url
 
@@ -29,7 +27,7 @@ async def test_previous_link_hidden_on_first_page(chrome_page, base_url, abl_uui
 
     await chrome_page.keyboard.press("Escape")
 
-    assert home.content_page_previous_next_page_bar_is_visible
+    assert await home.content_page_previous_next_page_bar_is_visible()
 
     assert first_page != next_page
 
@@ -42,7 +40,9 @@ async def test_previous_link_hidden_on_first_page(chrome_page, base_url, abl_uui
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize("book_slug, page_slug", [("statistics", "index")])
-async def test_next_link_hidden_on_last_page(chrome_page, base_url, abl_uuids_slugs, book_slug, page_slug):
+async def test_next_link_hidden_on_last_page(
+    chrome_page, base_url, abl_uuids_slugs, book_slug, page_slug
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -52,9 +52,9 @@ async def test_next_link_hidden_on_last_page(chrome_page, base_url, abl_uuids_sl
 
     await chrome_page.keyboard.press("Escape")
 
-    #THEN: Book page opens on the last page
+    # THEN: Book page opens on the last page
 
-    assert home.content_page_previous_next_page_bar_is_visible
+    assert await home.content_page_previous_next_page_bar_is_visible()
 
     first_page = chrome_page.url
 

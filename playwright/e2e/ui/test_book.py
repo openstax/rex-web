@@ -1,12 +1,4 @@
 import pytest
-import asyncio
-
-import requests
-
-import io
-from urllib.request import Request, urlopen
-
-from pypdf import PdfReader
 
 from e2e.ui.pages.home import HomeRex
 
@@ -20,7 +12,7 @@ async def test_book_title_links_to_books_detail_page(chrome_page, base_url):
     await chrome_page.goto(f"{base_url}/subjects")
     home = HomeRex(chrome_page)
 
-    assert home.subject_listing_book_is_visible
+    assert await home.subject_listing_book_is_visible()
 
     await home.click_subject_listing_book()
 
@@ -42,8 +34,8 @@ async def test_buy_print_copy_link(chrome_page, base_url, book_slug):
     await chrome_page.goto(details_books_url)
     home = HomeRex(chrome_page)
 
-    #THEN: Buy print copy button exists and opens correct page
-    assert home.buy_print_copy_button_is_visible
+    # THEN: Buy print copy button exists and opens correct page
+    assert await home.buy_print_copy_button_is_visible()
 
     async with chrome_page.expect_popup() as popup_info:
         await home.click_buy_print_copy_button()
@@ -70,25 +62,15 @@ async def test_order_options_link(chrome_page, base_url, book_slug):
     home = HomeRex(chrome_page)
 
     # THEN: Order options button exists and opens correct page
-    assert home.bookstore_box_is_visible
-    assert home.order_options_button_is_visible
+    assert await home.bookstore_box_is_visible()
+    assert await home.order_options_button_is_visible()
 
-    async with chrome_page.expect_download() as popup_info:
-        await home.click_order_options_button()
-
-    new_tab = await popup_info.value
-
-    response = urlopen(new_tab.url)
-    io_file = io.BytesIO(response.read())
-    pdf_read = PdfReader(io_file)
-
-    for page in pdf_read.pages:
-        assert len(page.extract_text()) > 0
-
-    assert "OPENSTAX_PRICE_LIST_and_ORDER_FORM.pdf" in new_tab.url
+    assert "Kendall_Hunt" in await home.order_options_href()
 
 
-@pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "1-3-the-laws-of-nature")])
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "1-3-the-laws-of-nature")]
+)
 @pytest.mark.asyncio
 async def test_accessibility_help(chrome_page, base_url, book_slug, page_slug):
     # Verifies the hidden 'Go to accessibility page'
@@ -146,7 +128,7 @@ async def test_resources_tabs(chrome_page, base_url, book_slug):
     home = HomeRex(chrome_page)
 
     # THEN: Resources tabs are visible and clickable
-    assert home.resources_tabs_are_visible
+    assert await home.resources_tabs_are_visible()
 
     await home.click_instructor_resources_tab()
 
