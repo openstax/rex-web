@@ -2,14 +2,15 @@ import pytest
 
 from e2e.ui.pages.home import HomeRex
 
-import asyncio
-
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug",
-                         [("algebra-and-trigonometry-2e", "13-1-sequences-and-their-notations")])
-async def test_highlight_not_saved_in_show_hide_solution(chrome_page, base_url, book_slug, page_slug,
-                                                                rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug",
+    [("algebra-and-trigonometry-2e", "13-1-sequences-and-their-notations")],
+)
+async def test_highlight_not_saved_in_show_hide_solution(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -54,7 +55,7 @@ async def test_highlight_not_saved_in_show_hide_solution(chrome_page, base_url, 
 
     await home.click_highlight_box_note_field()
 
-    await home.fill_highlight_box_note_field('autotest highlight')
+    await home.fill_highlight_box_note_field("autotest highlight")
 
     # THEN: Solutions dialog closes/reopens
 
@@ -74,10 +75,13 @@ async def test_highlight_not_saved_in_show_hide_solution(chrome_page, base_url, 
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug",
-                         [("algebra-and-trigonometry-2e", "13-1-sequences-and-their-notations")])
-async def test_highlight_saved_in_show_hide_solution(chrome_page, base_url, book_slug, page_slug,
-                                                         rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug",
+    [("algebra-and-trigonometry-2e", "13-1-sequences-and-their-notations")],
+)
+async def test_highlight_saved_in_show_hide_solution(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
     # GIVEN: Playwright, chromium and the rex_base_url
 
     # WHEN: The Home page is fully loaded
@@ -105,7 +109,7 @@ async def test_highlight_saved_in_show_hide_solution(chrome_page, base_url, book
 
     await home.click_highlight_box_note_field()
 
-    await home.fill_highlight_box_note_field('autotest highlight')
+    await home.fill_highlight_box_note_field("autotest highlight")
 
     await home.click_highlight_box_save_button()
 
@@ -123,8 +127,10 @@ async def test_highlight_saved_in_show_hide_solution(chrome_page, base_url, book
 
     await home.click_text_in_solution_block()
 
-    assert ("Overlapping highlights are not supported."
-            in await home.overlapping_highlights_message_is_visible.inner_text())
+    assert (
+        "Overlapping highlights are not supported."
+        in await home.overlapping_highlights_message.inner_text()
+    )
 
     await home.click_show_hide_solution_link()
 
