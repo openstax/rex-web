@@ -169,6 +169,32 @@ function useFocusedHighlight(
   // If we don't do this then card related for the focused highlight will be focused automatically.
   useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), []));
 
+  // If the user tab-navigates somewhere else, clear the selection
+  React.useEffect(() => {
+    const handleFocusChange = () => {
+      const selection = document.getSelection();
+
+      if (!selection?.rangeCount) {
+        return;
+      }
+      const userRange = selection?.getRangeAt(0);
+
+      if (userRange?.intersectsNode(document.activeElement as HTMLElement)) {
+        return;
+      }
+
+      selection?.empty();
+    }
+
+    document.addEventListener('focusin', handleFocusChange);
+    document.addEventListener('focusout', handleFocusChange);
+
+    return () => {
+      document.removeEventListener('focusin', handleFocusChange);
+      document.removeEventListener('focusout', handleFocusChange);
+    };
+  }, [document]);
+
   return [focusedHighlight, shouldFocusCard] as const;
 }
 
