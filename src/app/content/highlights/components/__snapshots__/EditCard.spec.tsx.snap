@@ -107,59 +107,61 @@ exports[`EditCard matches snapshot when editing 1`] = `
   className="c0"
   role="dialog"
 >
-  <form
-    data-analytics-region="edit-note"
-    data-highlight-card={true}
+  <div
+    className=""
   >
-    <div
-      className=""
+    <form
+      data-analytics-region="edit-note"
+      data-highlight-card={true}
     >
-      <div
-        data-props={
-          Object {
-            "color": undefined,
-            "onChange": [Function],
-            "onRemove": null,
+      <div>
+        <div
+          data-props={
+            Object {
+              "color": undefined,
+              "onChange": [Function],
+              "onRemove": null,
+            }
           }
-        }
-        mock-color-picker="true"
-      />
-      <div
-        data-props={
-          Object {
-            "edit": false,
-            "note": "asdf",
-            "onChange": [Function],
-            "onFocus": [Function],
-            "textareaRef": Object {
-              "current": null,
-            },
+          mock-color-picker="true"
+        />
+        <div
+          data-props={
+            Object {
+              "edit": false,
+              "note": "asdf",
+              "onChange": [Function],
+              "onFocus": [Function],
+              "textareaRef": Object {
+                "current": null,
+              },
+            }
           }
-        }
-        mock-note="true"
-      />
-      <div
-        className="c1 c2"
-      >
-        <button
-          className="c3"
-          data-analytics-label="save"
-          data-testid="save"
-          onClick={[Function]}
+          mock-note="true"
+        />
+        <div
+          className="c1 c2"
         >
-          Save
-        </button>
-        <button
-          className="c4"
-          data-analytics-label="cancel"
-          data-testid="cancel"
-          onClick={[Function]}
-        >
-          Cancel
-        </button>
+          <button
+            className="c3"
+            data-analytics-label="save"
+            data-testid="save"
+            onClick={[Function]}
+          >
+            Save
+          </button>
+          <button
+            className="c4"
+            data-analytics-label="cancel"
+            data-testid="cancel"
+            onClick={[Function]}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
 `;
 
@@ -218,39 +220,41 @@ exports[`EditCard matches snapshot with data 1`] = `
   className="c0"
   role="dialog"
 >
-  <form
-    data-analytics-region="edit-note"
-    data-highlight-card={true}
+  <div
+    className=""
   >
-    <div
-      className=""
+    <form
+      data-analytics-region="edit-note"
+      data-highlight-card={true}
     >
-      <div
-        data-props={
-          Object {
-            "color": undefined,
-            "onChange": [Function],
-            "onRemove": null,
+      <div>
+        <div
+          data-props={
+            Object {
+              "color": undefined,
+              "onChange": [Function],
+              "onRemove": null,
+            }
           }
-        }
-        mock-color-picker="true"
-      />
-      <div
-        data-props={
-          Object {
-            "edit": false,
-            "note": "",
-            "onChange": [Function],
-            "onFocus": [Function],
-            "textareaRef": Object {
-              "current": null,
-            },
+          mock-color-picker="true"
+        />
+        <div
+          data-props={
+            Object {
+              "edit": false,
+              "note": "",
+              "onChange": [Function],
+              "onFocus": [Function],
+              "textareaRef": Object {
+                "current": null,
+              },
+            }
           }
-        }
-        mock-note="true"
-      />
-    </div>
-  </form>
+          mock-note="true"
+        />
+      </div>
+    </form>
+  </div>
 </div>
 `;
 
