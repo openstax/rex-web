@@ -76,16 +76,20 @@ function LoginOrEdit({
     >
       {
         authenticated ? (
-          (props.shouldFocusCard || props.data?.annotation) ? (
-            <form
-              ref={mergeRefs(fref, element)}
-              data-analytics-region='edit-note'
-              data-highlight-card
-            >
-              <ActiveEditCard props={props} element={element} />
-            </form>
-          ) :
-          <i>Press Enter or double-click highlight to edit highlight</i>
+          <HiddenOnMobile>
+            {
+              (props.shouldFocusCard || props.data?.annotation) ? (
+                <form
+                  ref={mergeRefs(fref, element)}
+                  data-analytics-region='edit-note'
+                  data-highlight-card
+                >
+                  <ActiveEditCard props={props} element={element} />
+                </form>
+              ) :
+              <i>Press Enter or double-click highlight to edit highlight</i>
+            }
+          </HiddenOnMobile>
         ) : <LoginConfirmation onBlur={props.onBlur} />
       }
     </div>
@@ -205,7 +209,7 @@ function ActiveEditCard({
   useTrapTabNavigation(ref, editingAnnotation);
 
   return (
-    <HiddenOnMobile ref={ref}>
+    <div ref={ref}>
       <ColorPicker
         color={props.data?.color}
         onChange={onColorChange}
@@ -248,7 +252,7 @@ function ActiveEditCard({
           always={() => setConfirmingDelete(false)}
         />
       )}
-    </HiddenOnMobile>
+    </div>
   );
 }
 
