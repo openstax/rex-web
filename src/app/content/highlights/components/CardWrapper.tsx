@@ -184,7 +184,8 @@ function useFocusedHighlight(
       }
 
       selection?.empty();
-    }
+      setShouldFocusCard(false);
+    };
 
     document.addEventListener('focusin', handleFocusChange);
     document.addEventListener('focusout', handleFocusChange);
