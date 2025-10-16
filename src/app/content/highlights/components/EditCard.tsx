@@ -12,6 +12,7 @@ import { useFocusElement, useOnEsc, useTrapTabNavigation } from '../../../reactU
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
+import { cardWidth } from '../constants';
 import defer from 'lodash/fp/defer';
 import {
   clearFocusedHighlight,
@@ -67,6 +68,12 @@ function LoginOrEdit({
   const authenticated = !!useSelector(selectAuth.user);
   const element = React.useRef<HTMLElement>(null);
   const {formatMessage} = useIntl();
+  const showCard = React.useCallback((event: React.MouseEvent) => {
+    if (event.button === 0) {
+      event.preventDefault();
+      document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
+    }
+  }, []);
 
   return (
     <div
@@ -87,7 +94,9 @@ function LoginOrEdit({
                   <ActiveEditCard props={props} element={element} />
                 </form>
               ) :
-              <i>Press Enter or double-click highlight to edit highlight</i>
+              <button type='button' onMouseDown={showCard}>
+                Press Enter or click here to edit highlight
+              </button>
             }
           </HiddenOnMobile>
         ) : <LoginConfirmation onBlur={props.onBlur} />
@@ -121,6 +130,7 @@ function LoginConfirmation({
 
 // tslint:disable-next-line:variable-name
 const HiddenOnMobile = styled.div`
+  min-width: ${cardWidth}rem;
   ${theme.breakpoints.touchDeviceQuery(css`
     display: none;
   `)}

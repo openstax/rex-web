@@ -6,7 +6,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight } from '../../../reactUtils';
-import { AppState } from '../../../types';
+import { AppState, Dispatch } from '../../../types';
 import { assertDefined, assertDocument } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
@@ -23,6 +23,7 @@ export interface WrapperProps {
   highlighter: Highlighter;
   highlights: Highlight[];
   className?: string;
+  dispatch: Dispatch;
 }
 
 function checkIfHiddenByCollapsedAncestor(highlight: Highlight) {
@@ -87,16 +88,10 @@ function useCardsHeights() {
   return [cardsHeights, onHeightChange] as const;
 }
 
-function rangeString({startOffset, endOffset}: Highlight['range']) {
-  return `${startOffset}-${endOffset}`;
-}
-
-const ELAPSED_LIMIT = 100;
-
 function useFocusedHighlight(
   highlights: Highlight[],
   element: React.RefObject<HTMLElement>,
-  container: HTMLElement
+  container: HTMLElement,
 ) {
   const focusedId = useSelector(focused);
   const focusedHighlight = React.useMemo(
@@ -104,47 +99,23 @@ function useFocusedHighlight(
     [focusedId, highlights]);
   const [shouldFocusCard, setShouldFocusCard] = React.useState(false);
   const document = assertDocument();
-  const previousRange = React.useRef<string>('');
-  const [dblclickStamp, setDblclickStamp] = React.useState<number>(0);
 
+  // catches the "click here" event sent by the EditCard
   React.useEffect(() => {
-    const handler = () => setDblclickStamp(Date.now());
+    const handler = () => setShouldFocusCard(true);
 
-    document.addEventListener('dblclick', handler);
-    return () => document.removeEventListener('dblclick', handler);
+    document.addEventListener('showCardEvent', handler);
+    return () => document.removeEventListener('showCardEvent', handler);
   }, [document]);
 
-  // Tracking double clicks
-  // double-click events trigger updates to focusedHighlight, but the order and
-  // timing of processing can vary, so we check conditions within a short time
-  // of a double click.
+  // Ensure focusedHighlight is actually focused
   React.useEffect(() => {
-    if (focusedHighlight) {
-      const elapsed = Date.now() - dblclickStamp;
-      const isDoubleClick = elapsed < ELAPSED_LIMIT;
-
-      // Existing highlight
-      if (focusedHighlight.elements.length > 0) {
-        if (isDoubleClick) {
-          // Unselect text inside existing highlight.
-          document.getSelection()?.removeAllRanges();
-          setShouldFocusCard(true);
-        }
-        return;
-      }
-
-      // Text selection that could be a highlight
-      const newRange = rangeString(focusedHighlight.range);
-      const isExistingSelection = newRange === previousRange.current;
-
-      if (isExistingSelection && isDoubleClick) {
-        setShouldFocusCard(true);
-      }
-      previousRange.current = newRange;
+    if (focusedHighlight && focusedHighlight.elements.length > 0) {
+      focusedHighlight?.focus();
     }
-  }, [focusedHighlight, document, dblclickStamp]);
+  }, [focusedHighlight]);
 
-  // Let Enter go from a highlight to the editor
+  // Pressing Enter moves the users from a highlight to the editor
   const editOnEnter = React.useCallback(() => {
     if (focusedHighlight) {
       setShouldFocusCard(true);
@@ -169,40 +140,17 @@ function useFocusedHighlight(
   // If we don't do this then card related for the focused highlight will be focused automatically.
   useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), []));
 
-  // If the user tab-navigates somewhere else, clear the selection
-  React.useEffect(() => {
-    const handleFocusChange = () => {
-      const selection = document.getSelection();
-
-      if (!selection?.rangeCount) {
-        return;
-      }
-      const userRange = selection?.getRangeAt(0);
-
-      if (userRange?.intersectsNode(document.activeElement as HTMLElement)) {
-        return;
-      }
-
-      selection?.empty();
-    }
-
-    document.addEventListener('focusin', handleFocusChange);
-    document.addEventListener('focusout', handleFocusChange);
-
-    return () => {
-      document.removeEventListener('focusin', handleFocusChange);
-      document.removeEventListener('focusout', handleFocusChange);
-    };
-  }, [document]);
-
-  return [focusedHighlight, shouldFocusCard] as const;
+  return [focusedHighlight, shouldFocusCard, setShouldFocusCard] as const;
 }
 
-function CardsForHighlights({highlights, container, focusedHighlight, shouldFocusCard, highlighter}: {
+function CardsForHighlights({
+  highlights, container, focusedHighlight, shouldFocusCard, setShouldFocusCard, highlighter
+}: {
   highlights: Highlight[];
   container: HTMLElement;
   focusedHighlight: Highlight | undefined;
   shouldFocusCard: boolean;
+  setShouldFocusCard: (v: boolean) => void;
   highlighter: Highlighter;
 }) {
   const [cardsHeights, onHeightChange] = useCardsHeights();
@@ -216,9 +164,18 @@ function CardsForHighlights({highlights, container, focusedHighlight, shouldFocu
     editCardVisibilityHandler,
     new Map(highlights.map((highlight) => [highlight.id, false]))
   );
+
+  // First time, Esc closes it to the instructions; second Esc disappears it
   const hideCard = () => {
+    if (!focusedHighlight?.elements.length) {
+      return;
+    }
     focusedHighlight?.focus();
-    dispatch({ type: 'HIDE', id: focusedHighlight?.id });
+    if (shouldFocusCard) {
+      setShouldFocusCard(false);
+    } else {
+      dispatch({ type: 'HIDE', id: focusedHighlight?.id });
+    }
   };
   const showCard = (cardId: string | undefined) => {
     dispatch({ type: 'SHOW', id: cardId });
@@ -254,7 +211,7 @@ function CardsForHighlights({highlights, container, focusedHighlight, shouldFocu
 // tslint:disable-next-line:variable-name
 const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
-  const [focusedHighlight, shouldFocusCard] = useFocusedHighlight(highlights, element, container);
+  const [focusedHighlight, shouldFocusCard, setShouldFocusCard] = useFocusedHighlight(highlights, element, container);
 
   return <div className={className} ref={element}>
     <CardsForHighlights
@@ -262,6 +219,7 @@ const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) 
       container={container}
       focusedHighlight={focusedHighlight}
       shouldFocusCard={shouldFocusCard}
+      setShouldFocusCard={setShouldFocusCard}
       highlighter={highlighter}
     />
   </div>;
