@@ -170,9 +170,6 @@ function Card(props: CardProps) {
   );
 }
 
-type ComputedProps = ReturnType<typeof useComputedProps>;
-type CommonProps = ComputedProps['commonProps'];
-
 function NoteOrCard({
   props,
   setHighlightRemoved,
@@ -182,7 +179,7 @@ function NoteOrCard({
   props: CardPropsWithBookAndPage;
   setHighlightRemoved: React.Dispatch<React.SetStateAction<boolean>>;
   locationFilterId: string;
-  computedProps: ComputedProps;
+  computedProps: ReturnType<typeof useComputedProps>;
 }) {
   const {
     focusCard,
@@ -222,7 +219,7 @@ function NoteOrCard({
         />
       ) : (
         <EditCardWithOnCreate
-          cardProps={props}
+          cardProps={props as CardPropsWithBookAndPage}
           commonProps={{ ...commonProps, onRemove }}
           locationFilterId={locationFilterId}
           hasUnsavedHighlight={hasUnsavedHighlight}
@@ -233,8 +230,9 @@ function NoteOrCard({
   );
 }
 
+type ComputedProps = ReturnType<typeof useComputedProps>;
 type EditCardProps = {
-  commonProps: CommonProps & {onRemove: () => void};
+  commonProps: object;
   cardProps: CardPropsWithBookAndPage;
   locationFilterId: string;
 } & Pick<ComputedProps, 'hasUnsavedHighlight' | 'setEditing'>;
