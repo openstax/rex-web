@@ -57,6 +57,10 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   return <LoginOrEdit props={props} fref={ref} />;
 });
 
+const InfoMessage = styled.i`
+  pointer-events: none;
+`;
+
 function LoginOrEdit({
   props,
   fref,
@@ -87,7 +91,7 @@ function LoginOrEdit({
                   <ActiveEditCard props={props} element={element} />
                 </form>
               ) :
-              <i>Press Enter or double-click highlight to edit highlight</i>
+              <InfoMessage>Press Enter or double-click highlight to edit highlight</InfoMessage>
             }
           </HiddenOnMobile>
         ) : <LoginConfirmation onBlur={props.onBlur} />
