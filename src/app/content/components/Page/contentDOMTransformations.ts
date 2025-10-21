@@ -35,6 +35,7 @@ export const transformContent = (
   expandSolutionForFragment(document);
   moveFootnotes(document, rootEl, props.intl);
   optimizeImages(rootEl, services);
+  enhanceImagesForAccessibility(document, rootEl);
 };
 
 function removeDocumentTitle(rootEl: HTMLElement) {
@@ -128,6 +129,7 @@ function optimizeImages(rootEl: HTMLElement, services: AppServices & MiddlewareA
     const src = assertNotNull(i.getAttribute('src'), 'Somehow got a null src attribute');
 
     i.setAttribute('src', services.imageCDNUtils.getOptimizedImageUrl(src));
+    i.setAttribute('data-original-src', src);
   }
 }
 
@@ -248,4 +250,23 @@ function moveFootnotes(document: Document, rootEl: HTMLElement, intl: IntlShape)
     link.replaceWith(sup);
     sup.appendChild(link);
   }
+}
+
+function enhanceImagesForAccessibility(document: Document, rootEl: HTMLElement) {
+  rootEl.querySelectorAll('img').forEach((img) => {
+    if (img.closest('button')) {
+      return;
+    }
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    const alt = img.getAttribute('alt');
+    const label = alt ? `Click to enlarge image of ${alt}` : 'Click to enlarge this image';
+    button.setAttribute('aria-label', label);
+
+    button.classList.add('image-button-wrapper');
+
+    img.parentElement?.insertBefore(button, img);
+    button.appendChild(img);
+  });
 }
