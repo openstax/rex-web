@@ -31,6 +31,8 @@ async def test_highlights_page_edit_note(
     await home.select_text()
     await home.double_click_text()
 
+    await chrome_page.keyboard.press("Enter")
+
     assert home.highlight_box_is_visible
 
     await home.click_highlight_box_note_field()
@@ -70,6 +72,8 @@ async def test_highlights_page_edit_note(
     )
 
     await chrome_page.keyboard.press("Escape")
+
+    # THEN: Delete the created highlight
 
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
