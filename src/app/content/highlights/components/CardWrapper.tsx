@@ -91,7 +91,7 @@ function useCardsHeights() {
 function useFocusedHighlight(
   highlights: Highlight[],
   element: React.RefObject<HTMLElement>,
-  container: HTMLElement,
+  container: HTMLElement
 ) {
   const focusedId = useSelector(focused);
   const focusedHighlight = React.useMemo(
@@ -134,7 +134,7 @@ function useFocusedHighlight(
     setShouldFocusCard(!cardIsFocused);
   }, [element, focusedHighlight]);
 
-  useKeyCombination({key: 'Enter'}, editOnEnter);
+  useKeyCombination({key: 'Enter'}, editOnEnter, noopKeyCombinationHandler([container, element]));
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
@@ -144,7 +144,7 @@ function useFocusedHighlight(
 }
 
 function CardsForHighlights({
-  highlights, container, focusedHighlight, shouldFocusCard, setShouldFocusCard, highlighter
+  highlights, container, focusedHighlight, shouldFocusCard, setShouldFocusCard, highlighter,
 }: {
   highlights: Highlight[];
   container: HTMLElement;
