@@ -340,6 +340,20 @@ class HomeRex:
     async def click_logout_link(self):
         await self.page.get_by_role("menuitem", name="Log out").click()
 
+    @property
+    def small_login_box(self):
+        return self.page.get_by_text(
+            "Log in to highlight and take notes. It’s 100% free.Log inCancel"
+        )
+
+    @pytest.mark.asyncio
+    async def click_small_login_box_cancel(self):
+        await self.page.get_by_role("button", name="Cancel").click()
+
+    @pytest.mark.asyncio
+    async def click_small_login_box_login(self):
+        await self.page.get_by_test_id("confirm").click()
+
     # Book chapter section
 
     @pytest.mark.asyncio
@@ -354,14 +368,40 @@ class HomeRex:
     async def select_text(self):
         await self.page.locator("p:has-text('impact history')").select_text()
 
+    @pytest.mark.asyncio
+    async def select_text_block_in_solution(self):
+        await self.page.locator(
+            "p:has-text('formula. Repeat with values')"
+        ).select_text()
+
+    @pytest.mark.asyncio
+    async def click_astronomy_book_chapter93(self):
+        await self.page.get_by_test_id("content-link-test").get_by_text(
+            "Impact Craters"
+        ).click()
+
     # Highlight box and highlights
 
     @pytest.mark.asyncio
     async def highlight_box_trash_icon_is_visible(self):
+        return await self.page.get_by_label("Deselect current highlight").is_visible()
+
+    @pytest.mark.asyncio
+    async def click_highlight_box_trash_icon(self):
+        await self.page.get_by_label("Deselect current highlight").click()
+
+    @pytest.mark.asyncio
+    async def double_click_highlight_infobox(self):
         return (
-            await self.page.locator("div")
-            .get_by_test_id("editcard-trash-icon")
-            .is_visible()
+            await self.page.get_by_role("dialog")
+            .get_by_text("Press Enter or double-click highlight to edit highlight")
+            .dblclick()
+        )
+
+    @property
+    def highlight_infobox(self):
+        return self.page.get_by_role("dialog").get_by_text(
+            "Press Enter or double-click highlight to edit highlight"
         )
 
     @pytest.mark.asyncio
@@ -429,6 +469,10 @@ class HomeRex:
         await self.page.locator("div").get_by_test_id("confirm").click()
 
     @pytest.mark.asyncio
+    async def click_small_highlight_box_edit_button(self):
+        await self.page.get_by_test_id("card").get_by_text("Edit").click()
+
+    @pytest.mark.asyncio
     async def yellow_highlighted_text_is_visible(self):
         return await self.page.locator("mark > span:nth-child(1)").all()
 
@@ -494,6 +538,10 @@ class HomeRex:
     async def click_cancel_changes_button(self):
         await self.page.locator("div").get_by_test_id("cancel-discard").click()
 
+    @pytest.mark.asyncio
+    async def click_discard_changes_button(self):
+        await self.page.locator("div").get_by_test_id("discard-changes").click()
+
     # Error states and pages
 
     @pytest.mark.asyncio
@@ -519,6 +567,10 @@ class HomeRex:
     @pytest.mark.asyncio
     async def fill_search_field(self, value):
         await self.content_search_field_is_visible.fill(value)
+
+    @pytest.mark.asyncio
+    async def click_search_magnifier_icon(self):
+        await self.page.get_by_role("button", name="Search").click()
 
     @property
     def search_result_is_visible(self):
