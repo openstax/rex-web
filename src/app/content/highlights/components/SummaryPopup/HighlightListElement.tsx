@@ -52,7 +52,8 @@ export const HighlightContentWrapper = styled.div`
       }
 
       .highlight-note-text {
-        color: ${style.focused};
+        color: ${theme.color.neutral.foreground};
+        font-weight: bold;
       }
     `;
   }}
