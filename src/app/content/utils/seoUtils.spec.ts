@@ -144,3 +144,87 @@ describe('createTitle', () => {
     expect(title).toEqual('3 page1 - book | OpenStax');
   });
 });
+describe('createTitle (modal param)', () => {
+  const intl = createIntl();
+
+  it('returns modal title for MH modal param', () => {
+    const page = makeArchiveSection('page1');
+    const book = {
+      title: 'book',
+      tree: makeArchiveTree('book', [page]),
+    };
+    // params string with modal=MH
+    const params = 'modal=MH';
+    const title = createTitle(page as any as Page, book as any as Book, intl, params);
+    expect(title).toEqual('My Highlights and Notes | OpenStax');
+  });
+
+  it('returns modal title for KS modal param', () => {
+    const page = makeArchiveSection('page1');
+    const book = {
+      title: 'book',
+      tree: makeArchiveTree('book', [page]),
+    };
+    // params string with modal=KS
+    const params = 'modal=KS';
+    const title = createTitle(page as any as Page, book as any as Book, intl, params);
+    expect(title).toEqual('REX Keyboard Shortcuts | OpenStax');
+  });
+
+  it('returns modal title for PQ modal param', () => {
+    const page = makeArchiveSection('page1');
+    const book = {
+      title: 'book',
+      tree: makeArchiveTree('book', [page]),
+    };
+    // params string with modal=PQ
+    const params = 'modal=PQ';
+    const title = createTitle(page as any as Page, book as any as Book, intl, params);
+    expect(title).toEqual('REX Practice Questions | OpenStax');
+  });
+
+  it('returns modal title for SG modal param', () => {
+    const page = makeArchiveSection('page1');
+    const book = {
+      title: 'book',
+      tree: makeArchiveTree('book', [page]),
+    };
+    // params string with modal=SG
+    const params = 'modal=SG';
+    const title = createTitle(page as any as Page, book as any as Book, intl, params);
+    expect(title).toEqual('REX Study Guides | OpenStax');
+  });
+
+  it('returns normal title if modal param is not present', () => {
+    const page = makeArchiveSection('page1');
+    const book = {
+      title: 'book',
+      tree: makeArchiveTree('book', [page]),
+    };
+    const params = '';
+    const title = createTitle(page as any as Page, book as any as Book, intl, params);
+    expect(title).toEqual('page1 - book | OpenStax');
+  });
+
+  it('returns normal title if modal param is unknown', () => {
+    const page = makeArchiveSection('page1');
+    const book = {
+      title: 'book',
+      tree: makeArchiveTree('book', [page]),
+    };
+    const params = 'modal=UNKNOWN';
+    const title = createTitle(page as any as Page, book as any as Book, intl, params);
+    expect(title).toEqual('page1 - book | OpenStax');
+  });
+
+  it('returns modal title if modal param is present among other params', () => {
+    const page = makeArchiveSection('page1');
+    const book = {
+      title: 'book',
+      tree: makeArchiveTree('book', [page]),
+    };
+    const params = 'foo=bar&modal=MH&baz=qux';
+    const title = createTitle(page as any as Page, book as any as Book, intl, params);
+    expect(title).toEqual('My Highlights and Notes | OpenStax');
+  });
+});
