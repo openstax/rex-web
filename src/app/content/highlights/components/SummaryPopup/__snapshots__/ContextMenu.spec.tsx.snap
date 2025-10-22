@@ -449,7 +449,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   flex-direction: row;
   overflow: visible;
   gap: 0.8rem;
-  padding: 0 0.3rem 0.8rem;
+  padding: 0.8rem 0.3rem;
 }
 
 .c4 {

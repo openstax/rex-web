@@ -320,7 +320,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   flex-direction: row;
   overflow: visible;
   gap: 0.8rem;
-  padding: 0 0.3rem 0.8rem;
+  padding: 0.8rem 0.3rem;
 }
 
 <div

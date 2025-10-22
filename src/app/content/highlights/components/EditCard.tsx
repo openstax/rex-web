@@ -46,7 +46,6 @@ export interface EditCardProps {
   data?: HighlightData;
   className: string;
   shouldFocusCard: boolean;
-  minimize?: boolean;
 }
 
 // tslint:disable-next-line:variable-name
@@ -74,20 +73,18 @@ function LoginOrEdit({
       role='dialog'
       aria-label={formatMessage({id: 'i18n:highlighter:edit-note:label'})}
     >
-      {
-        authenticated ? (
-          (props.shouldFocusCard || props.data?.annotation) ? (
-            <form
-              ref={mergeRefs(fref, element)}
-              data-analytics-region='edit-note'
-              data-highlight-card
-            >
-              <ActiveEditCard props={props} element={element} />
-            </form>
-          ) :
-          <i>Press Enter or double-click highlight to edit highlight</i>
-        ) : <LoginConfirmation onBlur={props.onBlur} />
-      }
+      <form
+        ref={mergeRefs(fref, element)}
+        data-analytics-region='edit-note'
+        data-highlight-card
+      >
+        {authenticated ? (
+          <ActiveEditCard props={props} element={element}
+          />
+        ) : (
+          <LoginConfirmation onBlur={props.onBlur} />
+        )}
+      </form>
     </div>
   );
 }
@@ -457,22 +454,24 @@ function useOnColorChange(props: EditCardProps) {
 }
 
 function useSaveAnnotation(
-  { data, pageId, locationFilterId, highlight, onCancel }: EditCardProps,
+  props: EditCardProps,
   element: React.RefObject<HTMLElement>,
   pendingAnnotation: string
 ) {
   const dispatch = useDispatch();
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
+  const { pageId, locationFilterId, highlight } = props;
+  const onCancel = props.onCancel;
 
   return React.useCallback(
     (toSave: HighlightData) => {
-      const definedData = assertDefined(
-        data,
+      const data = assertDefined(
+        props.data,
         'Can\'t update highlight that doesn\'t exist'
       );
 
-      const addedNote = definedData.annotation === undefined;
-      const { updatePayload, preUpdateData } = generateUpdatePayload(definedData, {
+      const addedNote = data.annotation === undefined;
+      const { updatePayload, preUpdateData } = generateUpdatePayload(data, {
         id: toSave.id,
         annotation: pendingAnnotation,
       });
@@ -491,7 +490,6 @@ function useSaveAnnotation(
       highlight.focus();
     },
     [
-      data,
       dispatch,
       element,
       highlight,
@@ -499,6 +497,7 @@ function useSaveAnnotation(
       onCancel,
       pageId,
       pendingAnnotation,
+      props.data,
       trackEditAnnotation,
     ]
   );
@@ -509,6 +508,7 @@ export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
   user-select: none;
   overflow: visible;
+  padding-top: 0 !important;
 
   ${ButtonGroup} {
     margin-top: ${cardPadding}rem;

@@ -58,7 +58,6 @@ export default styled(MainContent)`
   .highlight {
     position: relative;
     z-index: 1;
-    user-select: none;
   }
 
   /* stylelint-disable selector-class-pattern */

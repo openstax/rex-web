@@ -303,11 +303,9 @@ describe('CardWrapper', () => {
     const highlight2 = createMockHighlight('id2');
     const highlightElement1 = document.createElement('span');
     const highlightElement2 = document.createElement('span');
-    highlight1.elements.push(highlightElement1);
-    highlight2.elements.push(highlightElement2);
     container.appendChild(highlightElement1);
     container.appendChild(highlightElement2);
-    renderer.create(
+    const component = renderer.create(
       <Provider store={store}>
         <CardWrapper
           container={container}
@@ -316,12 +314,7 @@ describe('CardWrapper', () => {
       </Provider>
     );
 
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight1.id));
-    });
-
-    // These tests get code coverage but do not update the highlight structures
-    // so that we can see that they worked as expected
+    const cards = component.root.findAllByType(Card);
 
     // Expect cards to be hidden
     renderer.act(() => {
@@ -350,11 +343,8 @@ describe('CardWrapper', () => {
       });
     });
 
-    // Set focusedHighlight, and do double=click
-    renderer.act(() => {
-      highlightElement1.dispatchEvent(new Event('focus', { bubbles: true }));
-      highlightElement1.dispatchEvent(new Event('dblclick', { bubbles: true }));
-    });
+    expect(cards[0].props.isHidden).toBe(false);
+    expect(cards[1].props.isHidden).toBe(false);
   });
 
   it(

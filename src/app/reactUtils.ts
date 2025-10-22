@@ -142,11 +142,13 @@ export const onFocusInOrOutHandler = (
 };
 
 export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(() => onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout')(), [ref, isEnabled, cb]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout'), [ref, isEnabled, cb]);
 };
 
 export const useFocusIn = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(() => onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin')(), [ref, isEnabled, cb]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin'), [ref, isEnabled, cb]);
 };
 
 export const onDOMEventHandler = (
@@ -182,21 +184,23 @@ export const useTimeout = (delay: number, callback: () => void) => {
   const timeout = React.useRef<number>();
 
   const timeoutHandler = () => savedCallback.current && savedCallback.current();
-  const reset = React.useCallback(() => {
+  const reset = () => {
     if (timeout.current) {
       clearTimeout(timeout.current);
     }
 
     timeout.current = setTimeout(timeoutHandler, delay);
-  }, [delay]);
+  };
 
   React.useEffect(() => {
     savedCallback.current = callback;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callback]);
 
   React.useEffect(() => {
       reset();
-  }, [reset]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [delay]);
 
   React.useEffect(() => () => clearTimeout(assertDefined(timeout.current, 'timeout ID can\'t be undefined')), []);
 
@@ -256,7 +260,8 @@ export const useOnKey = (
   isEnabled: boolean,
   cb: () => void
 ) => {
-  React.useEffect(() => onKeyHandler(config, element, isEnabled, cb)(), [config, element, isEnabled, cb]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  React.useEffect(onKeyHandler(config, element, isEnabled, cb), [config, element, isEnabled, cb]);
 };
 
 export const onEscCallbacks: Array<() => void> = [];
@@ -458,7 +463,8 @@ export const useKeyCombination = (
       if (preventDefault) event.preventDefault();
       callback(event);
     }
-  }, [callback, noopHandler, options, preventDefault]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callback, options]);
 
   React.useEffect(() => {
     document.addEventListener('keydown', handler);
@@ -486,15 +492,16 @@ export const useFocusHighlight = (showCard: (id: string) => void, highlights: Hi
             When clicking on a highlight, the target is a mark element and
             we need to find the first span inside it to get the highlight as expected
           */
-          target = event.target.querySelector('span');
+          target = event.target.querySelectorAll('span')[0];
         }
       } else {
         target = event.target;
       }
       const highlight = highlights.find(h =>
-        h.elements && (h.elements as Element[]).some(el =>
+        h.elements && h.elements.some(el =>
           el === target ||
-          (!!el && typeof el.contains === 'function' && el.contains(target as Element))
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (!!el && typeof (el as any).contains === 'function' && (el as any).contains(target))
         )
       );
 
