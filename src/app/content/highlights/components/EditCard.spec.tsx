@@ -2,6 +2,7 @@ import { Highlight } from '@openstax/highlighter';
 import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React, { ReactElement } from 'react';
 import renderer from 'react-test-renderer';
+import ReactTestUtils from 'react-dom/test-utils';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
@@ -101,6 +102,7 @@ describe('EditCard', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+
     mockSpyUser.mockClear();
   });
 
@@ -629,7 +631,7 @@ describe('EditCard', () => {
       ...highlightData,
     };
 
-    renderToDom(
+    const component = renderToDom(
       <div id={MAIN_CONTENT_ID} tabIndex={-1}>
         <TestContainer services={services} store={store}>
           <a href='#foo'>text</a>
@@ -650,6 +652,17 @@ describe('EditCard', () => {
     document?.querySelector('a')?.focus();
     document?.getElementById(MAIN_CONTENT_ID)?.focus();
     expect(editCardProps.onBlur).not.toHaveBeenCalled();
+    const button = component.node.querySelector('button') as HTMLButtonElement;
+    const preventDefault = jest.fn();
+    document!.dispatchEvent = jest.fn();
+
+    // Two branches of showCard - must be mousedown of button 0
+    ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 1 });
+    expect(preventDefault).not.toHaveBeenCalled();
+    ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 0 });
+    expect(preventDefault).toHaveBeenCalled();
+    expect(document!.dispatchEvent).toHaveBeenCalled();
+
     mockSpyUser.mockClear();
   });
 
