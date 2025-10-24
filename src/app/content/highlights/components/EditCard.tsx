@@ -95,7 +95,7 @@ function LoginOrEdit({
                 </form>
               ) :
               <button type='button' onMouseDown={showCard}>
-                Press Enter or click here to edit highlight
+                <FormattedMessage id='i18n:highlighting:instructions' />
               </button>
             }
           </HiddenOnMobile>
