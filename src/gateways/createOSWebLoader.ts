@@ -22,6 +22,7 @@ export interface OSWebBook {
   amazon_link: string;
   polish_site_link: string;
   content_warning_text: string | null;
+  require_login_message_text: string | null;
   id: number;
 }
 
@@ -44,6 +45,7 @@ export const fields = [
   'book_subjects',
   'book_categories',
   'content_warning_text',
+  'require_login_message_text',
   'id',
 ].join(',');
 

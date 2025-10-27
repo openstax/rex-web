@@ -28,6 +28,7 @@ import {
 } from './constants';
 import ContentPane from './ContentPane';
 import ContentWarning from './ContentWarning';
+import LoginGate from './LoginGate';
 import LabsCTA from './LabsCall';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
@@ -103,11 +104,13 @@ const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) 
               <Topbar />
               <ContentNotifications mobileExpanded={mobileExpanded} />
               <ContentWarning book={book} />
-              <Page>
-                <PrevNextBar />
-                <LabsCTA />
-                <BuyBook book={book} />
-              </Page>
+              <LoginGate book={book}>
+                <Page>
+                  <PrevNextBar />
+                  <LabsCTA />
+                  <BuyBook book={book} />
+                </Page>
+              </LoginGate>
               <Attribution />
               <Footer />
             </ContentPane>
