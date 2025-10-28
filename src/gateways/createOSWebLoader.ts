@@ -45,7 +45,7 @@ export const fields = [
   'book_subjects',
   'book_categories',
   'content_warning_text',
-  'require_login_message_text',
+  // Should query require_login_message_text but it is not available yet
   'id',
 ].join(',');
 
