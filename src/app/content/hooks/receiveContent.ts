@@ -1,9 +1,10 @@
+import queryString from 'query-string';
 import { setHead } from '../../head/actions';
 import { initialState as headInitialState } from '../../head/reducer';
 import { Link } from '../../head/types';
 import createIntl from '../../messages/createIntl';
 import { locationChange } from '../../navigation/actions';
-import { pathname } from '../../navigation/selectors';
+import { pathname, query } from '../../navigation/selectors';
 import theme from '../../theme';
 import { ActionHookBody } from '../../types';
 import { receivePage } from '../actions';
@@ -41,6 +42,9 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
   const loadingBook = select.loadingBook(state);
   const loadingPage = select.loadingPage(state);
   const currentPath = pathname(state);
+  const queryParamsObj = query(state);
+  const queryParams = queryString.stringify(queryParamsObj);
+  const queryParamsWithPrefix = queryParams ? `?${queryParams}` : '';
 
   if (!page || !book) {
     dispatch(
@@ -57,7 +61,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
 
   const locale = book.language;
   const intl = await createIntl(locale);
-  const title = createTitle(page, book, intl);
+  const title = createTitle(page, book, intl, queryParamsWithPrefix);
   const description = getPageDescription(services, intl, book, page);
   const canonical = await getCanonicalUrlParams(archiveLoader, osWebLoader, book, page.id);
   const canonicalUrl = canonical && contentRoute.getUrl(canonical);
