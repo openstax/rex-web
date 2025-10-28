@@ -12,6 +12,7 @@ import { useFocusElement, useOnEsc, useTrapTabNavigation } from '../../../reactU
 import theme from '../../../theme';
 import { assertDefined, assertWindow, mergeRefs } from '../../../utils';
 import { highlightStyles } from '../../constants';
+import { cardWidth } from '../constants';
 import defer from 'lodash/fp/defer';
 import {
   clearFocusedHighlight,
@@ -67,6 +68,13 @@ function LoginOrEdit({
   const authenticated = !!useSelector(selectAuth.user);
   const element = React.useRef<HTMLElement>(null);
   const {formatMessage} = useIntl();
+  const showCard = React.useCallback((event: React.MouseEvent) => {
+    if (event.button === 0) {
+      event.preventDefault();
+      document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
+    }
+  }, []);
+  const isNewSelection = props.highlight.elements.length === 0;
 
   return (
     <div
@@ -76,16 +84,26 @@ function LoginOrEdit({
     >
       {
         authenticated ? (
-          (props.shouldFocusCard || props.data?.annotation) ? (
-            <form
-              ref={mergeRefs(fref, element)}
-              data-analytics-region='edit-note'
-              data-highlight-card
-            >
-              <ActiveEditCard props={props} element={element} />
-            </form>
-          ) :
-          <i>Press Enter or double-click highlight to edit highlight</i>
+          <HiddenOnMobile>
+            {
+              (props.shouldFocusCard || props.data?.annotation) ? (
+                <form
+                  ref={mergeRefs(fref, element)}
+                  data-analytics-region='edit-note'
+                  data-highlight-card
+                >
+                  <ActiveEditCard props={props} element={element} />
+                </form>
+              ) :
+              <button type='button' onMouseDown={showCard}>
+                <FormattedMessage id={
+                  isNewSelection
+                    ? 'i18n:highlighting:create-instructions'
+                    : 'i18n:highlighting:instructions'
+                } />
+              </button>
+            }
+          </HiddenOnMobile>
         ) : <LoginConfirmation onBlur={props.onBlur} />
       }
     </div>
@@ -117,6 +135,7 @@ function LoginConfirmation({
 
 // tslint:disable-next-line:variable-name
 const HiddenOnMobile = styled.div`
+  min-width: ${cardWidth}rem;
   ${theme.breakpoints.touchDeviceQuery(css`
     display: none;
   `)}
@@ -205,7 +224,7 @@ function ActiveEditCard({
   useTrapTabNavigation(ref, editingAnnotation);
 
   return (
-    <HiddenOnMobile ref={ref}>
+    <div ref={ref}>
       <ColorPicker
         color={props.data?.color}
         onChange={onColorChange}
@@ -248,7 +267,7 @@ function ActiveEditCard({
           always={() => setConfirmingDelete(false)}
         />
       )}
-    </HiddenOnMobile>
+    </div>
   );
 }
 
