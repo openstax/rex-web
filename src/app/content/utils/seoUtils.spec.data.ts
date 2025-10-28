@@ -76,6 +76,7 @@ export const mockOsWebBook: OSWebBook = {
   amazon_link: '',
   polish_site_link: '',
   content_warning_text: '',
+  require_login_message_text: '',
   id: 72,
 };
 
