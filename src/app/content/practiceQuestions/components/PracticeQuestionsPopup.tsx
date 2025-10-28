@@ -57,7 +57,7 @@ const PracticeQuestionsPopup = () => {
       }}
     >
       <Header colorSchema={bookTheme}>
-        <h1>
+        <h1 id='modal-title'>
           <FormattedMessage id='i18n:practice-questions:popup:heading'>
             {(msg) => msg}
           </FormattedMessage>
