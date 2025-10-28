@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
@@ -16,11 +16,19 @@ import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
 import * as HStyled from './HighlightStyles';
 import HighlightListElement from './SummaryPopup/HighlightListElement';
+import { StyledHiddenLiveRegion } from './HighlightStyles';
 
 // tslint:disable-next-line: variable-name
 export const NoHighlightsTip = htmlMessage(
   'i18n:toolbar:highlights:popup:heading:no-highlights-tip',
   (props) => <span {...props} />
+);
+
+
+const VisuallyHiddenLiveRegion = ({ message }: { message: string }) => (
+  <StyledHiddenLiveRegion aria-live="polite">
+    {message}
+  </StyledHiddenLiveRegion>
 );
 
 // tslint:disable-next-line: variable-name
@@ -30,6 +38,8 @@ const Highlights = ({ className }: { className: string }) => {
   const totalCountsPerPage = useSelector(selectors.totalCountsPerPage);
   const container = React.useRef<HTMLElement>(null);
   const services = useServices();
+  const intl = useIntl();
+  const [announceMsg, setAnnounceMsg] = React.useState('');
 
   React.useLayoutEffect(() => {
     if (container.current) {
@@ -39,11 +49,25 @@ const Highlights = ({ className }: { className: string }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderedHighlights]);
 
+  React.useEffect(() => {
+    if (
+      !isLoading &&
+      (!totalCountsPerPage || Object.keys(totalCountsPerPage).length === 0)
+    ) {
+      setAnnounceMsg(intl.formatMessage({ id: 'i18n:toolbar:highlights:popup:body:no-highlights-in-book' }));
+    } else if (!isLoading && orderedHighlights && orderedHighlights.length === 0) {
+      setAnnounceMsg(intl.formatMessage({ id: 'i18n:toolbar:highlights:popup:heading:no-highlights' }));
+    } else {
+      setAnnounceMsg('');
+    }
+  }, [isLoading, orderedHighlights, totalCountsPerPage, intl]);
+
   if (
     !isLoading
     && (!totalCountsPerPage || Object.keys(totalCountsPerPage).length === 0)
   ) {
     return <HighlightsWrapper ref={container}>
+      <VisuallyHiddenLiveRegion message={announceMsg} />
       <HStyled.GeneralLeftText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:no-highlights-in-book'>
           {(msg) => msg}
@@ -67,6 +91,7 @@ const Highlights = ({ className }: { className: string }) => {
 
   if (!isLoading && orderedHighlights && orderedHighlights.length === 0) {
     return <HighlightsWrapper ref={container}>
+      <VisuallyHiddenLiveRegion message={announceMsg} />
       <HStyled.GeneralCenterText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
           {(msg) => msg}
@@ -77,6 +102,7 @@ const Highlights = ({ className }: { className: string }) => {
   }
 
   return <React.Fragment>
+    <VisuallyHiddenLiveRegion message={announceMsg} />
     {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
     {orderedHighlights && <HighlightsWrapper ref={container} className={className} aria-live='polite'>
       {orderedHighlights.map((highlightData) => {
