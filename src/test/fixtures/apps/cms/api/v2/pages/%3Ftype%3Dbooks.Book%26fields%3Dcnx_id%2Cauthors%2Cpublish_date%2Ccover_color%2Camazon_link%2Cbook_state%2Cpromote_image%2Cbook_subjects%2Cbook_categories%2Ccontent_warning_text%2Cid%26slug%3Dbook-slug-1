@@ -17,6 +17,7 @@
             "publish_date": "2012-06-21",
             "book_state": "live",
             "content_warning_text": "sensitive material is covered",
+            "require_login_message_text": "you have to log in",
             "id": 72
         }
     ]
