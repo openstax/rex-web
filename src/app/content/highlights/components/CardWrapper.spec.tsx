@@ -138,7 +138,7 @@ describe('CardWrapper', () => {
 
     // Handle null value
     renderer.act(() => {
-      card1.props.onHeightChange({ current: { offsetHeight: null } });
+      card1.props.onHeightChange({ current: null });
     });
     // First card have null height so secondcard starts at the highlight top offset
     expect(card1.props.topOffset).toEqual(100);
@@ -332,6 +332,14 @@ describe('CardWrapper', () => {
       });
     });
 
+    renderer.act(() => {
+      // Simulate pressing Escape to hide card
+      dispatchKeyDownEvent({
+        key: 'Escape',
+        target: highlightElement1,
+      });
+    });
+
     // Expect cards to be visible again
     renderer.act(() => {
       // Simulate pressing Enter to unhide cards
@@ -341,7 +349,6 @@ describe('CardWrapper', () => {
       });
     });
 
-    // Expect all cards to be visible
     renderer.act(() => {
       // Simulate pressing Tab to unhide all cards
       dispatchKeyDownEvent({
@@ -350,11 +357,22 @@ describe('CardWrapper', () => {
       });
     });
 
-    // Set focusedHighlight, and do double=click
     renderer.act(() => {
-      highlightElement1.dispatchEvent(new Event('focus', { bubbles: true }));
-      highlightElement1.dispatchEvent(new Event('dblclick', { bubbles: true }));
+      // Simulate pressing Escape to hide card
+      dispatchKeyDownEvent({
+        key: 'Escape',
+        target: highlightElement1,
+      });
     });
+
+    // Trigger editOnEnter with no focusedHighlight
+    renderer.act(() => {
+      dispatchKeyDownEvent({
+          key: 'Enter',
+      });
+    });
+
+    document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
   });
 
   it(
