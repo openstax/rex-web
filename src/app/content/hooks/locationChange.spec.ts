@@ -215,6 +215,7 @@ describe('contentRouteHookBody', () => {
       promote_image: null,
       publish_date: '2012-06-21',
       content_warning_text: '',
+      require_login_message_text: '',
       id: 72,
     };
 
