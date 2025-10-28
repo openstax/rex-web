@@ -106,6 +106,26 @@ describe('EditCard', () => {
     mockSpyUser.mockClear();
   });
 
+  it('shows create highlight message for new highlight', () => {
+    const newHighlight = {...highlight, elements: []};
+    const mockSpyUser = jest.spyOn(selectAuth, 'user')
+      .mockReturnValue(formatUser(testAccountsUser));
+    const component = renderer.create(
+      <TestContainer services={services} store={store}>
+        <EditCard
+          {...{...editCardProps, highlight: newHighlight}}
+          data={highlightData}
+          isActive={true}
+          shouldFocusCard={false}
+        />
+      </TestContainer>
+    );
+
+    const button = component.root.findByType('button');
+    expect(button.props.children.props.id).toBe('i18n:highlighting:create-instructions');
+    mockSpyUser.mockClear();
+  });
+
   it('matches snapshot without data', () => {
     const component = renderer.create(
       <TestContainer services={services} store={store}>

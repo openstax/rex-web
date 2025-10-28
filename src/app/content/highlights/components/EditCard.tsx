@@ -74,6 +74,7 @@ function LoginOrEdit({
       document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
     }
   }, []);
+  const isNewSelection = props.highlight.elements.length === 0;
 
   return (
     <div
@@ -95,7 +96,11 @@ function LoginOrEdit({
                 </form>
               ) :
               <button type='button' onMouseDown={showCard}>
-                <FormattedMessage id='i18n:highlighting:instructions' />
+                <FormattedMessage id={
+                  isNewSelection
+                    ? 'i18n:highlighting:create-instructions'
+                    : 'i18n:highlighting:instructions'
+                } />
               </button>
             }
           </HiddenOnMobile>
