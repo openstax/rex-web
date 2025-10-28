@@ -10,11 +10,10 @@ exports[`Card matches snapshot when focused without note 1`] = `
   padding: 0.8rem;
   border-radius: 0.4rem;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  left: unset;
-  right: 0;
+  left: calc(50% + (82.5rem / 2) + 3rem);
+  right: unset;
   top: 150px;
   left: calc(50% + (82.5rem / 2) + 1rem);
-  right: unset;
   -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
   transition: opacity 0.3s,top 0.3s,left 0.3s;
 }
@@ -44,8 +43,8 @@ exports[`Card matches snapshot when focused without note 1`] = `
   .c0 {
     -webkit-animation: none;
     animation: none;
-    left: unset;
-    right: 2rem;
+    left: calc(75vw - (82.5rem / 2) + 1rem);
+    right: unset;
     top: 0px;
   }
 }
@@ -54,8 +53,8 @@ exports[`Card matches snapshot when focused without note 1`] = `
   .c0 {
     -webkit-animation: none;
     animation: none;
-    left: unset;
-    right: 2rem;
+    left: calc(75vw - (82.5rem / 2) + 1rem);
+    right: unset;
     top: 0px;
   }
 }
@@ -129,11 +128,10 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   padding: 0.8rem;
   border-radius: 0.4rem;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  left: unset;
-  right: 0;
+  left: calc(50% + (82.5rem / 2) + 3rem);
+  right: unset;
   top: undefinedpx;
   left: calc(50% + (82.5rem / 2) + 1rem);
-  right: unset;
   -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
   transition: opacity 0.3s,top 0.3s,left 0.3s;
 }
@@ -152,8 +150,8 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   .c0 {
     -webkit-animation: none;
     animation: none;
-    left: unset;
-    right: 2rem;
+    left: calc(75vw - (82.5rem / 2) + 1rem);
+    right: unset;
     top: 0px;
   }
 }
@@ -162,8 +160,8 @@ exports[`Card matches snapshot when passed data without note 1`] = `
   .c0 {
     -webkit-animation: none;
     animation: none;
-    left: unset;
-    right: 2rem;
+    left: calc(75vw - (82.5rem / 2) + 1rem);
+    right: unset;
     top: 0px;
   }
 }
@@ -223,11 +221,10 @@ exports[`Card matches snapshot without data 1`] = `
   padding: 0.8rem;
   border-radius: 0.4rem;
   box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
-  left: unset;
-  right: 0;
+  left: calc(50% + (82.5rem / 2) + 3rem);
+  right: unset;
   top: 200px;
   left: calc(50% + (82.5rem / 2) + 1rem);
-  right: unset;
   -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
   transition: opacity 0.3s,top 0.3s,left 0.3s;
 }
@@ -246,8 +243,8 @@ exports[`Card matches snapshot without data 1`] = `
   .c0 {
     -webkit-animation: none;
     animation: none;
-    left: unset;
-    right: 2rem;
+    left: calc(75vw - (82.5rem / 2) + 1rem);
+    right: unset;
     top: 200px;
   }
 }
@@ -256,8 +253,8 @@ exports[`Card matches snapshot without data 1`] = `
   .c0 {
     -webkit-animation: none;
     animation: none;
-    left: unset;
-    right: 2rem;
+    left: calc(75vw - (82.5rem / 2) + 1rem);
+    right: unset;
     top: 200px;
   }
 }
