@@ -101,10 +101,10 @@ const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) 
           <ConfirmationToastProvider>
             <Navigation />
             <ContentPane>
-              <Topbar />
-              <ContentNotifications mobileExpanded={mobileExpanded} />
-              <ContentWarning book={book} />
               <LoginGate book={book}>
+                <Topbar />
+                <ContentNotifications mobileExpanded={mobileExpanded} />
+                <ContentWarning book={book} />
                 <Page>
                   <PrevNextBar />
                   <LabsCTA />

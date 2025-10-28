@@ -14,11 +14,13 @@ const WarningDiv = styled.div`
   padding: 8rem 1.5rem;
 
   > div {
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
     max-width: 60rem;
 
     a {
-      justify-self: center;
+      place-self: center;
     }
   }
 `;
