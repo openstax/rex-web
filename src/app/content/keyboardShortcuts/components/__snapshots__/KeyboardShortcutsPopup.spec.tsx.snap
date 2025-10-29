@@ -280,6 +280,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
 }
 
 <div
+  aria-labelledby="modal-title"
   aria-modal="true"
   className="c0"
   role="dialog"
