@@ -24,9 +24,9 @@ export const NoHighlightsTip = htmlMessage(
   (props) => <span {...props} />
 );
 
-
+// tslint:disable-next-line: variable-name
 const VisuallyHiddenLiveRegion = ({ message }: { message: string }) => (
-  <StyledHiddenLiveRegion aria-live="polite">
+  <StyledHiddenLiveRegion aria-live='polite'>
     {message}
   </StyledHiddenLiveRegion>
 );

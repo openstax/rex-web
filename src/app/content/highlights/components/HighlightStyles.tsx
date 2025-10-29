@@ -198,6 +198,7 @@ export const MyHighlightsImage = styled.img`
   margin-top: ${popupBodyPadding}rem;
 `;
 
+// tslint:disable-next-line:variable-name
 export const StyledHiddenLiveRegion = styled.div`
   position: absolute;
   width: 1px;
