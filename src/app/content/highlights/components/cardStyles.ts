@@ -48,8 +48,8 @@ export const minimalWidthForCardsWithSearchResults = '(max-width: ' +
 
 const overlapDisplay = css`
   ${(props: CardProps) => !!props.isActive && css`
-    left: unset;
-    right: ${cardMinWindowMargin}rem;
+    left: calc(75vw - (${contentTextWidth}rem / 2) + ${cardFocusedContentMargin}rem);
+    right: unset;
     top: ${props.highlightOffsets
       ? props.highlightOffsets.bottom
       : getHighlightBottomOffset(props.container, props.highlight)}px;
@@ -60,12 +60,11 @@ const overlapDisplay = css`
 `;
 
 const rightSideDisplay = css`
-  left: unset;
-  right: 0;
+  left: calc(50% + (${contentTextWidth}rem / 2) + ${cardContentMargin}rem);
+  right: unset;
   top: ${(props: CardProps) => `${props.topOffset || getHighlightBottomOffset(props.container, props.highlight)}px;`}
   ${(props: CardProps) => !!props.isActive && css`
     left: calc(50% + (${contentTextWidth}rem / 2) + ${cardFocusedContentMargin}rem);
-    right: unset;
   `}
 `;
 
