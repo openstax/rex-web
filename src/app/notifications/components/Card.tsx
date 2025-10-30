@@ -4,7 +4,7 @@ import { ButtonGroup } from '../../components/Button';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
-import { inlineDisplayBreak } from '../theme';
+import { inlineDisplayBreak, inlineDisplayMediumBreak } from '../theme';
 
 const notificationWidth = 30;
 
@@ -55,7 +55,7 @@ export const Body = styled(({className, ...props}) =>
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 0;
+    padding: 1.5rem 0;
   }
 
   > div {
@@ -72,7 +72,11 @@ export const Body = styled(({className, ...props}) =>
 
     > ${ButtonGroup} {
       padding: 1rem;
-      margin: 0;
+      margin: 2.5rem 0 0 0;
+
+      @media (max-width: ${inlineDisplayMediumBreak}) {
+        margin: 4rem 0 0 0;
+      }
     }
 
     @media (max-width: ${inlineDisplayBreak}) {

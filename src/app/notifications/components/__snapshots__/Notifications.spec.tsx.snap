@@ -116,7 +116,7 @@ exports[`Notifications matches snapshot for appMessage 1`] = `
 
 .c0 > div > .c4 {
   padding: 1rem;
-  margin: 0;
+  margin: 2.5rem 0 0 0;
 }
 
 .c2 {
@@ -160,7 +160,13 @@ exports[`Notifications matches snapshot for appMessage 1`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 0;
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width:50em) {
+  .c0 > div > .c4 {
+    margin: 4rem 0 0 0;
   }
 }
 
@@ -345,7 +351,7 @@ exports[`Notifications matches snapshot for retiredBookRedirect 1`] = `
 
 .c0 > div > .c4 {
   padding: 1rem;
-  margin: 0;
+  margin: 2.5rem 0 0 0;
 }
 
 .c2 {
@@ -389,7 +395,13 @@ exports[`Notifications matches snapshot for retiredBookRedirect 1`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 0;
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width:50em) {
+  .c0 > div > .c4 {
+    margin: 4rem 0 0 0;
   }
 }
 
@@ -576,7 +588,7 @@ exports[`Notifications matches snapshot for updateAvailable 1`] = `
 
 .c0 > div > .c4 {
   padding: 1rem;
-  margin: 0;
+  margin: 2.5rem 0 0 0;
 }
 
 .c2 {
@@ -620,7 +632,13 @@ exports[`Notifications matches snapshot for updateAvailable 1`] = `
     margin: 0;
     height: auto;
     width: 100%;
-    padding: 0;
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width:50em) {
+  .c0 > div > .c4 {
+    margin: 4rem 0 0 0;
   }
 }
 

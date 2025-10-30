@@ -36,7 +36,6 @@ exports[`text resizer does not render if textSize is null 1`] = `
   top: 7rem;
   width: 100%;
   overflow: visible;
-  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
@@ -855,7 +854,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   top: 7rem;
   width: 100%;
   overflow: visible;
-  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
