@@ -10,7 +10,7 @@ import { HighlightWrapper } from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
-import { HighlightsList, NoHighlightsAvailable, NoHighlightsInBook } from './HighlightsCards'
+import { HighlightsList, NoHighlightsAvailable, NoHighlightsInBook } from './HighlightsCards';
 
 // tslint:disable-next-line: variable-name
 const Highlights = ({ className }: { className: string }) => {
@@ -42,7 +42,9 @@ const Highlights = ({ className }: { className: string }) => {
   return (
     <React.Fragment>
       {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
-      {orderedHighlights && <HighlightsList container={container} className={className} orderedHighlights={orderedHighlights} />}
+      {orderedHighlights &&
+        <HighlightsList container={container} className={className} orderedHighlights={orderedHighlights} />
+      }
     </React.Fragment>
   );
 };

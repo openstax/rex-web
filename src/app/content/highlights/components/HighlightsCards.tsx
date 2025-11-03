@@ -34,6 +34,7 @@ export const VisuallyHiddenLiveRegion = ({ id }: { id: string }) => {
   );
 };
 
+// tslint:disable-next-line: variable-name
 export const NoHighlightsInBook = ({ container }: { container: React.RefObject<HTMLElement> }) => (
   <HighlightsWrapper ref={container}>
     <VisuallyHiddenLiveRegion id='i18n:toolbar:highlights:popup:body:no-highlights-in-book' />
@@ -58,6 +59,7 @@ export const NoHighlightsInBook = ({ container }: { container: React.RefObject<H
   </HighlightsWrapper>
 );
 
+// tslint:disable-next-line: variable-name
 export const NoHighlightsAvailable = ({ container }: { container: React.RefObject<HTMLElement> }) => (
   <HighlightsWrapper ref={container}>
     <VisuallyHiddenLiveRegion id='i18n:toolbar:highlights:popup:heading:no-highlights' />
@@ -70,13 +72,22 @@ export const NoHighlightsAvailable = ({ container }: { container: React.RefObjec
   </HighlightsWrapper>
 );
 
+// tslint:disable-next-line: variable-name
 export const HighlightsList = (
-  { container, className, orderedHighlights }: 
-  { container: React.RefObject<HTMLElement>, className: string, orderedHighlights: OrderedSummaryHighlights | null }) => (
+  {
+    container,
+    className,
+    orderedHighlights,
+  }: {
+    container: React.RefObject<HTMLElement>,
+    className: string,
+    orderedHighlights: OrderedSummaryHighlights | null,
+  }
+) => (
   <HighlightsWrapper ref={container} className={className}>
     {orderedHighlights?.map((highlightData) => (
       <SectionHighlights
-        key={highlightData.location.id} 
+        key={highlightData.location.id}
         highlightDataInSection={highlightData}
         highlightRenderer={(highlight, pageId) => (
           <HighlightListElement

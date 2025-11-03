@@ -40,7 +40,7 @@ const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl', 
 const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl', sourceId: 'testbook1-testpage1-uuid' };
 const hlPurple = {
   annotation: 'hl', color: HighlightColorEnum.Purple,
-  id: 'hl4', sourceId: 'testbook1-testpage1-uuid'
+  id: 'hl4', sourceId: 'testbook1-testpage1-uuid',
 };
 const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow, sourceId: 'testbook1-testpage1-uuid' };
 
@@ -460,7 +460,7 @@ describe('Highlights', () => {
 
 describe('VisuallyHiddenLiveRegion', () => {
 
-  const getTextContent = (node) => {
+  const getTextContent = (node): string => {
     if (typeof node === 'string') return node;
     if (Array.isArray(node)) return node.map(getTextContent).join('');
     if (node && node.props && node.props.children) return getTextContent(node.props.children);
@@ -473,7 +473,7 @@ describe('VisuallyHiddenLiveRegion', () => {
     };
     const component = renderer.create(
       <RawIntlProvider value={intl}>
-        <VisuallyHiddenLiveRegion id="test-id" />
+        <VisuallyHiddenLiveRegion id='test-id' />
       </RawIntlProvider>
     );
 
@@ -496,7 +496,7 @@ describe('VisuallyHiddenLiveRegion', () => {
     };
     const component = renderer.create(
       <RawIntlProvider value={intl}>
-        <VisuallyHiddenLiveRegion id="test-id" />
+        <VisuallyHiddenLiveRegion id='test-id' />
       </RawIntlProvider>
     );
     component.unmount();
