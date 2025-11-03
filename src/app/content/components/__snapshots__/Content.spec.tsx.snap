@@ -1477,7 +1477,6 @@ Array [
   top: 7rem;
   width: 100%;
   overflow: visible;
-  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
@@ -8710,7 +8709,6 @@ Array [
   top: 7rem;
   width: 100%;
   overflow: visible;
-  padding-left: 5rem;
   display: block;
   z-index: 30;
 }
