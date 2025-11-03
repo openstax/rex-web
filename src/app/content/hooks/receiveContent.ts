@@ -42,8 +42,7 @@ const hookBody: ActionHookBody<typeof receivePage | typeof locationChange> = (se
   const loadingBook = select.loadingBook(state);
   const loadingPage = select.loadingPage(state);
   const currentPath = pathname(state);
-  const queryParamsObj = query(state);
-  const queryParams = queryString.stringify(queryParamsObj);
+  const queryParams = queryString.stringify(query(state));
   const queryParamsWithPrefix = queryParams ? `?${queryParams}` : '';
 
   if (!page || !book) {

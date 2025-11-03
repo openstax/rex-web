@@ -132,7 +132,8 @@ export const createTitle = (page: Page, book: Book, intl: IntlShape, params?: st
     : null;
   if (modalTitle) {
     return `${modalTitle} | OpenStax`;
-  } else if (nodeNumber) {
+  }
+  if (nodeNumber) {
     return `${nodeNumber} ${title}`;
   }
   return getParentPrefix(node.parent, intl) + title;
