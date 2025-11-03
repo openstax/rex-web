@@ -111,14 +111,28 @@ export const getPageDescription = (services: Pick<AppServices, 'archiveLoader'>,
   return pageDescription || intl.formatMessage({id: 'i18n:metadata:description'});
 };
 
-export const createTitle = (page: Page, book: Book, intl: IntlShape): string => {
+const modalTitles = {
+  'MH': 'My Highlights and Notes',
+  'KS': 'REX Keyboard Shortcuts',
+  'PQ': 'REX Practice Questions',
+  'SG': 'REX Study Guides',
+};
+
+export const createTitle = (page: Page, book: Book, intl: IntlShape, params?: string): string => {
   const node = assertDefined(
     findArchiveTreeNodeById(book.tree, page.id),
     `couldn't find node for a page id: ${page.id}`
   );
   const [nodeNumber, nodeTitle] = splitTitleParts(node.title);
   const title = `${nodeTitle} - ${book.title} | OpenStax`;
-
+  const searchParams = params ? new URLSearchParams(params) : undefined;
+  const modalParam = searchParams?.get('modal');
+  const modalTitle = modalParam && modalParam in modalTitles
+    ? modalTitles[modalParam as keyof typeof modalTitles]
+    : null;
+  if (modalTitle) {
+    return `${modalTitle} | OpenStax`;
+  }
   if (nodeNumber) {
     return `${nodeNumber} ${title}`;
   }
