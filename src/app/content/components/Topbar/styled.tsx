@@ -17,7 +17,6 @@ import {
   contentWrapperMaxWidth,
   mobileSearchContainerMargin,
   sidebarTransitionTime,
-  textResizerIconWidth,
   toolbarHrHeight,
   toolbarIconColor,
   toolbarMobileSearchWrapperHeight,
@@ -60,7 +59,6 @@ export const TopBarWrapper = styled.div`
   top: ${bookBannerDesktopMiniHeight}rem;
   width: 100%;
   overflow: visible;
-  padding-left: ${textResizerIconWidth}rem;
   display: block;
   z-index: ${theme.zIndex.topbar}; /* stay above book content */
   ${theme.breakpoints.mobile(css`
