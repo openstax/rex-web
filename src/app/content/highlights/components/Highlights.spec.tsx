@@ -2,6 +2,7 @@ import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highligh
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { RawIntlProvider } from 'react-intl';
+import createIntl from '../../../messages/createIntl';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
@@ -460,17 +461,15 @@ describe('Highlights', () => {
 
 describe('VisuallyHiddenLiveRegion', () => {
 
-  const getTextContent = (node): string => {
+  const getTextContent = (node: any): string => {
     if (typeof node === 'string') return node;
     if (Array.isArray(node)) return node.map(getTextContent).join('');
     if (node && node.props && node.props.children) return getTextContent(node.props.children);
     return '';
   };
 
-  it('announces the message after a delay when id changes', () => {
-    const intl = {
-      formatMessage: jest.fn(({ id }) => `Mocked message for ${id}`),
-    };
+  it('announces the message after a delay when id changes', async() => {
+    const intl = await createIntl('en');
     const component = renderer.create(
       <RawIntlProvider value={intl}>
         <VisuallyHiddenLiveRegion id='test-id' />
@@ -487,13 +486,12 @@ describe('VisuallyHiddenLiveRegion', () => {
       jest.advanceTimersByTime(100);
     });
 
-    expect(getTextContent(liveRegion)).toBe('Mocked message for test-id');
+    expect(getTextContent(liveRegion)).toBe('test-id');
   });
 
-  it('clears the timer on unmount', () => {
-    const intl = {
-      formatMessage: jest.fn(({ id }) => `Mocked message for ${id}`),
-    };
+  it('clears the timer on unmount', async() => {
+    // @ts-ignore
+    const intl = await createIntl('en');
     const component = renderer.create(
       <RawIntlProvider value={intl}>
         <VisuallyHiddenLiveRegion id='test-id' />
