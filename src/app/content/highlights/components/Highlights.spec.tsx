@@ -1,6 +1,8 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { RawIntlProvider } from 'react-intl';
+import createIntl from '../../../messages/createIntl';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, pageInChapter } from '../../../../test/mocks/archiveLoader';
@@ -25,17 +27,22 @@ import { highlightLocationFilters } from '../selectors';
 import { HighlightData, SummaryHighlights } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
 import Highlights from './Highlights';
-import { NoHighlightsTip } from './Highlights';
 import ContextMenu from './SummaryPopup/ContextMenu';
 import HighlightAnnotation from './SummaryPopup/HighlightAnnotation';
 import HighlightDeleteWrapper from './SummaryPopup/HighlightDeleteWrapper';
 import { HighlightContentWrapper } from './SummaryPopup/HighlightListElement';
+import { NoHighlightsTip, VisuallyHiddenLiveRegion } from './HighlightsCards';
+
+
+jest.useFakeTimers();
 
 const hlBlue = { id: 'hl1', color: HighlightColorEnum.Blue, annotation: 'hl1', sourceId: 'testbook1-testpage1-uuid' };
 const hlGreen = { id: 'hl2', color: HighlightColorEnum.Green, annotation: 'hl', sourceId: 'testbook1-testpage1-uuid' };
 const hlPink = { id: 'hl3', color: HighlightColorEnum.Pink, annotation: 'hl', sourceId: 'testbook1-testpage1-uuid' };
-const hlPurple = { annotation: 'hl', color: HighlightColorEnum.Purple,
-  id: 'hl4', sourceId: 'testbook1-testpage1-uuid' };
+const hlPurple = {
+  annotation: 'hl', color: HighlightColorEnum.Purple,
+  id: 'hl4', sourceId: 'testbook1-testpage1-uuid',
+};
 const hlYellow = { id: 'hl5', color: HighlightColorEnum.Yellow, sourceId: 'testbook1-testpage1-uuid' };
 
 describe('Highlights', () => {
@@ -51,7 +58,7 @@ describe('Highlights', () => {
     dispatch = jest.spyOn(store, 'dispatch');
 
     store.dispatch(receiveBook(book));
-    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receivePage({ ...page, references: [] }));
 
     services = {
       ...createTestServices(),
@@ -71,10 +78,10 @@ describe('Highlights', () => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
-    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(setSummaryFilters({ locationIds: [location!.id, pageId] }));
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: {[HighlightColorEnum.Green]: 5},
-      [location!.id]: {[HighlightColorEnum.Green]: 2},
+      [pageId]: { [HighlightColorEnum.Green]: 5 },
+      [location!.id]: { [HighlightColorEnum.Green]: 2 },
     }, new Map()));
 
     const summaryHighlights = {
@@ -86,10 +93,10 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, { pagination: null }));
 
     const component = renderer.create(<TestContainer services={services} store={store}>
-      <Highlights/>
+      <Highlights />
     </TestContainer>);
 
     const sections = component.root.findAllByType(SectionHighlights);
@@ -122,8 +129,8 @@ describe('Highlights', () => {
     expect(location).toBeDefined();
 
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: {[HighlightColorEnum.Green]: 5},
-      [location!.id]: {[HighlightColorEnum.Green]: 2},
+      [pageId]: { [HighlightColorEnum.Green]: 5 },
+      [location!.id]: { [HighlightColorEnum.Green]: 2 },
     }, new Map()));
 
     const summaryHighlights = {
@@ -136,12 +143,12 @@ describe('Highlights', () => {
     } as SummaryHighlights;
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
-      store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
+      store.dispatch(setSummaryFilters({ locationIds: [location!.id, pageId] }));
+      store.dispatch(receiveSummaryHighlights(summaryHighlights, { pagination: null }));
     });
 
     const component = renderer.create(<TestContainer services={services} store={store}>
-      <Highlights/>
+      <Highlights />
     </TestContainer>);
 
     const sections = component.root.findAllByType(SectionHighlights);
@@ -150,7 +157,7 @@ describe('Highlights', () => {
     expect(component.root.findAllByType(LoaderWrapper).length).toEqual(0);
 
     renderer.act(() => {
-      store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+      store.dispatch(setSummaryFilters({ locationIds: [location!.id, pageId] }));
     });
 
     const isLoading = component.root.findByType(LoaderWrapper);
@@ -159,14 +166,14 @@ describe('Highlights', () => {
 
   it('show no highlights tip when there are no highlights for selected filters', () => {
     store.dispatch(receiveHighlightsTotalCounts({
-      pageId: {[HighlightColorEnum.Green]: 5},
-      pageId2: {[HighlightColorEnum.Green]: 2},
+      pageId: { [HighlightColorEnum.Green]: 5 },
+      pageId2: { [HighlightColorEnum.Green]: 2 },
     }, new Map()));
-    store.dispatch(setSummaryFilters({locationIds: ['not-in-book']}));
-    store.dispatch(receiveSummaryHighlights({}, {pagination: null}));
+    store.dispatch(setSummaryFilters({ locationIds: ['not-in-book'] }));
+    store.dispatch(receiveSummaryHighlights({}, { pagination: null }));
 
     const component = renderer.create(<TestContainer services={services} store={store}>
-      <Highlights/>
+      <Highlights />
     </TestContainer>);
 
     // i'm not sure why this type is wrong
@@ -176,7 +183,7 @@ describe('Highlights', () => {
 
   it('show add highlight message when there are no highlights in specific book', () => {
     const component = renderer.create(<TestContainer services={services} store={store}>
-      <Highlights/>
+      <Highlights />
     </TestContainer>);
 
     expect(component.root.findByProps({ id: 'i18n:toolbar:highlights:popup:body:add-highlight' }))
@@ -190,10 +197,10 @@ describe('Highlights', () => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
-    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(setSummaryFilters({ locationIds: [location!.id, pageId] }));
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: {[HighlightColorEnum.Green]: 5},
-      [location!.id]: {[HighlightColorEnum.Green]: 2},
+      [pageId]: { [HighlightColorEnum.Green]: 5 },
+      [location!.id]: { [HighlightColorEnum.Green]: 2 },
     }, locationFilters));
 
     const summaryHighlights = {
@@ -205,10 +212,10 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, { pagination: null }));
 
     const component = renderer.create(<TestContainer services={services} store={store}>
-      <Highlights/>
+      <Highlights />
     </TestContainer>);
 
     const editingMenus = component.root.findAllByType(ContextMenu);
@@ -222,10 +229,10 @@ describe('Highlights', () => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
-    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(setSummaryFilters({ locationIds: [location!.id, pageId] }));
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: {[HighlightColorEnum.Green]: 5},
-      [location!.id]: {[HighlightColorEnum.Green]: 2},
+      [pageId]: { [HighlightColorEnum.Green]: 5 },
+      [location!.id]: { [HighlightColorEnum.Green]: 2 },
     }, locationFilters));
 
     const summaryHighlights = {
@@ -237,13 +244,13 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, { pagination: null }));
     dispatch.mockClear();
 
     const createNodeMock = () => assertDocument().createElement('div');
     const component = renderer.create(<TestContainer services={services} store={store}>
-      <Highlights/>
-    </TestContainer>, {createNodeMock});
+      <Highlights />
+    </TestContainer>, { createNodeMock });
 
     let [firstAnnotation] = component.root.findAllByType(HighlightAnnotation);
     expect(firstAnnotation.props.isEditing).toEqual(false);
@@ -270,7 +277,7 @@ describe('Highlights', () => {
       locationFilterId: pageId,
       pageId,
       preUpdateData: {
-        highlight: {annotation: hlBlue.annotation, color: hlBlue.color as string as HighlightUpdateColorEnum},
+        highlight: { annotation: hlBlue.annotation, color: hlBlue.color as string as HighlightUpdateColorEnum },
         id: hlBlue.id,
       },
     }));
@@ -290,7 +297,7 @@ describe('Highlights', () => {
 
     const confirmButton = component.root.findByProps({ 'data-testid': 'delete' });
 
-    renderer.act(() => confirmButton.props.onClick({preventDefault: () => null}));
+    renderer.act(() => confirmButton.props.onClick({ preventDefault: () => null }));
     expect(dispatch).toHaveBeenCalled();
     expect(firstAnnotation.props.isEditing).toEqual(false);
 
@@ -348,10 +355,10 @@ describe('Highlights', () => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
-    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(setSummaryFilters({ locationIds: [location!.id, pageId] }));
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: {[HighlightColorEnum.Green]: 5},
-      [location!.id]: {[HighlightColorEnum.Green]: 2},
+      [pageId]: { [HighlightColorEnum.Green]: 5 },
+      [location!.id]: { [HighlightColorEnum.Green]: 2 },
     }, locationFilters));
 
     const summaryHighlights = {
@@ -363,11 +370,11 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, { pagination: null }));
     dispatch.mockClear();
 
     const component = renderer.create(<TestContainer services={services} store={store}>
-      <Highlights/>
+      <Highlights />
     </TestContainer>);
 
     renderer.act(() => {
@@ -384,7 +391,7 @@ describe('Highlights', () => {
       locationFilterId: pageId,
       pageId,
       preUpdateData: {
-        highlight: {annotation: hlBlue.annotation, color: hlBlue.color as string as HighlightUpdateColorEnum},
+        highlight: { annotation: hlBlue.annotation, color: hlBlue.color as string as HighlightUpdateColorEnum },
         id: hlBlue.id,
       },
     }));
@@ -397,10 +404,10 @@ describe('Highlights', () => {
     const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
     expect(location).toBeDefined();
 
-    store.dispatch(setSummaryFilters({locationIds: [location!.id, pageId]}));
+    store.dispatch(setSummaryFilters({ locationIds: [location!.id, pageId] }));
     store.dispatch(receiveHighlightsTotalCounts({
-      [pageId]: {[HighlightColorEnum.Green]: 5},
-      [location!.id]: {[HighlightColorEnum.Green]: 2},
+      [pageId]: { [HighlightColorEnum.Green]: 5 },
+      [location!.id]: { [HighlightColorEnum.Green]: 2 },
     }, locationFilters));
 
     const summaryHighlights = {
@@ -412,11 +419,11 @@ describe('Highlights', () => {
       },
     } as SummaryHighlights;
 
-    store.dispatch(receiveSummaryHighlights(summaryHighlights, {pagination: null}));
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, { pagination: null }));
     dispatch.mockClear();
 
     const component = renderer.create(<TestContainer services={services} store={store}>
-      <Highlights/>
+      <Highlights />
     </TestContainer>);
 
     renderer.act(() => {
@@ -435,12 +442,12 @@ describe('Highlights', () => {
         dw.props.onCancel();
       }
 
-      requestDeleteHighlightHook.hookBody({...services, getState: store.getState, dispatch: store.dispatch})(
+      requestDeleteHighlightHook.hookBody({ ...services, getState: store.getState, dispatch: store.dispatch })(
         requestDeleteHighlight(hlBlue as HighlightData, {
           locationFilterId: pageId,
           pageId,
         }
-      ));
+        ));
     });
 
     expect(dispatch).toHaveBeenCalledWith(requestDeleteHighlight(hlBlue as HighlightData, {
@@ -449,5 +456,47 @@ describe('Highlights', () => {
     }));
 
     expect(component.root.findAllByType(HighlightDeleteWrapper).length).toEqual(0);
+  });
+});
+
+describe('VisuallyHiddenLiveRegion', () => {
+
+  const getTextContent = (node: any): string => {
+    if (typeof node === 'string') return node;
+    if (Array.isArray(node)) return node.map(getTextContent).join('');
+    if (node && node.props && node.props.children) return getTextContent(node.props.children);
+    return '';
+  };
+
+  it('announces the message after a delay when id changes', async() => {
+    const intl = await createIntl('en');
+    const component = renderer.create(
+      <RawIntlProvider value={intl}>
+        <VisuallyHiddenLiveRegion id='test-id' />
+      </RawIntlProvider>
+    );
+
+    const liveRegion = component.root.find(
+      el => el.props['aria-live'] === 'polite'
+    );
+
+    expect(getTextContent(liveRegion)).toBe('');
+
+    renderer.act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    expect(getTextContent(liveRegion)).toBe('test-id');
+  });
+
+  it('clears the timer on unmount', async() => {
+    // @ts-ignore
+    const intl = await createIntl('en');
+    const component = renderer.create(
+      <RawIntlProvider value={intl}>
+        <VisuallyHiddenLiveRegion id='test-id' />
+      </RawIntlProvider>
+    );
+    component.unmount();
   });
 });

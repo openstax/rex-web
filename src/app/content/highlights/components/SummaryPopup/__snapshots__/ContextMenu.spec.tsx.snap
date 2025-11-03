@@ -89,12 +89,6 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   }
 }
 
-@media screen and (max-width:75em) {
-  .c0 {
-    display: none;
-  }
-}
-
 <div
   className="c0"
 >
@@ -624,12 +618,6 @@ exports[`ContextMenu match snapshot when open 1`] = `
 }
 
 @media print {
-  .c0 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
   .c0 {
     display: none;
   }

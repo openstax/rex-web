@@ -650,6 +650,7 @@ input:checked + .c22 .c23 {
   padding: 0.8rem 1.6rem;
   outline: none;
   z-index: 1;
+  overflow: auto;
 }
 
 .c17 .c12 {
