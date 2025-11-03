@@ -39,20 +39,14 @@ export const NoHighlightsInBook = ({ container }: { container: React.RefObject<H
   <HighlightsWrapper ref={container}>
     <VisuallyHiddenLiveRegion id='i18n:toolbar:highlights:popup:body:no-highlights-in-book' />
     <HStyled.GeneralLeftText>
-      <FormattedMessage id='i18n:toolbar:highlights:popup:body:no-highlights-in-book'>
-        {(msg) => msg}
-      </FormattedMessage>
+      <FormattedMessage id='i18n:toolbar:highlights:popup:body:no-highlights-in-book' />
     </HStyled.GeneralLeftText>
     <HStyled.MyHighlightsWrapper>
       <HStyled.GeneralText>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight'>
-          {(msg) => msg}
-        </FormattedMessage>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight' />
       </HStyled.GeneralText>
       <HStyled.GeneralTextWrapper>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page'>
-          {(msg) => msg}
-        </FormattedMessage>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page' />
       </HStyled.GeneralTextWrapper>
       <HStyled.MyHighlightsImage src={myHighlightsEmptyImage} />
     </HStyled.MyHighlightsWrapper>
@@ -64,9 +58,7 @@ export const NoHighlightsAvailable = ({ container }: { container: React.RefObjec
   <HighlightsWrapper ref={container}>
     <VisuallyHiddenLiveRegion id='i18n:toolbar:highlights:popup:heading:no-highlights' />
     <HStyled.GeneralCenterText>
-      <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
-        {(msg) => msg}
-      </FormattedMessage>
+      <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights' />
       <NoHighlightsTip />
     </HStyled.GeneralCenterText>
   </HighlightsWrapper>

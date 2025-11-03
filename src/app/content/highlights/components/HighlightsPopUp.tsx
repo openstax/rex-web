@@ -126,9 +126,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
   >
     <Header colorSchema={props.bookTheme}>
       <h1 id='modal-title'>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:heading'>
-          {(msg) => msg}
-        </FormattedMessage>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:heading' />
       </h1>
       <CloseIconWrapper
         data-testid='close-highlights-popup'

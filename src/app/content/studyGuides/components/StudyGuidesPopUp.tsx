@@ -52,9 +52,7 @@ const StudyguidesPopUp = () => {
     >
       <Header colorSchema={bookTheme}>
         <h1 id='modal-title'>
-          <FormattedMessage id='i18n:toolbar:studyguides:popup:heading'>
-            {(msg) => msg}
-          </FormattedMessage>
+          <FormattedMessage id='i18n:toolbar:studyguides:popup:heading' />
         </h1>
         <CloseIconWrapper
           data-testid='close-studyguides-popup'
