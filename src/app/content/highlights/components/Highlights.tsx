@@ -1,27 +1,16 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import myHighlightsEmptyImage from '../../../../assets/MHpage-empty-logged-in.png';
 import { typesetMath } from '../../../../helpers/mathjax';
-import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
 import { assertWindow } from '../../../utils';
-import SectionHighlights, { HighlightWrapper } from '../../components/SectionHighlights';
+import { HighlightWrapper } from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
-import HighlightsWrapper from '../../styles/HighlightsWrapper';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
-import * as HStyled from './HighlightStyles';
-import HighlightListElement from './SummaryPopup/HighlightListElement';
-
-// tslint:disable-next-line: variable-name
-export const NoHighlightsTip = htmlMessage(
-  'i18n:toolbar:highlights:popup:heading:no-highlights-tip',
-  (props) => <span {...props} />
-);
+import { HighlightsList, NoHighlightsAvailable, NoHighlightsInBook } from './HighlightsCards';
 
 // tslint:disable-next-line: variable-name
 const Highlights = ({ className }: { className: string }) => {
@@ -43,58 +32,21 @@ const Highlights = ({ className }: { className: string }) => {
     !isLoading
     && (!totalCountsPerPage || Object.keys(totalCountsPerPage).length === 0)
   ) {
-    return <HighlightsWrapper ref={container}>
-      <HStyled.GeneralLeftText>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:body:no-highlights-in-book'>
-          {(msg) => msg}
-        </FormattedMessage>
-      </HStyled.GeneralLeftText>
-      <HStyled.MyHighlightsWrapper>
-        <HStyled.GeneralText>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:add-highlight'>
-            {(msg) => msg}
-          </FormattedMessage>
-        </HStyled.GeneralText>
-        <HStyled.GeneralTextWrapper>
-          <FormattedMessage id='i18n:toolbar:highlights:popup:body:use-this-page'>
-            {(msg) => msg}
-          </FormattedMessage>
-        </HStyled.GeneralTextWrapper>
-        <HStyled.MyHighlightsImage src={myHighlightsEmptyImage} />
-      </HStyled.MyHighlightsWrapper>
-    </HighlightsWrapper>;
+    return <NoHighlightsInBook container={container} />;
   }
 
   if (!isLoading && orderedHighlights && orderedHighlights.length === 0) {
-    return <HighlightsWrapper ref={container}>
-      <HStyled.GeneralCenterText>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:heading:no-highlights'>
-          {(msg) => msg}
-        </FormattedMessage>
-        <NoHighlightsTip />
-      </HStyled.GeneralCenterText>
-    </HighlightsWrapper>;
+    return <NoHighlightsAvailable container={container} />;
   }
 
-  return <React.Fragment>
-    {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
-    {orderedHighlights && <HighlightsWrapper ref={container} className={className} aria-live='polite'>
-      {orderedHighlights.map((highlightData) => {
-        return <SectionHighlights
-          key={highlightData.location.id}
-          highlightDataInSection={highlightData}
-          highlightRenderer={(highlight, pageId) => (
-            <HighlightListElement
-              key={highlight.id}
-              highlight={highlight}
-              locationFilterId={highlightData.location.id}
-              pageId={pageId}
-            />
-          )}
-        />;
-      })}
-    </HighlightsWrapper>}
-  </React.Fragment>;
+  return (
+    <React.Fragment>
+      {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
+      {orderedHighlights &&
+        <HighlightsList container={container} className={className} orderedHighlights={orderedHighlights} />
+      }
+    </React.Fragment>
+  );
 };
 
 export default styled(Highlights)`

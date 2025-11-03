@@ -99,6 +99,7 @@ export default styled(ColorFilter)`
   padding: ${filters.dropdownContent.padding.topBottom}rem ${filters.dropdownContent.padding.sides}rem;
   outline: none;
   z-index: 1;
+  overflow: auto;
 
   ${AllOrNone} {
     margin: 0.8rem 0 0.8rem 0.8rem;
