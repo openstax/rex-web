@@ -286,6 +286,11 @@ exports[`ErrorModal matches snapshot 1`] = `
       <div
         className="c6"
       >
+        <h1
+          id="modal-title"
+        >
+          i18n:error:boundary:title
+        </h1>
         <h3
           className="c7"
         >
@@ -618,6 +623,11 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
       <div
         className="c6"
       >
+        <h1
+          id="modal-title"
+        >
+          i18n:error:boundary:title
+        </h1>
         <h3
           className="c7"
         >

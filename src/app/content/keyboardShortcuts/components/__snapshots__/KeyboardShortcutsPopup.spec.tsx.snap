@@ -298,7 +298,9 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
     <div
       className="c4"
     >
-      <h1>
+      <h1
+        id="modal-title"
+      >
         Keyboard Shortcuts
       </h1>
       <button

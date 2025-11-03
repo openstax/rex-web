@@ -60,7 +60,7 @@ const KeyboardShortcutsPopup = () => {
       }}
     >
       <Header colorSchema={bookTheme}>
-        <h1>
+        <h1 id='modal-title'>
           <FormattedMessage id='i18n:a11y:keyboard-shortcuts:heading'>
             {(msg) => msg}
           </FormattedMessage>
