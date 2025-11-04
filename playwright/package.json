@@ -39,6 +39,6 @@
   },
   "dependencies": {
     "npm": "^9.8.0",
-    "playwright": "1.23"
+    "playwright": "1.55"
   }
 }
