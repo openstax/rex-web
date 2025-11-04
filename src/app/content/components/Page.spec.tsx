@@ -1289,7 +1289,7 @@ describe('Page', () => {
     state.navigation.hash = '#somehash';
     archiveLoader.mockPage(book, someHashPage, 'unused3');
 
-    const {root} = renderDomWithReferences();
+    const {root} = renderDomWithReferences({ html: someHashPage.content });
 
     let resolveImageLoaded: undefined | ((value?: void | PromiseLike<void> | undefined) => void);
     const allImagesLoadedPromise = new Promise<void>((resolve) => {
@@ -1301,11 +1301,6 @@ describe('Page', () => {
     }
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(allImagesLoadedPromise);
-
-    store.dispatch(actions.receivePage({
-      ...someHashPage,
-      references: [],
-    }));
 
     await new Promise((resolve) => setTimeout(resolve, 10));
     // deferred scroll execution (scrollToTarget uses setImmediate)
