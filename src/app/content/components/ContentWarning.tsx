@@ -60,7 +60,7 @@ function WarningDivWithTrap({
 
   return (
     <WarningDiv tabIndex='-1' ref={ref}>
-      <div>{text}</div>
+      <div dangerouslySetInnerHTML={{__html: text}} />
       <Button type='button' onClick={dismiss}>
         Ok
       </Button>
