@@ -41,7 +41,7 @@ export default function LoginGate({
   return (
     <WarningDiv>
       <div>
-        {book.require_login_message_text}
+        <span dangerouslySetInnerHTML={{__html: book.require_login_message_text}} />
         <ConnectedLoginButton />
       </div>
     </WarningDiv>
