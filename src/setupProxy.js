@@ -92,8 +92,19 @@ const findFileIn = (baseDir, reqInfo) => {
   );
   const indexFilePath = path.join(filePath, 'index.html');
 
+  // For long filenames that exceed filesystem limits, also check for a hashed version
+  const crypto = require('crypto');
+  const queryHash = reqInfo.search
+    ? crypto.createHash('sha256').update(reqInfo.search).digest('hex')
+    : '';
+  const hashedQueryFilePath = queryHash
+    ? path.join(filePath, queryHash)
+    : '';
+
   if (isFile(queryFilePath)) {
     return queryFilePath;
+  } else if (hashedQueryFilePath && isFile(hashedQueryFilePath)) {
+    return hashedQueryFilePath;
   } else if (isFile(filePath)) {
     return filePath;
   } else if (isDirectory(filePath) && isFile(indexFilePath)) {
@@ -101,6 +112,7 @@ const findFileIn = (baseDir, reqInfo) => {
   } else {
     console.log(`did not find fixture file for ${reqInfo.url}, looked in:
   ${queryFilePath}
+  ${hashedQueryFilePath}
   ${filePath}
   ${indexFilePath}
 `);

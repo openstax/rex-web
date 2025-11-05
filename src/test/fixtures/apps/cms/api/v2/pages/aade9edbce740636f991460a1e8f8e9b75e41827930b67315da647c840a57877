@@ -16,7 +16,9 @@
             "authors": [{"value": {"name": "Bam Bammerson"}}],
             "promote_image": null,
             "publish_date": "2012-06-21",
-            "book_state": "live"
+            "book_state": "live",
+            "content_warning_text": "",
+            "require_login_message_text": ""
         }
     ]
 }
