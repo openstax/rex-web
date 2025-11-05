@@ -143,7 +143,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.FiltersList-sc-1sdnk9e-3) {
+  .c0 > *:not(.FiltersList-sc-1sdnk9e-4) {
     display: none;
   }
 }
@@ -526,7 +526,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 }
 
 @media print {
-  .c0 > *:not(.FiltersList-sc-1sdnk9e-3) {
+  .c0 > *:not(.FiltersList-sc-1sdnk9e-4) {
     display: none;
   }
 }
@@ -1034,7 +1034,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
 }
 
 @media print {
-  .c0 > *:not(.FiltersList-sc-1sdnk9e-3) {
+  .c0 > *:not(.FiltersList-sc-1sdnk9e-4) {
     display: none;
   }
 }
