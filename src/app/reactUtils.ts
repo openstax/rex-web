@@ -120,7 +120,7 @@ export const onFocusInOrOutHandler = (
 
   const handler = (event: FocusEvent) => {
     const target = type === 'focusout'
-      ? event.relatedTarget
+      ? (event.relatedTarget ?? event.target)
       : event.target;
 
     if (
