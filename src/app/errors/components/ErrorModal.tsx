@@ -35,11 +35,10 @@ const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
     <Modal className='error-modal' heading='i18n:error:boundary:heading' onModalClose={clearError}>
       <Body >
         <h1 id='modal-title'>
-          <FormattedMessage id='i18n:error:boundary:title' />
+          <FormattedMessage id='i18n:error:boundary:sub-heading'>
+            {(msg) => <BodyHeading>{msg}</BodyHeading>}
+          </FormattedMessage>
         </h1>
-        <FormattedMessage id='i18n:error:boundary:sub-heading'>
-          {(msg) => <BodyHeading>{msg}</BodyHeading>}
-        </FormattedMessage>
         <BodyWithLink values={{supportCenterLink}}/>
         <ErrorIdList ids={stack} />
       </Body>
