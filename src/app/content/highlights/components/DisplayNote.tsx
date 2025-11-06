@@ -102,7 +102,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       role='dialog'
       aria-labelledby={noteId}
     >
-      <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={false}>
+      <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={confirmingDelete}>
         <DropdownList>
           <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
           <DropdownItem
