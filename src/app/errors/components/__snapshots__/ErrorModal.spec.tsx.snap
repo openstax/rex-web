@@ -289,13 +289,12 @@ exports[`ErrorModal matches snapshot 1`] = `
         <h1
           id="modal-title"
         >
-          i18n:error:boundary:title
+          <h3
+            className="c7"
+          >
+            Uh-oh, there's been a glitch
+          </h3>
         </h1>
-        <h3
-          className="c7"
-        >
-          Uh-oh, there's been a glitch
-        </h3>
         <div
           className="c8"
           dangerouslySetInnerHTML={
@@ -626,13 +625,12 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
         <h1
           id="modal-title"
         >
-          i18n:error:boundary:title
+          <h3
+            className="c7"
+          >
+            Uh-oh, there's been a glitch
+          </h3>
         </h1>
-        <h3
-          className="c7"
-        >
-          Uh-oh, there's been a glitch
-        </h3>
         <div
           className="c8"
           dangerouslySetInnerHTML={
