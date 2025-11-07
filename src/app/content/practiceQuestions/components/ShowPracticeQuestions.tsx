@@ -113,7 +113,7 @@ const ShowPracticeQuestions = () => {
                 ? <FinalScreen nextSection={nextSection} />
                 : (
                   <QuestionsWrapper>
-                    <QuestionsHeader>
+                    <QuestionsHeader id='progress-bar-header'>
                       <FormattedMessage id='i18n:practice-questions:popup:questions'>
                         {(msg) => msg}
                       </FormattedMessage>
