@@ -50,11 +50,11 @@ export const AnswerIndicator = styled.span`
 const answerThemes = {
   correct: {
     background: theme.color.neutral.base,
-    border: '#77AF42',
-    borderHovered: '#77AF42',
+    border: '#148a00',
+    borderHovered: '#148a00',
     fontColor: theme.color.neutral.base,
-    fontColorActive: '#77AF42',
-    indicatorBackground: '#77AF42',
+    fontColorActive: '#148a00',
+    indicatorBackground: '#148a00',
   },
   incorrect: {
     background: theme.color.neutral.base,

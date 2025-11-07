@@ -41,7 +41,7 @@ const greyColors = {
   darker: '#424242',
   foreground: textColors.white,
   foregroundHover: '#424242',
-  light: '#818181',
+  light: '#767676', // lightest allowed for text on white background
   lighter: '#c5c5c5',
   lightest: '#ededed',
 };

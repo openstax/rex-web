@@ -158,7 +158,12 @@ exports[`ProgressBar displays properly 1`] = `
 }
 
 <div
+  aria-labelledby="progress-bar-header"
+  aria-valuemax={3}
+  aria-valuemin={1}
+  aria-valuenow={2}
   className="c0"
+  role="progressbar"
 >
   <span
     className="c1"
