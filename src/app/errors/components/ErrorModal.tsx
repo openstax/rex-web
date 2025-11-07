@@ -34,11 +34,8 @@ const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
   return (
     <Modal className='error-modal' heading='i18n:error:boundary:heading' onModalClose={clearError}>
       <Body >
-        <h1 id='modal-title'>
-          <FormattedMessage id='i18n:error:boundary:title' />
-        </h1>
         <FormattedMessage id='i18n:error:boundary:sub-heading'>
-          {(msg) => <BodyHeading>{msg}</BodyHeading>}
+          {(msg) => <BodyHeading id='modal-title'>{msg}</BodyHeading>}
         </FormattedMessage>
         <BodyWithLink values={{supportCenterLink}}/>
         <ErrorIdList ids={stack} />
