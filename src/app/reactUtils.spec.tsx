@@ -84,6 +84,19 @@ describe('onFocusInOrOutHandler focusout', () => {
 
     expect(cb).not.toHaveBeenCalled();
   });
+  it('noops when relatedTarget is null', () => {
+    const window = assertWindow();
+    const cb = jest.fn();
+    utils.onFocusInOrOutHandler(ref, true, cb, 'focusout')();
+
+    const focusOutEvent = window.document.createEvent('FocusEvent');
+    // no relatedTarget
+    focusOutEvent.initEvent('focusout', true, false);
+
+    childElement.dispatchEvent(focusOutEvent);
+
+    expect(cb).not.toHaveBeenCalled();
+  });
 });
 
 describe('onFocusInOrOutHandler focusin', () => {
