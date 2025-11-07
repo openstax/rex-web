@@ -183,7 +183,7 @@ input:checked + .c21 .c22 {
   color: #0064A0;
 }
 
-.c61 {
+.c62 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -193,13 +193,13 @@ input:checked + .c21 .c22 {
   margin-right: 0.4rem;
 }
 
-.c61 svg {
+.c62 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c62 {
+.c63 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -211,7 +211,7 @@ input:checked + .c21 .c22 {
   line-height: 1.5rem;
 }
 
-.c60 {
+.c61 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -225,7 +225,20 @@ input:checked + .c21 .c22 {
   height: 4rem;
 }
 
-.c59 {
+.c58 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.c60 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -643,7 +656,7 @@ input:checked + .c21 .c22 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c11 .c63:last-child {
+.c11 .c64:last-child {
   border-bottom: none;
 }
 
@@ -915,13 +928,13 @@ input:checked + .c21 .c22 {
 }
 
 @media print {
-  .c61 {
+  .c62 {
     display: none;
   }
 }
 
 @media print {
-  .c62 {
+  .c63 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -929,13 +942,13 @@ input:checked + .c21 .c22 {
 }
 
 @media screen and (max-width:75em) {
-  .c59 {
+  .c60 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c59 {
+  .c60 {
     margin: 0;
   }
 }
@@ -970,7 +983,7 @@ input:checked + .c21 .c22 {
 }
 
 @media print {
-  .c0 > *:not(.c58) {
+  .c0 > *:not(.c59) {
     display: none;
   }
 }
@@ -1901,17 +1914,21 @@ input:checked + .c21 .c22 {
       </svg>
     </button>
   </div>
+  <div
+    className="c58"
+    role="status"
+  />
   <ul
     aria-atomic="true"
     aria-live="polite"
-    className="c58 c59"
+    className="c59 c60"
   >
     <li
-      className="c60"
+      className="c61"
     >
       <button
         aria-label="Remove breadcrumb for chapter 2 Test Chapter 2"
-        className="c61"
+        className="c62"
         data-analytics-label="Remove breadcrumb for chapter 2 Test Chapter 2"
         onClick={[Function]}
       >
@@ -1943,7 +1960,7 @@ input:checked + .c21 .c22 {
         </svg>
       </button>
       <span
-        className="c62"
+        className="c63"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -1952,11 +1969,11 @@ input:checked + .c21 .c22 {
       />
     </li>
     <li
-      className="c60"
+      className="c61"
     >
       <button
         aria-label="Remove breadcrumb for label Important Concepts"
-        className="c61"
+        className="c62"
         data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
       >
@@ -1988,17 +2005,17 @@ input:checked + .c21 .c22 {
         </svg>
       </button>
       <span
-        className="c62"
+        className="c63"
       >
         Important Concepts
       </span>
     </li>
     <li
-      className="c60"
+      className="c61"
     >
       <button
         aria-label="Remove breadcrumb for label Connections & Relationships"
-        className="c61"
+        className="c62"
         data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
       >
@@ -2030,17 +2047,17 @@ input:checked + .c21 .c22 {
         </svg>
       </button>
       <span
-        className="c62"
+        className="c63"
       >
         Connections & Relationships
       </span>
     </li>
     <li
-      className="c60"
+      className="c61"
     >
       <button
         aria-label="Remove breadcrumb for label Enrichment"
-        className="c61"
+        className="c62"
         data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
       >
@@ -2072,17 +2089,17 @@ input:checked + .c21 .c22 {
         </svg>
       </button>
       <span
-        className="c62"
+        className="c63"
       >
         Enrichment
       </span>
     </li>
     <li
-      className="c60"
+      className="c61"
     >
       <button
         aria-label="Remove breadcrumb for label Key Terms"
-        className="c61"
+        className="c62"
         data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
       >
@@ -2114,7 +2131,7 @@ input:checked + .c21 .c22 {
         </svg>
       </button>
       <span
-        className="c62"
+        className="c63"
       >
         Key Terms
       </span>

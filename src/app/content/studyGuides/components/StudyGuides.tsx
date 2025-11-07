@@ -45,7 +45,7 @@ const StudyGuides = ({ className }: { className: string }) => {
   return <div className={className}>
     {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
     {(!isLoading && orderedStudyGuides && orderedStudyGuides.length === 0) ?
-      <HighlightsWrapper ref={container} aria-live='polite'>
+      <HighlightsWrapper ref={container}>
         <GeneralCenterText>
           <FormattedMessage id='i18n:studyguides:popup:no-highlights'>
             {(msg) => msg}
@@ -53,7 +53,7 @@ const StudyGuides = ({ className }: { className: string }) => {
           <NoStudyGuidesTip />
         </GeneralCenterText>
       </HighlightsWrapper>
-    : orderedStudyGuides && <HighlightsWrapper ref={container} aria-live='polite'>
+    : orderedStudyGuides && <HighlightsWrapper ref={container}>
         {orderedStudyGuides.map((highlightData) => {
           return <SectionHighlights
             key={highlightData.location.id}
