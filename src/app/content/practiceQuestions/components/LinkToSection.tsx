@@ -15,7 +15,7 @@ export const StyledLink = styled(ContentLink)`
   max-width: 100%;
   flex-shrink: 0;
   font-size: 1.4rem;
-  color: #929292;
+  color: ${theme.color.primary.gray.light};
   padding: 2.5rem 0;
   text-decoration: none;
 
