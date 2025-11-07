@@ -70,17 +70,13 @@ export const BannerBody = styled.div<{ variant?: ToastVariant }>`
   display: flex;
   padding: 0.5rem 1rem;
   align-items: center;
-  background: ${({ variant }) =>
-    variant === 'warning' ? warningBackground : bannerBackground};
+  background: ${({ variant }) => variant === 'warning' ? warningBackground : bannerBackground};
   justify-content: space-between;
-  border: 1px solid
-    ${({ variant }) =>
-    variant === 'warning' ? warningBorderColor : errorBorderColor};
+  border: 1px solid ${({ variant }) => variant === 'warning' ? warningBorderColor : errorBorderColor};
 
   ${Header} {
     background: inherit;
-    color: ${({ variant }) =>
-    variant === 'warning' ? warningTextColor : errorTextColor};
+    color: ${({ variant }) => variant === 'warning' ? warningTextColor : errorTextColor};
     font-weight: normal;
     line-height: 2.6rem;
   }
@@ -100,13 +96,11 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
 
 // tslint:disable-next-line:variable-name
 export const CloseButton = styled(PlainButton) <{ variant?: ToastVariant }>`
-  color: ${({ variant }) =>
-    variant === 'warning' ? warningCloseIconColor : closeIconColor};
+  color: ${({ variant }) => variant === 'warning' ? warningCloseIconColor : closeIconColor};
   overflow: visible;
 
   &:hover {
-    color: ${({ variant }) =>
-    variant === 'warning' ? warningBorderColor : hoveredCloseIconColor};
+    color: ${({ variant }) => variant === 'warning' ? warningBorderColor : hoveredCloseIconColor};
   }
 `;
 
