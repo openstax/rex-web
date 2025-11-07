@@ -20,7 +20,13 @@ interface ProgressBarProps {
 }
 
 // tslint:disable-next-line: variable-name
-const ProgressBar = ({ total, activeIndex }: ProgressBarProps) => <ProgressBarWrapper>
+const ProgressBar = ({ total, activeIndex }: ProgressBarProps) => <ProgressBarWrapper
+    role='progressbar'
+    aria-valuenow={activeIndex === null ? undefined : activeIndex + 1}
+    aria-valuemin={1}
+    aria-valuemax={total}
+    aria-labelledby='progress-bar-header'
+  >
   {Array.from({ length: total }, (_, index) => <ProgressBarItem
     key={index}
     value={index + 1}
