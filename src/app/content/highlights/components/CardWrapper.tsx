@@ -167,10 +167,14 @@ function CardsForHighlights({
 
   // First time, Esc closes it to the instructions; second Esc disappears it
   const hideCard = () => {
-    if (!focusedHighlight?.elements.length) {
+    if (!focusedHighlight) {
       return;
     }
-    focusedHighlight?.focus();
+    if (focusedHighlight.elements.length) {
+      focusedHighlight.focus();
+    } else {
+      window?.getSelection()?.removeAllRanges();
+    }
     if (shouldFocusCard) {
       setShouldFocusCard(false);
     } else {
