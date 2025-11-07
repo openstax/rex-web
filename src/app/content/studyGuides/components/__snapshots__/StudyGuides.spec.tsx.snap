@@ -366,7 +366,6 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   className="c0"
 >
   <div
-    aria-live="polite"
     className="c1"
   >
     <div

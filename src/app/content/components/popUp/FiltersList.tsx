@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography';
-import theme from '../../../theme';
+import theme, { hiddenButAccessible } from '../../../theme';
 import { disablePrint } from '../../components/utils/disablePrint';
 import { SummaryFiltersUpdate } from '../../highlights/types';
 import { LinkedArchiveTreeNode } from '../../types';
@@ -117,6 +117,39 @@ interface FiltersListProps {
   colorLabelKey: (color: HighlightColorEnum) => string;
 }
 
+function filterMessage(type: string, prevRef: React.MutableRefObject<number>, current: number) {
+  const prev = prevRef.current;
+  if (current === prev) {
+    return '';
+  }
+  prevRef.current = current;
+  return `${current > prev ? 'added' : 'removed'} ${type} filter (${current} selected)`;
+}
+
+function useFilterCounts(
+  colorFilterCount: number,
+  locationFilterCount: number
+) {
+  const prevColorCount = React.useRef(colorFilterCount);
+  const prevLocationCount = React.useRef(locationFilterCount);
+
+  return React.useMemo(() => {
+    const messages = [
+      filterMessage('color', prevColorCount, colorFilterCount),
+      filterMessage('chapter', prevLocationCount, locationFilterCount),
+    ].filter((m) => m !== '');
+
+    if (messages.length > 0) {
+      return `Guide updated with ${messages.join(', ')}`;
+    }
+  }, [colorFilterCount, locationFilterCount]);
+}
+
+// tslint:disable-next-line: variable-name
+const StatusDiv = styled.div`
+  ${hiddenButAccessible}
+`;
+
 // tslint:disable-next-line: variable-name
 const FiltersList = ({
   className,
@@ -143,25 +176,30 @@ const FiltersList = ({
     });
   };
 
-  return <ul className={className} aria-live='polite' aria-atomic='true'>
-    {Array.from(locationFilters).map(([locationId, location]) => selectedLocationFilters.has(locationId) &&
-    <FiltersListChapter
-      key={locationId}
-      title={location.section.title}
-      locationId={locationId}
-      onRemove={() => onRemoveChapter(location.section)}
-      ariaLabelKey={chapterAriaLabelKey}
-      dataAnalyticsLabel={chapterDataAnalyticsLabel}
-    />)}
-    {selectedColorFilters && [...selectedColorFilters].sort().map((color) => <FiltersListColor
-      key={color}
-      color={color}
-      onRemove={() => onRemoveColor(color)}
-      ariaLabelKey={colorAriaLabelKey}
-      dataAnalyticsLabel={colorDataAnalyticsLabel}
-      labelKey={colorLabelKey}
-    />)}
-  </ul>;
+  const statusMessage = useFilterCounts(selectedColorFilters.size, selectedLocationFilters.size);
+
+  return <>
+    <StatusDiv role='status'>{statusMessage}</StatusDiv>
+    <ul className={className} aria-live='polite' aria-atomic='true'>
+      {Array.from(locationFilters).map(([locationId, location]) => selectedLocationFilters.has(locationId) &&
+      <FiltersListChapter
+        key={locationId}
+        title={location.section.title}
+        locationId={locationId}
+        onRemove={() => onRemoveChapter(location.section)}
+        ariaLabelKey={chapterAriaLabelKey}
+        dataAnalyticsLabel={chapterDataAnalyticsLabel}
+      />)}
+      {selectedColorFilters && [...selectedColorFilters].sort().map((color) => <FiltersListColor
+        key={color}
+        color={color}
+        onRemove={() => onRemoveColor(color)}
+        ariaLabelKey={colorAriaLabelKey}
+        dataAnalyticsLabel={colorDataAnalyticsLabel}
+        labelKey={colorLabelKey}
+      />)}
+    </ul>
+  </>;
 };
 
 export default styled(FiltersList)`
