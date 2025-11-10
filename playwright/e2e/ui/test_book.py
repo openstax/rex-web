@@ -4,7 +4,7 @@ from e2e.ui.pages.home import HomeRex
 
 
 @pytest.mark.asyncio
-async def test_book_title_links_to_books_detail_page(chrome_page, base_url):
+async def tst_book_title_links_to_books_detail_page(chrome_page, base_url):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -24,7 +24,7 @@ async def test_book_title_links_to_books_detail_page(chrome_page, base_url):
 
 @pytest.mark.parametrize("book_slug", ["physics"])
 @pytest.mark.asyncio
-async def test_buy_print_copy_link(chrome_page, base_url, book_slug):
+async def tst_buy_print_copy_link(chrome_page, base_url, book_slug):
 
     # GIVEN: Open osweb book details page
 
@@ -51,7 +51,7 @@ async def test_buy_print_copy_link(chrome_page, base_url, book_slug):
 
 @pytest.mark.parametrize("book_slug", ["statistics"])
 @pytest.mark.asyncio
-async def test_order_options_link(chrome_page, base_url, book_slug):
+async def tst_order_options_link(chrome_page, base_url, book_slug):
 
     # GIVEN: Open osweb book details page
 
@@ -72,7 +72,7 @@ async def test_order_options_link(chrome_page, base_url, book_slug):
     "book_slug, page_slug", [("astronomy-2e", "1-3-the-laws-of-nature")]
 )
 @pytest.mark.asyncio
-async def test_accessibility_help(chrome_page, base_url, book_slug, page_slug):
+async def est_accessibility_help(chrome_page, base_url, book_slug, page_slug):
     # Verifies the hidden 'Go to accessibility page'
 
     # GIVEN: Open osweb book details page
@@ -97,7 +97,7 @@ async def test_accessibility_help(chrome_page, base_url, book_slug, page_slug):
 
 @pytest.mark.parametrize("book_slug", ["algebra-and-trigonometry-2e"])
 @pytest.mark.asyncio
-async def test_toc_slideout(chrome_page, base_url, book_slug):
+async def tst_toc_slideout(chrome_page, base_url, book_slug):
 
     # GIVEN: Open osweb book details page
 

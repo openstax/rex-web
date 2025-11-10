@@ -22,7 +22,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def osweb_homepage_content_sections(self):
-        return await self.page.locator(f"main > section:nth-child(5)").is_visible()
+        return await self.page.locator("main > section:nth-child(5)").is_visible()
 
     @pytest.mark.asyncio
     async def upper_menu_options(self):
@@ -92,11 +92,11 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_instructor_resources_tab(self):
-        await self.page.locator("id=Instructor resources-tab").click()
+        await self.page.locator(r"#Instructor\ resources-tab").click()
 
     @pytest.mark.asyncio
     async def click_student_resources_tab(self):
-        await self.page.locator("id=Student resources-tab").click()
+        await self.page.locator(r"#Student\ resources-tab").click()
 
     @pytest.mark.asyncio
     async def click_subjects_science_link(self):
@@ -120,7 +120,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def highlights_option_is_visible(self):
-        return await self.page.locator("id=nudge-study-tools").is_visible()
+        return await self.page.locator("#nudge-study-tools").is_visible()
 
     @pytest.mark.asyncio
     async def click_highlights_option(self):
@@ -194,7 +194,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def footer_section(self):
-        return await self.page.locator("id=footer").is_visible()
+        return await self.page.locator("#footer").is_visible()
 
     @pytest.mark.asyncio
     async def footer_section_help_is_visible(self):
@@ -310,11 +310,11 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def fill_user_field(self, value):
-        await self.page.locator("id=login_form_email").fill(value)
+        await self.page.locator("#login_form_email").fill(value)
 
     @pytest.mark.asyncio
     async def fill_password_field(self, value):
-        await self.page.locator("id=login_form_password").fill(value)
+        await self.page.locator("#login_form_password").fill(value)
 
     @pytest.mark.asyncio
     async def click_continue_login(self):
@@ -391,30 +391,24 @@ class HomeRex:
         await self.page.get_by_label("Deselect current highlight").click()
 
     @pytest.mark.asyncio
-    async def double_click_highlight_infobox(self):
-        return (
-            await self.page.get_by_role("dialog")
-            .get_by_text("Press Enter or double-click highlight to edit highlight")
-            .dblclick()
-        )
+    async def oneclick_highlight_infobox(self):
+        return await self.page.get_by_label("Edit highlighted note").click()
 
     @property
     def highlight_infobox(self):
-        return self.page.get_by_role("dialog").get_by_text(
-            "Press Enter or double-click highlight to edit highlight"
-        )
+        return self.page.get_by_label("Edit highlighted note")
 
     @pytest.mark.asyncio
     async def highlight_box_is_visible(self):
-        return await self.page.locator("id=note-textarea").is_visible()
+        return await self.page.locator("#note-textarea").is_visible()
 
     @pytest.mark.asyncio
     async def click_highlight_box_note_field(self):
-        await self.page.locator("id=note-textarea").click()
+        await self.page.locator("#note-textarea").click()
 
     @pytest.mark.asyncio
     async def fill_highlight_box_note_field(self, value):
-        await self.page.locator("id=note-textarea").fill(value)
+        await self.page.locator("#note-textarea").fill(value)
 
     @pytest.mark.asyncio
     async def highlight_box_colours_are_visible(self):
@@ -433,24 +427,12 @@ class HomeRex:
         await self.page.locator("div").get_by_title("green").first.click()
 
     @property
-    def highlights_option_text_colour_purple(self):
-        return self.page.locator(
-            "div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.ibAyfS"
-        )
-
-    @property
-    def highlights_option_text_colour_green(self):
-        return self.page.locator(
-            "div.HighlightListElement__HighlightContentWrapper-s4j4lf-1.kuxHtj"
-        )
-
-    @property
     def highlights_option_text_colour_check_purple(self):
-        return self.highlights_option_text_colour_purple.get_attribute("color")
+        return self.page.locator('div[color="purple"]').get_attribute("color")
 
     @property
     def highlights_option_text_colour_check_green(self):
-        return self.highlights_option_text_colour_green.get_attribute("color")
+        return self.page.locator('div[color="green"]').get_attribute("color")
 
     @pytest.mark.asyncio
     async def small_highlighted_note_box_is_visible(self):
@@ -498,7 +480,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_show_hide_solution_link(self):
-        await self.page.locator("id=fs-id1165134108429").get_by_title(
+        await self.page.locator("#fs-id1165134108429").get_by_title(
             "Show/Hide Solution"
         ).click()
 

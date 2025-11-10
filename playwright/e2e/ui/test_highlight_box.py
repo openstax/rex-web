@@ -53,7 +53,7 @@ async def test_highlight_box_opens_on_enter(
 @pytest.mark.parametrize(
     "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
 )
-async def test_highlight_box_opens_on_double_click(
+async def test_highlight_box_opens_on_one_click(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
 
@@ -78,7 +78,7 @@ async def test_highlight_box_opens_on_double_click(
 
     assert await home.highlight_infobox.is_visible()
 
-    await home.double_click_highlight_infobox()
+    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -87,12 +87,19 @@ async def test_highlight_box_opens_on_double_click(
 
     await home.click_highlight_box_trash_icon()
 
+    await home.click_highlights_option()
+
+    assert (
+        "You have no highlights in this book"
+        in await home.highlights_option_page_is_empty.inner_text()
+    )
+
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
 )
-async def tst_highlight_is_created_without_annotation_on_enter(
+async def test_highlight_is_created_without_annotation_on_enter(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
 
@@ -134,12 +141,24 @@ async def tst_highlight_is_created_without_annotation_on_enter(
         not in await home.highlights_option_page_is_empty.inner_text()
     )
 
+    # THEN: Delete the created highlight
+
+    await home.click_highlights_option_page_menu()
+
+    await home.click_highlights_option_page_menu_delete()
+    await home.click_highlights_option_page_menu_delete_delete()
+
+    assert (
+        "You have no highlights in this book"
+        in await home.highlights_option_page_is_empty.inner_text()
+    )
+
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
 )
-async def tst_highlight_is_created_without_annotation_on_double_click(
+async def test_highlight_is_created_without_annotation_on_one_click(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
 
@@ -164,7 +183,7 @@ async def tst_highlight_is_created_without_annotation_on_double_click(
 
     assert await home.highlight_infobox.is_visible()
 
-    await home.double_click_highlight_infobox()
+    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -177,4 +196,16 @@ async def tst_highlight_is_created_without_annotation_on_double_click(
     assert (
         "You have no highlights in this book"
         not in await home.highlights_option_page_is_empty.inner_text()
+    )
+
+    # THEN: Delete the created highlight
+
+    await home.click_highlights_option_page_menu()
+
+    await home.click_highlights_option_page_menu_delete()
+    await home.click_highlights_option_page_menu_delete_delete()
+
+    assert (
+        "You have no highlights in this book"
+        in await home.highlights_option_page_is_empty.inner_text()
     )
