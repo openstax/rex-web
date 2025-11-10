@@ -119,7 +119,7 @@ exports[`ProgressBar displays properly 1`] = `
   color: #fff;
   margin: 0 0.4rem;
   font-weight: bold;
-  color: #c1c1c1;
+  color: #6e6e6e;
   background-color: #f1f1f1;
   border-color: #f1f1f1;
 }
