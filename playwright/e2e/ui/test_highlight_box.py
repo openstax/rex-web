@@ -24,7 +24,7 @@ async def test_highlight_box_opens_on_enter(
 
     await home.click_continue_login()
 
-    # THEN: Book page opens, highlight box appears, then disappears on Escape key
+    # THEN: Book page opens, highlight infobox and edit box appears
 
     await chrome_page.keyboard.press("Escape")
 
@@ -70,7 +70,7 @@ async def test_highlight_box_opens_on_one_click(
 
     await home.click_continue_login()
 
-    # THEN: Book page opens, highlight box appears, then disappears on Escape key
+    # THEN: Book page opens, highlight infobox and edit box appears
 
     await chrome_page.keyboard.press("Escape")
 
@@ -116,7 +116,7 @@ async def test_highlight_is_created_without_annotation_on_enter(
 
     await home.click_continue_login()
 
-    # THEN: Book page opens, highlight box appears, then disappears on Escape key
+    # THEN: Book page opens, highlight infobox and edit box appears
 
     await chrome_page.keyboard.press("Escape")
 
@@ -175,7 +175,7 @@ async def test_highlight_is_created_without_annotation_on_one_click(
 
     await home.click_continue_login()
 
-    # THEN: Book page opens, highlight box appears, then disappears on Escape key
+    # THEN: Book page opens, highlight infobox and edit box appears
 
     await chrome_page.keyboard.press("Escape")
 
