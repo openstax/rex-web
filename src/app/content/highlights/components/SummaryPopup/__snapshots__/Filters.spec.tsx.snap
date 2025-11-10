@@ -421,7 +421,7 @@ input:checked + .c22 .c23 {
   z-index: 1;
 }
 
-.c49 {
+.c50 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -431,13 +431,13 @@ input:checked + .c22 .c23 {
   margin-right: 0.4rem;
 }
 
-.c49 svg {
+.c50 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c50 {
+.c51 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -449,7 +449,7 @@ input:checked + .c22 .c23 {
   line-height: 1.5rem;
 }
 
-.c48 {
+.c49 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -463,7 +463,20 @@ input:checked + .c22 .c23 {
   height: 4rem;
 }
 
-.c47 {
+.c46 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.c48 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -604,7 +617,7 @@ input:checked + .c22 .c23 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c11 .c51:last-child {
+.c11 .c52:last-child {
   border-bottom: none;
 }
 
@@ -737,13 +750,13 @@ input:checked + .c22 .c23 {
 }
 
 @media print {
-  .c49 {
+  .c50 {
     display: none;
   }
 }
 
 @media print {
-  .c50 {
+  .c51 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -751,13 +764,13 @@ input:checked + .c22 .c23 {
 }
 
 @media screen and (max-width:75em) {
-  .c47 {
+  .c48 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c47 {
+  .c48 {
     margin: 0;
   }
 }
@@ -792,7 +805,7 @@ input:checked + .c22 .c23 {
 }
 
 @media print {
-  .c0 > *:not(.c46) {
+  .c0 > *:not(.c47) {
     display: none;
   }
 }
@@ -1376,17 +1389,21 @@ input:checked + .c22 .c23 {
       </span>
     </button>
   </div>
+  <div
+    className="c46"
+    role="status"
+  />
   <ul
     aria-atomic="true"
     aria-live="polite"
-    className="c46 c47"
+    className="c47 c48"
   >
     <li
-      className="c48"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color blue"
-        className="c49"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -1418,17 +1435,17 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c50"
+        className="c51"
       >
         blue
       </span>
     </li>
     <li
-      className="c48"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color green"
-        className="c49"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -1460,17 +1477,17 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c50"
+        className="c51"
       >
         green
       </span>
     </li>
     <li
-      className="c48"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color pink"
-        className="c49"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -1502,17 +1519,17 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c50"
+        className="c51"
       >
         pink
       </span>
     </li>
     <li
-      className="c48"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color purple"
-        className="c49"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -1544,17 +1561,17 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c50"
+        className="c51"
       >
         purple
       </span>
     </li>
     <li
-      className="c48"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color yellow"
-        className="c49"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -1586,7 +1603,7 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c50"
+        className="c51"
       >
         yellow
       </span>
