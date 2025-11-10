@@ -82,6 +82,32 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
   line-height: 2.6rem;
 }
 
+.c9 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5rem 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #FFF5E0;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border: 1px solid #FDBD3E;
+}
+
+.c9 .c4 {
+  background: inherit;
+  color: #976502;
+  font-weight: normal;
+  line-height: 2.6rem;
+}
+
 .c7 {
   width: 1.8rem;
   height: 1.8rem;
@@ -102,7 +128,21 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
   color: #E297A0;
 }
 
-.c9 {
+.c11 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  color: #976502;
+  overflow: visible;
+}
+
+.c11:hover {
+  color: #FDBD3E;
+}
+
+.c10 {
   margin-left: 1rem;
   font-size: 1.2rem;
   color: #C23834;
@@ -140,6 +180,16 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
 
 @media (max-width:75em) {
   .c3 {
+    -webkit-align-items: flex-start;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    padding: 1.6rem 1.6rem;
+  }
+}
+
+@media (max-width:75em) {
+  .c9 {
     -webkit-align-items: flex-start;
     -webkit-box-align: flex-start;
     -ms-flex-align: flex-start;
@@ -212,14 +262,14 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
       role="alert"
     >
       <div
-        className="c3"
+        className="c9"
       >
         <div
           className="c4 c5"
         >
           The note could not be saved. Please check your connection and try again.
           <span
-            className="c9"
+            className="c10"
           >
             (ID: 
             error-id
@@ -228,7 +278,7 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
         </div>
         <button
           aria-label="dismiss"
-          className="c6"
+          className="c11"
           onClick={[Function]}
         >
           <svg
