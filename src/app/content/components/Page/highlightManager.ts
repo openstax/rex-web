@@ -97,6 +97,7 @@ const onSelectHighlight = (
     appServices.dispatch(
       addToast('i18n:notification:toast:highlights:select-overlap', {
         destination: 'page',
+        variant: 'warning',
       })
     );
     return;

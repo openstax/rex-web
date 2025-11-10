@@ -12,6 +12,7 @@ export const addToast = createStandardAction('Notification/toasts/add')
       messageKey,
       shouldAutoDismiss: meta.shouldAutoDismiss === undefined || meta.shouldAutoDismiss,
       timestamp: Date.now(),
+      variant: meta.variant,
     },
   }));
 
