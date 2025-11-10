@@ -26,6 +26,7 @@ const ToastNotifications = ({toasts}: Props) => {
           index: assertDefined(sortedToasts.get(toast), 'Notification dissapeared'),
           totalToastCount: toasts.length,
         }}
+        variant={toast.variant}
       />)}
     </ToastsContainer> : null;
 };

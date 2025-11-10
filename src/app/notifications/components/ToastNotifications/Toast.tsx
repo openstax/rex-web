@@ -11,6 +11,7 @@ import {
   CloseButton,
   CloseIcon,
   ErrorId,
+  ToastVariant,
 } from './styles';
 
 export const initialState = {
@@ -56,6 +57,7 @@ export interface ToastProps {
     index: number,
     totalToastCount: number
   };
+  variant?: ToastVariant;
 }
 
 // It's meant to not be dismissable before shouldAutoDismissAfter elapses
@@ -64,7 +66,7 @@ export interface ToastProps {
 // fail again, it will refresh the error instead
 
 // tslint:disable-next-line:variable-name
-const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
+const Toast = ({ dismiss, notification, positionProps, variant}: ToastProps) => {
   const window = assertWindow();
   const [state, dispatch] = React.useReducer(manageAnimationState, initialState);
 
@@ -105,7 +107,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
       data-testid='banner-body'
       role='alert'
     >
-      <BannerBody>
+      <BannerBody variant={variant} >
         <FormattedMessage id={notification.messageKey}>
           {(txt) =>  <Header>
             {txt}
@@ -116,7 +118,7 @@ const Toast = ({ dismiss, notification, positionProps}: ToastProps) => {
             }
           </Header>}
         </FormattedMessage>
-        <CloseButton onClick={dismiss} aria-label='dismiss'>
+        <CloseButton onClick={dismiss} aria-label='dismiss' variant={variant}>
           <CloseIcon />
         </CloseButton>
       </BannerBody>

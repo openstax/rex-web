@@ -35,6 +35,7 @@ describe('ToastNotifications', () => {
       messageKey: toastMessageKeys.highlights.failure.update.annotation,
       shouldAutoDismiss: true,
       timestamp: 2,
+      variant: 'warning',
     }];
 
     const component = renderer.create(<TestContainer>
