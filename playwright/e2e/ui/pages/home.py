@@ -1,9 +1,4 @@
-import asyncio
 import pytest
-
-from playwright.async_api import expect
-
-import re
 
 
 class HomeRex:
@@ -392,7 +387,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def oneclick_highlight_infobox(self):
-        return await self.page.get_by_label("Edit highlighted note").click()
+        await self.page.get_by_label("Edit highlighted note").click()
 
     @property
     def highlight_infobox(self):
@@ -519,10 +514,6 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_cancel_changes_button(self):
         await self.page.locator("div").get_by_test_id("cancel-discard").click()
-
-    @pytest.mark.asyncio
-    async def click_discard_changes_button(self):
-        await self.page.locator("div").get_by_test_id("discard-changes").click()
 
     # Error states and pages
 
