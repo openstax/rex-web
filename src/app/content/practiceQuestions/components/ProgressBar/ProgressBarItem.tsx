@@ -57,7 +57,7 @@ const StyledActiveItem = styled(StyledItem)`
 
 // tslint:disable-next-line: variable-name
 const StyledDisabledItem = styled(StyledItem)`
-  color: #c1c1c1;
+  color: #6e6e6e;
   background-color: #f1f1f1;
   border-color: #f1f1f1;
 `;
