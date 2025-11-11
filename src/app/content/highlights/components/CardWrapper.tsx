@@ -5,7 +5,7 @@ import { connect, useSelector } from 'react-redux';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
-import { useFocusLost, useKeyCombination, useFocusHighlight } from '../../../reactUtils';
+import { useFocusLost, useKeyCombination, useFocusHighlight, useOnEsc } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { assertDefined, assertDocument } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
@@ -191,7 +191,7 @@ function CardsForHighlights({
   useKeyCombination({key: 'Enter'}, () => showCard(focusedHighlight?.id), undefined, false);
 
   // Allow to hide EditCard using Escape key
-  useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
+  useOnEsc(true, hideCard);
   useFocusHighlight(showCard, highlights);
   return <>
     {highlights.map((highlight, index) => {
