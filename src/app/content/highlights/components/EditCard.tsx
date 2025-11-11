@@ -25,10 +25,6 @@ import { generateUpdatePayload } from './cardUtils';
 import ColorPicker from './ColorPicker';
 import Confirmation from './Confirmation';
 import Note from './Note';
-import {
-  isElementForOnClickOutside,
-  useOnClickOutside
-} from './utils/onClickOutside';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 
@@ -185,10 +181,6 @@ function ActiveEditCard({
     [blurIfNotEditing, props.data?.color]
   );
 
-  const elements = [element, ...props.highlight.elements].filter(
-    isElementForOnClickOutside
-  );
-
   React.useEffect(
     () => {
       document?.addEventListener('focusin', deselectRange);
@@ -196,10 +188,6 @@ function ActiveEditCard({
     },
     [deselectRange]
   );
-
-  useOnClickOutside(elements, props.isActive, blurIfNotEditing, {
-    capture: true,
-  });
 
   const onHeightChange = props.onHeightChange;
   React.useEffect(() => {
@@ -218,7 +206,6 @@ function ActiveEditCard({
 
   const onColorChange = useOnColorChange(props);
   const saveAnnotation = useSaveAnnotation(props, element, pendingAnnotation);
-
   const ref = React.useRef<HTMLElement>(null);
 
   useTrapTabNavigation(ref, editingAnnotation);
