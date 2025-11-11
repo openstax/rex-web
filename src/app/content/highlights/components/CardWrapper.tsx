@@ -2,6 +2,8 @@ import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
+import flow from 'lodash/fp/flow';
+import { clearFocusedHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
@@ -91,7 +93,8 @@ function useCardsHeights() {
 function useFocusedHighlight(
   highlights: Highlight[],
   element: React.RefObject<HTMLElement>,
-  container: HTMLElement
+  container: HTMLElement,
+  unfocus: () => void
 ) {
   const focusedId = useSelector(focused);
   const focusedHighlight = React.useMemo(
@@ -121,6 +124,21 @@ function useFocusedHighlight(
       setShouldFocusCard(true);
     }
   }, [focusedHighlight]);
+
+  // Watch for selection change when the highlight is just a selection
+  // if selection becomes empty, clear the focusedHighlight
+  React.useEffect(() => {
+    const handler = () => {
+      if (document.getSelection()?.isCollapsed
+        && (!focusedHighlight || focusedHighlight.elements.length === 0)) {
+        unfocus();
+        setShouldFocusCard(false);
+      }
+    };
+
+    document.addEventListener('selectionchange', handler);
+    return () => document.removeEventListener('selectionchange', handler);
+  }, [document, focusedHighlight, unfocus]);
 
   // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -213,9 +231,11 @@ function CardsForHighlights({
 }
 
 // tslint:disable-next-line:variable-name
-const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
+const Wrapper = ({highlights, className, container, highlighter, dispatch}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
-  const [focusedHighlight, shouldFocusCard, setShouldFocusCard] = useFocusedHighlight(highlights, element, container);
+  const unfocus = flow(clearFocusedHighlight, dispatch);
+  const [focusedHighlight, shouldFocusCard, setShouldFocusCard] = useFocusedHighlight(
+    highlights, element, container, unfocus);
 
   return <div className={className} ref={element}>
     <CardsForHighlights
