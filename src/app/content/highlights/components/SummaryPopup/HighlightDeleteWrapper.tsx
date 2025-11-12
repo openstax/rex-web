@@ -64,6 +64,7 @@ function HighlightDeleteWrapper({
         <FormattedMessage id='i18n:highlighting:button:delete'>
           {msg => (
             <Button
+              autoFocus
               data-testid='delete'
               data-analytics-label='delete'
               size='medium'
