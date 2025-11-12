@@ -79,25 +79,11 @@ const HiddenLabel = styled.div`
   ${hiddenButAccessible}
 `;
 
-function HighlightColor({color}: {color: string}) {
-  switch (color) {
-    case 'blue':
-      return <FormattedMessage id='i18n:highlighting:colors:blue' />;
-    case 'green':
-      return <FormattedMessage id='i18n:highlighting:colors:green' />;
-    case 'pink':
-      return <FormattedMessage id='i18n:highlighting:colors:pink' />;
-    case 'purple':
-      return <FormattedMessage id='i18n:highlighting:colors:purple' />;
-    default:
-      return <FormattedMessage id='i18n:highlighting:colors:yellow' />;
-  }
-}
-
 function HighlightContentLabel({color}: {color: string}) {
+  const assertedColor = ['blue', 'green', 'pink', 'purple'].includes(color) ? color : 'yellow';
   return <HiddenLabel>
     <FormattedMessage id='i18n:highlighter:display-note:label' />
-    <HighlightColor color={color} />
+    <FormattedMessage id={`i18n:highlighting:colors:${assertedColor}`} />
   </HiddenLabel>;
 }
 

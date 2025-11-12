@@ -78,22 +78,10 @@ const HiddenLabel = styled.div`
   ${hiddenButAccessible}
 `;
 
-function HighlightColor({color}: {color: string}) {
-  switch (color) {
-    case 'blue':
-      return <FormattedMessage id='i18n:studyguides:popup:filters:blue' />;
-    case 'green':
-      return <FormattedMessage id='i18n:studyguides:popup:filters:green' />;
-    case 'purple':
-      return <FormattedMessage id='i18n:studyguides:popup:filters:purple' />;
-    default:
-      return <FormattedMessage id='i18n:studyguides:popup:filters:yellow' />;
-  }
-}
-
 function HighlightContentLabel({color}: {color: string}) {
+  const assertedColor = ['blue', 'green', 'purple'].includes(color) ? color : 'yellow';
   return <HiddenLabel>
-    <HighlightColor color={color} />
+    <FormattedMessage id={`i18n:studyguides:popup:filters:${assertedColor}`} />
   </HiddenLabel>;
 }
 
