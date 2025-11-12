@@ -44,7 +44,7 @@ export const ShowPracitceQuestionsContent = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const SectionTitle = styled.div`
+export const SectionTitle = styled.h2`
   ${h4Style}
   flex-shrink: 0;
   font-weight: bold;
@@ -67,7 +67,7 @@ export const QuestionsWrapper = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const QuestionsHeader = styled.div`
+export const QuestionsHeader = styled.h3`
   font-size: 1.4rem;
   font-weight: bold;
   color: ${theme.color.text.default};
