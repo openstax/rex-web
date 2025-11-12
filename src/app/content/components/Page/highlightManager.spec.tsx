@@ -579,10 +579,83 @@ describe('highlightManager', () => {
       expect(prop.focus).not.toHaveBeenCalled();
     });
   });
+
+  describe('setSnapMode', () => {
+    it('sets all snap options to true', () => {
+      const mockHighlighter = {
+        options: {
+          snapCode: false,
+          snapMathJax: false,
+          snapTableRows: false,
+          snapWords: false,
+        },
+      };
+
+      const manager = highlightManager(element, () => prop, services, intl);
+      // @ts-expect-error: force inject mock
+      manager.__setHighlighter(mockHighlighter);
+
+      manager.setSnapMode(true);
+
+      // @ts-expect-error: property not defined in type
+      expect(manager.__getHighlighter().options.snapCode).toBe(true);
+      // @ts-expect-error: property not defined in type
+      expect(manager.__getHighlighter().options.snapMathJax).toBe(true);
+      // @ts-expect-error: property not defined in type
+      expect(manager.__getHighlighter().options.snapTableRows).toBe(true);
+      // @ts-expect-error: property not defined in type
+      expect(manager.__getHighlighter().options.snapWords).toBe(true);
+    });
+
+    it('sets all snap options to false', () => {
+      const mockHighlighter = {
+        options: {
+          snapCode: true,
+          snapMathJax: true,
+          snapTableRows: true,
+          snapWords: true,
+        },
+      };
+      const manager = highlightManager(element, () => prop, services, intl);
+      // @ts-expect-error: force inject mock
+      manager.__setHighlighter(mockHighlighter);
+
+      manager.setSnapMode(false);
+
+      // @ts-expect-error: property not defined in type
+      expect(manager.__getHighlighter().options.snapCode).toBe(false);
+      // @ts-expect-error: property not defined in type
+      expect(manager.__getHighlighter().options.snapMathJax).toBe(false);
+      // @ts-expect-error: force inject mock
+      expect(manager.__getHighlighter().options.snapTableRows).toBe(false);
+      // @ts-expect-error: force inject mock
+      expect(manager.__getHighlighter().options.snapWords).toBe(false);
+    });
+
+    it('does not throw if options is missing', () => {
+      const mockHighlighter = {};
+      const manager = highlightManager(element, () => prop, services, intl);
+      // @ts-expect-error: force inject mock
+      manager.__setHighlighter(mockHighlighter);
+      expect(() => manager.setSnapMode(true)).not.toThrow();
+    });
+
+    it('does not throw if highlighter is undefined', () => {
+      const manager = highlightManager(element, () => prop, services, intl);
+      // @ts-expect-error: force inject undefined
+      manager.__setHighlighter(undefined);
+      expect(() => manager.setSnapMode(true)).not.toThrow();
+    });
+  });
+
 });
 
 describe('stubHighlightManager', () => {
   it('umounts', () => {
     expect(stubHighlightManager.unmount).not.toThrow();
+  });
+
+  it('setSnapMode', () => {
+    expect(stubHighlightManager.setSnapMode).not.toThrow();
   });
 });
