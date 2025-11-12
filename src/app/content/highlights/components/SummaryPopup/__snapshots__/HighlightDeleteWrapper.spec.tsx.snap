@@ -146,6 +146,7 @@ exports[`HighlightDeleteWrapper match snapshot 1`] = `
     className="c1"
   >
     <button
+      autoFocus={true}
       className="c2"
       data-analytics-label="delete"
       data-testid="delete"

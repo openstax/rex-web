@@ -144,7 +144,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   };
 
   return <HighlightOuterWrapper>
-    {!isEditing && <ContextMenu
+    {(!isEditing && !isDeleting) && <ContextMenu
       highlight={highlight}
       linkToHighlight={linkToHighlight}
       onDelete={() => setIsDeleting(true)}
