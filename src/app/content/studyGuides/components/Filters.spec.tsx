@@ -1,5 +1,4 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import * as Cookies from 'js-cookie';
 import queryString from 'query-string';
 import React from 'react';
 import renderer from 'react-test-renderer';
@@ -8,7 +7,6 @@ import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import TestContainer from '../../../../test/TestContainer';
-import { runHooks } from '../../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../../auth/actions';
 import Checkbox from '../../../components/Checkbox';
 import { DropdownToggle } from '../../../components/Dropdown';
@@ -32,9 +30,6 @@ import {
 import { colorfilterLabels, modalUrlName } from '../constants';
 import * as selectors from '../selectors';
 import Filters from './Filters';
-import { cookieUTG } from './UsingThisGuide/constants';
-import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
-import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 describe('Filters', () => {
   let store: Store;
@@ -319,92 +314,6 @@ describe('Filters', () => {
       });
 
       expect(dispatch).toHaveBeenCalledWith(printStudyGuides());
-    });
-  });
-
-  describe('Using This Guide Button', () => {
-    it('renders button and banner when button is clicked and closes correctly', () => {
-      // If cookie is set then banner will be closed initially
-      Cookies.set(cookieUTG, 'true');
-
-      const component = renderer.create(<TestContainer services={services} store={store}>
-        <Filters />
-      </TestContainer>);
-
-      const uTGbutton = component.root.findByType(UsingThisGuideButton);
-
-      renderer.act(() => {
-        uTGbutton.props.onClick();
-      });
-
-      expect(component.root.findByType(UsingThisGuideBanner).props.show).toBe(true);
-
-      const uTGcloseButton = component.root.findByProps({ 'data-testid': 'close-utg' });
-
-      renderer.act(() => {
-        uTGcloseButton.props.onClick();
-      });
-
-      expect(component.root.findByType(UsingThisGuideBanner).props.show).toBe(false);
-    });
-
-    it('does not send ga event if it was opened initialy but set cookie', () => {
-      // If cookie is not set then banner will be opened initially
-      Cookies.remove(cookieUTG);
-
-      const spyTrack = jest.spyOn(services.analytics.openUTG, 'track');
-
-      const component = renderer.create(<TestContainer services={services} store={store}>
-        <Filters />
-      </TestContainer>);
-
-      runHooks(renderer);
-
-      const banner = component.root.findByType(UsingThisGuideBanner);
-      expect(banner.props.show).toEqual(true);
-      expect(Cookies.get(cookieUTG)).toBe('true');
-      expect(spyTrack).not.toHaveBeenCalled();
-    });
-
-    it('send ga event when opened', () => {
-      const spyTrack = jest.spyOn(services.analytics.openUTG, 'track');
-      // If cookie is set then banner will be closed initially
-      Cookies.set(cookieUTG, 'true');
-
-      const component = renderer.create(<TestContainer services={services} store={store}>
-        <Filters />
-      </TestContainer>);
-
-      const banner = component.root.findByType(UsingThisGuideBanner);
-      expect(banner.props.show).toEqual(false);
-      expect(Cookies.get(cookieUTG)).toEqual('true');
-      expect(spyTrack).not.toHaveBeenCalled();
-
-      const toggleButton = component.root.findByType(UsingThisGuideButton);
-
-      // open banner
-      renderer.act(() => {
-        toggleButton.props.onClick();
-      });
-
-      expect(banner.props.show).toEqual(true);
-      expect(spyTrack).toHaveBeenCalledTimes(1);
-
-      // close banner
-      renderer.act(() => {
-        toggleButton.props.onClick();
-      });
-
-      expect(banner.props.show).toEqual(false);
-      expect(spyTrack).toHaveBeenCalledTimes(1); // do not send ga event on close
-
-      // open banner again
-      renderer.act(() => {
-        toggleButton.props.onClick();
-      });
-
-      expect(banner.props.show).toEqual(true);
-      expect(spyTrack).toHaveBeenCalledTimes(2); // send ga event every time when opening
     });
   });
 });
