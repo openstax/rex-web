@@ -3,15 +3,7 @@ import { startMathJax, typesetMath } from './mathjax';
 const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
 
 const mockMathJax = () => ({
-  HTML: {
-    Cookie: {},
-  },
-  Hub: {
-    Config: jest.fn(),
-    Configured: jest.fn(),
-    Queue: (...fns: Array<() => void>) => fns.forEach((fn) => fn()),
-    Typeset: jest.fn(),
-  },
+  typesetPromise: jest.fn().mockResolvedValue(undefined),
 });
 
 beforeEach(() => {
@@ -38,7 +30,7 @@ describe('typesetMath', () => {
 
     await debounce();
 
-    expect(window.MathJax.Hub.Typeset).not.toHaveBeenCalledWith();
+    expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
   });
 
   it('typesets the element if it contains mathml', async() => {
@@ -54,7 +46,7 @@ describe('typesetMath', () => {
 
     await debounce();
 
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledWith(element);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
 
   it('debounces', async() => {
@@ -82,7 +74,7 @@ describe('typesetMath', () => {
 
     await debounce();
 
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledTimes(2);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledTimes(2);
   });
 
   it('typesets the element if it is data-math', async() => {
@@ -107,8 +99,8 @@ describe('typesetMath', () => {
 
     await debounce();
 
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledWith([math1, math2]);
-    expect(window.MathJax.Hub.Typeset).not.toHaveBeenCalledWith(element);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([math1, math2]);
+    expect(window.MathJax.typesetPromise).not.toHaveBeenCalledWith([element]);
   });
 
   it('moves latex formulas inline', async() => {
@@ -149,18 +141,22 @@ describe('startMathJax', () => {
     startMathJax();
 
     expect(window.MathJax).toBeDefined();
+    expect(window.MathJax.startup).toBeDefined();
+    expect(window.MathJax.tex).toBeDefined();
   });
 
-  it('configs mathjax', () => {
+  it('does not overwrite config if mathjax is already loaded', () => {
     if (!window) {
       expect(window).toBeTruthy();
       return;
     }
 
+    const existingMathJax = mockMathJax();
+    window.MathJax = existingMathJax;
+
     startMathJax();
 
-    expect(window.MathJax.Hub.Config).toHaveBeenCalled();
-    expect(window.MathJax.Hub.Configured).toHaveBeenCalled();
+    expect(window.MathJax).toBe(existingMathJax);
   });
 
   describe('outside the browser', () => {
