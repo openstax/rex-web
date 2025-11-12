@@ -95,25 +95,25 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   width: 0.8rem;
 }
 
-.c13 {
+.c14 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
   overflow: auto;
 }
 
-.c13 a {
+.c14 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c13 a:hover {
+.c14 a:hover {
   color: #0064A0;
 }
 
-.c13 * {
+.c14 * {
   overflow: initial;
 }
 
@@ -147,26 +147,39 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   margin-left: 2.1rem;
 }
 
-.c14 {
+.c15 {
   padding-left: 0.4rem;
   border-left: solid 0.8rem #def99f;
   margin-left: 2.1rem;
 }
 
-.c15 {
+.c16 {
   padding-left: 0.4rem;
   border-left: solid 0.8rem #ffc5e1;
   margin-left: 2.1rem;
 }
 
-.c16 {
+.c17 {
   padding-left: 0.4rem;
   border-left: solid 0.8rem #cbcfff;
   margin-left: 2.1rem;
 }
 
-.c17 {
+.c18 {
   padding-left: 0.4rem;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .c0 {
@@ -256,24 +269,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     break-inside: avoid-page;
   }
 
-  .c11 .c12 {
-    background-color: white;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c14 {
-    margin-left: 2rem;
-  }
-}
-
-@media print {
-  .c14 {
-    -webkit-break-inside: avoid-page;
-    break-inside: avoid-page;
-  }
-
-  .c14 .c12 {
+  .c11 .c13 {
     background-color: white;
   }
 }
@@ -290,7 +286,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     break-inside: avoid-page;
   }
 
-  .c15 .c12 {
+  .c15 .c13 {
     background-color: white;
   }
 }
@@ -307,7 +303,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     break-inside: avoid-page;
   }
 
-  .c16 .c12 {
+  .c16 .c13 {
     background-color: white;
   }
 }
@@ -324,7 +320,24 @@ exports[`StudyGuides properly display summary highlights 1`] = `
     break-inside: avoid-page;
   }
 
-  .c17 .c12 {
+  .c17 .c13 {
+    background-color: white;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c18 {
+    margin-left: 2rem;
+  }
+}
+
+@media print {
+  .c18 {
+    -webkit-break-inside: avoid-page;
+    break-inside: avoid-page;
+  }
+
+  .c18 .c13 {
     background-color: white;
   }
 }
@@ -406,7 +419,12 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="blue"
         >
           <div
-            className="content-excerpt c12 c13"
+            className="c12"
+          >
+            Important Concepts
+          </div>
+          <div
+            className="content-excerpt c13 c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "<a href=\\"/books/book-slug-1/pages/link\\" target=\\"_blank\\">Link</a>",
@@ -426,11 +444,16 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="c14"
+          className="c15"
           color="green"
         >
           <div
-            className="content-excerpt c12 c13"
+            className="c12"
+          >
+            Connections & Relationships
+          </div>
+          <div
+            className="content-excerpt c13 c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -450,11 +473,16 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="c15"
+          className="c16"
           color="pink"
         >
           <div
-            className="content-excerpt c12 c13"
+            className="c12"
+          >
+            Key Terms
+          </div>
+          <div
+            className="content-excerpt c13 c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -474,11 +502,16 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="c16"
+          className="c17"
           color="purple"
         >
           <div
-            className="content-excerpt c12 c13"
+            className="c12"
+          >
+            Enrichment
+          </div>
+          <div
+            className="content-excerpt c13 c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -496,11 +529,16 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           className="c10"
         />
         <div
-          className="c17"
+          className="c18"
           color={null}
         >
           <div
-            className="content-excerpt c12 c13"
+            className="c12"
+          >
+            Key Terms
+          </div>
+          <div
+            className="content-excerpt c13 c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -550,7 +588,12 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           color="blue"
         >
           <div
-            className="content-excerpt c12 c13"
+            className="c12"
+          >
+            Important Concepts
+          </div>
+          <div
+            className="content-excerpt c13 c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
@@ -570,11 +613,16 @@ exports[`StudyGuides properly display summary highlights 1`] = `
           hl
         </div>
         <div
-          className="c14"
+          className="c15"
           color="green"
         >
           <div
-            className="content-excerpt c12 c13"
+            className="c12"
+          >
+            Connections & Relationships
+          </div>
+          <div
+            className="content-excerpt c13 c14"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "content",
