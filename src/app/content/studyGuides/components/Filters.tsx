@@ -1,5 +1,4 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import * as Cookies from 'js-cookie';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
@@ -19,9 +18,6 @@ import { printStudyGuides } from '../actions';
 import { highlightStyles } from '../constants';
 import * as selectors from '../selectors';
 import { updateQueryFromFilterChange } from '../utils';
-import { cookieUTG } from './UsingThisGuide/constants';
-import UsingThisGuideBanner from './UsingThisGuide/UsingThisGuideBanner';
-import UsingThisGuideButton from './UsingThisGuide/UsingThisGuideButton';
 
 // converting color to a label is based on "i18n:studyguides:popup:filters:remove:color" from messages.json
 const createColorDataAnalyticsLabel = (color: HighlightColorEnum): string => {
@@ -109,14 +105,9 @@ const ConnectedPrintButton = connect(
 
 export default () => {
   const userLoggedOut = useSelector(loggedOut);
-  const [isUTGopen, setUTGopen] = React.useState(!Cookies.get(cookieUTG));
   const services = useServices();
   const { dispatch } = services;
   const state = services.getState();
-
-  const toggleUsingThisGuide = () => {
-    setUTGopen((toggleState) => !toggleState);
-  };
 
   return <Filters>
     <FiltersTopBar>
@@ -151,13 +142,8 @@ export default () => {
       </FilterDropdown>
       <RightButtonsWrapper>
         <ConnectedPrintButton studyGuidesButton />
-        <UsingThisGuideButton onClick={toggleUsingThisGuide} open={isUTGopen}/>
       </RightButtonsWrapper>
     </FiltersTopBar>
-    <UsingThisGuideBanner
-      onClick={toggleUsingThisGuide}
-      show={isUTGopen}
-    />
     {!userLoggedOut && <ConnectedFilterList
       colorAriaLabelKey={() => 'i18n:studyguides:popup:filters:remove:color'}
       colorDataAnalyticsLabel={(color: HighlightColorEnum) => createColorDataAnalyticsLabel(color)}
