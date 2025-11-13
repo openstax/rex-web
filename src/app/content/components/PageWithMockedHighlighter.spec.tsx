@@ -29,7 +29,7 @@ import {
 import * as requestDeleteHighlightHook from '../highlights/hooks/requestDeleteHighlight';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
-import ConnectedPage from './Page';
+import ConnectedPage, { PageComponent } from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
@@ -340,5 +340,60 @@ describe('Page', () => {
 
     // We've updated highlighter only once even that we had 4 page rerenders
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(1);
+  });
+
+  describe('PageComponent input mode detection', () => {
+    let instance: any;
+    let mockHighlightManager: any;
+
+    beforeEach(() => {
+      mockHighlightManager = { setSnapMode: jest.fn() };
+      instance = new (PageComponent as any)({});
+      instance.highlightManager = mockHighlightManager;
+    });
+
+    it('enables snap mode when mouse is used', () => {
+      instance.usingMouseInput = false;
+      instance.handleMouseDown();
+
+      expect(instance.usingMouseInput).toBe(true);
+      expect(mockHighlightManager.setSnapMode).toHaveBeenCalledWith(true);
+    });
+
+    it('does nothing when snap mode is already enabled', () => {
+      instance.usingMouseInput = true;
+      instance.handleMouseDown();
+
+      expect(instance.usingMouseInput).toBe(true);
+      expect(mockHighlightManager.setSnapMode).not.toHaveBeenCalled();
+    });
+
+    it('disables snap mode when navigation key is pressed', () => {
+      instance.usingMouseInput = true;
+      const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+
+      instance.handleKeyDown(event);
+
+      expect(instance.usingMouseInput).toBe(false);
+      expect(mockHighlightManager.setSnapMode).toHaveBeenCalledWith(false);
+    });
+
+    it('does not change mode for non-navigation keys', () => {
+      instance.usingMouseInput = true;
+      const event = new KeyboardEvent('keydown', { key: 'a' });
+
+      instance.handleKeyDown(event);
+
+      expect(instance.usingMouseInput).toBe(true);
+      expect(mockHighlightManager.setSnapMode).not.toHaveBeenCalled();
+    });
+
+    it('does nothing if highlightManager has no setSnapMode', () => {
+      instance.usingMouseInput = false;
+      instance.highlightManager = {};
+
+      expect(() => instance.handleMouseDown()).not.toThrow();
+      expect(() => instance.handleKeyDown(new KeyboardEvent('keydown', { key: 'ArrowLeft' }))).not.toThrow();
+    });
   });
 });
