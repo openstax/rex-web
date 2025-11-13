@@ -11,17 +11,53 @@ if (!rangy.initialized) {
 
 export default rangy;
 
+/*
+* Checks whether two RangyRanges share a common ancestor in the DOM tree.
+* This is necessary because certain Rangy operations (like intersectsRange)
+* will throw an error if the ranges do not share a common ancestor node.
+* Using this check before calling intersectsRange prevents runtime exceptions.
+*/
+const haveCommonAncestor = (range1: RangyRange, range2: RangyRange): boolean => {
+  let containerA: typeof range1.commonAncestorContainer | null =
+      range1.commonAncestorContainer;
+    const containerB: typeof range2.commonAncestorContainer | null =
+      range2.commonAncestorContainer;
+    while (containerA) {
+      let current: typeof containerB | null = containerB;
+      while (current) {
+        if (containerA === current) return true;
+        current = current.parentNode;
+      }
+      containerA = containerA.parentNode;
+    }
+    return false;
+};
+
 export const findTextInRange = (
   withinRange: RangyRange,
   text: string,
   range: RangyRange = rangy.createRange()
 ): RangyRange[] => {
-  const foundMatch = range.findText(text.trim(), {
-    withinRange: withinRange.cloneRange(),
-  });
+  let foundMatch;
+  try {
+    /*
+    * findText may throw if the range is invalid or the DOM is in an unexpected state,
+    * especially with large or complex documents. Wrapping in try/catch ensures that
+    * a thrown error does not break the search flow and allows us to safely return an empty result.
+    */
+    foundMatch = range.findText(text.trim(), {
+      withinRange: withinRange.cloneRange(),
+    });
+  } catch (err) {
+    return [];
+  }
 
   // no matches, or matches were outside the given range boundaries
-  if (!foundMatch || !range.intersectsRange(withinRange)) {
+  if (
+    !foundMatch ||
+    !haveCommonAncestor(range, withinRange) ||
+    !range.intersectsRange(withinRange)
+  ) {
     return [];
   }
 
@@ -30,7 +66,10 @@ export const findTextInRange = (
 
   // if we're outside the given range boundaries after collapsing, don't
   // check for more matches
-  if (!range.intersectsRange(withinRange)) {
+  if (
+    !haveCommonAncestor(range, withinRange) ||
+    !range.intersectsRange(withinRange)
+  ) {
     return [match];
   }
 

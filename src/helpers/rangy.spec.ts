@@ -33,8 +33,9 @@ describe('findTextInRange', () => {
   });
 
   it('clones every found match', () => {
-    const withinRange = mockRange();
-    const searchRange = mockRange();
+    const commonAncestor = { nodeType: 2, nodeName: 'SPAN' };
+    const withinRange = mockRange('', { nodeName: 'DIV', parentNode: commonAncestor});
+    const searchRange = mockRange('', commonAncestor);
 
     searchRange.findText
       .mockReturnValue(false)
@@ -60,9 +61,64 @@ describe('findTextInRange', () => {
     expect(result[1]).toBe(secondMatch);
   });
 
+  it('does not clone every found match(commonAncestor unmatch)', () => {
+    const commonAncestor = { nodeType: 2, nodeName: 'SPAN' };
+    const withinRange = mockRange('', { nodeName: 'DIV'});
+    const searchRange = mockRange('', commonAncestor);
+
+    searchRange.findText
+      .mockReturnValue(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true);
+
+    searchRange.intersectsRange.mockReturnValue(true);
+
+    const firstMatch = mockRange();
+    const secondMatch = mockRange();
+
+    searchRange.cloneRange
+      .mockReturnValue(searchRange)
+      .mockReturnValueOnce(firstMatch)
+      .mockReturnValueOnce(secondMatch);
+
+    rangy.createRange.mockReturnValueOnce(searchRange);
+
+    const result = findTextInRange(withinRange as unknown as RangyRange, 'cool text');
+
+    expect(result.length).toBe(0);
+  });
+
+  it('does not clone every found match(commonAncestor error)', () => {
+    const commonAncestor = { nodeType: 2, nodeName: 'SPAN' };
+    const withinRange = mockRange('', undefined);
+    const searchRange = mockRange('', commonAncestor);
+
+    searchRange.findText
+      .mockReturnValue(false)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true);
+
+    searchRange.intersectsRange.mockReturnValue(true);
+
+    const firstMatch = mockRange();
+    const secondMatch = mockRange();
+
+    searchRange.cloneRange
+      .mockReturnValue(searchRange)
+      .mockReturnValueOnce(firstMatch)
+      .mockReturnValueOnce(secondMatch);
+
+    rangy.createRange.mockReturnValueOnce(searchRange);
+
+    const result = findTextInRange(withinRange as unknown as RangyRange, 'cool text');
+
+    expect(result.length).toBe(0);
+  });
+
   it('doesn\'t look for more matches if outside given range', () => {
-    const withinRange = mockRange();
-    const searchRange = mockRange();
+    const commonAncestor = { nodeType: 2, nodeName: 'SPAN' };
+    const withinRange = mockRange('', commonAncestor);
+    const searchRange = mockRange('', { nodeName: 'DIV', parentNode: commonAncestor});
 
     searchRange.findText.mockReturnValue(true);
 
@@ -71,7 +127,7 @@ describe('findTextInRange', () => {
       .mockReturnValueOnce(true)
     ;
 
-    const firstMatch = mockRange();
+    const firstMatch = mockRange('', { nodeName: 'DIV', parentNode: commonAncestor });
 
     searchRange.cloneRange.mockReturnValue(firstMatch);
 
@@ -102,5 +158,16 @@ describe('findText', () => {
     expect(searchRange.findText).toHaveBeenCalledWith('some text', expect.objectContaining({
       withinRange,
     }));
+  });
+
+  it('returns [] if findText throws', () => {
+    const withinRange = mockRange();
+    const searchRange = mockRange();
+    rangy.createRange.mockReturnValue(searchRange);
+
+    searchRange.findText.mockImplementation(() => { throw new Error('fail'); });
+
+    const result = findTextInRange(withinRange as unknown as RangyRange, 'fail');
+    expect(result).toEqual([]);
   });
 });
