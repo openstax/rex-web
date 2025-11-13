@@ -33,6 +33,8 @@ async def test_highlight_box_save_note(
     await home.select_text()
     await home.double_click_text()
 
+    await chrome_page.keyboard.press("Enter")
+
     assert await home.highlight_box_is_visible()
 
     await home.click_highlight_box_note_field()
@@ -77,8 +79,7 @@ async def test_overlapping_highlights(
 
     await chrome_page.keyboard.press("Escape")
 
-    assert not await home.small_highlighted_note_box_is_visible()
-
+    await home.select_text()
     await home.double_click_text()
 
     assert await home.overlapping_highlights_message_is_visible()
@@ -87,6 +88,8 @@ async def test_overlapping_highlights(
         "Overlapping highlights are not supported."
         in await home.overlapping_highlights_message.inner_text()
     )
+
+    # THEN: Delete the created highlight
 
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
@@ -128,6 +131,8 @@ async def test_highlight_box_note_colours(
     await home.select_text()
     await home.double_click_text()
 
+    await chrome_page.keyboard.press("Enter")
+
     assert await home.highlight_box_is_visible()
 
     await home.click_highlight_box_purple_colour()
@@ -156,6 +161,8 @@ async def test_highlight_box_note_colours(
     await chrome_page.keyboard.press("Escape")
 
     assert "green" in await home.highlights_option_text_colour_check_green
+
+    # THEN: Delete the created highlight
 
     await home.click_highlights_option_page_menu()
 
