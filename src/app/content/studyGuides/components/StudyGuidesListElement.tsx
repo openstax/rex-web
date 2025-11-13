@@ -2,10 +2,11 @@ import { Highlight } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { textRegularStyle } from '../../../components/Typography';
-import theme from '../../../theme';
+import theme, { hiddenButAccessible } from '../../../theme';
 import ContentExcerpt from '../../components/ContentExcerpt';
 import { highlightStyles } from '../../constants';
 import { popupPadding } from '../../styles/PopupStyles';
+import { FormattedMessage } from 'react-intl';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -72,6 +73,18 @@ export const HighlightContentWrapper = styled.div`
   }
 `;
 
+// tslint:disable-next-line:variable-name
+const HiddenLabel = styled.div`
+  ${hiddenButAccessible}
+`;
+
+function HighlightContentLabel({color}: {color: string}) {
+  const assertedColor = ['blue', 'green', 'purple'].includes(color) ? color : 'yellow';
+  return <HiddenLabel>
+    <FormattedMessage id={`i18n:studyguides:popup:filters:${assertedColor}`} />
+  </HiddenLabel>;
+}
+
 interface HighlightListElementProps {
   highlight: Highlight;
 }
@@ -83,6 +96,7 @@ const HighlightListElement = ({ highlight }: HighlightListElementProps) =>
       {highlight.annotation}
     </HighlightAnnotation>
     <HighlightContentWrapper color={highlight.color}>
+      <HighlightContentLabel color={highlight.color} />
       <ContentExcerpt
         data-highlight-id={highlight.id}
         content={highlight.highlightedContent}

@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
-import theme from '../../../../theme';
+import theme, { hiddenButAccessible } from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
 import { highlightStyles } from '../../../constants';
 import { book as bookSelector } from '../../../selectors';
@@ -14,6 +14,7 @@ import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import { useCreateHighlightLink } from './utils';
+import { FormattedMessage } from 'react-intl';
 
 // tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
@@ -72,6 +73,20 @@ interface HighlightListElementProps {
   locationFilterId: string;
   pageId: string;
 }
+
+// tslint:disable-next-line:variable-name
+const HiddenLabel = styled.div`
+  ${hiddenButAccessible}
+`;
+
+function HighlightContentLabel({color}: {color: string}) {
+  const assertedColor = ['blue', 'green', 'pink', 'purple'].includes(color) ? color : 'yellow';
+  return <HiddenLabel>
+    <FormattedMessage id='i18n:highlighter:display-note:label' />
+    <FormattedMessage id={`i18n:highlighting:colors:${assertedColor}`} />
+  </HiddenLabel>;
+}
+
 
 // tslint:disable-next-line:variable-name
 const HighlightListElement = ({ highlight, locationFilterId, pageId }: HighlightListElementProps) => {
@@ -144,7 +159,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   };
 
   return <HighlightOuterWrapper>
-    {!isEditing && <ContextMenu
+    {(!isEditing && !isDeleting) && <ContextMenu
       highlight={highlight}
       linkToHighlight={linkToHighlight}
       onDelete={() => setIsDeleting(true)}
@@ -152,6 +167,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       onColorChange={updateColor}
     />}
     <HighlightContentWrapper color={highlight.color}>
+      <HighlightContentLabel color={highlight.color} />
       <ContentExcerpt
         data-highlight-id={highlight.id}
         content={highlight.highlightedContent}
