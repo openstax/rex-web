@@ -102,6 +102,7 @@ function useFocusedHighlight(
     [focusedId, highlights]);
   const [shouldFocusCard, setShouldFocusCard] = React.useState(false);
   const document = assertDocument();
+  const isExistingHighlight = focusedHighlight && focusedHighlight.elements.length > 0;
 
   // catches the "click here" event sent by the EditCard
   React.useEffect(() => {
@@ -113,10 +114,10 @@ function useFocusedHighlight(
 
   // Ensure focusedHighlight is actually focused
   React.useEffect(() => {
-    if (focusedHighlight && focusedHighlight.elements.length > 0) {
+    if (isExistingHighlight) {
       focusedHighlight?.focus();
     }
-  }, [focusedHighlight]);
+  }, [focusedHighlight, isExistingHighlight]);
 
   // Pressing Enter moves the users from a highlight to the editor
   const editOnEnter = React.useCallback(() => {
@@ -129,8 +130,7 @@ function useFocusedHighlight(
   // if selection becomes empty, clear the focusedHighlight
   React.useEffect(() => {
     const handler = () => {
-      if (document.getSelection()?.isCollapsed
-        && (!focusedHighlight || focusedHighlight.elements.length === 0)) {
+      if (!isExistingHighlight && document.getSelection()?.isCollapsed) {
         unfocus();
         setShouldFocusCard(false);
       }
@@ -138,7 +138,7 @@ function useFocusedHighlight(
 
     document.addEventListener('selectionchange', handler);
     return () => document.removeEventListener('selectionchange', handler);
-  }, [document, focusedHighlight, unfocus]);
+  }, [document, isExistingHighlight, unfocus]);
 
   // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -152,7 +152,11 @@ function useFocusedHighlight(
     setShouldFocusCard(!cardIsFocused);
   }, [element, focusedHighlight]);
 
-  useKeyCombination({key: 'Enter'}, editOnEnter, noopKeyCombinationHandler([container, element]));
+  const keyContainer = focusedHighlight?.elements?.[0] ?? container;
+  // @ts-expect-error contains is not on HTMLElement
+  const notFiredFromHighlight = (el: Element) => !(focusedHighlight && keyContainer.contains(el));
+
+  useKeyCombination({key: 'Enter'}, editOnEnter, notFiredFromHighlight);
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
