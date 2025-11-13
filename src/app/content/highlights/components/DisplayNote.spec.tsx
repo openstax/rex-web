@@ -220,24 +220,6 @@ describe('DisplayNote', () => {
     expect(displayNoteProps.onHeightChange).toHaveBeenCalled();
   });
 
-  it('focuses after click on DropdownToggle', () => {
-    const highlight = {
-      elements: [],
-      id: 'asdf',
-    } as any as Highlight;
-
-    const component = renderer.create(<TestContainer store={store}>
-      <DisplayNote {...displayNoteProps} highlight={highlight} isActive={false} />
-    </TestContainer>);
-
-    renderer.act(() => {
-      const dropdownToggle = component.root.findByType(DropdownToggle);
-      dropdownToggle.props.onClick();
-    });
-
-    expect(displayNoteProps.focus).toHaveBeenCalledWith(highlight.id);
-  });
-
   it('calls onHeightChange on open toc, search sidebar or window resize', () => {
     const highlight = { id: 'asdf', elements: [] } as any as Highlight;
 

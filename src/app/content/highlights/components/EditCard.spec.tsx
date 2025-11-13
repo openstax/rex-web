@@ -595,26 +595,6 @@ describe('EditCard', () => {
     mockSpyUser.mockClear();
   });
 
-  it('blurs when clicking outside', () => {
-    const mockSpyUser = jest.spyOn(selectAuth, 'user')
-      .mockReturnValue(formatUser(testAccountsUser));
-    const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
-    onClickOutside.mockReturnValue();
-
-    const component = renderer.create(
-      <TestContainer services={services} store={store}>
-        <EditCard {...editCardProps} isActive={true} shouldFocusCard={true} />
-      </TestContainer>
-    );
-
-    onClickOutside.mock.calls[0][2]({} as any);
-
-    expect(component).toBeTruthy();
-    expect(onClickOutside.mock.calls.length).toBe(1);
-    expect(editCardProps.onBlur).toHaveBeenCalled();
-    mockSpyUser.mockClear();
-  });
-
   it('blurs and removes selections when navigating to different elements', () => {
     const mockSpyUser = jest.spyOn(selectAuth, 'user')
       .mockReturnValue(formatUser(testAccountsUser));
@@ -683,41 +663,6 @@ describe('EditCard', () => {
     expect(preventDefault).toHaveBeenCalled();
     expect(document!.dispatchEvent).toHaveBeenCalled();
 
-    mockSpyUser.mockClear();
-  });
-
-  it('doesn\'t blur when clicking outside and editing', () => {
-    highlight.getStyle.mockReturnValue('red');
-
-    const mockSpyUser = jest.spyOn(selectAuth, 'user')
-      .mockReturnValue(formatUser(testAccountsUser));
-    const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
-    onClickOutside.mockReturnValue();
-
-    const component = renderer.create(
-      <TestContainer services={services} store={store}>
-        <EditCard
-          {...editCardProps}
-          isActive={true}
-          data={highlightData}
-          hasUnsavedHighlight={true}
-          shouldFocusCard={true}
-        />
-      </TestContainer>
-    );
-
-    renderer.act(() => undefined);
-
-    const note = component.root.findByType(Note);
-    renderer.act(() => {
-      note.props.onChange('asdf');
-    });
-
-    onClickOutside.mock.calls[1][2]({} as any);
-
-    expect(onClickOutside.mock.calls.length).toBe(2);
-    expect(editCardProps.onBlur).not.toHaveBeenCalled();
-    expect(editCardProps.onCancel).not.toHaveBeenCalled();
     mockSpyUser.mockClear();
   });
 

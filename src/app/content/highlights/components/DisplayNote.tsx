@@ -51,13 +51,14 @@ export interface DisplayNoteProps {
 
 // tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
-  {note, isActive, highlight, focus, onBlur, onEdit, onRemove, onHeightChange, className, shouldFocusCard},
+  {note, isActive, highlight, onBlur, onEdit, onRemove, onHeightChange, className, shouldFocusCard},
   ref
 ) => {
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
   const element = React.useRef<HTMLElement>(null);
   const confirmationRef = React.useRef<HTMLElement>(null);
   const [textToggle, setTextToggle] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
   const [width] = useDebouncedWindowSize();
   const searchQuery = useSelector(query);
   const isTocOpen = useSelector(tocOpen);
@@ -77,6 +78,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   React.useEffect(() => {
     if (!isActive) {
       setConfirmingDelete(false);
+      setMenuOpen(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
@@ -87,12 +89,6 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, confirmationRef, confirmingDelete, textToggle, width, isTocOpen, searchQuery]);
 
-  const onToggle = () => {
-    if (!isActive) {
-      focus(highlight.id);
-    }
-  };
-
   return (
     <div
       className={className}
@@ -102,7 +98,9 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       role='dialog'
       aria-labelledby={noteId}
     >
-      <Dropdown toggle={<MenuToggle />} onToggle={onToggle} transparentTab={confirmingDelete}>
+      <Dropdown toggle={<MenuToggle />} transparentTab={confirmingDelete}
+        open={menuOpen} setOpen={setMenuOpen}
+      >
         <DropdownList>
           <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
           <DropdownItem
