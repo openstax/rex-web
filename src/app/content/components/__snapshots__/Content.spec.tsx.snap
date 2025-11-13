@@ -962,6 +962,27 @@ Array [
   margin-bottom: 5px;
 }
 
+.c74 .image-button-wrapper {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.c74 .image-button-wrapper:focus {
+  outline: 1px solid Highlight;
+  outline: 1px solid -webkit-focus-ring-color;
+  outline-offset: 2px;
+}
+
+.c74 .image-button-wrapper img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 .c74 #main-content * {
   overflow: initial;
 }
@@ -6817,7 +6838,7 @@ Array [
                   className="c75"
                   dangerouslySetInnerHTML={
                     Object {
-                      "__html": "<div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\">this is a test page<img width=\\"100\\" height=\\"100\\" src=\\"/apps/image-cdn/v1/f=webp/apps/archive/resources/codeversion/image-image.png\\" loading=\\"lazy\\"></div>
+                      "__html": "<div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\">this is a test page<button type=\\"button\\" aria-label=\\"Click to enlarge this image\\" class=\\"image-button-wrapper\\"><img width=\\"100\\" height=\\"100\\" src=\\"/apps/image-cdn/v1/f=webp/apps/archive/resources/codeversion/image-image.png\\" loading=\\"lazy\\" data-original-src=\\"/apps/archive/resources/codeversion/image-image.png\\"></button></div>
 ",
                     }
                   }
@@ -8324,6 +8345,27 @@ Array [
 .c74 .os-figure,
 .c74 .os-figure:last-child {
   margin-bottom: 5px;
+}
+
+.c74 .image-button-wrapper {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.c74 .image-button-wrapper:focus {
+  outline: 1px solid Highlight;
+  outline: 1px solid -webkit-focus-ring-color;
+  outline-offset: 2px;
+}
+
+.c74 .image-button-wrapper img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .c74 #main-content * {
