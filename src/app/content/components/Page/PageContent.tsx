@@ -167,6 +167,28 @@ export default styled(MainContent)`
     margin-bottom: 5px; /* fix double scrollbar bug */
   }
 
+  .image-button-wrapper {
+    /* Remove default button styles for media modal img wrapper */
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .image-button-wrapper:focus {
+    outline: 1px solid Highlight;
+    outline: 1px solid -webkit-focus-ring-color;
+    outline-offset: 2px;
+  }
+
+  .image-button-wrapper img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
   #${MAIN_CONTENT_ID} * {
     overflow: initial; /* rex styles default to overflow hidden, breaks content */
   }
