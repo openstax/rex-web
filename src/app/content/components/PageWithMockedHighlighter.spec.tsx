@@ -281,11 +281,11 @@ describe('Page', () => {
 
     const mathjaxQueue: Array<() => any> = [];
     assertWindow().MathJax = {
-      Hub: {
-        Queue: (func: () => any) => {
-          mathjaxQueue.push(func);
-        },
-      },
+      typesetPromise: jest.fn().mockImplementation(() => {
+        return new Promise((resolve) => {
+          mathjaxQueue.push(resolve);
+        });
+      }),
     };
 
     const spyTypesetMath = jest.spyOn(mathjax, 'typesetMath');
@@ -329,12 +329,12 @@ describe('Page', () => {
     // remove math elements to mock mathajx behaviour
     root.querySelectorAll('[data-math]').forEach((math) => math.remove());
 
-    // first function in mathjaxQueue is typesetDocument function and the second is typesetDocumentPromise
-    expect(mathjaxQueue.length).toEqual(2);
+    // there should be at least one pending promise
+    expect(mathjaxQueue.length).toBeGreaterThan(0);
 
-    // call typesetDocumentPromise
+    // resolve all pending mathjax promises
     await act(async() => {
-      mathjaxQueue[1]();
+      mathjaxQueue.forEach((resolve) => resolve());
       await services.promiseCollector.calm();
     });
 

@@ -13,28 +13,20 @@ const MATH_DATA_SELECTOR = `[data-math]:not(.${MATH_RENDERED_CLASS})`;
 const MATH_ML_SELECTOR   = `math:not(.${MATH_RENDERED_CLASS})`;
 const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 const MATHJAX_CONFIG = {
-  extensions: [],
-  showProcessingMessages: false,
-  skipStartupTypeset: true,
-  styles: {
-    '#MathJax_MSIE_Frame': {
-      left: '', right: 0, visibility: 'hidden',
-    },
-    '#MathJax_Message': {
-      left: '', right: 0, visibility: 'hidden',
-    },
+  startup: {
+    typeset: false,
   },
-  tex2jax: {
+  tex: {
     displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]],
     inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]],
   },
-  AuthorInit: undefined as unknown,
 };
 
-const findProcessedMath = (root: Element): Element[] => Array.from(root.querySelectorAll('.MathJax math'));
 const findUnprocessedMath = (root: Element): Element[] => {
-  const processedMath = findProcessedMath(root);
-  return Array.from(root.querySelectorAll('math')).filter((node) => processedMath.indexOf(node) === -1);
+  const allMath = Array.from(root.querySelectorAll('math'));
+  // processed MathML elements are wrapped in mjx-container
+  // unprocessed math elements won't have mjx-container as a parent
+  return allMath.filter((node) => !node.parentElement?.closest('mjx-container'));
 };
 
 const findLatexNodes = (root: Element): Element[] => {
@@ -53,18 +45,16 @@ const findLatexNodes = (root: Element): Element[] => {
   return latexNodes;
 };
 
-const typesetLatexNodes = (latexNodes: Element[], windowImpl: Window) => () => {
+const typesetLatexNodes = async (latexNodes: Element[], windowImpl: Window) => {
   if (isEmpty(latexNodes)) {
     return;
   }
 
-  windowImpl.MathJax.Hub.Queue(
-    () => windowImpl.MathJax.Hub.Typeset(latexNodes),
-    markLatexNodesRendered(latexNodes)
-  );
+  await windowImpl.MathJax.typesetPromise(latexNodes);
+  markLatexNodesRendered(latexNodes)();
 };
 
-const typesetMathMLNodes = (root: Element, windowImpl: Window) => () => {
+const typesetMathMLNodes = async (root: Element, windowImpl: Window) => {
   const mathMLNodes = findUnprocessedMath(root);
 
   if (isEmpty(mathMLNodes)) {
@@ -72,9 +62,7 @@ const typesetMathMLNodes = (root: Element, windowImpl: Window) => () => {
   }
 
   // style the entire document because mathjax is unable to style individual math elements
-  windowImpl.MathJax.Hub.Queue(
-    () => windowImpl.MathJax.Hub.Typeset(root)
-  );
+  await windowImpl.MathJax.typesetPromise([root]);
 };
 
 const markLatexNodesRendered = (latexNodes: Element[]) => () => {
@@ -87,13 +75,11 @@ const markLatexNodesRendered = (latexNodes: Element[]) => () => {
 };
 
 // Search document for math and [data-math] elements and then typeset them
-function typesetDocument(root: Element, windowImpl: Window) {
+async function typesetDocument(root: Element, windowImpl: Window) {
   const latexNodes = findLatexNodes(root);
 
-  windowImpl.MathJax.Hub.Queue(
-    typesetLatexNodes(latexNodes, windowImpl),
-    typesetMathMLNodes(root, windowImpl)
-  );
+  await typesetLatexNodes(latexNodes, windowImpl);
+  await typesetMathMLNodes(root, windowImpl);
 }
 
 const resolveOrWait = (root: Element, resolve: () => void, remainingTries = 5) => {
@@ -109,12 +95,12 @@ const resolveOrWait = (root: Element, resolve: () => void, remainingTries = 5) =
   }
 };
 
-const typesetDocumentPromise = (root: Element, windowImpl: Window): Promise<void> => new Promise((resolve) => {
-  typesetDocument(root, windowImpl);
-  windowImpl.MathJax.Hub.Queue(() => {
+const typesetDocumentPromise = async (root: Element, windowImpl: Window): Promise<void> => {
+  await typesetDocument(root, windowImpl);
+  return new Promise((resolve) => {
     resolveOrWait(root, resolve);
   });
-});
+};
 
 // memoize'd getter for typeset document function so that each node's
 // typeset has its own debounce
@@ -132,7 +118,7 @@ getTypesetDocument.cache = new WeakMap();
 // It's called by components like HTML after they're rendered
 const typesetMath = (root: Element, windowImpl = window) => {
   // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
-  if (windowImpl && windowImpl.MathJax && windowImpl.MathJax.Hub && root.querySelector(COMBINED_MATH_SELECTOR)) {
+  if (windowImpl && windowImpl.MathJax && windowImpl.MathJax.typesetPromise && root.querySelector(COMBINED_MATH_SELECTOR)) {
     return getTypesetDocument(root, windowImpl)();
   }
 
@@ -140,30 +126,18 @@ const typesetMath = (root: Element, windowImpl = window) => {
 };
 
 // The following should be called once and configures MathJax.
-// Assumes the script to load MathJax is of the form:
-// `...MathJax.js?config=TeX-MML-AM_HTMLorMML-full&amp;delayStartupUntil=configured`
+// Configuration must be set before the script loads.
 function startMathJax() {
   const window = assertWindow();
-  const configuredCallback = () => {
-    // there doesn't seem to be a config option for this
-    window.MathJax.HTML.Cookie.prefix = 'mathjax';
-    // proceed with mathjax initi
-    window.MathJax.Hub.Configured();
-  };
 
-  if (window.MathJax && window.MathJax.Hub) {
-    window.MathJax.Hub.Config(MATHJAX_CONFIG);
-    // Does not seem to work when passed to Config
-    window.MathJax.Hub.processSectionDelay = 0;
-    return configuredCallback();
-  } else {
-    // If the MathJax.js file has not loaded yet:
-    // Call MathJax.Configured once MathJax loads and
-    // loads this config JSON since the CDN URL
-    // says to `delayStartupUntil=configured`
-    MATHJAX_CONFIG.AuthorInit = configuredCallback;
-    return window.MathJax = MATHJAX_CONFIG;
+  // Set MathJax configuration before the script loads
+  if (!window.MathJax) {
+    window.MathJax = MATHJAX_CONFIG;
+  } else if (window.MathJax && !window.MathJax.typesetPromise) {
+    // MathJax config exists but script hasn't loaded yet - merge configs
+    window.MathJax = { ...MATHJAX_CONFIG, ...window.MathJax };
   }
+  // If MathJax.typesetPromise exists, it's already loaded and configured
 }
 
 export {
