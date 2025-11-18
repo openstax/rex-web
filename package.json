@@ -9,7 +9,7 @@
     "@craco/craco": "<7",
     "@formatjs/intl-pluralrules": "^5.2.3",
     "@openstax/event-capture-client": "^2.0.2",
-    "@openstax/highlighter": "https://github.com/openstax/highlighter#release-1.14.3",
+    "@openstax/highlighter": "file:openstax-highlighter-1.15.0.tgz",
     "@openstax/open-search-client": "0.1.0-build.7",
     "@openstax/ts-utils": "1.19.0",
     "@openstax/ui-components": "openstax/ui-components#1.14.0",
