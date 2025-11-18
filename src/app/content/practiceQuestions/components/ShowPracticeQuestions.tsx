@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import Loader from '../../../components/Loader';
 import { h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import * as contentSelectors from '../../selectors';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { PopupBody } from '../../styles/PopupStyles';
@@ -43,7 +44,7 @@ export const ShowPracitceQuestionsContent = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const SectionTitle = styled.div`
+export const SectionTitle = styled.h2`
   ${h4Style}
   flex-shrink: 0;
   font-weight: bold;
@@ -66,7 +67,7 @@ export const QuestionsWrapper = styled.div`
 `;
 
 // tslint:disable-next-line: variable-name
-export const QuestionsHeader = styled.div`
+export const QuestionsHeader = styled.h3`
   font-size: 1.4rem;
   font-weight: bold;
   color: ${theme.color.text.default};
@@ -78,13 +79,30 @@ export const QuestionsHeader = styled.div`
   align-items: center;
 `;
 
+function AutofocusSectionTitle() {
+  const section = useSelector(pqSelectors.selectedSection);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (section) {
+      ref.current?.focus();
+    }
+  }, [section]);
+
+  if (!section) {
+    return null;
+  }
+
+  return <SectionTitle tabIndex={-1} ref={ref} dangerouslySetInnerHTML={{ __html: section.title }} />;
+}
+
 // tslint:disable-next-line: variable-name
 const ShowPracticeQuestions = () => {
   const {book, page} = useSelector(contentSelectors.bookAndPage);
-  const section = useSelector(pqSelectors.selectedSection);
   const questionsCount = useSelector(pqSelectors.questionsCount);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
   const locationFilters = useSelector(pqSelectors.practiceQuestionsLocationFilters);
+  const section = useSelector(pqSelectors.selectedSection);
   const nextSection = React.useMemo(() => {
     const currentSectionId = section ? section.id : page ? page.id : null;
     return currentSectionId ? getNextPageWithPracticeQuestions(currentSectionId, locationFilters, book) : undefined;
@@ -103,7 +121,7 @@ const ShowPracticeQuestions = () => {
       {isLoading
         ? <LoaderWrapper><Loader large /></LoaderWrapper>
         : <ShowPracitceQuestionsContent>
-          {section ? <SectionTitle dangerouslySetInnerHTML={{ __html: section.title }} /> : null}
+          <AutofocusSectionTitle />
           {questionsCount === 0
               ? (nextSection
                 ? <EmptyScreen nextSection={nextSection} />
