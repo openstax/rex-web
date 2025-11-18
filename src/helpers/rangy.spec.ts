@@ -60,6 +60,7 @@ describe('findTextInRange', () => {
     expect(result[1]).toBe(secondMatch);
   });
 
+
   it('doesn\'t look for more matches if outside given range', () => {
     const withinRange = mockRange();
     const searchRange = mockRange();
@@ -102,5 +103,43 @@ describe('findText', () => {
     expect(searchRange.findText).toHaveBeenCalledWith('some text', expect.objectContaining({
       withinRange,
     }));
+  });
+
+  it('returns [] if findText throws', () => {
+    const withinRange = mockRange();
+    const searchRange = mockRange();
+    rangy.createRange.mockReturnValue(searchRange);
+
+    searchRange.findText.mockImplementation(() => { throw new Error('fail'); });
+
+    const result = findTextInRange(withinRange as unknown as RangyRange, 'fail');
+    expect(result).toEqual([]);
+  });
+});
+describe('safeIntersectsRange', () => {
+  let range1: any;
+  let range2: any;
+
+  beforeEach(() => {
+    range1 = { intersectsRange: jest.fn() };
+    range2 = {};
+  });
+
+  it('returns true if intersectsRange does not throw and returns true', () => {
+    range1.intersectsRange.mockReturnValue(true);
+    expect(require('./rangy').safeIntersectsRange(range1, range2)).toBe(true);
+    expect(range1.intersectsRange).toHaveBeenCalledWith(range2);
+  });
+
+  it('returns false if intersectsRange does not throw and returns false', () => {
+    range1.intersectsRange.mockReturnValue(false);
+    expect(require('./rangy').safeIntersectsRange(range1, range2)).toBe(false);
+    expect(range1.intersectsRange).toHaveBeenCalledWith(range2);
+  });
+
+  it('returns false if intersectsRange throws', () => {
+    range1.intersectsRange.mockImplementation(() => { throw new Error('fail'); });
+    expect(require('./rangy').safeIntersectsRange(range1, range2)).toBe(false);
+    expect(range1.intersectsRange).toHaveBeenCalledWith(range2);
   });
 });
