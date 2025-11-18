@@ -120,7 +120,7 @@ function TB({
   onClick,
   className,
 }: {
-  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
   className: string;
 }) {
   return (

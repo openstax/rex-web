@@ -5,12 +5,13 @@ import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
+import OnEsc from '../../../components/OnEsc';
 import { dispatchKeyDownEvent } from '../../../../test/reactutils';
 import { runHooks } from '../../../../test/utils';
 import { Store } from '../../../types';
 import { assertDocument, remsToPx } from '../../../utils';
 import { assertWindow } from '../../../utils/browser-assertions';
-import { focusHighlight } from '../actions';
+import { focusHighlight, clearFocusedHighlight } from '../actions';
 import { cardMarginBottom, highlightKeyCombination } from '../constants';
 import Card, { CardProps } from './Card';
 import * as cardUtils from './cardUtils';
@@ -73,6 +74,29 @@ describe('CardWrapper', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+  // These get code coverage, but don't do anything testable I don't think.
+  it('handles selectionchange', () => {
+    renderer.create(<Provider store={store}>
+      <CardWrapper container={container} highlights={[createMockHighlight('id1')]} />
+    </Provider>);
+
+    renderer.act(() => {
+      document?.dispatchEvent(new Event('selectionchange'));
+    });
+    renderer.act(() => {
+      store.dispatch(focusHighlight('id1'));
+    });
+    renderer.act(() => {
+      document?.dispatchEvent(new Event('selectionchange'));
+    });
+    const gSpy = jest.spyOn(document!, 'getSelection').mockReturnValue({
+      isCollapsed: false,
+    } as any);
+    renderer.act(() => {
+      document?.dispatchEvent(new Event('selectionchange'));
+    });
+    gSpy.mockReset();
   });
 
   it('matches snapshot when there is no highlights', () => {
@@ -303,40 +327,44 @@ describe('CardWrapper', () => {
     const highlight2 = createMockHighlight('id2');
     const highlightElement1 = document.createElement('span');
     const highlightElement2 = document.createElement('span');
+    const selectionHighlight = {id: 'string', elements: []};
+
     highlight1.elements.push(highlightElement1);
     highlight2.elements.push(highlightElement2);
     container.appendChild(highlightElement1);
     container.appendChild(highlightElement2);
     renderer.create(
       <Provider store={store}>
+        <OnEsc />
         <CardWrapper
           container={container}
-          highlights={[highlight1, highlight2]}
+          highlights={[highlight1, highlight2, selectionHighlight]}
         />
       </Provider>
     );
 
-    renderer.act(() => {
-      store.dispatch(focusHighlight(highlight1.id));
-    });
-
     // These tests get code coverage but do not update the highlight structures
     // so that we can see that they worked as expected
+    renderer.act(() => { store.dispatch(clearFocusedHighlight()); });
 
     // Expect cards to be hidden
     renderer.act(() => {
       // Simulate pressing Escape to hide card
       dispatchKeyDownEvent({
         key: 'Escape',
-        target: highlightElement1,
+        target: document.body,
       });
+    });
+
+    renderer.act(() => {
+      store.dispatch(focusHighlight(highlight1.id));
     });
 
     renderer.act(() => {
       // Simulate pressing Escape to hide card
       dispatchKeyDownEvent({
         key: 'Escape',
-        target: highlightElement1,
+        target: document.body,
       });
     });
 
@@ -358,10 +386,14 @@ describe('CardWrapper', () => {
     });
 
     renderer.act(() => {
+      store.dispatch(focusHighlight('string'));
+    });
+
+    renderer.act(() => {
       // Simulate pressing Escape to hide card
       dispatchKeyDownEvent({
         key: 'Escape',
-        target: highlightElement1,
+        target: document.body,
       });
     });
 
