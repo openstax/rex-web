@@ -286,17 +286,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
       return addedOrRemoved;
     },
     setSnapMode: (snapValue: boolean) => {
-      const options = (highlighter as unknown as { options: {
-        snapCode?: boolean;
-        snapMathJax?: boolean;
-        snapTableRows?: boolean;
-        snapWords?: boolean;
-      }}).options;
-      if (!options) return;
-      options.snapCode = snapValue;
-      options.snapMathJax = snapValue;
-      options.snapTableRows = snapValue;
-      options.snapWords = snapValue;
+      highlighter.setSnapValues(snapValue);
     },
   };
 };

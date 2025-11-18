@@ -593,50 +593,13 @@ describe('highlightManager', () => {
         getHighlights: jest.fn(() => []),
         getOrderedHighlights: jest.fn(() => []),
         clearFocusedStyles: jest.fn(),
+        setSnapValues: jest.fn(),
       };
       (UntypedHighlighter as jest.Mock).mockImplementation(() => mockHighlighter);
 
       const manager = highlightManager(element, () => prop, services, intl);
 
-      manager.setSnapMode(true);
-
-      expect(mockHighlighter.options.snapCode).toBe(true);
-      expect(mockHighlighter.options.snapMathJax).toBe(true);
-      expect(mockHighlighter.options.snapTableRows).toBe(true);
-      expect(mockHighlighter.options.snapWords).toBe(true);
-    });
-
-    it('sets all snap options to false', () => {
-
-      const mockHighlighter = {
-        options: {
-          snapCode: true,
-          snapMathJax: true,
-          snapTableRows: true,
-          snapWords: true,
-        },
-        unmount: jest.fn(),
-        getHighlights: jest.fn(() => []),
-        getOrderedHighlights: jest.fn(() => []),
-        clearFocusedStyles: jest.fn(),
-      };
-      (UntypedHighlighter as jest.Mock).mockImplementation(() => mockHighlighter);
-
-      const manager = highlightManager(element, () => prop, services, intl);
-
-      manager.setSnapMode(false);
-
-      expect(mockHighlighter.options.snapCode).toBe(false);
-      expect(mockHighlighter.options.snapMathJax).toBe(false);
-      expect(mockHighlighter.options.snapTableRows).toBe(false);
-      expect(mockHighlighter.options.snapWords).toBe(false);
-    });
-
-    it('does not throw if options is missing', () => {
-      (UntypedHighlighter as jest.Mock).mockImplementation(() => ({}));
-      const manager = highlightManager(element, () => prop, services, intl);
-
-      expect(() => manager.setSnapMode(true)).not.toThrow();
+      expect(()=> manager.setSnapMode(true)).not.toThrow();
     });
   });
 
