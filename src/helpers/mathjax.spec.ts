@@ -1,8 +1,7 @@
 import { startMathJax, typesetMath } from './mathjax';
 
-const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
-
 const mockMathJax = () => ({
+  startup: { promise: Promise.resolve() },
   typesetPromise: jest.fn().mockResolvedValue(undefined),
 });
 
@@ -26,9 +25,7 @@ describe('typesetMath', () => {
     }
     const element = document.createElement('div');
 
-    typesetMath(element);
-
-    await debounce();
+    await typesetMath(element);
 
     expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
   });
@@ -42,14 +39,12 @@ describe('typesetMath', () => {
     const element = document.createElement('div');
     element.appendChild(document.createElement('math'));
 
-    typesetMath(element);
-
-    await debounce();
+    await typesetMath(element);
 
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
 
-  it('debounces', async() => {
+  it('calls typesetPromise for each call with unprocessed nodes', async() => {
     if (!document || !window) {
       expect(document).toBeTruthy();
       expect(window).toBeTruthy();
@@ -62,19 +57,13 @@ describe('typesetMath', () => {
     const element2 = document.createElement('div');
     element2.appendChild(document.createElement('math'));
 
-    typesetMath(element);
-    typesetMath(element);
-    typesetMath(element);
-    typesetMath(element2);
-    typesetMath(element2);
-    typesetMath(element2);
-    typesetMath(element);
-    typesetMath(element2);
-    typesetMath(element);
+    await typesetMath(element);
+    await typesetMath(element2);
 
-    await debounce();
-
+    // Each element gets typeset once (nodes are marked after first call)
     expect(window.MathJax.typesetPromise).toHaveBeenCalledTimes(2);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element2]);
   });
 
   it('typesets the element if it is data-math', async() => {
@@ -95,12 +84,10 @@ describe('typesetMath', () => {
       .appendChild(math2)
     ;
 
-    typesetMath(element);
+    await typesetMath(element);
 
-    await debounce();
-
-    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([math1, math2]);
-    expect(window.MathJax.typesetPromise).not.toHaveBeenCalledWith([element]);
+    // Updated: Now typesets the root element instead of individual nodes
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
 
   it('moves latex formulas inline', async() => {
@@ -121,9 +108,7 @@ describe('typesetMath', () => {
       .appendChild(math2)
     ;
 
-    typesetMath(element);
-
-    await debounce();
+    await typesetMath(element);
 
     expect(math1.textContent).toEqual('\u200c\u200c\u200cformula1\u200c\u200c\u200c');
     expect(math2.textContent).toEqual('\u200b\u200b\u200bformula2\u200b\u200b\u200b');

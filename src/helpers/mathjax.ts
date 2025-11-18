@@ -1,8 +1,5 @@
 import { Element } from '@openstax/types/lib.dom';
-import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/fp/isEmpty';
-import memoize from 'lodash/fp/memoize';
-import WeakMap from 'weak-map';
 import { assertWindow } from '../app/utils';
 
 const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner
@@ -23,10 +20,8 @@ const MATHJAX_CONFIG = {
 };
 
 const findUnprocessedMath = (root: Element): Element[] => {
-  const allMath = Array.from(root.querySelectorAll('math'));
-  // processed MathML elements are wrapped in mjx-container
-  // unprocessed math elements won't have mjx-container as a parent
-  return allMath.filter((node) => !node.parentElement?.closest('mjx-container'));
+  const allMath = Array.from(root.querySelectorAll(`math:not(.${MATH_RENDERED_CLASS})`));
+  return allMath;
 };
 
 const findLatexNodes = (root: Element): Element[] => {
@@ -45,81 +40,73 @@ const findLatexNodes = (root: Element): Element[] => {
   return latexNodes;
 };
 
-const typesetLatexNodes = async (latexNodes: Element[], windowImpl: Window) => {
-  if (isEmpty(latexNodes)) {
-    return;
-  }
-
-  await windowImpl.MathJax.typesetPromise(latexNodes);
-  markLatexNodesRendered(latexNodes)();
-};
-
-const typesetMathMLNodes = async (root: Element, windowImpl: Window) => {
-  const mathMLNodes = findUnprocessedMath(root);
-
-  if (isEmpty(mathMLNodes)) {
-    return;
-  }
-
-  // style the entire document because mathjax is unable to style individual math elements
-  await windowImpl.MathJax.typesetPromise([root]);
-};
-
-const markLatexNodesRendered = (latexNodes: Element[]) => () => {
-  // Queue a call to mark the found nodes as rendered so are ignored if typesetting is called repeatedly
+const markNodesRendered = (nodes: Element[]) => {
+  // Mark nodes as rendered so they are ignored if typesetting is called repeatedly
   // uses className += instead of classList because IE
-  const result = [];
-  for (const node of latexNodes) {
-    result.push(node.className += ` ${MATH_RENDERED_CLASS}`);
+  for (const node of nodes) {
+    node.className += ` ${MATH_RENDERED_CLASS}`;
   }
 };
+
+// Ensure MathJax is fully ready before attempting to typeset
+async function ensureMathJaxReady(windowImpl: Window): Promise<void> {
+  // Wait for MathJax.startup.promise to ensure all components are loaded and initialized
+  // This promise is set up during MathJax's startup sequence and resolves when
+  // MathJax is fully initialized including all internal components
+  if (windowImpl.MathJax?.startup?.promise) {
+    try {
+      await windowImpl.MathJax.startup.promise;
+    } catch (error) {
+      // startup.promise may reject if initial typesetting fails, but MathJax is still ready
+      // We can safely continue as long as typesetPromise exists
+    }
+  }
+
+  // Additional guard: if startup.promise doesn't exist but MathJax is loading,
+  // we need to wait for it. Poll for a short time to let async script finish loading.
+  const maxWaitMs = 5000;
+  const pollIntervalMs = 50;
+  const startTime = Date.now();
+
+  while (!windowImpl.MathJax?.typesetPromise && (Date.now() - startTime) < maxWaitMs) {
+    await new Promise(resolve => setTimeout(resolve, pollIntervalMs));
+  }
+}
 
 // Search document for math and [data-math] elements and then typeset them
 async function typesetDocument(root: Element, windowImpl: Window) {
   const latexNodes = findLatexNodes(root);
+  const mathMLNodes = findUnprocessedMath(root);
 
-  await typesetLatexNodes(latexNodes, windowImpl);
-  await typesetMathMLNodes(root, windowImpl);
+  if (isEmpty(latexNodes) && isEmpty(mathMLNodes)) {
+    return;
+  }
+
+  try {
+    // Ensure MathJax is fully initialized before calling typesetPromise
+    await ensureMathJaxReady(windowImpl);
+
+    // Single typesetPromise call for both LaTeX and MathML
+    await windowImpl.MathJax.typesetPromise([root]);
+
+    // Mark both LaTeX and MathML nodes as processed
+    markNodesRendered([...latexNodes, ...mathMLNodes]);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('MathJax typesetting failed:', error);
+    // Mark nodes anyway to prevent infinite retries on the same nodes
+    markNodesRendered([...latexNodes, ...mathMLNodes]);
+  }
 }
 
-const resolveOrWait = (root: Element, resolve: () => void, remainingTries = 5) => {
-  if (
-    remainingTries > 0
-    && (findLatexNodes(root).length || findUnprocessedMath(root).length)
-  ) {
-    setTimeout(() => {
-      resolveOrWait(root, resolve, remainingTries - 1);
-    }, 200);
-  } else {
-    resolve();
-  }
-};
-
-const typesetDocumentPromise = async (root: Element, windowImpl: Window): Promise<void> => {
-  await typesetDocument(root, windowImpl);
-  return new Promise((resolve) => {
-    resolveOrWait(root, resolve);
-  });
-};
-
-// memoize'd getter for typeset document function so that each node's
-// typeset has its own debounce
-const getTypesetDocument = memoize((root, windowImpl) => {
-  // Install a debounce around typesetting function so that it will only run once
-  // every Xms even if called multiple times in that period
-  return debounce(typesetDocumentPromise, 100, {
-    leading: true,
-    trailing: false,
-  }).bind(null, root, windowImpl);
-});
-getTypesetDocument.cache = new WeakMap();
 
 // typesetMath is the main exported function.
 // It's called by components like HTML after they're rendered
 const typesetMath = (root: Element, windowImpl = window) => {
   // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
-  if (windowImpl && windowImpl.MathJax && windowImpl.MathJax.typesetPromise && root.querySelector(COMBINED_MATH_SELECTOR)) {
-    return getTypesetDocument(root, windowImpl)();
+  // Check if MathJax exists (script is loading or loaded) and if there's math to process
+  if (windowImpl && windowImpl.MathJax && root.querySelector(COMBINED_MATH_SELECTOR)) {
+    return typesetDocument(root, windowImpl);
   }
 
   return Promise.resolve();

@@ -62,8 +62,7 @@ export default styled(MainContent)`
   }
 
   /* stylelint-disable selector-class-pattern */
-  .MathJax_Display .highlight,
-  .MathJax_Preview + .highlight {
+  mjx-container .highlight {
     display: inline-block;
   }
   /* stylelint-enable selector-class-pattern */
