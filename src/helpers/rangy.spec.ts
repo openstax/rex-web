@@ -33,9 +33,8 @@ describe('findTextInRange', () => {
   });
 
   it('clones every found match', () => {
-    const commonAncestor = { nodeType: 2, nodeName: 'SPAN' };
-    const withinRange = mockRange('', { nodeName: 'DIV', parentNode: commonAncestor});
-    const searchRange = mockRange('', commonAncestor);
+    const withinRange = mockRange();
+    const searchRange = mockRange();
 
     searchRange.findText
       .mockReturnValue(false)
@@ -61,64 +60,10 @@ describe('findTextInRange', () => {
     expect(result[1]).toBe(secondMatch);
   });
 
-  it('does not clone every found match(commonAncestor unmatch)', () => {
-    const commonAncestor = { nodeType: 2, nodeName: 'SPAN' };
-    const withinRange = mockRange('', { nodeName: 'DIV'});
-    const searchRange = mockRange('', commonAncestor);
-
-    searchRange.findText
-      .mockReturnValue(false)
-      .mockReturnValueOnce(true)
-      .mockReturnValueOnce(true);
-
-    searchRange.intersectsRange.mockReturnValue(true);
-
-    const firstMatch = mockRange();
-    const secondMatch = mockRange();
-
-    searchRange.cloneRange
-      .mockReturnValue(searchRange)
-      .mockReturnValueOnce(firstMatch)
-      .mockReturnValueOnce(secondMatch);
-
-    rangy.createRange.mockReturnValueOnce(searchRange);
-
-    const result = findTextInRange(withinRange as unknown as RangyRange, 'cool text');
-
-    expect(result.length).toBe(0);
-  });
-
-  it('does not clone every found match(commonAncestor error)', () => {
-    const commonAncestor = { nodeType: 2, nodeName: 'SPAN' };
-    const withinRange = mockRange('', undefined);
-    const searchRange = mockRange('', commonAncestor);
-
-    searchRange.findText
-      .mockReturnValue(false)
-      .mockReturnValueOnce(true)
-      .mockReturnValueOnce(true);
-
-    searchRange.intersectsRange.mockReturnValue(true);
-
-    const firstMatch = mockRange();
-    const secondMatch = mockRange();
-
-    searchRange.cloneRange
-      .mockReturnValue(searchRange)
-      .mockReturnValueOnce(firstMatch)
-      .mockReturnValueOnce(secondMatch);
-
-    rangy.createRange.mockReturnValueOnce(searchRange);
-
-    const result = findTextInRange(withinRange as unknown as RangyRange, 'cool text');
-
-    expect(result.length).toBe(0);
-  });
 
   it('doesn\'t look for more matches if outside given range', () => {
-    const commonAncestor = { nodeType: 2, nodeName: 'SPAN' };
-    const withinRange = mockRange('', commonAncestor);
-    const searchRange = mockRange('', { nodeName: 'DIV', parentNode: commonAncestor});
+    const withinRange = mockRange();
+    const searchRange = mockRange();
 
     searchRange.findText.mockReturnValue(true);
 
@@ -127,7 +72,7 @@ describe('findTextInRange', () => {
       .mockReturnValueOnce(true)
     ;
 
-    const firstMatch = mockRange('', { nodeName: 'DIV', parentNode: commonAncestor });
+    const firstMatch = mockRange();
 
     searchRange.cloneRange.mockReturnValue(firstMatch);
 
@@ -169,5 +114,32 @@ describe('findText', () => {
 
     const result = findTextInRange(withinRange as unknown as RangyRange, 'fail');
     expect(result).toEqual([]);
+  });
+});
+describe('safeIntersectsRange', () => {
+  let range1: any;
+  let range2: any;
+
+  beforeEach(() => {
+    range1 = { intersectsRange: jest.fn() };
+    range2 = {};
+  });
+
+  it('returns true if intersectsRange does not throw and returns true', () => {
+    range1.intersectsRange.mockReturnValue(true);
+    expect(require('./rangy').safeIntersectsRange(range1, range2)).toBe(true);
+    expect(range1.intersectsRange).toHaveBeenCalledWith(range2);
+  });
+
+  it('returns false if intersectsRange does not throw and returns false', () => {
+    range1.intersectsRange.mockReturnValue(false);
+    expect(require('./rangy').safeIntersectsRange(range1, range2)).toBe(false);
+    expect(range1.intersectsRange).toHaveBeenCalledWith(range2);
+  });
+
+  it('returns false if intersectsRange throws', () => {
+    range1.intersectsRange.mockImplementation(() => { throw new Error('fail'); });
+    expect(require('./rangy').safeIntersectsRange(range1, range2)).toBe(false);
+    expect(range1.intersectsRange).toHaveBeenCalledWith(range2);
   });
 });
