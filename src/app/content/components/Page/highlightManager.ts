@@ -219,7 +219,7 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
     setPendingHighlight,
   };
 
-  let highlighter = createHighlighter(highlightManagerServices, appServices, intl);
+  const highlighter = createHighlighter(highlightManagerServices, appServices, intl);
   setListHighlighter(highlighter);
 
   return {
@@ -286,7 +286,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
       return addedOrRemoved;
     },
     setSnapMode: (snapValue: boolean) => {
-      if (!highlighter) return;
       const options = (highlighter as unknown as { options: {
         snapCode?: boolean;
         snapMathJax?: boolean;
@@ -299,10 +298,6 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
       options.snapTableRows = snapValue;
       options.snapWords = snapValue;
     },
-    ...(process.env.NODE_ENV === 'test' && {
-      __setHighlighter: (mock: Highlighter) => { highlighter = mock; },
-      __getHighlighter: () => highlighter,
-    }),
   };
 };
 

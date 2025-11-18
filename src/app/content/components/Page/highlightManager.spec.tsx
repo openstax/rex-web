@@ -589,25 +589,25 @@ describe('highlightManager', () => {
           snapTableRows: false,
           snapWords: false,
         },
+        unmount: jest.fn(),
+        getHighlights: jest.fn(() => []),
+        getOrderedHighlights: jest.fn(() => []),
+        clearFocusedStyles: jest.fn(),
       };
+      (UntypedHighlighter as jest.Mock).mockImplementation(() => mockHighlighter);
 
       const manager = highlightManager(element, () => prop, services, intl);
-      // @ts-expect-error: force inject mock
-      manager.__setHighlighter(mockHighlighter);
 
       manager.setSnapMode(true);
 
-      // @ts-expect-error: property not defined in type
-      expect(manager.__getHighlighter().options.snapCode).toBe(true);
-      // @ts-expect-error: property not defined in type
-      expect(manager.__getHighlighter().options.snapMathJax).toBe(true);
-      // @ts-expect-error: property not defined in type
-      expect(manager.__getHighlighter().options.snapTableRows).toBe(true);
-      // @ts-expect-error: property not defined in type
-      expect(manager.__getHighlighter().options.snapWords).toBe(true);
+      expect(mockHighlighter.options.snapCode).toBe(true);
+      expect(mockHighlighter.options.snapMathJax).toBe(true);
+      expect(mockHighlighter.options.snapTableRows).toBe(true);
+      expect(mockHighlighter.options.snapWords).toBe(true);
     });
 
     it('sets all snap options to false', () => {
+
       const mockHighlighter = {
         options: {
           snapCode: true,
@@ -615,35 +615,27 @@ describe('highlightManager', () => {
           snapTableRows: true,
           snapWords: true,
         },
+        unmount: jest.fn(),
+        getHighlights: jest.fn(() => []),
+        getOrderedHighlights: jest.fn(() => []),
+        clearFocusedStyles: jest.fn(),
       };
+      (UntypedHighlighter as jest.Mock).mockImplementation(() => mockHighlighter);
+
       const manager = highlightManager(element, () => prop, services, intl);
-      // @ts-expect-error: force inject mock
-      manager.__setHighlighter(mockHighlighter);
 
       manager.setSnapMode(false);
 
-      // @ts-expect-error: property not defined in type
-      expect(manager.__getHighlighter().options.snapCode).toBe(false);
-      // @ts-expect-error: property not defined in type
-      expect(manager.__getHighlighter().options.snapMathJax).toBe(false);
-      // @ts-expect-error: force inject mock
-      expect(manager.__getHighlighter().options.snapTableRows).toBe(false);
-      // @ts-expect-error: force inject mock
-      expect(manager.__getHighlighter().options.snapWords).toBe(false);
+      expect(mockHighlighter.options.snapCode).toBe(false);
+      expect(mockHighlighter.options.snapMathJax).toBe(false);
+      expect(mockHighlighter.options.snapTableRows).toBe(false);
+      expect(mockHighlighter.options.snapWords).toBe(false);
     });
 
     it('does not throw if options is missing', () => {
-      const mockHighlighter = {};
+      (UntypedHighlighter as jest.Mock).mockImplementation(() => ({}));
       const manager = highlightManager(element, () => prop, services, intl);
-      // @ts-expect-error: force inject mock
-      manager.__setHighlighter(mockHighlighter);
-      expect(() => manager.setSnapMode(true)).not.toThrow();
-    });
 
-    it('does not throw if highlighter is undefined', () => {
-      const manager = highlightManager(element, () => prop, services, intl);
-      // @ts-expect-error: force inject undefined
-      manager.__setHighlighter(undefined);
       expect(() => manager.setSnapMode(true)).not.toThrow();
     });
   });
