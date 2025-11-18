@@ -11,17 +11,38 @@ if (!rangy.initialized) {
 
 export default rangy;
 
+export function safeIntersectsRange(range1: RangyRange, range2: RangyRange): boolean {
+  try {
+    return range1.intersectsRange(range2);
+  } catch {
+    return false;
+  }
+}
+
 export const findTextInRange = (
   withinRange: RangyRange,
   text: string,
   range: RangyRange = rangy.createRange()
 ): RangyRange[] => {
-  const foundMatch = range.findText(text.trim(), {
-    withinRange: withinRange.cloneRange(),
-  });
+  let foundMatch;
+  try {
+    /*
+    * findText may throw if the range is invalid or the DOM is in an unexpected state,
+    * especially with large or complex documents. Wrapping in try/catch ensures that
+    * a thrown error does not break the search flow and allows us to safely return an empty result.
+    */
+    foundMatch = range.findText(text.trim(), {
+      withinRange: withinRange.cloneRange(),
+    });
+  } catch (err) {
+    return [];
+  }
 
   // no matches, or matches were outside the given range boundaries
-  if (!foundMatch || !range.intersectsRange(withinRange)) {
+  if (
+    !foundMatch ||
+    !safeIntersectsRange(range, withinRange)
+  ) {
     return [];
   }
 
@@ -30,7 +51,7 @@ export const findTextInRange = (
 
   // if we're outside the given range boundaries after collapsing, don't
   // check for more matches
-  if (!range.intersectsRange(withinRange)) {
+  if (!safeIntersectsRange(range, withinRange)) {
     return [match];
   }
 
