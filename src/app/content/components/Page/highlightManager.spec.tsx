@@ -599,7 +599,7 @@ describe('highlightManager', () => {
 
       const manager = highlightManager(element, () => prop, services, intl);
 
-      expect(()=> manager.setSnapMode(true)).not.toThrow();
+      expect(() => manager.setSnapMode(true)).not.toThrow();
     });
   });
 
