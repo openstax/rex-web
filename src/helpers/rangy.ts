@@ -11,27 +11,13 @@ if (!rangy.initialized) {
 
 export default rangy;
 
-/*
-* Checks whether two RangyRanges share a common ancestor in the DOM tree.
-* This is necessary because certain Rangy operations (like intersectsRange)
-* will throw an error if the ranges do not share a common ancestor node.
-* Using this check before calling intersectsRange prevents runtime exceptions.
-*/
-const haveCommonAncestor = (range1: RangyRange, range2: RangyRange): boolean => {
-  let containerA: typeof range1.commonAncestorContainer | null =
-      range1.commonAncestorContainer;
-    const containerB: typeof range2.commonAncestorContainer | null =
-      range2.commonAncestorContainer;
-    while (containerA) {
-      let current: typeof containerB | null = containerB;
-      while (current) {
-        if (containerA === current) return true;
-        current = current.parentNode;
-      }
-      containerA = containerA.parentNode;
-    }
+export function safeIntersectsRange(range1: RangyRange, range2: RangyRange): boolean {
+  try {
+    return range1.intersectsRange(range2);
+  } catch {
     return false;
-};
+  }
+}
 
 export const findTextInRange = (
   withinRange: RangyRange,
@@ -55,8 +41,7 @@ export const findTextInRange = (
   // no matches, or matches were outside the given range boundaries
   if (
     !foundMatch ||
-    !haveCommonAncestor(range, withinRange) ||
-    !range.intersectsRange(withinRange)
+    !safeIntersectsRange(range, withinRange)
   ) {
     return [];
   }
@@ -66,10 +51,7 @@ export const findTextInRange = (
 
   // if we're outside the given range boundaries after collapsing, don't
   // check for more matches
-  if (
-    !haveCommonAncestor(range, withinRange) ||
-    !range.intersectsRange(withinRange)
-  ) {
+  if (!safeIntersectsRange(range, withinRange)) {
     return [match];
   }
 
