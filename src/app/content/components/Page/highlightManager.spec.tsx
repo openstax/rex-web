@@ -579,10 +579,38 @@ describe('highlightManager', () => {
       expect(prop.focus).not.toHaveBeenCalled();
     });
   });
+
+  describe('setSnapMode', () => {
+    it('sets all snap options to true', () => {
+      const mockHighlighter = {
+        options: {
+          snapCode: false,
+          snapMathJax: false,
+          snapTableRows: false,
+          snapWords: false,
+        },
+        unmount: jest.fn(),
+        getHighlights: jest.fn(() => []),
+        getOrderedHighlights: jest.fn(() => []),
+        clearFocusedStyles: jest.fn(),
+        setSnapValues: jest.fn(),
+      };
+      (UntypedHighlighter as jest.Mock).mockImplementation(() => mockHighlighter);
+
+      const manager = highlightManager(element, () => prop, services, intl);
+
+      expect(() => manager.setSnapMode(true)).not.toThrow();
+    });
+  });
+
 });
 
 describe('stubHighlightManager', () => {
   it('umounts', () => {
     expect(stubHighlightManager.unmount).not.toThrow();
+  });
+
+  it('setSnapMode', () => {
+    expect(stubHighlightManager.setSnapMode).not.toThrow();
   });
 });

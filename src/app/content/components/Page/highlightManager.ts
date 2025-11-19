@@ -285,6 +285,9 @@ export default (container: HTMLElement, getProp: () => HighlightProp, appService
 
       return addedOrRemoved;
     },
+    setSnapMode: (snapValue: boolean) => {
+      highlighter.setSnapValues(snapValue);
+    },
   };
 };
 
@@ -292,4 +295,5 @@ export const stubHighlightManager = ({
   CardList: (() => null) as React.FC,
   unmount: (): void => undefined,
   update: (_prevProps: HighlightProp, _options?: UpdateOptions): boolean => false,
+  setSnapMode: (_snapValue: boolean): void => undefined,
 });

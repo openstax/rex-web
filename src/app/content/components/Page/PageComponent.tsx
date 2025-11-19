@@ -1,4 +1,4 @@
-import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
@@ -38,7 +38,26 @@ export default class PageComponent extends Component<PagePropTypes> {
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
+  private usingMouseInput = true;
   private mediaModalManager = createMediaModalManager();
+
+  private handleMouseDown = () => {
+    if (!this.usingMouseInput) {
+      this.usingMouseInput = true;
+      this.highlightManager.setSnapMode?.(true);
+    }
+  };
+
+  private handleKeyDown = (event: KeyboardEvent) => {
+    const navigationKeys = [
+      'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+      'Shift', 'Control', 'Meta', 'Alt', 'Tab', 'Home', 'End', 'PageUp', 'PageDown',
+    ];
+    if (this.usingMouseInput && navigationKeys.includes(event.key)) {
+      this.usingMouseInput = false;
+      this.highlightManager.setSnapMode?.(false);
+    }
+  };
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
@@ -66,6 +85,9 @@ export default class PageComponent extends Component<PagePropTypes> {
   };
 
   public componentDidMount() {
+    window?.addEventListener('mousedown', this.handleMouseDown);
+    window?.addEventListener('keydown', this.handleKeyDown);
+
     this.postProcess();
     if (!this.container.current) {
       return;
@@ -146,6 +168,9 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public componentWillUnmount() {
     this.listenersOff();
+    window?.removeEventListener('mousedown', this.handleMouseDown);
+    window?.removeEventListener('keydown', this.handleKeyDown);
+
     this.searchHighlightManager.unmount();
     this.highlightManager.unmount();
     this.mediaModalManager.unmount();
