@@ -61,11 +61,17 @@ export default styled(MainContent)`
     user-select: none;
   }
 
-  /* stylelint-disable selector-class-pattern */
-  mjx-container .highlight {
-    display: inline-block;
+
+  /* fixes to keep MathJax 4 highlighted equations centered and
+   * showing the background without the .MathJax_Display wrapper
+   */
+  [data-type="equation"] {
+    text-align: center;
+
+    .highlight {
+      display: inline-block;
+    }
   }
-  /* stylelint-enable selector-class-pattern */
 
   ${highlightStyles.map((style) => css`
     .highlight.${style.label} {
