@@ -291,8 +291,11 @@ Array [
   user-select: none;
 }
 
-.c4 .MathJax_Display .highlight,
-.c4 .MathJax_Preview + .highlight {
+.c4 [data-type="equation"] {
+  text-align: center;
+}
+
+.c4 [data-type="equation"] .highlight {
   display: inline-block;
 }
 

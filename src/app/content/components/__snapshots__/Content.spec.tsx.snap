@@ -717,8 +717,11 @@ Array [
   user-select: none;
 }
 
-.c74 .MathJax_Display .highlight,
-.c74 .MathJax_Preview + .highlight {
+.c74 [data-type="equation"] {
+  text-align: center;
+}
+
+.c74 [data-type="equation"] .highlight {
   display: inline-block;
 }
 
@@ -8102,8 +8105,11 @@ Array [
   user-select: none;
 }
 
-.c74 .MathJax_Display .highlight,
-.c74 .MathJax_Preview + .highlight {
+.c74 [data-type="equation"] {
+  text-align: center;
+}
+
+.c74 [data-type="equation"] .highlight {
   display: inline-block;
 }
 

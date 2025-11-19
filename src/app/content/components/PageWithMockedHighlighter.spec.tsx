@@ -279,8 +279,11 @@ describe('Page', () => {
   it('handle multiple mathjax promises and call highlightManager.update only once', async() => {
     jest.useFakeTimers();
 
-    const mathjaxQueue: Array<() => any> = [];
+    const mathjaxQueue: Array<(value: unknown) => void> = [];
     assertWindow().MathJax = {
+      startup: {
+        promise: Promise.resolve(),
+      },
       typesetPromise: jest.fn().mockImplementation(() => {
         return new Promise((resolve) => {
           mathjaxQueue.push(resolve);
@@ -326,6 +329,10 @@ describe('Page', () => {
     // it is waiting for typestting to finish
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(0);
 
+    // flush pending promises to ensure typesetDocument completes
+    await Promise.resolve();
+    await Promise.resolve();
+
     // remove math elements to mock mathajx behaviour
     root.querySelectorAll('[data-math]').forEach((math) => math.remove());
 
@@ -334,7 +341,7 @@ describe('Page', () => {
 
     // resolve all pending mathjax promises
     await act(async() => {
-      mathjaxQueue.forEach((resolve) => resolve());
+      mathjaxQueue.forEach((resolve) => resolve(undefined));
       await services.promiseCollector.calm();
     });
 

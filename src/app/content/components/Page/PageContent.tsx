@@ -61,7 +61,6 @@ export default styled(MainContent)`
     user-select: none;
   }
 
-
   /* fixes to keep MathJax 4 highlighted equations centered and
    * showing the background without the .MathJax_Display wrapper
    */

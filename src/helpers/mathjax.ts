@@ -82,21 +82,10 @@ async function typesetDocument(root: Element, windowImpl: Window) {
     return;
   }
 
-  try {
-    // Ensure MathJax is fully initialized before calling typesetPromise
-    await ensureMathJaxReady(windowImpl);
-
-    // Single typesetPromise call for both LaTeX and MathML
-    await windowImpl.MathJax.typesetPromise([root]);
-
-    // Mark both LaTeX and MathML nodes as processed
-    markNodesRendered([...latexNodes, ...mathMLNodes]);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('MathJax typesetting failed:', error);
-    // Mark nodes anyway to prevent infinite retries on the same nodes
-    markNodesRendered([...latexNodes, ...mathMLNodes]);
-  }
+  await ensureMathJaxReady(windowImpl);
+  // typeset both LaTeX and MathML
+  await windowImpl.MathJax.typesetPromise([root]);
+  markNodesRendered([...latexNodes, ...mathMLNodes]);
 }
 
 
