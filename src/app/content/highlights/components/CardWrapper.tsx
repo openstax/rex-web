@@ -2,10 +2,12 @@ import Highlighter, { Highlight } from '@openstax/highlighter';
 import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
+import flow from 'lodash/fp/flow';
+import { clearFocusedHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
-import { useFocusLost, useKeyCombination, useFocusHighlight } from '../../../reactUtils';
+import { useFocusLost, useKeyCombination, useFocusHighlight, useOnEsc } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { assertDefined, assertDocument } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
@@ -91,7 +93,8 @@ function useCardsHeights() {
 function useFocusedHighlight(
   highlights: Highlight[],
   element: React.RefObject<HTMLElement>,
-  container: HTMLElement
+  container: HTMLElement,
+  unfocus: () => void
 ) {
   const focusedId = useSelector(focused);
   const focusedHighlight = React.useMemo(
@@ -99,6 +102,7 @@ function useFocusedHighlight(
     [focusedId, highlights]);
   const [shouldFocusCard, setShouldFocusCard] = React.useState(false);
   const document = assertDocument();
+  const isExistingHighlight = focusedHighlight && focusedHighlight.elements.length > 0;
 
   // catches the "click here" event sent by the EditCard
   React.useEffect(() => {
@@ -110,10 +114,10 @@ function useFocusedHighlight(
 
   // Ensure focusedHighlight is actually focused
   React.useEffect(() => {
-    if (focusedHighlight && focusedHighlight.elements.length > 0) {
+    if (isExistingHighlight) {
       focusedHighlight?.focus();
     }
-  }, [focusedHighlight]);
+  }, [focusedHighlight, isExistingHighlight]);
 
   // Pressing Enter moves the users from a highlight to the editor
   const editOnEnter = React.useCallback(() => {
@@ -121,6 +125,20 @@ function useFocusedHighlight(
       setShouldFocusCard(true);
     }
   }, [focusedHighlight]);
+
+  // Watch for selection change when the highlight is just a selection
+  // if selection becomes empty, clear the focusedHighlight
+  React.useEffect(() => {
+    const handler = () => {
+      if (!isExistingHighlight && document.getSelection()?.isCollapsed) {
+        unfocus();
+        setShouldFocusCard(false);
+      }
+    };
+
+    document.addEventListener('selectionchange', handler);
+    return () => document.removeEventListener('selectionchange', handler);
+  }, [document, isExistingHighlight, unfocus]);
 
   // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
@@ -134,7 +152,11 @@ function useFocusedHighlight(
     setShouldFocusCard(!cardIsFocused);
   }, [element, focusedHighlight]);
 
-  useKeyCombination({key: 'Enter'}, editOnEnter, noopKeyCombinationHandler([container, element]));
+  const keyContainer = focusedHighlight?.elements?.[0] ?? container;
+  // @ts-expect-error contains is not on HTMLElement
+  const notFiredFromHighlight = (el: Element) => !(focusedHighlight && keyContainer.contains(el));
+
+  useKeyCombination({key: 'Enter'}, editOnEnter, notFiredFromHighlight);
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
@@ -191,7 +213,7 @@ function CardsForHighlights({
   useKeyCombination({key: 'Enter'}, () => showCard(focusedHighlight?.id), undefined, false);
 
   // Allow to hide EditCard using Escape key
-  useKeyCombination({key: 'Escape'}, hideCard, undefined, false);
+  useOnEsc(true, hideCard);
   useFocusHighlight(showCard, highlights);
   return <>
     {highlights.map((highlight, index) => {
@@ -213,9 +235,11 @@ function CardsForHighlights({
 }
 
 // tslint:disable-next-line:variable-name
-const Wrapper = ({highlights, className, container, highlighter}: WrapperProps) => {
+const Wrapper = ({highlights, className, container, highlighter, dispatch}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
-  const [focusedHighlight, shouldFocusCard, setShouldFocusCard] = useFocusedHighlight(highlights, element, container);
+  const unfocus = flow(clearFocusedHighlight, dispatch);
+  const [focusedHighlight, shouldFocusCard, setShouldFocusCard] = useFocusedHighlight(
+    highlights, element, container, unfocus);
 
   return <div className={className} ref={element}>
     <CardsForHighlights

@@ -159,7 +159,7 @@ const ColorPicker = ({className, ...props}: Props) => {
       { (!hasOnRemove || props.size === 'small') ? null :
         <TrashButton
           size={props.size}
-          onClick={props.onRemove}
+          onClick={hasOnRemove}
           data-testid='editcard-trash-icon'
         />
       }

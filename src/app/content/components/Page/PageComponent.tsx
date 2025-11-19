@@ -1,4 +1,4 @@
-import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent } from '@openstax/types/lib.dom';
+import { HTMLAnchorElement, HTMLDivElement, HTMLElement, MouseEvent, KeyboardEvent } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import WeakMap from 'weak-map';
 import { APP_ENV } from '../../../../config';
@@ -22,6 +22,7 @@ import scrollToTopOrHashManager, { stubScrollToTopOrHashManager } from './scroll
 import searchHighlightManager, { stubManager, UpdateOptions as SearchUpdateOptions } from './searchHighlightManager';
 import { validateDOMContent } from './validateDOMContent';
 import isEqual from 'lodash/fp/isEqual';
+import { createMediaModalManager } from './mediaModalManager';
 
 if (typeof(document) !== 'undefined') {
   import(/* webpackChunkName: "NodeList.forEach" */ 'mdn-polyfills/NodeList.prototype.forEach');
@@ -37,6 +38,26 @@ export default class PageComponent extends Component<PagePropTypes> {
   private scrollToTopOrHashManager = stubScrollToTopOrHashManager;
   private processing: Array<Promise<void>> = [];
   private componentDidUpdateCounter = 0;
+  private usingMouseInput = true;
+  private mediaModalManager = createMediaModalManager();
+
+  private handleMouseDown = () => {
+    if (!this.usingMouseInput) {
+      this.usingMouseInput = true;
+      this.highlightManager.setSnapMode?.(true);
+    }
+  };
+
+  private handleKeyDown = (event: KeyboardEvent) => {
+    const navigationKeys = [
+      'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+      'Shift', 'Control', 'Meta', 'Alt', 'Tab', 'Home', 'End', 'PageUp', 'PageDown',
+    ];
+    if (this.usingMouseInput && navigationKeys.includes(event.key)) {
+      this.usingMouseInput = false;
+      this.highlightManager.setSnapMode?.(false);
+    }
+  };
 
   public getTransformedContent = () => {
     const {book, page, services} = this.props;
@@ -64,6 +85,9 @@ export default class PageComponent extends Component<PagePropTypes> {
   };
 
   public componentDidMount() {
+    window?.addEventListener('mousedown', this.handleMouseDown);
+    window?.addEventListener('keydown', this.handleKeyDown);
+
     this.postProcess();
     if (!this.container.current) {
       return;
@@ -81,12 +105,18 @@ export default class PageComponent extends Component<PagePropTypes> {
       });
     }
     this.scrollToTopOrHashManager(null, this.props.scrollToTopOrHash);
-  }
+    this.mediaModalManager.mount(this.container.current);
+}
 
   public async componentDidUpdate(prevProps: PagePropTypes) {
     // Store the id of this update. We need it because we want to update highlight managers only once
     // per rerender. componentDidUpdate is called multiple times when user navigates quickly.
     const runId = this.getRunId();
+
+    // When the page changes we want to mount it to the media modal manager
+    if (this.container.current) {
+      this.mediaModalManager.mount(this.container.current);
+    }
 
     // If page has changed, call postProcess that will remove old and attach new listeners
     // and start mathjax typesetting.
@@ -138,8 +168,12 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   public componentWillUnmount() {
     this.listenersOff();
+    window?.removeEventListener('mousedown', this.handleMouseDown);
+    window?.removeEventListener('keydown', this.handleKeyDown);
+
     this.searchHighlightManager.unmount();
     this.highlightManager.unmount();
+    this.mediaModalManager.unmount();
   }
 
   public render() {
@@ -149,6 +183,7 @@ export default class PageComponent extends Component<PagePropTypes> {
     return <MinPageHeight>
       <this.highlightManager.CardList />
       <PT />
+      <this.mediaModalManager.MediaModalPortal />
       <RedoPadding>
         {this.props.pageNotFound
           ? this.renderPageNotFound()
@@ -208,7 +243,6 @@ export default class PageComponent extends Component<PagePropTypes> {
 
   private listenersOn() {
     this.listenersOff();
-
     this.mapLinks((a) => {
       const handler = contentLinks.contentLinkHandler(a, () => this.props.contentLinks, this.props.services);
       this.clickListeners.set(a, handler);
@@ -223,7 +257,6 @@ export default class PageComponent extends Component<PagePropTypes> {
         el.removeEventListener('click', handler);
       }
     };
-
     this.mapLinks(removeIfExists);
   }
 
