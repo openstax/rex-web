@@ -1,9 +1,22 @@
-import { Element } from '@openstax/types/lib.dom';
+import { Element, Node } from '@openstax/types/lib.dom';
 import isEmpty from 'lodash/fp/isEmpty';
 import { assertWindow } from '../app/utils';
 
 const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner
 const MATH_MARKER_INLINE = '\u200b\u200b\u200b'; // zero-width space
+
+const POLL_INTERVAL_MS = 50;
+
+interface MathJaxMathItem {
+  typesetRoot?: {
+    appendChild: (node: Node) => void;
+  };
+  root?: Node;
+}
+
+interface MathJaxDocument {
+  math: MathJaxMathItem[];
+}
 
 const MATH_RENDERED_CLASS = 'math-rendered';
 const MATH_DATA_SELECTOR = `[data-math]:not(.${MATH_RENDERED_CLASS})`;
@@ -17,64 +30,57 @@ const MATHJAX_CONFIG = {
     displayMath: [[MATH_MARKER_BLOCK, MATH_MARKER_BLOCK]],
     inlineMath:  [[MATH_MARKER_INLINE, MATH_MARKER_INLINE]],
   },
+  options: {
+    renderActions: {
+      preserveOriginal: [150,
+        // add mathml script tags after typesetting for both batch and individual items
+        function(doc: MathJaxDocument) {
+          for (const math of doc.math) {
+            addMathMLScript(math);
+          }
+        },
+        function(math: MathJaxMathItem, _doc: MathJaxDocument) {
+          addMathMLScript(math);
+        },
+      ],
+    },
+  },
 };
 
-const findUnprocessedMath = (root: Element): Element[] => {
-  const allMath = Array.from(root.querySelectorAll(`math:not(.${MATH_RENDERED_CLASS})`));
-  return allMath;
-};
+// adds a <script type="math/mml"> tag with the MathML so the highlighter can use it
+const addMathMLScript = (math: MathJaxMathItem) => {
+  const { typesetRoot, root } = math;
+  if (!typesetRoot || !root || !window?.MathJax?.startup?.toMML || !document) { return; }
+
+  const mml = window.MathJax.startup.toMML(root);
+  const script = document.createElement('script');
+  script.type = 'math/mml';
+  script.text = mml;
+  typesetRoot.appendChild(script);
+}
+
+const findUnprocessedMath = (root: Element): Element[] =>
+  Array.from(root.querySelectorAll(`math:not(.${MATH_RENDERED_CLASS})`));
 
 const findLatexNodes = (root: Element): Element[] => {
-  const latexNodes: Element[] = [];
-  for (const node of Array.from(root.querySelectorAll(MATH_DATA_SELECTOR))) {
+  const nodes = Array.from(root.querySelectorAll(MATH_DATA_SELECTOR));
+
+  for (const node of nodes) {
     const formula = node.getAttribute('data-math');
-    // divs should be rendered as a block, others inline
-    if (node.tagName.toLowerCase() === 'div') {
-      node.textContent = `${MATH_MARKER_BLOCK}${formula}${MATH_MARKER_BLOCK}`;
-    } else {
-      node.textContent = `${MATH_MARKER_INLINE}${formula}${MATH_MARKER_INLINE}`;
-    }
-    latexNodes.push(node);
+    const marker = node.tagName.toLowerCase() === 'div' ? MATH_MARKER_BLOCK : MATH_MARKER_INLINE;
+    node.textContent = `${marker}${formula}${marker}`;
   }
 
-  return latexNodes;
+  return nodes;
 };
 
 const markNodesRendered = (nodes: Element[]) => {
-  // Mark nodes as rendered so they are ignored if typesetting is called repeatedly
-  // uses className += instead of classList because IE
   for (const node of nodes) {
-    node.className += ` ${MATH_RENDERED_CLASS}`;
+    node.classList.add(MATH_RENDERED_CLASS);
   }
 };
 
-// Ensure MathJax is fully ready before attempting to typeset
-async function ensureMathJaxReady(windowImpl: Window): Promise<void> {
-  // Wait for MathJax.startup.promise to ensure all components are loaded and initialized
-  // This promise is set up during MathJax's startup sequence and resolves when
-  // MathJax is fully initialized including all internal components
-  if (windowImpl.MathJax?.startup?.promise) {
-    try {
-      await windowImpl.MathJax.startup.promise;
-    } catch (error) {
-      // startup.promise may reject if initial typesetting fails, but MathJax is still ready
-      // We can safely continue as long as typesetPromise exists
-    }
-  }
-
-  // Additional guard: if startup.promise doesn't exist but MathJax is loading,
-  // we need to wait for it. Poll for a short time to let async script finish loading.
-  const maxWaitMs = 5000;
-  const pollIntervalMs = 50;
-  const startTime = Date.now();
-
-  while (!windowImpl.MathJax?.typesetPromise && (Date.now() - startTime) < maxWaitMs) {
-    await new Promise(resolve => setTimeout(resolve, pollIntervalMs));
-  }
-}
-
-// Search document for math and [data-math] elements and then typeset them
-async function typesetDocument(root: Element, windowImpl: Window) {
+const typesetDocument = async (root: Element, windowImpl: Window) => {
   const latexNodes = findLatexNodes(root);
   const mathMLNodes = findUnprocessedMath(root);
 
@@ -82,39 +88,32 @@ async function typesetDocument(root: Element, windowImpl: Window) {
     return;
   }
 
-  await ensureMathJaxReady(windowImpl);
-  // typeset both LaTeX and MathML
+  while (!windowImpl.MathJax?.startup?.promise) {
+    await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
+  }
+
+  await windowImpl.MathJax.startup.promise;
   await windowImpl.MathJax.typesetPromise([root]);
   markNodesRendered([...latexNodes, ...mathMLNodes]);
-}
+};
 
-
-// typesetMath is the main exported function.
-// It's called by components like HTML after they're rendered
 const typesetMath = (root: Element, windowImpl = window) => {
-  // schedule a Mathjax pass if there is at least one [data-math] or <math> element present
-  // Check if MathJax exists (script is loading or loaded) and if there's math to process
-  if (windowImpl && windowImpl.MathJax && root.querySelector(COMBINED_MATH_SELECTOR)) {
+  if (windowImpl?.MathJax && root.querySelector(COMBINED_MATH_SELECTOR)) {
     return typesetDocument(root, windowImpl);
   }
 
   return Promise.resolve();
 };
 
-// The following should be called once and configures MathJax.
-// Configuration must be set before the script loads.
-function startMathJax() {
+const startMathJax = () => {
   const window = assertWindow();
 
-  // Set MathJax configuration before the script loads
   if (!window.MathJax) {
     window.MathJax = MATHJAX_CONFIG;
-  } else if (window.MathJax && !window.MathJax.typesetPromise) {
-    // MathJax config exists but script hasn't loaded yet - merge configs
-    window.MathJax = { ...MATHJAX_CONFIG, ...window.MathJax };
+  } else if (!window.MathJax.typesetPromise) {
+    window.MathJax = { ...window.MathJax, ...MATHJAX_CONFIG };
   }
-  // If MathJax.typesetPromise exists, it's already loaded and configured
-}
+};
 
 export {
   typesetMath,

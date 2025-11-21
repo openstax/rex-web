@@ -1,7 +1,7 @@
 import { startMathJax, typesetMath } from './mathjax';
 
 const mockMathJax = () => ({
-  startup: { promise: Promise.resolve() },
+  startup: { promise: Promise.resolve(), toMML: jest.fn() },
   typesetPromise: jest.fn().mockResolvedValue(undefined),
 });
 
