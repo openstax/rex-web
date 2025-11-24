@@ -35,18 +35,7 @@ const markNodesRendered = (nodes: Element[]) => {
   }
 };
 
-const resolveOrWait = (root: Element, resolve: () => void, remainingTries = 5) => {
-  const unprocessedCount = root.querySelectorAll(COMBINED_MATH_SELECTOR).length;
-  if (remainingTries > 0 && unprocessedCount > 0) {
-    setTimeout(() => {
-      resolveOrWait(root, resolve, remainingTries - 1);
-    }, 200);
-  } else {
-    resolve();
-  }
-};
-
-const typesetDocument = async (root: Element, windowImpl = window) => {
+const typesetDocument = async (root: Element, windowImpl = window, remainingTries = 5): Promise<void> => {
   if (!windowImpl || !root.querySelector(COMBINED_MATH_SELECTOR)) {
     return;
   }
@@ -66,21 +55,23 @@ const typesetDocument = async (root: Element, windowImpl = window) => {
   await windowImpl.MathJax.typesetPromise([root]);
 
   markNodesRendered([...latexNodes, ...mathMLNodes]);
+
+  // Check if there are still unprocessed nodes and retry if needed
+  const unprocessedCount = root.querySelectorAll(COMBINED_MATH_SELECTOR).length;
+  if (remainingTries > 0 && unprocessedCount > 0) {
+    await typesetDocument(root, windowImpl, remainingTries - 1);
+  }
 };
 
 const typesetDocumentPromise = (root: Element, windowImpl = window): Promise<void> =>
-  new Promise((resolve) => {
-    typesetDocument(root, windowImpl).then(() => {
-      resolveOrWait(root, resolve);
-    });
-  });
+  typesetDocument(root, windowImpl);
 
 // memoize'd getter for typeset document function so that each node's
 // typeset has its own debounce
 const getTypesetDocument = memoize((root: Element, windowImpl: Window) => {
   return debounce(typesetDocumentPromise, 100, {
     leading: true,
-    trailing: true,
+    trailing: false,
   }).bind(null, root, windowImpl);
 });
 getTypesetDocument.cache = new WeakMap();

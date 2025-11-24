@@ -5,15 +5,14 @@ const mockMathJax = () => ({
   typesetPromise: jest.fn().mockResolvedValue(undefined),
 });
 
+const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
+
 beforeEach(() => {
-  jest.useFakeTimers();
   if (window) {
     window.MathJax = mockMathJax();
   }
 });
-
 afterEach(() => {
-  jest.useRealTimers();
   if (window) {
     delete window.MathJax;
   }
@@ -28,9 +27,8 @@ describe('typesetMath', () => {
     }
     const element = document.createElement('div');
 
-    const promise = typesetMath(element);
-    jest.advanceTimersByTime(1500);
-    await promise;
+    await typesetMath(element);
+    await debounce();
 
     expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
   });
@@ -44,9 +42,8 @@ describe('typesetMath', () => {
     const element = document.createElement('div');
     element.appendChild(document.createElement('math'));
 
-    const promise = typesetMath(element);
-    jest.advanceTimersByTime(1500);
-    await promise;
+    await typesetMath(element);
+    await debounce();
 
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
@@ -64,13 +61,10 @@ describe('typesetMath', () => {
     const element2 = document.createElement('div');
     element2.appendChild(document.createElement('math'));
 
-    const promise1 = typesetMath(element);
-    jest.advanceTimersByTime(1500);
-    await promise1;
-
-    const promise2 = typesetMath(element2);
-    jest.advanceTimersByTime(1500);
-    await promise2;
+    await typesetMath(element);
+    await debounce();
+    await typesetMath(element2);
+    await debounce();
 
     // Each element gets typeset once (nodes are marked after first call)
     expect(window.MathJax.typesetPromise).toHaveBeenCalledTimes(2);
@@ -96,9 +90,8 @@ describe('typesetMath', () => {
       .appendChild(math2)
     ;
 
-    const promise = typesetMath(element);
-    jest.advanceTimersByTime(1500);
-    await promise;
+    await typesetMath(element);
+    await debounce();
 
     // Updated: Now typesets the root element instead of individual nodes
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
@@ -122,9 +115,8 @@ describe('typesetMath', () => {
       .appendChild(math2)
     ;
 
-    const promise = typesetMath(element);
-    jest.advanceTimersByTime(1500);
-    await promise;
+    await typesetMath(element);
+    await debounce();
 
     expect(math1.textContent).toEqual('\u200c\u200c\u200cformula1\u200c\u200c\u200c');
     expect(math2.textContent).toEqual('\u200b\u200b\u200bformula2\u200b\u200b\u200b');
