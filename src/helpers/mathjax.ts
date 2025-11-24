@@ -80,7 +80,11 @@ const markNodesRendered = (nodes: Element[]) => {
   }
 };
 
-const typesetDocument = async (root: Element, windowImpl: Window) => {
+const typesetMath = async (root: Element, windowImpl = window) => {
+  if (!windowImpl?.MathJax || !root.querySelector(COMBINED_MATH_SELECTOR)) {
+    return;
+  }
+
   const latexNodes = findLatexNodes(root);
   const mathMLNodes = findUnprocessedMath(root);
 
@@ -95,14 +99,6 @@ const typesetDocument = async (root: Element, windowImpl: Window) => {
   await windowImpl.MathJax.startup.promise;
   await windowImpl.MathJax.typesetPromise([root]);
   markNodesRendered([...latexNodes, ...mathMLNodes]);
-};
-
-const typesetMath = (root: Element, windowImpl = window) => {
-  if (windowImpl?.MathJax && root.querySelector(COMBINED_MATH_SELECTOR)) {
-    return typesetDocument(root, windowImpl);
-  }
-
-  return Promise.resolve();
 };
 
 const startMathJax = () => {
