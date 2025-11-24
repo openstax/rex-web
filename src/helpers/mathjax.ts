@@ -35,7 +35,7 @@ const markNodesRendered = (nodes: Element[]) => {
   }
 };
 
-const typesetDocument = async (root: Element, windowImpl = window, remainingTries = 5): Promise<void> => {
+const typesetDocument = async(root: Element, windowImpl = window, remainingTries = 5): Promise<void> => {
   if (!windowImpl || !root.querySelector(COMBINED_MATH_SELECTOR)) {
     return;
   }
