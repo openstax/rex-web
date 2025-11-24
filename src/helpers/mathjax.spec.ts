@@ -1,4 +1,4 @@
-import { startMathJax, typesetMath } from './mathjax';
+import { typesetMath } from './mathjax';
 
 const mockMathJax = () => ({
   startup: { promise: Promise.resolve(), toMML: jest.fn() },
@@ -112,58 +112,5 @@ describe('typesetMath', () => {
 
     expect(math1.textContent).toEqual('\u200c\u200c\u200cformula1\u200c\u200c\u200c');
     expect(math2.textContent).toEqual('\u200b\u200b\u200bformula2\u200b\u200b\u200b');
-  });
-});
-
-describe('startMathJax', () => {
-  it('loads config if mathjax is not defined', () => {
-    if (!window) {
-      expect(window).toBeTruthy();
-      return;
-    }
-    delete window.MathJax;
-
-    startMathJax();
-
-    expect(window.MathJax).toBeDefined();
-    expect(window.MathJax.startup).toBeDefined();
-    expect(window.MathJax.tex).toBeDefined();
-  });
-
-  it('does not overwrite config if mathjax is already loaded', () => {
-    if (!window) {
-      expect(window).toBeTruthy();
-      return;
-    }
-
-    const existingMathJax = mockMathJax();
-    window.MathJax = existingMathJax;
-
-    startMathJax();
-
-    expect(window.MathJax).toBe(existingMathJax);
-  });
-
-  describe('outside the browser', () => {
-    const windowBak = window;
-
-    beforeEach(() => {
-      delete (global as any).window;
-    });
-    afterEach(() => {
-      (global as any).window = windowBak;
-    });
-
-    it('throws', () => {
-      let message = null;
-
-      try {
-        startMathJax();
-      } catch (e: any) {
-        message = e.message;
-      }
-
-      expect(message).toBe('BUG: Window is undefined');
-    });
   });
 });

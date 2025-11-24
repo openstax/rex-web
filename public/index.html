@@ -36,7 +36,33 @@
         startup: {
           typeset: false,
         },
+        tex: {
+          displayMath: [['\u200c\u200c\u200c', '\u200c\u200c\u200c']], // zero-width non-joiner
+          inlineMath:  [['\u200b\u200b\u200b', '\u200b\u200b\u200b']], // zero-width space
+        },
+        options: {
+          renderActions: {
+            preserveOriginal: [150,
+              function(doc) {
+                for (var math of doc.math) {
+                  addMathMLScript(math);
+                }
+              },
+              function(math) {
+                addMathMLScript(math);
+              },
+            ],
+          },
+        },
       };
+
+      function addMathMLScript(math) {
+        var mml = window.MathJax.startup.toMML(math.root);
+        var script = document.createElement('script');
+        script.type = 'math/mml';
+        script.text = mml;
+        math.typesetRoot.appendChild(script);
+      }
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.js"></script>
     <!--
