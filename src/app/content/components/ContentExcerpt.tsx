@@ -62,7 +62,7 @@ export default styled(React.forwardRef<HTMLElement, Props>(
   (props, ref) => <ContentExcerpt {...props} forwardedRef={ref} />)
 )`
   ${bodyCopyRegularStyle}
-  overflow: visible;
+  overflow: auto;
 
   * {
     overflow: initial;
