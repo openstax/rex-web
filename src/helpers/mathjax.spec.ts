@@ -6,11 +6,14 @@ const mockMathJax = () => ({
 });
 
 beforeEach(() => {
+  jest.useFakeTimers();
   if (window) {
     window.MathJax = mockMathJax();
   }
 });
+
 afterEach(() => {
+  jest.useRealTimers();
   if (window) {
     delete window.MathJax;
   }
@@ -25,7 +28,9 @@ describe('typesetMath', () => {
     }
     const element = document.createElement('div');
 
-    await typesetMath(element);
+    const promise = typesetMath(element);
+    jest.advanceTimersByTime(1500);
+    await promise;
 
     expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
   });
@@ -39,7 +44,9 @@ describe('typesetMath', () => {
     const element = document.createElement('div');
     element.appendChild(document.createElement('math'));
 
-    await typesetMath(element);
+    const promise = typesetMath(element);
+    jest.advanceTimersByTime(1500);
+    await promise;
 
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
@@ -57,8 +64,13 @@ describe('typesetMath', () => {
     const element2 = document.createElement('div');
     element2.appendChild(document.createElement('math'));
 
-    await typesetMath(element);
-    await typesetMath(element2);
+    const promise1 = typesetMath(element);
+    jest.advanceTimersByTime(1500);
+    await promise1;
+
+    const promise2 = typesetMath(element2);
+    jest.advanceTimersByTime(1500);
+    await promise2;
 
     // Each element gets typeset once (nodes are marked after first call)
     expect(window.MathJax.typesetPromise).toHaveBeenCalledTimes(2);
@@ -84,7 +96,9 @@ describe('typesetMath', () => {
       .appendChild(math2)
     ;
 
-    await typesetMath(element);
+    const promise = typesetMath(element);
+    jest.advanceTimersByTime(1500);
+    await promise;
 
     // Updated: Now typesets the root element instead of individual nodes
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
@@ -108,7 +122,9 @@ describe('typesetMath', () => {
       .appendChild(math2)
     ;
 
-    await typesetMath(element);
+    const promise = typesetMath(element);
+    jest.advanceTimersByTime(1500);
+    await promise;
 
     expect(math1.textContent).toEqual('\u200c\u200c\u200cformula1\u200c\u200c\u200c');
     expect(math2.textContent).toEqual('\u200b\u200b\u200bformula2\u200b\u200b\u200b');
