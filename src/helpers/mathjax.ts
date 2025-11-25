@@ -45,6 +45,7 @@ export const typesetMath = async(root: Element, windowImpl = window) => {
   }
 
   if (retries >= maxRetries) {
+    console.warn('MathJax failed to load'); // tslint:disable-line:no-console
     return;
   }
 
