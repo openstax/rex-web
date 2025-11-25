@@ -42,7 +42,7 @@
         },
         options: {
           renderActions: {
-            preserveOriginal: [150,
+            preserveOriginal: [999,
               function(doc) {
                 for (var math of doc.math) {
                   addMathMLScript(math);
@@ -57,6 +57,10 @@
       };
 
       function addMathMLScript(math) {
+        var existing = math.typesetRoot && math.typesetRoot.querySelector && math.typesetRoot.querySelector(':scope > script[type="math/mml"]');
+        if (existing) {
+          return;
+        }
         var mml = window.MathJax.startup.toMML(math.root);
         var script = document.createElement('script');
         script.type = 'math/mml';

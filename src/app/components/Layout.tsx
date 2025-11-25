@@ -1,5 +1,5 @@
 import React, { SFC } from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { createGlobalStyle, css } from 'styled-components/macro';
 import ErrorBoundary from '../errors/components/ErrorBoundary';
 import ErrorModal from '../errors/components/ErrorModal';
 import theme from '../theme';
@@ -9,7 +9,15 @@ import OnEsc from './OnEsc';
 import PageTitleConfirmation from './PageTitleConfirmation';
 
 // tslint:disable-next-line:variable-name
+const MathJaxStyles = createGlobalStyle`
+  mjx-help-background {
+    z-index: ${theme.zIndex.navbar + 1} !important;
+  }
+`;
+
+// tslint:disable-next-line:variable-name
 const Layout: SFC = ({ children }) => <AccessibilityButtonsWrapper>
+  <MathJaxStyles />
   <NavBar />
   <OnEsc />
   <PageTitleConfirmation />
