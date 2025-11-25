@@ -5212,9 +5212,9 @@
   dependencies:
     uuid "^8.3.2"
 
-"@openstax/highlighter@https://github.com/openstax/highlighter#assistive-mml-dev":
-  version "1.16.2"
-  resolved "https://github.com/openstax/highlighter#0f9361b99967831ca17017bcc168d7bf3de03862"
+"@openstax/highlighter@https://github.com/openstax/highlighter#1.16.3-dev1":
+  version "1.16.3"
+  resolved "https://github.com/openstax/highlighter#500e0bc4331267c2b565c04c5856eefc3415acf5"
   dependencies:
     "@openstax/highlights-client" "0.2.3"
     change-case "^4.0.0"

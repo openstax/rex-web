@@ -31,6 +31,7 @@ import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
+import { HTMLElement } from '@openstax/types/lib.dom';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation',
@@ -104,6 +105,17 @@ describe('Page', () => {
     (assertWindow() as any).HTMLElement.prototype.scrollIntoView = () => jest.fn();
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
+
+    // Set up default MathJax mock for all tests
+    assertWindow().MathJax = {
+      startup: { promise: Promise.resolve() },
+      typesetPromise: jest.fn().mockImplementation((roots) => {
+        roots?.forEach((root: HTMLElement) => {
+          root.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
+        });
+        return Promise.resolve();
+      }),
+    };
 
     store = createTestStore({
       content: {
@@ -185,6 +197,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
     await Promise.resolve();
+    await services.promiseCollector.calm();
 
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(scrollTarget(store.getState())).toEqual({
@@ -254,6 +267,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
     await Promise.resolve();
+    await services.promiseCollector.calm();
 
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalled();
@@ -284,7 +298,10 @@ describe('Page', () => {
       startup: {
         promise: Promise.resolve(),
       },
-      typesetPromise: jest.fn().mockImplementation(() => {
+      typesetPromise: jest.fn().mockImplementation((roots) => {
+        roots?.forEach((root: HTMLElement) => {
+          root.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
+        });
         return new Promise((resolve) => {
           mathjaxQueue.push(resolve);
         });
@@ -329,12 +346,13 @@ describe('Page', () => {
     // it is waiting for typestting to finish
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(0);
 
-    // flush pending promises to ensure typesetDocument completes
+    // flush pending promises and advance timers to allow all typesetMath calls to reach typesetPromise
+    // Each typesetMath call has a 100ms delay before calling typesetPromise
     await Promise.resolve();
     await Promise.resolve();
-
-    // remove math elements to mock mathajx behaviour
-    root.querySelectorAll('[data-math]').forEach((math) => math.remove());
+    jest.advanceTimersByTime(500);
+    await Promise.resolve();
+    await Promise.resolve();
 
     // there should be at least one pending promise
     expect(mathjaxQueue.length).toBeGreaterThan(0);
@@ -342,6 +360,9 @@ describe('Page', () => {
     // resolve all pending mathjax promises
     await act(async() => {
       mathjaxQueue.forEach((resolve) => resolve(undefined));
+      await Promise.resolve();
+      await Promise.resolve();
+      // jest.advanceTimersByTime(1100);
       await services.promiseCollector.calm();
     });
 

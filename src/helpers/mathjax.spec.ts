@@ -1,8 +1,15 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import { typesetMath } from './mathjax';
+import { assertWindow } from '../app/utils';
 
 const mockMathJax = () => ({
   startup: { promise: Promise.resolve(), toMML: jest.fn() },
-  typesetPromise: jest.fn().mockResolvedValue(undefined),
+  typesetPromise: jest.fn().mockImplementation((roots) => {
+    roots?.forEach((root: HTMLElement) => {
+      root.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
+    });
+    return Promise.resolve();
+  }),
 });
 
 const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
@@ -120,5 +127,48 @@ describe('typesetMath', () => {
 
     expect(math1.textContent).toEqual('\u200c\u200c\u200cformula1\u200c\u200c\u200c');
     expect(math2.textContent).toEqual('\u200b\u200b\u200bformula2\u200b\u200b\u200b');
+  });
+
+  it('ignores math nodes inside mjx-assistive-mml elements', async() => {
+    if (!document || !window) {
+      expect(document).toBeTruthy();
+      expect(window).toBeTruthy();
+      return;
+    }
+    const element = document.createElement('div');
+    const assistiveMml = document.createElement('mjx-assistive-mml');
+    const mathNode = document.createElement('math');
+    assistiveMml.appendChild(mathNode);
+    element.appendChild(assistiveMml);
+
+    await typesetMath(element);
+    await debounce();
+
+    // Should not call typesetPromise because math is inside mjx-assistive-mml
+    expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
+  });
+
+  it('waits for MathJax to initialize if startup.promise is not ready', async() => {
+    if (!document || !window) {
+      expect(document).toBeTruthy();
+      expect(window).toBeTruthy();
+      return;
+    }
+
+    const originalMathJax = window.MathJax;
+    window.MathJax = { startup: {} };
+
+    const element = document.createElement('div');
+    element.appendChild(document.createElement('math'));
+
+    setTimeout(() => {
+      assertWindow().MathJax = originalMathJax;
+    }, 150);
+
+    await typesetMath(element);
+    await debounce();
+
+    // Should have called typesetPromise after MathJax initialized
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
 });

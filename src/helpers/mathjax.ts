@@ -6,7 +6,6 @@ const MATH_MARKER_INLINE = '\u200b\u200b\u200b'; // zero-width space
 
 const MATH_DATA_SELECTOR = '[data-math]';
 const MATH_ML_SELECTOR   = 'math';
-const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 
 const isNotInsideAssistiveMml = (node: Element): boolean => !node.closest('mjx-assistive-mml');
 
@@ -26,17 +25,10 @@ const findLatexNodes = (root: Element): Element[] => {
 };
 
 export const typesetMath = async(root: Element, windowImpl = window) => {
-  const hasUnprocessedMath = Array.from(root.querySelectorAll(COMBINED_MATH_SELECTOR))
-    .some(isNotInsideAssistiveMml);
-
-  if (!windowImpl || !hasUnprocessedMath) {
-    return;
-  }
-
   const latexNodes = findLatexNodes(root);
   const mathMLNodes = findUnprocessedMath(root);
 
-  if (isEmpty(latexNodes) && isEmpty(mathMLNodes)) {
+  if (!windowImpl || isEmpty(latexNodes) && isEmpty(mathMLNodes)) {
     return;
   }
 
