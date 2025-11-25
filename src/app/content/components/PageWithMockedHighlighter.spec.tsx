@@ -299,8 +299,8 @@ describe('Page', () => {
         promise: Promise.resolve(),
       },
       typesetPromise: jest.fn().mockImplementation((roots) => {
-        roots?.forEach((root: HTMLElement) => {
-          root.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
+        roots?.forEach((rootElement: HTMLElement) => {
+          rootElement.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
         });
         return new Promise((resolve) => {
           mathjaxQueue.push(resolve);
@@ -309,8 +309,6 @@ describe('Page', () => {
     };
 
     const spyTypesetMath = jest.spyOn(mathjax, 'typesetMath');
-
-    const { root } = renderDomWithReferences();
 
     expect(spyTypesetMath).toHaveBeenCalledTimes(1);
 

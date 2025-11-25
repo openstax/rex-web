@@ -11,7 +11,7 @@ import PageTitleConfirmation from './PageTitleConfirmation';
 // tslint:disable-next-line:variable-name
 const MathJaxStyles = createGlobalStyle`
   mjx-help-background {
-    z-index: ${theme.zIndex.navbar + 1} !important;
+    z-index: ${theme.zIndex.navbar + 1};
   }
 `;
 
