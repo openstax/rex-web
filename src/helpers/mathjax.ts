@@ -45,7 +45,7 @@ export const typesetMath = async(root: Element, windowImpl = window) => {
   }
 
   if (retries >= maxRetries) {
-    console.error('MathJax failed to load after maximum retries');
+    console.warn('MathJax failed to load after maximum retries');
     return;
   }
 
