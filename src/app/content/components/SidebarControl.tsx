@@ -221,6 +221,26 @@ export const OpenTOCControl = lockTocControlState(false, TOCControl);
 // tslint:disable-next-line: variable-name
 export const CloseTOCControl = lockTocControlState(true, TOCControl);
 
+// tslint:disable-next-line: variable-name
+export const TOCControlButton = tocConnector(({open, close, isOpen, ...props}: MiddleProps) => (
+  <OpenButton
+    {...props}
+    data-testid='toc-button'
+    aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
+    aria-expanded={isOpen === true}
+    aria-controls="toc-sidebar"
+    data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
+    onClick={isOpen ? close : open}
+    isOpen={null}
+    isActive={Boolean(props.showActivatedState) && isOpen === true}
+  >
+    <TocIcon />
+    <ButtonText>
+      {useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
+    </ButtonText>
+  </OpenButton>
+));
+
 // tslint:disable-next-line:variable-name
 export const TOCCloseButton = (lockTocControlState(true, CloseTOC));
 

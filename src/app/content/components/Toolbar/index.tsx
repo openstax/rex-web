@@ -11,9 +11,8 @@ import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import {
   CloseSearchControl,
   CloseToCAndMobileMenuButton,
-  CloseTOCControl,
   OpenSearchControl,
-  OpenTOCControl
+  TOCControlButton
 } from '../SidebarControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
@@ -67,8 +66,7 @@ const VerticalNav = () => {
     >
       {isMobileMenuOpen && <MobileMenu />}
       <Styled.ToolbarElements>
-        <OpenTOCControl showActivatedState />
-        <CloseTOCControl showActivatedState />
+        <TOCControlButton showActivatedState />
         {showSearchInSidebar ? (
           <>
             <OpenSearchControl showActivatedState data-experiment />
