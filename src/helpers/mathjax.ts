@@ -28,7 +28,7 @@ export const typesetMath = async(root: Element, windowImpl = window) => {
   const latexNodes = findLatexNodes(root);
   const mathMLNodes = findUnprocessedMath(root);
 
-  if (!windowImpl || isEmpty(latexNodes) && isEmpty(mathMLNodes)) {
+  if (!windowImpl || (isEmpty(latexNodes) && isEmpty(mathMLNodes))) {
     return;
   }
 
