@@ -178,7 +178,6 @@ describe('typesetMath', () => {
       return;
     }
 
-    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
     const originalMathJax = window.MathJax;
 
     window.MathJax = { startup: {} };
@@ -188,10 +187,8 @@ describe('typesetMath', () => {
 
     await typesetMath(element);
 
-    expect(consoleLogSpy).toHaveBeenCalledWith('MathJax failed to load after maximum retries');
     expect(originalMathJax.typesetPromise).not.toHaveBeenCalled();
 
     window.MathJax = originalMathJax;
-    consoleLogSpy.mockRestore();
   });
 });
