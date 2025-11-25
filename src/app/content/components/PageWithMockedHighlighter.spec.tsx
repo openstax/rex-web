@@ -106,7 +106,6 @@ describe('Page', () => {
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
 
-    // Set up default MathJax mock for all tests
     assertWindow().MathJax = {
       startup: { promise: Promise.resolve() },
       typesetPromise: jest.fn().mockImplementation((roots) => {
