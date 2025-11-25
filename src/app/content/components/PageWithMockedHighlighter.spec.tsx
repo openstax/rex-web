@@ -310,6 +310,8 @@ describe('Page', () => {
 
     const spyTypesetMath = jest.spyOn(mathjax, 'typesetMath');
 
+    renderDomWithReferences();
+
     expect(spyTypesetMath).toHaveBeenCalledTimes(1);
 
     const mockHighlights = [createMockHighlight()] as any[];
