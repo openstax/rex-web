@@ -253,8 +253,30 @@ const Wrapper = ({highlights, className, container, highlighter, dispatch}: Wrap
   </div>;
 };
 
+function extractTextFromHTML(html: string): string {
+  const tmp = document?.createElement('div');
+  if (tmp) {
+    tmp.innerHTML = html;
+    return tmp.textContent || '';
+  }
+  return '';
+}
+
 function MaybeWrapper(props: WrapperProps) {
-  if (!props.highlights.length) {
+  const hasValidHighlight = props.highlights.some(h => {
+    if (typeof h.content !== 'string') return false;
+    const plainText = extractTextFromHTML(h.content).trim();
+
+    const containsImage = /<img[\s\S]*?>/i.test(h.content);
+    const containsMath = /class=["']?MathJax["']?/i.test(h.content);
+
+    return (
+      plainText !== '' &&
+      (/[a-zA-Z0-9]/.test(plainText) || /[\u2200-\u22FF]/.test(plainText))
+    ) || containsImage || containsMath;
+  });
+
+  if (!hasValidHighlight) {
     return null;
   }
   return <Wrapper {...props} />;

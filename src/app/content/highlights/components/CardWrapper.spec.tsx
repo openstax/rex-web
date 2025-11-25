@@ -544,4 +544,149 @@ describe('CardWrapper', () => {
       expect(usesResizeObserverPolyfill).toBe(true);
     });
   });
+
+  describe('MaybeWrapper', () => {
+    let store: Store;
+    let container: HTMLElement;
+
+    beforeEach(() => {
+      store = createTestStore();
+      container = assertDocument().createElement('div');
+      assertDocument().body.appendChild(container);
+    });
+
+    afterEach(() => {
+      container.remove();
+    });
+
+    it('renders Wrapper when there is a valid text highlight', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '<span>ValidText123</span>',
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('renders Wrapper when there is a highlight with an image', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '<img src="img.png"/>',
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('renders Wrapper when there is a highlight with MathJax', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '<span class="MathJax">math</span>',
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('does not render Wrapper when all highlights are empty', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '',
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).toBeNull();
+    });
+
+    it('does not render Wrapper when all highlights have only whitespace', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '   ',
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).toBeNull();
+    });
+
+    it('does not render Wrapper when all highlights have non-string content', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: undefined,
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).toBeNull();
+    });
+
+    it('renders Wrapper when at least one highlight is valid among invalid ones', () => {
+      const validHighlight = {
+        ...createMockHighlight(),
+        content: '<span>ValidText</span>',
+      };
+      const invalidHighlight = {
+        ...createMockHighlight(),
+        content: '',
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[invalidHighlight, validHighlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('renders Wrapper when highlight is valid with math characters', () => {
+      const validHighlight = {
+        ...createMockHighlight(),
+        content: '<span>∑ π ∫</span>',
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[validHighlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('returns empty string if document.createElement returns null', () => {
+      const originalCreateElement = document?.createElement;
+      // @ts-ignore
+      document.createElement = () => null;
+      const validHighlight = {
+        ...createMockHighlight(),
+        content: '<span>Test</span>',
+      };
+      const invalidHighlight = {
+        ...createMockHighlight(),
+        content: '',
+      };
+      const component = renderer.create(
+        <Provider store={store}>
+          <CardWrapper container={container} highlights={[invalidHighlight, validHighlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).toBeNull();
+      // @ts-ignore
+      document.createElement = originalCreateElement;
+    });
+  });
 });

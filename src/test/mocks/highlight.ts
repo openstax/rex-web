@@ -3,6 +3,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 
 export default (id: string = Math.random().toString(36).substring(7)) => {
   return {
+    content: 'test highlight content',
     addFocusedStyles: jest.fn(),
     elements: [] as HTMLElement[],
     focus: jest.fn(),
