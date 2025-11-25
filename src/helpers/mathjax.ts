@@ -38,7 +38,8 @@ export const typesetMath = async(root: Element, windowImpl = window) => {
 
   // give mathjax a chance to load
   while (!windowImpl.MathJax?.startup?.promise && retries < maxRetries) {
-    await new Promise(resolve => setTimeout(resolve, delay));
+    const currentDelay = delay;
+    await new Promise(resolve => setTimeout(resolve, currentDelay));
     delay = delay * 2;
     retries++;
   }
