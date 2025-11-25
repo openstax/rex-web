@@ -168,7 +168,30 @@ describe('typesetMath', () => {
     await typesetMath(element);
     await debounce();
 
-    // Should have called typesetPromise after MathJax initialized
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
+  });
+
+  it('handles MathJax failing to load', async() => {
+    if (!document || !window) {
+      expect(document).toBeTruthy();
+      expect(window).toBeTruthy();
+      return;
+    }
+
+    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+    const originalMathJax = window.MathJax;
+
+    window.MathJax = { startup: {} };
+
+    const element = document.createElement('div');
+    element.appendChild(document.createElement('math'));
+
+    await typesetMath(element);
+
+    expect(consoleLogSpy).toHaveBeenCalledWith('MathJax failed to load after maximum retries');
+    expect(originalMathJax.typesetPromise).not.toHaveBeenCalled();
+
+    window.MathJax = originalMathJax;
+    consoleLogSpy.mockRestore();
   });
 });
