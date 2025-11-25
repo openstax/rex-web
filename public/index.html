@@ -36,37 +36,23 @@
         startup: {
           typeset: false,
         },
+        loader: {
+          load: ['a11y/assistive-mml'],
+        },
+        options: {
+          menuOptions: {
+            settings: {
+              speech: false,
+              braille: false,
+              assistiveMml: true,
+            },
+          },
+        },
         tex: {
           displayMath: [['\u200c\u200c\u200c', '\u200c\u200c\u200c']], // zero-width non-joiner
           inlineMath:  [['\u200b\u200b\u200b', '\u200b\u200b\u200b']], // zero-width space
         },
-        options: {
-          renderActions: {
-            preserveOriginal: [999,
-              function(doc) {
-                for (var math of doc.math) {
-                  addMathMLScript(math);
-                }
-              },
-              function(math) {
-                addMathMLScript(math);
-              },
-            ],
-          },
-        },
       };
-
-      function addMathMLScript(math) {
-        var existing = math.typesetRoot && math.typesetRoot.querySelector && math.typesetRoot.querySelector(':scope > script[type="math/mml"]');
-        if (existing) {
-          return;
-        }
-        var mml = window.MathJax.startup.toMML(math.root);
-        var script = document.createElement('script');
-        script.type = 'math/mml';
-        script.text = mml;
-        math.typesetRoot.appendChild(script);
-      }
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.js"></script>
     <!--

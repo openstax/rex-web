@@ -4,14 +4,14 @@ import isEmpty from 'lodash/fp/isEmpty';
 const MATH_MARKER_BLOCK  = '\u200c\u200c\u200c'; // zero-width non-joiner
 const MATH_MARKER_INLINE = '\u200b\u200b\u200b'; // zero-width space
 
-const POLL_INTERVAL_MS = 50;
-
 const MATH_DATA_SELECTOR = '[data-math]';
 const MATH_ML_SELECTOR   = 'math';
 const COMBINED_MATH_SELECTOR = `${MATH_DATA_SELECTOR}, ${MATH_ML_SELECTOR}`;
 
+const isNotInsideAssistiveMml = (node: Element): boolean => !node.closest('mjx-assistive-mml');
+
 const findUnprocessedMath = (root: Element): Element[] =>
-  Array.from(root.querySelectorAll(MATH_ML_SELECTOR));
+  Array.from(root.querySelectorAll(MATH_ML_SELECTOR)).filter(isNotInsideAssistiveMml);
 
 const findLatexNodes = (root: Element): Element[] => {
   const nodes = Array.from(root.querySelectorAll(MATH_DATA_SELECTOR));
@@ -25,8 +25,11 @@ const findLatexNodes = (root: Element): Element[] => {
   return nodes;
 };
 
-const typesetDocument = async(root: Element, windowImpl = window, remainingTries = 5): Promise<void> => {
-  if (!windowImpl || !root.querySelector(COMBINED_MATH_SELECTOR)) {
+export const typesetMath = async(root: Element, windowImpl = window) => {
+  const hasUnprocessedMath = Array.from(root.querySelectorAll(COMBINED_MATH_SELECTOR))
+    .some(isNotInsideAssistiveMml);
+
+  if (!windowImpl || !hasUnprocessedMath) {
     return;
   }
 
@@ -38,29 +41,10 @@ const typesetDocument = async(root: Element, windowImpl = window, remainingTries
   }
 
   while (!windowImpl.MathJax?.startup?.promise) {
-    await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
+    await new Promise(resolve => setTimeout(resolve, 100));
   }
 
   await windowImpl.MathJax.startup.promise;
-  await windowImpl.MathJax.typesetClear([root]);
+  await new Promise(r => setTimeout(r, 100));
   await windowImpl.MathJax.typesetPromise([root]);
-
-  const unprocessedCount = root.querySelectorAll(COMBINED_MATH_SELECTOR).length;
-  if (remainingTries > 0 && unprocessedCount > 0) {
-    await typesetDocument(root, windowImpl, remainingTries - 1);
-  }
-};
-
-// typesetMath is the main exported function.
-// It's called by components like HTML after they're rendered
-const typesetMath = (root: Element, windowImpl = window): Promise<void> => {
-  if (windowImpl) {
-    return typesetDocument(root, windowImpl);
-  }
-
-  return Promise.resolve();
-};
-
-export {
-  typesetMath,
 };
