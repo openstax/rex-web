@@ -178,7 +178,7 @@ describe('typesetMath', () => {
       return;
     }
 
-    const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+    const consoleLogSpy = jest.spyOn(console, 'warn').mockImplementation();
     const originalMathJax = window.MathJax;
 
     window.MathJax = { startup: {} };
