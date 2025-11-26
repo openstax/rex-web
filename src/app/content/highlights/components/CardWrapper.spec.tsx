@@ -546,17 +546,17 @@ describe('CardWrapper', () => {
   });
 
   describe('MaybeWrapper', () => {
-    let store: Store;
-    let container: HTMLElement;
+    let wrapperStore: Store;
+    let wrapperContainer: HTMLElement;
 
     beforeEach(() => {
-      store = createTestStore();
-      container = assertDocument().createElement('div');
-      assertDocument().body.appendChild(container);
+      wrapperStore = createTestStore();
+      wrapperContainer = assertDocument().createElement('div');
+      assertDocument().body.appendChild(wrapperContainer);
     });
 
     afterEach(() => {
-      container.remove();
+      wrapperContainer.remove();
     });
 
     it('renders Wrapper when there is a valid text highlight', () => {
@@ -565,8 +565,8 @@ describe('CardWrapper', () => {
         content: '<span>ValidText123</span>',
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[highlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
         </Provider>
       );
       expect(component.toJSON()).not.toBeNull();
@@ -578,8 +578,8 @@ describe('CardWrapper', () => {
         content: '<img src="img.png"/>',
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[highlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
         </Provider>
       );
       expect(component.toJSON()).not.toBeNull();
@@ -591,8 +591,8 @@ describe('CardWrapper', () => {
         content: '<span class="MathJax">math</span>',
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[highlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
         </Provider>
       );
       expect(component.toJSON()).not.toBeNull();
@@ -604,8 +604,8 @@ describe('CardWrapper', () => {
         content: '',
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[highlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
         </Provider>
       );
       expect(component.toJSON()).toBeNull();
@@ -617,8 +617,8 @@ describe('CardWrapper', () => {
         content: '   ',
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[highlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
         </Provider>
       );
       expect(component.toJSON()).toBeNull();
@@ -630,8 +630,8 @@ describe('CardWrapper', () => {
         content: undefined,
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[highlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
         </Provider>
       );
       expect(component.toJSON()).toBeNull();
@@ -647,8 +647,8 @@ describe('CardWrapper', () => {
         content: '',
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[invalidHighlight, validHighlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[invalidHighlight, validHighlight]} />
         </Provider>
       );
       expect(component.toJSON()).not.toBeNull();
@@ -660,8 +660,8 @@ describe('CardWrapper', () => {
         content: '<span>∑ π ∫</span>',
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[validHighlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[validHighlight]} />
         </Provider>
       );
       expect(component.toJSON()).not.toBeNull();
@@ -680,8 +680,8 @@ describe('CardWrapper', () => {
         content: '',
       };
       const component = renderer.create(
-        <Provider store={store}>
-          <CardWrapper container={container} highlights={[invalidHighlight, validHighlight]} />
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[invalidHighlight, validHighlight]} />
         </Provider>
       );
       expect(component.toJSON()).toBeNull();
