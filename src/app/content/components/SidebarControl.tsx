@@ -216,30 +216,29 @@ const lockSearchControlState = (isOpen: boolean, Control: React.ComponentType<In
 `);
 
 // tslint:disable-next-line: variable-name
-export const OpenTOCControl = lockTocControlState(false, TOCControl);
+export const TOCControlButton = tocConnector(({open, close, isOpen, ...props}: MiddleProps) => {
+  // tslint:disable-next-line: variable-name
+  const Tag = isOpen ? OpenButton : CloseButton;
 
-// tslint:disable-next-line: variable-name
-export const CloseTOCControl = lockTocControlState(true, TOCControl);
-
-// tslint:disable-next-line: variable-name
-export const TOCControlButton = tocConnector(({open, close, isOpen, ...props}: MiddleProps) => (
-  <OpenButton
-    {...props}
-    data-testid='toc-button'
-    aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
-    aria-expanded={isOpen === true}
-    aria-controls="toc-sidebar"
-    data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
-    onClick={isOpen ? close : open}
-    isOpen={null}
-    isActive={Boolean(props.showActivatedState) && isOpen === true}
-  >
-    <TocIcon />
-    <ButtonText>
-      {useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
-    </ButtonText>
-  </OpenButton>
-));
+  return (
+    <Tag
+      {...props}
+      data-testid='toc-button'
+      aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
+      aria-expanded={isOpen === true}
+      aria-controls='toc-sidebar'
+      data-analytics-label={`Click to ${isOpen ? 'close' : 'open'} the Table of Contents`}
+      onClick={isOpen ? close : open}
+      isOpen={null}
+      isActive={Boolean(props.showActivatedState) && isOpen === true}
+    >
+      <TocIcon />
+      <ButtonText>
+        {useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
+      </ButtonText>
+    </Tag>
+  );
+});
 
 // tslint:disable-next-line:variable-name
 export const TOCCloseButton = (lockTocControlState(true, CloseTOC));
@@ -253,7 +252,7 @@ export const TOCBackButton = styled(TOCCloseButton)`
 `;
 
 // tslint:disable-next-line: variable-name
-export const StyledOpenTOCControl = styled(OpenTOCControl)`
+export const StyledOpenTOCControl = styled(lockTocControlState(false, TOCControl))`
   display: flex;
   padding: 0;
   min-height: unset;

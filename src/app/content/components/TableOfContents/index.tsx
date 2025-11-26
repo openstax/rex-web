@@ -322,6 +322,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
         <TocHeader />
         {book && (
           <Styled.StyledTree
+            id='toc-sidebar'
             aria-label='Table of Contents'
             expandedKeys={this.state.expandedKeys}
             onExpandedChange={this.handleExpandedChange}
