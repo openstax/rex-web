@@ -345,23 +345,26 @@ describe('Page', () => {
     // it is waiting for typestting to finish
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(0);
 
-    // flush pending promises and advance timers to allow all typesetMath calls to reach typesetPromise
-    // Each typesetMath call has a 100ms delay before calling typesetPromise
-    await Promise.resolve();
-    await Promise.resolve();
-    jest.advanceTimersByTime(500);
+    // Advance timers and flush promises in an interleaved manner to allow async/await to progress
+    // The typesetMath function has: await startup.promise, then await setTimeout(100), then await typesetPromise
+    for (let i = 0; i < 5; i++) {
+      await Promise.resolve();
+      jest.advanceTimersByTime(100);
+    }
     await Promise.resolve();
     await Promise.resolve();
 
-    // there should be at least one pending promise
-    expect(mathjaxQueue.length).toBeGreaterThan(0);
+    expect(assertWindow().MathJax.typesetPromise).toHaveBeenCalled();
+
+    // there should be at least one pending promise after all the typesetMath calls have been processed
+    // The queue will have entries from the typesetPromise mock
+    expect(mathjaxQueue.length).toBeGreaterThanOrEqual(1);
 
     // resolve all pending mathjax promises
     await act(async() => {
       mathjaxQueue.forEach((resolve) => resolve(undefined));
       await Promise.resolve();
       await Promise.resolve();
-      // jest.advanceTimersByTime(1100);
       await services.promiseCollector.calm();
     });
 

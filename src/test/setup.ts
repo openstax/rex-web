@@ -98,6 +98,15 @@ beforeEach(() => {
   scrollBy = window.scrollBy = jest.fn();
   window.dataLayer = window.dataLayer || [];
 
+  if (!window.MathJax || !window.MathJax.typesetPromise) {
+    window.MathJax = {
+      startup: {
+        promise: Promise.resolve(),
+      },
+      typesetPromise: jest.fn(() => Promise.resolve()),
+    } as any;
+  }
+
   // function also defined in index.html
   function gtag() {
     window!.dataLayer.push(arguments);
