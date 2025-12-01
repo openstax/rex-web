@@ -73,7 +73,6 @@ describe('typesetMath', () => {
     await typesetMath(element2);
     await debounce();
 
-    // Each element gets typeset once (nodes are marked after first call)
     expect(window.MathJax.typesetPromise).toHaveBeenCalledTimes(2);
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element2]);
