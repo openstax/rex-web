@@ -345,12 +345,7 @@ describe('Page', () => {
     // it is waiting for typestting to finish
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(0);
 
-    // Advance timers and flush promises in an interleaved manner to allow async/await to progress
-    // The typesetMath function has: await startup.promise, then await setTimeout(100), then await typesetPromise
-    for (let i = 0; i < 5; i++) {
-      await Promise.resolve();
-      jest.advanceTimersByTime(100);
-    }
+    // The typesetMath function has: await startup.promise then await typesetPromise
     await Promise.resolve();
     await Promise.resolve();
 
