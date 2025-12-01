@@ -28,6 +28,9 @@ page.on('console', (consoleMessage) => {
   if (!ignoreConsoleMessages.find((message) => message.indexOf(text) === -1)) {
     console.log(text); // tslint:disable-line:no-console
 
+  }
+});
+
 // polyfill required for MathJax 4.0.0 in older chromium
 page.evaluateOnNewDocument(() => {
   if (!(Object as any).hasOwn) {
