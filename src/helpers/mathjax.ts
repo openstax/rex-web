@@ -45,16 +45,10 @@ export const typesetMath = async(root: Element, windowImpl = window) => {
   }
 
   if (retries >= maxRetries || !windowImpl.MathJax?.startup?.promise) {
-    console.warn('[MathJax] Failed to load'); // tslint:disable-line:no-console
+    console.warn('MathJax failed to load'); // tslint:disable-line:no-console
     return;
   }
 
   await windowImpl.MathJax.startup.promise;
-  if (!windowImpl.MathJax?.typesetPromise) {
-    console.warn('[MathJax] typesetPromise not available after startup'); // tslint:disable-line:no-console
-    return;
-  }
-  await windowImpl.MathJax.typesetPromise([root]).catch((err: unknown) => {
-    console.error('[MathJax] typesetPromise error:', err); // tslint:disable-line:no-console
-  });
+  await windowImpl.MathJax.typesetPromise([root]);
 };
