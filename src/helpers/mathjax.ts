@@ -49,6 +49,10 @@ export const typesetMath = async(root: Element, windowImpl = window) => {
     return;
   }
 
-  await windowImpl.MathJax.startup.promise;
-  await windowImpl.MathJax.typesetPromise([root]);
+  try {
+    await windowImpl.MathJax.startup.promise;
+    await windowImpl.MathJax.typesetPromise([root]);
+  } catch (error) {
+    console.error('MathJax typesetting failed:', error); // tslint:disable-line:no-console
+  }
 };
