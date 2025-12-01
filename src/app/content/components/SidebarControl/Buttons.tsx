@@ -50,11 +50,8 @@ export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'], isActive:
     ${toolbarIconStyles};
   }
 
-  ${(props) => props.isOpen === null && !props.isActive && theme.breakpoints.mobile(css`
-    display: flex;
-  `)}
-  ${(props) => props.isOpen === null && props.isActive && theme.breakpoints.mobile(css`
-    display: none;
+  ${(props) => props.isOpen === null && theme.breakpoints.mobile(css`
+    display: ${props.isActive ? 'none' : 'flex'};
   `)}
 
   ${(props) => props.hideMobile && theme.breakpoints.mobileMedium(css`

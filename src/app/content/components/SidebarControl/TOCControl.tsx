@@ -42,5 +42,5 @@ export const lockTocControlState = (isOpen: boolean, Control: React.ComponentTyp
     message={isOpen ? openTocMessage : closedTocMessage}
     data-analytics-label={isOpen ? 'Click to close the Table of Contents' : 'Click to open the Table of Contents'}
     onClick={isOpen ? close : open}
-    isActive={Boolean(props.showActivatedState) && isOpen}
+    isActive={false}
   />);
