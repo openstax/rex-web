@@ -36,6 +36,7 @@ export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'], isActive:
   background: none;
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};
+  display: flex;
   border: none;
   padding: 0;
   overflow: visible;
@@ -49,11 +50,6 @@ export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'], isActive:
     ${toolbarIconStyles};
   }
 
-  display:
-    ${({isOpen, isActive}) => (isOpen !== false && isActive) || (isOpen === false && !isActive)
-      ? 'flex'
-      : 'none'
-  };
   ${(props) => props.isOpen === null && !props.isActive && theme.breakpoints.mobile(css`
     display: flex;
   `)}

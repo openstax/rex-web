@@ -51,11 +51,8 @@ export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren
 
 // tslint:disable-next-line: variable-name
 export const TOCControlButton = tocConnector(({open, close, isOpen, ...props}: MiddleProps) => {
-  // tslint:disable-next-line: variable-name
-  const Tag = isOpen ? OpenButton : CloseButton;
-
   return (
-    <Tag
+    <OpenButton
       {...props}
       data-testid='toc-button'
       aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
@@ -70,7 +67,7 @@ export const TOCControlButton = tocConnector(({open, close, isOpen, ...props}: M
       <ButtonText>
         {useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
       </ButtonText>
-    </Tag>
+    </OpenButton>
   );
 });
 
