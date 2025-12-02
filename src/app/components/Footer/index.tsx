@@ -278,7 +278,7 @@ export function useContactDialog() {
 }
 
 // tslint:disable-next-line:variable-name
-const PortalColumn2 = (portalName: { portalName: string }) => {
+const PortalColumn2 = ({ portalName }: { portalName: string }) => {
   const { isOpen, open, close } = useContactDialog();
   const contactFormParams = [
     {key: 'source_url', value: window?.location.href},
@@ -299,7 +299,7 @@ const PortalColumn2 = (portalName: { portalName: string }) => {
 };
 
 // tslint:disable-next-line:variable-name
-const PortalColumn3 = (portalName: { portalName: string }) => (
+const PortalColumn3 = ({ portalName }: { portalName: string }) => (
   <Styled.Column3>
     <LinkList>
       <FooterLinkMessage
