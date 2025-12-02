@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight, useOnEsc } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
-import { assertDefined, assertDocument } from '../../../utils';
+import { assertDefined, assertDocument, stripHtml } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { highlightKeyCombination } from '../constants';
@@ -265,7 +265,19 @@ const Wrapper = ({highlights, className, container, highlighter, dispatch}: Wrap
 };
 
 function MaybeWrapper(props: WrapperProps) {
-  if (!props.highlights.length) {
+  const hasValidHighlight = props.highlights.some(h => {
+    if (typeof h.content !== 'string') return false;
+    const plainText = stripHtml(h.content, true);
+
+    const containsImage = /<img[\s\S]*?>/i.test(h.content);
+    const containsMath = /class=["']?MathJax["']?/i.test(h.content);
+
+    return (
+      plainText.length > 0 || containsImage || containsMath
+    );
+  });
+
+  if (!hasValidHighlight) {
     return null;
   }
   return <Wrapper {...props} />;
