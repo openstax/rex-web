@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight, useOnEsc } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
-import { assertDefined, assertDocument } from '../../../utils';
+import { assertDefined, assertDocument, stripHtml } from '../../../utils';
 import * as selectSearch from '../../search/selectors';
 import * as contentSelect from '../../selectors';
 import { highlightKeyCombination } from '../constants';
@@ -264,27 +264,17 @@ const Wrapper = ({highlights, className, container, highlighter, dispatch}: Wrap
   </div>;
 };
 
-function extractTextFromHTML(html: string): string {
-  const tmp = document?.createElement('div');
-  if (tmp) {
-    tmp.innerHTML = html;
-    return tmp.textContent || '';
-  }
-  return '';
-}
-
 function MaybeWrapper(props: WrapperProps) {
   const hasValidHighlight = props.highlights.some(h => {
     if (typeof h.content !== 'string') return false;
-    const plainText = extractTextFromHTML(h.content).trim();
+    const plainText = stripHtml(h.content, true);
 
     const containsImage = /<img[\s\S]*?>/i.test(h.content);
     const containsMath = /class=["']?MathJax["']?/i.test(h.content);
 
     return (
-      plainText !== '' &&
-      (/[a-zA-Z0-9]/.test(plainText) || /[\u2200-\u22FF]/.test(plainText))
-    ) || containsImage || containsMath;
+      plainText.length > 0 || containsImage || containsMath
+    );
   });
 
   if (!hasValidHighlight) {

@@ -727,27 +727,5 @@ describe('CardWrapper', () => {
       );
       expect(component.toJSON()).not.toBeNull();
     });
-
-    it('returns empty string if document.createElement returns null', () => {
-      const originalCreateElement = document?.createElement;
-      // @ts-ignore
-      document.createElement = () => null;
-      const validHighlight = {
-        ...createMockHighlight(),
-        content: '<span>Test</span>',
-      };
-      const invalidHighlight = {
-        ...createMockHighlight(),
-        content: '',
-      };
-      const component = renderer.create(
-        <Provider store={wrapperStore}>
-          <CardWrapper container={wrapperContainer} highlights={[invalidHighlight, validHighlight]} />
-        </Provider>
-      );
-      expect(component.toJSON()).toBeNull();
-      // @ts-ignore
-      document.createElement = originalCreateElement;
-    });
   });
 });
