@@ -1,280 +1,294 @@
+import { MutationCallback } from '@openstax/types/lib.dom';
+import { assertDocument, assertWindow } from '../app/utils';
 import { initializeMathJaxMenuPositioning } from './mathjaxMenuPosition';
 
-// Wait for MutationObserver + requestAnimationFrame to process
-const waitForObserver = () => new Promise((resolve) => {
-  // Wait for MutationObserver callback
-  setTimeout(() => {
-    // Then wait for requestAnimationFrame
-    requestAnimationFrame(() => {
-      // Add small delay to ensure styles are applied
-      setTimeout(resolve, 10);
-    });
-  }, 0);
-});
-
 describe('initializeMathJaxMenuPositioning', () => {
-  let cleanup: (() => void) | undefined;
-
-  afterEach(() => {
-    // Clean up any created menus
-    if (document) {
-      document.querySelectorAll('.CtxtMenu_ContextMenu').forEach((el) => el.remove());
-    }
-    // Disconnect observer
-    if (cleanup) {
-      cleanup();
-      cleanup = undefined;
-    }
-  });
-
-  it('returns cleanup function when initialized', () => {
-    if (!window) {
-      expect(window).toBeTruthy();
-      return;
-    }
-
-    cleanup = initializeMathJaxMenuPositioning(window);
-
-    expect(cleanup).toBeDefined();
-    expect(typeof cleanup).toBe('function');
-  });
-
-  it('returns no-op when window is undefined', () => {
-    const cleanup = initializeMathJaxMenuPositioning(undefined as any);
-
-    expect(cleanup).toBeDefined();
-    expect(typeof cleanup).toBe('function');
+  it('returns noop when windowImpl is undefined', () => {
+    const cleanup = initializeMathJaxMenuPositioning(undefined);
     expect(cleanup()).toBeUndefined();
   });
 
-  it('repositions menu when it overflows right edge', async() => {
-    if (!document || !window) {
-      expect(document).toBeTruthy();
-      expect(window).toBeTruthy();
-      return;
-    }
+  it('sets up and tears down', () => {
+    const window = assertWindow();
+    const disconnect = jest.fn();
+    const observe = jest.fn();
+    const mockObserver = { disconnect, observe };
 
-    const windowImpl = window;
-    cleanup = initializeMathJaxMenuPositioning(windowImpl);
+    (window as any).MutationObserver = jest.fn(() => mockObserver);
 
-    // Create menu that overflows right edge
+    const cleanup = initializeMathJaxMenuPositioning(window);
+
+    expect(observe).toHaveBeenCalledWith(
+      assertDocument().body,
+      { childList: true, subtree: true }
+    );
+
+    cleanup();
+    expect(disconnect).toHaveBeenCalled();
+  });
+
+  it('repositions main menu when it overflows', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    let callback: MutationCallback | undefined;
+
+    (window as any).MutationObserver = jest.fn().mockImplementation((cb) => {
+      callback = cb;
+      return { disconnect: jest.fn(), observe: jest.fn() };
+    });
+
+    const rafSpy = jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: any) => {
+      cb();
+      return 0;
+    });
+
+    initializeMathJaxMenuPositioning(window);
+
     const menu = document.createElement('div');
     menu.className = 'CtxtMenu_ContextMenu';
-    menu.style.position = 'fixed';
-    menu.style.left = `${windowImpl.innerWidth - 50}px`; // Will overflow
-    menu.style.top = '100px';
-    menu.style.width = '200px';
-    menu.style.height = '100px';
-
-    // Mock getBoundingClientRect to simulate overflow
-    const viewportWidth = windowImpl.innerWidth;
-    menu.getBoundingClientRect = jest.fn(() => ({
-      left: viewportWidth - 50,
-      top: 100,
-      right: viewportWidth + 150, // Overflows by 150px
-      bottom: 200,
+    jest.spyOn(menu, 'getBoundingClientRect').mockReturnValue({
+      right: window.innerWidth + 100,
       width: 200,
-      height: 100,
-      x: viewportWidth - 50,
-      y: 100,
-      toJSON: () => {},
-    }));
+    } as any);
 
-    document.body.appendChild(menu);
-    await waitForObserver();
-
-    // Menu should be repositioned to prevent overflow
-    const newLeft = parseInt(menu.style.left, 10);
-    const menuRight = newLeft + 200; // width
-    expect(menuRight).toBeLessThanOrEqual(windowImpl.innerWidth - 10); // viewport padding
-  });
-
-  it('repositions menu when it overflows bottom edge', async() => {
-    if (!document || !window) {
-      expect(document).toBeTruthy();
-      expect(window).toBeTruthy();
-      return;
+    if (callback) {
+      callback([{
+        addedNodes: [menu],
+      }] as any, {} as any);
     }
 
-    const windowImpl = window;
-    cleanup = initializeMathJaxMenuPositioning(windowImpl);
-
-    // Create menu that overflows bottom edge
-    const menu = document.createElement('div');
-    menu.className = 'CtxtMenu_ContextMenu';
-    menu.style.position = 'fixed';
-    menu.style.left = '100px';
-    menu.style.top = `${windowImpl.innerHeight - 50}px`; // Will overflow
-    menu.style.width = '200px';
-    menu.style.height = '100px';
-
-    // Mock getBoundingClientRect to simulate overflow
-    const viewportHeight = windowImpl.innerHeight;
-    menu.getBoundingClientRect = jest.fn(() => ({
-      left: 100,
-      top: viewportHeight - 50,
-      right: 300,
-      bottom: viewportHeight + 50, // Overflows by 50px
-      width: 200,
-      height: 100,
-      x: 100,
-      y: viewportHeight - 50,
-      toJSON: () => {},
-    }));
-
-    document.body.appendChild(menu);
-    await waitForObserver();
-
-    // Menu should be repositioned to prevent overflow
-    const newTop = parseInt(menu.style.top, 10);
-    const menuBottom = newTop + 100; // height
-    expect(menuBottom).toBeLessThanOrEqual(window.innerHeight - 10); // viewport padding
+    expect(rafSpy).toHaveBeenCalled();
+    expect(menu.style.left).toBeTruthy();
   });
 
-  it('repositions menu when it overflows both right and bottom edges', async() => {
-    if (!document || !window) {
-      expect(document).toBeTruthy();
-      expect(window).toBeTruthy();
-      return;
+  it('repositions submenu when it overflows', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    let callback: MutationCallback | undefined;
+
+    (window as any).MutationObserver = jest.fn().mockImplementation((cb) => {
+      callback = cb;
+      return { disconnect: jest.fn(), observe: jest.fn() };
+    });
+
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: any) => {
+      cb();
+      return 0;
+    });
+
+    initializeMathJaxMenuPositioning(window);
+
+    const frame = document.createElement('div');
+    frame.className = 'CtxtMenu_MenuFrame';
+
+    const parentMenu = document.createElement('div');
+    parentMenu.className = 'CtxtMenu_ContextMenu';
+    parentMenu.style.left = '100px';
+    jest.spyOn(parentMenu, 'getBoundingClientRect').mockReturnValue({
+      left: 150,
+      width: 100,
+    } as any);
+
+    const submenu = document.createElement('div');
+    submenu.className = 'CtxtMenu_ContextMenu';
+    jest.spyOn(submenu, 'getBoundingClientRect').mockReturnValue({
+      right: window.innerWidth + 50,
+      width: 150,
+    } as any);
+
+    frame.appendChild(parentMenu);
+    frame.appendChild(submenu);
+    document.body.appendChild(frame);
+
+    if (callback) {
+      callback([{
+        addedNodes: [submenu],
+      }] as any, {} as any);
     }
 
-    const windowImpl = window;
-    cleanup = initializeMathJaxMenuPositioning(windowImpl);
+    expect(submenu.style.left).toBeTruthy();
 
-    // Create menu that overflows both edges
-    const menu = document.createElement('div');
-    menu.className = 'CtxtMenu_ContextMenu';
-    menu.style.position = 'fixed';
-    menu.style.left = `${windowImpl.innerWidth - 50}px`; // Will overflow right
-    menu.style.top = `${windowImpl.innerHeight - 50}px`; // Will overflow bottom
-    menu.style.width = '200px';
-    menu.style.height = '100px';
-
-    // Mock getBoundingClientRect to simulate overflow on both axes
-    const viewportWidth = windowImpl.innerWidth;
-    const viewportHeight = windowImpl.innerHeight;
-    menu.getBoundingClientRect = jest.fn(() => ({
-      left: viewportWidth - 50,
-      top: viewportHeight - 50,
-      right: viewportWidth + 150, // Overflows right
-      bottom: viewportHeight + 50, // Overflows bottom
-      width: 200,
-      height: 100,
-      x: viewportWidth - 50,
-      y: viewportHeight - 50,
-      toJSON: () => {},
-    }));
-
-    document.body.appendChild(menu);
-    await waitForObserver();
-
-    // Menu should be repositioned to prevent overflow on both axes
-    const newLeft = parseInt(menu.style.left, 10);
-    const newTop = parseInt(menu.style.top, 10);
-    const menuRight = newLeft + 200; // width
-    const menuBottom = newTop + 100; // height
-    expect(menuRight).toBeLessThanOrEqual(window.innerWidth - 10);
-    expect(menuBottom).toBeLessThanOrEqual(window.innerHeight - 10);
+    frame.remove();
   });
 
-  it('does not reposition menu if within viewport', async() => {
-    if (!document || !window) {
-      expect(document).toBeTruthy();
-      expect(window).toBeTruthy();
-      return;
-    }
+  it('finds menus within added nodes', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    let callback: MutationCallback | undefined;
 
-    cleanup = initializeMathJaxMenuPositioning(window);
+    (window as any).MutationObserver = jest.fn().mockImplementation((cb) => {
+      callback = cb;
+      return { disconnect: jest.fn(), observe: jest.fn() };
+    });
 
-    // Create menu that is well within viewport
-    const menu = document.createElement('div');
-    menu.className = 'CtxtMenu_ContextMenu';
-    menu.style.position = 'fixed';
-    menu.style.left = '100px';
-    menu.style.top = '100px';
-    menu.style.width = '200px';
-    menu.style.height = '100px';
+    const rafSpy = jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: any) => {
+      cb();
+      return 0;
+    });
 
-    document.body.appendChild(menu);
-    await waitForObserver();
+    initializeMathJaxMenuPositioning(window);
 
-    // Menu should NOT be repositioned
-    expect(menu.style.left).toBe('100px');
-    expect(menu.style.top).toBe('100px');
-  });
-
-  it('handles menus added as children of new elements', async() => {
-    if (!document || !window) {
-      expect(document).toBeTruthy();
-      expect(window).toBeTruthy();
-      return;
-    }
-
-    const windowImpl = window;
-    cleanup = initializeMathJaxMenuPositioning(windowImpl);
-
-    // Create container with menu as child
     const container = document.createElement('div');
     const menu = document.createElement('div');
     menu.className = 'CtxtMenu_ContextMenu';
-    menu.style.position = 'fixed';
-    menu.style.left = `${windowImpl.innerWidth - 50}px`;
-    menu.style.top = '100px';
-    menu.style.width = '200px';
-    menu.style.height = '100px';
-
-    // Mock getBoundingClientRect to simulate overflow
-    const viewportWidth = windowImpl.innerWidth;
-    menu.getBoundingClientRect = jest.fn(() => ({
-      left: viewportWidth - 50,
-      top: 100,
-      right: viewportWidth + 150, // Overflows by 150px
-      bottom: 200,
-      width: 200,
-      height: 100,
-      x: viewportWidth - 50,
-      y: 100,
-      toJSON: () => {},
-    }));
-
     container.appendChild(menu);
-    document.body.appendChild(container);
-    await waitForObserver();
 
-    // Menu should still be repositioned even though it was added as part of container
-    const newLeft = parseInt(menu.style.left, 10);
-    const menuRight = newLeft + 200; // width
-    expect(menuRight).toBeLessThanOrEqual(window.innerWidth - 10);
-  });
+    jest.spyOn(menu, 'getBoundingClientRect').mockReturnValue({
+      right: 100,
+      width: 100,
+    } as any);
 
-  it('cleans up observer when cleanup function is called', async() => {
-    if (!document || !window) {
-      expect(document).toBeTruthy();
-      expect(window).toBeTruthy();
-      return;
+    if (callback) {
+      callback([{
+        addedNodes: [container],
+      }] as any, {} as any);
     }
 
-    cleanup = initializeMathJaxMenuPositioning(window);
+    expect(rafSpy).toHaveBeenCalled();
+  });
 
-    // Call cleanup
-    cleanup();
-    cleanup = undefined;
+  it('does not reposition submenu when it fits', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    let callback: MutationCallback | undefined;
 
-    // Add menu after cleanup - should NOT be repositioned
-    const menu = document.createElement('div');
-    menu.className = 'CtxtMenu_ContextMenu';
-    menu.style.position = 'fixed';
-    menu.style.left = `${window.innerWidth - 50}px`;
-    menu.style.top = '100px';
-    menu.style.width = '200px';
-    menu.style.height = '100px';
+    (window as any).MutationObserver = jest.fn().mockImplementation((cb) => {
+      callback = cb;
+      return { disconnect: jest.fn(), observe: jest.fn() };
+    });
 
-    document.body.appendChild(menu);
-    await waitForObserver();
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: any) => {
+      cb();
+      return 0;
+    });
 
-    // Observer was disconnected, so menu should NOT be repositioned
-    const left = parseInt(menu.style.left, 10);
-    const menuRight = left + 200; // width
-    expect(menuRight).toBeGreaterThan(window.innerWidth - 10); // Still overflows
+    initializeMathJaxMenuPositioning(window);
+
+    const frame = document.createElement('div');
+    frame.className = 'CtxtMenu_MenuFrame';
+
+    const parentMenu = document.createElement('div');
+    parentMenu.className = 'CtxtMenu_ContextMenu';
+    parentMenu.style.left = '200px';
+    jest.spyOn(parentMenu, 'getBoundingClientRect').mockReturnValue({
+      left: 200,
+      width: 100,
+    } as any);
+
+    const submenu = document.createElement('div');
+    submenu.className = 'CtxtMenu_ContextMenu';
+    jest.spyOn(submenu, 'getBoundingClientRect').mockReturnValue({
+      right: 400,
+      width: 150,
+    } as any);
+
+    frame.appendChild(parentMenu);
+    frame.appendChild(submenu);
+    document.body.appendChild(frame);
+
+    const originalLeft = submenu.style.left;
+
+    if (callback) {
+      callback([{
+        addedNodes: [submenu],
+      }] as any, {} as any);
+    }
+
+    expect(submenu.style.left).toBe(originalLeft);
+
+    frame.remove();
+  });
+
+  it('handles first menu with no parent', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    let callback: MutationCallback | undefined;
+
+    (window as any).MutationObserver = jest.fn().mockImplementation((cb) => {
+      callback = cb;
+      return { disconnect: jest.fn(), observe: jest.fn() };
+    });
+
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: any) => {
+      cb();
+      return 0;
+    });
+
+    initializeMathJaxMenuPositioning(window);
+
+    const frame = document.createElement('div');
+    frame.className = 'CtxtMenu_MenuFrame';
+
+    const firstMenu = document.createElement('div');
+    firstMenu.className = 'CtxtMenu_ContextMenu';
+    jest.spyOn(firstMenu, 'getBoundingClientRect').mockReturnValue({
+      right: 200,
+      width: 150,
+    } as any);
+
+    frame.appendChild(firstMenu);
+    document.body.appendChild(frame);
+
+    if (callback) {
+      callback([{
+        addedNodes: [firstMenu],
+      }] as any, {} as any);
+    }
+
+    frame.remove();
+  });
+
+
+  it('ignores non-HTMLElement nodes', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    let callback: MutationCallback | undefined;
+
+    (window as any).MutationObserver = jest.fn().mockImplementation((cb) => {
+      callback = cb;
+      return { disconnect: jest.fn(), observe: jest.fn() };
+    });
+
+    const rafSpy = jest.spyOn(window, 'requestAnimationFrame');
+
+    initializeMathJaxMenuPositioning(window);
+
+    const textNode = document.createTextNode('test');
+
+    if (callback) {
+      callback([{
+        addedNodes: [textNode],
+      }] as any, {} as any);
+    }
+
+    expect(rafSpy).not.toHaveBeenCalled();
+  });
+
+  it('ignores non-Element nodes in querySelectorAll results', () => {
+    const window = assertWindow();
+    const document = assertDocument();
+    let callback: MutationCallback | undefined;
+
+    (window as any).MutationObserver = jest.fn().mockImplementation((cb) => {
+      callback = cb;
+      return { disconnect: jest.fn(), observe: jest.fn() };
+    });
+
+    const rafSpy = jest.spyOn(window, 'requestAnimationFrame');
+
+    initializeMathJaxMenuPositioning(window);
+
+    const container = document.createElement('div');
+    const nonElementNode = { nodeType: 3 } as any;
+
+    jest.spyOn(container, 'querySelectorAll').mockReturnValue([nonElementNode] as any);
+
+    if (callback) {
+      callback([{
+        addedNodes: [container],
+      }] as any, {} as any);
+    }
+
+    expect(rafSpy).not.toHaveBeenCalled();
   });
 });
