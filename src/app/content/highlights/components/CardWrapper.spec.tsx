@@ -533,6 +533,67 @@ describe('CardWrapper', () => {
     expect(highlight.focus).not.toHaveBeenCalled();
   });
 
+  it('does not focus highlight on mouseup if selection is collapsed', () => {
+    const highlights = [createMockHighlight('id1'), createMockHighlight('id2')];
+    const dispatchSpy = jest.fn();
+    renderer.act(() => {
+      renderer.create(
+        <Provider store={store}>
+          <CardWrapper
+            container={container}
+            highlights={highlights}
+            dispatch={dispatchSpy}
+          />
+        </Provider>
+      );
+    });
+
+    const selectionMock = {
+      isCollapsed: true,
+      anchorNode: {},
+      focusNode: {},
+    };
+    const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
+
+    renderer.act(() => {
+      document?.dispatchEvent(new (window as any).MouseEvent('mouseup'));
+    });
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+  });
+
+  it('does nothing on mouseup if there are no highlights', () => {
+    const dispatchSpy = jest.fn();
+    renderer.act(() => {
+      renderer.create(
+        <Provider store={store}>
+          <CardWrapper
+            container={container}
+            highlights={[]}
+            dispatch={dispatchSpy}
+          />
+        </Provider>
+      );
+    });
+
+    const selectionMock = {
+      isCollapsed: false,
+      anchorNode: {},
+      focusNode: {},
+    };
+    const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
+
+    renderer.act(() => {
+      document?.dispatchEvent(new (window as any).MouseEvent('mouseup'));
+    });
+
+    expect(dispatchSpy).not.toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+  });
+
   describe('ResizeObserver polyfill', () => {
     it('loads', () => {
       renderer.create(<Provider store={store}>

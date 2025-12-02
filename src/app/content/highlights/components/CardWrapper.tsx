@@ -3,7 +3,7 @@ import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import flow from 'lodash/fp/flow';
-import { clearFocusedHighlight } from '../actions';
+import { clearFocusedHighlight, focusHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
@@ -240,6 +240,17 @@ const Wrapper = ({highlights, className, container, highlighter, dispatch}: Wrap
   const unfocus = flow(clearFocusedHighlight, dispatch);
   const [focusedHighlight, shouldFocusCard, setShouldFocusCard] = useFocusedHighlight(
     highlights, element, container, unfocus);
+
+  React.useEffect(() => {
+    function handleGlobalMouseUp() {
+      const selection = window?.getSelection();
+      if (!selection || selection.isCollapsed) return;
+      const latest = highlights[highlights.length - 1];
+      dispatch(focusHighlight(latest.id));
+    }
+    document?.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => document?.removeEventListener('mouseup', handleGlobalMouseUp);
+  }, [highlights, dispatch]);
 
   return <div className={className} ref={element}>
     <CardsForHighlights
