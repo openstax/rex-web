@@ -75,6 +75,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
     highlight={
       Object {
         "addFocusedStyles": [MockFunction],
+        "content": "test highlight content",
         "elements": Array [
           <span />,
         ],
@@ -181,6 +182,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
     highlight={
       Object {
         "addFocusedStyles": [MockFunction],
+        "content": "test highlight content",
         "elements": Array [
           <span />,
         ],
@@ -269,6 +271,7 @@ exports[`Card matches snapshot without data 1`] = `
     highlight={
       Object {
         "addFocusedStyles": [MockFunction],
+        "content": "test highlight content",
         "elements": Array [
           <span />,
         ],
