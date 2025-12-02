@@ -28,17 +28,18 @@ function repositionMenu(menu: dom.HTMLElement, windowImpl: Window) {
     };
     const bounds = menu.getBoundingClientRect();
     const parentMenu = getParentMenu(menu);
+    const scrollX = windowImpl.scrollX || windowImpl.pageXOffset || 0;
 
     if (parentMenu) {
       // Submenu
       const parentBounds = parentMenu.getBoundingClientRect();
-      const parentPositionedLeft = parseInt(parentMenu.style.left, 10) < parentBounds.left;
+      const parentPositionedLeft = parseInt(parentMenu.style.left, 10) < parentBounds.left + scrollX;
       const shouldPositionLeft =
         bounds.right > viewport.width - VIEWPORT_PADDING ||
         parentPositionedLeft;
 
       if (shouldPositionLeft) {
-        const newLeft = Math.max(VIEWPORT_PADDING, parentBounds.left - bounds.width);
+        const newLeft = Math.max(VIEWPORT_PADDING, parentBounds.left - bounds.width) + scrollX;
         menu.style.left = `${newLeft}px`;
       }
     } else {
@@ -47,17 +48,9 @@ function repositionMenu(menu: dom.HTMLElement, windowImpl: Window) {
         const newLeft = Math.max(
           VIEWPORT_PADDING,
           viewport.width - bounds.width - VIEWPORT_PADDING
-        );
+        ) + scrollX;
         menu.style.left = `${newLeft}px`;
       }
-    }
-
-    if (bounds.bottom > viewport.height - VIEWPORT_PADDING) {
-      const newTop = Math.max(
-        VIEWPORT_PADDING,
-        viewport.height - bounds.height - VIEWPORT_PADDING
-      );
-      menu.style.top = `${newTop}px`;
     }
   });
 }
