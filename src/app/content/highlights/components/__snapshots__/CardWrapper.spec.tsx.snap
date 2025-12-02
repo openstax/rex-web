@@ -46,6 +46,7 @@ exports[`CardWrapper matches snapshot 1`] = `
     highlight={
       Object {
         "addFocusedStyles": [MockFunction],
+        "content": "test highlight content",
         "elements": Array [],
         "focus": [MockFunction],
         "getStyle": [MockFunction],

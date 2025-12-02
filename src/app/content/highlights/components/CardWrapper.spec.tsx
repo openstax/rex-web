@@ -533,18 +533,6 @@ describe('CardWrapper', () => {
     expect(highlight.focus).not.toHaveBeenCalled();
   });
 
-  describe('ResizeObserver polyfill', () => {
-    it('loads', () => {
-      renderer.create(<Provider store={store}>
-        <CardWrapper container={container} highlights={[]} />
-      </Provider>);
-
-      runHooks(renderer);
-
-      expect(usesResizeObserverPolyfill).toBe(true);
-    });
-  });
-
   it('does not focus highlight on mouseup if selection is collapsed', () => {
     const highlights = [createMockHighlight('id1'), createMockHighlight('id2')];
     const dispatchSpy = jest.fn();
@@ -604,5 +592,140 @@ describe('CardWrapper', () => {
     expect(dispatchSpy).not.toHaveBeenCalled();
 
     getSelectionSpy.mockRestore();
+  });
+
+  describe('ResizeObserver polyfill', () => {
+    it('loads', () => {
+      renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[]} />
+      </Provider>);
+
+      runHooks(renderer);
+
+      expect(usesResizeObserverPolyfill).toBe(true);
+    });
+  });
+
+  describe('MaybeWrapper', () => {
+    let wrapperStore: Store;
+    let wrapperContainer: HTMLElement;
+
+    beforeEach(() => {
+      wrapperStore = createTestStore();
+      wrapperContainer = assertDocument().createElement('div');
+      assertDocument().body.appendChild(wrapperContainer);
+    });
+
+    afterEach(() => {
+      wrapperContainer.remove();
+    });
+
+    it('renders Wrapper when there is a valid text highlight', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '<span>ValidText123</span>',
+      };
+      const component = renderer.create(
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('renders Wrapper when there is a highlight with an image', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '<img src="img.png"/>',
+      };
+      const component = renderer.create(
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('renders Wrapper when there is a highlight with MathJax', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '<span class="MathJax">math</span>',
+      };
+      const component = renderer.create(
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('does not render Wrapper when all highlights are empty', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '',
+      };
+      const component = renderer.create(
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).toBeNull();
+    });
+
+    it('does not render Wrapper when all highlights have only whitespace', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: '   ',
+      };
+      const component = renderer.create(
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).toBeNull();
+    });
+
+    it('does not render Wrapper when all highlights have non-string content', () => {
+      const highlight = {
+        ...createMockHighlight(),
+        content: undefined,
+      };
+      const component = renderer.create(
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[highlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).toBeNull();
+    });
+
+    it('renders Wrapper when at least one highlight is valid among invalid ones', () => {
+      const validHighlight = {
+        ...createMockHighlight(),
+        content: '<span>ValidText</span>',
+      };
+      const invalidHighlight = {
+        ...createMockHighlight(),
+        content: '',
+      };
+      const component = renderer.create(
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[invalidHighlight, validHighlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
+
+    it('renders Wrapper when highlight is valid with math characters', () => {
+      const validHighlight = {
+        ...createMockHighlight(),
+        content: '<span>∑ π ∫</span>',
+      };
+      const component = renderer.create(
+        <Provider store={wrapperStore}>
+          <CardWrapper container={wrapperContainer} highlights={[validHighlight]} />
+        </Provider>
+      );
+      expect(component.toJSON()).not.toBeNull();
+    });
   });
 });
