@@ -24,6 +24,7 @@ import createImageCDNUtils from './gateways/createImageCDNUtils';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
 import loadOptimize from './helpers/loadOptimize';
+import { initializeMathJaxMenuPositioning } from './helpers/mathjaxMenuPosition';
 import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
 import './index.css';
@@ -115,6 +116,8 @@ window.onblur = onPageFocusChange(false, document, app);
 window.onfocus = onPageFocusChange(true, document, app);
 
 window.__APP_ANALYTICS = registerGlobalAnalytics(window, app.store);
+
+initializeMathJaxMenuPositioning(window);
 
 // start long running processes
 pollUpdates(app.store);

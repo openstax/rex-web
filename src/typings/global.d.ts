@@ -75,6 +75,8 @@ declare global {
   var KeyboardEvent: dom.KeyboardEventConstructor;
   // tslint:disable-next-line:variable-name
   var ResizeObserver: dom.ResizeObserverConstructor;
+  // tslint:disable-next-line:variable-name
+  var MutationObserver: dom.MutationObserverConstructor;
 
   const performBannerAction: (action: string) => void;
 
