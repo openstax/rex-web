@@ -1,12 +1,9 @@
 import type * as dom from '@openstax/types/lib.dom';
+import { isHtmlElement } from '../app/guards';
 
 const MATHJAX_MENU_SELECTOR = '.CtxtMenu_ContextMenu';
 const MATHJAX_MENU_FRAME_SELECTOR = '.CtxtMenu_MenuFrame';
 const VIEWPORT_PADDING = 10;
-
-function isHTMLElement(node: dom.Node): node is dom.HTMLElement {
-  return node.nodeType === 1; // Element.ELEMENT_NODE
-}
 
 function getParentMenu(menu: dom.HTMLElement) {
   const menuFrame = menu.closest(MATHJAX_MENU_FRAME_SELECTOR);
@@ -64,13 +61,13 @@ export const initializeMathJaxMenuPositioning = (windowImpl?: Window) => {
   const observer = new MutationObserver((mutations: dom.MutationRecord[]) => {
     for (const mutation of mutations) {
       for (const node of Array.from(mutation.addedNodes)) {
-        if (isHTMLElement(node)) {
+        if (isHtmlElement(node)) {
           if (node.matches(MATHJAX_MENU_SELECTOR)) {
             repositionMenu(node, windowImpl);
           }
           const menus = node.querySelectorAll(MATHJAX_MENU_SELECTOR);
           menus.forEach((menu: dom.Element) => {
-            if (isHTMLElement(menu)) {
+            if (isHtmlElement(menu)) {
               repositionMenu(menu, windowImpl);
             }
           });
