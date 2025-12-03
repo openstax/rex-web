@@ -24,6 +24,27 @@ const findLatexNodes = (root: Element): Element[] => {
   return nodes;
 };
 
+const waitForMathJax = async(windowImpl: Window) => {
+  let retries = 0;
+  const maxRetries = 20;
+  let delay = 100;
+
+  // give mathjax a chance to load
+  while (!windowImpl.MathJax?.startup?.promise && retries < maxRetries) {
+    const currentDelay = delay;
+    await new Promise(resolve => setTimeout(resolve, currentDelay));
+    delay = Math.min(delay * 2, 1000);
+    retries++;
+  }
+
+  if (retries >= maxRetries || !windowImpl.MathJax?.startup?.promise) {
+    console.warn('MathJax failed to load'); // tslint:disable-line:no-console
+    return false;
+  }
+  await windowImpl.MathJax.startup.promise;
+  return true;
+};
+
 export const typesetMath = async(root: Element, windowImpl = window) => {
   const latexNodes = findLatexNodes(root);
   const mathMLNodes = findUnprocessedMath(root);
@@ -32,23 +53,11 @@ export const typesetMath = async(root: Element, windowImpl = window) => {
     return;
   }
 
-  let retries = 0;
-  const maxRetries = 5;
-  let delay = 100;
-
-  // give mathjax a chance to load
-  while (!windowImpl.MathJax?.startup?.promise && retries < maxRetries) {
-    const currentDelay = delay;
-    await new Promise(resolve => setTimeout(resolve, currentDelay));
-    delay = delay * 2;
-    retries++;
-  }
-
-  if (retries >= maxRetries || !windowImpl.MathJax?.startup?.promise) {
-    console.warn('MathJax failed to load'); // tslint:disable-line:no-console
+  const loaded = await waitForMathJax(windowImpl);
+  if (!loaded) {
     return;
   }
 
-  await windowImpl.MathJax.startup.promise;
+  await windowImpl.MathJax.typesetClear([root]);
   await windowImpl.MathJax.typesetPromise([root]);
 };

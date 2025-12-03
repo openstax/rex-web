@@ -4,6 +4,7 @@ import { assertWindow } from '../app/utils';
 
 const mockMathJax = () => ({
   startup: { promise: Promise.resolve(), toMML: jest.fn() },
+  typesetClear: jest.fn().mockResolvedValue(undefined),
   typesetPromise: jest.fn().mockImplementation((roots) => {
     roots?.forEach((root: HTMLElement) => {
       root.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
@@ -11,8 +12,6 @@ const mockMathJax = () => ({
     return Promise.resolve();
   }),
 });
-
-const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
 
 beforeEach(() => {
   if (window) {
@@ -35,7 +34,6 @@ describe('typesetMath', () => {
     const element = document.createElement('div');
 
     await typesetMath(element);
-    await debounce();
 
     expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
   });
@@ -50,7 +48,6 @@ describe('typesetMath', () => {
     element.appendChild(document.createElement('math'));
 
     await typesetMath(element);
-    await debounce();
 
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
@@ -69,9 +66,7 @@ describe('typesetMath', () => {
     element2.appendChild(document.createElement('math'));
 
     await typesetMath(element);
-    await debounce();
     await typesetMath(element2);
-    await debounce();
 
     expect(window.MathJax.typesetPromise).toHaveBeenCalledTimes(2);
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
@@ -97,7 +92,6 @@ describe('typesetMath', () => {
     ;
 
     await typesetMath(element);
-    await debounce();
 
     // Updated: Now typesets the root element instead of individual nodes
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
@@ -122,7 +116,6 @@ describe('typesetMath', () => {
     ;
 
     await typesetMath(element);
-    await debounce();
 
     expect(math1.textContent).toEqual('\u200c\u200c\u200cformula1\u200c\u200c\u200c');
     expect(math2.textContent).toEqual('\u200b\u200b\u200bformula2\u200b\u200b\u200b');
@@ -141,7 +134,6 @@ describe('typesetMath', () => {
     element.appendChild(assistiveMml);
 
     await typesetMath(element);
-    await debounce();
 
     // Should not call typesetPromise because math is inside mjx-assistive-mml
     expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
@@ -160,14 +152,21 @@ describe('typesetMath', () => {
     const element = document.createElement('div');
     element.appendChild(document.createElement('math'));
 
-    setTimeout(() => {
-      assertWindow().MathJax = originalMathJax;
-    }, 150);
+    let callCount = 0;
+    const setTimeoutSpy = jest.spyOn(global, 'setTimeout').mockImplementation((cb: any) => {
+      callCount++;
+      if (callCount === 2) {
+        assertWindow().MathJax = originalMathJax;
+      }
+      cb();
+      return 0 as any;
+    });
 
     await typesetMath(element);
-    await debounce();
 
     expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
+
+    setTimeoutSpy.mockRestore();
   });
 
   it('handles MathJax failing to load', async() => {
@@ -185,6 +184,12 @@ describe('typesetMath', () => {
     const element = document.createElement('div');
     element.appendChild(document.createElement('math'));
 
+    // don't actually wait for all the retries
+    const setTimeoutSpy = jest.spyOn(global, 'setTimeout').mockImplementation((cb: any) => {
+      cb();
+      return 0 as any;
+    });
+
     await typesetMath(element);
 
     expect(consoleLogSpy).toHaveBeenCalledWith('MathJax failed to load');
@@ -192,5 +197,6 @@ describe('typesetMath', () => {
 
     window.MathJax = originalMathJax;
     consoleLogSpy.mockRestore();
+    setTimeoutSpy.mockRestore();
   });
 });
