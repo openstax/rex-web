@@ -72,6 +72,16 @@ export default styled(MainContent)`
     }
   }
 
+  /* Fix MathJax 4 highlights not inheriting background color
+   * In v4, mjx-row uses display:table-row which doesn't inherit backgrounds like v2's inline elements
+   */
+  mark {
+    mjx-container, mjx-math, mjx-semantics, mjx-mrow, mjx-row, mjx-under, mjx-base,
+    mjx-munder, mjx-mo, mjx-mi, mjx-mn, mjx-mtext, mjx-c {
+      background: inherit;
+    }
+  }
+
   ${highlightStyles.map((style) => css`
     .highlight.${style.label} {
       background-color: ${style.passive};
