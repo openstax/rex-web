@@ -68,7 +68,7 @@ export default styled(MainContent)`
     text-align: center;
 
     .highlight {
-      display: inline-block;
+      grid-column: 2;
     }
   }
 
