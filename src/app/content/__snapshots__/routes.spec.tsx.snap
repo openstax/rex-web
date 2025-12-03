@@ -299,6 +299,22 @@ Array [
   display: inline-block;
 }
 
+.c4 mark mjx-container,
+.c4 mark mjx-math,
+.c4 mark mjx-semantics,
+.c4 mark mjx-mrow,
+.c4 mark mjx-row,
+.c4 mark mjx-under,
+.c4 mark mjx-base,
+.c4 mark mjx-munder,
+.c4 mark mjx-mo,
+.c4 mark mjx-mi,
+.c4 mark mjx-mn,
+.c4 mark mjx-mtext,
+.c4 mark mjx-c {
+  background: inherit;
+}
+
 .c4 .highlight.yellow {
   background-color: #ffff8a;
 }
