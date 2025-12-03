@@ -728,4 +728,95 @@ describe('CardWrapper', () => {
       expect(component.toJSON()).not.toBeNull();
     });
   });
+
+  describe('handleGlobalMouseUp', () => {
+    let mockedStore: Store;
+    let mockedContainer: HTMLElement;
+    let dispatchSpy: jest.Mock;
+
+    beforeEach(() => {
+      mockedStore = createTestStore();
+      mockedContainer = assertDocument().createElement('div');
+      assertDocument().body.appendChild(mockedContainer);
+      dispatchSpy = jest.fn();
+    });
+
+    afterEach(() => {
+      mockedContainer.remove();
+      jest.restoreAllMocks();
+    });
+
+    it('does nothing if processedEvents has event', () => {
+      renderer.create(
+        <Provider store={mockedStore}>
+          <CardWrapper container={mockedContainer} highlights={[createMockHighlight('id1')]} dispatch={dispatchSpy} />
+        </Provider>
+      );
+
+      const event = new CustomEvent('mouseup');
+      const dispatchEventSpy = jest.spyOn(mockedContainer, 'dispatchEvent');
+      renderer.act(() => {
+        document?.dispatchEvent(event);
+      });
+
+      expect(dispatchEventSpy).not.toHaveBeenCalled();
+    });
+
+    it('does nothing if selection is collapsed', () => {
+      renderer.create(
+        <Provider store={mockedStore}>
+          <CardWrapper container={mockedContainer} highlights={[createMockHighlight('id1')]} dispatch={dispatchSpy} />
+        </Provider>
+      );
+
+      const selectionMock = {
+        isCollapsed: true,
+        anchorNode: {},
+        focusNode: {},
+      };
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
+
+      renderer.act(() => {
+        document?.dispatchEvent(new (window as any).MouseEvent('mouseup'));
+      });
+
+      expect(dispatchSpy).not.toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
+    });
+
+    it('dispatches simulated mouseup event if selection is not collapsed', () => {
+      let unmount: () => void;
+
+      renderer.act(() => {
+        const rendered = renderer.create(
+          <Provider store={mockedStore}>
+            <CardWrapper container={mockedContainer} highlights={[createMockHighlight('id1')]} dispatch={dispatchSpy} />
+          </Provider>
+        );
+        unmount = rendered.unmount;
+      });
+
+      const selectionMock = {
+        isCollapsed: false,
+        anchorNode: {},
+        focusNode: {},
+        toString: () => 'some text',
+      };
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
+
+      const dispatchEventSpy = jest.spyOn(mockedContainer, 'dispatchEvent');
+
+      renderer.act(() => {
+        document?.dispatchEvent(new (window as any).MouseEvent('mouseup'));
+      });
+
+      expect(dispatchEventSpy).toHaveBeenCalledWith(expect.any(CustomEvent));
+
+      getSelectionSpy.mockRestore();
+
+      renderer.act(() => {
+        unmount();
+      });
+    });
+  });
 });
