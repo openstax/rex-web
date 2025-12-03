@@ -5212,7 +5212,7 @@
   dependencies:
     uuid "^8.3.2"
 
-"@openstax/highlighter@https://github.com/openstax/highlighter#1.16.3-dev1":
+"@openstax/highlighter@https://github.com/openstax/highlighter#1.16.3":
   version "1.16.3"
   resolved "https://github.com/openstax/highlighter#500e0bc4331267c2b565c04c5856eefc3415acf5"
   dependencies:
