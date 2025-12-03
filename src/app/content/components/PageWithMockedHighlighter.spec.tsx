@@ -108,6 +108,7 @@ describe('Page', () => {
 
     assertWindow().MathJax = {
       startup: { promise: Promise.resolve() },
+      typesetClear: jest.fn().mockResolvedValue(undefined),
       typesetPromise: jest.fn().mockImplementation((roots) => {
         roots?.forEach((root: HTMLElement) => {
           root.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
@@ -297,6 +298,7 @@ describe('Page', () => {
       startup: {
         promise: Promise.resolve(),
       },
+      typesetClear: jest.fn().mockResolvedValue(undefined),
       typesetPromise: jest.fn().mockImplementation((roots) => {
         roots?.forEach((rootElement: HTMLElement) => {
           rootElement.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
@@ -345,7 +347,11 @@ describe('Page', () => {
     // it is waiting for typestting to finish
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(0);
 
-    // The typesetMath function has: await startup.promise then await typesetPromise
+    // The typesetMath function awaits:
+    // waitForMathJax, startup.promise, return, typesetClear, typesetPromise
+    await Promise.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
     await Promise.resolve();
     await Promise.resolve();
 
