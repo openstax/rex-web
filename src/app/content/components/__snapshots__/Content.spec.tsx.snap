@@ -7080,6 +7080,16 @@ Array [
                           FAQ
                         </a>
                       </li>
+                      <li>
+                        <a
+                          className="c98"
+                          href="https://status.openstax.org/"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          System Status
+                        </a>
+                      </li>
                     </menu>
                   </div>
                   <div
@@ -14148,6 +14158,16 @@ Array [
                           target="_self"
                         >
                           FAQ
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          className="c86"
+                          href="https://status.openstax.org/"
+                          rel="noopener"
+                          target="_blank"
+                        >
+                          System Status
                         </a>
                       </li>
                     </menu>

@@ -525,6 +525,16 @@ Array [
                   FAQ
                 </a>
               </li>
+              <li>
+                <a
+                  className="c9"
+                  href="https://status.openstax.org/"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  System Status
+                </a>
+              </li>
             </menu>
           </div>
           <div
@@ -1293,6 +1303,16 @@ Array [
                   target="_self"
                 >
                   FAQ
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  href="https://status.openstax.org/"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  System Status
                 </a>
               </li>
             </menu>
