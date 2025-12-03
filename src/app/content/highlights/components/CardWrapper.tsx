@@ -249,7 +249,7 @@ const Wrapper = ({highlights, className, container, highlighter, dispatch}: Wrap
       const selection = window?.getSelection();
       if (!selection || selection.isCollapsed) return;
 
-      // Re-dispatch the mouseup inside the highlighter containe
+      // Re-dispatch the mouseup inside the highlighter container
       const simulated = new CustomEvent('mouseup', {
         bubbles: true,
         cancelable: true,
