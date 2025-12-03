@@ -722,7 +722,7 @@ Array [
 }
 
 .c74 [data-type="equation"] .highlight {
-  display: inline-block;
+  grid-column: 2;
 }
 
 .c74 mark mjx-container,
@@ -8136,7 +8136,7 @@ Array [
 }
 
 .c74 [data-type="equation"] .highlight {
-  display: inline-block;
+  grid-column: 2;
 }
 
 .c74 mark mjx-container,

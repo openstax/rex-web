@@ -296,7 +296,7 @@ Array [
 }
 
 .c4 [data-type="equation"] .highlight {
-  display: inline-block;
+  grid-column: 2;
 }
 
 .c4 mark mjx-container,
