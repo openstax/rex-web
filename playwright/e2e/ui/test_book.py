@@ -18,7 +18,7 @@ async def test_book_title_links_to_books_detail_page(chrome_page, base_url):
 
     await home.click_book_selection()
 
-    # THEN: The page navigates to {base_url}/details/books/astronomy-2e
+    # THEN: The page navigates to {base_url}/details/books/astronomy
     assert "astronomy" in chrome_page.url.lower()
 
 
