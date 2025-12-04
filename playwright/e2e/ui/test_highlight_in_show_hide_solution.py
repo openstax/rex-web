@@ -37,6 +37,10 @@ async def test_highlight_not_saved_in_show_hide_solution(
 
     await home.click_text_in_solution_block()
 
+    assert await home.highlight_infobox.is_visible()
+
+    await chrome_page.keyboard.press("Enter")
+
     assert await home.highlight_box_is_visible()
 
     # THEN: Solution dialog closes
@@ -53,7 +57,9 @@ async def test_highlight_not_saved_in_show_hide_solution(
 
     await home.click_text_in_solution_block()
 
-    await home.click_highlight_box_note_field()
+    await chrome_page.keyboard.press("Enter")
+
+    assert await home.highlight_box_is_visible()
 
     await home.fill_highlight_box_note_field("autotest highlight")
 
@@ -63,12 +69,14 @@ async def test_highlight_not_saved_in_show_hide_solution(
 
     await home.click_show_hide_solution_link()
 
-    assert await home.highlight_box_is_visible()
+    assert await home.highlight_infobox.is_visible()
 
     # THEN: Delete existing highlight
 
     await home.click_highlights_option()
+
     await home.click_discard_changes_button()
+
     await home.click_highlights_option_page_menu()
     await home.click_highlights_option_page_menu_delete()
     await home.click_highlights_option_page_menu_delete_delete()
@@ -105,9 +113,11 @@ async def test_highlight_saved_in_show_hide_solution(
 
     await home.click_text_in_solution_block()
 
-    assert await home.highlight_box_is_visible()
+    assert await home.highlight_infobox.is_visible()
 
-    await home.click_highlight_box_note_field()
+    await chrome_page.keyboard.press("Enter")
+
+    assert await home.highlight_box_is_visible()
 
     await home.fill_highlight_box_note_field("autotest highlight")
 
@@ -125,7 +135,8 @@ async def test_highlight_saved_in_show_hide_solution(
 
     await home.click_show_hide_solution_link()
 
-    await home.click_text_in_solution_block()
+    await home.select_text_block_in_solution()
+    await chrome_page.keyboard.press("Enter")
 
     assert (
         "Overlapping highlights are not supported."
