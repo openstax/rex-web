@@ -63,6 +63,7 @@ export default styled(React.forwardRef<HTMLElement, Props>(
 )`
   ${bodyCopyRegularStyle}
   overflow: auto;
+  padding: 0.8rem 0;
 
   * {
     overflow: initial;
