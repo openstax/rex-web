@@ -3,7 +3,7 @@ import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import flow from 'lodash/fp/flow';
-import { clearFocusedHighlight, focusHighlight } from '../actions';
+import { clearFocusedHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 import { isHtmlElement } from '../../../guards';
@@ -242,15 +242,24 @@ const Wrapper = ({highlights, className, container, highlighter, dispatch}: Wrap
     highlights, element, container, unfocus);
 
   React.useEffect(() => {
-    function handleGlobalMouseUp() {
+    const processedEvents = new WeakSet<Event>();
+    function handleGlobalMouseUp(event: Event) {
+      // Avoid infinite loop calling over and over the event
+      if (processedEvents.has(event)) return;
       const selection = window?.getSelection();
       if (!selection || selection.isCollapsed) return;
-      const latest = highlights[highlights.length - 1];
-      dispatch(focusHighlight(latest.id));
+
+      // Re-dispatch the mouseup inside the highlighter container
+      const simulated = new CustomEvent('mouseup', {
+        bubbles: true,
+        cancelable: true,
+      });
+      processedEvents.add(simulated);
+      container.dispatchEvent(simulated);
     }
     document?.addEventListener('mouseup', handleGlobalMouseUp);
     return () => document?.removeEventListener('mouseup', handleGlobalMouseUp);
-  }, [highlights, dispatch]);
+  }, [container]);
 
   return <div className={className} ref={element}>
     <CardsForHighlights
