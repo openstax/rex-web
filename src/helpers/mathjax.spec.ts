@@ -1,17 +1,16 @@
-import { startMathJax, typesetMath } from './mathjax';
-
-const debounce = () => new Promise((resolve) => setTimeout(resolve, 150));
+import { HTMLElement } from '@openstax/types/lib.dom';
+import { typesetMath } from './mathjax';
+import { assertWindow } from '../app/utils';
 
 const mockMathJax = () => ({
-  HTML: {
-    Cookie: {},
-  },
-  Hub: {
-    Config: jest.fn(),
-    Configured: jest.fn(),
-    Queue: (...fns: Array<() => void>) => fns.forEach((fn) => fn()),
-    Typeset: jest.fn(),
-  },
+  startup: { promise: Promise.resolve(), toMML: jest.fn() },
+  typesetClear: jest.fn().mockResolvedValue(undefined),
+  typesetPromise: jest.fn().mockImplementation((roots) => {
+    roots?.forEach((root: HTMLElement) => {
+      root.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
+    });
+    return Promise.resolve();
+  }),
 });
 
 beforeEach(() => {
@@ -34,11 +33,9 @@ describe('typesetMath', () => {
     }
     const element = document.createElement('div');
 
-    typesetMath(element);
+    await typesetMath(element);
 
-    await debounce();
-
-    expect(window.MathJax.Hub.Typeset).not.toHaveBeenCalledWith();
+    expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
   });
 
   it('typesets the element if it contains mathml', async() => {
@@ -50,14 +47,12 @@ describe('typesetMath', () => {
     const element = document.createElement('div');
     element.appendChild(document.createElement('math'));
 
-    typesetMath(element);
+    await typesetMath(element);
 
-    await debounce();
-
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledWith(element);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
 
-  it('debounces', async() => {
+  it('calls typesetPromise for each call with unprocessed nodes', async() => {
     if (!document || !window) {
       expect(document).toBeTruthy();
       expect(window).toBeTruthy();
@@ -70,19 +65,12 @@ describe('typesetMath', () => {
     const element2 = document.createElement('div');
     element2.appendChild(document.createElement('math'));
 
-    typesetMath(element);
-    typesetMath(element);
-    typesetMath(element);
-    typesetMath(element2);
-    typesetMath(element2);
-    typesetMath(element2);
-    typesetMath(element);
-    typesetMath(element2);
-    typesetMath(element);
+    await typesetMath(element);
+    await typesetMath(element2);
 
-    await debounce();
-
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledTimes(2);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledTimes(2);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element2]);
   });
 
   it('typesets the element if it is data-math', async() => {
@@ -103,12 +91,10 @@ describe('typesetMath', () => {
       .appendChild(math2)
     ;
 
-    typesetMath(element);
+    await typesetMath(element);
 
-    await debounce();
-
-    expect(window.MathJax.Hub.Typeset).toHaveBeenCalledWith([math1, math2]);
-    expect(window.MathJax.Hub.Typeset).not.toHaveBeenCalledWith(element);
+    // Updated: Now typesets the root element instead of individual nodes
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
   });
 
   it('moves latex formulas inline', async() => {
@@ -129,60 +115,88 @@ describe('typesetMath', () => {
       .appendChild(math2)
     ;
 
-    typesetMath(element);
-
-    await debounce();
+    await typesetMath(element);
 
     expect(math1.textContent).toEqual('\u200c\u200c\u200cformula1\u200c\u200c\u200c');
     expect(math2.textContent).toEqual('\u200b\u200b\u200bformula2\u200b\u200b\u200b');
   });
-});
 
-describe('startMathJax', () => {
-  it('loads config if mathjax is not defined', () => {
-    if (!window) {
+  it('ignores math nodes inside mjx-assistive-mml elements', async() => {
+    if (!document || !window) {
+      expect(document).toBeTruthy();
       expect(window).toBeTruthy();
       return;
     }
-    delete window.MathJax;
+    const element = document.createElement('div');
+    const assistiveMml = document.createElement('mjx-assistive-mml');
+    const mathNode = document.createElement('math');
+    assistiveMml.appendChild(mathNode);
+    element.appendChild(assistiveMml);
 
-    startMathJax();
+    await typesetMath(element);
 
-    expect(window.MathJax).toBeDefined();
+    // Should not call typesetPromise because math is inside mjx-assistive-mml
+    expect(window.MathJax.typesetPromise).not.toHaveBeenCalled();
   });
 
-  it('configs mathjax', () => {
-    if (!window) {
+  it('waits for MathJax to initialize if startup.promise is not ready', async() => {
+    if (!document || !window) {
+      expect(document).toBeTruthy();
       expect(window).toBeTruthy();
       return;
     }
 
-    startMathJax();
+    const originalMathJax = window.MathJax;
+    window.MathJax = { startup: {} };
 
-    expect(window.MathJax.Hub.Config).toHaveBeenCalled();
-    expect(window.MathJax.Hub.Configured).toHaveBeenCalled();
-  });
+    const element = document.createElement('div');
+    element.appendChild(document.createElement('math'));
 
-  describe('outside the browser', () => {
-    const windowBak = window;
-
-    beforeEach(() => {
-      delete (global as any).window;
-    });
-    afterEach(() => {
-      (global as any).window = windowBak;
-    });
-
-    it('throws', () => {
-      let message = null;
-
-      try {
-        startMathJax();
-      } catch (e: any) {
-        message = e.message;
+    let callCount = 0;
+    const setTimeoutSpy = jest.spyOn(global, 'setTimeout').mockImplementation((cb: any) => {
+      callCount++;
+      if (callCount === 2) {
+        assertWindow().MathJax = originalMathJax;
       }
-
-      expect(message).toBe('BUG: Window is undefined');
+      cb();
+      return 0 as any;
     });
+
+    await typesetMath(element);
+
+    expect(window.MathJax.typesetPromise).toHaveBeenCalledWith([element]);
+
+    setTimeoutSpy.mockRestore();
+  });
+
+  it('handles MathJax failing to load', async() => {
+    if (!document || !window) {
+      expect(document).toBeTruthy();
+      expect(window).toBeTruthy();
+      return;
+    }
+
+    const consoleLogSpy = jest.spyOn(console, 'warn').mockImplementation();
+    const originalMathJax = window.MathJax;
+
+    window.MathJax = { startup: {} };
+
+    const element = document.createElement('div');
+    element.appendChild(document.createElement('math'));
+
+    // don't actually wait for all the retries
+    const setTimeoutSpy = jest.spyOn(global, 'setTimeout').mockImplementation((cb: any) => {
+      cb();
+      return 0 as any;
+    });
+
+    await typesetMath(element);
+
+    expect(consoleLogSpy).toHaveBeenCalledWith('MathJax failed to load');
+    expect(originalMathJax.typesetPromise).not.toHaveBeenCalled();
+
+    window.MathJax = originalMathJax;
+    consoleLogSpy.mockRestore();
+    setTimeoutSpy.mockRestore();
   });
 });

@@ -62,7 +62,7 @@ self.addEventListener('message', (event) => {
 });
 
 registerRoute(
-  /https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/mathjax\//,
+  /https:\/\/cdn\.jsdelivr\.net\/npm\/mathjax/,
   new StaleWhileRevalidate({ // can't use cachefirst because responses are opaque
     cacheName: 'cdn-assets',
     plugins: [
