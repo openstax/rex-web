@@ -76,11 +76,17 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_book_cover_link(self):
-        await self.page.locator("a").get_by_text("Calculus Volume 1").click()
+        await self.page.locator("a").get_by_text(
+            "Principles of Management"
+        ).scroll_into_view_if_needed()
+        await self.page.locator("a").get_by_text("Principles of Management").click()
 
     @pytest.mark.asyncio
     async def click_view_online_link(self):
-        await self.page.locator("a").get_by_text("View online").click()
+        await self.page.get_by_role(
+            "link", name="View online"
+        ).scroll_into_view_if_needed()
+        await self.page.get_by_role("link", name="View online").click()
 
     @pytest.mark.asyncio
     async def click_go_to_your_book_link(self):
@@ -115,6 +121,10 @@ class HomeRex:
         return (
             await self.page.locator("section.subject-intro > div > h1").inner_text()
         ).lower()
+
+    @property
+    def book_title_image(self):
+        return self.page.get_by_alt_text("Principles of Management")
 
     # Highlights and Notes
 
