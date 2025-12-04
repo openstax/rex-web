@@ -31,7 +31,45 @@
       gtag('set', 'url_passthrough', false);
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML-full&delayStartupUntil=configured" async></script>
+    <script>
+      window.MathJax = {
+        startup: {
+          typeset: false,
+        },
+        loader: {
+          load: ['a11y/assistive-mml'],
+        },
+        options: {
+          a11y: {
+            speech: false,
+            braille: false,
+            subtitles: false,
+            voicing: false,
+          },
+          menuOptions: {
+            settings: {
+              speech: false,
+              braille: false,
+              assistiveMml: true,
+            },
+          },
+        },
+        tex: {
+          displayMath: [['\u200c\u200c\u200c', '\u200c\u200c\u200c']], // zero-width non-joiner
+          inlineMath:  [['\u200b\u200b\u200b', '\u200b\u200b\u200b']], // zero-width space
+        },
+      };
+    </script>
+    <script>
+      // Polyfill for Object.hasOwn (not available in older Safari versions)
+      // Required for MathJax 4 compatibility
+      if (Object.hasOwn === undefined) {
+        Object.hasOwn = function(el, prop) {
+          return Object.prototype.hasOwnProperty.call(el, prop);
+        };
+      }
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.js"></script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

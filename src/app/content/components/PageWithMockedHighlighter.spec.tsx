@@ -31,6 +31,7 @@ import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 import ConnectedPage, { PageComponent } from './Page';
 import allImagesLoaded from './utils/allImagesLoaded';
+import { HTMLElement } from '@openstax/types/lib.dom';
 
 jest.mock('./utils/allImagesLoaded', () => jest.fn());
 jest.mock('../highlights/components/utils/showConfirmation',
@@ -104,6 +105,17 @@ describe('Page', () => {
     (assertWindow() as any).HTMLElement.prototype.scrollIntoView = () => jest.fn();
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(Promise.resolve());
+
+    assertWindow().MathJax = {
+      startup: { promise: Promise.resolve() },
+      typesetClear: jest.fn().mockResolvedValue(undefined),
+      typesetPromise: jest.fn().mockImplementation((roots) => {
+        roots?.forEach((root: HTMLElement) => {
+          root.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
+        });
+        return Promise.resolve();
+      }),
+    };
 
     store = createTestStore({
       content: {
@@ -185,6 +197,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
     await Promise.resolve();
+    await services.promiseCollector.calm();
 
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(scrollTarget(store.getState())).toEqual({
@@ -254,6 +267,7 @@ describe('Page', () => {
     // page lifecycle hooks
     await Promise.resolve();
     await Promise.resolve();
+    await services.promiseCollector.calm();
 
     expect(mockHighlights[0].addFocusedStyles).toHaveBeenCalled();
     expect(spyHSTScrollIntoView).toHaveBeenCalled();
@@ -279,18 +293,25 @@ describe('Page', () => {
   it('handle multiple mathjax promises and call highlightManager.update only once', async() => {
     jest.useFakeTimers();
 
-    const mathjaxQueue: Array<() => any> = [];
+    const mathjaxQueue: Array<(value: unknown) => void> = [];
     assertWindow().MathJax = {
-      Hub: {
-        Queue: (func: () => any) => {
-          mathjaxQueue.push(func);
-        },
+      startup: {
+        promise: Promise.resolve(),
       },
+      typesetClear: jest.fn().mockResolvedValue(undefined),
+      typesetPromise: jest.fn().mockImplementation((roots) => {
+        roots?.forEach((rootElement: HTMLElement) => {
+          rootElement.querySelectorAll('math, [data-math]').forEach((el) => el.remove());
+        });
+        return new Promise((resolve) => {
+          mathjaxQueue.push(resolve);
+        });
+      }),
     };
 
     const spyTypesetMath = jest.spyOn(mathjax, 'typesetMath');
 
-    const { root } = renderDomWithReferences();
+    renderDomWithReferences();
 
     expect(spyTypesetMath).toHaveBeenCalledTimes(1);
 
@@ -326,15 +347,25 @@ describe('Page', () => {
     // it is waiting for typestting to finish
     expect(Highlighter.mock.instances[1].clearFocusedStyles).toHaveBeenCalledTimes(0);
 
-    // remove math elements to mock mathajx behaviour
-    root.querySelectorAll('[data-math]').forEach((math) => math.remove());
+    // The typesetMath function awaits:
+    // waitForMathJax, startup.promise, return, typesetClear, typesetPromise
+    await Promise.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
+    await Promise.resolve();
 
-    // first function in mathjaxQueue is typesetDocument function and the second is typesetDocumentPromise
-    expect(mathjaxQueue.length).toEqual(2);
+    expect(assertWindow().MathJax.typesetPromise).toHaveBeenCalled();
 
-    // call typesetDocumentPromise
+    // there should be at least one pending promise after all the typesetMath calls have been processed
+    // The queue will have entries from the typesetPromise mock
+    expect(mathjaxQueue.length).toBeGreaterThanOrEqual(1);
+
+    // resolve all pending mathjax promises
     await act(async() => {
-      mathjaxQueue[1]();
+      mathjaxQueue.forEach((resolve) => resolve(undefined));
+      await Promise.resolve();
+      await Promise.resolve();
       await services.promiseCollector.calm();
     });
 

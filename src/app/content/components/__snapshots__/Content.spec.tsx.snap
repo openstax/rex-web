@@ -717,9 +717,28 @@ Array [
   user-select: none;
 }
 
-.c74 .MathJax_Display .highlight,
-.c74 .MathJax_Preview + .highlight {
-  display: inline-block;
+.c74 [data-type="equation"] {
+  text-align: center;
+}
+
+.c74 [data-type="equation"] .highlight {
+  grid-column: 2;
+}
+
+.c74 mark mjx-container,
+.c74 mark mjx-math,
+.c74 mark mjx-semantics,
+.c74 mark mjx-mrow,
+.c74 mark mjx-row,
+.c74 mark mjx-under,
+.c74 mark mjx-base,
+.c74 mark mjx-munder,
+.c74 mark mjx-mo,
+.c74 mark mjx-mi,
+.c74 mark mjx-mn,
+.c74 mark mjx-mtext,
+.c74 mark mjx-c {
+  background: inherit;
 }
 
 .c74 .highlight.yellow {
@@ -8112,9 +8131,28 @@ Array [
   user-select: none;
 }
 
-.c74 .MathJax_Display .highlight,
-.c74 .MathJax_Preview + .highlight {
-  display: inline-block;
+.c74 [data-type="equation"] {
+  text-align: center;
+}
+
+.c74 [data-type="equation"] .highlight {
+  grid-column: 2;
+}
+
+.c74 mark mjx-container,
+.c74 mark mjx-math,
+.c74 mark mjx-semantics,
+.c74 mark mjx-mrow,
+.c74 mark mjx-row,
+.c74 mark mjx-under,
+.c74 mark mjx-base,
+.c74 mark mjx-munder,
+.c74 mark mjx-mo,
+.c74 mark mjx-mi,
+.c74 mark mjx-mn,
+.c74 mark mjx-mtext,
+.c74 mark mjx-c {
+  background: inherit;
 }
 
 .c74 .highlight.yellow {

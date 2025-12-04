@@ -100,6 +100,7 @@ exports[`StudyGuides properly display summary highlights 1`] = `
   font-size: 1.6rem;
   line-height: 2.5rem;
   overflow: auto;
+  padding: 0.8rem 0;
 }
 
 .c14 a {

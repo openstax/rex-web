@@ -61,12 +61,39 @@ export default styled(MainContent)`
     user-select: none;
   }
 
-  /* stylelint-disable selector-class-pattern */
-  .MathJax_Display .highlight,
-  .MathJax_Preview + .highlight {
-    display: inline-block;
+  /* fixes to keep MathJax 4 highlighted equations centered and
+   * showing the background without the .MathJax_Display wrapper
+   */
+  [data-type="equation"] {
+    text-align: center;
+
+    .highlight {
+      grid-column: 2;
+    }
   }
-  /* stylelint-enable selector-class-pattern */
+
+  /* Fix MathJax 4 highlights not inheriting background color
+   * In v4, mjx-row uses display:table-row which doesn't inherit backgrounds like v2's inline elements
+   */
+  /* stylelint-disable selector-type-no-unknown */
+  mark {
+    mjx-container,
+    mjx-math,
+    mjx-semantics,
+    mjx-mrow,
+    mjx-row,
+    mjx-under,
+    mjx-base,
+    mjx-munder,
+    mjx-mo,
+    mjx-mi,
+    mjx-mn,
+    mjx-mtext,
+    mjx-c {
+      background: inherit;
+    }
+  }
+  /* stylelint-enable selector-type-no-unknown */
 
   ${highlightStyles.map((style) => css`
     .highlight.${style.label} {
