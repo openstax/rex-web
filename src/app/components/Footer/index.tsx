@@ -285,7 +285,7 @@ export function useContactDialog() {
 }
 
 // tslint:disable-next-line:variable-name
-const PortalColumn2 = () => {
+const PortalColumn2 = ({ portalName }: { portalName: string }) => {
   const { isOpen, open, close } = useContactDialog();
   const contactFormParams = [
     {key: 'source_url', value: window?.location.href},
@@ -297,8 +297,8 @@ const PortalColumn2 = () => {
         <Styled.FooterButton onClick={open}>
           <BareMessage id='i18n:footer:column1:contact-us' />
         </Styled.FooterButton>
-        <FooterLinkMessage href='/tos' id='i18n:footer:column3:terms' />
-        <FooterLinkMessage href='/privacy-policy' id='i18n:footer:column3:privacy-policy' />
+        <FooterLinkMessage href={`/${portalName}/tos`} id='i18n:footer:column3:terms' />
+        <FooterLinkMessage href={`/${portalName}/privacy-policy`} id='i18n:footer:column3:privacy-policy' />
       </LinkList>
       <ContactDialog isOpen={isOpen} contactFormParams={contactFormParams} close={close} />
     </Styled.Column2>
@@ -306,14 +306,14 @@ const PortalColumn2 = () => {
 };
 
 // tslint:disable-next-line:variable-name
-const PortalColumn3 = () => (
+const PortalColumn3 = ({ portalName }: { portalName: string }) => (
   <Styled.Column3>
     <LinkList>
       <FooterLinkMessage
-        href='/accessibility-statement'
+        href={`/${portalName}/accessibility-statement`}
         id='i18n:footer:column3:accessibility'
       />
-      <FooterLinkMessage href='/license' id='i18n:footer:column3:license' />
+      <FooterLinkMessage href={`/${portalName}/license`} id='i18n:footer:column3:license' />
       <Styled.ManageCookiesFlexLink>
         <BareMessage id='i18n:footer:column3:manage-cookies' />
       </Styled.ManageCookiesFlexLink>
@@ -324,8 +324,10 @@ const PortalColumn3 = () => (
 // tslint:disable-next-line:variable-name
 const PortalFooter = ({
   isVerticalNavOpen,
+  portalName,
 }: {
   isVerticalNavOpen: State['tocOpen'];
+  portalName: string;
 }) => {
   return (
     <Styled.FooterWrapper
@@ -337,8 +339,8 @@ const PortalFooter = ({
         <Styled.FooterBottom>
           <Styled.PortalBottomBoxed>
             <PortalColumn1 />
-            <PortalColumn2 />
-            <PortalColumn3 />
+            <PortalColumn2 portalName={portalName} />
+            <PortalColumn3 portalName={portalName} />
           </Styled.PortalBottomBoxed>
         </Styled.FooterBottom>
       </Styled.InnerFooter>
@@ -356,7 +358,7 @@ const Footer = ({
   return (
     !guards.isPortaled(params)
       ? <NormalFooter isVerticalNavOpen={isVerticalNavOpen} />
-      : <PortalFooter isVerticalNavOpen={isVerticalNavOpen} />
+      : <PortalFooter portalName={params.portalName} isVerticalNavOpen={isVerticalNavOpen} />
   );
 };
 
