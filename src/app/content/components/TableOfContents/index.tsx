@@ -96,6 +96,7 @@ const SidebarBody = React.forwardRef<
       )}
       <SidebarPaneBody
         ref={ref}
+        id='toc-sidebar'
         data-testid='toc'
         aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
         data-analytics-region='toc'
@@ -322,7 +323,6 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
         <TocHeader />
         {book && (
           <Styled.StyledTree
-            id='toc-sidebar'
             aria-label='Table of Contents'
             expandedKeys={this.state.expandedKeys}
             onExpandedChange={this.handleExpandedChange}

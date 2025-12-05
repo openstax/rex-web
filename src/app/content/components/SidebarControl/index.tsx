@@ -10,6 +10,7 @@ import { PlainButton, TimesIcon } from '../Toolbar/styled';
 import { InnerProps, MiddleProps } from './types';
 import { OpenButton, CloseButton, ButtonText } from './Buttons';
 import { TOCControl, tocConnector, lockTocControlState } from './TOCControl';
+import { useMatchMobileQuery } from '../../../reactUtils';
 
 // tslint:disable-next-line: variable-name
 export const CloseToCAndMobileMenuButton = styled((props) => {
@@ -47,7 +48,10 @@ export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren
 
 
 // tslint:disable-next-line: variable-name
-export const TOCControlButton = tocConnector(({open, close, isOpen, ...props}: MiddleProps) => {
+export const TOCControlButton = tocConnector(({open, close, ...props}: MiddleProps) => {
+  const isMobile = typeof window !== 'undefined' && useMatchMobileQuery();
+  const isOpen = props.isOpen === null ? !isMobile : props.isOpen;
+
   return (
     <OpenButton
       {...props}

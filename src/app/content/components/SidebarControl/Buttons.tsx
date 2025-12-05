@@ -49,12 +49,4 @@ export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'] }>`
   > svg {
     ${toolbarIconStyles};
   }
-
-  ${(props) => props.isOpen === null && theme.breakpoints.mobile(css`
-    display: flex;
-  `)}
-
-  ${(props) => props.hideMobile && theme.breakpoints.mobileMedium(css`
-    display: none;
-  `)}
 `;

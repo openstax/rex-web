@@ -2680,15 +2680,6 @@ Array [
   }
 }
 
-@media screen and (max-width:75em) {
-  .c16 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-  }
-}
-
 @media screen and (max-width:50em) {
   .c32 {
     display: block;
@@ -3136,8 +3127,8 @@ Array [
           >
             <button
               aria-controls="toc-sidebar"
-              aria-expanded={false}
-              aria-label="Click to open the Table of Contents"
+              aria-expanded={true}
+              aria-label="Click to close the Table of Contents"
               className="c16"
               data-testid="toc-button"
               onClick={[Function]}
@@ -3271,6 +3262,7 @@ Array [
           className="c25"
           data-analytics-region="toc"
           data-testid="toc"
+          id="toc-sidebar"
         >
           <div
             className="c26"
@@ -3383,7 +3375,6 @@ Array [
                 "testbook1-testchapter3-uuid@1.0",
               }
             }
-            id="toc-sidebar"
             onExpandedChange={[Function]}
           >
             <div
@@ -9811,15 +9802,6 @@ Array [
   }
 }
 
-@media screen and (max-width:75em) {
-  .c16 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-  }
-}
-
 @media screen and (max-width:50em) {
   .c32 {
     display: block;
@@ -10242,8 +10224,8 @@ Array [
           >
             <button
               aria-controls="toc-sidebar"
-              aria-expanded={false}
-              aria-label="Click to open the Table of Contents"
+              aria-expanded={true}
+              aria-label="Click to close the Table of Contents"
               className="c16"
               data-testid="toc-button"
               onClick={[Function]}
@@ -10377,6 +10359,7 @@ Array [
           className="c25"
           data-analytics-region="toc"
           data-testid="toc"
+          id="toc-sidebar"
         >
           <div
             className="c26"
@@ -10485,7 +10468,6 @@ Array [
             className=""
             data-testid="mock-tree"
             expandedKeys={Set {}}
-            id="toc-sidebar"
             onExpandedChange={[Function]}
           >
             <div
