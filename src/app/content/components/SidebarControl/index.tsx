@@ -10,7 +10,6 @@ import { PlainButton, TimesIcon } from '../Toolbar/styled';
 import { InnerProps, MiddleProps } from './types';
 import { OpenButton, CloseButton, ButtonText } from './Buttons';
 import { TOCControl, tocConnector, lockTocControlState } from './TOCControl';
-import { SearchControl, lockSearchControlState } from './SearchControl';
 
 // tslint:disable-next-line: variable-name
 export const CloseToCAndMobileMenuButton = styled((props) => {
@@ -57,8 +56,7 @@ export const TOCControlButton = tocConnector(({open, close, isOpen, ...props}: M
       aria-controls='toc-sidebar'
       aria-label={`Click to ${isOpen ? 'close' : 'open'} the Table of Contents`}
       onClick={isOpen ? close : open}
-      isOpen={null}
-      isActive={Boolean(props.showActivatedState) && isOpen === true}
+      isOpen={isOpen}
     >
       <TocIcon />
       <ButtonText>
@@ -91,9 +89,3 @@ export const StyledOpenTOCControl = styled(lockTocControlState(false, TOCControl
     ${textRegularSize};
   }
 `;
-
-// tslint:disable-next-line: variable-name
-export const OpenSearchControl = lockSearchControlState(false, SearchControl);
-
-// tslint:disable-next-line: variable-name
-export const CloseSearchControl = lockSearchControlState(true, SearchControl);

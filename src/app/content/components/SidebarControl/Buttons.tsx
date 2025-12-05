@@ -1,9 +1,9 @@
-import { toolbarIconStyles } from '../Toolbar/iconStyles';
-import type { InnerProps } from './types';
 import styled, { css } from 'styled-components/macro';
-import { toolbarIconColor } from '../constants';
-import { toolbarDefaultButton, toolbarDefaultText } from '../Toolbar/styled';
 import theme from '../../../theme';
+import { toolbarIconColor } from '../constants';
+import { toolbarIconStyles } from '../Toolbar/iconStyles';
+import { toolbarDefaultButton, toolbarDefaultText } from '../Toolbar/styled';
+import type { InnerProps } from './types';
 
 // tslint:disable-next-line:variable-name
 export const ButtonText = styled.span`
@@ -32,7 +32,7 @@ export const CloseButton = styled.button`
 `;
 
 // tslint:disable-next-line:variable-name
-export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'], isActive: boolean }>`
+export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'] }>`
   background: none;
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};
@@ -51,7 +51,7 @@ export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'], isActive:
   }
 
   ${(props) => props.isOpen === null && theme.breakpoints.mobile(css`
-    display: ${props.isActive ? 'none' : 'flex'};
+    display: flex;
   `)}
 
   ${(props) => props.hideMobile && theme.breakpoints.mobileMedium(css`

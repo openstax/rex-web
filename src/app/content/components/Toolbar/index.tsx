@@ -9,11 +9,10 @@ import { setSidebarHeight } from '../../utils/domUtils';
 import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import {
-  CloseSearchControl,
   CloseToCAndMobileMenuButton,
-  OpenSearchControl,
   TOCControlButton
 } from '../SidebarControl';
+import { SearchControlButton } from '../SidebarControl/SearchControl';
 import HighlightButton from './HighlightButton';
 import PracticeQuestionsButton from './PracticeQuestionsButton';
 import PrintButton from './PrintButton';
@@ -67,14 +66,9 @@ const VerticalNav = () => {
       {isMobileMenuOpen && <MobileMenu />}
       <Styled.ToolbarElements>
         <TOCControlButton showActivatedState />
-        {showSearchInSidebar ? (
-          <>
-            <OpenSearchControl showActivatedState data-experiment />
-            <CloseSearchControl showActivatedState data-experiment />
-            <OpenSearchControl showActivatedState data-experiment desktop />
-            <CloseSearchControl showActivatedState data-experiment desktop />
-          </>
-        ) : null}
+        {showSearchInSidebar
+          ? <SearchControlButton />
+          : null}
         <PracticeQuestionsButton />
         <NudgeElementTarget id={nudgeStudyToolsTargetId}>
           <StudyGuidesButton />
