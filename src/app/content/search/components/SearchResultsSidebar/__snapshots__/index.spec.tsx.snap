@@ -221,6 +221,7 @@ Array [
     className="c0"
     data-analytics-region="search-results"
     data-testid="search-results-sidebar"
+    id="search-results-sidebar"
     onFocus={[Function]}
     tabIndex={-1}
   >
@@ -816,6 +817,7 @@ Array [
     className="c0"
     data-analytics-region="search-results"
     data-testid="search-results-sidebar"
+    id="search-results-sidebar"
     onFocus={[Function]}
     tabIndex={-1}
   >
@@ -1535,6 +1537,7 @@ Array [
     className="c0"
     data-analytics-region="search-results"
     data-testid="search-results-sidebar"
+    id="search-results-sidebar"
     onFocus={[Function]}
     tabIndex={-1}
   >
@@ -2094,6 +2097,7 @@ Array [
     className="c0"
     data-analytics-region="search-results"
     data-testid="search-results-sidebar"
+    id="search-results-sidebar"
     onFocus={[Function]}
     tabIndex={-1}
   >

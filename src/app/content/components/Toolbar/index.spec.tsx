@@ -14,7 +14,8 @@ import { assertWindow } from '../../../utils';
 import { closeMobileMenu } from '../../actions';
 import { openToc } from '../../actions';
 import { practiceQuestionsFeatureFlag } from '../../constants';
-import { clearSearch, openSearchInSidebar } from '../../search/actions';
+import { SearchResult } from '@openstax/open-search-client';
+import { clearSearch, openSearchInSidebar, requestSearch, receiveSearchResults } from '../../search/actions';
 import * as searchSelectors from '../../search/selectors';
 import * as selectors from '../../selectors';
 import { CloseToCAndMobileMenuButton } from '../SidebarControl';
@@ -115,14 +116,15 @@ describe('toolbar', () => {
   });
 
   describe('search button', () => {
-    let dispatch: jest.SpyInstance;
+    beforeAll(() => {
+      const mockSearchResults = { hits: { hits: [] } } as any as SearchResult;
 
-    beforeEach(() => {
       jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValue(true);
-      dispatch = jest.spyOn(store, 'dispatch');
+      store.dispatch(receiveSearchResults(mockSearchResults));
     });
 
-    it('opens search', () => {
+    it('opens and closes search', () => {
+      const dispatch = jest.spyOn(store, 'dispatch');
       const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>
           <MessageProvider>
@@ -131,37 +133,29 @@ describe('toolbar', () => {
         </Services.Provider>
       </Provider>);
 
+      const searchButton = component.root.findByProps({ 'data-testid': 'desktop-search-button' });
+
       renderer.act(() => {
-        component.root.findByProps({ 'data-testid': 'desktop-search-button', 'isActive': false }).props.onClick();
+        searchButton.props.onClick();
       });
 
       expect(dispatch).toHaveBeenCalledWith(openSearchInSidebar());
-    });
-
-    it('closes search', () => {
-      store.dispatch(openSearchInSidebar());
-
-      const component = renderer.create(<Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Toolbar />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>);
-
-      jest.clearAllMocks();
 
       renderer.act(() => {
-        component.root.findByProps({ 'data-testid': 'desktop-search-button', 'isActive': true }).props.onClick();
+        store.dispatch(requestSearch('asdf'));
       });
 
+      expect(searchButton.props.isOpen).toBe(true);
+      dispatch.mockReset();
+
+      renderer.act(() => {
+        searchButton.props.onClick();
+      });
       expect(dispatch).toHaveBeenCalledWith(clearSearch());
     });
 
     it('does not render search button if disabled', () => {
-      beforeEach(() => {
-        jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValue(false);
-      });
+      jest.spyOn(searchSelectors, 'searchInSidebar').mockReturnValue(false);
 
       const component = renderer.create(<Provider store={store}>
         <Services.Provider value={services}>

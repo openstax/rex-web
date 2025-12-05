@@ -96,6 +96,7 @@ const SidebarBody = React.forwardRef<
       )}
       <SidebarPaneBody
         ref={ref}
+        id='toc-sidebar'
         data-testid='toc'
         aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
         data-analytics-region='toc'

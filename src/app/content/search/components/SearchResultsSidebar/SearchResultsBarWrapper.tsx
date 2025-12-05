@@ -75,6 +75,7 @@ const SearchResultsBar = React.forwardRef<
 
     return (
       <Styled.SearchResultsBar
+        id='search-results-sidebar'
         aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
         data-testid='search-results-sidebar'
         ref={ref}
