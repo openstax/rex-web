@@ -460,15 +460,17 @@ async function finishRendering(stats: Stats) {
 }
 
 async function manage() {
+  let deleteWorkersStackPromise: ReturnType<typeof deleteWorkersStack> | undefined = undefined;
   const workersStackName = await createWorkersStack();
 
   try {
     const { workQueueUrl, deadLetterQueueUrl } = await getQueueUrls(workersStackName);
     const stats = await queueWork(workQueueUrl);
     await waitUntilWorkDone(workQueueUrl, deadLetterQueueUrl, stats);
+    deleteWorkersStackPromise = deleteWorkersStack(workersStackName);
     await finishRendering(stats);
   } finally {
-    await deleteWorkersStack(workersStackName);
+    await (deleteWorkersStackPromise ?? deleteWorkersStack(workersStackName));
   }
 }
 
