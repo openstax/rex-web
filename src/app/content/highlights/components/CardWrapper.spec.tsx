@@ -283,7 +283,9 @@ describe('CardWrapper', () => {
     const document = assertDocument();
     const highlight = createMockHighlight();
     const highlightElement = document.createElement('span');
+
     container.appendChild(highlightElement);
+    highlight.elements.push(highlightElement);
 
     const cardWrapperElement = document.createElement('div');
 
@@ -307,7 +309,7 @@ describe('CardWrapper', () => {
       expect(card.props.shouldFocusCard).toEqual(true);
     });
 
-    expect(highlight.focus).not.toHaveBeenCalled();
+    expect(highlight.focus).toHaveBeenCalled();
 
     const elementOutside = document.createElement('span');
 
