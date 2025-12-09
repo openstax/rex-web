@@ -13,7 +13,23 @@
  * these javascript config files for committed configurations.
  */
 
+const query = require('query-string');
 const { REACT_APP_ARCHIVE_URL_BASE, REACT_APP_ARCHIVE } = require('./config.archive-url.json');
+
+// Allow loading CMS data from a url param, but only for OpenStax domains
+const unsafeOsWebUrlBase = typeof(window) === 'undefined'
+  ? undefined
+  : query.parse(window.location.search).osWeb
+;
+const unsafeHostname = typeof unsafeOsWebUrlBase === 'string'
+  ? new URL(unsafeOsWebUrlBase).hostname
+  : ''
+;
+const REACT_APP_OS_WEB_URL_BASE = unsafeHostname === 'openstax.org' || unsafeHostname.endsWith('.openstax.org')
+  ? unsafeOsWebUrlBase
+  : ''
+;
+const REACT_APP_OS_WEB_API_PATH = '/apps/cms/api';
 
 let config = {
   APP_ENV: process.env.REACT_APP_ENV,
@@ -29,7 +45,7 @@ let config = {
   REACT_APP_ARCHIVE,
   REACT_APP_ARCHIVE_URL: `${REACT_APP_ARCHIVE_URL_BASE}${REACT_APP_ARCHIVE}`,
   REACT_APP_IMAGE_CDN_URL: '/apps/image-cdn',
-  REACT_APP_OS_WEB_API_URL: '/apps/cms/api',
+  REACT_APP_OS_WEB_API_URL: `${REACT_APP_OS_WEB_URL_BASE}${REACT_APP_OS_WEB_API_PATH}`,
   REACT_APP_SEARCH_URL: '/open-search/api/v0',
   REACT_APP_HIGHLIGHTS_URL: '/highlights/api/v0',
   SENTRY_ENABLED: process.env.REACT_APP_SENTRY_ENABLED || false,
