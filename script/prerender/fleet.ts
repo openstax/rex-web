@@ -460,7 +460,7 @@ async function finishRendering(stats: Stats) {
 }
 
 async function manage() {
-  let deleteWorkersStackPromise: ReturnType<typeof deleteWorkersStack> | undefined = undefined;
+  let deleteWorkersStackPromise: ReturnType<typeof deleteWorkersStack> | undefined;
   const workersStackName = await createWorkersStack();
 
   try {
