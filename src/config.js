@@ -17,15 +17,19 @@ const query = require('query-string');
 const { REACT_APP_ARCHIVE_URL_BASE, REACT_APP_ARCHIVE } = require('./config.archive-url.json');
 
 // Allow loading CMS data from a url param, but only for OpenStax domains
-const unsafeOsWebUrlBase = typeof(window) === 'undefined'
+const unsafeOsWebBase = typeof(window) === 'undefined'
   ? undefined
   : query.parse(window.location.search).osWeb
 ;
-const unsafeHostname = typeof unsafeOsWebUrlBase === 'string'
+const unsafeOsWebUrlBase = typeof unsafeOsWebBase === 'string'
+  ? `https://${unsafeOsWebBase}`
+  : ''
+;
+const unsafeOsWebHost = unsafeOsWebUrlBase
   ? new URL(unsafeOsWebUrlBase).hostname
   : ''
 ;
-const REACT_APP_OS_WEB_URL_BASE = unsafeHostname === 'openstax.org' || unsafeHostname.endsWith('.openstax.org')
+const REACT_APP_OS_WEB_URL_BASE = unsafeOsWebHost === 'openstax.org' || unsafeOsWebHost.endsWith('.openstax.org')
   ? unsafeOsWebUrlBase
   : ''
 ;

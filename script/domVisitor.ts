@@ -89,7 +89,7 @@ async function visitPages(
     try {
       const queryParams = queryString ? querystring.parse(queryString) : {};
       if (archiveUrl) { queryParams.archive = archiveUrl; }
-      if (osWebUrl) { queryParams.osWeb = osWebUrl; }
+      if (osWebUrl) { queryParams.osWeb = osWebUrl.replace(/^https?:\/\//i, ''); }
       const qs = querystring.stringify(queryParams);
       const appendQueryString = qs ? `?${qs}` : qs;
       const pageComponents = pageUrl.split('/');
