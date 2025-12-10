@@ -112,6 +112,16 @@ function useFocusedHighlight(
     return () => document.removeEventListener('showCardEvent', handler);
   }, [document]);
 
+  // Catches escape in Textarea to hide card
+  React.useEffect(() => {
+    const handler = () => {
+      setShouldFocusCard(false);
+    };
+
+    document.addEventListener('hideCardEvent', handler);
+    return () => document.removeEventListener('hideCardEvent', handler);
+  }, [document]);
+
   // Ensure focusedHighlight is actually focused
   React.useEffect(() => {
     if (isExistingHighlight) {

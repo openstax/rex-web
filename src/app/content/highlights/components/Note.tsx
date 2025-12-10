@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
+import { KeyboardEvent } from '@openstax/types/lib.dom';
 import { cardPadding, cardWidth } from '../constants';
 
 interface Props {
@@ -66,6 +67,12 @@ const FloatingLabel = styled.div`
   transition: all 0.2s;
 `;
 
+// exported for test coverage reasons
+export function escapeHandler(onElement: HTMLTextAreaElement | null, shouldDo: boolean) {
+  if (shouldDo) {
+    onElement?.dispatchEvent(new CustomEvent('hideCardEvent', {bubbles: true}));
+  }
+}
 
 // tslint:disable-next-line:variable-name
 const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
@@ -82,6 +89,11 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
   const labelId = `i18n:highlighting:card:placeholder${edit ? '-edit' : ''}`;
 
   React.useEffect(setTextAreaHeight, [note, setTextAreaHeight]);
+  const escCb = React.useCallback((ev: KeyboardEvent) => {
+    const shouldDo = ev.key === 'Escape' && textareaRef.current?.textContent === '';
+
+    escapeHandler(textareaRef.current, shouldDo);
+  }, [textareaRef]);
 
   return (
     <WrapperLabel htmlFor='note-textarea'>
@@ -95,6 +107,7 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
           onChange(e.target.value);
         }}
         placeholder=''
+        onKeyDown={escCb}
       />
       <FloatingLabel>{useIntl().formatMessage({id: labelId})}</FloatingLabel>
     </WrapperLabel>

@@ -406,7 +406,12 @@ describe('CardWrapper', () => {
       });
     });
 
-    document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
+    renderer.act(() => {
+      document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
+    });
+    renderer.act(() => {
+      document?.dispatchEvent(new CustomEvent('hideCardEvent', { bubbles: true }));
+    });
   });
 
   it(
