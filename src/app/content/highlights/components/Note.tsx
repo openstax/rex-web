@@ -28,7 +28,7 @@ const TextArea = styled.textarea`
   min-width: ${width}rem;
   border: 1px solid ${theme.color.neutral.formBorder};
   padding: ${cardPadding}rem;
-  padding-top: 1.6rem;
+  padding-top: 0.2rem;
   ${textStyle}
   color: ${theme.color.text.label};
   font-size: 1.4rem;
@@ -42,29 +42,10 @@ const TextArea = styled.textarea`
 `;
 
 // tslint:disable-next-line:variable-name
-const WrapperLabel = styled.label`
-  display: block;
-  position: relative;
-
-  textarea:empty ~ div {
-    color: ${theme.color.text.label};
-    font-size: 1.4rem;
-    top: 1.3rem;
-
-    ::after {
-      content: "...";
-    }
-  }
-`;
-
-// tslint:disable-next-line:variable-name
-const FloatingLabel = styled.div`
+const SimpleLabel = styled.label`
   color: ${theme.color.primary.blue.base};
   font-size: 1.2rem;
-  position: absolute;
-  left: 0.9rem;
-  top: 0.5rem;
-  transition: all 0.2s;
+  padding-left: 0.2rem;
 `;
 
 // exported for test coverage reasons
@@ -96,7 +77,8 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
   }, [textareaRef]);
 
   return (
-    <WrapperLabel htmlFor='note-textarea'>
+    <>
+      <SimpleLabel htmlFor='note-textarea'>{useIntl().formatMessage({id: labelId})}</SimpleLabel>
       <TextArea
         id='note-textarea'
         ref={textareaRef}
@@ -109,8 +91,7 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
         placeholder=''
         onKeyDown={escCb}
       />
-      <FloatingLabel>{useIntl().formatMessage({id: labelId})}</FloatingLabel>
-    </WrapperLabel>
+    </>
   );
 };
 

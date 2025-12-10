@@ -1,7 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Note matches snapshot 1`] = `
-.c1 {
+Array [
+  .c0 {
+  color: #002468;
+  font-size: 1.2rem;
+  padding-left: 0.2rem;
+}
+
+<label
+    className="c0"
+    htmlFor="note-textarea"
+  >
+    Edit note
+  </label>,
+  .c0 {
   display: block;
   min-height: 5.6rem;
   width: 18.4rem;
@@ -10,7 +23,7 @@ exports[`Note matches snapshot 1`] = `
   min-width: 18.4rem;
   border: 1px solid #d5d5d5;
   padding: 0.8rem;
-  padding-top: 1.6rem;
+  padding-top: 0.2rem;
   color: #424242;
   color: #6f6f6f;
   font-size: 1.4rem;
@@ -19,41 +32,12 @@ exports[`Note matches snapshot 1`] = `
   font-weight: normal;
 }
 
-.c1:empty {
+.c0:empty {
   padding-top: 1rem;
 }
 
-.c0 {
-  display: block;
-  position: relative;
-}
-
-.c0 textarea:empty ~ div {
-  color: #6f6f6f;
-  font-size: 1.4rem;
-  top: 1.3rem;
-}
-
-.c0 textarea:empty ~ div::after {
-  content: "...";
-}
-
-.c2 {
-  color: #002468;
-  font-size: 1.2rem;
-  position: absolute;
-  left: 0.9rem;
-  top: 0.5rem;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
-}
-
-<label
-  className="c0"
-  htmlFor="note-textarea"
->
-  <textarea
-    className="c1"
+<textarea
+    className="c0"
     id="note-textarea"
     maxLength={1000}
     onChange={[Function]}
@@ -61,11 +45,6 @@ exports[`Note matches snapshot 1`] = `
     onKeyDown={[Function]}
     placeholder=""
     value=""
-  />
-  <div
-    className="c2"
-  >
-    Edit note
-  </div>
-</label>
+  />,
+]
 `;
