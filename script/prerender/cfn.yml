@@ -184,12 +184,32 @@ Resources:
             LaunchTemplateId: !Ref LaunchTemplate
             Version: !GetAtt LaunchTemplate.LatestVersionNumber
           Overrides:
-            - SubnetId: !Sub
+            - InstanceRequirements:
+                AcceleratorCount:
+                  Max: 0
+                BaselinePerformanceFactors:
+                  Cpu:
+                    References:
+                      - InstanceFamily: c5
+                MemoryGiBPerVCpu:
+                  Min: 1
+                  Max: 2
+                MemoryMiB:
+                  Max: 262144
+                  Min: 2048
+                VCpuCount:
+                  Min: 2
+              SubnetId: !Sub
                 - ${Subnet1}, ${Subnet2}, ${Subnet3}
                 - Subnet1: !ImportValue RexPrerenderWorkersSubnet1ID
                   Subnet2: !ImportValue RexPrerenderWorkersSubnet2ID
                   Subnet3: !ImportValue RexPrerenderWorkersSubnet3ID
       ReplaceUnhealthyInstances: true
+      SpotOptions:
+        AllocationStrategy: priceCapacityOptimized
+        FleetSpotCapacityRebalance:
+          ReplacementStrategy: launch-before-terminate
+          TerminationDelay: 120
       TagSpecifications:
         - ResourceType: fleet
           Tags:
@@ -197,7 +217,8 @@ Resources:
               Value: !Sub ${AWS::StackName}-fleet
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
-        TotalTargetCapacity: 8
+        TargetCapacityUnitType: memory-mib
+        TotalTargetCapacity: 262144
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 
