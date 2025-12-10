@@ -29,7 +29,10 @@ async def test_small_highlight_box_delete_note(
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
-    await chrome_page.keyboard.press("Enter")
+
+    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
+    await home.oneclick_highlight_infobox()
+    await home.oneclick_highlight_infobox()
 
     assert home.highlight_box_is_visible
 

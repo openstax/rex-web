@@ -111,6 +111,10 @@ class HomeRex:
             await self.page.locator("section.subject-intro > div > h1").inner_text()
         ).lower()
 
+    @property
+    def book_title_image(self):
+        return self.page.get_by_alt_text("Calculus Volume 1")
+
     # Highlights and Notes
 
     @pytest.mark.asyncio

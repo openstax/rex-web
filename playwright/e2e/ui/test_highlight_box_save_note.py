@@ -33,7 +33,9 @@ async def test_highlight_box_save_note(
     await home.select_text()
     await home.double_click_text()
 
-    await chrome_page.keyboard.press("Enter")
+    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
+    await home.oneclick_highlight_infobox()
+    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -131,7 +133,9 @@ async def test_highlight_box_note_colours(
     await home.select_text()
     await home.double_click_text()
 
-    await chrome_page.keyboard.press("Enter")
+    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
+    await home.oneclick_highlight_infobox()
+    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -163,6 +167,8 @@ async def test_highlight_box_note_colours(
     assert "green" in await home.highlights_option_text_colour_check_green
 
     # THEN: Delete the created highlight
+
+    await chrome_page.keyboard.press("Escape")
 
     await home.click_highlights_option_page_menu()
 

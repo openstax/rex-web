@@ -31,7 +31,9 @@ async def test_highlights_page_edit_note(
     await home.select_text()
     await home.double_click_text()
 
-    await chrome_page.keyboard.press("Enter")
+    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
+    await home.oneclick_highlight_infobox()
+    await home.oneclick_highlight_infobox()
 
     assert home.highlight_box_is_visible
 
@@ -59,8 +61,6 @@ async def test_highlights_page_edit_note(
     await home.click_highlights_option_edit_save_button()
 
     await chrome_page.keyboard.press("Escape")
-
-    await home.click_highlights_option()
 
     assert (
         "\nNote:\nautotest highlight"
