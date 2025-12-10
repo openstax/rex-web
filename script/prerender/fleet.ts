@@ -63,7 +63,7 @@ const MAX_ATTEMPTS = 5;
 const PRERENDER_TIMEOUT_SECONDS = 3600;
 
 // Abort the build if the workers stack is not created/deleted within this many seconds
-const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 300;
+const WORKERS_STACK_CREATE_TIMEOUT_SECONDS = 600;
 const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECONDS;
 
 // Docker does not accept forward slashes in the image tag
