@@ -207,9 +207,10 @@ Resources:
       ReplaceUnhealthyInstances: true
       SpotOptions:
         AllocationStrategy: priceCapacityOptimized
-        FleetSpotCapacityRebalance:
-          ReplacementStrategy: launch-before-terminate
-          TerminationDelay: 120
+        MaintenanceStrategies:
+          CapacityRebalance:
+            ReplacementStrategy: launch-before-terminate
+            TerminationDelay: 120
       TagSpecifications:
         - ResourceType: fleet
           Tags:
