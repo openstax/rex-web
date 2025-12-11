@@ -107,7 +107,7 @@ async function visitPages(
 
           linkElt.click();
         }, linkSelector);
-        await page.waitForSelector(`li[aria-label="Current Page"] ${linkSelector}`);
+        await page.waitForSelector(`${linkSelector}[aria-label="Current Page"]`);
       } else {
         await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
       }
