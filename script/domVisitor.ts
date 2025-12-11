@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import puppeteer from 'puppeteer';
+import querystring from 'querystring';
 import QuickLRU from 'quick-lru';
 import argv from 'yargs';
 import { Book } from '../src/app/content/types';
@@ -27,6 +28,7 @@ const {
   archiveUrl,
   bookId,
   bookVersion,
+  osWebUrl,
   quiet,
   queryString,
   rootUrl,
@@ -34,6 +36,7 @@ const {
 } = argv.string('bookVersion').argv as {
   quiet?: string;
   archiveUrl?: string;
+  osWebUrl?: string;
   bookId?: string;
   bookVersion?: string;
   queryString?: string;
@@ -84,9 +87,11 @@ async function visitPages(
 
   for (const pageUrl of bookPages) {
     try {
-      const appendQueryString =
-        queryString ? (archiveUrl ? `?archive=${archiveUrl}&${queryString}` : `?${queryString}`)
-                    : archiveUrl ? `?archive=${archiveUrl}` : '';
+      const queryParams = queryString ? querystring.parse(queryString) : {};
+      if (archiveUrl) { queryParams.archive = archiveUrl; }
+      if (osWebUrl) { queryParams.osWeb = osWebUrl.replace(/^https?:\/\//i, ''); }
+      const qs = querystring.stringify(queryParams);
+      const appendQueryString = qs ? `?${qs}` : qs;
       const pageComponents = pageUrl.split('/');
       const slug = pageComponents[pageComponents.length - 1];
       const linkSelector = `a[href^="${slug}"]`;
@@ -221,9 +226,9 @@ async function run() {
     headless: showBrowser === undefined,
   });
   const archiveLoader = createArchiveLoader({
-    archivePrefix: archiveUrl ? archiveUrl : rootUrl,
+    archivePrefix: archiveUrl ?? rootUrl,
   });
-  const osWebLoader = createOSWebLoader(`${rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
+  const osWebLoader = createOSWebLoader(`${osWebUrl ?? rootUrl}${config.REACT_APP_OS_WEB_API_URL}`);
   const books = await findBooks({
     archiveLoader,
     bookId,
