@@ -1,7 +1,22 @@
 import { Document,  Element } from '@openstax/types/lib.dom';
 
 export default (container: Element | Document) => {
-  return Promise.all(Array.from(container.querySelectorAll('img')).map((img) => img.complete
+  const imgs = Array.from(container.querySelectorAll('img'));
+  imgs.forEach(img => {
+    // Ensure lazy loading is disabled so images start loading immediately
+    if (img.loading === 'lazy') {
+      img.loading = 'eager';
+    }
+
+    // Force reload of cached images to ensure load event fires
+    if (img.src) {
+      const src = img.src;
+      img.src = '';
+      img.src = src;
+    }
+  });
+
+  return Promise.all(imgs.map((img) => img.complete
     ? Promise.resolve()
     : new Promise<void>((resolve) => {
 

@@ -1,7 +1,12 @@
 import { ensureApplicationErrorType } from '../../../../helpers/applicationMessageError';
 import { ActionHookBody, AppServices, MiddlewareAPI, Unpromisify } from '../../../types';
-import { actionHook, assertWindow } from '../../../utils';
-import { printSummaryHighlights, receiveSummaryHighlights, toggleSummaryHighlightsLoading } from '../actions';
+import { actionHook } from '../../../utils';
+import {
+  printSummaryHighlights,
+  receiveReadyToPrintHighlights,
+  receiveSummaryHighlights,
+  toggleSummaryHighlightsLoading
+} from '../actions';
 import { HighlightPopupPrintError } from '../errors';
 import { myHighlightsOpen } from '../selectors';
 import { loadMore, LoadMoreResponse } from './loadMore';
@@ -28,7 +33,12 @@ export const asyncHelper = async(services: MiddlewareAPI & AppServices ) => {
       services.dispatch(toggleSummaryHighlightsLoading(false));
 
       if (myHighlightsOpen(services.getState())) {
-        assertWindow().print();
+        /*
+          window.print() will be called by the hook after
+          this promise resolves and outside of the middleware flow,
+          when the DOM is stable.
+        */
+        services.dispatch(receiveReadyToPrintHighlights(true));
       }
     });
 };

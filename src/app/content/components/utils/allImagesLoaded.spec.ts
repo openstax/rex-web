@@ -30,6 +30,11 @@ describe('allImagesLoaded', () => {
       writable: false,
     });
 
+    Object.defineProperty(img, 'loading', {
+      value: 'lazy',
+      writable: true,
+    });
+
     await expect(allImagesLoaded(element)).resolves.toBeUndefined();
   });
 

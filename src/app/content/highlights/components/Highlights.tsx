@@ -17,8 +17,17 @@ const Highlights = ({ className }: { className: string }) => {
   const orderedHighlights = useSelector(selectors.orderedSummaryHighlights);
   const isLoading = useSelector(selectors.summaryIsLoading);
   const totalCountsPerPage = useSelector(selectors.totalCountsPerPage);
+  const readyToPrintHighlights = useSelector(selectors.readyToPrintHighlights);
   const container = React.useRef<HTMLElement>(null);
   const services = useServices();
+
+  // Automatically trigger print when readyToPrintHighlights becomes true
+  // after promiseCollector resolves in printHighlights hook
+  React.useEffect(() => {
+    if (readyToPrintHighlights) {
+      assertWindow().print();
+    }
+  }, [readyToPrintHighlights]);
 
   React.useLayoutEffect(() => {
     if (container.current) {
