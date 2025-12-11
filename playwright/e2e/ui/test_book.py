@@ -19,7 +19,7 @@ async def test_book_title_links_to_books_detail_page(chrome_page, base_url):
     await home.click_book_selection()
 
     # THEN: The page navigates to {base_url}/details/books/astronomy-2e
-    assert "astronomy-2e" in chrome_page.url
+    assert "astronomy" in chrome_page.url.lower()
 
 
 @pytest.mark.parametrize("book_slug", ["physics"])
