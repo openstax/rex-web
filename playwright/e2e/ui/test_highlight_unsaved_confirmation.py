@@ -36,7 +36,6 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
-    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -55,7 +54,6 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(
     assert not await home.unsaved_highlight_dialog_is_visible()
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
     await home.oneclick_highlight_infobox()
 
     await chrome_page.keyboard.press("Escape")
@@ -115,7 +113,6 @@ async def test_highlight_unsaved_confirmation_on_previous_next_page_change(
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
-    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -140,7 +137,6 @@ async def test_highlight_unsaved_confirmation_on_previous_next_page_change(
     assert not await home.unsaved_highlight_dialog_is_visible()
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
     await home.oneclick_highlight_infobox()
 
     await home.fill_highlight_box_note_field("autotest highlight-2")
@@ -189,7 +185,6 @@ async def test_highlight_unsaved_confirmation_on_small_highlight_dialog(
     assert await home.highlight_infobox.is_visible()
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()

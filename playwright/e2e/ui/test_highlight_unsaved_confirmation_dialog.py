@@ -34,7 +34,6 @@ async def test_highlight_unsaved_confirmation_dialog(
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
-    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 

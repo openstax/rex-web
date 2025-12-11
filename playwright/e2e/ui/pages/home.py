@@ -392,6 +392,7 @@ class HomeRex:
     @pytest.mark.asyncio
     async def oneclick_highlight_infobox(self):
         await self.page.get_by_label("Edit highlighted note").click()
+        await self.page.get_by_label("Edit highlighted note").click()
 
     @property
     def highlight_infobox(self):

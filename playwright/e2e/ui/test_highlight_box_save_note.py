@@ -35,7 +35,6 @@ async def test_highlight_box_save_note(
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
-    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -134,7 +133,6 @@ async def test_highlight_box_note_colours(
     await home.double_click_text()
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()

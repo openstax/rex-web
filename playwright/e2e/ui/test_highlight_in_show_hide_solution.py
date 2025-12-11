@@ -41,7 +41,6 @@ async def test_highlight_not_saved_in_show_hide_solution(
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
-    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -60,7 +59,6 @@ async def test_highlight_not_saved_in_show_hide_solution(
     await home.click_text_in_solution_block()
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
@@ -120,7 +118,6 @@ async def test_highlight_saved_in_show_hide_solution(
     assert await home.highlight_infobox.is_visible()
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()

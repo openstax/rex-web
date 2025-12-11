@@ -34,7 +34,6 @@ async def test_highlight_editbox_opens_on_one_click(
 
     # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
-    await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
@@ -80,8 +79,7 @@ async def test_highlight_editbox_remains_open_when_clicked_inside(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
+    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
