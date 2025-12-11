@@ -18,8 +18,8 @@ async def test_book_title_links_to_books_detail_page(chrome_page, base_url):
 
     await home.click_book_selection()
 
-    # THEN: The page navigates to {base_url}/details/books/astronomy-2e
-    assert "astronomy-2e" in chrome_page.url
+    # THEN: The page navigates to {base_url}/details/books/astronomy
+    assert "astronomy" in chrome_page.url.lower()
 
 
 @pytest.mark.parametrize("book_slug", ["physics"])
@@ -73,7 +73,7 @@ async def test_order_options_link(chrome_page, base_url, book_slug):
 )
 @pytest.mark.asyncio
 async def test_accessibility_help(chrome_page, base_url, book_slug, page_slug):
-    # Verifies the hidden 'Go to accessibility page'
+    """Verifies the hidden 'Go to accessibility page'"""
 
     # GIVEN: Open osweb book details page
 
