@@ -156,3 +156,8 @@ export const hasMoreResults = createSelector(
   summaryPagination,
   checkIfHasMoreResults
 );
+
+export const readyToPrintHighlights = createSelector(
+  localState,
+  (state) => state.summary.readyToPrintHighlights
+);

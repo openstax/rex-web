@@ -66,6 +66,11 @@ export const receiveSummaryHighlights = createStandardAction('Content/Highlights
     isStillLoading?: boolean
   }
 >();
+
+export const receiveReadyToPrintHighlights = createStandardAction(
+  'Content/Highlights/receiveReadyToPrintHighlights'
+)<boolean>();
+
 export const receiveHighlightsTotalCounts = createStandardAction(
   'Content/receiveHighlightsTotalCounts'
 )<CountsPerSource, LocationFilters>();
