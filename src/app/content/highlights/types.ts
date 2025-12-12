@@ -49,7 +49,7 @@ export interface State {
     filters: SummaryFilters,
     loading: boolean;
     highlights: SummaryHighlights | null;
-    readyToPrintHighlights: boolean | null;
+    readyToPrintHighlights: boolean;
   };
 }
 

@@ -11,6 +11,7 @@ import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
 import { HighlightsList, NoHighlightsAvailable, NoHighlightsInBook } from './HighlightsCards';
+import { receiveReadyToPrintHighlights } from '../actions';
 
 // tslint:disable-next-line: variable-name
 const Highlights = ({ className }: { className: string }) => {
@@ -26,8 +27,9 @@ const Highlights = ({ className }: { className: string }) => {
   React.useEffect(() => {
     if (readyToPrintHighlights) {
       assertWindow().print();
+      services.dispatch(receiveReadyToPrintHighlights(false));
     }
-  }, [readyToPrintHighlights]);
+  }, [readyToPrintHighlights, services]);
 
   React.useLayoutEffect(() => {
     if (container.current) {

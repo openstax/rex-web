@@ -9,7 +9,7 @@ export default (container: Element | Document) => {
     }
 
     // Force reload of cached images to ensure load event fires
-    if (img.src) {
+    if (img.src && !img.complete) {
       const src = img.src;
       img.src = '';
       img.src = src;

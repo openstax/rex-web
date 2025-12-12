@@ -565,8 +565,8 @@ describe('highlight reducer', () => {
     const state = reducer(prevState, action);
     expect(state.summary.readyToPrintHighlights).toBe(true);
 
-    const action2 = actions.receiveReadyToPrintHighlights('some-value' as any);
+    const action2 = actions.receiveReadyToPrintHighlights(false);
     const state2 = reducer(prevState, action2);
-    expect(state2.summary.readyToPrintHighlights).toBe('some-value');
+    expect(state2.summary.readyToPrintHighlights).toBe(false);
   });
 });
