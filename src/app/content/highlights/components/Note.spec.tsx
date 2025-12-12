@@ -4,7 +4,8 @@ import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import TestContainer from '../../../../test/TestContainer';
 import { assertDocument } from '../../../utils/browser-assertions';
-import Note from './Note';
+import { HTMLTextAreaElement, HTMLDivElement } from '@openstax/types/lib.dom';
+import Note, { escapeHandler } from './Note';
 
 describe('Note', () => {
   it('matches snapshot', () => {
@@ -37,6 +38,43 @@ describe('Note', () => {
     });
 
     expect(onChange).toHaveBeenCalledWith('asdf');
+  });
+  it('handles Escape keydown', () => {
+    function Component() {
+      const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+
+      return <TestContainer>
+        <Note textareaRef={textareaRef} note='' onChange={() => null} onFocus={() => null} />
+      </TestContainer>;
+    }
+
+    const component = renderer.create(<Component />);
+    const textarea = component.root.findByType('textarea');
+
+    // textarea content is undefined, so it will not emit the event
+    act(() => {
+      textarea.props.onKeyDown({key: 'Escape'});
+    });
+  });
+  it('emits custom event', () => {
+    const catcher = jest.fn();
+    function Component() {
+      const taRef = React.useRef<HTMLTextAreaElement>(null);
+      const divRef = React.useRef<HTMLDivElement>(null);
+
+      React.useLayoutEffect(() => {
+        divRef.current?.addEventListener('hideCardEvent', catcher);
+        escapeHandler(taRef.current, true);
+      });
+
+      return (<div ref={divRef}><textarea ref={taRef} /></div>);
+    }
+    const root = assertDocument().createElement('div');
+
+    act(() => {
+      ReactDOM.render(<Component />, root);
+    });
+    expect(catcher).toHaveBeenCalled();
   });
 
   it('resizes on update when necessary', () => {

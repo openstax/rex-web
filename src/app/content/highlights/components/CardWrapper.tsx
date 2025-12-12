@@ -1,5 +1,5 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
-import { HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
+import { HTMLElement, KeyboardEvent, MouseEvent } from '@openstax/types/lib.dom';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
 import flow from 'lodash/fp/flow';
@@ -112,6 +112,16 @@ function useFocusedHighlight(
     return () => document.removeEventListener('showCardEvent', handler);
   }, [document]);
 
+  // Catches escape in Textarea to hide card
+  React.useEffect(() => {
+    const handler = () => {
+      setShouldFocusCard(false);
+    };
+
+    document.addEventListener('hideCardEvent', handler);
+    return () => document.removeEventListener('hideCardEvent', handler);
+  }, [document]);
+
   // Ensure focusedHighlight is actually focused
   React.useEffect(() => {
     if (isExistingHighlight) {
@@ -160,7 +170,9 @@ function useFocusedHighlight(
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
-  useFocusLost(element, shouldFocusCard, React.useCallback(() => setShouldFocusCard(false), []));
+  useFocusLost(element, shouldFocusCard && Boolean(isExistingHighlight), React.useCallback(() => {
+    setShouldFocusCard(false);
+  }, []));
 
   return [focusedHighlight, shouldFocusCard, setShouldFocusCard] as const;
 }
@@ -242,8 +254,8 @@ const Wrapper = ({highlights, className, container, highlighter, dispatch}: Wrap
     highlights, element, container, unfocus);
 
   React.useEffect(() => {
-    const processedEvents = new WeakSet<Event>();
-    function handleGlobalMouseUp(event: Event) {
+    const processedEvents = new WeakSet<MouseEvent | CustomEvent>();
+    function handleGlobalMouseUp(event: MouseEvent) {
       // Avoid infinite loop calling over and over the event
       if (processedEvents.has(event)) return;
       const selection = window?.getSelection();
