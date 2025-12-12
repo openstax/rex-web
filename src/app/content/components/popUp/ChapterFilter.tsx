@@ -122,7 +122,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
       )
       : null}
     <Row>
-      {sectionChunks.map((sectionChunk, index) => <Column key={index} aria-label='Filter by chapters'>
+      {sectionChunks.map((sectionChunk, index) => <Column key={index} aria-label='Filter by chapters' role='listbox'>
         {sectionChunk.map((location) => {
           const { section, children } = location;
           if (!children) {
@@ -184,6 +184,8 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
       disabled={props.disabled}
       onChange={props.onChange}
       aria-label={props.ariaLabel}
+      role='option'
+      aria-selected={props.selected}
     >
       <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
     </Checkbox>;
@@ -194,6 +196,8 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
     isSelected={props.selected}
     aria-label={props.ariaLabel}
     data-analytics-label={props.dataAnalyticsLabel}
+    role='option'
+    aria-selected={props.selected}
   >
     <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
   </StyledSectionItem>;

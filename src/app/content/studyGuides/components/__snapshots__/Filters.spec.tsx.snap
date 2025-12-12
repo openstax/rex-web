@@ -988,15 +988,18 @@ input:checked + .c21 .c22 {
           <ul
             aria-label="Filter by chapters"
             className="c17"
+            role="listbox"
           >
             <li>
               <label
                 className="c18 c19"
               >
                 <input
+                  aria-selected={false}
                   checked={false}
                   disabled={true}
                   onChange={[Function]}
+                  role="option"
                   type="checkbox"
                 />
                 <span
@@ -1031,9 +1034,11 @@ input:checked + .c21 .c22 {
                 className="c18 c19"
               >
                 <input
+                  aria-selected={false}
                   checked={false}
                   disabled={true}
                   onChange={[Function]}
+                  role="option"
                   type="checkbox"
                 />
                 <span
@@ -1068,9 +1073,11 @@ input:checked + .c21 .c22 {
                 className="c18 c25"
               >
                 <input
+                  aria-selected={true}
                   checked={true}
                   disabled={false}
                   onChange={[Function]}
+                  role="option"
                   type="checkbox"
                 />
                 <span
@@ -1105,9 +1112,11 @@ input:checked + .c21 .c22 {
                 className="c18 c19"
               >
                 <input
+                  aria-selected={false}
                   checked={false}
                   disabled={true}
                   onChange={[Function]}
+                  role="option"
                   type="checkbox"
                 />
                 <span
@@ -1142,9 +1151,11 @@ input:checked + .c21 .c22 {
                 className="c18 c19"
               >
                 <input
+                  aria-selected={false}
                   checked={false}
                   disabled={true}
                   onChange={[Function]}
+                  role="option"
                   type="checkbox"
                 />
                 <span
@@ -1179,9 +1190,11 @@ input:checked + .c21 .c22 {
                 className="c18 c19"
               >
                 <input
+                  aria-selected={false}
                   checked={false}
                   disabled={true}
                   onChange={[Function]}
+                  role="option"
                   type="checkbox"
                 />
                 <span
@@ -1216,9 +1229,11 @@ input:checked + .c21 .c22 {
                 className="c18 c19"
               >
                 <input
+                  aria-selected={false}
                   checked={false}
                   disabled={true}
                   onChange={[Function]}
+                  role="option"
                   type="checkbox"
                 />
                 <span

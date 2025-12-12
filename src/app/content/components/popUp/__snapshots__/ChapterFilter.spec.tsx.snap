@@ -302,15 +302,18 @@ input:checked + .c10 .c12 {
     <ul
       aria-label="Filter by chapters"
       className="c6"
+      role="listbox"
     >
       <li>
         <label
           className="c7 c8"
         >
           <input
+            aria-selected={true}
             checked={true}
             disabled={false}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -345,9 +348,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -382,9 +387,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -419,9 +426,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -456,9 +465,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -493,9 +504,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -530,9 +543,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -567,9 +582,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -604,9 +621,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -641,9 +660,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
@@ -678,9 +699,11 @@ input:checked + .c10 .c12 {
           className="c7 c15"
         >
           <input
+            aria-selected={false}
             checked={false}
             disabled={true}
             onChange={[Function]}
+            role="option"
             type="checkbox"
           />
           <span
