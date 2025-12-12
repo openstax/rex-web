@@ -1279,7 +1279,7 @@ describe('Page', () => {
 
     const someHashPage = {
       abstract: '',
-      content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
+      content: '<div style="height: 1000px;"></div><img src="/resources/hash"><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
       slug: 'mock-slug',
