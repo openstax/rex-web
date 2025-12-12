@@ -552,4 +552,21 @@ describe('highlight reducer', () => {
 
     expect(state).toEqual(initialState);
   });
+
+  it('sets readyToPrintHighlights in summary when receiveReadyToPrintHighlights is dispatched', () => {
+    const prevState = {
+      ...initialState,
+      summary: {
+        ...initialState.summary,
+        readyToPrintHighlights: false,
+      },
+    };
+    const action = actions.receiveReadyToPrintHighlights(true);
+    const state = reducer(prevState, action);
+    expect(state.summary.readyToPrintHighlights).toBe(true);
+
+    const action2 = actions.receiveReadyToPrintHighlights(false);
+    const state2 = reducer(prevState, action2);
+    expect(state2.summary.readyToPrintHighlights).toBe(false);
+  });
 });

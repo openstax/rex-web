@@ -15,6 +15,7 @@ import {
   openMyHighlights,
   printSummaryHighlights,
   receiveHighlightsTotalCounts,
+  receiveReadyToPrintHighlights,
   receiveSummaryHighlights,
   setSummaryFilters,
   toggleSummaryHighlightsLoading,
@@ -118,7 +119,7 @@ describe('printHighlights', () => {
         pagination: null,
       }));
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(print).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(receiveReadyToPrintHighlights(true));
     });
 
     it('doesn\'t trigger print if myhighlights are closed', async() => {
@@ -190,7 +191,7 @@ describe('printHighlights', () => {
         pagination: null,
       }));
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(print).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(receiveReadyToPrintHighlights(true));
     });
 
     it('waits for promiseCollector.calm', async() => {
@@ -208,7 +209,7 @@ describe('printHighlights', () => {
       await Promise.resolve();
 
       expect(dispatch).toBeCalledWith(toggleSummaryHighlightsLoading(false));
-      expect(print).toHaveBeenCalled();
+      expect(dispatch).toBeCalledWith(receiveReadyToPrintHighlights(true));
 
       loadMore.mockRestore();
     });
@@ -258,8 +259,7 @@ describe('printHighlights', () => {
         pagination: null,
       }));
       expect(dispatch).toHaveBeenCalledWith(toggleSummaryHighlightsLoading(false));
-
-      expect(print).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith(receiveReadyToPrintHighlights(true));
     });
   });
 });
