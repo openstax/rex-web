@@ -600,6 +600,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
           <ul
             aria-label="Filter by chapters"
             className="c14"
+            role="listbox"
           >
             <li>
               <details
@@ -638,9 +639,11 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 >
                   <button
                     aria-label="Filter PQ by  section1"
+                    aria-selected={false}
                     className="c22"
                     data-analytics-label="Filter PQ by  section1"
                     onClick={[Function]}
+                    role="option"
                   >
                     <span
                       className="c18 c19"
@@ -653,9 +656,11 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                   </button>
                   <button
                     aria-label="Filter PQ by  section2"
+                    aria-selected={false}
                     className="c22"
                     data-analytics-label="Filter PQ by  section2"
                     onClick={[Function]}
+                    role="option"
                   >
                     <span
                       className="c18 c19"
@@ -706,9 +711,11 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                 >
                   <button
                     aria-label="Filter PQ by  section21"
+                    aria-selected={true}
                     className="c23"
                     data-analytics-label="Filter PQ by  section21"
                     onClick={[Function]}
+                    role="option"
                   >
                     <span
                       className="c18 c19"
@@ -1108,6 +1115,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
           <ul
             aria-label="Filter by chapters"
             className="c14"
+            role="listbox"
           >
             <li>
               <details
@@ -1146,9 +1154,11 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 >
                   <button
                     aria-label="Filter PQ by  section1"
+                    aria-selected={false}
                     className="c22"
                     data-analytics-label="Filter PQ by  section1"
                     onClick={[Function]}
+                    role="option"
                   >
                     <span
                       className="c18 c19"
@@ -1161,9 +1171,11 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                   </button>
                   <button
                     aria-label="Filter PQ by  section2"
+                    aria-selected={false}
                     className="c22"
                     data-analytics-label="Filter PQ by  section2"
                     onClick={[Function]}
+                    role="option"
                   >
                     <span
                       className="c18 c19"
@@ -1214,9 +1226,11 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                 >
                   <button
                     aria-label="Filter PQ by  section21"
+                    aria-selected={false}
                     className="c22"
                     data-analytics-label="Filter PQ by  section21"
                     onClick={[Function]}
+                    role="option"
                   >
                     <span
                       className="c18 c19"
