@@ -10,6 +10,7 @@ import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { FiltersChange } from './types';
+import { Fieldset } from './Filters';
 
 // tslint:disable-next-line: variable-name
 const ColorLabel = styled.span`
@@ -18,18 +19,6 @@ const ColorLabel = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
-
-// tslint:disable-next-line: variable-name
-const Fieldset = styled.fieldset`
-  padding: 0;
-  border: none;
-  margin: 0;
-
-  legend {
-    ${hiddenButAccessible}
-  }
-`;
-
 export interface ColorFilterProps {
   className?: string;
   disabled?: boolean;

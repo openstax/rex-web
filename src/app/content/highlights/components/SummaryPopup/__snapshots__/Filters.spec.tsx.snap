@@ -7,14 +7,14 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: hidden;
 }
 
-.c25 {
+.c24 {
   color: #fff;
   height: 1rem;
   width: 1rem;
   display: none;
 }
 
-.c23 {
+.c22 {
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -34,19 +34,19 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   flex-shrink: 0;
 }
 
-input:not(:checked) + .c23 {
+input:not(:checked) + .c22 {
   border: 1px solid #424242;
 }
 
-input:checked + .c23 {
+input:checked + .c22 {
   background-color: #b03808;
 }
 
-input:checked + .c23 .c24 {
+input:checked + .c22 .c23 {
   display: block;
 }
 
-.c21 {
+.c20 {
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -61,7 +61,7 @@ input:checked + .c23 .c24 {
   align-items: center;
 }
 
-.c21 input {
+.c20 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -69,23 +69,23 @@ input:checked + .c23 .c24 {
   width: 0;
 }
 
-.c21:focus-within {
+.c20:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-.c21:focus-within .c22 {
+.c20:focus-within .c21 {
   border: 1px solid #b03808;
 }
 
-.c21.focus-within {
+.c20.focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
 }
 
-.c21.focus-within .c22 {
+.c20.focus-within .c21 {
   border: 1px solid #b03808;
 }
 
@@ -162,11 +162,11 @@ input:checked + .c23 .c24 {
   padding: 0 1rem;
 }
 
-.c29 {
+.c28 {
   display: none;
 }
 
-.c31 {
+.c30 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -181,7 +181,7 @@ input:checked + .c23 .c24 {
   border-radius: 50%;
 }
 
-.c32 {
+.c31 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -195,7 +195,7 @@ input:checked + .c23 .c24 {
   border: 1px solid #fed200;
 }
 
-.c35 {
+.c34 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -209,7 +209,7 @@ input:checked + .c23 .c24 {
   border: 1px solid #92d101;
 }
 
-.c37 {
+.c36 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -223,7 +223,7 @@ input:checked + .c23 .c24 {
   border: 1px solid #00c3ed;
 }
 
-.c39 {
+.c38 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -237,7 +237,7 @@ input:checked + .c23 .c24 {
   border: 1px solid #545ec8;
 }
 
-.c41 {
+.c40 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -251,7 +251,7 @@ input:checked + .c23 .c24 {
   border: 1px solid #de017e;
 }
 
-.c27 {
+.c26 {
   position: relative;
   background-color: #ffff8a;
   border: 1px solid #8f7700;
@@ -273,19 +273,19 @@ input:checked + .c23 .c24 {
   overflow: visible;
 }
 
-.c27 .c28 {
+.c26 .c27 {
   height: 1rem;
   width: 1rem;
 }
 
-.c27 input:focus + .c30 {
+.c26 input:focus + .c29 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c34 {
+.c33 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -307,19 +307,19 @@ input:checked + .c23 .c24 {
   overflow: visible;
 }
 
-.c34 .c28 {
+.c33 .c27 {
   height: 1rem;
   width: 1rem;
 }
 
-.c34 input:focus + .c30 {
+.c33 input:focus + .c29 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c36 {
+.c35 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -341,19 +341,19 @@ input:checked + .c23 .c24 {
   overflow: visible;
 }
 
-.c36 .c28 {
+.c35 .c27 {
   height: 1rem;
   width: 1rem;
 }
 
-.c36 input:focus + .c30 {
+.c35 input:focus + .c29 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c38 {
+.c37 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -375,19 +375,19 @@ input:checked + .c23 .c24 {
   overflow: visible;
 }
 
-.c38 .c28 {
+.c37 .c27 {
   height: 1rem;
   width: 1rem;
 }
 
-.c38 input:focus + .c30 {
+.c37 input:focus + .c29 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c40 {
+.c39 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -409,19 +409,19 @@ input:checked + .c23 .c24 {
   overflow: visible;
 }
 
-.c40 .c28 {
+.c39 .c27 {
   height: 1rem;
   width: 1rem;
 }
 
-.c40 input:focus + .c30 {
+.c39 input:focus + .c29 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c51 {
+.c50 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -431,13 +431,13 @@ input:checked + .c23 .c24 {
   margin-right: 0.4rem;
 }
 
-.c51 svg {
+.c50 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c52 {
+.c51 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -449,7 +449,7 @@ input:checked + .c23 .c24 {
   line-height: 1.5rem;
 }
 
-.c50 {
+.c49 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -463,7 +463,7 @@ input:checked + .c23 .c24 {
   height: 4rem;
 }
 
-.c47 {
+.c46 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -476,7 +476,7 @@ input:checked + .c23 .c24 {
   border: 0;
 }
 
-.c49 {
+.c48 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -505,6 +505,25 @@ input:checked + .c23 .c24 {
   transform: rotate(180deg);
   padding-top: 0;
   padding-bottom: 0.2rem;
+}
+
+.c16 {
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+
+.c16 legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .c6 {
@@ -595,25 +614,6 @@ input:checked + .c23 .c24 {
   flex-direction: row;
 }
 
-.c16 {
-  padding: 0;
-  border: none;
-  margin: 0;
-}
-
-.c16 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .c11 {
   color: #424242;
   background: #fff;
@@ -628,44 +628,25 @@ input:checked + .c23 .c24 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c11 .c20 {
+.c11 .c19 {
   padding: 0.8rem;
 }
 
-.c11 .c26 {
+.c11 .c25 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c11 .c53:last-child {
+.c11 .c52:last-child {
   border-bottom: none;
 }
 
-.c33 {
+.c32 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.c19 {
-  padding: 0;
-  border: none;
-  margin: 0;
-}
-
-.c19 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
 }
 
 .c18 {
@@ -689,16 +670,16 @@ input:checked + .c23 .c24 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c18 .c20 {
+.c18 .c19 {
   padding: 0.8rem;
   text-transform: capitalize;
 }
 
-.c18 .c26 {
+.c18 .c25 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c42 {
+.c41 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -730,12 +711,12 @@ input:checked + .c23 .c24 {
   padding: 0 10px;
 }
 
-.c42:hover,
-.c42:focus {
+.c41:hover,
+.c41:focus {
   color: #424242;
 }
 
-.c46 {
+.c45 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -743,13 +724,13 @@ input:checked + .c23 .c24 {
   line-height: 1.5rem;
 }
 
-.c44 {
+.c43 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c43 {
+.c42 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -762,20 +743,20 @@ input:checked + .c23 .c24 {
   padding-right: 2.4rem;
 }
 
-.c43 .c45 {
+.c42 .c44 {
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0px 0px 0px 0.5rem;
 }
 
 @media print {
-  .c51 {
+  .c50 {
     display: none;
   }
 }
 
 @media print {
-  .c52 {
+  .c51 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -783,13 +764,13 @@ input:checked + .c23 .c24 {
 }
 
 @media screen and (max-width:75em) {
-  .c49 {
+  .c48 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c49 {
+  .c48 {
     margin: 0;
   }
 }
@@ -824,7 +805,7 @@ input:checked + .c23 .c24 {
 }
 
 @media print {
-  .c0 > *:not(.c48) {
+  .c0 > *:not(.c47) {
     display: none;
   }
 }
@@ -851,7 +832,7 @@ input:checked + .c23 .c24 {
 }
 
 @media screen and (max-width:50em) {
-  .c42 {
+  .c41 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -866,7 +847,7 @@ input:checked + .c23 .c24 {
 }
 
 @media screen and (max-width:50em) {
-  .c46 {
+  .c45 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -874,13 +855,13 @@ input:checked + .c23 .c24 {
 }
 
 @media screen and (max-width:75em) {
-  .c43 {
+  .c42 {
     padding-right: 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c43 .c45 {
+  .c42 .c44 {
     display: none;
   }
 }
@@ -1014,13 +995,13 @@ input:checked + .c23 .c24 {
           </button>
         </div>
         <fieldset
-          className="c19"
+          className="c16"
         >
           <legend>
             Filter by colors
           </legend>
           <label
-            className="c20 c21"
+            className="c19 c20"
           >
             <input
               checked={true}
@@ -1029,11 +1010,11 @@ input:checked + .c23 .c24 {
               type="checkbox"
             />
             <span
-              className="c22 c23"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c24 c25"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1046,11 +1027,11 @@ input:checked + .c23 .c24 {
               </svg>
             </span>
             <div
-              className="c26 c27"
+              className="c25 c26"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c28 c29"
+                className="c9 c27 c28"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1062,7 +1043,7 @@ input:checked + .c23 .c24 {
                 />
               </svg>
               <span
-                className="c30 c31"
+                className="c29 c30"
                 size="small"
                 style={
                   Object {
@@ -1074,7 +1055,7 @@ input:checked + .c23 .c24 {
                 }
               />
               <span
-                className="c32"
+                className="c31"
                 size="small"
                 style={
                   Object {
@@ -1087,13 +1068,13 @@ input:checked + .c23 .c24 {
               />
             </div>
             <span
-              className="c33"
+              className="c32"
             >
               yellow
             </span>
           </label>
           <label
-            className="c20 c21"
+            className="c19 c20"
           >
             <input
               checked={true}
@@ -1102,11 +1083,11 @@ input:checked + .c23 .c24 {
               type="checkbox"
             />
             <span
-              className="c22 c23"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c24 c25"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1119,11 +1100,11 @@ input:checked + .c23 .c24 {
               </svg>
             </span>
             <div
-              className="c26 c34"
+              className="c25 c33"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c28 c29"
+                className="c9 c27 c28"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1135,7 +1116,7 @@ input:checked + .c23 .c24 {
                 />
               </svg>
               <span
-                className="c30 c31"
+                className="c29 c30"
                 size="small"
                 style={
                   Object {
@@ -1147,7 +1128,7 @@ input:checked + .c23 .c24 {
                 }
               />
               <span
-                className="c35"
+                className="c34"
                 size="small"
                 style={
                   Object {
@@ -1160,13 +1141,13 @@ input:checked + .c23 .c24 {
               />
             </div>
             <span
-              className="c33"
+              className="c32"
             >
               green
             </span>
           </label>
           <label
-            className="c20 c21"
+            className="c19 c20"
           >
             <input
               checked={true}
@@ -1175,11 +1156,11 @@ input:checked + .c23 .c24 {
               type="checkbox"
             />
             <span
-              className="c22 c23"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c24 c25"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1192,11 +1173,11 @@ input:checked + .c23 .c24 {
               </svg>
             </span>
             <div
-              className="c26 c36"
+              className="c25 c35"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c28 c29"
+                className="c9 c27 c28"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1208,7 +1189,7 @@ input:checked + .c23 .c24 {
                 />
               </svg>
               <span
-                className="c30 c31"
+                className="c29 c30"
                 size="small"
                 style={
                   Object {
@@ -1220,7 +1201,7 @@ input:checked + .c23 .c24 {
                 }
               />
               <span
-                className="c37"
+                className="c36"
                 size="small"
                 style={
                   Object {
@@ -1233,13 +1214,13 @@ input:checked + .c23 .c24 {
               />
             </div>
             <span
-              className="c33"
+              className="c32"
             >
               blue
             </span>
           </label>
           <label
-            className="c20 c21"
+            className="c19 c20"
           >
             <input
               checked={true}
@@ -1248,11 +1229,11 @@ input:checked + .c23 .c24 {
               type="checkbox"
             />
             <span
-              className="c22 c23"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c24 c25"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1265,11 +1246,11 @@ input:checked + .c23 .c24 {
               </svg>
             </span>
             <div
-              className="c26 c38"
+              className="c25 c37"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c28 c29"
+                className="c9 c27 c28"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1281,7 +1262,7 @@ input:checked + .c23 .c24 {
                 />
               </svg>
               <span
-                className="c30 c31"
+                className="c29 c30"
                 size="small"
                 style={
                   Object {
@@ -1293,7 +1274,7 @@ input:checked + .c23 .c24 {
                 }
               />
               <span
-                className="c39"
+                className="c38"
                 size="small"
                 style={
                   Object {
@@ -1306,13 +1287,13 @@ input:checked + .c23 .c24 {
               />
             </div>
             <span
-              className="c33"
+              className="c32"
             >
               purple
             </span>
           </label>
           <label
-            className="c20 c21"
+            className="c19 c20"
           >
             <input
               checked={true}
@@ -1321,11 +1302,11 @@ input:checked + .c23 .c24 {
               type="checkbox"
             />
             <span
-              className="c22 c23"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c24 c25"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1338,11 +1319,11 @@ input:checked + .c23 .c24 {
               </svg>
             </span>
             <div
-              className="c26 c40"
+              className="c25 c39"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c28 c29"
+                className="c9 c27 c28"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1354,7 +1335,7 @@ input:checked + .c23 .c24 {
                 />
               </svg>
               <span
-                className="c30 c31"
+                className="c29 c30"
                 size="small"
                 style={
                   Object {
@@ -1366,7 +1347,7 @@ input:checked + .c23 .c24 {
                 }
               />
               <span
-                className="c41"
+                className="c40"
                 size="small"
                 style={
                   Object {
@@ -1379,7 +1360,7 @@ input:checked + .c23 .c24 {
               />
             </div>
             <span
-              className="c33"
+              className="c32"
             >
               pink
             </span>
@@ -1389,7 +1370,7 @@ input:checked + .c23 .c24 {
     </div>
     <button
       aria-label="print"
-      className="c42 c43"
+      className="c41 c42"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -1397,7 +1378,7 @@ input:checked + .c23 .c24 {
     >
       <svg
         aria-hidden="true"
-        className="c9 c44"
+        className="c9 c43"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -1409,27 +1390,27 @@ input:checked + .c23 .c24 {
         />
       </svg>
       <span
-        className="c45 c46"
+        className="c44 c45"
       >
         Print
       </span>
     </button>
   </div>
   <div
-    className="c47"
+    className="c46"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-live="polite"
-    className="c48 c49"
+    className="c47 c48"
   >
     <li
-      className="c50"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color blue"
-        className="c51"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -1461,17 +1442,17 @@ input:checked + .c23 .c24 {
         </svg>
       </button>
       <span
-        className="c52"
+        className="c51"
       >
         blue
       </span>
     </li>
     <li
-      className="c50"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color green"
-        className="c51"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -1503,17 +1484,17 @@ input:checked + .c23 .c24 {
         </svg>
       </button>
       <span
-        className="c52"
+        className="c51"
       >
         green
       </span>
     </li>
     <li
-      className="c50"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color pink"
-        className="c51"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -1545,17 +1526,17 @@ input:checked + .c23 .c24 {
         </svg>
       </button>
       <span
-        className="c52"
+        className="c51"
       >
         pink
       </span>
     </li>
     <li
-      className="c50"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color purple"
-        className="c51"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -1587,17 +1568,17 @@ input:checked + .c23 .c24 {
         </svg>
       </button>
       <span
-        className="c52"
+        className="c51"
       >
         purple
       </span>
     </li>
     <li
-      className="c50"
+      className="c49"
     >
       <button
         aria-label="Remove breadcrumb for color yellow"
-        className="c51"
+        className="c50"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -1629,7 +1610,7 @@ input:checked + .c23 .c24 {
         </svg>
       </button>
       <span
-        className="c52"
+        className="c51"
       >
         yellow
       </span>

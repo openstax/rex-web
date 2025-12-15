@@ -10,7 +10,7 @@ import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
-import { AngleIcon } from './Filters';
+import { AngleIcon, Fieldset } from './Filters';
 import { FiltersChange, LocationFilters } from './types';
 
 // tslint:disable-next-line:variable-name
@@ -70,15 +70,6 @@ interface ChapterFilterProps {
   setFilters: (filters: FiltersChange<LinkedArchiveTreeNode>) => void;
   id: string;
 }
-
-const Fieldset = styled.fieldset`
-  padding: 0;
-  border: none;
-  margin: 0;
-  legend {
-    ${hiddenButAccessible}
-  }
-`;
 
 // tslint:disable-next-line:variable-name
 const ChapterFilter = (props: ChapterFilterProps) => {

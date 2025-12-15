@@ -183,7 +183,7 @@ input:checked + .c22 .c23 {
   color: #0064A0;
 }
 
-.c53 {
+.c52 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -193,13 +193,13 @@ input:checked + .c22 .c23 {
   margin-right: 0.4rem;
 }
 
-.c53 svg {
+.c52 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c54 {
+.c53 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -211,7 +211,7 @@ input:checked + .c22 .c23 {
   line-height: 1.5rem;
 }
 
-.c52 {
+.c51 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -225,7 +225,7 @@ input:checked + .c22 .c23 {
   height: 4rem;
 }
 
-.c49 {
+.c48 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -238,7 +238,7 @@ input:checked + .c22 .c23 {
   border: 0;
 }
 
-.c51 {
+.c50 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -281,11 +281,11 @@ input:checked + .c22 .c23 {
   padding: 0 1rem;
 }
 
-.c32 {
+.c31 {
   display: none;
 }
 
-.c34 {
+.c33 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -300,7 +300,7 @@ input:checked + .c22 .c23 {
   border-radius: 50%;
 }
 
-.c35 {
+.c34 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -314,7 +314,7 @@ input:checked + .c22 .c23 {
   border: 1px solid #fed200;
 }
 
-.c38 {
+.c37 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -328,7 +328,7 @@ input:checked + .c22 .c23 {
   border: 1px solid #92d101;
 }
 
-.c40 {
+.c39 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -342,7 +342,7 @@ input:checked + .c22 .c23 {
   border: 1px solid #00c3ed;
 }
 
-.c42 {
+.c41 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -356,7 +356,7 @@ input:checked + .c22 .c23 {
   border: 1px solid #545ec8;
 }
 
-.c30 {
+.c29 {
   position: relative;
   background-color: #ffff8a;
   border: 1px solid #8f7700;
@@ -378,19 +378,19 @@ input:checked + .c22 .c23 {
   overflow: visible;
 }
 
-.c30 .c31 {
+.c29 .c30 {
   height: 1rem;
   width: 1rem;
 }
 
-.c30 input:focus + .c33 {
+.c29 input:focus + .c32 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c37 {
+.c36 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -412,19 +412,19 @@ input:checked + .c22 .c23 {
   overflow: visible;
 }
 
-.c37 .c31 {
+.c36 .c30 {
   height: 1rem;
   width: 1rem;
 }
 
-.c37 input:focus + .c33 {
+.c36 input:focus + .c32 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c39 {
+.c38 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -446,19 +446,19 @@ input:checked + .c22 .c23 {
   overflow: visible;
 }
 
-.c39 .c31 {
+.c38 .c30 {
   height: 1rem;
   width: 1rem;
 }
 
-.c39 input:focus + .c33 {
+.c38 input:focus + .c32 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c41 {
+.c40 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -480,12 +480,12 @@ input:checked + .c22 .c23 {
   overflow: visible;
 }
 
-.c41 .c31 {
+.c40 .c30 {
   height: 1rem;
   width: 1rem;
 }
 
-.c41 input:focus + .c33 {
+.c40 input:focus + .c32 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
@@ -503,6 +503,25 @@ input:checked + .c22 .c23 {
   transform: rotate(180deg);
   padding-top: 0;
   padding-bottom: 0.2rem;
+}
+
+.c16 {
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+
+.c16 legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .c6 {
@@ -634,25 +653,6 @@ input:checked + .c22 .c23 {
   margin: 0 0.4rem;
 }
 
-.c16 {
-  padding: 0;
-  border: none;
-  margin: 0;
-}
-
-.c16 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .c11 {
   color: #424242;
   background: #fff;
@@ -671,15 +671,15 @@ input:checked + .c22 .c23 {
   padding: 0.8rem;
 }
 
-.c11 .c29 {
+.c11 .c28 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c11 .c55:last-child {
+.c11 .c54:last-child {
   border-bottom: none;
 }
 
-.c36 {
+.c35 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -688,26 +688,7 @@ input:checked + .c22 .c23 {
   white-space: nowrap;
 }
 
-.c28 {
-  padding: 0;
-  border: none;
-  margin: 0;
-}
-
-.c28 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c44 {
+.c43 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -739,12 +720,12 @@ input:checked + .c22 .c23 {
   padding: 0 10px;
 }
 
-.c44:hover,
-.c44:focus {
+.c43:hover,
+.c43:focus {
   color: #424242;
 }
 
-.c48 {
+.c47 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -752,13 +733,13 @@ input:checked + .c22 .c23 {
   line-height: 1.5rem;
 }
 
-.c46 {
+.c45 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c45 {
+.c44 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -771,7 +752,7 @@ input:checked + .c22 .c23 {
   padding-right: 2.4rem;
 }
 
-.c45 .c47 {
+.c44 .c46 {
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0px 0px 0px 0.5rem;
@@ -804,11 +785,11 @@ input:checked + .c22 .c23 {
   text-transform: capitalize;
 }
 
-.c27 .c29 {
+.c27 .c28 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c43 {
+.c42 {
   margin-left: auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -822,13 +803,13 @@ input:checked + .c22 .c23 {
 }
 
 @media print {
-  .c53 {
+  .c52 {
     display: none;
   }
 }
 
 @media print {
-  .c54 {
+  .c53 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -836,13 +817,13 @@ input:checked + .c22 .c23 {
 }
 
 @media screen and (max-width:75em) {
-  .c51 {
+  .c50 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c51 {
+  .c50 {
     margin: 0;
   }
 }
@@ -877,7 +858,7 @@ input:checked + .c22 .c23 {
 }
 
 @media print {
-  .c0 > *:not(.c50) {
+  .c0 > *:not(.c49) {
     display: none;
   }
 }
@@ -898,7 +879,7 @@ input:checked + .c22 .c23 {
 }
 
 @media screen and (max-width:50em) {
-  .c44 {
+  .c43 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -913,7 +894,7 @@ input:checked + .c22 .c23 {
 }
 
 @media screen and (max-width:50em) {
-  .c48 {
+  .c47 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -921,13 +902,13 @@ input:checked + .c22 .c23 {
 }
 
 @media screen and (max-width:75em) {
-  .c45 {
+  .c44 {
     padding-right: 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c45 .c47 {
+  .c44 .c46 {
     display: none;
   }
 }
@@ -1343,7 +1324,7 @@ input:checked + .c22 .c23 {
           </button>
         </div>
         <fieldset
-          className="c28"
+          className="c16"
         >
           <legend>
             Filter by colors
@@ -1375,11 +1356,11 @@ input:checked + .c22 .c23 {
               </svg>
             </span>
             <div
-              className="c29 c30"
+              className="c28 c29"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c31 c32"
+                className="c9 c30 c31"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1391,7 +1372,7 @@ input:checked + .c22 .c23 {
                 />
               </svg>
               <span
-                className="c33 c34"
+                className="c32 c33"
                 size="small"
                 style={
                   Object {
@@ -1403,7 +1384,7 @@ input:checked + .c22 .c23 {
                 }
               />
               <span
-                className="c35"
+                className="c34"
                 size="small"
                 style={
                   Object {
@@ -1416,7 +1397,7 @@ input:checked + .c22 .c23 {
               />
             </div>
             <span
-              className="c36"
+              className="c35"
             >
               Key Terms
             </span>
@@ -1448,11 +1429,11 @@ input:checked + .c22 .c23 {
               </svg>
             </span>
             <div
-              className="c29 c37"
+              className="c28 c36"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c31 c32"
+                className="c9 c30 c31"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1464,7 +1445,7 @@ input:checked + .c22 .c23 {
                 />
               </svg>
               <span
-                className="c33 c34"
+                className="c32 c33"
                 size="small"
                 style={
                   Object {
@@ -1476,7 +1457,7 @@ input:checked + .c22 .c23 {
                 }
               />
               <span
-                className="c38"
+                className="c37"
                 size="small"
                 style={
                   Object {
@@ -1489,7 +1470,7 @@ input:checked + .c22 .c23 {
               />
             </div>
             <span
-              className="c36"
+              className="c35"
             >
               Connections & Relationships
             </span>
@@ -1521,11 +1502,11 @@ input:checked + .c22 .c23 {
               </svg>
             </span>
             <div
-              className="c29 c39"
+              className="c28 c38"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c31 c32"
+                className="c9 c30 c31"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1537,7 +1518,7 @@ input:checked + .c22 .c23 {
                 />
               </svg>
               <span
-                className="c33 c34"
+                className="c32 c33"
                 size="small"
                 style={
                   Object {
@@ -1549,7 +1530,7 @@ input:checked + .c22 .c23 {
                 }
               />
               <span
-                className="c40"
+                className="c39"
                 size="small"
                 style={
                   Object {
@@ -1562,7 +1543,7 @@ input:checked + .c22 .c23 {
               />
             </div>
             <span
-              className="c36"
+              className="c35"
             >
               Important Concepts
             </span>
@@ -1594,11 +1575,11 @@ input:checked + .c22 .c23 {
               </svg>
             </span>
             <div
-              className="c29 c41"
+              className="c28 c40"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c31 c32"
+                className="c9 c30 c31"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1610,7 +1591,7 @@ input:checked + .c22 .c23 {
                 />
               </svg>
               <span
-                className="c33 c34"
+                className="c32 c33"
                 size="small"
                 style={
                   Object {
@@ -1622,7 +1603,7 @@ input:checked + .c22 .c23 {
                 }
               />
               <span
-                className="c42"
+                className="c41"
                 size="small"
                 style={
                   Object {
@@ -1635,7 +1616,7 @@ input:checked + .c22 .c23 {
               />
             </div>
             <span
-              className="c36"
+              className="c35"
             >
               Enrichment
             </span>
@@ -1644,11 +1625,11 @@ input:checked + .c22 .c23 {
       </div>
     </div>
     <div
-      className="c43"
+      className="c42"
     >
       <button
         aria-label="print"
-        className="c44 c45"
+        className="c43 c44"
         data-analytics-label="print"
         data-testid="print"
         disabled={true}
@@ -1656,7 +1637,7 @@ input:checked + .c22 .c23 {
       >
         <svg
           aria-hidden="true"
-          className="c9 c46"
+          className="c9 c45"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 512 512"
@@ -1668,7 +1649,7 @@ input:checked + .c22 .c23 {
           />
         </svg>
         <span
-          className="c47 c48"
+          className="c46 c47"
         >
           Print
         </span>
@@ -1676,20 +1657,20 @@ input:checked + .c22 .c23 {
     </div>
   </div>
   <div
-    className="c49"
+    className="c48"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-live="polite"
-    className="c50 c51"
+    className="c49 c50"
   >
     <li
-      className="c52"
+      className="c51"
     >
       <button
         aria-label="Remove breadcrumb for chapter 2 Test Chapter 2"
-        className="c53"
+        className="c52"
         data-analytics-label="Remove breadcrumb for chapter 2 Test Chapter 2"
         onClick={[Function]}
       >
@@ -1721,7 +1702,7 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c54"
+        className="c53"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -1730,11 +1711,11 @@ input:checked + .c22 .c23 {
       />
     </li>
     <li
-      className="c52"
+      className="c51"
     >
       <button
         aria-label="Remove breadcrumb for label Important Concepts"
-        className="c53"
+        className="c52"
         data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
       >
@@ -1766,17 +1747,17 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c54"
+        className="c53"
       >
         Important Concepts
       </span>
     </li>
     <li
-      className="c52"
+      className="c51"
     >
       <button
         aria-label="Remove breadcrumb for label Connections & Relationships"
-        className="c53"
+        className="c52"
         data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
       >
@@ -1808,17 +1789,17 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c54"
+        className="c53"
       >
         Connections & Relationships
       </span>
     </li>
     <li
-      className="c52"
+      className="c51"
     >
       <button
         aria-label="Remove breadcrumb for label Enrichment"
-        className="c53"
+        className="c52"
         data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
       >
@@ -1850,17 +1831,17 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c54"
+        className="c53"
       >
         Enrichment
       </span>
     </li>
     <li
-      className="c52"
+      className="c51"
     >
       <button
         aria-label="Remove breadcrumb for label Key Terms"
-        className="c53"
+        className="c52"
         data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
       >
@@ -1892,7 +1873,7 @@ input:checked + .c22 .c23 {
         </svg>
       </button>
       <span
-        className="c54"
+        className="c53"
       >
         Key Terms
       </span>
