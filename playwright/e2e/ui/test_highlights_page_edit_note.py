@@ -31,6 +31,9 @@ async def test_highlights_page_edit_note(
     await home.select_text()
     await home.double_click_text()
 
+    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
+    await home.oneclick_highlight_infobox()
+
     assert home.highlight_box_is_visible
 
     await home.click_highlight_box_note_field()
@@ -58,8 +61,6 @@ async def test_highlights_page_edit_note(
 
     await chrome_page.keyboard.press("Escape")
 
-    await home.click_highlights_option()
-
     assert (
         "\nNote:\nautotest highlight"
         not in await home.highlights_option_page.inner_text()
@@ -70,6 +71,8 @@ async def test_highlights_page_edit_note(
     )
 
     await chrome_page.keyboard.press("Escape")
+
+    # THEN: Delete the created highlight
 
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()

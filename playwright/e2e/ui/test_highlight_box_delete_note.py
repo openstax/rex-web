@@ -2,13 +2,14 @@ import pytest
 
 from e2e.ui.pages.home import HomeRex
 
-import asyncio
-
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug",
-                         [("astronomy-2e", "9-3-impact-craters")])
-async def test_highlight_box_delete_note(chrome_page, base_url, book_slug, page_slug, rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_small_highlight_box_delete_note(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -23,17 +24,18 @@ async def test_highlight_box_delete_note(chrome_page, base_url, book_slug, page_
 
     await home.click_continue_login()
 
-    #THEN: Book page opens, highlight box appears, note is saved, then deleted and box disappears
+    # THEN: Book page opens, highlight box appears, note is saved, then deleted and box disappears
 
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
+    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
+    await home.oneclick_highlight_infobox()
+
     assert home.highlight_box_is_visible
 
-    await home.click_highlight_box_note_field()
-
-    await home.fill_highlight_box_note_field('autotest highlight')
+    await home.fill_highlight_box_note_field("autotest highlight")
 
     await home.click_highlight_box_save_button()
 
