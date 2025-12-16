@@ -10,7 +10,7 @@ import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
-import { AngleIcon } from './Filters';
+import { AngleIcon, Fieldset } from './Filters';
 import { FiltersChange, LocationFilters } from './types';
 
 // tslint:disable-next-line:variable-name
@@ -121,48 +121,51 @@ const ChapterFilter = (props: ChapterFilterProps) => {
         />
       )
       : null}
-    <Row>
-      {sectionChunks.map((sectionChunk, index) => <Column key={index} aria-label='Filter by chapters'>
-        {sectionChunk.map((location) => {
-          const { section, children } = location;
-          if (!children) {
-            return <li key={section.id}><ChapterFilterItem
-              selected={props.selectedLocationFilters.has(section.id)}
-              disabled={props.disabled || !props.locationFiltersWithContent.has(section.id)}
-              multiselect={Boolean(props.multiselect)}
-              title={section.title}
-              onChange={() => handleChange(section)}
-              ariaLabel={getAriaLabel(section)}
-              dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(section.title).join(' ')}`}
-            /></li>;
-          } else {
-            return <li key={section.id}><StyledDetails open={openChapterId === section.id}>
-              <StyledSummary onClick={(ev: React.MouseEvent) => {
-                ev.preventDefault();
-                setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
-              }}>
-                <ChapterTitle dangerouslySetInnerHTML={{__html: section.title}} />
-                <AngleIcon direction={openChapterId === section.id ? 'up' : 'down'} />
-              </StyledSummary>
-              <StyledChapterFilterItemWrapper>
-                {children.map((child) => (
-                  <ChapterFilterItem
-                    key={child.id}
-                    selected={props.selectedLocationFilters.has(child.id)}
-                    disabled={false}
-                    multiselect={props.multiselect}
-                    title={child.title}
-                    onChange={() => handleChange(child)}
-                    ariaLabel={getAriaLabel(child)}
-                    dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(child.title).join(' ')}`}
-                  />
-                ))}
-              </StyledChapterFilterItemWrapper>
-            </StyledDetails></li>;
-          }
-        })}
-      </Column>)}
-    </Row>
+    <Fieldset>
+      <legend>Filter by chapters</legend>
+      <Row>
+        {sectionChunks.map((sectionChunk, index) => <Column key={index} aria-label='Filter by chapters'>
+          {sectionChunk.map((location) => {
+            const { section, children } = location;
+            if (!children) {
+              return <li key={section.id}><ChapterFilterItem
+                selected={props.selectedLocationFilters.has(section.id)}
+                disabled={props.disabled || !props.locationFiltersWithContent.has(section.id)}
+                multiselect={Boolean(props.multiselect)}
+                title={section.title}
+                onChange={() => handleChange(section)}
+                ariaLabel={getAriaLabel(section)}
+                dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(section.title).join(' ')}`}
+              /></li>;
+            } else {
+              return <li key={section.id}><StyledDetails open={openChapterId === section.id}>
+                <StyledSummary onClick={(ev: React.MouseEvent) => {
+                  ev.preventDefault();
+                  setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
+                }}>
+                  <ChapterTitle dangerouslySetInnerHTML={{ __html: section.title }} />
+                  <AngleIcon direction={openChapterId === section.id ? 'up' : 'down'} />
+                </StyledSummary>
+                <StyledChapterFilterItemWrapper>
+                  {children.map((child) => (
+                    <ChapterFilterItem
+                      key={child.id}
+                      selected={props.selectedLocationFilters.has(child.id)}
+                      disabled={false}
+                      multiselect={props.multiselect}
+                      title={child.title}
+                      onChange={() => handleChange(child)}
+                      ariaLabel={getAriaLabel(child)}
+                      dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(child.title).join(' ')}`}
+                    />
+                  ))}
+                </StyledChapterFilterItemWrapper>
+              </StyledDetails></li>;
+            }
+          })}
+        </Column>)}
+      </Row>
+    </Fieldset>
   </div>;
 };
 
@@ -184,8 +187,9 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
       disabled={props.disabled}
       onChange={props.onChange}
       aria-label={props.ariaLabel}
+      aria-selected={props.selected}
     >
-      <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
+      <ChapterTitle dangerouslySetInnerHTML={{ __html: props.title }} />
     </Checkbox>;
   }
 
@@ -195,7 +199,7 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
     aria-label={props.ariaLabel}
     data-analytics-label={props.dataAnalyticsLabel}
   >
-    <ChapterTitle dangerouslySetInnerHTML={{__html: props.title}} />
+    <ChapterTitle dangerouslySetInnerHTML={{ __html: props.title }} />
   </StyledSectionItem>;
 };
 
