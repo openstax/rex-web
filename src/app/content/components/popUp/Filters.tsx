@@ -5,7 +5,7 @@ import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
 import { textStyle } from '../../../components/Typography/base';
-import theme from '../../../theme';
+import theme, { hiddenButAccessible } from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
 import { disablePrint } from '../utils/disablePrint';
 import FiltersList from './FiltersList';
@@ -26,6 +26,17 @@ export const AngleIcon = styled(AngleDown)`
       `;
     }
   }}
+`;
+
+// tslint:disable-next-line: variable-name
+export const Fieldset = styled.fieldset`
+  padding: 0;
+  border: none;
+  margin: 0;
+
+  legend {
+    ${hiddenButAccessible}
+  }
 `;
 
 interface ToggleProps {
