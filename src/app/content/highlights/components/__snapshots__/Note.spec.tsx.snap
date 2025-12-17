@@ -42,6 +42,7 @@ Array [
     maxLength={1000}
     onChange={[Function]}
     onFocus={[Function]}
+    onKeyDown={[Function]}
     placeholder=""
     value=""
   />,
