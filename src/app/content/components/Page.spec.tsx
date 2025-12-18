@@ -600,10 +600,12 @@ describe('Page', () => {
     const evt3 = makeClickEvent();
     const evt4 = makeClickEvent();
 
-    firstLink.dispatchEvent(evt1);
-    secondLink.dispatchEvent(evt2);
-    thirdLink.dispatchEvent(evt3);
-    button.dispatchEvent(evt4);
+    ReactTestUtils.act(() => {
+      firstLink.dispatchEvent(evt1);
+      secondLink.dispatchEvent(evt2);
+      thirdLink.dispatchEvent(evt3);
+      button.dispatchEvent(evt4);
+    });
 
     expect(evt1.preventDefault).toHaveBeenCalled();
     expect(evt2.preventDefault).not.toHaveBeenCalled();
@@ -675,7 +677,9 @@ describe('Page', () => {
 
     const evt1 = makeClickEvent();
 
-    firstLink.dispatchEvent(evt1);
+    ReactTestUtils.act(() => {
+      firstLink.dispatchEvent(evt1);
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -716,7 +720,9 @@ describe('Page', () => {
 
     const evt1 = makeClickEvent();
 
-    hashLink.dispatchEvent(evt1);
+    ReactTestUtils.act(() => {
+      hashLink.dispatchEvent(evt1);
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -748,7 +754,9 @@ describe('Page', () => {
 
     const evt1 = makeClickEvent();
 
-    archiveLink.dispatchEvent(evt1);
+    ReactTestUtils.act(() => {
+      archiveLink.dispatchEvent(evt1);
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -896,10 +904,12 @@ describe('Page', () => {
       },
     ]);
 
-    store.dispatch(requestSearch('asdf'));
+    ReactTestUtils.act(() => {
+      store.dispatch(requestSearch('asdf'));
 
-    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
-    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    });
 
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
@@ -930,10 +940,12 @@ describe('Page', () => {
       },
     ]);
 
-    store.dispatch(requestSearch('asdf'));
+    ReactTestUtils.act(() => {
+      store.dispatch(requestSearch('asdf'));
 
-    store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
-    store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+      store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+    });
 
     renderDomWithReferences();
 
@@ -945,7 +957,9 @@ describe('Page', () => {
     addFocusedStyles.mockClear();
     (scrollTo as any).mockClear();
 
-    store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
+    ReactTestUtils.act(() => {
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
+    });
 
     expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
@@ -973,9 +987,11 @@ describe('Page', () => {
       },
     ]);
 
-    store.dispatch(requestSearch('asdf'));
-    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
-    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    ReactTestUtils.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    });
 
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
@@ -992,7 +1008,9 @@ describe('Page', () => {
         result: hit,
       },
     ]);
-    store.dispatch(receivePage({...shortPage, references: []}));
+    ReactTestUtils.act(() => {
+      store.dispatch(receivePage({...shortPage, references: []}));
+    });
 
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
@@ -1257,15 +1275,17 @@ describe('Page', () => {
 
     renderDomWithReferences();
 
-    store.dispatch(actions.receivePage({
-      abstract: '',
-      content: 'some other content',
-      id: 'adsfasdf',
-      references: [],
-      revised: '2018-07-30T15:58:45Z',
-      slug: 'mock-slug',
-      title: 'qerqwer',
-    }));
+    ReactTestUtils.act(() => {
+      store.dispatch(actions.receivePage({
+        abstract: '',
+        content: 'some other content',
+        id: 'adsfasdf',
+        references: [],
+        revised: '2018-07-30T15:58:45Z',
+        slug: 'mock-slug',
+        title: 'qerqwer',
+      }));
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -1361,10 +1381,12 @@ describe('Page', () => {
 
     expect(scrollTo).not.toHaveBeenCalled();
 
-    store.dispatch(actions.receivePage({
-      ...someHashPage,
-      references: [],
-    }));
+    ReactTestUtils.act(() => {
+      store.dispatch(actions.receivePage({
+        ...someHashPage,
+        references: [],
+      }));
+    });
 
     // page lifecycle hooks
     await Promise.resolve();
@@ -1506,7 +1528,9 @@ describe('Page', () => {
 
       // use the same click helper as other tests
       const evt = makeClickEvent();
-      img.dispatchEvent(evt);
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(evt);
+      });
 
       // the modal portal renders into document.body
       const opened = assertDocument().body.querySelector('img[tabindex="0"]');
@@ -1525,19 +1549,27 @@ describe('Page', () => {
       if (!img) return expect(img).toBeTruthy();
 
       // open first
-      img.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
 
       // send escape
-      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      });
 
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
 
-      img.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
 
       // send Esc event
-      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+      });
 
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
 
@@ -1549,13 +1581,17 @@ describe('Page', () => {
       // Render portal
       const host = document.createElement('div');
       document.body.appendChild(host);
-      ReactDOM.render(<MediaModalPortal />, host);
+      ReactTestUtils.act(() => {
+        ReactDOM.render(<MediaModalPortal />, host);
+      });
 
       // Intentionally pass an invalid container to hit if (!container) return;
       expect(() => mount(undefined!)).not.toThrow();
 
       // Sanity: nothing opened (no listeners were attached)
-      document.body.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        document.body.dispatchEvent(makeClickEvent());
+      });
       expect(document.body.querySelector('img[tabindex="0"]')).toBeFalsy();
     });
 
@@ -1586,31 +1622,41 @@ describe('Page', () => {
       // Enter
       const enterEvt = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
       Object.defineProperty(enterEvt, 'preventDefault', { value: jest.fn() });
-      button.dispatchEvent(enterEvt);
+      ReactTestUtils.act(() => {
+        button.dispatchEvent(enterEvt);
+      });
 
       let opened = assertDocument().body.querySelector('img[tabindex="0"]');
       expect(opened).toBeTruthy();
       expect((enterEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
       // Close again
-      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+      });
 
       // Space
       const spaceEvt = new KeyboardEvent('keydown', { key: ' ', bubbles: true });
       Object.defineProperty(spaceEvt, 'preventDefault', { value: jest.fn() });
-      button.dispatchEvent(spaceEvt);
+      ReactTestUtils.act(() => {
+        button.dispatchEvent(spaceEvt);
+      });
 
       opened = assertDocument().body.querySelector('img[tabindex="0"]');
       expect(opened).toBeTruthy();
       expect((spaceEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
       // Close again
-      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      });
 
       // Irrelevant key
       const otherEvt = new KeyboardEvent('keydown', { key: 'a', bubbles: true });
       Object.defineProperty(otherEvt, 'preventDefault', { value: jest.fn() });
-      button.dispatchEvent(otherEvt);
+      ReactTestUtils.act(() => {
+        button.dispatchEvent(otherEvt);
+      });
 
       // should not open or call preventDefault
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
@@ -1663,7 +1709,9 @@ describe('Page', () => {
       if (!img) return expect(img).toBeTruthy();
 
       // Open via click
-      img.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
       expect(img.getAttribute('alt')).toBe(null);
 
@@ -1672,7 +1720,9 @@ describe('Page', () => {
       expect(closeBtn).toBeTruthy();
 
       if (closeBtn) {
-        closeBtn.dispatchEvent(makeClickEvent());
+        ReactTestUtils.act(() => {
+          closeBtn.dispatchEvent(makeClickEvent());
+        });
       }
 
       // Closed
@@ -1695,13 +1745,17 @@ describe('Page', () => {
       try {
         // Should render nothing and not throw
         expect(() => {
-          ReactDOM.render(<MediaModalPortal />, host);
+          ReactTestUtils.act(() => {
+            ReactDOM.render(<MediaModalPortal />, host);
+          });
         }).not.toThrow();
 
         expect(host.innerHTML).toBe('');
       } finally {
         getBody.mockRestore();
-        ReactDOM.unmountComponentAtNode(host);
+        ReactTestUtils.act(() => {
+          ReactDOM.unmountComponentAtNode(host);
+        });
         host.remove();
       }
     });
