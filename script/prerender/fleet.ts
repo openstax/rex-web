@@ -19,6 +19,10 @@ import {
   waitUntilStackDeleteComplete,
 } from '@aws-sdk/client-cloudformation';
 import {
+  ECSClient,
+  UpdateServiceCommand,
+} from '@aws-sdk/client-ecs';
+import {
   GetQueueAttributesCommand,
   GetQueueAttributesResult,
   ReceiveMessageCommand,
@@ -55,6 +59,12 @@ import { RELEASE_ID, WORK_REGION, BUCKET_NAME, BUCKET_REGION, PUBLIC_URL } from 
 // Increasing this too much can lead to connection issues and greater memory usage in the manager
 const MAX_CONCURRENT_BOOKS = 5;
 
+// Number of concurrent prerender tasks to run
+const DESIRED_TASK_COUNT = 256;
+
+// Total fleet memory capacity in MiB (must equal DESIRED_TASK_COUNT * 1024)
+const TOTAL_MEMORY_MIB = DESIRED_TASK_COUNT * 1024;
+
 // Retry EPROTO errors in requests this many times
 const MAX_ATTEMPTS = 5;
 
@@ -70,6 +80,7 @@ const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECOND
 const IMAGE_TAG = process.env.IMAGE_TAG || `${RELEASE_ID.replace(/\//g, '-')}`;
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
+const ecsClient = new ECSClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
 
 type PageTask = { payload: SerializedPageMatch, type: 'page' };
@@ -184,6 +195,10 @@ async function createWorkersStack() {
       {
         ParameterKey: 'ReleaseId',
         ParameterValue: RELEASE_ID,
+      },
+      {
+        ParameterKey: 'TotalMemoryMiB',
+        ParameterValue: TOTAL_MEMORY_MIB.toString(),
       },
       {
         ParameterKey: 'ValidUntil',
@@ -465,6 +480,14 @@ async function manage() {
 
   try {
     const { workQueueUrl, deadLetterQueueUrl } = await getQueueUrls(workersStackName);
+
+    console.log(`Scaling service to ${DESIRED_TASK_COUNT} tasks`);
+    await sendWithRetries(ecsClient, new UpdateServiceCommand({
+      cluster: `${workersStackName}-cluster`,
+      desiredCount: DESIRED_TASK_COUNT,
+      service: 'Prerendering',
+    }));
+
     const stats = await queueWork(workQueueUrl);
     await waitUntilWorkDone(workQueueUrl, deadLetterQueueUrl, stats);
     deleteWorkersStackPromise = deleteWorkersStack(workersStackName);

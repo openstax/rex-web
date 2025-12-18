@@ -42,19 +42,11 @@ Parameters:
     AllowedPattern: ^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$
     ConstraintDescription: Must be a timestamp in the YYYY-MM-DDTHH:MM:SSZ format
 
-  DesiredTaskCount:
-    Description: Desired number of concurrent prerender tasks to run
-    Type: Number
-    Default: 256
-    MinValue: 1
-    ConstraintDescription: Must be a positive integer
-
   TotalMemoryMiB:
-    Description: Total fleet memory capacity in MiB (must equal DesiredTaskCount * 1024)
+    Description: Total fleet memory capacity in MiB (must equal desired task count * 1024)
     Type: Number
-    Default: 262144
     MinValue: 1024
-    ConstraintDescription: Must equal DesiredTaskCount * 1024
+    ConstraintDescription: Must equal desired task count * 1024
 
 Resources:
 
@@ -127,7 +119,7 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       Cluster: !Ref Cluster
-      DesiredCount: !Ref DesiredTaskCount
+      DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true
       LaunchType: EC2
