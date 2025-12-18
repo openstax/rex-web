@@ -21,6 +21,7 @@ import {
 import {
   ECSClient,
   UpdateServiceCommand,
+  UpdateServiceCommandOutput,
 } from '@aws-sdk/client-ecs';
 import {
   GetQueueAttributesCommand,
@@ -108,6 +109,9 @@ async function sendWithRetries(
   client: CloudFormationClient, command: DescribeStacksCommand
 ): Promise<DescribeStacksCommandOutput>;
 async function sendWithRetries(
+  client: ECSClient, command: UpdateServiceCommand
+): Promise<UpdateServiceCommandOutput>;
+async function sendWithRetries(
   client: SQSClient, command: GetQueueAttributesCommand
 ): Promise<GetQueueAttributesResult>;
 async function sendWithRetries(
@@ -120,9 +124,9 @@ async function sendWithRetries(
   client: SQSClient, command: SendMessageCommand
 ): Promise<SendMessageResult>;
 async function sendWithRetries<C extends CreateStackCommand | DeleteStackCommand |
-DescribeStacksCommand | GetQueueAttributesCommand | ReceiveMessageCommand |
+DescribeStacksCommand | UpdateServiceCommand | GetQueueAttributesCommand | ReceiveMessageCommand |
 SendMessageBatchCommand | SendMessageCommand, R extends CreateStackCommandOutput |
-DeleteStackCommandOutput | DescribeStacksCommandOutput | GetQueueAttributesResult |
+DeleteStackCommandOutput | DescribeStacksCommandOutput | UpdateServiceCommandOutput | GetQueueAttributesResult |
 ReceiveMessageResult | SendMessageBatchResult | SendMessageResult>(
   client: { send: (command: C) => Promise<R> }, command: C
 ): Promise<R> {
