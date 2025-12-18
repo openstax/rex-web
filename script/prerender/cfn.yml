@@ -43,10 +43,10 @@ Parameters:
     ConstraintDescription: Must be a timestamp in the YYYY-MM-DDTHH:MM:SSZ format
 
   TotalMemoryMiB:
-    Description: Total fleet memory capacity in MiB (must equal desired task count * 1024)
+    Description: Total fleet memory capacity in MiB (must equal desired task count * 2048)
     Type: Number
-    MinValue: 1024
-    ConstraintDescription: Must equal desired task count * 1024
+    MinValue: 2048
+    ConstraintDescription: Must equal desired task count * 2048
 
 Resources:
 
@@ -109,7 +109,7 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
-          MemoryReservation: 1024
+          MemoryReservation: 2048
           Name: !Sub ${AWS::StackName}-task-definition
       Family: Prerendering
       NetworkMode: host
@@ -198,11 +198,10 @@ Resources:
                     References:
                       - InstanceFamily: c5
                 MemoryGiBPerVCpu:
-                  Min: 1
-                  Max: 2
+                  Min: 2
                 MemoryMiB:
                   Max: !Ref TotalMemoryMiB
-                  Min: 2048
+                  Min: 4096
                 VCpuCount:
                   Min: 2
               SubnetId: !Sub
