@@ -132,7 +132,6 @@ Resources:
       EnableExecuteCommand: true
       LaunchType: EC2
       PropagateTags: SERVICE
-      SchedulingStrategy: REPLICA
       ServiceName: Prerendering
       TaskDefinition: !Ref TaskDefinition
 
