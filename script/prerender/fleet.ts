@@ -211,7 +211,7 @@ async function createWorkersStack() {
     ],
     StackName: workersStackName,
     Tags: [
-      {Key: 'Project', Value: 'Unified'},
+      {Key: 'Project', Value: 'DISCO'},
       {Key: 'Application', Value: 'Rex'},
       {Key: 'Environment', Value: 'shared'},
       {Key: 'Owner', Value: 'dante'},
