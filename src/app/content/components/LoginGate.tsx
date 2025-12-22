@@ -5,23 +5,45 @@ import { ConnectedLoginButton } from '../../components/NavBar';
 import { user } from '../../auth/selectors';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
+import ModalWithScrollLock from '../../components/Modal';
 
-// tslint:disable-next-line:variable-name
-const WarningDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 1.8rem;
-  padding: 8rem 1.5rem;
+// tslint:disable-next-line: variable-name
+const Modal = styled(ModalWithScrollLock)`
+  width: 100vw;
 
-  > div {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    max-width: 60rem;
+  > div:first-child > div {
+    width: auto;
+  }
 
-    a {
-      place-self: center;
+  header {
+    padding: 0.5rem 3rem;
+
+    > svg {
+      display: none;
     }
+  }
+
+  > :last-child {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+`;
+
+// tslint:disable-next-line: variable-name
+const Centered = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70vw;
+  height: 70vh;
+`;
+
+// tslint:disable-next-line: variable-name
+const Message = styled.div`
+  padding: 0.5rem 3rem;
+  max-width: 60rem;
+
+  a {
+    place-self: center;
   }
 `;
 
@@ -29,21 +51,22 @@ export default function LoginGate({
   book,
   children,
 }: React.PropsWithChildren<{ book: Book }>) {
-  const authenticated = !!useSelector(user);
-
-  if (
-    authenticated ||
+  if (!!useSelector(user) ||
     !hasOSWebData(book) ||
-    !book.require_login_message_text
-  ) {
+    !book.require_login_message_text) {
     return <>{children}</>;
   }
   return (
-    <WarningDiv>
-      <div>
-        <span dangerouslySetInnerHTML={{__html: book.require_login_message_text}} />
-        <ConnectedLoginButton />
-      </div>
-    </WarningDiv>
+    <>
+      {children}
+      <Modal heading='Content Warning'>
+        <Centered>
+          <Message>
+            <span dangerouslySetInnerHTML={{__html: book.require_login_message_text}} />
+            <ConnectedLoginButton />
+          </Message>
+        </Centered>
+      </Modal>
+    </>
   );
 }
