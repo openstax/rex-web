@@ -7,7 +7,8 @@ export type { ScoreTargets };
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 declare global {
-  var page: puppeteer.Page;
+  // Puppeteer v13.7.0 types forbid null, but runtime requires it to disable emulation.
+  var page: puppeteer.Page & { emulateMediaType(type: string | null): Promise<void> };
   var browser: puppeteer.Browser;
   var puppeteerConfig: {server: {port: number}};
 }
