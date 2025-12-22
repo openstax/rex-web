@@ -55,7 +55,7 @@
     "lint:typescript": "eslint src && tslint -p ./tsconfig.json && tsc",
     "lint:exports": "ts-unused-exports ./tsconfig.json",
     "lint:css": "stylelint 'src/**/*.tsx'",
-    "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
+    "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v -e .venv -e node_modules)",
     "prestart": "npm run-script build:css",
     "start": "./script/start.bash",
     "start:static": "export REACT_APP_ENV=${REACT_APP_ENV:-test} && npm run-script build && npm run-script prerender:local && npm run-script server",
