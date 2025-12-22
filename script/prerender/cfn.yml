@@ -199,6 +199,7 @@ Resources:
                       - InstanceFamily: c5
                 MemoryGiBPerVCpu:
                   Min: 2
+                  Max: 4
                 MemoryMiB:
                   Max: !Ref TotalMemoryMiB
                   Min: 4096
