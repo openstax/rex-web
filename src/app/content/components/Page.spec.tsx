@@ -1647,6 +1647,14 @@ describe('Page', () => {
       expect(opened).toBeTruthy();
       expect((spaceEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
+      // Comma (ignored)
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: ',', bubbles: true }));
+      });
+
+      opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      expect(opened).toBeTruthy();
+
       // Close again
       ReactTestUtils.act(() => {
         assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
