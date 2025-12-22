@@ -68,13 +68,12 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 
 export const finishRender = async(page: puppeteer.Page) => {
   await page.waitForSelector('body[data-rex-loaded="true"]');
-  const screenshot = (): Buffer => page.screenshot() as unknown as Buffer;
 
   let lastScreen: Buffer | undefined;
   let newScreen: Buffer | undefined;
 
   const stillChanging = async() => {
-    newScreen = await screenshot();
+    newScreen = await page.screenshot() as Buffer;
     return !lastScreen || !lastScreen.equals(newScreen);
   };
 
@@ -99,11 +98,8 @@ export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
  *  - sampleInterval: milliseconds between samples (default 100)
  *  - settledCount: how many consecutive identical samples to consider settled (default 3)
  */
-export const getScrollTop = async(
-  target: puppeteer.Page,
-  { sampleInterval = 100, settledCount = 3 } = {},
-) => {
-  let lastScrollTop = undefined;
+export const getScrollTop = async(target: puppeteer.Page, { sampleInterval = 100, settledCount = 3 } = {}) => {
+  let lastScrollTop;
   let same = 0;
 
   while (same < settledCount) {

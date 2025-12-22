@@ -1,6 +1,8 @@
 /** @jest-environment puppeteer */
 import { Page } from 'puppeteer';
-import { finishRender, getScrollTop, navigate, setDesktopViewport, setMobileViewport } from '../../../test/browserutils';
+import {
+  finishRender, getScrollTop, navigate, setDesktopViewport, setMobileViewport
+} from '../../../test/browserutils';
 import { cookieNudge } from './NudgeStudyTools/constants';
 
 const TEST_PAGE_NAME = 'test-page-for-generic-styles';
