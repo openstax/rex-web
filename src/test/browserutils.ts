@@ -66,9 +66,9 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
   await calmHooks(target);
 };
 
-export const finishRender = async(target: puppeteer.Page) => {
-  await target.waitFor('body[data-rex-loaded="true"]');
-  const screenshot = (): Buffer => target.screenshot() as unknown as Buffer;
+export const finishRender = async(page: puppeteer.Page) => {
+  await page.waitForSelector('body[data-rex-loaded="true"]');
+  const screenshot = (): Buffer => page.screenshot() as unknown as Buffer;
 
   let lastScreen: Buffer | undefined;
   let newScreen: Buffer | undefined;
