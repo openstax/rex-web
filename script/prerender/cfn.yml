@@ -43,10 +43,10 @@ Parameters:
     ConstraintDescription: Must be a timestamp in the YYYY-MM-DDTHH:MM:SSZ format
 
   TotalMemoryMiB:
-    Description: Total fleet memory capacity in MiB (must equal desired task count * 2048)
+    Description: Total fleet memory capacity in MiB (must equal desired task count * 4096)
     Type: Number
-    MinValue: 2048
-    ConstraintDescription: Must equal desired task count * 2048
+    MinValue: 4096
+    ConstraintDescription: Must equal desired task count * 4096
 
 Resources:
 
@@ -109,7 +109,7 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
-          MemoryReservation: 2048
+          MemoryReservation: 4096
           Name: !Sub ${AWS::StackName}-task-definition
       Family: Prerendering
       NetworkMode: host

@@ -61,10 +61,10 @@ import { RELEASE_ID, WORK_REGION, BUCKET_NAME, BUCKET_REGION, PUBLIC_URL } from 
 const MAX_CONCURRENT_BOOKS = 5;
 
 // Number of concurrent prerender tasks to run
-const DESIRED_TASK_COUNT = 128;
+const DESIRED_TASK_COUNT = 64;
 
-// Total fleet memory capacity in MiB (must equal DESIRED_TASK_COUNT * 2048)
-const TOTAL_MEMORY_MIB = DESIRED_TASK_COUNT * 2048;
+// Total fleet memory capacity in MiB (must equal DESIRED_TASK_COUNT * 4096)
+const TOTAL_MEMORY_MIB = DESIRED_TASK_COUNT * 4096;
 
 // Retry EPROTO errors in requests this many times
 const MAX_ATTEMPTS = 5;
