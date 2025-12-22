@@ -1,4 +1,5 @@
 import { HighlightColorEnum, HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
+import noop from 'lodash/fp/noop';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { RawIntlProvider } from 'react-intl';
@@ -12,11 +13,12 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { receiveBook, receivePage } from '../../actions';
 import SectionHighlights, { HighlightSection } from '../../components/SectionHighlights';
 import LoaderWrapper from '../../styles/LoaderWrapper';
-import { assertDocument } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils';
 import { formatBookData } from '../../utils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
   receiveHighlightsTotalCounts,
+  receiveReadyToPrintHighlights,
   receiveSummaryHighlights,
   requestDeleteHighlight,
   setSummaryFilters,
@@ -51,11 +53,14 @@ describe('Highlights', () => {
   let store: Store;
   let services: ReturnType<typeof createTestServices> & MiddlewareAPI;
   let dispatch: jest.SpyInstance;
+  let print: jest.SpyInstance;
 
   beforeEach(() => {
     consoleError = jest.spyOn(console, 'error');
     store = createTestStore();
     dispatch = jest.spyOn(store, 'dispatch');
+    print = jest.spyOn(assertWindow(), 'print');
+    print.mockImplementation(noop);
 
     store.dispatch(receiveBook(book));
     store.dispatch(receivePage({ ...page, references: [] }));
@@ -119,6 +124,41 @@ describe('Highlights', () => {
     const pageInChapterHighlights = summaryHighlights[location!.id][pageInChapter.id];
     expect(secondSectionHighlights[0].props.color).toEqual(pageInChapterHighlights[0].color);
     expect(secondSectionHighlights[1].props.color).toEqual(pageInChapterHighlights[1].color);
+  });
+
+  it('properly print when flag is true', () => {
+    const state = store.getState();
+    const pageId = stripIdVersion(page.id);
+    const locationFilters = highlightLocationFilters(state);
+    const location = getHighlightLocationFilterForPage(locationFilters, pageInChapter);
+    expect(location).toBeDefined();
+
+    store.dispatch(setSummaryFilters({ locationIds: [location!.id, pageId] }));
+    store.dispatch(receiveHighlightsTotalCounts({
+      [pageId]: { [HighlightColorEnum.Green]: 5 },
+      [location!.id]: { [HighlightColorEnum.Green]: 2 },
+    }, new Map()));
+
+    const summaryHighlights = {
+      [pageId]: {
+        [pageId]: [hlBlue, hlGreen, hlPink, hlPurple, hlYellow],
+      },
+      [location!.id]: {
+        [pageInChapter.id]: [hlBlue, hlGreen],
+      },
+    } as SummaryHighlights;
+
+    store.dispatch(receiveSummaryHighlights(summaryHighlights, { pagination: null }));
+
+    renderer.create(<TestContainer services={services} store={store}>
+      <Highlights />
+    </TestContainer>);
+
+    renderer.act(() => {
+      store.dispatch(receiveReadyToPrintHighlights(true));
+    });
+
+    expect(print).toHaveBeenCalled();
   });
 
   it('show loading state on filters change', () => {

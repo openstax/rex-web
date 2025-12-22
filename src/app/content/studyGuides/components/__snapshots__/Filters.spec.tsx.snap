@@ -7,14 +7,14 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   overflow: hidden;
 }
 
-.c23 {
+.c24 {
   color: #fff;
   height: 1rem;
   width: 1rem;
   display: none;
 }
 
-.c21 {
+.c22 {
   height: 1.6rem;
   width: 1.6rem;
   display: -webkit-box;
@@ -34,19 +34,19 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   flex-shrink: 0;
 }
 
-input:not(:checked) + .c21 {
+input:not(:checked) + .c22 {
   border: 1px solid #424242;
 }
 
-input:checked + .c21 {
+input:checked + .c22 {
   background-color: #b03808;
 }
 
-input:checked + .c21 .c22 {
+input:checked + .c22 .c23 {
   display: block;
 }
 
-.c19 {
+.c20 {
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -64,7 +64,7 @@ input:checked + .c21 .c22 {
   opacity: 0.4;
 }
 
-.c19 input {
+.c20 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -72,27 +72,27 @@ input:checked + .c21 .c22 {
   width: 0;
 }
 
-.c19:focus-within {
+.c20:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-.c19:focus-within .c20 {
+.c20:focus-within .c21 {
   border: 1px solid #b03808;
 }
 
-.c19.focus-within {
+.c20.focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
 }
 
-.c19.focus-within .c20 {
+.c20.focus-within .c21 {
   border: 1px solid #b03808;
 }
 
-.c25 {
+.c26 {
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -107,7 +107,7 @@ input:checked + .c21 .c22 {
   align-items: center;
 }
 
-.c25 input {
+.c26 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -115,23 +115,23 @@ input:checked + .c21 .c22 {
   width: 0;
 }
 
-.c25:focus-within {
+.c26:focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-.c25:focus-within .c20 {
+.c26:focus-within .c21 {
   border: 1px solid #b03808;
 }
 
-.c25.focus-within {
+.c26.focus-within {
   border-radius: 0.4rem;
   background-color: #f1f1f1;
 }
 
-.c25.focus-within .c20 {
+.c26.focus-within .c21 {
   border: 1px solid #b03808;
 }
 
@@ -505,6 +505,25 @@ input:checked + .c21 .c22 {
   padding-bottom: 0.2rem;
 }
 
+.c16 {
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+
+.c16 legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .c6 {
   position: relative;
   border-left: 0.1rem solid transparent;
@@ -583,7 +602,7 @@ input:checked + .c21 .c22 {
   max-height: calc(100vh - 26rem);
 }
 
-.c16 {
+.c17 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -593,7 +612,7 @@ input:checked + .c21 .c22 {
   flex-direction: row;
 }
 
-.c17 {
+.c18 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -607,7 +626,7 @@ input:checked + .c21 .c22 {
   padding: 0;
 }
 
-.c24 {
+.c25 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -619,18 +638,18 @@ input:checked + .c21 .c22 {
   margin-left: 0.8rem;
 }
 
-.c24 > * {
+.c25 > * {
   overflow: hidden;
 }
 
-.c24 .os-text {
+.c25 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-overflow: ellipsis;
 }
 
-.c24 .os-divider {
+.c25 .os-divider {
   margin: 0 0.4rem;
 }
 
@@ -648,7 +667,7 @@ input:checked + .c21 .c22 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c11 .c18 {
+.c11 .c19 {
   padding: 0.8rem;
 }
 
@@ -667,25 +686,6 @@ input:checked + .c21 .c22 {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.c27 {
-  padding: 0;
-  border: none;
-  margin: 0;
-}
-
-.c27 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
 }
 
 .c43 {
@@ -758,7 +758,7 @@ input:checked + .c21 .c22 {
   margin: 0px 0px 0px 0.5rem;
 }
 
-.c26 {
+.c27 {
   background: #fff;
   display: -webkit-box;
   display: -webkit-flex;
@@ -776,16 +776,16 @@ input:checked + .c21 .c22 {
   min-width: 29rem;
 }
 
-.c26 .c12 {
+.c27 .c12 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c26 .c18 {
+.c27 .c19 {
   padding: 0.8rem;
   text-transform: capitalize;
 }
 
-.c26 .c28 {
+.c27 .c28 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
@@ -864,7 +864,7 @@ input:checked + .c21 .c22 {
 }
 
 @media screen and (max-width:75em) {
-  .c16 {
+  .c17 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -914,7 +914,7 @@ input:checked + .c21 .c22 {
 }
 
 @media screen and (max-width:30em) {
-  .c26 {
+  .c27 {
     width: calc(100vw - 1.6rem);
   }
 }
@@ -982,274 +982,288 @@ input:checked + .c21 .c22 {
             None
           </button>
         </div>
-        <div
+        <fieldset
           className="c16"
         >
-          <ul
-            aria-label="Filter by chapters"
+          <legend>
+            Filter by chapters
+          </legend>
+          <div
             className="c17"
           >
-            <li>
-              <label
-                className="c18 c19"
-              >
-                <input
-                  checked={false}
-                  disabled={true}
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <span
-                  className="c20 c21"
+            <ul
+              aria-label="Filter by chapters"
+              className="c18"
+            >
+              <li>
+                <label
+                  className="c19 c20"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c9 c22 c23"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 512 512"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    aria-selected={false}
+                    checked={false}
+                    disabled={true}
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                  <span
+                    className="c21 c22"
                   >
-                    <path
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    <svg
+                      aria-hidden="true"
+                      className="c9 c23 c24"
                       fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <span
-                  className="c24"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+                      focusable="false"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="c25"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
+                      }
                     }
-                  }
-                />
-              </label>
-            </li>
-            <li>
-              <label
-                className="c18 c19"
-              >
-                <input
-                  checked={false}
-                  disabled={true}
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <span
-                  className="c20 c21"
+                  />
+                </label>
+              </li>
+              <li>
+                <label
+                  className="c19 c20"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c9 c22 c23"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 512 512"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    aria-selected={false}
+                    checked={false}
+                    disabled={true}
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                  <span
+                    className="c21 c22"
                   >
-                    <path
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    <svg
+                      aria-hidden="true"
+                      className="c9 c23 c24"
                       fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <span
-                  className="c24"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+                      focusable="false"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="c25"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
+                      }
                     }
-                  }
-                />
-              </label>
-            </li>
-            <li>
-              <label
-                className="c18 c25"
-              >
-                <input
-                  checked={true}
-                  disabled={false}
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <span
-                  className="c20 c21"
+                  />
+                </label>
+              </li>
+              <li>
+                <label
+                  className="c19 c26"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c9 c22 c23"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 512 512"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    aria-selected={true}
+                    checked={true}
+                    disabled={false}
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                  <span
+                    className="c21 c22"
                   >
-                    <path
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    <svg
+                      aria-hidden="true"
+                      className="c9 c23 c24"
                       fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <span
-                  className="c24"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+                      focusable="false"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="c25"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
+                      }
                     }
-                  }
-                />
-              </label>
-            </li>
-            <li>
-              <label
-                className="c18 c19"
-              >
-                <input
-                  checked={false}
-                  disabled={true}
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <span
-                  className="c20 c21"
+                  />
+                </label>
+              </li>
+              <li>
+                <label
+                  className="c19 c20"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c9 c22 c23"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 512 512"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    aria-selected={false}
+                    checked={false}
+                    disabled={true}
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                  <span
+                    className="c21 c22"
                   >
-                    <path
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    <svg
+                      aria-hidden="true"
+                      className="c9 c23 c24"
                       fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <span
-                  className="c24"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+                      focusable="false"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="c25"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
+                      }
                     }
-                  }
-                />
-              </label>
-            </li>
-            <li>
-              <label
-                className="c18 c19"
-              >
-                <input
-                  checked={false}
-                  disabled={true}
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <span
-                  className="c20 c21"
+                  />
+                </label>
+              </li>
+              <li>
+                <label
+                  className="c19 c20"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c9 c22 c23"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 512 512"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    aria-selected={false}
+                    checked={false}
+                    disabled={true}
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                  <span
+                    className="c21 c22"
                   >
-                    <path
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    <svg
+                      aria-hidden="true"
+                      className="c9 c23 c24"
                       fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <span
-                  className="c24"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+                      focusable="false"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="c25"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
+                      }
                     }
-                  }
-                />
-              </label>
-            </li>
-            <li>
-              <label
-                className="c18 c19"
-              >
-                <input
-                  checked={false}
-                  disabled={true}
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <span
-                  className="c20 c21"
+                  />
+                </label>
+              </li>
+              <li>
+                <label
+                  className="c19 c20"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c9 c22 c23"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 512 512"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    aria-selected={false}
+                    checked={false}
+                    disabled={true}
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                  <span
+                    className="c21 c22"
                   >
-                    <path
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    <svg
+                      aria-hidden="true"
+                      className="c9 c23 c24"
                       fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <span
-                  className="c24"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                      focusable="false"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="c25"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
+                      }
                     }
-                  }
-                />
-              </label>
-            </li>
-            <li>
-              <label
-                className="c18 c19"
-              >
-                <input
-                  checked={false}
-                  disabled={true}
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <span
-                  className="c20 c21"
+                  />
+                </label>
+              </li>
+              <li>
+                <label
+                  className="c19 c20"
                 >
-                  <svg
-                    aria-hidden="true"
-                    className="c9 c22 c23"
-                    fill="currentColor"
-                    focusable="false"
-                    viewBox="0 0 512 512"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <input
+                    aria-selected={false}
+                    checked={false}
+                    disabled={true}
+                    onChange={[Function]}
+                    type="checkbox"
+                  />
+                  <span
+                    className="c21 c22"
                   >
-                    <path
-                      d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    <svg
+                      aria-hidden="true"
+                      className="c9 c23 c24"
                       fill="currentColor"
-                    />
-                  </svg>
-                </span>
-                <span
-                  className="c24"
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+                      focusable="false"
+                      viewBox="0 0 512 512"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="c25"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
+                      }
                     }
-                  }
-                />
-              </label>
-            </li>
-          </ul>
-        </div>
+                  />
+                </label>
+              </li>
+            </ul>
+          </div>
+        </fieldset>
       </div>
     </div>
     <div
@@ -1284,7 +1298,7 @@ input:checked + .c21 .c22 {
         </div>
       </button>
       <div
-        className="c26"
+        className="c27"
         id="guide-filter-color"
         tabIndex={-1}
       >
@@ -1310,13 +1324,13 @@ input:checked + .c21 .c22 {
           </button>
         </div>
         <fieldset
-          className="c27"
+          className="c16"
         >
           <legend>
             Filter by colors
           </legend>
           <label
-            className="c18 c25"
+            className="c19 c26"
           >
             <input
               checked={true}
@@ -1325,11 +1339,11 @@ input:checked + .c21 .c22 {
               type="checkbox"
             />
             <span
-              className="c20 c21"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c22 c23"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1389,7 +1403,7 @@ input:checked + .c21 .c22 {
             </span>
           </label>
           <label
-            className="c18 c25"
+            className="c19 c26"
           >
             <input
               checked={true}
@@ -1398,11 +1412,11 @@ input:checked + .c21 .c22 {
               type="checkbox"
             />
             <span
-              className="c20 c21"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c22 c23"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1462,7 +1476,7 @@ input:checked + .c21 .c22 {
             </span>
           </label>
           <label
-            className="c18 c25"
+            className="c19 c26"
           >
             <input
               checked={true}
@@ -1471,11 +1485,11 @@ input:checked + .c21 .c22 {
               type="checkbox"
             />
             <span
-              className="c20 c21"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c22 c23"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"
@@ -1535,7 +1549,7 @@ input:checked + .c21 .c22 {
             </span>
           </label>
           <label
-            className="c18 c25"
+            className="c19 c26"
           >
             <input
               checked={true}
@@ -1544,11 +1558,11 @@ input:checked + .c21 .c22 {
               type="checkbox"
             />
             <span
-              className="c20 c21"
+              className="c21 c22"
             >
               <svg
                 aria-hidden="true"
-                className="c9 c22 c23"
+                className="c9 c23 c24"
                 fill="currentColor"
                 focusable="false"
                 viewBox="0 0 512 512"

@@ -36,6 +36,7 @@ export const initialState: State = {
     open: false,
     pagination: null,
     totalCountsPerPage: null,
+    readyToPrintHighlights: false,
   },
 };
 
@@ -308,6 +309,15 @@ const reducer: Reducer<State, AnyAction> = (state = initialState, action) => {
     }
     case getType(receiveLoggedOut): {
       return initialState;
+    }
+    case getType(actions.receiveReadyToPrintHighlights): {
+      return {
+        ...state,
+        summary: {
+          ...state.summary,
+          readyToPrintHighlights: action.payload,
+        },
+      };
     }
     default:
       return state;

@@ -507,6 +507,25 @@ input:checked + .c22 .c23 {
   padding-bottom: 0.2rem;
 }
 
+.c16 {
+  padding: 0;
+  border: none;
+  margin: 0;
+}
+
+.c16 legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .c6 {
   position: relative;
   border-left: 0.1rem solid transparent;
@@ -585,7 +604,7 @@ input:checked + .c22 .c23 {
   max-height: calc(100vh - 26rem);
 }
 
-.c16 {
+.c17 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -631,25 +650,6 @@ input:checked + .c22 .c23 {
 }
 
 .c18 {
-  padding: 0;
-  border: none;
-  margin: 0;
-}
-
-.c18 legend {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c17 {
   background: #fff;
   display: -webkit-box;
   display: -webkit-flex;
@@ -666,16 +666,16 @@ input:checked + .c22 .c23 {
   overflow: auto;
 }
 
-.c17 .c12 {
+.c18 .c12 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c17 .c19 {
+.c18 .c19 {
   padding: 0.8rem;
   text-transform: capitalize;
 }
 
-.c17 .c25 {
+.c18 .c25 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
@@ -811,7 +811,7 @@ input:checked + .c22 .c23 {
 }
 
 @media screen and (max-width:75em) {
-  .c16 {
+  .c17 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -826,7 +826,7 @@ input:checked + .c22 .c23 {
 }
 
 @media screen and (max-width:30em) {
-  .c17 {
+  .c18 {
     width: calc(100vw - 1.6rem);
   }
 }
@@ -927,9 +927,16 @@ input:checked + .c22 .c23 {
             None
           </button>
         </div>
-        <div
+        <fieldset
           className="c16"
-        />
+        >
+          <legend>
+            Filter by chapters
+          </legend>
+          <div
+            className="c17"
+          />
+        </fieldset>
       </div>
     </div>
     <div
@@ -964,7 +971,7 @@ input:checked + .c22 .c23 {
         </div>
       </button>
       <div
-        className="c17"
+        className="c18"
         id="summary-filter-color"
         tabIndex={-1}
       >
@@ -988,7 +995,7 @@ input:checked + .c22 .c23 {
           </button>
         </div>
         <fieldset
-          className="c18"
+          className="c16"
         >
           <legend>
             Filter by colors
