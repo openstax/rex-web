@@ -35,7 +35,8 @@ const ignoreConsoleErrorMessages = [
 ];
 
 const originalConsoleError = console.error;  // tslint:disable-line:no-console
-console.error = (msg: unknown) => {  // tslint:disable-line:no-console
+console.error = (...args: unknown[]) => {  // tslint:disable-line:no-console
+  const msg = args[0];
   const shouldIgnore = !!ignoreConsoleErrorMessages.find(
     (ignore) => typeof msg === 'string' && msg.match(ignore)
   );
@@ -44,7 +45,7 @@ console.error = (msg: unknown) => {  // tslint:disable-line:no-console
     return;
   }
 
-  originalConsoleError(msg);
+  originalConsoleError(...args);
 };
 
 const ignoreConsoleWarnMessages = [
@@ -57,14 +58,15 @@ const ignoreConsoleWarnMessages = [
 ];
 
 const originalConsoleWarn = console.warn;  // tslint:disable-line:no-console
-console.warn = (msg: string) => {  // tslint:disable-line:no-console
+console.warn = (...args: unknown[]) => {  // tslint:disable-line:no-console
+  const msg = String(args[0] || '');
   const shouldIgnore = !!ignoreConsoleWarnMessages.find((ignore) => msg.match(ignore));
 
   if (shouldIgnore) {
     return;
   }
 
-  originalConsoleWarn(msg);
+  originalConsoleWarn(...args);
 };
 
 if (process.env.CI) {
