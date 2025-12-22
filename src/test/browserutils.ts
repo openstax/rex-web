@@ -91,6 +91,35 @@ export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
   return window && window.scrollBy(0, -1 * window.innerHeight);
 });
 
+/**
+ * Waits until the page's scrollTop settles.
+ * Returns the scrollTop value.
+ *
+ * Options:
+ *  - sampleInterval: milliseconds between samples (default 100)
+ *  - settledCount: how many consecutive identical samples to consider settled (default 3)
+ */
+export const getScrollTop = async(
+  target: puppeteer.Page,
+  { sampleInterval = 100, settledCount = 3 } = {},
+) => {
+  let lastScrollTop = undefined;
+  let same = 0;
+
+  while (same < settledCount) {
+    await new Promise((resolve) => setTimeout(resolve, sampleInterval));
+    const scrollTop = await target.evaluate('document.documentElement.scrollTop');
+    if (scrollTop === lastScrollTop) {
+      same += 1;
+    } else {
+      same = 0;
+      lastScrollTop = scrollTop;
+    }
+  }
+
+  return lastScrollTop;
+};
+
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
   await finishRender(target);
   await scrollUp(target);
