@@ -996,12 +996,13 @@ describe('Page', () => {
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
 
-    // make sure nothing happened
-    expect(highlightResults).not.toHaveBeenCalled();
+    // make sure no scroll happened
+    expect(highlightResults).toHaveBeenCalled();
+    highlightResults.mockClear();
     expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
 
-    // do navigation
+    // do navigation with a highlight
     highlightResults.mockReturnValue([
       {
         highlights: {0: [mockHighlight]},
