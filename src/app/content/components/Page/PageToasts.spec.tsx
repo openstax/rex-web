@@ -14,26 +14,28 @@ import ToastNotifications from './PageToasts';
 describe('PageToasts', () => {
   let store: Store;
 
-  beforeEach(() => {
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
-    resetModules();
+  beforeEach(async () => {
+    jest.useFakeTimers();
+    await resetModules();
 
     store = createTestStore();
   });
 
   afterEach(() => {
-    jest.restoreAllMocks();
+    jest.clearAllTimers();
+    jest.useRealTimers();
   });
 
   it('matches snapshot', () => {
-    const component = renderer.create(<TestContainer store={store}>
-      <ToastNotifications />
-    </TestContainer>);
+    let component: renderer.ReactTestRenderer;
+    renderer.act(() => {
+      component = renderer.create(<TestContainer store={store}>
+        <ToastNotifications />
+      </TestContainer>);
+      jest.runAllTimers();
+    });
 
-    const tree = component.toJSON();
+    const tree = component!.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -45,13 +47,17 @@ describe('PageToasts', () => {
       return expect(toasts).toBeTruthy();
     }
 
-    const component = renderer.create(<TestContainer store={store}>
-      <ToastNotifications />
-    </TestContainer>);
+    let component: renderer.ReactTestRenderer;
+    renderer.act(() => {
+      component = renderer.create(<TestContainer store={store}>
+        <ToastNotifications />
+      </TestContainer>);
+      jest.runAllTimers();
+    });
 
-    expect(component.root.findAllByType(Toast).length).toBe(1);
+    expect(component!.root.findAllByType(Toast).length).toBe(1);
 
-    const tree = component.toJSON();
+    const tree = component!.toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -59,11 +65,15 @@ describe('PageToasts', () => {
     store.dispatch(addToast(toastMessageKeys.highlights.failure.create, {destination: 'page'}));
     store.dispatch(openMobileToolbar());
 
-    const component = renderer.create(<TestContainer store={store}>
-      <ToastNotifications />
-    </TestContainer>);
+    let component: renderer.ReactTestRenderer;
+    renderer.act(() => {
+      component = renderer.create(<TestContainer store={store}>
+        <ToastNotifications />
+      </TestContainer>);
+      jest.runAllTimers();
+    });
 
-    const tree = component.toJSON();
+    const tree = component!.toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

@@ -250,7 +250,13 @@ describe('Page', () => {
     });
 
     it('throws if the value for start is invalid', async() => {
-      await expect(htmlHelper('<ol start="abc"><li>item</li></ol>')).rejects.toThrow();
+      // Silence console.error due to invalid list start attribute
+      const consoleError = jest.spyOn(console, 'error').mockImplementation();
+      try {
+        await expect(htmlHelper('<ol start="abc"><li>item</li></ol>')).rejects.toThrow();
+      } finally {
+        consoleError.mockRestore();
+      }
     });
 
     it('adds prefix to list items', async() => {
