@@ -2,7 +2,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { isHtmlElement } from '../../../guards';
-import { AppState } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openMobileMenu, setTextSize } from '../../actions';
 import { TextResizerValue } from '../../constants';
@@ -246,14 +245,14 @@ function AltSCycler({hasSearchResults}: {hasSearchResults: boolean}) {
 function Topbar() {
   // Redux state via hooks
   const dispatch = useDispatch();
-  const bookTheme = useSelector((state: AppState) => selectContent.bookTheme(state));
-  const hasSearchResults = useSelector((state: AppState) => selectSearch.hasResults(state));
-  const mobileToolbarOpen = useSelector((state: AppState) => selectSearch.mobileToolbarOpen(state));
-  const reduxQuery = useSelector((state: AppState) => selectSearch.query(state));
-  const searchButtonColor = useSelector((state: AppState) => selectSearch.searchButtonColor(state));
-  const searchInSidebar = useSelector((state: AppState) => selectSearch.searchInSidebar(state));
-  const searchSidebarOpen = useSelector((state: AppState) => selectSearch.searchResultsOpen(state));
-  const textSize = useSelector((state: AppState) => selectContent.textSize(state));
+  const bookTheme = useSelector(selectContent.bookTheme);
+  const hasSearchResults = useSelector(selectSearch.hasResults);
+  const mobileToolbarOpen = useSelector(selectSearch.mobileToolbarOpen);
+  const reduxQuery = useSelector(selectSearch.query);
+  const searchButtonColor = useSelector(selectSearch.searchButtonColor);
+  const searchInSidebar = useSelector(selectSearch.searchInSidebar);
+  const searchSidebarOpen = useSelector(selectSearch.searchResultsOpen);
+  const textSize = useSelector(selectContent.textSize);
 
   // Local state for search input
   const prevQuery = React.useRef('');
