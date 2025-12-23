@@ -24,6 +24,10 @@ describe('PageToasts', () => {
     store = createTestStore();
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('matches snapshot', () => {
     const component = renderer.create(<TestContainer store={store}>
       <ToastNotifications />
