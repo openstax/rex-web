@@ -107,7 +107,7 @@ async function visitPages(
 
           linkElt.click();
         }, linkSelector);
-        await page.waitForSelector(`li[aria-label="Current Page"] ${linkSelector}`);
+        await page.waitForSelector(`${linkSelector}[aria-label="Current Page"]`);
       } else {
         await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
       }
@@ -136,7 +136,7 @@ async function visitPages(
 
 function configurePage(page: puppeteer.Page): ObservePageErrors {
   let errorObserver: PageErrorObserver = () => null;
-  const cache = new QuickLRU<string, puppeteer.RespondOptions>({maxSize: cacheMaxSize});
+  const cache = new QuickLRU<string, puppeteer.ResponseForRequest>({maxSize: cacheMaxSize});
   let hits = 0;
   let misses = 0;
 

@@ -35,7 +35,8 @@ describe('scrollIntoView', () => {
 
     jest.useFakeTimers();
     domUtils.scrollIntoView(element);
-    jest.runAllTimers();
+    // Avoid infinite loop due to debounce in scrollTo()
+    jest.runOnlyPendingTimers();
 
     expect(scrollTo).toHaveBeenCalledWith(element, expect.anything());
   });

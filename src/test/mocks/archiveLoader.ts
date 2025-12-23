@@ -77,6 +77,7 @@ const bookPages: {[key: string]: {[key: string]: ArchivePage}} = {
 };
 
 const resources: {[key: string]: string} = {
+  [`${baseUrl}/resources/hash`]: '',
   [`${baseUrl}/resources/styles/test-styles.css`]: '.cool { color: blue; }',
 };
 
