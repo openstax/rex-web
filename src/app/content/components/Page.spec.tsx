@@ -129,13 +129,14 @@ describe('Page', () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.resetAllMocks();
-    jest.clearAllTimers();
-    jest.useRealTimers();
 
     unmountDom();
   });
 
   const renderDomHelper = ({topHeadingLevel}: {topHeadingLevel?: number} = {}) => {
+    // temporarily mock timers for PageToasts
+    jest.useFakeTimers();
+
     const result = renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -147,6 +148,13 @@ describe('Page', () => {
         </Services.Provider>
       </Provider>
     );
+
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
+    });
+
+    jest.clearAllTimers();
+    jest.useRealTimers();
 
     rootComponent = result.root;
 
@@ -860,8 +868,6 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
-    // use fake timers so PageToasts timeouts can be advanced deterministically
-    jest.useFakeTimers();
 
     const {root} = renderDomWithReferences();
 
@@ -880,11 +886,6 @@ describe('Page', () => {
     ReactTestUtils.act(() => {
       // click again for selectedSearchResult to update
       store.dispatch(selectSearchResult({result: hit, highlight: 0}));
-    });
-
-    // run any scheduled timeouts (PageToasts etc)
-    ReactTestUtils.act(() => {
-      jest.runAllTimers();
     });
 
     expect(scrollTo).not.toHaveBeenCalled();
@@ -1041,7 +1042,6 @@ describe('Page', () => {
   });
 
   it('renders error modal for different search results', async() => {
-    jest.useFakeTimers();
 
     const {root} = renderDomWithReferences();
 
@@ -1065,10 +1065,6 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    ReactTestUtils.act(() => {
-      jest.runAllTimers();
-    });
-
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
 
     if (!errorModalCloseButton) {
@@ -1090,10 +1086,6 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    ReactTestUtils.act(() => {
-      jest.runAllTimers();
-    });
-
     expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
     ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(errorModalCloseButton);
@@ -1103,7 +1095,6 @@ describe('Page', () => {
   });
 
   it('doesn\'t render error modal for the same result twice', async() => {
-    jest.useFakeTimers();
 
     const {root} = renderDomWithReferences();
 
@@ -1126,10 +1117,6 @@ describe('Page', () => {
     await Promise.resolve();
     // after images are loaded
     await Promise.resolve();
-
-    ReactTestUtils.act(() => {
-      jest.runAllTimers();
-    });
 
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
 
@@ -1157,7 +1144,6 @@ describe('Page', () => {
   });
 
   it('refresh error modal for different search results if they are of the same type', async() => {
-    jest.useFakeTimers();
     const {root} = renderDomWithReferences();
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1183,10 +1169,6 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
-    ReactTestUtils.act(() => {
-      jest.runAllTimers();
-    });
-
     expect(dispatch).toHaveBeenCalledWith(
       addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'})
     );
@@ -1211,7 +1193,6 @@ describe('Page', () => {
   });
 
   it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
-    jest.useFakeTimers();
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1221,10 +1202,6 @@ describe('Page', () => {
 
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
-
-    ReactTestUtils.act(() => {
-      jest.runAllTimers();
-    });
 
     ReactTestUtils.act(() => {
       store.dispatch(locationChange({
@@ -1250,10 +1227,6 @@ describe('Page', () => {
     ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(errorModalCloseButton);
       store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
-    });
-
-    ReactTestUtils.act(() => {
-      jest.runAllTimers();
     });
 
     // page lifecycle hooks
