@@ -12,12 +12,18 @@
  * These utilities help ensure proper keyboard navigation and accessibility.
  */
 
-import type { Element, FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
+import type {
+  Element,
+  FocusEvent,
+  HTMLElement,
+  KeyboardEvent,
+  Event,
+} from '@openstax/types/lib.dom';
 import React from 'react';
 import { Highlight } from '@openstax/highlighter';
 import { addSafeEventListener } from './domUtils';
 import { isElement } from './guards';
-import { assertDefined, assertDocument } from './utils';
+import { assertDocument } from './utils';
 
 /**
  * Hook that automatically focuses an element on mount.
@@ -52,11 +58,18 @@ function isHidden(el: HTMLElement) {
 /**
  * CSS selector for focusable elements in the DOM.
  * Includes buttons, inputs, links, and other interactive elements.
- * Excludes disabled elements and elements with tabindex="-1".
+ * Excludes disabled elements and elements with tabindex='-1'.
  */
-export const focusableItemQuery = [
-  'button', 'input', 'select', 'textarea', '[href]', '[tabindex]:not([tabindex="-1"]',
-].map((s) => s.includes('[') ? s : `${s}:not([disabled])`).join(',');
+export const focusableItemQuery = ([
+  'button',
+  'input',
+  'select',
+  'textarea',
+  '[href]',
+  '[tabindex]:not([tabindex=\'-1\']',
+])
+  .map((s) => (s.includes('[') ? s : `${s}:not([disabled])`))
+  .join(',');
 
 /**
  * Helper function for ring buffer arithmetic.
@@ -81,19 +94,19 @@ function ringAdd(arr: unknown[], a: number, b: number) {
  */
 export function createTrapTab(...elements: HTMLElement[]) {
   const focusableElements = elements
-  .filter(c => c  && 'querySelectorAll' in c) // in some tests, this gets garbage
-  .map(
-    (container) => {
-      const contents = Array.from(container.querySelectorAll<HTMLElement>(focusableItemQuery))
-        .filter((el) => !isHidden(el));
+    .filter((c) => c && 'querySelectorAll' in c) // in some tests, this gets garbage
+    .map((container) => {
+      const contents = Array.from(
+        container.querySelectorAll<HTMLElement>(focusableItemQuery)
+      ).filter((el) => !isHidden(el));
 
       return {
         container,
         firstEl: contents[0],
         lastEl: contents[contents.length - 1],
       };
-    }
-  ).filter((c) => c.firstEl);
+    })
+    .filter((c) => c.firstEl);
 
   if (focusableElements.length === 0) {
     return () => null;
@@ -102,11 +115,15 @@ export function createTrapTab(...elements: HTMLElement[]) {
   // A typical implementation, adapted for crossing multiple containers
   // e.g. https://hidde.blog/using-javascript-to-trap-focus-in-an-element/
   return (event: KeyboardEvent) => {
-    if (event.key !== 'Tab') { return; }
+    if (event.key !== 'Tab') {
+      return;
+    }
 
     // Keep track of where we came from
     const startEl = document?.activeElement as HTMLElement;
-    const feEntry = focusableElements.find((entry) => entry.container.contains(startEl));
+    const feEntry = focusableElements.find((entry) =>
+      entry.container.contains(startEl)
+    );
 
     // Focus has escaped the trap
     if (!feEntry) {
@@ -153,20 +170,17 @@ export function useTrapTabNavigation(
   ref: React.MutableRefObject<HTMLElement | null>,
   otherDep?: unknown
 ) {
-  React.useEffect(
-    () => {
-      const el = ref.current;
-      if (!el?.addEventListener) {
-        return;
-      }
-      const trapTab = createTrapTab(el);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el?.addEventListener) {
+      return;
+    }
+    const trapTab = createTrapTab(el);
 
-      el.addEventListener('keydown', trapTab, true);
+    el.addEventListener('keydown', trapTab, true);
 
-      return () => el.removeEventListener('keydown', trapTab, true);
-    },
-    [ref, otherDep]
-  );
+    return () => el.removeEventListener('keydown', trapTab, true);
+  }, [ref, otherDep]);
 }
 
 /**
@@ -178,37 +192,43 @@ export function useTrapTabNavigation(
  * @param type - Type of focus event ('focusin' or 'focusout')
  * @returns Cleanup function to remove event listener
  */
-export const onFocusInOrOutHandler = (
-  ref: React.RefObject<HTMLElement>,
-  isEnabled: boolean,
-  cb: () => void,
-  type: 'focusin' | 'focusout'
-) => () => {
-  const el = ref?.current;
-  if (!el) { return; }
+export const onFocusInOrOutHandler =
+  (
+    ref: React.RefObject<HTMLElement>,
+    isEnabled: boolean,
+    cb: () => void,
+    type: 'focusin' | 'focusout'
+  ) =>
+  () => {
+    const el = ref?.current;
+    if (!el) {
+      return;
+    }
 
-  const handler = (event: FocusEvent) => {
-    const target = type === 'focusout'
-      ? (event.relatedTarget ?? event.target)
-      : event.target;
+    const handler = (event: FocusEvent) => {
+      const target =
+        type === 'focusout'
+          ? (event.relatedTarget ?? event.target)
+          : event.target;
 
-    if (
-      type === 'focusout'
-      && (!isElement(target) || !(ref.current as HTMLElement).contains(target))
-    ) {
-      cb();
-    } else if (
-      type === 'focusin'
-      && (isElement(target) && (ref.current as HTMLElement).contains(target))
-    ) {
-      cb();
+      if (
+        type === 'focusout' &&
+        (!isElement(target) || !(ref.current as HTMLElement).contains(target))
+      ) {
+        cb();
+      } else if (
+        type === 'focusin' &&
+        isElement(target) &&
+        (ref.current as HTMLElement).contains(target)
+      ) {
+        cb();
+      }
+    };
+
+    if (isEnabled) {
+      return addSafeEventListener(el, type, handler);
     }
   };
-
-  if (isEnabled) {
-    return addSafeEventListener(el, type, handler);
-  }
-};
 
 /**
  * Hook that detects when focus leaves a container element.
@@ -221,8 +241,15 @@ export const onFocusInOrOutHandler = (
  * const containerRef = useRef<HTMLDivElement>(null);
  * useFocusLost(containerRef, true, () => console.log('Focus lost!'));
  */
-export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(() => onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout')(), [ref, isEnabled, cb]);
+export const useFocusLost = (
+  ref: React.RefObject<HTMLElement>,
+  isEnabled: boolean,
+  cb: () => void
+) => {
+  React.useEffect(
+    () => onFocusInOrOutHandler(ref, isEnabled, cb, 'focusout')(),
+    [ref, isEnabled, cb]
+  );
 };
 
 /**
@@ -236,8 +263,15 @@ export const useFocusLost = (ref: React.RefObject<HTMLElement>, isEnabled: boole
  * const containerRef = useRef<HTMLDivElement>(null);
  * useFocusIn(containerRef, true, () => console.log('Focus gained!'));
  */
-export const useFocusIn = (ref: React.RefObject<HTMLElement>, isEnabled: boolean, cb: () => void) => {
-  React.useEffect(() => onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin')(), [ref, isEnabled, cb]);
+export const useFocusIn = (
+  ref: React.RefObject<HTMLElement>,
+  isEnabled: boolean,
+  cb: () => void
+) => {
+  React.useEffect(
+    () => onFocusInOrOutHandler(ref, isEnabled, cb, 'focusin')(),
+    [ref, isEnabled, cb]
+  );
 };
 
 /**
@@ -264,7 +298,9 @@ const tabbableElementsSelector = [
   'video',
   '[contentEditable=true]',
   '[tabindex]',
-].map((el) => el + `:not([tabindex='-1'])`).join(',');
+]
+  .map((el) => el + `:not([tabindex='-1'])`)
+  .join(',');
 
 /**
  * Disables tab navigation for all content in the #root element.
@@ -276,9 +312,13 @@ const tabbableElementsSelector = [
  * @returns Cleanup function to restore original tab indices
  */
 export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
-  if (!isEnabled) { return; }
+  if (!isEnabled) {
+    return;
+  }
   const root = assertDocument().querySelector('#root');
-  if (!root) { return; }
+  if (!root) {
+    return;
+  }
 
   root.setAttribute('aria-hidden', 'true');
   const tabbable = root.querySelectorAll(tabbableElementsSelector);
@@ -328,7 +368,10 @@ export const useDisableContentTabbing = (isEnabled: boolean) => {
  * const inputRef = useRef<HTMLInputElement>(null);
  * useFocusElement(inputRef, dialogIsOpen);
  */
-export const useFocusElement = (element: React.RefObject<HTMLElement>, shouldFocus: boolean) => {
+export const useFocusElement = (
+  element: React.RefObject<HTMLElement>,
+  shouldFocus: boolean
+) => {
   React.useEffect(() => {
     if (shouldFocus && element.current) {
       element.current.focus();
@@ -348,7 +391,10 @@ export const useFocusElement = (element: React.RefObject<HTMLElement>, shouldFoc
  * @example
  * useFocusHighlight((id) => setActiveHighlight(id), highlights);
  */
-export const useFocusHighlight = (showCard: (id: string) => void, highlights: Highlight[]) => {
+export const useFocusHighlight = (
+  showCard: (id: string) => void,
+  highlights: Highlight[]
+) => {
   const document = assertDocument();
   React.useEffect(() => {
     if (!highlights || highlights.length === 0) return;
@@ -365,11 +411,16 @@ export const useFocusHighlight = (showCard: (id: string) => void, highlights: Hi
       } else {
         target = event.target;
       }
-      const highlight = highlights.find(h =>
-        h.elements && (h.elements as Element[]).some(el =>
-          el === target ||
-          (!!el && typeof el.contains === 'function' && el.contains(target as Element))
-        )
+      const highlight = highlights.find(
+        (h) =>
+          h.elements &&
+          (h.elements as Element[]).some(
+            (el) =>
+              el === target ||
+              (!!el &&
+                typeof el.contains === 'function' &&
+                el.contains(target as Element))
+          )
       );
 
       if (highlight) {

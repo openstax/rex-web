@@ -13,7 +13,7 @@
  * the above categories (DOM events, timeouts, SSR detection).
  */
 
-import type { Event, HTMLElement, HTMLElementEventMap } from '@openstax/types/lib.dom';
+import type { HTMLElement, HTMLElementEventMap } from '@openstax/types/lib.dom';
 import React from 'react';
 import { isWindow } from './guards';
 import { assertDefined } from './utils';
@@ -34,14 +34,17 @@ export {
 } from './focusUtils';
 
 // Re-export all keyboard-related utilities
+export type {
+  OnKeyConfig,
+  KeyCombinationOptions,
+} from './keyboardUtils';
+
 export {
-  type OnKeyConfig,
   onKey,
   onKeyHandler,
   useOnKey,
   onEscCallbacks,
   useOnEsc,
-  type KeyCombinationOptions,
   keyboardEventMatchesCombination,
   useKeyCombination,
 } from './keyboardUtils';
