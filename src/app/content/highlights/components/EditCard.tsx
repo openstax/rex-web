@@ -55,7 +55,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { ButtonGroup } from '../../../components/Button';
@@ -124,12 +123,13 @@ export interface EditCardProps {
  */
 // tslint:disable-next-line:variable-name
 const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
+  const element = React.useRef<HTMLElement>(null);
+
   if (!props.isActive) {
     return null;
   }
 
   const isNewSelection = props.highlight.elements.length === 0;
-  const element = React.useRef<HTMLElement>(null);
 
   return (
     <LoginOrEdit

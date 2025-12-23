@@ -13,6 +13,7 @@
 
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
@@ -188,7 +189,7 @@ export function useSaveAnnotation(
     (toSave: HighlightData) => {
       const definedData = assertDefined(
         data,
-        "Can't update highlight that doesn't exist"
+        'Can\'t update highlight that doesn\'t exist'
       );
 
       // Track whether this is a new note or editing existing note
