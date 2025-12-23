@@ -497,9 +497,13 @@ describe('Page', () => {
         }
 
         Object.defineProperty(button.parentElement, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        ReactTestUtils.act(() => {
+          expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        });
         Object.defineProperty(button, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        ReactTestUtils.act(() => {
+          expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        });
       });
 
       it('is automatically expanded if it contains a link anchor', async() => {
@@ -658,7 +662,9 @@ describe('Page', () => {
     }
 
     const event = makeClickEvent();
-    lastLink.dispatchEvent(event);
+    ReactTestUtils.act(() => {
+      lastLink.dispatchEvent(event);
+    });
 
     expect(event.preventDefault).not.toHaveBeenCalled();
 
@@ -811,7 +817,9 @@ describe('Page', () => {
 
     const evt1 = makeMetaEvent(document);
 
-    firstLink.dispatchEvent(evt1);
+    ReactTestUtils.act(() => {
+      firstLink.dispatchEvent(evt1);
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -1630,7 +1638,9 @@ describe('Page', () => {
       ReactDOM.unmountComponentAtNode(root);
 
       // try clicking again
-      img.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
 
       // still query document.body
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
