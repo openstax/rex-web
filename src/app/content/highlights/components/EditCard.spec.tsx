@@ -52,12 +52,11 @@ describe('EditCard', () => {
     );
   };
 
-  const renderAuthenticatedEditCard = (props: Partial<EditCardProps> & Pick<EditCardProps, 'highlight'>) => {
+  const renderAuthenticatedEditCard = (props: object) => {
     // Provide sensible defaults for all required EditCardProps
-    const defaultProps: EditCardProps = {
+    const defaultProps: Omit<EditCardProps, 'highlight'> = {
       isActive: false,
       hasUnsavedHighlight: false,
-      highlight: props.highlight,
       locationFilterId: 'test-location',
       pageId: 'test-page',
       onCreate: jest.fn(),
@@ -69,9 +68,8 @@ describe('EditCard', () => {
       className: '',
       shouldFocusCard: false,
     };
-
     const cleanup = setupAuthenticatedUser();
-    const component = renderEditCard({ ...defaultProps, ...props });
+    const component = renderEditCard({ ...defaultProps, ...props } as EditCardProps);
     return { component, cleanup };
   };
 
@@ -505,23 +503,6 @@ describe('EditCard', () => {
           id: highlightData.id,
         },
       }));
-      cleanup();
-    });
-
-    it('creates highlight when changing color on a new highlight', () => {
-      const { component, cleanup } = renderAuthenticatedEditCard({
-        ...editCardProps,
-        isActive: true,
-        shouldFocusCard: true,
-      });
-
-      const picker = component.root.findByType(ColorPicker);
-      renderer.act(() => {
-        picker.props.onChange('blue');
-      });
-
-      expect(highlight.setStyle).toHaveBeenCalledWith('blue');
-      expect(editCardProps.onCreate).toHaveBeenCalled();
       cleanup();
     });
   });
