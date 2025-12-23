@@ -113,7 +113,8 @@ describe('Page', () => {
 
     state = store.getState();
 
-    const testServices = createTestServices({prefetchResolutions: true});
+    // disable prefetchResolutions to prevent NetworkTimeout in tests
+    const testServices = createTestServices({prefetchResolutions: false});
 
     services = {
       ...testServices,
@@ -128,6 +129,9 @@ describe('Page', () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.resetAllMocks();
+    jest.clearAllTimers();
+    jest.useRealTimers();
+
     unmountDom();
   });
 
@@ -150,7 +154,7 @@ describe('Page', () => {
   };
 
   const renderDomWithReferences = ({html, topHeadingLevel}: {html?: string, topHeadingLevel?: number} = {}) => {
-    const pageWithRefereces = {
+    const pageWithReferences = {
       ...page,
       content: html || `
         some text
@@ -166,9 +170,9 @@ describe('Page', () => {
         <a href="cross-book-reference-error">reference loading error</a>
       `,
     };
-    archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
+    archiveLoader.mockPage(book, pageWithReferences, 'unused?1');
 
-    store.dispatch(receivePage({...pageWithRefereces, references }));
+    store.dispatch(receivePage({...pageWithReferences, references }));
 
     return renderDomHelper({topHeadingLevel});
   };
@@ -280,7 +284,7 @@ describe('Page', () => {
         <div class="os-figure">
           <figure id="figure-id1">
             <span data-alt="Something happens." data-type="media" id="span-id1">
-              <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300">
+              <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/archive/codeversion/resources/hash" width="300">
             </span>
           </figure>
           <div class="os-caption-container">
@@ -317,7 +321,7 @@ describe('Page', () => {
       `)).toEqual(`<div class="os-figure" id="figure-id1">
           <figure data-id="figure-id1">
             <span data-alt="Something happens." data-type="media" id="span-id1">
-              <button type="button" aria-label="Click to enlarge image of Something happens." class="image-button-wrapper"><img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300"></button>
+              <button type="button" aria-label="Click to enlarge image of Something happens." class="image-button-wrapper"><img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/hash" width="300" data-original-src="/apps/archive/codeversion/resources/hash"></button>
             </span>
           </figure>
           <div class="os-caption-container">
@@ -848,11 +852,8 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
+    // use fake timers so PageToasts timeouts can be advanced deterministically
+    jest.useFakeTimers();
 
     const {root} = renderDomWithReferences();
 
@@ -871,6 +872,11 @@ describe('Page', () => {
     ReactTestUtils.act(() => {
       // click again for selectedSearchResult to update
       store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    });
+
+    // run any scheduled timeouts (PageToasts etc)
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
     });
 
     expect(scrollTo).not.toHaveBeenCalled();
@@ -1027,11 +1033,7 @@ describe('Page', () => {
   });
 
   it('renders error modal for different search results', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
+    jest.useFakeTimers();
 
     const {root} = renderDomWithReferences();
 
@@ -1055,6 +1057,10 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
+    });
+
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
 
     if (!errorModalCloseButton) {
@@ -1076,6 +1082,10 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
+    });
+
     expect(root.querySelector('[data-testid=banner-body]')).toBeTruthy();
     ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(errorModalCloseButton);
@@ -1085,11 +1095,7 @@ describe('Page', () => {
   });
 
   it('doesn\'t render error modal for the same result twice', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
+    jest.useFakeTimers();
 
     const {root} = renderDomWithReferences();
 
@@ -1112,6 +1118,10 @@ describe('Page', () => {
     await Promise.resolve();
     // after images are loaded
     await Promise.resolve();
+
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
+    });
 
     const errorModalCloseButton = root.querySelector('[data-testid=banner-body] button');
 
@@ -1139,11 +1149,7 @@ describe('Page', () => {
   });
 
   it('refresh error modal for different search results if they are of the same type', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
+    jest.useFakeTimers();
     const {root} = renderDomWithReferences();
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1169,6 +1175,10 @@ describe('Page', () => {
     // after images are loaded
     await Promise.resolve();
 
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
+    });
+
     expect(dispatch).toHaveBeenCalledWith(
       addToast(toastMessageKeys.search.failure.nodeNotFound, {destination: 'page'})
     );
@@ -1193,11 +1203,7 @@ describe('Page', () => {
   });
 
   it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
+    jest.useFakeTimers();
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1207,6 +1213,10 @@ describe('Page', () => {
 
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
+
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
+    });
 
     ReactTestUtils.act(() => {
       store.dispatch(locationChange({
@@ -1232,6 +1242,10 @@ describe('Page', () => {
     ReactTestUtils.act(() => {
       ReactTestUtils.Simulate.click(errorModalCloseButton);
       store.dispatch(receiveHighlights({ highlights: [], pageId: page.id, }));
+    });
+
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
     });
 
     // page lifecycle hooks
@@ -1306,7 +1320,7 @@ describe('Page', () => {
 
     const someHashPage = {
       abstract: '',
-      content: '<div style="height: 1000px;"></div><img src="/resources/hash"><div id="somehash"></div>',
+      content: '<div style="height: 1000px;"></div><img src="/apps/archive/codeversion/resources/hash"><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
       slug: 'mock-slug',
@@ -1329,8 +1343,8 @@ describe('Page', () => {
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(allImagesLoadedPromise);
 
-    await new Promise((resolve) => setTimeout(resolve, 10));
     // deferred scroll execution (scrollToTarget uses setImmediate)
+    await new Promise((resolve) => setImmediate(resolve));
     await new Promise((resolve) => setImmediate(resolve));
 
     const target = root.querySelector('[id="somehash"]');
@@ -1514,8 +1528,8 @@ describe('Page', () => {
     <div class="os-figure">
       <figure id="figure-id1">
         <span data-alt="Something happens." data-type="media" id="span-id1">
-          <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300">
-          <button><img data-media-type="image/png" id="img-id1" src="/resources/hash" width="300"></button>
+          <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/archive/codeversion/resources/hash" width="300">
+          <button><img data-media-type="image/png" id="img-id1" src="/apps/archive/codeversion/resources/hash" width="300"></button>
         </span>
       </figure>
       <div class="os-caption-container">
@@ -1544,7 +1558,10 @@ describe('Page', () => {
       expect(opened).toBeTruthy();
       if (!opened) return;
 
-      expect(opened.getAttribute('src')).toBe('http://localhost/resources/hash');
+      // resource urls get transformed to include the image-cdn
+      expect(opened.getAttribute('src')).toBe(
+        'http://localhost/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/hash'
+      );
       expect(opened.getAttribute('alt')).toBe('Something happens.');
     });
 
@@ -1710,7 +1727,7 @@ describe('Page', () => {
     <div class="os-figure">
       <figure>
         <span data-alt="Alt" data-type="media">
-          <img src="/resources/hash" width="300">
+          <img src="/apps/archive/codeversion/resources/hash" width="300">
         </span>
       </figure>
     </div>
