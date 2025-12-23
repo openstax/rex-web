@@ -14,7 +14,7 @@ import ToastNotifications from './PageToasts';
 describe('PageToasts', () => {
   let store: Store;
 
-  beforeEach(async () => {
+  beforeEach(async() => {
     jest.useFakeTimers();
     await resetModules();
 
