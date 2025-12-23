@@ -19,6 +19,7 @@ import { clearFocusedHighlight } from '../../actions';
 import { cardWidth } from '../../constants';
 import Confirmation from '../Confirmation';
 import theme from '../../../../theme';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import { mergeRefs } from '../../../../utils';
 
 /**
