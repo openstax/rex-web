@@ -55,7 +55,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { ButtonGroup } from '../../../components/Button';
