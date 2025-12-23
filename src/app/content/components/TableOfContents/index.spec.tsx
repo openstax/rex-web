@@ -9,6 +9,7 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import * as reactUtils from '../../../reactUtils';
+import * as mediaUtils from '../../../mediaQueryUtils';
 import { AppState, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import * as actions from '../../actions';
@@ -106,9 +107,9 @@ describe('TableOfContents', () => {
   });
 
   it('opens and closes', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileQuery')
       .mockReturnValue(true);
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
     const component = renderer.create(Component);
 
@@ -126,7 +127,7 @@ describe('TableOfContents', () => {
   });
 
   it('focuses when opening', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
     const { root } = renderToDom(<TestContainer store={store}>
