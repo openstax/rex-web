@@ -15,7 +15,6 @@ import Button from '../../../../components/Button';
 import { useOnEsc } from '../../../../reactUtils';
 import { HighlightData } from '../../types';
 import { setAnnotationChangesPending as setAnnotationChangesPendingAction } from '../../actions';
-import { UseSaveAnnotationProps } from './hooks';
 
 /**
  * Props for SaveButton component
