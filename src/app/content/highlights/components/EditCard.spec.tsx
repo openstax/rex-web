@@ -53,8 +53,25 @@ describe('EditCard', () => {
   };
 
   const renderAuthenticatedEditCard = (props: Partial<EditCardProps> & Pick<EditCardProps, 'highlight'>) => {
+    // Provide sensible defaults for all required EditCardProps
+    const defaultProps: EditCardProps = {
+      isActive: false,
+      hasUnsavedHighlight: false,
+      highlight: props.highlight,
+      locationFilterId: 'test-location',
+      pageId: 'test-page',
+      onCreate: jest.fn(),
+      onBlur: jest.fn(),
+      setAnnotationChangesPending: jest.fn(),
+      onRemove: jest.fn(),
+      onCancel: jest.fn(),
+      onHeightChange: jest.fn(),
+      className: '',
+      shouldFocusCard: false,
+    };
+
     const cleanup = setupAuthenticatedUser();
-    const component = renderEditCard(props);
+    const component = renderEditCard({ ...defaultProps, ...props });
     return { component, cleanup };
   };
 
