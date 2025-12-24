@@ -9,7 +9,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HTMLInputElement } from '@openstax/types/lib.dom';
 import {
-  clearSearch,
+  clearSearch,  // Used only in useMobileToolbar for closing mobile toolbar
   openMobileToolbar,
   requestSearch,
 } from '../../search/actions';
@@ -61,11 +61,13 @@ export const useSearchState = () => {
   const handleSearchClear = React.useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      dispatch(clearSearch());
+      // Only clear the local state - do NOT dispatch clearSearch() as that would
+      // close the search results sidebar. The test "clears search input without affecting
+      // search results sidebar" expects the sidebar to remain open when clearing the input.
       setQuery('');
       setFormSubmitted(false);
     },
-    [dispatch]
+    []
   );
 
   const handleSearchSubmit = React.useCallback(
