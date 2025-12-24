@@ -16,7 +16,7 @@ import { Book, BookWithOSWebData, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { splitTitleParts } from '../utils/archiveTreeUtils';
 import { contentTextStyle } from './Page/PageContent';
-import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate, } from './utils/attributionValues';
+import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate } from './utils/attributionValues';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 

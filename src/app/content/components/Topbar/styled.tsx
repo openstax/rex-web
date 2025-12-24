@@ -23,7 +23,7 @@ import {
   toolbarSearchInputHeight,
   toolbarSearchInputMobileHeight,
   topbarDesktopHeight,
-  topbarMobileHeight
+  topbarMobileHeight,
 } from '../constants';
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';

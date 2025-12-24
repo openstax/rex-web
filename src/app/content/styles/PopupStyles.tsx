@@ -11,7 +11,7 @@ import { BookWithOSWebData } from '../types';
 import {
   headerHeight, mobileMarginSides,
   mobileMarginTopBottom,
-  mobilePaddingSides, popupBodyPadding, popupHeaderZIndex, popupPadding, topBottomMargin
+  mobilePaddingSides, popupBodyPadding, popupHeaderZIndex, popupPadding, topBottomMargin,
 } from './PopupConstants';
 
 export * from './PopupConstants';

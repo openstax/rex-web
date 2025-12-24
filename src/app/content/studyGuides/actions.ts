@@ -2,7 +2,7 @@ import { createStandardAction } from 'typesafe-actions';
 import {
   CountsPerSource,
   SummaryHighlights,
-  SummaryHighlightsPagination
+  SummaryHighlightsPagination,
 } from '../highlights/types';
 import { StudyGuidesSummaryFilters } from './types';
 

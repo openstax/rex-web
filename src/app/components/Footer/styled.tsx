@@ -8,7 +8,7 @@ import { textRegularSize, textRegularStyle } from '../../components/Typography';
 import {
   contentWrapperMaxWidth,
   toolbarWidth,
-  verticalNavbarMaxWidth
+  verticalNavbarMaxWidth,
 } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';

@@ -9,7 +9,7 @@ import { Book } from '../../../types';
 import {
     fixSafariScrolling,
     scrollSidebarSectionIntoView,
-    setSidebarHeight
+    setSidebarHeight,
 } from '../../../utils/domUtils';
 import { requestSearch } from '../../actions';
 import { SearchResultContainer, SelectedResult } from '../../types';

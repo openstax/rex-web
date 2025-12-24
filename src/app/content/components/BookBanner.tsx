@@ -22,7 +22,7 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileBigHeight,
   bookBannerMobileMiniHeight,
-  contentTextWidth
+  contentTextWidth,
 } from './constants';
 import { applyBookTextColor } from './utils/applyBookTextColor';
 import { disablePrint } from './utils/disablePrint';

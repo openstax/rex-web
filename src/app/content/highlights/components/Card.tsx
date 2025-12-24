@@ -19,7 +19,7 @@ import {
   createHighlight,
   focusHighlight,
   requestDeleteHighlight,
-  setAnnotationChangesPending
+  setAnnotationChangesPending,
 } from '../actions';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';

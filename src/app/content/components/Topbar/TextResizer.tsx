@@ -9,7 +9,7 @@ import {
   textResizerMaxValue,
   textResizerMinValue,
   TextResizerValue,
-  textResizerValues
+  textResizerValues,
 } from '../../constants';
 import * as Styled from './styled';
 

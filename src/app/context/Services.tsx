@@ -24,7 +24,6 @@ export interface ServiceConsumer {
   services: AppServices & MiddlewareAPI;
 }
 
-/* tslint:disable-next-line:variable-name */
 export default <P extends ServiceConsumer>(Component: React.ComponentType<P>) =>
   (props: Pick<P, Exclude<keyof P, keyof ServiceConsumer>>) => <Consumer>
     {(services) => {

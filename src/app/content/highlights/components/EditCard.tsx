@@ -17,7 +17,7 @@ import defer from 'lodash/fp/defer';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
-  updateHighlight
+  updateHighlight,
 } from '../actions';
 import { cardPadding } from '../constants';
 import { HighlightData } from '../types';

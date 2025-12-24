@@ -7,5 +7,5 @@ export {
   actions,
   routes,
   types,
-  reducer
+  reducer,
 };

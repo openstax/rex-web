@@ -25,7 +25,7 @@ import theme from '../../theme';
 import PageToasts from './Page/PageToasts';
 import {
   topbarDesktopHeight,
-  bookBannerMobileMiniHeight
+  bookBannerMobileMiniHeight,
 } from './constants';
 
 const StyledButton = styled(Button)`

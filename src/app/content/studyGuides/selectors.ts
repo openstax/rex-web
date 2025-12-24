@@ -7,7 +7,7 @@ import { getHighlightColorFiltersWithContent, getHighlightLocationFilterForPage 
 import {
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
-  getSortedSummaryHighlights
+  getSortedSummaryHighlights,
 } from '../highlights/utils';
 import {
   checkIfHasMoreResults,

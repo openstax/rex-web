@@ -12,7 +12,7 @@ import { createNavigationOptions, navigationOptionsToString } from '../../naviga
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
-  hasUnsavedHighlight as hasUnsavedHighlightSelector
+  hasUnsavedHighlight as hasUnsavedHighlightSelector,
 } from '../highlights/selectors';
 import * as select from '../selectors';
 import { Book, Params, SystemQueryParams } from '../types';
