@@ -1,16 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import { isHtmlElement } from '../../../guards';
-import { assertDocument } from '../../../utils';
 import { openMobileMenu, setTextSize } from '../../actions';
 import { TextResizerValue } from '../../constants';
-import {
-  clearSearch,
-  openMobileToolbar,
-  openSearchResultsMobile,
-  requestSearch,
-} from '../../search/actions';
+import { openSearchResultsMobile } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
@@ -20,6 +13,7 @@ import { TextResizer } from './TextResizer';
 import { useKeyCombination, useMatchMobileQuery } from '../../../reactUtils';
 import { searchKeyCombination } from '../../highlights/constants';
 import { HTMLElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import { useSearchState, useMobileToolbar } from './hooks';
 
 // Props interface no longer needed with hooks pattern - state comes from useSelector
 
@@ -247,29 +241,30 @@ function Topbar() {
   const dispatch = useDispatch();
   const bookTheme = useSelector(selectContent.bookTheme);
   const hasSearchResults = useSelector(selectSearch.hasResults);
-  const mobileToolbarOpen = useSelector(selectSearch.mobileToolbarOpen);
-  const reduxQuery = useSelector(selectSearch.query);
   const searchButtonColor = useSelector(selectSearch.searchButtonColor);
   const searchInSidebar = useSelector(selectSearch.searchInSidebar);
   const searchSidebarOpen = useSelector(selectSearch.searchResultsOpen);
   const textSize = useSelector(selectContent.textSize);
 
-  // Local state for search input
-  const prevQuery = React.useRef('');
-  const [query, setQuery] = React.useState('');
-  const [formSubmitted, setFormSubmitted] = React.useState(false);
+  // Custom hooks for business logic
+  const {
+    query,
+    formSubmitted,
+    handleSearchChange: onSearchChange,
+    handleSearchClear: onSearchClear,
+    handleSearchSubmit: onSearchSubmit,
+  } = useSearchState();
+
+  const {
+    mobileToolbarOpen,
+    toggleMobile,
+  } = useMobileToolbar();
+
+  // Memoize state object for child components
   const state = React.useMemo(
     () => ({query, formSubmitted}),
     [query, formSubmitted]
   );
-
-  // Sync local query with Redux query when it changes externally
-  if (reduxQuery) {
-    if (reduxQuery !== query && reduxQuery !== prevQuery.current) {
-      setQuery(reduxQuery);
-    }
-    prevQuery.current = reduxQuery;
-  }
 
   const newButtonEnabled = !!searchButtonColor;
 
@@ -280,52 +275,6 @@ function Topbar() {
       dispatch(openMobileMenu());
     },
     [dispatch]
-  );
-
-  const onSearchChange = React.useCallback(
-    ({currentTarget}: React.FormEvent<HTMLInputElement>) => {
-      setQuery(currentTarget.value);
-      setFormSubmitted(false);
-    },
-    []
-  );
-
-  const onSearchClear = React.useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      dispatch(clearSearch());
-      setQuery('');
-      setFormSubmitted(false);
-    },
-    [dispatch]
-  );
-
-  const onSearchSubmit = React.useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      const activeElement = assertDocument().activeElement;
-      if (query) {
-        if (isHtmlElement(activeElement)) {
-          activeElement.blur();
-        }
-        dispatch(requestSearch(query));
-        setFormSubmitted(true);
-      }
-    },
-    [dispatch, query]
-  );
-
-  const toggleMobile = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-
-      if (mobileToolbarOpen) {
-        dispatch(clearSearch());
-      } else {
-        dispatch(openMobileToolbar());
-      }
-    },
-    [dispatch, mobileToolbarOpen]
   );
 
   const handleOpenSearchResults = React.useCallback(() => {
