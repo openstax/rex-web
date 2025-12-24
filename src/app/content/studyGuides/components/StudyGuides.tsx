@@ -12,7 +12,7 @@ import { assertWindow } from '../../../utils';
 import SectionHighlights, {
   HighlightsChapterWrapper,
   HighlightSection,
-  HighlightWrapper
+  HighlightWrapper,
 } from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import { GeneralCenterText } from '../../highlights/components/HighlightStyles';

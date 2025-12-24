@@ -19,7 +19,7 @@ import {
   Route,
   RouteHookBody,
   RouteState,
-  ScrollTarget
+  ScrollTarget,
 } from '../types';
 
 export * from './scrollTarget';

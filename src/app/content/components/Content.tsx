@@ -24,7 +24,7 @@ import {
   scrollOffset,
   toolbarMobileExpandedHeight,
   topbarDesktopHeight,
-  topbarMobileHeight
+  topbarMobileHeight,
 } from './constants';
 import ContentPane from './ContentPane';
 import ContentWarning from './ContentWarning';

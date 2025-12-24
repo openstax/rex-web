@@ -9,7 +9,7 @@ import {
   sidebarTransitionTime,
   toolbarIconColor,
   topbarDesktopHeight,
-  topbarMobileHeight
+  topbarMobileHeight,
 } from './constants';
 import { disablePrint } from './utils/disablePrint';
 import { styleWhenTocClosed } from './utils/sidebar';

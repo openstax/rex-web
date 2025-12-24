@@ -1,7 +1,7 @@
 import {
   Document,
   HTMLAnchorElement,
-  MouseEvent
+  MouseEvent,
 } from '@openstax/types/lib.dom';
 import defer from 'lodash/fp/defer';
 import flow from 'lodash/fp/flow';
@@ -10,19 +10,19 @@ import { push } from '../../../navigation/actions';
 import * as selectNavigation from '../../../navigation/selectors';
 import {
   createNavigationOptions,
-  navigationOptionsToString
+  navigationOptionsToString,
 } from '../../../navigation/utils';
 import { AppServices, AppState, Dispatch, MiddlewareAPI } from '../../../types';
 import {
   assertNotNull,
   assertWindow,
-  memoizeStateToProps
+  memoizeStateToProps,
 } from '../../../utils';
 import { hasOSWebData, isPageReferenceError } from '../../guards';
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import {
   focused,
-  hasUnsavedHighlight as hasUnsavedHighlightSelector
+  hasUnsavedHighlight as hasUnsavedHighlightSelector,
 } from '../../highlights/selectors';
 import { content } from '../../routes';
 import * as select from '../../selectors';
@@ -30,7 +30,7 @@ import {
   Book,
   PageReferenceError,
   PageReferenceMap,
-  SystemQueryParams
+  SystemQueryParams,
 } from '../../types';
 import { isClickWithModifierKeys } from '../../utils/domUtils';
 import { getBookPageUrlAndParams, toRelativeUrl } from '../../utils/urlUtils';

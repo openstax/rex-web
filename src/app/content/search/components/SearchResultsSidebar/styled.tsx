@@ -7,7 +7,7 @@ import Times from '../../../../components/Times';
 import {
   labelStyle,
   textRegularStyle,
-  textStyle
+  textStyle,
 } from '../../../../components/Typography';
 import theme, { hiddenButAccessible } from '../../../../theme';
 import {

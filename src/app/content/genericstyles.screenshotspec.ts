@@ -3,7 +3,7 @@ import {
   fullPageScreenshot,
   navigate,
   setDesktopViewport,
-  setMobileViewport
+  setMobileViewport,
 } from '../../test/browserutils';
 
 const TEST_PAGE_URL = '/books/book-slug-1/pages/test-page-for-generic-styles';

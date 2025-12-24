@@ -8,7 +8,7 @@ import { openPracticeQuestions } from '../../practiceQuestions/actions';
 import {
   hasPracticeQuestions,
   isPracticeQuestionsOpen,
-  practiceQuestionsEnabled
+  practiceQuestionsEnabled,
 } from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
 import { toolbarIconStyles } from './iconStyles';

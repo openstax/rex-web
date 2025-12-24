@@ -10,7 +10,7 @@ import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import {
   CloseToCAndMobileMenuButton,
-  TOCControlButton
+  TOCControlButton,
 } from '../SidebarControl';
 import { SearchControlButton } from '../SidebarControl/SearchControl';
 import HighlightButton from './HighlightButton';

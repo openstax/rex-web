@@ -16,7 +16,7 @@ import {
   AppState,
   Dispatch,
   Middleware,
-  MiddlewareAPI
+  MiddlewareAPI,
 } from './types';
 export { merge, getCommonProperties } from '@openstax/ts-utils';
 export * from './utils/assertions';
