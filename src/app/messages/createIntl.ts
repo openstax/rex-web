@@ -17,7 +17,7 @@ async function polyfill(locale: string) {
   }
 }
 
-export default memoize(async(loc: string) => {
+export default memoize(async(loc: string, newMessages?: Record<string, string>) => {
   await polyfill(loc);
 
   const cache = createIntlCache();
@@ -34,9 +34,14 @@ export default memoize(async(loc: string) => {
     Sentry.captureException(e);
   }
 
+  const mergedMessages = {
+    ...messages,
+    ...(newMessages || {})
+  };
+
   const intl = createIntl({
     locale,
-    messages,
+    messages: mergedMessages,
   }, cache);
 
   return intl;
