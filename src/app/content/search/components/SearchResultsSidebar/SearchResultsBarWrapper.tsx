@@ -9,7 +9,7 @@ import { Book } from '../../../types';
 import {
     fixSafariScrolling,
     scrollSidebarSectionIntoView,
-    setSidebarHeight
+    setSidebarHeight,
 } from '../../../utils/domUtils';
 import { requestSearch } from '../../actions';
 import { SearchResultContainer, SelectedResult } from '../../types';
@@ -38,7 +38,6 @@ export interface ResultsSidebarProps {
   userSelectedResult: boolean;
 }
 
-// tslint:disable-next-line: variable-name
 const LoadingState = ({onClose}: {onClose: () => void}) => <Styled.LoadingWrapper
 aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'})}
 >
@@ -50,7 +49,6 @@ aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'
   <Loader />
 </Styled.LoadingWrapper>;
 
-// tslint:disable-next-line: variable-name
 const SearchResultsBar = React.forwardRef<
   HTMLElement, {
     mobileToolbarOpen: boolean,

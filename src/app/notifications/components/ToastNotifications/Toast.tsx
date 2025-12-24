@@ -65,7 +65,6 @@ export interface ToastProps {
 // If the interaction (selecting a search result) would actually cause searchHighlightManager to
 // fail again, it will refresh the error instead
 
-// tslint:disable-next-line:variable-name
 const Toast = ({ dismiss, notification, positionProps, variant}: ToastProps) => {
   const window = assertWindow();
   const [state, dispatch] = React.useReducer(manageAnimationState, initialState);

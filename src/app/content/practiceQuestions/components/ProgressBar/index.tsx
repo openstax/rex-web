@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components/macro';
 import theme from '../../../../theme';
 import ProgressBarItem from './ProgressBarItem';
 
-// tslint:disable-next-line: variable-name
 const ProgressBarWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -19,7 +18,6 @@ interface ProgressBarProps {
   activeIndex: number | null;
 }
 
-// tslint:disable-next-line: variable-name
 const ProgressBar = ({ total, activeIndex }: ProgressBarProps) => <ProgressBarWrapper
     role='progressbar'
     aria-valuenow={activeIndex === null ? undefined : activeIndex + 1}

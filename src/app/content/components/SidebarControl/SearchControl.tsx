@@ -25,7 +25,6 @@ const searchConnector = connect(
 );
 
 // Search in sidebar experiment
-// tslint:disable-next-line:variable-name
 export const SearchControlButton = searchConnector(
   ({
     open,

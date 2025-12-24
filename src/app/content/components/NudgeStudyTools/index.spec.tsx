@@ -29,7 +29,6 @@ describe('NudgeStudyTools', () => {
   let store: Store;
   let dispatch: jest.SpyInstance;
   let services: AppServices & MiddlewareAPI;
-  // tslint:disable-next-line:variable-name
   let Component: React.JSX.Element;
   const mockPositions = {
     arrowLeft: 1200,

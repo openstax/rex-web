@@ -33,7 +33,6 @@ const getPageMetadata = async(
   const parentPrefix = getParentPrefix(section.parent, intl).trim();
 
   const row = `"${book.title}","${parentPrefix}","${sectionTitle}","${description}"`;
-  // tslint:disable-next-line:no-console
   console.log(row);
 };
 

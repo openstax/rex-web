@@ -5,7 +5,6 @@ import { htmlMessage } from '../../../components/htmlMessage';
 import theme from '../../../theme';
 import { PopupBody } from '../../styles/PopupStyles';
 
-// tslint:disable-next-line:variable-name
 const ShowKeyboardShortcutsBody = styled(PopupBody)`
   background-color: ${theme.color.neutral.darker};
   color: ${theme.color.text.default};
@@ -18,7 +17,6 @@ const ShowKeyboardShortcutsBody = styled(PopupBody)`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const ShortcutsHeadingDiv = styled.div`
   font-size: 1.8rem;
   font-weight: bold;
@@ -29,7 +27,6 @@ const ShortcutsHeadingDiv = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const ShortcutsHeading = ({msgKey}: {msgKey: string}) => (
   <ShortcutsHeadingDiv>
     <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
@@ -38,7 +35,6 @@ export const ShortcutsHeading = ({msgKey}: {msgKey: string}) => (
   </ShortcutsHeadingDiv>
 );
 
-// tslint:disable-next-line: variable-name
 const ShortcutsCard = styled.div`
   background-color: ${theme.color.white};
   border: 1px solid ${theme.color.neutral.darkest};
@@ -51,7 +47,6 @@ const ShortcutsCard = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const ShortcutsTable = styled.div`
   border-collapse: separate;
   border-spacing: 3.2rem 1.6rem;
@@ -61,7 +56,6 @@ const ShortcutsTable = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const ShortcutRow = styled.div`
   display: table-row;
   ${theme.breakpoints.mobile(css`
@@ -69,7 +63,6 @@ const ShortcutRow = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const ShortcutBlock = styled.div`
   display: table-cell;
   min-width: 16rem;
@@ -80,7 +73,6 @@ const ShortcutBlock = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const ShortcutKey = styled.span`
   background-color: ${theme.color.neutral.darker};
   border: 1px solid ${theme.color.neutral.formBorder};
@@ -91,7 +83,6 @@ export const ShortcutKey = styled.span`
   vertical-align: middle;
 `;
 
-// tslint:disable-next-line: variable-name
 export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
   <ShortcutRow>
     <ShortcutBlock>
@@ -112,17 +103,14 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
   </ShortcutRow>
 );
 
-// tslint:disable-next-line: variable-name
 const CaretMessageDiv = styled.div`
   /* Nothing here at the moment */
 `;
 
-// tslint:disable-next-line: variable-name
 export const CaretMessage = htmlMessage(
   'i18n:a11y:keyboard-shortcuts:caret-extension', CaretMessageDiv
 );
 
-// tslint:disable-next-line: variable-name
 const ShowKeyboardShortcuts = () => (
   <ShowKeyboardShortcutsBody
     data-testid='show-keyboard-shortcuts-body'

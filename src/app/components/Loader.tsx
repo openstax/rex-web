@@ -1,4 +1,3 @@
-// tslint:disable:max-line-length
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 
@@ -69,7 +68,6 @@ interface Props {
   delay?: number;
 }
 
-// tslint:disable-next-line:variable-name
 const LoadingIcon = styled.svg`
   enable-background: new 0 0 57.6 39.1;
   animation: ${loadSvg} 0.3s forwards ${(props: Props) => props.delay || 300}ms;

@@ -13,7 +13,17 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-prototype-builtins": "off",
     "react/prop-types": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }],
+    "max-len": ["error", {"code": 120, "ignoreComments": true, "ignoreStrings": true}],
+    "prefer-object-spread": 2,
+    "space-before-function-paren": ["error", "never"]
   },
   "ignorePatterns": [
     "node_modules",

@@ -1,4 +1,4 @@
-// tslint:disable max-line-length
+/* eslint-disable max-len */
 export const defaultText = `
 <p>Este libro no puede ser utilizado en la formación de grandes modelos de lenguaje ni incorporado de otra manera en grandes modelos de lenguaje u ofertas de IA generativa sin el permiso de OpenStax.</p>
 <p>

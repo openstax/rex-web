@@ -9,7 +9,6 @@ import Books from './Books';
 import Notifications from './Notifications';
 import Routes from './Routes';
 
-// tslint:disable-next-line:variable-name
 const HomeStyle = styled.div`
   ${textRegularStyle}
   max-width: ${contentWrapperMaxWidth}rem;
@@ -18,26 +17,22 @@ const HomeStyle = styled.div`
   flex: 1;
 `;
 
-// tslint:disable-next-line:variable-name
 const Row = styled.div`
   display: flex;
   flex-direction: row;
   flex: 1;
 `;
 
-// tslint:disable-next-line:variable-name
 const Col = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
 `;
 
-// tslint:disable-next-line:variable-name
 const Wrapper = styled(LayoutBody)`
   flex: 1;
 `;
 
-// tslint:disable-next-line:variable-name
 const Home: React.SFC = () => <Layout>
   <DisplayNotifications />
   <Wrapper>

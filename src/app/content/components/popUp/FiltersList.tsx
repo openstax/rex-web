@@ -12,7 +12,6 @@ import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { LocationFilters } from './types';
 
-// tslint:disable-next-line: variable-name
 export const StyledPlainButton = styled(PlainButton)`
   height: 1.7rem;
   margin-right: 0.4rem;
@@ -26,7 +25,6 @@ export const StyledPlainButton = styled(PlainButton)`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line: variable-name
 const ItemLabel = styled.span`
   ${textStyle}
   font-weight: 300;
@@ -43,7 +41,6 @@ const ItemLabel = styled.span`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 const FilterListItem = styled.li`
   margin-right: 3.2rem;
   display: flex;
@@ -60,7 +57,6 @@ interface FiltersListColorProps {
   onRemove: () => void;
 }
 
-// tslint:disable-next-line: variable-name
 export const FiltersListColor = (props: FiltersListColorProps) => (
   <FilterListItem>
     <StyledPlainButton
@@ -87,7 +83,6 @@ interface FiltersListChapterProps {
   onRemove: () => void;
 }
 
-// tslint:disable-next-line: variable-name
 export const FiltersListChapter = (props: FiltersListChapterProps) => (
   <FilterListItem>
     <StyledPlainButton
@@ -145,12 +140,10 @@ function useFilterCounts(
   }, [colorFilterCount, locationFilterCount]);
 }
 
-// tslint:disable-next-line: variable-name
 const StatusDiv = styled.div`
   ${hiddenButAccessible}
 `;
 
-// tslint:disable-next-line: variable-name
 const FiltersList = ({
   className,
   locationFilters,

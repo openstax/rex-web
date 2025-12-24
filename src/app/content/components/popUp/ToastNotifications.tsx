@@ -3,7 +3,6 @@ import styled from 'styled-components/macro';
 import ToastNotifications from '../../../notifications/components/ToastNotifications';
 import { ToastNotification } from '../../../notifications/types';
 
-// tslint:disable-next-line:variable-name
 const PopUpToastNotificationsWrapper = styled.div`
   position: sticky;
   top: 0;
@@ -12,7 +11,6 @@ const PopUpToastNotificationsWrapper = styled.div`
   width: 100%;
 `;
 
-// tslint:disable-next-line:variable-name
 const PopUpToastNotifications = (props: {toasts?: ToastNotification[]}) => props.toasts
   ? <PopUpToastNotificationsWrapper>
       <ToastNotifications toasts={props.toasts} />

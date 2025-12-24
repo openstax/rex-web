@@ -14,7 +14,6 @@ import { Body, Group, Header, P } from './Card';
  * prompt people we want to make sure its ready before the refresh
  */
 
-// tslint:disable-next-line:variable-name
 const UpdatesAvailable = ({className}: {className?: string}) => {
   const readyPromise = assertWindow().navigator.serviceWorker?.ready;
   const [sw, setSw] = useState<ServiceWorkerRegistration | undefined>(undefined);

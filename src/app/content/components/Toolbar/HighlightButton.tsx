@@ -19,7 +19,6 @@ interface Props {
   myHighlightsOpen?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 const MyHighlightsWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
   height: auto;
@@ -30,14 +29,12 @@ const MyHighlightsWrapper = styled(PlainButton)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const MyHighlightsText = styled.span`
   ${toolbarDefaultText}
   font-size: 1.2rem;
   line-height: 1.5rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
   const practiceQuestionsEnabled = useSelector(practiceQuestionsEnabledSelector);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);

@@ -71,7 +71,6 @@ describe('Filters', () => {
     store.dispatch(locationChange({
       action: 'REPLACE',
       location: {
-        // tslint:disable-next-line:max-line-length
         search: `?${queryString.stringify({colors})}&locationIds=${chapterId}&modal=${modalUrlName}`,
       },
     } as any));
@@ -107,7 +106,6 @@ describe('Filters', () => {
     store.dispatch(locationChange({
       action: 'REPLACE',
       location: {
-        // tslint:disable-next-line:max-line-length
         search: `?${queryString.stringify({colors})}&modal=${modalUrlName}`,
       },
       query: {
@@ -185,7 +183,6 @@ describe('Filters', () => {
     store.dispatch(locationChange({
       action: 'REPLACE',
       location: {
-        // tslint:disable-next-line:max-line-length
         search: `?${queryString.stringify({colors})}&locationIds=${chapter.id}&modal=${modalUrlName}`,
       },
     } as any));
@@ -251,7 +248,6 @@ describe('Filters', () => {
     store.dispatch(locationChange({
       action: 'REPLACE',
       location: {
-        // tslint:disable-next-line:max-line-length
         search: `?${queryString.stringify({colors})}&modal=${modalUrlName}`,
       },
     } as any));

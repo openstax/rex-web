@@ -12,7 +12,7 @@ import { assertWindow } from '../../../utils';
 import SectionHighlights, {
   HighlightsChapterWrapper,
   HighlightSection,
-  HighlightWrapper
+  HighlightWrapper,
 } from '../../components/SectionHighlights';
 import allImagesLoaded from '../../components/utils/allImagesLoaded';
 import { GeneralCenterText } from '../../highlights/components/HighlightStyles';
@@ -21,13 +21,11 @@ import LoaderWrapper from '../../styles/LoaderWrapper';
 import * as selectors from '../selectors';
 import StudyGuidesListElement from './StudyGuidesListElement';
 
-// tslint:disable-next-line: variable-name
 export const NoStudyGuidesTip = htmlMessage(
   'i18n:studyguides:popup:no-highlights-tip',
   (props) => <span {...props} />
 );
 
-// tslint:disable-next-line: variable-name
 const StudyGuides = ({ className }: { className: string }) => {
   const orderedStudyGuides = useSelector(selectors.orderedSummaryStudyGuides);
   const isLoading = useSelector(selectors.summaryIsLoading);

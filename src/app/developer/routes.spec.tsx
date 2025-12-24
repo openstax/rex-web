@@ -3,7 +3,7 @@ import createTestStore from '../../test/createTestStore';
 import { reactAndFriends, resetModules } from '../../test/utils';
 
 describe('developer route', () => {
-  let React: any; // tslint:disable-line:variable-name
+  let React: any;
   let renderer: any;
   let createApp: any;
   let developerHome: any;

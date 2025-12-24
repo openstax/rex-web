@@ -10,17 +10,14 @@ const expandCollapseIconStyle = css`
   width: ${iconSize}rem;
 `;
 
-// tslint:disable-next-line:variable-name
 export const ExpandIcon = styled(CaretRight)`
   ${expandCollapseIconStyle}
 `;
 
-// tslint:disable-next-line:variable-name
 export const CollapseIcon = styled(CaretDown)`
   ${expandCollapseIconStyle}
 `;
 
-// tslint:disable-next-line:variable-name
 export const Summary = styled.summary`
   list-style: none;
   cursor: pointer;
@@ -38,7 +35,6 @@ export const Summary = styled.summary`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const Details = styled.details`
   ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
     &[open] > summary ${ExpandIcon} {

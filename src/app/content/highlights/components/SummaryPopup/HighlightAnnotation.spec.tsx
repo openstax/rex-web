@@ -30,9 +30,7 @@ describe('HighlightDeleteWrapper', () => {
       <HighlightAnnotation
         annotation='Some annotation'
         isEditing={false}
-        // tslint:disable-next-line: no-empty
         onSave={() => {}}
-        // tslint:disable-next-line: no-empty
         onCancel={() => {}}
       />
     </TestContainer>);
@@ -47,9 +45,7 @@ describe('HighlightDeleteWrapper', () => {
       <HighlightAnnotation
         annotation='Some annotation'
         isEditing={true}
-        // tslint:disable-next-line: no-empty
         onSave={() => {}}
-        // tslint:disable-next-line: no-empty
         onCancel={() => {}}
       />
     </TestContainer>, {createNodeMock});

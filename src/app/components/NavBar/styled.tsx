@@ -29,7 +29,6 @@ const fadeInAnimation = css`
   animation: ${100}ms ${fadeIn} ease-out;
 `;
 
-// tslint:disable-next-line:variable-name
 export const TopBar = styled.div`
   overflow: visible;
   display: flex;
@@ -44,7 +43,6 @@ export const TopBar = styled.div`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line:variable-name
 export const HeaderImage = styled.img`
   display: block;
   width: auto;
@@ -54,7 +52,6 @@ export const HeaderImage = styled.img`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const DropdownContainer = styled.div`
   ${fadeInAnimation}
   overflow: visible;
@@ -65,7 +62,6 @@ export const DropdownContainer = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const OverlayLogo = styled.img`
   display: none;
   width: auto;
@@ -84,7 +80,6 @@ const sharedIconStyles = css`
   width: 1.5rem;
 `;
 
-// tslint:disable-next-line:variable-name
 export const DownIcon = styled(ChevronDown)`
   ${sharedIconStyles}
   ${theme.breakpoints.mobile(css`
@@ -92,7 +87,6 @@ export const DownIcon = styled(ChevronDown)`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const HamburgerIcon = styled(Hamburger)`
   margin-top: 0.1rem;
   ${sharedIconStyles}
@@ -122,7 +116,6 @@ export const navElementStyle = css`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const Link = styled.a`
   :hover,
   :active,
@@ -143,7 +136,6 @@ export const Link = styled.a`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const DropdownToggle = styled.div`
   display: flex;
   justify-content: center;
@@ -171,7 +163,6 @@ export const DropdownToggle = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const OverlayHeading = styled.h4`
   ${h4DesktopStyle}
   padding-bottom: 0;
@@ -188,7 +179,6 @@ const visuallyShown = css`
   overflow: visible;
 `;
 
-// tslint:disable-next-line:variable-name
 export const DropdownList = styled.menu`
   position: absolute;
   height: 1px;
@@ -250,7 +240,6 @@ const overlayShown = css`
   bottom: -100%;
 `;
 
-// tslint:disable-next-line:variable-name
 export const DropdownOverlay = styled.div`
   overflow: visible;
   margin-bottom: 0.8rem;
@@ -285,7 +274,6 @@ export const DropdownOverlay = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='true' {...props}><Times /></button>)`
   cursor: pointer;
   border: none;
@@ -308,7 +296,6 @@ export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='tr
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const BarWrapper = styled.div`
   overflow: visible;
   z-index: ${theme.zIndex.navbar}; /* above book nav */

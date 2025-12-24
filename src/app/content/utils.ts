@@ -13,7 +13,7 @@ import {
   Params,
   SlugParams,
   UuidParams,
-  VersionedArchiveBookWithConfig
+  VersionedArchiveBookWithConfig,
 } from './types';
 import { CACHED_FLATTENED_TREES, getTitleFromArchiveNode } from './utils/archiveTreeUtils';
 import { stripIdVersion } from './utils/idUtils';

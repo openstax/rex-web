@@ -13,7 +13,6 @@ import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { AngleIcon, Fieldset } from './Filters';
 import { FiltersChange, LocationFilters } from './types';
 
-// tslint:disable-next-line:variable-name
 const Row = styled.div`
   display: flex;
   flex-direction: row;
@@ -23,7 +22,6 @@ const Row = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 const Column = styled.ul`
   display: flex;
   flex-direction: column;
@@ -33,7 +31,6 @@ const Column = styled.ul`
   padding: 0;
 `;
 
-// tslint:disable-next-line:variable-name
 const ChapterTitle = styled.span`
   display: flex;
   flex-direction: row;
@@ -71,7 +68,6 @@ interface ChapterFilterProps {
   id: string;
 }
 
-// tslint:disable-next-line:variable-name
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
   const intl = useIntl();
@@ -179,7 +175,6 @@ interface ChapterFilterItemProps {
   onChange: () => void;
 }
 
-// tslint:disable-next-line: variable-name
 const ChapterFilterItem = (props: ChapterFilterItemProps) => {
   if (props.multiselect) {
     return <Checkbox
@@ -203,7 +198,6 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
   </StyledSectionItem>;
 };
 
-// tslint:disable-next-line: variable-name
 export const StyledDetails = styled.details`
   width: 400px;
   cursor: pointer;
@@ -214,7 +208,6 @@ export const StyledDetails = styled.details`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StyledSummary = styled.summary`
   padding: 1rem 1.6rem;
   list-style: none;
@@ -236,7 +229,6 @@ export const StyledSummary = styled.summary`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const StyledSectionItem = styled(PlainButton)`
   display: flex;
   align-items: center;
@@ -262,7 +254,6 @@ export const StyledSectionItem = styled(PlainButton)`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const StyledChapterFilterItemWrapper = styled.div`
   overflow: visible;
 `;

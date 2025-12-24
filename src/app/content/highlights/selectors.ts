@@ -5,13 +5,13 @@ import {
   getHighlightLocationFilters,
   getHighlightLocationFiltersWithContent,
   getSortedSummaryHighlights,
-  sectionIsHighlightLocationFilter
+  sectionIsHighlightLocationFilter,
 } from './utils';
 import {
   checkIfHasMoreResults,
   filterCounts,
   getLoadedCountsPerSource,
-  getSelectedHighlightsLocationFilters
+  getSelectedHighlightsLocationFilters,
 } from './utils/selectorsUtils';
 
 export const localState = createSelector(

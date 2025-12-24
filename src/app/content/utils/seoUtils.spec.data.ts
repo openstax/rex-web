@@ -1,4 +1,3 @@
-// tslint:disable: object-literal-sort-keys max-line-length
 import { OSWebBook } from '../../../gateways/createOSWebLoader';
 
 export const contentPage = {

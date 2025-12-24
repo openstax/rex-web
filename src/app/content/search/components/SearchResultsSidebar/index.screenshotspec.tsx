@@ -3,7 +3,7 @@ import {
   finishRender,
   navigate,
   setDesktopViewport,
-  setMobileViewport
+  setMobileViewport,
 } from '../../../../../test/browserutils';
 
 const TEST_PAGE_NAME = 'test-page-1';

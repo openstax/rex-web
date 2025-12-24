@@ -11,11 +11,11 @@ import { LocationFilters } from '../../components/popUp/types';
 import {
   CountsPerSource,
   SummaryHighlights,
-  SummaryHighlightsPagination
+  SummaryHighlightsPagination,
 } from '../types';
 import {
   filterCountsPerSourceByColorFilter,
-  filterCountsPerSourceByLocationFilter
+  filterCountsPerSourceByLocationFilter,
 } from './paginationUtils';
 
 export const filterCounts = (

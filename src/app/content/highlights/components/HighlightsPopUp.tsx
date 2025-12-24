@@ -22,7 +22,6 @@ import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
 import HighlightsHelpInfo from './SummaryPopup/HighlightsHelpInfo';
 
-// tslint:disable-next-line: variable-name
 const BlueNote = () => <Styled.BlueStickyNote>
   <Styled.StickyNoteBullet />
   <Styled.StickyNoteUl>
@@ -39,7 +38,6 @@ const BlueNote = () => <Styled.BlueStickyNote>
   </Styled.StickyNoteUl>
 </Styled.BlueStickyNote>;
 
-// tslint:disable-next-line: variable-name
 const GreenNote = () => <Styled.GreenStickyNote>
   <Styled.StickyNoteBullet />
   <Styled.StickyNoteUl>
@@ -56,7 +54,6 @@ const GreenNote = () => <Styled.GreenStickyNote>
   </Styled.StickyNoteUl>
 </Styled.GreenStickyNote>;
 
-// tslint:disable-next-line: variable-name
 const LoginForHighlights = () => {
   const loginLink = useSelector(authSelect.loginLink);
 
@@ -103,7 +100,6 @@ function useCloseAndTrack(closeFn: () => void) {
   }, [closeFn, trackOpenCloseMH]);
 }
 
-// tslint:disable-next-line: variable-name
 const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlightsOpen'>) => {
   const popUpRef = React.useRef<HTMLElement>(null);
   const intl = useIntl();

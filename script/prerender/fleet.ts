@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 
 /*
   Manages a fleet of spot instances

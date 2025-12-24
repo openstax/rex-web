@@ -3,7 +3,6 @@ import { reactAndFriends, resetModules, runHooksAsync } from '../../../test/util
 import { Store } from '../../types';
 import { assertWindow } from '../../utils/browser-assertions';
 
-// tslint:disable: variable-name
 describe('OuterErrorBoundary', () => {
   let Provider: ReturnType<typeof reactAndFriends>['Provider'];
   let React: ReturnType<typeof reactAndFriends>['React'];

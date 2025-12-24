@@ -16,7 +16,7 @@ import { Book, BookWithOSWebData, Page } from '../types';
 import { findDefaultBookPage, getBookPageUrlAndParams } from '../utils';
 import { splitTitleParts } from '../utils/archiveTreeUtils';
 import { contentTextStyle } from './Page/PageContent';
-import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate, } from './utils/attributionValues';
+import { bookIdsWithSpecialAttributionText, compensateForUTC, getAuthors, getPublishDate } from './utils/attributionValues';
 import { disablePrint } from './utils/disablePrint';
 import { wrapperPadding } from './Wrapper';
 
@@ -30,16 +30,13 @@ const summaryIconStyle = css`
   margin-left: -0.3rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const SummaryClosedIcon = styled((props) => <ExpandIcon {...props} />)`
   ${summaryIconStyle}
 `;
-// tslint:disable-next-line:variable-name
 const SummaryOpenIcon = styled((props) => <CollapseIcon {...props} />)`
   ${summaryIconStyle}
 `;
 
-// tslint:disable-next-line:variable-name
 const AttributionSummary = styled((props) => {
   const message = useIntl().formatMessage({id: 'i18n:attribution:toggle'});
 
@@ -60,7 +57,6 @@ const AttributionSummary = styled((props) => {
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const Content = styled.div`
   ${contentTextStyle}
 
@@ -69,7 +65,6 @@ const Content = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const AttributionDetails = styled(Details)`
   ${bodyCopyRegularStyle}
   box-shadow: 0 -1rem 1rem -1rem rgba(0, 0, 0, 0.1);
@@ -99,9 +94,7 @@ const AttributionDetails = styled(Details)`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line:variable-name
 const AttributionContent = htmlMessage('i18n:attribution:text', Content);
-// tslint:disable-next-line:variable-name
 const CodeRunnerNote = htmlMessage('i18n:attribution:code-runner', Content);
 
 interface Props {

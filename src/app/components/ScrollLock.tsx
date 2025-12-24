@@ -6,7 +6,6 @@ import { useDisableContentTabbing } from '../reactUtils';
 import theme from '../theme';
 import OnScroll, { OnTouchMoveCallback } from './OnScroll';
 
-// tslint:disable-next-line:variable-name
 const ScrollLockBodyClass = createGlobalStyle`
   body.body {
     ${(props: {mediumScreensOnly?: boolean}) => props.mediumScreensOnly && css`
@@ -55,7 +54,6 @@ interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   zIndex?: number;
 }
 
-// tslint:disable-next-line:variable-name
 export const Overlay = styled(({ mediumScreensOnly, zIndex, ...props}: OverlayProps) => {
   useDisableContentTabbing(mediumScreensOnly ? false : true);
   return <div {...props} />;

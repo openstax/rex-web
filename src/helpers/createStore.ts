@@ -5,7 +5,7 @@ import {
   Middleware,
   Reducer,
   StoreEnhancer,
-  StoreEnhancerStoreCreator
+  StoreEnhancerStoreCreator,
 } from 'redux';
 import { AnyAction, AppState, Store } from '../app/types';
 import config from '../config';

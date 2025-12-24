@@ -6,7 +6,6 @@ import theme from '../../../theme';
 const buttonHeight = 4.2; // rem
 const buttonMargin = 0.5; // rem
 
-// tslint:disable-next-line:variable-name
 const ScrollableContent = styled.div`
   background: white;
   max-width: 100vw;
@@ -22,7 +21,6 @@ const ScrollableContent = styled.div`
 `;
 
 
-// tslint:disable-next-line:variable-name
 const FloatingCloseButton = styled.button`
   position: absolute;
   top: -${buttonHeight + buttonMargin}rem;
@@ -36,13 +34,11 @@ const FloatingCloseButton = styled.button`
   height: ${buttonHeight}rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const ContentContainer = styled.div`
   position: relative;
   pointer-events: auto;
 `;
 
-// tslint:disable-next-line:variable-name
 const ModalWrapper = styled.div`
   position: fixed;
   inset: 0;
@@ -55,7 +51,6 @@ const ModalWrapper = styled.div`
 `;
 
 
-// tslint:disable-next-line:variable-name
 const CloseIcon = () => (
   <svg width='42' height='42' viewBox='0 0 42 42' xmlns='http://www.w3.org/2000/svg'>
     <rect x='1' y='1' width='40' height='40' rx='20' stroke='white' fill='none' />
@@ -69,7 +64,6 @@ interface MediaModalProps {
   onClose: () => void;
   children: React.ReactNode;
 }
-// tslint:disable-next-line:variable-name
 const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 

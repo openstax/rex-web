@@ -1,4 +1,3 @@
-// tslint:disable: no-console
 import fs from 'fs';
 import path from 'path';
 import ProgressBar from 'progress';

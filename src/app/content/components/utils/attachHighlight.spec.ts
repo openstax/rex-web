@@ -9,7 +9,6 @@ jest.mock('../../../../helpers/Sentry', () => ({
 }));
 
 describe('attachHighlight', () => {
-  // tslint:disable-next-line: variable-name
   let HighlighterMock: Highlighter;
 
   beforeEach(() => {
