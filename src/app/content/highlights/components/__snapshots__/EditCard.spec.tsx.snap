@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EditCard matches snapshot when editing 1`] = `
+exports[`EditCard Snapshots and Rendering matches snapshot when editing 1`] = `
 .c4 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -169,7 +169,7 @@ exports[`EditCard matches snapshot when editing 1`] = `
 </div>
 `;
 
-exports[`EditCard matches snapshot when focused 1`] = `
+exports[`EditCard Snapshots and Rendering matches snapshot when focused 1`] = `
 .c0 {
   background: #f5f5f5;
   -webkit-user-select: none;
@@ -205,7 +205,7 @@ exports[`EditCard matches snapshot when focused 1`] = `
 </div>
 `;
 
-exports[`EditCard matches snapshot with data 1`] = `
+exports[`EditCard Snapshots and Rendering matches snapshot with data for authenticated user 1`] = `
 .c1 {
   min-width: 20rem;
 }
@@ -266,7 +266,7 @@ exports[`EditCard matches snapshot with data 1`] = `
 </div>
 `;
 
-exports[`EditCard matches snapshot without data 1`] = `
+exports[`EditCard Snapshots and Rendering matches snapshot without data 1`] = `
 .c0 {
   background: #f5f5f5;
   -webkit-user-select: none;
