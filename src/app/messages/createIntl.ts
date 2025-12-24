@@ -36,7 +36,7 @@ export default memoize(async(loc: string, newMessages?: Record<string, string>) 
 
   const mergedMessages = {
     ...messages,
-    ...(newMessages || {})
+    ...(newMessages || {}),
   };
 
   const intl = createIntl({
