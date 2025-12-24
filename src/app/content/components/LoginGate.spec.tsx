@@ -21,7 +21,7 @@ const dummyBook = {
 };
 
 describe('LoginGate', () => {
-  it('renders when not authenticated', async () => {
+  it('renders when not authenticated', async() => {
     const intl = await createIntl('en');
     const component = renderer.create(<RawIntlProvider value={intl}>
       <TestContainer>
