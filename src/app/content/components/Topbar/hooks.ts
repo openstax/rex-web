@@ -7,6 +7,7 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { HTMLInputElement } from '@openstax/types/lib.dom';
 import {
   clearSearch,
   openMobileToolbar,
