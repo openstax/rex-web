@@ -5,7 +5,7 @@ import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { formatBookData } from '../utils';
 import createIntl from '../../messages/createIntl';
-import { createIntlCache, RawIntlProvider } from 'react-intl';
+import { RawIntlProvider } from 'react-intl';
 
 jest.mock('react-intl', () => ({
   ...jest.requireActual('react-intl'),
