@@ -4,7 +4,15 @@ import type { ComponentType } from 'react';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { formatBookData } from '../utils';
+import createIntl from '../../messages/createIntl';
+import { RawIntlProvider } from 'react-intl';
 
+jest.mock('react-intl', () => ({
+  ...jest.requireActual('react-intl'),
+  useIntl: () => ({
+    formatMessage: ({ id }: any) => id,
+  }),
+}));
 
 const dummyBook = {
   ...formatBookData(archiveBook, mockCmsBook),
@@ -32,7 +40,12 @@ describe('ContentWarning', () => {
     });
 
     it('renders warning modal and hides it after clicking', async() => {
-      renderToDom(<ContentWarningDynamic book={dummyBook} />);
+      const intl = await createIntl('en');
+      renderToDom(
+        <RawIntlProvider value={intl}>
+          <ContentWarningDynamic book={dummyBook} />
+        </RawIntlProvider>
+      );
 
       const b = document!.querySelector('button');
 
@@ -66,8 +79,13 @@ describe('ContentWarning', () => {
       (global as any).document = documentBackup;
     });
 
-    it('mounts and unmounts without a dom', () => {
-      const component = renderer.create(<ContentWarningDynamic book={dummyBook} />);
+    it('mounts and unmounts without a dom', async () => {
+      const intl = await createIntl('es');
+      const component = renderer.create(
+        <RawIntlProvider value={intl}>
+          <ContentWarningDynamic book={dummyBook} />
+        </RawIntlProvider>
+      );
       expect(() => component.unmount()).not.toThrow();
     });
   });
