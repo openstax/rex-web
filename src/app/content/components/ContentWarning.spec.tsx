@@ -79,7 +79,7 @@ describe('ContentWarning', () => {
       (global as any).document = documentBackup;
     });
 
-    it('mounts and unmounts without a dom', async () => {
+    it('mounts and unmounts without a dom', async() => {
       const intl = await createIntl('es');
       const component = renderer.create(
         <RawIntlProvider value={intl}>
