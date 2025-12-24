@@ -5,7 +5,6 @@ import { availableLocaleOrDefault } from '../../messages/utils';
 import { assertWindow } from '../../utils/browser-assertions';
 import ErrorBoundary from './ErrorBoundary';
 
-// tslint:disable-next-line:variable-name
 const OuterErrorBoundary = (props: React.PropsWithChildren<{ intl: IntlShape | null }>) => {
   const [intl, setIntl] = useState<IntlShape | null>(props.intl);
 

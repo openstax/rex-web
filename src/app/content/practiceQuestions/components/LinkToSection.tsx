@@ -8,7 +8,6 @@ import ContentLink from '../../components/ContentLink';
 import * as contentSelectors from '../../selectors';
 import { LinkedArchiveTreeSection } from '../../types';
 
-// tslint:disable-next-line: variable-name
 export const StyledLink = styled(ContentLink)`
   display: block;
   width: max-content;
@@ -36,7 +35,6 @@ interface LinkToSectionProps {
   section: LinkedArchiveTreeSection | null;
 }
 
-// tslint:disable-next-line: variable-name
 const LinkToSection = ({ section }: LinkToSectionProps) => {
   const book = useSelector(contentSelectors.book);
 

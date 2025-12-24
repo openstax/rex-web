@@ -20,7 +20,6 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 import { createTrapTab } from '../../../reactUtils';
 
-// tslint:disable-next-line: variable-name
 const VerticalNav = () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const isPracticeQuestionsEnabled = useSelector(

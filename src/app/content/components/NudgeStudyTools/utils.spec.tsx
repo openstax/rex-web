@@ -15,7 +15,6 @@ import * as utils from './utils';
 describe('usePositions', () => {
   let target: HTMLElement;
   let store: Store;
-  // tslint:disable-next-line: variable-name
   let Component: (props: { isMobile: boolean }) => JSX.Element;
   const mockRect = { bottom: 228, height: 25, left: 951, right: 1233, top: 203, width: 282 } as any as DOMRect;
 
@@ -211,7 +210,6 @@ describe('cookies helpers', () => {
 
   it('useIncrementPageCounter - increments page counter cookie to until it reaches limit', () => {
     const store = createTestStore();
-    // tslint:disable-next-line: variable-name
     const Component = () => {
       utils.useIncrementPageCounter();
       return <div/>;

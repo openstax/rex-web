@@ -89,16 +89,14 @@ async function render() {
 
   const {numPages, elapsedMinutes} = getStats();
 
-  // tslint:disable-next-line:no-console max-line-length
   console.log({...stats, elapsedMinutes, networkTime});
 
-  // tslint:disable-next-line:no-console max-line-length
   console.log(`Prerender complete. Rendered ${numPages} pages, ${numPages / elapsedMinutes}ppm`);
 
   server.close();
 }
 
 render().catch((e) => {
-  console.error(e.message, e.stack); // tslint:disable-line:no-console
+  console.error(e.message, e.stack);
   process.exit(1);
 });

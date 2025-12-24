@@ -9,25 +9,21 @@ import { hasStudyGuides, studyGuidesEnabled, studyGuidesOpen } from '../../study
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
 
-// tslint:disable-next-line:variable-name
 export const StudyGuidesWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
   height: auto;
   padding: 0;
 `;
 
-// tslint:disable-next-line:variable-name
 const StudyGuidesIcon = styled.img`
   ${toolbarIconStyles}
   padding: 0.2rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const StudyGuidesText = styled.span`
   ${toolbarDefaultText}
 `;
 
-// tslint:disable-next-line:variable-name
 const StudyGuidesButton = () => {
   const dispatch = useDispatch();
   const intl = useIntl();

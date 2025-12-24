@@ -5,7 +5,6 @@ import PrintButton from '../../components/Toolbar/PrintButton';
 import { filters } from '../../styles/PopupConstants';
 import { PrintOptions } from '../Toolbar/styled';
 
-// tslint:disable-next-line:variable-name
 export default styled(PrintButton)`
   flex-direction: row;
   cursor: ${({loading}) => loading ? 'wait' : 'pointer'};

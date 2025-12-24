@@ -23,7 +23,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   disableDynamicContentStyles?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 const ContentExcerpt = (props: Props) => {
   const {
     content,

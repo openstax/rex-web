@@ -7,7 +7,6 @@ import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import NextSectionMessage from './NextSectionMessage';
 
-// tslint:disable-next-line: variable-name
 const StyledEmptyScreen = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,7 +18,6 @@ const StyledEmptyScreen = styled.div`
   ${textRegularStyle}
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledText = styled.span`
   margin-bottom: 3rem;
   max-width: 38rem;
@@ -30,7 +28,6 @@ interface EmptyScreenProps {
   nextSection: LinkedArchiveTreeSection;
 }
 
-// tslint:disable-next-line: variable-name
 const EmptyScreen = ({ nextSection }: EmptyScreenProps) => {
   const dispatch = useDispatch();
 

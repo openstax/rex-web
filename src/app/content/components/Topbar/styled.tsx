@@ -53,7 +53,6 @@ export const shadow = css`
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 `;
 
-// tslint:disable-next-line: variable-name
 export const TopBarWrapper = styled.div`
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
@@ -73,12 +72,10 @@ export const TopBarWrapper = styled.div`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line:variable-name
 export const HamburgerIcon = styled(Hamburger)`
   ${toolbarIconStyles}
 `;
 
-// tslint:disable-next-line: variable-name
 export const MenuButton = styled((props) => {
   const intl = useIntl();
 
@@ -94,7 +91,6 @@ export const MenuButton = styled((props) => {
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) => {
   const intl = useIntl();
 
@@ -138,7 +134,6 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
     `}
   `;
 
-// tslint:disable-next-line:variable-name
 export const CloseButton = styled(
   ({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>
 )`
@@ -155,13 +150,11 @@ export const CloseButton = styled(
     `)}
   `;
 
-// tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
     color: ${toolbarIconColor.base};
     height: 2.2rem;
   `;
 
-// tslint:disable-next-line:variable-name
 export const CloseButtonNew = styled.button`
     ${toolbarIconStyles}
     cursor: pointer;
@@ -174,7 +167,6 @@ export const CloseButtonNew = styled.button`
     width: 2.2rem;
   `;
 
-// tslint:disable-next-line:variable-name
 export const SearchInputWrapper = styled.form`
   margin-left: auto;
   margin-right: auto;
@@ -222,7 +214,6 @@ export const SearchInputWrapper = styled.form`
   `}
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchInput = styled(({ desktop, mobile, autoFocus, ...props }) => {
   const ref = React.useRef<HTMLInputElement>(null);
 
@@ -262,7 +253,6 @@ export const SearchInput = styled(({ desktop, mobile, autoFocus, ...props }) => 
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   height: ${topbarDesktopHeight}rem;
   max-width: ${contentWrapperMaxWidth}rem;
@@ -295,7 +285,6 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   ${shadow}
 `);
 
-// tslint:disable-next-line:variable-name
 export const MobileSearchContainer = styled.div`
   ${barPadding}
   overflow: visible;
@@ -312,7 +301,6 @@ export const MobileSearchContainer = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const MobileSearchWrapper = styled.div`
   display: none;
   overflow: visible;
@@ -328,7 +316,6 @@ export const MobileSearchWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const Hr = styled.hr`
   border: none;
   border-top: ${toolbarHrHeight}rem solid #efeff1;
@@ -339,20 +326,17 @@ export const Hr = styled.hr`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const LeftArrow = styled(AngleLeft)`
   width: 2.5rem;
   height: 2.5rem;
 `;
 
-// tslint:disable-next-line:variable-name
 export const InnerText = styled.div`
   white-space: nowrap;
   margin-right: 1rem;
   text-align: left;
 `;
 
-// tslint:disable-next-line:variable-name
 export const SeachResultsTextButton = styled(PlainButton)`
   ${textRegularStyle}
   ${decoratedLinkStyle}
@@ -361,7 +345,6 @@ export const SeachResultsTextButton = styled(PlainButton)`
   min-width: auto;
 `;
 
-// tslint:disable-next-line:variable-name
 export const TextResizerDropdown = styled(FilterDropdown)`
   z-index: 3;
 
@@ -414,7 +397,6 @@ const tickMarkCss = css`
   );
 `;
 
-// tslint:disable-next-line:variable-name
 export const TextResizerMenu = styled.div`
   color: ${theme.color.primary.gray.base};
 
@@ -493,7 +475,6 @@ export const TextResizerMenu = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props }) => {
   const intl = useIntl();
 
@@ -511,7 +492,6 @@ export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props
   margin: 0.2rem 0.6rem;
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseSearchResultsTextButton = styled(SeachResultsTextButton)`
   display: none;
   ${theme.breakpoints.mobileMedium(css`

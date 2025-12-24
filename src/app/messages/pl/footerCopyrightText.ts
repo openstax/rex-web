@@ -1,4 +1,3 @@
-// tslint:disable: max-line-length
 export const bottomText = `
   <div data-html="copyright">© 1999-{currentYear}, Rice University. Jeśli nie zaznaczono inaczej, podręczniki na tej stronie zostały opublikowane na licencji
   <a href="{copyrightLink}" target="_blank"

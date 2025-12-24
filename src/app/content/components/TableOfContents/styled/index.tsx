@@ -31,7 +31,6 @@ const activeState = css`
   text-decoration: underline;
 `;
 
-// tslint:disable-next-line:variable-name
 export const SummaryTitle = styled.span`
   ${labelStyle}
   font-size: 1.6rem;
@@ -40,7 +39,6 @@ export const SummaryTitle = styled.span`
   flex: 1;
 `;
 
-// tslint:disable-next-line:variable-name
 export const ContentLink = styled(ContentLinkComponent)`
   ${labelStyle}
   font-size: 1.6rem;
@@ -60,7 +58,6 @@ export const ContentLink = styled(ContentLinkComponent)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const NavItem = styled(TreeItemContent)`
   list-style: none;
   overflow: visible;
@@ -70,7 +67,6 @@ export const NavItem = styled(TreeItemContent)`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const SummaryWrapper = styled.div`
   display: flex;
   list-style: none;
@@ -104,11 +100,10 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   );
 }, 0);
 
-export const StyledTree = styled(Tree)``; // tslint:disable-line:variable-name
+export const StyledTree = styled(Tree)``;
 
-export const StyledTreeItemContent = styled(TreeItemContent)``; // tslint:disable-line:variable-name
+export const StyledTreeItemContent = styled(TreeItemContent)``;
 
- // tslint:disable-next-line:variable-name
 export const StyledTreeItem = styled(TreeItem)<{ section: ArchiveTree }>`
   margin: 0;
 

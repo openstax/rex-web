@@ -18,7 +18,6 @@ interface Props {
 const noteMaxLength = 1000;
 
 const width = cardWidth - cardPadding * 2;
-// tslint:disable-next-line:variable-name
 const TextArea = styled.textarea`
   display: block;
   min-height: 5.6rem;
@@ -41,7 +40,6 @@ const TextArea = styled.textarea`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const SimpleLabel = styled.label`
   color: ${theme.color.primary.blue.base};
   font-size: 1.2rem;
@@ -55,7 +53,6 @@ export function escapeHandler(onElement: HTMLTextAreaElement | null, shouldDo: b
   }
 }
 
-// tslint:disable-next-line:variable-name
 const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
   const setTextAreaHeight = React.useCallback(() => {
     const element = textareaRef.current;

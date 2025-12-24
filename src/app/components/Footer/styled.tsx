@@ -34,7 +34,6 @@ export const iconStyles = css`
   height: 1em;
 `;
 
-// tslint:disable-next-line:variable-name
 export const FBIcon = styled(FacebookF)`
   ${iconStyles}
 `;
@@ -67,15 +66,12 @@ function XTwitter() {
   );
 }
 
-// tslint:disable-next-line:variable-name
 export const TwitterIcon = XTwitter;
 
-// tslint:disable-next-line:variable-name
 export const IGIcon = styled(Instagram)`
   ${iconStyles}
 `;
 
-// tslint:disable-next-line:variable-name
 export const LinkedInIcon = styled(LinkedinIn)`
   ${iconStyles}
 `;
@@ -107,7 +103,6 @@ const verticalNavToolbarStyling = css`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const FooterWrapper = styled.footer`
   ${textRegularStyle}
   z-index: 0;
@@ -118,13 +113,11 @@ export const FooterWrapper = styled.footer`
     props.isVerticalNavOpen === false ? verticalNavToolbarStyling : ''}
 `;
 
-// tslint:disable-next-line:variable-name
 export const InnerFooter = styled.div`
   color: ${textColor};
   display: grid;
 `;
 
-// tslint:disable-next-line:variable-name
 export const FooterTop = styled.div`
   background-color: #424242;
 
@@ -141,7 +134,6 @@ export const FooterTop = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const TopBoxed = styled.div`
   ${boxed}
   display: grid;
@@ -165,7 +157,6 @@ export const TopBoxed = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const Heading = styled.h2`
   grid-area: headline;
   margin: 0;
@@ -185,14 +176,12 @@ export const Heading = styled.h2`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const DonateLink = css`
   ${columnLink}
   font-weight: bold;
   text-underline-position: under;
 `;
 
-// tslint:disable-next-line:variable-name
 export const Mission = styled.div`
   grid-area: mission;
 
@@ -221,12 +210,10 @@ export const footerLinkStyle = css`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const FooterLink = styled.a`
   ${footerLinkStyle}
 `;
 
-// tslint:disable-next-line:variable-name
 export const ManageCookiesLink = styled(RawCookiesLink)`
   && {
     ${textRegularStyle}
@@ -244,17 +231,14 @@ const flexFooterLinkStyle = css`
   background-color: transparent;
 `;
 
-// tslint:disable-next-line:variable-name
 export const FooterButton = styled.button`
   ${flexFooterLinkStyle}
 `;
 
-// tslint:disable-next-line:variable-name
 export const ManageCookiesFlexLink = styled(RawCookiesLink)`
   ${flexFooterLinkStyle}
 `;
 
-// tslint:disable-next-line:variable-name
 export const ContactDialog = styled(Modal)`
   & > div > div {
     width: 75vw;
@@ -272,7 +256,6 @@ export const ContactDialog = styled(Modal)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const InnerBottomLink = styled.a`
   ${columnLink}
   display: inline-grid;
@@ -295,25 +278,21 @@ export const column = css`
   overflow: visible;
 `;
 
-// tslint:disable-next-line:variable-name
 export const Column1 = styled.div`
   ${column}
   grid-area: col1;
 `;
 
-// tslint:disable-next-line:variable-name
 export const Column2 = styled.div`
   ${column}
   grid-area: col2;
 `;
 
-// tslint:disable-next-line:variable-name
 export const Column3 = styled.div`
   ${column}
   grid-area: col3;
 `;
 
-// tslint:disable-next-line:variable-name
 export const ColumnHeading = styled.h3`
   font-size: 1.8rem;
   font-weight: bold;
@@ -326,7 +305,6 @@ export const ColumnHeading = styled.h3`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const FooterBottom = styled.div`
   font-size: 1.2rem;
   font-weight: normal;
@@ -343,7 +321,6 @@ export const FooterBottom = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const BottomBoxed = styled.div`
   ${boxed}
   display: grid;
@@ -359,7 +336,6 @@ export const BottomBoxed = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const PortalBottomBoxed = styled.div`
   ${boxed}
   display: grid;
@@ -380,7 +356,6 @@ export const PortalBottomBoxed = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const Copyrights = styled.div`
   display: grid;
   grid-gap: 1rem;
@@ -404,7 +379,6 @@ export const Copyrights = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const Social = styled.menu`
   align-items: center;
   display: grid;
@@ -415,7 +389,6 @@ export const Social = styled.menu`
   overflow: visible;
 `;
 
-// tslint:disable-next-line:variable-name
 export const LinkListWrapper = styled.menu`
   margin: 0;
   padding: 0;
@@ -425,7 +398,6 @@ export const LinkListWrapper = styled.menu`
   list-style: none;
 `;
 
-// tslint:disable-next-line:variable-name
 const InnerSocialIcon = styled.a`
   ${columnLink}
   ${textRegularSize}
@@ -448,7 +420,6 @@ export function SocialIcon(props: React.AnchorHTMLAttributes<unknown>) {
   );
 }
 
-// tslint:disable-next-line:variable-name
 export const FooterLogo = styled.img`
   height: 4rem;
   transform: translateY(0.2rem);

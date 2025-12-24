@@ -8,7 +8,6 @@ import { query } from '../navigation/selectors';
 import { AppServices } from '../types';
 import { assertDefined } from '../utils/assertions';
 
-// tslint:disable-next-line: variable-name
 export const ScopedGlobalStyle = createGlobalStyle`
   [data-dynamic-style="true"] {
     ${(props: { styles: string }) => props.styles}
@@ -44,7 +43,6 @@ interface DynamicContentStylesProps extends React.HTMLAttributes<HTMLDivElement>
   disable?: boolean;
 }
 
-// tslint:disable-next-line: variable-name
 const DynamicContentStyles = React.forwardRef<HTMLElement, DynamicContentStylesProps>((
   { book, children, disable, ...otherProps }: React.PropsWithChildren<DynamicContentStylesProps>,
   ref

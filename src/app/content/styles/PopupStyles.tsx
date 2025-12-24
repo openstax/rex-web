@@ -27,7 +27,6 @@ const swapColors = ({colorSchema}: {colorSchema: BookWithOSWebData['theme']}) =>
   `;
 };
 
-// tslint:disable-next-line:variable-name
 export const PopupWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -41,7 +40,6 @@ export const PopupWrapper = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const Header = styled.div`
   ${h3Style}
   ${disablePrint}
@@ -64,7 +62,6 @@ export const Header = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const PopupBody = styled.div`
   -webkit-overflow-scrolling: touch;
   height: calc(100% - ${headerHeight}rem);
@@ -82,7 +79,6 @@ export const PopupBody = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const Modal = styled.div`
   top: 0;
   z-index: ${theme.zIndex.highlightSummaryPopup};
@@ -109,14 +105,12 @@ export const Modal = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseIconWrapper = styled(PlainButton)`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseIcon = styled(({colorSchema: _, ...props}) =>
   <Times {...props} aria-hidden='true' focusable='true' />)`
     ${swapColors}

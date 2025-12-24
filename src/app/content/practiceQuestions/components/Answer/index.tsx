@@ -21,7 +21,6 @@ interface AnswerResultProps {
   isCorrect: boolean;
 }
 
-// tslint:disable-next-line: variable-name
 const AnswerResult = ({ showCorrect, isSelected, isSubmitted, isCorrect }: AnswerResultProps) => {
   const resultMsgKey = isCorrect
     ? 'i18n:practice-questions:popup:correct'
@@ -52,7 +51,6 @@ interface AnswerProps {
   source: LinkedArchiveTreeSection;
 }
 
-// tslint:disable-next-line: variable-name
 const Answer = ({
   answer,
   question,

@@ -1,4 +1,3 @@
-// tslint:disable:max-classes-per-file
 import flow from 'lodash/fp/flow';
 import identity from 'lodash/fp/identity';
 import isEmpty from 'lodash/fp/isEmpty';

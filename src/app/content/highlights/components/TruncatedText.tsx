@@ -15,7 +15,6 @@ interface Props {
   onChange: () => void;
 }
 
-// tslint:disable-next-line:variable-name
 const Link = styled.span`
   ${textStyle}
   ${linkStyle}
@@ -29,7 +28,6 @@ const Link = styled.span`
   line-height: 1.6rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const NoteText = ({id, text, isActive, className, onChange }: Props) => {
   const noteTextRef = React.useRef<HTMLElement>(null);
   const [showLink, setShowLink] = React.useState<boolean>(false);

@@ -10,7 +10,6 @@ import { filters } from '../../styles/PopupConstants';
 import { disablePrint } from '../utils/disablePrint';
 import FiltersList from './FiltersList';
 
-// tslint:disable-next-line:variable-name
 export const AngleIcon = styled(AngleDown)`
   color: ${theme.color.primary.gray.base};
   width: ${filters.dropdownToggle.icon.width}rem;
@@ -28,7 +27,6 @@ export const AngleIcon = styled(AngleDown)`
   }}
 `;
 
-// tslint:disable-next-line: variable-name
 export const Fieldset = styled.fieldset`
   padding: 0;
   border: none;
@@ -48,7 +46,6 @@ interface ToggleProps {
   showAngleIcon: boolean;
   controlsId: string;
 }
-// tslint:disable-next-line:variable-name
 const Toggle = styled(
   React.forwardRef<HTMLButtonElement, ToggleProps>(
     (
@@ -123,7 +120,6 @@ type FilterDropdownProps = {
   controlsId: string;
 } & Partial<TabHiddenDropdownProps>;
 
-// tslint:disable-next-line:variable-name
 export const FilterDropdown = ({label, showLabel, ariaLabelId, dataAnalyticsLabel, toggleChildren, children, ...props}:
 React.PropsWithChildren<FilterDropdownProps>) => (
   <Dropdown
@@ -142,7 +138,6 @@ React.PropsWithChildren<FilterDropdownProps>) => (
   </Dropdown>
 );
 
-// tslint:disable-next-line: variable-name
 export const FiltersTopBar = styled.div`
   display: flex;
   align-items: center;
@@ -154,7 +149,6 @@ interface Props {
   className?: string;
 }
 
-// tslint:disable-next-line:variable-name
 const Filters = ({className, children}: React.PropsWithChildren<Props>) => {
   return <div className={className}>
     {children}

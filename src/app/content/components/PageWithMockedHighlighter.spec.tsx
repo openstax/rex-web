@@ -46,7 +46,6 @@ jest.mock('../../domUtils', () => ({
 
 jest.mock('@openstax/highlighter');
 
-// tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
 const fromApiResponse = UntypedSerializedHighlight.fromApiResponse = jest.fn();
 
@@ -225,7 +224,6 @@ describe('Page', () => {
     expect(scrollTarget(store.getState())).toEqual(null);
   });
 
-  // tslint:disable-next-line: max-line-length
   it('scrolls to the Highlight Scroll Target > select another highlight > refresh > do not scroll to the HST again', async() => {
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'scroll-target-id' })}`;
 

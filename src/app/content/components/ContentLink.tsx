@@ -42,7 +42,6 @@ interface Props {
   ignoreModal?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const {
     book,
@@ -103,7 +102,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   >{children}</a>;
 };
 
-// tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
   (state: AppState, ownProps: {queryParams?: OutputParams}) => ({
     currentBook: select.book(state),
@@ -120,7 +118,6 @@ export const ConnectedContentLink = connect(
   })
 )(ContentLink);
 
-// tslint:disable-next-line:variable-name
 export const StyledContentLink = styled(ConnectedContentLink)`
   ${linkStyle}
 `;

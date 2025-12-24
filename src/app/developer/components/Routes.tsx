@@ -3,7 +3,6 @@ import { routes } from '../..';
 import { H3 } from '../../components/Typography';
 import Panel from './Panel';
 
-// tslint:disable-next-line:variable-name
 const Routes = () => <Panel title='Routes'>
   {routes.map((route) => <div key={route.name}>
     <H3>{route.name}</H3>

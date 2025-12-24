@@ -37,6 +37,6 @@ async function run() {
 }
 
 run().then(() => process.exit(), (err) => {
-  console.error(err); // tslint:disable-line:no-console
+  console.error(err);
   process.exit(1);
 });
