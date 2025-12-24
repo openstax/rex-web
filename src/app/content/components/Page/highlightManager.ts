@@ -156,7 +156,10 @@ export interface UpdateOptions {
   onSelect: (highlight: Highlight | null) => void;
 }
 
-export default (container: HTMLElement, getProp: () => HighlightProp, appServices: AppServices & MiddlewareAPI, intl: IntlShape) => {
+export default (
+  container: HTMLElement, getProp: () => HighlightProp,
+  appServices: AppServices & MiddlewareAPI,
+  intl: IntlShape) => {
   let pendingHighlight: Highlight | undefined;
   let scrollTargetHighlightIdThatWasHandled: string;
   let setListHighlighter = (_highlighter: Highlighter): void => undefined;

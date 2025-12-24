@@ -21,6 +21,8 @@
       "exports": "always-multiline",
       "functions": "never"
     }],
+    "max-len": ["error", {"code": 120, "ignoreComments": true, "ignoreStrings": true}],
+    "prefer-object-spread": 2,
     "space-before-function-paren": ["error", "never"]
   },
   "ignorePatterns": [

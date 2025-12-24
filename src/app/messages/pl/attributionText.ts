@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export const defaultText = `
 <p>Ten podręcznik nie może być wykorzystywany do trenowania sztucznej inteligencji ani do przetwarzania przez systemy sztucznej inteligencji bez zgody OpenStax lub OpenStax Poland.</p>
 <p>
