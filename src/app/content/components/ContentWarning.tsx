@@ -10,6 +10,7 @@ import { useTrapTabNavigation } from '../../reactUtils';
 import { assertDocument } from '../../utils';
 import { hasOSWebData } from '../guards';
 import { tuple } from '../../utils';
+import { useIntl } from 'react-intl';
 
 // tslint:disable-next-line
 const WarningDiv = styled.div`
@@ -88,6 +89,7 @@ const useDismiss = (book: Book) => {
 
 export default function ContentWarning({ book }: { book: Book }) {
   const [isShown, dismiss] = useDismiss(book);
+  const intl = useIntl();
 
   if (!hasOSWebData(book) || !book.content_warning_text || !isShown) {
     return null;
@@ -95,7 +97,7 @@ export default function ContentWarning({ book }: { book: Book }) {
 
   return (
     <Modal
-      ariaLabel='Content warning'
+      ariaLabel={intl.formatMessage({ id: 'i18n:content-warning:heading:aria-label' })}
       tabIndex='-1'
       scrollLockProps={{
         mediumScreensOnly: false,

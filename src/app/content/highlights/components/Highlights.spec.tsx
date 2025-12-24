@@ -509,7 +509,7 @@ describe('VisuallyHiddenLiveRegion', () => {
   };
 
   it('announces the message after a delay when id changes', async() => {
-    const intl = await createIntl('en');
+    const intl = await createIntl('en', { 'test-id': 'Test ID' });
     const component = renderer.create(
       <RawIntlProvider value={intl}>
         <VisuallyHiddenLiveRegion id='test-id' />
@@ -526,12 +526,12 @@ describe('VisuallyHiddenLiveRegion', () => {
       jest.advanceTimersByTime(100);
     });
 
-    expect(getTextContent(liveRegion)).toBe('test-id');
+    expect(getTextContent(liveRegion)).toBe('Test ID');
   });
 
   it('clears the timer on unmount', async() => {
     // @ts-ignore
-    const intl = await createIntl('en');
+    const intl = await createIntl('en', { 'test-id': 'Test ID' });
     const component = renderer.create(
       <RawIntlProvider value={intl}>
         <VisuallyHiddenLiveRegion id='test-id' />
