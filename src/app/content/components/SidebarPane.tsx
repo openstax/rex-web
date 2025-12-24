@@ -29,7 +29,6 @@ const sidebarClosedStyle = css`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const SidebarPaneBody = styled.nav`
   grid-area: 1 / 2 / auto / 3;
   position: sticky;
@@ -96,7 +95,6 @@ export const SidebarPaneBody = styled.nav`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line:variable-name
 export const Header = styled.div`
   display: flex;
   align-items: center;
@@ -111,7 +109,6 @@ export const Header = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const HeaderText = styled.span`
   font-size: 1.8rem;
   line-height: 2.9rem;

@@ -14,7 +14,6 @@ import { LinkedArchiveTreeNode } from '../../../types';
 import { printSummaryHighlights, updateSummaryFilters } from '../../actions';
 import * as select from '../../selectors';
 
-// tslint:disable-next-line:variable-name
 export const ConnectedChapterFilter = connect(
   (state: AppState) => ({
     locationFilters: select.highlightLocationFilters(state),
@@ -26,7 +25,6 @@ export const ConnectedChapterFilter = connect(
   })
 )(ChapterFilter);
 
-// tslint:disable-next-line: variable-name
 export const ConnectedColorFilter = connect(
   (state: AppState) => ({
     colorFiltersWithContent: select.highlightColorFiltersWithContent(state),
@@ -38,7 +36,6 @@ export const ConnectedColorFilter = connect(
   })
 )(ColorFilter);
 
-// tslint:disable-next-line:variable-name
 export const ConnectedFilterList = connect(
   (state: AppState) => ({
     locationFilters: select.highlightLocationFilters(state),
@@ -50,7 +47,6 @@ export const ConnectedFilterList = connect(
   })
 )(FiltersList);
 
-// tslint:disable-next-line:variable-name
 export const ConnectedPrintButton = connect(
   (state: AppState) => ({
     disabled: select.summaryIsLoading(state),

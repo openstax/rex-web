@@ -65,7 +65,6 @@ describe('openStudyGuides', () => {
     await hook(openStudyGuides());
 
     const historyReplace = replace({} as unknown as AnyMatch, {
-      // tslint:disable-next-line: max-line-length
       search: `${queryString.stringify({colors: Array.from(colorfilterLabels)})}&locationIds=testbook1-testchapter3-uuid`,
     });
     expect(dispatch).toHaveBeenCalledWith(historyReplace);
@@ -79,7 +78,6 @@ describe('openStudyGuides', () => {
     await hook(openStudyGuides());
 
     const historyReplace = replace({} as unknown as AnyMatch, {
-      // tslint:disable-next-line: max-line-length
       search: `${queryString.stringify({colors: Array.from(colorfilterLabels)})}&locationIds=testbook1-testchapter1-uuid`,
     });
     expect(dispatch).toHaveBeenCalledWith(historyReplace);
@@ -113,7 +111,6 @@ describe('openStudyGuides', () => {
     await hook(openStudyGuides());
 
     const historyReplace = replace({} as unknown as AnyMatch, {
-      // tslint:disable-next-line: max-line-length
       search: `${queryString.stringify({colors: [HighlightColorEnum.Green]})}&locationIds=testbook1-testchapter1-uuid`,
     });
     expect(dispatch).toHaveBeenCalledWith(historyReplace);

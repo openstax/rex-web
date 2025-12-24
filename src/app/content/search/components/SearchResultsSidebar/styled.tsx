@@ -30,7 +30,6 @@ const borderColor = 'rgba(0, 0, 0, 0.06)';
 const backgroundColor = '#fafafa';
 const headerHeight = 4;
 
-// tslint:disable-next-line:variable-name
 export const SearchIconInsideBar = styled.img`
   ${toolbarIconStyles}
   height: ${headerHeight}rem;
@@ -42,7 +41,6 @@ export const SearchIconInsideBar = styled.img`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   ${toolbarIconStyles}
   vertical-align: middle;
@@ -53,10 +51,8 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const NavWrapper = styled.nav``;
 
-// tslint:disable-next-line:variable-name
 export const SearchResultsOl = styled.ol`
   list-style: none;
   padding: 0;
@@ -105,7 +101,6 @@ const styleWhenMobileToolbarClosed = (closedStyle: FlattenSimpleInterpolation) =
     theme.breakpoints.mobileMedium(closedStyle)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchResultsBar = styled.div`
   -webkit-overflow-scrolling: touch;
   overflow-x: visible;
@@ -162,7 +157,6 @@ export const SearchResultsBar = styled.div`
   flex-direction: column;
 `;
 
-// tslint:disable-next-line: variable-name
 export const SearchResultsHeader = styled.h2`
   display: flex;
   justify-content: space-between;
@@ -179,7 +173,6 @@ export const SearchResultsHeader = styled.h2`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const SearchResultsHeaderTitle = styled.span`
   font-size: 1.8rem;
   margin-left: 16px;
@@ -188,7 +181,6 @@ export const SearchResultsHeaderTitle = styled.span`
   font-weight: bold;
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchQuery = styled.div`
   ${textRegularStyle}
   display: flex;
@@ -202,7 +194,6 @@ export const SearchQuery = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchQueryWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -212,7 +203,6 @@ export const SearchQueryWrapper = styled.div`
   overflow: visible;
 `;
 
-// tslint:disable-next-line: variable-name
 export const SearchResultsTopBar = styled.div`
   display: flex;
   flex-direction: column;
@@ -222,7 +212,6 @@ export const SearchResultsTopBar = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const SummaryTitle = styled.span`
   ${labelStyle}
   font-weight: bold;
@@ -230,12 +219,10 @@ export const SummaryTitle = styled.span`
   line-height: 1.3;
 `;
 
-// tslint:disable-next-line:variable-name
 export const Details = styled(BaseDetails)`
   overflow: visible;
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchBarSummaryContainer = styled.div`
   display: flex;
   align-items: normal;
@@ -251,7 +238,6 @@ export const SearchBarSummaryContainer = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchBarSummary = styled(Summary)`
   min-height: 3.8rem;
 
@@ -260,7 +246,6 @@ export const SearchBarSummary = styled(Summary)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchResultsLink = styled.div`
   ${labelStyle}
   width: 100%;
@@ -272,7 +257,6 @@ interface SectionContentPreviewProps extends React.ComponentProps<typeof Content
   selectedResult: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 export const SectionContentPreview = styled(
   React.forwardRef<HTMLAnchorElement, SectionContentPreviewProps>(
     ({selectedResult, ...props}: {selectedResult: unknown}, ref) => <ContentLinkComponent {...props} ref={ref} />
@@ -295,7 +279,6 @@ export const SectionContentPreview = styled(
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const LinkWrapper = styled.div`
   min-height: 3.4rem;
   display: flex;
@@ -307,7 +290,6 @@ export const LinkWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const DetailsOl = styled.ol`
   overflow: visible;
   padding: 0;
@@ -317,13 +299,11 @@ export const DetailsOl = styled.ol`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const NavItem = styled.li`
   overflow: visible;
   background: ${backgroundColor};
 `;
 
-// tslint:disable-next-line:variable-name
 export const SearchQueryAlignment = styled.div`
   max-width: 26.5rem;
   text-align: center;
@@ -332,7 +312,6 @@ export const SearchQueryAlignment = styled.div`
   margin-right: auto;
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseIconButton = styled.button`
   cursor: pointer;
   border: none;
@@ -347,7 +326,6 @@ export const CloseIconButton = styled.button`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseIconWrapper = styled.div`
   overflow: visible;
   display: flex;
@@ -361,7 +339,6 @@ export const CloseIconWrapper = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const LoadingWrapper = styled.div`
   overflow: hidden;
   right: 0;
@@ -376,20 +353,17 @@ export const LoadingWrapper = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const HeaderQuery = styled.div`
   flex: 1;
   padding: 1rem 0;
   align-self: center;
 `;
 
-// tslint:disable-next-line:variable-name
 export const ListItem = styled.li`
   overflow: visible;
   display: block;
 `;
 
-// tslint:disable-next-line: variable-name
 export const SearchResultsSectionTitle = styled.h3`
   ${textStyle}
   font-size: 1.8rem;
@@ -399,10 +373,8 @@ export const SearchResultsSectionTitle = styled.h3`
   padding: 1.2rem 3.2rem;
 `;
 
-// tslint:disable-next-line: variable-name
 export const KeyTermContainer = styled.div``;
 
-// tslint:disable-next-line: variable-name
 export const RelatedKeyTerms = styled.div`
   background-color: ${theme.color.white};
 
@@ -411,13 +383,11 @@ export const RelatedKeyTerms = styled.div`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const KeyTerm = styled.span`
   display: block;
   font-weight: bold;
 `;
 
-// tslint:disable-next-line: variable-name
 export const SimpleResult = styled.div`
   margin: 0 0 0 3.2rem;
   padding: 1.2rem ${theme.padding.page.mobile}rem 1.2rem 0;
@@ -441,7 +411,6 @@ export const SimpleResult = styled.div`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const KeyTermResult = styled(SimpleResult)`
   ${theme.breakpoints.mobile(css`
     margin-left: 3.2rem;
@@ -458,14 +427,12 @@ export const KeyTermResult = styled(SimpleResult)`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const BlankStateWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
 `;
 
-// tslint:disable-next-line: variable-name
 export const BlankStateMessage = styled.div`
   display: flex;
   flex-grow: 1;
@@ -475,7 +442,6 @@ export const BlankStateMessage = styled.div`
   font-size: 1.6rem;
 `;
 
-// tslint:disable-next-line: variable-name
 export const HiddenMessageContainer = styled.div`
     ${hiddenButAccessible}
 `;

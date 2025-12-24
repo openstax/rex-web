@@ -63,7 +63,6 @@ const reducePageReferenceError = (a: HTMLAnchorElement) => {
   );
 };
 
-// tslint:disable-next-line: max-line-length
 const reduceReference = (
   reference: PageReferenceMap,
   currentPath: string,
@@ -83,7 +82,6 @@ const reduceReference = (
   a.setAttribute('href', newHref);
 };
 
-// tslint:disable-next-line: max-line-length
 export const reduceReferences = (
   document: Document,
   { references, currentPath, systemQueryParams }: ContentLinkProp
@@ -131,7 +129,7 @@ export const reduceReferences = (
     }
     /*
     else {
-      console.log(`Reference not found: ${href}`); // tslint:disable-line:no-console
+      console.log(`Reference not found: ${href}`);
     }
     */
   }

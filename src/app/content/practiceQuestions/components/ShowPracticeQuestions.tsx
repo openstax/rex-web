@@ -20,7 +20,6 @@ import LinkToSection from './LinkToSection';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
 
-// tslint:disable-next-line:variable-name
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
   display: flex;
   flex-direction: column;
@@ -30,7 +29,6 @@ export const ShowPracticeQuestionsBody = styled(PopupBody)`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const ShowPracitceQuestionsContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -43,7 +41,6 @@ export const ShowPracitceQuestionsContent = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const SectionTitle = styled.h2`
   ${h4Style}
   flex-shrink: 0;
@@ -58,7 +55,6 @@ export const SectionTitle = styled.h2`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const QuestionsWrapper = styled.div`
   flex: 1 0;
   overflow: initial;
@@ -66,7 +62,6 @@ export const QuestionsWrapper = styled.div`
   background-color: ${theme.color.white};
 `;
 
-// tslint:disable-next-line: variable-name
 export const QuestionsHeader = styled.h3`
   font-size: 1.4rem;
   font-weight: bold;
@@ -96,7 +91,6 @@ function AutofocusSectionTitle() {
   return <SectionTitle tabIndex={-1} ref={ref} dangerouslySetInnerHTML={{ __html: section.title }} />;
 }
 
-// tslint:disable-next-line: variable-name
 const ShowPracticeQuestions = () => {
   const {book, page} = useSelector(contentSelectors.bookAndPage);
   const questionsCount = useSelector(pqSelectors.questionsCount);

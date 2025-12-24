@@ -102,7 +102,6 @@ describe('content', () => {
   });
 });
 
-// tslint:disable-next-line:no-shadowed-variable
 /*
 const clickTocLink = (href: string) => page.evaluate(async(href) => {
   const link = document && Array.from(document.querySelectorAll('a')).find(a => a.getAttribute('href') === href);

@@ -15,7 +15,6 @@ import { PracticeAnswer, PracticeQuestion } from '../types';
 import Answer from './Answer';
 import QuestionNavigation from './QuestionNavigation';
 
-// tslint:disable-next-line: variable-name
 export const QuestionWrapper = styled.form`
   overflow: visible;
   padding: 0 ${theme.padding.page.desktop}rem;
@@ -24,7 +23,6 @@ export const QuestionWrapper = styled.form`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const QuestionContent = styled(React.forwardRef((props, ref) => <div tabIndex={0}>
   <ContentExcerpt {...props} tabIndex={-1} ref={ref} disableDynamicContentStyles={true} />
 </div>))`
@@ -35,7 +33,6 @@ export const QuestionContent = styled(React.forwardRef((props, ref) => <div tabI
   outline: none;
 `;
 
-// tslint:disable-next-line: variable-name
 export const AnswersWrapper = styled.div`
   margin-top: ${theme.padding.page.desktop}rem;
   overflow: visible;
@@ -45,7 +42,6 @@ const getChoiceLetter = (value: number) => {
   return (value + 10).toString(36);
 };
 
-// tslint:disable-next-line: variable-name
 const Question = () => {
   const [selectedAnswerState, setSelectedAnswer] = React.useState<PracticeAnswer | null>(null);
   const [showCorrectState, setShowCorrect] = React.useState<PracticeQuestion | null>(null);

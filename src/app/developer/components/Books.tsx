@@ -14,7 +14,6 @@ import { downloadFile } from '../utils/downloadFile';
 import { generateBookPageSpreadsheet } from '../utils/generateBookPageSpreadsheet';
 import Panel from './Panel';
 
-// tslint:disable-next-line:variable-name
 const BookLI = styled.li`
   display: flex;
   flex-direction: row;
@@ -38,7 +37,6 @@ export const exportBookHandler = (book: Book, services: AppServices) => async() 
 
 const notRetiredbooks = () => Object.entries(getBooksConfigSync().books).filter(([, book]) => !book.retired);
 
-// tslint:disable-next-line:variable-name
 const Books = () => {
   const [books, setBooks] = useState<
     Array<[string, BookVersionConfig] | [string, BookVersionConfig, Book]>

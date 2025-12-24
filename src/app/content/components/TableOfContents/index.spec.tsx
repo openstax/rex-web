@@ -36,8 +36,8 @@ const book = formatBookData(archiveBook, mockCmsBook);
 
 describe('TableOfContents', () => {
   let store: Store;
-  let Component: React.JSX.Element; // tslint:disable-line:variable-name
-  let SecondComponent: React.JSX.Element; // tslint:disable-line:variable-name
+  let Component: React.JSX.Element;
+  let SecondComponent: React.JSX.Element;
 
   const mockBook = {
     tree: {

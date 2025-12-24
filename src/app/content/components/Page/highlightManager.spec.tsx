@@ -34,7 +34,6 @@ UntypedHighlighter.prototype.eraseAll = jest.fn();
 UntypedHighlighter.prototype.erase = jest.fn();
 UntypedHighlighter.prototype.highlight = jest.fn();
 
-// tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
 const fromApiResponse = UntypedSerializedHighlight.fromApiResponse = jest.fn();
 

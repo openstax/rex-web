@@ -1,6 +1,5 @@
 import { onEscCallbacks, useOnKey } from '../reactUtils';
 
-// tslint:disable-next-line:variable-name
 const OnEsc = () => {
   useOnKey({key: 'Escape'}, null, true, () => {
     // Run the last callback only

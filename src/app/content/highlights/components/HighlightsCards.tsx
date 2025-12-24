@@ -9,13 +9,11 @@ import SectionHighlights from '../../components/SectionHighlights';
 import HighlightListElement from './SummaryPopup/HighlightListElement';
 import { OrderedSummaryHighlights } from '../types';
 
-// tslint:disable-next-line: variable-name
 export const NoHighlightsTip = htmlMessage(
   'i18n:toolbar:highlights:popup:heading:no-highlights-tip',
   (props) => <span {...props} />
 );
 
-// tslint:disable-next-line: variable-name
 export const VisuallyHiddenLiveRegion = ({ id }: { id: string }) => {
   const [liveMsg, setLiveMsg] = React.useState('');
   const intl = useIntl();
@@ -34,7 +32,6 @@ export const VisuallyHiddenLiveRegion = ({ id }: { id: string }) => {
   );
 };
 
-// tslint:disable-next-line: variable-name
 export const NoHighlightsInBook = ({ container }: { container: React.RefObject<HTMLElement> }) => (
   <HighlightsWrapper ref={container}>
     <VisuallyHiddenLiveRegion id='i18n:toolbar:highlights:popup:body:no-highlights-in-book' />
@@ -53,7 +50,6 @@ export const NoHighlightsInBook = ({ container }: { container: React.RefObject<H
   </HighlightsWrapper>
 );
 
-// tslint:disable-next-line: variable-name
 export const NoHighlightsAvailable = ({ container }: { container: React.RefObject<HTMLElement> }) => (
   <HighlightsWrapper ref={container}>
     <VisuallyHiddenLiveRegion id='i18n:toolbar:highlights:popup:heading:no-highlights' />
@@ -64,7 +60,6 @@ export const NoHighlightsAvailable = ({ container }: { container: React.RefObjec
   </HighlightsWrapper>
 );
 
-// tslint:disable-next-line: variable-name
 export const HighlightsList = (
   {
     container,

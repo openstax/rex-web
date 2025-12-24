@@ -1,4 +1,3 @@
-// tslint:disable max-line-length
 export const bottomText = `
 <div data-html="copyright">© 1999-{currentYear}, Rice University. Salvo que se indique lo contrario, los libros de texto de este sitio
   están autorizados conforme a la

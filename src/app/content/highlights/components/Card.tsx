@@ -285,7 +285,6 @@ function EditCardWithOnCreate({
   );
 }
 
-// tslint:disable-next-line: variable-name
 const StyledCard = styled(Card)`
   ${mainCardStyles}
 `;

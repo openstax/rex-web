@@ -9,7 +9,6 @@ jest.mock('../../../helpers/Sentry', () => ({
   captureException: jest.fn(),
 }));
 
-// tslint:disable-next-line:variable-name
 const Buggy = () => {
   throw new Error('this is a bug');
 };

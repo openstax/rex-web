@@ -1,6 +1,5 @@
 import styled from 'styled-components/macro';
 
-// tslint:disable-next-line: variable-name
 const LoaderWrapper = styled.div`
   position: absolute;
   width: 100%;

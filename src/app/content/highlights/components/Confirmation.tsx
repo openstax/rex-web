@@ -11,7 +11,6 @@ import { mergeRefs } from '../../../utils';
 import { cardPadding } from '../constants';
 import { cardBorder } from './style';
 
-// tslint:disable-next-line:variable-name
 export const Overlay = styled.div`
   background: ${Color(theme.color.black).alpha(0.90).string()};
   outline: none;
@@ -47,7 +46,6 @@ interface Props {
   drawFocus?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 const Confirmation = React.forwardRef<HTMLElement, Props>((
   {message, confirmMessage, confirmLink, always, onCancel, onConfirm, drawFocus = true, ...props}: Props,
   ref

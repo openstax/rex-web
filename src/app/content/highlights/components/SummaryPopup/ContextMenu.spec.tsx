@@ -17,11 +17,8 @@ describe('ContextMenu', () => {
       <ContextMenu
         highlight={highlight}
         linkToHighlight='/link/to/highlight'
-        // tslint:disable-next-line: no-empty
         onEdit={() => {}}
-        // tslint:disable-next-line: no-empty
         onDelete={() => {}}
-        // tslint:disable-next-line: no-empty
         onColorChange={() => {}}
       />
     </TestContainer>);
@@ -35,11 +32,8 @@ describe('ContextMenu', () => {
       <ContextMenu
         highlight={highlight}
         linkToHighlight='/link/to/highlight'
-        // tslint:disable-next-line: no-empty
         onEdit={() => {}}
-        // tslint:disable-next-line: no-empty
         onDelete={() => {}}
-        // tslint:disable-next-line: no-empty
         onColorChange={() => {}}
       />
     </TestContainer>);
@@ -63,7 +57,6 @@ describe('ContextMenu', () => {
         linkToHighlight='/link/to/highlight'
         onEdit={() => { editClicked = true; }}
         onDelete={() => { deleteClicked = true; }}
-        // tslint:disable-next-line: no-empty
         onColorChange={() => {}}
       />
     </TestContainer>);
@@ -91,11 +84,8 @@ describe('ContextMenu', () => {
       <ContextMenu
         highlight={highlight}
         linkToHighlight='/link/to/highlight'
-        // tslint:disable-next-line: no-empty
         onEdit={() => {}}
-        // tslint:disable-next-line: no-empty
         onDelete={() => {}}
-        // tslint:disable-next-line: no-empty
         onColorChange={(newColor) => { color = newColor as HighlightColorEnum; }}
       />
     </TestContainer>);

@@ -50,7 +50,6 @@ describe('BookBanner', () => {
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');
-      // tslint:disable-next-line:max-line-length
       const text = '15.7 Statistical Interpretation of Entropy and the Second Law of Thermodynamics: The Underlying Explanation test text';
       if (h1) {
         h1.innerHTML = '<span class=\'os-text\'>' + text + '</span>';
@@ -93,7 +92,6 @@ describe('BookBanner', () => {
     await navigate(page, TEST_PAGE_URL);
     await page.evaluate(() => {
       const h1 = document && document.querySelector('h1');
-      // tslint:disable-next-line:max-line-length
       const text = 'Statistical Interpretation of Entropy and the Second Law of Thermodynamics: The Underlying Explanation';
       if (h1) {
         h1.innerHTML = '<span class=\'os-text\'>' + text + '</span>';

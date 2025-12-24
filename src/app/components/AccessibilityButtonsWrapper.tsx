@@ -9,7 +9,6 @@ import { Provider } from '../context/SkipToContent';
 import { scrollTo } from '../domUtils';
 import HiddenLink from './HiddenLink';
 
-// tslint:disable-next-line: variable-name
 const OpenKeyboardShortcutsMenuLink = () => {
   const dispatch = useDispatch();
   const trackOpenCloseKS = useAnalyticsEvent('openCloseKeyboardShortcuts');

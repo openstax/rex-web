@@ -13,7 +13,6 @@
 import { ServiceWorkerRegistration } from '@openstax/types/lib.dom';
 import { assertWindow } from './app/utils';
 import Sentry from './helpers/Sentry';
-// tslint:disable:no-console
 
 const window = assertWindow();
 const navigator = window.navigator;

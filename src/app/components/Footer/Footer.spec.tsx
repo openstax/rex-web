@@ -45,7 +45,6 @@ describe('useContactDialog', () => {
     addEventListener = jest.spyOn(windowBack, 'addEventListener');
   });
 
-  // tslint:disable-next-line:variable-name
   const ShowContactDialog = (props: Pick<Parameters<typeof ContactDialog>[0], 'contactFormParams'>) => {
     const { isOpen, close, open } = useContactDialog();
 

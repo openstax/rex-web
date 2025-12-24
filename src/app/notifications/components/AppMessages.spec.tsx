@@ -9,7 +9,7 @@ import AppMessage from './AppMessage';
 
 describe('AppMessage', () => {
   let renderer: typeof rendererType;
-  let React: typeof ReactType; // tslint:disable-line:variable-name
+  let React: typeof ReactType;
   let dispatch: jest.SpyInstance;
   let store: Store;
 

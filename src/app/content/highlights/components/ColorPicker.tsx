@@ -36,7 +36,6 @@ interface ColorButtonProps {
   className?: string;
 }
 
-// tslint:disable-next-line:variable-name
 const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) => {
   const color = useIntl().formatMessage({id: `i18n:highlighting:colors:${style.label}`});
 
@@ -83,7 +82,6 @@ function nextIdx(idx: number, itemCount: number, key: NavKeys) {
   return idx;
 }
 
-// tslint:disable-next-line:variable-name
 const FSWrapper = styled.div`
   border: 0;
   display: flex;
@@ -94,7 +92,6 @@ const FSWrapper = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const ColorPicker = ({className, ...props}: Props) => {
   const ref = React.useRef<HTMLDivElement>(null);
   // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role#keyboard_interactions

@@ -6,7 +6,6 @@ import { assertDocument } from '../utils/browser-assertions';
 import createIntl from './createIntl';
 import { currentLocale } from './selectors';
 
-// tslint:disable-next-line:variable-name
 const MessageProvider = (props: React.PropsWithChildren<{}>) => {
   const services = useServices();
   const [intl, setIntl] = useState<IntlShape | null>(services.intl.current);

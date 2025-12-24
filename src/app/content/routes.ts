@@ -54,7 +54,6 @@ const contentPaths =  [
   ...portalContentPaths,
 ];
 
-// tslint:disable-next-line:variable-name
 const ReadingContent = Loadable({
   loader: () => import(/* webpackChunkName: "route-content" */ './components/Content'),
   loading: () => null,
@@ -79,7 +78,6 @@ export const content: ContentRoute = {
 
 const assignedPath = dynamicPrefix + '/assigned/:activityId';
 
-// tslint:disable-next-line:variable-name
 const AssignedContent = Loadable({
   loader: () => import(/* webpackChunkName: "route-assigned" */ './components/Assigned'),
   loading: () => null,

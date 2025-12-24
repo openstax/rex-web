@@ -26,25 +26,21 @@ interface State {
   error?: Error;
 }
 
-// tslint:disable-next-line:variable-name
 const ErrorWrapper = styled.div`
   flex: 1;
   margin: 3rem auto;
   padding: 0 ${theme.padding.page.mobile}rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const HeadingWrapper = styled.div`
   text-align: center;
   margin-top: 5rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const BodyErrorText = styled.div`
   ${bodyCopyRegularStyle};
 `;
 
-// tslint:disable-next-line:variable-name
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 class ErrorBoundary extends React.Component<Props, State> {

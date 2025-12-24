@@ -12,7 +12,6 @@ interface TestContainerProps {
   children: ReactNode;
 }
 
-// tslint:disable-next-line:variable-name max-line-length
 const TestContainer = (props: TestContainerProps) => {
   const services = props.services || createTestServices();
   const store = props.store || createTestStore();
