@@ -2,9 +2,9 @@ import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertDocument } from '../../../utils';
-import { 
-  generateUpdatePayload, 
-  getHighlightTopOffset, 
+import {
+  generateUpdatePayload,
+  getHighlightTopOffset,
   editCardVisibilityHandler,
   getOffsetToAdjustForHighlightPosition,
   getSelectionDirection,
@@ -111,11 +111,15 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
   });
 
   it('returns position - top if preferEnd is false', () => {
-    expect(getOffsetToAdjustForHighlightPosition(highlight, cardsPositions, getHighlightPosition, false)).toBe(100 - 40);
+    expect(
+      getOffsetToAdjustForHighlightPosition(highlight, cardsPositions, getHighlightPosition, false)
+    ).toBe(100 - 40);
   });
 
   it('returns position - bottom if preferEnd is true', () => {
-    expect(getOffsetToAdjustForHighlightPosition(highlight, cardsPositions, getHighlightPosition, true)).toBe(100 - 60);
+    expect(
+      getOffsetToAdjustForHighlightPosition(highlight, cardsPositions, getHighlightPosition, true)
+    ).toBe(100 - 60);
   });
 
   it('throws if highlight id not in cardsPositions', () => {
@@ -126,13 +130,19 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
   });
 
   it('works for a different highlight', () => {
-    expect(getOffsetToAdjustForHighlightPosition(highlight2, cardsPositions, getHighlightPosition, false)).toBe(200 - 80);
-    expect(getOffsetToAdjustForHighlightPosition(highlight2, cardsPositions, getHighlightPosition, true)).toBe(200 - 120);
+    expect(
+      getOffsetToAdjustForHighlightPosition(highlight2, cardsPositions, getHighlightPosition, false)
+    ).toBe(200 - 80);
+    expect(
+      getOffsetToAdjustForHighlightPosition(highlight2, cardsPositions, getHighlightPosition, true)
+    ).toBe(200 - 120);
   });
 });
 
 describe('getSelectionDirection', () => {
-  function createSelection(anchorNode: Node | null, anchorOffset: number, focusNode: Node | null, focusOffset: number): Selection {
+  function createSelection(
+    anchorNode: Node | null, anchorOffset: number, focusNode: Node | null, focusOffset: number
+  ): Selection {
     return {
       anchorNode,
       anchorOffset,
@@ -140,11 +150,11 @@ describe('getSelectionDirection', () => {
       focusOffset,
       getRangeAt: () => null as any,
       rangeCount: 0,
-      removeAllRanges: () => { },
-      addRange: () => { },
-      collapse: () => { },
-      extend: () => { },
-      deleteFromDocument: () => { },
+      removeAllRanges: jest.fn(),
+      addRange: jest.fn(),
+      collapse: jest.fn(),
+      extend: jest.fn(),
+      deleteFromDocument: jest.fn(),
       containsNode: () => false,
       toString: () => '',
       type: 'Range',

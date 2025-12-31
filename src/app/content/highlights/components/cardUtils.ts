@@ -121,7 +121,7 @@ export const getOffsetToAdjustForHighlightPosition = (
   highlight: Highlight | undefined,
   cardsPositions: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
-  preferEnd: boolean,
+  preferEnd: boolean
 ) => {
   const position = highlight
     ? assertDefined(cardsPositions.get(highlight.id), 'internal function requested postion of unknown highlight')
@@ -148,6 +148,7 @@ export const getSelectionDirection = (selection: Selection): 'forward' | 'backwa
     selection.focusNode
   );
 
+  // tslint:disable-next-line:no-bitwise
   return position & Node.DOCUMENT_POSITION_FOLLOWING
     ? 'forward'
     : 'backward';
@@ -178,7 +179,8 @@ export const updateCardsPositions = (
     ? getSelectionDirection(selection) === 'forward'
     : false;
 
-  const offsetToAdjust = getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
+  const offsetToAdjust =
+    getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
 
   if (!focusedHighlight || offsetToAdjust === 0) { return cardsPositions; }
 
