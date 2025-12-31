@@ -1,5 +1,3 @@
-/// <reference lib="dom" />
-
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
 import { Element, HTMLElement } from '@openstax/types/lib.dom';

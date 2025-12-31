@@ -163,31 +163,31 @@ describe('getSelectionDirection', () => {
 
   it('returns "forward" if anchorNode or focusNode is missing', () => {
     expect(getSelectionDirection(createSelection(null, 0, null, 0))).toBe('forward');
-    expect(getSelectionDirection(createSelection(document.createTextNode('a'), 0, null, 0))).toBe('forward');
-    expect(getSelectionDirection(createSelection(null, 0, document.createTextNode('a'), 0))).toBe('forward');
+    expect(getSelectionDirection(createSelection(assertDocument().createTextNode('a'), 0, null, 0))).toBe('forward');
+    expect(getSelectionDirection(createSelection(null, 0, assertDocument().createTextNode('a'), 0))).toBe('forward');
   });
 
   it('returns "forward" if anchorNode equals focusNode and anchorOffset <= focusOffset', () => {
-    const node = document.createTextNode('abc');
+    const node = assertDocument().createTextNode('abc');
     expect(getSelectionDirection(createSelection(node, 1, node, 2))).toBe('forward');
     expect(getSelectionDirection(createSelection(node, 2, node, 2))).toBe('forward');
   });
 
   it('returns "backward" if anchorNode equals focusNode and anchorOffset > focusOffset', () => {
-    const node = document.createTextNode('abc');
+    const node = assertDocument().createTextNode('abc');
     expect(getSelectionDirection(createSelection(node, 3, node, 2))).toBe('backward');
   });
 
   it('returns "forward" if anchorNode comes before focusNode', () => {
-    const node1 = document.createTextNode('abc');
-    const node2 = document.createTextNode('def');
+    const node1 = assertDocument().createTextNode('abc');
+    const node2 = assertDocument().createTextNode('def');
     node1.compareDocumentPosition = jest.fn(() => Node.DOCUMENT_POSITION_FOLLOWING);
     expect(getSelectionDirection(createSelection(node1, 0, node2, 0))).toBe('forward');
   });
 
   it('returns "backward" if anchorNode comes after focusNode', () => {
-    const node1 = document.createTextNode('abc');
-    const node2 = document.createTextNode('def');
+    const node1 = assertDocument().createTextNode('abc');
+    const node2 = assertDocument().createTextNode('def');
     node1.compareDocumentPosition = jest.fn(() => Node.DOCUMENT_POSITION_PRECEDING);
     expect(getSelectionDirection(createSelection(node1, 0, node2, 0))).toBe('backward');
   });
