@@ -142,7 +142,7 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
 describe('getSelectionDirection', () => {
   function createSelection(
     anchorNode: Node | null, anchorOffset: number, focusNode: Node | null, focusOffset: number
-  ): Selection {
+  ): DomSelection {
     return {
       anchorNode,
       anchorOffset,
@@ -158,7 +158,7 @@ describe('getSelectionDirection', () => {
       containsNode: () => false,
       toString: () => '',
       type: 'Range',
-    } as unknown as Selection;
+    } as unknown as DomSelection;
   }
 
   it('returns "forward" if anchorNode or focusNode is missing', () => {

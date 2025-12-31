@@ -131,7 +131,7 @@ export const getOffsetToAdjustForHighlightPosition = (
   return position - offset;
 };
 
-export const getSelectionDirection = (selection: Selection): 'forward' | 'backward' => {
+export const getSelectionDirection = (selection: DomSelection): 'forward' | 'backward' => {
   if (!selection.anchorNode || !selection.focusNode) {
     return 'forward';
   }
