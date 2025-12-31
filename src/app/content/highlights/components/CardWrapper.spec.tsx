@@ -1,5 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
-import { Document, HTMLElement, Node } from '@openstax/types/lib.dom';
+import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
@@ -554,8 +554,8 @@ describe('CardWrapper', () => {
         </Provider>
       );
     });
-
-    const compareDocumentPositionMock = jest.fn().mockReturnValue(Node.DOCUMENT_POSITION_FOLLOWING);
+    const node = assertDocument().getRootNode();
+    const compareDocumentPositionMock = jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING);
 
     const selectionMock = {
       isCollapsed: true,
@@ -590,11 +590,12 @@ describe('CardWrapper', () => {
         </Provider>
       );
     });
+    const node = assertDocument().getRootNode();
 
     const selectionMock = {
       isCollapsed: false,
       anchorNode: {
-        compareDocumentPosition: jest.fn().mockReturnValue(Node.DOCUMENT_POSITION_FOLLOWING),
+        compareDocumentPosition: jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING),
       },
     };
     const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
@@ -812,10 +813,11 @@ describe('CardWrapper', () => {
         unmount = rendered.unmount;
       });
 
+      const node = assertDocument().getRootNode();
       const selectionMock = {
         isCollapsed: false,
         anchorNode: {
-          compareDocumentPosition: jest.fn().mockReturnValue(Node.DOCUMENT_POSITION_FOLLOWING),
+          compareDocumentPosition: jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING),
         },
         focusNode: {},
         toString: () => 'some text',

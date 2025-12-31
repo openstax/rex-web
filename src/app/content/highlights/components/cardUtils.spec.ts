@@ -9,7 +9,6 @@ import {
   getOffsetToAdjustForHighlightPosition,
   getSelectionDirection,
 } from './cardUtils';
-import { Node } from '@openstax/types/lib.dom';
 
 describe('cardUtils', () => {
   it('returns undefined if passed container is undefined', () => {
@@ -142,7 +141,7 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
 
 describe('getSelectionDirection', () => {
   function createSelection(
-    anchorNode: Node | null, anchorOffset: number, focusNode: Node | null, focusOffset: number
+    anchorNode: DomNode | null, anchorOffset: number, focusNode: DomNode | null, focusOffset: number
   ): DomSelection {
     return {
       anchorNode,
@@ -180,16 +179,18 @@ describe('getSelectionDirection', () => {
   });
 
   it('returns "forward" if anchorNode comes before focusNode', () => {
+    const node = assertDocument().getRootNode();
     const node1 = assertDocument().createTextNode('abc');
     const node2 = assertDocument().createTextNode('def');
-    node1.compareDocumentPosition = jest.fn(() => Node.DOCUMENT_POSITION_FOLLOWING);
+    node1.compareDocumentPosition = jest.fn(() => node.DOCUMENT_POSITION_FOLLOWING);
     expect(getSelectionDirection(createSelection(node1, 0, node2, 0))).toBe('forward');
   });
 
   it('returns "backward" if anchorNode comes after focusNode', () => {
+    const node = assertDocument().getRootNode();
     const node1 = assertDocument().createTextNode('abc');
     const node2 = assertDocument().createTextNode('def');
-    node1.compareDocumentPosition = jest.fn(() => Node.DOCUMENT_POSITION_PRECEDING);
+    node1.compareDocumentPosition = jest.fn(() => node.DOCUMENT_POSITION_PRECEDING);
     expect(getSelectionDirection(createSelection(node1, 0, node2, 0))).toBe('backward');
   });
 });

@@ -9,6 +9,7 @@ import PromiseCollector from '../helpers/PromiseCollector';
 declare global {
 
   type DomSelection = Selection;
+  type DomNode = dom.Node;
   interface Window extends dom.Window {
     __PRELOADED_STATE__?: Partial<AppState>;
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: typeof compose;

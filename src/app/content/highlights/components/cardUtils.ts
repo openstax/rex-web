@@ -1,10 +1,10 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
-import { Element, HTMLElement, Node } from '@openstax/types/lib.dom';
+import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
-import { assertWindow, remsToPx } from '../../../utils';
+import { assertDocument, assertWindow, remsToPx } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { cardMarginBottom } from '../constants';
 import { HighlightData } from '../types';
@@ -145,9 +145,10 @@ export const getSelectionDirection = (selection: DomSelection): 'forward' | 'bac
   const position = selection.anchorNode.compareDocumentPosition(
     selection.focusNode
   );
+  const node = assertDocument().getRootNode();
 
   // tslint:disable-next-line:no-bitwise
-  return position & Node.DOCUMENT_POSITION_FOLLOWING
+  return position & node.DOCUMENT_POSITION_FOLLOWING
     ? 'forward'
     : 'backward';
 };
