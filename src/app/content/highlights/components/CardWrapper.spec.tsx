@@ -1,5 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
-import { Document, HTMLElement } from '@openstax/types/lib.dom';
+import { Document, HTMLElement, Node } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';

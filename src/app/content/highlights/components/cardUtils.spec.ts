@@ -9,6 +9,7 @@ import {
   getOffsetToAdjustForHighlightPosition,
   getSelectionDirection,
 } from './cardUtils';
+import { Node } from '@openstax/types/lib.dom';
 
 describe('cardUtils', () => {
   it('returns undefined if passed container is undefined', () => {
