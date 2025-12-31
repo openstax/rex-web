@@ -2,7 +2,13 @@ import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertDocument } from '../../../utils';
-import { generateUpdatePayload, getHighlightTopOffset, editCardVisibilityHandler } from './cardUtils';
+import { 
+  generateUpdatePayload, 
+  getHighlightTopOffset, 
+  editCardVisibilityHandler,
+  getOffsetToAdjustForHighlightPosition,
+  getSelectionDirection,
+} from './cardUtils';
 
 describe('cardUtils', () => {
   it('returns undefined if passed container is undefined', () => {
@@ -84,5 +90,95 @@ describe('editCardVisibilityHandler', () => {
   it('return state when action type does not exist', () => {
     const result = editCardVisibilityHandler(state, { type: 'SHOW_ANY'});
     expect(result.get('highlight1')).toBe(false);
+  });
+});
+describe('getOffsetToAdjustForHighlightPosition', () => {
+  const highlight = { id: 'h1' } as any;
+  const highlight2 = { id: 'h2' } as any;
+
+  const cardsPositions = new Map<string, number>([
+    ['h1', 100],
+    ['h2', 200],
+  ]);
+
+  const getHighlightPosition = (h: any) => h.id === 'h1'
+    ? { top: 40, bottom: 60 }
+    : { top: 80, bottom: 120 };
+
+  it('returns 0 if highlight is undefined', () => {
+    expect(getOffsetToAdjustForHighlightPosition(undefined, cardsPositions, getHighlightPosition, false)).toBe(0);
+    expect(getOffsetToAdjustForHighlightPosition(undefined, cardsPositions, getHighlightPosition, true)).toBe(0);
+  });
+
+  it('returns position - top if preferEnd is false', () => {
+    expect(getOffsetToAdjustForHighlightPosition(highlight, cardsPositions, getHighlightPosition, false)).toBe(100 - 40);
+  });
+
+  it('returns position - bottom if preferEnd is true', () => {
+    expect(getOffsetToAdjustForHighlightPosition(highlight, cardsPositions, getHighlightPosition, true)).toBe(100 - 60);
+  });
+
+  it('throws if highlight id not in cardsPositions', () => {
+    const missingHighlight = { id: 'missing' } as any;
+    expect(() =>
+      getOffsetToAdjustForHighlightPosition(missingHighlight, cardsPositions, getHighlightPosition, false)
+    ).toThrow(/internal function requested postion of unknown highlight/);
+  });
+
+  it('works for a different highlight', () => {
+    expect(getOffsetToAdjustForHighlightPosition(highlight2, cardsPositions, getHighlightPosition, false)).toBe(200 - 80);
+    expect(getOffsetToAdjustForHighlightPosition(highlight2, cardsPositions, getHighlightPosition, true)).toBe(200 - 120);
+  });
+});
+
+describe('getSelectionDirection', () => {
+  function createSelection(anchorNode: Node | null, anchorOffset: number, focusNode: Node | null, focusOffset: number): Selection {
+    return {
+      anchorNode,
+      anchorOffset,
+      focusNode,
+      focusOffset,
+      getRangeAt: () => null as any,
+      rangeCount: 0,
+      removeAllRanges: () => { },
+      addRange: () => { },
+      collapse: () => { },
+      extend: () => { },
+      deleteFromDocument: () => { },
+      containsNode: () => false,
+      toString: () => '',
+      type: 'Range',
+    } as unknown as Selection;
+  }
+
+  it('returns "forward" if anchorNode or focusNode is missing', () => {
+    expect(getSelectionDirection(createSelection(null, 0, null, 0))).toBe('forward');
+    expect(getSelectionDirection(createSelection(document.createTextNode('a'), 0, null, 0))).toBe('forward');
+    expect(getSelectionDirection(createSelection(null, 0, document.createTextNode('a'), 0))).toBe('forward');
+  });
+
+  it('returns "forward" if anchorNode equals focusNode and anchorOffset <= focusOffset', () => {
+    const node = document.createTextNode('abc');
+    expect(getSelectionDirection(createSelection(node, 1, node, 2))).toBe('forward');
+    expect(getSelectionDirection(createSelection(node, 2, node, 2))).toBe('forward');
+  });
+
+  it('returns "backward" if anchorNode equals focusNode and anchorOffset > focusOffset', () => {
+    const node = document.createTextNode('abc');
+    expect(getSelectionDirection(createSelection(node, 3, node, 2))).toBe('backward');
+  });
+
+  it('returns "forward" if anchorNode comes before focusNode', () => {
+    const node1 = document.createTextNode('abc');
+    const node2 = document.createTextNode('def');
+    node1.compareDocumentPosition = jest.fn(() => Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(getSelectionDirection(createSelection(node1, 0, node2, 0))).toBe('forward');
+  });
+
+  it('returns "backward" if anchorNode comes after focusNode', () => {
+    const node1 = document.createTextNode('abc');
+    const node2 = document.createTextNode('def');
+    node1.compareDocumentPosition = jest.fn(() => Node.DOCUMENT_POSITION_PRECEDING);
+    expect(getSelectionDirection(createSelection(node1, 0, node2, 0))).toBe('backward');
   });
 });

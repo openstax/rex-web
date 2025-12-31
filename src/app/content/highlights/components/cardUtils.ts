@@ -1,6 +1,8 @@
+/// <reference lib="dom" />
+
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
-import { Element, HTMLElement, } from '@openstax/types/lib.dom';
+import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
@@ -93,19 +95,19 @@ const updateStackedCardsPositions = (
   const positions = initialPositions ? initialPositions : new Map<string, number>();
 
   for (const [index, highlight] of highlightsElements.entries()) {
-    const topOffset = getHighlightPosition(highlight).top;
+    const bottomOffset = getHighlightPosition(highlight).bottom;
 
     const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
-    const stackedTopOffset = Math.max(topOffset, lastVisibleCardBottom + marginToAdd);
+    const stackedBottomOffset = Math.max(bottomOffset, lastVisibleCardBottom + marginToAdd);
     const heightsForId = heights.get(highlight.id);
 
     if (heightsForId && !checkIfHiddenByCollapsedAncestor(highlight)) {
-      lastVisibleCardPosition = stackedTopOffset;
+      lastVisibleCardPosition = stackedBottomOffset;
       lastVisibleCardHeight = heightsForId;
     }
 
-    positions.set(highlight.id, stackedTopOffset);
+    positions.set(highlight.id, stackedBottomOffset);
   }
 
   return positions;
@@ -115,20 +117,40 @@ const updateStackedCardsPositions = (
  * Calculate how much we have to move cards to adjust their offset so we can align a card for @param highlight
  * with the corresponding highlight in the document.
  */
-const getOffsetToAdjustForHighlightPosition = (
+export const getOffsetToAdjustForHighlightPosition = (
   highlight: Highlight | undefined,
   cardsPositions: Map<string, number>,
-  getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number }
+  getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
+  preferEnd: boolean,
 ) => {
   const position = highlight
     ? assertDefined(cardsPositions.get(highlight.id), 'internal function requested postion of unknown highlight')
     : 0;
 
-  const topOffsetFocused = highlight && position
-    ? getHighlightPosition(highlight).top
-    : 0;
+  const highlightPos = highlight ? getHighlightPosition(highlight) : { top: 0, bottom: 0 };
+  const offset = preferEnd ? highlightPos.bottom : highlightPos.top;
 
-  return position - topOffsetFocused;
+  return position - offset;
+};
+
+export const getSelectionDirection = (selection: Selection): 'forward' | 'backward' => {
+  if (!selection.anchorNode || !selection.focusNode) {
+    return 'forward';
+  }
+
+  if (selection.anchorNode === selection.focusNode) {
+    return selection.anchorOffset <= selection.focusOffset
+      ? 'forward'
+      : 'backward';
+  }
+
+  const position = selection.anchorNode.compareDocumentPosition(
+    selection.focusNode
+  );
+
+  return position & Node.DOCUMENT_POSITION_FOLLOWING
+    ? 'forward'
+    : 'backward';
 };
 
 /**
@@ -151,7 +173,12 @@ export const updateCardsPositions = (
     checkIfHiddenByCollapsedAncestor
   );
 
-  const offsetToAdjust = getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition);
+  const selection = assertWindow().getSelection();
+  const preferEnd = selection && selection.anchorNode && selection.focusNode
+    ? getSelectionDirection(selection) === 'forward'
+    : false;
+
+  const offsetToAdjust = getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
 
   if (!focusedHighlight || offsetToAdjust === 0) { return cardsPositions; }
 
