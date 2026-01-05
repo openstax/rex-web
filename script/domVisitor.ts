@@ -14,6 +14,9 @@ import createOSWebLoader from '../src/gateways/createOSWebLoader';
 import { findBooks } from './utils/bookUtils';
 import progressBar from './utils/progressBar';
 
+// Maximum number of retry attempts per page
+const maxAttempts = 2;
+
 // Blocking GTM prevents most analytics scripts from loading
 const blockedRequests = [
   /^https?:\/\/(?:www\.)?googletagmanager\.com/,
@@ -64,11 +67,9 @@ const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
 });
 
 type PageErrorObserver = (message: string) => void;
-type ObservePageErrors = (newObserver: PageErrorObserver) => void;
 
 async function visitPages(
-  page: puppeteer.Page,
-  observePageErrors: ObservePageErrors,
+  browser: puppeteer.Browser,
   bookPages: string[],
   audit: Audit
 ) {
@@ -79,66 +80,100 @@ async function visitPages(
     total: bookPages.length,
   });
 
-  observePageErrors((message) => {
-    if (quiet !== undefined) {
-      bar.interrupt(message);
-    }
-  });
+  let page: puppeteer.Page | undefined;
 
   for (const pageUrl of bookPages) {
-    try {
-      const queryParams = queryString ? querystring.parse(queryString) : {};
-      if (archiveUrl) { queryParams.archive = archiveUrl; }
-      if (osWebUrl) { queryParams.osWeb = osWebUrl.replace(/^https?:\/\//i, ''); }
-      const qs = querystring.stringify(queryParams);
-      const appendQueryString = qs ? `?${qs}` : qs;
-      const pageComponents = pageUrl.split('/');
-      const slug = pageComponents[pageComponents.length - 1];
-      const linkSelector = `a[href^="${slug}"]`;
-      const link = await page.$(linkSelector);
+    let attempt = 0;
 
-      if (link) {
-        await page.evaluate((linkCss) => {
-          const linkElt = document?.querySelector(linkCss);
-          if (!linkElt) {
-            // This should not be reachable
-            throw new Error('Evaluation failed: document or link not found');
-          }
+    while (attempt < maxAttempts) {
+      attempt++;
 
-          linkElt.click();
-        }, linkSelector);
-        await page.waitForSelector(`${linkSelector}[aria-label="Current Page"]`);
-      } else {
-        await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+      if (!page) {
+        page = await newPage(browser, bar);
       }
-      await page.waitForSelector('body[data-rex-loaded="true"]');
-      await calmHooks(page);
 
-      const matches = await page.evaluate(audit);
+      try {
+        const queryParams = queryString ? querystring.parse(queryString) : {};
+        if (archiveUrl) { queryParams.archive = archiveUrl; }
+        if (osWebUrl) { queryParams.osWeb = osWebUrl.replace(/^https?:\/\//i, ''); }
+        const qs = querystring.stringify(queryParams);
+        const appendQueryString = qs ? `?${qs}` : qs;
+        const pageComponents = pageUrl.split('/');
+        const slug = pageComponents[pageComponents.length - 1];
+        const linkSelector = `a[href^="${slug}"]`;
+        const link = await page.$(linkSelector);
 
-      if (matches.length > 0) {
-        anyFailures = true;
-        bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
-      }
-    } catch (e: any) {
-      anyFailures = true;
-      bar.interrupt(`- (error loading) ${pageUrl}`);
-      if (e.message) {
-        bar.interrupt(e.message);
+        if (link) {
+          await page.evaluate((linkCss) => {
+            const linkElt = document?.querySelector(linkCss);
+            if (!linkElt) {
+              // This should not be reachable
+              throw new Error('Evaluation failed: document or link not found');
+            }
+
+            linkElt.click();
+          }, linkSelector);
+          await page.waitForSelector(`${linkSelector}[aria-label*="Current Page"]`);
+        } else {
+          await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+        }
+        await page.waitForSelector('body[data-rex-loaded="true"]');
+        await calmHooks(page);
+
+        const matches = await page.evaluate(audit);
+
+        if (matches.length > 0) {
+          anyFailures = true;
+          bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
+        }
+
+        const closeOverlayButton = await page.$('button[aria-label="close overlay"]');
+        if (closeOverlayButton) {
+          await closeOverlayButton.click();
+        }
+
+        break;
+      } catch (e: any) {
+        if (e.message) {
+          bar.interrupt(e.message);
+        }
+        if (attempt < maxAttempts) {
+          bar.interrupt(`- (attempt ${attempt} failed - retrying...) ${pageUrl}`);
+        } else {
+          anyFailures = true;
+          bar.interrupt(`- (error loading after ${maxAttempts} attempts) ${pageUrl}`);
+        }
+
+        await page.close();
+        page = undefined;
       }
     }
 
     bar.tick();
   }
 
+  await page?.close();
+
   return anyFailures;
 }
 
-function configurePage(page: puppeteer.Page): ObservePageErrors {
-  let errorObserver: PageErrorObserver = () => null;
-  const cache = new QuickLRU<string, puppeteer.ResponseForRequest>({maxSize: cacheMaxSize});
-  let hits = 0;
-  let misses = 0;
+const cache = new QuickLRU<string, puppeteer.ResponseForRequest>({maxSize: cacheMaxSize});
+let hits = 0;
+let misses = 0;
+
+// tslint:disable-next-line: no-console
+process.on('exit', () => console.log(`Cache hits: ${hits} / Total requests: ${hits + misses}`));
+
+async function newPage(
+  browser: puppeteer.Browser,
+  bar: ReturnType<typeof progressBar>
+): Promise<puppeteer.Page> {
+  const page = await browser.newPage();
+  const errorObserver: PageErrorObserver = (message) => {
+    if (quiet !== undefined) {
+      bar.interrupt(message);
+    }
+  };
 
   page.setDefaultNavigationTimeout(60 * 1000);
   page.setRequestInterception(true);
@@ -212,10 +247,7 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
     errorObserver(`requestfailed: ${text} ${request.url()}`);
   });
 
-  // tslint:disable-next-line: no-console
-  process.on('exit', () => console.log(`Cache hits: ${hits} / Total requests: ${hits + misses}`));
-
-  return (newObserver: PageErrorObserver) => errorObserver = newObserver;
+  return page;
 }
 
 async function run() {
@@ -239,11 +271,8 @@ async function run() {
 
   let anyFailures = false;
 
-  const page = await browser.newPage();
-  const errorDetector = configurePage(page);
-
   for (const book of books) {
-    anyFailures = await visitPages(page, errorDetector, findBookPages(book), audit) || anyFailures;
+    anyFailures = await visitPages(browser, findBookPages(book), audit) || anyFailures;
   }
 
   await browser.close();
