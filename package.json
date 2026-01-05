@@ -101,6 +101,7 @@
   ],
   "devDependencies": {
     "@aws-sdk/client-cloudformation": "<3.567.0",
+    "@aws-sdk/client-ecs": "<3.567.0",
     "@aws-sdk/client-s3": "<3.567.0",
     "@aws-sdk/client-sqs": "<3.567.0",
     "@aws-sdk/credential-providers": "<3.567.0",
