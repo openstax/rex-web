@@ -42,6 +42,12 @@ Parameters:
     AllowedPattern: ^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$
     ConstraintDescription: Must be a timestamp in the YYYY-MM-DDTHH:MM:SSZ format
 
+  TotalMemoryMiB:
+    Description: Total fleet memory capacity in MiB (must equal desired task count * 4096)
+    Type: Number
+    MinValue: 4096
+    ConstraintDescription: Must equal desired task count * 4096
+
 Resources:
 
   Cluster:
@@ -103,7 +109,7 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
-          MemoryReservation: 1024
+          MemoryReservation: 4096
           Name: !Sub ${AWS::StackName}-task-definition
       Family: Prerendering
       NetworkMode: host
@@ -113,11 +119,11 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       Cluster: !Ref Cluster
+      DesiredCount: 1
       EnableECSManagedTags: true
       EnableExecuteCommand: true
       LaunchType: EC2
       PropagateTags: SERVICE
-      SchedulingStrategy: DAEMON
       ServiceName: Prerendering
       TaskDefinition: !Ref TaskDefinition
 
@@ -192,11 +198,11 @@ Resources:
                     References:
                       - InstanceFamily: c5
                 MemoryGiBPerVCpu:
-                  Min: 1
-                  Max: 2
+                  Min: 2
+                  Max: 4
                 MemoryMiB:
-                  Max: 262144
-                  Min: 2048
+                  Max: !Ref TotalMemoryMiB
+                  Min: 4096
                 VCpuCount:
                   Min: 2
               SubnetId: !Sub
@@ -219,7 +225,7 @@ Resources:
       TargetCapacitySpecification:
         DefaultTargetCapacityType: spot
         TargetCapacityUnitType: memory-mib
-        TotalTargetCapacity: 262144
+        TotalTargetCapacity: !Ref TotalMemoryMiB
       TerminateInstancesWithExpiration: true
       ValidUntil: !Ref ValidUntil
 
