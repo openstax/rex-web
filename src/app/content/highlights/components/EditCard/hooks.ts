@@ -66,7 +66,6 @@ export function useOnRemove(
     trackDeleteHighlight(definedData.color);
   }, [onRemove, data, trackDeleteHighlight]);
 
-  // Only allow removal if highlight exists, has no annotation, and has a color
   return data && !data.annotation && !pendingAnnotation && data.color
     ? removeAndTrack
     : null;
@@ -113,11 +112,9 @@ export function useOnColorChange(props: UseOnColorChangeProps) {
 
   return React.useCallback(
     (color: HighlightColorEnum, isDefault?: boolean) => {
-      // Update visual style immediately for responsive feedback
       highlight.setStyle(color);
 
       if (data) {
-        // Existing highlight - update in database
         const { updatePayload, preUpdateData } = generateUpdatePayload(data, {
           color,
           id: data.id,
@@ -132,7 +129,6 @@ export function useOnColorChange(props: UseOnColorChangeProps) {
         );
         trackEditNoteColor(color);
       } else {
-        // New highlight - clear selection and create
         assertWindow()
           .getSelection()
           ?.removeAllRanges();
@@ -192,7 +188,6 @@ export function useSaveAnnotation(
         'Can\'t update highlight that doesn\'t exist'
       );
 
-      // Track whether this is a new note or editing existing note
       const addedNote = definedData.annotation === undefined;
 
       const { updatePayload, preUpdateData } = generateUpdatePayload(definedData, {
@@ -200,7 +195,6 @@ export function useSaveAnnotation(
         annotation: pendingAnnotation,
       });
 
-      // Dispatch update to Redux and backend
       dispatch(
         updateHighlight(updatePayload, {
           locationFilterId,
@@ -209,13 +203,10 @@ export function useSaveAnnotation(
         })
       );
 
-      // Track analytics with context about the operation
       trackEditAnnotation(addedNote, toSave.color);
 
-      // Clean up editing state
       onCancel();
 
-      // Ensure highlight is visible and focused for accessibility
       scrollHighlightIntoView(highlight, element);
       highlight.focus();
     },
