@@ -58,7 +58,6 @@ export function SaveButton({
       e.preventDefault();
       setEditing(false);
 
-      // If user cleared the annotation, confirm before deleting
       if (pendingAnnotation === '' && data.annotation) {
         setConfirmingDelete(true);
       } else {
@@ -133,7 +132,6 @@ export function CancelButton({
     [resetAnnotation, setAnnotationChangesPending, setEditing, onCancel]
   );
 
-  // Allow canceling with Escape key for accessibility
   useOnEsc(isActive, cancelEditing);
 
   return (

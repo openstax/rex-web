@@ -119,7 +119,6 @@ export function LoginConfirmation({
   const loginLink = useSelector(selectAuth.loginLink);
   const trackShowLogin = useAnalyticsEvent('showLogin');
 
-  // Track analytics event when login prompt is shown
   React.useEffect(() => {
     trackShowLogin();
   }, [trackShowLogin]);
