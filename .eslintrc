@@ -11,6 +11,23 @@
     "import/no-anonymous-default-export": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "function",
+        "format": ["camelCase"],
+        "filter": {
+          // Exclude functions intended as constructors in old-style JS
+          "regex": "^[A-Z]",
+          "match": false
+        }
+      },
+      {
+        "selector": "class",
+        "format": ["PascalCase"]
+      }
+      // You can add more selectors for variables, interfaces, etc.
+    ],
     "no-prototype-builtins": "off",
     "react/prop-types": "off",
     "react/display-name": "off",
@@ -22,6 +39,7 @@
       "functions": "never"
     }],
     "max-len": ["error", {"code": 120, "ignoreComments": true, "ignoreStrings": true}],
+    "new-cap": ["error", {"capIsNewExceptions": ["Color", "Loadable"]}],
     "no-console": 2,
     "prefer-object-spread": 2,
     "space-before-function-paren": ["error", "never"]
