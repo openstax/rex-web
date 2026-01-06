@@ -25,16 +25,6 @@ import { addSafeEventListener } from './domUtils';
 import { isElement } from './guards';
 import { assertDocument } from './utils';
 
-/**
- * Hook that automatically focuses an element on mount.
- *
- * @template E - The type of HTML element to focus
- * @returns A ref to attach to the element that should receive focus
- *
- * @example
- * const ref = useDrawFocus<HTMLButtonElement>();
- * return <button ref={ref}>I will be auto-focused</button>;
- */
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E>(null);
 
@@ -47,19 +37,10 @@ export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   return ref;
 };
 
-/**
- * Checks if an element is visually hidden (has zero dimensions).
- * Used to filter out elements that shouldn't be focusable.
- */
 function isHidden(el: HTMLElement) {
   return el.offsetWidth === 0 && el.offsetHeight === 0;
 }
 
-/**
- * CSS selector for focusable elements in the DOM.
- * Includes buttons, inputs, links, and other interactive elements.
- * Excludes disabled elements and elements with tabindex='-1'.
- */
 export const focusableItemQuery = ([
   'button',
   'input',
@@ -71,27 +52,13 @@ export const focusableItemQuery = ([
   .map((s) => (s.includes('[') ? s : `${s}:not([disabled])`))
   .join(',');
 
-/**
- * Helper function for ring buffer arithmetic.
- * Used to navigate circularly through focusable elements.
- */
+// Ring buffer arithmetic for circular navigation
 function ringAdd(arr: unknown[], a: number, b: number) {
   return (arr.length + a + b) % arr.length;
 }
 
-/**
- * Creates a tab navigation trap function for one or more container elements.
- *
- * When Tab is pressed, focus will cycle through focusable elements within
- * the containers, wrapping from the last element back to the first.
- *
- * @param elements - One or more HTML elements to trap tab navigation within
- * @returns A keyboard event handler function to attach to keydown events
- *
- * @example
- * const trapTab = createTrapTab(dialogElement);
- * element.addEventListener('keydown', trapTab);
- */
+// Creates a tab navigation trap that cycles focus within container elements
+// Based on https://hidde.blog/using-javascript-to-trap-focus-in-an-element/
 export function createTrapTab(...elements: HTMLElement[]) {
   const focusableElements = elements
     .filter((c) => c && 'querySelectorAll' in c) // in some tests, this gets garbage
@@ -112,8 +79,6 @@ export function createTrapTab(...elements: HTMLElement[]) {
     return () => null;
   }
 
-  // A typical implementation, adapted for crossing multiple containers
-  // e.g. https://hidde.blog/using-javascript-to-trap-focus-in-an-element/
   return (event: KeyboardEvent) => {
     if (event.key !== 'Tab') {
       return;
@@ -151,21 +116,7 @@ export function createTrapTab(...elements: HTMLElement[]) {
   };
 }
 
-/**
- * Hook that traps tab navigation within a container element.
- *
- * Useful for modal dialogs and other overlays where you want to prevent
- * the user from tabbing outside the container.
- *
- * @param ref - Reference to the container element
- * @param otherDep - Optional additional dependency to trigger re-initialization
- *                   (use when focusable elements might change)
- *
- * @example
- * const dialogRef = useRef<HTMLDivElement>(null);
- * useTrapTabNavigation(dialogRef);
- * return <div ref={dialogRef}>...</div>;
- */
+// Supply otherDep when focusable elements might change (see EditCard)
 export function useTrapTabNavigation(
   ref: React.MutableRefObject<HTMLElement | null>,
   otherDep?: unknown
@@ -183,15 +134,6 @@ export function useTrapTabNavigation(
   }, [ref, otherDep]);
 }
 
-/**
- * Creates a focus event handler (focusin or focusout).
- *
- * @param ref - Reference to the element to monitor
- * @param isEnabled - Whether the handler should be active
- * @param cb - Callback to execute when focus event occurs
- * @param type - Type of focus event ('focusin' or 'focusout')
- * @returns Cleanup function to remove event listener
- */
 export const onFocusInOrOutHandler =
   (
     ref: React.RefObject<HTMLElement>,
@@ -230,17 +172,6 @@ export const onFocusInOrOutHandler =
     }
   };
 
-/**
- * Hook that detects when focus leaves a container element.
- *
- * @param ref - Reference to the container element
- * @param isEnabled - Whether the hook should be active
- * @param cb - Callback to execute when focus is lost
- *
- * @example
- * const containerRef = useRef<HTMLDivElement>(null);
- * useFocusLost(containerRef, true, () => console.log('Focus lost!'));
- */
 export const useFocusLost = (
   ref: React.RefObject<HTMLElement>,
   isEnabled: boolean,
@@ -252,17 +183,6 @@ export const useFocusLost = (
   );
 };
 
-/**
- * Hook that detects when focus enters a container element.
- *
- * @param ref - Reference to the container element
- * @param isEnabled - Whether the hook should be active
- * @param cb - Callback to execute when focus enters
- *
- * @example
- * const containerRef = useRef<HTMLDivElement>(null);
- * useFocusIn(containerRef, true, () => console.log('Focus gained!'));
- */
 export const useFocusIn = (
   ref: React.RefObject<HTMLElement>,
   isEnabled: boolean,
@@ -274,11 +194,8 @@ export const useFocusIn = (
   );
 };
 
-/**
- * CSS selector for tabbable elements in the DOM.
- * Based on https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus/30753870#30753870
- * and https://allyjs.io/data-tables/focusable.html
- */
+// Based on https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus/30753870#30753870
+// and https://allyjs.io/data-tables/focusable.html
 const tabbableElementsSelector = [
   'a[href]',
   'area[href]',
@@ -302,15 +219,7 @@ const tabbableElementsSelector = [
   .map((el) => el + `:not([tabindex='-1'])`)
   .join(',');
 
-/**
- * Disables tab navigation for all content in the #root element.
- *
- * This is useful when showing modal overlays where you want to prevent
- * users from tabbing to content behind the modal.
- *
- * @param isEnabled - Whether to disable tabbing
- * @returns Cleanup function to restore original tab indices
- */
+// Disables tabbing to content behind modals
 export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
   if (!isEnabled) {
     return;
@@ -345,29 +254,11 @@ export const disableContentTabbingHandler = (isEnabled: boolean) => () => {
   };
 };
 
-/**
- * Hook that disables tab navigation for content elements.
- *
- * @param isEnabled - Whether to disable tabbing
- *
- * @example
- * useDisableContentTabbing(modalIsOpen);
- */
 export const useDisableContentTabbing = (isEnabled: boolean) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(disableContentTabbingHandler(isEnabled), [isEnabled]);
 };
 
-/**
- * Hook that focuses an element when a condition is met.
- *
- * @param element - Reference to the element to focus
- * @param shouldFocus - Whether the element should be focused
- *
- * @example
- * const inputRef = useRef<HTMLInputElement>(null);
- * useFocusElement(inputRef, dialogIsOpen);
- */
 export const useFocusElement = (
   element: React.RefObject<HTMLElement>,
   shouldFocus: boolean
@@ -379,18 +270,6 @@ export const useFocusElement = (
   }, [element, shouldFocus]);
 };
 
-/**
- * Hook that manages focus behavior for highlights.
- *
- * Listens for focusin and click events on highlight elements and calls
- * the showCard callback with the highlight ID when a highlight is focused or clicked.
- *
- * @param showCard - Callback function that receives the highlight ID
- * @param highlights - Array of highlight objects to monitor
- *
- * @example
- * useFocusHighlight((id) => setActiveHighlight(id), highlights);
- */
 export const useFocusHighlight = (
   showCard: (id: string) => void,
   highlights: Highlight[]

@@ -65,15 +65,6 @@ export {
 // General DOM Event Utilities
 // ============================================================================
 
-/**
- * Creates a handler for DOM events on an element or window.
- *
- * @param element - Reference to element or the window object
- * @param isEnabled - Whether the handler should be active
- * @param event - Name of the DOM event to listen for
- * @param cb - Callback to execute when event fires
- * @returns Cleanup function to remove event listener
- */
 export const onDOMEventHandler = (
   element: React.RefObject<HTMLElement> | Window,
   isEnabled: boolean,
@@ -91,18 +82,6 @@ export const onDOMEventHandler = (
   return () => target.removeEventListener(event, cb);
 };
 
-/**
- * Hook that listens for a DOM event on an element or window.
- *
- * @param element - Reference to element or the window object
- * @param isEnabled - Whether the hook should be active
- * @param event - Name of the DOM event to listen for
- * @param cb - Callback to execute when event fires
- * @param deps - Additional dependencies for the effect
- *
- * @example
- * useOnDOMEvent(window, true, 'resize', handleResize);
- */
 export const useOnDOMEvent = (
   element: React.RefObject<HTMLElement> | Window ,
   isEnabled: boolean,
@@ -118,21 +97,6 @@ export const useOnDOMEvent = (
 // Timeout Utilities
 // ============================================================================
 
-/**
- * Hook that sets up a timeout that can be reset.
- *
- * The timeout automatically starts when the component mounts and can be
- * reset by calling the returned reset function. The timeout is automatically
- * cleared when the component unmounts.
- *
- * @param delay - Timeout delay in milliseconds
- * @param callback - Function to call when timeout expires
- * @returns Reset function to restart the timeout
- *
- * @example
- * const resetTimer = useTimeout(5000, () => console.log('Time expired!'));
- * // Later: resetTimer() to restart the 5-second countdown
- */
 export const useTimeout = (delay: number, callback: () => void) => {
   const savedCallback = React.useRef<typeof callback>();
   const timeout = React.useRef<number>();
@@ -163,17 +127,6 @@ export const useTimeout = (delay: number, callback: () => void) => {
 // SSR Detection
 // ============================================================================
 
-/**
- * Checks if the code is running in a server-side rendering environment.
- *
- * @returns True if running on the server (no window or document), false if in browser
- *
- * @example
- * if (isSSR()) {
- *   // Skip browser-only code during server rendering
- *   return null;
- * }
- */
 export const isSSR = () => {
   return typeof window === 'undefined' || typeof document === 'undefined';
 };

@@ -15,20 +15,6 @@ import React from 'react';
 import theme from './theme';
 import { assertWindow } from './utils';
 
-/**
- * Hook that matches a CSS media query and updates when it changes.
- *
- * This hook uses the browser's matchMedia API to check if a media query matches,
- * and automatically updates the returned value when the match state changes
- * (e.g., when the window is resized).
- *
- * @param mediaQuery - CSS media query string (e.g., "(max-width: 768px)")
- * @returns Boolean indicating whether the media query currently matches
- *
- * @example
- * const isNarrow = useMatchMediaQuery('(max-width: 600px)');
- * return <div>{isNarrow ? 'Mobile' : 'Desktop'} view</div>;
- */
 const useMatchMediaQuery = (mediaQuery: string) => {
   const matchMedia = React.useMemo(
     () => assertWindow().matchMedia(mediaQuery),
@@ -58,44 +44,10 @@ const useMatchMediaQuery = (mediaQuery: string) => {
   return matches;
 };
 
-/**
- * Hook that detects if the viewport matches the "mobile medium" breakpoint.
- *
- * Uses the theme's mobileMediumQuery breakpoint definition.
- *
- * @returns True if the viewport is within the mobile medium range
- *
- * @example
- * const isMobileMedium = useMatchMobileMediumQuery();
- * return <Menu compact={isMobileMedium} />;
- */
 export const useMatchMobileMediumQuery = () => useMatchMediaQuery(theme.breakpoints.mobileMediumQuery);
-
-/**
- * Hook that detects if the viewport matches the "mobile" breakpoint.
- *
- * Uses the theme's mobileQuery breakpoint definition.
- *
- * @returns True if the viewport is within the mobile range
- *
- * @example
- * const isMobile = useMatchMobileQuery();
- * return <Navigation layout={isMobile ? 'stacked' : 'horizontal'} />;
- */
 export const useMatchMobileQuery = () => useMatchMediaQuery(theme.breakpoints.mobileQuery);
 
-/**
- * Hook that provides debounced window dimensions.
- *
- * Returns the current window width and height as a tuple [width, height].
- * Updates are debounced by 50ms to avoid excessive re-renders during resizing.
- *
- * @returns Tuple of [width, height] in pixels
- *
- * @example
- * const [width, height] = useDebouncedWindowSize();
- * return <div>Window is {width}x{height}</div>;
- */
+// Updates are debounced by 50ms to avoid excessive re-renders
 export const useDebouncedWindowSize = () => {
   const window = assertWindow();
   const timeout = React.useRef(0);
@@ -104,7 +56,6 @@ export const useDebouncedWindowSize = () => {
   React.useLayoutEffect(() => {
     const updateSize = () => {
       clearTimeout(timeout.current);
-      // Debounce resize events to avoid performance issues
       timeout.current = setTimeout(() => {
         setSize([window.innerWidth, window.innerHeight]);
       }, 50);
