@@ -10,7 +10,7 @@ import { nudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import {
   CloseToCAndMobileMenuButton,
-  TOCControlButton
+  TOCControlButton,
 } from '../SidebarControl';
 import { SearchControlButton } from '../SidebarControl/SearchControl';
 import HighlightButton from './HighlightButton';
@@ -20,7 +20,6 @@ import StudyGuidesButton from './StudyGuidesButton';
 import * as Styled from './styled';
 import { createTrapTab } from '../../../reactUtils';
 
-// tslint:disable-next-line: variable-name
 const VerticalNav = () => {
   const isMobileMenuOpen = useSelector(mobileMenuOpen);
   const isPracticeQuestionsEnabled = useSelector(

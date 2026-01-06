@@ -7,7 +7,6 @@ interface ShowAnswerButtonProps {
   onClick: () => void;
 }
 
-// tslint:disable-next-line: variable-name
 const ShowAnswerButton = React.forwardRef((
   { onClick }: ShowAnswerButtonProps,
   ref: React.Ref<HTMLElement>

@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 
 /*
   Manages worker threads in a single instance

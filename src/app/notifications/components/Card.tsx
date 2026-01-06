@@ -8,7 +8,6 @@ import { inlineDisplayBreak, inlineDisplayMediumBreak } from '../theme';
 
 const notificationWidth = 30;
 
-// tslint:disable-next-line:variable-name
 export const Group = styled.div`
   width: 100%;
 
@@ -25,7 +24,6 @@ export const Group = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const P = styled.p`
   ${bodyCopyRegularStyle}
   margin: 1rem 0 0 0;
@@ -36,7 +34,6 @@ export const P = styled.p`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const Body = styled(({className, ...props}) =>
   <div className={className}><div {...props} /></div>)`
   width: ${notificationWidth}rem;
@@ -95,7 +92,6 @@ export const Body = styled(({className, ...props}) =>
   ${disablePrint}
 `;
 
-// tslint:disable-next-line:variable-name
 export const Header = styled.div`
   ${bodyCopyRegularStyle}
   padding: 0.5rem 1rem;

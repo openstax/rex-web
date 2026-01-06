@@ -91,14 +91,12 @@ describe('loadMore', () => {
     const highlightsCount = {
       'testbook1-testpage2-uuid': 15,
       // keep the order of pages as they appear in the used fixture
-      // tslint:disable-next-line: object-literal-sort-keys
       'testbook1-testpage11-uuid': 10,
       'testbook1-testpage8-uuid': 15,
     };
 
     store.dispatch(receiveStudyGuidesTotalCounts({
       'testbook1-testpage2-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage2-uuid']},
-      // tslint:disable-next-line: object-literal-sort-keys
       'testbook1-testpage11-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage11-uuid']},
       'testbook1-testpage8-uuid': {[HighlightColorEnum.Green]: highlightsCount['testbook1-testpage8-uuid']},
     }));
@@ -133,7 +131,6 @@ describe('loadMore', () => {
     const response: SummaryHighlights = {
       'testbook1-testchapter1-uuid': {
         'testbook1-testpage2-uuid': page1,
-        // tslint:disable-next-line: object-literal-sort-keys
         'testbook1-testpage11-uuid': page2,
       },
     };

@@ -18,7 +18,6 @@ import {
 } from '../utils/archiveTreeUtils';
 import { stripIdVersion } from '../utils/idUtils';
 
-// tslint:disable-next-line:variable-name
 export const HighlightsChapterWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -29,7 +28,6 @@ export const HighlightsChapterWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 const HighlightsChapter = styled.h2`
   ${h4Style}
   font-weight: bold;
@@ -51,7 +49,6 @@ const HighlightsChapter = styled.h2`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const HighlightWrapper = styled.div`
   margin: ${desktopVerticalMargin}rem ${desktopHorizontalMargin}rem;
   border: solid 0.1rem ${theme.color.neutral.darkest};
@@ -65,7 +62,6 @@ export const HighlightWrapper = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const HighlightSection = styled.h3`
   ${labelStyle}
   padding: 0 ${popupBodyPadding}rem 0 ${popupPadding}rem;
@@ -103,7 +99,6 @@ interface SectionHighlightsProps {
   highlightRenderer: (highlight: HighlightData, pageId: string) => JSX.Element;
 }
 
-// tslint:disable-next-line: variable-name
 const SectionHighlights = (
   { highlightDataInSection: {pages, location}, highlightRenderer }: SectionHighlightsProps
 ) => {

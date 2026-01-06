@@ -67,16 +67,18 @@ export default {
     if (this.isEnabled) {
       return Sentry.captureException(error, { level });
     } else if (!this.shouldCollectErrors) {
+      /* eslint-disable no-console */
       switch (level) {
         case 'info':
-          console.info(error instanceof Error ? error.message : error); // tslint:disable-line:no-console
+          console.info(error instanceof Error ? error.message : error);
           break;
         case 'warning':
-          console.warn(error instanceof Error ? error.message : error); // tslint:disable-line:no-console
+          console.warn(error instanceof Error ? error.message : error);
           break;
         default:
-          console.error(error); // tslint:disable-line:no-console
+          console.error(error);
       }
+      /* eslint-enable no-console */
     }
   },
 

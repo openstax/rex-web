@@ -52,7 +52,7 @@
   "scripts": {
     "trust-localhost": "./script/trust-localhost.bash",
     "lint": "npm run-script lint:bash && npm run-script lint:css && npm run-script lint:typescript",
-    "lint:typescript": "eslint src && tslint -p ./tsconfig.json && tsc",
+    "lint:typescript": "eslint src && tsc",
     "lint:exports": "ts-unused-exports ./tsconfig.json",
     "lint:css": "stylelint 'src/**/*.tsx'",
     "lint:bash": "shellcheck $(find . -type f \\( -iname '*\\.sh' -or -iname '*\\.bash' \\) | grep -v 'node_modules' )",
@@ -167,7 +167,6 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.5.2",
     "tiny-async-pool": "~1.0",
-    "tslint": "6.1.3",
     "yargs": "~13.2"
   },
   "jest": {

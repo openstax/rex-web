@@ -10,12 +10,10 @@ interface Props {
   confirm: () => void;
 }
 
-// tslint:disable-next-line:variable-name
 const ConfirmationFooter = styled(Footer)`
   justify-content: space-between;
 `;
 
-// tslint:disable-next-line:variable-name
 const ConfirmationModal = ({deny, confirm}: Props) => {
   return <Modal onModalClose={deny} heading='i18n:discard:heading'>
     <Body>

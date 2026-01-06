@@ -45,7 +45,6 @@ function createMediaModalPortal() {
     setModalContent?.(content);
   };
 
-// tslint:disable-next-line:variable-name
   const MediaModalPortal: React.FC = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [modalContent, setContent] = React.useState<ReactNode>(null);

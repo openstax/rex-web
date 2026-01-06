@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components/macro';
 import theme from '../../../theme';
 import { StyledOpenTOCControl } from '../SidebarControl';
 
-// tslint:disable-next-line: variable-name
 const PageNotFoundWrapper = styled.div`
   margin: 10rem;
   text-align: center;
@@ -14,14 +13,12 @@ const PageNotFoundWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const PageNotFoundTitle = styled.h1`
   font-weight: bold;
   padding: 1rem 0;
   line-height: 1;
 `;
 
-// tslint:disable-next-line: variable-name
 const PageNotFoundText = styled.div`
   display: flex;
   justify-content: center;
@@ -33,7 +30,6 @@ const PageNotFoundText = styled.div`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 const PageNotFound = () => <PageNotFoundWrapper>
   <PageNotFoundTitle>
     <FormattedMessage id='i18n:page-not-found:heading'>

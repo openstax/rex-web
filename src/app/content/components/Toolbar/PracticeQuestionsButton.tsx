@@ -8,13 +8,12 @@ import { openPracticeQuestions } from '../../practiceQuestions/actions';
 import {
   hasPracticeQuestions,
   isPracticeQuestionsOpen,
-  practiceQuestionsEnabled
+  practiceQuestionsEnabled,
 } from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
 
-// tslint:disable-next-line:variable-name
 export const StyledPracticeQuestionsButton = styled(PlainButton)`
   ${toolbarDefaultButton}
   height: auto;
@@ -25,19 +24,16 @@ export const StyledPracticeQuestionsButton = styled(PlainButton)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const PracticeQuestionsIcon = styled.img`
   ${toolbarIconStyles}
 `;
 
-// tslint:disable-next-line:variable-name
 const PracticeQuestionsText = styled.span`
   ${toolbarDefaultText}
   font-size: 1.2rem;
   line-height: 1.5rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const PracticeQuestionsButton = () => {
   const dispatch = useDispatch();
   const intl = useIntl();

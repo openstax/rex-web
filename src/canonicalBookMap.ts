@@ -1,4 +1,3 @@
-// tslint:disable: object-literal-sort-keys
 
 import americanGovernment from './canonicalBookMap/americanGovernment';
 import biology from './canonicalBookMap/biology';

@@ -7,7 +7,6 @@ interface Props {
   messages?: Record<string, string>;
 }
 
-// tslint:disable-next-line:variable-name
 const MessageProvider = ({children, ...props}: React.PropsWithChildren<Props>) => {
   const intlObject = createIntl(props.locale, props.messages);
 

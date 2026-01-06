@@ -10,7 +10,6 @@ services:
       - ./data:/code/data
       - ./src:/code/src
       - ./yarn.lock:/code/yarn.lock
-      - ./tslint.json:/code/tslint.json
       - ./tsconfig.json:/code/tsconfig.json
       - ./package.json:/code/package.json
       - ./public:/code/public

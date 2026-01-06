@@ -16,7 +16,7 @@ import {
   AppState,
   Dispatch,
   Middleware,
-  MiddlewareAPI
+  MiddlewareAPI,
 } from './types';
 export { merge, getCommonProperties } from '@openstax/ts-utils';
 export * from './utils/assertions';
@@ -115,7 +115,7 @@ export const getAllRegexMatches = (regex: RegExp) => {
   return (string: string) => {
     const matches: RegExpExecArray[] = [];
     let match: RegExpExecArray | null;
-    while ((match = regex.exec(string)) ) { // tslint:disable-line:no-conditional-assignment
+    while ((match = regex.exec(string)) ) {
       matches.push(match);
     }
     return matches;
@@ -161,11 +161,8 @@ export const stripHtml = (html: string, trimResult = false) => {
 
 export const tuple = <A extends unknown[]>(...args: A) => args;
 
-// tslint:disable-next-line: max-classes-per-file
 export class UnauthenticatedError extends ApplicationError {}
 
-// tslint:disable-next-line: max-classes-per-file
 export class BookNotFoundError extends ApplicationError {}
 
-// tslint:disable-next-line: max-classes-per-file
 export class ArchiveBookMissingError extends ApplicationError {}

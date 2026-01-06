@@ -20,7 +20,6 @@ import MenuToggle, { MenuIcon } from './MenuToggle';
 import TruncatedText from './TruncatedText';
 import { isElementForOnClickOutside, useOnClickOutside } from './utils/onClickOutside';
 
-// tslint:disable-next-line:variable-name
 const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   color: ${theme.color.primary.gray.lighter};
   height: 4.2rem;
@@ -49,7 +48,6 @@ export interface DisplayNoteProps {
   shouldFocusCard: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   {note, isActive, highlight, onBlur, onEdit, onRemove, onHeightChange, className, shouldFocusCard},
   ref

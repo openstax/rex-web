@@ -5,7 +5,7 @@ import {
   navigate,
   setDesktopViewport,
   setMobileViewport,
-  setWideDesktopViewport
+  setWideDesktopViewport,
 } from '../../test/browserutils';
 import { updateAvailable } from '../notifications/actions';
 

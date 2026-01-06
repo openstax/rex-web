@@ -12,7 +12,7 @@ import { createNavigationOptions, navigationOptionsToString } from '../../naviga
 import { AppState, Dispatch } from '../../types';
 import showConfirmation from '../highlights/components/utils/showConfirmation';
 import {
-  hasUnsavedHighlight as hasUnsavedHighlightSelector
+  hasUnsavedHighlight as hasUnsavedHighlightSelector,
 } from '../highlights/selectors';
 import * as select from '../selectors';
 import { Book, Params, SystemQueryParams } from '../types';
@@ -42,7 +42,6 @@ interface Props {
   ignoreModal?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   const {
     book,
@@ -103,7 +102,6 @@ export const ContentLink = (props: React.PropsWithChildren<Props>) => {
   >{children}</a>;
 };
 
-// tslint:disable-next-line:variable-name
 export const ConnectedContentLink = connect(
   (state: AppState, ownProps: {queryParams?: OutputParams}) => ({
     currentBook: select.book(state),
@@ -120,7 +118,6 @@ export const ConnectedContentLink = connect(
   })
 )(ContentLink);
 
-// tslint:disable-next-line:variable-name
 export const StyledContentLink = styled(ConnectedContentLink)`
   ${linkStyle}
 `;

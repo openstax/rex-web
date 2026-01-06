@@ -9,7 +9,6 @@ interface NextButtonProps {
   submittedAnswerIsCorrect: boolean;
 }
 
-// tslint:disable-next-line: variable-name
 const NextButton = React.forwardRef(({ submittedAnswerIsCorrect }: NextButtonProps, ref: React.Ref<HTMLElement>) => {
   const dispatch = useDispatch();
 

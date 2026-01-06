@@ -1,4 +1,3 @@
-// tslint:disable: max-line-length
 import createTestServices from '../../../test/createTestServices';
 import { book, bookWithUnits } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';

@@ -34,7 +34,6 @@ import {
 } from './utils';
 import { nudgeStudyToolsTargetId } from './constants';
 
-// tslint:disable-next-line: variable-name
 const NudgeStudyTools = ({
   positions,
 }: {
@@ -183,14 +182,11 @@ function CloseButtonHoldingFocus({
   );
 }
 
-// tslint:disable-next-line: variable-name
 const NudgeTextWithStudyGuides = htmlMessage('i18n:nudge:study-tools:text:with-study-guides', NudgeTextStyles);
-// tslint:disable-next-line: variable-name
 const NudgeTextOnlyHighlights = htmlMessage('i18n:nudge:study-tools:text:only-highlighting', NudgeTextStyles);
 
 // Do not render <NudgeStudyTools/> if it is hidden so scroll listener is not attached
 // to the DOM and do not render if document or window is undefined which may happen for prerendering.
-// tslint:disable-next-line: variable-name
 const NoopForPrerenderingAndForHiddenState = () => {
   const studyGuidesEnabled = useSelector(studyGuidesEnabledSelector);
   const totalCountsPerPage = useSelector(totalCountsPerPageSelector);

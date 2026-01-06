@@ -5,7 +5,6 @@ import Button from '../../../components/Button';
 import { textRegularStyle } from '../../../components/Typography';
 import { LinkedArchiveTreeSection } from '../../types';
 
-// tslint:disable-next-line: variable-name
 const StyledNextSectionMessage = styled.div`
   max-width: 38rem;
   overflow: initial;
@@ -15,17 +14,14 @@ const StyledNextSectionMessage = styled.div`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledMessage = styled.div`
   ${textRegularStyle}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StyledMessageText = styled.span`
   display: inline;
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledSectionTitle = styled.span`
   font-weight: 700;
 `;
@@ -38,7 +34,6 @@ interface NextSectionMessageProps {
   className?: string;
 }
 
-// tslint:disable-next-line: variable-name
 const NextSectionMessage = ({
   nextSection, messageKey, onClick, analyticsLabel, className,
 }: NextSectionMessageProps) => (

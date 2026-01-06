@@ -12,7 +12,6 @@ import { topbarDesktopHeight, topbarMobileHeight } from './constants';
 import { TextResizerValue, textResizerValues } from '../constants';
 import { useLaunchToken } from '../launchToken';
 
-// tslint:disable-next-line:variable-name
 const StyledTopBarWrapper = styled(TopBarWrapper)`
   ${shadow}
 
@@ -29,7 +28,6 @@ const StyledTopBarWrapper = styled(TopBarWrapper)`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 const StyledSectionTitle = styled.h2`
   font-size: 1.8rem;
   line-height: 2.1rem;
@@ -70,7 +68,6 @@ const useTextResizeIntegration = (handleChange: (value: TextResizerValue) => voi
   return typeof launchToken.textSize === 'number';
 };
 
-// tslint:disable-next-line:variable-name
 export const AssignedTopBar = (props: {
   section: LinkedArchiveTreeSection;
 }) => {

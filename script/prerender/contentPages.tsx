@@ -134,7 +134,7 @@ export async function renderAndSavePage(
 ) {
   const match = deserializePageMatch(serializedMatch);
   const {app, styles, state, url} = await prepareApp(services, match, code);
-  console.info(`Rendering ${url}`); // tslint:disable-line:no-console
+  console.info(`Rendering ${url}`);
 
   const html = await renderHtml(styles, app, state);
 

@@ -11,7 +11,6 @@ jest.mock('@openstax/highlighter');
 
 UntypedHighlighter.prototype.eraseAll = jest.fn();
 
-// tslint:disable-next-line:variable-name
 const Highlighter = UntypedHighlighter as unknown as jest.SpyInstance;
 
 beforeEach(() => {

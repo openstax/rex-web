@@ -13,7 +13,6 @@ import * as selectors from '../selectors';
 import { HighlightsList, NoHighlightsAvailable, NoHighlightsInBook } from './HighlightsCards';
 import { receiveReadyToPrintHighlights } from '../actions';
 
-// tslint:disable-next-line: variable-name
 const Highlights = ({ className }: { className: string }) => {
   const orderedHighlights = useSelector(selectors.orderedSummaryHighlights);
   const isLoading = useSelector(selectors.summaryIsLoading);

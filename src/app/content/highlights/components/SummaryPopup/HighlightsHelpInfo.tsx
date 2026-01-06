@@ -28,7 +28,6 @@ const slideInAnimation = css`
   animation: ${800}ms ${slideInFromBottom} ease-out;
 `;
 
-// tslint:disable-next-line: variable-name
 const Wrapper = styled.div`
   position: fixed;
   bottom: 0;
@@ -52,7 +51,6 @@ const Wrapper = styled.div`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line: variable-name
 export const CloseIcon = styled(Times)`
   color: ${theme.color.secondary.lightGray.darkest};
   width: 1.4rem;
@@ -61,12 +59,10 @@ export const CloseIcon = styled(Times)`
 export const cookieId = 'highlights_help_info_dissmised';
 export const timeBeforeShow = 1000;
 
-// tslint:disable-next-line: variable-name
 const Message = htmlMessage(
   'i18n:toolbar:highlights:popup:help-info',
   (props) => <span {...props} />);
 
-// tslint:disable-next-line:variable-name
 const HighlightsHelpInfo = () => {
   const [show, setShow] = React.useState(false);
   const user = useSelector(userSelector);

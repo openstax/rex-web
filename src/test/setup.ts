@@ -37,8 +37,8 @@ const ignoreConsoleErrorMessages = [
   /Warning: React does not recognize the `%s` prop on a DOM element/,
 ];
 
-const originalConsoleError = console.error;  // tslint:disable-line:no-console
-console.error = (msg: unknown) => {  // tslint:disable-line:no-console
+const originalConsoleError = console.error;
+console.error = (msg: unknown) => {
   const shouldIgnore = !!ignoreConsoleErrorMessages.find(
     (ignore) => typeof msg === 'string' && msg.match(ignore)
   );
@@ -58,8 +58,8 @@ const ignoreConsoleWarnMessages = [
   /Please update the following components: LoadableComponent\s*$/,
 ];
 
-const originalConsoleWarn = console.warn;  // tslint:disable-line:no-console
-console.warn = (msg: string) => {  // tslint:disable-line:no-console
+const originalConsoleWarn = console.warn;
+console.warn = (msg: string) => {
   const shouldIgnore = !!ignoreConsoleWarnMessages.find((ignore) => msg.match(ignore));
 
   if (shouldIgnore) {
@@ -84,7 +84,6 @@ let mockResizeObserver: any;
 
 resetModules();
 
-// tslint:disable-next-line no-var-requires
 require('jest-styled-components');
 
 afterAll(async() => {
@@ -132,7 +131,6 @@ beforeEach(() => {
   );
 
   window.gtag = gtag;
-  // tslint:disable-next-line: only-arrow-functions
   mockResizeObserver = function(callback: () => void) {
     callback();
     return ({

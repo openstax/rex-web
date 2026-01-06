@@ -246,7 +246,6 @@ function CardsForHighlights({
   </>;
 }
 
-// tslint:disable-next-line:variable-name
 const Wrapper = ({highlights, className, container, highlighter, dispatch}: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
   const unfocus = flow(clearFocusedHighlight, dispatch);

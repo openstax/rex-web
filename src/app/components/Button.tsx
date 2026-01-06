@@ -38,7 +38,6 @@ interface ButtonProps<T extends ComponentType | undefined> {
     never;
 }
 
-// tslint:disable-next-line:variable-name
 const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
   {variant, size, component, ...props}: ButtonProps<T>,
   ref: React.Ref<Omit<HTMLButtonElement | T, 'undefined'>>
@@ -49,7 +48,6 @@ const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
   return <button ref={ref} {...props} />;
 });
 
-// tslint:disable-next-line:variable-name
 const Button = styled(ButtonHoc)`
   display: flex;
   cursor: pointer;
@@ -114,7 +112,6 @@ const Button = styled(ButtonHoc)`
   `}
 `;
 
-// tslint:disable-next-line:variable-name
 export const ButtonGroup = styled.div`
   display: grid;
   overflow: visible;
@@ -125,7 +122,6 @@ export const ButtonGroup = styled.div`
   grid-gap: 1rem;
 `;
 
-// tslint:disable-next-line:variable-name
 export const PlainButton = styled.button`
   cursor: pointer;
   border: none;
@@ -134,7 +130,6 @@ export const PlainButton = styled.button`
   background: none;
 `;
 
-// tslint:disable-next-line:variable-name
 export const ButtonLink = styled(PlainButton)`
   outline: none;
   ${textStyle}

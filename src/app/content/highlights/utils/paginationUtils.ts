@@ -15,13 +15,13 @@ import { isArchiveTree } from '../../guards';
 import { ArchiveTree, LinkedArchiveTreeSection } from '../../types';
 import {
   archiveTreeContainsNode,
-  findTreePages
+  findTreePages,
 } from '../../utils/archiveTreeUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import {
   CountsPerSource,
   SummaryFilters,
-  SummaryHighlightsPagination
+  SummaryHighlightsPagination,
 } from '../types';
 
 export const extractTotalCounts = (countsPerSource: CountsPerSource) =>

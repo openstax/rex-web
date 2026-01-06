@@ -20,23 +20,19 @@ export const supportCenterLink = 'https://help.openstax.org/s/';
 const systemStatusLink = 'https://status.openstax.org/';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
 
-// tslint:disable-next-line:variable-name
 const Mission = htmlMessage(
   'i18n:footer:copyright:mission-text',
   Styled.Mission
 );
-// tslint:disable-next-line:variable-name
 const Copyrights = htmlMessage(
   'i18n:footer:copyright:bottom-text',
   Styled.Copyrights
 );
 
-// tslint:disable-next-line:variable-name
 const BareMessage: React.FunctionComponent<{ id: string }> = ({ id }) => (
   <FormattedMessage id={id}>{msg => msg}</FormattedMessage>
 );
 
-// tslint:disable-next-line:variable-name
 const ColumnHeadingMessage: React.FunctionComponent<{ id: string }> = ({
   id,
 }) => (
@@ -45,7 +41,6 @@ const ColumnHeadingMessage: React.FunctionComponent<{ id: string }> = ({
   </Styled.ColumnHeading>
 );
 
-// tslint:disable-next-line:variable-name
 const FooterLinkMessage: React.FunctionComponent<{
   id: string;
   href: string;
@@ -61,7 +56,6 @@ const FooterLinkMessage: React.FunctionComponent<{
   </Styled.FooterLink>
 );
 
-// tslint:disable-next-line:variable-name
 const SocialIconMessage: React.FunctionComponent<{
   id: string;
   href: string;
@@ -85,7 +79,6 @@ function LinkList({children}: React.PropsWithChildren<{}>) {
   );
 }
 
-// tslint:disable-next-line:variable-name
 const Column1 = () => (
   <Styled.Column1>
     <ColumnHeadingMessage id='i18n:footer:column1:help' />
@@ -108,7 +101,6 @@ const Column1 = () => (
   </Styled.Column1>
 );
 
-// tslint:disable-next-line:variable-name
 const Column2 = () => (
   <Styled.Column2>
     <ColumnHeadingMessage id='i18n:footer:column2:openstax' />
@@ -125,7 +117,6 @@ const Column2 = () => (
   </Styled.Column2>
 );
 
-// tslint:disable-next-line:variable-name
 const Column3 = () => (
   <Styled.Column3>
     <ColumnHeadingMessage id='i18n:footer:column3:policies' />
@@ -147,7 +138,6 @@ const Column3 = () => (
   </Styled.Column3>
 );
 
-// tslint:disable-next-line:variable-name
 const SocialDirectory = () => (
   <Styled.Social>
     <SocialIconMessage
@@ -188,7 +178,6 @@ function getValues() {
   };
 }
 
-// tslint:disable-next-line:variable-name
 const NormalFooter = ({
   isVerticalNavOpen,
 }: {
@@ -220,14 +209,12 @@ const NormalFooter = ({
   </Styled.FooterWrapper>
 );
 
-// tslint:disable-next-line:variable-name
 const PortalColumn1 = () => (
   <Styled.Column1>
     <Copyrights values={getValues()} />
   </Styled.Column1>
 );
 
-// tslint:disable-next-line:variable-name
 export function ContactDialog({
   isOpen,
   close,
@@ -284,7 +271,6 @@ export function useContactDialog() {
   return { isOpen, open, close };
 }
 
-// tslint:disable-next-line:variable-name
 const PortalColumn2 = ({ portalName }: { portalName: string }) => {
   const { isOpen, open, close } = useContactDialog();
   const contactFormParams = [
@@ -305,7 +291,6 @@ const PortalColumn2 = ({ portalName }: { portalName: string }) => {
   );
 };
 
-// tslint:disable-next-line:variable-name
 const PortalColumn3 = ({ portalName }: { portalName: string }) => (
   <Styled.Column3>
     <LinkList>
@@ -321,7 +306,6 @@ const PortalColumn3 = ({ portalName }: { portalName: string }) => (
   </Styled.Column3>
 );
 
-// tslint:disable-next-line:variable-name
 const PortalFooter = ({
   isVerticalNavOpen,
   portalName,
@@ -348,7 +332,6 @@ const PortalFooter = ({
   );
 };
 
-// tslint:disable-next-line:variable-name
 const Footer = ({
   isVerticalNavOpen,
 }: {

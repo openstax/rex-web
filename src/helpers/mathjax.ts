@@ -38,7 +38,7 @@ const waitForMathJax = async(windowImpl: Window) => {
   }
 
   if (retries >= maxRetries || !windowImpl.MathJax?.startup?.promise) {
-    console.warn('MathJax failed to load'); // tslint:disable-line:no-console
+    console.warn('MathJax failed to load'); // eslint-disable-line no-console
     return false;
   }
   await windowImpl.MathJax.startup.promise;

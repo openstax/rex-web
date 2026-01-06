@@ -17,7 +17,6 @@ export const not = <A extends unknown[]>(wrapped: (...args: A) => unknown) => (.
 /*
  * returns a function that evaluates its argument against the given predicate
  */
-// tslint:disable-next-line:ban-types
 export const match = <T extends unknown>(predicate: T) => (arg: T extends Function ? FirstArgumentType<T> : T) => {
   if (typeof predicate === 'function') {
     return !!predicate(arg);

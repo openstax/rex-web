@@ -22,7 +22,6 @@ export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpe
   ? bookBannerMobileMiniHeight + topbarMobileHeight + toolbarMobileSearchWrapperHeight
   : bookBannerMobileMiniHeight + topbarMobileHeight;
 
-// tslint:disable-next-line:variable-name
 export const ToastContainerWrapper = styled.div`
   position: sticky;
   overflow: visible;
@@ -57,7 +56,6 @@ export const ToastContainerWrapper = styled.div`
  *  grid layout.
  */
 
-// tslint:disable-next-line:variable-name
 const PageToasts = (props: ToastProps | {}) => {
   const toasts = useSelector(groupedToastNotifications).page;
   const mobileToolbarOpen = useSelector(mobileToolbarOpenSelector);

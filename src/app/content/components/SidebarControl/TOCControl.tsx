@@ -11,7 +11,6 @@ import { OpenButton, ButtonText } from './Buttons';
 const closedTocMessage = 'i18n:toc:toggle:closed';
 const openTocMessage = 'i18n:toc:toggle:opened';
 
-// tslint:disable-next-line:variable-name
 export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) =>
   <OpenButton
     aria-label={useIntl().formatMessage({ id: message })}
@@ -34,7 +33,6 @@ export const tocConnector = connect(
   })
 );
 
-// tslint:disable-next-line:variable-name
 export const lockTocControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
   tocConnector(({open, close, ...props}: MiddleProps) => <Control
     {...props}

@@ -8,10 +8,8 @@ import { Dispatch } from '../../types';
 import { dismissNotification, retiredBookRedirect } from '../actions';
 import { Body, Group, Header, P } from './Card';
 
-// tslint:disable-next-line:variable-name
 const Content = htmlMessage('i18n:notification:retired-book:body', P);
 
-// tslint:disable-next-line:variable-name
 const RetiredBookRedirect = ({dismiss, className}:
   {dismiss: () => void, className?: string}) => <Body className={className}>
     <Group>

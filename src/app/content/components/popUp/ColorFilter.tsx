@@ -12,7 +12,6 @@ import { filters, mobileMarginSides } from '../../styles/PopupConstants';
 import { FiltersChange } from './types';
 import { Fieldset } from './Filters';
 
-// tslint:disable-next-line: variable-name
 const ColorLabel = styled.span`
   flex: 1;
   overflow: hidden;
@@ -30,7 +29,6 @@ export interface ColorFilterProps {
   id: string;
 }
 
-// tslint:disable-next-line:variable-name
 const ColorFilter = ({
   className,
   disabled,

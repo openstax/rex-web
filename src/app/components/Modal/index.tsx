@@ -9,7 +9,6 @@ interface PropTypes {
   className?: string;
 }
 
-// tslint:disable-next-line:variable-name
 const Modal = ({
   className,
   heading,

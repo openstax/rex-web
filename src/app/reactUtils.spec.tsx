@@ -151,7 +151,6 @@ describe('onFocusInOrOutHandler focusin', () => {
 });
 
 describe('useTimeout', () => {
-  // tslint:disable-next-line:variable-name
   let Component: React.ComponentType;
   let callback: jest.Mock;
   beforeEach(() => {
@@ -432,7 +431,6 @@ describe('onKeyHandler', () => {
 });
 
 describe('useMatchMobileQuery', () => {
-  // tslint:disable-next-line: variable-name
   let Component: () => JSX.Element;
 
   beforeEach(() => {
@@ -514,7 +512,6 @@ describe('useMatchMobileQuery', () => {
 });
 
 describe('useOnScrollTopOffset', () => {
-  // tslint:disable-next-line: variable-name
   let Component: () => JSX.Element;
 
   beforeEach(() => {
@@ -685,7 +682,6 @@ describe('useFocusHighlight', () => {
   let highlightElement: HTMLElement;
   let highlights: Highlight[];
 
-  // tslint:disable-next-line: variable-name
   const TestComponent = ({
     highlightsList,
     callback,

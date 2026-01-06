@@ -8,7 +8,7 @@ import {
   initializeMyHighlightsSummary,
   receiveHighlightsTotalCounts,
   receiveSummaryHighlights,
-  toggleSummaryHighlightsLoading
+  toggleSummaryHighlightsLoading,
 } from '../actions';
 import { HighlightPopupLoadError } from '../errors';
 import { highlightLocationFilters } from '../selectors';
