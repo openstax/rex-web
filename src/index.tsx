@@ -39,7 +39,7 @@ if (window.top === window.self) {
     `Howdy! If you want to help out, the source code can be found at `,
     `https://github.com/openstax/rex-web`,
   ];
-  console.info(`%c` + devMessage.join(''), 'font-weight:bold');
+  console.info(`%c` + devMessage.join(''), 'font-weight:bold'); // eslint-disable-line no-console
 }
 
 const osWebUrl = assertDefined(config.REACT_APP_OS_WEB_API_URL, 'REACT_APP_OS_WEB_API_URL must be defined');

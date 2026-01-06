@@ -67,6 +67,7 @@ export default {
     if (this.isEnabled) {
       return Sentry.captureException(error, { level });
     } else if (!this.shouldCollectErrors) {
+      /* eslint-disable no-console */
       switch (level) {
         case 'info':
           console.info(error instanceof Error ? error.message : error);
@@ -77,6 +78,7 @@ export default {
         default:
           console.error(error);
       }
+      /* eslint-enable no-console */
     }
   },
 
