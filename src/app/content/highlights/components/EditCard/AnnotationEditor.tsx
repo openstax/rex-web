@@ -91,17 +91,14 @@ export function AnnotationEditor({
 
       setPendingAnnotation(newValue);
 
-      // Set changes pending flag if text differs from saved value
       if (currentValue !== newValue && !hasUnsavedHighlight) {
         setAnnotationChangesPending(true);
       }
 
-      // Clear changes pending flag if text matches saved value
       if (currentValue === newValue && hasUnsavedHighlight) {
         setAnnotationChangesPending(false);
       }
 
-      // Enter editing mode
       setEditing(true);
     },
     [
@@ -125,24 +122,19 @@ export function AnnotationEditor({
    */
   const initializeColor = React.useCallback(() => {
     if (!highlight.getStyle()) {
-      // Temporarily blur textarea to allow color picker interaction
       textarea.current?.blur();
 
-      // Assign default color (first in palette)
       onColorChange(highlightStyles[0].label, true);
 
-      // Restore focus to textarea after color is set
       const setFocus = () => {
         textarea.current?.focus();
       };
 
       setFocus();
-      // Defer second focus attempt to ensure it happens after re-render
       defer(setFocus);
     }
   }, [onColorChange, highlight]);
 
-  // Auto-focus textarea when card should be focused
   useFocusElement(textarea, shouldFocusCard);
 
   return (

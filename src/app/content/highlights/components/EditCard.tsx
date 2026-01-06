@@ -185,10 +185,6 @@ function ActiveEditCard({
   props: React.PropsWithChildren<EditCardProps>;
   element: React.RefObject<HTMLElement>;
 }) {
-  // ========================================
-  // Local State
-  // ========================================
-
   const defaultAnnotation = React.useMemo(() => props.data?.annotation ?? '', [props.data]);
 
   const [pendingAnnotation, setPendingAnnotation] = React.useState<string>(defaultAnnotation);
@@ -200,10 +196,6 @@ function ActiveEditCard({
   const [editingAnnotation, setEditing] = React.useState(Boolean(props?.data?.annotation));
 
   const [confirmingDelete, setConfirmingDelete] = React.useState<boolean>(false);
-
-  // ========================================
-  // Focus and Blur Handling
-  // ========================================
 
   const { onBlur, hasUnsavedHighlight } = props;
 
@@ -245,15 +237,10 @@ function ActiveEditCard({
     [blurIfNotEditing, props.data?.color]
   );
 
-  // Listen for focus changes to handle deselection
   React.useEffect(() => {
     document?.addEventListener('focusin', deselectRange);
     return () => document?.removeEventListener('focusin', deselectRange);
   }, [deselectRange]);
-
-  // ========================================
-  // Height Change Notifications
-  // ========================================
 
   /**
    * Notify parent when card element is available
@@ -268,10 +255,6 @@ function ActiveEditCard({
     }
   }, [element, onHeightChange]);
 
-  // ========================================
-  // Analytics Tracking
-  // ========================================
-
   const trackShowCreate = useAnalyticsEvent('showCreate');
 
   /**
@@ -285,10 +268,6 @@ function ActiveEditCard({
       trackShowCreate();
     }
   }, [props.data, trackShowCreate]);
-
-  // ========================================
-  // Business Logic Hooks
-  // ========================================
 
   const onColorChange = useOnColorChange({
     highlight: props.highlight,
@@ -318,10 +297,6 @@ function ActiveEditCard({
     pendingAnnotation
   );
 
-  // ========================================
-  // Tab Navigation (Accessibility)
-  // ========================================
-
   const ref = React.useRef<HTMLElement>(null);
 
   /**
@@ -333,20 +308,14 @@ function ActiveEditCard({
    */
   useTrapTabNavigation(ref, editingAnnotation);
 
-  // ========================================
-  // Render
-  // ========================================
-
   return (
     <div ref={ref}>
-      {/* Color Picker */}
       <ColorPicker
         color={props.data?.color}
         onChange={onColorChange}
         onRemove={removeHighlight}
       />
 
-      {/* Annotation Editor */}
       <AnnotationEditor
         highlight={props.highlight}
         data={props.data}
@@ -359,7 +328,6 @@ function ActiveEditCard({
         onColorChange={onColorChange}
       />
 
-      {/* Save/Cancel Buttons (only shown when editing existing annotation) */}
       {editingAnnotation && props.data && (
         <ButtonGroup>
           <SaveButton
@@ -379,7 +347,6 @@ function ActiveEditCard({
         </ButtonGroup>
       )}
 
-      {/* Delete Confirmation Dialog */}
       {confirmingDelete && props.data && (
         <Confirmation
           data-testid='confirm-delete'
