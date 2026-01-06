@@ -16,19 +16,11 @@ import { useOnEsc } from '../../../../reactUtils';
 import { HighlightData } from '../../types';
 import { setAnnotationChangesPending as setAnnotationChangesPendingAction } from '../../actions';
 
-/**
- * Props for SaveButton component
- */
 export interface SaveButtonProps {
-  /** Current highlight data */
   data: HighlightData;
-  /** Function to toggle editing state */
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  /** Current pending annotation text */
   pendingAnnotation: string;
-  /** Function to show delete confirmation dialog */
   setConfirmingDelete: React.Dispatch<React.SetStateAction<boolean>>;
-  /** Save callback from useSaveAnnotation hook */
   saveAnnotation: (data: HighlightData) => void;
 }
 
@@ -84,19 +76,11 @@ export function SaveButton({
   );
 }
 
-/**
- * Props for CancelButton component
- */
 export interface CancelButtonProps {
-  /** Whether the card is currently active */
   isActive: boolean;
-  /** Function to toggle editing state */
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  /** Function to reset annotation to original value */
   resetAnnotation: () => void;
-  /** Function to set annotation changes pending flag */
   setAnnotationChangesPending: typeof setAnnotationChangesPendingAction;
-  /** Callback to execute when canceling */
   onCancel: () => void;
 }
 
