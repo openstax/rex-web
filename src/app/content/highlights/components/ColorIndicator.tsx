@@ -21,12 +21,10 @@ interface Props<T extends React.ComponentType | undefined = React.ComponentType>
     never;
 }
 
-// tslint:disable-next-line:variable-name
 const CheckIcon = styled(Check)`
   display: none;
 `;
 
-// tslint:disable-next-line:variable-name
 const FocusedStyle = styled.span`
   display: none;
   position: absolute;
@@ -42,7 +40,6 @@ const FocusedStyle = styled.span`
   `}
 `;
 
-// tslint:disable-next-line:variable-name
 const ColorRing = styled.span`
   height: ${(props: StyleProps) => indicatorSize(props) - 0.2}rem;
   width: ${(props: StyleProps) => indicatorSize(props) - 0.2}rem;
@@ -57,7 +54,6 @@ const ColorRing = styled.span`
   border: 1px solid ${(props: {style: typeof highlightStyles[number]}) => props.style.focused};
 `;
 
-// tslint:disable-next-line:variable-name
 function Hoc<T extends React.ComponentType | undefined>(props: React.PropsWithChildren<Props<T>>) {
   const {children, style, checked, size, component, ...otherProps} = props;
   const focusedProps: StyleProps = { style, size, shape: props.shape };
@@ -83,7 +79,6 @@ function Hoc<T extends React.ComponentType | undefined>(props: React.PropsWithCh
 const indicatorSize = (props: {size?: 'small'}) => props.size === 'small' ? 1.6 : 2.4;
 const checkSize = (props: {size?: 'small'}) => props.size === 'small' ? 1 : 1.6;
 
-// tslint:disable-next-line:variable-name
 const ColorIndicator = styled(Hoc)`
   position: relative;
   background-color: ${(props: {style: typeof highlightStyles[number]}) => props.style.passive};
@@ -135,7 +130,6 @@ function TB({
   );
 }
 
-// tslint:disable-next-line:variable-name
 export const TrashButton = styled(TB)`
   img {
     height: ${(props: Props) => indicatorSize(props) - 0.5}rem;

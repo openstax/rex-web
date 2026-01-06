@@ -10,7 +10,6 @@ interface ScrollOffsetProps {
   mobileOffset: number;
 }
 
-// tslint:disable-next-line:variable-name
 const GlobalStyle = createGlobalStyle<ScrollOffsetProps>`
   body {
     scroll-padding: ${(props) => props.desktopOffset}rem 0 0 0;

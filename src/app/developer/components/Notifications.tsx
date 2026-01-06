@@ -14,7 +14,6 @@ interface Props {
   sendMessages: () => void;
 }
 
-// tslint:disable-next-line:variable-name
 const Notifications = ({updateAvailable, error, sendMessages}: Props) => {
   const [showError, setError] = useState(false);
 

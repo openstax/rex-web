@@ -8,7 +8,6 @@ import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
 
-// tslint:disable-next-line: variable-name
 const StyledChapterFilters = styled(ChapterFilter)`
   padding: 0;
 `;

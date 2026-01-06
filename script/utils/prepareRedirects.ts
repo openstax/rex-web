@@ -34,7 +34,6 @@ const prepareRedirects = async(
       const page = findArchiveTreeNodeById(tree, pageId);
 
       if (!page) {
-        // tslint:disable-next-line: no-console
         console.log(`Couldn't find page ${pageId} in book ${bookId}`);
         continue;
       }

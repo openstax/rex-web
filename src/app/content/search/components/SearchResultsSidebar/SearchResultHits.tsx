@@ -60,7 +60,6 @@ function uniqueSearchLabel(index: number, title: string, highlight: string) {
   return `Result ${index + 1} in ${stripHtml(title)}: ${stripHtml(highlight)}`;
 }
 
-// tslint:disable-next-line: variable-name
 const OneSearchResultHit = ({
   activeSectionRef,
   book,
@@ -73,7 +72,6 @@ const OneSearchResultHit = ({
   loader,
 }: OneSearchResultHitProps) => {
   const pair = useKeyTermPair({ hit, loader });
-  // tslint:disable-next-line: variable-name
   const HighlightPreview = React.useCallback(
     (highlight: string, index: number) => {
       const thisResult = { result: hit, highlight: index };
@@ -132,7 +130,6 @@ const OneSearchResultHit = ({
   );
 };
 
-// tslint:disable-next-line: variable-name
 const SearchResultHits = ({
   activeSectionRef,
   book,
@@ -166,7 +163,6 @@ const SearchResultHits = ({
   );
 };
 
-// tslint:disable-next-line:variable-name
 export const ConnectedSearchResultHits = connect((state: AppState) => ({
   queryParams: navSelect.persistentQueryParameters(state),
 }))(SearchResultHits);

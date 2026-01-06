@@ -8,7 +8,7 @@ import {
   LinkedArchiveTree,
   LinkedArchiveTreeNode,
   LinkedArchiveTreeSection,
-  Page
+  Page,
 } from '../../types';
 import {
   archiveTreeSectionIsAnswerKey,

@@ -5,7 +5,7 @@ import {
   printSummaryHighlights,
   receiveReadyToPrintHighlights,
   receiveSummaryHighlights,
-  toggleSummaryHighlightsLoading
+  toggleSummaryHighlightsLoading,
 } from '../actions';
 import { HighlightPopupPrintError } from '../errors';
 import { myHighlightsOpen } from '../selectors';

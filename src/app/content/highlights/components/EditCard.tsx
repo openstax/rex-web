@@ -17,7 +17,7 @@ import defer from 'lodash/fp/defer';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
-  updateHighlight
+  updateHighlight,
 } from '../actions';
 import { cardPadding } from '../constants';
 import { HighlightData } from '../types';
@@ -46,7 +46,6 @@ export interface EditCardProps {
   minimize?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   if (!props.isActive) {
     return null;
@@ -129,7 +128,6 @@ function LoginConfirmation({
   );
 }
 
-// tslint:disable-next-line:variable-name
 const HiddenOnMobile = styled.div`
   min-width: ${cardWidth}rem;
   ${theme.breakpoints.touchDeviceQuery(css`
@@ -510,7 +508,6 @@ function useSaveAnnotation(
   );
 }
 
-// tslint:disable-next-line
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};
   user-select: none;

@@ -8,7 +8,6 @@ import * as actions from '../actions';
 import { initialState } from '../reducer';
 import { formatBookData } from '../utils';
 
-// tslint:disable:variable-name
 describe('Attribution', () => {
   let React: ReturnType<typeof reactAndFriends>['React'];
   let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM'];

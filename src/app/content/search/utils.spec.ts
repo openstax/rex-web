@@ -288,7 +288,6 @@ describe('highlightResults', () => {
 describe('generateKeyTermExcerpt', () => {
   it('works with long definition', () => {
     expect(generateKeyTermExcerpt(
-      // tslint:disable-next-line: max-line-length
       'sample definition with more than 115 characters sample definition with more than 115 characters sample definition with more than 115 characters'
       )).toMatchInlineSnapshot((
         `"sample definition with more than 115 characters sample definition with more than 115 characters sample ..."`

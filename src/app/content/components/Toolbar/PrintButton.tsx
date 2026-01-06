@@ -9,7 +9,6 @@ interface Props {
   disabled?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 const PrintButton = (props: Props) => {
   const intl = useIntl();
 

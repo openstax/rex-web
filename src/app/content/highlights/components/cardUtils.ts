@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
-import { Element, HTMLElement, } from '@openstax/types/lib.dom';
+import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';

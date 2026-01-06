@@ -1,8 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-// tslint:disable:max-line-length
-// tslint:disable-next-line:variable-name
 const SvgComponent = () => {
   const intl = useIntl();
 

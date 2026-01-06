@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 import { argv } from 'yargs';
 import { Options, startServer } from '.';
 
