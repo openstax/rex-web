@@ -20,27 +20,15 @@ import { setAnnotationChangesPending as setAnnotationChangesPendingAction } from
 import { HighlightData } from '../../types';
 import Note from '../Note';
 
-/**
- * Props for AnnotationEditor component
- */
 export interface AnnotationEditorProps {
-  /** Current highlight being edited */
   highlight: Highlight;
-  /** Saved highlight data (undefined for new highlights) */
   data?: HighlightData;
-  /** Current pending annotation text */
   pendingAnnotation: string;
-  /** Whether there are unsaved changes */
   hasUnsavedHighlight: boolean;
-  /** Whether the card should be focused */
   shouldFocusCard: boolean;
-  /** Function to set editing state */
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-  /** Function to update pending annotation */
   setPendingAnnotation: (value: React.SetStateAction<string>) => void;
-  /** Function to set annotation changes pending flag */
   setAnnotationChangesPending: typeof setAnnotationChangesPendingAction;
-  /** Callback to handle color changes */
   onColorChange: (color: HighlightColorEnum, isDefault?: boolean) => void;
 }
 
