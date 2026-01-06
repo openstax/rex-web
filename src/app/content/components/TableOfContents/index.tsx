@@ -60,7 +60,6 @@ function TabTrapper({
   return null;
 }
 
-// tslint:disable-next-line:variable-name
 const SidebarBody = React.forwardRef<
   HTMLElement,
   React.ComponentProps<typeof SidebarPaneBody>

@@ -9,12 +9,12 @@ jest.mock('../reactUtils', () => ({
 }));
 
 describe('MobileScrollLock', () => {
-  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React'];
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
+  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM'];
 
   describe('in browser', () => {
-    let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
+    let MobileScrollLock: ComponentType;
     beforeEach(() => {
       resetModules();
       ({React, renderToDom, ReactDOM} = reactAndFriends());
@@ -159,7 +159,7 @@ describe('MobileScrollLock', () => {
     const documentBackup = document;
 
     let renderer: typeof rendererType;
-    let MobileScrollLock: ComponentType; // tslint:disable-line:variable-name
+    let MobileScrollLock: ComponentType;
 
     beforeEach(() => {
       delete (global as any).window;

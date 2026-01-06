@@ -24,26 +24,22 @@ const addPageMap = () => {
   };
 
   if (!mapPath || !bookSlug || !bookId || !canonicalBookId) {
-    // tslint:disable-next-line: no-console
     console.log('Mapping failed. Missing one or more arguments.');
     process.exit(1);
   }
 
-  // tslint:disable-next-line: max-line-length
-  let mapString = `// tslint:disable: object-literal-sort-keys\n// tslint:disable: max-line-length\n\nimport { CanonicalBookMap } from '../canonicalBookMap';\n\nexport default {\n  /* ${bookTitle} */ '${bookId}': [\n    /* ${canonicalBookTitle} */ ['${canonicalBookId}', {\n`;
+  let mapString = `import { CanonicalBookMap } from '../canonicalBookMap';\n\nexport default {\n  /* ${bookTitle} */ '${bookId}': [\n    /* ${canonicalBookTitle} */ ['${canonicalBookId}', {\n`;
 
   const mapFile = readFile(mapPath);
   const parsedMap = JSON.parse(mapFile);
   const changedIds = parsedMap.filter((row: {[key: string]: string}) => row.moduleId !== row.canonicalId);
 
   changedIds.forEach((row: {[key: string]: string}) => {
-    // tslint:disable-next-line: max-line-length
     mapString += `      /* ${row.moduleTitle} to the same module in ${canonicalBookTitle} */\n      '${row.moduleId}': '${row.canonicalId}',\n`;
   });
   mapString += `    }],\n  ],\n} as CanonicalBookMap;\n`;
   const newMap = path.resolve(__dirname, `../src/canonicalBookMap/${bookSlug}.ts`);
   writeFile(newMap, mapString);
-  // tslint:disable-next-line: no-console
   console.log('Mapping complete. Make sure to import new map to canonicalBookMap.ts');
 };
 

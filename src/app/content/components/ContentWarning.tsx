@@ -12,7 +12,6 @@ import { hasOSWebData } from '../guards';
 import { tuple } from '../../utils';
 import { useIntl } from 'react-intl';
 
-// tslint:disable-next-line
 const WarningDiv = styled.div`
   display: flex;
   flex-direction: column;

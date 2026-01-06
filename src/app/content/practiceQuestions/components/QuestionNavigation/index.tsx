@@ -11,7 +11,6 @@ import NextButton from './NextButton';
 import ShowAnswerButton from './ShowAnswerButton';
 import SkipAndSubmitButtons from './SkipAndSubmitButtons';
 
-// tslint:disable-next-line: variable-name
 const Wrapper = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -39,7 +38,6 @@ interface QuestionNavigationProps {
   hideShowAnswerButton: boolean;
 }
 
-// tslint:disable-next-line: variable-name
 const QuestionNavigation = ({ question, selectedAnswer, ...props }: QuestionNavigationProps) => {
   const nextButton = React.useRef<HTMLElement>(null);
   const showAnswerButton = React.useRef<HTMLElement>(null);

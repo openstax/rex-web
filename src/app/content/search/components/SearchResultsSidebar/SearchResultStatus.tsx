@@ -13,7 +13,6 @@ export interface SearchResultStatusProps {
 /**
  * Accesible messages for screen reader users.
  */
-// tslint:disable-next-line: variable-name
 export const SearchResultsStatus = ({
   query,
   results,

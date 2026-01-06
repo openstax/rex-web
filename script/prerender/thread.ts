@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 
 /*
   A single worker thread

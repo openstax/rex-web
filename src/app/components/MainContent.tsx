@@ -14,7 +14,6 @@ interface Props {
   dangerouslySetInnerHTML?: { __html: string; };
   textSize?: TextResizerValue;
 }
-// tslint:disable-next-line:variable-name
 const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {...props} />)`
   outline: none;
   ${(props: {textSize: TextResizerValue}) => `
@@ -29,7 +28,6 @@ const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(
   ({book, children, className, ...props}, ref) => <Consumer>
     {({registerMainContent}) => <main

@@ -20,12 +20,12 @@ const dummyBook = {
 };
 
 describe('ContentWarning', () => {
-  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
-  let ContentWarningDynamic: ComponentType<any>; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React'];
+  let ContentWarningDynamic: ComponentType<any>;
 
   describe('in browser', () => {
     let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-    let ReactDOMTestUtils: ReturnType<typeof reactAndFriends>['ReactDOMTestUtils']; // tslint:disable-line:variable-name
+    let ReactDOMTestUtils: ReturnType<typeof reactAndFriends>['ReactDOMTestUtils'];
 
     beforeEach(() => {
       resetModules();

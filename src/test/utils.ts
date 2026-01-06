@@ -29,11 +29,9 @@ export const reactAndFriends = () => {
 };
 
 export const runHooks = (renderer: typeof rendererType) => {
-  // tslint:disable-next-line: no-empty
   renderer.act(() => {});
 };
 
 export const runHooksAsync = async(renderer: typeof rendererType) => {
-  // tslint:disable-next-line: no-empty
   await renderer.act(async() => {});
 };

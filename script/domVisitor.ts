@@ -212,7 +212,6 @@ function configurePage(page: puppeteer.Page): ObservePageErrors {
     errorObserver(`requestfailed: ${text} ${request.url()}`);
   });
 
-  // tslint:disable-next-line: no-console
   process.on('exit', () => console.log(`Cache hits: ${hits} / Total requests: ${hits + misses}`));
 
   return (newObserver: PageErrorObserver) => errorObserver = newObserver;
@@ -254,7 +253,7 @@ async function run() {
 }
 
 run().then(null, (err) => {
-  console.error(err); // tslint:disable-line:no-console
+  console.error(err);
   process.exit(1);
 });
 

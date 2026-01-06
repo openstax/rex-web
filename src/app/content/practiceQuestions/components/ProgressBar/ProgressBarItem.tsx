@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import theme from '../../../../theme';
 
-// tslint:disable-next-line: variable-name
 const StyledItemWrapper = styled.span`
   display: flex;
   align-items: center;
@@ -34,7 +33,6 @@ const StyledItemWrapper = styled.span`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledItem = styled.span`
   display: flex;
   justify-content: center;
@@ -49,13 +47,11 @@ const StyledItem = styled.span`
   font-weight: bold;
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledActiveItem = styled(StyledItem)`
   color: ${theme.color.primary.gray.base};
   background-color: ${theme.color.neutral.base};
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledDisabledItem = styled(StyledItem)`
   color: #6e6e6e;
   background-color: #f1f1f1;
@@ -68,7 +64,6 @@ interface ProgressBarItemProps {
   isDisabled: boolean;
 }
 
-// tslint:disable-next-line: variable-name
 const ProgressBarItem = ({ value, isActive, isDisabled }: ProgressBarItemProps) => (
   <StyledItemWrapper withLightLine={isActive || isDisabled}>
     {

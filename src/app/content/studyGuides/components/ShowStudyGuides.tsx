@@ -14,7 +14,6 @@ import StudyGuides from './StudyGuides';
 import StudyGuidesCTA from './StudyGuidesCTA';
 import StudyGuidesToasts from './StudyGuidesToasts';
 
-// tslint:disable-next-line:variable-name
 export const StudyGuidesBody = styled(PopupBody)`
   background: ${theme.color.neutral.darker};
   ${theme.breakpoints.mobile(css`
@@ -31,7 +30,6 @@ export const StudyGuidesBody = styled(PopupBody)`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 const ShowStudyGuides = ({topElRef}: {topElRef: React.RefObject<HTMLElement>}) => {
   const ref = React.useRef<HTMLElement>(null);
   const [showGoToTop, setShowGoToTop] = React.useState(false);

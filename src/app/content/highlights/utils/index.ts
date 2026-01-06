@@ -3,7 +3,7 @@ export {
   getHighlightColorFiltersWithContent,
   getHighlightLocationFilterForPage,
   getHighlightLocationFiltersWithContent,
-  sectionIsHighlightLocationFilter
+  sectionIsHighlightLocationFilter,
 } from './locationFiltersUtils';
 
 export {
@@ -15,5 +15,5 @@ export {
   removeSummaryHighlight,
   updateSummaryHighlight,
   updateSummaryHighlightsDependOnFilters,
-  getSortedSummaryHighlights
+  getSortedSummaryHighlights,
 } from './summaryHighlightsUtils';

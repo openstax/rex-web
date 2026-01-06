@@ -17,7 +17,6 @@ jest.mock('react', () => {
   return { ...react, useEffect: react.useLayoutEffect };
 });
 
-// tslint:disable-next-line:variable-name
 const ToastNotifications = connect((state: AppState) => ({
   toasts: toastNotifications(state),
 }))(ToastNotificationsComponent);

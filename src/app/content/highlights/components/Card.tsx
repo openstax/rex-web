@@ -19,7 +19,7 @@ import {
   createHighlight,
   focusHighlight,
   requestDeleteHighlight,
-  setAnnotationChangesPending
+  setAnnotationChangesPending,
 } from '../actions';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
@@ -285,7 +285,6 @@ function EditCardWithOnCreate({
   );
 }
 
-// tslint:disable-next-line: variable-name
 const StyledCard = styled(Card)`
   ${mainCardStyles}
 `;

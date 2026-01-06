@@ -16,11 +16,11 @@ const click = (target: HTMLElement | Element) => {
 };
 
 describe('ScrollOffset', () => {
-  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React'];
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM']; // tslint:disable-line:variable-name
-  let ScrollOffset = require('./ScrollOffset').default; // tslint:disable-line:variable-name
+  let ReactDOM: ReturnType<typeof reactAndFriends>['ReactDOM'];
+  let ScrollOffset = require('./ScrollOffset').default;
 
   const render = (props?: {desktopOffset?: number, mobileOffset?: number}) => <div>
     <ScrollOffset desktopOffset={10} mobileOffset={5} {...props} />

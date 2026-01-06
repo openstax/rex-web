@@ -5,7 +5,6 @@ import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { disablePrint } from '../content/components/utils/disablePrint';
 import { PlainButton } from './Button';
 
-// tslint:disable-next-line:variable-name
 export const GoToTopWrapper = styled(PlainButton)`
   width: 4.8rem;
   height: 4.8rem;
@@ -20,7 +19,6 @@ export const GoToTopWrapper = styled(PlainButton)`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line:variable-name
 export const GoToTop = styled.div`
   width: 2.4rem;
   height: 2.4rem;
@@ -32,7 +30,6 @@ export const GoToTop = styled.div`
   color: white;
 `;
 
-// tslint:disable-next-line:variable-name
 export const GoToTopIcon = styled(AngleUp)`
   width: 1.6rem;
   height: 1.6rem;
@@ -44,7 +41,6 @@ interface GoToTopButtonProps {
   [key: string]: unknown;
 }
 
-// tslint:disable-next-line: variable-name
 const GoToTopButton = ({ i18nAriaLabel, onClick, ...rest }: GoToTopButtonProps) => <GoToTopWrapper
   onClick={onClick}
   aria-label={useIntl().formatMessage({id: i18nAriaLabel})}
