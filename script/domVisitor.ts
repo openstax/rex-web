@@ -17,6 +17,9 @@ import progressBar from './utils/progressBar';
 // Maximum number of retry attempts per page
 const maxAttempts = 2;
 
+// Close and re-open tab after this many pages to prevent memory leaks
+const closeTabAfter = 30;
+
 // Blocking GTM prevents most analytics scripts from loading
 const blockedRequests = [
   /^https?:\/\/(?:www\.)?googletagmanager\.com/,
@@ -81,83 +84,92 @@ async function visitPages(
   });
 
   let page: puppeteer.Page | undefined;
+  let pagesSinceRestart = 0;
 
-  for (const pageUrl of bookPages) {
-    let attempt = 0;
-
-    while (attempt < maxAttempts) {
-      attempt++;
-
-      if (!page) {
-        page = await newPage(browser, bar);
-      }
-
-      try {
-        const queryParams = queryString ? querystring.parse(queryString) : {};
-        if (archiveUrl) { queryParams.archive = archiveUrl; }
-        if (osWebUrl) { queryParams.osWeb = osWebUrl.replace(/^https?:\/\//i, ''); }
-        const qs = querystring.stringify(queryParams);
-        const appendQueryString = qs ? `?${qs}` : qs;
-        const pageComponents = pageUrl.split('/');
-        const slug = pageComponents[pageComponents.length - 1];
-        const linkSelector = `a[href^="${slug}"]`;
-        const link = await page.$(linkSelector);
-
-        if (link) {
-          await page.evaluate((linkCss) => {
-            const linkElt = document?.querySelector(linkCss);
-            if (!linkElt) {
-              // This should not be reachable
-              throw new Error('Evaluation failed: document or link not found');
-            }
-
-            linkElt.click();
-          }, linkSelector);
-          await page.waitForSelector(`${linkSelector}[aria-label*="Current Page"]`);
-        } else {
-          await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
-        }
-        await page.waitForSelector('body[data-rex-loaded="true"]');
-        await calmHooks(page);
-
-        const matches = await page.evaluate(audit);
-
-        if (matches.length > 0) {
-          anyFailures = true;
-          bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
-        }
-
-        const closeOverlayButton = await page.$('button[aria-label="close overlay"]');
-        if (closeOverlayButton) {
-          await closeOverlayButton.click();
-        }
-
-        break;
-      } catch (e: any) {
-        if (e.message) {
-          bar.interrupt(e.message);
-        }
-        if (attempt < maxAttempts) {
-          bar.interrupt(`- (attempt ${attempt} failed - retrying...) ${pageUrl}`);
-        } else {
-          anyFailures = true;
-          bar.interrupt(`- (error loading after ${maxAttempts} attempts) ${pageUrl}`);
-        }
-
-        await page.close();
+  try {
+    for (const pageUrl of bookPages) {
+      if (pagesSinceRestart >= closeTabAfter) {
+        await page?.close();
         page = undefined;
+        pagesSinceRestart = 0;
       }
+
+      let attempt = 0;
+
+      while (attempt < maxAttempts) {
+        attempt++;
+
+        if (!page) {
+          page = await newPage(browser, bar);
+        }
+
+        try {
+          const queryParams = queryString ? querystring.parse(queryString) : {};
+          if (archiveUrl) { queryParams.archive = archiveUrl; }
+          if (osWebUrl) { queryParams.osWeb = osWebUrl.replace(/^https?:\/\//i, ''); }
+          const qs = querystring.stringify(queryParams);
+          const appendQueryString = qs ? `?${qs}` : qs;
+          const pageComponents = pageUrl.split('/');
+          const slug = pageComponents[pageComponents.length - 1];
+          const linkSelector = `a[href^="${slug}"]`;
+          const link = await page.$(linkSelector);
+
+          if (link) {
+            await page.evaluate((linkCss) => {
+              const linkElt = document?.querySelector(linkCss);
+              if (!linkElt) {
+                // This should not be reachable
+                throw new Error('Evaluation failed: document or link not found');
+              }
+
+              linkElt.click();
+            }, linkSelector);
+            await page.waitForSelector(`${linkSelector}[aria-label*="Current Page"]`);
+          } else {
+            await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+          }
+          await page.waitForSelector('body[data-rex-loaded="true"]');
+          await calmHooks(page);
+
+          const matches = await page.evaluate(audit);
+
+          if (matches.length > 0) {
+            anyFailures = true;
+            bar.interrupt(`- (${matches.length}) ${pageUrl}#${matches[0]}`);
+          }
+
+          const closeOverlayButton = await page.$('button[aria-label="close overlay"]');
+          if (closeOverlayButton) {
+            await closeOverlayButton.click();
+          }
+
+          break;
+        } catch (e: any) {
+          if (e.message) {
+            bar.interrupt(e.message);
+          }
+          if (attempt < maxAttempts) {
+            bar.interrupt(`- (attempt ${attempt} failed - retrying...) ${pageUrl}`);
+          } else {
+            anyFailures = true;
+            bar.interrupt(`- (error loading after ${maxAttempts} attempts) ${pageUrl}`);
+          }
+
+          await page?.close();
+          page = undefined;
+        }
+      }
+
+      pagesSinceRestart++;
+      bar.tick();
     }
-
-    bar.tick();
+  } finally {
+    await page?.close();
   }
-
-  await page?.close();
 
   return anyFailures;
 }
 
-const cache = new QuickLRU<string, puppeteer.ResponseForRequest>({maxSize: cacheMaxSize});
 let hits = 0;
 let misses = 0;
 
@@ -168,6 +180,7 @@ async function newPage(
   browser: puppeteer.Browser,
   bar: ReturnType<typeof progressBar>
 ): Promise<puppeteer.Page> {
+  const cache = new QuickLRU<string, puppeteer.ResponseForRequest>({maxSize: cacheMaxSize});
   const page = await browser.newPage();
   const errorObserver: PageErrorObserver = (message) => {
     if (quiet !== undefined) {
@@ -252,11 +265,6 @@ async function newPage(
 
 async function run() {
   const audit = (await import(auditPath)).default;
-  const browser = await puppeteer.launch({
-    args: ['--no-sandbox'],
-    devtools: devTools,
-    headless: showBrowser === undefined,
-  });
   const archiveLoader = createArchiveLoader({
     archivePrefix: archiveUrl ?? rootUrl,
   });
@@ -271,11 +279,21 @@ async function run() {
 
   let anyFailures = false;
 
-  for (const book of books) {
-    anyFailures = await visitPages(browser, findBookPages(book), audit) || anyFailures;
-  }
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+    ],
+    devtools: devTools,
+    headless: showBrowser === undefined,
+  });
 
-  await browser.close();
+  try {
+    for (const book of books) {
+      anyFailures = await visitPages(browser, findBookPages(book), audit) || anyFailures;
+    }
+  } finally {
+    await browser.close();
+  }
 
   if (anyFailures) {
     process.exit(1);
