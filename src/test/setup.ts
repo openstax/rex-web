@@ -32,6 +32,9 @@ const ignoreConsoleErrorMessages = [
    * not being wrapped in <ErrorBoundary>
   */
   /(.*)Consider adding an error boundary to your tree to customize error handling behavior.(.*)/,
+  /* TableOfContents complains about these */
+  /Warning: Unknown event handler property `%s`/,
+  /Warning: React does not recognize the `%s` prop on a DOM element/,
 ];
 
 const originalConsoleError = console.error;
@@ -43,7 +46,6 @@ console.error = (msg: unknown) => {
   if (shouldIgnore) {
     return;
   }
-
   originalConsoleError(msg);
 };
 
