@@ -232,7 +232,7 @@ async function newPage(
   const ignoredErrors = [
     'Could not load body for this request. This might happen if the request is a preflight request.',
     'Protocol error (Network.getResponseBody): Target closed.',
-  ]
+  ];
 
   page.on('response', (response) => {
     const url = response.url();
