@@ -174,7 +174,6 @@ async function visitPages(
 let hits = 0;
 let misses = 0;
 
-// tslint:disable-next-line: no-console
 process.on('exit', () => console.log(`Cache hits: ${hits} / Total requests: ${hits + misses}`));
 
 async function newPage(
@@ -313,7 +312,7 @@ async function run() {
 }
 
 run().then(null, (err) => {
-  console.error(err); // tslint:disable-line:no-console
+  console.error(err);
   process.exit(1);
 });
 

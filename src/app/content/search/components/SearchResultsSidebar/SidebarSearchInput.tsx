@@ -14,7 +14,6 @@ interface State {
   formSubmitted: boolean;
 }
 
-// tslint:disable-next-line: variable-name
 export const StyledSearchWrapper = styled.div`
   flex: 1;
   padding: 1.6rem;
@@ -33,14 +32,12 @@ export const StyledSearchWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledSearchCloseButton = styled(TopbarStyled.CloseButton)`
   ${(props: { formSubmitted: boolean }) => !props.formSubmitted && theme.breakpoints.mobile(css`
     display: block;
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StyledSearchCloseButtonNew = styled(TopbarStyled.CloseButtonNew)`
   ${(props: { formSubmitted: boolean }) => !props.formSubmitted && theme.breakpoints.mobile(css`
     display: block;

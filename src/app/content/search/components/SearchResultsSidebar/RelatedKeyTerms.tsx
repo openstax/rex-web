@@ -10,7 +10,6 @@ import { SelectedResult } from '../../types';
 import SearchResultHits from './SearchResultHits';
 import * as Styled from './styled';
 
-// tslint:disable-next-line: variable-name
 const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
   book: Book, keyTermHits: SearchResultHit[], selectedResult: SelectedResult | null
 }) => {

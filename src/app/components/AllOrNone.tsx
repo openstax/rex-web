@@ -10,7 +10,6 @@ interface Props {
   disabled?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 const AllOrNone = ({className, onAll, onNone, disabled}: Props) => <div className={className}>
   <FormattedMessage id='i18n:highlighting:filters:all'>
     {(msg) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}

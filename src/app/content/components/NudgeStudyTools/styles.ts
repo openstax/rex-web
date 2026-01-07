@@ -6,12 +6,10 @@ import theme from '../../../theme';
 import { remsToPx } from '../../../utils';
 import { arrowDesktopHeight, closeButtonMobileMargin, closeButtonSize, contentWidth } from './constants';
 
-// tslint:disable-next-line: variable-name
 export const NudgeWrapper = styled.div`
   display: contents;
 `;
 
-// tslint:disable-next-line: variable-name
 export const NudgeContentWrapper = styled.div`
   position: fixed;
   width: ${contentWidth};
@@ -28,12 +26,10 @@ export const NudgeContentWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const NudgeContent = styled.div`
   position: relative;
 `;
 
-// tslint:disable-next-line: variable-name
 const NudgeHeadingStyles = styled.h2`
   font-size: 3.6rem;
   line-height: 1.1;
@@ -53,10 +49,8 @@ const NudgeHeadingStyles = styled.h2`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const NudgeHeading = htmlMessage('i18n:nudge:study-tools:heading', NudgeHeadingStyles);
 
-// tslint:disable-next-line: variable-name
 export const NudgeTextStyles = styled.div`
   font-size: 2.4rem;
   font-weight: 400;
@@ -72,7 +66,6 @@ export const NudgeTextStyles = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const NudgeArrow = styled.img`
   position: fixed;
   z-index: ${theme.zIndex.nudgeOverlay + 1};
@@ -84,13 +77,11 @@ export const NudgeArrow = styled.img`
   `}
 `;
 
-// tslint:disable-next-line: variable-name
 export const NudgeCloseIcon = styled(Times)`
   width: 1.1rem;
   color: ${theme.color.text.white};
 `;
 
-// tslint:disable-next-line: variable-name
 export const NudgeCloseButton = styled(PlainButton)`
   position: fixed;
   z-index: ${theme.zIndex.nudgeOverlay + 1};
@@ -121,7 +112,6 @@ interface NudgeSpotlightPlacement {
   width: number;
 }
 
-// tslint:disable-next-line: variable-name
 export const NudgeBackground = styled.div`
   position: fixed;
   top: 0;
@@ -144,7 +134,6 @@ interface ClickBlockerProps {
   area: 'top' | 'right' | 'bottom' | 'left';
 }
 
-// tslint:disable-next-line: variable-name
 export const ClickBlocker = styled.div`
   width: 100%;
   height: 100%;
@@ -155,7 +144,6 @@ export const ClickBlocker = styled.div`
   grid-area: ${({area}: ClickBlockerProps) => area};
 `;
 
-// tslint:disable-next-line: variable-name
 export const NudgeElementTarget = styled.div`
   display: contents;
 `;

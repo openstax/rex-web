@@ -34,8 +34,8 @@ const ignoreConsoleErrorMessages = [
   /(.*)Consider adding an error boundary to your tree to customize error handling behavior.(.*)/,
 ];
 
-const originalConsoleError = console.error;  // tslint:disable-line:no-console
-console.error = (...args: unknown[]) => {  // tslint:disable-line:no-console
+const originalConsoleError = console.error;
+console.error = (...args: unknown[]) => {
   const msg = args[0];
   const shouldIgnore = !!ignoreConsoleErrorMessages.find(
     (ignore) => typeof msg === 'string' && msg.match(ignore)
@@ -57,8 +57,8 @@ const ignoreConsoleWarnMessages = [
   /Please update the following components: LoadableComponent\s*$/,
 ];
 
-const originalConsoleWarn = console.warn;  // tslint:disable-line:no-console
-console.warn = (...args: unknown[]) => {  // tslint:disable-line:no-console
+const originalConsoleWarn = console.warn;
+console.warn = (...args: unknown[]) => {
   const msg = String(args[0] || '');
   const shouldIgnore = !!ignoreConsoleWarnMessages.find((ignore) => msg.match(ignore));
 
@@ -84,7 +84,6 @@ let mockResizeObserver: any;
 
 resetModules();
 
-// tslint:disable-next-line no-var-requires
 require('jest-styled-components');
 
 afterAll(async() => {
@@ -132,7 +131,6 @@ beforeEach(() => {
   );
 
   window.gtag = gtag;
-  // tslint:disable-next-line: only-arrow-functions
   mockResizeObserver = function(callback: () => void) {
     callback();
     return ({

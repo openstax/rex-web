@@ -17,9 +17,7 @@ describe('BookBanner', () => {
   let window: Window;
   let event: React.MouseEvent;
   let assign: jest.SpyInstance;
-  // tslint:disable-next-line:variable-name
   let BookBanner: React.FC;
-  // tslint:disable-next-line:variable-name
   let BarWrapper: React.FC<any>;
 
   beforeEach(() => {
@@ -43,10 +41,10 @@ describe('BookBanner', () => {
   });
 
   describe('without unsaved changes', () => {
-    let React: any; // tslint:disable-line:variable-name
-    let ReactDOM: any; // tslint:disable-line:variable-name
+    let React: any;
+    let ReactDOM: any;
     let renderer: any;
-    let TestContainer: any; // tslint:disable-line:variable-name
+    let TestContainer: any;
     let renderToDom: any;
 
     beforeEach(() => {
@@ -328,9 +326,9 @@ describe('BookBanner', () => {
       () => mockConfirmation
     );
 
-    let React: any; // tslint:disable-line:variable-name
+    let React: any;
     let renderer: any;
-    let TestContainer: any; // tslint:disable-line:variable-name
+    let TestContainer: any;
 
     beforeEach(() => {
       ({React, renderer, TestContainer} = reactAndFriends());
@@ -411,9 +409,9 @@ describe('BookBanner', () => {
   describe('outside browser', () => {
     const windowBackup = window;
     const documentBackup = document;
-    let React: any; // tslint:disable-line:variable-name
+    let React: any;
     let renderer: any;
-    let TestContainer: any; // tslint:disable-line:variable-name
+    let TestContainer: any;
 
     beforeEach(() => {
       delete (global as any).window;
@@ -446,7 +444,6 @@ describe('BookBanner', () => {
       const store = createTestStore(state);
       const component = renderer.create(<TestContainer store={store}><BookBanner /></TestContainer>);
 
-      // tslint:disable-next-line: no-empty
       renderer.act(() => {});
 
       const tree = component.toJSON();

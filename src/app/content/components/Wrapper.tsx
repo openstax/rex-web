@@ -16,7 +16,6 @@ interface WrapperProps {
   className?: string;
 }
 
-// tslint:disable-next-line:variable-name
 export const Wrapper = styled(
   ({hasQuery, verticalNavOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
     <ContentLayoutBody {...props}>
@@ -34,7 +33,6 @@ export const Wrapper = styled(
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const ContentLayoutBody = styled.div`
   width: 100%;
   max-width: ${contentWrapperMaxWidth + verticalNavbarMaxWidth * 2}rem;

@@ -2,7 +2,6 @@ import { ToastMeta } from '../app/notifications/types';
 
 export class ApplicationError extends Error {}
 
-// tslint:disable-next-line: max-classes-per-file
 export class ToastMesssageError extends Error {
   public messageKey: string;
   public meta: ToastMeta;
@@ -14,7 +13,6 @@ export class ToastMesssageError extends Error {
   }
 }
 
-// tslint:disable-next-line: max-classes-per-file
 export const makeToastMessageError = (messageKey: string) => class extends ToastMesssageError {
   constructor(meta: ToastMeta) {
     super(messageKey, meta);

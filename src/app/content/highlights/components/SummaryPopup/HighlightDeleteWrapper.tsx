@@ -6,7 +6,6 @@ import { textStyle } from '../../../../components/Typography';
 import { useDrawFocus, useTrapTabNavigation } from '../../../../reactUtils';
 import { HighlightEditButtons } from './styles';
 
-// tslint:disable-next-line:variable-name
 const StyledHighlightDeleteWrapper = styled.div`
   position: absolute;
   top: 0;

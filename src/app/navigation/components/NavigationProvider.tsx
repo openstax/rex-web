@@ -15,7 +15,6 @@ export default connectNavigationProvider(({ routes, location }: { routes: AnyRou
   const match = utils.findRouteMatch(routes, location);
 
   if (match) {
-    // tslint:disable-next-line:variable-name
     const Component = match.route.component;
     return <ErrorBoundary><Component /></ErrorBoundary >;
   } else {

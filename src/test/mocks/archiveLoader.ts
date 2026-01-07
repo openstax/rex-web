@@ -1,4 +1,3 @@
-// tslint:disable: max-line-length
 import fs from 'fs';
 import cloneDeep from 'lodash/fp/cloneDeep';
 import path from 'path';

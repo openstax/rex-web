@@ -7,7 +7,6 @@ import { textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { HighlightEditButtons } from './styles';
 
-// tslint:disable-next-line:variable-name
 const HighlightNote = styled.div`
   ${textRegularStyle}
   padding-top: 1.2rem;
@@ -22,14 +21,12 @@ const HighlightNote = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const HighlightNoteAnnotation = styled.div`
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: break-word;
 `;
 
-// tslint:disable-next-line:variable-name
 const Textarea = styled.textarea`
   ${textRegularStyle}
   font-family: inherit;
@@ -98,7 +95,6 @@ function useCalculatedHeight() {
   return { calculateHeight, taStyle };
 }
 
-// tslint:disable-next-line:variable-name
 const EditHighlightAnnotation = ({
   annotation,
   onSave,
@@ -167,7 +163,6 @@ const EditHighlightAnnotation = ({
   );
 };
 
-// tslint:disable-next-line:variable-name
 const HighlightAnnotation = ({
   annotation,
   isEditing,

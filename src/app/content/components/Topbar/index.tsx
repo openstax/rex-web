@@ -1,18 +1,9 @@
-import flow from 'lodash/fp/flow';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { isHtmlElement } from '../../../guards';
-import { AppState, Dispatch } from '../../../types';
-import { assertDocument } from '../../../utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { openMobileMenu, setTextSize } from '../../actions';
 import { TextResizerValue } from '../../constants';
-import {
-  clearSearch,
-  openMobileToolbar,
-  openSearchResultsMobile,
-  requestSearch,
-} from '../../search/actions';
+import { openSearchResultsMobile } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
@@ -22,29 +13,14 @@ import { TextResizer } from './TextResizer';
 import { useKeyCombination, useMatchMobileQuery } from '../../../reactUtils';
 import { searchKeyCombination } from '../../highlights/constants';
 import { HTMLElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import { useSearchState, useMobileToolbar } from './hooks';
 
-interface Props {
-  search: typeof requestSearch;
-  query: string | null;
-  clearSearch: () => void;
-  openSearchResults: () => void;
-  openMobileMenu: () => void;
-  openMobileToolbar: () => void;
+// Props interface no longer needed with hooks pattern - state comes from useSelector
+
+type CommonSearchInputParams = {
   mobileToolbarOpen: boolean;
   searchButtonColor: string | null;
   searchInSidebar: boolean;
-  searchSidebarOpen: boolean;
-  hasSearchResults: boolean;
-  bookTheme: string;
-  textSize: TextResizerValue | null;
-  setTextSize: (size: TextResizerValue) => void;
-  selectedResult: unknown;
-}
-
-type CommonSearchInputParams = Pick<
-  Props,
-  'mobileToolbarOpen' | 'searchButtonColor' | 'searchInSidebar'
-> & {
   newButtonEnabled: boolean;
   onSearchChange: (e: React.FormEvent<HTMLInputElement>) => void;
   onSearchClear: (e: React.FormEvent) => void;
@@ -131,11 +107,11 @@ function MobileSearchInputWrapper({
   hasSearchResults,
   children,
 } : React.PropsWithChildren<
-  CommonSearchInputParams &
-  Pick<
-    Props,
-    'openSearchResults' | 'searchSidebarOpen' | 'hasSearchResults'
-  >
+  CommonSearchInputParams & {
+    openSearchResults: () => void;
+    searchSidebarOpen: boolean;
+    hasSearchResults: boolean;
+  }
 >) {
   const openSearchbar = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -249,118 +225,112 @@ function AltSCycler({hasSearchResults}: {hasSearchResults: boolean}) {
   return null;
 }
 
-function Topbar(props: Props) {
-  const openMenu = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      props.openMobileMenu();
-    },
-    [props]
-  );
-  const newButtonEnabled = !!props.searchButtonColor;
-  const prevQuery = React.useRef('');
-  const [query, setQuery] = React.useState('');
-  const [formSubmitted, setFormSubmitted] = React.useState(false);
+/**
+ * Topbar Component
+ *
+ * Main navigation toolbar providing:
+ * - Search functionality (desktop and mobile variants)
+ * - Mobile menu button
+ * - Text resizing controls
+ * - Keyboard navigation (Alt+S for search focus cycling)
+ *
+ * Converted to modern hooks pattern (useSelector/useDispatch) from legacy connect() HOC.
+ */
+function Topbar() {
+  // Redux state via hooks
+  const dispatch = useDispatch();
+  const bookTheme = useSelector(selectContent.bookTheme);
+  const hasSearchResults = useSelector(selectSearch.hasResults);
+  const searchButtonColor = useSelector(selectSearch.searchButtonColor);
+  const searchInSidebar = useSelector(selectSearch.searchInSidebar);
+  const searchSidebarOpen = useSelector(selectSearch.searchResultsOpen);
+  const textSize = useSelector(selectContent.textSize);
+
+  // Custom hooks for business logic
+  const {
+    query,
+    formSubmitted,
+    handleSearchChange: onSearchChange,
+    handleSearchClear: onSearchClear,
+    handleSearchSubmit: onSearchSubmit,
+  } = useSearchState();
+
+  const {
+    mobileToolbarOpen,
+    toggleMobile,
+  } = useMobileToolbar();
+
+  // Memoize state object for child components
   const state = React.useMemo(
     () => ({query, formSubmitted}),
     [query, formSubmitted]
   );
 
-  if (props.query) {
-    if (props.query !== query && props.query !== prevQuery.current) {
-      setQuery(props.query);
-    }
-    prevQuery.current = props.query;
-  }
+  const newButtonEnabled = !!searchButtonColor;
 
-  const onSearchChange = React.useCallback(
-    ({currentTarget}: React.FormEvent<HTMLInputElement>) => {
-      setQuery(currentTarget.value);
-      setFormSubmitted(false);
-    },
-    []
-  );
-  const onSearchClear = React.useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      setQuery('');
-      setFormSubmitted(false);
-    },
-    []
-  );
-  const onSearchSubmit = React.useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      const activeElement = assertDocument().activeElement;
-      if (query) {
-        if (isHtmlElement(activeElement)) {
-          activeElement.blur();
-        }
-        props.search(query);
-        setFormSubmitted(true);
-      }
-    },
-    [props, query]
-  );
-  const toggleMobile = React.useCallback(
+  // Event handlers
+  const openMenu = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-
-      if (props.mobileToolbarOpen) {
-        props.clearSearch();
-      } else {
-        props.openMobileToolbar();
-      }
+      dispatch(openMobileMenu());
     },
-    [props]
+    [dispatch]
   );
+
+  const handleOpenSearchResults = React.useCallback(() => {
+    dispatch(openSearchResultsMobile());
+  }, [dispatch]);
+
+  const handleSetTextSize = React.useCallback((size: TextResizerValue) => {
+    dispatch(setTextSize(size));
+  }, [dispatch]);
 
   return (
     <Styled.TopBarWrapper data-testid='topbar'>
-      {typeof window !== 'undefined' && <AltSCycler hasSearchResults={props.hasSearchResults} />}
+      {typeof window !== 'undefined' && <AltSCycler hasSearchResults={hasSearchResults} />}
       <Styled.SearchPrintWrapper>
         <NudgeElementTarget id={mobileNudgeStudyToolsTargetId}>
           <Styled.MenuButton type='button' onClick={openMenu} />
         </NudgeElementTarget>
 
         <DesktopSearchInputWrapper
-          mobileToolbarOpen={props.mobileToolbarOpen}
+          mobileToolbarOpen={mobileToolbarOpen}
           newButtonEnabled={newButtonEnabled}
           onSearchChange={onSearchChange}
           onSearchClear={onSearchClear}
           onSearchSubmit={onSearchSubmit}
-          searchButtonColor={props.searchButtonColor}
-          searchInSidebar={props.searchInSidebar}
+          searchButtonColor={searchButtonColor}
+          searchInSidebar={searchInSidebar}
           state={state}
           toggleMobile={toggleMobile}
         />
         <TextResizer
-          bookTheme={props.bookTheme}
-          textSize={props.textSize}
-          setTextSize={props.setTextSize}
+          bookTheme={bookTheme}
+          textSize={textSize}
+          setTextSize={handleSetTextSize}
           data-testid='text-resizer'
         />
       </Styled.SearchPrintWrapper>
 
       <MobileSearchInputWrapper
-          mobileToolbarOpen={props.mobileToolbarOpen}
+          mobileToolbarOpen={mobileToolbarOpen}
           newButtonEnabled={newButtonEnabled}
           onSearchChange={onSearchChange}
           onSearchClear={onSearchClear}
           onSearchSubmit={onSearchSubmit}
-          searchButtonColor={props.searchButtonColor}
-          searchInSidebar={props.searchInSidebar}
+          searchButtonColor={searchButtonColor}
+          searchInSidebar={searchInSidebar}
           state={state}
           toggleMobile={toggleMobile}
-          openSearchResults={props.openSearchResults}
-          searchSidebarOpen={props.searchSidebarOpen}
-          hasSearchResults={props.hasSearchResults}
+          openSearchResults={handleOpenSearchResults}
+          searchSidebarOpen={searchSidebarOpen}
+          hasSearchResults={hasSearchResults}
         >
         <TextResizer
-            bookTheme={props.bookTheme}
-            textSize={props.textSize}
-            setTextSize={props.setTextSize}
-            mobileToolbarOpen={props.mobileToolbarOpen}
+            bookTheme={bookTheme}
+            textSize={textSize}
+            setTextSize={handleSetTextSize}
+            mobileToolbarOpen={mobileToolbarOpen}
             data-testid='mobile-text-resizer'
           />
       </MobileSearchInputWrapper>
@@ -368,24 +338,4 @@ function Topbar(props: Props) {
   );
 }
 
-export default connect(
-  (state: AppState) => ({
-    bookTheme: selectContent.bookTheme(state),
-    hasSearchResults: selectSearch.hasResults(state),
-    mobileToolbarOpen: selectSearch.mobileToolbarOpen(state),
-    query: selectSearch.query(state),
-    searchButtonColor: selectSearch.searchButtonColor(state),
-    searchInSidebar: selectSearch.searchInSidebar(state),
-    searchSidebarOpen: selectSearch.searchResultsOpen(state),
-    textSize: selectContent.textSize(state),
-    selectedResult: selectSearch.selectedResult(state),
-  }),
-  (dispatch: Dispatch) => ({
-    clearSearch: flow(clearSearch, dispatch),
-    openMobileMenu: flow(openMobileMenu, dispatch),
-    openMobileToolbar: flow(openMobileToolbar, dispatch),
-    openSearchResults: flow(openSearchResultsMobile, dispatch),
-    search: flow(requestSearch, dispatch),
-    setTextSize: flow(setTextSize, dispatch),
-  })
-)(Topbar);
+export default Topbar;

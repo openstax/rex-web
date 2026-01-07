@@ -78,11 +78,10 @@ async function checkPages(
     await Promise.all(pageChunk.map(visitPage));
   }
 
-   // tslint:disable-next-line:no-console
   console.log(`checked ${pages.length} pages, found ${notFound.length} 404s`);
 
   if (notFound.length) {
-    console.log(`404'd: ${notFound.length === pages.length // tslint:disable-line:no-console
+    console.log(`404'd: ${notFound.length === pages.length
       ? 'all'
       : `\n${notFound.join('\n')}\n`}`);
   }
@@ -133,6 +132,6 @@ async function checkUrls() {
 }
 
 checkUrls().catch((err) => {
-  console.error(err); // tslint:disable-line:no-console
+  console.error(err);
   process.exit(1);
 });

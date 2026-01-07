@@ -3,7 +3,6 @@ import Button from '../../../../components/Button';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAWrapper = styled.div`
   display: flex;
   height: 20rem;
@@ -28,7 +27,6 @@ export const StudyGuidesCTAWrapper = styled.div`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAInnerWrapper = styled.div`
   display: contents;
   ${theme.breakpoints.mobile(css`
@@ -39,14 +37,12 @@ export const StudyGuidesCTAInnerWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAContent = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTATitle = styled.h2`
   overflow: hidden;
   font-size: 2.4rem;
@@ -58,7 +54,6 @@ export const StudyGuidesCTATitle = styled.h2`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAButtons = styled.div`
   overflow: hidden;
   display: flex;
@@ -66,7 +61,6 @@ export const StudyGuidesCTAButtons = styled.div`
   flex-wrap: wrap;
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAButton = styled(Button)`
   width: 24rem;
   height: 4.8rem;
@@ -92,12 +86,10 @@ export const StudyGuidesCTAButton = styled(Button)`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAButtonsSecondary = styled.div`
   padding: 1.4rem 0;
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTASeparator = styled.span`
   font-size: 1.6rem;
   text-transform: uppercase;
@@ -108,7 +100,6 @@ export const StudyGuidesCTASeparator = styled.span`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTALink = styled.a`
   font-size: 1.6rem;
   color: #027eb5;
@@ -117,7 +108,6 @@ export const StudyGuidesCTALink = styled.a`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAInfoWrapper = styled.div`
   flex: 1;
   display: flex;
@@ -131,7 +121,6 @@ export const StudyGuidesCTAInfoWrapper = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAInfo = styled.div`
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -151,7 +140,6 @@ export const StudyGuidesCTAInfo = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAArrowDesktop = styled.img`
   position: absolute;
   ${theme.breakpoints.mobile(css`
@@ -159,7 +147,6 @@ export const StudyGuidesCTAArrowDesktop = styled.img`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const StudyGuidesCTAArrowMobile = styled.img`
   position: absolute;
   left: -4rem;
