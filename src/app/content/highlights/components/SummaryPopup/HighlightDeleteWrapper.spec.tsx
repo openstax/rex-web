@@ -7,7 +7,6 @@ import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 describe('HighlightDeleteWrapper', () => {
   it('match snapshot', () => {
     const component = renderer.create(<TestContainer>
-      {/* tslint:disable-next-line: no-empty */}
       <HighlightDeleteWrapper onCancel={() => {}} onDelete={() => {}} />
     </TestContainer>);
 

@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import renderer, { act } from 'react-test-renderer';
+import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook } from '../../../../test/mocks/archiveLoader';
@@ -70,7 +70,7 @@ describe('MyHighlights button and PopUp', () => {
       <HighlightButton />
     </TestContainer>);
 
-    act(() => {
+    renderer.act(() => {
       /* fire events that update state */
       component.root.findByType('button').props.onClick();
     });
@@ -83,8 +83,8 @@ describe('MyHighlights button and PopUp', () => {
       <HighlightsPopUp />
     </TestContainer>);
 
-    act(() => { store.dispatch(openMyHighlights()); });
-    act(() => {
+    renderer.act(() => { store.dispatch(openMyHighlights()); });
+    renderer.act(() => {
       component.root.findByProps({ 'data-testid': 'close-highlights-popup' })
       .props.onClick();
     });
@@ -100,7 +100,7 @@ describe('MyHighlights button and PopUp', () => {
       <HighlightsPopUp />
     </TestContainer>);
 
-    act(() => {
+    renderer.act(() => {
       /* fire events that update state */
       component.root.findByType('button').props.onClick();
     });
@@ -133,9 +133,9 @@ describe('MyHighlights button and PopUp', () => {
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
     isHtmlElement.mockReturnValueOnce(true);
 
-    act(() => { store.dispatch(openMyHighlights()); });
+    renderer.act(() => { store.dispatch(openMyHighlights()); });
     // Force componentDidUpdate()
-    act(() => { store.dispatch(receiveUser(user)); });
+    renderer.act(() => { store.dispatch(receiveUser(user)); });
 
     expect(focus).toHaveBeenCalled();
   });
@@ -248,8 +248,9 @@ describe('MyHighlights button and PopUp', () => {
         </TestContainer>
       );
 
-      act(() => {
+      renderer.act(() => {
         component.root.findByType('button').props.onClick();
+        // wait for showConfirmation to resolve
       });
 
       expect(dispatch).not.toHaveBeenCalledWith(openMyHighlights());
@@ -262,12 +263,15 @@ describe('MyHighlights button and PopUp', () => {
         </TestContainer>
       );
 
-      act(() => {
+      await renderer.act(async() => {
         component.root.findByType('button').props.onClick();
+        // Wait for async showConfirmation()
+        await Promise.resolve();
       });
 
-      act(() => {
+      await renderer.act(async() => {
         component.root.findByType('button').props.onClick();
+        await Promise.resolve();
       });
 
       expect(dispatch).toHaveBeenCalled();

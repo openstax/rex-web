@@ -113,7 +113,8 @@ describe('Page', () => {
 
     state = store.getState();
 
-    const testServices = createTestServices({prefetchResolutions: true});
+    // disable prefetchResolutions to prevent NetworkTimeout in tests
+    const testServices = createTestServices({prefetchResolutions: false});
 
     services = {
       ...testServices,
@@ -128,10 +129,14 @@ describe('Page', () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.resetAllMocks();
+
     unmountDom();
   });
 
   const renderDomHelper = ({topHeadingLevel}: {topHeadingLevel?: number} = {}) => {
+    // temporarily mock timers for PageToasts
+    jest.useFakeTimers();
+
     const result = renderToDom(
       <Provider store={store}>
         <Services.Provider value={services}>
@@ -144,13 +149,20 @@ describe('Page', () => {
       </Provider>
     );
 
+    ReactTestUtils.act(() => {
+      jest.runAllTimers();
+    });
+
+    jest.clearAllTimers();
+    jest.useRealTimers();
+
     rootComponent = result.root;
 
     return result;
   };
 
   const renderDomWithReferences = ({html, topHeadingLevel}: {html?: string, topHeadingLevel?: number} = {}) => {
-    const pageWithRefereces = {
+    const pageWithReferences = {
       ...page,
       content: html || `
         some text
@@ -166,9 +178,9 @@ describe('Page', () => {
         <a href="cross-book-reference-error">reference loading error</a>
       `,
     };
-    archiveLoader.mockPage(book, pageWithRefereces, 'unused?1');
+    archiveLoader.mockPage(book, pageWithReferences, 'unused?1');
 
-    store.dispatch(receivePage({...pageWithRefereces, references }));
+    store.dispatch(receivePage({...pageWithReferences, references }));
 
     return renderDomHelper({topHeadingLevel});
   };
@@ -250,7 +262,13 @@ describe('Page', () => {
     });
 
     it('throws if the value for start is invalid', async() => {
-      await expect(htmlHelper('<ol start="abc"><li>item</li></ol>')).rejects.toThrow();
+      // Silence console.error due to invalid list start attribute
+      const consoleError = jest.spyOn(console, 'error').mockImplementation();
+      try {
+        await expect(htmlHelper('<ol start="abc"><li>item</li></ol>')).rejects.toThrow();
+      } finally {
+        consoleError.mockRestore();
+      }
     });
 
     it('adds prefix to list items', async() => {
@@ -274,7 +292,7 @@ describe('Page', () => {
         <div class="os-figure">
           <figure id="figure-id1">
             <span data-alt="Something happens." data-type="media" id="span-id1">
-              <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300">
+              <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/archive/codeversion/resources/hash" width="300">
             </span>
           </figure>
           <div class="os-caption-container">
@@ -311,7 +329,7 @@ describe('Page', () => {
       `)).toEqual(`<div class="os-figure" id="figure-id1">
           <figure data-id="figure-id1">
             <span data-alt="Something happens." data-type="media" id="span-id1">
-              <button type="button" aria-label="Click to enlarge image of Something happens." class="image-button-wrapper"><img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300"></button>
+              <button type="button" aria-label="Click to enlarge image of Something happens." class="image-button-wrapper"><img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/hash" width="300" data-original-src="/apps/archive/codeversion/resources/hash"></button>
             </span>
           </figure>
           <div class="os-caption-container">
@@ -487,9 +505,13 @@ describe('Page', () => {
         }
 
         Object.defineProperty(button.parentElement, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        ReactTestUtils.act(() => {
+          expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        });
         Object.defineProperty(button, 'parentElement', {value: null, writable: true});
-        expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        ReactTestUtils.act(() => {
+          expect(() => button.dispatchEvent(makeToggleEvent())).not.toThrow();
+        });
       });
 
       it('is automatically expanded if it contains a link anchor', async() => {
@@ -600,10 +622,12 @@ describe('Page', () => {
     const evt3 = makeClickEvent();
     const evt4 = makeClickEvent();
 
-    firstLink.dispatchEvent(evt1);
-    secondLink.dispatchEvent(evt2);
-    thirdLink.dispatchEvent(evt3);
-    button.dispatchEvent(evt4);
+    ReactTestUtils.act(() => {
+      firstLink.dispatchEvent(evt1);
+      secondLink.dispatchEvent(evt2);
+      thirdLink.dispatchEvent(evt3);
+      button.dispatchEvent(evt4);
+    });
 
     expect(evt1.preventDefault).toHaveBeenCalled();
     expect(evt2.preventDefault).not.toHaveBeenCalled();
@@ -646,7 +670,9 @@ describe('Page', () => {
     }
 
     const event = makeClickEvent();
-    lastLink.dispatchEvent(event);
+    ReactTestUtils.act(() => {
+      lastLink.dispatchEvent(event);
+    });
 
     expect(event.preventDefault).not.toHaveBeenCalled();
 
@@ -675,7 +701,9 @@ describe('Page', () => {
 
     const evt1 = makeClickEvent();
 
-    firstLink.dispatchEvent(evt1);
+    ReactTestUtils.act(() => {
+      firstLink.dispatchEvent(evt1);
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -716,7 +744,9 @@ describe('Page', () => {
 
     const evt1 = makeClickEvent();
 
-    hashLink.dispatchEvent(evt1);
+    ReactTestUtils.act(() => {
+      hashLink.dispatchEvent(evt1);
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -748,7 +778,9 @@ describe('Page', () => {
 
     const evt1 = makeClickEvent();
 
-    archiveLink.dispatchEvent(evt1);
+    ReactTestUtils.act(() => {
+      archiveLink.dispatchEvent(evt1);
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -793,7 +825,9 @@ describe('Page', () => {
 
     const evt1 = makeMetaEvent(document);
 
-    firstLink.dispatchEvent(evt1);
+    ReactTestUtils.act(() => {
+      firstLink.dispatchEvent(evt1);
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -834,11 +868,6 @@ describe('Page', () => {
   });
 
   it('doesn\'t break when selecting a highlight that failed to highlight', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
 
     const {root} = renderDomWithReferences();
 
@@ -896,10 +925,12 @@ describe('Page', () => {
       },
     ]);
 
-    store.dispatch(requestSearch('asdf'));
+    ReactTestUtils.act(() => {
+      store.dispatch(requestSearch('asdf'));
 
-    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
-    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    });
 
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
@@ -930,10 +961,12 @@ describe('Page', () => {
       },
     ]);
 
-    store.dispatch(requestSearch('asdf'));
+    ReactTestUtils.act(() => {
+      store.dispatch(requestSearch('asdf'));
 
-    store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
-    store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1, hit2])));
+      store.dispatch(selectSearchResult({result: hit1, highlight: 0}));
+    });
 
     renderDomWithReferences();
 
@@ -945,7 +978,9 @@ describe('Page', () => {
     addFocusedStyles.mockClear();
     (scrollTo as any).mockClear();
 
-    store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
+    ReactTestUtils.act(() => {
+      store.dispatch(receiveSearchResults(makeSearchResults([hit1])));
+    });
 
     expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
@@ -973,26 +1008,31 @@ describe('Page', () => {
       },
     ]);
 
-    store.dispatch(requestSearch('asdf'));
-    store.dispatch(receiveSearchResults(makeSearchResults([hit])));
-    store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    ReactTestUtils.act(() => {
+      store.dispatch(requestSearch('asdf'));
+      store.dispatch(receiveSearchResults(makeSearchResults([hit])));
+      store.dispatch(selectSearchResult({result: hit, highlight: 0}));
+    });
 
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
 
-    // make sure nothing happened
-    expect(highlightResults).not.toHaveBeenCalled();
+    // make sure no scroll happened
+    expect(highlightResults).toHaveBeenCalled();
+    highlightResults.mockClear();
     expect(mockHighlight.addFocusedStyles).not.toHaveBeenCalled();
     expect(scrollTo).not.toHaveBeenCalled();
 
-    // do navigation
+    // do navigation with a highlight
     highlightResults.mockReturnValue([
       {
         highlights: {0: [mockHighlight]},
         result: hit,
       },
     ]);
-    store.dispatch(receivePage({...shortPage, references: []}));
+    ReactTestUtils.act(() => {
+      store.dispatch(receivePage({...shortPage, references: []}));
+    });
 
     // page lifecycle hooks
     await new Promise((resolve) => setImmediate(resolve));
@@ -1002,11 +1042,6 @@ describe('Page', () => {
   });
 
   it('renders error modal for different search results', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
 
     const {root} = renderDomWithReferences();
 
@@ -1060,11 +1095,6 @@ describe('Page', () => {
   });
 
   it('doesn\'t render error modal for the same result twice', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
 
     const {root} = renderDomWithReferences();
 
@@ -1114,11 +1144,6 @@ describe('Page', () => {
   });
 
   it('refresh error modal for different search results if they are of the same type', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
     const {root} = renderDomWithReferences();
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1168,11 +1193,6 @@ describe('Page', () => {
   });
 
   it('renders error modal for highlight scroll target when it cant find a highlight - only once', async() => {
-    // ignore PageToasts timeout
-    jest.spyOn(global, 'setTimeout').mockImplementation((cb) => {
-      cb();
-      return 0 as any;
-    });
     const mockScrollTarget = `target=${JSON.stringify({ type: 'highlight', id: 'some-id' })}`;
 
     const dateMock = jest.spyOn(Date, 'now')
@@ -1257,15 +1277,17 @@ describe('Page', () => {
 
     renderDomWithReferences();
 
-    store.dispatch(actions.receivePage({
-      abstract: '',
-      content: 'some other content',
-      id: 'adsfasdf',
-      references: [],
-      revised: '2018-07-30T15:58:45Z',
-      slug: 'mock-slug',
-      title: 'qerqwer',
-    }));
+    ReactTestUtils.act(() => {
+      store.dispatch(actions.receivePage({
+        abstract: '',
+        content: 'some other content',
+        id: 'adsfasdf',
+        references: [],
+        revised: '2018-07-30T15:58:45Z',
+        slug: 'mock-slug',
+        title: 'qerqwer',
+      }));
+    });
 
     await new Promise((resolve) => defer(resolve));
 
@@ -1279,7 +1301,7 @@ describe('Page', () => {
 
     const someHashPage = {
       abstract: '',
-      content: '<div style="height: 1000px;"></div><img src=""><div id="somehash"></div>',
+      content: '<div style="height: 1000px;"></div><img src="/apps/archive/codeversion/resources/hash"><div id="somehash"></div>',
       id: 'adsfasdf',
       revised: '2018-07-30T15:58:45Z',
       slug: 'mock-slug',
@@ -1302,8 +1324,8 @@ describe('Page', () => {
 
     (allImagesLoaded as any as jest.SpyInstance).mockReturnValue(allImagesLoadedPromise);
 
-    await new Promise((resolve) => setTimeout(resolve, 10));
     // deferred scroll execution (scrollToTarget uses setImmediate)
+    await new Promise((resolve) => setImmediate(resolve));
     await new Promise((resolve) => setImmediate(resolve));
 
     const target = root.querySelector('[id="somehash"]');
@@ -1361,10 +1383,12 @@ describe('Page', () => {
 
     expect(scrollTo).not.toHaveBeenCalled();
 
-    store.dispatch(actions.receivePage({
-      ...someHashPage,
-      references: [],
-    }));
+    ReactTestUtils.act(() => {
+      store.dispatch(actions.receivePage({
+        ...someHashPage,
+        references: [],
+      }));
+    });
 
     // page lifecycle hooks
     await Promise.resolve();
@@ -1485,8 +1509,8 @@ describe('Page', () => {
     <div class="os-figure">
       <figure id="figure-id1">
         <span data-alt="Something happens." data-type="media" id="span-id1">
-          <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/resources/hash" width="300">
-          <button><img data-media-type="image/png" id="img-id1" src="/resources/hash" width="300"></button>
+          <img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/archive/codeversion/resources/hash" width="300">
+          <button><img data-media-type="image/png" id="img-id1" src="/apps/archive/codeversion/resources/hash" width="300"></button>
         </span>
       </figure>
       <div class="os-caption-container">
@@ -1506,14 +1530,19 @@ describe('Page', () => {
 
       // use the same click helper as other tests
       const evt = makeClickEvent();
-      img.dispatchEvent(evt);
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(evt);
+      });
 
       // the modal portal renders into document.body
       const opened = assertDocument().body.querySelector('img[tabindex="0"]');
       expect(opened).toBeTruthy();
       if (!opened) return;
 
-      expect(opened.getAttribute('src')).toBe('http://localhost/resources/hash');
+      // resource urls get transformed to include the image-cdn
+      expect(opened.getAttribute('src')).toBe(
+        'http://localhost/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/hash'
+      );
       expect(opened.getAttribute('alt')).toBe('Something happens.');
     });
 
@@ -1525,19 +1554,27 @@ describe('Page', () => {
       if (!img) return expect(img).toBeTruthy();
 
       // open first
-      img.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
 
       // send escape
-      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      });
 
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
 
-      img.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
 
       // send Esc event
-      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+      });
 
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
 
@@ -1549,13 +1586,17 @@ describe('Page', () => {
       // Render portal
       const host = document.createElement('div');
       document.body.appendChild(host);
-      ReactDOM.render(<MediaModalPortal />, host);
+      ReactTestUtils.act(() => {
+        ReactDOM.render(<MediaModalPortal />, host);
+      });
 
       // Intentionally pass an invalid container to hit if (!container) return;
       expect(() => mount(undefined!)).not.toThrow();
 
       // Sanity: nothing opened (no listeners were attached)
-      document.body.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        document.body.dispatchEvent(makeClickEvent());
+      });
       expect(document.body.querySelector('img[tabindex="0"]')).toBeFalsy();
     });
 
@@ -1570,7 +1611,9 @@ describe('Page', () => {
       ReactDOM.unmountComponentAtNode(root);
 
       // try clicking again
-      img.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
 
       // still query document.body
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
@@ -1586,31 +1629,49 @@ describe('Page', () => {
       // Enter
       const enterEvt = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
       Object.defineProperty(enterEvt, 'preventDefault', { value: jest.fn() });
-      button.dispatchEvent(enterEvt);
+      ReactTestUtils.act(() => {
+        button.dispatchEvent(enterEvt);
+      });
 
       let opened = assertDocument().body.querySelector('img[tabindex="0"]');
       expect(opened).toBeTruthy();
       expect((enterEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
       // Close again
-      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
+      });
 
       // Space
       const spaceEvt = new KeyboardEvent('keydown', { key: ' ', bubbles: true });
       Object.defineProperty(spaceEvt, 'preventDefault', { value: jest.fn() });
-      button.dispatchEvent(spaceEvt);
+      ReactTestUtils.act(() => {
+        button.dispatchEvent(spaceEvt);
+      });
 
       opened = assertDocument().body.querySelector('img[tabindex="0"]');
       expect(opened).toBeTruthy();
       expect((spaceEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
+      // Comma (ignored)
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: ',', bubbles: true }));
+      });
+
+      opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      expect(opened).toBeTruthy();
+
       // Close again
-      assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      ReactTestUtils.act(() => {
+        assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      });
 
       // Irrelevant key
       const otherEvt = new KeyboardEvent('keydown', { key: 'a', bubbles: true });
       Object.defineProperty(otherEvt, 'preventDefault', { value: jest.fn() });
-      button.dispatchEvent(otherEvt);
+      ReactTestUtils.act(() => {
+        button.dispatchEvent(otherEvt);
+      });
 
       // should not open or call preventDefault
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
@@ -1649,7 +1710,7 @@ describe('Page', () => {
     <div class="os-figure">
       <figure>
         <span data-alt="Alt" data-type="media">
-          <img src="/resources/hash" width="300">
+          <img src="/apps/archive/codeversion/resources/hash" width="300">
         </span>
       </figure>
     </div>
@@ -1663,7 +1724,9 @@ describe('Page', () => {
       if (!img) return expect(img).toBeTruthy();
 
       // Open via click
-      img.dispatchEvent(makeClickEvent());
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
       expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
       expect(img.getAttribute('alt')).toBe(null);
 
@@ -1672,7 +1735,9 @@ describe('Page', () => {
       expect(closeBtn).toBeTruthy();
 
       if (closeBtn) {
-        closeBtn.dispatchEvent(makeClickEvent());
+        ReactTestUtils.act(() => {
+          closeBtn.dispatchEvent(makeClickEvent());
+        });
       }
 
       // Closed
@@ -1695,13 +1760,17 @@ describe('Page', () => {
       try {
         // Should render nothing and not throw
         expect(() => {
-          ReactDOM.render(<MediaModalPortal />, host);
+          ReactTestUtils.act(() => {
+            ReactDOM.render(<MediaModalPortal />, host);
+          });
         }).not.toThrow();
 
         expect(host.innerHTML).toBe('');
       } finally {
         getBody.mockRestore();
-        ReactDOM.unmountComponentAtNode(host);
+        ReactTestUtils.act(() => {
+          ReactDOM.unmountComponentAtNode(host);
+        });
         host.remove();
       }
     });

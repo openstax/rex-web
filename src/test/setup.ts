@@ -35,7 +35,8 @@ const ignoreConsoleErrorMessages = [
 ];
 
 const originalConsoleError = console.error;
-console.error = (msg: unknown) => {
+console.error = (...args: unknown[]) => {
+  const msg = args[0];
   const shouldIgnore = !!ignoreConsoleErrorMessages.find(
     (ignore) => typeof msg === 'string' && msg.match(ignore)
   );
@@ -44,7 +45,7 @@ console.error = (msg: unknown) => {
     return;
   }
 
-  originalConsoleError(msg);
+  originalConsoleError(...args);
 };
 
 const ignoreConsoleWarnMessages = [
@@ -57,14 +58,15 @@ const ignoreConsoleWarnMessages = [
 ];
 
 const originalConsoleWarn = console.warn;
-console.warn = (msg: string) => {
+console.warn = (...args: unknown[]) => {
+  const msg = String(args[0] || '');
   const shouldIgnore = !!ignoreConsoleWarnMessages.find((ignore) => msg.match(ignore));
 
   if (shouldIgnore) {
     return;
   }
 
-  originalConsoleWarn(msg);
+  originalConsoleWarn(...args);
 };
 
 if (process.env.CI) {
