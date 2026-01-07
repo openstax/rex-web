@@ -1,7 +1,7 @@
 /** @jest-environment puppeteer */
 import { Page } from 'puppeteer';
 import {
-  finishRender, getScrollTop, navigate, setDesktopViewport, setMobileViewport
+  finishRender, getScrollTop, navigate, setDesktopViewport, setMobileViewport,
 } from '../../../test/browserutils';
 import { cookieNudge } from './NudgeStudyTools/constants';
 
