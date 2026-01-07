@@ -111,7 +111,7 @@ async function visitPages(
           const appendQueryString = qs ? `?${qs}` : qs;
           const pageComponents = pageUrl.split('/');
           const slug = pageComponents[pageComponents.length - 1];
-          const linkSelector = `a[href^="${slug}"]`;
+          const linkSelector = `a[href*="${slug}"]`;
           const link = await page.$(linkSelector);
 
           if (link) {
@@ -126,8 +126,9 @@ async function visitPages(
             }, linkSelector);
             await page.waitForSelector(`${linkSelector}[aria-label*="Current Page"]`);
           } else {
-            await page.goto(`${rootUrl}${pageUrl}${appendQueryString}`);
+            await page.goto(decodeURI(`${rootUrl}${pageUrl}${appendQueryString}`));
           }
+
           await page.waitForSelector('body[data-rex-loaded="true"]');
           await calmHooks(page);
 
