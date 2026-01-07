@@ -203,25 +203,36 @@ async function newPage(
 
   page.on('pageerror', ({ message }) => errorObserver('ERR: ' + message));
 
-  page.on('request', (request) => {
-    const url = request.url();
+  page.on('request', async(request) => {
+    try {
+      const url = request.url();
 
-    if (blockedRequests.some((blockedRequest) => blockedRequest.test(url))) {
-      return request.abort();
-    }
-
-    if (!url.startsWith('data:')) {
-      const cachedResponse = cache.get(url);
-      if (cachedResponse) {
-        hits++;
-        return request.respond(cachedResponse);
-      } else {
-        misses++;
+      if (blockedRequests.some((blockedRequest) => blockedRequest.test(url))) {
+        await request.abort();
+        return;
       }
-    }
 
-    request.continue();
+      if (!url.startsWith('data:')) {
+        const cachedResponse = cache.get(url);
+        if (cachedResponse) {
+          hits++;
+          await request.respond(cachedResponse);
+          return;
+        } else {
+          misses++;
+        }
+      }
+
+      await request.continue();
+    } catch {
+      // request already handled
+    }
   });
+
+  const ignoredErrors = [
+    'Could not load body for this request. This might happen if the request is a preflight request.',
+    'Protocol error (Network.getResponseBody): Target closed.',
+  ]
 
   page.on('response', (response) => {
     const url = response.url();
@@ -236,9 +247,9 @@ async function newPage(
     if (!url.startsWith('data:')) {
       const headers = response.headers();
       const contentType = headers['content-type'];
+
       response.buffer().then((body) => cache.set(url, { status, headers, contentType, body })).catch((error) => {
-        // ignore this error that happens if we navigated away from the page before loading this response
-        if (error.message !== 'Protocol error (Network.getResponseBody): No resource with given identifier found') {
+        if (!ignoredErrors.includes(error.message)) {
           throw error;
         }
       });
