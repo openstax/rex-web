@@ -1,6 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
-import { Element, HTMLElement } from '@openstax/types/lib.dom';
+import { Element, HTMLElement, Selection } from '@openstax/types/lib.dom';
 import React from 'react';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
@@ -131,7 +131,7 @@ export const getOffsetToAdjustForHighlightPosition = (
   return position - offset;
 };
 
-export const getSelectionDirection = (selection: DomSelection): 'forward' | 'backward' => {
+export const getSelectionDirection = (selection: Selection): 'forward' | 'backward' => {
   if (!selection.anchorNode || !selection.focusNode) {
     return 'forward';
   }

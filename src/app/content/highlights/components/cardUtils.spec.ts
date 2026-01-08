@@ -1,5 +1,6 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { Node, Selection } from '@openstax/types/lib.dom';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertDocument } from '../../../utils';
 import {
@@ -141,8 +142,8 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
 
 describe('getSelectionDirection', () => {
   function createSelection(
-    anchorNode: DomNode | null, anchorOffset: number, focusNode: DomNode | null, focusOffset: number
-  ): DomSelection {
+    anchorNode: Node | null, anchorOffset: number, focusNode: Node | null, focusOffset: number
+  ): Selection {
     return {
       anchorNode,
       anchorOffset,
@@ -158,7 +159,7 @@ describe('getSelectionDirection', () => {
       containsNode: () => false,
       toString: () => '',
       type: 'Range',
-    } as unknown as DomSelection;
+    } as unknown as Selection;
   }
 
   it('returns "forward" if anchorNode or focusNode is missing', () => {
