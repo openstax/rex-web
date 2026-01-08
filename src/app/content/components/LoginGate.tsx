@@ -6,7 +6,6 @@ import { user } from '../../auth/selectors';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import ModalWithScrollLock from '../../components/Modal';
-import { useIntl } from 'react-intl';
 
 const Modal = styled(ModalWithScrollLock)`
   width: 100vw;
@@ -49,7 +48,7 @@ export default function LoginGate({
   book,
   children,
 }: React.PropsWithChildren<{ book: Book }>) {
-  const intl = useIntl();
+
   if (!!useSelector(user) ||
     !hasOSWebData(book) ||
     !book.require_login_message_text) {
@@ -58,7 +57,7 @@ export default function LoginGate({
   return (
     <>
       {children}
-      <Modal heading={intl.formatMessage({ id: 'i18n:content-warning:heading:aria-label' })}>
+      <Modal heading='i18n:content-warning:heading:aria-label'>
         <Centered>
           <Message>
             <span dangerouslySetInnerHTML={{__html: book.require_login_message_text}} />
