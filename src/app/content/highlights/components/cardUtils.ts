@@ -147,7 +147,7 @@ export const getSelectionDirection = (selection: DomSelection): 'forward' | 'bac
   );
   const node = assertDocument().getRootNode();
 
-  // tslint:disable-next-line:no-bitwise
+  // eslint-disable-next-line no-bitwise
   return position & node.DOCUMENT_POSITION_FOLLOWING
     ? 'forward'
     : 'backward';
