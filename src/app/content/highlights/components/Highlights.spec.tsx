@@ -522,11 +522,17 @@ describe('VisuallyHiddenLiveRegion', () => {
 
     expect(getTextContent(liveRegion)).toBe('');
 
-    renderer.act(() => {
-      jest.advanceTimersByTime(100);
-    });
+    // Ignore missing translation for test-id console error message
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    try {
+      renderer.act(() => {
+        jest.advanceTimersByTime(100);
+      });
 
-    expect(getTextContent(liveRegion)).toBe('Test ID');
+      expect(getTextContent(liveRegion)).toBe('Test ID');
+    } finally {
+      consoleErrorSpy.mockRestore();
+    }
   });
 
   it('clears the timer on unmount', async() => {
