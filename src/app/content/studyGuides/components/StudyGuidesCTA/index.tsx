@@ -11,13 +11,10 @@ import arrowDesktop from './assets/arrow-desktop.svg';
 import arrowMobile from './assets/arrow-mobile.svg';
 import * as Styled from './styles';
 
-// tslint:disable-next-line:variable-name
 const StudyGuidesCTATitle = htmlMessage('i18n:studyguides:cta:title', Styled.StudyGuidesCTATitle);
 
-// tslint:disable-next-line:variable-name
 const StudyGuidesCTAInfo = htmlMessage('i18n:studyguides:cta:info', Styled.StudyGuidesCTAInfo);
 
-// tslint:disable-next-line: variable-name
 const StudyGuidesCTA = () => {
   const isNotLoggedIn = useSelector(loggedOut);
   const loginLink = useSelector(loginLinkSelector);

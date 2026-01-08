@@ -30,7 +30,6 @@ const fadeOut = keyframes`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const ToastsContainer = styled.div`
   width: 100%;
   position: absolute;
@@ -51,7 +50,6 @@ interface BannerProps {
 
 export type ToastVariant = 'error' | 'warning';
 
-// tslint:disable-next-line:variable-name
 export const BannerBodyWrapper = styled.div`
   width: 100%;
   margin: 0;
@@ -64,7 +62,6 @@ export const BannerBodyWrapper = styled.div`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line:variable-name
 export const BannerBody = styled.div<{ variant?: ToastVariant }>`
   width: 100%;
   display: flex;
@@ -87,14 +84,12 @@ export const BannerBody = styled.div<{ variant?: ToastVariant }>`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   width: 1.8rem;
   height: 1.8rem;
   cursor: pointer;
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseButton = styled(PlainButton) <{ variant?: ToastVariant }>`
   color: ${({ variant }) => variant === 'warning' ? warningCloseIconColor : closeIconColor};
   overflow: visible;
@@ -104,7 +99,6 @@ export const CloseButton = styled(PlainButton) <{ variant?: ToastVariant }>`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const ErrorId = styled.span`
   margin-left: 1rem;
   font-size: 1.2rem;

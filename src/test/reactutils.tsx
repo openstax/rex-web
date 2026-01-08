@@ -18,7 +18,6 @@ export function expectError(message: string, fn: () => void) {
     consoleError.mockRestore();
   }
 }
-// tslint:disable-next-line:variable-name
 export function expectReactRenderError(message: string, Subject: ComponentType, container?: HTMLElement) {
   const consoleError = jest.spyOn(console, 'error');
   consoleError.mockImplementation(() => { /* suppress jsdom logging to console */ });
@@ -59,7 +58,6 @@ export function expectReactRenderError(message: string, Subject: ComponentType, 
 // Utility to handle nulls and SFCs
 export function renderToDom<C extends ComponentType>(subject: ReactElement<C>, container?: HTMLElement) {
 
-  // tslint:disable-next-line:variable-name max-classes-per-file
   const Wrapper = class extends Component {
     public render() {
       return subject;

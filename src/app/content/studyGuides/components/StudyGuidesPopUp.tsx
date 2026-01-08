@@ -13,7 +13,6 @@ import { closeStudyGuides } from '../actions';
 import { studyGuidesOpen } from '../selectors';
 import ShowStudyGuides from './ShowStudyGuides';
 
-// tslint:disable-next-line: variable-name
 const StudyguidesPopUp = () => {
   const dispatch = useDispatch();
   const intl = useIntl();

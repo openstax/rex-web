@@ -11,12 +11,10 @@ import theme from '../../theme';
 import { disablePrint } from './utils/disablePrint';
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from './utils/sidebar';
 
-// tslint:disable-next-line: variable-name
 const LabsLogo = styled.img`
   width: 10.7rem;
 `;
 
-// tslint:disable-next-line: variable-name
 const LabsCallWrapper = styled.div`
   width: 100%;
   max-width: 82.5rem;
@@ -46,7 +44,6 @@ const LabsCallWrapper = styled.div`
 
 /* stylelint-disable block-opening-brace-newline-after, block-closing-brace-newline-before */
 /* stylelint-disable block-opening-brace-space-after, block-closing-brace-space-before */
-// tslint:disable-next-line: variable-name
 const Column = styled.div`
   display: flex;
   flex-direction: column;
@@ -72,7 +69,6 @@ const Column = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const LabsCallHeader = isVerticalNavOpenConnector(styled.div`
   display: flex;
   flex-direction: row;
@@ -124,7 +120,6 @@ const LabsCallHeader = isVerticalNavOpenConnector(styled.div`
   `)}
 `);
 
-// tslint:disable-next-line: variable-name
 const LabsText = styled.div`
   font-size: 1.8rem;
   font-weight: 500;
@@ -141,14 +136,12 @@ const LabsText = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 const LabsCallLink = styled(Button)`
   background-color: #6922ea;
   border-radius: 4px;
   height: 4rem;
 `;
 
-// tslint:disable-next-line: variable-name
 const LabsCTA = () => {
   const enabled = useSelector(kineticBannerEnabled);
 

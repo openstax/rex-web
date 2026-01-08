@@ -4,7 +4,6 @@ import { textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
 
-// tslint:disable-next-line: variable-name
 export const AnswerExcerpt = styled.span`
   ${textRegularStyle}
   width: 100%;
@@ -16,7 +15,6 @@ export const AnswerExcerpt = styled.span`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const AnswerAlignment = styled.div`
   display: flex;
   align-items: center;
@@ -24,13 +22,11 @@ export const AnswerAlignment = styled.div`
   flex: 1;
 `;
 
-// tslint:disable-next-line: variable-name
 export const AnswerContent = styled.div`
   margin-left: 1.6rem;
   overflow: initial;
 `;
 
-// tslint:disable-next-line: variable-name
 export const AnswerIndicator = styled.span`
   min-width: 4rem;
   min-height: 4rem;
@@ -115,12 +111,10 @@ const getAnswerThemeCss = (answerTheme: typeof answerThemes[keyof typeof answerT
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const AnswerWrapper = styled.div`
   overflow: visible;
 `;
 
-// tslint:disable-next-line: variable-name
 export const AnswerInput = styled.input`
   position: absolute;
   opacity: 0;
@@ -128,8 +122,6 @@ export const AnswerInput = styled.input`
   height: 0;
 `;
 
-// tslint:disable: declaration-block-no-duplicate-properties
-// tslint:disable-next-line: variable-name
 export const AnswerBlock = styled.label`
   padding: 1rem 2.4rem;
   display: flex;
@@ -160,7 +152,6 @@ export const AnswerBlock = styled.label`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const StyledAnswerResult = styled.div`
   ${textRegularStyle}
   color: ${({isCorrect}: {isCorrect: boolean}) => answerThemes[isCorrect ? 'correct' : 'incorrect'].fontColorActive};

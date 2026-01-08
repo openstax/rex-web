@@ -29,7 +29,6 @@ const contentWrapperBreakpointStyles = `
     padding-left: ${sidebarDesktopWithToolbarWidth}rem;
   }
 `;
-// tslint:disable-next-line:variable-name
 const Wrapper = styled.div<{verticalNavOpen: State['tocOpen']}>`
   grid-column: 1 / -1;
   grid-row: 1;
@@ -66,7 +65,6 @@ interface Props {
   onClick: () => void;
 }
 
-// tslint:disable-next-line:variable-name
 const ContentPane = ({ isDesktopSearchOpen, isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
   <Wrapper
     isVerticalNavOpen={isVerticalNavOpen}

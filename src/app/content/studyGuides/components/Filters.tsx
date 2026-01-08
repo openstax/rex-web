@@ -40,7 +40,6 @@ const createColorDataAnalyticsLabel = (color: HighlightColorEnum): string => {
   return `Remove breadcrumb for label ${label}`;
 };
 
-// tslint:disable-next-line:variable-name
 const ConnectedChapterFilter = connect(
   (state: AppState) => ({
     locationFilters: selectors.studyGuidesLocationFilters(state),
@@ -49,12 +48,10 @@ const ConnectedChapterFilter = connect(
   })
 )(ChapterFilter);
 
-// tslint:disable-next-line: variable-name
 const StyledColorFilter = styled(ColorFilter)`
   min-width: 29rem;
 `;
 
-// tslint:disable-next-line: variable-name
 const RightButtonsWrapper = styled.div`
   margin-left: auto;
   display: flex;
@@ -62,7 +59,6 @@ const RightButtonsWrapper = styled.div`
   overflow: visible;
 `;
 
-// tslint:disable-next-line: variable-name
 const ConnectedColorFilter = connect(
   (state: AppState) => ({
     colorFiltersWithContent: selectors.highlightColorFiltersWithContent(state),
@@ -70,7 +66,6 @@ const ConnectedColorFilter = connect(
   })
 )(StyledColorFilter);
 
-// tslint:disable-next-line:variable-name
 const ConnectedFilterList = connect(
   (state: AppState) => ({
     locationFilters: selectors.studyGuidesLocationFilters(state),
@@ -79,7 +74,6 @@ const ConnectedFilterList = connect(
   })
 )(FiltersList);
 
-// tslint:disable-next-line:variable-name
 const ConnectedPrintButton = connect(
   (state: AppState) => ({
     disabled: selectors.summaryIsLoading(state),

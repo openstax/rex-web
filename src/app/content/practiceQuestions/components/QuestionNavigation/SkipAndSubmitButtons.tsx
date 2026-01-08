@@ -11,7 +11,6 @@ interface SkipAndSubmitButtonsProps {
   question: PracticeQuestion;
 }
 
-// tslint:disable-next-line: variable-name
 const SkipAndSubmitButtons = ({ disableSubmit, isFinalQuestion, question }: SkipAndSubmitButtonsProps) => {
   const dispatch = useDispatch();
 

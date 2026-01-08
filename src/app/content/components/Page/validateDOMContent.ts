@@ -24,7 +24,7 @@ const validateLinks = (rootEl: HTMLElement) => {
   const message = ['found invalid links in content: ', ...urls].join('\n');
 
   if (config.UNLIMITED_CONTENT) {
-    // tslint:disable:no-console
+    // eslint-disable-next-line no-console
     console.warn(message);
     Array.from(rootEl.querySelectorAll('a[href^="/"]')).forEach((element) => {
       const href = assertNotNull(element.getAttribute('href'), 'href was null');

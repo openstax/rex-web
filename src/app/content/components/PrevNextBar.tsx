@@ -19,12 +19,10 @@ const prevNextIconStyles = css`
   width: ${textRegularLineHeight}rem;
 `;
 
-// tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
   ${prevNextIconStyles}
 `;
 
-// tslint:disable-next-line:variable-name
 const RightArrow = styled(ChevronRight)`
   ${prevNextIconStyles}
   margin-top: 0.1rem;
@@ -35,13 +33,11 @@ interface HidingContentLinkProps {
   page?: ArchiveTreeSection;
   side: 'left' | 'right';
 }
-// tslint:disable-next-line:variable-name
 const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentLinkProps) =>
   page !== undefined && book !== undefined
     ? <ContentLink book={book} page={page} {...props} />
     : <span aria-hidden />;
 
-// tslint:disable-next-line:variable-name
 const HidingContentLink = styled(HidingContentLinkComponent)`
   ${decoratedLinkStyle}
   ${(props) => props.side === 'left' && theme.breakpoints.mobile(css`
@@ -52,7 +48,6 @@ const HidingContentLink = styled(HidingContentLinkComponent)`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 const BarWrapper = styled.div`
   ${disablePrint}
   ${textRegularStyle}
@@ -91,7 +86,6 @@ interface PropTypes {
   };
 }
 
-// tslint:disable-next-line:variable-name
 export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) => {
   const { formatMessage } = useIntl();
 

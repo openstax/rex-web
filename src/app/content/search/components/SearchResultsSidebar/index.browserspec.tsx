@@ -2,7 +2,7 @@
 import {
   finishRender,
   navigate,
-  setDesktopViewport
+  setDesktopViewport,
 } from '../../../../../test/browserutils';
 import { receiveExperiments } from '../../../../featureFlags/actions';
 

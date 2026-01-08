@@ -57,7 +57,6 @@ export const toolbarDefaultButton = css`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const PlainButton = styled.button`
   cursor: pointer;
   border: none;
@@ -74,21 +73,18 @@ export const PlainButton = styled.button`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const PrintOptWrapper = styled(PlainButton)`
   ${toolbarDefaultButton};
   height: auto;
   padding: 0 10px;
 `;
 
-// tslint:disable-next-line:variable-name
 export const PrintOptions = styled.span`
   ${toolbarDefaultText}
   font-size: 1.2rem;
   line-height: 1.5rem;
 `;
 
-// tslint:disable-next-line:variable-name
 export const PrintIcon = styled(Print)`
   ${toolbarIconStyles}
 `;
@@ -123,7 +119,6 @@ const hideMobileMenu = keyframes`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const ToolbarWrapper = styled.div`
   grid-area: 1 / 1 / auto / 2;
   position: sticky;
@@ -180,7 +175,6 @@ export const ToolbarWrapper = styled.div`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line: variable-name
 export const ToolbarMobileHeader = styled.div`
   display: none;
   ${theme.breakpoints.mobileMedium(css`
@@ -194,14 +188,12 @@ export const ToolbarMobileHeader = styled.div`
   `)}
 `;
 
-// tslint:disable-next-line: variable-name
 export const ToolbarMobileHeaderTitle = styled.span`
   font-size: 1.8rem;
   color: ${theme.color.primary.gray.base};
   font-weight: bold;
 `;
 
-// tslint:disable-next-line:variable-name
 export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   ${toolbarIconStyles};
   vertical-align: middle;
@@ -212,7 +204,6 @@ export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' 
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const LeftArrow = styled(ChevronLeft)`
   width: 4rem;
   height: 4rem;
@@ -224,7 +215,6 @@ export const LeftArrow = styled(ChevronLeft)`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 export const ToolbarElements = styled.div`
   display: flex;
   flex-direction: column;

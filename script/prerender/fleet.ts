@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 
 /*
   Manages a fleet of spot instances
@@ -18,6 +17,11 @@ import {
   waitUntilStackCreateComplete,
   waitUntilStackDeleteComplete,
 } from '@aws-sdk/client-cloudformation';
+import {
+  ECSClient,
+  UpdateServiceCommand,
+  UpdateServiceCommandOutput,
+} from '@aws-sdk/client-ecs';
 import {
   GetQueueAttributesCommand,
   GetQueueAttributesResult,
@@ -55,6 +59,12 @@ import { RELEASE_ID, WORK_REGION, BUCKET_NAME, BUCKET_REGION, PUBLIC_URL } from 
 // Increasing this too much can lead to connection issues and greater memory usage in the manager
 const MAX_CONCURRENT_BOOKS = 5;
 
+// Number of concurrent prerender tasks to run
+const DESIRED_TASK_COUNT = 64;
+
+// Total fleet memory capacity in MiB (must equal DESIRED_TASK_COUNT * 4096)
+const TOTAL_MEMORY_MIB = DESIRED_TASK_COUNT * 4096;
+
 // Retry EPROTO errors in requests this many times
 const MAX_ATTEMPTS = 5;
 
@@ -70,6 +80,7 @@ const WORKERS_STACK_DELETE_TIMEOUT_SECONDS = WORKERS_STACK_CREATE_TIMEOUT_SECOND
 const IMAGE_TAG = process.env.IMAGE_TAG || `${RELEASE_ID.replace(/\//g, '-')}`;
 
 const cfnClient = new CloudFormationClient({ region: WORK_REGION });
+const ecsClient = new ECSClient({ region: WORK_REGION });
 const sqsClient = new SQSClient({ region: WORK_REGION });
 
 type PageTask = { payload: SerializedPageMatch, type: 'page' };
@@ -97,6 +108,9 @@ async function sendWithRetries(
   client: CloudFormationClient, command: DescribeStacksCommand
 ): Promise<DescribeStacksCommandOutput>;
 async function sendWithRetries(
+  client: ECSClient, command: UpdateServiceCommand
+): Promise<UpdateServiceCommandOutput>;
+async function sendWithRetries(
   client: SQSClient, command: GetQueueAttributesCommand
 ): Promise<GetQueueAttributesResult>;
 async function sendWithRetries(
@@ -109,9 +123,9 @@ async function sendWithRetries(
   client: SQSClient, command: SendMessageCommand
 ): Promise<SendMessageResult>;
 async function sendWithRetries<C extends CreateStackCommand | DeleteStackCommand |
-DescribeStacksCommand | GetQueueAttributesCommand | ReceiveMessageCommand |
+DescribeStacksCommand | UpdateServiceCommand | GetQueueAttributesCommand | ReceiveMessageCommand |
 SendMessageBatchCommand | SendMessageCommand, R extends CreateStackCommandOutput |
-DeleteStackCommandOutput | DescribeStacksCommandOutput | GetQueueAttributesResult |
+DeleteStackCommandOutput | DescribeStacksCommandOutput | UpdateServiceCommandOutput | GetQueueAttributesResult |
 ReceiveMessageResult | SendMessageBatchResult | SendMessageResult>(
   client: { send: (command: C) => Promise<R> }, command: C
 ): Promise<R> {
@@ -186,13 +200,17 @@ async function createWorkersStack() {
         ParameterValue: RELEASE_ID,
       },
       {
+        ParameterKey: 'TotalMemoryMiB',
+        ParameterValue: TOTAL_MEMORY_MIB.toString(),
+      },
+      {
         ParameterKey: 'ValidUntil',
         ParameterValue: formatInTimeZone(timeoutDate, 'UTC', 'yyyy-MM-dd\'T\'HH:mm:ssX'),
       },
     ],
     StackName: workersStackName,
     Tags: [
-      {Key: 'Project', Value: 'Unified'},
+      {Key: 'Project', Value: 'DISCO'},
       {Key: 'Application', Value: 'Rex'},
       {Key: 'Environment', Value: 'shared'},
       {Key: 'Owner', Value: 'dante'},
@@ -465,6 +483,14 @@ async function manage() {
 
   try {
     const { workQueueUrl, deadLetterQueueUrl } = await getQueueUrls(workersStackName);
+
+    console.log(`Scaling service to ${DESIRED_TASK_COUNT} tasks`);
+    await sendWithRetries(ecsClient, new UpdateServiceCommand({
+      cluster: `${workersStackName}-cluster`,
+      desiredCount: DESIRED_TASK_COUNT,
+      service: 'Prerendering',
+    }));
+
     const stats = await queueWork(workQueueUrl);
     await waitUntilWorkDone(workQueueUrl, deadLetterQueueUrl, stats);
     deleteWorkersStackPromise = deleteWorkersStack(workersStackName);

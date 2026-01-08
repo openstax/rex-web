@@ -4,7 +4,7 @@ import {
   ArchiveContent,
   ArchiveLoadOptions,
   ArchivePage,
-  VersionedArchiveBookWithConfig
+  VersionedArchiveBookWithConfig,
 } from '../app/content/types';
 import { stripIdVersion } from '../app/content/utils';
 import { fromRelativeUrl } from '../app/content/utils/urlUtils';

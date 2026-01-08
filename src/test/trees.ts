@@ -10,13 +10,11 @@ export const treeWithoutUnits = {
         {
           id: 'page1@1',
           slug: '1-1-page-1',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">page 1</span>',
         },
         {
           id: 'page2@1',
           slug: '1-2-page-2',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1.2</span><span class="os-divider"> </span><span class="os-text">page 2</span>',
         },
         {
@@ -24,19 +22,16 @@ export const treeWithoutUnits = {
             {
               id: 'reviewpage@1',
               slug: 'review-page',
-              // tslint:disable-next-line:max-line-length
               title: '<span class="os-text">review page</span>',
             },
           ],
           id: 'review@1',
           slug: 'chapter-review',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-text">chapter review</span>',
         },
       ],
       id: 'chapter1@1',
       slug: '1-chapter-1',
-      // tslint:disable-next-line:max-line-length
       title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
     },
     {
@@ -63,19 +58,16 @@ export const treeWithUnits = {
             {
               id: 'page1@1',
               slug: '1-1-page-1',
-              // tslint:disable-next-line:max-line-length
               title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">page 1</span>',
             },
             {
               id: 'page2@1',
               slug: '1-2-page-2',
-              // tslint:disable-next-line:max-line-length
               title: '<span class="os-number">1.2</span><span class="os-divider"> </span><span class="os-text">page 2</span>',
             },
           ],
           id: 'chapter1@1',
           slug: '1-chapter-1',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
         },
         {
@@ -83,19 +75,16 @@ export const treeWithUnits = {
             {
               id: 'page1@1',
               slug: '2-1-page-1',
-              // tslint:disable-next-line:max-line-length
               title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">page 1</span>',
             },
             {
               id: 'page2@1',
               slug: '2-2-page-2',
-              // tslint:disable-next-line:max-line-length
               title: '<span class="os-number">1.2</span><span class="os-divider"> </span><span class="os-text">page 2</span>',
             },
           ],
           id: 'chapter2@1',
           slug: '1-chapter-2',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
         },
       ],
@@ -121,13 +110,11 @@ export const treeWithDropdowns = {
         {
           id: 'page1@1',
           slug: '1-1-page-1',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">page 1</span>',
         },
         {
           id: 'page2@1',
           slug: '1-2-page-2',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1.2</span><span class="os-divider"> </span><span class="os-text">page 2</span>',
         },
         {
@@ -135,13 +122,11 @@ export const treeWithDropdowns = {
             {
               id: 'keyterms@1',
               slug: 'keyterms-1',
-              // tslint:disable-next-line:max-line-length
               title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">key terms</span>',
             },
             {
               id: 'keyequations@1',
               slug: 'keyequations-2',
-              // tslint:disable-next-line:max-line-length
               title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">key equations</span>',
             },
           ],
@@ -152,7 +137,6 @@ export const treeWithDropdowns = {
       ],
       id: 'chapter1@1',
       slug: '1-chapter-1',
-      // tslint:disable-next-line:max-line-length
       title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
     },
     {
@@ -165,13 +149,11 @@ export const treeWithDropdowns = {
         {
           id: 'chapter1@1',
           slug: 'chapter-1',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
         },
         {
           id: 'chapter2@1',
           slug: 'chapter 2',
-          // tslint:disable-next-line:max-line-length
           title: '<span class="os-number">1.1</span><span class="os-divider"> </span><span class="os-text">chapter 2</span>',
         },
       ],

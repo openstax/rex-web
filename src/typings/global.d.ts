@@ -71,13 +71,9 @@ declare global {
   var document: dom.Document | undefined;
   var navigator: dom.Navigator | undefined;
   var URL: dom.URLConstructor | undefined;
-  // tslint:disable-next-line:variable-name
   var DOMParser: dom.DOMParserConstructor;
-  // tslint:disable-next-line:variable-name
   var KeyboardEvent: dom.KeyboardEventConstructor;
-  // tslint:disable-next-line:variable-name
   var ResizeObserver: dom.ResizeObserverConstructor;
-  // tslint:disable-next-line:variable-name
   var MutationObserver: dom.MutationObserverConstructor;
 
   const performBannerAction: (action: string) => void;

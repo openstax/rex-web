@@ -7,7 +7,8 @@ export type { ScoreTargets };
 
 // jest-puppeteer will expose the `page` and `browser` globals to Jest tests.
 declare global {
-  var page: puppeteer.Page;
+  // Puppeteer v13.7.0 types forbid null, but runtime requires it to disable emulation.
+  var page: puppeteer.Page & { emulateMediaType(type: string | null): Promise<void> };
   var browser: puppeteer.Browser;
   var puppeteerConfig: {server: {port: number}};
 }
@@ -19,14 +20,14 @@ if (typeof(browser) === 'undefined' || typeof(page) === 'undefined') {
 const ignoreConsoleMessages = [
   '%c %c %c Pixi.js 3.0.10 - ✰ WebGL ✰  %c  %c  http://www.pixijs.com/  %c %c ♥%c♥%c♥',
   '%cDownload the React DevTools for a better development experience: https://fb.me/react-devtools font-weight:bold',
-  '%cHowdy! If you want to help out, the source code can be found at https://github.com/openstax/rex-web font-weight:bold', // tslint:disable-line:max-line-length
+  '%cHowdy! If you want to help out, the source code can be found at https://github.com/openstax/rex-web font-weight:bold',
 ];
 
 page.on('console', (consoleMessage) => {
   const text = consoleMessage.text();
 
   if (!ignoreConsoleMessages.find((message) => message.indexOf(text) === -1)) {
-    console.log(text); // tslint:disable-line:no-console
+    console.log(text);
 
   }
 });
@@ -65,15 +66,14 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
   await calmHooks(target);
 };
 
-export const finishRender = async(target: puppeteer.Page) => {
-  await target.waitFor('body[data-rex-loaded="true"]');
-  const screenshot = (): Buffer => target.screenshot() as unknown as Buffer;
+export const finishRender = async(page: puppeteer.Page) => {
+  await page.waitForSelector('body[data-rex-loaded="true"]');
 
   let lastScreen: Buffer | undefined;
   let newScreen: Buffer | undefined;
 
   const stillChanging = async() => {
-    newScreen = await screenshot();
+    newScreen = await page.screenshot() as Buffer;
     return !lastScreen || !lastScreen.equals(newScreen);
   };
 
@@ -89,6 +89,32 @@ export const scrollDown = (target: puppeteer.Page) => target.evaluate(() => {
 export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
   return window && window.scrollBy(0, -1 * window.innerHeight);
 });
+
+/**
+ * Waits until the page's scrollTop settles.
+ * Returns the scrollTop value.
+ *
+ * Options:
+ *  - sampleInterval: milliseconds between samples (default 100)
+ *  - settledCount: how many consecutive identical samples to consider settled (default 3)
+ */
+export const getScrollTop = async(target: puppeteer.Page, { sampleInterval = 100, settledCount = 3 } = {}) => {
+  let lastScrollTop;
+  let same = 0;
+
+  while (same < settledCount) {
+    await new Promise((resolve) => setTimeout(resolve, sampleInterval));
+    const scrollTop = await target.evaluate('document.documentElement.scrollTop');
+    if (scrollTop === lastScrollTop) {
+      same += 1;
+    } else {
+      same = 0;
+      lastScrollTop = scrollTop;
+    }
+  }
+
+  return lastScrollTop;
+};
 
 export const fullPageScreenshot = async(target: puppeteer.Page) => {
   await finishRender(target);

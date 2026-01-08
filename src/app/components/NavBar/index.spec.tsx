@@ -16,10 +16,10 @@ jest.mock(
 );
 
 describe('content', () => {
-  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React'];
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
   let renderToDom: ReturnType<typeof reactAndFriends>['renderToDom'];
-  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer']; // tslint:disable-line:variable-name
+  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer'];
 
   beforeEach(() => {
     resetModules();
@@ -28,9 +28,7 @@ describe('content', () => {
   });
 
   describe('in browser', () => {
-    // tslint:disable-next-line:variable-name
     let NavBar: any;
-    // tslint:disable-next-line:variable-name
     let store: Store;
     let user: User;
 
@@ -165,7 +163,7 @@ describe('content', () => {
 
       it('noops without a dom', () => {
         const element = renderer.create(render());
-        const OnScroll = require('../OnScroll').default; // tslint:disable-line:variable-name
+        const OnScroll = require('../OnScroll').default;
         const onScroll = element.root.findByType(OnScroll);
 
         const event = window.document.createEvent('UIEvents');
@@ -259,9 +257,7 @@ describe('content', () => {
   });
 
   describe('with unsaved highlights', () => {
-    // tslint:disable-next-line:variable-name
     let NavBar: any;
-    // tslint:disable-next-line:variable-name
     let store: Store;
     let user: User;
 

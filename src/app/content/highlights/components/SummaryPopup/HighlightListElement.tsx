@@ -16,7 +16,6 @@ import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import { useCreateHighlightLink } from './utils';
 import { FormattedMessage } from 'react-intl';
 
-// tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
   position: relative;
   overflow: visible;
@@ -35,7 +34,6 @@ const HighlightOuterWrapper = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const HighlightContentWrapper = styled.div`
   padding: 1.2rem ${popupBodyPadding}rem;
   ${(props: {color: string}) => {
@@ -74,7 +72,6 @@ interface HighlightListElementProps {
   pageId: string;
 }
 
-// tslint:disable-next-line:variable-name
 const HiddenLabel = styled.div`
   ${hiddenButAccessible}
 `;
@@ -88,7 +85,6 @@ function HighlightContentLabel({color}: {color: string}) {
 }
 
 
-// tslint:disable-next-line:variable-name
 const HighlightListElement = ({ highlight, locationFilterId, pageId }: HighlightListElementProps) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);

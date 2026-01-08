@@ -9,7 +9,7 @@ import {
   receiveSummaryHighlights,
   setSummaryFilters,
   toggleSummaryHighlightsLoading,
-  updateSummaryFilters
+  updateSummaryFilters,
 } from '../actions';
 import { HighlightPopupLoadError } from '../errors';
 import * as select from '../selectors';
