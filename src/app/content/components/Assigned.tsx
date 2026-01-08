@@ -48,6 +48,13 @@ const ToastOverride = styled(PageToasts)`
   `)}
 `;
 
+// tslint:disable-next-line: variable-name
+const PlatformWrapper = styled.div<{ platform: string }>`
+  [data-platform-hidden="${props => props.platform}"] {
+    display: none;
+  }
+`;
+
 const useLoadSection = (currentSection: ArchiveTreeSection | undefined) => {
   const services = useServices();
   const book = useSelector(selectContent.book);
@@ -106,28 +113,30 @@ export default () => {
 
   useLoadSection(section);
 
-  return <AccessibilityButtonsWrapper>
-    <ErrorModal />
-    <ErrorBoundary>
-      <AssignedTopBar section={section} />
-      <Page topHeadingLevel={2} lockNavigation={true} ToastOverride={ToastOverride}>
-        {prevNext
-          ? <PrevNextBar
-            book={book}
-            prevNext={prevNext}
-            handlePrevious={() => setCurrentSectionIndex(Math.max(0, currentSectionIndex - 1))}
-            handleNext={() => setCurrentSectionIndex(Math.min(sections.length - 1, currentSectionIndex + 1))}
-          />
-          : null
-        }
-        {!prevNext?.next && typeof return_url === 'string'
-          ? (<FormattedMessage id='i18n:assigned:button:continue'>
-              {(msg) => <StyledButton component={<a href={return_url}>{msg}</a>} variant='primary' size='large' />}
-            </FormattedMessage>)
-          : null
-        }
-      </Page>
-      <Attribution />
-    </ErrorBoundary>
-  </AccessibilityButtonsWrapper>;
+  return <PlatformWrapper platform="assignable">
+    <AccessibilityButtonsWrapper>
+      <ErrorModal />
+      <ErrorBoundary>
+        <AssignedTopBar section={section} />
+        <Page topHeadingLevel={2} lockNavigation={true} ToastOverride={ToastOverride}>
+          {prevNext
+            ? <PrevNextBar
+              book={book}
+              prevNext={prevNext}
+              handlePrevious={() => setCurrentSectionIndex(Math.max(0, currentSectionIndex - 1))}
+              handleNext={() => setCurrentSectionIndex(Math.min(sections.length - 1, currentSectionIndex + 1))}
+            />
+            : null
+          }
+          {!prevNext?.next && typeof return_url === 'string'
+            ? (<FormattedMessage id='i18n:assigned:button:continue'>
+                {(msg) => <StyledButton component={<a href={return_url}>{msg}</a>} variant='primary' size='large' />}
+              </FormattedMessage>)
+            : null
+          }
+        </Page>
+        <Attribution />
+      </ErrorBoundary>
+    </AccessibilityButtonsWrapper>
+  </PlatformWrapper>;
 };
