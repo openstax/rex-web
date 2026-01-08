@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import theme from '../../../../theme';
 
-const StyledItemWrapper = styled.span`
+const StyledItemWrapper = styled.li`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
@@ -65,7 +65,7 @@ interface ProgressBarItemProps {
 }
 
 const ProgressBarItem = ({ value, isActive, isDisabled }: ProgressBarItemProps) => (
-  <StyledItemWrapper withLightLine={isActive || isDisabled}>
+  <StyledItemWrapper aria-current={isActive ? 'true' : undefined} withLightLine={isActive || isDisabled}>
     {
       isActive
         ? <StyledActiveItem>{value}</StyledActiveItem>
