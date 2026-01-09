@@ -1,5 +1,5 @@
 import { shouldPolyfill } from '@formatjs/intl-pluralrules/should-polyfill';
-import memoize from 'lodash/fp/memoize';
+import { memoize } from '@openstax/ts-utils';
 import { createIntl, createIntlCache } from 'react-intl';
 import Sentry from '../../helpers/Sentry';
 
@@ -17,7 +17,7 @@ async function polyfill(locale: string) {
   }
 }
 
-export default memoize(async(loc: string) => {
+export default memoize(async(loc: string, testOverrides?: Record<string, string>) => {
   await polyfill(loc);
 
   const cache = createIntlCache();
@@ -34,9 +34,14 @@ export default memoize(async(loc: string) => {
     Sentry.captureException(e);
   }
 
+  const mergedMessages = {
+    ...messages,
+    ...(testOverrides || {}),
+  };
+
   const intl = createIntl({
     locale,
-    messages,
+    messages: mergedMessages,
   }, cache);
 
   return intl;

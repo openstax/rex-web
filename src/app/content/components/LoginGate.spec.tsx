@@ -12,11 +12,13 @@ const dummyBook = {
 };
 
 describe('LoginGate', () => {
-  it('renders when not authenticated', () => {
-    const component = renderer.create(<TestContainer>
-      <LoginGate book={dummyBook}>
-      </LoginGate>
-    </TestContainer>);
+  it('renders when not authenticated', async() => {
+    const component = renderer.create(
+      <TestContainer>
+        <LoginGate book={dummyBook}>
+        </LoginGate>
+      </TestContainer>
+    );
 
     expect(component.root.findByType('a').props.href).toBe('/accounts/login?r=/');
   });
