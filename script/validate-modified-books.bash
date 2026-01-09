@@ -13,7 +13,7 @@ while read -r row; do
     --bookId="$book_id" \
     --bookVersion="$book_version" \
     --rootUrl="$BASE_URL" \
-    --queryString="validateLinks" \
+    --queryString="validateLinks=true" \
     || code=1
 
   if [ "$is_new" == false ]; then
