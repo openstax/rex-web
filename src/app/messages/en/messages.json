@@ -246,5 +246,6 @@
   "i18n:toolbar:textresizer:button:aria-label": "Change text size",
   "i18n:toolbar:textresizer:button:decrease:aria-label": "Decrease text size",
   "i18n:toolbar:textresizer:button:increase:aria-label": "Increase text size",
-  "i18n:toolbar:textresizer:popup:heading": "Text size"
+  "i18n:toolbar:textresizer:popup:heading": "Text size",
+  "i18n:content-warning:heading:aria-label": "Content Warning"
 }
