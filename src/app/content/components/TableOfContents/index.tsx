@@ -293,6 +293,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     };
     this.handleExpandedChange = this.handleExpandedChange.bind(this);
     this.handleTreeItemClick = this.handleTreeItemClick.bind(this);
+    this.handleTreeKeyDown = this.handleTreeKeyDown.bind(this);
   }
 
   public render() {
@@ -308,6 +309,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
             aria-label='Table of Contents'
             expandedKeys={this.state.expandedKeys}
             onExpandedChange={this.handleExpandedChange}
+            onKeyDown={this.handleTreeKeyDown}
           >
             <TocSection
               book={book}
@@ -333,6 +335,18 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     const next = new Set(prev);
     next.delete(id);
     this.setState({ expandedKeys: next });
+  };
+
+  handleTreeKeyDown = (event: React.KeyboardEvent) => {
+    // Handle Shift+Tab to move focus to the close button
+    if (event.key === 'Tab' && event.shiftKey) {
+      // Find the close button in the TOC header
+      const closeButton = this.sidebar.current?.querySelector('[data-testid="tocheader"] button[data-testid="toc-button"]') as HTMLElement;
+      if (closeButton) {
+        event.preventDefault();
+        closeButton.focus();
+      }
+    }
   };
 
   public componentDidMount() {
