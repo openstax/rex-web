@@ -155,6 +155,41 @@ describe('TableOfContents', () => {
     expect(focusSpy).toHaveBeenCalled();
   });
 
+  it('restores focus to TOC button when closing', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+
+    const { root } = renderToDom(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+    const sb = root.querySelector('[data-testid="toc"]')!;
+    const tocButton = root.querySelector('[data-testid="open-toc-button"]') as HTMLElement;
+    const tocButtonFocusSpy = jest.spyOn(tocButton as any, 'focus');
+
+    // Focus the TOC button, then open the TOC
+    reactDomAct(() => {
+      tocButton.focus();
+      store.dispatch(actions.openToc());
+    });
+    reactDomAct(() => {
+      sb?.dispatchEvent(new Event('transitionend'));
+    });
+
+    // Focus should have moved away from the button to first item
+    expect(document.activeElement).not.toBe(tocButton);
+
+    // Close the TOC
+    reactDomAct(() => {
+      store.dispatch(actions.closeToc());
+    });
+    reactDomAct(() => {
+      sb?.dispatchEvent(new Event('transitionend'));
+    });
+
+    // Focus should have been restored to the TOC button
+    expect(tocButtonFocusSpy).toHaveBeenCalled();
+  });
+
   it('resets toc on navigate', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
