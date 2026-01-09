@@ -4,7 +4,6 @@ import { Check } from 'styled-icons/fa-solid/Check';
 import theme, { defaultFocusOutline } from '../theme';
 import { disabledStyle } from './Typography';
 
-// tslint:disable-next-line:variable-name
 const CheckIcon = styled(Check)`
   color: ${theme.color.white};
   height: 1rem;
@@ -18,7 +17,6 @@ interface Props {
   disabled?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 const CustomCheckbox = styled(
   ({className}: {className?: string}) => <span className={className}><CheckIcon /></span>
 )`
@@ -42,7 +40,6 @@ const CustomCheckbox = styled(
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props>) => <label className={className}>
   <input type='checkbox' {...props} />
   <CustomCheckbox />

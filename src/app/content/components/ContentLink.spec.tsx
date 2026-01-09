@@ -47,7 +47,6 @@ describe('ContentLink', () => {
   };
 
   describe('without unsaved changes', () => {
-    // tslint:disable-next-line:variable-name
     let ConnectedContentLink: React.ElementType;
 
     beforeEach(() => {
@@ -193,7 +192,6 @@ describe('ContentLink', () => {
   });
 
   describe('with unsaved changes' , () => {
-    // tslint:disable-next-line:variable-name
     let ConnectedContentLink: React.ElementType;
     const mockConfirmation = jest.fn()
       .mockImplementationOnce(() => new Promise((resolve) => setTimeout(() => resolve(false), 300)))

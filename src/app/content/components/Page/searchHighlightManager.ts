@@ -33,8 +33,11 @@ export interface UpdateOptions {
   onSelect: (selectedHighlight?: Highlight) => void;
 }
 
-// tslint:disable-next-line: max-line-length
-const updateResults = (services: Services, previous: HighlightProp | null, current: HighlightProp, options: UpdateOptions) => {
+const updateResults = (
+  services: Services,
+  previous: HighlightProp | null,
+  current: HighlightProp,
+  options: UpdateOptions) => {
   if (!options.forceRedraw && previous && previous.searchResults === current.searchResults) {
     return;
   }
@@ -43,8 +46,11 @@ const updateResults = (services: Services, previous: HighlightProp | null, curre
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
-// tslint:disable-next-line: max-line-length
-const selectResult = (services: Services, previous: HighlightProp | null, current: HighlightProp, options: UpdateOptions) => {
+const selectResult = (
+  services: Services,
+  previous: HighlightProp | null,
+  current: HighlightProp,
+  options: UpdateOptions) => {
   if (!current.selectedResult) {
     return;
   }

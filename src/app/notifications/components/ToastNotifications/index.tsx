@@ -11,7 +11,6 @@ interface Props {
   toasts: ToastNotification[];
 }
 
-// tslint:disable-next-line:variable-name
 const ToastNotifications = ({toasts}: Props) => {
   const dispatch = useDispatch();
 

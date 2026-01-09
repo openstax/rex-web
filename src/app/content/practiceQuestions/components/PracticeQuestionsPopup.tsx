@@ -13,7 +13,6 @@ import { closePracticeQuestions } from '../actions';
 import * as pqSelectors from '../selectors';
 import ShowPracticeQuestions from './ShowPracticeQuestions';
 
-// tslint:disable-next-line: variable-name
 const PracticeQuestionsPopup = () => {
   const dispatch = useDispatch();
   const popUpRef = React.useRef<HTMLElement>(null);

@@ -5,14 +5,12 @@ import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { toolbarDefaultButton, toolbarDefaultText } from '../Toolbar/styled';
 import type { InnerProps } from './types';
 
-// tslint:disable-next-line:variable-name
 export const ButtonText = styled.span`
   ${toolbarDefaultText}
   margin: 0;
   padding: 0;
 `;
 
-// tslint:disable-next-line: variable-name
 export const CloseButton = styled.button`
   color: ${toolbarIconColor.base};
   border: none;
@@ -31,7 +29,6 @@ export const CloseButton = styled.button`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'] }>`
   background: none;
   ${toolbarDefaultButton}

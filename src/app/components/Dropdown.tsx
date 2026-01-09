@@ -20,7 +20,6 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
     ? React.ReactComponentElement<T>:
     never;
 }
-// tslint:disable-next-line:variable-name
 export const DropdownToggle = styled(React.forwardRef<HTMLElement, ToggleProps>(
   ({component, ...props}, ref) => React.cloneElement(component, {...props, ref})
 ))`
@@ -90,7 +89,6 @@ export function callOrRefocus(
   }
 }
 
-// tslint:disable-next-line:variable-name
 const TabHiddenDropDown = styled((
   {toggle, children, className, onToggle, ...props}: React.PropsWithChildren<Props | Props & ControlledProps>
 ) => {
@@ -135,12 +133,10 @@ const TabHiddenDropDown = styled((
   `}
 `;
 
-// tslint:disable-next-line:variable-name
 export const DropdownFocusWrapper = styled.div`
   overflow: visible;
 `;
 
-// tslint:disable-next-line:variable-name
 const TabTransparentDropdown = styled((
   {toggle, children, className}: React.PropsWithChildren<Props>
 ) => <div className={className}>
@@ -214,7 +210,6 @@ function TrappingDropdownList(props: object) {
 }
 
 
-// tslint:disable-next-line:variable-name
 export const DropdownList = styled(TrappingDropdownList)`
   list-style: none;
   margin: 0;
@@ -264,7 +259,6 @@ interface DropdownItemProps {
   dataAnalyticsLabel?: string;
 }
 
-// tslint:disable-next-line:variable-name
 const DropdownItemContent = ({
   message, href, target, prefix, onClick, dataAnalyticsRegion, dataAnalyticsLabel,
 }: Omit<DropdownItemProps, 'ariaMessage'>) => {
@@ -302,7 +296,6 @@ return <FormattedMessage id={message}>
   </FormattedMessage>;
 };
 
-// tslint:disable-next-line:variable-name
 export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) => {
   const intl = useIntl();
 
@@ -320,7 +313,6 @@ export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & Cont
 
 export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
 
-// tslint:disable-next-line:variable-name
 const Dropdown = ({transparentTab, ...props}: DropdownProps) =>
   transparentTab !== false
     ? <TabTransparentDropdown {...props} />

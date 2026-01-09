@@ -8,14 +8,12 @@ import NavBar from './NavBar';
 import OnEsc from './OnEsc';
 import PageTitleConfirmation from './PageTitleConfirmation';
 
-// tslint:disable-next-line:variable-name
 const MathJaxStyles = createGlobalStyle`
   mjx-help-background {
     z-index: ${theme.zIndex.navbar + 1};
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const Layout: SFC = ({ children }) => <AccessibilityButtonsWrapper>
   <MathJaxStyles />
   <NavBar />
@@ -34,7 +32,6 @@ export const wrapperPadding = css`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 export const LayoutBody = styled.div`
   width: 100%;
   ${wrapperPadding}

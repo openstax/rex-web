@@ -9,7 +9,7 @@ import {
   textResizerMaxValue,
   textResizerMinValue,
   TextResizerValue,
-  textResizerValues
+  textResizerValues,
 } from '../../constants';
 import * as Styled from './styled';
 
@@ -21,7 +21,6 @@ export interface TextResizerProps {
   mobileVariant?: boolean;
 }
 
-// tslint:disable-next-line:variable-name
 export const TextResizer = (props: TextResizerProps) => {
   const onChangeTextSize = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.currentTarget;

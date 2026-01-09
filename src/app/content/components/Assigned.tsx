@@ -25,10 +25,9 @@ import theme from '../../theme';
 import PageToasts from './Page/PageToasts';
 import {
   topbarDesktopHeight,
-  bookBannerMobileMiniHeight
+  bookBannerMobileMiniHeight,
 } from './constants';
 
-// tslint:disable-next-line: variable-name
 const StyledButton = styled(Button)`
   width: 100%;
   max-width: ${contentTextWidth}rem;
@@ -38,7 +37,6 @@ const StyledButton = styled(Button)`
 // Override layout for Toast
 const assignedMobileTop = (props: {mobileToolbarOpen: boolean}) =>
   getMobileSearchFailureTop(props) - bookBannerMobileMiniHeight;
-// tslint:disable-next-line: variable-name
 const ToastOverride = styled(PageToasts)`
   top: ${topbarDesktopHeight}rem;
   left: 0;

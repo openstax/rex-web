@@ -8,7 +8,6 @@ import { highlightStyles } from '../../constants';
 import { popupPadding } from '../../styles/PopupStyles';
 import { FormattedMessage } from 'react-intl';
 
-// tslint:disable-next-line:variable-name
 const HighlightOuterWrapper = styled.div`
   overflow: visible;
   padding: 0 ${popupPadding}rem 1rem ${popupPadding}rem;
@@ -31,7 +30,6 @@ const HighlightOuterWrapper = styled.div`
   `}
 `;
 
-// tslint:disable-next-line:variable-name
 const HighlightAnnotation = styled.div`
   ${textRegularStyle}
   display: flex;
@@ -44,7 +42,6 @@ const HighlightAnnotation = styled.div`
   `}
 `;
 
-// tslint:disable-next-line:variable-name
 export const HighlightContentWrapper = styled.div`
   padding-left: 0.4rem;
   ${(props: {color: string}) => {
@@ -73,7 +70,6 @@ export const HighlightContentWrapper = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const HiddenLabel = styled.div`
   ${hiddenButAccessible}
 `;
@@ -89,7 +85,6 @@ interface HighlightListElementProps {
   highlight: Highlight;
 }
 
-// tslint:disable-next-line:variable-name
 const HighlightListElement = ({ highlight }: HighlightListElementProps) =>
   <HighlightOuterWrapper>
     <HighlightAnnotation>

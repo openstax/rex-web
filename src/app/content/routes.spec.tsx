@@ -11,7 +11,7 @@ const longID = 'longidin-vali-dfor-mat1-111111111111';
 
 describe('content route', () => {
   let content: any;
-  let React: any; // tslint:disable-line:variable-name
+  let React: any;
   let renderer: any;
   let createApp: any;
 
@@ -158,7 +158,7 @@ describe('content route', () => {
 
 describe('assigned route', () => {
   let assigned: any;
-  let React: any; // tslint:disable-line:variable-name
+  let React: any;
   let renderer: any;
   let createApp: any;
 

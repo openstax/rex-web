@@ -10,7 +10,6 @@ import { locationChange } from '../navigation/actions';
 import DynamicContentStyles, { ScopedGlobalStyle } from './DynamicContentStyles';
 
 describe('DynamicContentStyles', () => {
-  // tslint:disable-next-line: variable-name
   let Component: (props: { book: State['book'], disable?: boolean }) => JSX.Element;
   let store: ReturnType<typeof createTestStore>;
   let spyFetch: ReturnType<typeof jest.spyOn>;

@@ -12,12 +12,10 @@ import { hideErrorDialog } from '../actions';
 import * as select from '../selectors';
 import ErrorIdList from './ErrorIdList';
 
-// tslint:disable-next-line:variable-name
 const BodyErrorText = styled.div`
   padding: ${modalPadding * 0.5}rem 0;
 `;
 
-// tslint:disable-next-line:variable-name
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
 interface PropTypes {
@@ -27,7 +25,6 @@ interface PropTypes {
   clearError: () => void;
 }
 
-// tslint:disable-next-line:variable-name
 const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
   if (!show) { return null; }
 

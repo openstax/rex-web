@@ -7,7 +7,6 @@ import { textRegularSize } from '../../../components/Typography';
 import { nextQuestion } from '../actions';
 import * as pqSelectors from '../selectors';
 
-// tslint:disable-next-line: variable-name
 const IntroScreenWrapper = styled.div`
   text-align: center;
 
@@ -17,13 +16,11 @@ const IntroScreenWrapper = styled.div`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 const IntroScreenMessage = styled.span`
   ${textRegularSize}
   margin: 4rem 0;
 `;
 
-// tslint:disable-next-line: variable-name
 const IntroScreen = () => {
   const questionsCount = useSelector(pqSelectors.questionsCount);
   const dispatch = useDispatch();

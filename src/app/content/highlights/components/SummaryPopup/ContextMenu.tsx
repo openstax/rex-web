@@ -11,7 +11,6 @@ import { disablePrint } from '../../../components/utils/disablePrint';
 import ColorPicker from '../ColorPicker';
 import MenuToggle, { MenuIcon } from '../MenuToggle';
 
-// tslint:disable-next-line:variable-name
 export const StyledContextMenu = styled.div`
   ${disablePrint}
 
@@ -40,7 +39,6 @@ export const StyledContextMenu = styled.div`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledDropdownList = styled(DropdownList)`
   padding: 0;
 
@@ -60,7 +58,6 @@ const StyledDropdownList = styled(DropdownList)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const StyledEditIcon = styled(EditIcon)`
   width: 15px;
   height: 15px;
@@ -68,7 +65,6 @@ const StyledEditIcon = styled(EditIcon)`
   color: ${theme.color.text.default};
 `;
 
-// tslint:disable-next-line:variable-name
 const StyledTrashAltIcon = styled(TrashAltIcon)`
   width: 15px;
   height: 15px;
@@ -76,7 +72,6 @@ const StyledTrashAltIcon = styled(TrashAltIcon)`
   color: ${theme.color.text.default};
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledLinkIcon = styled(LinkIcon)`
   width: 15px;
   height: 15px;
@@ -84,7 +79,6 @@ const StyledLinkIcon = styled(LinkIcon)`
   color: ${theme.color.text.default};
 `;
 
-// tslint:disable-next-line:variable-name
 const HighlightToggleEditContent = styled.div`
   z-index: 2;
   border: 1px solid ${theme.color.neutral.formBorder};
@@ -92,7 +86,6 @@ const HighlightToggleEditContent = styled.div`
   margin-bottom: 1rem; /* for last context menu to show with more space */
 `;
 
-// tslint:disable-next-line:variable-name
 const HighlightDropdownMenu = React.forwardRef((props, ref) => {
   return <MenuToggle
     data-testid='highlight-dropdown-menu-toggle'
@@ -110,7 +103,6 @@ interface ContextMenuProps {
   onColorChange: (color: HighlightColorEnum) => void;
 }
 
-// tslint:disable-next-line:variable-name
 const ContextMenu = ({
   highlight: {
     color,

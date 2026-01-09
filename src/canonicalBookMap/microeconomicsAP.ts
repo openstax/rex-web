@@ -1,5 +1,3 @@
-// tslint:disable: object-literal-sort-keys
-// tslint:disable: max-line-length
 
 import { CanonicalBookMap } from '../canonicalBookMap';
 

@@ -24,7 +24,7 @@ import {
   scrollOffset,
   toolbarMobileExpandedHeight,
   topbarDesktopHeight,
-  topbarMobileHeight
+  topbarMobileHeight,
 } from './constants';
 import ContentPane from './ContentPane';
 import ContentWarning from './ContentWarning';
@@ -39,7 +39,6 @@ import Topbar from './Topbar';
 import { ConfirmationToastProvider } from './ConfirmationToast';
 import Wrapper from './Wrapper';
 
-// tslint:disable-next-line:variable-name
 const Background = styled.div`
   @media screen {
     display: flex;
@@ -50,7 +49,6 @@ const Background = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const ContentNotifications = styled(Notifications)`
   &&& {
     z-index: ${theme.zIndex.contentNotifications};
@@ -64,7 +62,6 @@ const ContentNotifications = styled(Notifications)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const OuterWrapper = styled.div`
   @media screen {
     display: flex;
@@ -74,7 +71,6 @@ const OuterWrapper = styled.div`
 `;
 
 
-// tslint:disable-next-line:variable-name
 const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) => <Layout>
   <ScrollOffset
     desktopOffset={
