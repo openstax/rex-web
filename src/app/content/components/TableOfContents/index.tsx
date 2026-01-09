@@ -65,6 +65,7 @@ const SidebarBody = React.forwardRef<
   React.ComponentProps<typeof SidebarPaneBody>
 >((props, ref) => {
   const mRef = ref as MutableRefObject<HTMLElement>;
+  const previouslyFocusedElement = React.useRef<HTMLElement | null>(null);
 
   React.useEffect(
     () => {
@@ -73,10 +74,34 @@ const SidebarBody = React.forwardRef<
       ) as HTMLElement;
       const el = mRef.current;
       const transitionListener = () => {
-        firstItemInToc?.focus();
+        if (props.isTocOpen) {
+          // Store the previously focused element (should be the TOC button)
+          previouslyFocusedElement.current = document.activeElement as HTMLElement;
+          firstItemInToc?.focus();
+        }
       };
 
       if (props.isTocOpen) {
+        el?.addEventListener('transitionend', transitionListener);
+      }
+
+      return () => el?.removeEventListener('transitionend', transitionListener);
+    },
+    [props.isTocOpen, mRef]
+  );
+
+  React.useEffect(
+    () => {
+      const el = mRef.current;
+      const transitionListener = () => {
+        if (!props.isTocOpen && previouslyFocusedElement.current) {
+          // Restore focus to the TOC button after the drawer closes
+          previouslyFocusedElement.current.focus();
+          previouslyFocusedElement.current = null;
+        }
+      };
+
+      if (!props.isTocOpen) {
         el?.addEventListener('transitionend', transitionListener);
       }
 
