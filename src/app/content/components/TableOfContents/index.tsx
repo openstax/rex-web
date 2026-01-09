@@ -293,7 +293,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     };
     this.handleExpandedChange = this.handleExpandedChange.bind(this);
     this.handleTreeItemClick = this.handleTreeItemClick.bind(this);
-    this.handleTreeKeyDown = this.handleTreeKeyDown.bind(this);
+    this.handleTreeKeyUp = this.handleTreeKeyUp.bind(this);
   }
 
   public render() {
@@ -305,22 +305,24 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
         <TocHeader />
         {book && (
-          <Styled.StyledTree
-            aria-label='Table of Contents'
-            expandedKeys={this.state.expandedKeys}
-            onExpandedChange={this.handleExpandedChange}
-            onKeyDown={this.handleTreeKeyDown}
-          >
-            <TocSection
-              book={book}
-              page={this.props.page}
-              section={book.tree}
-              activeSection={this.activeSection}
-              onNavigate={this.props.onNavigate}
+          <div >
+            <Styled.StyledTree
+              aria-label='Table of Contents'
               expandedKeys={this.state.expandedKeys}
-              handleTreeItemClick={this.handleTreeItemClick}
-            />
-          </Styled.StyledTree >
+              onExpandedChange={this.handleExpandedChange}
+              onKeyUp={this.handleTreeKeyUp}
+            >
+              <TocSection
+                book={book}
+                page={this.props.page}
+                section={book.tree}
+                activeSection={this.activeSection}
+                onNavigate={this.props.onNavigate}
+                expandedKeys={this.state.expandedKeys}
+                handleTreeItemClick={this.handleTreeItemClick}
+              />
+            </Styled.StyledTree >
+          </div>
         )}
       </SidebarBody>
     );
@@ -337,14 +339,14 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     this.setState({ expandedKeys: next });
   };
 
-  handleTreeKeyDown = (event: React.KeyboardEvent) => {
+  handleTreeKeyUp = (event: React.KeyboardEvent) => {
     // Handle Shift+Tab to move focus to the close button
     if (event.key === 'Tab' && event.shiftKey) {
       // Find the close button in the TOC header
       const closeButton = this.sidebar.current?.querySelector('[data-testid="tocheader"] button[data-testid="toc-button"]') as HTMLElement;
       if (closeButton) {
-        event.preventDefault();
         closeButton.focus();
+        event.preventDefault();
       }
     }
   };
