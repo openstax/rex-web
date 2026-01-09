@@ -126,7 +126,7 @@ export const getOffsetToAdjustForHighlightPosition = (
     : 0;
 
   const highlightPos = highlight ? getHighlightPosition(highlight) : { top: 0, bottom: 0 };
-  const offset = preferEnd ? highlightPos.bottom : highlightPos.top;
+  const offset = preferEnd ? highlightPos.bottom - 120 : highlightPos.top;
 
   return position - offset;
 };

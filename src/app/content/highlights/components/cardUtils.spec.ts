@@ -106,9 +106,9 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
     ? { top: 40, bottom: 60 }
     : { top: 80, bottom: 120 };
 
-  it('returns 0 if highlight is undefined', () => {
+  it('returns 0 for top and 120 for bottom if highlight is undefined', () => {
     expect(getOffsetToAdjustForHighlightPosition(undefined, cardsPositions, getHighlightPosition, false)).toBe(0);
-    expect(getOffsetToAdjustForHighlightPosition(undefined, cardsPositions, getHighlightPosition, true)).toBe(0);
+    expect(getOffsetToAdjustForHighlightPosition(undefined, cardsPositions, getHighlightPosition, true)).toBe(120); // return 120 as bottom offset
   });
 
   it('returns position - top if preferEnd is false', () => {
@@ -120,7 +120,7 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
   it('returns position - bottom if preferEnd is true', () => {
     expect(
       getOffsetToAdjustForHighlightPosition(highlight, cardsPositions, getHighlightPosition, true)
-    ).toBe(100 - 60);
+    ).toBe(100 + 60);
   });
 
   it('throws if highlight id not in cardsPositions', () => {
@@ -136,7 +136,7 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
     ).toBe(200 - 80);
     expect(
       getOffsetToAdjustForHighlightPosition(highlight2, cardsPositions, getHighlightPosition, true)
-    ).toBe(200 - 120);
+    ).toBe(200);
   });
 });
 
