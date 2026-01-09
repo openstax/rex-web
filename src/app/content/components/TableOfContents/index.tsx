@@ -69,14 +69,14 @@ const SidebarBody = React.forwardRef<
 
   React.useEffect(
     () => {
-      const firstItemInToc = mRef?.current?.querySelector(
-        ' div > div a, div > div div span'
-      ) as HTMLElement;
       const el = mRef.current;
+      const firstItemInToc = el?.querySelector(
+        '[role="treegrid"] div'
+      ) as HTMLElement;
       const transitionListener = () => {
         if (props.isTocOpen) {
           // Store the previously focused element (should be the TOC button)
-          previouslyFocusedElement.current = document.activeElement as HTMLElement;
+          previouslyFocusedElement.current = document?.activeElement as HTMLElement;
           firstItemInToc?.focus();
         }
       };
