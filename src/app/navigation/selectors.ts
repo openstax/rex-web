@@ -46,6 +46,7 @@ export const systemQueryParameters = createSelector(
     archive: navQuery.archive,
     'content-style': navQuery['content-style'],
     osWeb: navQuery.osWeb,
+    validateLinks: navQuery.validateLinks,
   })
 );
 
