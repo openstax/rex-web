@@ -2,6 +2,7 @@ import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import ConnectedTableOfContents, { TableOfContents, maybeAriaLabel } from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
@@ -176,7 +177,7 @@ describe('TableOfContents', () => {
     });
 
     // Focus should have moved away from the button to first item
-    expect(document.activeElement).not.toBe(tocButton);
+    expect(document?.activeElement).not.toBe(tocButton);
 
     // Close the TOC
     reactDomAct(() => {
