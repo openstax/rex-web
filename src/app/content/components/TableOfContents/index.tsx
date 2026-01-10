@@ -1,4 +1,4 @@
-import { HTMLElement, NodeListOf, Element } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, MutableRefObject } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../S
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
-import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery, isSSR } from '../../../reactUtils';
+import { isSSR } from '../../../reactUtils';
 import { stripHtml } from '../../../utils';
 
 interface SidebarProps {
@@ -25,40 +25,6 @@ interface SidebarProps {
   page?: Page;
 }
 
-function TabTrapper({
-  mRef,
-  isTocOpen,
-}: {
-  mRef: MutableRefObject<HTMLElement>;
-  isTocOpen: boolean;
-}) {
-  const isPhone = useMatchMobileMediumQuery();
-  const isMobile = useMatchMobileQuery();
-
-  React.useEffect(() => {
-    if (!mRef?.current) {
-      return;
-    }
-    const otherRegions =
-      document?.querySelectorAll(
-        '[data-testid="navbar"],[data-testid="bookbanner"]'
-      ) as NodeListOf<Element>;
-    const containers = [
-      mRef.current,
-      ...(isPhone
-        ? []
-        : [mRef.current.previousElementSibling, ...Array.from(otherRegions)]),
-    ];
-    const listener = createTrapTab(...(containers as HTMLElement[]));
-    if (isTocOpen && isMobile) {
-      document?.addEventListener('keydown', listener, true);
-    }
-
-    return () => document?.removeEventListener('keydown', listener, true);
-  }, [mRef, isTocOpen, isMobile, isPhone]);
-
-  return null;
-}
 
 const SidebarBody = React.forwardRef<
   HTMLElement,
@@ -68,12 +34,14 @@ const SidebarBody = React.forwardRef<
 
   React.useEffect(
     () => {
-      const firstItemInToc = mRef?.current?.querySelector(
-        ' div > div a, div > div div span'
-      ) as HTMLElement;
       const el = mRef.current;
+      const firstItemInToc = el?.querySelector(
+        '[role="treegrid"] div'
+      ) as HTMLElement;
       const transitionListener = () => {
-        firstItemInToc?.focus();
+        if (props.isTocOpen) {
+          firstItemInToc?.focus();
+        }
       };
 
       if (props.isTocOpen) {
@@ -85,23 +53,36 @@ const SidebarBody = React.forwardRef<
     [props.isTocOpen, mRef]
   );
 
+  React.useEffect(
+    () => {
+      const el = mRef.current;
+      const transitionListener = () => {
+        if (!props.isTocOpen) {
+          // Find the TOC button directly and restore focus to it
+          const tocButton = document?.querySelector('[data-testid="toc-button"]');
+
+          (tocButton as HTMLElement)?.focus();
+        }
+      };
+
+      if (!props.isTocOpen) {
+        el?.addEventListener('transitionend', transitionListener);
+      }
+
+      return () => el?.removeEventListener('transitionend', transitionListener);
+    },
+    [props.isTocOpen, mRef]
+  );
+
   return (
-    <React.Fragment>
-      {typeof window !== 'undefined' && (
-        <TabTrapper
-          mRef={mRef}
-          isTocOpen={props.isTocOpen}
-        />
-      )}
-      <SidebarPaneBody
-        ref={ref}
-        id='toc-sidebar'
-        data-testid='toc'
-        aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
-        data-analytics-region='toc'
-        {...props}
-      />
-    </React.Fragment>
+    <SidebarPaneBody
+      ref={ref}
+      id='toc-sidebar'
+      data-testid='toc'
+      aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
+      data-analytics-region='toc'
+      {...props}
+    />
   );
 });
 
@@ -310,6 +291,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     };
     this.handleExpandedChange = this.handleExpandedChange.bind(this);
     this.handleTreeItemClick = this.handleTreeItemClick.bind(this);
+    this.handleTreeKeyUp = this.handleTreeKeyUp.bind(this);
   }
 
   public render() {
@@ -321,21 +303,24 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
         <TocHeader />
         {book && (
-          <Styled.StyledTree
-            aria-label='Table of Contents'
-            expandedKeys={this.state.expandedKeys}
-            onExpandedChange={this.handleExpandedChange}
-          >
-            <TocSection
-              book={book}
-              page={this.props.page}
-              section={book.tree}
-              activeSection={this.activeSection}
-              onNavigate={this.props.onNavigate}
+          <div >
+            <Styled.StyledTree
+              aria-label='Table of Contents'
               expandedKeys={this.state.expandedKeys}
-              handleTreeItemClick={this.handleTreeItemClick}
-            />
-          </Styled.StyledTree >
+              onExpandedChange={this.handleExpandedChange}
+              onKeyUp={this.handleTreeKeyUp}
+            >
+              <TocSection
+                book={book}
+                page={this.props.page}
+                section={book.tree}
+                activeSection={this.activeSection}
+                onNavigate={this.props.onNavigate}
+                expandedKeys={this.state.expandedKeys}
+                handleTreeItemClick={this.handleTreeItemClick}
+              />
+            </Styled.StyledTree >
+          </div>
         )}
       </SidebarBody>
     );
@@ -350,6 +335,18 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     const next = new Set(prev);
     next.delete(id);
     this.setState({ expandedKeys: next });
+  };
+
+  handleTreeKeyUp = (event: React.KeyboardEvent) => {
+    // Handle Shift+Tab to move focus to the close button
+    if (event.key === 'Tab' && event.shiftKey) {
+      // Find the close button in the TOC header
+      const closeButton = this.sidebar.current?.querySelector('[data-testid="tocheader"] button[data-testid="toc-button"]') as HTMLElement;
+      if (closeButton) {
+        closeButton.focus();
+        event.preventDefault();
+      }
+    }
   };
 
   public componentDidMount() {
