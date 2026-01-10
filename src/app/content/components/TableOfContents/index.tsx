@@ -59,10 +59,9 @@ const SidebarBody = React.forwardRef<
       const transitionListener = () => {
         if (!props.isTocOpen) {
           // Find the TOC button directly and restore focus to it
-          const tocButton = document.querySelector('[data-testid="toc-button"]') as HTMLElement;
-          if (tocButton) {
-            tocButton.focus();
-          }
+          const tocButton = document?.querySelector('[data-testid="toc-button"]');
+
+          (tocButton as HTMLElement)?.focus();
         }
       };
 
