@@ -161,23 +161,24 @@ describe('TableOfContents', () => {
       .mockReturnValue(true);
 
     // Create a mock button element to restore focus to
-    const mockButton = document.createElement('button');
+    const mockButton = document!.createElement('button');
     mockButton.setAttribute('data-testid', 'toc-button');
-    document.body.appendChild(mockButton);
+    document?.body.appendChild(mockButton);
     const mockButtonFocusSpy = jest.spyOn(mockButton, 'focus');
 
     const { root } = renderToDom(<TestContainer store={store}>
       <ConnectedTableOfContents />
     </TestContainer>);
-    const sb = root.querySelector('[data-testid="toc"]')!;
+    const sb = root.querySelector('[data-testid="toc"]') as HTMLElement;
 
+    expect(sb).toBeDefined();
     // Focus the mock button, then open the TOC
     reactDomAct(() => {
       mockButton.focus();
       store.dispatch(actions.openToc());
     });
     reactDomAct(() => {
-      sb?.dispatchEvent(new Event('transitionend'));
+      sb.dispatchEvent(new Event('transitionend'));
     });
 
     // Focus should have moved away from the button to first item
@@ -188,14 +189,14 @@ describe('TableOfContents', () => {
       store.dispatch(actions.closeToc());
     });
     reactDomAct(() => {
-      sb?.dispatchEvent(new Event('transitionend'));
+      sb.dispatchEvent(new Event('transitionend'));
     });
 
     // Focus should have been restored to the TOC button
     expect(mockButtonFocusSpy).toHaveBeenCalled();
 
     // Cleanup
-    document.body.removeChild(mockButton);
+    document?.body.removeChild(mockButton);
   });
 
   it('does not focus first item when TOC is closed', () => {
@@ -226,9 +227,9 @@ describe('TableOfContents', () => {
       .mockReturnValue(true);
 
     // Create a mock button element to restore focus to
-    const mockButton = document.createElement('button');
+    const mockButton = document!.createElement('button');
     mockButton.setAttribute('data-testid', 'toc-button');
-    document.body.appendChild(mockButton);
+    document?.body.appendChild(mockButton);
     const mockButtonFocusSpy = jest.spyOn(mockButton, 'focus');
 
     const { root } = renderToDom(<TestContainer store={store}>
@@ -248,7 +249,7 @@ describe('TableOfContents', () => {
     expect(mockButtonFocusSpy).not.toHaveBeenCalled();
 
     // Cleanup
-    document.body.removeChild(mockButton);
+    document?.body.removeChild(mockButton);
   });
 
   it('resets toc on navigate', () => {
