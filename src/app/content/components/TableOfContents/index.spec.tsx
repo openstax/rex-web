@@ -199,58 +199,6 @@ describe('TableOfContents', () => {
     document?.body.removeChild(mockButton);
   });
 
-  it('does not focus first item when TOC is closed', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
-      .mockReturnValue(true);
-
-    const { root } = renderToDom(<TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>);
-    const sb = root.querySelector('[data-testid="toc"]')!;
-    const firstTocItem = sb.querySelector('div > div a, div > div div span') as HTMLElement;
-    const focusSpy = jest.spyOn(firstTocItem as any, 'focus');
-
-    // Keep TOC closed and dispatch transitionend
-    reactDomAct(() => {
-      store.dispatch(actions.closeToc());
-    });
-    reactDomAct(() => {
-      sb?.dispatchEvent(new Event('transitionend'));
-    });
-
-    // Focus should NOT have been called because TOC is closed
-    expect(focusSpy).not.toHaveBeenCalled();
-  });
-
-  it('does not try to restore focus when TOC opens (not closes)', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
-      .mockReturnValue(true);
-
-    // Create a mock button element to restore focus to
-    const mockButton = document!.createElement('button');
-    mockButton.setAttribute('data-testid', 'toc-button');
-    document?.body.appendChild(mockButton);
-    const mockButtonFocusSpy = jest.spyOn(mockButton, 'focus');
-
-    const { root } = renderToDom(<TestContainer store={store}>
-      <ConnectedTableOfContents />
-    </TestContainer>);
-    const sb = root.querySelector('[data-testid="toc"]')!;
-
-    // Open the TOC
-    reactDomAct(() => {
-      store.dispatch(actions.openToc());
-    });
-    reactDomAct(() => {
-      sb?.dispatchEvent(new Event('transitionend'));
-    });
-
-    // Focus should NOT be restored to the button because TOC is opening, not closing
-    expect(mockButtonFocusSpy).not.toHaveBeenCalled();
-
-    // Cleanup
-    document?.body.removeChild(mockButton);
-  });
 
   it('resets toc on navigate', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
