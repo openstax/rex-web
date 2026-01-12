@@ -44,7 +44,7 @@ const SidebarBody = React.forwardRef<
         if (isTocOpenRef.current) {
           // Focus first item when TOC opens
           const firstItemInToc = el?.querySelector(
-            'div > div a, div > div div span'
+            '[role="treegrid"] div'
           ) as HTMLElement;
           firstItemInToc?.focus();
         } else {
