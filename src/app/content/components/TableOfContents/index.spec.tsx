@@ -22,7 +22,7 @@ jest.mock('react-aria-components', () => {
   return {
     ...actual,
     Tree: ({ children, ...props }: any) =>
-      <div data-testid='mock-tree' {...props}>{children}</div>
+      <div data-testid='mock-tree' role='treegrid' {...props}>{children}</div>
     ,
     TreeItem: ({ children, ...props }: any) =>
       <div data-testid='mock-tree-item' {...props}>{children}</div>
