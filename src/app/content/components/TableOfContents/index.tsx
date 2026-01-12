@@ -35,39 +35,21 @@ const SidebarBody = React.forwardRef<
   React.useEffect(
     () => {
       const el = mRef.current;
-      const firstItemInToc = el?.querySelector(
-        '[role="treegrid"] div'
-      ) as HTMLElement;
       const transitionListener = () => {
         if (props.isTocOpen) {
+          // Focus first item when TOC opens
+          const firstItemInToc = el?.querySelector(
+            '[role="treegrid"] div'
+          ) as HTMLElement;
           firstItemInToc?.focus();
-        }
-      };
-
-      if (props.isTocOpen) {
-        el?.addEventListener('transitionend', transitionListener);
-      }
-
-      return () => el?.removeEventListener('transitionend', transitionListener);
-    },
-    [props.isTocOpen, mRef]
-  );
-
-  React.useEffect(
-    () => {
-      const el = mRef.current;
-      const transitionListener = () => {
-        if (!props.isTocOpen) {
-          // Find the TOC button directly and restore focus to it
+        } else {
+          // Restore focus to TOC button when TOC closes
           const tocButton = document?.querySelector('[data-testid="toc-button"]');
-
           (tocButton as HTMLElement)?.focus();
         }
       };
 
-      if (!props.isTocOpen) {
-        el?.addEventListener('transitionend', transitionListener);
-      }
+      el?.addEventListener('transitionend', transitionListener);
 
       return () => el?.removeEventListener('transitionend', transitionListener);
     },
