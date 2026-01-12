@@ -172,6 +172,21 @@ describe('TableOfContents', () => {
     const sb = root.querySelector('[data-testid="toc"]') as HTMLElement;
 
     expect(sb).toBeDefined();
+
+    // Get the first TOC item and make it focusable, with a spy to update activeElement
+    const firstTocItem = sb.querySelector('[role="treegrid"] div') as HTMLElement;
+    const originalFocus = firstTocItem.focus.bind(firstTocItem);
+    const firstTocItemFocusSpy = jest.spyOn(firstTocItem as any, 'focus').mockImplementation(() => {
+      // Simulate actual focus behavior by updating the element's focus state
+      originalFocus();
+      // In the test environment, manually set this as the active element
+      Object.defineProperty(document, 'activeElement', {
+        writable: true,
+        configurable: true,
+        value: firstTocItem,
+      });
+    });
+
     // Focus the mock button, then open the TOC
     reactDomAct(() => {
       mockButton.focus();
@@ -182,6 +197,7 @@ describe('TableOfContents', () => {
     });
 
     // Focus should have moved away from the button to first item
+    expect(firstTocItemFocusSpy).toHaveBeenCalled();
     expect(document?.activeElement).not.toBe(mockButton);
 
     // Close the TOC
