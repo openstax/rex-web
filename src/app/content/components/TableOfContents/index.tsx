@@ -31,12 +31,19 @@ const SidebarBody = React.forwardRef<
   React.ComponentProps<typeof SidebarPaneBody>
 >((props, ref) => {
   const mRef = ref as MutableRefObject<HTMLElement>;
+  const isTocOpenRef = React.useRef(props.isTocOpen);
+
+  // Update the ref whenever props change
+  React.useEffect(() => {
+    isTocOpenRef.current = props.isTocOpen;
+  }, [props.isTocOpen]);
 
   React.useEffect(
     () => {
       const el = mRef.current;
       const transitionListener = () => {
-        if (props.isTocOpen) {
+        // Check the current state via ref, not the captured closure value
+        if (isTocOpenRef.current) {
           // Focus first item when TOC opens
           const firstItemInToc = el?.querySelector(
             '[role="treegrid"] div'
@@ -53,7 +60,7 @@ const SidebarBody = React.forwardRef<
 
       return () => el?.removeEventListener('transitionend', transitionListener);
     },
-    [props.isTocOpen, mRef]
+    [mRef] // Only depend on mRef, not props.isTocOpen
   );
 
   return (
