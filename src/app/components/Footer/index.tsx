@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import RiceWhiteLogo from '../../../assets/rice-white-text.png';
+import RiceWhiteLogo from '../../../assets/rice-logo-white.png';
 import htmlMessage from '../../components/htmlMessage';
 import { isVerticalNavOpenConnector } from '../../content/components/utils/sidebar';
 import { State } from '../../content/types';

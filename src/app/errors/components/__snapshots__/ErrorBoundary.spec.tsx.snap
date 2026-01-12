@@ -330,7 +330,7 @@ Array [
 }
 
 .c22 {
-  height: 4rem;
+  height: 4.7rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
@@ -768,7 +768,7 @@ Array [
                 <img
                   alt="Rice University logo"
                   className="c22"
-                  src="rice-white-text.png"
+                  src="rice-logo-white.png"
                 />
               </a>
             </li>
@@ -1110,7 +1110,7 @@ Array [
 }
 
 .c22 {
-  height: 4rem;
+  height: 4.7rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
@@ -1548,7 +1548,7 @@ Array [
                 <img
                   alt="Rice University logo"
                   className="c22"
-                  src="rice-white-text.png"
+                  src="rice-logo-white.png"
                 />
               </a>
             </li>
