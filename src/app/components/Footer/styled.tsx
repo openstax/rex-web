@@ -421,6 +421,6 @@ export function SocialIcon(props: React.AnchorHTMLAttributes<unknown>) {
 }
 
 export const FooterLogo = styled.img`
-  height: 4rem;
+  height: 4.7rem;
   transform: translateY(0.2rem);
 `;
