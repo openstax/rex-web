@@ -134,7 +134,7 @@ describe('TableOfContents', () => {
       <ConnectedTableOfContents />
     </TestContainer>);
     const sb = root.querySelector('[data-testid="toc"]')!;
-    const firstTocItem = sb.querySelector('div > div a, div > div div span') as HTMLElement;
+    const firstTocItem = sb.querySelector('[role="treegrid"] div') as HTMLElement;
     const focusSpy = jest.spyOn(firstTocItem as any, 'focus');
 
     reactDomAct(() => {
