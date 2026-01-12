@@ -472,7 +472,7 @@ Array [
 }
 
 .c109 {
-  height: 4rem;
+  height: 4.7rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
@@ -7728,7 +7728,7 @@ Array [
 }
 
 .c97 {
-  height: 4rem;
+  height: 4.7rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
