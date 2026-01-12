@@ -246,6 +246,81 @@ describe('TableOfContents', () => {
     expect(mockEvent.preventDefault).toHaveBeenCalled();
   });
 
+  it('does not focus close button when key is not Shift+Tab', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+
+    const mockCloseButton = document!.createElement('button');
+    mockCloseButton.setAttribute('data-testid', 'toc-button');
+    const mockCloseButtonFocusSpy = jest.spyOn(mockCloseButton, 'focus');
+
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+
+    renderer.act(() => {
+      store.dispatch(actions.openToc());
+    });
+
+    const tocComponent = component.root.findByType(TableOfContents);
+    const tocInstance = tocComponent.instance as TableOfContents;
+
+    const mockSidebar = {
+      querySelector: jest.fn().mockReturnValue(mockCloseButton),
+    } as any;
+    tocInstance.sidebar = { current: mockSidebar };
+
+    // Test with Tab but no Shift
+    const mockEventTabOnly = {
+      key: 'Tab',
+      shiftKey: false,
+      preventDefault: jest.fn(),
+    } as any as React.KeyboardEvent;
+
+    renderer.act(() => {
+      tocInstance.handleTreeKeyUp(mockEventTabOnly);
+    });
+
+    // Should NOT have focused the button or prevented default
+    expect(mockCloseButtonFocusSpy).not.toHaveBeenCalled();
+    expect(mockEventTabOnly.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('does not focus close button when close button is not found', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+
+    renderer.act(() => {
+      store.dispatch(actions.openToc());
+    });
+
+    const tocComponent = component.root.findByType(TableOfContents);
+    const tocInstance = tocComponent.instance as TableOfContents;
+
+    // Mock sidebar querySelector to return null (button not found)
+    const mockSidebar = {
+      querySelector: jest.fn().mockReturnValue(null),
+    } as any;
+    tocInstance.sidebar = { current: mockSidebar };
+
+    const mockEvent = {
+      key: 'Tab',
+      shiftKey: true,
+      preventDefault: jest.fn(),
+    } as any as React.KeyboardEvent;
+
+    renderer.act(() => {
+      tocInstance.handleTreeKeyUp(mockEvent);
+    });
+
+    // Should NOT have prevented default since button wasn't found
+    expect(mockEvent.preventDefault).not.toHaveBeenCalled();
+  });
+
   it('resets toc on navigate', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');
 
