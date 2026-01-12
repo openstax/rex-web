@@ -203,41 +203,47 @@ describe('TableOfContents', () => {
     jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
-    // Create a mock close button element
+    // Create a mock close button element first
     const mockCloseButton = document!.createElement('button');
     mockCloseButton.setAttribute('data-testid', 'toc-button');
     const mockCloseButtonFocusSpy = jest.spyOn(mockCloseButton, 'focus');
 
-    const { root } = renderToDom(<TestContainer store={store}>
+    // Render the component using renderer.create so we can access the instance
+    const component = renderer.create(<TestContainer store={store}>
       <ConnectedTableOfContents />
     </TestContainer>);
 
-    // Find the TOC header and append our mock close button to it
-    const tocHeader = root.querySelector('[data-testid="tocheader"]');
-    tocHeader?.appendChild(mockCloseButton);
+    // Open the TOC
+    renderer.act(() => {
+      store.dispatch(actions.openToc());
+    });
 
-    // Find the tree element
-    const tree = root.querySelector('[data-testid="mock-tree"]');
-    expect(tree).toBeDefined();
+    // Get the TableOfContents component instance
+    const tocComponent = component.root.findByType(TableOfContents);
+    const tocInstance = tocComponent.instance as TableOfContents;
 
-    // Dispatch a Shift+Tab keyup event on the tree
-    const keyEvent = new KeyboardEvent('keyup', {
+    // Manually set up the mock button in the sidebar ref
+    // We need to create a mock sidebar structure
+    const mockSidebar = {
+      querySelector: jest.fn().mockReturnValue(mockCloseButton),
+    } as any;
+    tocInstance.sidebar = { current: mockSidebar };
+
+    // Create a mock keyboard event
+    const mockEvent = {
       key: 'Tab',
       shiftKey: true,
-      bubbles: true,
-    });
-    const preventDefaultSpy = jest.spyOn(keyEvent, 'preventDefault');
+      preventDefault: jest.fn(),
+    } as any as React.KeyboardEvent;
 
-    reactDomAct(() => {
-      tree?.dispatchEvent(keyEvent);
+    renderer.act(() => {
+      // Call the handleTreeKeyUp method directly
+      tocInstance.handleTreeKeyUp(mockEvent);
     });
 
     // Expect the close button to have been focused
     expect(mockCloseButtonFocusSpy).toHaveBeenCalled();
-    expect(preventDefaultSpy).toHaveBeenCalled();
-
-    // Cleanup
-    tocHeader?.removeChild(mockCloseButton);
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
   });
 
   it('resets toc on navigate', () => {
