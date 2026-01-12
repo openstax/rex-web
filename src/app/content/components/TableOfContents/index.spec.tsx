@@ -199,6 +199,46 @@ describe('TableOfContents', () => {
     document?.body.removeChild(mockButton);
   });
 
+  it('focuses close button on Shift+Tab in tree', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+
+    // Create a mock close button element
+    const mockCloseButton = document!.createElement('button');
+    mockCloseButton.setAttribute('data-testid', 'toc-button');
+    const mockCloseButtonFocusSpy = jest.spyOn(mockCloseButton, 'focus');
+
+    const { root } = renderToDom(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+
+    // Find the TOC header and append our mock close button to it
+    const tocHeader = root.querySelector('[data-testid="tocheader"]');
+    tocHeader?.appendChild(mockCloseButton);
+
+    // Find the tree element
+    const tree = root.querySelector('[data-testid="mock-tree"]');
+    expect(tree).toBeDefined();
+
+    // Dispatch a Shift+Tab keyup event on the tree
+    const keyEvent = new KeyboardEvent('keyup', {
+      key: 'Tab',
+      shiftKey: true,
+      bubbles: true,
+    });
+    const preventDefaultSpy = jest.spyOn(keyEvent, 'preventDefault');
+
+    reactDomAct(() => {
+      tree?.dispatchEvent(keyEvent);
+    });
+
+    // Expect the close button to have been focused
+    expect(mockCloseButtonFocusSpy).toHaveBeenCalled();
+    expect(preventDefaultSpy).toHaveBeenCalled();
+
+    // Cleanup
+    tocHeader?.removeChild(mockCloseButton);
+  });
 
   it('resets toc on navigate', () => {
     const dispatchSpy = jest.spyOn(store, 'dispatch');

@@ -33,10 +33,8 @@ const SidebarBody = React.forwardRef<
   const mRef = ref as MutableRefObject<HTMLElement>;
   const isTocOpenRef = React.useRef(props.isTocOpen);
 
-  // Update the ref whenever props change
-  React.useEffect(() => {
-    isTocOpenRef.current = props.isTocOpen;
-  }, [props.isTocOpen]);
+  // Update the ref synchronously during render to avoid timing issues
+  isTocOpenRef.current = props.isTocOpen;
 
   React.useEffect(
     () => {
