@@ -153,6 +153,15 @@ export const getSelectionDirection = (selection: Selection): 'forward' | 'backwa
     : 'backward';
 };
 
+export const getPreferEnd = (): boolean => {
+  const selection = assertWindow().getSelection();
+  const preferEnd = selection && selection.anchorNode && selection.focusNode
+    ? getSelectionDirection(selection) === 'forward'
+    : false;
+
+  return preferEnd;
+};
+
 /**
  * Calculate positions of all cards for @param highlights
  * If @param focusedHighlight is specified then change position of the related card to align it
@@ -173,10 +182,7 @@ export const updateCardsPositions = (
     checkIfHiddenByCollapsedAncestor
   );
 
-  const selection = assertWindow().getSelection();
-  const preferEnd = selection && selection.anchorNode && selection.focusNode
-    ? getSelectionDirection(selection) === 'forward'
-    : false;
+  const preferEnd = getPreferEnd();
 
   const offsetToAdjust =
     getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
