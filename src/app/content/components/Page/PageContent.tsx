@@ -181,12 +181,11 @@ export default styled(MainContent)`
           background-color: unset;
         }
       }
-
-      [data-for-screenreaders="true"]::before {
-        content: attr(data-message);
-        ${hiddenButAccessible}
-      }
     }
+  }
+
+  [data-for-screenreaders="true"] {
+    ${hiddenButAccessible}
   }
 
   .os-figure,
