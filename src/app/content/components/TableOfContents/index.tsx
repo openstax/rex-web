@@ -1,4 +1,4 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { HTMLElement, NodeListOf, Element } from '@openstax/types/lib.dom';
 import React, { Component, MutableRefObject } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../S
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
 import { LeftArrow, TimesIcon } from '../Toolbar/styled';
 import * as Styled from './styled';
-import { isSSR } from '../../../reactUtils';
+import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery, isSSR } from '../../../reactUtils';
 import { stripHtml } from '../../../utils';
 
 interface SidebarProps {
@@ -25,6 +25,40 @@ interface SidebarProps {
   page?: Page;
 }
 
+function TabTrapper({
+  mRef,
+  isTocOpen,
+}: {
+  mRef: MutableRefObject<HTMLElement>;
+  isTocOpen: boolean;
+}) {
+  const isPhone = useMatchMobileMediumQuery();
+  const isMobile = useMatchMobileQuery();
+
+  React.useEffect(() => {
+    if (!mRef?.current) {
+      return;
+    }
+    const otherRegions =
+      document?.querySelectorAll(
+        '[data-testid="navbar"],[data-testid="bookbanner"]'
+      ) as NodeListOf<Element>;
+    const containers = [
+      mRef.current,
+      ...(isPhone
+        ? []
+        : [mRef.current.previousElementSibling, ...Array.from(otherRegions)]),
+    ];
+    const listener = createTrapTab(...(containers as HTMLElement[]));
+    if (isTocOpen && isMobile) {
+      document?.addEventListener('keydown', listener, true);
+    }
+
+    return () => document?.removeEventListener('keydown', listener, true);
+  }, [mRef, isTocOpen, isMobile, isPhone]);
+
+  return null;
+}
 
 const SidebarBody = React.forwardRef<
   HTMLElement,
@@ -62,14 +96,22 @@ const SidebarBody = React.forwardRef<
   );
 
   return (
-    <SidebarPaneBody
-      ref={ref}
-      id='toc-sidebar'
-      data-testid='toc'
-      aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
-      data-analytics-region='toc'
-      {...props}
-    />
+    <React.Fragment>
+      {!isSSR() && (
+        <TabTrapper
+          mRef={mRef}
+          isTocOpen={props.isTocOpen}
+        />
+      )}
+      <SidebarPaneBody
+        ref={ref}
+        id='toc-sidebar'
+        data-testid='toc'
+        aria-label={useIntl().formatMessage({ id: 'i18n:toc:title' })}
+        data-analytics-region='toc'
+        {...props}
+      />
+    </React.Fragment>
   );
 });
 
@@ -290,24 +332,22 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
         <TocHeader />
         {book && (
-          <div >
-            <Styled.StyledTree
-              aria-label='Table of Contents'
+          <Styled.StyledTree
+            aria-label='Table of Contents'
+            expandedKeys={this.state.expandedKeys}
+            onExpandedChange={this.handleExpandedChange}
+            onKeyUp={this.handleTreeKeyUp}
+          >
+            <TocSection
+              book={book}
+              page={this.props.page}
+              section={book.tree}
+              activeSection={this.activeSection}
+              onNavigate={this.props.onNavigate}
               expandedKeys={this.state.expandedKeys}
-              onExpandedChange={this.handleExpandedChange}
-              onKeyUp={this.handleTreeKeyUp}
-            >
-              <TocSection
-                book={book}
-                page={this.props.page}
-                section={book.tree}
-                activeSection={this.activeSection}
-                onNavigate={this.props.onNavigate}
-                expandedKeys={this.state.expandedKeys}
-                handleTreeItemClick={this.handleTreeItemClick}
-              />
-            </Styled.StyledTree >
-          </div>
+              handleTreeItemClick={this.handleTreeItemClick}
+            />
+          </Styled.StyledTree >
         )}
       </SidebarBody>
     );
