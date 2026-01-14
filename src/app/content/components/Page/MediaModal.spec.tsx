@@ -54,4 +54,23 @@ describe('MediaModal', () => {
 
     expect(mockClose).toHaveBeenCalled();
   });
+
+  it('focuses close button when modal opens', () => {
+    // Create a spy on the focus method before rendering
+    const focusSpy = jest.fn();
+
+    // Mock useRef to capture the ref and spy on focus
+    const originalUseRef = React.useRef;
+    const mockRef = { current: { focus: focusSpy } };
+    jest.spyOn(React, 'useRef').mockReturnValue(mockRef);
+
+    // Render with isOpen=true
+    renderMediaModal(true);
+
+    // Verify focus was called (via useEffect when isOpen changes)
+    expect(focusSpy).toHaveBeenCalled();
+
+    // Restore original useRef
+    (React.useRef as jest.Mock).mockRestore();
+  });
 });

@@ -10,7 +10,7 @@ import {
 } from '@openstax/types/lib.dom';
 import { assertDocument } from '../../../utils';
 
-function createInteractionHandler(open: (content: ReactNode, triggerButton: HTMLButtonElement) => void) {
+function createInteractionHandler(open: (triggerButton: HTMLButtonElement) => void) {
   return (e: MouseEvent | KeyboardEvent) => {
     const target = e.target as HTMLElement;
 
@@ -26,24 +26,15 @@ function createInteractionHandler(open: (content: ReactNode, triggerButton: HTML
     const img = button.querySelector('img') as HTMLImageElement | null;
     if (!img) return;
 
-    open(
-      <img
-        tabIndex={0}
-        src={img.src}
-        alt={img.alt || ''}
-        width={img.width}
-        height={img.height}
-      />,
-      button
-    );
+    open(button);
   };
 }
 
 function createMediaModalPortal() {
-  let setModalContent: ((content: ReactNode, triggerButton: HTMLButtonElement) => void) | null = null;
+  let setModalContent: ((triggerButton: HTMLButtonElement) => void) | null = null;
 
-  const open = (content: ReactNode, triggerButton: HTMLButtonElement) => {
-    setModalContent?.(content, triggerButton);
+  const open = (triggerButton: HTMLButtonElement) => {
+    setModalContent?.(triggerButton);
   };
 
   const MediaModalPortal: React.FC = () => {
@@ -52,7 +43,20 @@ function createMediaModalPortal() {
     const [triggerButton, setTriggerButton] = React.useState<HTMLButtonElement | null>(null);
 
     useEffect(() => {
-      setModalContent = (content, button) => {
+      setModalContent = (button) => {
+        const img = button.querySelector('img') as HTMLImageElement | null;
+        if (!img) return;
+
+        const content = (
+          <img
+            tabIndex={0}
+            src={img.src}
+            alt={img.alt || ''}
+            width={img.width}
+            height={img.height}
+          />
+        );
+
         setContent(content);
         setTriggerButton(button);
         setIsOpen(true);
@@ -97,7 +101,7 @@ function createMediaModalPortal() {
   return { open, MediaModalPortal };
 }
 
-function createListeners(open: (content: ReactNode, triggerButton: HTMLButtonElement) => void) {
+function createListeners(open: (triggerButton: HTMLButtonElement) => void) {
   let container: HTMLElement | null = null;
   const handleInteraction = createInteractionHandler(open);
 
