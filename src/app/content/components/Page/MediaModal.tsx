@@ -65,6 +65,15 @@ interface MediaModalProps {
   children: React.ReactNode;
 }
 const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) => {
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      // Focus the close button when modal opens
+      closeButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
@@ -76,7 +85,7 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
       />
       <ModalWrapper aria-modal='true' role='dialog'>
         <ContentContainer >
-          <FloatingCloseButton onClick={onClose} aria-label='Close media preview'>
+          <FloatingCloseButton ref={closeButtonRef} onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />
           </FloatingCloseButton>
           <ScrollableContent>{children}</ScrollableContent>
