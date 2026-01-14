@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { createMediaModalManager } from './mediaModalManager';
+import { assertDocument } from '../../../utils';
+import { HTMLDivElement, HTMLButtonElement } from '@openstax/types/lib.dom';
 
 describe('mediaModalManager', () => {
   let manager: ReturnType<typeof createMediaModalManager>;
   let container: HTMLDivElement;
+  const document = assertDocument();
 
   beforeEach(() => {
     jest.useFakeTimers();
