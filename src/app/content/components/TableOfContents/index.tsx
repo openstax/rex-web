@@ -332,22 +332,24 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
         <TocHeader />
         {book && (
-          <Styled.StyledTree
-            aria-label='Table of Contents'
-            expandedKeys={this.state.expandedKeys}
-            onExpandedChange={this.handleExpandedChange}
-            onKeyUp={this.handleTreeKeyUp}
-          >
-            <TocSection
-              book={book}
-              page={this.props.page}
-              section={book.tree}
-              activeSection={this.activeSection}
-              onNavigate={this.props.onNavigate}
+          <div>
+            <Styled.StyledTree
+              aria-label='Table of Contents'
               expandedKeys={this.state.expandedKeys}
-              handleTreeItemClick={this.handleTreeItemClick}
-            />
-          </Styled.StyledTree >
+              onExpandedChange={this.handleExpandedChange}
+              onKeyUp={this.handleTreeKeyUp}
+            >
+              <TocSection
+                book={book}
+                page={this.props.page}
+                section={book.tree}
+                activeSection={this.activeSection}
+                onNavigate={this.props.onNavigate}
+                expandedKeys={this.state.expandedKeys}
+                handleTreeItemClick={this.handleTreeItemClick}
+              />
+            </Styled.StyledTree >
+          </div>
         )}
       </SidebarBody>
     );
