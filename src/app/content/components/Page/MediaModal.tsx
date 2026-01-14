@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import ScrollLock from '../../../components/ScrollLock';
+import { HTMLButtonElement } from '@openstax/types/lib.dom';
 import theme from '../../../theme';
 
 const buttonHeight = 4.2; // rem

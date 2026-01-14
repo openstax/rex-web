@@ -60,7 +60,6 @@ describe('MediaModal', () => {
     const focusSpy = jest.fn();
 
     // Mock useRef to capture the ref and spy on focus
-    const originalUseRef = React.useRef;
     const mockRef = { current: { focus: focusSpy } };
     jest.spyOn(React, 'useRef').mockReturnValue(mockRef);
 
