@@ -9,7 +9,7 @@ import BuyBook from './BuyBook';
 describe('BuyBook', () => {
   let store: Store;
   const bookWithLink = {
-    amazon_link: 'https://amazon.com/some-book',
+    amazon_link: 'https://amazon.com/some-book?utm_source=openstax&utm_medium=website&utm_campaign=book-page',
   } as Book;
   const bookWithoutLink = {
     amazon_link: '',
