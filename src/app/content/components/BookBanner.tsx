@@ -22,7 +22,7 @@ import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileBigHeight,
   bookBannerMobileMiniHeight,
-  contentTextWidth
+  contentTextWidth,
 } from './constants';
 import { applyBookTextColor } from './utils/applyBookTextColor';
 import { disablePrint } from './utils/disablePrint';
@@ -40,7 +40,6 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'yellow': '#faea36',
 };
 
-// tslint:disable-next-line:variable-name
 const LeftArrow = styled(ChevronLeft)`
   margin-top: -0.25rem;
   margin-left: -0.8rem;
@@ -49,7 +48,6 @@ const LeftArrow = styled(ChevronLeft)`
   ${applyBookTextColor}
 `;
 
-// tslint:disable-next-line:variable-name
 const TopBar = styled.div`
   width: 100%;
   max-width: ${maxNavWidth}rem;
@@ -94,12 +92,10 @@ const bookTitleStyles = css`
   `)}
 `;
 
-// tslint:disable-next-line:variable-name
 const BookTitle = styled.span`
   ${bookTitleStyles}
 `;
 
-// tslint:disable-next-line:variable-name
 const BookTitleLink = styled.a`
   ${bookTitleStyles}
   :hover {
@@ -107,7 +103,6 @@ const BookTitleLink = styled.a`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => variant === 'mini' ?
   <span {...props}>{children}</span> : <h1 {...props}>{children}</h1>)`
   ${ifMiniNav(h4Style, h3Style)}
@@ -139,7 +134,6 @@ interface BarWrapperProps {
   up: boolean;
   variant: 'mini' | 'big';
 }
-// tslint:disable-next-line:variable-name
 export const BarWrapper = styled.div<BarWrapperProps>`
   ${disablePrint}
 
@@ -184,7 +178,6 @@ interface BookBannerState {
   tabbableBanner: 'mini' | 'big';
 }
 
-// tslint:disable-next-line:variable-name
 const BookBanner = () => {
   const [bookBannerState, setBookBannerState] = React.useState<BookBannerState>({
     scrollTransition: false,

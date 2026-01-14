@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import ModalWithScrollLock from '../../components/Modal';
 
-// tslint:disable-next-line: variable-name
 const Modal = styled(ModalWithScrollLock)`
   width: 100vw;
 
@@ -28,7 +27,6 @@ const Modal = styled(ModalWithScrollLock)`
   }
 `;
 
-// tslint:disable-next-line: variable-name
 const Centered = styled.div`
   display: flex;
   align-items: center;
@@ -37,7 +35,6 @@ const Centered = styled.div`
   height: 70vh;
 `;
 
-// tslint:disable-next-line: variable-name
 const Message = styled.div`
   padding: 0.5rem 3rem;
   max-width: 60rem;
@@ -51,6 +48,7 @@ export default function LoginGate({
   book,
   children,
 }: React.PropsWithChildren<{ book: Book }>) {
+
   if (!!useSelector(user) ||
     !hasOSWebData(book) ||
     !book.require_login_message_text) {
@@ -59,7 +57,7 @@ export default function LoginGate({
   return (
     <>
       {children}
-      <Modal heading='Content Warning'>
+      <Modal heading='i18n:content-warning:heading:aria-label'>
         <Centered>
           <Message>
             <span dangerouslySetInnerHTML={{__html: book.require_login_message_text}} />

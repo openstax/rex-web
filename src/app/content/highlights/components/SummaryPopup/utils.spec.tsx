@@ -20,7 +20,6 @@ const mockHighlight = {
 } as Highlight;
 
 describe('createHighlightLink', () => {
-  // tslint:disable-next-line: variable-name
   let Component: React.ComponentType<{book?: typeof archiveBook}>;
   let store: ReturnType<typeof createTestStore>;
 
@@ -45,7 +44,6 @@ describe('createHighlightLink', () => {
       <Component book={archiveBook} />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
     renderer.act(() => {});
 
     const link = component.root.findByProps({ 'data-testid': 'link' });
@@ -61,7 +59,6 @@ describe('createHighlightLink', () => {
       <Component />
     </TestContainer>);
 
-    // tslint:disable-next-line: no-empty
     renderer.act(() => {});
 
     const link = component.root.findByProps({ 'data-testid': 'link' });

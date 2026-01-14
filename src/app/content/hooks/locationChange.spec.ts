@@ -114,7 +114,6 @@ describe('contentRouteHookBody', () => {
     helpers.archiveLoader.mockBook(mockBook);
     helpers.archiveLoader.mockPage(book, {
       abstract: '',
-      // tslint:disable-next-line: max-line-length
       content: `some <a href="./${mockBook.id}@${mockBook.version}:99d38770-49c7-49d3-b567-88f393ffb4fe.xhtml"></a> content`,
       id: '99d38770-49c7-49d3-b567-88f393ffb4fe',
       revised: '2018-07-30T15:58:45Z',
@@ -228,7 +227,6 @@ describe('contentRouteHookBody', () => {
       helpers.archiveLoader.mockBook(mockBook);
       helpers.archiveLoader.mockPage(mockBook, {
         abstract: '',
-        // tslint:disable-next-line: max-line-length
         content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.version}:${mockPageInOtherBook.id}.xhtml"></a> content`,
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',
@@ -266,7 +264,6 @@ describe('contentRouteHookBody', () => {
       helpers.osWebLoader.getBookFromId.mockReturnValue(Promise.resolve(mockCmsOtherBook));
       helpers.archiveLoader.mock.loadPage.mockResolvedValue({
         abstract: '',
-        // tslint:disable-next-line: max-line-length
         content: `some <a href="./${mockOtherBook.id}@${mockOtherBook.contentVersion}:thisiddoes-not7-exis-t567-88f393fother.xhtml"></a> content`,
         id: 'pageid',
         revised: '2018-07-30T15:58:45Z',

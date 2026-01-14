@@ -29,7 +29,6 @@ const textColors = {
 };
 
 // Browser default outline for focus items per
-// tslint:disable-next-line:max-line-length
 // https://css-tricks.com/copy-the-browsers-native-focus-styles/
 export const defaultFocusOutline = `
   outline: 0.2rem auto Highlight;

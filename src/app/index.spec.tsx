@@ -4,7 +4,7 @@ import { reactAndFriends, resetModules } from '../test/utils';
 import { notFound } from './errors/routes';
 import { AnyMatch } from './navigation/types';
 import { AppServices, MiddlewareAPI, Store } from './types';
-let React: any; // tslint:disable-line:variable-name
+let React: any;
 let renderer: any;
 
 jest.mock('../config', () => ({

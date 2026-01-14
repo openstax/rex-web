@@ -28,10 +28,8 @@ const bookLoader = makeUnifiedBookLoader(
 const bookId = argv._[1];
 bookLoader(bookId).then((book: any) => {
   if (field) {
-    // tslint:disable-next-line:no-console
     console.log(book[field]);
   } else {
-    // tslint:disable-next-line:no-console
     console.log(JSON.stringify(book, null, 2));
   }
 });

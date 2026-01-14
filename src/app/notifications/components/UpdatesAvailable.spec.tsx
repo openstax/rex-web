@@ -4,10 +4,10 @@ import { reactAndFriends, resetModules } from '../../../test/utils';
 describe('UpdatesAvailable', () => {
   const locationBackup = window!.location;
   const serviceWorkerBackup = window!.navigator.serviceWorker;
-  let React: ReturnType<typeof reactAndFriends>['React']; // tslint:disable-line:variable-name
+  let React: ReturnType<typeof reactAndFriends>['React'];
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
-  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer']; // tslint:disable-line:variable-name
-  let UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
+  let TestContainer: ReturnType<typeof reactAndFriends>['TestContainer'];
+  let UpdatesAvailable = require('./UpdatesAvailable').default;
   const sw = { update: () => Promise.resolve() };
   let resolveReadyPromise: (sw: { update: () => Promise<void> }) => void;
 
@@ -20,7 +20,7 @@ describe('UpdatesAvailable', () => {
     });
     resetModules();
     ({React, renderer, TestContainer} = reactAndFriends());
-    UpdatesAvailable = require('./UpdatesAvailable').default; // tslint:disable-line:variable-name
+    UpdatesAvailable = require('./UpdatesAvailable').default;
   });
 
   afterEach(() => {

@@ -18,7 +18,6 @@ import {
   mockOsWebBook,
 } from './seoUtils.spec.data';
 
-// tslint:disable: max-line-length
 describe('getDescription', () => {
   const store = createTestStore();
   const services = {

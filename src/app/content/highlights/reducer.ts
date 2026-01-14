@@ -17,7 +17,7 @@ import {
   removeFromTotalCounts,
   removeSummaryHighlight,
   updateInTotalCounts,
-  updateSummaryHighlightsDependOnFilters
+  updateSummaryHighlightsDependOnFilters,
 } from './utils';
 import { findHighlight } from './utils/reducerUtils';
 import updateSummaryFilters from './utils/updateSummaryFilters';

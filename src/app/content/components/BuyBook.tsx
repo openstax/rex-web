@@ -8,7 +8,6 @@ import { disablePrint } from './utils/disablePrint';
 import { setUtmCampaign } from '../utils/urlUtils';
 import { Book, BookWithOSWebData } from '../types';
 
-// tslint:disable-next-line:variable-name
 const BuyBookAlignment = styled.div`
   width: 100%;
   display: flex;
@@ -19,7 +18,6 @@ const BuyBookAlignment = styled.div`
   ${disablePrint}
 `;
 
-// tslint:disable-next-line:variable-name
 const BuyBookLink = styled.a`
   ${textRegularSize};
   font-size: 1.6rem;
@@ -34,7 +32,6 @@ const BuyBookLink = styled.a`
   font-weight: 700;
 `;
 
-// tslint:disable-next-line: variable-name
 const BuyBook = ({book}: {book: Book}) => {
   const bookWithOSwebData = book as BookWithOSWebData;
 

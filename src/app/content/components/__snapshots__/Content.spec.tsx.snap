@@ -472,7 +472,7 @@ Array [
 }
 
 .c109 {
-  height: 4rem;
+  height: 4.7rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
@@ -974,6 +974,19 @@ Array [
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
+}
+
+.c73 [data-for-screenreaders="true"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .c73 .os-figure,
@@ -2386,20 +2399,6 @@ Array [
 
   .c73 .search-highlight[aria-current] .search-highlight {
     background-color: unset;
-  }
-
-  .c73 .search-highlight [data-for-screenreaders="true"]::before {
-    content: attr(data-message);
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    -webkit-clip: rect(0,0,0,0);
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-    border: 0;
   }
 }
 
@@ -7240,7 +7239,7 @@ Array [
                         <img
                           alt="Rice University logo"
                           className="c109"
-                          src="rice-white-text.png"
+                          src="rice-logo-white.png"
                         />
                       </a>
                     </li>
@@ -7728,7 +7727,7 @@ Array [
 }
 
 .c97 {
-  height: 4rem;
+  height: 4.7rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
   transform: translateY(0.2rem);
@@ -8286,6 +8285,19 @@ Array [
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
+}
+
+.c73 [data-for-screenreaders="true"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .c73 .os-figure,
@@ -9545,20 +9557,6 @@ Array [
 
   .c73 .search-highlight[aria-current] .search-highlight {
     background-color: unset;
-  }
-
-  .c73 .search-highlight [data-for-screenreaders="true"]::before {
-    content: attr(data-message);
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    -webkit-clip: rect(0,0,0,0);
-    clip: rect(0,0,0,0);
-    white-space: nowrap;
-    border: 0;
   }
 }
 
@@ -14237,7 +14235,7 @@ Array [
                         <img
                           alt="Rice University logo"
                           className="c97"
-                          src="rice-white-text.png"
+                          src="rice-logo-white.png"
                         />
                       </a>
                     </li>

@@ -8,7 +8,6 @@ import { bodyCopyRegularStyle, h3Style, h4Style } from '../Typography';
 
 export const modalPadding = 3.0;
 
-// tslint:disable-next-line:variable-name
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
@@ -20,7 +19,6 @@ export const Card = styled.div`
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0 4rem rgba(0, 0, 0, 0.08);
 `;
 
-// tslint:disable-next-line:variable-name
 export const Header = styled.header`
   display: flex;
   align-items: center;
@@ -31,7 +29,6 @@ export const Header = styled.header`
   justify-content: space-between;
 `;
 
-// tslint:disable-next-line:variable-name
 export const Heading = styled.h1`
   ${h4Style}
   display: flex;
@@ -39,14 +36,12 @@ export const Heading = styled.h1`
   margin: 0;
 `;
 
-// tslint:disable-next-line:variable-name
 export const BodyHeading = styled.h3`
   ${h3Style}
   font-weight: 400;
   padding: ${modalPadding * 0.5}rem 0;
 `;
 
-// tslint:disable-next-line:variable-name
 export const Body = styled.div`
   display: flex;
   flex-direction: column;
@@ -57,7 +52,6 @@ export const Body = styled.div`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const Mask = styled.div`
   top: 0;
   left: 0;
@@ -68,7 +62,6 @@ export const Mask = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
-// tslint:disable-next-line:variable-name
 export const ModalWrapper = styled.div`
   top: 0;
   z-index: ${theme.zIndex.errorPopup};
@@ -81,12 +74,10 @@ export const ModalWrapper = styled.div`
   align-items: center;
 `;
 
-// tslint:disable-next-line:variable-name
 export const CardWrapper = styled.div`
   z-index: 1;
 `;
 
-// tslint:disable-next-line:variable-name
 export const CloseModalIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   ${toolbarIconStyles};
   cursor: pointer;
@@ -101,7 +92,6 @@ export const CloseModalIcon = styled((props) => <Times {...props} aria-hidden='t
   width: 2rem;
 `;
 
-// tslint:disable-next-line:variable-name
 export const Footer = styled.div`
   display: flex;
   justify-content: space-between;

@@ -9,7 +9,6 @@ import { AppServices, MiddlewareAPI, Store } from '../types';
 
 const book = formatBookData(archiveBook, mockCmsBook);
 
-// tslint:disable: variable-name
 describe('MessageProvider', () => {
   let Provider: ReturnType<typeof reactAndFriends>['Provider'];
   let React: ReturnType<typeof reactAndFriends>['React'];

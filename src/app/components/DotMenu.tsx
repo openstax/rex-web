@@ -5,7 +5,6 @@ import theme from '../theme';
 import { PlainButton } from './Button';
 import Dropdown, { DropdownList, DropdownProps } from './Dropdown';
 
-// tslint:disable-next-line:variable-name
 export const DotMenuIcon = styled(EllipsisV)`
   height: 2rem;
   width: 2rem;
@@ -18,7 +17,6 @@ export const DotMenuIcon = styled(EllipsisV)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const DotMenuToggle = styled(
   React.forwardRef(
     ({isOpen, ...props}: {isOpen: boolean}, ref) => {
@@ -42,7 +40,6 @@ export const DotMenuToggle = styled(
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const DotMenuDropdownList = styled(DropdownList)`
   && {
     ${(props) => {
@@ -54,7 +51,6 @@ export const DotMenuDropdownList = styled(DropdownList)`
   }
 `;
 
-// tslint:disable-next-line:variable-name
 export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown {...props} toggle={<DotMenuToggle />} />)`
   .focus-within ${DotMenuIcon} {
     color: ${theme.color.primary.gray.base};

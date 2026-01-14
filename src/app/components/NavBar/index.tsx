@@ -36,7 +36,6 @@ export const useUnsavedHighlightsValidator = (hasUnsavedHighlight: boolean) => {
   };
 };
 
-// tslint:disable-next-line:variable-name
 export const Dropdown: FunctionComponent<{
   user: User,
   currentPath: string,
@@ -109,7 +108,6 @@ export const Dropdown: FunctionComponent<{
   );
 };
 
-// tslint:disable-next-line:variable-name
 const DropdownToggle: FunctionComponent<{ user: User }> = ({
   user: { firstName, lastName },
 }) => {
@@ -127,7 +125,6 @@ const DropdownToggle: FunctionComponent<{ user: User }> = ({
   );
 };
 
-// tslint:disable-next-line:variable-name
 const LoggedInState: FunctionComponent<{
   user: User;
   currentPath: string;
@@ -144,14 +141,12 @@ const LoggedInState: FunctionComponent<{
   </Styled.DropdownContainer>
 );
 
-// tslint:disable-next-line:variable-name
 const LoggedOutState: FunctionComponent<{currentPath: string}> = ({currentPath}) => <FormattedMessage id='i18n:nav:login:text'>
   {(msg) => <Styled.Link href={'/accounts/login?r=' + currentPath}
     data-testid='nav-login' data-analytics-label='login'> {msg}
   </Styled.Link>}
 </FormattedMessage>;
 
-// tslint:disable-next-line:variable-name
 export const ConnectedLoginButton = connect(
   (state: AppState) => ({
     currentPath: selectNavigation.pathname(state),
@@ -165,7 +160,6 @@ interface NavigationBarProps {
   params: unknown;
   hasUnsavedHighlight: boolean;
 }
-// tslint:disable-next-line:variable-name
 const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, params}: NavigationBarProps) => {
   const logoUrl = guards.isPortaled(params) ? `/${params.portalName}/` : '/';
   const unsavedHighlightsHandler = useUnsavedHighlightsValidator(hasUnsavedHighlight);

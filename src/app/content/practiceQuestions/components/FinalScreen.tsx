@@ -7,7 +7,6 @@ import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import NextSectionMessage, { StyledMessageText } from './NextSectionMessage';
 
-// tslint:disable-next-line: variable-name
 const StyledFinalScreen = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,14 +18,12 @@ const StyledFinalScreen = styled.div`
   ${textRegularStyle}
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledText = styled.span`
   margin-bottom: 3rem;
   max-width: 38rem;
   overflow: initial;
 `;
 
-// tslint:disable-next-line: variable-name
 const StyledNextSectionMessage = styled(NextSectionMessage)`
   ${StyledMessageText} {
     display: block;
@@ -37,7 +34,6 @@ interface FinalScreenProps {
   nextSection?: LinkedArchiveTreeSection;
 }
 
-// tslint:disable-next-line: variable-name
 const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   const dispatch = useDispatch();
 

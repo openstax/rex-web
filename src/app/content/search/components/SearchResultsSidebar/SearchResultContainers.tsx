@@ -22,7 +22,6 @@ interface SearchResultContainersProps {
   selectResult: (payload: FirstArgumentType<typeof selectSearchResult>) => void;
   activeSectionRef: React.RefObject<HTMLAnchorElement>;
 }
-// tslint:disable-next-line:variable-name
 const SearchResultContainers = ({containers, ...props}: SearchResultContainersProps) => (
   <React.Fragment>
     {containers.map((node: SearchResultContainer) =>
@@ -53,7 +52,6 @@ const SearchResultContainers = ({containers, ...props}: SearchResultContainersPr
   </React.Fragment>
 );
 
-// tslint:disable-next-line:variable-name
 const SearchResult = (props: {
   currentPage: Page | undefined;
   currentQuery: string | null;
@@ -93,7 +91,6 @@ const SearchResult = (props: {
   </Styled.NavItem>;
 };
 
-// tslint:disable-next-line:variable-name
 const SearchResultsDropdown = (props: {
   currentPage: Page | undefined;
   currentQuery: string | null;
