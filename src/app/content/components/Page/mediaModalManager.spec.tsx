@@ -1,21 +1,62 @@
 import React from 'react';
-import renderer, { act } from 'react-test-renderer';
+import ReactDOM from 'react-dom';
+import { act } from 'react-dom/test-utils';
 import { createMediaModalManager } from './mediaModalManager';
 
 describe('mediaModalManager', () => {
   let manager: ReturnType<typeof createMediaModalManager>;
+  let container: HTMLDivElement;
 
   beforeEach(() => {
     jest.useFakeTimers();
     manager = createMediaModalManager();
+    container = document.createElement('div');
+    document.body.appendChild(container);
   });
 
   afterEach(() => {
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
+    ReactDOM.unmountComponentAtNode(container);
+    document.body.removeChild(container);
   });
 
-  describe('focus restoration', () => {
+  describe('focus management', () => {
+    it('focuses close button when modal opens', () => {
+      // Create a mock button element
+      const mockButton = document.createElement('button');
+      mockButton.className = 'image-button-wrapper';
+
+      // Create and append an img element to the button
+      const mockImg = document.createElement('img');
+      mockImg.src = 'test.jpg';
+      mockImg.alt = 'Test image';
+      mockButton.appendChild(mockImg);
+
+      // Add button to document
+      document.body.appendChild(mockButton);
+
+      // Render the MediaModalPortal component
+      act(() => {
+        ReactDOM.render(<manager.MediaModalPortal />, container);
+      });
+
+      // Open the modal
+      act(() => {
+        manager.open(mockButton);
+      });
+
+      // Get the close button from the rendered modal
+      const closeButton = document.querySelector('button[aria-label="Close media preview"]') as HTMLButtonElement;
+      expect(closeButton).toBeTruthy();
+
+      // Verify the close button is the active element (has focus)
+      expect(document.activeElement).toBe(closeButton);
+
+      // Cleanup
+      document.body.removeChild(mockButton);
+    });
+
     it('returns focus to trigger button after modal closes', () => {
       // Create a mock button element
       const mockButton = document.createElement('button');
@@ -34,19 +75,22 @@ describe('mediaModalManager', () => {
       const focusSpy = jest.spyOn(mockButton, 'focus');
 
       // Render the MediaModalPortal component
-      const component = renderer.create(<manager.MediaModalPortal />);
+      act(() => {
+        ReactDOM.render(<manager.MediaModalPortal />, container);
+      });
 
       // Open the modal
       act(() => {
         manager.open(mockButton);
       });
 
-      // Get the close button from the rendered modal
-      const closeButton = component.root.findAllByType('button')[0];
+      // Get the close button from the rendered modal (it's in document.body due to portal)
+      const closeButton = document.querySelector('button[aria-label="Close media preview"]') as HTMLButtonElement;
+      expect(closeButton).toBeTruthy();
 
       // Close the modal
       act(() => {
-        closeButton.props.onClick();
+        closeButton.click();
       });
 
       // Run timers to execute the setTimeout callback
@@ -80,7 +124,9 @@ describe('mediaModalManager', () => {
       const focusSpy = jest.spyOn(mockButton, 'focus');
 
       // Render the MediaModalPortal component
-      renderer.create(<manager.MediaModalPortal />);
+      act(() => {
+        ReactDOM.render(<manager.MediaModalPortal />, container);
+      });
 
       // Open the modal
       act(() => {
@@ -89,7 +135,7 @@ describe('mediaModalManager', () => {
 
       // Simulate Escape key press
       act(() => {
-        const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+        const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape', bubbles: true });
         document.dispatchEvent(escapeEvent);
       });
 
@@ -122,22 +168,26 @@ describe('mediaModalManager', () => {
       mockButton.appendChild(mockImg);
 
       // Render the MediaModalPortal component
-      const component = renderer.create(<manager.MediaModalPortal />);
+      act(() => {
+        ReactDOM.render(<manager.MediaModalPortal />, container);
+      });
 
       // Open the modal
       act(() => {
         manager.open(mockButton);
       });
 
-      // Find the img element inside the modal
-      const modalImg = component.root.findAllByType('img')[0];
+      // Find the img element inside the modal (it's in document.body due to portal)
+      const modalImages = document.querySelectorAll('img');
+      // Find the image that's NOT the original button image
+      const modalImg = Array.from(modalImages).find(img => img !== mockImg);
 
-      // Verify the image properties match the original
-      expect(modalImg.props.src).toBe('test-image.jpg');
-      expect(modalImg.props.alt).toBe('Test alt text');
-      expect(modalImg.props.width).toBe(800);
-      expect(modalImg.props.height).toBe(600);
-      expect(modalImg.props.tabIndex).toBe(0);
+      expect(modalImg).toBeTruthy();
+      expect(modalImg?.src).toContain('test-image.jpg');
+      expect(modalImg?.alt).toBe('Test alt text');
+      expect(modalImg?.width).toBe(800);
+      expect(modalImg?.height).toBe(600);
+      expect(modalImg?.tabIndex).toBe(0);
     });
 
     it('does not open modal if button has no image', () => {
@@ -146,16 +196,18 @@ describe('mediaModalManager', () => {
       mockButton.className = 'image-button-wrapper';
 
       // Render the MediaModalPortal component
-      const component = renderer.create(<manager.MediaModalPortal />);
+      act(() => {
+        ReactDOM.render(<manager.MediaModalPortal />, container);
+      });
 
       // Try to open the modal
       act(() => {
         manager.open(mockButton);
       });
 
-      // Verify modal is not open (should not find close button)
-      const buttons = component.root.findAllByType('button');
-      expect(buttons.length).toBe(0);
+      // Verify modal is not open (should not find close button in the DOM)
+      const closeButton = document.querySelector('button[aria-label="Close media preview"]');
+      expect(closeButton).toBeNull();
     });
   });
 });
