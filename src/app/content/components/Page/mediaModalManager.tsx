@@ -68,7 +68,6 @@ function createMediaModalPortal() {
 
     const handleClose = React.useCallback(() => {
       setIsOpen(false);
-      // Use setTimeout to ensure modal is fully closed before returning focus
       setTimeout(() => {
         triggerButton?.focus();
       }, 0);

@@ -70,7 +70,6 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
 
   React.useEffect(() => {
     if (isOpen) {
-      // Focus the close button when modal opens
       closeButtonRef.current?.focus();
     }
   }, [isOpen]);
