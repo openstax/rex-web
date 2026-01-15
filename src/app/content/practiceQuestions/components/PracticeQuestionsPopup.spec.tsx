@@ -81,17 +81,55 @@ describe('PracticeQuestions', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('focus is on pop up content', async() => {
+  it('focus is on close button', () => {
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    const focus = jest.fn();
-    const addEventListener = jest.fn();
-    const createNodeMock = () => ({focus, addEventListener});
+    const document = assertWindow().document;
+    const closeButton = document.createElement('button');
+    closeButton.setAttribute('data-testid', 'close-practice-questions-popup');
+    const closeButtonFocus = jest.fn();
+    closeButton.focus = closeButtonFocus;
+    document.body.appendChild(closeButton);
+
+    const mockButton = document.createElement('button');
+    mockButton.focus();
 
     renderer.create(<TestContainer services={services} store={store}>
       <PracticeQuestionsPopup />
-    </TestContainer>, {createNodeMock});
+    </TestContainer>);
 
-    expect(focus).toHaveBeenCalled();
+    expect(closeButtonFocus).toHaveBeenCalled();
+    closeButton.remove();
+  });
+
+  it('restores focus to opening button when modal closes', () => {
+    const document = assertWindow().document;
+    const closeButton = document.createElement('button');
+    closeButton.setAttribute('data-testid', 'close-practice-questions-popup');
+    document.body.appendChild(closeButton);
+
+    const mockButton = document.createElement('button');
+    const mockButtonFocus = jest.fn();
+    mockButton.focus = mockButtonFocus;
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
+
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>);
+
+    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(false);
+
+    renderer.act(() => {
+      component.update(<TestContainer services={services} store={store}>
+        <PracticeQuestionsPopup />
+      </TestContainer>);
+    });
+
+    expect(mockButtonFocus).toHaveBeenCalledTimes(2);
+    closeButton.remove();
+    mockButton.remove();
   });
 
   it('tracks analytics and removes modal-url when clicking x icon', () => {

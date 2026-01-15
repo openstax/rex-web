@@ -12,6 +12,7 @@ import { User } from '../../../auth/types';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
+import { assertDocument } from '../../../utils';
 import Modal from '../../components/Modal';
 import { bookTheme } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, PopupBody } from '../../styles/PopupStyles';
@@ -109,18 +110,20 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
   useOnEsc(true, closeAndTrack('esc'));
 
   React.useEffect(() => {
+    const document = assertDocument();
     openingElementRef.current = document.activeElement as HTMLElement;
-
-    const closeButton = document.querySelector('[data-testid="close-highlights-popup"]') as HTMLElement;
-    if (closeButton) {
-      closeButton.focus();
-    }
 
     return () => {
       if (openingElementRef.current) {
         openingElementRef.current.focus();
       }
     };
+  }, []);
+
+  const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
+    if (element) {
+      element.focus();
+    }
   }, []);
 
   return <Modal
@@ -136,6 +139,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
   >
     <Header colorSchema={props.bookTheme}>
       <CloseIconWrapper
+        ref={closeButtonRef}
         data-testid='close-highlights-popup'
         aria-label={intl.formatMessage({id: 'i18n:toolbar:highlights:popup:close-button:aria-label'})}
         data-analytics-label='Close My Highlights'

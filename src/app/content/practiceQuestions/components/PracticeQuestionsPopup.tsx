@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
-import { assertWindow } from '../../../utils';
+import { assertDocument, assertWindow } from '../../../utils';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
@@ -16,6 +16,7 @@ import ShowPracticeQuestions from './ShowPracticeQuestions';
 const PracticeQuestionsPopup = () => {
   const dispatch = useDispatch();
   const popUpRef = React.useRef<HTMLElement>(null);
+  const openingElementRef = React.useRef<HTMLElement | null>(null);
   const trackOpenClosePQ = useAnalyticsEvent('openClosePracticeQuestions');
   const isPracticeQuestionsOpen = useSelector(pqSelectors.isPracticeQuestionsOpen);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
@@ -36,12 +37,20 @@ const PracticeQuestionsPopup = () => {
   useOnEsc(isPracticeQuestionsOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
-    const popUp = popUpRef.current;
-
-    if (popUp && isPracticeQuestionsOpen) {
-      popUp.focus();
+    if (isPracticeQuestionsOpen) {
+      const document = assertDocument();
+      openingElementRef.current = document.activeElement as HTMLElement;
+    } else if (openingElementRef.current) {
+      openingElementRef.current.focus();
+      openingElementRef.current = null;
     }
   }, [isPracticeQuestionsOpen]);
+
+  const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
+    if (element) {
+      element.focus();
+    }
+  }, []);
 
   return isPracticeQuestionsOpen ?
     <Modal
@@ -60,6 +69,7 @@ const PracticeQuestionsPopup = () => {
           <FormattedMessage id='i18n:practice-questions:popup:heading' />
         </h1>
         <CloseIconWrapper
+          ref={closeButtonRef}
           data-testid='close-practice-questions-popup'
           aria-label={intl.formatMessage({id: 'i18n:practice-questions:popup:close'})}
           data-analytics-label='Click to close Practice Questions modal'

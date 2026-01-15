@@ -108,27 +108,17 @@ describe('MyHighlights button and PopUp', () => {
     expect(dispatch).toHaveBeenCalledWith(openMyHighlights());
   });
 
-  it('focus is on pop up content', async() => {
-    const focus = jest.fn();
-    const addEventListener = jest.fn();
-    const removeEventListener = jest.fn();
-    const querySelectorAll = jest.fn(() => []);
-    const getAttribute = jest.fn();
-    const setAttribute = jest.fn();
-    const removeAttribute = jest.fn();
-    const createNodeMock = () => ({
-      addEventListener,
-      focus,
-      getAttribute,
-      querySelectorAll,
-      removeAttribute,
-      removeEventListener,
-      setAttribute,
-    });
+  it('focus is on close button', async() => {
+    const document = utils.assertDocument();
+    const closeButton = document.createElement('button');
+    closeButton.setAttribute('data-testid', 'close-highlights-popup');
+    const closeButtonFocus = jest.fn();
+    closeButton.focus = closeButtonFocus;
+    document.body.appendChild(closeButton);
 
     renderer.create(<TestContainer services={services} store={store}>
       <HighlightsPopUp />
-    </TestContainer>, {createNodeMock});
+    </TestContainer>);
 
     const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
     isHtmlElement.mockReturnValueOnce(true);
@@ -137,7 +127,9 @@ describe('MyHighlights button and PopUp', () => {
     // Force componentDidUpdate()
     renderer.act(() => { store.dispatch(receiveUser(user)); });
 
-    expect(focus).toHaveBeenCalled();
+    expect(closeButtonFocus).toHaveBeenCalled();
+
+    closeButton.remove();
   });
 
   it('closes popup on esc and tracks analytics', async() => {
@@ -236,14 +228,13 @@ describe('MyHighlights button and PopUp', () => {
     const mockButton = document.createElement('button');
     mockButton.focus();
 
-    const component = renderer.create(<TestContainer services={services} store={store}>
+    renderer.create(<TestContainer services={services} store={store}>
       <HighlightsPopUp />
     </TestContainer>);
 
     renderer.act(() => { store.dispatch(openMyHighlights()); });
 
     expect(closeButtonFocus).toHaveBeenCalled();
-
     closeButton.remove();
   });
 
@@ -259,16 +250,14 @@ describe('MyHighlights button and PopUp', () => {
     document.body.appendChild(mockButton);
     mockButton.focus();
 
-    store.dispatch(openMyHighlights());
-
-    const component = renderer.create(<TestContainer services={services} store={store}>
+    renderer.create(<TestContainer services={services} store={store}>
       <HighlightsPopUp />
     </TestContainer>);
 
+    renderer.act(() => { store.dispatch(openMyHighlights()); });
     renderer.act(() => { store.dispatch(closeMyHighlights()); });
 
     expect(mockButtonFocus).toHaveBeenCalledTimes(2);
-
     closeButton.remove();
     mockButton.remove();
   });

@@ -127,14 +127,13 @@ describe('Study Guides button and PopUp', () => {
     const mockButton = document.createElement('button');
     mockButton.focus();
 
-    const component = renderer.create(<TestContainer services={services} store={store}>
+    renderer.create(<TestContainer services={services} store={store}>
       <StudyguidesPopUp />
     </TestContainer>);
 
     act(() => { store.dispatch(openStudyGuides()); });
 
     expect(closeButtonFocus).toHaveBeenCalled();
-
     closeButton.remove();
   });
 
@@ -150,7 +149,7 @@ describe('Study Guides button and PopUp', () => {
     document.body.appendChild(mockButton);
     mockButton.focus();
 
-    const component = renderer.create(<TestContainer services={services} store={store}>
+    renderer.create(<TestContainer services={services} store={store}>
       <StudyguidesPopUp />
     </TestContainer>);
 
@@ -158,7 +157,6 @@ describe('Study Guides button and PopUp', () => {
     act(() => { store.dispatch(closeStudyGuides()); });
 
     expect(mockButtonFocus).toHaveBeenCalledTimes(2);
-
     closeButton.remove();
     mockButton.remove();
   });

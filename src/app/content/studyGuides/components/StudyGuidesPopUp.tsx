@@ -6,6 +6,7 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { FirstArgumentType } from '../../../types';
+import { assertDocument } from '../../../utils';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
@@ -32,17 +33,19 @@ const StudyguidesPopUp = () => {
 
   React.useEffect(() => {
     if (isStudyGuidesOpen) {
+      const document = assertDocument();
       openingElementRef.current = document.activeElement as HTMLElement;
-
-      const closeButton = document.querySelector('[data-testid="close-studyguides-popup"]') as HTMLElement;
-      if (closeButton) {
-        closeButton.focus();
-      }
     } else if (openingElementRef.current) {
       openingElementRef.current.focus();
       openingElementRef.current = null;
     }
   }, [isStudyGuidesOpen]);
+
+  const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
+    if (element) {
+      element.focus();
+    }
+  }, []);
 
   return isStudyGuidesOpen ?
     <Modal
@@ -61,6 +64,7 @@ const StudyguidesPopUp = () => {
           <FormattedMessage id='i18n:toolbar:studyguides:popup:heading' />
         </h1>
         <CloseIconWrapper
+          ref={closeButtonRef}
           data-testid='close-studyguides-popup'
           aria-label={intl.formatMessage({id: 'i18n:toolbar:studyguides:popup:close-button:aria-label'})}
           data-analytics-label='Close Study Guides'
