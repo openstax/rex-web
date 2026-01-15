@@ -115,4 +115,51 @@ describe('Study Guides button and PopUp', () => {
     expect(track).toHaveBeenCalled();
 
   });
+
+  it('focuses close button when modal opens', () => {
+    const document = utils.assertDocument();
+    const closeButton = document.createElement('button');
+    closeButton.setAttribute('data-testid', 'close-studyguides-popup');
+    const closeButtonFocus = jest.fn();
+    closeButton.focus = closeButtonFocus;
+    document.body.appendChild(closeButton);
+
+    const mockButton = document.createElement('button');
+    mockButton.focus();
+
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <StudyguidesPopUp />
+    </TestContainer>);
+
+    act(() => { store.dispatch(openStudyGuides()); });
+
+    expect(closeButtonFocus).toHaveBeenCalled();
+
+    closeButton.remove();
+  });
+
+  it('restores focus to opening button when modal closes', () => {
+    const document = utils.assertDocument();
+    const closeButton = document.createElement('button');
+    closeButton.setAttribute('data-testid', 'close-studyguides-popup');
+    document.body.appendChild(closeButton);
+
+    const mockButton = document.createElement('button');
+    const mockButtonFocus = jest.fn();
+    mockButton.focus = mockButtonFocus;
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <StudyguidesPopUp />
+    </TestContainer>);
+
+    act(() => { store.dispatch(openStudyGuides()); });
+    act(() => { store.dispatch(closeStudyGuides()); });
+
+    expect(mockButtonFocus).toHaveBeenCalledTimes(2);
+
+    closeButton.remove();
+    mockButton.remove();
+  });
 });

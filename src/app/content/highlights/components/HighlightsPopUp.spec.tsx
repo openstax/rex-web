@@ -225,6 +225,54 @@ describe('MyHighlights button and PopUp', () => {
     expect(closeIcon.props.colorSchema).toBe('yellow');
   });
 
+  it('focuses close button when modal opens', () => {
+    const document = utils.assertDocument();
+    const closeButton = document.createElement('button');
+    closeButton.setAttribute('data-testid', 'close-highlights-popup');
+    const closeButtonFocus = jest.fn();
+    closeButton.focus = closeButtonFocus;
+    document.body.appendChild(closeButton);
+
+    const mockButton = document.createElement('button');
+    mockButton.focus();
+
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>);
+
+    renderer.act(() => { store.dispatch(openMyHighlights()); });
+
+    expect(closeButtonFocus).toHaveBeenCalled();
+
+    closeButton.remove();
+  });
+
+  it('restores focus to opening button when modal closes', () => {
+    const document = utils.assertDocument();
+    const closeButton = document.createElement('button');
+    closeButton.setAttribute('data-testid', 'close-highlights-popup');
+    document.body.appendChild(closeButton);
+
+    const mockButton = document.createElement('button');
+    const mockButtonFocus = jest.fn();
+    mockButton.focus = mockButtonFocus;
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    store.dispatch(openMyHighlights());
+
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>);
+
+    renderer.act(() => { store.dispatch(closeMyHighlights()); });
+
+    expect(mockButtonFocus).toHaveBeenCalledTimes(2);
+
+    closeButton.remove();
+    mockButton.remove();
+  });
+
   describe('with unsaved highlights', () => {
 
     beforeEach(() => {

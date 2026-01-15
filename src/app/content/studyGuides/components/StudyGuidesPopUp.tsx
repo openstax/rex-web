@@ -18,6 +18,7 @@ const StudyguidesPopUp = () => {
   const intl = useIntl();
 
   const popUpRef = React.useRef<HTMLElement>(null);
+  const openingElementRef = React.useRef<HTMLElement | null>(null);
   const trackClose = useAnalyticsEvent('closeStudyGuides');
   const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
   const bookTheme = useSelector(bookThemeSelector);
@@ -30,10 +31,16 @@ const StudyguidesPopUp = () => {
   useOnEsc(isStudyGuidesOpen, closeAndTrack('esc'));
 
   React.useEffect(() => {
-    const popUp = popUpRef.current;
+    if (isStudyGuidesOpen) {
+      openingElementRef.current = document.activeElement as HTMLElement;
 
-    if (popUp && isStudyGuidesOpen) {
-      popUp.focus();
+      const closeButton = document.querySelector('[data-testid="close-studyguides-popup"]') as HTMLElement;
+      if (closeButton) {
+        closeButton.focus();
+      }
+    } else if (openingElementRef.current) {
+      openingElementRef.current.focus();
+      openingElementRef.current = null;
     }
   }, [isStudyGuidesOpen]);
 

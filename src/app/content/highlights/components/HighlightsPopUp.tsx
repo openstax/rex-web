@@ -102,12 +102,26 @@ function useCloseAndTrack(closeFn: () => void) {
 
 const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlightsOpen'>) => {
   const popUpRef = React.useRef<HTMLElement>(null);
+  const openingElementRef = React.useRef<HTMLElement | null>(null);
   const intl = useIntl();
   const closeAndTrack = useCloseAndTrack(closeMyHighlights);
 
   useOnEsc(true, closeAndTrack('esc'));
 
-  React.useEffect(() => popUpRef.current?.focus(), []);
+  React.useEffect(() => {
+    openingElementRef.current = document.activeElement as HTMLElement;
+
+    const closeButton = document.querySelector('[data-testid="close-highlights-popup"]') as HTMLElement;
+    if (closeButton) {
+      closeButton.focus();
+    }
+
+    return () => {
+      if (openingElementRef.current) {
+        openingElementRef.current.focus();
+      }
+    };
+  }, []);
 
   return <Modal
     ref={popUpRef}
