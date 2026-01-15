@@ -59,6 +59,7 @@ export const Header = styled.div`
   h1 {
     font-size: inherit;
     letter-spacing: inherit;
+    order: 1;
   }
 `;
 
@@ -109,6 +110,7 @@ export const CloseIconWrapper = styled(PlainButton)`
   display: flex;
   align-items: center;
   justify-content: center;
+  order: 2;
 `;
 
 export const CloseIcon = styled(({colorSchema: _, ...props}) =>
