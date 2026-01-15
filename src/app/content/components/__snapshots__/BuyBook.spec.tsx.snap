@@ -52,7 +52,7 @@ exports[`BuyBook renders when book has amazon_link 1`] = `
   <a
     className="c1"
     data-analytics-label="buy-book"
-    href="https://amazon.com/some-book"
+    href="https://amazon.com/some-book?utm_source=openstax&utm_medium=website&utm_campaign=rex-page"
     rel="noopener"
     target="_blank"
   >
