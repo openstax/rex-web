@@ -12,7 +12,7 @@ import { User } from '../../../auth/types';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { assertDocument } from '../../../utils';
+import { getOpeningElement, clearOpeningElement } from '../../utils/focusManager';
 import Modal from '../../components/Modal';
 import { bookTheme } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, PopupBody } from '../../styles/PopupStyles';
@@ -109,13 +109,13 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
 
   useOnEsc(true, closeAndTrack('esc'));
 
-  React.useEffect(() => {
-    const document = assertDocument();
-    openingElementRef.current = document.activeElement as HTMLElement;
+  React.useLayoutEffect(() => {
+    openingElementRef.current = getOpeningElement('highlights');
 
     return () => {
       if (openingElementRef.current) {
         openingElementRef.current.focus();
+        clearOpeningElement('highlights');
       }
     };
   }, []);

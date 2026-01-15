@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
-import { assertDocument, assertWindow } from '../../../utils';
+import { assertWindow } from '../../../utils';
+import { getOpeningElement, clearOpeningElement } from '../../utils/focusManager';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
@@ -36,20 +37,18 @@ const PracticeQuestionsPopup = () => {
 
   useOnEsc(isPracticeQuestionsOpen, closeAndTrack('esc'));
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (isPracticeQuestionsOpen) {
-      const document = assertDocument();
-      openingElementRef.current = document.activeElement as HTMLElement;
+      openingElementRef.current = getOpeningElement('practicequestions');
     } else if (openingElementRef.current) {
       openingElementRef.current.focus();
+      clearOpeningElement('practicequestions');
       openingElementRef.current = null;
     }
   }, [isPracticeQuestionsOpen]);
 
   const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
-    if (element) {
-      element.focus();
-    }
+    element?.focus();
   }, []);
 
   return isPracticeQuestionsOpen ?

@@ -1,6 +1,6 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import ReactTestUtils, { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
@@ -11,7 +11,8 @@ import * as navigation from '../../../navigation/selectors';
 import { MiddlewareAPI, Store } from '../../../types';
 import { assertNotNull, assertWindow } from '../../../utils';
 import { content } from '../../routes';
-import { closePracticeQuestions, nextQuestion } from '../actions';
+import { captureOpeningElement, clearOpeningElement } from '../../utils/focusManager';
+import { closePracticeQuestions, nextQuestion, openPracticeQuestions } from '../actions';
 import { modalUrlName } from '../constants';
 import * as pqSelectors from '../selectors';
 import PracticeQuestionsPopup from './PracticeQuestionsPopup';
@@ -57,6 +58,11 @@ describe('PracticeQuestions', () => {
     dispatch = jest.spyOn(store, 'dispatch');
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+    clearOpeningElement('practicequestions');
+  });
+
   afterAll(() => {
     jest.clearAllMocks();
   });
@@ -81,55 +87,102 @@ describe('PracticeQuestions', () => {
     expect(component.toJSON()).toMatchSnapshot();
   });
 
-  it('focus is on close button', () => {
+  it('focus is on close button', (done) => {
     jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
     const document = assertWindow().document;
-    const closeButton = document.createElement('button');
-    closeButton.setAttribute('data-testid', 'close-practice-questions-popup');
-    const closeButtonFocus = jest.fn();
-    closeButton.focus = closeButtonFocus;
-    document.body.appendChild(closeButton);
 
     const mockButton = document.createElement('button');
+    document.body.appendChild(mockButton);
     mockButton.focus();
 
-    renderer.create(<TestContainer services={services} store={store}>
+    captureOpeningElement('practicequestions');
+
+    renderToDom(<TestContainer services={services} store={store}>
       <PracticeQuestionsPopup />
     </TestContainer>);
 
-    expect(closeButtonFocus).toHaveBeenCalled();
-    closeButton.remove();
+    setTimeout(() => {
+      const closeButton = document.querySelector('[data-testid="close-practice-questions-popup"]');
+      expect(document.activeElement).toBe(closeButton);
+      mockButton.remove();
+      done();
+    }, 10);
   });
 
-  it('restores focus to opening button when modal closes', () => {
+  it('restores focus to opening button when modal closes', (done) => {
     const document = assertWindow().document;
-    const closeButton = document.createElement('button');
-    closeButton.setAttribute('data-testid', 'close-practice-questions-popup');
-    document.body.appendChild(closeButton);
+
+    const mockButton = document.createElement('button');
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    captureOpeningElement('practicequestions');
+
+    renderToDom(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>);
+
+    act(() => { store.dispatch(openPracticeQuestions()); });
+
+    setTimeout(() => {
+      act(() => { store.dispatch(closePracticeQuestions()); });
+
+      setTimeout(() => {
+        expect(document.activeElement).toBe(mockButton);
+        mockButton.remove();
+        done();
+      }, 10);
+    }, 10);
+  });
+
+  it('does not restore focus when modal closes without opening element', (done) => {
+    const document = assertWindow().document;
 
     const mockButton = document.createElement('button');
     const mockButtonFocus = jest.fn();
     mockButton.focus = mockButtonFocus;
     document.body.appendChild(mockButton);
-    mockButton.focus();
 
-    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-
-    const component = renderer.create(<TestContainer services={services} store={store}>
+    renderToDom(<TestContainer services={services} store={store}>
       <PracticeQuestionsPopup />
     </TestContainer>);
 
-    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(false);
+    act(() => { store.dispatch(openPracticeQuestions()); });
 
-    renderer.act(() => {
-      component.update(<TestContainer services={services} store={store}>
-        <PracticeQuestionsPopup />
-      </TestContainer>);
-    });
+    setTimeout(() => {
+      act(() => { store.dispatch(closePracticeQuestions()); });
 
-    expect(mockButtonFocus).toHaveBeenCalledTimes(2);
-    closeButton.remove();
-    mockButton.remove();
+      setTimeout(() => {
+        // When there's no opening element, our focus restoration code should NOT run
+        // The mockButton.focus() should never be called by our focus management code
+        expect(mockButtonFocus).not.toHaveBeenCalled();
+        mockButton.remove();
+        done();
+      }, 10);
+    }, 10);
+  });
+
+  it('handles closeButtonRef being called with null', () => {
+    // The closeButtonRef callback handles null gracefully (does nothing when element is null)
+    // This is tested by closing the modal, which causes the close button to unmount
+    // and the ref callback to be called with null
+    const document = assertWindow().document;
+
+    renderToDom(<TestContainer services={services} store={store}>
+      <PracticeQuestionsPopup />
+    </TestContainer>);
+
+    act(() => { store.dispatch(openPracticeQuestions()); });
+
+    const closeButton = document.querySelector('[data-testid="close-practice-questions-popup"]');
+    expect(closeButton).toBeTruthy();
+
+    // Closing the modal will cause the close button to unmount
+    // and the ref callback will be called with null
+    // This should not throw
+    expect(() => {
+      act(() => { store.dispatch(closePracticeQuestions()); });
+    }).not.toThrow();
   });
 
   it('tracks analytics and removes modal-url when clicking x icon', () => {
