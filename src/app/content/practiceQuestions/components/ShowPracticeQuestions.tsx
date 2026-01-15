@@ -16,7 +16,6 @@ import EmptyScreen from './EmptyScreen';
 import Filters from './Filters';
 import FinalScreen from './FinalScreen';
 import IntroScreen from './IntroScreen';
-import LinkToSection from './LinkToSection';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
 
@@ -135,7 +134,6 @@ const ShowPracticeQuestions = () => {
                   </QuestionsWrapper>
                 )
             }
-          <LinkToSection section={section} />
         </ShowPracitceQuestionsContent>
       }
     </ShowPracticeQuestionsBody>
