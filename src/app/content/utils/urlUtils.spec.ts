@@ -8,6 +8,7 @@ import {
   fromRelativeUrl,
   getBookPageUrlAndParams,
   getPageIdFromUrlParam,
+  setUtmCampaign,
   toRelativeUrl
 } from './urlUtils';
 
@@ -273,5 +274,26 @@ describe('fromRelativeUrl', () => {
   it('returns url if it is absolute', () => {
     const url = fromRelativeUrl('https://openstax.org/books/somebook/pages/somepage', './somesecondpage');
     expect(url).toBe('https://openstax.org/books/somebook/pages/somesecondpage');
+  });
+});
+
+describe('setUtmCampaign', () => {
+  it('replaces existing utm_campaign', () => {
+    const url = 'https://amazon.com/book?utm_source=openstax&utm_campaign=book-page';
+    expect(setUtmCampaign(url, 'rex-page')).toBe(
+      'https://amazon.com/book?utm_source=openstax&utm_campaign=rex-page'
+    );
+  });
+
+  it('adds utm_campaign to URL without one', () => {
+    const url = 'https://amazon.com/book?utm_source=openstax';
+    expect(setUtmCampaign(url, 'rex-page')).toBe(
+      'https://amazon.com/book?utm_source=openstax&utm_campaign=rex-page'
+    );
+  });
+
+  it('returns original string for invalid URL', () => {
+    const url = 'not-a-valid-url';
+    expect(setUtmCampaign(url, 'rex-page')).toBe('not-a-valid-url');
   });
 });
