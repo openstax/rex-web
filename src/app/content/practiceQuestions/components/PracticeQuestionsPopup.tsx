@@ -56,9 +56,6 @@ const PracticeQuestionsPopup = () => {
       }}
     >
       <Header colorSchema={bookTheme}>
-        <h1 id='modal-title'>
-          <FormattedMessage id='i18n:practice-questions:popup:heading' />
-        </h1>
         <CloseIconWrapper
           data-testid='close-practice-questions-popup'
           aria-label={intl.formatMessage({id: 'i18n:practice-questions:popup:close'})}
@@ -67,6 +64,9 @@ const PracticeQuestionsPopup = () => {
         >
           <CloseIcon colorSchema={bookTheme} />
         </CloseIconWrapper>
+        <h1 id='modal-title'>
+          <FormattedMessage id='i18n:practice-questions:popup:heading' />
+        </h1>
       </Header>
       <ShowPracticeQuestions />
     </Modal>
