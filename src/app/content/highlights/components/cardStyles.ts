@@ -18,7 +18,7 @@ import {
 } from '../constants';
 import { HighlightData } from '../types';
 import { CardProps } from './Card';
-import { getHighlightBottomOffset } from './cardUtils';
+import { getHighlightBottomOffset, getHighlightTopOffset } from './cardUtils';
 import { WrapperProps } from './CardWrapper';
 import { cardBorder } from './style';
 
@@ -51,8 +51,12 @@ const overlapDisplay = css`
     left: calc(75vw - (${contentTextWidth}rem / 2) + ${cardFocusedContentMargin}rem);
     right: unset;
     top: ${props.highlightOffsets
-      ? props.highlightOffsets.bottom
-      : getHighlightBottomOffset(props.container, props.highlight)}px;
+      ? (props.preferEnd
+          ? props.highlightOffsets.bottom
+          : props.highlightOffsets.top - 110)
+      : (props.preferEnd
+          ? getHighlightBottomOffset(props.container, props.highlight)
+          : getHighlightTopOffset(props.container, props.highlight))}px;
   `}
   ${(props: CardProps) => !props.isActive && css`
     display: none;

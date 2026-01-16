@@ -179,7 +179,7 @@ describe('CardWrapper', () => {
       .mockImplementation((_container: any, highlight: Highlight) => {
         const top = highlightsPositionsInDocument[highlights.findIndex((search) => search.id === highlight.id)];
         return {
-          bottom: top + 20,
+          bottom: top,
           top,
         };
       });
@@ -554,11 +554,17 @@ describe('CardWrapper', () => {
         </Provider>
       );
     });
+    const node = assertDocument().getRootNode();
+    const compareDocumentPositionMock = jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING);
 
     const selectionMock = {
       isCollapsed: true,
-      anchorNode: {},
-      focusNode: {},
+      anchorNode: {
+        compareDocumentPosition: compareDocumentPositionMock,
+      },
+      focusNode: {
+        compareDocumentPosition: compareDocumentPositionMock,
+      },
     };
     const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
 
@@ -584,11 +590,13 @@ describe('CardWrapper', () => {
         </Provider>
       );
     });
+    const node = assertDocument().getRootNode();
 
     const selectionMock = {
       isCollapsed: false,
-      anchorNode: {},
-      focusNode: {},
+      anchorNode: {
+        compareDocumentPosition: jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING),
+      },
     };
     const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
 
@@ -778,7 +786,9 @@ describe('CardWrapper', () => {
 
       const selectionMock = {
         isCollapsed: true,
-        anchorNode: {},
+        anchorNode: {
+          compareDocumentPosition: jest.fn().mockReturnValue(0),
+        },
         focusNode: {},
       };
       const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
@@ -803,9 +813,12 @@ describe('CardWrapper', () => {
         unmount = rendered.unmount;
       });
 
+      const node = assertDocument().getRootNode();
       const selectionMock = {
         isCollapsed: false,
-        anchorNode: {},
+        anchorNode: {
+          compareDocumentPosition: jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING),
+        },
         focusNode: {},
         toString: () => 'some text',
       };

@@ -31,8 +31,10 @@ import Card, { CardProps } from './Card';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import showConfirmation from './utils/showConfirmation';
+import * as cardUtils from './cardUtils';
 import { ConfirmationToastProvider } from '../../components/ConfirmationToast';
 import ReactDOM from 'react-dom';
+
 
 jest.mock('./DisplayNote', () => (jest as any).requireActual('react').forwardRef(
   (props: any, ref: any) => <div ref={ref} mock-display-note {...props} />
@@ -134,7 +136,7 @@ describe('Card', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('matches snapshot without data', () => {
+  it('matches snapshot without data and preferEnd', () => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
     store.dispatch(focusHighlight(highlight.id));
@@ -146,6 +148,28 @@ describe('Card', () => {
       bottom: 200,
       top: 100,
     });
+    jest.spyOn(cardUtils, 'getPreferEnd').mockReturnValue(true);
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} container={container} />
+    </TestContainer>, {createNodeMock});
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot without data and preferEnd as false', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(focusHighlight(highlight.id));
+    store.dispatch(openToc()); // added for css coverage
+    store.dispatch(requestSearch('asd')); // added for css coverage
+    cardProps.highlightOffsets = undefined; // added for css coverage
+    const container = assertDocument().createElement('div');
+    highlight.range.getBoundingClientRect.mockReturnValue({
+      bottom: 200,
+      top: 100,
+    });
+    jest.spyOn(cardUtils, 'getPreferEnd').mockReturnValue(false);
     const component = renderer.create(<TestContainer store={store}>
       <Card {...cardProps} container={container} />
     </TestContainer>, {createNodeMock});
@@ -435,6 +459,8 @@ describe('Card', () => {
       ] as HighlightData[],
       pageId: '123',
     }));
+
+    jest.spyOn(cardUtils, 'getPreferEnd').mockReturnValue(true);
 
     const spyScrollIntoView = jest.spyOn(domUtils, 'scrollIntoView');
 
