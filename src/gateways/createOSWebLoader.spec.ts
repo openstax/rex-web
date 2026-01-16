@@ -119,6 +119,44 @@ describe('osWebLoader', () => {
       expect(fetch).toHaveBeenCalledTimes(2);
     });
   });
+
+  describe('getSchoolDataFromPortalName', () => {
+    const schoolData = {
+      id: 123,
+      salesforce_id: 'sfid',
+      name: 'Test School',
+      industry: 'K12',
+    };
+
+    beforeEach(() => {
+      (global as any).fetch = mockFetch(200, {
+        school_data: schoolData,
+      });
+    });
+
+    it('gets school data from portal name', async () => {
+      const result = await osWebLoader.getSchoolDataFromPortalName('portal-abc');
+      expect(fetch).toHaveBeenCalledWith('url/v2/pages/portal/portal-abc');
+      expect(result).toEqual(schoolData);
+    });
+
+    it('returns undefined if no school_data', async () => {
+      (global as any).fetch = mockFetch(200, {});
+      const result = await osWebLoader.getSchoolDataFromPortalName('portal-xyz');
+      expect(result).toBeUndefined();
+    });
+
+    it('throws on error', async () => {
+      (global as any).fetch = mockFetch(404, 'not found');
+      let message: string | undefined;
+      try {
+        await osWebLoader.getSchoolDataFromPortalName('portal-err');
+      } catch (e: any) {
+        message = e.message;
+      }
+      expect(message).toEqual('Error response from OSWeb 404: not found');
+    });
+  });
 });
 
 export default undefined;
