@@ -1,4 +1,4 @@
-import * as utils from '../../utils';
+import * as utils from '../../utils/browser-assertions';
 import { captureOpeningElement, clearOpeningElement, getOpeningElement } from './focusManager';
 import { HTMLButtonElement } from '@openstax/types/lib.dom';
 
