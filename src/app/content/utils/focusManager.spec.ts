@@ -1,5 +1,6 @@
 import * as utils from '../../utils';
 import { captureOpeningElement, clearOpeningElement, getOpeningElement } from './focusManager';
+import { HTMLButtonElement } from '@openstax/types/lib.dom';
 
 describe('focusManager', () => {
   let mockButton: HTMLButtonElement;
