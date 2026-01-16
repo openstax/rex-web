@@ -107,7 +107,7 @@ export default (prefix: string, options: Options  = {}) => {
 
   const slugLoader = loader<OSWebBook>((slug: string) => `${baseUrl}?type=books.Book&fields=${fields}&slug=${slug}`, 'book');
   const idLoader = loader<OSWebBook>((id: string) => `${baseUrl}?type=books.Book&fields=${fields}&cnx_id=${id}`, 'book');
-  const portalLoader = loader<OSWebSchoolData>((portalName: string) => `${baseUrl}/portal/${portalName}`, 'portal');
+  const portalLoader = loader<OSWebSchoolData>((portalName: string) => `${baseUrl}/${portalName}`, 'portal');
 
   return {
     getBookFromId: (id: string) => idLoader(id),
