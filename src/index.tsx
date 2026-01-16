@@ -196,7 +196,7 @@ app.services.userLoader.getCurrentUser().then((user) => {
     if (pathMatch) {
       const portalName = pathMatch[1];
       try {
-        const schoolData = await app.services.osWebLoader.getSchoolDataFromPortalId(portalName);
+        const schoolData = await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
         if (schoolData?.industry === 'K12') {
           return true;
         }

@@ -22,7 +22,7 @@ export const mockCmsBook: OSWebBook = {
 export default () => ({
   getBookFromId: jest.fn(() => Promise.resolve(mockCmsBook)),
   getBookFromSlug: jest.fn(() => Promise.resolve(mockCmsBook)),
-  getSchoolDataFromPortalId: jest.fn(() => Promise.resolve(
+  getSchoolDataFromPortalName: jest.fn(() => Promise.resolve(
     { id: 1234, name: 'Test School', salesforce_id: 'test-salesforce-id', industry: 'K12' }
   )),
   getBookIdFromSlug: jest.fn(() => Promise.resolve('testbook1-uuid')),
