@@ -136,7 +136,7 @@ describe('osWebLoader', () => {
 
     it('gets school data from portal name', async () => {
       const result = await osWebLoader.getSchoolDataFromPortalName('portal-abc');
-      expect(fetch).toHaveBeenCalledWith('url/v2/pages/portal/portal-abc');
+      expect(fetch).toHaveBeenCalledWith('url/v2/pages/portal-abc');
       expect(result).toEqual(schoolData);
     });
 
