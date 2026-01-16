@@ -124,6 +124,9 @@ describe('PracticeQuestions', () => {
 
     act(() => { store.dispatch(openPracticeQuestions()); });
 
+    // We should be able to blur mockButton and have this still work,
+    // but this test is not really working correctly; multiple attempts
+    // with Claude could not make it happen.
     setTimeout(() => {
       act(() => { store.dispatch(closePracticeQuestions()); });
 

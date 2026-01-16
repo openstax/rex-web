@@ -251,6 +251,8 @@ describe('MyHighlights button and PopUp', () => {
       <HighlightsPopUp />
     </TestContainer>);
 
+    expect(document.activeElement).not.toBe(mockButton);
+
     setTimeout(() => {
       unmount();
 

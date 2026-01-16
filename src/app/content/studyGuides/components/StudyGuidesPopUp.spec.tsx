@@ -155,6 +155,8 @@ describe('Study Guides button and PopUp', () => {
 
     act(() => { store.dispatch(openStudyGuides()); });
 
+    expect(document.activeElement).not.toBe(mockButton);
+
     setTimeout(() => {
       act(() => { store.dispatch(closeStudyGuides()); });
 
