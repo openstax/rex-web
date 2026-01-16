@@ -3287,11 +3287,11 @@ Array [
                 />
               </svg>
             </button>
-            <span
+            <h2
               className="c30"
             >
               Table of contents
-            </span>
+            </h2>
             <button
               aria-label="Click to close menu"
               className="c31 c32"
@@ -10383,11 +10383,11 @@ Array [
                 />
               </svg>
             </button>
-            <span
+            <h2
               className="c30"
             >
               Table of contents
-            </span>
+            </h2>
             <button
               aria-label="Click to close menu"
               className="c31 c32"
