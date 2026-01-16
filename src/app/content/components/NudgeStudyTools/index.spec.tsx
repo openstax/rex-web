@@ -9,7 +9,8 @@ import { makeFindByTestId } from '../../../../test/reactutils';
 import { runHooks } from '../../../../test/utils';
 import * as Services from '../../../context/Services';
 import { receiveFeatureFlags } from '../../../featureFlags/actions';
-import * as reactUtils from '../../../reactUtils';
+import * as keyboardUtils from '../../../keyboardUtils';
+import * as mediaUtils from '../../../mediaQueryUtils';
 import { AppServices, MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { closeNudgeStudyTools, openNudgeStudyTools } from '../../actions';
@@ -152,7 +153,7 @@ describe('NudgeStudyTools', () => {
   it('Restricts tab navigation', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(false);
 
     jest.spyOn(utils, 'usePositions')
@@ -215,7 +216,7 @@ describe('NudgeStudyTools', () => {
     jest.spyOn(contentSelect, 'showNudgeStudyTools')
       .mockReturnValue(true);
 
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
     jest.spyOn(utils, 'usePositions')
@@ -321,7 +322,7 @@ describe('NudgeStudyTools', () => {
     store.dispatch(openNudgeStudyTools());
 
     jest.spyOn(utils, 'usePositions').mockReturnValue(mockPositions);
-    const onKeySpy = jest.spyOn(reactUtils, 'onKey');
+    const onKeySpy = jest.spyOn(keyboardUtils, 'onKey');
 
     const component = renderer.create(Component);
 
