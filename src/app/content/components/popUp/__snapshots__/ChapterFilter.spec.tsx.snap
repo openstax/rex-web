@@ -305,7 +305,9 @@ input:checked + .c11 .c13 {
     >
       All
     </button>
-    <span>
+    <span
+      aria-hidden="true"
+    >
       |
     </span>
     <button
