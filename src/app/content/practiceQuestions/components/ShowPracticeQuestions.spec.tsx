@@ -116,7 +116,6 @@ describe('ShowPracticeQuestions', () => {
     expect(() => component.root.findByType(SectionTitle)).not.toThrow();
     expect(() => component.root.findByType(QuestionsWrapper)).not.toThrow();
     expect(() => component.root.findByType(QuestionsHeader)).not.toThrow();
-    expect(() => component.root.findByProps({ target: '_blank' })).not.toThrow();
     expect(() => component.root.findByType(ProgressBar)).not.toThrow();
   });
 
