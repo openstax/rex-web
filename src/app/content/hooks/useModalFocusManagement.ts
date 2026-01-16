@@ -11,6 +11,10 @@ interface UseModalFocusManagementReturn {
   closeButtonRef: (element: HTMLElement | null) => void;
 }
 
+function closeButtonRef(element: HTMLElement | null) {
+  element?.focus();
+}
+
 /**
  * Custom hook for managing focus in modal components.
  *
@@ -37,10 +41,6 @@ export const useModalFocusManagement = ({
       openingElementRef.current = null;
     }
   }, [isOpen, modalId]);
-
-  const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
-    element?.focus();
-  }, []);
 
   return { closeButtonRef };
 };
@@ -69,10 +69,6 @@ export const useModalFocusManagementUnmounting = (
       }
     };
   }, [modalId]);
-
-  const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
-    element?.focus();
-  }, []);
 
   return { closeButtonRef };
 };
