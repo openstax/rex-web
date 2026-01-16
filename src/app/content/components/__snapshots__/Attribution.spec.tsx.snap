@@ -1785,7 +1785,10 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
         fill="currentColor"
       />
     </svg>
-    <span>
+    <span
+      aria-level={2}
+      role="heading"
+    >
       Citation/Attribution
     </span>
   </summary>
@@ -1802,7 +1805,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   </a> and you must attribute The Michelson 20MM Foundation. Changes were made to the original material, including updates to art, structure, and other content updates.
 </p>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -1820,7 +1823,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   </li>
 </ul>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
@@ -3023,7 +3026,10 @@ exports[`Attribution in browser renders default attribution 1`] = `
         fill="currentColor"
       />
     </svg>
-    <span>
+    <span
+      aria-level={2}
+      role="heading"
+    >
       Citation/Attribution
     </span>
   </summary>
@@ -3040,7 +3046,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
   </a> and you must attribute OpenStax.
 </p>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -3058,7 +3064,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
   </li>
 </ul>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
@@ -4410,7 +4416,10 @@ exports[`Attribution in browser renders special licensing and attribution for HS
         fill="currentColor"
       />
     </svg>
-    <span>
+    <span
+      aria-level={2}
+      role="heading"
+    >
       Citation/Attribution
     </span>
   </summary>
@@ -4429,7 +4438,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </a>. Changes were made to the original material, including updates to art, structure, and other content updates.
 </p>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -4447,7 +4456,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   </li>
 </ul>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
@@ -6117,7 +6126,10 @@ exports[`Attribution in browser renders special licensing and attribution for In
         fill="currentColor"
       />
     </svg>
-    <span>
+    <span
+      aria-level={2}
+      role="heading"
+    >
       Citation/Attribution
     </span>
   </summary>
@@ -6134,7 +6146,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
   </a> and you must attribute The Michelson 20MM Foundation. Changes were made to the original material, including updates to art, structure, and other content updates.
 </p>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -6152,7 +6164,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
   </li>
 </ul>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
@@ -7663,7 +7675,10 @@ exports[`Attribution in browser renders special licensing and attribution for St
         fill="currentColor"
       />
     </svg>
-    <span>
+    <span
+      aria-level={2}
+      role="heading"
+    >
       Citation/Attribution
     </span>
   </summary>
@@ -7682,7 +7697,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </a>. Changes were made to the original material, including updates to art, structure, and other content updates.
 </p>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -7700,7 +7715,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
   </li>
 </ul>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
