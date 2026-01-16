@@ -1,5 +1,6 @@
 import React from 'react';
 import { clearOpeningElement, getOpeningElement } from '../utils/focusManager';
+import { HTMLElement } from '@openstax/types/lib.dom';
 
 interface UseModalFocusManagementOptions {
   modalId: string;
