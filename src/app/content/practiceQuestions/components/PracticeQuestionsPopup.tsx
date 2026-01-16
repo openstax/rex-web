@@ -6,7 +6,7 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils';
-import { getOpeningElement, clearOpeningElement } from '../../utils/focusManager';
+import { useModalFocusManagement } from '../../hooks/useModalFocusManagement';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
@@ -17,12 +17,12 @@ import ShowPracticeQuestions from './ShowPracticeQuestions';
 const PracticeQuestionsPopup = () => {
   const dispatch = useDispatch();
   const popUpRef = React.useRef<HTMLElement>(null);
-  const openingElementRef = React.useRef<HTMLElement | null>(null);
   const trackOpenClosePQ = useAnalyticsEvent('openClosePracticeQuestions');
   const isPracticeQuestionsOpen = useSelector(pqSelectors.isPracticeQuestionsOpen);
   const currentQuestionIndex = useSelector(pqSelectors.currentQuestionIndex);
   const bookTheme = useSelector(bookThemeSelector);
   const intl = useIntl();
+  const { closeButtonRef } = useModalFocusManagement({ modalId: 'practicequestions', isOpen: isPracticeQuestionsOpen });
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     if (currentQuestionIndex !== null) {
@@ -36,20 +36,6 @@ const PracticeQuestionsPopup = () => {
   }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch]);
 
   useOnEsc(isPracticeQuestionsOpen, closeAndTrack('esc'));
-
-  React.useLayoutEffect(() => {
-    if (isPracticeQuestionsOpen) {
-      openingElementRef.current = getOpeningElement('practicequestions');
-    } else if (openingElementRef.current) {
-      openingElementRef.current.focus();
-      clearOpeningElement('practicequestions');
-      openingElementRef.current = null;
-    }
-  }, [isPracticeQuestionsOpen]);
-
-  const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
-    element?.focus();
-  }, []);
 
   return isPracticeQuestionsOpen ?
     <Modal

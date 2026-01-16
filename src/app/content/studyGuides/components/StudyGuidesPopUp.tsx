@@ -6,7 +6,7 @@ import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { FirstArgumentType } from '../../../types';
-import { getOpeningElement, clearOpeningElement } from '../../utils/focusManager';
+import { useModalFocusManagement } from '../../hooks/useModalFocusManagement';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
@@ -19,10 +19,10 @@ const StudyguidesPopUp = () => {
   const intl = useIntl();
 
   const popUpRef = React.useRef<HTMLElement>(null);
-  const openingElementRef = React.useRef<HTMLElement | null>(null);
   const trackClose = useAnalyticsEvent('closeStudyGuides');
   const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
   const bookTheme = useSelector(bookThemeSelector);
+  const { closeButtonRef } = useModalFocusManagement({ modalId: 'studyguides', isOpen: isStudyGuidesOpen });
 
   const closeAndTrack = React.useCallback((method: FirstArgumentType<typeof trackClose>) => () => {
     dispatch(closeStudyGuides());
@@ -30,22 +30,6 @@ const StudyguidesPopUp = () => {
   }, [dispatch, trackClose]);
 
   useOnEsc(isStudyGuidesOpen, closeAndTrack('esc'));
-
-  React.useLayoutEffect(() => {
-    if (isStudyGuidesOpen) {
-      openingElementRef.current = getOpeningElement('studyguides');
-    } else if (openingElementRef.current) {
-      openingElementRef.current.focus();
-      clearOpeningElement('studyguides');
-      openingElementRef.current = null;
-    }
-  }, [isStudyGuidesOpen]);
-
-  const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
-    if (element) {
-      element.focus();
-    }
-  }, []);
 
   return isStudyGuidesOpen ?
     <Modal

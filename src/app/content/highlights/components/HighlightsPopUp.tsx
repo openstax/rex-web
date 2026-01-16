@@ -12,7 +12,7 @@ import { User } from '../../../auth/types';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
-import { getOpeningElement, clearOpeningElement } from '../../utils/focusManager';
+import { useModalFocusManagementUnmounting } from '../../hooks/useModalFocusManagement';
 import Modal from '../../components/Modal';
 import { bookTheme } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, PopupBody } from '../../styles/PopupStyles';
@@ -103,28 +103,11 @@ function useCloseAndTrack(closeFn: () => void) {
 
 const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlightsOpen'>) => {
   const popUpRef = React.useRef<HTMLElement>(null);
-  const openingElementRef = React.useRef<HTMLElement | null>(null);
   const intl = useIntl();
   const closeAndTrack = useCloseAndTrack(closeMyHighlights);
+  const { closeButtonRef } = useModalFocusManagementUnmounting('highlights');
 
   useOnEsc(true, closeAndTrack('esc'));
-
-  React.useLayoutEffect(() => {
-    openingElementRef.current = getOpeningElement('highlights');
-
-    return () => {
-      if (openingElementRef.current) {
-        openingElementRef.current.focus();
-        clearOpeningElement('highlights');
-      }
-    };
-  }, []);
-
-  const closeButtonRef = React.useCallback((element: HTMLElement | null) => {
-    if (element) {
-      element.focus();
-    }
-  }, []);
 
   return <Modal
     ref={popUpRef}
