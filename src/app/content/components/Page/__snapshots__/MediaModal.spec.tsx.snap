@@ -76,6 +76,7 @@ Array [
 }
 
 <div
+    aria-label="Enlarged photo"
     aria-modal="true"
     className="c0"
     role="dialog"

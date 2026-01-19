@@ -74,7 +74,7 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
         overlay={true}
         zIndex={theme.zIndex.highlightSummaryPopup}
       />
-      <ModalWrapper aria-modal='true' role='dialog'>
+      <ModalWrapper aria-modal='true' role='dialog' aria-label='Enlarged photo'>
         <ContentContainer >
           <FloatingCloseButton onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />
