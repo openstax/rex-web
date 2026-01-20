@@ -10,7 +10,7 @@ import { expectError, expectReactRenderError, renderToDom } from '../../test/rea
 import TestContainer from '../../test/TestContainer';
 import { openKeyboardShortcutsMenu } from '../content/keyboardShortcuts/actions';
 import AccessibilityButtonsWrapper from './AccessibilityButtonsWrapper';
-import HiddenLink from './HiddenLink';
+import { HiddenButton } from './HiddenLink';
 import MainContent from './MainContent';
 
 describe('AccessibilityButtonsWrapper', () => {
@@ -93,7 +93,7 @@ describe('AccessibilityButtonsWrapper', () => {
         expect(spyAnalytics).toHaveBeenCalledWith('openCloseKeyboardShortcuts');
 
         const preventDefault = jest.fn();
-        root.findAllByType(HiddenLink)[2].props.onClick({preventDefault});
+        root.findByType(HiddenButton).props.onClick({preventDefault});
 
         expect(preventDefault).toHaveBeenCalledTimes(1);
 
