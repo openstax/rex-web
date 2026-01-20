@@ -221,6 +221,25 @@ describe('TableOfContents', () => {
     expect(component.toJSON()).toBeNull();
     component.unmount();
   });
+
+  it('renders TOC heading as h2 for accessibility', () => {
+    const component = renderer.create(Component);
+
+    // Find the heading text "Table of contents"
+    const headingElements = component.root.findAll(
+      (el) => el.children && el.children.includes('Table of contents')
+    );
+
+    // Verify that at least one heading element exists
+    expect(headingElements.length).toBeGreaterThan(0);
+
+    // Verify that the element containing "Table of contents" is an h2
+    const headingElement = headingElements.find(
+      (el) => el.type === 'h2'
+    );
+    expect(headingElement).toBeDefined();
+    expect(headingElement?.type).toBe('h2');
+  });
 });
 
 describe('maybeAriaLabel', () => {
