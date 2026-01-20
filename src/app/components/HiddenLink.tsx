@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 import theme from '../theme';
 
-export default styled.a`
+const hiddenStyle = `
   /* Hide the link when it is not focused */
   clip: rect(1px, 1px, 1px, 1px);
   margin: 0;
@@ -10,7 +10,7 @@ export default styled.a`
   top: 0;
   height: 1px;
   width: 1px;
-  overflow: hidden;
+  overflow: hidden; 
   text-decoration: none;
 
   /* Show the link when it is focused */
@@ -20,4 +20,12 @@ export default styled.a`
     width: auto;
     z-index: ${theme.zIndex.focusedHiddenLink};
   }
+`;
+
+export default styled.a`
+  ${ hiddenStyle }
+`;
+
+export const HiddenButton = styled.button`
+  ${ hiddenStyle }
 `;
