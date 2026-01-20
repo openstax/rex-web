@@ -14,7 +14,7 @@ const AllOrNone = ({className, onAll, onNone, disabled}: Props) => <div classNam
   <FormattedMessage id='i18n:highlighting:filters:all'>
     {(msg) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}
   </FormattedMessage>
-  <span>|</span>
+  <span aria-hidden="true">|</span>
   <FormattedMessage id='i18n:highlighting:filters:none'>
     {(msg) => <ButtonLink disabled={disabled} decorated onClick={onNone}>{msg}</ButtonLink>}
   </FormattedMessage>

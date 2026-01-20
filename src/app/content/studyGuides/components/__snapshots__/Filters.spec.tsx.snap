@@ -971,7 +971,9 @@ input:checked + .c22 .c23 {
           >
             All
           </button>
-          <span>
+          <span
+            aria-hidden="true"
+          >
             |
           </span>
           <button
@@ -1312,7 +1314,9 @@ input:checked + .c22 .c23 {
           >
             All
           </button>
-          <span>
+          <span
+            aria-hidden="true"
+          >
             |
           </span>
           <button
