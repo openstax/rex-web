@@ -223,14 +223,15 @@ describe('TableOfContents', () => {
   });
 
   it('renders TOC heading as h2 for accessibility', () => {
-    const { root: domRoot } = renderToDom(Component);
+    renderToDom(Component);
+    const domRoot = document?.body!;
 
     // First verify the TOC sidebar is rendered
     const tocSidebar = domRoot.querySelector('[data-testid="toc"]');
     expect(tocSidebar).not.toBeNull();
 
     // Query for the h2 element within the document body (renderToDom appends to body)
-    const h2Element = document.body.querySelector('h2');
+    const h2Element = domRoot.querySelector('h2');
 
     // Verify that an h2 element exists
     expect(h2Element).not.toBeNull();
