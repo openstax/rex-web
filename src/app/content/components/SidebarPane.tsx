@@ -109,7 +109,7 @@ export const Header = styled.div`
   `)}
 `;
 
-export const HeaderText = styled.span`
+export const HeaderText = styled.h2`
   font-size: 1.8rem;
   line-height: 2.9rem;
   font-weight: 600;
