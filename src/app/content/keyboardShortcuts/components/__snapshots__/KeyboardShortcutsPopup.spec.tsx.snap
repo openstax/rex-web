@@ -63,6 +63,9 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
   -moz-letter-spacing: inherit;
   -ms-letter-spacing: inherit;
   letter-spacing: inherit;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
 }
 
 .c2 {
@@ -97,6 +100,9 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
 }
 
 .c6 {
@@ -345,6 +351,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
       className="c7"
       data-analytics-region="KS popup"
       data-testid="show-keyboard-shortcuts-body"
+      tabIndex={-1}
     >
       <div
         className="c8"

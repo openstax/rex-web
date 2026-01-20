@@ -5,6 +5,7 @@ import { textRegularSize } from '../../components/Typography';
 import theme from '../../theme';
 import { contentTextWidth } from './constants';
 import { disablePrint } from './utils/disablePrint';
+import { setUtmCampaign } from '../utils/urlUtils';
 import { Book, BookWithOSWebData } from '../types';
 
 const BuyBookAlignment = styled.div`
@@ -41,7 +42,7 @@ const BuyBook = ({book}: {book: Book}) => {
     <BuyBookLink
       target='_blank'
       rel='noopener'
-      href={bookWithOSwebData.amazon_link}
+      href={setUtmCampaign(bookWithOSwebData.amazon_link, 'rex-page')}
       data-analytics-label='buy-book'
     >
       <FormattedMessage id='i18n:toolbar:buy-book:text'>

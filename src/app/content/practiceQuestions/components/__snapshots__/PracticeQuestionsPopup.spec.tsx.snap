@@ -77,6 +77,9 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   -moz-letter-spacing: inherit;
   -ms-letter-spacing: inherit;
   letter-spacing: inherit;
+  -webkit-order: 1;
+  -ms-flex-order: 1;
+  order: 1;
 }
 
 .c2 {
@@ -111,6 +114,9 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  -webkit-order: 2;
+  -ms-flex-order: 2;
+  order: 2;
 }
 
 .c5 {
@@ -424,11 +430,6 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
     <div
       className="c3"
     >
-      <h1
-        id="modal-title"
-      >
-        Practice Questions
-      </h1>
       <button
         aria-label="Click to close Practice Questions modal"
         className="c4"
@@ -466,6 +467,11 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
           </g>
         </svg>
       </button>
+      <h1
+        id="modal-title"
+      >
+        Practice Questions
+      </h1>
     </div>
     <div
       className="c6"

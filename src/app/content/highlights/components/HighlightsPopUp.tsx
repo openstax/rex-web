@@ -121,9 +121,6 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
     }}
   >
     <Header colorSchema={props.bookTheme}>
-      <h1 id='modal-title'>
-        <FormattedMessage id='i18n:toolbar:highlights:popup:heading' />
-      </h1>
       <CloseIconWrapper
         data-testid='close-highlights-popup'
         aria-label={intl.formatMessage({id: 'i18n:toolbar:highlights:popup:close-button:aria-label'})}
@@ -132,6 +129,9 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
       >
         <CloseIcon colorSchema={props.bookTheme}/>
       </CloseIconWrapper>
+      <h1 id='modal-title'>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:heading' />
+      </h1>
     </Header>
     {props.user ? <ShowMyHighlights topElRef={popUpRef} /> : <LoginForHighlights />}
     <HighlightsHelpInfo />

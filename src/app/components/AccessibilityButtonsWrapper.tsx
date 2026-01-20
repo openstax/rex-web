@@ -7,7 +7,7 @@ import { openKeyboardShortcutsMenu as openKeyboardShortcutsMenuAction } from '..
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Provider } from '../context/SkipToContent';
 import { scrollTo } from '../domUtils';
-import HiddenLink from './HiddenLink';
+import HiddenLink, {HiddenButton} from './HiddenLink';
 
 const OpenKeyboardShortcutsMenuLink = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const OpenKeyboardShortcutsMenuLink = () => {
 
   return <FormattedMessage id='i18n:a11y:keyboard-shortcuts:menu'>
     {/* TODO - use url based modal control */}
-    {(txt) => <HiddenLink onClick={openKeyboardShortcutsMenu} href='#'>{txt}</HiddenLink>}
+    {(txt) => <HiddenButton onClick={openKeyboardShortcutsMenu} href='#'>{txt}</HiddenButton>}
   </FormattedMessage>;
 };
 
