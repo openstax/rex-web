@@ -115,6 +115,7 @@ const ShowKeyboardShortcuts = () => (
   <ShowKeyboardShortcutsBody
     data-testid='show-keyboard-shortcuts-body'
     data-analytics-region='KS popup'
+    tabIndex={-1}
   >
     <ShortcutsHeading msgKey='sub-heading'/>
 
