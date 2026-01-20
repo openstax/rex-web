@@ -223,22 +223,16 @@ describe('TableOfContents', () => {
   });
 
   it('renders TOC heading as h2 for accessibility', () => {
-    const component = renderer.create(Component);
+    const { root: domRoot } = renderToDom(Component);
 
-    // Find the heading text "Table of contents"
-    const headingElements = component.root.findAll(
-      (el) => el.children && el.children.includes('Table of contents')
-    );
+    // Query the actual DOM for the h2 element
+    const h2Element = domRoot.querySelector('h2');
 
-    // Verify that at least one heading element exists
-    expect(headingElements.length).toBeGreaterThan(0);
+    // Verify that an h2 element exists
+    expect(h2Element).not.toBeNull();
 
-    // Verify that the element containing "Table of contents" is an h2
-    const headingElement = headingElements.find(
-      (el) => el.type === 'h2'
-    );
-    expect(headingElement).toBeDefined();
-    expect(headingElement?.type).toBe('h2');
+    // Verify it contains the "Table of contents" text
+    expect(h2Element?.textContent).toBe('Table of contents');
   });
 });
 
