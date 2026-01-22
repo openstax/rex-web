@@ -5,6 +5,7 @@ import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
+import { useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
@@ -72,6 +73,8 @@ interface ChapterFilterProps {
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
   const intl = useIntl();
+  const ref = React.useRef<HTMLDivElement>(null);
+  useTrapTabNavigation(ref);
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -108,7 +111,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
   const hasFiltersWithChildren = Boolean(values.find((filter) => filter.children));
   const sectionChunks = hasFiltersWithChildren ? [values] : chunk(values);
 
-  return <div className={props.className} tabIndex={-1} id={props.id}>
+  return <div className={props.className} tabIndex={-1} id={props.id} ref={ref}>
     {props.multiselect
       ? (
         <AllOrNone

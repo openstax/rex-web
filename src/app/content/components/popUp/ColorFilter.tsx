@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
+import { useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
@@ -39,6 +40,8 @@ const ColorFilter = ({
   labelKey,
   id,
 }: ColorFilterProps) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  useTrapTabNavigation(ref);
 
   const setSelectedColors = (change: FiltersChange<HighlightColorEnum>) => {
     updateSummaryFilters(change);
@@ -52,7 +55,7 @@ const ColorFilter = ({
     }
   };
 
-  return <div className={className} tabIndex={-1} id={id}>
+  return <div className={className} tabIndex={-1} id={id} ref={ref}>
     <AllOrNone
       onNone={() => setSelectedColors({ remove: Array.from(colorFiltersWithContent), new: [] })}
       onAll={() => setSelectedColors({ remove: [], new: Array.from(colorFiltersWithContent) })}
