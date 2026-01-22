@@ -20,6 +20,10 @@ export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
 };
 
 function isHidden(el: HTMLElement) {
+  // don't filter out visually hidden but focusable form elements
+  if (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA') {
+    return false;
+  }
   return el.offsetWidth === 0 && el.offsetHeight === 0;
 }
 
