@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
@@ -73,7 +74,7 @@ interface ChapterFilterProps {
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
   const intl = useIntl();
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = React.useRef<HTMLElement>(null);
   useTrapTabNavigation(ref);
 
   React.useEffect(() => {

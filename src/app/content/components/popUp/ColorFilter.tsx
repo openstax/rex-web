@@ -1,4 +1,5 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
@@ -40,7 +41,7 @@ const ColorFilter = ({
   labelKey,
   id,
 }: ColorFilterProps) => {
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = React.useRef<HTMLElement>(null);
   useTrapTabNavigation(ref);
 
   const setSelectedColors = (change: FiltersChange<HighlightColorEnum>) => {
