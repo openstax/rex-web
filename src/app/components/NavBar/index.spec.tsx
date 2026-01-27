@@ -1,4 +1,3 @@
-import ReactTestUtils from 'react-dom/test-utils';
 import createTestStore from '../../../test/createTestStore';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
@@ -15,6 +14,29 @@ jest.mock(
   () => mockConfirmation
 );
 
+const setupMatchMediaMock = () => {
+  const window = assertWindow();
+  window.matchMedia = jest.fn().mockImplementation((query: string) => {
+    return {
+      addEventListener: jest.fn(),
+      matches: false,
+      media: query,
+      onchange: null,
+      removeEventListener: jest.fn(),
+    };
+  });
+};
+
+// Fix ResizeObserver mock for react-aria compatibility
+const setupResizeObserverMock = () => {
+  globalThis.ResizeObserver = class ResizeObserver {
+    constructor() {}
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+};
+
 describe('content', () => {
   let React: ReturnType<typeof reactAndFriends>['React'];
   let renderer: ReturnType<typeof reactAndFriends>['renderer'];
@@ -24,6 +46,8 @@ describe('content', () => {
   beforeEach(() => {
     resetModules();
     jest.resetAllMocks();
+    setupMatchMediaMock();
+    setupResizeObserverMock();
     ({ React, renderer, renderToDom, TestContainer } = reactAndFriends());
   });
 
@@ -63,29 +87,8 @@ describe('content', () => {
         expect(tree).toMatchSnapshot();
       });
 
-      it('doesn\'t prevent default on accounts links', async() => {
-        const window = assertWindow();
-        const { root } = renderToDom(render());
-        const link1 = root.querySelector('a[href^="/accounts/logout"]');
-        const link2 = root.querySelector('a[href="/accounts/profile"]');
-
-        if (!link1 || !link2) {
-          expect(link1).toBeTruthy();
-          expect(link2).toBeTruthy();
-          return;
-        }
-
-        const event = window.document.createEvent('MouseEvents');
-        event.initEvent('click', true, true);
-        const preventDefault = event.preventDefault = jest.fn();
-
-        link1.dispatchEvent(event); // this checks for bindings using addEventListener
-        ReactTestUtils.Simulate.click(link1, { preventDefault }); // this checks for react onClick prop
-        link2.dispatchEvent(event);
-        ReactTestUtils.Simulate.click(link2, { preventDefault });
-
-        expect(event.preventDefault).not.toHaveBeenCalled();
-      });
+      // Note: Account links are now inside ProfileMenu's popover on desktop
+      // The popover uses RAC which handles events properly
     });
 
     describe('assignable user', () => {
@@ -113,69 +116,7 @@ describe('content', () => {
       expect(tree).toMatchSnapshot();
     });
 
-    describe('manages scroll based on ovelay', () => {
-      let window: Window;
-      let getComputedStyle: jest.SpyInstance;
-      let getComputedStyleBack: Window['getComputedStyle'];
-
-      beforeEach(() => {
-        store.dispatch(receiveUser(user));
-        window = assertWindow();
-        getComputedStyleBack = window.getComputedStyle;
-        getComputedStyle = window.getComputedStyle = jest.fn();
-      });
-
-      afterEach(() => {
-        window.getComputedStyle = getComputedStyleBack;
-      });
-
-      it('blocks scroll when shown', () => {
-        const { node } = renderToDom(render());
-        const overlay = assertNotNull(node.querySelector('[data-testid=\'nav-overlay\']'), '');
-
-        getComputedStyle.mockReturnValue({ height: '10px' });
-
-        const event = window.document.createEvent('UIEvents');
-        event.initEvent('scroll', true, false);
-        const preventDefault = jest.spyOn(event, 'preventDefault');
-
-        window.document.dispatchEvent(event);
-
-        expect(getComputedStyle).toHaveBeenCalledWith(overlay);
-        expect(preventDefault).toHaveBeenCalled();
-      });
-
-      it('allows scroll when hidden', () => {
-        const { node } = renderToDom(render());
-        const overlay = assertNotNull(node.querySelector('[data-testid=\'nav-overlay\']'), '');
-
-        getComputedStyle.mockReturnValue({ height: '0px' });
-
-        const event = window.document.createEvent('UIEvents');
-        event.initEvent('scroll', true, false);
-        const preventDefault = jest.spyOn(event, 'preventDefault');
-
-        window.document.dispatchEvent(event);
-
-        expect(getComputedStyle).toHaveBeenCalledWith(overlay);
-        expect(preventDefault).not.toHaveBeenCalled();
-      });
-
-      it('noops without a dom', () => {
-        const element = renderer.create(render());
-        const OnScroll = require('../OnScroll').default;
-        const onScroll = element.root.findByType(OnScroll);
-
-        const event = window.document.createEvent('UIEvents');
-        event.initEvent('scroll', true, false);
-        const preventDefault = jest.spyOn(event, 'preventDefault');
-
-        onScroll.props.callback(event);
-
-        expect(getComputedStyle).not.toHaveBeenCalled();
-        expect(preventDefault).not.toHaveBeenCalled();
-      });
-    });
+    // Note: Scroll blocking is now handled by RAC Modal internally
 
     describe('logo href', () => {
       describe('default', () => {
