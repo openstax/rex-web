@@ -21,7 +21,7 @@
     "focus-within-polyfill": "^5.2.1",
     "history": "4.7.2",
     "js-cookie": "~2.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "mdn-polyfills": "^5.20.0",
     "mime": "^3.0.0",
     "path-to-regexp": "<4",

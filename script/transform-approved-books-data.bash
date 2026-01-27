@@ -14,7 +14,7 @@ $configured_books |
 if (type != "object") then error("Bad book config") else . end |
 [
   # Get the newest version of each book
-  $corgi_abl | group_by(.uuid) | .[] | sort_by(.commited_at) | .[-1] |
+  $corgi_abl | group_by(.uuid) | .[] | sort_by(.committed_at) | .[-1] |
 
   # Store information about the entry (uuid and short sha)
   .uuid as $uuid |
