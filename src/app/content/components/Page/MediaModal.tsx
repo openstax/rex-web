@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import ScrollLock from '../../../components/ScrollLock';
+import { HTMLButtonElement } from '@openstax/types/lib.dom';
 import theme from '../../../theme';
 
 const buttonHeight = 4.2; // rem
@@ -65,6 +66,14 @@ interface MediaModalProps {
   children: React.ReactNode;
 }
 const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) => {
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      closeButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
@@ -76,7 +85,7 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
       />
       <ModalWrapper aria-modal='true' role='dialog'>
         <ContentContainer >
-          <FloatingCloseButton onClick={onClose} aria-label='Close media preview'>
+          <FloatingCloseButton ref={closeButtonRef} onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />
           </FloatingCloseButton>
           <ScrollableContent>{children}</ScrollableContent>
