@@ -908,7 +908,6 @@ Array [
       >
         <h3
           className="c14"
-          tabIndex="0"
         >
           Related key terms
         </h3>
