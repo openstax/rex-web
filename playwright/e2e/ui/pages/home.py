@@ -87,11 +87,11 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_instructor_resources_tab(self):
-        await self.page.locator(r"#Instructor\ resources-tab").click()
+        await self.page.get_by_text("Instructor resources").click()
 
     @pytest.mark.asyncio
     async def click_student_resources_tab(self):
-        await self.page.locator(r"#Student\ resources-tab").click()
+        await self.page.get_by_text("Student resources").click()
 
     @pytest.mark.asyncio
     async def click_subjects_science_link(self):
@@ -113,7 +113,7 @@ class HomeRex:
 
     @property
     def book_title_image(self):
-        return self.page.get_by_alt_text("Calculus Volume 1")
+        return self.page.locator("h1.image-heading")
 
     # Highlights and Notes
 
@@ -575,3 +575,9 @@ class HomeRex:
     @pytest.mark.asyncio
     async def section_count(self):
         return await self.page.locator("section").all()
+
+    # Content portal
+
+    @pytest.mark.asyncio
+    async def click_book_details_page_link(self):
+        await self.page.get_by_label("Astronomy").click()
