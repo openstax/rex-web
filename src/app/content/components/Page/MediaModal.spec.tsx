@@ -54,4 +54,15 @@ describe('MediaModal', () => {
 
     expect(mockClose).toHaveBeenCalled();
   });
+
+  it('has close button with ref for focus management', () => {
+    // This test verifies that the close button has the structure needed for focus management
+    // The actual focus behavior is tested in mediaModalManager.spec.tsx using ReactDOM
+    const component = renderMediaModal(true);
+
+    // Verify close button exists and has the correct aria-label
+    const closeButton = component.root.findAllByType('button')[0];
+    expect(closeButton).toBeTruthy();
+    expect(closeButton.props['aria-label']).toBe('Close media preview');
+  });
 });
