@@ -11,7 +11,9 @@ async def chrome_page():
     async with async_playwright() as playwright:
         browser_obj = playwright.chromium
         if browser_obj:
-            ch_browser = await browser_obj.launch(headless=True, slow_mo=1200, timeout=120000)
+            ch_browser = await browser_obj.launch(
+                headless=True, slow_mo=1800, timeout=120000
+            )
             context = await ch_browser.new_context()
             page = await context.new_page()
             yield page
@@ -55,8 +57,6 @@ def rex_user(request):
 def rex_password(request):
     """Return a rex password"""
     config = request.config
-    rex_password = config.getoption("rex_password") or config.getini(
-        "rex_password"
-    )
+    rex_password = config.getoption("rex_password") or config.getini("rex_password")
     if rex_password is not None:
         return rex_password
