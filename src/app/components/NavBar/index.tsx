@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { Dialog } from 'react-aria-components';
-import { ProfileMenu, ProfileMenuButton, UserIcon } from '@openstax/ui-components';
+import { ProfileMenu, ProfileMenuButton, ProfileMenuItem, UserIcon } from '@openstax/ui-components';
 import openstaxLogo from '../../../assets/logo.svg';
 import * as authSelect from '../../auth/selectors';
 import * as selectHighlights from '../../content/highlights/selectors';
@@ -39,10 +39,9 @@ export const useUnsavedHighlightsValidator = (hasUnsavedHighlight: boolean) => {
 export const MobileDropdown: FunctionComponent<{
   user: User,
   currentPath: string,
-  onAction: (key: React.Key) => void,
   isOpen: boolean,
   onClose: () => void
-}> = ({user, currentPath, onAction, isOpen, onClose}) => {
+}> = ({user, currentPath, isOpen, onClose}) => {
   const intl = useIntl();
 
   return (
@@ -68,12 +67,7 @@ export const MobileDropdown: FunctionComponent<{
                 <li role='presentation'>
                   <FormattedMessage id='i18n:nav:profile:text'>
                     {msg => (
-                      <a
-                        href='/accounts/profile'
-                        target='_blank'
-                        role='menuitem'
-                        onClick={() => onAction('profile')}
-                      >
+                      <a href='/accounts/profile' target='_blank' role='menuitem'>
                         {msg}
                       </a>
                     )}
@@ -82,14 +76,7 @@ export const MobileDropdown: FunctionComponent<{
                 <li role='presentation'>
                   <FormattedMessage id='i18n:nav:logout:text'>
                     {msg => (
-                      <a
-                        href={'/accounts/logout?r=' + currentPath}
-                        role='menuitem'
-                        onClick={(e) => {
-                          e.preventDefault();
-                          onAction('logout');
-                        }}
-                      >
+                      <a href={'/accounts/logout?r=' + currentPath} role='menuitem'>
                         {msg}
                       </a>
                     )}
@@ -107,33 +94,13 @@ export const MobileDropdown: FunctionComponent<{
 const LoggedInState: FunctionComponent<{
   user: User;
   currentPath: string;
-  hasUnsavedHighlight: boolean;
 }> = ({
   user,
   currentPath,
-  hasUnsavedHighlight,
 }) => {
-  const services = useServices();
   const intl = useIntl();
   const isMobile = useMatchMobileQuery();
   const [overlayOpen, setOverlayOpen] = useState(false);
-
-  const handleAction = async(key: React.Key) => {
-    if (key === 'profile') {
-      assertWindow().open('/accounts/profile', '_blank');
-    } else if (key === 'logout') {
-      const logOutUrl = '/accounts/logout?r=' + currentPath;
-      if (hasUnsavedHighlight) {
-        const confirmed = await showConfirmation(services);
-        if (confirmed) {
-          assertWindow().location.assign(logOutUrl);
-        }
-      } else {
-        assertWindow().location.assign(logOutUrl);
-      }
-    }
-    setOverlayOpen(false);
-  };
 
   // On mobile, render just a button that opens the full-screen overlay
   // On desktop, render ProfileMenu with its popover
@@ -154,7 +121,6 @@ const LoggedInState: FunctionComponent<{
         <MobileDropdown
           user={user}
           currentPath={currentPath}
-          onAction={handleAction}
           isOpen={overlayOpen}
           onClose={() => setOverlayOpen(false)}
         />
@@ -162,15 +128,21 @@ const LoggedInState: FunctionComponent<{
     );
   }
 
+  const logOutUrl = '/accounts/logout?r=' + currentPath;
+
   return (
     <Styled.DropdownContainer data-testid='user-nav'>
       <ProfileMenu
         user={user}
-        onAction={handleAction}
-        profileLabel={intl.formatMessage({ id: 'i18n:nav:profile:text' })}
-        logoutLabel={intl.formatMessage({ id: 'i18n:nav:logout:text' })}
         data-testid='user-nav-toggle'
-      />
+      >
+        <ProfileMenuItem href='/accounts/profile' target='_blank'>
+          {intl.formatMessage({ id: 'i18n:nav:profile:text' })}
+        </ProfileMenuItem>
+        <ProfileMenuItem href={logOutUrl}>
+          {intl.formatMessage({ id: 'i18n:nav:logout:text' })}
+        </ProfileMenuItem>
+      </ProfileMenu>
     </Styled.DropdownContainer>
   );
 };
@@ -214,7 +186,7 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
           />
         </a>
         {loggedOut && <LoggedOutState currentPath={currentPath} />}
-        {user && <LoggedInState user={user} currentPath={currentPath} hasUnsavedHighlight={hasUnsavedHighlight} />}
+        {user && <LoggedInState user={user} currentPath={currentPath} />}
       </Styled.TopBar>
     </Styled.BarWrapper>
   );
