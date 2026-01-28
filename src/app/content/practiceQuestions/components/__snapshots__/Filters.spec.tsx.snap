@@ -442,44 +442,16 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   color: #424242;
 }
 
+.c23[aria-current="true"] {
+  color: #027eb5;
+}
+
 .c23:hover,
 .c23:focus {
   background-color: #f1f1f1;
 }
 
 .c23 .c19 {
-  padding-left: 2.5rem;
-  width: 95%;
-}
-
-.c24 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 4rem;
-  width: 100%;
-  text-align: left;
-  font-size: 1.4rem;
-  color: #424242;
-  color: #027eb5;
-}
-
-.c24:hover,
-.c24:focus {
-  background-color: #f1f1f1;
-}
-
-.c24 .c19 {
   padding-left: 2.5rem;
   width: 95%;
 }
@@ -499,15 +471,15 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   padding: 0;
 }
 
-.c12 .c25 {
+.c12 .c24 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c12 .c26 {
+.c12 .c25 {
   padding: 0.8rem;
 }
 
-.c12 .c27 {
+.c12 .c26 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
@@ -730,8 +702,9 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                     className="c22"
                   >
                     <button
+                      aria-current="true"
                       aria-label="Filter PQ by  section21"
-                      className="c24"
+                      className="c23"
                       data-analytics-label="Filter PQ by  section21"
                       onClick={[Function]}
                     >
@@ -1006,6 +979,10 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   text-align: left;
   font-size: 1.4rem;
   color: #424242;
+}
+
+.c23[aria-current="true"] {
+  color: #027eb5;
 }
 
 .c23:hover,
