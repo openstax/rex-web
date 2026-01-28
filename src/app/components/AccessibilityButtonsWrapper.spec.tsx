@@ -2,14 +2,10 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { act } from 'react-dom/test-utils';
-import * as redux from 'react-redux';
-import renderer from 'react-test-renderer';
-import * as analytics from '../../helpers/analytics';
 import { book } from '../../test/mocks/archiveLoader';
 import { expectError, expectReactRenderError, renderToDom } from '../../test/reactutils';
 import TestContainer from '../../test/TestContainer';
 import AccessibilityButtonsWrapper from './AccessibilityButtonsWrapper';
-import { HiddenButton } from './HiddenLink';
 import MainContent from './MainContent';
 
 describe('AccessibilityButtonsWrapper', () => {

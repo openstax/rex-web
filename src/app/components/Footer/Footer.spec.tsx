@@ -138,8 +138,6 @@ describe('useContactDialog', () => {
 describe('OpenKeyboardShortcutsLink', () => {
 
   it('opens the Keyboard Shortcuts Menu when that link is clicked', () => {
-    const state = {} as unknown as AppState;
-    const store = createTestStore(state);
     const dispatch = jest.fn();
     const spyRedux = jest.spyOn(redux, 'useDispatch').mockImplementation(() => dispatch);
 
@@ -157,7 +155,7 @@ describe('OpenKeyboardShortcutsLink', () => {
     expect(spyAnalytics).toHaveBeenCalledTimes(1);
     expect(spyAnalytics).toHaveBeenCalledWith('openCloseKeyboardShortcuts');
 
-    const shortCutLink: HTMLElement | null = root.findByProps({'data-testid': 'shortcut-link'});
+    const shortCutLink = root.findByProps({'data-testid': 'shortcut-link'});
     shortCutLink.props.onClick({preventDefault: jest.fn()});
 
     expect(dispatch).toHaveBeenCalledTimes(1);
