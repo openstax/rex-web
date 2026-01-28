@@ -190,9 +190,9 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
 
   return <StyledSectionItem
     onClick={props.onChange}
-    isSelected={props.selected}
     aria-label={props.ariaLabel}
     data-analytics-label={props.dataAnalyticsLabel}
+    aria-current={props.selected ? 'true' : undefined}
   >
     <ChapterTitle dangerouslySetInnerHTML={{ __html: props.title }} />
   </StyledSectionItem>;
@@ -237,11 +237,10 @@ export const StyledSectionItem = styled(PlainButton)`
   text-align: left;
   font-size: 1.4rem;
   ${textStyle}
-  ${(props: { isSelected: boolean }) => {
-    if (props.isSelected) {
-      return 'color: #027eb5;';
-    }
-  }}
+
+  &[aria-current="true"] {
+    color: #027eb5;
+  }
 
   &:hover,
   &:focus {
