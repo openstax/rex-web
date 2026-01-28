@@ -25,7 +25,7 @@ export interface OSWebBook {
   require_login_message_text: string | null;
   id: number;
 }
-export interface OSWebSchoolData {
+interface OSWebSchoolData {
   id: number,
   salesforce_id: string,
   name: string;
@@ -63,11 +63,18 @@ interface Options {
   cache?: Cache<string, OSWebBook | undefined>;
 }
 
+interface LoaderConfig<T> {
+  buildUrl: (param: string) => string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  processResponse: (data: any) => T | undefined;
+  shouldCache: boolean;
+}
+
 const defaultOptions = () => ({
   cache: createCache<string, OSWebBook | undefined>({maxRecords: 10}),
 });
 
-export default (prefix: string, options: Options  = {}) => {
+export default (prefix: string, options: Options = {}) => {
   const {cache} = {...defaultOptions(), ...options};
   const baseUrl = `${prefix}/v2/pages`;
   const toJson = (response: Response) => response.json();
@@ -84,30 +91,42 @@ export default (prefix: string, options: Options  = {}) => {
     return record;
   };
 
-  const loader = <T>(buildUrl: (param: string) => string, type: 'book' | 'portal') => (param: string): Promise<T | undefined> => {
-    const cached = cache.get(param);
-    if (cached && type === 'book') {
-      return Promise.resolve(cached as T);
+  const loader = <T>(config: LoaderConfig<T>) => (param: string): Promise<T | undefined> => {
+    if (config.shouldCache) {
+      const cached = cache.get(param);
+      if (cached) {
+        return Promise.resolve(cached as T);
+      }
     }
-
-    return fetch(buildUrl(param))
+    return fetch(config.buildUrl(param))
       .then(acceptStatus(200, (status, message) => new Error(`Error response from OSWeb ${status}: ${message}`)))
       .then(toJson)
-      .then((data: OSWebResponse | OSWebPortalResponse) => type === 'book'
-        ? firstRecord(data as OSWebResponse)
-        : (data as OSWebPortalResponse).school_data
-      )
+      .then(config.processResponse)
       .then((record) => {
-        if (type === 'book') {
-          return cacheRecord(param)(record as OSWebBook) as T;
+        if (config.shouldCache && record) {
+          cacheRecord(param)(record as unknown as OSWebBook);
         }
-        return record as T;
+        return record;
       });
   };
 
-  const slugLoader = loader<OSWebBook>((slug: string) => `${baseUrl}?type=books.Book&fields=${fields}&slug=${slug}`, 'book');
-  const idLoader = loader<OSWebBook>((id: string) => `${baseUrl}?type=books.Book&fields=${fields}&cnx_id=${id}`, 'book');
-  const portalLoader = loader<OSWebSchoolData>((portalName: string) => `${baseUrl}/${portalName}`, 'portal');
+  const slugLoader = loader<OSWebBook>({
+    buildUrl: (slug: string) => `${baseUrl}?type=books.Book&fields=${fields}&slug=${slug}`,
+    processResponse: firstRecord,
+    shouldCache: true,
+  });
+
+  const idLoader = loader<OSWebBook>({
+    buildUrl: (id: string) => `${baseUrl}?type=books.Book&fields=${fields}&cnx_id=${id}`,
+    processResponse: firstRecord,
+    shouldCache: true,
+  });
+
+  const portalLoader = loader<OSWebSchoolData>({
+    buildUrl: (portalName: string) => `${baseUrl}/${portalName}`,
+    processResponse: (data: OSWebPortalResponse) => data.school_data,
+    shouldCache: false,
+  });
 
   return {
     getBookFromId: (id: string) => idLoader(id),

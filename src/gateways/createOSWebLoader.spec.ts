@@ -1,7 +1,6 @@
 import { AppServices } from '../app/types';
 import { resetModules } from '../test/utils';
 import { fields } from './createOSWebLoader';
-
 const mockFetch = (code: number, data: any) => jest.fn(() => Promise.resolve({
   json: () => Promise.resolve(data),
   status: code,
@@ -155,6 +154,29 @@ describe('osWebLoader', () => {
         message = e.message;
       }
       expect(message).toEqual('Error response from OSWeb 404: not found');
+    });
+  });
+
+  describe('preloadCache', () => {
+    it('sets cache to undefined when record is falsy', () => {
+      // Create a mock cache with a set method
+      const setMock = jest.fn();
+      const loader = require('./createOSWebLoader').default('url', {
+        cache: { set: setMock, get: jest.fn() }
+      });
+      loader.preloadCache('test-id')(undefined);
+      expect(setMock).toHaveBeenCalledWith('test-id', undefined);
+    });
+
+    it('sets cache by slug and cnx_id when record is present', () => {
+      const setMock = jest.fn();
+      const loader = require('./createOSWebLoader').default('url', {
+        cache: { set: setMock, get: jest.fn() }
+      });
+      const record = { cnx_id: 'id123', meta: { slug: 'slug123' } };
+      loader.preloadCache('slug123')(record as any);
+      expect(setMock).toHaveBeenCalledWith('slug123', record);
+      expect(setMock).toHaveBeenCalledWith('id123', record);
     });
   });
 });
