@@ -5,7 +5,6 @@ import styled, { css } from 'styled-components/macro';
 import Loader from '../../../components/Loader';
 import { h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
-import { HTMLDivElement } from '@openstax/types/lib.dom';
 import * as contentSelectors from '../../selectors';
 import LoaderWrapper from '../../styles/LoaderWrapper';
 import { PopupBody } from '../../styles/PopupStyles';
@@ -73,21 +72,14 @@ export const QuestionsHeader = styled.h3`
   align-items: center;
 `;
 
-function AutofocusSectionTitle() {
+function MaybeSectionTitle() {
   const section = useSelector(pqSelectors.selectedSection);
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    if (section) {
-      ref.current?.focus();
-    }
-  }, [section]);
 
   if (!section) {
     return null;
   }
 
-  return <SectionTitle tabIndex={-1} ref={ref} dangerouslySetInnerHTML={{ __html: section.title }} />;
+  return <SectionTitle tabIndex={-1} dangerouslySetInnerHTML={{ __html: section.title }} />;
 }
 
 const ShowPracticeQuestions = () => {
@@ -114,7 +106,7 @@ const ShowPracticeQuestions = () => {
       {isLoading
         ? <LoaderWrapper><Loader large /></LoaderWrapper>
         : <ShowPracitceQuestionsContent>
-          <AutofocusSectionTitle />
+          <MaybeSectionTitle />
           {questionsCount === 0
               ? (nextSection
                 ? <EmptyScreen nextSection={nextSection} />
