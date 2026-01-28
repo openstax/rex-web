@@ -10,7 +10,7 @@ packaging==24.2
 playwright==1.50.0
 pluggy==1.5.0
 py==1.11.0
-pypdf==6.6.0
+pypdf==6.6.2
 pyee==12.1.1
 pytest==8.3.5
 pytest-asyncio==0.26.0
