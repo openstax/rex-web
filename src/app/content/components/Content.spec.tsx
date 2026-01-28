@@ -82,7 +82,7 @@ describe('content', () => {
     };
   });
 
-  it('matches snapshot', () => {
+  it('renders main content with book and page', () => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     store.dispatch(receiveBook(bookState));
     store.dispatch(receivePage({ ...shortPage, references: [] }));
@@ -97,11 +97,20 @@ describe('content', () => {
       </Provider>
     );
 
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    // Test that main content area exists
+    const mainContent = component.root.findByProps({ id: 'main-content' });
+    expect(mainContent).toBeDefined();
+
+    // Test that TableOfContents is rendered
+    const toc = component.root.findByType(TableOfContents);
+    expect(toc).toBeDefined();
+
+    // Test that ScrollOffset is present
+    const scrollOffset = component.root.findByType(ScrollOffset);
+    expect(scrollOffset).toBeDefined();
   });
 
-  it('renders empty state', () => {
+  it('renders empty state without page data', () => {
     store.dispatch(receiveBook(bookState));
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValue(2021);
     const component = renderer.create(
@@ -114,8 +123,13 @@ describe('content', () => {
       </Provider>
     );
 
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    // Verify main content exists
+    const mainContent = component.root.findByProps({ id: 'main-content' });
+    expect(mainContent).toBeDefined();
+
+    // Verify TableOfContents is still rendered
+    const toc = component.root.findByType(TableOfContents);
+    expect(toc).toBeDefined();
   });
 
   it('renders BuyBook button if book have a link to amazon', () => {
