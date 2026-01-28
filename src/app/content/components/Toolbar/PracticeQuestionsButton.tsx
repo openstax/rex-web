@@ -13,6 +13,7 @@ import {
 import { bookAndPage } from '../../selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
+import { captureOpeningElement } from '../../utils/focusManager';
 
 export const StyledPracticeQuestionsButton = styled(PlainButton)`
   ${toolbarDefaultButton}
@@ -46,6 +47,7 @@ const PracticeQuestionsButton = () => {
   if (!isEnabled || !hasPracticeQs || !book || !page) { return null; }
 
   const showPracticeQuestions = () => {
+    captureOpeningElement('practicequestions');
     dispatch(openPracticeQuestions());
     trackOpenClose();
   };

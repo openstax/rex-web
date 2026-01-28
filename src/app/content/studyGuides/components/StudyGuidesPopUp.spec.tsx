@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
-import renderer, { act } from 'react-test-renderer';
+import ReactTestUtils, { act } from 'react-dom/test-utils';
+import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page } from '../../../../test/mocks/archiveLoader';
@@ -18,6 +18,7 @@ import { assertNotNull } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { formatBookData } from '../../utils';
+import { captureOpeningElement } from '../../utils/focusManager';
 import { closeStudyGuides, openStudyGuides } from '../actions';
 import StudyguidesPopUp from './StudyGuidesPopUp';
 
@@ -114,5 +115,56 @@ describe('Study Guides button and PopUp', () => {
 
     expect(track).toHaveBeenCalled();
 
+  });
+
+  it('focuses close button when modal opens', (done) => {
+    const document = utils.assertDocument();
+
+    const mockButton = document.createElement('button');
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    captureOpeningElement('studyguides');
+
+    renderToDom(<TestContainer services={services} store={store}>
+      <StudyguidesPopUp />
+    </TestContainer>);
+
+    act(() => { store.dispatch(openStudyGuides()); });
+
+    setTimeout(() => {
+      const closeButton = document.querySelector('[data-testid="close-studyguides-popup"]');
+      expect(document.activeElement).toBe(closeButton);
+      mockButton.remove();
+      done();
+    }, 10);
+  });
+
+  it('restores focus to opening button when modal closes', (done) => {
+    const document = utils.assertDocument();
+
+    const mockButton = document.createElement('button');
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    captureOpeningElement('studyguides');
+
+    renderToDom(<TestContainer services={services} store={store}>
+      <StudyguidesPopUp />
+    </TestContainer>);
+
+    act(() => { store.dispatch(openStudyGuides()); });
+
+    expect(document.activeElement).not.toBe(mockButton);
+
+    setTimeout(() => {
+      act(() => { store.dispatch(closeStudyGuides()); });
+
+      setTimeout(() => {
+        expect(document.activeElement).toBe(mockButton);
+        mockButton.remove();
+        done();
+      }, 10);
+    }, 10);
   });
 });

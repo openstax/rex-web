@@ -11,7 +11,6 @@ import TestContainer from '../../../../test/TestContainer';
 import { receiveUser } from '../../../auth/actions';
 import { User } from '../../../auth/types';
 import OnEsc from '../../../components/OnEsc';
-import * as appGuards from '../../../guards';
 import { MiddlewareAPI, Store } from '../../../types';
 import * as utils from '../../../utils';
 import { assertNotNull } from '../../../utils';
@@ -19,6 +18,7 @@ import { receiveBook } from '../../actions';
 import HighlightButton from '../../components/Toolbar/HighlightButton';
 import { CloseIcon, Header } from '../../styles/PopupStyles';
 import { formatBookData } from '../../utils';
+import { captureOpeningElement } from '../../utils/focusManager';
 import { closeMyHighlights, openMyHighlights } from '../actions';
 import HighlightsPopUp from './HighlightsPopUp';
 import { setAnnotationChangesPending } from '../../highlights/actions';
@@ -108,36 +108,26 @@ describe('MyHighlights button and PopUp', () => {
     expect(dispatch).toHaveBeenCalledWith(openMyHighlights());
   });
 
-  it('focus is on pop up content', async() => {
-    const focus = jest.fn();
-    const addEventListener = jest.fn();
-    const removeEventListener = jest.fn();
-    const querySelectorAll = jest.fn(() => []);
-    const getAttribute = jest.fn();
-    const setAttribute = jest.fn();
-    const removeAttribute = jest.fn();
-    const createNodeMock = () => ({
-      addEventListener,
-      focus,
-      getAttribute,
-      querySelectorAll,
-      removeAttribute,
-      removeEventListener,
-      setAttribute,
-    });
+  it('focus is on close button', (done) => {
+    const document = utils.assertDocument();
+    store.dispatch(openMyHighlights());
 
-    renderer.create(<TestContainer services={services} store={store}>
+    const mockButton = document.createElement('button');
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    captureOpeningElement('highlights');
+
+    renderToDom(<TestContainer services={services} store={store}>
       <HighlightsPopUp />
-    </TestContainer>, {createNodeMock});
+    </TestContainer>);
 
-    const isHtmlElement = jest.spyOn(appGuards, 'isHtmlElement');
-    isHtmlElement.mockReturnValueOnce(true);
-
-    renderer.act(() => { store.dispatch(openMyHighlights()); });
-    // Force componentDidUpdate()
-    renderer.act(() => { store.dispatch(receiveUser(user)); });
-
-    expect(focus).toHaveBeenCalled();
+    setTimeout(() => {
+      const closeButton = document.querySelector('[data-testid="close-highlights-popup"]');
+      expect(document.activeElement).toBe(closeButton);
+      mockButton.remove();
+      done();
+    }, 10);
   });
 
   it('closes popup on esc and tracks analytics', async() => {
@@ -223,6 +213,55 @@ describe('MyHighlights button and PopUp', () => {
 
     expect(header.props.colorSchema).toBe('yellow');
     expect(closeIcon.props.colorSchema).toBe('yellow');
+  });
+
+  it('focuses close button when modal opens', (done) => {
+    const document = utils.assertDocument();
+    store.dispatch(openMyHighlights());
+
+    const mockButton = document.createElement('button');
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    captureOpeningElement('highlights');
+
+    renderToDom(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>);
+
+    setTimeout(() => {
+      const closeButton = document.querySelector('[data-testid="close-highlights-popup"]');
+      expect(document.activeElement).toEqual(closeButton);
+      mockButton.remove();
+      done();
+    }, 10);
+  });
+
+  it('restores focus to opening button when modal closes', (done) => {
+    const document = utils.assertDocument();
+    store.dispatch(openMyHighlights());
+
+    const mockButton = document.createElement('button');
+    document.body.appendChild(mockButton);
+    mockButton.focus();
+
+    captureOpeningElement('highlights');
+
+    const { unmount } = renderToDom(<TestContainer services={services} store={store}>
+      <HighlightsPopUp />
+    </TestContainer>);
+
+    expect(document.activeElement).not.toBe(mockButton);
+
+    setTimeout(() => {
+      unmount();
+
+      setTimeout(() => {
+        expect(document.activeElement).toBe(mockButton);
+        mockButton.remove();
+        done();
+      }, 10);
+    }, 10);
   });
 
   describe('with unsaved highlights', () => {
