@@ -63,35 +63,6 @@ Array [
   >
     Go to accessibility page
   </a>,
-  .c0 {
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-  margin: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:focus {
-  -webkit-clip: auto;
-  clip: auto;
-  height: auto;
-  width: auto;
-  z-index: 150;
-}
-
-<button
-    className="c0"
-    href="#"
-    onClick={[Function]}
-  >
-    Keyboard shortcuts menu
-  </button>,
   .c1 {
   overflow: visible;
   display: -webkit-box;
@@ -1215,6 +1186,16 @@ Array [
                   target="_blank"
                 >
                   System Status
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  data-testid="shortcut-link"
+                  href="#"
+                  onClick={[Function]}
+                >
+                  Keyboard Shortcuts
                 </a>
               </li>
             </menu>
