@@ -40,8 +40,9 @@ export const MobileDropdown: FunctionComponent<{
   user: User,
   currentPath: string,
   isOpen: boolean,
-  onOpenChange: (isOpen: boolean) => void
-}> = ({user, currentPath, isOpen, onOpenChange}) => {
+  onOpenChange: (isOpen: boolean) => void,
+  onAction: (key: React.Key) => void
+}> = ({user, currentPath, isOpen, onOpenChange, onAction}) => {
   const intl = useIntl();
 
   return (
@@ -67,7 +68,15 @@ export const MobileDropdown: FunctionComponent<{
                 <li role='presentation'>
                   <FormattedMessage id='i18n:nav:profile:text'>
                     {msg => (
-                      <a href='/accounts/profile' target='_blank' role='menuitem'>
+                      <a
+                        href='/accounts/profile'
+                        target='_blank'
+                        role='menuitem'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onAction('profile');
+                        }}
+                      >
                         {msg}
                       </a>
                     )}
@@ -76,7 +85,14 @@ export const MobileDropdown: FunctionComponent<{
                 <li role='presentation'>
                   <FormattedMessage id='i18n:nav:logout:text'>
                     {msg => (
-                      <a href={'/accounts/logout?r=' + currentPath} role='menuitem'>
+                      <a
+                        href={'/accounts/logout?r=' + currentPath}
+                        role='menuitem'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onAction('logout');
+                        }}
+                      >
                         {msg}
                       </a>
                     )}
@@ -94,13 +110,16 @@ export const MobileDropdown: FunctionComponent<{
 const LoggedInState: FunctionComponent<{
   user: User;
   currentPath: string;
+  hasUnsavedHighlight: boolean;
 }> = ({
   user,
   currentPath,
+  hasUnsavedHighlight,
 }) => {
   const intl = useIntl();
   const isMobile = useMatchMobileQuery();
   const [overlayOpen, setOverlayOpen] = useState(false);
+  const services = useServices();
 
   useEffect(() => {
     if (!isMobile) {
@@ -108,7 +127,27 @@ const LoggedInState: FunctionComponent<{
     }
   }, [isMobile]);
 
-  // On mobile, render just a button that opens the full-screen overlay
+  const handleAction = async(key: React.Key) => {
+    if (key === 'profile') {
+      assertWindow().open('/accounts/profile', '_blank');
+    }
+
+    if (key === 'logout') {
+      const logOutUrl = '/accounts/logout?r=' + currentPath;
+      if (hasUnsavedHighlight) {
+        const confirmed = await showConfirmation(services);
+        if (confirmed) {
+          assertWindow().location.assign(logOutUrl);
+        }
+      } else {
+        assertWindow().location.assign(logOutUrl);
+      }
+    }
+
+    setOverlayOpen(false);
+  };
+
+  // On mobile, render only a button that opens the full-screen overlay
   // On desktop, render ProfileMenu with its popover
   if (isMobile) {
     return (
@@ -129,23 +168,23 @@ const LoggedInState: FunctionComponent<{
           currentPath={currentPath}
           isOpen={overlayOpen}
           onOpenChange={setOverlayOpen}
+          onAction={handleAction}
         />
       </Styled.DropdownContainer>
     );
   }
 
-  const logOutUrl = '/accounts/logout?r=' + currentPath;
-
   return (
     <Styled.DropdownContainer data-testid='user-nav'>
       <ProfileMenu
         user={user}
+        onAction={handleAction}
         data-testid='user-nav-toggle'
       >
-        <ProfileMenuItem href='/accounts/profile' target='_blank'>
+        <ProfileMenuItem id='profile'>
           {intl.formatMessage({ id: 'i18n:nav:profile:text' })}
         </ProfileMenuItem>
-        <ProfileMenuItem href={logOutUrl}>
+        <ProfileMenuItem id='logout'>
           {intl.formatMessage({ id: 'i18n:nav:logout:text' })}
         </ProfileMenuItem>
       </ProfileMenu>
@@ -192,7 +231,7 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
           />
         </a>
         {loggedOut && <LoggedOutState currentPath={currentPath} />}
-        {user && <LoggedInState user={user} currentPath={currentPath} />}
+        {user && <LoggedInState user={user} currentPath={currentPath} hasUnsavedHighlight={hasUnsavedHighlight} />}
       </Styled.TopBar>
     </Styled.BarWrapper>
   );
