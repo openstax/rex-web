@@ -12,8 +12,8 @@ describe('On scroll', () => {
 
   it('registers and unregisters callback on mount/unmount', () => {
     const callback = jest.fn();
-    const addSpy = jest.spyOn(document, 'addEventListener');
-    const removeSpy = jest.spyOn(document, 'removeEventListener');
+    const addSpy = jest.spyOn(document!, 'addEventListener');
+    const removeSpy = jest.spyOn(document!, 'removeEventListener');
 
     const component = renderer.create(<OnScroll callback={callback} />);
 
