@@ -199,11 +199,11 @@ describe('content', () => {
 
         const logoutLink = window.document.body.querySelector(
           'a[href^="/accounts/logout"]'
-        ) as HTMLAnchorElement;
+        );
         expect(logoutLink).toBeTruthy();
 
         await ReactTestUtils.act(async() => {
-          logoutLink.click();
+          (logoutLink as any).click();
         });
 
         expect(onAction).toHaveBeenCalledWith('logout');
@@ -228,11 +228,11 @@ describe('content', () => {
 
         const profileLink = window.document.body.querySelector(
           'a[href="/accounts/profile"]'
-        ) as HTMLAnchorElement;
+        );
         expect(profileLink).toBeTruthy();
 
         await ReactTestUtils.act(async() => {
-          profileLink.click();
+          (profileLink as any).click();
         });
 
         expect(onAction).toHaveBeenCalledWith('profile');
@@ -317,9 +317,9 @@ describe('content', () => {
         });
 
         await ReactTestUtils.act(async() => {
-          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]') as HTMLAnchorElement;
+          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]');
           expect(logoutLink).toBeTruthy();
-          logoutLink.click();
+          (logoutLink as any).click();
           jest.runAllTimers();
         });
 
@@ -355,9 +355,9 @@ describe('content', () => {
         });
 
         await ReactTestUtils.act(async() => {
-          const profileLink = window.document.body.querySelector('a[href="/accounts/profile"]') as HTMLAnchorElement;
+          const profileLink = window.document.body.querySelector('a[href="/accounts/profile"]');
           expect(profileLink).toBeTruthy();
-          profileLink.click();
+          (profileLink as any).click();
           jest.runAllTimers();
         });
 
@@ -602,9 +602,9 @@ describe('content', () => {
         });
 
         await ReactTestUtils.act(async() => {
-          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]') as HTMLAnchorElement;
+          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]');
           expect(logoutLink).toBeTruthy();
-          logoutLink.click();
+          (logoutLink as any).click();
           jest.runAllTimers();
         });
 
@@ -644,9 +644,9 @@ describe('content', () => {
         });
 
         await ReactTestUtils.act(async() => {
-          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]') as HTMLAnchorElement;
+          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]');
           expect(logoutLink).toBeTruthy();
-          logoutLink.click();
+          (logoutLink as any).click();
           jest.runAllTimers();
         });
 
