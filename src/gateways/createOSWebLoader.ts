@@ -25,12 +25,22 @@ export interface OSWebBook {
   require_login_message_text: string | null;
   id: number;
 }
+interface OSWebSchoolData {
+  id: number,
+  salesforce_id: string,
+  name: string;
+  industry: string;
+}
 
 interface OSWebResponse {
   meta: {
     item_count: number
   };
   items: OSWebBook[];
+}
+
+interface OSWebPortalResponse {
+  school_data: OSWebSchoolData;
 }
 
 export const fields = [
@@ -51,6 +61,13 @@ export const fields = [
 
 interface Options {
   cache?: Cache<string, OSWebBook | undefined>;
+}
+
+interface LoaderConfig<T> {
+  buildUrl: (param: string) => string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  processResponse: (data: any) => T | undefined;
+  shouldCache: boolean;
 }
 
 const defaultOptions = () => ({
@@ -74,26 +91,47 @@ export default (prefix: string, options: Options = {}) => {
     return record;
   };
 
-  const loader = (buildUrl: (param: string) => string) => (param: string): Promise<OSWebBook | undefined> => {
-    const cached = cache.get(param);
-    if (cached) {
-      return Promise.resolve(cached);
+  const loader = <T>(config: LoaderConfig<T>) => (param: string): Promise<T | undefined> => {
+    if (config.shouldCache) {
+      const cached = cache.get(param);
+      if (cached) {
+        return Promise.resolve(cached as T);
+      }
     }
-
-    return fetch(buildUrl(param))
+    return fetch(config.buildUrl(param))
       .then(acceptStatus(200, (status, message) => new Error(`Error response from OSWeb ${status}: ${message}`)))
       .then(toJson)
-      .then(firstRecord)
-      .then(cacheRecord(param))
-    ;
+      .then(config.processResponse)
+      .then((record) => {
+        if (config.shouldCache && record) {
+          cacheRecord(param)(record as unknown as OSWebBook);
+        }
+        return record;
+      });
   };
 
-  const slugLoader = loader((slug: string) => `${baseUrl}?type=books.Book&fields=${fields}&slug=${slug}`);
-  const idLoader = loader((id: string) => `${baseUrl}?type=books.Book&fields=${fields}&cnx_id=${id}`);
+  const slugLoader = loader<OSWebBook>({
+    buildUrl: (slug: string) => `${baseUrl}?type=books.Book&fields=${fields}&slug=${slug}`,
+    processResponse: firstRecord,
+    shouldCache: true,
+  });
+
+  const idLoader = loader<OSWebBook>({
+    buildUrl: (id: string) => `${baseUrl}?type=books.Book&fields=${fields}&cnx_id=${id}`,
+    processResponse: firstRecord,
+    shouldCache: true,
+  });
+
+  const portalLoader = loader<OSWebSchoolData>({
+    buildUrl: (portalName: string) => `${baseUrl}/${portalName}`,
+    processResponse: (data: OSWebPortalResponse) => data.school_data,
+    shouldCache: false,
+  });
 
   return {
     getBookFromId: (id: string) => idLoader(id),
     getBookFromSlug: (slug: string) => slugLoader(slug),
+    getSchoolDataFromPortalName: (portalName: string) => portalLoader(portalName),
     getBookIdFromSlug: (slug: string) => slugLoader(slug).then((book) => book && book.cnx_id),
     getBookSlugFromId: (id: string) => idLoader(id).then((book) => book && book.meta.slug),
     preloadCache: cacheRecord, // exposed for testing books that don't exist in osweb
