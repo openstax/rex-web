@@ -439,6 +439,106 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   margin: 0 auto;
 }
 
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c1 {
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 6rem;
+  max-width: 128rem;
+  margin: 0 auto;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
+.c2 {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+}
+
 .c2 {
   display: block;
   width: auto;
@@ -526,6 +626,42 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
 }
 
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
+.c0 {
+  overflow: visible;
+  z-index: 70;
+  background: #fff;
+  position: relative;
+  padding: 0 3.2rem;
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
+}
+
 @media screen and (max-width:75em) {
   .c1 {
     height: 5.2rem;
@@ -571,6 +707,78 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 @media print {
   .c1 {
     display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c1 {
+    height: 5.2rem;
+  }
+}
+
+@media print {
+  .c1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c2 {
+    height: 2.8rem;
   }
 }
 
@@ -615,6 +823,30 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   .c3:focus {
     padding: 0.7rem 0;
     border-bottom: none;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 {
+    padding: 0 1.6rem;
   }
 }
 

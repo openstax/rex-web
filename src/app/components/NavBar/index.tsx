@@ -40,12 +40,12 @@ export const MobileDropdown: FunctionComponent<{
   user: User,
   currentPath: string,
   isOpen: boolean,
-  onClose: () => void
-}> = ({user, currentPath, isOpen, onClose}) => {
+  onOpenChange: (isOpen: boolean) => void
+}> = ({user, currentPath, isOpen, onOpenChange}) => {
   const intl = useIntl();
 
   return (
-    <Styled.MobileMenuOverlay isOpen={isOpen} onOpenChange={(open: boolean) => !open && onClose()}>
+    <Styled.MobileMenuOverlay isOpen={isOpen} onOpenChange={onOpenChange}>
       <Styled.MobileMenuModal>
         <Dialog aria-label={intl.formatMessage({ id: 'i18n:nav:hello:text' }, { name: user.firstName })}>
           <Styled.DropdownOverlay data-testid='nav-overlay'>
@@ -55,7 +55,7 @@ export const MobileDropdown: FunctionComponent<{
                 alt={intl.formatMessage({ id: 'i18n:nav:logo:alt' })}
               />
             </a>
-            <Styled.TimesIcon onClick={onClose} />
+            <Styled.TimesIcon onClick={() => onOpenChange(false)} />
             <div>
               <FormattedMessage
                 id='i18n:nav:hello:text'
@@ -122,7 +122,7 @@ const LoggedInState: FunctionComponent<{
           user={user}
           currentPath={currentPath}
           isOpen={overlayOpen}
-          onClose={() => setOverlayOpen(false)}
+          onOpenChange={setOverlayOpen}
         />
       </Styled.DropdownContainer>
     );

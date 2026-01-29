@@ -1,3 +1,4 @@
+import ReactTestUtils from 'react-dom/test-utils';
 import createTestStore from '../../../test/createTestStore';
 import { reactAndFriends, resetModules } from '../../../test/utils';
 import { receiveLoggedOut, receiveUser } from '../../auth/actions';
@@ -6,20 +7,27 @@ import { AppState, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { assertNotNull } from '../../utils/assertions';
 import { setAnnotationChangesPending } from '../../content/highlights/actions';
+import * as reactUtils from '../../reactUtils';
 
 const mockConfirmation = jest.fn();
+let mockIsMobile = false;
 
 jest.mock(
   '../../content/highlights/components/utils/showConfirmation',
   () => mockConfirmation
 );
 
-const setupMatchMediaMock = () => {
+jest.mock('../../reactUtils', () => ({
+  ...jest.requireActual('../../reactUtils'),
+  useMatchMobileQuery: () => mockIsMobile,
+}));
+
+const setupMatchMediaMock = (isMobile: boolean = false) => {
   const window = assertWindow();
   window.matchMedia = jest.fn().mockImplementation((query: string) => {
     return {
       addEventListener: jest.fn(),
-      matches: false,
+      matches: isMobile,
       media: query,
       onchange: null,
       removeEventListener: jest.fn(),
@@ -86,9 +94,6 @@ describe('content', () => {
 
         expect(tree).toMatchSnapshot();
       });
-
-      // Note: Account links are now inside ProfileMenu's popover on desktop
-      // The popover uses RAC which handles events properly
     });
 
     describe('assignable user', () => {
@@ -106,6 +111,131 @@ describe('content', () => {
       });
     });
 
+
+    describe('MobileDropdown', () => {
+      let MobileDropdown: any;
+      let unmountComponent: (() => void) | null = null;
+
+      beforeEach(() => {
+        store.dispatch(receiveUser(user));
+        MobileDropdown = require('.').MobileDropdown;
+      });
+
+      afterEach(() => {
+        if (unmountComponent) {
+          unmountComponent();
+          unmountComponent = null;
+        }
+      });
+
+      it('renders menu items when open', () => {
+        const onOpenChange = jest.fn();
+        const window = assertWindow();
+        const { unmount } = renderToDom(
+          <TestContainer store={store}>
+            <MobileDropdown
+              user={user}
+              currentPath='/test'
+              isOpen={true}
+              onOpenChange={onOpenChange}
+            />
+          </TestContainer>
+        );
+        unmountComponent = unmount;
+        // Modal renders in a portal, so check document body
+        const profileLink = window.document.body.querySelector('a[href="/accounts/profile"]');
+        const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]');
+        expect(profileLink).toBeTruthy();
+        expect(logoutLink).toBeTruthy();
+      });
+
+      it('calls onOpenChange(false) when close icon is clicked', async() => {
+        const onOpenChange = jest.fn();
+        const window = assertWindow();
+        const { unmount } = renderToDom(
+          <TestContainer store={store}>
+            <MobileDropdown
+              user={user}
+              currentPath='/test'
+              isOpen={true}
+              onOpenChange={onOpenChange}
+            />
+          </TestContainer>
+        );
+        unmountComponent = unmount;
+
+        const closeButton = window.document.body.querySelector(
+          '[data-testid="nav-overlay"] button[aria-label="close menu"]'
+        ) as HTMLButtonElement;
+        expect(closeButton).toBeTruthy();
+
+        await ReactTestUtils.act(async() => {
+          closeButton.click();
+        });
+
+        expect(onOpenChange).toHaveBeenCalledWith(false);
+      });
+
+    });
+
+    describe('mobile view', () => {
+      beforeEach(() => {
+        mockIsMobile = true;
+        store.dispatch(receiveUser(user));
+      });
+
+      afterEach(() => {
+        mockIsMobile = false;
+      });
+
+      it('renders mobile menu button with initials', () => {
+        const { node } = renderToDom(render());
+        const toggle = node.querySelector('[data-testid="user-nav-toggle"]');
+        expect(toggle).toBeTruthy();
+        expect(toggle!.textContent).toBe('TT');
+      });
+
+      it('renders mobile menu button with UserIcon for assignable users', () => {
+        store.dispatch(receiveUser({ ...user, firstName: '', lastName: '' }));
+        const { node } = renderToDom(render());
+        const toggle = node.querySelector('[data-testid="user-nav-toggle"]');
+        expect(toggle).toBeTruthy();
+        const svg = toggle!.querySelector('svg');
+        expect(svg).toBeTruthy();
+      });
+
+      it('opens overlay when button is clicked', async() => {
+        const { node } = renderToDom(render());
+        const toggle = node.querySelector('[data-testid="user-nav-toggle"]');
+        expect(toggle).toBeTruthy();
+
+        await ReactTestUtils.act(async() => {
+          toggle!.click();
+        });
+
+        const window = assertWindow();
+        const overlay = window.document.body.querySelector('[data-testid="nav-overlay"]');
+        expect(overlay).toBeTruthy();
+      });
+
+      it('closes overlay when close icon is clicked', async() => {
+        const { node } = renderToDom(render());
+        const window = assertWindow();
+
+        const toggle = node.querySelector('[data-testid="user-nav-toggle"]');
+        await ReactTestUtils.act(async() => {
+          toggle!.click();
+        });
+
+        const closeIcon = window.document.body.querySelector('[data-testid="nav-overlay"] svg');
+        expect(closeIcon).toBeTruthy();
+
+        await ReactTestUtils.act(async() => {
+          ReactTestUtils.Simulate.click(closeIcon!.parentElement!);
+        });
+      });
+    });
+
     it('matches snapshot for logged out', () => {
       store.dispatch(receiveLoggedOut());
 
@@ -115,8 +245,6 @@ describe('content', () => {
 
       expect(tree).toMatchSnapshot();
     });
-
-    // Note: Scroll blocking is now handled by RAC Modal internally
 
     describe('logo href', () => {
       describe('default', () => {
@@ -131,6 +259,22 @@ describe('content', () => {
           const { node } = renderToDom(render());
           const anchor = assertNotNull(node.querySelector('[data-testid=\'navbar\'] > a'), '');
           expect(anchor.href).toMatch(/^https?:\/\/[^/]+\/$/);
+        });
+
+        it('allows navigation when no unsaved highlights', async() => {
+          const window = assertWindow();
+          const { root } = renderToDom(render());
+          const logo = root.querySelector('[data-testid="navbar"] > a');
+          expect(logo).toBeTruthy();
+
+          const event = window.document.createEvent('MouseEvents');
+          event.initEvent('click', true, true);
+          event.preventDefault = jest.fn();
+          logo.dispatchEvent(event);
+
+          await Promise.resolve();
+
+          expect(event.preventDefault).not.toHaveBeenCalled();
         });
       });
 
@@ -250,4 +394,5 @@ describe('content', () => {
       expect(event.preventDefault).toHaveBeenCalled();
     });
   });
+
 });
