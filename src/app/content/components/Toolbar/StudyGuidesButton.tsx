@@ -8,6 +8,7 @@ import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/acti
 import { hasStudyGuides, studyGuidesEnabled, studyGuidesOpen } from '../../studyGuides/selectors';
 import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
+import { captureOpeningElement } from '../../utils/focusManager';
 
 export const StudyGuidesWrapper = styled(PlainButton)`
   ${toolbarDefaultButton}
@@ -36,6 +37,7 @@ const StudyGuidesButton = () => {
   if (!isEnabled || !studyGuidesSummaryNotEmpty) { return null; }
 
   const openStudyGuidesSummary = () => {
+    captureOpeningElement('studyguides');
     dispatch(openStudyGuidesAction());
     trackOpen('button');
   };
