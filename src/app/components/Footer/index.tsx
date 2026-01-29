@@ -1,5 +1,8 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useDispatch } from 'react-redux';
+import { useAnalyticsEvent } from '../../../helpers/analytics';
+import { openKeyboardShortcutsMenu as openKeyboardShortcutsMenuAction } from '../../content/keyboardShortcuts/actions';
 import RiceWhiteLogo from '../../../assets/rice-logo-white.png';
 import htmlMessage from '../../components/htmlMessage';
 import { isVerticalNavOpenConnector } from '../../content/components/utils/sidebar';
@@ -79,6 +82,32 @@ function LinkList({children}: React.PropsWithChildren<{}>) {
   );
 }
 
+const OpenKeyboardShortcutsLink = () => {
+  const dispatch = useDispatch();
+  const trackOpenCloseKS = useAnalyticsEvent('openCloseKeyboardShortcuts');
+
+  const openKeyboardShortcutsMenu = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    dispatch(openKeyboardShortcutsMenuAction());
+    trackOpenCloseKS();
+  };
+
+  return (
+    <FormattedMessage id='i18n:a11y:keyboard-shortcuts:heading'>
+      {(txt) => (
+        <Styled.FooterLink
+          as="a"
+          href="#"
+          onClick={openKeyboardShortcutsMenu}
+          data-testid="shortcut-link"
+        >
+          {txt}
+        </Styled.FooterLink>
+      )}
+    </FormattedMessage>
+  );
+};
+
 const Column1 = () => (
   <Styled.Column1>
     <ColumnHeadingMessage id='i18n:footer:column1:help' />
@@ -97,6 +126,7 @@ const Column1 = () => (
         target='_blank'
         rel='noopener'
       />
+      <OpenKeyboardShortcutsLink />
     </LinkList>
   </Styled.Column1>
 );

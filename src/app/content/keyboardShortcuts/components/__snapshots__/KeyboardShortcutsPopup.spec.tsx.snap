@@ -519,7 +519,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         className=""
         dangerouslySetInnerHTML={
           Object {
-            "__html": "This functionality requires the use of a <strong>Caret Browsing extension</strong>, which enables you to browse and select the text of web pages using arrow keys.",
+            "__html": "To select text for highlighting or note-taking, enable caret browsing by pressing F7 (or Fn+F7) in your browser. This allows you to browse and select text using the arrow keys, without needing any extension.",
           }
         }
       />

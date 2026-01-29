@@ -108,7 +108,7 @@ const CaretMessageDiv = styled.div`
 `;
 
 export const CaretMessage = htmlMessage(
-  'i18n:a11y:keyboard-shortcuts:caret-extension', CaretMessageDiv
+  'i18n:a11y:keyboard-shortcuts:caret-browsing', CaretMessageDiv
 );
 
 const ShowKeyboardShortcuts = () => (

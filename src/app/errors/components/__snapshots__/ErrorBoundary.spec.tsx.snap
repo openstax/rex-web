@@ -535,6 +535,16 @@ Array [
                   System Status
                 </a>
               </li>
+              <li>
+                <a
+                  className="c9"
+                  data-testid="shortcut-link"
+                  href="#"
+                  onClick={[Function]}
+                >
+                  Keyboard Shortcuts
+                </a>
+              </li>
             </menu>
           </div>
           <div
@@ -1313,6 +1323,16 @@ Array [
                   target="_blank"
                 >
                   System Status
+                </a>
+              </li>
+              <li>
+                <a
+                  className="c9"
+                  data-testid="shortcut-link"
+                  href="#"
+                  onClick={[Function]}
+                >
+                  Keyboard Shortcuts
                 </a>
               </li>
             </menu>
