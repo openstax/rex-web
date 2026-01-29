@@ -7,7 +7,6 @@ import { AppState, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import { assertNotNull } from '../../utils/assertions';
 import { setAnnotationChangesPending } from '../../content/highlights/actions';
-import * as reactUtils from '../../reactUtils';
 
 const mockConfirmation = jest.fn();
 let mockIsMobile = false;
@@ -170,7 +169,7 @@ describe('content', () => {
         expect(closeButton).toBeTruthy();
 
         await ReactTestUtils.act(async() => {
-          closeButton.click();
+          (closeButton as any).click();
         });
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
