@@ -18,7 +18,7 @@ import {
 } from '../constants';
 import { HighlightData } from '../types';
 import { CardProps } from './Card';
-import { getHighlightBottomOffset } from './cardUtils';
+import { getHighlightBottomOffset, getHighlightTopOffset } from './cardUtils';
 import { WrapperProps } from './CardWrapper';
 import { cardBorder } from './style';
 
@@ -37,7 +37,7 @@ import { cardBorder } from './style';
  * consider making a helper like `styleWhenSidebarClosed` maybe `styleWhenContentWidth`
  * that has a selector to get the relevant stuff.
  */
-
+const OVERLAP_CARD_TOP_OFFSET = 110;
 const additionalWidthForCard = (cardWidth + cardContentMargin + cardMinWindowMargin) * 2;
 const minimalWidth = contentTextWidth + additionalWidthForCard;
 export const minimalWidthForCards = '(max-width: ' + remsToEms(minimalWidth) + 'em)';
@@ -51,8 +51,12 @@ const overlapDisplay = css`
     left: calc(75vw - (${contentTextWidth}rem / 2) + ${cardFocusedContentMargin}rem);
     right: unset;
     top: ${props.highlightOffsets
-      ? props.highlightOffsets.bottom
-      : getHighlightBottomOffset(props.container, props.highlight)}px;
+      ? (props.preferEnd
+          ? props.highlightOffsets.bottom
+          : props.highlightOffsets.top - OVERLAP_CARD_TOP_OFFSET)
+      : (props.preferEnd
+          ? getHighlightBottomOffset(props.container, props.highlight)
+          : getHighlightTopOffset(props.container, props.highlight))}px;
   `}
   ${(props: CardProps) => !props.isActive && css`
     display: none;
