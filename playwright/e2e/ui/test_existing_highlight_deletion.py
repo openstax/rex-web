@@ -28,9 +28,7 @@ async def test_delete_existing_highlights_astro(
     # THEN: Book page opens, checks for highlights and deletes any existing ones
     await chrome_page.keyboard.press("Escape")
 
-    highlights = chrome_page.locator("mark[data-highlighted='true']").filter(
-        visible=True
-    )
+    highlights = chrome_page.locator("mark[data-highlighted='true']")
 
     while await highlights.count() > 0:
         current_count = await highlights.count()
@@ -78,9 +76,7 @@ async def test_delete_existing_highlights_alg_and_tri(
     # THEN: Book page opens, checks for highlights and deletes any existing ones
     await chrome_page.keyboard.press("Escape")
 
-    highlights = chrome_page.locator("mark[data-highlighted='true']").filter(
-        visible=True
-    )
+    highlights = chrome_page.locator("mark[data-highlighted='true']")
 
     while await highlights.count() > 0:
         current_count = await highlights.count()
