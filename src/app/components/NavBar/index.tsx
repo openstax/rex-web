@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { Dialog } from 'react-aria-components';
@@ -101,6 +101,12 @@ const LoggedInState: FunctionComponent<{
   const intl = useIntl();
   const isMobile = useMatchMobileQuery();
   const [overlayOpen, setOverlayOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setOverlayOpen(false);
+    }
+  }, [isMobile]);
 
   // On mobile, render just a button that opens the full-screen overlay
   // On desktop, render ProfileMenu with its popover

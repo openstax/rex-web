@@ -233,6 +233,47 @@ describe('content', () => {
           ReactTestUtils.Simulate.click(closeIcon!.parentElement!);
         });
       });
+
+      it('closes overlay when transitioning from mobile to desktop and back', async() => {
+        const window = assertWindow();
+        const container = window.document.createElement('div');
+        window.document.body.appendChild(container);
+
+        let result = renderToDom(render(), container);
+
+        const toggle = result.node.querySelector('[data-testid="user-nav-toggle"]');
+        await ReactTestUtils.act(async() => {
+          toggle!.click();
+        });
+
+        let overlay = window.document.body.querySelector('[data-testid="nav-overlay"]');
+        expect(overlay).toBeTruthy();
+
+        await ReactTestUtils.act(async() => {
+          result.unmount();
+        });
+        window.document.querySelectorAll('[data-testid="nav-overlay"]').forEach((el) => el.remove());
+
+        mockIsMobile = false;
+        result = renderToDom(render(), container);
+
+        overlay = window.document.body.querySelector('[data-testid="nav-overlay"]');
+        expect(overlay).toBeFalsy();
+
+        await ReactTestUtils.act(async() => {
+          result.unmount();
+        });
+        mockIsMobile = true;
+        result = renderToDom(render(), container);
+
+        const newToggle = result.node.querySelector('[data-testid="user-nav-toggle"]');
+        expect(newToggle!.getAttribute('aria-expanded')).toBe('false');
+
+        await ReactTestUtils.act(async() => {
+          result.unmount();
+        });
+        window.document.body.removeChild(container);
+      });
     });
 
     it('matches snapshot for logged out', () => {
