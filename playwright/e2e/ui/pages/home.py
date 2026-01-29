@@ -125,6 +125,10 @@ class HomeRex:
     async def click_highlights_option(self):
         await self.page.locator("#nudge-study-tools > button").click()
 
+    @pytest.mark.asyncio
+    async def close_highlights_option_page(self):
+        await self.page.get_by_test_id("close-highlights-popup").click()
+
     @property
     def highlights_option_page(self):
         return self.page.locator("div").get_by_test_id("show-myhighlights-body")
