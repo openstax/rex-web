@@ -76,6 +76,7 @@ Array [
 }
 
 <div
+    aria-label="Enlarged media"
     aria-modal="true"
     className="c0"
     role="dialog"

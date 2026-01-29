@@ -504,6 +504,7 @@ Array [
   font-weight: bold;
   padding-right: 1.6rem;
   line-height: 1.3;
+  margin: 0;
 }
 
 .c22 {
@@ -562,6 +563,7 @@ Array [
   width: 100%;
   font-weight: 700;
   line-height: 1.3;
+  margin: 0;
 }
 
 .c19 {
@@ -906,7 +908,6 @@ Array [
       >
         <h3
           className="c14"
-          tabIndex="0"
         >
           Related key terms
         </h3>
@@ -1012,7 +1013,7 @@ Array [
                     fill="currentColor"
                   />
                 </svg>
-                <span
+                <h3
                   className="c30 c31"
                   dangerouslySetInnerHTML={
                     Object {
@@ -1031,7 +1032,7 @@ Array [
                 <div
                   className="c34 c35"
                 >
-                  <div
+                  <h4
                     className="c36"
                     dangerouslySetInnerHTML={
                       Object {
@@ -1286,6 +1287,7 @@ Array [
   font-weight: bold;
   padding-right: 1.6rem;
   line-height: 1.3;
+  margin: 0;
 }
 
 .c22 {
@@ -1344,6 +1346,7 @@ Array [
   width: 100%;
   font-weight: 700;
   line-height: 1.3;
+  margin: 0;
 }
 
 .c33 {
@@ -1630,7 +1633,7 @@ Array [
           <div
             className="c15 c16"
           >
-            <div
+            <h4
               className="c17"
               dangerouslySetInnerHTML={
                 Object {
@@ -1702,7 +1705,7 @@ Array [
                     fill="currentColor"
                   />
                 </svg>
-                <span
+                <h3
                   className="c30 c31"
                   dangerouslySetInnerHTML={
                     Object {
@@ -1722,7 +1725,7 @@ Array [
                   aria-label="Current Page"
                   className="c15 c16"
                 >
-                  <div
+                  <h4
                     className="c17"
                     dangerouslySetInnerHTML={
                       Object {
@@ -1797,7 +1800,7 @@ Array [
                     fill="currentColor"
                   />
                 </svg>
-                <span
+                <h3
                   className="c30 c31"
                   dangerouslySetInnerHTML={
                     Object {
@@ -1816,7 +1819,7 @@ Array [
                 <div
                   className="c15 c16"
                 >
-                  <div
+                  <h4
                     className="c17"
                     dangerouslySetInnerHTML={
                       Object {
