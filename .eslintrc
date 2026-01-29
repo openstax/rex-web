@@ -28,6 +28,7 @@
       }
       // You can add more selectors for variables, interfaces, etc.
     ],
+    "no-bitwise": 2,
     "no-prototype-builtins": "off",
     "react/prop-types": "off",
     "react/display-name": "off",

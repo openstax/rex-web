@@ -29,6 +29,7 @@ import EditCard from './EditCard';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 import { useConfirmationToastContext } from '../../components/ConfirmationToast';
+import { getPreferEnd } from './cardUtils';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -53,6 +54,7 @@ export interface CardProps {
   highlightOffsets?: { top: number; bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   isHidden: boolean;
+  preferEnd: boolean;
 }
 
 type CardPropsWithBookAndPage = Omit<CardProps, 'book' | 'page'> & {
@@ -292,12 +294,13 @@ const StyledCard = styled(Card)`
 // Styling is expensive and most Cards don't need to render
 function PreCard(props: CardProps) {
   const computedProps = useComputedProps(props);
+  const preferEnd = getPreferEnd();
 
   if (!computedProps.annotation && (!props.isActive)) {
     return null;
   }
   return (
-    <StyledCard {...props} />
+    <StyledCard {...props} preferEnd={preferEnd} />
   );
 }
 

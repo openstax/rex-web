@@ -21,11 +21,17 @@ export const QuestionWrapper = styled.form`
   ${theme.breakpoints.mobile(css`
     padding: 0 ${theme.padding.page.mobile}rem;
   `)}
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 `;
 
-export const QuestionContent = styled(React.forwardRef((props, ref) => <div tabIndex={0}>
+export const QuestionContent = styled(React.forwardRef((props, ref) => <legend tabIndex={0}>
   <ContentExcerpt {...props} tabIndex={-1} ref={ref} disableDynamicContentStyles={true} />
-</div>))`
+</legend>))`
   ${h4Style}
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
@@ -81,22 +87,24 @@ const Question = () => {
   };
 
   return <QuestionWrapper ref={container} onSubmit={onSubmit} data-testid='question-form'>
-    <QuestionContent ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
-    <AnswersWrapper>
-      {question.answers.map((answer, index) =>
-        <Answer
-          key={index}
-          question={question}
-          answer={answer}
-          choiceIndicator={getChoiceLetter(index)}
-          source={section}
-          isSubmitted={isSubmitted}
-          showCorrect={showCorrect}
-          isSelected={Boolean(selectedAnswer && selectedAnswer.id === answer.id)}
-          onSelect={() => isSubmitted ? null : setSelectedAnswer(answer)}
-        />
-      )}
-    </AnswersWrapper>
+    <fieldset>
+      <QuestionContent ref={questionContent} tabIndex={0} content={question.stem_html} source={section} />
+      <AnswersWrapper>
+        {question.answers.map((answer, index) =>
+          <Answer
+            key={index}
+            question={question}
+            answer={answer}
+            choiceIndicator={getChoiceLetter(index)}
+            source={section}
+            isSubmitted={isSubmitted}
+            showCorrect={showCorrect}
+            isSelected={Boolean(selectedAnswer && selectedAnswer.id === answer.id)}
+            onSelect={() => isSubmitted ? null : setSelectedAnswer(answer)}
+          />
+        )}
+      </AnswersWrapper>
+    </fieldset>
     <QuestionNavigation
       question={question}
       selectedAnswer={selectedAnswer}

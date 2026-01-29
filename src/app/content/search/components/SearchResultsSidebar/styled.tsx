@@ -212,11 +212,12 @@ export const SearchResultsTopBar = styled.div`
   }
 `;
 
-export const SummaryTitle = styled.span`
+export const SummaryTitle = styled.h3`
   ${labelStyle}
   font-weight: bold;
   padding-right: 1.6rem;
   line-height: 1.3;
+  margin: 0;
 `;
 
 export const Details = styled(BaseDetails)`
@@ -246,11 +247,12 @@ export const SearchBarSummary = styled(Summary)`
   }
 `;
 
-export const SearchResultsLink = styled.div`
+export const SearchResultsLink = styled.h4`
   ${labelStyle}
   width: 100%;
   font-weight: 700;
   line-height: 1.3;
+  margin: 0;
 `;
 
 interface SectionContentPreviewProps extends React.ComponentProps<typeof ContentLinkComponent > {
