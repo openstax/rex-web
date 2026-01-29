@@ -12,6 +12,7 @@ import { User } from '../../../auth/types';
 import { useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { AppState, Dispatch } from '../../../types';
+import { useModalFocusManagementUnmounting } from '../../hooks/useModalFocusManagement';
 import Modal from '../../components/Modal';
 import { bookTheme } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header, PopupBody } from '../../styles/PopupStyles';
@@ -104,10 +105,9 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
   const popUpRef = React.useRef<HTMLElement>(null);
   const intl = useIntl();
   const closeAndTrack = useCloseAndTrack(closeMyHighlights);
+  const { closeButtonRef } = useModalFocusManagementUnmounting('highlights');
 
   useOnEsc(true, closeAndTrack('esc'));
-
-  React.useEffect(() => popUpRef.current?.focus(), []);
 
   return <Modal
     ref={popUpRef}
@@ -122,6 +122,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
   >
     <Header colorSchema={props.bookTheme}>
       <CloseIconWrapper
+        ref={closeButtonRef}
         data-testid='close-highlights-popup'
         aria-label={intl.formatMessage({id: 'i18n:toolbar:highlights:popup:close-button:aria-label'})}
         data-analytics-label='Close My Highlights'
