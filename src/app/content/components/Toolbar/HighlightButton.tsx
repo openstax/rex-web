@@ -13,6 +13,7 @@ import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled'
 import showConfirmation from '../../highlights/components/utils/showConfirmation';
 import { useServices } from '../../../context/Services';
 import { hasUnsavedHighlight as hasUnsavedHighlightSelector } from '../../highlights/selectors';
+import { captureOpeningElement } from '../../utils/focusManager';
 
 interface Props {
   openMyHighlights: () => void;
@@ -46,6 +47,7 @@ const HighlightButton = ({ openMyHighlights, myHighlightsOpen }: Props) => {
       const confirmed = await showConfirmation(services);
       if (!confirmed) return;
     }
+    captureOpeningElement('highlights');
     openMyHighlights();
     trackOpenCloseMH();
   };
