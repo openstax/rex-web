@@ -137,6 +137,7 @@ exports[`ProgressBar displays properly 1`] = `
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 3.2rem;
+  padding: 0;
 }
 
 @media screen and (max-width:75em) {
@@ -157,15 +158,11 @@ exports[`ProgressBar displays properly 1`] = `
   }
 }
 
-<div
+<ul
   aria-labelledby="progress-bar-header"
-  aria-valuemax={3}
-  aria-valuemin={1}
-  aria-valuenow={2}
   className="c0"
-  role="progressbar"
 >
-  <span
+  <li
     className="c1"
   >
     <span
@@ -173,8 +170,9 @@ exports[`ProgressBar displays properly 1`] = `
     >
       1
     </span>
-  </span>
-  <span
+  </li>
+  <li
+    aria-current="true"
     className="c3"
   >
     <span
@@ -182,8 +180,8 @@ exports[`ProgressBar displays properly 1`] = `
     >
       2
     </span>
-  </span>
-  <span
+  </li>
+  <li
     className="c3"
   >
     <span
@@ -191,6 +189,6 @@ exports[`ProgressBar displays properly 1`] = `
     >
       3
     </span>
-  </span>
-</div>
+  </li>
+</ul>
 `;
