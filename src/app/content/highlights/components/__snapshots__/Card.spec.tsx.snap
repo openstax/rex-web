@@ -45,7 +45,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
     animation: none;
     left: calc(75vw - (82.5rem / 2) + 1rem);
     right: unset;
-    top: 0px;
+    top: -110px;
   }
 }
 
@@ -55,7 +55,7 @@ exports[`Card matches snapshot when focused without note 1`] = `
     animation: none;
     left: calc(75vw - (82.5rem / 2) + 1rem);
     right: unset;
-    top: 0px;
+    top: -110px;
   }
 }
 
@@ -153,7 +153,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
     animation: none;
     left: calc(75vw - (82.5rem / 2) + 1rem);
     right: unset;
-    top: 0px;
+    top: -110px;
   }
 }
 
@@ -163,7 +163,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
     animation: none;
     left: calc(75vw - (82.5rem / 2) + 1rem);
     right: unset;
-    top: 0px;
+    top: -110px;
   }
 }
 
@@ -213,7 +213,7 @@ exports[`Card matches snapshot when passed data without note 1`] = `
 </div>
 `;
 
-exports[`Card matches snapshot without data 1`] = `
+exports[`Card matches snapshot without data and preferEnd 1`] = `
 .c0 {
   visibility: visible;
   -webkit-animation: 600ms bcCCNc ease-out;
@@ -258,6 +258,124 @@ exports[`Card matches snapshot without data 1`] = `
     left: calc(75vw - (82.5rem / 2) + 1rem);
     right: unset;
     top: 200px;
+  }
+}
+
+<div
+  data-testid="card"
+  onClick={[Function]}
+>
+  <div
+    className="c0"
+    hasUnsavedHighlight={false}
+    highlight={
+      Object {
+        "addFocusedStyles": [MockFunction],
+        "content": "test highlight content",
+        "elements": Array [
+          <span />,
+        ],
+        "focus": [MockFunction],
+        "getStyle": [MockFunction],
+        "id": "asdf",
+        "isAttached": [MockFunction],
+        "range": Object {
+          "commonAncestorContainer": null,
+          "getBoundingClientRect": [MockFunction] {
+            "calls": Array [
+              Array [],
+              Array [],
+              Array [],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
+              Object {
+                "type": "return",
+                "value": Object {
+                  "bottom": 200,
+                  "top": 100,
+                },
+              },
+            ],
+          },
+        },
+        "serialize": [Function],
+        "setStyle": [MockFunction],
+        "sourceId": "testbook1-testpage1-uuid",
+      }
+    }
+    isActive={true}
+    locationFilterId="testbook1-testpage1-uuid"
+    mock-edit={true}
+    onBlur={[Function]}
+    onCancel={[Function]}
+    onCreate={[Function]}
+    onHeightChange={[Function]}
+    onRemove={[Function]}
+    pageId="testbook1-testpage1-uuid"
+    setAnnotationChangesPending={[Function]}
+  />
+</div>
+`;
+
+exports[`Card matches snapshot without data and preferEnd as false 1`] = `
+.c0 {
+  visibility: visible;
+  -webkit-animation: 600ms bcCCNc ease-out;
+  animation: 600ms bcCCNc ease-out;
+  display: block;
+  position: absolute;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.14),0 2px 2px 0 rgba(0,0,0,0.12),0 1px 3px 0 rgba(0,0,0,0.2);
+  left: calc(50% + (82.5rem / 2) + 3rem);
+  right: unset;
+  top: 200px;
+  left: calc(50% + (82.5rem / 2) + 1rem);
+  -webkit-transition: opacity 0.3s,top 0.3s,left 0.3s;
+  transition: opacity 0.3s,top 0.3s,left 0.3s;
+}
+
+.c0 .c1 {
+  z-index: 1;
+}
+
+@media print {
+  .c0 {
+    display: none;
+  }
+}
+
+@media (max-width:106.25em) {
+  .c0 {
+    -webkit-animation: none;
+    animation: none;
+    left: calc(75vw - (82.5rem / 2) + 1rem);
+    right: unset;
+    top: 100px;
+  }
+}
+
+@media (max-width:82.8125em) {
+  .c0 {
+    -webkit-animation: none;
+    animation: none;
+    left: calc(75vw - (82.5rem / 2) + 1rem);
+    right: unset;
+    top: 100px;
   }
 }
 
