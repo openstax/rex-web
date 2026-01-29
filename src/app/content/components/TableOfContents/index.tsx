@@ -1,4 +1,4 @@
-import { HTMLElement, NodeListOf, Element } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, MutableRefObject } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
@@ -39,17 +39,7 @@ function TabTrapper({
     if (!mRef?.current) {
       return;
     }
-    const otherRegions =
-      document?.querySelectorAll(
-        '[data-testid="navbar"],[data-testid="bookbanner"]'
-      ) as NodeListOf<Element>;
-    const containers = [
-      mRef.current,
-      ...(isPhone
-        ? []
-        : [mRef.current.previousElementSibling, ...Array.from(otherRegions)]),
-    ];
-    const listener = createTrapTab(...(containers as HTMLElement[]));
+    const listener = createTrapTab(mRef.current);
     if (isTocOpen && isMobile) {
       document?.addEventListener('keydown', listener, true);
     }
