@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import theme from '../../../../theme';
 import ProgressBarItem from './ProgressBarItem';
 
-const ProgressBarWrapper = styled.div`
+const ProgressBarWrapper = styled.ul`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -11,6 +11,7 @@ const ProgressBarWrapper = styled.div`
   ${theme.breakpoints.mobile(css`
     margin: 1rem;
   `)}
+  padding: 0;
 `;
 
 interface ProgressBarProps {
@@ -19,10 +20,6 @@ interface ProgressBarProps {
 }
 
 const ProgressBar = ({ total, activeIndex }: ProgressBarProps) => <ProgressBarWrapper
-    role='progressbar'
-    aria-valuenow={activeIndex === null ? undefined : activeIndex + 1}
-    aria-valuemin={1}
-    aria-valuemax={total}
     aria-labelledby='progress-bar-header'
   >
   {Array.from({ length: total }, (_, index) => <ProgressBarItem
