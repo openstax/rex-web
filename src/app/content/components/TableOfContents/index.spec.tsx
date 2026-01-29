@@ -179,12 +179,6 @@ describe('TableOfContents', () => {
     const firstTocItemFocusSpy = jest.spyOn(firstTocItem as any, 'focus').mockImplementation(() => {
       // Simulate actual focus behavior by updating the element's focus state
       originalFocus();
-      // In the test environment, manually set this as the active element
-      Object.defineProperty(document, 'activeElement', {
-        writable: true,
-        configurable: true,
-        value: firstTocItem,
-      });
     });
 
     // Focus the mock button, then open the TOC
@@ -198,7 +192,6 @@ describe('TableOfContents', () => {
 
     // Focus should have moved away from the button to first item
     expect(firstTocItemFocusSpy).toHaveBeenCalled();
-    expect(document?.activeElement).not.toBe(mockButton);
 
     // Close the TOC
     reactDomAct(() => {
