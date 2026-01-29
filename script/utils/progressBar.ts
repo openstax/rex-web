@@ -1,6 +1,7 @@
 import ProgressBar from 'progress';
 
 const noop = {
+  // eslint-disable-next-line no-console
   interrupt: (message: string) => console.log(message),
   tick: () => null,
 };
