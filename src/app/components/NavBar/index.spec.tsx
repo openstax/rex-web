@@ -93,6 +93,7 @@ describe('content', () => {
 
         expect(tree).toMatchSnapshot();
       });
+
     });
 
     describe('assignable user', () => {
@@ -129,6 +130,7 @@ describe('content', () => {
 
       it('renders menu items when open', () => {
         const onOpenChange = jest.fn();
+        const onAction = jest.fn();
         const window = assertWindow();
         const { unmount } = renderToDom(
           <TestContainer store={store}>
@@ -137,6 +139,7 @@ describe('content', () => {
               currentPath='/test'
               isOpen={true}
               onOpenChange={onOpenChange}
+              onAction={onAction}
             />
           </TestContainer>
         );
@@ -150,6 +153,7 @@ describe('content', () => {
 
       it('calls onOpenChange(false) when close icon is clicked', async() => {
         const onOpenChange = jest.fn();
+        const onAction = jest.fn();
         const window = assertWindow();
         const { unmount } = renderToDom(
           <TestContainer store={store}>
@@ -158,6 +162,7 @@ describe('content', () => {
               currentPath='/test'
               isOpen={true}
               onOpenChange={onOpenChange}
+              onAction={onAction}
             />
           </TestContainer>
         );
@@ -173,6 +178,64 @@ describe('content', () => {
         });
 
         expect(onOpenChange).toHaveBeenCalledWith(false);
+      });
+
+      it('calls onAction when logout link is clicked', async() => {
+        const onOpenChange = jest.fn();
+        const onAction = jest.fn();
+        const window = assertWindow();
+        const { unmount } = renderToDom(
+          <TestContainer store={store}>
+            <MobileDropdown
+              user={user}
+              currentPath='/test'
+              isOpen={true}
+              onOpenChange={onOpenChange}
+              onAction={onAction}
+            />
+          </TestContainer>
+        );
+        unmountComponent = unmount;
+
+        const logoutLink = window.document.body.querySelector(
+          'a[href^="/accounts/logout"]'
+        ) as HTMLAnchorElement;
+        expect(logoutLink).toBeTruthy();
+
+        await ReactTestUtils.act(async() => {
+          logoutLink.click();
+        });
+
+        expect(onAction).toHaveBeenCalledWith('logout');
+      });
+
+      it('calls onAction when profile link is clicked', async() => {
+        const onOpenChange = jest.fn();
+        const onAction = jest.fn();
+        const window = assertWindow();
+        const { unmount } = renderToDom(
+          <TestContainer store={store}>
+            <MobileDropdown
+              user={user}
+              currentPath='/test'
+              isOpen={true}
+              onOpenChange={onOpenChange}
+              onAction={onAction}
+            />
+          </TestContainer>
+        );
+        unmountComponent = unmount;
+
+        const profileLink = window.document.body.querySelector(
+          'a[href="/accounts/profile"]'
+        ) as HTMLAnchorElement;
+        expect(profileLink).toBeTruthy();
+
+        await ReactTestUtils.act(async() => {
+          profileLink.click();
+        });
+
+        expect(onAction).toHaveBeenCalledWith('profile');
       });
 
     });
@@ -232,6 +295,81 @@ describe('content', () => {
         await ReactTestUtils.act(async() => {
           ReactTestUtils.Simulate.click(closeIcon!.parentElement!);
         });
+      });
+
+      it('navigates on logout without unsaved highlights', async() => {
+        jest.useFakeTimers();
+        const window = assertWindow();
+        const mockLocationAssign = jest.fn();
+        const originalLocation = window.location;
+        Object.defineProperty(window, 'location', {
+          value: { ...originalLocation, assign: mockLocationAssign },
+          writable: true,
+        });
+
+        const { node, unmount } = renderToDom(render());
+
+        await ReactTestUtils.act(async() => {
+          const menuToggle = node.querySelector('[data-testid="user-nav-toggle"]');
+          expect(menuToggle).toBeTruthy();
+          menuToggle!.click();
+          jest.runAllTimers();
+        });
+
+        await ReactTestUtils.act(async() => {
+          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]') as HTMLAnchorElement;
+          expect(logoutLink).toBeTruthy();
+          logoutLink.click();
+          jest.runAllTimers();
+        });
+
+        expect(mockConfirmation).not.toHaveBeenCalled();
+        expect(mockLocationAssign).toHaveBeenCalledWith(expect.stringContaining('/accounts/logout'));
+
+        await ReactTestUtils.act(async() => {
+          unmount();
+          jest.runAllTimers();
+        });
+
+        Object.defineProperty(window, 'location', {
+          value: originalLocation,
+          writable: true,
+        });
+        jest.useRealTimers();
+      });
+
+      it('opens profile in new tab when profile link is clicked', async() => {
+        jest.useFakeTimers();
+        const window = assertWindow();
+        const mockOpen = jest.fn();
+        const originalOpen = window.open;
+        window.open = mockOpen;
+
+        const { node, unmount } = renderToDom(render());
+
+        await ReactTestUtils.act(async() => {
+          const menuToggle = node.querySelector('[data-testid="user-nav-toggle"]');
+          expect(menuToggle).toBeTruthy();
+          menuToggle!.click();
+          jest.runAllTimers();
+        });
+
+        await ReactTestUtils.act(async() => {
+          const profileLink = window.document.body.querySelector('a[href="/accounts/profile"]') as HTMLAnchorElement;
+          expect(profileLink).toBeTruthy();
+          profileLink.click();
+          jest.runAllTimers();
+        });
+
+        expect(mockOpen).toHaveBeenCalledWith('/accounts/profile', '_blank');
+
+        await ReactTestUtils.act(async() => {
+          unmount();
+          jest.runAllTimers();
+        });
+
+        window.open = originalOpen;
+        jest.useRealTimers();
       });
 
       it('closes overlay when transitioning from mobile to desktop and back', async() => {
@@ -432,6 +570,100 @@ describe('content', () => {
       await Promise.resolve();
 
       expect(event.preventDefault).toHaveBeenCalled();
+    });
+
+    describe('mobile logout', () => {
+      beforeEach(() => {
+        mockIsMobile = true;
+      });
+
+      afterEach(() => {
+        mockIsMobile = false;
+      });
+
+      it('shows confirmation and prevents navigation when user cancels', async() => {
+        jest.useFakeTimers();
+        mockConfirmation.mockImplementationOnce(() => Promise.resolve(false));
+        const window = assertWindow();
+        const mockLocationAssign = jest.fn();
+        const originalLocation = window.location;
+        Object.defineProperty(window, 'location', {
+          value: { ...originalLocation, assign: mockLocationAssign },
+          writable: true,
+        });
+
+        const { root, unmount } = renderToDom(render());
+
+        await ReactTestUtils.act(async() => {
+          const menuToggle = root.querySelector('[data-testid="user-nav-toggle"]');
+          expect(menuToggle).toBeTruthy();
+          menuToggle!.click();
+          jest.runAllTimers();
+        });
+
+        await ReactTestUtils.act(async() => {
+          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]') as HTMLAnchorElement;
+          expect(logoutLink).toBeTruthy();
+          logoutLink.click();
+          jest.runAllTimers();
+        });
+
+        expect(mockConfirmation).toHaveBeenCalled();
+        expect(mockLocationAssign).not.toHaveBeenCalled();
+
+        await ReactTestUtils.act(async() => {
+          unmount();
+          jest.runAllTimers();
+        });
+
+        Object.defineProperty(window, 'location', {
+          value: originalLocation,
+          writable: true,
+        });
+        jest.useRealTimers();
+      });
+
+      it('navigates when user confirms discarding unsaved highlights', async() => {
+        jest.useFakeTimers();
+        mockConfirmation.mockImplementationOnce(() => Promise.resolve(true));
+        const window = assertWindow();
+        const mockLocationAssign = jest.fn();
+        const originalLocation = window.location;
+        Object.defineProperty(window, 'location', {
+          value: { ...originalLocation, assign: mockLocationAssign },
+          writable: true,
+        });
+
+        const { root, unmount } = renderToDom(render());
+
+        await ReactTestUtils.act(async() => {
+          const menuToggle = root.querySelector('[data-testid="user-nav-toggle"]');
+          expect(menuToggle).toBeTruthy();
+          menuToggle!.click();
+          jest.runAllTimers();
+        });
+
+        await ReactTestUtils.act(async() => {
+          const logoutLink = window.document.body.querySelector('a[href^="/accounts/logout"]') as HTMLAnchorElement;
+          expect(logoutLink).toBeTruthy();
+          logoutLink.click();
+          jest.runAllTimers();
+        });
+
+        expect(mockConfirmation).toHaveBeenCalled();
+        expect(mockLocationAssign).toHaveBeenCalledWith(expect.stringContaining('/accounts/logout'));
+
+        await ReactTestUtils.act(async() => {
+          unmount();
+          jest.runAllTimers();
+        });
+
+        Object.defineProperty(window, 'location', {
+          value: originalLocation,
+          writable: true,
+        });
+        jest.useRealTimers();
+      });
     });
   });
 
