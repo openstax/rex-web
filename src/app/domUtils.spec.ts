@@ -1,4 +1,4 @@
-import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
+import { FocusEvent, HTMLElement, Event } from '@openstax/types/lib.dom';
 import { Store } from 'redux';
 import scrollTo from 'scroll-to-element';
 import createTestServices from '../test/createTestServices';
