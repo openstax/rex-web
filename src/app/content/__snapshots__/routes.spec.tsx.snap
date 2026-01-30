@@ -1014,7 +1014,10 @@ exports[`assigned route route renders renders a component 1`] = `
           fill="currentColor"
         />
       </svg>
-      <span>
+      <span
+        aria-level={2}
+        role="heading"
+      >
         Citation/Attribution
       </span>
     </summary>
@@ -1031,7 +1034,7 @@ exports[`assigned route route renders renders a component 1`] = `
   </a> and you must attribute OpenStax.
 </p>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Attribution information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -1049,7 +1052,7 @@ exports[`assigned route route renders renders a component 1`] = `
   </li>
 </ul>
 
-<strong role=\\"heading\\" aria-level=\\"2\\">Citation information</strong>
+<strong role=\\"heading\\" aria-level=\\"3\\">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
