@@ -75,6 +75,7 @@ const SearchResultsBar = React.forwardRef<
       <Styled.SearchResultsBar
         id='search-results-sidebar'
         aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar'})}
+        aria-live='polite'
         data-testid='search-results-sidebar'
         ref={ref}
         tabIndex={-1}
@@ -91,38 +92,12 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   public activeSection = React.createRef<HTMLElement>();
   public searchSidebarHeader = React.createRef<HTMLElement>();
 
-  public headerTitle = `i18n:search-results:bar:header:title:${this.props.searchInSidebar ? 'plain' : 'results'}`;
+  public getHeaderTitle = () => `i18n:search-results:bar:header:title:${this.props.searchInSidebar ? 'plain' : 'results'}`;
 
-  public blankState = () => <Styled.BlankStateWrapper>
-    <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
-      <Styled.SearchResultsHeader>
-        <Styled.SearchResultsHeaderTitle id='search-results-title'>
-          <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
-            {(msg) => msg}
-          </FormattedMessage>
-        </Styled.SearchResultsHeaderTitle>
-        <Styled.CloseIconButton
-          onClick={this.props.onClose}
-          data-testid='close-search'
-          aria-label='close search'
-        >
-          <Styled.CloseIcon />
-        </Styled.CloseIconButton>
-      </Styled.SearchResultsHeader>
-      <Styled.SearchQueryWrapper >
-        <SidebarSearchInput {...this.props} />
-      </Styled.SearchQueryWrapper>
-    </Styled.SearchResultsTopBar>
-
-    <Styled.BlankStateMessage>
-      <FormattedMessage id='i18n:search-results:bar:blank-state' />
-    </Styled.BlankStateMessage>
-  </Styled.BlankStateWrapper>;
-
-  public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
+  public renderHeader = (titleMessageId?: string) => (
     <Styled.SearchResultsHeader>
       <Styled.SearchResultsHeaderTitle id='search-results-title'>
-        <FormattedMessage id={this.headerTitle}>
+        <FormattedMessage id={titleMessageId || this.getHeaderTitle()}>
           {(msg) => msg}
         </FormattedMessage>
       </Styled.SearchResultsHeaderTitle>
@@ -134,6 +109,23 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
         <Styled.CloseIcon />
       </Styled.CloseIconButton>
     </Styled.SearchResultsHeader>
+  );
+
+  public blankState = () => <Styled.BlankStateWrapper>
+    <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
+      {this.renderHeader('i18n:search-results:bar:header:title:plain')}
+      <Styled.SearchQueryWrapper >
+        <SidebarSearchInput {...this.props} />
+      </Styled.SearchQueryWrapper>
+    </Styled.SearchResultsTopBar>
+
+    <Styled.BlankStateMessage role='status'>
+      <FormattedMessage id='i18n:search-results:bar:blank-state' />
+    </Styled.BlankStateMessage>
+  </Styled.BlankStateWrapper>;
+
+  public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
+    {this.renderHeader()}
     <SidebarSearchInput {...this.props} />
     <Styled.SearchQueryWrapper>
       <Styled.SearchQuery>
@@ -150,25 +142,25 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
   </Styled.SearchResultsTopBar>;
 
   public noResults = () => <div>
-    <Styled.SearchResultsHeader emptyHeaderStyle={!this.props.searchInSidebar}>
-      {this.props.searchInSidebar ? <Styled.SearchResultsHeaderTitle>
-        <FormattedMessage id='i18n:search-results:bar:header:title:plain'>
-          {(msg) => msg}
-        </FormattedMessage>
-      </Styled.SearchResultsHeaderTitle> : null}
-      <Styled.CloseIconWrapper>
-        <Styled.CloseIconButton
-          onClick={this.props.onClose}
-          data-testid='close-search-noresults'
-        >
-          <Styled.CloseIcon />
-        </Styled.CloseIconButton>
-      </Styled.CloseIconWrapper>
-    </Styled.SearchResultsHeader>
+    {this.props.searchInSidebar ? (
+      this.renderHeader('i18n:search-results:bar:header:title:plain')
+    ) : (
+      <Styled.SearchResultsHeader emptyHeaderStyle={true}>
+        <Styled.CloseIconWrapper>
+          <Styled.CloseIconButton
+            onClick={this.props.onClose}
+            data-testid='close-search-noresults'
+            aria-label='close search'
+          >
+            <Styled.CloseIcon />
+          </Styled.CloseIconButton>
+        </Styled.CloseIconWrapper>
+      </Styled.SearchResultsHeader>
+    )}
     <SidebarSearchInput {...this.props} />
     <FormattedMessage id='i18n:search-results:bar:query:no-results'>
       {(msg) => (
-        <Styled.SearchQuery>
+        <Styled.SearchQuery role='status'>
           <Styled.SearchQueryAlignment>
             {msg} <strong> &lsquo;{this.props.query}&rsquo;</strong>
           </Styled.SearchQueryAlignment>
