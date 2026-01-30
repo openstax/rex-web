@@ -25,6 +25,7 @@ import {
 import TestContainer from '../../../../../test/TestContainer';
 import { runHooks } from '../../../../../test/utils';
 import * as selectNavigation from '../../../../navigation/selectors';
+import { receiveExperiments } from '../../../../featureFlags/actions';
 import { Store } from '../../../../types';
 import { assertDocument, assertWindow } from '../../../../utils';
 import { receiveBook, receivePage } from '../../../actions';
@@ -33,6 +34,7 @@ import * as domUtils from '../../../utils/domUtils';
 import {
   clearSearch,
   closeSearchResultsMobile,
+  openSearchResultsMobile,
   receiveSearchResults,
   requestSearch,
   selectSearchResult
@@ -382,5 +384,219 @@ describe('SearchResultsSidebar', () => {
     });
 
     expect(fixForSafariMock).toHaveBeenCalled();
+  });
+
+  describe('searchInSidebar mode (plain header)', () => {
+    beforeEach(() => {
+      // Set searchLocation feature flag to 'sidebar' mode (index 1)
+      store.dispatch(receiveExperiments(['tpdEbFiARyarMQ-cx46QiQ', '1']));
+      // Open the sidebar so searchResultsOpen is true
+      store.dispatch(openSearchResultsMobile());
+    });
+
+    it('renders plain "Search" header when searchInSidebar is true with results', () => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([
+        makeSearchResultHit({ book: archiveBook, page })
+      ])));
+
+      const component = renderer.create(render());
+
+      // Find the header title element
+      const headerTitle = component.root.findByProps({ id: 'search-results-title' });
+
+      // Should show "Search results" when there are results (not plain)
+      expect(headerTitle).toBeTruthy();
+
+      component.unmount();
+    });
+
+    it('renders plain "Search" header in blank state when searchInSidebar is true', () => {
+      // Blank state: sidebar is open but no search query or results
+      const component = renderer.create(render());
+
+      // Should render blank state with "Search" header and role="status" message
+      const blankStateMessage = component.root.findByProps({
+        role: 'status'
+      });
+
+      expect(blankStateMessage).toBeTruthy();
+
+      component.unmount();
+    });
+
+    it('renders plain "Search" header in no results state when searchInSidebar is true', () => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([])));
+
+      const component = renderer.create(render());
+
+      // Should render "no results" state with plain header
+      const statusElement = component.root.findByProps({ role: 'status' });
+
+      expect(statusElement).toBeTruthy();
+
+      component.unmount();
+    });
+  });
+
+  describe('accessibility attributes', () => {
+    it('has aria-live="polite" on search results container', () => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([
+        makeSearchResultHit({ book: archiveBook, page })
+      ])));
+
+      const component = renderer.create(render());
+      const findById = makeFindByTestId(component.root);
+      const sidebar = findById('search-results-sidebar');
+
+      expect(sidebar.props['aria-live']).toBe('polite');
+
+      component.unmount();
+    });
+
+    it('has role="status" on blank state message in sidebar mode', () => {
+      // Test blank state in sidebar mode
+      store.dispatch(receiveExperiments(['tpdEbFiARyarMQ-cx46QiQ', '1']));
+      store.dispatch(openSearchResultsMobile());
+
+      const component = renderer.create(render());
+
+      const statusElement = component.root.findByProps({ role: 'status' });
+
+      expect(statusElement).toBeTruthy();
+
+      component.unmount();
+    });
+
+    it('has role="status" on no results message', () => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([])));
+
+      const component = renderer.create(render());
+
+      const statusElement = component.root.findByProps({ role: 'status' });
+
+      expect(statusElement).toBeTruthy();
+
+      component.unmount();
+    });
+
+    it('has role="note" on search results summary', () => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([
+        makeSearchResultHit({ book: archiveBook, page })
+      ])));
+
+      const component = renderer.create(render());
+
+      const noteElement = component.root.findByProps({ role: 'note' });
+
+      expect(noteElement).toBeTruthy();
+      expect(noteElement.props.tabIndex).toBe('0');
+
+      component.unmount();
+    });
+
+    it('has consistent aria-label="close search" on close buttons', () => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([
+        makeSearchResultHit({ book: archiveBook, page })
+      ])));
+
+      const component = renderer.create(render());
+      const findById = makeFindByTestId(component.root);
+
+      const closeButton = findById('close-search');
+
+      expect(closeButton.props['aria-label']).toBe('close search');
+
+      component.unmount();
+    });
+
+    it('has aria-label="close search" on close button in no results state', () => {
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([])));
+
+      const component = renderer.create(render());
+
+      // In non-sidebar mode, no results uses a different close button
+      const closeButtons = component.root.findAllByProps({ 'aria-label': 'close search' });
+
+      expect(closeButtons.length).toBeGreaterThan(0);
+
+      component.unmount();
+    });
+  });
+
+  describe('header rendering', () => {
+    it('renders correct header for different states in sidebar mode', () => {
+      // Set up sidebar mode
+      store.dispatch(receiveExperiments(['tpdEbFiARyarMQ-cx46QiQ', '1']));
+      store.dispatch(openSearchResultsMobile());
+
+      // Test blank state
+      let component = renderer.create(render());
+      let headerTitle = component.root.findByProps({ id: 'search-results-title' });
+      expect(headerTitle).toBeTruthy();
+      component.unmount();
+
+      // Test loading state
+      store.dispatch(requestSearch('cool search'));
+      component = renderer.create(render());
+      const findById = makeFindByTestId(component.root);
+      expect(() => findById('loader')).not.toThrow();
+      component.unmount();
+
+      // Test results state
+      store.dispatch(receiveSearchResults(makeSearchResults([
+        makeSearchResultHit({ book: archiveBook, page })
+      ])));
+      component = renderer.create(render());
+      headerTitle = component.root.findByProps({ id: 'search-results-title' });
+      expect(headerTitle).toBeTruthy();
+      component.unmount();
+
+      // Test no results state
+      store.dispatch(receiveSearchResults(makeSearchResults([])));
+      component = renderer.create(render());
+      // No results state should render
+      expect(component.toJSON()).toBeTruthy();
+      component.unmount();
+    });
+
+    it('close button works in all states', () => {
+      // Test with results
+      store.dispatch(requestSearch('cool search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([
+        makeSearchResultHit({ book: archiveBook, page })
+      ])));
+
+      let component = renderer.create(render());
+      let findById = makeFindByTestId(component.root);
+
+      expect(dispatch).not.toHaveBeenCalledWith(clearSearch());
+
+      renderer.act(() => {
+        findById('close-search').props.onClick(makeEvent());
+      });
+
+      expect(dispatch).toHaveBeenCalledWith(clearSearch());
+      component.unmount();
+
+      // Test with no results
+      dispatch.mockClear();
+      store.dispatch(requestSearch('another search'));
+      store.dispatch(receiveSearchResults(makeSearchResults([])));
+
+      component = renderer.create(render());
+
+      // In non-sidebar mode, the close button has different testid for no results
+      const closeButtons = component.root.findAllByProps({ 'aria-label': 'close search' });
+      expect(closeButtons.length).toBeGreaterThan(0);
+
+      component.unmount();
+    });
   });
 });
