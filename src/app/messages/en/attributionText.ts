@@ -15,7 +15,7 @@ export const defaultText = `
     other { Changes were made to the original material, including updates to art, structure, and other content updates.}}
 </p>
 
-<strong role="heading" aria-level="2">Attribution information</strong>
+<strong role="heading" aria-level="3">Attribution information</strong>
 <ul>
   <li>
     If you are redistributing all or part of this book in a print format,
@@ -33,7 +33,7 @@ export const defaultText = `
   </li>
 </ul>
 
-<strong role="heading" aria-level="2">Citation information</strong>
+<strong role="heading" aria-level="3">Citation information</strong>
 <ul>
   <li>
     Use the information below to generate a citation. We recommend using a
