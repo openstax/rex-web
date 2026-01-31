@@ -43,10 +43,10 @@ Parameters:
     ConstraintDescription: Must be a timestamp in the YYYY-MM-DDTHH:MM:SSZ format
 
   TotalMemoryMiB:
-    Description: Total fleet memory capacity in MiB (must equal desired task count * 4096)
+    Description: Total fleet memory capacity in MiB (must equal desired task count * 8192)
     Type: Number
-    MinValue: 4096
-    ConstraintDescription: Must equal desired task count * 4096
+    MinValue: 8192
+    ConstraintDescription: Must equal desired task count * 8192
 
 Resources:
 
@@ -109,7 +109,7 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: workers
               mode: non-blocking
-          MemoryReservation: 4096
+          MemoryReservation: 8192
           Name: !Sub ${AWS::StackName}-task-definition
       Family: Prerendering
       NetworkMode: host
@@ -142,7 +142,7 @@ Resources:
           {{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}
         InstanceInitiatedShutdownBehavior: terminate
         # Having less, larger instances is generally cheaper due to lower EBS costs
-        InstanceType: c6i.4xlarge
+        InstanceType: r6a.4xlarge
         SecurityGroupIds:
           - !ImportValue RexPrerenderWorkersSecurityGroupID
         TagSpecifications:
@@ -196,13 +196,13 @@ Resources:
                 BaselinePerformanceFactors:
                   Cpu:
                     References:
-                      - InstanceFamily: c5
+                      - InstanceFamily: r6a
                 MemoryGiBPerVCpu:
-                  Min: 2
-                  Max: 4
+                  Min: 4
+                  Max: 8
                 MemoryMiB:
                   Max: !Ref TotalMemoryMiB
-                  Min: 4096
+                  Min: 8192
                 VCpuCount:
                   Min: 2
               SubnetId: !Sub
