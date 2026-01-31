@@ -38,7 +38,8 @@ export function createTrapTab(...elements: HTMLElement[]) {
   .map(
     (container) => {
       const contents = Array.from(container.querySelectorAll<HTMLElement>(focusableItemQuery))
-        .filter((el) => !isHidden(el));
+        // keep focusable form elements that might be visually hidden
+        .filter((el) => !isHidden(el) || ['INPUT', 'SELECT', 'TEXTAREA'].includes(el.tagName));
 
       return {
         container,
