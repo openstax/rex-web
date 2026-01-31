@@ -154,6 +154,7 @@ exports[`AssignedTopBar renders 1`] = `
     className="c2 c3 c4"
   >
     <button
+      aria-controls="text-resizer-menu"
       aria-expanded={false}
       aria-label="Change text size"
       className="c5 c6 c7 c8"
