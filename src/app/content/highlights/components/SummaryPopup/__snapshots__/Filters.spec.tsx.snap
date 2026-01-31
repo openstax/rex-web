@@ -1413,7 +1413,7 @@ input:checked + .c22 .c23 {
       className="c49"
     >
       <button
-        aria-label="Remove breadcrumb for color blue"
+        aria-label="Remove color blue"
         className="c50"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
@@ -1455,7 +1455,7 @@ input:checked + .c22 .c23 {
       className="c49"
     >
       <button
-        aria-label="Remove breadcrumb for color green"
+        aria-label="Remove color green"
         className="c50"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
@@ -1497,7 +1497,7 @@ input:checked + .c22 .c23 {
       className="c49"
     >
       <button
-        aria-label="Remove breadcrumb for color pink"
+        aria-label="Remove color pink"
         className="c50"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
@@ -1539,7 +1539,7 @@ input:checked + .c22 .c23 {
       className="c49"
     >
       <button
-        aria-label="Remove breadcrumb for color purple"
+        aria-label="Remove color purple"
         className="c50"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
@@ -1581,7 +1581,7 @@ input:checked + .c22 .c23 {
       className="c49"
     >
       <button
-        aria-label="Remove breadcrumb for color yellow"
+        aria-label="Remove color yellow"
         className="c50"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
