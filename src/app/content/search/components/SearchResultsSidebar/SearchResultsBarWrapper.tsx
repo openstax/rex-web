@@ -152,6 +152,85 @@ const NoResults = ({
   </div>
 );
 
+/**
+ * Summary header showing search query and result counts
+ */
+const ResultsSummary = ({
+  searchSidebarHeaderRef,
+  props,
+}: {
+  searchSidebarHeaderRef: React.RefObject<HTMLElement>;
+  props: ResultsSidebarProps;
+}) => (
+  <Styled.SearchResultsTopBar ref={searchSidebarHeaderRef}>
+    <SearchResultsHeader
+      searchInSidebar={props.searchInSidebar}
+      onClose={props.onClose}
+    />
+    <SidebarSearchInput {...props} />
+    <Styled.SearchQueryWrapper>
+      <Styled.SearchQuery>
+        <Styled.SearchIconInsideBar src={searchIcon} alt='' />
+        <Styled.HeaderQuery role='note' tabIndex='0'>
+          <FormattedMessage
+            id='i18n:search-results:bar:query:results'
+            values={{search: props.totalHits, terms: props.totalHitsKeyTerms}}
+          />
+          <strong> &lsquo;{props.query}&rsquo;</strong>
+        </Styled.HeaderQuery>
+      </Styled.SearchQuery>
+    </Styled.SearchQueryWrapper>
+  </Styled.SearchResultsTopBar>
+);
+
+/**
+ * List of search results including key terms and regular results
+ */
+const ResultsList = ({
+  book,
+  results,
+  keyTermHits,
+  selectedResult,
+  activeSectionRef,
+}: {
+  book: Book;
+  results: SearchResultContainer[] | null;
+  keyTermHits: SearchResultHit[] | null;
+  selectedResult: SelectedResult | null;
+  activeSectionRef: React.RefObject<HTMLElement>;
+}) => {
+  const displayRelatedKeyTerms = keyTermHits && keyTermHits.length > 0;
+  const displaySearchResults = results && results.length > 0;
+  const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
+  const sortedKeyTermHits = keyTermHits && keyTermHits.sort((a, b) =>
+    assertDefined(a.highlight.title, 'highlight should have title')
+    .localeCompare(assertDefined(b.highlight.title, 'highlight should have title')));
+
+  return (
+    <Styled.NavWrapper aria-labelledby='search-results-title'>
+      {displayRelatedKeyTerms && <RelatedKeyTerms
+        book={book}
+        selectedResult={selectedResult}
+        keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
+      />}
+      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex='0'>
+        <FormattedMessage id='i18n:search-results:bar:title'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </Styled.SearchResultsSectionTitle>}
+      <Styled.SearchResultsOl data-analytics-region='content-search-results'>
+        {displaySearchResults && <SearchResultContainers
+          activeSectionRef={activeSectionRef}
+          selectedResult={selectedResult}
+          containers={assertNotNull(results, 'displaySearchResults is true')}
+          book={book}
+        />
+        }
+      </Styled.SearchResultsOl>
+    </Styled.NavWrapper>
+  );
+};
+
 const SearchResultsBar = React.forwardRef<
   HTMLElement, {
     mobileToolbarOpen: boolean,
@@ -197,58 +276,19 @@ export class SearchResultsBarWrapper extends Component<ResultsSidebarProps> {
 
   public blankState = () => <BlankState searchSidebarHeaderRef={this.searchSidebarHeader} props={this.props} />;
 
-  public totalResults = () => <Styled.SearchResultsTopBar ref={this.searchSidebarHeader}>
-    <SearchResultsHeader
-      searchInSidebar={this.props.searchInSidebar}
-      onClose={this.props.onClose}
-    />
-    <SidebarSearchInput {...this.props} />
-    <Styled.SearchQueryWrapper>
-      <Styled.SearchQuery>
-        <Styled.SearchIconInsideBar src={searchIcon} alt='' />
-        <Styled.HeaderQuery role='note' tabIndex='0'>
-          <FormattedMessage
-            id='i18n:search-results:bar:query:results'
-            values={{search: this.props.totalHits, terms: this.props.totalHitsKeyTerms}}
-          />
-          <strong> &lsquo;{this.props.query}&rsquo;</strong>
-        </Styled.HeaderQuery>
-      </Styled.SearchQuery>
-    </Styled.SearchQueryWrapper>
-  </Styled.SearchResultsTopBar>;
+  public totalResults = () => <ResultsSummary searchSidebarHeaderRef={this.searchSidebarHeader} props={this.props} />;
 
   public noResults = () => <NoResults props={this.props} />;
 
-  public resultContainers = (book: Book, results: SearchResultContainer[] | null) => {
-    const displayRelatedKeyTerms = this.props.keyTermHits && this.props.keyTermHits.length > 0;
-    const displaySearchResults = results && results.length > 0;
-    const displaySearchResultsSectionTitle = displayRelatedKeyTerms && displaySearchResults;
-    const sortedKeyTermHits = this.props.keyTermHits && this.props.keyTermHits.sort((a, b) =>
-      assertDefined(a.highlight.title, 'highlight should have title')
-      .localeCompare(assertDefined(b.highlight.title, 'highlight should have title')));
-
-    return <Styled.NavWrapper aria-labelledby='search-results-title'>
-      {displayRelatedKeyTerms && <RelatedKeyTerms
-        book={book}
-        selectedResult={this.props.selectedResult}
-        keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
-      />}
-      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex='0'>
-        <FormattedMessage id='i18n:search-results:bar:title'>
-          {(msg) => msg}
-        </FormattedMessage>
-      </Styled.SearchResultsSectionTitle>}
-      <Styled.SearchResultsOl data-analytics-region='content-search-results'>
-        {displaySearchResults && <SearchResultContainers
-          activeSectionRef={this.activeSection}
-          selectedResult={this.props.selectedResult}
-          containers={assertNotNull(results, 'displaySearchResults is true')}
-          book={book}
-        />
-        }
-      </Styled.SearchResultsOl>
-    </Styled.NavWrapper>;
-  };
+  public resultContainers = (book: Book, results: SearchResultContainer[] | null) => (
+    <ResultsList
+      book={book}
+      results={results}
+      keyTermHits={this.props.keyTermHits}
+      selectedResult={this.props.selectedResult}
+      activeSectionRef={this.activeSection}
+    />
+  );
 
   public render() {
     const {
