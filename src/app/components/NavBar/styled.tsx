@@ -1,13 +1,13 @@
-import Color from 'color';
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
-import { ChevronDown } from 'styled-icons/fa-solid/ChevronDown';
+import { ModalOverlay, Modal } from 'react-aria-components';
+import Color from 'color';
 import { contentWrapperMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import Times from '../Times';
 import { h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
+import { defaultFocusOutline } from '../../theme';
 
 export const maxNavWidth = contentWrapperMaxWidth;
 export const navDesktopHeight = 6.0;
@@ -57,43 +57,19 @@ export const DropdownContainer = styled.div`
   overflow: visible;
   position: relative;
   height: 100%;
+  display: flex;
+  align-items: center;
   ${theme.breakpoints.mobile(css`
     height: auto;
   `)}
 `;
 
 export const OverlayLogo = styled.img`
-  display: none;
   width: auto;
   height: ${headerImageMobileHeight}rem;
   position: absolute;
   left: 1.6rem;
   top: ${(navMobileHeight - headerImageMobileHeight) / 2}rem;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-  `)}
-`;
-
-const sharedIconStyles = css`
-  margin-left: 1rem;
-  height: 1.5rem;
-  width: 1.5rem;
-`;
-
-export const DownIcon = styled(ChevronDown)`
-  ${sharedIconStyles}
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-`;
-
-export const HamburgerIcon = styled(Hamburger)`
-  margin-top: 0.1rem;
-  ${sharedIconStyles}
-  display: none;
-  ${theme.breakpoints.mobile(css`
-    display: inline;
-  `)}
 `;
 
 export const navElementStyle = css`
@@ -136,62 +112,16 @@ export const Link = styled.a`
   `)}
 `;
 
-export const DropdownToggle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  line-height: 1.6rem;
-  font-size: 1.4rem;
-  color: ${theme.color.white};
-  background-color: #007297;
-  cursor: pointer;
-  margin-top: 1.25rem;
-
-  :hover {
-    box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.3);
-  }
-
-  ${theme.breakpoints.mobile(css`
-    margin-top: 0;
-  `)}
-
-  svg {
-    width: 1.5rem;
-  }
-`;
 
 export const OverlayHeading = styled.h4`
   ${h4DesktopStyle}
   padding-bottom: 0;
-  display: none;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-  `)}
-`;
-
-const visuallyShown = css`
-  height: unset;
-  width: unset;
-  clip: unset;
-  overflow: visible;
 `;
 
 export const DropdownList = styled.menu`
-  position: absolute;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
   margin: 0;
   padding: 0.6rem 0;
-  background: ${theme.color.neutral.base};
-  top: 100%;
-  right: 0;
-  border-top: 0.4rem solid ${theme.color.primary.green.base};
+  background: none;
 
   > li {
     overflow: visible;
@@ -209,91 +139,66 @@ export const DropdownList = styled.menu`
       :hover {
         color: ${linkHover};
       }
+
+      :focus-visible {
+        ${defaultFocusOutline}
+      }
     }
   }
-
-  ${theme.breakpoints.mobile(css`
-    position: static;
-    box-shadow: none;
-    border: none;
-    background: none;
-  `)}
-
-  ${/* suppress invalid stylelint errors */ css`
-    ${DropdownContainer}.focus-within &,
-    ${DropdownContainer}:hover & {
-      ${visuallyShown}
-    }
-
-    ${DropdownContainer}:focus-within & {
-      ${visuallyShown}
-    }
-  `}
 `;
 
-const overlayShown = css`
-  padding-top: calc(20vh + 5vw);
-  background: ${Color(theme.color.neutral.base).alpha(0.98).string()};
-  height: auto;
-  width: auto;
+export const MobileMenuOverlay = styled(ModalOverlay)`
+  position: fixed;
+  top: 0;
+  left: 0;
   right: 0;
-  bottom: -100%;
+  bottom: 0;
+  background: ${Color(theme.color.neutral.base).alpha(0.98).string()};
+  z-index: ${theme.zIndex.navbar + 1};
+`;
+
+export const MobileMenuModal = styled(Modal)`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  outline: none;
+
+  [role="dialog"] {
+    outline: none;
+  }
 `;
 
 export const DropdownOverlay = styled.div`
+  padding-top: calc(20vh + 5vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow: visible;
-  margin-bottom: 0.8rem;
-  ${theme.breakpoints.mobile(css`
-    background: ${Color(theme.color.neutral.base).alpha(0).string()};
-    transition: background 200ms;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    top: 0;
-    left: 0;
-    height: 0;
-    width: 0;
-    overflow: hidden;
-    margin-bottom: 0;
 
-    &:focus,
-    &.focus-within,
-    ${DropdownToggle}:focus ~ & {
-      ${overlayShown}
-    }
-
-    &:focus-within {
-      ${overlayShown}
-    }
-
-    > div {
-      width: min-content;
-      overflow: visible;
-    }
-  `)}
+  > div {
+    width: min-content;
+    overflow: visible;
+  }
 `;
 
-export const TimesIcon = styled((props) => <button tabIndex={-1} aria-hidden='true' {...props}><Times /></button>)`
+export const TimesIcon = styled((props: React.ButtonHTMLAttributes<HTMLButtonElement>) =>
+  <button aria-label='close menu' {...props}><Times /></button>
+)`
   cursor: pointer;
   border: none;
   padding: 0;
   background: none;
-  position: fixed;
+  position: absolute;
   height: ${navMobileHeight}rem;
   width: ${navMobileHeight}rem;
   top: 0;
   right: 0;
   color: ${theme.color.primary.gray.base};
-  display: none;
-  ${theme.breakpoints.mobile(css`
-    ${DropdownToggle}:focus ~ &,
-    ${DropdownOverlay}:focus ~ &,
-    ${DropdownOverlay}.focus-within ~ &,
-    ${DropdownOverlay}:focus-within ~ & {
-      display: block;
-    }
-  `)}
 `;
 
 export const BarWrapper = styled.div`
