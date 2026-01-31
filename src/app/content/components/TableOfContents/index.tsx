@@ -1,4 +1,4 @@
-import { HTMLElement, NodeListOf, Element } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React, { Component, MutableRefObject } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
@@ -39,17 +39,7 @@ function TabTrapper({
     if (!mRef?.current) {
       return;
     }
-    const otherRegions =
-      document?.querySelectorAll(
-        '[data-testid="navbar"],[data-testid="bookbanner"]'
-      ) as NodeListOf<Element>;
-    const containers = [
-      mRef.current,
-      ...(isPhone
-        ? []
-        : [mRef.current.previousElementSibling, ...Array.from(otherRegions)]),
-    ];
-    const listener = createTrapTab(...(containers as HTMLElement[]));
+    const listener = createTrapTab(mRef.current);
     if (isTocOpen && isMobile) {
       document?.addEventListener('keydown', listener, true);
     }
@@ -65,29 +55,39 @@ const SidebarBody = React.forwardRef<
   React.ComponentProps<typeof SidebarPaneBody>
 >((props, ref) => {
   const mRef = ref as MutableRefObject<HTMLElement>;
+  const isTocOpenRef = React.useRef(props.isTocOpen);
+
+  // Update the ref synchronously during render to avoid timing issues
+  isTocOpenRef.current = props.isTocOpen;
 
   React.useEffect(
     () => {
-      const firstItemInToc = mRef?.current?.querySelector(
-        ' div > div a, div > div div span'
-      ) as HTMLElement;
       const el = mRef.current;
       const transitionListener = () => {
-        firstItemInToc?.focus();
+        // Check the current state via ref, not the captured closure value
+        if (isTocOpenRef.current) {
+          // Focus first item when TOC opens
+          const firstItemInToc = el?.querySelector(
+            '[role="treegrid"] div'
+          ) as HTMLElement;
+          firstItemInToc?.focus();
+        } else {
+          // Restore focus to TOC button when TOC closes
+          const tocButton = document?.querySelector('[data-testid="toc-button"]');
+          (tocButton as HTMLElement)?.focus();
+        }
       };
 
-      if (props.isTocOpen) {
-        el?.addEventListener('transitionend', transitionListener);
-      }
+      el?.addEventListener('transitionend', transitionListener);
 
       return () => el?.removeEventListener('transitionend', transitionListener);
     },
-    [props.isTocOpen, mRef]
+    [mRef] // Only depend on mRef, not props.isTocOpen
   );
 
   return (
     <React.Fragment>
-      {typeof window !== 'undefined' && (
+      {!isSSR() && (
         <TabTrapper
           mRef={mRef}
           isTocOpen={props.isTocOpen}
@@ -310,6 +310,7 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     };
     this.handleExpandedChange = this.handleExpandedChange.bind(this);
     this.handleTreeItemClick = this.handleTreeItemClick.bind(this);
+    this.handleTreeKeyUp = this.handleTreeKeyUp.bind(this);
   }
 
   public render() {
@@ -321,21 +322,24 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
       <SidebarBody isTocOpen={isOpen} ref={this.sidebar}>
         <TocHeader />
         {book && (
-          <Styled.StyledTree
-            aria-label='Table of Contents'
-            expandedKeys={this.state.expandedKeys}
-            onExpandedChange={this.handleExpandedChange}
-          >
-            <TocSection
-              book={book}
-              page={this.props.page}
-              section={book.tree}
-              activeSection={this.activeSection}
-              onNavigate={this.props.onNavigate}
+          <div>
+            <Styled.StyledTree
+              aria-label='Table of Contents'
               expandedKeys={this.state.expandedKeys}
-              handleTreeItemClick={this.handleTreeItemClick}
-            />
-          </Styled.StyledTree >
+              onExpandedChange={this.handleExpandedChange}
+              onKeyUp={this.handleTreeKeyUp}
+            >
+              <TocSection
+                book={book}
+                page={this.props.page}
+                section={book.tree}
+                activeSection={this.activeSection}
+                onNavigate={this.props.onNavigate}
+                expandedKeys={this.state.expandedKeys}
+                handleTreeItemClick={this.handleTreeItemClick}
+              />
+            </Styled.StyledTree >
+          </div>
         )}
       </SidebarBody>
     );
@@ -350,6 +354,18 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     const next = new Set(prev);
     next.delete(id);
     this.setState({ expandedKeys: next });
+  };
+
+  handleTreeKeyUp = (event: React.KeyboardEvent) => {
+    // Handle Shift+Tab to move focus to the close button
+    if (event.key === 'Tab' && event.shiftKey) {
+      // Find the close button in the TOC header
+      const closeButton = this.sidebar.current?.querySelector('[data-testid="tocheader"] button[data-testid="toc-button"]') as HTMLElement;
+      if (closeButton) {
+        closeButton.focus();
+        event.preventDefault();
+      }
+    }
   };
 
   public componentDidMount() {
