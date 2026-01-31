@@ -1,29 +1,10 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
-import { useAnalyticsEvent } from '../../helpers/analytics';
-import { openKeyboardShortcutsMenu as openKeyboardShortcutsMenuAction } from '../content/keyboardShortcuts/actions';
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Provider } from '../context/SkipToContent';
 import { scrollTo } from '../domUtils';
-import HiddenLink, {HiddenButton} from './HiddenLink';
-
-const OpenKeyboardShortcutsMenuLink = () => {
-  const dispatch = useDispatch();
-  const trackOpenCloseKS = useAnalyticsEvent('openCloseKeyboardShortcuts');
-
-  const openKeyboardShortcutsMenu = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    dispatch(openKeyboardShortcutsMenuAction());
-    trackOpenCloseKS();
-  };
-
-  return <FormattedMessage id='i18n:a11y:keyboard-shortcuts:menu'>
-    {/* TODO - use url based modal control */}
-    {(txt) => <HiddenButton onClick={openKeyboardShortcutsMenu} href='#'>{txt}</HiddenButton>}
-  </FormattedMessage>;
-};
+import HiddenLink from './HiddenLink';
 
 export default class AccessibilityButtonsWrapper extends Component {
   public mainContent: HTMLDivElement | undefined;
@@ -38,7 +19,6 @@ export default class AccessibilityButtonsWrapper extends Component {
           {(href) => <HiddenLink href={href}>{txt}</HiddenLink>}
         </FormattedMessage>}
       </FormattedMessage>
-      <OpenKeyboardShortcutsMenuLink />
       {this.props.children}
     </Provider>;
   }

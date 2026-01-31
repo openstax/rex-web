@@ -1,10 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import * as redux from 'react-redux';
 import Footer, { ContactDialog, useContactDialog } from '.';
 import TestContainer from '../../../test/TestContainer';
 import createTestStore from '../../../test/createTestStore';
+import { openKeyboardShortcutsMenu } from '../../content/keyboardShortcuts/actions';
 import { AppState, Store } from '../../types';
 import { assertWindow } from '../../utils';
+import * as analytics from '../../../helpers/analytics';
 
 describe('Footer', () => {
   it('uses normal footer', () => {
@@ -129,5 +132,35 @@ describe('useContactDialog', () => {
     // Should be closed
     expect(() => controller.iframe).toThrow();
     component.unmount();
+  });
+});
+
+describe('OpenKeyboardShortcutsLink', () => {
+
+  it('opens the Keyboard Shortcuts Menu when that link is clicked', () => {
+    const dispatch = jest.fn();
+    const spyRedux = jest.spyOn(redux, 'useDispatch').mockImplementation(() => dispatch);
+
+    const trackOpenCloseKS = jest.fn();
+    const spyAnalytics = jest.spyOn(analytics, 'useAnalyticsEvent').mockImplementation(
+      () => trackOpenCloseKS
+    );
+
+    const {root} = renderer.create(<TestContainer>
+      <Footer/>
+    </TestContainer>);
+
+    expect(spyRedux).toHaveBeenCalledTimes(1);
+
+    expect(spyAnalytics).toHaveBeenCalledTimes(1);
+    expect(spyAnalytics).toHaveBeenCalledWith('openCloseKeyboardShortcuts');
+
+    const shortCutLink = root.findByProps({'data-testid': 'shortcut-link'});
+    shortCutLink.props.onClick({preventDefault: jest.fn()});
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenCalledWith(openKeyboardShortcutsMenu());
+
+    expect(trackOpenCloseKS).toHaveBeenCalledTimes(1);
   });
 });
