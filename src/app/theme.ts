@@ -41,6 +41,7 @@ const greyColors = {
   foreground: textColors.white,
   foregroundHover: '#424242',
   light: '#767676', // lightest allowed for text on white background
+  medium: '#888888', // suitable for darkening white on a dark background
   lighter: '#c5c5c5',
   lightest: '#ededed',
 };
@@ -71,45 +72,45 @@ const color = {
     'blue': {
       base: '#002468',
       foreground: textColors.white,
-      foregroundHover: greyColors.darker,
+      foregroundHover: greyColors.medium,
     },
     'deep-green': {
       base: '#067056',
       foreground: textColors.white,
-      foregroundHover: greyColors.darker,
+      foregroundHover: greyColors.lighter,
     },
     'gray': greyColors,
     'green': {
       base: '#63a524',
       foreground: textColors.black,
-      foregroundHover: greyColors.light,
+      foregroundHover: greyColors.darker,
     },
     'light-blue': {
       base: '#0DC0DC',
       foreground: textColors.black,
-      foregroundHover: greyColors.light,
+      foregroundHover: greyColors.darker,
     },
     'midnight': {
       base: '#003e52',
       foreground: textColors.white,
-      foregroundHover: greyColors.darker,
+      foregroundHover: greyColors.medium,
     },
     'orange': {
       base: '#d4450c',
       darker: '#be3c08',
       darkest: '#b03808',
       foreground: textColors.white,
-      foregroundHover: greyColors.darker,
+      foregroundHover: greyColors.lightest,
     },
     'raise-green': {
       base: '#0a5b50',
       foreground: textColors.white,
-      foregroundHover: greyColors.darker,
+      foregroundHover: greyColors.lighter,
     },
     'red': {
       base: '#C22032',
       foreground: textColors.white,
-      foregroundHover: greyColors.darker,
+      foregroundHover: greyColors.lighter,
     },
     'yellow': {
       base: '#f4d019',
