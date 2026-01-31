@@ -62,7 +62,7 @@ const SocialIconMessage: React.FunctionComponent<{
   Icon: React.ComponentType;
 }> = ({ id, href, Icon }) => (
   <Styled.SocialIcon
-    aria-label={useIntl().formatMessage({ id })}
+    aria-label={`OpenStax on ${useIntl().formatMessage({ id })}`}
     href={href}
     target='_blank'
     rel='noopener'
