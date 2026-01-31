@@ -463,7 +463,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c19"
     >
       <button
-        aria-label="Remove breadcrumb for color blue"
+        aria-label="Remove color blue"
         className="c20"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
@@ -505,7 +505,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c19"
     >
       <button
-        aria-label="Remove breadcrumb for color green"
+        aria-label="Remove color green"
         className="c20"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
@@ -547,7 +547,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c19"
     >
       <button
-        aria-label="Remove breadcrumb for color pink"
+        aria-label="Remove color pink"
         className="c20"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
@@ -589,7 +589,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c19"
     >
       <button
-        aria-label="Remove breadcrumb for color purple"
+        aria-label="Remove color purple"
         className="c20"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
@@ -631,7 +631,7 @@ exports[`Filters matches snapshot 1`] = `
       className="c19"
     >
       <button
-        aria-label="Remove breadcrumb for color yellow"
+        aria-label="Remove color yellow"
         className="c20"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}

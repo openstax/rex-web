@@ -1673,7 +1673,7 @@ input:checked + .c22 .c23 {
       className="c51"
     >
       <button
-        aria-label="Remove breadcrumb for chapter 2 Test Chapter 2"
+        aria-label="Remove chapter 2 Test Chapter 2"
         className="c52"
         data-analytics-label="Remove breadcrumb for chapter 2 Test Chapter 2"
         onClick={[Function]}
@@ -1718,7 +1718,7 @@ input:checked + .c22 .c23 {
       className="c51"
     >
       <button
-        aria-label="Remove breadcrumb for label Important Concepts"
+        aria-label="Remove label Important Concepts"
         className="c52"
         data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
@@ -1760,7 +1760,7 @@ input:checked + .c22 .c23 {
       className="c51"
     >
       <button
-        aria-label="Remove breadcrumb for label Connections & Relationships"
+        aria-label="Remove label Connections & Relationships"
         className="c52"
         data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
@@ -1802,7 +1802,7 @@ input:checked + .c22 .c23 {
       className="c51"
     >
       <button
-        aria-label="Remove breadcrumb for label Enrichment"
+        aria-label="Remove label Enrichment"
         className="c52"
         data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
@@ -1844,7 +1844,7 @@ input:checked + .c22 .c23 {
       className="c51"
     >
       <button
-        aria-label="Remove breadcrumb for label Key Terms"
+        aria-label="Remove label Key Terms"
         className="c52"
         data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
