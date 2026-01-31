@@ -7,7 +7,7 @@ from e2e.ui.pages.home import HomeRex
 @pytest.mark.parametrize(
     "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
 )
-async def test_delete_existing_highlights_astro(
+async def test_delete_existing_highlights_astro_cleanup(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
     # Deletes any existing highlighted text prior to starting new highlight tests
@@ -55,7 +55,7 @@ async def test_delete_existing_highlights_astro(
     "book_slug, page_slug",
     [("algebra-and-trigonometry-2e", "13-1-sequences-and-their-notations")],
 )
-async def test_delete_existing_highlights_alg_and_tri(
+async def test_delete_existing_highlights_alg_and_tri_cleanup(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
     # Deletes any existing highlighted text prior to starting new highlight tests
