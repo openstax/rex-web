@@ -456,6 +456,7 @@ exports[`Filters matches snapshot 1`] = `
   />
   <ul
     aria-atomic="true"
+    aria-label="Applied filters"
     aria-live="polite"
     className="c17 c18"
   >
@@ -1170,6 +1171,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   />
   <ul
     aria-atomic="true"
+    aria-label="Applied filters"
     aria-live="polite"
     className="c19 c20"
   />

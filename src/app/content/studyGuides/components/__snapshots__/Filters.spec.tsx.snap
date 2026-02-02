@@ -1666,6 +1666,7 @@ input:checked + .c22 .c23 {
   />
   <ul
     aria-atomic="true"
+    aria-label="Applied filters"
     aria-live="polite"
     className="c49 c50"
   >
