@@ -186,7 +186,9 @@ export const DropdownOverlay = styled.div`
   }
 `;
 
-export const TimesIcon = styled((props: React.ButtonHTMLAttributes<HTMLButtonElement>) =>
+export const TimesIcon = styled((
+  { theme: _theme, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }
+) =>
   <button type="button" aria-label='close menu' {...props}><Times /></button>
 )`
   cursor: pointer;
