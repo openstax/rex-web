@@ -130,7 +130,10 @@ const LoggedInState: FunctionComponent<{
 
   const handleAction = async(key: React.Key) => {
     if (key === 'profile') {
-      assertWindow().open('/accounts/profile', '_blank');
+      const newWindow = assertWindow().open('/accounts/profile', '_blank', 'noopener,noreferrer');
+      if (newWindow) {
+        newWindow.opener = null;
+      }
     }
 
     if (key === 'logout') {
