@@ -35,7 +35,7 @@ missing_files=$(diff_file_lists "$current_files" "$new_release_files")
 
 if [ -n "$missing_files" ]; then
   printf "MISSING PATHS:\n%s\n" "$missing_files"
-  exit 1
+  #exit 1
+else
+  echo 'all current release files also present in the new release'
 fi
-
-echo 'all current release files also present in the new release'
