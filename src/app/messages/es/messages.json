@@ -2,6 +2,7 @@
   "i18n:a11y:skipToContent": "Omitir e ir al contenido",
   "i18n:a11y:accessibilityHelp": "Ir a la página de accesibilidad",
   "i18n:a11y:accessibilityHelp:link": "n/a (tbd for now)",
+  "i18n:a11y:keyboard-shortcuts:menu": "Menú de atajos de teclado",
   "i18n:a11y:keyboard-shortcuts:heading": "Atajos de teclado",
   "i18n:a11y:keyboard-shortcuts:close": "Haga clic para cerrar el menú de atajos de teclado",
   "i18n:a11y:keyboard-shortcuts:sub-heading": "Cómo usar el teclado para navegar",

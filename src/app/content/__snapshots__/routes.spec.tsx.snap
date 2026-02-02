@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`assigned route route renders renders a component 1`] = `
-.c22 {
+.c23 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
@@ -29,7 +29,29 @@ exports[`assigned route route renders renders a component 1`] = `
   z-index: 150;
 }
 
-.c7 {
+.c2 {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c2:focus {
+  -webkit-clip: auto;
+  clip: auto;
+  height: auto;
+  width: auto;
+  z-index: 150;
+}
+
+.c8 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -37,11 +59,11 @@ exports[`assigned route route renders renders a component 1`] = `
   background: none;
 }
 
-.c10 {
+.c11 {
   cursor: pointer;
 }
 
-.c4 > *:not(.c9) {
+.c5 > *:not(.c10) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -51,18 +73,18 @@ exports[`assigned route route renders renders a component 1`] = `
   left: 0;
 }
 
-.c5 {
+.c6 {
   overflow: visible;
   position: relative;
 }
 
-.c8 {
+.c9 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c8 > div {
+.c9 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -85,65 +107,65 @@ exports[`assigned route route renders renders a component 1`] = `
   justify-content: flex-end;
 }
 
-.c6 {
+.c7 {
   z-index: 3;
 }
 
-.c6 > button {
+.c7 > button {
   max-height: 5.2rem;
 }
 
-.c6 > button > div {
+.c7 > button > div {
   padding: 1.4rem;
 }
 
-.c24 {
+.c25 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c27 {
+.c28 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c19 {
+.c20 {
   list-style: none;
   cursor: pointer;
 }
 
-.c19::before {
+.c20::before {
   display: none;
 }
 
-.c19::-moz-list-bullet {
+.c20::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c19::-webkit-details-marker {
+.c20::-webkit-details-marker {
   display: none;
 }
 
-.c16 {
+.c17 {
   outline: none;
   --content-text-scale: 1;
 }
 
-.c16 .os-problem-container .token,
-.c16 .os-solution-container .token {
+.c17 .os-problem-container .token,
+.c17 .os-solution-container .token {
   font-size-adjust: cap-height 1;
   vertical-align: middle;
 }
 
-.c15 {
+.c16 {
   overflow: visible;
 }
 
-.c15:focus-visible {
+.c16:focus-visible {
   outline: none;
 }
 
-.c15 .highlight {
+.c16 .highlight {
   position: relative;
   z-index: 1;
   -webkit-user-select: none;
@@ -152,39 +174,39 @@ exports[`assigned route route renders renders a component 1`] = `
   user-select: none;
 }
 
-.c15 [data-type="equation"] {
+.c16 [data-type="equation"] {
   text-align: center;
 }
 
-.c15 [data-type="equation"] .highlight {
+.c16 [data-type="equation"] .highlight {
   grid-column: 2;
 }
 
-.c15 mark mjx-container,
-.c15 mark mjx-math,
-.c15 mark mjx-semantics,
-.c15 mark mjx-mrow,
-.c15 mark mjx-row,
-.c15 mark mjx-under,
-.c15 mark mjx-base,
-.c15 mark mjx-munder,
-.c15 mark mjx-mo,
-.c15 mark mjx-mi,
-.c15 mark mjx-mn,
-.c15 mark mjx-mtext,
-.c15 mark mjx-c {
+.c16 mark mjx-container,
+.c16 mark mjx-math,
+.c16 mark mjx-semantics,
+.c16 mark mjx-mrow,
+.c16 mark mjx-row,
+.c16 mark mjx-under,
+.c16 mark mjx-base,
+.c16 mark mjx-munder,
+.c16 mark mjx-mo,
+.c16 mark mjx-mi,
+.c16 mark mjx-mn,
+.c16 mark mjx-mtext,
+.c16 mark mjx-c {
   background: inherit;
 }
 
-.c15 .highlight.yellow {
+.c16 .highlight.yellow {
   background-color: #ffff8a;
 }
 
-.c15 .highlight.yellow.block {
+.c16 .highlight.yellow.block {
   display: block;
 }
 
-.c15 .highlight.yellow.block:after {
+.c16 .highlight.yellow.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -196,7 +218,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #ffff8a;
 }
 
-.c15 .highlight.yellow.block.first.has-note:before {
+.c16 .highlight.yellow.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -208,7 +230,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c15 .highlight.yellow.first.text.has-note:after {
+.c16 .highlight.yellow.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -223,15 +245,15 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c15 .highlight.green {
+.c16 .highlight.green {
   background-color: #def99f;
 }
 
-.c15 .highlight.green.block {
+.c16 .highlight.green.block {
   display: block;
 }
 
-.c15 .highlight.green.block:after {
+.c16 .highlight.green.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -243,7 +265,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #def99f;
 }
 
-.c15 .highlight.green.block.first.has-note:before {
+.c16 .highlight.green.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -255,7 +277,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c15 .highlight.green.first.text.has-note:after {
+.c16 .highlight.green.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -270,15 +292,15 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c15 .highlight.blue {
+.c16 .highlight.blue {
   background-color: #c8f5ff;
 }
 
-.c15 .highlight.blue.block {
+.c16 .highlight.blue.block {
   display: block;
 }
 
-.c15 .highlight.blue.block:after {
+.c16 .highlight.blue.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -290,7 +312,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #c8f5ff;
 }
 
-.c15 .highlight.blue.block.first.has-note:before {
+.c16 .highlight.blue.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -302,7 +324,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c15 .highlight.blue.first.text.has-note:after {
+.c16 .highlight.blue.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -317,15 +339,15 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c15 .highlight.purple {
+.c16 .highlight.purple {
   background-color: #cbcfff;
 }
 
-.c15 .highlight.purple.block {
+.c16 .highlight.purple.block {
   display: block;
 }
 
-.c15 .highlight.purple.block:after {
+.c16 .highlight.purple.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -337,7 +359,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #cbcfff;
 }
 
-.c15 .highlight.purple.block.first.has-note:before {
+.c16 .highlight.purple.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -349,7 +371,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c15 .highlight.purple.first.text.has-note:after {
+.c16 .highlight.purple.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -364,15 +386,15 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c15 .highlight.pink {
+.c16 .highlight.pink {
   background-color: #ffc5e1;
 }
 
-.c15 .highlight.pink.block {
+.c16 .highlight.pink.block {
   display: block;
 }
 
-.c15 .highlight.pink.block:after {
+.c16 .highlight.pink.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -384,7 +406,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #ffc5e1;
 }
 
-.c15 .highlight.pink.block.first.has-note:before {
+.c16 .highlight.pink.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -396,7 +418,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c15 .highlight.pink.first.text.has-note:after {
+.c16 .highlight.pink.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -411,7 +433,7 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c15 [data-for-screenreaders="true"] {
+.c16 [data-for-screenreaders="true"] {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -424,12 +446,12 @@ exports[`assigned route route renders renders a component 1`] = `
   border: 0;
 }
 
-.c15 .os-figure,
-.c15 .os-figure:last-child {
+.c16 .os-figure,
+.c16 .os-figure:last-child {
   margin-bottom: 5px;
 }
 
-.c15 .image-button-wrapper {
+.c16 .image-button-wrapper {
   border: none;
   padding: 0;
   margin: 0;
@@ -438,23 +460,23 @@ exports[`assigned route route renders renders a component 1`] = `
   cursor: pointer;
 }
 
-.c15 .image-button-wrapper:focus {
+.c16 .image-button-wrapper:focus {
   outline: 1px solid Highlight;
   outline: 1px solid -webkit-focus-ring-color;
   outline-offset: 2px;
 }
 
-.c15 .image-button-wrapper img {
+.c16 .image-button-wrapper img {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
-.c15 #main-content * {
+.c16 #main-content * {
   overflow: initial;
 }
 
-.c2 {
+.c3 {
   position: -webkit-sticky;
   position: sticky;
   top: 7rem;
@@ -472,11 +494,11 @@ exports[`assigned route route renders renders a component 1`] = `
   height: 5rem;
 }
 
-.c2.c2 {
+.c3.c3 {
   top: 0;
 }
 
-.c3 {
+.c4 {
   font-size: 1.8rem;
   line-height: 2.1rem;
   -webkit-letter-spacing: 0.03px;
@@ -486,21 +508,21 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-left: 1.6rem;
 }
 
-.c25 {
+.c26 {
   margin-left: -0.3rem;
 }
 
-.c28 {
+.c29 {
   margin-left: -0.3rem;
 }
 
-.c21 {
+.c22 {
   font-weight: 500;
   list-style: none;
 }
 
-.c21,
-.c21 span {
+.c22,
+.c22 span {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -510,33 +532,33 @@ exports[`assigned route route renders renders a component 1`] = `
   text-decoration: none;
 }
 
-.c21 a,
-.c21 span a {
+.c22 a,
+.c22 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c21 a:hover,
-.c21 span a:hover {
+.c22 a:hover,
+.c22 span a:hover {
   color: #0064A0;
 }
 
-.c21:hover,
-.c21 span:hover,
-.c21:focus,
-.c21 span:focus {
+.c22:hover,
+.c22 span:hover,
+.c22:focus,
+.c22 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c29 blockquote {
+.c30 blockquote {
   margin-left: 0;
 }
 
-.c17 {
+.c18 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -547,35 +569,35 @@ exports[`assigned route route renders renders a component 1`] = `
   padding-top: 1.8rem;
 }
 
-.c17[open] > summary .c23 {
+.c18[open] > summary .c24 {
   display: none;
 }
 
-.c17:not([open]) > summary .c26 {
+.c18:not([open]) > summary .c27 {
   display: none;
 }
 
-.c17 a {
+.c18 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c17 a:hover {
+.c18 a:hover {
   color: #0064A0;
 }
 
-.c17 > .c20 {
+.c18 > .c21 {
   margin-bottom: 1.8rem;
 }
 
-.c17 li {
+.c18 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
 
-.c12 {
+.c13 {
   position: -webkit-sticky;
   position: sticky;
   overflow: visible;
@@ -583,11 +605,11 @@ exports[`assigned route route renders renders a component 1`] = `
   top: 12rem;
 }
 
-.c14:focus-within {
+.c15:focus-within {
   overflow: visible;
 }
 
-.c13 {
+.c14 {
   top: 5rem;
   left: 0;
   max-width: 100%;
@@ -598,20 +620,20 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c8 > div {
+  .c9 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen {
-  .c15 {
+  .c16 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c15 {
+  .c16 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -622,147 +644,147 @@ exports[`assigned route route renders renders a component 1`] = `
     width: 100%;
   }
 
-  .c15 #main-content {
+  .c16 #main-content {
     overflow: visible;
     width: 100%;
   }
 
-  .c15 #main-content > [data-type="page"],
-  .c15 #main-content > [data-type="composite-page"] {
+  .c16 #main-content > [data-type="page"],
+  .c16 #main-content > [data-type="composite-page"] {
     margin-top: 3.2rem;
   }
 }
 
 @media screen {
-  .c15 .highlight.yellow[aria-current] {
+  .c16 .highlight.yellow[aria-current] {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
     padding: 0.2rem 0 0;
   }
 
-  .c15 .highlight.yellow[aria-current].block:after {
+  .c16 .highlight.yellow[aria-current].block:after {
     background-color: #fed200;
   }
 
-  .c15 .highlight.yellow[aria-current].first.text.has-note:after {
+  .c16 .highlight.yellow[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c15 .highlight.green[aria-current] {
+  .c16 .highlight.green[aria-current] {
     background-color: #92d101;
     border-bottom: 0.2rem solid #4e6f01;
     padding: 0.2rem 0 0;
   }
 
-  .c15 .highlight.green[aria-current].block:after {
+  .c16 .highlight.green[aria-current].block:after {
     background-color: #92d101;
   }
 
-  .c15 .highlight.green[aria-current].first.text.has-note:after {
+  .c16 .highlight.green[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c15 .highlight.blue[aria-current] {
+  .c16 .highlight.blue[aria-current] {
     background-color: #00c3ed;
     border-bottom: 0.2rem solid #006880;
     padding: 0.2rem 0 0;
   }
 
-  .c15 .highlight.blue[aria-current].block:after {
+  .c16 .highlight.blue[aria-current].block:after {
     background-color: #00c3ed;
   }
 
-  .c15 .highlight.blue[aria-current].first.text.has-note:after {
+  .c16 .highlight.blue[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c15 .highlight.purple[aria-current] {
+  .c16 .highlight.purple[aria-current] {
     background-color: #545ec8;
     border-bottom: 0.2rem solid #141a3e;
     padding: 0.2rem 0 0;
     color: #fff;
   }
 
-  .c15 .highlight.purple[aria-current].block:after {
+  .c16 .highlight.purple[aria-current].block:after {
     background-color: #545ec8;
   }
 
-  .c15 .highlight.purple[aria-current].first.text.has-note:after {
+  .c16 .highlight.purple[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c15 .highlight.pink[aria-current] {
+  .c16 .highlight.pink[aria-current] {
     background-color: #de017e;
     border-bottom: 0.2rem solid #560131;
     padding: 0.2rem 0 0;
     color: #fff;
   }
 
-  .c15 .highlight.pink[aria-current].block:after {
+  .c16 .highlight.pink[aria-current].block:after {
     background-color: #de017e;
   }
 
-  .c15 .highlight.pink[aria-current].first.text.has-note:after {
+  .c16 .highlight.pink[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c15 .search-highlight {
+  .c16 .search-highlight {
     font-weight: bold;
   }
 
-  .c15 .search-highlight,
-  .c15 .search-highlight .math {
+  .c16 .search-highlight,
+  .c16 .search-highlight .math {
     background-color: #ffea00;
     box-shadow: 0 0.2rem 0.3rem 0 rgb(0,0,0,0.41);
   }
 
-  .c15 .search-highlight[aria-current],
-  .c15 .search-highlight[aria-current] .math {
+  .c16 .search-highlight[aria-current],
+  .c16 .search-highlight[aria-current] .math {
     background-color: #ff9e4b;
     padding: 0.2rem 0;
   }
 
-  .c15 .search-highlight[aria-current] .search-highlight {
+  .c16 .search-highlight[aria-current] .search-highlight {
     background-color: unset;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c2 {
+  .c3 {
     top: 6rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c2 {
+  .c3 {
     z-index: 51;
   }
 }
 
 @media print {
-  .c2 {
+  .c3 {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c2 {
+  .c3 {
     height: 5.3rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c3 {
+  .c4 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -770,58 +792,58 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c21 {
+  .c22 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c29 {
+  .c30 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c17 {
+  .c18 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c17 {
+  .c18 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c17 > .c18 {
+  .c18 > .c19 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c17 {
+  .c18 {
     display: none;
   }
 }
 
 @media screen and (max-width:90em) {
-  .c12 {
+  .c13 {
     max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
     left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
   }
 }
 
 @media screen and (max-width:80em) {
-  .c12 {
+  .c13 {
     max-width: calc(100vw - 8rem);
     left: 8rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c13 {
     max-width: 100%;
     left: 0;
     z-index: 21;
@@ -830,7 +852,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c11 {
+  .c12 {
     overflow: visible;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -847,7 +869,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c14 {
+  .c15 {
     padding: 0 3.2rem;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -863,7 +885,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c13 {
+  .c14 {
     top: 5.300000000000001rem;
   }
 }
@@ -888,11 +910,18 @@ exports[`assigned route route renders renders a component 1`] = `
   >
     Go to accessibility page
   </a>
-  <div
+  <button
     className="c2"
+    href="#"
+    onClick={[Function]}
+  >
+    Keyboard shortcuts menu
+  </button>
+  <div
+    className="c3"
   >
     <h2
-      className="c3"
+      className="c4"
       dangerouslySetInnerHTML={
         Object {
           "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -900,13 +929,13 @@ exports[`assigned route route renders renders a component 1`] = `
       }
     />
     <div
-      className="c4 c5 c6"
+      className="c5 c6 c7"
     >
       <button
         aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
-        className="c7 c8 c9 c10"
+        className="c8 c9 c10 c11"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -923,22 +952,22 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <div
-    className="c11"
+    className="c12"
   >
     <div
       aria-live="polite"
-      className="c12 c13"
+      className="c13 c14"
       role="alertdialog"
     />
     <div
-      className="c14"
+      className="c15"
     >
       <main
-        className="c15 page-content"
+        className="c16 page-content"
         tabIndex={-1}
       >
         <div
-          className="c16"
+          className="c17"
           dangerouslySetInnerHTML={
             Object {
               "__html": "<br>  <div xmlns:m=\\"http://www.w3.org/1998/Math/MathML\\" xmlns:ns2=\\"urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0\\" class=\\"introduction\\" data-cnxml-to-html-ver=\\"1.3.2\\" data-type=\\"page\\" id=\\"1d1fd537-77fb-4eac-8a8a-60bbaa747b6d\\"><p id=\\"p1\\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ex erat, lacinia vitae mattis id, commodo vitae est. Nam quis arcu quis enim congue aliquet. Vivamus dictum rhoncus tortor, malesuada placerat tortor imperdiet ac. Fusce ac viverra nisi. Aliquam ut tempor diam. Cras rhoncus sodales massa vitae porttitor. Integer pharetra lorem a ante sollicitudin condimentum. Aliquam imperdiet erat et tellus mattis finibus. Sed nisl lectus, ultricies et ante ut, porttitor varius sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce tempus interdum ante, nec placerat felis facilisis quis. Nunc nec malesuada nisi. Cras eu iaculis felis. Sed id maximus enim, sit amet sodales sapien. Proin pulvinar sem risus, nec ultricies odio viverra a. Aliquam feugiat euismod dapibus.</p><section id=\\"section1\\"><h2 data-type=\\"document-title\\" id=\\"100_copy_1\\"><span class=\\"os-number\\">1.1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">A Section, Probably</span></h2><p id=\\"p2\\">Morbi lobortis mattis velit, <math display=\\"inline\\"><semantics><mrow><mrow><mrow><mrow><mrow><mrow><mi>W</mi><mo stretchy=\\"false\\">=</mo><mrow><msub><mtext>KE</mtext><mrow><mn>f</mn></mrow></msub><mo stretchy=\\"false\\">+</mo><msub><mtext>PE</mtext><mrow><mn>g</mn></mrow></msub></mrow></mrow><mo stretchy=\\"false\\">=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><msup><msub><mi fontstyle=\\"italic\\">mv</mi><mn>f</mn></msub><mn>2</mn></msup><mo stretchy=\\"false\\">+</mo><mrow><mtext fontstyle=\\"italic\\">mgh</mtext></mrow></mrow></mrow></mrow><mrow></mrow></mrow></mrow><annotation-xml encoding=\\"MathML-Content\\"><semantics><mrow><mrow><mrow><mrow><mrow><mi>W</mi><mo stretchy=\\"false\\">=</mo><mrow><msub><mtext>KE</mtext><mrow><mn>f</mn></mrow></msub><mo stretchy=\\"false\\">+</mo><msub><mtext>PE</mtext><mrow><mn>g</mn></mrow></msub></mrow></mrow><mo stretchy=\\"false\\">=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mn>2</mn></mrow></mfrac><msup><msub><mi fontstyle=\\"italic\\">mv</mi><mn>f</mn></msub><mn>2</mn></msup><mo stretchy=\\"false\\">+</mo><mrow><mtext fontstyle=\\"italic\\">mgh</mtext></mrow></mrow></mrow></mrow><mrow></mrow></mrow><annotation encoding=\\"StarMath 5.0\\"> size 12{W=\\"KE\\" rSub { size 8{f} } +\\"PE\\" rSub { size 8{g} } = {  { size 8{1} }  over  { size 8{2} } }  ital \\"mv\\" rSub { size 8{f}   rSup { size 8{2} } } + ital \\"mgh\\"} {}</annotation></semantics></annotation-xml></semantics></math> dapibus convallis est mollis sed. Sed ullamcorper est tortor, at ultricies felis tincidunt ut. Mauris interdum nunc et convallis pharetra. Nulla ac erat nulla. Vivamus a ornare leo. Quisque luctus dui eget auctor tristique. Sed vel est eget lorem volutpat mattis non et nisi. Aliquam ultricies ultrices velit, id fringilla ex suscipit in. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris consequat blandit felis, non finibus neque dignissim sit amet. Integer laoreet dapibus quam eget pulvinar. Aenean lobortis, arcu dignissim euismod ornare, eros est tincidunt urna, nec auctor odio quam eget tortor. Praesent sit amet metus a metus varius tincidunt. Pellentesque convallis sit amet erat eget malesuada. Proin pretium est euismod risus facilisis dignissim. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p><p id=\\"p3\\">Integer maximus augue vitae orci vehicula tincidunt. Integer auctor ante odio, nec porta nisi pellentesque id. Donec porttitor velit vel turpis sagittis molestie. Sed eu rhoncus orci. Donec feugiat tristique posuere. Fusce consequat, nisi vitae porttitor ornare, augue velit sodales augue, ac facilisis turpis orci vitae lectus. Mauris mauris urna, dictum a dui et, imperdiet commodo justo. Pellentesque scelerisque dui sed libero porta, sit amet rhoncus ex dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p><div data-type=\\"equation\\" id=\\"fs-id2746082\\"><math display=\\"block\\"><semantics><mrow><mrow><mrow><mrow><mi>P</mi><mo stretchy=\\"false\\">=</mo><mfrac><mi>W</mi><mi>t</mi></mfrac></mrow></mrow><mrow></mrow></mrow></mrow><annotation-xml encoding=\\"MathML-Content\\"><semantics><mrow><mrow><mrow><mi>P</mi><mo stretchy=\\"false\\">=</mo><mfrac><mi>W</mi><mi>t</mi></mfrac></mrow></mrow><mrow></mrow></mrow><annotation encoding=\\"StarMath 5.0\\"> size 12{P= {  {W}  over  {t} } } {}</annotation></semantics></annotation-xml></semantics></math><div class=\\"os-equation-number\\"><span class=\\"os-number\\">1.01</span></div></div><p id=\\"p4\\">Donec congue tortor sed magna ullamcorper mollis. Suspendisse eu tincidunt augue, et pulvinar purus. Fusce gravida quam lorem, sed pharetra libero bibendum et. Etiam facilisis ex vel nisi egestas, non consequat mi malesuada. Donec scelerisque magna sem, ut ornare massa rhoncus sed. In ultricies tellus porttitor enim elementum, ut mollis nisl euismod. Pellentesque eu lobortis neque. Phasellus eget luctus velit, in eleifend lectus. Pellentesque leo odio, cursus eget feugiat eu, finibus in nibh. In nec urna justo. Donec ut nisi eleifend, auctor lacus quis, hendrerit sem. Pellentesque sagittis nunc a molestie finibus. Donec pulvinar nibh elit, nec ornare nibh egestas quis. Curabitur luctus euismod lobortis.</p><div class=\\"os-figure\\" id=\\"figureid\\"><figure data-id=\\"figureid\\"><div data-alt=\\"\\" data-type=\\"media\\" id=\\"Phet_module_25.2\\"> <iframe title=\\"interactive simulation\\" height=\\"371.4\\" src=\\"/specials/version/radio-waves/#sim-radio-waves\\" width=\\"660\\" loading=\\"lazy\\"></iframe></div></figure><div class=\\"os-caption-container\\"><span class=\\"os-title-label\\">Figure </span><span class=\\"os-number\\">1.0</span><span class=\\"os-divider\\"> </span></div></div>  <p id=\\"p5\\">Maecenas vehicula nec quam vitae sodales. Vestibulum bibendum accumsan mauris. Nunc rhoncus libero odio, in ullamcorper massa ornare convallis. Nullam metus tortor, aliquam a ultrices et, rhoncus in risus. Nunc vel turpis erat. Cras semper sagittis odio, eu mattis nulla faucibus quis. Aliquam egestas nunc elit, eget condimentum lectus congue et. Curabitur non gravida lorem. Integer mi nunc, commodo vitae augue vel, bibendum pretium magna. Sed ut nibh venenatis ipsum tempus mollis pretium eget est. Aliquam commodo quam ipsum, at fermentum enim tristique eget. Mauris imperdiet dapibus maximus. Donec tristique varius lacinia. Pellentesque pharetra nunc eu nisi ullamcorper placerat. Suspendisse potenti.</p><p id=\\"p6\\">Integer fringilla blandit dolor ut mattis. Nam commodo ex at blandit sodales. Nullam suscipit, nunc eu mollis sagittis, purus arcu tincidunt ligula, vitae pharetra metus tortor id ex. Donec malesuada aliquet ligula id mollis. Maecenas scelerisque maximus sollicitudin. Quisque sagittis dolor at ligula congue, quis rhoncus mi porttitor. Quisque lobortis ut ante sed convallis. Integer luctus cursus molestie.</p><p id=\\"p7\\">Morbi a purus a elit dapibus fermentum. Sed varius ex quis tortor tincidunt posuere. Mauris luctus risus id aliquet mollis. Phasellus ornare leo a arcu imperdiet dictum. Praesent accumsan venenatis urna, sed egestas sem pharetra a. Sed vulputate sit amet nisl a aliquet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris facilisis augue vitae est maximus pharetra in ac elit. Pellentesque viverra purus non ligula tempor convallis.</p><p id=\\"p8\\">Pellentesque lectus ante, malesuada ut ornare vitae, euismod non urna. Morbi varius eros eget felis accumsan vehicula. In diam ex, finibus rhoncus dapibus non, lacinia in lacus. Nullam pretium mollis laoreet. Ut interdum dui sit amet elementum dignissim. Etiam in nibh vitae ligula fringilla aliquet quis vel ex. Nullam quis elit libero. In aliquet laoreet arcu at posuere. Duis consectetur et dolor non accumsan. Fusce enim est, dignissim sed mauris at, ornare cursus ligula. Nullam tincidunt eu purus vel lacinia. Praesent varius, arcu sed facilisis elementum, orci metus vestibulum nisl, sed sodales urna eros ullamcorper turpis. Donec mollis ac massa ac elementum. Nulla maximus purus sed orci efficitur, ut porta mauris elementum.</p><p id=\\"p9\\">Vestibulum blandit enim quis sapien ultrices pretium. Cras dapibus ornare fringilla. Duis ut laoreet dolor. Proin ullamcorper molestie dui eu vestibulum. Nullam convallis mollis mauris nec accumsan. Proin egestas enim non nisl suscipit, ut feugiat felis pharetra. In faucibus fringilla ipsum vel sollicitudin. Maecenas blandit augue odio, ac mattis justo feugiat sit amet. Etiam nec molestie eros. Sed gravida velit libero, at pretium diam venenatis sit amet. Donec tellus leo, faucibus eu sapien nec, mollis efficitur lorem. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></section><dl id=\\"test-pair-page1\\"><dt>test term</dt><dd>test definition with <math>math element</math></dd></dl></div><button type=\\"button\\" aria-label=\\"Click to enlarge image of A photo is shown of the Crab Nebula.\\" class=\\"image-button-wrapper\\"><img alt=\\"A photo is shown of the Crab Nebula.\\" data-media-type=\\"image/jpeg\\" id=\\"89491\\" src=\\"/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/c7cc4c5e00a4bc07cb74f29cac2fb3c6cd6d53b5\\" data-original-src=\\"/apps/archive/codeversion/resources/c7cc4c5e00a4bc07cb74f29cac2fb3c6cd6d53b5\\"></button><a href=\\"../../../books/book-slug-1/pages/test-page-1#hash\\" target=\\"_blank\\">hashlink</a><a href=\\".\\" target=\\"_blank\\">Current link</a>",
@@ -952,17 +981,17 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <details
-    className="c17"
+    className="c18"
     data-analytics-region="attribution"
     data-testid="attribution-details"
   >
     <summary
       aria-label="Citation/Attribution"
-      className="c18 c19 c20 c21"
+      className="c19 c20 c21 c22"
     >
       <svg
         aria-hidden="true"
-        className="c22 c23 c24 c25"
+        className="c23 c24 c25 c26"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -975,7 +1004,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="c22 c26 c27 c28"
+        className="c23 c27 c28 c29"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 320 512"
@@ -994,7 +1023,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c29"
+      className="c30"
       dangerouslySetInnerHTML={
         Object {
           "__html": "
