@@ -125,7 +125,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 .c5:hover {
-  color: #424242;
+  color: #888888;
 }
 
 .c15 {
