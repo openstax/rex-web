@@ -903,6 +903,7 @@ exports[`assigned route route renders renders a component 1`] = `
       className="c4 c5 c6"
     >
       <button
+        aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
         className="c7 c8 c9 c10"
