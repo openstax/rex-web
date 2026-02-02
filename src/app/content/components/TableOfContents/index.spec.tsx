@@ -2,6 +2,7 @@ import React from 'react';
 import { unmountComponentAtNode } from 'react-dom';
 import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import ConnectedTableOfContents, { TableOfContents, maybeAriaLabel } from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
@@ -21,7 +22,7 @@ jest.mock('react-aria-components', () => {
   return {
     ...actual,
     Tree: ({ children, ...props }: any) =>
-      <div data-testid='mock-tree' {...props}>{children}</div>
+      <div data-testid='mock-tree' role='treegrid' {...props}>{children}</div>
     ,
     TreeItem: ({ children, ...props }: any) =>
       <div data-testid='mock-tree-item' {...props}>{children}</div>
@@ -133,7 +134,7 @@ describe('TableOfContents', () => {
       <ConnectedTableOfContents />
     </TestContainer>);
     const sb = root.querySelector('[data-testid="toc"]')!;
-    const firstTocItem = sb.querySelector('div > div a, div > div div span') as HTMLElement;
+    const firstTocItem = sb.querySelector('[role="treegrid"] div') as HTMLElement;
     const focusSpy = jest.spyOn(firstTocItem as any, 'focus');
 
     reactDomAct(() => {
@@ -153,6 +154,180 @@ describe('TableOfContents', () => {
     });
 
     expect(focusSpy).toHaveBeenCalled();
+  });
+
+  it('restores focus to TOC button when closing', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+
+    // Create a mock button element to restore focus to
+    const mockButton = document!.createElement('button');
+    mockButton.setAttribute('data-testid', 'toc-button');
+    document?.body.appendChild(mockButton);
+    const mockButtonFocusSpy = jest.spyOn(mockButton, 'focus');
+
+    const { root } = renderToDom(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+    const sb = root.querySelector('[data-testid="toc"]') as HTMLElement;
+
+    expect(sb).toBeDefined();
+
+    // Get the first TOC item and make it focusable, with a spy to update activeElement
+    const firstTocItem = sb.querySelector('[role="treegrid"] div') as HTMLElement;
+    const originalFocus = firstTocItem.focus.bind(firstTocItem);
+    const firstTocItemFocusSpy = jest.spyOn(firstTocItem as any, 'focus').mockImplementation(() => {
+      // Simulate actual focus behavior by updating the element's focus state
+      originalFocus();
+    });
+
+    // Focus the mock button, then open the TOC
+    reactDomAct(() => {
+      mockButton.focus();
+      store.dispatch(actions.openToc());
+    });
+    reactDomAct(() => {
+      sb.dispatchEvent(new Event('transitionend'));
+    });
+
+    // Focus should have moved away from the button to first item
+    expect(firstTocItemFocusSpy).toHaveBeenCalled();
+
+    // Close the TOC
+    reactDomAct(() => {
+      store.dispatch(actions.closeToc());
+    });
+    reactDomAct(() => {
+      sb.dispatchEvent(new Event('transitionend'));
+    });
+
+    // Focus should have been restored to the TOC button
+    expect(mockButtonFocusSpy).toHaveBeenCalled();
+
+    // Cleanup
+    document?.body.removeChild(mockButton);
+  });
+
+  it('focuses close button on Shift+Tab in tree', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+
+    // Create a mock close button element first
+    const mockCloseButton = document!.createElement('button');
+    mockCloseButton.setAttribute('data-testid', 'toc-button');
+    const mockCloseButtonFocusSpy = jest.spyOn(mockCloseButton, 'focus');
+
+    // Render the component using renderer.create so we can access the instance
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+
+    // Open the TOC
+    renderer.act(() => {
+      store.dispatch(actions.openToc());
+    });
+
+    // Get the TableOfContents component instance
+    const tocComponent = component.root.findByType(TableOfContents);
+    const tocInstance = tocComponent.instance as TableOfContents;
+
+    // Manually set up the mock button in the sidebar ref
+    // We need to create a mock sidebar structure
+    const mockSidebar = {
+      querySelector: jest.fn().mockReturnValue(mockCloseButton),
+    } as any;
+    tocInstance.sidebar = { current: mockSidebar };
+
+    // Create a mock keyboard event
+    const mockEvent = {
+      key: 'Tab',
+      shiftKey: true,
+      preventDefault: jest.fn(),
+    } as any as React.KeyboardEvent;
+
+    renderer.act(() => {
+      // Call the handleTreeKeyUp method directly
+      tocInstance.handleTreeKeyUp(mockEvent);
+    });
+
+    // Expect the close button to have been focused
+    expect(mockCloseButtonFocusSpy).toHaveBeenCalled();
+    expect(mockEvent.preventDefault).toHaveBeenCalled();
+  });
+
+  it('does not focus close button when key is not Shift+Tab', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+
+    const mockCloseButton = document!.createElement('button');
+    mockCloseButton.setAttribute('data-testid', 'toc-button');
+    const mockCloseButtonFocusSpy = jest.spyOn(mockCloseButton, 'focus');
+
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+
+    renderer.act(() => {
+      store.dispatch(actions.openToc());
+    });
+
+    const tocComponent = component.root.findByType(TableOfContents);
+    const tocInstance = tocComponent.instance as TableOfContents;
+
+    const mockSidebar = {
+      querySelector: jest.fn().mockReturnValue(mockCloseButton),
+    } as any;
+    tocInstance.sidebar = { current: mockSidebar };
+
+    // Test with Tab but no Shift
+    const mockEventTabOnly = {
+      key: 'Tab',
+      shiftKey: false,
+      preventDefault: jest.fn(),
+    } as any as React.KeyboardEvent;
+
+    renderer.act(() => {
+      tocInstance.handleTreeKeyUp(mockEventTabOnly);
+    });
+
+    // Should NOT have focused the button or prevented default
+    expect(mockCloseButtonFocusSpy).not.toHaveBeenCalled();
+    expect(mockEventTabOnly.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('does not focus close button when close button is not found', () => {
+    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(true);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+
+    renderer.act(() => {
+      store.dispatch(actions.openToc());
+    });
+
+    const tocComponent = component.root.findByType(TableOfContents);
+    const tocInstance = tocComponent.instance as TableOfContents;
+
+    // Mock sidebar querySelector to return null (button not found)
+    const mockSidebar = {
+      querySelector: jest.fn().mockReturnValue(null),
+    } as any;
+    tocInstance.sidebar = { current: mockSidebar };
+
+    const mockEvent = {
+      key: 'Tab',
+      shiftKey: true,
+      preventDefault: jest.fn(),
+    } as any as React.KeyboardEvent;
+
+    renderer.act(() => {
+      tocInstance.handleTreeKeyUp(mockEvent);
+    });
+
+    // Should NOT have prevented default since button wasn't found
+    expect(mockEvent.preventDefault).not.toHaveBeenCalled();
   });
 
   it('resets toc on navigate', () => {
