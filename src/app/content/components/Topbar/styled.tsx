@@ -432,20 +432,20 @@ export const TextResizerMenu = styled.div`
           linear-gradient(
             to right,
             ${theme.color.primary[props.bookTheme].base}
-              ${({textSize}) => `
+              ${({textSize}: {textSize: number}) => `
                 calc(
                   (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
                 )
               `},
-            #767676
-              ${({textSize}) => `
+              ${theme.color.primary.gray.medium}
+              ${({textSize}: {textSize: number}) => `
                 calc(
                   (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
                 )
               `}
           );
       ` : css`
-        background: #767676;
+        background: ${theme.color.primary.gray.medium};
       `}
       overflow: visible;
       height: 0.4rem;

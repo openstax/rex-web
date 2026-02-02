@@ -1131,10 +1131,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 .c20 .controls input {
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: #f1f1f1;
-  background-image: linear-gradient(#002468,#002468);
-  background-size: calc( (0 - -2) * 100 / (3 - -2) * 1% ) 100%;
-  background-repeat: no-repeat;
+  background: linear-gradient( to right, #002468  calc( (0 - -2) * 100 / (3 - -2) * 1% ) , #888888  calc( (0 - -2) * 100 / (3 - -2) * 1% )  );
   overflow: visible;
   height: 0.4rem;
   width: 12rem;
