@@ -665,7 +665,7 @@ Array [
           >
             <li>
               <a
-                aria-label="facebook"
+                aria-label="OpenStax on Facebook"
                 className="c16"
                 href="https://www.facebook.com/openstax"
                 rel="noopener"
@@ -688,7 +688,7 @@ Array [
             </li>
             <li>
               <a
-                aria-label="twitter"
+                aria-label="OpenStax on X"
                 className="c16"
                 href="https://twitter.com/openstax"
                 rel="noopener"
@@ -714,7 +714,7 @@ Array [
             </li>
             <li>
               <a
-                aria-label="linkedin"
+                aria-label="OpenStax on LinkedIn"
                 className="c16"
                 href="https://www.linkedin.com/company/openstax"
                 rel="noopener"
@@ -737,7 +737,7 @@ Array [
             </li>
             <li>
               <a
-                aria-label="instagram"
+                aria-label="OpenStax on Instagram"
                 className="c16"
                 href="https://www.instagram.com/openstax/"
                 rel="noopener"
@@ -1445,7 +1445,7 @@ Array [
           >
             <li>
               <a
-                aria-label="facebook"
+                aria-label="OpenStax on Facebook"
                 className="c16"
                 href="https://www.facebook.com/openstax"
                 rel="noopener"
@@ -1468,7 +1468,7 @@ Array [
             </li>
             <li>
               <a
-                aria-label="twitter"
+                aria-label="OpenStax on X"
                 className="c16"
                 href="https://twitter.com/openstax"
                 rel="noopener"
@@ -1494,7 +1494,7 @@ Array [
             </li>
             <li>
               <a
-                aria-label="linkedin"
+                aria-label="OpenStax on LinkedIn"
                 className="c16"
                 href="https://www.linkedin.com/company/openstax"
                 rel="noopener"
@@ -1517,7 +1517,7 @@ Array [
             </li>
             <li>
               <a
-                aria-label="instagram"
+                aria-label="OpenStax on Instagram"
                 className="c16"
                 href="https://www.instagram.com/openstax/"
                 rel="noopener"
