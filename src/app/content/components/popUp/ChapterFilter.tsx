@@ -245,6 +245,7 @@ export const StyledSectionItem = styled(PlainButton)`
   &:hover,
   &:focus {
     background-color: ${theme.color.neutral.pageBackground};
+    color: #0175a7;
   }
 
   ${ChapterTitle} {
