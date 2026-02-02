@@ -196,7 +196,7 @@ Resources:
                 BaselinePerformanceFactors:
                   Cpu:
                     References:
-                      - InstanceFamily: r6a
+                      - InstanceFamily: r5
                 MemoryGiBPerVCpu:
                   Min: 4
                   Max: 8
