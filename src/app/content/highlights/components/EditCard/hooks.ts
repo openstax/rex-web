@@ -1,14 +1,6 @@
 /**
- * EditCard Business Logic Hooks
- *
- * This module contains custom hooks that encapsulate the business logic
- * for highlight operations: removing, changing colors, and saving annotations.
- *
- * These hooks are extracted from the main EditCard component to:
- * - Improve testability (hooks can be tested independently)
- * - Enhance reusability (hooks can be used in other components)
- * - Follow Single Responsibility Principle (each hook has one clear purpose)
- * - Reduce complexity of the main component
+ * Business logic hooks for highlight operations: removing, changing colors,
+ * and saving annotations.
  */
 
 import { Highlight } from '@openstax/highlighter';
@@ -23,35 +15,14 @@ import { HighlightData } from '../../types';
 import { generateUpdatePayload } from '../cardUtils';
 import scrollHighlightIntoView from '../utils/scrollHighlightIntoView';
 
-/**
- * Props required for useOnRemove hook
- */
 export interface UseOnRemoveProps {
   data?: HighlightData;
   onRemove: () => void;
 }
 
 /**
- * Hook that handles highlight removal logic
- *
- * Returns a callback to remove a highlight, or null if removal is not allowed.
- * Removal is only allowed when:
- * - Highlight data exists (highlight has been saved)
- * - No annotation exists on the highlight
- * - No pending annotation text
- * - Highlight has a color (has been created)
- *
- * When called, the hook:
- * 1. Calls the onRemove callback to remove the highlight
- * 2. Tracks analytics event with the highlight color
- *
- * @param props - Object containing highlight data and onRemove callback
- * @param pendingAnnotation - Current text in the annotation editor
- * @returns Remove callback function, or null if removal not allowed
- *
- * @example
- * const removeHighlight = useOnRemove({ data, onRemove }, pendingText);
- * // Pass to ColorPicker: <ColorPicker onRemove={removeHighlight} />
+ * Returns callback to remove highlight, or null if removal not allowed.
+ * Removal only allowed for highlights without annotations.
  */
 export function useOnRemove(
   props: UseOnRemoveProps,
@@ -71,9 +42,6 @@ export function useOnRemove(
     : null;
 }
 
-/**
- * Props required for useOnColorChange hook
- */
 export interface UseOnColorChangeProps {
   highlight: Highlight;
   data?: HighlightData;
@@ -83,27 +51,8 @@ export interface UseOnColorChangeProps {
 }
 
 /**
- * Hook that handles highlight color changes
- *
- * Returns a callback to change the highlight color. The behavior differs
- * based on whether the highlight has been saved yet:
- *
- * For existing highlights (data exists):
- * 1. Updates the highlight visual style
- * 2. Dispatches Redux action to save color change
- * 3. Tracks analytics event
- *
- * For new selections (data doesn't exist):
- * 1. Updates the highlight visual style
- * 2. Clears the text selection
- * 3. Calls onCreate to create the highlight
- *
- * @param props - Object containing highlight data and callbacks
- * @returns Color change callback function
- *
- * @example
- * const handleColorChange = useOnColorChange({ highlight, data, ... });
- * // Pass to ColorPicker: <ColorPicker onChange={handleColorChange} />
+ * Returns callback to change highlight color. For new highlights, creates
+ * the highlight. For existing highlights, updates color and saves.
  */
 export function useOnColorChange(props: UseOnColorChangeProps) {
   const { highlight, data, locationFilterId, pageId, onCreate } = props;
@@ -139,9 +88,6 @@ export function useOnColorChange(props: UseOnColorChangeProps) {
   );
 }
 
-/**
- * Props required for useSaveAnnotation hook
- */
 export interface UseSaveAnnotationProps {
   data?: HighlightData;
   pageId: string;
@@ -151,26 +97,8 @@ export interface UseSaveAnnotationProps {
 }
 
 /**
- * Hook that handles annotation saving logic
- *
- * Returns a callback to save the current annotation text to a highlight.
- * When called, the hook:
- * 1. Validates that highlight data exists
- * 2. Generates update payload with new annotation text
- * 3. Dispatches Redux action to save to database
- * 4. Tracks analytics event (distinguishes adding new note vs editing)
- * 5. Calls onCancel to clean up editing state
- * 6. Scrolls highlight into view if needed
- * 7. Focuses the highlight for keyboard navigation
- *
- * @param props - Object containing highlight data and callbacks
- * @param element - Ref to card element for scroll calculations
- * @param pendingAnnotation - Current text to save
- * @returns Save callback function
- *
- * @example
- * const saveAnnotation = useSaveAnnotation(props, cardRef, annotationText);
- * // Call on save: <Button onClick={() => saveAnnotation(data)} />
+ * Returns callback to save annotation text. Tracks analytics,
+ * scrolls highlight into view, and focuses it after save.
  */
 export function useSaveAnnotation(
   props: UseSaveAnnotationProps,

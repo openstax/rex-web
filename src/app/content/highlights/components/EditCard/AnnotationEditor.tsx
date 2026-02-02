@@ -1,14 +1,3 @@
-/**
- * AnnotationEditor Component
- *
- * Handles the textarea for editing highlight annotations.
- * Extracted to separate file to:
- * - Isolate annotation editing concern
- * - Make component reusable
- * - Simplify testing
- * - Reduce complexity of main EditCard component
- */
-
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
@@ -33,25 +22,8 @@ export interface AnnotationEditorProps {
 }
 
 /**
- * AnnotationEditor - Textarea wrapper for editing highlight notes
- *
- * Responsibilities:
- * - Manages textarea ref and focus behavior
- * - Tracks changes to annotation text
- * - Updates "unsaved changes" state
- * - Initializes highlight color on first focus (for new highlights)
- * - Switches to editing mode when user types
- *
- * Color Initialization Flow:
- * When a user creates a new highlight and focuses the textarea,
- * the component automatically assigns the default color (first in palette).
- * This provides immediate visual feedback and creates the highlight object.
- *
- * Change Tracking:
- * Compares current text with saved text to determine if changes are pending.
- * This enables the "unsaved changes" indicator and warning prompts.
- *
- * @param props - Component props including highlight data and callbacks
+ * AnnotationEditor - Textarea for editing highlight notes.
+ * Initializes highlight color on first focus for new highlights.
  */
 export function AnnotationEditor({
   highlight,
@@ -66,13 +38,6 @@ export function AnnotationEditor({
 }: AnnotationEditorProps) {
   const textarea = React.useRef<HTMLTextAreaElement>(null);
 
-  /**
-   * Handles annotation text changes
-   *
-   * Updates pending annotation state and tracks whether changes
-   * differ from the saved value to set the "changes pending" flag.
-   * Always enters editing mode when user types.
-   */
   const updateUnsavedHighlightStatus = React.useCallback(
     (newValue: string) => {
       const currentValue = data?.annotation ?? '';
@@ -99,14 +64,7 @@ export function AnnotationEditor({
   );
 
   /**
-   * Initializes highlight color on first focus
-   *
-   * For new highlights (no color assigned yet), automatically
-   * assigns the first color in the palette when the user focuses
-   * the textarea. This creates the highlight and provides visual feedback.
-   *
-   * The blur/focus dance ensures the color picker interaction
-   * doesn't interfere with the textarea focus state.
+   * For new highlights, assigns default color when textarea is focused.
    */
   const initializeColor = React.useCallback(() => {
     if (!highlight.getStyle()) {

@@ -1,14 +1,3 @@
-/**
- * Action Buttons for EditCard
- *
- * Save and Cancel buttons used in the highlight editing interface.
- * These buttons are extracted to:
- * - Make them reusable in other contexts
- * - Simplify testing (buttons can be tested independently)
- * - Reduce complexity of the main EditCard component
- * - Follow Single Responsibility Principle
- */
-
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '../../../../components/Button';
@@ -25,18 +14,8 @@ export interface SaveButtonProps {
 }
 
 /**
- * SaveButton - Button to save annotation changes
- *
- * Handles the save flow:
- * 1. Prevents form submission (e.preventDefault)
- * 2. Exits editing mode
- * 3. If annotation was cleared and previously existed, shows delete confirmation
- * 4. Otherwise, saves the annotation immediately
- *
- * The confirmation step prevents accidental deletion when a user
- * clears the annotation text and clicks save.
- *
- * @param props - Component props including save callback and state setters
+ * SaveButton - Saves annotation changes or shows delete confirmation
+ * if annotation was cleared.
  */
 export function SaveButton({
   data,
@@ -85,18 +64,8 @@ export interface CancelButtonProps {
 }
 
 /**
- * CancelButton - Button to cancel annotation editing
- *
- * Handles the cancel flow:
- * 1. Resets annotation text to original value
- * 2. Clears the "changes pending" flag
- * 3. Exits editing mode
- * 4. Calls onCancel callback to clean up state
- *
- * Also sets up Escape key handler to allow keyboard users
- * to cancel editing by pressing Esc.
- *
- * @param props - Component props including cancel callback and state setters
+ * CancelButton - Cancels annotation editing and resets to original value.
+ * Handles Escape key press for keyboard users.
  */
 export function CancelButton({
   isActive,

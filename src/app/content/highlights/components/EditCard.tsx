@@ -74,53 +74,24 @@ import { SaveButton, CancelButton } from './EditCard/ActionButtons';
 import { AnnotationEditor } from './EditCard/AnnotationEditor';
 import { useOnRemove, useOnColorChange, useSaveAnnotation } from './EditCard/hooks';
 
-/**
- * Props for EditCard component
- */
 export interface EditCardProps {
-  /** Whether the card is currently active/visible */
   isActive: boolean;
-  /** Whether there are unsaved annotation changes */
   hasUnsavedHighlight: boolean;
-  /** The highlight object being edited */
   highlight: Highlight;
-  /** Filter ID for the current location (e.g., chapter) */
   locationFilterId: string;
-  /** ID of the current page */
   pageId: string;
-  /** Callback when highlight is created */
   onCreate: (isDefaultColor: boolean) => void;
-  /** Callback when focus leaves the card */
   onBlur: typeof clearFocusedHighlight;
-  /** Callback to set annotation changes pending flag */
   setAnnotationChangesPending: typeof setAnnotationChangesPendingAction;
-  /** Callback to remove the highlight */
   onRemove: () => void;
-  /** Callback when editing is canceled */
   onCancel: () => void;
-  /** Callback when card height changes */
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
-  /** Saved highlight data (undefined for new highlights) */
   data?: HighlightData;
-  /** CSS className for styled component */
   className: string;
-  /** Whether the card should auto-focus */
   shouldFocusCard: boolean;
-  /** Whether to show minimized version (not implemented) */
   minimize?: boolean;
 }
 
-/**
- * EditCard - Root component for highlight editing interface
- *
- * This is a simple wrapper that:
- * 1. Returns null when not active (card is hidden)
- * 2. Forwards ref to inner components
- * 3. Delegates to LoginOrEdit for authentication check
- *
- * The forwarded ref allows parent components to measure and position
- * the card relative to the highlight.
- */
 // tslint:disable-next-line:variable-name
 const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
   const element = React.useRef<HTMLElement>(null);
@@ -149,34 +120,10 @@ const EditCard = React.forwardRef<HTMLElement, EditCardProps>((props, ref) => {
 /**
  * ActiveEditCard - Main editing interface component
  *
- * This component coordinates the editing interface, managing:
- * - Annotation text state (pending vs saved)
- * - Editing mode state
- * - Delete confirmation state
- * - Focus and blur behavior
- * - Analytics tracking
- *
- * ## State Management
- *
- * The component maintains three pieces of local state:
- *
- * 1. **pendingAnnotation**: Current text in textarea, may differ from saved value
- * 2. **editingAnnotation**: Whether textarea is in edit mode (shows Save/Cancel)
- * 3. **confirmingDelete**: Whether delete confirmation dialog is showing
- *
- * ## Focus Management
- *
- * The card needs careful focus management to work correctly:
- *
- * - When clicking outside the card → Blur card (unless editing)
+ * Coordinates the editing interface with careful focus management:
+ * - When clicking outside → Blur card (unless editing)
  * - When clicking in main content → Remove text selection
- * - When pressing Escape → Cancel editing (handled by CancelButton)
  * - When pressing Tab → Trap focus within card (accessibility)
- *
- * ## Height Change Notifications
- *
- * The card notifies its parent when its height changes (e.g., when
- * showing/hiding buttons) so the parent can reposition it correctly.
  */
 function ActiveEditCard({
   props,
@@ -199,12 +146,6 @@ function ActiveEditCard({
 
   const { onBlur, hasUnsavedHighlight } = props;
 
-  /**
-   * Blur handler that only triggers when not editing
-   *
-   * We don't want to blur the card if the user is actively editing
-   * or if there are unsaved changes, as that would lose their work.
-   */
   const blurIfNotEditing = React.useCallback(() => {
     if (!hasUnsavedHighlight && !editingAnnotation) {
       onBlur();
@@ -212,23 +153,14 @@ function ActiveEditCard({
   }, [onBlur, hasUnsavedHighlight, editingAnnotation]);
 
   /**
-   * Handles focus moving to main content area
-   *
-   * When focus moves from the card to the main content, we need to:
-   * 1. Blur the card (if not editing)
-   * 2. Remove the text selection (if highlight not yet created)
-   *
-   * This prevents the selection from persisting after the user
-   * clicks away without creating a highlight.
+   * When focus moves to main content, blur and remove selection
+   * if highlight hasn't been created yet.
    */
   const deselectRange = React.useCallback(
     ({ target }: FocusEvent) => {
       const targetAsNode = target as HTMLElement;
       const mainEl = document?.getElementById(MAIN_CONTENT_ID);
 
-      // Only deselect if:
-      // - Highlight hasn't been created yet (!props.data?.color)
-      // - Focus moved to main content area
       if (!props.data?.color && targetAsNode !== mainEl && mainEl?.contains(targetAsNode)) {
         blurIfNotEditing();
         document?.getSelection()?.removeAllRanges();
@@ -242,12 +174,6 @@ function ActiveEditCard({
     return () => document?.removeEventListener('focusin', deselectRange);
   }, [deselectRange]);
 
-  /**
-   * Notify parent when card element is available
-   *
-   * The parent needs the element ref to calculate positioning
-   * and respond to height changes.
-   */
   const onHeightChange = props.onHeightChange;
   React.useEffect(() => {
     if (element.current) {
@@ -257,12 +183,6 @@ function ActiveEditCard({
 
   const trackShowCreate = useAnalyticsEvent('showCreate');
 
-  /**
-   * Track analytics when showing create card
-   *
-   * We only track this event for new highlights (props.data is undefined).
-   * This helps us measure how many highlight creation flows are started.
-   */
   React.useEffect(() => {
     if (!props.data) {
       trackShowCreate();
@@ -299,13 +219,6 @@ function ActiveEditCard({
 
   const ref = React.useRef<HTMLElement>(null);
 
-  /**
-   * Trap tab navigation when editing
-   *
-   * When the annotation textarea is in edit mode, trap focus within
-   * the card so keyboard users can't accidentally tab out and lose focus.
-   * This is important for accessibility.
-   */
   useTrapTabNavigation(ref, editingAnnotation);
 
   return (
@@ -365,15 +278,6 @@ function ActiveEditCard({
   );
 }
 
-/**
- * Styled EditCard component
- *
- * Applies visual styling to the card:
- * - Background color from theme
- * - Prevents text selection on card controls
- * - Spacing for button group
- * - Hides card on touch devices (mobile)
- */
 // tslint:disable-next-line
 export default styled(EditCard)`
   background: ${theme.color.neutral.formBackground};

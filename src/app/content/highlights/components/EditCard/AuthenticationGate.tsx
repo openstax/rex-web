@@ -1,14 +1,3 @@
-/**
- * AuthenticationGate Component
- *
- * Handles authentication requirements for the EditCard component.
- * Displays a login prompt for unauthenticated users, or renders
- * the editing interface for authenticated users.
- *
- * This separation allows the authentication concern to be tested
- * and maintained independently from the editing logic.
- */
-
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
@@ -22,9 +11,6 @@ import theme from '../../../../theme';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import { mergeRefs } from '../../../../utils';
 
-/**
- * Props for the LoginOrEdit component
- */
 interface LoginOrEditProps {
   children: React.ReactNode;
   className: string;
@@ -36,15 +22,6 @@ interface LoginOrEditProps {
   elementRef: React.RefObject<HTMLElement>;
 }
 
-/**
- * LoginOrEdit - Main authentication gate component
- *
- * Renders either:
- * - LoginConfirmation for unauthenticated users
- * - HiddenOnMobile with editing interface for authenticated users
- *
- * @param props - Component props including authentication state and refs
- */
 export function LoginOrEdit({
   children,
   className,
@@ -58,9 +35,6 @@ export function LoginOrEdit({
   const authenticated = !!useSelector(selectAuth.user);
   const { formatMessage } = useIntl();
 
-  // Handler to show the card when user clicks on the button.
-  // Uses preventDefault to avoid focus changes and dispatches
-  // a custom event that the parent component listens for.
   const showCard = React.useCallback((event: React.MouseEvent) => {
     if (event.button === 0) {
       event.preventDefault();
@@ -103,14 +77,6 @@ export function LoginOrEdit({
   );
 }
 
-/**
- * LoginConfirmation - Component shown to unauthenticated users
- *
- * Displays a confirmation dialog prompting the user to log in
- * to use highlighting features. Tracks analytics when shown.
- *
- * @param props - Component props including onBlur callback
- */
 export function LoginConfirmation({
   onBlur,
 }: {
@@ -136,12 +102,6 @@ export function LoginConfirmation({
   );
 }
 
-/**
- * HiddenOnMobile - Styled component that hides content on touch devices
- *
- * The EditCard is only displayed on desktop/laptop devices with a mouse.
- * On mobile devices, highlighting uses a different interaction pattern.
- */
 // tslint:disable-next-line:variable-name
 export const HiddenOnMobile = styled.div`
   min-width: ${cardWidth}rem;
