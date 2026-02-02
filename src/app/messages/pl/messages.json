@@ -94,6 +94,7 @@
   "i18n:highlighting:dropdown:edit:aria-label": "Edytuj zakreślenie",
   "i18n:highlighting:dropdown:go-to-highlight": "Przejdź do zakreślenia",
   "i18n:highlighting:filters:all": "Wszystkie",
+  "i18n:highlighting:filters:applied-filters:aria-label": "Zastosowane filtry",
   "i18n:highlighting:filters:chapters": "Rozdział",
   "i18n:highlighting:filters:colors": "Kolor",
   "i18n:highlighting:filters:filter-by:aria-label": "Filtruj zakreślenia wg {filter}",

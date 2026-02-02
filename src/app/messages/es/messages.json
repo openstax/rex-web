@@ -94,6 +94,7 @@
   "i18n:highlighting:dropdown:edit:aria-label": "Editar este texto resaltado",
   "i18n:highlighting:dropdown:go-to-highlight": "Ir al texto resaltado",
   "i18n:highlighting:filters:all": "Todos",
+  "i18n:highlighting:filters:applied-filters:aria-label": "Filtros aplicados",
   "i18n:highlighting:filters:chapters": "Capítulo",
   "i18n:highlighting:filters:colors": "Color",
   "i18n:highlighting:filters:filter-by:aria-label": "Filtrar textos resaltados por {filter}",

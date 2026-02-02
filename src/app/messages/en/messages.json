@@ -97,6 +97,7 @@
   "i18n:highlighting:dropdown:edit:aria-label": "Edit this highlight",
   "i18n:highlighting:dropdown:go-to-highlight": "Go to highlight",
   "i18n:highlighting:filters:all": "All",
+  "i18n:highlighting:filters:applied-filters:aria-label": "Applied filters",
   "i18n:highlighting:filters:chapters": "Chapter",
   "i18n:highlighting:filters:colors": "Color",
   "i18n:highlighting:filters:filter-by:aria-label": "Filter highlights by {filter}",
