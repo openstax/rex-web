@@ -71,6 +71,7 @@ export const MobileDropdown: FunctionComponent<{
                       <a
                         href='/accounts/profile'
                         target='_blank'
+                        rel='noopener noreferrer'
                         role='menuitem'
                         onClick={(e) => {
                           e.preventDefault();
