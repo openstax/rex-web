@@ -7,7 +7,7 @@ import { openKeyboardShortcutsMenu as openKeyboardShortcutsMenuAction } from '..
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Provider } from '../context/SkipToContent';
 import { scrollTo } from '../domUtils';
-import HiddenLink, {HiddenButton} from './HiddenLink';
+import HiddenLink, { HiddenButton } from './HiddenLink';
 
 const OpenKeyboardShortcutsMenuLink = () => {
   const dispatch = useDispatch();
