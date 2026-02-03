@@ -4,7 +4,8 @@ import pytest
 
 
 # Import fixtures
-pytest_plugins = "e2e.ui.fixtures.ui"
+pytest_plugins = "e2e_tests.e2e.ui.fixtures.ui"
+
 
 def pytest_addoption(parser):
     parser.addini("rex_user", help="rex user")

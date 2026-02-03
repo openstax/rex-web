@@ -1,7 +1,7 @@
 import pytest
 import asyncio
 
-from e2e.ui.pages.home import HomeRex
+from e2e_tests.e2e.ui.pages.home import HomeRex
 
 
 @pytest.mark.asyncio
@@ -26,7 +26,9 @@ async def test_subjects_footer(chrome_page, base_url):
 
     assert await home.footer_section_bottom_is_visible()
 
-    assert ("Rice University" in await home.footer_section_bottom.inner_text()
-            and "license" in await home.footer_section_bottom.inner_text())
+    assert (
+        "Rice University" in await home.footer_section_bottom.inner_text()
+        and "license" in await home.footer_section_bottom.inner_text()
+    )
 
     assert "https://creativecommons.org" in await home.footer_section_license_link()
