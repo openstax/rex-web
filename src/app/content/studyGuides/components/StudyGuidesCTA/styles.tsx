@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
+import { linkColor } from '../../../../components/Typography';
 
 export const StudyGuidesCTAWrapper = styled.div`
   display: flex;
@@ -102,7 +103,7 @@ export const StudyGuidesCTASeparator = styled.span`
 
 export const StudyGuidesCTALink = styled.a`
   font-size: 1.6rem;
-  color: #027eb5;
+  color: ${linkColor};
   ${theme.breakpoints.mobile(css`
     font-size: 1.4rem;
   `)}
