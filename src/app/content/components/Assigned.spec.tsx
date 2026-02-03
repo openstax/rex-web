@@ -14,6 +14,7 @@ import { setTextSize } from '../actions';
 import * as selectContent from '../selectors';
 import { formatBookData } from '../utils';
 import Assigned from './Assigned';
+import { PrevNextBar } from './PrevNextBar';
 
 describe('Assigned', () => {
   let store: Store;
@@ -30,7 +31,7 @@ describe('Assigned', () => {
     store.dispatch(setTextSize(0));
   });
 
-  it('renders loading state without book', async() => {
+  it('renders loading state without book', async () => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({
       section: [page.id, shortPage.id],
     });
@@ -56,7 +57,7 @@ describe('Assigned', () => {
     tree.unmount();
   });
 
-  it('renders loading state without page', async() => {
+  it('renders loading state without page', async () => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({
       section: [page.id, shortPage.id],
     });
@@ -85,7 +86,7 @@ describe('Assigned', () => {
     tree.unmount();
   });
 
-  it('renders with next link', async() => {
+  it('renders with next link', async () => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({
       section: [page.id, shortPage.id],
     });
@@ -105,7 +106,7 @@ describe('Assigned', () => {
       </Provider>
     );
 
-    await renderer.act(async() => {
+    await renderer.act(async () => {
       await services.promiseCollector.calm();
     });
 
@@ -119,7 +120,7 @@ describe('Assigned', () => {
     tree.unmount();
   });
 
-  it('goes to next', async() => {
+  it('goes to next', async () => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({
       return_url: '/cool/redirect',
       section: [page.id, shortPage.id],
@@ -139,16 +140,16 @@ describe('Assigned', () => {
       </Provider>
     );
 
-    await renderer.act(async() => {
+    await renderer.act(async () => {
       await services.promiseCollector.calm();
     });
 
     const initialPageContent = tree.root.findByProps({ id: 'main-content' })
       .props.dangerouslySetInnerHTML.__html;
 
-    expect(() => tree.root.findByProps({href: '/cool/redirect'})).toThrow();
+    expect(() => tree.root.findByProps({ href: '/cool/redirect' })).toThrow();
 
-    await renderer.act(async() => {
+    await renderer.act(async () => {
       tree.root
         .findByProps({
           'aria-label': 'Next Page',
@@ -180,7 +181,7 @@ describe('Assigned', () => {
     tree.unmount();
   });
 
-  it('goes to previous', async() => {
+  it('goes to previous', async () => {
     jest.spyOn(selectNavigation, 'query').mockReturnValue({
       section: [page.id, shortPage.id],
     });
@@ -199,11 +200,11 @@ describe('Assigned', () => {
       </Provider>
     );
 
-    await renderer.act(async() => {
+    await renderer.act(async () => {
       await services.promiseCollector.calm();
     });
 
-    await renderer.act(async() => {
+    await renderer.act(async () => {
       tree.root
         .findByProps({
           'aria-label': 'Next Page',
@@ -217,7 +218,7 @@ describe('Assigned', () => {
     const initialPageContent = tree.root.findByProps({ id: 'main-content' })
       .props.dangerouslySetInnerHTML.__html;
 
-    await renderer.act(async() => {
+    await renderer.act(async () => {
       tree.root
         .findByProps({
           'aria-label': 'Previous Page',
@@ -241,6 +242,38 @@ describe('Assigned', () => {
       'aria-label': 'Previous Page',
       'href': 'books/book-slug-1/pages/test-page-1',
     })).toThrow();
+
+    tree.unmount();
+  });
+
+  it('renders correctly with a single section (string query)', async () => {
+    // This covers query.section NOT being an array (line 72)
+    // AND prevNext being undefined (line 96-98)
+    jest.spyOn(selectNavigation, 'query').mockReturnValue({
+      section: page.id,
+    });
+    jest.spyOn(selectContent, 'book')
+      .mockReturnValue(formatBookData(book, mockCmsBook));
+
+    const intl = await createIntl(book.language);
+
+    const tree = renderer.create(
+      <Provider store={store}>
+        <RawIntlProvider value={intl}>
+          <Services.Provider value={services}>
+            <Assigned />
+          </Services.Provider>
+        </RawIntlProvider>
+      </Provider>
+    );
+
+    await renderer.act(async () => {
+      await services.promiseCollector.calm();
+    });
+
+    // Should NOT have PrevNextBar
+    const prevNextBar = tree.root.findAllByType(PrevNextBar);
+    expect(prevNextBar.length).toBe(0);
 
     tree.unmount();
   });

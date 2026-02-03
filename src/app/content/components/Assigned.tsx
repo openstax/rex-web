@@ -35,7 +35,7 @@ const StyledButton = styled(Button)`
 `;
 
 // Override layout for Toast
-const assignedMobileTop = (props: {mobileToolbarOpen: boolean}) =>
+const assignedMobileTop = (props: { mobileToolbarOpen: boolean }) =>
   getMobileSearchFailureTop(props) - bookBannerMobileMiniHeight;
 const ToastOverride = styled(PageToasts)`
   top: ${topbarDesktopHeight}rem;
@@ -62,7 +62,7 @@ const useLoadSection = (currentSection: ArchiveTreeSection | undefined) => {
       return;
     }
     const uuid = stripIdVersion(currentSection.id);
-    loadPage(services, {uuid}, book, services.archiveLoader.forBook(book), uuid);
+    loadPage(services, { uuid }, book, services.archiveLoader.forBook(book), uuid);
   }, [services, currentSection, book]);
 };
 
@@ -72,7 +72,7 @@ const useAssignedSections = () => {
   const sections = React.useMemo(() => query.section instanceof Array
     ? query.section
     : [assertString(query.section, 'at least one section must be assigned')]
-  , [query]);
+    , [query]);
 
   return React.useMemo(() => {
     if (!book) {
@@ -103,7 +103,7 @@ const usePrevNext = (sections: LinkedArchiveTreeSection[]) => {
 
 export default () => {
   const book = useSelector(selectContent.book);
-  const {return_url} = useSelector(selectNavigation.query);
+  const { return_url } = useSelector(selectNavigation.query);
   const sections = useAssignedSections();
   const [currentSectionIndex, setCurrentSectionIndex] = React.useState(0);
   const prevNext = usePrevNext(sections);
@@ -126,10 +126,10 @@ export default () => {
             />
             : null
           }
-          {!prevNext?.next && typeof return_url === 'string'
+          {currentSectionIndex === sections.length - 1 && typeof return_url === 'string'
             ? (<FormattedMessage id='i18n:assigned:button:continue'>
-                {(msg) => <StyledButton component={<a href={return_url}>{msg}</a>} variant='primary' size='large' />}
-              </FormattedMessage>)
+              {(msg) => <StyledButton component={<a href={return_url}>{msg}</a>} variant='primary' size='large' />}
+            </FormattedMessage>)
             : null
           }
         </Page>

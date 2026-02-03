@@ -78,18 +78,32 @@ export const CardWrapper = styled.div`
   z-index: 1;
 `;
 
-export const CloseModalIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+export const CloseModalIcon = styled(React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>((props, ref) => (
+  <button {...props} ref={ref} type='button'>
+    <Times aria-hidden='true' />
+  </button>
+)))`
   ${toolbarIconStyles};
   cursor: pointer;
   margin-right: 0;
   padding-right: 0;
   color: ${toolbarIconColor.lighter};
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   :hover {
     color: ${toolbarIconColor.base};
   }
   height: 2rem;
   width: 2rem;
+
+  > svg {
+    height: 100%;
+    width: 100%;
+  }
 `;
 
 export const Footer = styled.div`

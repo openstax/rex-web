@@ -7,12 +7,14 @@ interface PropTypes {
   onModalClose: () => void;
   heading: string;
   className?: string;
+  closeButtonRef?: React.Ref<HTMLButtonElement>;
 }
 
 const Modal = ({
   className,
   heading,
   onModalClose,
+  closeButtonRef,
   children,
 }: React.PropsWithChildren<PropTypes>) => {
   return (
@@ -27,7 +29,7 @@ const Modal = ({
                 </Styled.Heading>
               )}
             </FormattedMessage>
-            <Styled.CloseModalIcon onClick={onModalClose}/>
+            <Styled.CloseModalIcon ref={closeButtonRef} onClick={onModalClose} />
           </Styled.Header>
           {children}
         </Styled.Card>
