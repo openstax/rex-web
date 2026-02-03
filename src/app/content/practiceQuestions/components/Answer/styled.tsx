@@ -1,6 +1,6 @@
 import flow from 'lodash/fp/flow';
 import styled, { css } from 'styled-components/macro';
-import { textRegularStyle } from '../../../../components/Typography';
+import { linkColor, linkHover, textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
 
@@ -62,17 +62,17 @@ const answerThemes = {
   },
   selected: {
     background: '#E3F8FB',
-    border: theme.color.secondary.lightBlue.base,
-    borderHovered: theme.color.secondary.lightBlue.base,
+    border: linkHover, // linkColor has insufficient contrast with background
+    borderHovered: linkHover,
     fontColor: theme.color.neutral.base,
     fontColorActive: theme.color.secondary.lightBlue.base,
-    indicatorBackground: theme.color.secondary.lightBlue.base,
+    indicatorBackground: linkColor,
   },
   unselected: {
     background: theme.color.neutral.base,
-    border: '#C6C6C6',
-    borderHovered: theme.color.secondary.lightBlue.base,
-    fontColor: '#606163',
+    border: theme.color.primary.gray.medium,
+    borderHovered: linkHover,
+    fontColor: theme.color.text.label,
     fontColorActive: '#C6C6C6',
     indicatorBackground: theme.color.neutral.base,
   },
