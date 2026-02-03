@@ -126,7 +126,7 @@ export default () => {
             />
             : null
           }
-          {currentSectionIndex === sections.length - 1 && typeof return_url === 'string'
+          {!prevNext?.next && typeof return_url === 'string'
             ? (<FormattedMessage id='i18n:assigned:button:continue'>
               {(msg) => <StyledButton component={<a href={return_url}>{msg}</a>} variant='primary' size='large' />}
             </FormattedMessage>)
