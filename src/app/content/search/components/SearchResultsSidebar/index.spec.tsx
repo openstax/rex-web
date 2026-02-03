@@ -510,7 +510,7 @@ describe('SearchResultsSidebar', () => {
 
       const closeButton = findById('close-search');
 
-      expect(closeButton.props['aria-label']).toBe('close search');
+      expect(closeButton.props['aria-label']).toBe('Close Search');
 
       component.unmount();
     });
@@ -522,7 +522,7 @@ describe('SearchResultsSidebar', () => {
       const component = renderer.create(render());
 
       // In non-sidebar mode, no results uses a different close button
-      const closeButtons = component.root.findAllByProps({ 'aria-label': 'close search' });
+      const closeButtons = component.root.findAllByProps({ 'aria-label': 'Close Search' });
 
       expect(closeButtons.length).toBeGreaterThan(0);
 
@@ -593,7 +593,7 @@ describe('SearchResultsSidebar', () => {
       component = renderer.create(render());
 
       // In non-sidebar mode, the close button has different testid for no results
-      const closeButtons = component.root.findAllByProps({ 'aria-label': 'close search' });
+      const closeButtons = component.root.findAllByProps({ 'aria-label': 'Close Search' });
       expect(closeButtons.length).toBeGreaterThan(0);
 
       component.unmount();

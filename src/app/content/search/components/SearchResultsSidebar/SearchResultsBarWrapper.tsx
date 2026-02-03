@@ -38,13 +38,25 @@ export interface ResultsSidebarProps {
   userSelectedResult: boolean;
 }
 
-const LoadingState = ({onClose}: {onClose: () => void}) => <Styled.LoadingWrapper
+type LabeledCloseButtonParameters = {
+  onClose: () => void,
+  testId?: string
+}
+function LabeledCloseButton({onClose, testId}: LabeledCloseButtonParameters) {
+  return <Styled.CloseIconButton
+    onClick={onClose}
+    data-testid={testId}
+    aria-label={useIntl().formatMessage({id: 'i18n:toolbar:search:toggle:close'})}
+  >
+    <Styled.CloseIcon />
+  </Styled.CloseIconButton>;
+}
+
+const LoadingState = ({onClose}: LabeledCloseButtonParameters) => <Styled.LoadingWrapper
 aria-label={useIntl().formatMessage({id: 'i18n:search-results:bar:loading-state'})}
 >
   <Styled.CloseIconWrapper>
-    <Styled.CloseIconButton onClick={onClose}>
-      <Styled.CloseIcon />
-    </Styled.CloseIconButton>
+      <LabeledCloseButton onClose={onClose} />
   </Styled.CloseIconWrapper>
   <Loader />
 </Styled.LoadingWrapper>;
@@ -72,13 +84,10 @@ const SearchResultsHeader = ({
           {(msg) => msg}
         </FormattedMessage>
       </Styled.SearchResultsHeaderTitle>
-      <Styled.CloseIconButton
-        onClick={onClose}
-        data-testid={testId}
-        aria-label='close search'
-      >
-        <Styled.CloseIcon />
-      </Styled.CloseIconButton>
+      <LabeledCloseButton
+        onClose={onClose}
+        testId={testId}
+      />
     </Styled.SearchResultsHeader>
   );
 };
@@ -129,13 +138,10 @@ const NoResults = ({
     ) : (
       <Styled.SearchResultsHeader emptyHeaderStyle={true}>
         <Styled.CloseIconWrapper>
-          <Styled.CloseIconButton
-            onClick={props.onClose}
-            data-testid='close-search-noresults'
-            aria-label='close search'
-          >
-            <Styled.CloseIcon />
-          </Styled.CloseIconButton>
+          <LabeledCloseButton
+            onClose={props.onClose}
+            testId='close-search-noresults'
+          />
         </Styled.CloseIconWrapper>
       </Styled.SearchResultsHeader>
     )}

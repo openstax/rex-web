@@ -236,6 +236,7 @@
   "i18n:toolbar:search:toggle": "Buscar en este libro",
   "i18n:toolbar:search:toggle:opened": "Haca clic para cerrar búsqueda",
   "i18n:toolbar:search:toggle:closed": "Haga clic para abrir búsqueda",
+  "i18n:toolbar:search:toggle:close": "Cerrar búsqueda",
   "i18n:toolbar:studyguides:button:text": "Guías",
   "i18n:toolbar:studyguides:popup:button:back-to-top": "Volver al inicio",
   "i18n:toolbar:studyguides:popup:close-button:aria-label": "Cerrar guía de estudio",

@@ -214,7 +214,7 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
         className="c2 c3"
       >
         <button
-          aria-label="close search"
+          aria-label="Close Search"
           className="c4 c5"
           data-testid="close-search-noresults"
           onClick={[Function]}
@@ -799,7 +799,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
         Search results
       </span>
       <button
-        aria-label="close search"
+        aria-label="Close Search"
         className="c4 c5"
         data-testid="close-search"
         onClick={[Function]}
@@ -1500,7 +1500,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
         Search results
       </span>
       <button
-        aria-label="close search"
+        aria-label="Close Search"
         className="c4 c5"
         data-testid="close-search"
         onClick={[Function]}
@@ -2035,6 +2035,7 @@ exports[`SearchResultsSidebar shows sidebar with loading state if there is a sea
       className="c2 c3"
     >
       <button
+        aria-label="Close Search"
         className="c4 c5"
         onClick={[Function]}
       >
