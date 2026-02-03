@@ -63,12 +63,12 @@ function uniqueSearchLabel(
   isKeyTerm: boolean,
   keyTermName?: string
 ) {
+  const extraText = `(Result ${index + 1} in ${stripHtml(title)})`;
+
   if (isKeyTerm && keyTermName) {
-    // For key terms: "[Term]: [definition] (Result N in Key Terms)"
-    return `${stripHtml(keyTermName)}: ${stripHtml(highlight)} (Result ${index + 1} in ${stripHtml(title)})`;
+    return `${stripHtml(keyTermName)}: ${stripHtml(highlight)} ${extraText}`;
   }
-  // For regular search results: keep existing format
-  return `Result ${index + 1} in ${stripHtml(title)}: ${stripHtml(highlight)}`;
+  return `${stripHtml(highlight)} ${extraText}`;
 }
 
 const OneSearchResultHit = ({
@@ -121,7 +121,7 @@ const OneSearchResultHit = ({
         </Styled.SectionContentPreview>
       );
     },
-    [activeSectionRef, book, getPage, hit, onClick, queryParams, selectedResult, testId]
+    [activeSectionRef, book, getPage, hit, onClick, queryParams, selectedResult, testId, pair?.term]
   );
 
   // inefficient data structure for search results should be addressed in the future
