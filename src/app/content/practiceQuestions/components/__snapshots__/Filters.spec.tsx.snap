@@ -449,7 +449,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 .c23:hover,
 .c23:focus {
   background-color: #f1f1f1;
-  color: #0175a7;
+  color: #0064A0;
 }
 
 .c23 .c19 {
@@ -989,7 +989,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
 .c23:hover,
 .c23:focus {
   background-color: #f1f1f1;
-  color: #0175a7;
+  color: #0064A0;
 }
 
 .c23 .c19 {

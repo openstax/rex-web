@@ -12,7 +12,7 @@ import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { AngleIcon, Fieldset } from './Filters';
 import { FiltersChange, LocationFilters } from './types';
-import { linkColor } from '../../../components/Typography';
+import { linkColor, linkHover } from '../../../components/Typography';
 
 const Row = styled.div`
   display: flex;
@@ -246,7 +246,7 @@ export const StyledSectionItem = styled(PlainButton)`
   &:hover,
   &:focus {
     background-color: ${theme.color.neutral.pageBackground};
-    color: #0175a7;
+    color: ${linkHover};
   }
 
   ${ChapterTitle} {
