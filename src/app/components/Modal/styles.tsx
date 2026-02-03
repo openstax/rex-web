@@ -78,11 +78,15 @@ export const CardWrapper = styled.div`
   z-index: 1;
 `;
 
-export const CloseModalIcon = styled(React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>((props, ref) => (
-  <button {...props} ref={ref} type='button'>
-    <Times aria-hidden='true' />
-  </button>
-)))`
+export const CloseModalIcon = styled(
+  React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
+    (props, ref) => (
+      <button {...props} ref={ref} type='button'>
+        <Times aria-hidden='true' />
+      </button>
+    )
+  )
+)`
   ${toolbarIconStyles};
   cursor: pointer;
   margin-right: 0;
