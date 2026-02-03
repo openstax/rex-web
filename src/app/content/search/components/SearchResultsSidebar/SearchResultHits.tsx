@@ -56,7 +56,18 @@ function useKeyTermPair({
   return pair;
 }
 
-function uniqueSearchLabel(index: number, title: string, highlight: string) {
+function uniqueSearchLabel(
+  index: number,
+  title: string,
+  highlight: string,
+  isKeyTerm: boolean,
+  keyTermName?: string
+) {
+  if (isKeyTerm && keyTermName) {
+    // For key terms: "[Term]: [definition] (Result N in Key Terms)"
+    return `${stripHtml(keyTermName)}: ${stripHtml(highlight)} (Result ${index + 1} in ${stripHtml(title)})`;
+  }
+  // For regular search results: keep existing format
   return `Result ${index + 1} in ${stripHtml(title)}: ${stripHtml(highlight)}`;
 }
 
@@ -94,7 +105,7 @@ const OneSearchResultHit = ({
           scrollTarget={target}
           queryParams={queryParams}
           onClick={() => onClick(thisResult)}
-          aria-label={uniqueSearchLabel(index, page.title, highlight)}
+          aria-label={uniqueSearchLabel(index, page.title, highlight, isKeyTermHit(hit), pair?.term)}
           ref={isSelected ? activeSectionRef : undefined}
         >
           {isKeyTermHit(hit) ? (
