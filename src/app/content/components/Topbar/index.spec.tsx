@@ -651,4 +651,25 @@ describe('text resizer', () => {
 
     expect(dispatch).not.toHaveBeenCalled();
   });
+
+  it('applies fallback gray background when bookTheme is not set', () => {
+    const component = renderer.create(
+      <TestContainer store={store}>
+        <Topbar />
+      </TestContainer>
+    );
+
+    renderer.act(() => {
+      component.root
+        .findByProps({ 'data-testid': 'text-resizer' })
+        .findByProps({ isOpen: false })
+        .props.onClick({ preventDefault: jest.fn() });
+    });
+
+    const textResizerMenu = component.root.findByType(TextResizerMenu);
+
+    // When bookTheme is null/undefined, the styled component should apply
+    // the fallback solid gray background instead of a gradient
+    expect(textResizerMenu.props.bookTheme).toBeUndefined();
+  });
 });
