@@ -139,7 +139,7 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
 
 .c8 {
   font-size: 1.6rem;
-  color: #027eb5;
+  color: #027EB5;
 }
 
 .c9 {

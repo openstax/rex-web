@@ -12,6 +12,7 @@ import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { AngleIcon, Fieldset } from './Filters';
 import { FiltersChange, LocationFilters } from './types';
+import { linkColor, linkHover } from '../../../components/Typography';
 
 const Row = styled.div`
   display: flex;
@@ -239,12 +240,13 @@ export const StyledSectionItem = styled(PlainButton)`
   ${textStyle}
 
   &[aria-current="true"] {
-    color: #027eb5;
+    color: ${linkColor};
   }
 
   &:hover,
   &:focus {
     background-color: ${theme.color.neutral.pageBackground};
+    color: ${linkHover};
   }
 
   ${ChapterTitle} {
