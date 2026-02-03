@@ -247,8 +247,6 @@ describe('Assigned', () => {
   });
 
   it('renders correctly with a single section (string query)', async () => {
-    // This covers query.section NOT being an array (line 72)
-    // AND prevNext being undefined (line 96-98)
     jest.spyOn(selectNavigation, 'query').mockReturnValue({
       section: page.id,
     });
