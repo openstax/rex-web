@@ -15,7 +15,7 @@
   "i18n:a11y:keyboard-shortcuts:deselect-highlight-color": "Odznacz bieżący kolor podświetlenia",
   "i18n:a11y:keyboard-shortcuts:save-or-cancel": "Zachowaj albo odrzuć zmiany w notatce",
   "i18n:a11y:keyboard-shortcuts:creating-highlights-and-notes": "Tworzenie zakreśleń i notatek za pomocą skrótów klawiszowych",
-  "i18n:a11y:keyboard-shortcuts:caret-browsing": "Aby zaznaczać tekst i robić notatki, włącz nawigację kursorem, naciskając F7 (lub Fn+F7) w swojej przeglądarce. Pozwala to przeglądać i zaznaczać tekst za pomocą klawiszy strzałek, bez potrzeby instalowania żadnego rozszerzenia.",
+  "i18n:a11y:keyboard-shortcuts:caret-browsing": "Aby zaznaczać tekst i robić notatki, włącz nawigację kursorem, naciskając F7 (lub Fn+F7) w swojej przeglądarce. Działa to w Chrome, Firefox i Edge, umożliwiając przeglądanie i zaznaczanie tekstu za pomocą klawiszy strzałek. Safari nie obsługuje nawigacji kursorem; użytkownicy Safari mogą użyć VoiceOver (Cmd+F5), aby zaznaczać tekst za pomocą klawiatury.",
   "i18n:a11y:keyboard-shortcuts:move-focus-through-each-line": "Aktywuj fragment tekstu",
   "i18n:a11y:keyboard-shortcuts:select-text": "Zaznacz tekst",
   "i18n:a11y:keyboard-shortcuts:create-highlight-or-note": "Stwórz zakreślenie lub notatkę po zaznaczeniu tekstu",

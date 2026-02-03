@@ -74,7 +74,7 @@ const SocialIconMessage: React.FunctionComponent<{
   </Styled.SocialIcon>
 );
 
-function LinkList({children}: React.PropsWithChildren<{}>) {
+function LinkList({ children }: React.PropsWithChildren<{}>) {
   return (
     <Styled.LinkListWrapper>
       {React.Children.toArray(children).map((c, i) => <li key={i}>{c}</li>)}
@@ -95,14 +95,13 @@ const OpenKeyboardShortcutsLink = () => {
   return (
     <FormattedMessage id='i18n:a11y:keyboard-shortcuts:heading'>
       {(txt) => (
-        <Styled.FooterLink
-          as="a"
-          href="#"
+        <Styled.FooterButton
+          type="button"
           onClick={openKeyboardShortcutsMenu}
           data-testid="shortcut-link"
         >
           {txt}
-        </Styled.FooterLink>
+        </Styled.FooterButton>
       )}
     </FormattedMessage>
   );
@@ -253,7 +252,7 @@ export function ContactDialog({
 }: {
   isOpen: boolean;
   close: () => void;
-  contactFormParams?: {key: string; value: string}[];
+  contactFormParams?: { key: string; value: string }[];
   className?: string;
 }) {
   const contactFormUrl = React.useMemo(() => {
@@ -261,7 +260,7 @@ export function ContactDialog({
 
     if (contactFormParams !== undefined) {
       const params = contactFormParams
-        .map(({key, value}) => encodeURIComponent(`${key}=${value}`))
+        .map(({ key, value }) => encodeURIComponent(`${key}=${value}`))
         .map((p) => `body=${p}`)
         .join('&');
 
@@ -286,7 +285,7 @@ export function useContactDialog() {
     () => {
       const win = window;
 
-      const closeOnSubmit = ({data}: MessageEvent) => {
+      const closeOnSubmit = ({ data }: MessageEvent) => {
         if (data === 'CONTACT_FORM_SUBMITTED') {
           close();
         }
@@ -304,7 +303,7 @@ export function useContactDialog() {
 const PortalColumn2 = ({ portalName }: { portalName: string }) => {
   const { isOpen, open, close } = useContactDialog();
   const contactFormParams = [
-    {key: 'source_url', value: window?.location.href},
+    { key: 'source_url', value: window?.location.href },
   ].filter((p): p is { key: string; value: string } => !!p.value);
 
   return (

@@ -15,7 +15,7 @@
   "i18n:a11y:keyboard-shortcuts:deselect-highlight-color": "Desmarcar el color de resaltado actual",
   "i18n:a11y:keyboard-shortcuts:save-or-cancel": "Guardar o cancelar cambios a una nota",
   "i18n:a11y:keyboard-shortcuts:creating-highlights-and-notes": "Cómo resaltar y agregar notas con el teclado",
-  "i18n:a11y:keyboard-shortcuts:caret-browsing": "Para seleccionar texto y tomar notas, active la navegación por cursor presionando F7 (o Fn+F7) en su navegador. Esto le permitirá navegar y seleccionar texto usando las flechas del teclado, sin necesidad de ninguna extensión.",
+  "i18n:a11y:keyboard-shortcuts:caret-browsing": "Para seleccionar texto y tomar notas, active la navegación por cursor presionando F7 (o Fn+F7) en su navegador. Esto funciona en Chrome, Firefox y Edge, permitiéndole navegar y seleccionar texto usando las flechas del teclado. Safari no admite la navegación por cursor; los usuarios de Safari pueden usar VoiceOver (Cmd+F5) para seleccionar texto con el teclado.",
   "i18n:a11y:keyboard-shortcuts:move-focus-through-each-line": "Navegar el foco por cada línea de texto",
   "i18n:a11y:keyboard-shortcuts:select-text": "Seleccionar texto",
   "i18n:a11y:keyboard-shortcuts:create-highlight-or-note": "Resaltar o crear una nota después de seleccionar el texto",
