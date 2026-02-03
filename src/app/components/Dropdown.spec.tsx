@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import * as focusUtils from '../../app/focusUtils';
-import * as keyboardUtils from '../../app/keyboardUtils';
+import * as focusUtils from '../reactUtils/focusUtils';
+import * as keyboardUtils from '../reactUtils/keyboardUtils';
 import TestContainer from '../../test/TestContainer';
 import Dropdown, { DropdownItem, DropdownList, callOrRefocus } from './Dropdown';
 

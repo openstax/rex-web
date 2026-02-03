@@ -12,8 +12,8 @@
 
 import type { MediaQueryListEvent } from '@openstax/types/lib.dom';
 import React from 'react';
-import theme from './theme';
-import { assertWindow } from './utils';
+import theme from '../theme';
+import { assertWindow } from '../utils';
 
 const useMatchMediaQuery = (mediaQuery: string) => {
   const matchMedia = React.useMemo(

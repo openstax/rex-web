@@ -13,8 +13,8 @@
 
 import type { Document, Element, Event, HTMLElement, KeyboardEvent } from '@openstax/types/lib.dom';
 import React from 'react';
-import { isTextInputHtmlElement } from './guards';
-import { assertDocument } from './utils';
+import { isTextInputHtmlElement, isElement } from '../guards';
+import { assertDocument } from '../utils';
 
 export type OnKeyConfig = {key: string, shiftKey?: boolean};
 
@@ -134,7 +134,3 @@ export const useKeyCombination = (
     return () => document.removeEventListener('keydown', handler);
   }, [document, handler]);
 };
-
-function isElement(target: EventTarget | null): target is Element {
-  return target !== null && 'tagName' in target;
-}

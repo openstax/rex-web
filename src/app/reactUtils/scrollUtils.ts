@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import { assertDocument } from './utils';
+import { assertDocument } from '../utils';
 
 export const useOnScrollTopOffset = () => {
   const document = assertDocument();

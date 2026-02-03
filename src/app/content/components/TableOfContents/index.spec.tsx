@@ -10,7 +10,7 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import * as reactUtils from '../../../reactUtils';
-import * as mediaUtils from '../../../mediaQueryUtils';
+import * as mediaUtils from '../../../reactUtils/mediaQueryUtils';
 import { AppState, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import * as actions from '../../actions';

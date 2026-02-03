@@ -15,8 +15,8 @@
 
 import type { HTMLElement, HTMLElementEventMap } from '@openstax/types/lib.dom';
 import React from 'react';
-import { isWindow } from './guards';
-import { assertDefined } from './utils';
+import { isWindow } from '../guards';
+import { assertDefined } from '../utils';
 
 // Re-export all focus-related utilities
 export {

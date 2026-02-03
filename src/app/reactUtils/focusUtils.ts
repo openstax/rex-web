@@ -21,9 +21,9 @@ import type {
 } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Highlight } from '@openstax/highlighter';
-import { addSafeEventListener } from './domUtils';
-import { isElement } from './guards';
-import { assertDocument } from './utils';
+import { addSafeEventListener } from '../domUtils';
+import { isElement } from '../guards';
+import { assertDocument } from '../utils';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E>(null);
