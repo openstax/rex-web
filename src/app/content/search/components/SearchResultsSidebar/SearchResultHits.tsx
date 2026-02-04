@@ -56,8 +56,19 @@ function useKeyTermPair({
   return pair;
 }
 
-function uniqueSearchLabel(index: number, title: string, highlight: string) {
-  return `Result ${index + 1} in ${stripHtml(title)}: ${stripHtml(highlight)}`;
+function uniqueSearchLabel(
+  index: number,
+  title: string,
+  highlight: string,
+  isKeyTerm: boolean,
+  keyTermName?: string
+) {
+  const extraText = `(Result ${index + 1} in ${stripHtml(title)})`;
+
+  if (isKeyTerm && keyTermName) {
+    return `${stripHtml(keyTermName)}: ${stripHtml(highlight)} ${extraText}`;
+  }
+  return `${stripHtml(highlight)} ${extraText}`;
 }
 
 const OneSearchResultHit = ({
@@ -94,7 +105,7 @@ const OneSearchResultHit = ({
           scrollTarget={target}
           queryParams={queryParams}
           onClick={() => onClick(thisResult)}
-          aria-label={uniqueSearchLabel(index, page.title, highlight)}
+          aria-label={uniqueSearchLabel(index, page.title, highlight, isKeyTermHit(hit), pair?.term)}
           ref={isSelected ? activeSectionRef : undefined}
         >
           {isKeyTermHit(hit) ? (
@@ -110,7 +121,7 @@ const OneSearchResultHit = ({
         </Styled.SectionContentPreview>
       );
     },
-    [activeSectionRef, book, getPage, hit, onClick, queryParams, selectedResult, testId]
+    [activeSectionRef, book, getPage, hit, onClick, queryParams, selectedResult, testId, pair?.term]
   );
 
   // inefficient data structure for search results should be addressed in the future
