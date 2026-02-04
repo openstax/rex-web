@@ -2,10 +2,10 @@ import type { KeyboardEvent, MediaQueryList, HTMLElement } from '@openstax/types
 import React from 'react';
 import ReactDOM from 'react-dom';
 import renderer from 'react-test-renderer';
-import { resetModules, runHooks } from '../test/utils';
-import * as utils from './reactUtils';
-import { assertDocument, assertWindow } from './utils';
-import { dispatchKeyDownEvent } from '../test/reactutils';
+import { resetModules, runHooks } from '../../test/utils';
+import * as utils from '.';
+import { assertDocument, assertWindow } from '../utils';
+import { dispatchKeyDownEvent } from '../../test/reactutils';
 import { Highlight } from '@openstax/highlighter';
 import { act } from 'react-dom/test-utils';
 
