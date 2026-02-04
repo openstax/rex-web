@@ -1,13 +1,15 @@
 import pytest
 
-from e2e.ui.pages.home import HomeRex
-
-import asyncio
+from e2e_tests.e2e.ui.pages.home import HomeRex
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")])
-async def test_unsuccessful_search(chrome_page, base_url, book_slug, page_slug, rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_unsuccessful_search(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -25,7 +27,10 @@ async def test_unsuccessful_search(chrome_page, base_url, book_slug, page_slug, 
 
     await chrome_page.keyboard.press("Enter")
 
-    assert "Sorry, no results found for " in await home.search_result_is_visible.inner_text()
+    assert (
+        "Sorry, no results found for "
+        in await home.search_result_is_visible.inner_text()
+    )
 
     assert "Preface" not in await home.book_toc_slideout_is_visible.inner_text()
 
@@ -35,8 +40,12 @@ async def test_unsuccessful_search(chrome_page, base_url, book_slug, page_slug, 
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")])
-async def test_successful_search(chrome_page, base_url, book_slug, page_slug, rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_successful_search(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -48,7 +57,7 @@ async def test_successful_search(chrome_page, base_url, book_slug, page_slug, re
 
     await home.click_search()
 
-    await home.fill_search_field('“cannibal galaxy”')
+    await home.fill_search_field("“cannibal galaxy”")
 
     # THEN: Search results are shown
 
@@ -56,16 +65,23 @@ async def test_successful_search(chrome_page, base_url, book_slug, page_slug, re
 
     assert "4 search results for " in await home.search_result_is_visible.inner_text()
 
-    assert '“cannibal galaxy”' in await home.search_result_is_visible.inner_text()
+    assert "“cannibal galaxy”" in await home.search_result_is_visible.inner_text()
 
     await home.close_successful_search_result_sidebar()
 
-    assert "4 search results for " not in await home.book_toc_slideout_is_visible.inner_text()
+    assert (
+        "4 search results for "
+        not in await home.book_toc_slideout_is_visible.inner_text()
+    )
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")])
-async def test_search_result(chrome_page, base_url, book_slug, page_slug, rex_user, rex_password):
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_search_result(
+    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -77,7 +93,7 @@ async def test_search_result(chrome_page, base_url, book_slug, page_slug, rex_us
 
     await home.click_search()
 
-    await home.fill_search_field('“cannibal galaxy”')
+    await home.fill_search_field("“cannibal galaxy”")
 
     # THEN: Search results are shown
 
