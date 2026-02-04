@@ -160,7 +160,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
       <button
         aria-controls="practice-filter-chapter"
         aria-expanded={false}
-        aria-label="Filter PQ by Chapter & Section"
+        aria-label="Select Practice Questions by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
@@ -556,7 +556,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
       <button
         aria-controls="practice-filter-chapter"
         aria-expanded={true}
-        aria-label="Filter PQ by Chapter & Section"
+        aria-label="Select Practice Questions by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
@@ -635,7 +635,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                     className="c22"
                   >
                     <button
-                      aria-label="Filter PQ by  section1"
+                      aria-label="Select Practice Questions by  section1"
                       className="c23"
                       data-analytics-label="Filter PQ by  section1"
                       onClick={[Function]}
@@ -650,7 +650,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                       />
                     </button>
                     <button
-                      aria-label="Filter PQ by  section2"
+                      aria-label="Select Practice Questions by  section2"
                       className="c23"
                       data-analytics-label="Filter PQ by  section2"
                       onClick={[Function]}
@@ -704,7 +704,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                   >
                     <button
                       aria-current="true"
-                      aria-label="Filter PQ by  section21"
+                      aria-label="Select Practice Questions by  section21"
                       className="c23"
                       data-analytics-label="Filter PQ by  section21"
                       onClick={[Function]}
@@ -1096,7 +1096,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
       <button
         aria-controls="practice-filter-chapter"
         aria-expanded={true}
-        aria-label="Filter PQ by Chapter & Section"
+        aria-label="Select Practice Questions by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
@@ -1175,7 +1175,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                     className="c22"
                   >
                     <button
-                      aria-label="Filter PQ by  section1"
+                      aria-label="Select Practice Questions by  section1"
                       className="c23"
                       data-analytics-label="Filter PQ by  section1"
                       onClick={[Function]}
@@ -1190,7 +1190,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                       />
                     </button>
                     <button
-                      aria-label="Filter PQ by  section2"
+                      aria-label="Select Practice Questions by  section2"
                       className="c23"
                       data-analytics-label="Filter PQ by  section2"
                       onClick={[Function]}
@@ -1243,7 +1243,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                     className="c22"
                   >
                     <button
-                      aria-label="Filter PQ by  section21"
+                      aria-label="Select Practice Questions by  section21"
                       className="c23"
                       data-analytics-label="Filter PQ by  section21"
                       onClick={[Function]}
