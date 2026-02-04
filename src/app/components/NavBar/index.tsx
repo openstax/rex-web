@@ -1,20 +1,20 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
+import { Dialog } from 'react-aria-components';
+import { ProfileMenu, ProfileMenuButton, ProfileMenuItem, UserIcon } from '@openstax/ui-components';
 import openstaxLogo from '../../../assets/logo.svg';
 import * as authSelect from '../../auth/selectors';
 import * as selectHighlights from '../../content/highlights/selectors';
 import { User } from '../../auth/types';
 import * as selectNavigation from '../../navigation/selectors';
 import { AppState } from '../../types';
-import OnScroll, { OnScrollCallback } from '../OnScroll';
 import * as Styled from './styled';
-import UserIcon from '../../../assets/UserIcon';
 import * as guards from '../../guards';
 import showConfirmation from '../../content/highlights/components/utils/showConfirmation';
 import { useServices } from '../../context/Services';
 import { assertWindow } from '../../utils';
+import { useMatchMobileQuery } from '../../reactUtils';
 
 export { maxNavWidth, navDesktopHeight, navMobileHeight } from './styled';
 
@@ -36,110 +36,165 @@ export const useUnsavedHighlightsValidator = (hasUnsavedHighlight: boolean) => {
   };
 };
 
-export const Dropdown: FunctionComponent<{
+export const MobileDropdown: FunctionComponent<{
   user: User,
   currentPath: string,
-  logOutHandler: (e: React.MouseEvent, url: string) => void
-}> = ({user, currentPath, logOutHandler}) => {
-
-  const overlay = React.useRef<HTMLElement>();
-  const logOutUrl = '/accounts/logout?r=' + currentPath;
-
-  const blockScroll: OnScrollCallback = (e) => {
-    if (typeof(window) === 'undefined' || !overlay.current) {
-      return;
-    }
-
-    const style = window.getComputedStyle(overlay.current);
-    const visible = style.height !== '0px';
-
-    if (visible) {
-      e.preventDefault();
-    }
-  };
+  isOpen: boolean,
+  onOpenChange: (isOpen: boolean) => void,
+  onAction: (key: React.Key) => void
+}> = ({user, currentPath, isOpen, onOpenChange, onAction}) => {
+  const intl = useIntl();
 
   return (
-    <OnScroll callback={blockScroll}>
-      <Styled.DropdownOverlay
-        tabIndex='-1'
-        ref={overlay}
-        data-testid='nav-overlay'
-      >
-        <a aria-hidden='true' tabIndex={-1} href='/'>
-          <Styled.OverlayLogo
-            src={openstaxLogo}
-            alt={useIntl().formatMessage({ id: 'i18n:nav:logo:alt' })}
-          />
-        </a>
-        <div>
-          <FormattedMessage
-            id='i18n:nav:hello:text'
-            values={{ name: user.firstName }}
-          >
-            {msg => <Styled.OverlayHeading>{msg}</Styled.OverlayHeading>}
-          </FormattedMessage>
-          <Styled.DropdownList id='dropdown-menu' role='menu'>
-            <li role='presentation'>
-              <FormattedMessage id='i18n:nav:profile:text'>
-                {msg => (
-                  <a href='/accounts/profile' target='_blank' role='menuitem'>
-                    {msg}
-                  </a>
-                )}
+    <Styled.MobileMenuOverlay isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Styled.MobileMenuModal>
+        <Dialog aria-label={intl.formatMessage({ id: 'i18n:nav:hello:text' }, { name: user.firstName })}>
+          <Styled.DropdownOverlay data-testid='nav-overlay'>
+            <a aria-hidden='true' tabIndex={-1} href='/'>
+              <Styled.OverlayLogo
+                src={openstaxLogo}
+                alt={intl.formatMessage({ id: 'i18n:nav:logo:alt' })}
+              />
+            </a>
+            <Styled.TimesIcon onClick={() => onOpenChange(false)} />
+            <div>
+              <FormattedMessage
+                id='i18n:nav:hello:text'
+                values={{ name: user.firstName }}
+              >
+                {msg => <Styled.OverlayHeading>{msg}</Styled.OverlayHeading>}
               </FormattedMessage>
-            </li>
-            <li role='presentation'>
-              <FormattedMessage id='i18n:nav:logout:text'>
-                {msg => (
-                  <a
-                    href={logOutUrl}
-                    role='menuitem'
-                    onClick={e => logOutHandler(e, logOutUrl)}
-                  >
-                    {msg}
-                  </a>
-                )}
-              </FormattedMessage>
-            </li>
-          </Styled.DropdownList>
-        </div>
-      </Styled.DropdownOverlay>
-    </OnScroll>
-  );
-};
-
-const DropdownToggle: FunctionComponent<{ user: User }> = ({
-  user: { firstName, lastName },
-}) => {
-  const renderEl = firstName && lastName ? (firstName[0] + lastName[0]).toUpperCase() : <UserIcon />;
-  return (
-    <Styled.DropdownToggle
-      tabIndex='0'
-      data-testid='user-nav-toggle'
-      aria-label='account actions'
-      aria-haspopup='true'
-      aria-controls='dropdown-menu'
-    >
-      {renderEl}
-    </Styled.DropdownToggle>
+              <Styled.DropdownList id='dropdown-menu' role='menu'>
+                <li role='presentation'>
+                  <FormattedMessage id='i18n:nav:profile:text'>
+                    {msg => (
+                      <a
+                        href='/accounts/profile'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        role='menuitem'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onAction('profile');
+                        }}
+                      >
+                        {msg}
+                      </a>
+                    )}
+                  </FormattedMessage>
+                </li>
+                <li role='presentation'>
+                  <FormattedMessage id='i18n:nav:logout:text'>
+                    {msg => (
+                      <a
+                        href={'/accounts/logout?r=' + currentPath}
+                        role='menuitem'
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onAction('logout');
+                        }}
+                      >
+                        {msg}
+                      </a>
+                    )}
+                  </FormattedMessage>
+                </li>
+              </Styled.DropdownList>
+            </div>
+          </Styled.DropdownOverlay>
+        </Dialog>
+      </Styled.MobileMenuModal>
+    </Styled.MobileMenuOverlay>
   );
 };
 
 const LoggedInState: FunctionComponent<{
   user: User;
   currentPath: string;
-  logOutHandler: (e: React.MouseEvent, url: string) => void
+  hasUnsavedHighlight: boolean;
 }> = ({
   user,
   currentPath,
-  logOutHandler,
-}) => (
-  <Styled.DropdownContainer data-testid='user-nav'>
-    <DropdownToggle user={user} />
-    <Dropdown user={user} currentPath={currentPath} logOutHandler={logOutHandler} />
-    <Styled.TimesIcon />
-  </Styled.DropdownContainer>
-);
+  hasUnsavedHighlight,
+}) => {
+  const intl = useIntl();
+  const isMobile = useMatchMobileQuery();
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const services = useServices();
+
+  useEffect(() => {
+    if (!isMobile) {
+      setOverlayOpen(false);
+    }
+  }, [isMobile]);
+
+  const handleAction = async(key: React.Key) => {
+    if (key === 'profile') {
+      const newWindow = assertWindow().open('/accounts/profile', '_blank', 'noopener,noreferrer');
+      if (newWindow) {
+        newWindow.opener = null;
+      }
+    }
+
+    if (key === 'logout') {
+      const logOutUrl = '/accounts/logout?r=' + currentPath;
+      if (hasUnsavedHighlight) {
+        const confirmed = await showConfirmation(services);
+        if (confirmed) {
+          assertWindow().location.assign(logOutUrl);
+        }
+      } else {
+        assertWindow().location.assign(logOutUrl);
+      }
+    }
+
+    setOverlayOpen(false);
+  };
+
+  // On mobile, render only a button that opens the full-screen overlay
+  // On desktop, render ProfileMenu with its popover
+  if (isMobile) {
+    return (
+      <Styled.DropdownContainer data-testid='user-nav'>
+        <ProfileMenuButton
+          onPress={() => setOverlayOpen(true)}
+          data-testid='user-nav-toggle'
+          aria-label='User profile'
+          aria-expanded={overlayOpen}
+        >
+          {user.firstName && user.lastName
+            ? (user.firstName[0] + user.lastName[0]).toUpperCase()
+            : <UserIcon />
+          }
+        </ProfileMenuButton>
+        <MobileDropdown
+          user={user}
+          currentPath={currentPath}
+          isOpen={overlayOpen}
+          onOpenChange={setOverlayOpen}
+          onAction={handleAction}
+        />
+      </Styled.DropdownContainer>
+    );
+  }
+
+  return (
+    <Styled.DropdownContainer data-testid='user-nav'>
+      <ProfileMenu
+        user={user}
+        onAction={handleAction}
+        data-testid='user-nav-toggle'
+      >
+        <ProfileMenuItem id='profile'>
+          {intl.formatMessage({ id: 'i18n:nav:profile:text' })}
+        </ProfileMenuItem>
+        <ProfileMenuItem id='logout'>
+          {intl.formatMessage({ id: 'i18n:nav:logout:text' })}
+        </ProfileMenuItem>
+      </ProfileMenu>
+    </Styled.DropdownContainer>
+  );
+};
 
 const LoggedOutState: FunctionComponent<{currentPath: string}> = ({currentPath}) => <FormattedMessage id='i18n:nav:login:text'>
   {(msg) => <Styled.Link href={'/accounts/login?r=' + currentPath}
@@ -163,6 +218,7 @@ interface NavigationBarProps {
 const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, params}: NavigationBarProps) => {
   const logoUrl = guards.isPortaled(params) ? `/${params.portalName}/` : '/';
   const unsavedHighlightsHandler = useUnsavedHighlightsValidator(hasUnsavedHighlight);
+  const intl = useIntl();
 
 
   return (
@@ -175,11 +231,11 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
           <Styled.HeaderImage
             role='img'
             src={openstaxLogo}
-            alt={useIntl().formatMessage({id: 'i18n:nav:logo:alt'})}
+            alt={intl.formatMessage({id: 'i18n:nav:logo:alt'})}
           />
         </a>
         {loggedOut && <LoggedOutState currentPath={currentPath} />}
-        {user && <LoggedInState user={user} currentPath={currentPath} logOutHandler={unsavedHighlightsHandler} />}
+        {user && <LoggedInState user={user} currentPath={currentPath} hasUnsavedHighlight={hasUnsavedHighlight} />}
       </Styled.TopBar>
     </Styled.BarWrapper>
   );
