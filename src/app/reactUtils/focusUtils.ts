@@ -65,7 +65,7 @@ export function createTrapTab(...elements: HTMLElement[]) {
     .map((container) => {
       const contents = Array.from(
         container.querySelectorAll<HTMLElement>(focusableItemQuery)
-      ).filter((el) => !isHidden(el));
+      );
 
       return {
         container,

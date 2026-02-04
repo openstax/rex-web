@@ -6,7 +6,7 @@ import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
-import { useTrapTabNavigation } from '../../../reactUtils';
+import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
