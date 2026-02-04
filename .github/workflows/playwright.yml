@@ -4,7 +4,7 @@ on: [pull_request]
 
 defaults:
   run:
-    working-directory: playwright
+    working-directory: e2e_tests
 
 jobs:
   playwright-python:

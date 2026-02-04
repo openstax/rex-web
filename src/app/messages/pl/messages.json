@@ -236,6 +236,7 @@
   "i18n:toolbar:search:toggle": "Szukaj w książce",
   "i18n:toolbar:search:toggle:opened": "Kliknij, aby zamknąć wyszukiwanie",
   "i18n:toolbar:search:toggle:closed": "Kliknij, aby otworzyć wyszukiwanie",
+  "i18n:toolbar:search:toggle:close": "Zamknąć wyszukiwanie",  
   "i18n:toolbar:studyguides:button:text": "Kompendia",
   "i18n:toolbar:studyguides:popup:button:back-to-top": "Idź na górę",
   "i18n:toolbar:studyguides:popup:close-button:aria-label": "Zamknij Kompendia",
