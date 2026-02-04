@@ -29,7 +29,15 @@ const Modal = ({
                 </Styled.Heading>
               )}
             </FormattedMessage>
-            <Styled.CloseModalIcon ref={closeButtonRef} onClick={onModalClose} />
+            <FormattedMessage id="i18n:modal:close">
+              {(txt) => (
+                <Styled.CloseModalIcon
+                  ref={closeButtonRef}
+                  onClick={onModalClose}
+                  aria-label={txt}
+                />
+              )}
+            </FormattedMessage>
           </Styled.Header>
           {children}
         </Styled.Card>

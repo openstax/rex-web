@@ -36,7 +36,6 @@ const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
       className='error-modal'
       heading='i18n:error:boundary:heading'
       onModalClose={clearError}
-      closeButtonRef={closeButtonRef}
     >
       <Body >
         <FormattedMessage id='i18n:error:boundary:sub-heading'>

@@ -351,7 +351,7 @@ describe('mediaModalManager', () => {
       clearSpy.mockRestore();
     });
 
-    it('clears opening element even if it is not found (correction: logic shows it only clears if found)', () => {
+    it('does not clear opening element when none is found', () => {
       const mockButton = document.createElement('button');
       mockButton.className = 'image-button-wrapper';
       const mockImg = document.createElement('img');
@@ -444,8 +444,9 @@ describe('mediaModalManager', () => {
 
     it('does not crash when calling open before mount', () => {
       const mockButton = document.createElement('button');
-      manager.open(mockButton as any);
-      // Should capture but setModalContent is null, so it shouldn't crash
+      expect(() => {
+        manager.open(mockButton as any);
+      }).not.toThrow();
     });
 
     it('does not open modal if image is missing in open call', () => {
