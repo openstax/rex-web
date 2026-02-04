@@ -175,6 +175,11 @@ exports[`Modal matches snapshot 1`] = `
           Discard unsaved changes?
         </h1>
         <button
+          aria-label={
+            Array [
+              "Close modal",
+            ]
+          }
           className="c5"
           onClick={[Function]}
           type="button"
@@ -391,6 +396,11 @@ exports[`Modal matches snapshot with children 1`] = `
           Discard unsaved changes?
         </h1>
         <button
+          aria-label={
+            Array [
+              "Close modal",
+            ]
+          }
           className="c5"
           onClick={[Function]}
           type="button"
