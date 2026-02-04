@@ -6,6 +6,8 @@ import styled from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc, useOnKey } from '../../../reactUtils';
 import theme from '../../../theme';
+import { useModalFocusManagement } from '../../hooks/useModalFocusManagement';
+import { captureOpeningElement } from '../../utils/focusManager';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
@@ -24,26 +26,20 @@ const KeyboardShortcutsPopup = () => {
   const isKeyboardShortcutsOpen = useSelector(ksSelectors.isKeyboardShortcutsOpen);
   const bookTheme = useSelector(bookThemeSelector);
   const intl = useIntl();
+  const { closeButtonRef } = useModalFocusManagement({ modalId: 'keyboardshortcuts', isOpen: isKeyboardShortcutsOpen });
 
   const openAndTrack = () => {
+    captureOpeningElement('keyboardshortcuts');
     dispatch(openKeyboardShortcutsMenu());
     trackOpenCloseKS();
   };
-  useOnKey({key: '?', shiftKey: true}, null, !isKeyboardShortcutsOpen, openAndTrack);
+  useOnKey({ key: '?', shiftKey: true }, null, !isKeyboardShortcutsOpen, openAndTrack);
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     dispatch(closeKeyboardShortcutsMenu());
     trackOpenCloseKS(method);
   }, [trackOpenCloseKS, dispatch]);
   useOnEsc(isKeyboardShortcutsOpen, closeAndTrack('esc'));
-
-  React.useEffect(() => {
-    const popUp = popUpRef.current;
-
-    if (popUp && isKeyboardShortcutsOpen) {
-      popUp.focus();
-    }
-  }, [isKeyboardShortcutsOpen]);
 
   return isKeyboardShortcutsOpen ?
     <StyledModal
@@ -62,8 +58,9 @@ const KeyboardShortcutsPopup = () => {
           <FormattedMessage id='i18n:a11y:keyboard-shortcuts:heading' />
         </h1>
         <CloseIconWrapper
+          ref={closeButtonRef}
           data-testid='close-keyboard-shortcuts-popup'
-          aria-label={intl.formatMessage({id: 'i18n:a11y:keyboard-shortcuts:close'})}
+          aria-label={intl.formatMessage({ id: 'i18n:a11y:keyboard-shortcuts:close' })}
           data-analytics-label='Click to close Keyboard Shortcuts modal'
           onClick={closeAndTrack('button')}
         >
@@ -72,7 +69,7 @@ const KeyboardShortcutsPopup = () => {
       </Header>
       <ShowKeyboardShortcuts />
     </StyledModal>
-  : null;
+    : null;
 };
 
 export default KeyboardShortcutsPopup;
