@@ -10,6 +10,7 @@ import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
 import { renderToDom } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import * as reactUtils from '../../../reactUtils';
+import * as mediaUtils from '../../../reactUtils/mediaQueryUtils';
 import { AppState, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import * as actions from '../../actions';
@@ -107,9 +108,9 @@ describe('TableOfContents', () => {
   });
 
   it('opens and closes', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileQuery')
       .mockReturnValue(true);
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
     const component = renderer.create(Component);
 
@@ -127,7 +128,7 @@ describe('TableOfContents', () => {
   });
 
   it('focuses when opening', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
     const { root } = renderToDom(<TestContainer store={store}>
@@ -157,7 +158,7 @@ describe('TableOfContents', () => {
   });
 
   it('restores focus to TOC button when closing', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
     // Create a mock button element to restore focus to
@@ -209,7 +210,7 @@ describe('TableOfContents', () => {
   });
 
   it('focuses close button on Shift+Tab in tree', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
     // Create a mock close button element first
@@ -256,7 +257,7 @@ describe('TableOfContents', () => {
   });
 
   it('does not focus close button when key is not Shift+Tab', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
     const mockCloseButton = document!.createElement('button');
@@ -296,7 +297,7 @@ describe('TableOfContents', () => {
   });
 
   it('does not focus close button when close button is not found', () => {
-    jest.spyOn(reactUtils, 'useMatchMobileMediumQuery')
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
       .mockReturnValue(true);
 
     const component = renderer.create(<TestContainer store={store}>
