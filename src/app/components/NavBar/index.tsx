@@ -159,7 +159,7 @@ const LoggedInState: FunctionComponent<{
         <ProfileMenuButton
           onPress={() => setOverlayOpen(true)}
           data-testid='user-nav-toggle'
-          aria-label='account actions'
+          aria-label='User profile'
           aria-expanded={overlayOpen}
         >
           {user.firstName && user.lastName
