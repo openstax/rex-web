@@ -372,6 +372,40 @@ describe('content', () => {
         jest.useRealTimers();
       });
 
+      it('handles when window.open returns null (blocked popup)', async() => {
+        jest.useFakeTimers();
+        const window = assertWindow();
+        const mockOpen = jest.fn().mockReturnValue(null);
+        const originalOpen = window.open;
+        window.open = mockOpen;
+
+        const { node, unmount } = renderToDom(render());
+
+        await ReactTestUtils.act(async() => {
+          const menuToggle = node.querySelector('[data-testid="user-nav-toggle"]');
+          expect(menuToggle).toBeTruthy();
+          menuToggle!.click();
+          jest.runAllTimers();
+        });
+
+        await ReactTestUtils.act(async() => {
+          const profileLink = window.document.body.querySelector('a[href="/accounts/profile"]');
+          expect(profileLink).toBeTruthy();
+          (profileLink as any).click();
+          jest.runAllTimers();
+        });
+
+        expect(mockOpen).toHaveBeenCalledWith('/accounts/profile', '_blank', 'noopener,noreferrer');
+
+        await ReactTestUtils.act(async() => {
+          unmount();
+          jest.runAllTimers();
+        });
+
+        window.open = originalOpen;
+        jest.useRealTimers();
+      });
+
       it('closes overlay when transitioning from mobile to desktop and back', async() => {
         const window = assertWindow();
         const container = window.document.createElement('div');
