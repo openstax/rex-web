@@ -24,7 +24,7 @@ import {
 } from '../actions';
 import { HighlightData } from '../types';
 import { getHighlightLocationFilterForPage } from '../utils';
-import { mainCardStyles } from './cardStyles';
+import { mainCardStyles, portalCardStyles } from './cardStyles';
 import DisplayNote from './DisplayNote';
 import EditCard from './EditCard';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
@@ -293,16 +293,22 @@ const StyledCard = styled(Card)`
   ${mainCardStyles}
 `;
 
+const PortalStyledCard = styled(Card)`
+  ${portalCardStyles}
+`;
+
 // Styling is expensive and most Cards don't need to render
-function PreCard(props: CardProps) {
+function PreCard(props: CardProps & { usePortal?: boolean }) {
   const computedProps = useComputedProps(props);
   const preferEnd = getPreferEnd();
 
   if (!computedProps.annotation && (!props.isActive)) {
     return null;
   }
+
+  const CardComponent = props.usePortal ? PortalStyledCard : StyledCard;
   return (
-    <StyledCard {...props} preferEnd={preferEnd} />
+    <CardComponent {...props} preferEnd={preferEnd} />
   );
 }
 

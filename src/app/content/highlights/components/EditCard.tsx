@@ -161,6 +161,11 @@ function ActiveEditCard({
       const targetAsNode = target as HTMLElement;
       const mainEl = document?.getElementById(MAIN_CONTENT_ID);
 
+      // Don't deselect if focus moved into the card itself
+      if (targetAsNode.closest('[data-highlight-card]')) {
+        return;
+      }
+
       if (!props.data?.color && targetAsNode !== mainEl && mainEl?.contains(targetAsNode)) {
         blurIfNotEditing();
         document?.getSelection()?.removeAllRanges();
