@@ -22,6 +22,20 @@ import { getHighlightBottomOffset, getHighlightTopOffset } from './cardUtils';
 import { WrapperProps } from './CardWrapper';
 import { cardBorder } from './style';
 
+export const getHighlightViewportTop = (highlight: CardProps['highlight']): number | undefined => {
+  if (!highlight.range || !highlight.range.getBoundingClientRect) {
+    return undefined;
+  }
+  return highlight.range.getBoundingClientRect().top;
+};
+
+export const getHighlightViewportBottom = (highlight: CardProps['highlight']): number | undefined => {
+  if (!highlight.range || !highlight.range.getBoundingClientRect) {
+    return undefined;
+  }
+  return highlight.range.getBoundingClientRect().bottom;
+};
+
 /*
  * putting overflow hidden on a page wrapper that aligns with the window edge would
  * include the sidebar, which would break position: sticky.
@@ -100,6 +114,35 @@ const fadeInAnimation = css`
   animation: ${600}ms ${fadeIn} ease-out;
 `;
 
+const fixedRightSideDisplay = css`
+  position: fixed;
+  left: calc(50vw + (${contentTextWidth}rem / 2) + ${cardContentMargin}rem);
+  right: unset;
+  top: ${(props: CardProps) => {
+    const viewportTop = getHighlightViewportTop(props.highlight);
+    return viewportTop !== undefined ? `${viewportTop}px` : '0px';
+  }};
+  ${(props: CardProps) => !!props.isActive && css`
+    left: calc(50vw + (${contentTextWidth}rem / 2) + ${cardFocusedContentMargin}rem);
+  `}
+`;
+
+const fixedOverlapDisplay = css`
+  position: fixed;
+  ${(props: CardProps) => !!props.isActive && css`
+    left: max(1rem, calc(75vw - (${contentTextWidth}rem / 2) + ${cardFocusedContentMargin}rem));
+    right: unset;
+    top: ${() => {
+      // For overlap, position near top of viewport
+      return '120px';
+    }};
+    max-width: calc(100vw - 2rem);
+  `}
+  ${(props: CardProps) => !props.isActive && css`
+    display: none;
+  `}
+`;
+
 export const mainCardStyles = css`
   ${(props: CardProps) => props.isHidden
     ? 'visibility: hidden;'
@@ -176,6 +219,92 @@ export const mainCardStyles = css`
     /* the window is too small to show note cards next to content even without sidebars */
     animation: none;
     ${overlapDisplay}
+  }
+
+  ${theme.breakpoints.touchDeviceQuery(css`
+    animation: none;
+    ${touchScreenDisplay}
+  `)}
+`;
+
+// TODO: hack to get it rendering, need to figure out a better way to position these
+export const portalCardStyles = css`
+  ${(props: CardProps) => props.isHidden
+    ? 'visibility: hidden;'
+    : 'visibility: visible;'}
+  font-size: 1.6rem;
+  line-height: normal;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: normal;
+  ${fadeInAnimation}
+  display: block;
+  padding: ${cardPadding}rem;
+  ${cardBorder}
+  ${fixedRightSideDisplay}
+  ${disablePrint}
+
+  z-index: ${(props: CardProps) => props.zIndex};
+
+  ${DropdownList} {
+    z-index: 1;
+  }
+
+  ${(props: {data: HighlightData}) => {
+    const data = props.data;
+
+    if (!data?.color) {
+      return null;
+    }
+
+    const style = highlightStyles.find((search) => search.label === data.color);
+
+    return css`
+      ::before {
+        content: ' ';
+        border-radius: 0.4rem 0 0 0.4rem;
+        position: absolute;
+        top: 0;
+        left: 0
+        bottom: 0;
+        width: ${cardPadding / 2}rem;
+        background-color: ${style?.focused};
+      }
+      ${theme.breakpoints.touchDeviceQuery(css`
+        ::before {
+          border-radius: 0.4rem 0.4rem 0 0;
+          right: 0;
+          bottom: unset;
+          width: unset;
+          height: ${cardPadding / 2}rem;
+        }
+     `)}
+    `;
+  }}
+
+  /* in this media query if isTocOpen is null or truthy it means that toc is open */
+  ${(props: CardProps) => (props.isTocOpen === null || props.isTocOpen) && css`
+    @media ${minimalWidthForCardsWithToc} {
+      /* the window is too small to show note cards next to content when the toc is open */
+      animation: none;
+      ${fixedOverlapDisplay}
+    }
+  `}
+
+  ${(props: CardProps) => props.hasQuery && css`
+    @media ${minimalWidthForCardsWithSearchResults} {
+      /* the window is too small to show note cards next to content when search is open */
+      animation: none;
+      ${fixedOverlapDisplay}
+    }
+  `}
+
+  @media ${minimalWidthForCards} {
+    /* the window is too small to show note cards next to content even without sidebars */
+    animation: none;
+    ${fixedOverlapDisplay}
   }
 
   ${theme.breakpoints.touchDeviceQuery(css`

@@ -78,7 +78,9 @@ const onFocusOutHighlight = (props: HighlightProp) => defer(() => {
     activeElement
     && findFirstAncestorOrSelf(
       activeElement,
-      (node) => node.hasAttribute('data-highlight-card') || node.hasAttribute('data-for-screenreaders')
+      (node) => node.hasAttribute('data-highlight-card')
+        || node.hasAttribute('data-for-screenreaders')
+        || node.hasAttribute('data-highlight-portal')
     )
   ) {
     return;

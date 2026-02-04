@@ -76,6 +76,7 @@ function LoginOrEdit({
       className={props.className}
       role='dialog'
       aria-label={formatMessage({id: 'i18n:highlighter:edit-note:label'})}
+      data-highlight-card
     >
       {
         authenticated ? (
@@ -90,7 +91,7 @@ function LoginOrEdit({
                   <ActiveEditCard props={props} element={element} />
                 </form>
               ) :
-              <button type='button' onMouseDown={showCard}>
+              <button type='button' onClick={showCard}>
                 <FormattedMessage id={
                   isNewSelection
                     ? 'i18n:highlighting:create-instructions'
@@ -170,6 +171,11 @@ function ActiveEditCard({
     ({target}: FocusEvent) => {
       const targetAsNode = target as HTMLElement;
       const mainEl = document?.getElementById(MAIN_CONTENT_ID);
+
+      // Don't deselect if focus moved into the card itself
+      if (targetAsNode.closest('[data-highlight-card]')) {
+        return;
+      }
 
       if (!props.data?.color && targetAsNode !== mainEl && mainEl?.contains(targetAsNode)) {
         blurIfNotEditing();
