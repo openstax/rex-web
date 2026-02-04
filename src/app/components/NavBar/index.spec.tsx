@@ -341,7 +341,8 @@ describe('content', () => {
       it('opens profile in new tab when profile link is clicked', async() => {
         jest.useFakeTimers();
         const window = assertWindow();
-        const mockOpen = jest.fn();
+        const mockNewWindow = { opener: window };
+        const mockOpen = jest.fn().mockReturnValue(mockNewWindow);
         const originalOpen = window.open;
         window.open = mockOpen;
 
@@ -362,6 +363,7 @@ describe('content', () => {
         });
 
         expect(mockOpen).toHaveBeenCalledWith('/accounts/profile', '_blank', 'noopener,noreferrer');
+        expect(mockNewWindow.opener).toBe(null);
 
         await ReactTestUtils.act(async() => {
           unmount();
