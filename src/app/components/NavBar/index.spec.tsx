@@ -361,7 +361,7 @@ describe('content', () => {
           jest.runAllTimers();
         });
 
-        expect(mockOpen).toHaveBeenCalledWith('/accounts/profile', '_blank');
+        expect(mockOpen).toHaveBeenCalledWith('/accounts/profile', '_blank', 'noopener,noreferrer');
 
         await ReactTestUtils.act(async() => {
           unmount();
