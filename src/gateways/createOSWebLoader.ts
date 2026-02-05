@@ -111,19 +111,19 @@ export default (prefix: string, options: Options = {}) => {
   };
 
   const slugLoader = loader<OSWebBook>({
-    buildUrl: (slug: string) => `${baseUrl}?type=books.Book&fields=${fields}&slug=${slug}`,
+    buildUrl: (slug: string) => `${baseUrl}/?type=books.Book&fields=${fields}&slug=${slug}`,
     processResponse: firstRecord,
     shouldCache: true,
   });
 
   const idLoader = loader<OSWebBook>({
-    buildUrl: (id: string) => `${baseUrl}?type=books.Book&fields=${fields}&cnx_id=${id}`,
+    buildUrl: (id: string) => `${baseUrl}/?type=books.Book&fields=${fields}&cnx_id=${id}`,
     processResponse: firstRecord,
     shouldCache: true,
   });
 
   const portalLoader = loader<OSWebSchoolData>({
-    buildUrl: (portalName: string) => `${baseUrl}/${portalName}`,
+    buildUrl: (portalName: string) => `${baseUrl}/${portalName}/`,
     processResponse: (data: OSWebPortalResponse) => data.school_data,
     shouldCache: false,
   });
