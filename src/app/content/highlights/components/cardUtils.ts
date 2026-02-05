@@ -201,12 +201,20 @@ export const updateCardsPositions = (
     focusedHighlight?.id
   );
 
+  // If the focused highlight is an existing card (has elements), don't reposition it
+  // This prevents jumping when clicking on an existing DisplayNote
+  const isExistingCard = focusedHighlight && focusedHighlight.elements.length > 0 && cardsPositions.has(focusedHighlight.id);
+
+  if (!focusedHighlight || isExistingCard) {
+    return cardsPositions;
+  }
+
   const preferEnd = getPreferEnd();
 
   const offsetToAdjust =
     getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
 
-  if (!focusedHighlight || offsetToAdjust === 0) { return cardsPositions; }
+  if (offsetToAdjust === 0) { return cardsPositions; }
 
   const focusedHighlightIndex = highlights.findIndex((highlight) => highlight.id === focusedHighlight.id);
 
