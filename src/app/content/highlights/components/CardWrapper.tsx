@@ -44,6 +44,8 @@ function useCardPositionObserver(
 ) {
   const [offsets, setOffsets] = React.useState<Map<string, { top: number, bottom: number }>>(new Map());
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
+  const previousFocusedId = React.useRef<string | undefined>(undefined);
+
   const getOffsetsForHighlight = React.useCallback((highlight: Highlight) => {
     const newOffsets = assertDefined(
       getHighlightOffset(container, highlight),
@@ -53,13 +55,25 @@ function useCardPositionObserver(
     setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
     return newOffsets;
   }, [container]);
-  const updatePositions = React.useCallback(() => updateCardsPositions(
+
+  const updatePositions = React.useCallback(() => {
+    // Detect if this is an activation of an existing card (not a new highlight creation)
+    const isActivation =
+      focusedHighlight &&
+      previousFocusedId.current !== focusedHighlight.id &&
+      cardsPositions.has(focusedHighlight.id) &&
+      focusedHighlight.elements.length > 0; // Existing highlight, not new selection
+
+    return updateCardsPositions(
       focusedHighlight,
       highlights,
       cardsHeights,
       getOffsetsForHighlight,
-      checkIfHiddenByCollapsedAncestor
-    ), [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
+      checkIfHiddenByCollapsedAncestor,
+      isActivation // Lock position when activating existing cards
+    );
+  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights, cardsPositions]);
+
   // This creates a function that doesn't require dependency updates, for use by
   // the resizeObserver effect. A little nicer than using a ref.
   const [, dispatchPositions] = React.useReducer(
@@ -67,7 +81,11 @@ function useCardPositionObserver(
     undefined
   );
 
-  React.useEffect(() => dispatchPositions(), [updatePositions]);
+  React.useEffect(() => {
+    dispatchPositions();
+    // Update the previous focused ID after position update
+    previousFocusedId.current = focusedHighlight?.id;
+  }, [updatePositions, focusedHighlight]);
 
   React.useEffect(() => {
     const resizeObserver = new ResizeObserver(dispatchPositions);

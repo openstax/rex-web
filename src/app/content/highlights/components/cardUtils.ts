@@ -167,13 +167,15 @@ export const getPreferEnd = (): boolean => {
  * If @param focusedHighlight is specified then change position of the related card to align it
  * with the corresponding highlight in the document and recalculate positions of all other cards that
  * may be affected by this operation.
+ * @param lockFocusedPosition If true, prevents repositioning of the focused card (useful when activating existing cards)
  */
 export const updateCardsPositions = (
   focusedHighlight: Highlight | undefined,
   highlights: Highlight[],
   cardsHeights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
-  checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean
+  checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean,
+  lockFocusedPosition = false
 ) => {
   const cardsPositions = updateStackedCardsPositions(
     highlights,
@@ -184,8 +186,10 @@ export const updateCardsPositions = (
 
   const preferEnd = getPreferEnd();
 
-  const offsetToAdjust =
-    getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
+  // If lockFocusedPosition is true, don't adjust the focused card's position (prevents jumping on activation)
+  const offsetToAdjust = lockFocusedPosition
+    ? 0
+    : getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
 
   if (!focusedHighlight || offsetToAdjust === 0) { return cardsPositions; }
 
