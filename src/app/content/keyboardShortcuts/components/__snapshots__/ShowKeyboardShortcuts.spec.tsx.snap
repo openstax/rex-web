@@ -384,5 +384,108 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
       </div>
     </div>
   </div>
+  <div
+    className="c1"
+  >
+    Interacting with Math Equations
+  </div>
+  <div
+    className="c2"
+  >
+    <div
+      className="c3"
+    >
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            Tab
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Tab – Move focus to math equation (equations are now focusable)
+        </div>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            Space
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            Enter
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Space or Enter – Open MathJax context menu (after focusing equation)
+        </div>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            Shift
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            i18n:a11y:keyboard-shortcuts:keys:f10
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Shift + F10 (Windows, NVDA) – Alternative: open context menu
+        </div>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            i18n:a11y:keyboard-shortcuts:keys:ctrl
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            Enter
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Ctrl + Enter (macOS, NVDA) – Alternative: open context menu
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;

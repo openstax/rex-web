@@ -143,6 +143,17 @@ const ShowKeyboardShortcuts = () => (
         <Shortcut keys={['alt', 's']} msgKey='cycle-search-regions'/>
       </ShortcutsTable>
     </ShortcutsCard>
+
+    <ShortcutsHeading msgKey='math-equations-interaction' />
+
+    <ShortcutsCard>
+      <ShortcutsTable>
+        <Shortcut keys={['tab']} msgKey='math-focus-equation'/>
+        <Shortcut keys={['space', 'enter']} msgKey='math-open-context-menu'/>
+        <Shortcut keys={['shift', 'f10']} msgKey='math-open-context-menu-nvda-win'/>
+        <Shortcut keys={['ctrl', 'enter']} msgKey='math-open-context-menu-nvda-mac'/>
+      </ShortcutsTable>
+    </ShortcutsCard>
   </ShowKeyboardShortcutsBody>
 );
 
