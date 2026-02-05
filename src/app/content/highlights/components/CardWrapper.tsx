@@ -72,7 +72,8 @@ function useCardPositionObserver(
       checkIfHiddenByCollapsedAncestor,
       isActivation // Lock position when activating existing cards
     );
-  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights, cardsPositions]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
 
   // This creates a function that doesn't require dependency updates, for use by
   // the resizeObserver effect. A little nicer than using a ref.
@@ -85,7 +86,7 @@ function useCardPositionObserver(
     dispatchPositions();
     // Update the previous focused ID after position update
     previousFocusedId.current = focusedHighlight?.id;
-  }, [updatePositions, focusedHighlight]);
+  }, [updatePositions]);
 
   React.useEffect(() => {
     const resizeObserver = new ResizeObserver(dispatchPositions);
