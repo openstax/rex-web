@@ -83,7 +83,7 @@ export const ShortcutKey = styled.span`
   vertical-align: middle;
 `;
 
-export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
+export const Shortcut = ({keys, msgKey, separator = ' + '}: {keys: string[], msgKey: string, separator?: string}) => (
   <ShortcutRow>
     <ShortcutBlock>
       {keys.map<React.ReactNode>(
@@ -92,7 +92,7 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
             {(msg) => msg}
           </FormattedMessage>
         </ShortcutKey>
-      ).reduce((prev, curr) => [prev, ' + ', curr])}
+      ).reduce((prev, curr) => [prev, separator, curr])}
     </ShortcutBlock>
 
     <ShortcutBlock>
@@ -149,7 +149,7 @@ const ShowKeyboardShortcuts = () => (
     <ShortcutsCard>
       <ShortcutsTable>
         <Shortcut keys={['tab']} msgKey='math-focus-equation'/>
-        <Shortcut keys={['space', 'enter']} msgKey='math-open-context-menu'/>
+        <Shortcut keys={['space', 'enter']} msgKey='math-open-context-menu' separator=' or '/>
         <Shortcut keys={['shift', 'f10']} msgKey='math-open-context-menu-nvda-win'/>
         <Shortcut keys={['ctrl', 'enter']} msgKey='math-open-context-menu-nvda-mac'/>
       </ShortcutsTable>

@@ -410,7 +410,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="c5"
         >
-          Tab – Move focus to math equation (equations are now focusable)
+          Move focus to math equation
         </div>
       </div>
       <div
@@ -424,7 +424,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           >
             Space
           </span>
-           + 
+           or 
           <span
             className="c6"
           >
@@ -434,7 +434,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="c5"
         >
-          Space or Enter – Open MathJax context menu (after focusing equation)
+          Open MathJax context menu (after focusing equation)
         </div>
       </div>
       <div
@@ -452,13 +452,13 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            i18n:a11y:keyboard-shortcuts:keys:f10
+            F10
           </span>
         </div>
         <div
           className="c5"
         >
-          Shift + F10 (Windows, NVDA) – Alternative: open context menu
+          (Windows, NVDA) – Alternative: open context menu
         </div>
       </div>
       <div
@@ -470,7 +470,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
-            i18n:a11y:keyboard-shortcuts:keys:ctrl
+            Ctrl
           </span>
            + 
           <span
@@ -482,7 +482,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="c5"
         >
-          Ctrl + Enter (macOS, NVDA) – Alternative: open context menu
+          (macOS, NVDA) – Alternative: open context menu
         </div>
       </div>
     </div>

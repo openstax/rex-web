@@ -647,7 +647,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
             <div
               className="c12"
             >
-              Tab – Move focus to math equation (equations are now focusable)
+              Move focus to math equation
             </div>
           </div>
           <div
@@ -661,7 +661,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               >
                 Space
               </span>
-               + 
+               or 
               <span
                 className="c13"
               >
@@ -671,7 +671,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
             <div
               className="c12"
             >
-              Space or Enter – Open MathJax context menu (after focusing equation)
+              Open MathJax context menu (after focusing equation)
             </div>
           </div>
           <div
@@ -689,13 +689,13 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               <span
                 className="c13"
               >
-                i18n:a11y:keyboard-shortcuts:keys:f10
+                F10
               </span>
             </div>
             <div
               className="c12"
             >
-              Shift + F10 (Windows, NVDA) – Alternative: open context menu
+              (Windows, NVDA) – Alternative: open context menu
             </div>
           </div>
           <div
@@ -707,7 +707,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               <span
                 className="c13"
               >
-                i18n:a11y:keyboard-shortcuts:keys:ctrl
+                Ctrl
               </span>
                + 
               <span
@@ -719,7 +719,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
             <div
               className="c12"
             >
-              Ctrl + Enter (macOS, NVDA) – Alternative: open context menu
+              (macOS, NVDA) – Alternative: open context menu
             </div>
           </div>
         </div>
