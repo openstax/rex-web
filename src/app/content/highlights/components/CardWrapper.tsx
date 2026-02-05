@@ -75,27 +75,47 @@ function useViewportStickiness(
         return;
       }
 
-      // Calculate sticky positions
+      // Calculate if the entire card can fit in the viewport while keeping it aligned with its highlight
       const cardTop = cardRect.top;
       const cardBottom = cardRect.bottom;
 
-      // If card is scrolling out of the top of viewport, stick it to the top
-      if (cardTop < 0 && highlightRect.bottom > cardHeight) {
-        // Keep card at top of viewport
-        const offset = -cardTop;
-        setStickyOffset(offset);
+      // Calculate available space for the card while its highlight is visible
+      const spaceFromTopToHighlightBottom = highlightRect.bottom;
+      const spaceFromHighlightTopToBottom = viewportHeight - highlightRect.top;
+
+      // If card top is scrolling out of viewport top
+      if (cardTop < 0) {
+        // Check if card can fit between viewport top and highlight bottom
+        if (spaceFromTopToHighlightBottom >= cardHeight) {
+          // Stick card to top of viewport
+          const offset = -cardTop;
+          setStickyOffset(offset);
+          return;
+        }
+        // Card is too tall, stick it as close to top as possible without losing highlight
+        const maxOffset = Math.max(0, highlightRect.bottom - cardHeight);
+        const desiredOffset = -cardTop;
+        setStickyOffset(Math.min(desiredOffset, maxOffset));
         return;
       }
 
-      // If card is scrolling out of the bottom of viewport, stick it to the bottom
-      if (cardBottom > viewportHeight && highlightRect.top < viewportHeight - cardHeight) {
-        // Keep card at bottom of viewport
-        const offset = viewportHeight - cardBottom;
-        setStickyOffset(offset);
+      // If card bottom is scrolling out of viewport bottom
+      if (cardBottom > viewportHeight) {
+        // Check if card can fit between highlight top and viewport bottom
+        if (spaceFromHighlightTopToBottom >= cardHeight) {
+          // Stick card to bottom of viewport
+          const offset = viewportHeight - cardBottom;
+          setStickyOffset(offset);
+          return;
+        }
+        // Card is too tall, stick it as close to bottom as possible without losing highlight
+        const maxOffset = Math.min(0, viewportHeight - highlightRect.top - cardHeight);
+        const desiredOffset = viewportHeight - cardBottom;
+        setStickyOffset(Math.max(desiredOffset, maxOffset));
         return;
       }
 
-      // Card is in normal range, no stickiness needed
+      // Card is fully in viewport, no stickiness needed
       setStickyOffset(null);
     };
 
