@@ -88,11 +88,24 @@ const updateStackedCardsPositions = (
   initialPositions?: Map<string, number>,
   addAditionalMarginForTheFirstCard = false,
   lastVisibleCardPosition = 0,
-  lastVisibleCardHeight = 0
+  lastVisibleCardHeight = 0,
+  focusedHighlightId?: string
 ) => {
   const positions = initialPositions ? initialPositions : new Map<string, number>();
 
   for (const [index, highlight] of highlightsElements.entries()) {
+    // If this is the focused/active card and it already has a position, keep it (don't reposition)
+    if (focusedHighlightId && highlight.id === focusedHighlightId && positions.has(highlight.id)) {
+      const existingPosition = positions.get(highlight.id) as number;
+      const heightsForId = heights.get(highlight.id);
+
+      if (heightsForId && !checkIfHiddenByCollapsedAncestor(highlight)) {
+        lastVisibleCardPosition = existingPosition;
+        lastVisibleCardHeight = heightsForId;
+      }
+      continue;
+    }
+
     const bottomOffset = getHighlightPosition(highlight).bottom;
 
     const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
@@ -167,29 +180,31 @@ export const getPreferEnd = (): boolean => {
  * If @param focusedHighlight is specified then change position of the related card to align it
  * with the corresponding highlight in the document and recalculate positions of all other cards that
  * may be affected by this operation.
- * @param lockFocusedPosition If true, prevents repositioning of the focused card (useful when activating existing cards)
  */
 export const updateCardsPositions = (
   focusedHighlight: Highlight | undefined,
   highlights: Highlight[],
   cardsHeights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
-  checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean,
-  lockFocusedPosition = false
+  checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean
 ) => {
+  // Pass focused ID to stacking - it will preserve the position of the active card
   const cardsPositions = updateStackedCardsPositions(
     highlights,
     cardsHeights,
     getHighlightPosition,
-    checkIfHiddenByCollapsedAncestor
+    checkIfHiddenByCollapsedAncestor,
+    undefined,
+    false,
+    0,
+    0,
+    focusedHighlight?.id
   );
 
   const preferEnd = getPreferEnd();
 
-  // If lockFocusedPosition is true, don't adjust the focused card's position (prevents jumping on activation)
-  const offsetToAdjust = lockFocusedPosition
-    ? 0
-    : getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
+  const offsetToAdjust =
+    getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
 
   if (!focusedHighlight || offsetToAdjust === 0) { return cardsPositions; }
 
@@ -237,7 +252,8 @@ export const updateCardsPositions = (
     cardsPositions,
     true,
     cardsPositions.get(focusedHighlight.id) as number,
-    cardsHeights.get(focusedHighlight.id) as number
+    cardsHeights.get(focusedHighlight.id) as number,
+    focusedHighlight.id
   );
 };
 
