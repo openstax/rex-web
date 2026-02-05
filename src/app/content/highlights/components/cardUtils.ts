@@ -203,7 +203,8 @@ export const updateCardsPositions = (
 
   // If the focused highlight is an existing card (has elements), don't reposition it
   // This prevents jumping when clicking on an existing DisplayNote
-  const isExistingCard = focusedHighlight && focusedHighlight.elements.length > 0 && cardsPositions.has(focusedHighlight.id);
+  const isExistingCard = focusedHighlight && focusedHighlight.elements.length > 0 &&
+    cardsPositions.has(focusedHighlight.id);
 
   if (!focusedHighlight || isExistingCard) {
     return cardsPositions;
