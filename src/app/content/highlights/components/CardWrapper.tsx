@@ -86,7 +86,7 @@ function useCardPositionObserver(
     dispatchPositions();
     // Update the previous focused ID after position update
     previousFocusedId.current = focusedHighlight?.id;
-  }, [updatePositions]);
+  }, [focusedHighlight?.id, updatePositions]);
 
   React.useEffect(() => {
     const resizeObserver = new ResizeObserver(dispatchPositions);
