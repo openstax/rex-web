@@ -113,7 +113,11 @@ export const mainCardStyles = css`
   ${disablePrint}
 
   z-index: ${(props: CardProps) => props.zIndex};
-  transition: opacity 0.3s, top 0.3s, left 0.3s;
+  transition: opacity 0.3s, top 0.3s, left 0.3s, transform 0.1s;
+
+  ${(props: CardProps) => props.viewportStickyOffset !== null && props.viewportStickyOffset !== undefined && css`
+    transform: translateY(${props.viewportStickyOffset}px);
+  `}
 
   ${DropdownList} {
     z-index: 1;

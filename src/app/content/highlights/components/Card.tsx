@@ -55,6 +55,7 @@ export interface CardProps {
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   isHidden: boolean;
   preferEnd: boolean;
+  viewportStickyOffset?: number | null;
 }
 
 type CardPropsWithBookAndPage = Omit<CardProps, 'book' | 'page'> & {

@@ -88,16 +88,38 @@ const updateStackedCardsPositions = (
   initialPositions?: Map<string, number>,
   addAditionalMarginForTheFirstCard = false,
   lastVisibleCardPosition = 0,
-  lastVisibleCardHeight = 0
+  lastVisibleCardHeight = 0,
+  focusedHighlightId?: string
 ) => {
   const positions = initialPositions ? initialPositions : new Map<string, number>();
 
   for (const [index, highlight] of highlightsElements.entries()) {
-    const bottomOffset = getHighlightPosition(highlight).bottom;
+    // If this is the focused/active card and it already has a position, keep it (don't reposition)
+    if (focusedHighlightId && highlight.id === focusedHighlightId && positions.has(highlight.id)) {
+      const existingPosition = positions.get(highlight.id) as number;
+      const heightsForId = heights.get(highlight.id);
+
+      if (heightsForId && !checkIfHiddenByCollapsedAncestor(highlight)) {
+        lastVisibleCardPosition = existingPosition;
+        lastVisibleCardHeight = heightsForId;
+      }
+      continue;
+    }
+
+    // Get highlight bounds
+    const { top, bottom } = getHighlightPosition(highlight);
+    const highlightHeight = bottom - top;
+    const cardHeight = heights.get(highlight.id) || 0;
+
+    // Center the card vertically on the highlight
+    // For inactive cards, position at vertical center of highlight
+    const centeredOffset = top + (highlightHeight / 2) - (cardHeight / 2);
 
     const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
-    const stackedBottomOffset = Math.max(bottomOffset, lastVisibleCardBottom + marginToAdd);
+
+    // Use the greater of: centered position OR stacked position (to avoid overlap)
+    const stackedBottomOffset = Math.max(centeredOffset, lastVisibleCardBottom + marginToAdd);
     const heightsForId = heights.get(highlight.id);
 
     if (heightsForId && !checkIfHiddenByCollapsedAncestor(highlight)) {
@@ -175,19 +197,34 @@ export const updateCardsPositions = (
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
   checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean
 ) => {
+  // Pass focused ID to stacking - it will preserve the position of the active card
   const cardsPositions = updateStackedCardsPositions(
     highlights,
     cardsHeights,
     getHighlightPosition,
-    checkIfHiddenByCollapsedAncestor
+    checkIfHiddenByCollapsedAncestor,
+    undefined,
+    false,
+    0,
+    0,
+    focusedHighlight?.id
   );
+
+  // If the focused highlight is an existing card (has elements), don't reposition it
+  // This prevents jumping when clicking on an existing DisplayNote
+  const isExistingCard = focusedHighlight && focusedHighlight.elements.length > 0 &&
+    cardsPositions.has(focusedHighlight.id);
+
+  if (!focusedHighlight || isExistingCard) {
+    return cardsPositions;
+  }
 
   const preferEnd = getPreferEnd();
 
   const offsetToAdjust =
     getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
 
-  if (!focusedHighlight || offsetToAdjust === 0) { return cardsPositions; }
+  if (offsetToAdjust === 0) { return cardsPositions; }
 
   const focusedHighlightIndex = highlights.findIndex((highlight) => highlight.id === focusedHighlight.id);
 
@@ -233,7 +270,8 @@ export const updateCardsPositions = (
     cardsPositions,
     true,
     cardsPositions.get(focusedHighlight.id) as number,
-    cardsHeights.get(focusedHighlight.id) as number
+    cardsHeights.get(focusedHighlight.id) as number,
+    focusedHighlight.id
   );
 };
 

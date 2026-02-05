@@ -36,6 +36,107 @@ function checkIfHiddenByCollapsedAncestor(highlight: Highlight) {
   return Boolean(collapsedAncestor);
 }
 
+/**
+ * Hook to apply viewport stickiness for the active card
+ * Keeps the card in view as long as its highlight is partially visible
+ */
+function useViewportStickiness(
+  focusedHighlight: Highlight | undefined,
+  cardElement: HTMLElement | null,
+  cardHeight: number,
+  cardNaturalTopPosition: number | undefined
+) {
+  const [stickyOffset, setStickyOffset] = React.useState<number | null>(null);
+
+  React.useEffect(() => {
+    if (!focusedHighlight || !cardElement || cardNaturalTopPosition === undefined) {
+      setStickyOffset(null);
+      return;
+    }
+
+    const handleScroll = () => {
+      const highlight = focusedHighlight;
+      if (!highlight.range) {
+        setStickyOffset(null);
+        return;
+      }
+
+      const highlightRect = highlight.range.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+
+      // Calculate the card's natural position (without any transform offset)
+      // by using its top offset position relative to the page and the current scroll
+      const container = cardElement.offsetParent;
+      if (!container) {
+        setStickyOffset(null);
+        return;
+      }
+
+      const containerRect = container.getBoundingClientRect();
+      // Card's natural top position in viewport coordinates
+      const cardNaturalTop = containerRect.top + cardNaturalTopPosition;
+      const cardNaturalBottom = cardNaturalTop + cardHeight;
+
+      // Check if highlight is in viewport (at least partially)
+      const highlightTopInView = highlightRect.top < viewportHeight;
+      const highlightBottomInView = highlightRect.bottom > 0;
+      const highlightInViewport = highlightTopInView && highlightBottomInView;
+
+      if (!highlightInViewport) {
+        // Highlight is completely out of view, don't stick
+        setStickyOffset(null);
+        return;
+      }
+
+      // Calculate available space for the card while its highlight is visible
+      const spaceFromTopToHighlightBottom = highlightRect.bottom;
+      const spaceFromHighlightTopToBottom = viewportHeight - highlightRect.top;
+
+      // If card top is scrolling out of viewport top (using natural position)
+      if (cardNaturalTop < 0) {
+        // Check if card can fit between viewport top and highlight bottom
+        if (spaceFromTopToHighlightBottom >= cardHeight) {
+          // Stick card to top of viewport
+          const offset = -cardNaturalTop;
+          setStickyOffset(offset);
+          return;
+        }
+        // Card is too tall, stick it as close to top as possible without losing highlight
+        const maxOffset = Math.max(0, highlightRect.bottom - cardHeight);
+        const desiredOffset = -cardNaturalTop;
+        setStickyOffset(Math.min(desiredOffset, maxOffset));
+        return;
+      }
+
+      // If card bottom is scrolling out of viewport bottom (using natural position)
+      if (cardNaturalBottom > viewportHeight) {
+        // Check if card can fit between highlight top and viewport bottom
+        if (spaceFromHighlightTopToBottom >= cardHeight) {
+          // Stick card to bottom of viewport
+          const offset = viewportHeight - cardNaturalBottom;
+          setStickyOffset(offset);
+          return;
+        }
+        // Card is too tall, stick it as close to bottom as possible without losing highlight
+        const maxOffset = Math.min(0, viewportHeight - highlightRect.top - cardHeight);
+        const desiredOffset = viewportHeight - cardNaturalBottom;
+        setStickyOffset(Math.max(desiredOffset, maxOffset));
+        return;
+      }
+
+      // Card is fully in viewport, no stickiness needed
+      setStickyOffset(null);
+    };
+
+    // Run on mount and scroll
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [focusedHighlight, cardElement, cardHeight, cardNaturalTopPosition]);
+
+  return stickyOffset;
+}
+
 function useCardPositionObserver(
   container: HTMLElement,
   focusedHighlight: Highlight | undefined,
@@ -44,6 +145,7 @@ function useCardPositionObserver(
 ) {
   const [offsets, setOffsets] = React.useState<Map<string, { top: number, bottom: number }>>(new Map());
   const [cardsPositions, setCardsPositions] = React.useState<Map<string, number>>(new Map());
+
   const getOffsetsForHighlight = React.useCallback((highlight: Highlight) => {
     const newOffsets = assertDefined(
       getHighlightOffset(container, highlight),
@@ -53,13 +155,17 @@ function useCardPositionObserver(
     setOffsets((state) => new Map(state).set(highlight.id, newOffsets));
     return newOffsets;
   }, [container]);
-  const updatePositions = React.useCallback(() => updateCardsPositions(
+
+  const updatePositions = React.useCallback(() => {
+    return updateCardsPositions(
       focusedHighlight,
       highlights,
       cardsHeights,
       getOffsetsForHighlight,
       checkIfHiddenByCollapsedAncestor
-    ), [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
+    );
+  }, [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
+
   // This creates a function that doesn't require dependency updates, for use by
   // the resizeObserver effect. A little nicer than using a ref.
   const [, dispatchPositions] = React.useReducer(
@@ -199,6 +305,17 @@ function CardsForHighlights({
     new Map(highlights.map((highlight) => [highlight.id, false]))
   );
 
+  // Track the focused card element for viewport stickiness
+  const [focusedCardElement, setFocusedCardElement] = React.useState<HTMLElement | null>(null);
+  const focusedCardHeight = focusedHighlight ? cardsHeights.get(focusedHighlight.id) || 0 : 0;
+  const focusedCardTopPosition = focusedHighlight ? cardsPositions.get(focusedHighlight.id) : undefined;
+  const viewportStickyOffset = useViewportStickiness(
+    focusedHighlight,
+    focusedCardElement,
+    focusedCardHeight,
+    focusedCardTopPosition
+  );
+
   // First time, Esc closes it to the instructions; second Esc disappears it
   const hideCard = () => {
     if (!focusedHighlight) {
@@ -230,6 +347,7 @@ function CardsForHighlights({
   return <>
     {highlights.map((highlight, index) => {
       const focusThisCard = shouldFocusCard && focusedHighlight === highlight;
+      const isFocusedCard = focusedHighlight === highlight;
       return <Card
         highlighter={highlighter}
         highlight={highlight}
@@ -237,10 +355,17 @@ function CardsForHighlights({
         container={container}
         topOffset={cardsPositions.get(highlight.id)}
         highlightOffsets={offsets.get(highlight.id)}
-        onHeightChange={(ref: React.RefObject<HTMLElement>) => onHeightChange(highlight.id, ref)}
+        onHeightChange={(ref: React.RefObject<HTMLElement>) => {
+          onHeightChange(highlight.id, ref);
+          // Track the focused card element for viewport stickiness
+          if (isFocusedCard && ref.current !== focusedCardElement) {
+            setFocusedCardElement(ref.current);
+          }
+        }}
         zIndex={highlights.length - index}
         shouldFocusCard={focusThisCard}
         isHidden={checkIfHiddenByCollapsedAncestor(highlight) || isHiddenByEscape.get(highlight.id)}
+        viewportStickyOffset={isFocusedCard ? viewportStickyOffset : null}
       />;
     })}
   </>;
