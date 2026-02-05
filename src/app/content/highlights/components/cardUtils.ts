@@ -106,11 +106,20 @@ const updateStackedCardsPositions = (
       continue;
     }
 
-    const bottomOffset = getHighlightPosition(highlight).bottom;
+    // Get highlight bounds
+    const { top, bottom } = getHighlightPosition(highlight);
+    const highlightHeight = bottom - top;
+    const cardHeight = heights.get(highlight.id) || 0;
+
+    // Center the card vertically on the highlight
+    // For inactive cards, position at vertical center of highlight
+    const centeredOffset = top + (highlightHeight / 2) - (cardHeight / 2);
 
     const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
-    const stackedBottomOffset = Math.max(bottomOffset, lastVisibleCardBottom + marginToAdd);
+
+    // Use the greater of: centered position OR stacked position (to avoid overlap)
+    const stackedBottomOffset = Math.max(centeredOffset, lastVisibleCardBottom + marginToAdd);
     const heightsForId = heights.get(highlight.id);
 
     if (heightsForId && !checkIfHiddenByCollapsedAncestor(highlight)) {
