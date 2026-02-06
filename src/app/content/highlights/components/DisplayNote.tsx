@@ -71,6 +71,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   // Change Event phase so when clicking on another Card,
   // onBlur is called before this Card calls focus.
   useOnClickOutside(elements, isActive, onBlur, { capture: true });
+  useOnClickOutside(dropdownRef, menuOpen, () => setMenuOpen(false));
 
   useFocusElement(element, shouldFocusCard);
 
