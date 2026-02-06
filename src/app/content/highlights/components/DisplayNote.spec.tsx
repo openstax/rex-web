@@ -86,7 +86,7 @@ describe('DisplayNote', () => {
     onClickOutside.mock.calls[0][2]({} as any);
 
     expect(component).toBeTruthy();
-    expect(onClickOutside.mock.calls.length).toBe(1);
+    expect(onClickOutside.mock.calls.length).toBe(2);
     expect(displayNoteProps.onBlur).toHaveBeenCalled();
   });
 
