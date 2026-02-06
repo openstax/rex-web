@@ -1,6 +1,6 @@
 import Highlighter, { Highlight } from '@openstax/highlighter';
 import { NewHighlightSourceTypeEnum } from '@openstax/highlighter/dist/api';
-import { HTMLElement } from '@openstax/types/lib.dom';
+import { Element, HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
+import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
@@ -72,7 +73,7 @@ function useComputedProps(props: CardProps) {
   const focusCard = React.useCallback(async() => {
     if (
       !isActive &&
-      !(document.activeElement as Element | null)?.closest?.('[data-no-card-activate]') &&
+      !(assertDocument().activeElement as Element | null)?.closest?.('[data-no-card-activate]') &&
       (!hasUnsavedHighlight || (await showConfirmation(services)))
     ) {
       focus(id);
