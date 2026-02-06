@@ -86,7 +86,7 @@ describe('DisplayNote', () => {
     onClickOutside.mock.calls[0][2]({} as any);
 
     expect(component).toBeTruthy();
-    expect(onClickOutside.mock.calls.length).toBe(1);
+    expect(onClickOutside.mock.calls.length).toBe(2);
     expect(displayNoteProps.onBlur).toHaveBeenCalled();
   });
 
@@ -245,6 +245,47 @@ describe('DisplayNote', () => {
 
     // it is called initialy after establishing ref and then 3 times for our test cases
     expect(displayNoteProps.onHeightChange).toHaveBeenCalledTimes(4);
+  });
+
+  it('closes dropdown menu when clicking outside', () => {
+    const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
+
+    renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={true} />
+    </TestContainer>);
+
+    // Second useOnClickOutside is the dropdown menu close handler
+    renderer.act(() => {
+      onClickOutside.mock.calls[1][2]({} as any);
+    });
+  });
+
+  it('stops focusin propagation from dropdown', () => {
+    const mockSpan = assertDocument().createElement('span');
+    const addSpy = jest.spyOn(mockSpan, 'addEventListener');
+    const removeSpy = jest.spyOn(mockSpan, 'removeEventListener');
+
+    const component = renderer.create(<TestContainer store={store}>
+      <DisplayNote {...displayNoteProps} isActive={false} />
+    </TestContainer>, {
+      createNodeMock: (el) => {
+        if (el.type === 'span') return mockSpan;
+        return assertDocument().createElement('div');
+      },
+    });
+
+    runHooks(renderer);
+
+    const focusinCall = addSpy.mock.calls.find(([type]) => type === 'focusin');
+    expect(focusinCall).toBeDefined();
+
+    const handler = focusinCall![1] as (e: any) => void;
+    const mockEvent = { stopPropagation: jest.fn() };
+    handler(mockEvent);
+    expect(mockEvent.stopPropagation).toHaveBeenCalled();
+
+    component.unmount();
+    expect(removeSpy).toHaveBeenCalledWith('focusin', expect.any(Function));
   });
 
   it('does not throw after unmout', () => {
