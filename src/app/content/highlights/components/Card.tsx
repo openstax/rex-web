@@ -72,6 +72,7 @@ function useComputedProps(props: CardProps) {
   const focusCard = React.useCallback(async() => {
     if (
       !isActive &&
+      !(document.activeElement as Element | null)?.closest?.('[data-no-card-activate]') &&
       (!hasUnsavedHighlight || (await showConfirmation(services)))
     ) {
       focus(id);
