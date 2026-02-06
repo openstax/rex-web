@@ -274,6 +274,8 @@ describe('DisplayNote', () => {
       },
     });
 
+    runHooks(renderer);
+
     const focusinCall = addSpy.mock.calls.find(([type]) => type === 'focusin');
     expect(focusinCall).toBeDefined();
 
