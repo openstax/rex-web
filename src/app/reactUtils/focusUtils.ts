@@ -37,10 +37,6 @@ export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   return ref;
 };
 
-function isHidden(el: HTMLElement) {
-  return el.offsetWidth === 0 && el.offsetHeight === 0;
-}
-
 export const focusableItemQuery = ([
   'button',
   'input',
