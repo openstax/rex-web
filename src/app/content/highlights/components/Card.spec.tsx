@@ -420,6 +420,37 @@ describe('Card', () => {
     expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
   });
 
+  it('does not focus card when activeElement is inside data-no-card-activate', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receiveHighlights({
+      highlights: [
+        { id: highlightData.id, annotation: 'asd' },
+      ] as HighlightData[],
+      pageId: '123',
+    }));
+
+    const component = renderer.create(<TestContainer store={store}>
+      <Card {...cardProps} />
+    </TestContainer>, {createNodeMock});
+
+    const container = assertDocument().createElement('div');
+    container.setAttribute('data-no-card-activate', '');
+    const button = assertDocument().createElement('button');
+    container.appendChild(button);
+    assertDocument().body.appendChild(container);
+    button.focus();
+
+    const card = component.root.findByProps({ 'data-testid': 'card' });
+    renderer.act(() => {
+      card.props.onClick();
+    });
+
+    expect(dispatch).not.toHaveBeenCalledWith(focusHighlight(highlightData.id));
+
+    assertDocument().body.removeChild(container);
+  });
+
   it('displays confirm dialog when there are unsaved changes and user clicks on another card', async() => {
     store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
     store.dispatch(receivePage({...page, references: []}));
