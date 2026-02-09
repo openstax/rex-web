@@ -32,7 +32,7 @@ describe('osWebLoader', () => {
 
       it('gets book id', async() => {
         const id = await osWebLoader.getBookIdFromSlug('asdf');
-        expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&slug=asdf`);
+        expect(fetch).toHaveBeenCalledWith(`url/v2/pages/?type=books.Book&fields=${fields}&slug=asdf`);
         expect(id).toEqual('qwer');
       });
     });
@@ -68,7 +68,7 @@ describe('osWebLoader', () => {
 
     it('gets book slug', async() => {
       const slug = await osWebLoader.getBookSlugFromId('qwer');
-      expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&cnx_id=qwer`);
+      expect(fetch).toHaveBeenCalledWith(`url/v2/pages/?type=books.Book&fields=${fields}&cnx_id=qwer`);
       expect(slug).toEqual('asdf');
     });
   });
@@ -84,7 +84,7 @@ describe('osWebLoader', () => {
 
     it('gets book', async() => {
       const result = await osWebLoader.getBookFromSlug('asdf');
-      expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&slug=asdf`);
+      expect(fetch).toHaveBeenCalledWith(`url/v2/pages/?type=books.Book&fields=${fields}&slug=asdf`);
       expect(result).toEqual(book);
     });
   });
@@ -100,7 +100,7 @@ describe('osWebLoader', () => {
 
     it('gets book', async() => {
       const result = await osWebLoader.getBookFromId('qwer');
-      expect(fetch).toHaveBeenCalledWith(`url/v2/pages?type=books.Book&fields=${fields}&cnx_id=qwer`);
+      expect(fetch).toHaveBeenCalledWith(`url/v2/pages/?type=books.Book&fields=${fields}&cnx_id=qwer`);
       expect(result).toEqual(book);
     });
 
@@ -135,7 +135,7 @@ describe('osWebLoader', () => {
 
     it('gets school data from portal name', async () => {
       const result = await osWebLoader.getSchoolDataFromPortalName('portal-abc');
-      expect(fetch).toHaveBeenCalledWith('url/v2/pages/portal-abc');
+      expect(fetch).toHaveBeenCalledWith('url/v2/pages/portal-abc/');
       expect(result).toEqual(schoolData);
     });
 
