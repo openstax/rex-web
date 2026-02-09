@@ -85,7 +85,7 @@ const updateStackedCardsPositions = (
   heights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
   checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean,
-  initialPositions?: Map<string, number>,
+  initialPositions: Map<string, number> | undefined,
   addAditionalMarginForTheFirstCard: boolean,
   lastVisibleCardPosition: number,
   lastVisibleCardHeight: number,
@@ -94,8 +94,10 @@ const updateStackedCardsPositions = (
   const positions = initialPositions ? initialPositions : new Map<string, number>();
 
   for (const [index, highlight] of highlightsElements.entries()) {
-    // If this is the focused/active card and it already has a position, keep it (don't reposition)
-    if (focusedHighlightId && highlight.id === focusedHighlightId && positions.has(highlight.id)) {
+    // If this is the focused/active card and it already has a position (from initialPositions), keep it (don't reposition)
+    // Only preserve position if initialPositions was provided (not a fresh calculation)
+    if (focusedHighlightId && highlight.id === focusedHighlightId &&
+        initialPositions && positions.has(highlight.id)) {
       const existingPosition = positions.get(highlight.id) as number;
       const heightsForId = heights.get(highlight.id);
 
@@ -210,9 +212,11 @@ export const updateCardsPositions = (
     focusedHighlight?.id
   );
 
-  // If the focused highlight is an existing card (has elements), don't reposition it
+  // If the focused highlight is an existing card (has elements AND has a position), don't reposition it
   // This prevents jumping when clicking on an existing DisplayNote
-  const isExistingCard = focusedHighlight && focusedHighlight.elements.length > 0 &&
+  // For test mocks without elements, or new highlights without positions, repositioning will occur
+  const isExistingCard = focusedHighlight &&
+    focusedHighlight.elements.length > 0 &&
     cardsPositions.has(focusedHighlight.id);
 
   if (!focusedHighlight || isExistingCard) {
