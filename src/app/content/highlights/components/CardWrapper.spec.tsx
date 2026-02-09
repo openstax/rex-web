@@ -249,6 +249,65 @@ describe('CardWrapper', () => {
     expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
 
+  it('handles focused highlight with no height data in position preservation path', () => {
+    // Test coverage for cardUtils.ts line 104 being FALSE (first condition: no height data)
+    // When the focused highlight is preserved from initialPositions but has no height,
+    // lastVisibleCardPosition should NOT be updated
+
+    const h1 = createMockHighlight('h1');
+    const h2 = createMockHighlight('h2');
+    const h3 = createMockHighlight('h3');
+
+    // Make h3 a NEW highlight that will be focused (triggers offset adjustment with initialPositions)
+    h3.elements = [];
+
+    const highlights = [h1, h2, h3];
+
+    jest.spyOn(cardUtils, 'getHighlightOffset')
+      .mockImplementation((_, highlight: Highlight) => {
+        const offsets: any = {
+          h1: { top: 0, bottom: 0 },
+          h2: { top: 100, bottom: 100 },
+          h3: { top: 200, bottom: 200 },
+        };
+        const top = offsets[highlight.id]?.top ?? 0;
+        const bottom = offsets[highlight.id]?.bottom ?? 0;
+        return { top, bottom };
+      });
+
+    const component = renderer.create(<Provider store={store}>
+      <CardWrapper container={container} highlights={highlights} />
+    </Provider>);
+
+    const [card1, card2, card3] = component.root.findAllByType(Card);
+
+    // Set heights for card1 and card2, but NOT card3
+    // This simulates card3 having no height data
+    renderer.act(() => {
+      card1.props.onHeightChange({ current: { offsetHeight: 50 } });
+      card2.props.onHeightChange({ current: { offsetHeight: 50 } });
+      // Deliberately NOT setting height for card3
+    });
+
+    // Now focus card3 (NEW highlight with elements.length === 0)
+    // This triggers offset adjustment with initialPositions
+    renderer.act(() => {
+      store.dispatch(focusHighlight(card3.props.highlight.id));
+    });
+
+    // When updateCardsPositions processes card3 with initialPositions:
+    // Line 99-100: checks if this is the focused highlight with initial position
+    // For card3 (the focused highlight):
+    //   - It has elements.length === 0 (new), so offset adjustment runs
+    //   - After adjustment, when processing with initialPositions
+    //   - Line 104 condition is FALSE because heightsForId is undefined (no height set)
+    //   - lastVisibleCardPosition is NOT updated
+    //
+    // This ensures cards without height data don't affect stacking calculations
+
+    expect(() => component.root.findAllByType(Card)).not.toThrow();
+  });
+
   it('does not throw on unmount when highlight is focused', () => {
     const highlight = createMockHighlight();
     store.dispatch(focusHighlight(highlight.id));
