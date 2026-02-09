@@ -74,6 +74,13 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
     }
   }, [isOpen]);
 
+  const handleKeyDown = React.useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      closeButtonRef.current?.focus();
+    }
+  }, []);
+
   if (!isOpen) return null;
 
   return (
@@ -83,7 +90,7 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
         overlay={true}
         zIndex={theme.zIndex.highlightSummaryPopup}
       />
-      <ModalWrapper aria-modal='true' role='dialog' aria-label='Enlarged media'>
+      <ModalWrapper onKeyDown={handleKeyDown} aria-modal='true' role='dialog' aria-label='Enlarged media'>
         <ContentContainer >
           <FloatingCloseButton ref={closeButtonRef} onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />

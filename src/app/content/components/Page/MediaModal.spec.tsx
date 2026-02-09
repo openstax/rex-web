@@ -65,4 +65,5 @@ describe('MediaModal', () => {
     expect(closeButton).toBeTruthy();
     expect(closeButton.props['aria-label']).toBe('Close media preview');
   });
+
 });

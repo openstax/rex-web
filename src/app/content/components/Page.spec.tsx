@@ -1677,6 +1677,43 @@ describe('Page', () => {
       expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
       expect((otherEvt.preventDefault as jest.Mock)).not.toHaveBeenCalled();
     });
+
+    it('traps tab within the media modal', async() => {
+      const { root } = renderDomWithReferences({ html: figureHtml });
+      await Promise.resolve();
+
+      const img = root.querySelector<HTMLImageElement>('.image-button-wrapper img');
+      if (!img) return expect(img).toBeTruthy();
+
+      // open modal
+      ReactTestUtils.act(() => {
+        img.dispatchEvent(makeClickEvent());
+      });
+
+      const dialog = assertDocument().body.querySelector('[role="dialog"]');
+      expect(dialog).toBeTruthy();
+      if (!dialog) return;
+
+      const tabEvt = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+      Object.defineProperty(tabEvt, 'preventDefault', { value: jest.fn() });
+      ReactTestUtils.act(() => {
+        dialog.dispatchEvent(tabEvt);
+      });
+
+      expect((tabEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
+
+      const closeBtn = assertDocument().body.querySelector('[aria-label="Close media preview"]');
+      expect(assertDocument().activeElement).toBe(closeBtn);
+
+      // non-tab keys should be ignored
+      const arrowEvt = new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true });
+      Object.defineProperty(arrowEvt, 'preventDefault', { value: jest.fn() });
+      ReactTestUtils.act(() => {
+        dialog.dispatchEvent(arrowEvt);
+      });
+
+      expect((arrowEvt.preventDefault as jest.Mock)).not.toHaveBeenCalled();
+    });
   });
 
   describe('media modal guard: no <img> inside wrapper', () => {
