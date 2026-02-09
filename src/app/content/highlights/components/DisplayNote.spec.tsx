@@ -5,7 +5,7 @@ import createTestStore from '../../../../test/createTestStore';
 import { makeFindByTestId } from '../../../../test/reactutils';
 import TestContainer from '../../../../test/TestContainer';
 import { runHooks } from '../../../../test/utils';
-import { DropdownToggle } from '../../../components/Dropdown';
+import { DropdownToggle, DropdownList } from '../../../components/Dropdown';
 import { Store } from '../../../types';
 import { assertDocument, assertWindow } from '../../../utils';
 import { openToc } from '../../actions';
@@ -36,6 +36,10 @@ describe('DisplayNote', () => {
       onRemove: jest.fn(),
       style: highlightStyles[0],
     };
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('matches snapshot', () => {
@@ -250,27 +254,40 @@ describe('DisplayNote', () => {
   it('closes dropdown menu when clicking outside', () => {
     const onClickOutside = jest.spyOn(onClickOutsideModule, 'useOnClickOutside');
 
-    renderer.create(<TestContainer store={store}>
+    const component = renderer.create(<TestContainer store={store}>
       <DisplayNote {...displayNoteProps} isActive={true} />
     </TestContainer>);
+
+    renderer.act(() => {
+      component.root.findByType(DropdownToggle).props.onClick();
+    });
+
+    expect(component.root.findAllByType(DropdownList)).toHaveLength(1);
 
     // Second useOnClickOutside is the dropdown menu close handler
     renderer.act(() => {
       onClickOutside.mock.calls[1][2]({} as any);
     });
+
+    expect(component.root.findAllByType(DropdownList)).toHaveLength(0);
   });
 
   it('stops focusin propagation from dropdown', () => {
-    const mockSpan = assertDocument().createElement('span');
-    const addSpy = jest.spyOn(mockSpan, 'addEventListener');
-    const removeSpy = jest.spyOn(mockSpan, 'removeEventListener');
+    const mockDropdown = assertDocument().createElement('div');
+    const addSpy = jest.spyOn(mockDropdown, 'addEventListener');
+    const removeSpy = jest.spyOn(mockDropdown, 'removeEventListener');
 
+    let matchedDropdown = false;
     const component = renderer.create(<TestContainer store={store}>
       <DisplayNote {...displayNoteProps} isActive={false} />
     </TestContainer>, {
       createNodeMock: (el) => {
-        if (el.type === 'span') return mockSpan;
-        return assertDocument().createElement('div');
+        // The Dropdown container div is the first div without data-highlight-card
+        if (el.type === 'div' && !el.props['data-highlight-card'] && !matchedDropdown) {
+          matchedDropdown = true;
+          return mockDropdown;
+        }
+        return assertDocument().createElement(typeof el.type === 'string' ? el.type : 'div');
       },
     });
 
@@ -285,7 +302,7 @@ describe('DisplayNote', () => {
     expect(mockEvent.stopPropagation).toHaveBeenCalled();
 
     component.unmount();
-    expect(removeSpy).toHaveBeenCalledWith('focusin', expect.any(Function));
+    expect(removeSpy).toHaveBeenCalledWith('focusin', handler);
   });
 
   it('does not throw after unmout', () => {

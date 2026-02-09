@@ -122,37 +122,35 @@ exports[`DisplayNote matches snapshot 1`] = `
   role="dialog"
   tabIndex={-1}
 >
-  <span>
-    <div
-      className="c1 c2 c3"
+  <div
+    className="c1 c2 c3"
+  >
+    <button
+      aria-expanded={false}
+      aria-label="Actions"
+      className="c4 c5 c6 c7"
+      data-no-card-activate={true}
+      onClick={[Function]}
     >
-      <button
-        aria-expanded={false}
-        aria-label="Actions"
-        className="c4 c5 c6 c7"
-        data-no-card-activate={true}
-        onClick={[Function]}
+      <div
+        tabIndex={-1}
       >
-        <div
-          tabIndex={-1}
+        <svg
+          aria-hidden="true"
+          className="c8 c9 c10"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            aria-hidden="true"
-            className="c8 c9 c10"
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
             fill="currentColor"
-            focusable="false"
-            viewBox="0 0 192 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-      </button>
-    </div>
-  </span>
+          />
+        </svg>
+      </div>
+    </button>
+  </div>
   <svg
     aria-hidden="true"
     className="c11"
@@ -332,37 +330,35 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   role="dialog"
   tabIndex={-1}
 >
-  <span>
-    <div
-      className="c1 c2 c3"
+  <div
+    className="c1 c2 c3"
+  >
+    <button
+      aria-expanded={false}
+      aria-label="Actions"
+      className="c4 c5 c6 c7"
+      data-no-card-activate={true}
+      onClick={[Function]}
     >
-      <button
-        aria-expanded={false}
-        aria-label="Actions"
-        className="c4 c5 c6 c7"
-        data-no-card-activate={true}
-        onClick={[Function]}
+      <div
+        tabIndex={-1}
       >
-        <div
-          tabIndex={-1}
+        <svg
+          aria-hidden="true"
+          className="c8 c9 c10"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            aria-hidden="true"
-            className="c8 c9 c10"
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
             fill="currentColor"
-            focusable="false"
-            viewBox="0 0 192 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-      </button>
-    </div>
-  </span>
+          />
+        </svg>
+      </div>
+    </button>
+  </div>
   <svg
     aria-hidden="true"
     className="c11"
@@ -592,61 +588,59 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   role="dialog"
   tabIndex={-1}
 >
-  <span>
-    <div
-      className="c1 c2 c3"
+  <div
+    className="c1 c2 c3"
+  >
+    <button
+      aria-expanded={true}
+      aria-label="Actions"
+      className="c4 c5 c6 c7"
+      data-no-card-activate={true}
+      onClick={[Function]}
     >
-      <button
-        aria-expanded={true}
-        aria-label="Actions"
-        className="c4 c5 c6 c7"
-        data-no-card-activate={true}
-        onClick={[Function]}
+      <div
+        tabIndex={-1}
       >
-        <div
-          tabIndex={-1}
+        <svg
+          aria-hidden="true"
+          className="c8 c9 c10"
+          fill="currentColor"
+          focusable="false"
+          viewBox="0 0 192 512"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            aria-hidden="true"
-            className="c8 c9 c10"
+          <path
+            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
             fill="currentColor"
-            focusable="false"
-            viewBox="0 0 192 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-      </button>
-      <menu
-        className="c11 c12"
-      >
-        <li>
-          <button
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            Edit
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={[Function]}
-            onMouseEnter={[Function]}
-            tabIndex={0}
-            type="button"
-          >
-            Delete
-          </button>
-        </li>
-      </menu>
-    </div>
-  </span>
+          />
+        </svg>
+      </div>
+    </button>
+    <menu
+      className="c11 c12"
+    >
+      <li>
+        <button
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          Edit
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          Delete
+        </button>
+      </li>
+    </menu>
+  </div>
   <svg
     aria-hidden="true"
     className="c13"

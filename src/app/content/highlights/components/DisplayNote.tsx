@@ -68,12 +68,14 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [element.current, highlight]);
 
+  const closeMenu = React.useCallback(() => setMenuOpen(false), []);
+
   // Change Event phase so when clicking on another Card,
   // onBlur is called before this Card calls focus.
   useOnClickOutside(elements, isActive, onBlur, { capture: true });
   // Close the dropdown when clicking outside it, since the card
   // may not be active and useOnClickOutside above won't fire.
-  useOnClickOutside(dropdownRef, menuOpen, () => setMenuOpen(false));
+  useOnClickOutside(dropdownRef, menuOpen, closeMenu);
 
   useFocusElement(element, shouldFocusCard);
 
@@ -110,20 +112,18 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
       role='dialog'
       aria-labelledby={noteId}
     >
-      <span ref={dropdownRef}>
-        <Dropdown toggle={<MenuToggle data-no-card-activate />} transparentTab={confirmingDelete}
-          open={menuOpen} setOpen={setMenuOpen}
-        >
-          <DropdownList>
-            <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
-            <DropdownItem
-              message='i18n:highlighting:dropdown:delete'
-              data-testid='delete'
-              onClick={() => setConfirmingDelete(true)}
-            />
-          </DropdownList>
-        </Dropdown>
-      </span>
+      <Dropdown ref={dropdownRef} toggle={<MenuToggle data-no-card-activate />} transparentTab={confirmingDelete}
+        open={menuOpen} setOpen={setMenuOpen}
+      >
+        <DropdownList>
+          <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
+          <DropdownItem
+            message='i18n:highlighting:dropdown:delete'
+            data-testid='delete'
+            onClick={() => setConfirmingDelete(true)}
+          />
+        </DropdownList>
+      </Dropdown>
       <CloseIcon onClick={onBlur} />
       <label>Note:</label>
       <TruncatedText id={noteId} text={note} isActive={isActive} onChange={() => setTextToggle((state) => !state)} />
