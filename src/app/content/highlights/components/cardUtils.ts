@@ -212,14 +212,12 @@ export const updateCardsPositions = (
     focusedHighlight?.id
   );
 
-  // If the focused highlight is an existing card (has elements AND has a position), don't reposition it
-  // This prevents jumping when clicking on an existing DisplayNote
-  // For test mocks without elements, or new highlights without positions, repositioning will occur
-  const isExistingCard = focusedHighlight &&
-    focusedHighlight.elements.length > 0 &&
-    cardsPositions.has(focusedHighlight.id);
+  // Offset adjustment logic should only run for NEW highlights (fresh text selections)
+  // New highlights have no DOM elements yet (elements.length === 0)
+  // Existing saved highlights have DOM elements and should not be repositioned when activated
+  const isNewHighlight = focusedHighlight && focusedHighlight.elements.length === 0;
 
-  if (!focusedHighlight || isExistingCard) {
+  if (!focusedHighlight || !isNewHighlight) {
     return cardsPositions;
   }
 

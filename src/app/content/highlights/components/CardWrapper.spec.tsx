@@ -175,6 +175,11 @@ describe('CardWrapper', () => {
 
   it(`update only these cards that needs it when focusing highlight`, () => {
     const highlights = [createMockHighlight(), createMockHighlight(), createMockHighlight(), createMockHighlight()];
+    // Simulate existing highlights by adding mock DOM elements
+    // This indicates these are saved highlights, not new text selections
+    highlights.forEach(h => {
+      h.elements = [document.createElement('span') as any];
+    });
     const highlightsPositionsInDocument = [0, 100, 120, 300];
 
     jest.spyOn(cardUtils, 'getHighlightOffset')
@@ -211,21 +216,21 @@ describe('CardWrapper', () => {
     expect(card3.props.topOffset).toEqual(145);
     expect(card4.props.topOffset).toEqual(275); // centered at 300 - 25 = 275
 
-    // Move card2 and card3 to the top when the card3 is focused - card1 and card4 are not affected
+    // Focusing card3 should NOT reposition it (no jumping for existing highlights)
     renderer.act(() => {
       store.dispatch(focusHighlight(card3.props.highlight.id));
     });
-    // card3 moves to align with highlight at 120, card2 adjusts to avoid overlap
+    // All cards stay at their original positions
     expect(card1.props.topOffset).toEqual(0);
-    expect(card2.props.topOffset).toEqual(50);
-    expect(card3.props.topOffset).toEqual(120);
+    expect(card2.props.topOffset).toEqual(75);
+    expect(card3.props.topOffset).toEqual(145);
     expect(card4.props.topOffset).toEqual(275);
 
-    // focusing card1 recalculates stacking while preserving card1's position
+    // Focusing card1 should NOT reposition cards (no jumping for existing highlights)
     renderer.act(() => {
       store.dispatch(focusHighlight(card1.props.highlight.id));
     });
-    // card1 stays at 0, other cards re-center and stack normally
+    // All cards stay at their positions
     expect(card1.props.topOffset).toEqual(0);
     expect(card2.props.topOffset).toEqual(75);
     expect(card3.props.topOffset).toEqual(145);
