@@ -173,6 +173,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
 
 .c1 {
   font-weight: bold;
+  width: 100%;
 }
 
 .c2 {
@@ -180,10 +181,11 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
   gap: 1rem;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   -webkit-align-items: start;
   -webkit-box-align: start;
   -ms-flex-align: start;
