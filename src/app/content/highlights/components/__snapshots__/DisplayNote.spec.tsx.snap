@@ -129,6 +129,7 @@ exports[`DisplayNote matches snapshot 1`] = `
       aria-expanded={false}
       aria-label="Actions"
       className="c4 c5 c6 c7"
+      data-no-card-activate={true}
       onClick={[Function]}
     >
       <div
@@ -336,6 +337,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       aria-expanded={false}
       aria-label="Actions"
       className="c4 c5 c6 c7"
+      data-no-card-activate={true}
       onClick={[Function]}
     >
       <div
@@ -593,6 +595,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       aria-expanded={true}
       aria-label="Actions"
       className="c4 c5 c6 c7"
+      data-no-card-activate={true}
       onClick={[Function]}
     >
       <div
