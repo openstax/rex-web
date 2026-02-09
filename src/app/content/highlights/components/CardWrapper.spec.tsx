@@ -149,24 +149,26 @@ describe('CardWrapper', () => {
       card1.props.onHeightChange({ current: { offsetHeight: 100 } });
       card2.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
-    // We are starting at 100 because of getHighlightTopOffset mock
-    expect(card1.props.topOffset).toEqual(100);
-    expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
+    // Cards are now centered on their highlights. With mock returning {top: 100, bottom: 100} (0 height highlight)
+    // and card height of 100px, centered position is: 100 + (0/2) - (100/2) = 50
+    expect(card1.props.topOffset).toEqual(50);
+    expect(card2.props.topOffset).toEqual(50 + 100 + remsToPx(cardMarginBottom));
 
     // Noops when height is the same
     renderer.act(() => {
       card1.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
-    expect(card1.props.topOffset).toEqual(100);
-    expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
+    expect(card1.props.topOffset).toEqual(50);
+    expect(card2.props.topOffset).toEqual(50 + 100 + remsToPx(cardMarginBottom));
 
     // Handle null value
     renderer.act(() => {
       card1.props.onHeightChange({ current: null });
     });
-    // First card have null height so secondcard starts at the highlight top offset
+    // First card have null height (treated as 0), so centered at 100 + (0/2) - (0/2) = 100
+    // Second card starts at the highlight top offset, centered: 100 + (0/2) - (100/2) = 50
     expect(card1.props.topOffset).toEqual(100);
-    expect(card2.props.topOffset).toEqual(100);
+    expect(card2.props.topOffset).toEqual(50);
 
     expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
@@ -201,42 +203,43 @@ describe('CardWrapper', () => {
       card3.props.onHeightChange({ current: { offsetHeight: 50 } });
       card4.props.onHeightChange({ current: { offsetHeight: 50 } });
     });
-    expect(card1.props.topOffset).toEqual(0); // first card have only 50px height + 20px margin bottom
-    expect(card2.props.topOffset).toEqual(100); // so the second cards starts and the highlight level which is 100
-    // highlight for the card3 starts at 120px which is too close to the card2
-    // calculated offset will be equal to card2 offset + card2 height + card2 margin bottom = 170px
-    expect(card3.props.topOffset).toEqual(170);
-    expect(card4.props.topOffset).toEqual(300); // card4 will start at the corresponding highlight level
+    // Cards are centered on their highlights (0-height highlights with 50px cards)
+    expect(card1.props.topOffset).toEqual(0); // centered at 0 + 0/2 - 50/2 = -25, but max(0, -25) = 0
+    expect(card2.props.topOffset).toEqual(75); // centered at 100 - 25 = 75
+    // card3 centered would be 120 - 25 = 95, but card2 ends at 75+50=125
+    // so stacked: 125 + margin(20) = 145
+    expect(card3.props.topOffset).toEqual(145);
+    expect(card4.props.topOffset).toEqual(275); // centered at 300 - 25 = 275
 
     // Move card2 and card3 to the top when the card3 is focused - card1 and card4 are not affected
     renderer.act(() => {
       store.dispatch(focusHighlight(card3.props.highlight.id));
     });
-    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    // card3 moves to align with highlight at 120, card2 adjusts to avoid overlap
     expect(card1.props.topOffset).toEqual(0);
     expect(card2.props.topOffset).toEqual(50);
     expect(card3.props.topOffset).toEqual(120);
-    expect(card4.props.topOffset).toEqual(300);
+    expect(card4.props.topOffset).toEqual(275);
 
-    // focusing card1 is not changing position of any cards
+    // focusing card1 recalculates stacking while preserving card1's position
     renderer.act(() => {
       store.dispatch(focusHighlight(card1.props.highlight.id));
     });
-    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    // card1 stays at 0, other cards re-center and stack normally
     expect(card1.props.topOffset).toEqual(0);
-    expect(card2.props.topOffset).toEqual(100);
-    expect(card3.props.topOffset).toEqual(170);
-    expect(card4.props.topOffset).toEqual(300);
+    expect(card2.props.topOffset).toEqual(75);
+    expect(card3.props.topOffset).toEqual(145);
+    expect(card4.props.topOffset).toEqual(275);
 
-    // focusing card4 is not changing position of any cards
+    // focusing card4 doesn't affect earlier cards
     renderer.act(() => {
-      store.dispatch(focusHighlight(card1.props.highlight.id));
+      store.dispatch(focusHighlight(card4.props.highlight.id));
     });
-    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    // card4 stays at its centered position, earlier cards unchanged
     expect(card1.props.topOffset).toEqual(0);
-    expect(card2.props.topOffset).toEqual(100);
-    expect(card3.props.topOffset).toEqual(170);
-    expect(card4.props.topOffset).toEqual(300);
+    expect(card2.props.topOffset).toEqual(75);
+    expect(card3.props.topOffset).toEqual(145);
+    expect(card4.props.topOffset).toEqual(275);
 
     expect(() => component.root.findAllByType(Card)).not.toThrow();
   });

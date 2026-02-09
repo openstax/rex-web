@@ -86,9 +86,9 @@ const updateStackedCardsPositions = (
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
   checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean,
   initialPositions?: Map<string, number>,
-  addAditionalMarginForTheFirstCard = false,
-  lastVisibleCardPosition = 0,
-  lastVisibleCardHeight = 0,
+  addAditionalMarginForTheFirstCard: boolean,
+  lastVisibleCardPosition: number,
+  lastVisibleCardHeight: number,
   focusedHighlightId?: string
 ) => {
   const positions = initialPositions ? initialPositions : new Map<string, number>();
