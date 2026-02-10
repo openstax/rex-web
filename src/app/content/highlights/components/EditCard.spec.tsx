@@ -2,7 +2,6 @@ import { Highlight } from '@openstax/highlighter';
 import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React, { ReactElement } from 'react';
 import renderer from 'react-test-renderer';
-import ReactTestUtils from 'react-dom/test-utils';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
@@ -612,7 +611,7 @@ describe('EditCard', () => {
         ...highlightData,
       };
 
-      const component = renderToDom(
+      renderToDom(
         <div id={MAIN_CONTENT_ID} tabIndex={-1}>
           <TestContainer services={services} store={store}>
             <a href='#foo'>text</a>
