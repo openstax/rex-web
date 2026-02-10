@@ -88,7 +88,7 @@ async def test_highlight_not_saved_in_show_hide_solution(
     "book_slug, page_slug",
     [("algebra-and-trigonometry-2e", "13-1-sequences-and-their-notations")],
 )
-async def tst_highlight_saved_in_show_hide_solution(
+async def test_highlight_saved_in_show_hide_solution(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
     # GIVEN: Playwright, chromium and the rex_base_url
