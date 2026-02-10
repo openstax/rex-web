@@ -458,7 +458,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="c5"
         >
-          (Windows, NVDA) – Alternative: open context menu
+          (Windows) – Alternative: open context menu
         </div>
       </div>
       <div
@@ -482,7 +482,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="c5"
         >
-          (macOS, NVDA) – Alternative: open context menu
+          (macOS)(Safari, Firefox, Edge) – Alternative: open context menu
         </div>
       </div>
     </div>

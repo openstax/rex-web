@@ -695,7 +695,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
             <div
               className="c12"
             >
-              (Windows, NVDA) – Alternative: open context menu
+              (Windows) – Alternative: open context menu
             </div>
           </div>
           <div
@@ -719,7 +719,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
             <div
               className="c12"
             >
-              (macOS, NVDA) – Alternative: open context menu
+              (macOS)(Safari, Firefox, Edge) – Alternative: open context menu
             </div>
           </div>
         </div>
