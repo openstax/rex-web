@@ -35,13 +35,6 @@ export function LoginOrEdit({
   const authenticated = !!useSelector(selectAuth.user);
   const { formatMessage } = useIntl();
 
-  const showCard = React.useCallback((event: React.MouseEvent) => {
-    if (event.button === 0) {
-      event.preventDefault();
-      document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
-    }
-  }, []);
-
   return (
     <div
       className={className}
@@ -59,15 +52,13 @@ export function LoginOrEdit({
               {children}
             </form>
           ) : (
-            <div onMouseDown={showCard}>
-              <FormattedMessage
-                id={
-                  isNewSelection
-                    ? 'i18n:highlighting:create-instructions'
-                    : 'i18n:highlighting:instructions'
-                }
-              />
-            </div>
+            <FormattedMessage
+              id={
+                isNewSelection
+                  ? 'i18n:highlighting:create-instructions'
+                  : 'i18n:highlighting:instructions'
+              }
+            />
           )}
         </HiddenOnMobile>
       ) : (
