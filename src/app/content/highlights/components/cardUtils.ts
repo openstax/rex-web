@@ -86,25 +86,13 @@ const updateStackedCardsPositions = (
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
   checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean,
   initialPositions: Map<string, number> | undefined,
-  addAditionalMarginForTheFirstCard: boolean,
+  addAdditionalMarginForTheFirstCard: boolean,
   lastVisibleCardPosition: number,
   lastVisibleCardHeight: number
 ) => {
-  const positions = initialPositions ? initialPositions : new Map<string, number>();
+  const positions = initialPositions || new Map<string, number>();
 
   for (const [index, highlight] of highlightsElements.entries()) {
-    // If this highlight already has a position from a previous calculation (initialPositions), preserve it
-    if (initialPositions && initialPositions.has(highlight.id)) {
-      const existingPosition = positions.get(highlight.id) as number;
-      const heightsForId = heights.get(highlight.id);
-
-      if (heightsForId && !checkIfHiddenByCollapsedAncestor(highlight)) {
-        lastVisibleCardPosition = existingPosition;
-        lastVisibleCardHeight = heightsForId;
-      }
-      continue;
-    }
-
     // Get highlight bounds
     const { top, bottom } = getHighlightPosition(highlight);
     const highlightHeight = bottom - top;
@@ -114,7 +102,7 @@ const updateStackedCardsPositions = (
     // For inactive cards, position at vertical center of highlight
     const centeredOffset = top + (highlightHeight / 2) - (cardHeight / 2);
 
-    const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
+    const marginToAdd = index > 0 || addAdditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
 
     // Use the greater of: centered position OR stacked position (to avoid overlap)

@@ -897,10 +897,11 @@ describe('CardWrapper', () => {
 
       // Verify positions are defined and the code path executed successfully
       // The main goal is to ensure the initialPositions preservation logic runs without errors
-      expect(card1.props.topOffset).toBeDefined();
-      expect(card2.props.topOffset).toBeDefined();
-      expect(card3.props.topOffset).toBeDefined();
-      expect(card4.props.topOffset).toBeDefined();
+      // After focusing NEW highlight h3, offset adjustment shifts cards by +25:
+      expect(card1.props.topOffset).toBe(0);    // -25 (centered) + 25 (offset) = 0
+      expect(card2.props.topOffset).toBe(75);   // 75 (centered), no change
+      expect(card3.props.topOffset).toBe(200);  // 175 (centered) + 25 (offset) = 200
+      expect(card4.props.topOffset).toBe(275);  // 275 (centered), not affected
     });
 
     it('covers preferEnd true branch with text selection', () => {
@@ -912,9 +913,17 @@ describe('CardWrapper', () => {
         .mockReturnValue({ bottom: 100, top: 50 });
 
       // Mock window.getSelection() to return a selection with anchorNode and focusNode
+      const anchorNode = document.createElement('div');
+      const focusNode = document.createElement('div');
+      const node = assertDocument().getRootNode();
+
+      // Stub compareDocumentPosition to return DOCUMENT_POSITION_FOLLOWING
+      // This ensures preferEnd evaluates to true (forward selection)
+      anchorNode.compareDocumentPosition = jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING);
+
       const selectionMock = {
-        anchorNode: document.createElement('div'),
-        focusNode: document.createElement('div'),
+        anchorNode,
+        focusNode,
         anchorOffset: 0,
         focusOffset: 10,
       };
@@ -932,10 +941,12 @@ describe('CardWrapper', () => {
         store.dispatch(focusHighlight(highlight.id));
       });
 
-      // This makes the preferEnd ternary at line 182 evaluate to true,
-      // exercising the getSelectionDirection logic
-      // Verify position is defined - the test is mainly to ensure the code path runs
-      expect(card.props.topOffset).toBeDefined();
+      // With preferEnd = true, the offset calculation:
+      // - Centered offset = top + (height/2) - (cardHeight/2) = 50 + 25 - 40 = 35
+      // - Target (preferEnd) = bottom - 120 = 100 - 120 = -20
+      // - offsetToAdjust = 35 - (-20) = 55
+      // - Final position = 35 - 55 = -20
+      expect(card.props.topOffset).toBe(-20);
 
       getSelectionSpy.mockRestore();
     });
@@ -978,76 +989,20 @@ describe('CardWrapper', () => {
         store.dispatch(focusHighlight(highlights[2].id));
       });
 
-      // When focusing the new highlight at 500, the offset adjustment repositions it.
-      // The large gap ensures that the card at position 200 has its bottom (250)
-      // well below the adjusted position, making the condition at line 254 evaluate
-      // to true and breaking the loop early.
-
-      // Verify positions are defined - the test is mainly to ensure the code path runs
-      expect(card1.props.topOffset).toBeDefined();
-      expect(card2.props.topOffset).toBeDefined();
-      expect(card3.props.topOffset).toBeDefined();
+      // Expected positions (highlights have 0 height, cards have 50px height):
+      // Initial calculation:
+      // - h1: centered at 0 + 0/2 - 50/2 = -25, but starts at 0 (first card, no stacking)
+      // - h2: centered at 200 - 25 = 175, stacking from h1 end (50): max(175, 50) = 175
+      // - h3: centered at 500 - 25 = 475, stacking from h2 end (225): max(475, 225) = 475
+      // After focusing h3, offset adjustment targets h3.top = 500
+      // offsetToAdjust = 475 - 500 = -25
+      // Adjusted h3 = 475 - (-25) = 500
+      // h2 and h1 need to check if they overlap with adjusted h3 (500)
+      // h2 at 175 with height 50 ends at 225, which is < 500, so break (line 254 evaluates true)
+      expect(card1.props.topOffset).toBe(0);
+      expect(card2.props.topOffset).toBe(175);
+      expect(card3.props.topOffset).toBe(500);
     });
 
-    it('handles highlight with position in initialPositions but no height data (line 101 false)', () => {
-      // Test coverage for cardUtils.ts line 101 being FALSE
-      // When a highlight has a position in initialPositions but no height data,
-      // the condition (heightsForId && !checkIfHiddenByCollapsedAncestor) is false
-      // because heightsForId is undefined
-
-      // Create 3 existing highlights plus 1 NEW highlight (no elements)
-      const highlights = [
-        createMockHighlight('h1'),
-        createMockHighlight('h2'),
-        createMockHighlight('h3-new'), // This will be the NEW highlight
-        createMockHighlight('h4'), // This one will have no height data
-      ];
-      // h1, h2, h4 are existing (have elements), h3 is new (no elements)
-      highlights[0].elements = [document.createElement('span') as any];
-      highlights[1].elements = [document.createElement('span') as any];
-      highlights[2].elements = []; // NEW highlight
-      highlights[3].elements = [document.createElement('span') as any];
-
-      const highlightsPositionsInDocument = [0, 100, 200, 300];
-      jest.spyOn(cardUtils, 'getHighlightOffset')
-        .mockImplementation((_container: any, highlight: Highlight) => {
-          const top = highlightsPositionsInDocument[highlights.findIndex((search) => search.id === highlight.id)];
-          return { bottom: top, top };
-        });
-
-      const component = renderer.create(<Provider store={store}>
-        <CardWrapper container={container} highlights={highlights} />
-      </Provider>);
-
-      const [card1, card2, card3, card4] = component.root.findAllByType(Card);
-
-      // Set heights for cards 1, 2, and 3, but NOT for card4
-      renderer.act(() => {
-        card1.props.onHeightChange({ current: { offsetHeight: 50 } });
-        card2.props.onHeightChange({ current: { offsetHeight: 50 } });
-        card3.props.onHeightChange({ current: { offsetHeight: 50 } });
-        // card4 intentionally has no height set (simulates missing height data)
-      });
-
-      // Focus h3 (NEW highlight, no elements) - this triggers the offset adjustment flow
-      // which calls updateStackedCardsPositions twice:
-      // 1. First call (line 203): calculates all positions (h1, h2, h3, h4)
-      // 2. Second call (line 265): processes highlightsAfterFocused (h4) with initialPositions
-      // When processing h4 in the second call:
-      //   - Line 97: initialPositions.has(h4.id) is TRUE (h4 has position from first call)
-      //   - Line 99: heightsForId is UNDEFINED (we didn't set height for card4)
-      //   - Line 101: condition is FALSE because heightsForId is undefined
-      //   - Therefore lastVisibleCardPosition and lastVisibleCardHeight are NOT updated
-      renderer.act(() => {
-        store.dispatch(focusHighlight(highlights[2].id));
-      });
-
-      // Verify positions are defined - the test ensures the code path runs without errors
-      // even when a highlight has a position but no height data
-      expect(card1.props.topOffset).toBeDefined();
-      expect(card2.props.topOffset).toBeDefined();
-      expect(card3.props.topOffset).toBeDefined();
-      expect(card4.props.topOffset).toBeDefined();
-    });
   });
 });
