@@ -79,7 +79,6 @@ Array [
     aria-label="Enlarged media"
     aria-modal="true"
     className="c0"
-    onKeyDown={[Function]}
     role="dialog"
   >
     <div
