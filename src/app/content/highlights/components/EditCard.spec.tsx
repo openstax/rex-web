@@ -135,7 +135,7 @@ describe('EditCard', () => {
     });
 
     it('shows create highlight message for new highlight', () => {
-      const newHighlight = {...highlight};
+      const newHighlight = {...highlight, elements: []};
       const { component, cleanup } = renderAuthenticatedEditCard({
         ...editCardProps,
         highlight: newHighlight,
