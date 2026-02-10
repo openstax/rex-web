@@ -39,7 +39,6 @@ async def test_highlight_not_saved_in_show_hide_solution(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
@@ -89,7 +88,7 @@ async def test_highlight_not_saved_in_show_hide_solution(
     "book_slug, page_slug",
     [("algebra-and-trigonometry-2e", "13-1-sequences-and-their-notations")],
 )
-async def test_highlight_saved_in_show_hide_solution(
+async def tst_highlight_saved_in_show_hide_solution(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
     # GIVEN: Playwright, chromium and the rex_base_url
@@ -117,7 +116,6 @@ async def test_highlight_saved_in_show_hide_solution(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
