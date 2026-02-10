@@ -145,13 +145,11 @@ describe('EditCard', () => {
         shouldFocusCard: false,
       });
 
-      // Find the FormattedMessage component with create-instructions id
-      const messages = component.root.findAllByType('FormattedMessage' as any);
-      const createMessage = messages.find(
-        msg => msg.props.id === 'i18n:highlighting:create-instructions'
-      );
+      // Find the rendered message text - FormattedMessage renders as text in the component tree
+      const tree = component.toJSON();
+      const treeString = JSON.stringify(tree);
 
-      expect(createMessage).toBeDefined();
+      expect(treeString).toContain('Press Enter to create highlight');
       cleanup();
     });
 
