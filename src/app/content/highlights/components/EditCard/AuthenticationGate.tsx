@@ -59,7 +59,7 @@ export function LoginOrEdit({
               {children}
             </form>
           ) : (
-            <button type='button' onMouseDown={showCard}>
+            <div onMouseDown={showCard}>
               <FormattedMessage
                 id={
                   isNewSelection
@@ -67,7 +67,7 @@ export function LoginOrEdit({
                     : 'i18n:highlighting:instructions'
                 }
               />
-            </button>
+            </div>
           )}
         </HiddenOnMobile>
       ) : (
