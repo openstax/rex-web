@@ -135,20 +135,25 @@ describe('EditCard', () => {
       cleanup();
     });
 
-    // it('shows create highlight message for new highlight', () => {
-    //   const newHighlight = {...highlight, elements: []};
-    //   const { component, cleanup } = renderAuthenticatedEditCard({
-    //     ...editCardProps,
-    //     highlight: newHighlight,
-    //     data: highlightData,
-    //     isActive: true,
-    //     shouldFocusCard: false,
-    //   });
+    it('shows create highlight message for new highlight', () => {
+      const newHighlight = {...highlight};
+      const { component, cleanup } = renderAuthenticatedEditCard({
+        ...editCardProps,
+        highlight: newHighlight,
+        data: undefined,
+        isActive: true,
+        shouldFocusCard: false,
+      });
 
-    //   const dialog = component.root.findByType('dialog');
-    //   expect(dialog.props.children.props.id).toBe('i18n:highlighting:create-instructions');
-    //   cleanup();
-    // });
+      // Find the FormattedMessage component with create-instructions id
+      const messages = component.root.findAllByType('FormattedMessage' as any);
+      const createMessage = messages.find(
+        msg => msg.props.id === 'i18n:highlighting:create-instructions'
+      );
+
+      expect(createMessage).toBeDefined();
+      cleanup();
+    });
 
     it('matches snapshot without data', () => {
       const component = renderer.create(
