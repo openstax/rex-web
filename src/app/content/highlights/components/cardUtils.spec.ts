@@ -1,6 +1,5 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
-import { Node, Selection } from '@openstax/types/lib.dom';
 import createMockHighlight from '../../../../test/mocks/highlight';
 import { assertDocument } from '../../../utils';
 import {
@@ -9,6 +8,7 @@ import {
   editCardVisibilityHandler,
   getOffsetToAdjustForHighlightPosition,
   getSelectionDirection,
+  updateCardsPositions,
 } from './cardUtils';
 
 describe('cardUtils', () => {
@@ -18,9 +18,9 @@ describe('cardUtils', () => {
 
   it('returns top offset for a highlight', () => {
     expect(getHighlightTopOffset(
-        assertDocument().createElement('div'),
-        createMockHighlight() as any as Highlight)
-      ).toEqual(0);
+      assertDocument().createElement('div'),
+      createMockHighlight() as any as Highlight)
+    ).toEqual(0);
   });
 });
 
@@ -32,64 +32,64 @@ describe('generateUpdatePayload', () => {
   };
 
   it('handles updating both fields', () => {
-    const update = {color: HighlightColorEnum.Green, annotation: 'hello'};
-    const payload = generateUpdatePayload(oldData, {id: highlightId, ...update});
+    const update = { color: HighlightColorEnum.Green, annotation: 'hello' };
+    const payload = generateUpdatePayload(oldData, { id: highlightId, ...update });
 
     expect(payload.preUpdateData.highlight).toEqual(oldData);
     expect(payload.updatePayload.highlight).toEqual(update);
   });
 
   it('handles updating only color', () => {
-    const update = {color: HighlightColorEnum.Green};
-    const payload = generateUpdatePayload(oldData, {id: highlightId, ...update});
+    const update = { color: HighlightColorEnum.Green };
+    const payload = generateUpdatePayload(oldData, { id: highlightId, ...update });
 
     expect(payload.preUpdateData.highlight).toEqual(oldData);
-    expect(payload.updatePayload.highlight).toEqual({...update, annotation: oldData.annotation});
+    expect(payload.updatePayload.highlight).toEqual({ ...update, annotation: oldData.annotation });
   });
 
   it('handles updating only annotation', () => {
-    const update = {annotation: 'hi'};
-    const payload = generateUpdatePayload(oldData, {id: highlightId, ...update});
+    const update = { annotation: 'hi' };
+    const payload = generateUpdatePayload(oldData, { id: highlightId, ...update });
 
     expect(payload.preUpdateData.highlight).toEqual(oldData);
-    expect(payload.updatePayload.highlight).toEqual({...update, color: oldData.color});
+    expect(payload.updatePayload.highlight).toEqual({ ...update, color: oldData.color });
   });
 });
 
 describe('editCardVisibilityHandler', () => {
   const highlights = [
-    {id: 'highlight1', annotation: 'annotation1'},
-    {id: 'highlight2', annotation: 'annotation2'},
-    {id: 'highlight3', annotation: 'annotation3'},
+    { id: 'highlight1', annotation: 'annotation1' },
+    { id: 'highlight2', annotation: 'annotation2' },
+    { id: 'highlight3', annotation: 'annotation3' },
   ];
   const state = new Map(highlights.map((highlight) => [highlight.id, false]));
 
   it('hide highlight', () => {
-    const result = editCardVisibilityHandler(state, { type: 'HIDE', id: 'highlight1'});
+    const result = editCardVisibilityHandler(state, { type: 'HIDE', id: 'highlight1' });
     expect(result.get('highlight1')).toBe(true);
     expect(result.get('highlight2')).toBe(false);
     expect(result.get('highlight3')).toBe(false);
   });
 
   it('hide highlight - unknown id', () => {
-    const result = editCardVisibilityHandler(state, { type: 'HIDE'});
+    const result = editCardVisibilityHandler(state, { type: 'HIDE' });
     expect(result.get('highlight1')).toBe(false);
   });
 
   it('show highlight', () => {
-    const result = editCardVisibilityHandler(state, { type: 'SHOW', id: 'highlight1'});
+    const result = editCardVisibilityHandler(state, { type: 'SHOW', id: 'highlight1' });
     expect(result.get('highlight1')).toBe(false);
     expect(result.get('highlight2')).toBe(false);
     expect(result.get('highlight3')).toBe(false);
   });
 
   it('show highlight - unknown id', () => {
-    const result = editCardVisibilityHandler(state, { type: 'SHOW'});
+    const result = editCardVisibilityHandler(state, { type: 'SHOW' });
     expect(result.get('highlight1')).toBe(false);
   });
 
   it('return state when action type does not exist', () => {
-    const result = editCardVisibilityHandler(state, { type: 'SHOW_ANY'});
+    const result = editCardVisibilityHandler(state, { type: 'SHOW_ANY' });
     expect(result.get('highlight1')).toBe(false);
   });
 });
@@ -142,8 +142,8 @@ describe('getOffsetToAdjustForHighlightPosition', () => {
 
 describe('getSelectionDirection', () => {
   function createSelection(
-    anchorNode: Node | null, anchorOffset: number, focusNode: Node | null, focusOffset: number
-  ): Selection {
+    anchorNode: any | null, anchorOffset: number, focusNode: any | null, focusOffset: number
+  ): any {
     return {
       anchorNode,
       anchorOffset,
@@ -159,7 +159,7 @@ describe('getSelectionDirection', () => {
       containsNode: () => false,
       toString: () => '',
       type: 'Range',
-    } as unknown as Selection;
+    } as unknown as any;
   }
 
   it('returns "forward" if anchorNode or focusNode is missing', () => {
@@ -188,10 +188,64 @@ describe('getSelectionDirection', () => {
   });
 
   it('returns "backward" if anchorNode comes after focusNode', () => {
-    const node = assertDocument().getRootNode();
     const node1 = assertDocument().createTextNode('abc');
     const node2 = assertDocument().createTextNode('def');
-    node1.compareDocumentPosition = jest.fn(() => node.DOCUMENT_POSITION_PRECEDING);
+    node1.compareDocumentPosition = () => 2;
     expect(getSelectionDirection(createSelection(node1, 0, node2, 0))).toBe('backward');
+  });
+});
+
+describe('updateCardsPositions', () => {
+  const highlight = { id: 'h1' } as any;
+  const cardsHeights = new Map<string, number>([['h1', 50]]);
+  const getHighlightPosition = jest.fn((_h: any) => ({ top: 100, bottom: 200 }));
+  const checkIfHiddenByCollapsedAncestor = jest.fn(() => false);
+
+  it('uses default preferEnd if forcedPreferEnd is not provided', () => {
+    const selection = {
+      anchorNode: {
+        compareDocumentPosition: () => 4,
+      },
+      focusNode: {},
+      anchorOffset: 0,
+      focusOffset: 1,
+    };
+    const getSelectionSpy = jest.spyOn(window as any, 'getSelection').mockReturnValue(selection as any);
+
+    updateCardsPositions(
+      highlight,
+      [highlight],
+      cardsHeights,
+      getHighlightPosition,
+      checkIfHiddenByCollapsedAncestor,
+      undefined
+    );
+
+    expect(getSelectionSpy).toHaveBeenCalled();
+    getSelectionSpy.mockRestore();
+  });
+
+  it('uses preferEnd if forcedPreferEnd is provided', () => {
+    const selection = {
+      anchorNode: {
+        compareDocumentPosition: () => 4,
+      },
+      focusNode: {},
+      anchorOffset: 0,
+      focusOffset: 1,
+    };
+    const getSelectionSpy = jest.spyOn(window as any, 'getSelection').mockReturnValue(selection as any);
+
+    updateCardsPositions(
+      highlight,
+      [highlight],
+      cardsHeights,
+      getHighlightPosition,
+      checkIfHiddenByCollapsedAncestor,
+      true
+    );
+
+    expect(getSelectionSpy).not.toHaveBeenCalled();
+    getSelectionSpy.mockRestore();
   });
 });

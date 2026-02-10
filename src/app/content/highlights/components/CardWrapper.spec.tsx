@@ -329,7 +329,7 @@ describe('CardWrapper', () => {
     const highlight2 = createMockHighlight('id2');
     const highlightElement1 = document.createElement('span');
     const highlightElement2 = document.createElement('span');
-    const selectionHighlight = {id: 'string', elements: []};
+    const selectionHighlight = { id: 'string', elements: [] };
 
     highlight1.elements.push(highlightElement1);
     highlight2.elements.push(highlightElement2);
@@ -402,7 +402,7 @@ describe('CardWrapper', () => {
     // Trigger editOnEnter with no focusedHighlight
     renderer.act(() => {
       dispatchKeyDownEvent({
-          key: 'Enter',
+        key: 'Enter',
       });
     });
 
@@ -839,4 +839,57 @@ describe('CardWrapper', () => {
       });
     });
   });
+
+describe('handleSelectionChange', () => {
+  it('does not set lastDirection if selection is collapsed', () => {
+    const highlight = createMockHighlight('id1');
+    store.dispatch(focusHighlight(highlight.id));
+
+    const selectionMock = {
+      isCollapsed: true,
+      anchorNode: { compareDocumentPosition: jest.fn().mockReturnValue(0) },
+      focusNode: { compareDocumentPosition: jest.fn().mockReturnValue(0) },
+    };
+    const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>
+    );
+
+    // Spy on getSelectionDirection to ensure it is not called
+    const getSelectionDirectionSpy = jest.spyOn(cardUtils, 'getSelectionDirection');
+    renderer.act(() => {
+      document?.dispatchEvent(new Event('selectionchange'));
+    });
+    expect(getSelectionDirectionSpy).not.toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+    getSelectionDirectionSpy.mockRestore();
+    component.unmount();
+  });
+
+  it('does nothing if no selection or no focusedHighlight', () => {
+    // No focusedHighlight
+    const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(null as any);
+
+    const component = renderer.create(
+      <Provider store={store}>
+        <CardWrapper container={container} highlights={[createMockHighlight('id1')]} />
+      </Provider>
+    );
+
+    // Spy on getSelectionDirection to ensure it is not called
+    const getSelectionDirectionSpy = jest.spyOn(cardUtils, 'getSelectionDirection');
+    renderer.act(() => {
+      document?.dispatchEvent(new Event('selectionchange'));
+    });
+    expect(getSelectionDirectionSpy).not.toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+    getSelectionDirectionSpy.mockRestore();
+    component.unmount();
+  });
+});
 });

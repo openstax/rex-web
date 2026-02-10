@@ -4,7 +4,7 @@ import { Element, HTMLElement, Selection } from '@openstax/types/lib.dom';
 import React from 'react';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
-import { assertDocument, assertWindow, remsToPx } from '../../../utils';
+import { assertWindow, remsToPx } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { cardMarginBottom } from '../constants';
 import { HighlightData } from '../types';
@@ -14,7 +14,7 @@ export const getHighlightOffset = (container: HTMLElement | undefined, highlight
     return;
   }
 
-  const {top, bottom } = highlight.range.getBoundingClientRect();
+  const { top, bottom } = highlight.range.getBoundingClientRect();
 
   const offsetParent = container.offsetParent && findElementSelfOrParent(container.offsetParent);
   const parentOffset = offsetParent ? offsetParent.offsetTop : 0;
@@ -47,7 +47,7 @@ export const getHighlightBottomOffset = (
 
 export const generateUpdatePayload = (
   oldData: Pick<HighlightData, 'color' | 'annotation'>,
-  update: {color?: HighlightColorEnum, annotation?: string, id: string }
+  update: { color?: HighlightColorEnum, annotation?: string, id: string }
 ): {
   updatePayload: UpdateHighlightRequest,
   preUpdateData: UpdateHighlightRequest
@@ -73,7 +73,7 @@ export const generateUpdatePayload = (
     id: update.id,
   };
 
-  return {updatePayload, preUpdateData};
+  return { updatePayload, preUpdateData };
 };
 
 /**
@@ -131,6 +131,8 @@ export const getOffsetToAdjustForHighlightPosition = (
   return position - offset;
 };
 
+export const DOCUMENT_POSITION_FOLLOWING = 4;
+
 export const getSelectionDirection = (selection: Selection): 'forward' | 'backward' => {
   if (!selection.anchorNode || !selection.focusNode) {
     return 'forward';
@@ -145,10 +147,9 @@ export const getSelectionDirection = (selection: Selection): 'forward' | 'backwa
   const position = selection.anchorNode.compareDocumentPosition(
     selection.focusNode
   );
-  const node = assertDocument().getRootNode();
 
   // eslint-disable-next-line no-bitwise
-  return position & node.DOCUMENT_POSITION_FOLLOWING
+  return position & DOCUMENT_POSITION_FOLLOWING
     ? 'forward'
     : 'backward';
 };
@@ -173,7 +174,8 @@ export const updateCardsPositions = (
   highlights: Highlight[],
   cardsHeights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
-  checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean
+  checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean,
+  forcedPreferEnd?: boolean
 ) => {
   const cardsPositions = updateStackedCardsPositions(
     highlights,
@@ -182,7 +184,7 @@ export const updateCardsPositions = (
     checkIfHiddenByCollapsedAncestor
   );
 
-  const preferEnd = getPreferEnd();
+  const preferEnd = forcedPreferEnd !== undefined ? forcedPreferEnd : getPreferEnd();
 
   const offsetToAdjust =
     getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
