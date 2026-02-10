@@ -953,10 +953,12 @@ describe('CardWrapper', () => {
       });
 
       // Verify positions are preserved - no jumping occurs
-      expect(card1.props.topOffset).toBeDefined();
-      expect(card2.props.topOffset).toBeDefined();
-      expect(card3.props.topOffset).toBeDefined();
-      expect(card4.props.topOffset).toBeDefined();
+      // All cards are centered on their highlights (existing highlights, no offset adjustment)
+      // Formula: top + (highlightHeight/2) - (cardHeight/2) = top + 0 - 25 = top - 25
+      expect(card1.props.topOffset).toBe(-25);  // 0 - 25
+      expect(card2.props.topOffset).toBe(75);   // 100 - 25
+      expect(card3.props.topOffset).toBe(175);  // 200 - 25
+      expect(card4.props.topOffset).toBe(275);  // 300 - 25
     });
 
     it('covers preferEnd true branch with text selection', () => {
