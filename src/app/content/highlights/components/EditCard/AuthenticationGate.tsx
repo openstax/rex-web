@@ -9,7 +9,7 @@ import { cardWidth } from '../../constants';
 import Confirmation from '../Confirmation';
 import theme from '../../../../theme';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { mergeRefs } from '../../../../utils';
+import { mergeRefs, assertWindow } from '../../../../utils';
 
 interface LoginOrEditProps {
   children: React.ReactNode;
@@ -89,6 +89,11 @@ export function LoginConfirmation({
     trackShowLogin();
   }, [trackShowLogin]);
 
+  const onCancel = React.useCallback(() => {
+    onBlur();
+    assertWindow().getSelection()?.removeAllRanges();
+  }, [onBlur]);
+
   return (
     <Confirmation
       data-analytics-label='login'
@@ -96,7 +101,7 @@ export function LoginConfirmation({
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'
       confirmLink={loginLink}
-      onCancel={onBlur}
+      onCancel={onCancel}
       drawFocus={false}
     />
   );
