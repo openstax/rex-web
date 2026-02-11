@@ -18,7 +18,7 @@ import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
 import Filters from '../../studyGuides/components/Filters';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
-import ChapterFilter, { StyledDetails, StyledSummary } from './ChapterFilter';
+import ChapterFilter, { StyledDetailsContainer, StyledSummaryButton } from './ChapterFilter';
 import { LocationFilters } from './types';
 
 describe('ChapterFilter', () => {
@@ -29,13 +29,13 @@ describe('ChapterFilter', () => {
   beforeEach(() => {
     store = createTestStore();
 
-    store.dispatch(receivePage({...page, references: []}));
+    store.dispatch(receivePage({ ...page, references: [] }));
   });
 
   it('matches snapshot', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testpage1-uuid': { [HighlightColorEnum.Green]: 1 },
     }, new Map([[
       'testbook1-testpage1-uuid',
       { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
@@ -54,15 +54,15 @@ describe('ChapterFilter', () => {
       <ConnectedChapterFilter multiselect={true} />
     </TestContainer>);
 
-    const checkedBoxes = component.root.findAllByProps({checked: true});
+    const checkedBoxes = component.root.findAllByProps({ checked: true });
     expect(checkedBoxes.length).toBe(0);
   });
 
   it('initially has selected chapters with highlights', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Pink]: 1},
+      'testbook1-testchapter3-uuid': { [HighlightColorEnum.Green]: 3 },
+      'testbook1-testpage1-uuid': { [HighlightColorEnum.Pink]: 1 },
     }, new Map([
       [
         'testbook1-testpage1-uuid',
@@ -90,7 +90,7 @@ describe('ChapterFilter', () => {
   it('checks and unchecks chapters', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testpage1-uuid': { [HighlightColorEnum.Green]: 1 },
     }, new Map([[
       'testbook1-testpage1-uuid',
       { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
@@ -120,7 +120,7 @@ describe('ChapterFilter', () => {
   it('selects none', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testpage1-uuid': { [HighlightColorEnum.Green]: 1 },
     }, new Map([[
       'testbook1-testpage1-uuid',
       { section: assertDefined(findArchiveTreeNodeById(book.tree, 'testbook1-testpage1-uuid'), '') },
@@ -147,8 +147,8 @@ describe('ChapterFilter', () => {
   it('selects all select only chapters with highlights', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testchapter3-uuid': {[HighlightColorEnum.Green]: 3},
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testchapter3-uuid': { [HighlightColorEnum.Green]: 3 },
+      'testbook1-testpage1-uuid': { [HighlightColorEnum.Green]: 1 },
     }, locationIds));
 
     const component = renderer.create(<TestContainer store={store}>
@@ -178,7 +178,7 @@ describe('ChapterFilter', () => {
   it('chapters without highlights are disabled', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(receiveHighlightsTotalCounts({
-      'testbook1-testpage1-uuid': {[HighlightColorEnum.Green]: 1},
+      'testbook1-testpage1-uuid': { [HighlightColorEnum.Green]: 1 },
     }, locationIds));
 
     const component = renderer.create(<TestContainer store={store}>
@@ -202,8 +202,8 @@ describe('ChapterFilter', () => {
     }));
 
     const component = renderer.create(<TestContainer store={store}>
-        <Filters />
-      </TestContainer>);
+      <Filters />
+    </TestContainer>);
 
     const [...allOrNoneButtons] = component.root.findAllByType(ButtonLink);
     expect(allOrNoneButtons.every((button) => button.props.disabled)).toBe(true);
@@ -227,8 +227,8 @@ describe('ChapterFilter', () => {
       />
     </TestContainer>);
 
-    const [details] = component.root.findAllByType(StyledDetails);
-    const [summary] = details.findAllByType(StyledSummary);
+    const [details] = component.root.findAllByType(StyledDetailsContainer);
+    const [summary] = details.findAllByType(StyledSummaryButton);
     expect(details.props.open).toEqual(false);
 
     renderer.act(() => {
@@ -237,13 +237,17 @@ describe('ChapterFilter', () => {
 
     component.update(<TestContainer store={store}>
       <ChapterFilter
+        id="test-chapter-filter"
         locationFilters={locationFilters}
-        locationFiltersWithContent={new Set()}
+        locationFiltersWithContent={new Map()}
         selectedLocationFilters={new Set()}
         ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+        multiselect={false}
+        setFilters={jest.fn()}
       />
     </TestContainer>);
 
-    expect(details.props.open).toEqual(true);
+    const [detailsAfterUpdate] = component.root.findAllByType(StyledDetailsContainer);
+    expect(detailsAfterUpdate.props.open).toEqual(true);
   });
 });
