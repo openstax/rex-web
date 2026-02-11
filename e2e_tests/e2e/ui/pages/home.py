@@ -371,10 +371,6 @@ class HomeRex:
     async def select_text(self):
         await self.page.locator("p:has-text('impact history')").select_text()
 
-    # @pytest.mark.asyncio
-    # async def select_text_block_in_solution(self):
-    #    await self.page.locator("#fs-id1165134108431").select_text()
-
     @pytest.mark.asyncio
     async def click_astronomy_book_chapter93(self):
         await self.page.get_by_test_id("content-link-test").get_by_text(

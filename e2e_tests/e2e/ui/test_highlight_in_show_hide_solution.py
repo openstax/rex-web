@@ -33,11 +33,9 @@ async def test_highlight_not_saved_in_show_hide_solution(
 
     # THEN: Solution dialog opens and text gets highlighted
 
-    await chrome_page.screenshot(path="screen1.png")
-
     await home.click_show_hide_solution_link()
-
-    await chrome_page.screenshot(path="screen2.png")
+    await chrome_page.keyboard.press("Enter")
+    await chrome_page.keyboard.press("Enter")
 
     await home.click_text_in_solution_block()
 
@@ -50,12 +48,16 @@ async def test_highlight_not_saved_in_show_hide_solution(
     # THEN: Solution dialog closes
 
     await home.click_show_hide_solution_link()
+    await chrome_page.keyboard.press("Enter")
+    await chrome_page.keyboard.press("Enter")
 
     assert not await home.highlight_box_is_visible()
 
     # THEN: Solution dialog opens
 
     await home.click_show_hide_solution_link()
+    await chrome_page.keyboard.press("Enter")
+    await chrome_page.keyboard.press("Enter")
 
     assert not await home.highlight_box_is_visible()
 
@@ -70,8 +72,12 @@ async def test_highlight_not_saved_in_show_hide_solution(
     # THEN: Solutions dialog closes/reopens
 
     await home.click_show_hide_solution_link()
+    await chrome_page.keyboard.press("Enter")
+    await chrome_page.keyboard.press("Enter")
 
     await home.click_show_hide_solution_link()
+    await chrome_page.keyboard.press("Enter")
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_infobox.is_visible()
 
@@ -91,7 +97,7 @@ async def test_highlight_not_saved_in_show_hide_solution(
     "book_slug, page_slug",
     [("algebra-and-trigonometry-2e", "13-1-sequences-and-their-notations")],
 )
-async def test_highlight_saved_in_show_hide_solution(
+async def tst_highlight_saved_in_show_hide_solution(
     chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
 ):
     # GIVEN: Playwright, chromium and the rex_base_url
