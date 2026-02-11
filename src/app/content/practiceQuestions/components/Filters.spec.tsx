@@ -6,7 +6,7 @@ import TestContainer from '../../../../test/TestContainer';
 import { DropdownToggle } from '../../../components/Dropdown';
 import { Store } from '../../../types';
 import { receiveBook } from '../../actions';
-import { StyledDetails, StyledSectionItem, StyledSummary } from '../../components/popUp/ChapterFilter';
+import { StyledDetailsContainer, StyledSectionItem, StyledSummaryButton } from '../../components/popUp/ChapterFilter';
 import { LocationFiltersWithChildren } from '../../components/popUp/types';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
@@ -108,14 +108,14 @@ describe('Filters', () => {
       chapterFilterToggle.props.onClick();
     });
 
-    const [details1, details2] = component.root.findAllByType(StyledDetails);
+    const [details1, details2] = component.root.findAllByType(StyledDetailsContainer);
     expect(details1.props.open).toEqual(false);
     expect(details2.props.open).toEqual(true);
 
     const mockPreventDefault = jest.fn();
 
     renderer.act(() => {
-      const summary = details2.findByType(StyledSummary);
+      const summary = details2.findByType(StyledSummaryButton);
       summary.props.onClick({ preventDefault: mockPreventDefault });
     });
 
@@ -123,7 +123,7 @@ describe('Filters', () => {
     expect(details2.props.open).toEqual(false);
 
     renderer.act(() => {
-      const summary = details1.findByType(StyledSummary);
+      const summary = details1.findByType(StyledSummaryButton);
       summary.props.onClick({ preventDefault: mockPreventDefault });
     });
 
@@ -170,15 +170,17 @@ describe('Filters', () => {
       chapterFilterToggle.props.onClick();
     });
 
-    const [details1] = component.root.findAllByType(StyledDetails);
-
     renderer.act(() => {
-      const summary = details1.findByType(StyledSummary);
-      summary.props.onClick({ preventDefault: jest.fn() });
+      const [details1] = component.root.findAllByType(StyledDetailsContainer);
+      if (!details1.props.open) {
+        const summary = details1.findByType(StyledSummaryButton);
+        summary.props.onClick({ preventDefault: jest.fn() });
+      }
     });
 
     renderer.act(() => {
-      const [section1] = details1.findAllByType(StyledSectionItem);
+      const [details1AfterOpen] = component.root.findAllByType(StyledDetailsContainer);
+      const [section1] = details1AfterOpen.findAllByType(StyledSectionItem);
       section1.props.onClick();
     });
 

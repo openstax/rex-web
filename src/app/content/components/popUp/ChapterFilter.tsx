@@ -135,29 +135,35 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                 dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(section.title).join(' ')}`}
               /></li>;
             } else {
-              return <li key={section.id}><StyledDetails open={openChapterId === section.id}>
-                <StyledSummary onClick={(ev: React.MouseEvent) => {
-                  ev.preventDefault();
-                  setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
-                }}>
+              return <li key={section.id}><StyledDetailsContainer open={openChapterId === section.id}>
+                <StyledSummaryButton
+                  aria-expanded={openChapterId === section.id}
+                  aria-controls={`${props.id}-content-${section.id}`}
+                  onClick={(ev: React.MouseEvent) => {
+                    ev.preventDefault();
+                    setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
+                  }}
+                >
                   <ChapterTitle dangerouslySetInnerHTML={{ __html: section.title }} />
                   <AngleIcon direction={openChapterId === section.id ? 'up' : 'down'} />
-                </StyledSummary>
-                <StyledChapterFilterItemWrapper>
-                  {children.map((child) => (
-                    <ChapterFilterItem
-                      key={child.id}
-                      selected={props.selectedLocationFilters.has(child.id)}
-                      disabled={false}
-                      multiselect={props.multiselect}
-                      title={child.title}
-                      onChange={() => handleChange(child)}
-                      ariaLabel={getAriaLabel(child)}
-                      dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(child.title).join(' ')}`}
-                    />
-                  ))}
-                </StyledChapterFilterItemWrapper>
-              </StyledDetails></li>;
+                </StyledSummaryButton>
+                {openChapterId === section.id && (
+                  <StyledChapterFilterItemWrapper id={`${props.id}-content-${section.id}`}>
+                    {children.map((child) => (
+                      <ChapterFilterItem
+                        key={child.id}
+                        selected={props.selectedLocationFilters.has(child.id)}
+                        disabled={false}
+                        multiselect={props.multiselect}
+                        title={child.title}
+                        onChange={() => handleChange(child)}
+                        ariaLabel={getAriaLabel(child)}
+                        dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(child.title).join(' ')}`}
+                      />
+                    ))}
+                  </StyledChapterFilterItemWrapper>
+                )}
+              </StyledDetailsContainer></li>;
             }
           })}
         </Column>)}
@@ -199,9 +205,8 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
   </StyledSectionItem>;
 };
 
-export const StyledDetails = styled.details`
+export const StyledDetailsContainer = styled.div<{ open?: boolean }>`
   width: 400px;
-  cursor: pointer;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   overflow: visible;
   ${theme.breakpoints.mobileSmall(css`
@@ -209,15 +214,11 @@ export const StyledDetails = styled.details`
   `)}
 `;
 
-export const StyledSummary = styled.summary`
+export const StyledSummaryButton = styled(PlainButton)`
+  display: block;
+  width: 100%;
   padding: 1rem 1.6rem;
-  list-style: none;
-
-  &::marker,
-  &::-webkit-details-marker {
-    content: "";
-    display: none;
-  }
+  text-align: left;
 
   ${ChapterTitle} {
     float: left;
@@ -227,6 +228,12 @@ export const StyledSummary = styled.summary`
 
   ${AngleIcon} {
     float: right;
+  }
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
   }
 `;
 
@@ -280,7 +287,7 @@ export default styled(ChapterFilter)`
     margin: 0 1.6rem 0 1.6rem;
   }
 
-  ${StyledDetails} {
+  ${StyledDetailsContainer} {
     &:last-child {
       border-bottom: none;
     }
