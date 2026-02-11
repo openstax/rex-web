@@ -485,7 +485,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_text_in_solution_block(self):
-        await self.page.locator("p#fs-id1165134108431").dblclick()
+        await self.page.locator("#fs-id1165134108431").dblclick(force=True)
 
     # Unsaved highlight dialog
 
