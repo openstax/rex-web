@@ -143,7 +143,6 @@ exports[`Confirmation matches snapshot no selection 1`] = `
       data-analytics-label="confirm"
       data-testid="confirm"
       onClick={[Function]}
-      type="button"
     >
       confirm
     </button>
@@ -152,7 +151,6 @@ exports[`Confirmation matches snapshot no selection 1`] = `
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
-      type="button"
     >
       Cancel
     </button>
@@ -302,7 +300,6 @@ exports[`Confirmation renders with data-analytics-label and ref 1`] = `
       data-analytics-label="custom-label"
       data-testid="confirm"
       onClick={[Function]}
-      type="button"
     >
       confirm
     </button>
@@ -311,7 +308,6 @@ exports[`Confirmation renders with data-analytics-label and ref 1`] = `
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
-      type="button"
     >
       Cancel
     </button>
@@ -461,7 +457,6 @@ exports[`Confirmation works without optional props and drawFocus={true} 1`] = `
       data-analytics-label="confirm"
       data-testid="confirm"
       onClick={[Function]}
-      type="button"
     >
       confirm
     </button>
@@ -470,7 +465,6 @@ exports[`Confirmation works without optional props and drawFocus={true} 1`] = `
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
-      type="button"
     >
       Cancel
     </button>

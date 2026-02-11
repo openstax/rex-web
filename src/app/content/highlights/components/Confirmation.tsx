@@ -70,7 +70,6 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
     <ButtonGroup>
       <FormattedMessage id={confirmMessage}>
         {(msg) => <Button
-          type='button'
           size='small'
           data-analytics-label={props['data-analytics-label'] ? props['data-analytics-label'] : 'confirm'}
           data-testid='confirm'
@@ -95,7 +94,6 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
       </FormattedMessage>
       <FormattedMessage id='i18n:highlighting:button:cancel'>
         {(msg) => <Button
-          type='button'
           size='small'
           data-analytics-label='cancel'
           data-testid='cancel'
