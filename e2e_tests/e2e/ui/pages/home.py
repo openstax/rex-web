@@ -481,9 +481,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_show_hide_solution_link(self):
-        await self.page.locator(
-            '#fs-id1165134108429[aria-label="Show/Hide Solution"]'
-        ).click()
+        await self.page.get_by_title("Show/Hide Solution").first.click()
 
     @pytest.mark.asyncio
     async def click_text_in_solution_block(self):
