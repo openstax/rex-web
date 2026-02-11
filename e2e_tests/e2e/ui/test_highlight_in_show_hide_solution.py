@@ -33,7 +33,11 @@ async def test_highlight_not_saved_in_show_hide_solution(
 
     # THEN: Solution dialog opens and text gets highlighted
 
+    await chrome_page.screenshot(path="screen1.png")
+
     await home.click_show_hide_solution_link()
+
+    await chrome_page.screenshot(path="screen2.png")
 
     await home.click_text_in_solution_block()
 
@@ -135,7 +139,8 @@ async def test_highlight_saved_in_show_hide_solution(
 
     await home.click_show_hide_solution_link()
 
-    await home.select_text_block_in_solution()
+    # THEN: Selects a text block in the solution dropdown
+    await chrome_page.locator("#fs-id1165134108431").select_text()
     await chrome_page.keyboard.press("Enter")
 
     assert (

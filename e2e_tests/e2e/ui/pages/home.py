@@ -371,9 +371,9 @@ class HomeRex:
     async def select_text(self):
         await self.page.locator("p:has-text('impact history')").select_text()
 
-    @pytest.mark.asyncio
-    async def select_text_block_in_solution(self):
-        await self.page.locator("#fs-id1165134108431").select_text()
+    # @pytest.mark.asyncio
+    # async def select_text_block_in_solution(self):
+    #    await self.page.locator("#fs-id1165134108431").select_text()
 
     @pytest.mark.asyncio
     async def click_astronomy_book_chapter93(self):
@@ -481,7 +481,9 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_show_hide_solution_link(self):
-        await self.page.get_by_title("Show/Hide Solution").first.click()
+        await self.page.locator(
+            'summary[data-content="Show/Hide Solution"]'
+        ).first.click()
 
     @pytest.mark.asyncio
     async def click_text_in_solution_block(self):
