@@ -477,9 +477,6 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_show_hide_solution_link(self):
-        await self.page.locator('div[class*="ClickBlocker"]').first.wait_for(
-            state="hidden"
-        )
         button_locator = self.page.locator(
             'summary[data-content="Show/Hide Solution"]'
         ).first
