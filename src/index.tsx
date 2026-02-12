@@ -23,7 +23,6 @@ import createUserLoader from './gateways/createUserLoader';
 import createImageCDNUtils from './gateways/createImageCDNUtils';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
-import loadOptimize from './helpers/loadOptimize';
 import { initializeMathJaxMenuPositioning } from './helpers/mathjaxMenuPosition';
 import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
@@ -121,9 +120,6 @@ initializeMathJaxMenuPositioning(window);
 
 // start long running processes
 pollUpdates(app.store);
-
-// load optimize
-loadOptimize(window, app.store);
 
 function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
