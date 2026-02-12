@@ -483,10 +483,6 @@ class HomeRex:
         await button_locator.scroll_into_view_if_needed()
         await button_locator.click(force=True)
 
-    @pytest.mark.asyncio
-    async def click_text_in_solution_block(self):
-        await self.page.locator("#fs-id1165134108431").dblclick(force=True)
-
     # Unsaved highlight dialog
 
     @pytest.mark.asyncio
