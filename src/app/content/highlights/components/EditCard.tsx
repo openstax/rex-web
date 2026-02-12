@@ -58,7 +58,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { ButtonGroup } from '../../../components/Button';
-import { useTrapTabNavigation } from '../../../reactUtils';
+import { useTrapTabNavigation, useDisableContentTabbing } from '../../../reactUtils';
 import theme from '../../../theme';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import {
@@ -219,7 +219,8 @@ function ActiveEditCard({
 
   const ref = React.useRef<HTMLElement>(null);
 
-  useTrapTabNavigation(ref, editingAnnotation);
+  useTrapTabNavigation(ref, props.shouldFocusCard && editingAnnotation);
+  useDisableContentTabbing(props.shouldFocusCard);
 
   return (
     <div ref={ref}>

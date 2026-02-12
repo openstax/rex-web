@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { useOnEsc, useOnKey } from '../../../reactUtils';
+import { useOnEsc, useOnKey, useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
@@ -29,13 +29,15 @@ const KeyboardShortcutsPopup = () => {
     dispatch(openKeyboardShortcutsMenu());
     trackOpenCloseKS();
   };
-  useOnKey({key: '?', shiftKey: true}, null, !isKeyboardShortcutsOpen, openAndTrack);
+  useOnKey({ key: '?', shiftKey: true }, null, !isKeyboardShortcutsOpen, openAndTrack);
 
   const closeAndTrack = React.useCallback((method: string) => () => {
     dispatch(closeKeyboardShortcutsMenu());
     trackOpenCloseKS(method);
   }, [trackOpenCloseKS, dispatch]);
   useOnEsc(isKeyboardShortcutsOpen, closeAndTrack('esc'));
+
+  useTrapTabNavigation(popUpRef, isKeyboardShortcutsOpen);
 
   React.useEffect(() => {
     const popUp = popUpRef.current;
@@ -63,7 +65,7 @@ const KeyboardShortcutsPopup = () => {
         </h1>
         <CloseIconWrapper
           data-testid='close-keyboard-shortcuts-popup'
-          aria-label={intl.formatMessage({id: 'i18n:a11y:keyboard-shortcuts:close'})}
+          aria-label={intl.formatMessage({ id: 'i18n:a11y:keyboard-shortcuts:close' })}
           data-analytics-label='Click to close Keyboard Shortcuts modal'
           onClick={closeAndTrack('button')}
         >
@@ -72,7 +74,7 @@ const KeyboardShortcutsPopup = () => {
       </Header>
       <ShowKeyboardShortcuts />
     </StyledModal>
-  : null;
+    : null;
 };
 
 export default KeyboardShortcutsPopup;
