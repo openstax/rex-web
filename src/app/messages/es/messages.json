@@ -149,7 +149,7 @@
   "i18n:practice-questions:popup:empty:message": "No hay preguntas para este capítulo/sección.",
   "i18n:practice-questions:popup:empty:next-section": "Seleccione una sección en el menú desplegable o continúe hacia",
   "i18n:practice-questions:popup:filters:chapters": "Capítulo y sección",
-  "i18n:practice-questions:popup:filters:filter-by:aria-label": "Filtrar PQ por {filtro}",
+  "i18n:practice-questions:popup:filters:filter-by:aria-label": "Seleccione las preguntas de práctica por {filtro}",
   "i18n:practice-questions:popup:final": "¡Ha llegado al final de este conjunto!",
   "i18n:practice-questions:popup:final:next-section": "Siguiente sección:",
   "i18n:practice-questions:popup:heading": "Preguntas de práctica",
@@ -245,5 +245,6 @@
   "i18n:toolbar:textresizer:button:decrease:aria-label": "Disminuir el tamaño del texto",
   "i18n:toolbar:textresizer:button:increase:aria-label": "Aumentar el tamaño del texto",
   "i18n:toolbar:textresizer:popup:heading": "Tamaño del texto",
-  "i18n:content-warning:heading:aria-label": "Advertencia de contenido"
+  "i18n:content-warning:heading:aria-label": "Advertencia de contenido",
+  "i18n:modal:close": "Cerrar modal"
 }

@@ -326,10 +326,9 @@ Array [
 }
 
 .c17 {
-  color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  background-color: #878787;
+  background-color: #767676;
   color: #fff;
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
@@ -343,12 +342,6 @@ Array [
   justify-content: center;
   overflow: hidden;
   width: 3rem;
-}
-
-.c17:hover,
-.c17:active,
-.c17:focus {
-  color: inherit;
 }
 
 .c23 {
@@ -1144,10 +1137,9 @@ Array [
 }
 
 .c17 {
-  color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
-  background-color: #878787;
+  background-color: #767676;
   color: #fff;
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
@@ -1161,12 +1153,6 @@ Array [
   justify-content: center;
   overflow: hidden;
   width: 3rem;
-}
-
-.c17:hover,
-.c17:active,
-.c17:focus {
-  color: inherit;
 }
 
 .c23 {

@@ -9,6 +9,7 @@ import {
   HTMLImageElement,
 } from '@openstax/types/lib.dom';
 import { assertDocument } from '../../../utils';
+import { captureOpeningElement, clearOpeningElement, getOpeningElement } from '../../utils/focusManager';
 
 function createInteractionHandler(open: (triggerButton: HTMLButtonElement) => void) {
   return (e: MouseEvent | KeyboardEvent) => {
@@ -34,13 +35,13 @@ function createMediaModalPortal() {
   let setModalContent: ((triggerButton: HTMLButtonElement) => void) | null = null;
 
   const open = (triggerButton: HTMLButtonElement) => {
+    captureOpeningElement('mediamodal');
     setModalContent?.(triggerButton);
   };
 
   const MediaModalPortal: React.FC = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [modalContent, setContent] = React.useState<ReactNode>(null);
-    const [triggerButton, setTriggerButton] = React.useState<HTMLButtonElement | null>(null);
 
     useEffect(() => {
       setModalContent = (button) => {
@@ -58,7 +59,6 @@ function createMediaModalPortal() {
         );
 
         setContent(content);
-        setTriggerButton(button);
         setIsOpen(true);
       };
       return () => {
@@ -68,10 +68,12 @@ function createMediaModalPortal() {
 
     const handleClose = React.useCallback(() => {
       setIsOpen(false);
-      setTimeout(() => {
-        triggerButton?.focus();
-      }, 0);
-    }, [triggerButton]);
+      const openingElement = getOpeningElement('mediamodal');
+      if (openingElement) {
+        openingElement.focus();
+        clearOpeningElement('mediamodal');
+      }
+    }, []);
 
     useEffect(() => {
       if (!isOpen || typeof document === 'undefined') return;
@@ -87,7 +89,7 @@ function createMediaModalPortal() {
       };
     }, [isOpen, handleClose]);
 
-  if (typeof document === 'undefined' || !document?.body) return null;
+    if (typeof document === 'undefined' || !document?.body) return null;
 
     return createPortal(
       <MediaModal isOpen={isOpen} onClose={handleClose}>
@@ -111,7 +113,7 @@ function createListeners(open: (triggerButton: HTMLButtonElement) => void) {
   };
 
   const detach = () => {
-    if (!container ) return;
+    if (!container) return;
     container.removeEventListener('click', handleInteraction);
     container.removeEventListener('keydown', handleInteraction);
   };
