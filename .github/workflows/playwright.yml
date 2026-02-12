@@ -25,14 +25,3 @@ jobs:
         TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
         TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
       run: pytest --tb=long --showlocals --base-url="${BASE_URL:-https://staging.openstax.org}" --rex_user $TEST_USER_EMAIL --rex_password $TEST_USER_PASSWORD -vvv e2e
-
-    - name: Run Playwright tests
-      run: pytest --tracing retain-on-failure  # Or your specific run command
-
-    - name: Upload Test Artifacts (Videos & Traces)
-      if: always()  # This ensures videos are uploaded even if tests fail
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-test-results
-        path: Test_Results/
-        retention-days: 7  # Optional: cleans up old files after a week
