@@ -252,5 +252,6 @@
   "i18n:toolbar:textresizer:button:decrease:aria-label": "Zmniejsz rozmiar tekstu",
   "i18n:toolbar:textresizer:button:increase:aria-label": "Zwiększ rozmiar tekstu",
   "i18n:toolbar:textresizer:popup:heading": "Rozmiar tekstu",
-  "i18n:content-warning:heading:aria-label": "Ostrzeżenie o treści"
+  "i18n:content-warning:heading:aria-label": "Ostrzeżenie o treści",
+  "i18n:modal:close": "Zamknij okno modalne"
 }
