@@ -109,11 +109,15 @@ async def test_highlight_saved_in_show_hide_solution(
 
     await home.click_continue_login()
 
-    # THEN: Book page with solution opens and text inside is highlighted and saved
-
     await chrome_page.keyboard.press("Escape")
 
+    # THEN: Book page with solution opens and text inside is highlighted and saved
+
+    await home.clear_all_blockers()
+
     await home.click_show_hide_solution_link()
+
+    await home.clear_all_blockers()
 
     await home.click_text_in_solution_block()
 
