@@ -481,7 +481,7 @@ class HomeRex:
             'summary[data-content="Show/Hide Solution"]'
         ).first
         await button_locator.scroll_into_view_if_needed()
-        await button_locator.click(force=True)
+        await button_locator.click()
 
     # Unsaved highlight dialog
 
