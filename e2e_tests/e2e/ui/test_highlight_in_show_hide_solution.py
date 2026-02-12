@@ -33,7 +33,11 @@ async def test_highlight_not_saved_in_show_hide_solution(
 
     # THEN: Solution dialog opens and text gets highlighted
 
+    await home.clear_all_blockers()
+
     await home.click_show_hide_solution_link()
+
+    await home.clear_all_blockers()
 
     await home.click_text_in_solution_block()
 

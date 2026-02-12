@@ -37,3 +37,13 @@ def browser_context_args(browser_context_args):
         },
         "device_scale_factor": 1,
     }
+
+
+# TO BE REMOVED once failure investigation is completed!
+@pytest.fixture(scope="session")
+def my_browser_context_args(browser_context_args):
+    return {
+        **browser_context_args,
+        "record_video_dir": "Test_Results",  # Path must match the YAML
+        "viewport": {"width": 1280, "height": 720},
+    }

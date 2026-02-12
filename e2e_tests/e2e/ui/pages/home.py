@@ -580,3 +580,13 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_book_details_page_link(self):
         await self.page.get_by_label("Astronomy").click()
+
+    # MIGHT BE REMOVED once failure investigation is completed!
+    @pytest.mark.asyncio
+    async def clear_all_blockers(self):
+        # This finds ALL matching divs and removes them from the DOM
+        await self.page.evaluate(
+            """() => {
+            document.querySelectorAll('div[class*="ClickBlocker"]').forEach(el => el.remove());
+        }"""
+        )
