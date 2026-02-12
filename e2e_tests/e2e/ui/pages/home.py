@@ -571,12 +571,6 @@ class HomeRex:
     async def section_count(self):
         return await self.page.locator("section").all()
 
-    # Content portal
-
-    @pytest.mark.asyncio
-    async def click_book_details_page_link(self):
-        await self.page.get_by_label("Astronomy").click()
-
     # Clears blockers/overlays
 
     @pytest.mark.asyncio

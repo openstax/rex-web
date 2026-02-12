@@ -28,11 +28,9 @@ async def test_highlight_not_saved_in_show_hide_solution(
     await home.click_continue_login()
 
     # THEN: Book page with solution opens and text inside is highlighted but not saved
-
     await chrome_page.keyboard.press("Escape")
 
     # THEN: Solution dialog opens and text gets highlighted
-
     await home.click_show_hide_solution_link()
 
     await home.clear_all_blockers()
@@ -47,13 +45,11 @@ async def test_highlight_not_saved_in_show_hide_solution(
     assert await home.highlight_box_is_visible()
 
     # THEN: Solution dialog closes
-
     await home.click_show_hide_solution_link()
 
     assert not await home.highlight_box_is_visible()
 
     # THEN: Solution dialog opens
-
     await home.click_show_hide_solution_link()
 
     assert not await home.highlight_box_is_visible()
@@ -68,7 +64,6 @@ async def test_highlight_not_saved_in_show_hide_solution(
     await home.fill_highlight_box_note_field("autotest highlight")
 
     # THEN: Solutions dialog closes/reopens
-
     await home.click_show_hide_solution_link()
 
     await home.click_show_hide_solution_link()
@@ -76,7 +71,6 @@ async def test_highlight_not_saved_in_show_hide_solution(
     assert await home.highlight_infobox.is_visible()
 
     # THEN: Delete existing highlight
-
     await home.click_highlights_option()
 
     await home.click_discard_changes_button()
@@ -112,7 +106,6 @@ async def test_highlight_saved_in_show_hide_solution(
     await chrome_page.keyboard.press("Escape")
 
     # THEN: Book page with solution opens and text inside is highlighted and saved
-
     await home.click_show_hide_solution_link()
 
     await home.clear_all_blockers()
@@ -133,13 +126,11 @@ async def test_highlight_saved_in_show_hide_solution(
     assert await home.small_highlighted_note_box_is_visible()
 
     # THEN: Solutions dialog closes
-
     await home.click_show_hide_solution_link()
 
     assert not await home.small_highlighted_note_box_is_visible()
 
     # THEN: Solutions dialog opens
-
     await home.click_show_hide_solution_link()
 
     # THEN: Selects a text block in the solution dropdown
@@ -156,7 +147,6 @@ async def test_highlight_saved_in_show_hide_solution(
     assert not await home.small_highlighted_note_box_is_visible()
 
     # THEN: Delete existing highlight
-
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
     await home.click_highlights_option_page_menu_delete()
