@@ -30,6 +30,8 @@ async def test_highlight_not_saved_in_show_hide_solution(
     # THEN: Book page with solution opens and text inside is highlighted but not saved
     await chrome_page.keyboard.press("Escape")
 
+    await home.clear_all_blockers()
+
     # THEN: Solution dialog opens and text gets highlighted
     await home.click_show_hide_solution_link()
 
