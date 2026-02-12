@@ -9,7 +9,7 @@ import styled, { css, keyframes } from 'styled-components/macro';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme, { defaultFocusOutline } from '../theme';
-import { preventDefault } from '../utils';
+import { mergeRefs, preventDefault } from '../utils';
 import { textStyle } from './Typography/base';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,8 +89,10 @@ export function callOrRefocus(
   }
 }
 
-const TabHiddenDropDown = styled((
-  {toggle, children, className, onToggle, ...props}: React.PropsWithChildren<Props | Props & ControlledProps>
+type TabHiddenProps = React.PropsWithChildren<Props | Props & ControlledProps>;
+
+const TabHiddenDropDown = styled(React.forwardRef<HTMLElement, TabHiddenProps>((
+  {toggle, children, className, onToggle, ...props}, ref
 ) => {
   const {isOpen, setOpen} = useIsOpen(props);
   const container = React.useRef<HTMLElement>(null);
@@ -108,7 +110,7 @@ const TabHiddenDropDown = styled((
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
 
-  return <div className={className} ref={container}>
+  return <div className={className} ref={mergeRefs(ref, container)}>
     <DropdownToggle
       ref={toggleElement}
       component={toggle}
@@ -120,7 +122,7 @@ const TabHiddenDropDown = styled((
     />
     {(isOpen) && children}
   </div>;
-})`
+}))`
   ${css`
     & > *:not(${DropdownToggle}) {
       ${fadeInAnimation}
@@ -137,15 +139,15 @@ export const DropdownFocusWrapper = styled.div`
   overflow: visible;
 `;
 
-const TabTransparentDropdown = styled((
-  {toggle, children, className}: React.PropsWithChildren<Props>
-) => <div className={className}>
+const TabTransparentDropdown = styled(React.forwardRef<HTMLElement, React.PropsWithChildren<Props>>((
+  {toggle, children, className}, ref
+) => <div className={className} ref={ref}>
   <DropdownFocusWrapper>
     <DropdownToggle tabIndex={0} component={toggle} />
     {children}
   </DropdownFocusWrapper>
   <DropdownToggle tabIndex={0} component={toggle} />
-</div>)`
+</div>))`
   ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
     ${DropdownFocusWrapper} + ${DropdownToggle} {
       ${visuallyHidden}
@@ -313,10 +315,11 @@ export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & Cont
 
 export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
 
-const Dropdown = ({transparentTab, ...props}: DropdownProps) =>
+const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, ...props}, ref) =>
   transparentTab !== false
-    ? <TabTransparentDropdown {...props} />
-    : <TabHiddenDropDown {...props} />;
+    ? <TabTransparentDropdown ref={ref} {...props} />
+    : <TabHiddenDropDown ref={ref} {...props} />
+);
 
 export default styled(Dropdown)`
   overflow: visible;

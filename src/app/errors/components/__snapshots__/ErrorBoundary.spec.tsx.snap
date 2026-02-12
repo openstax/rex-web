@@ -68,21 +68,21 @@ Array [
       }
     />
   </div>,
-  .c17 {
+  .c18 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c18 {
+.c19 {
+  height: 1em;
+}
+
+.c21 {
   height: 1em;
 }
 
 .c20 {
-  height: 1em;
-}
-
-.c19 {
   height: 1em;
 }
 
@@ -165,7 +165,29 @@ Array [
   text-decoration: underline;
 }
 
-.c21 {
+.c10 {
+  color: #d5d5d5;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.c10:hover,
+.c10:active,
+.c10:focus {
+  color: inherit;
+}
+
+.c10:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c22 {
   color: #d5d5d5;
   display: inline-grid;
   grid-auto-flow: column;
@@ -173,9 +195,9 @@ Array [
   overflow: hidden;
 }
 
-.c21:hover,
-.c21:active,
-.c21:focus {
+.c22:hover,
+.c22:active,
+.c22:focus {
   color: inherit;
 }
 
@@ -186,14 +208,14 @@ Array [
   grid-area: col1;
 }
 
-.c10 {
+.c11 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col2;
 }
 
-.c11 {
+.c12 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
@@ -211,7 +233,7 @@ Array [
   margin: 0;
 }
 
-.c12 {
+.c13 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -222,7 +244,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c13 {
+.c14 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -244,28 +266,28 @@ Array [
   overflow: visible;
 }
 
-.c14 {
+.c15 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c14 [data-html="copyright"] {
+.c15 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c14 a {
+.c15 a {
   color: #d5d5d5;
   overflow: visible;
 }
 
-.c14 a:hover,
-.c14 a:active,
-.c14 a:focus {
+.c15 a:hover,
+.c15 a:active,
+.c15 a:focus {
   color: inherit;
 }
 
-.c14 sup {
+.c15 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -273,7 +295,7 @@ Array [
   vertical-align: top;
 }
 
-.c15 {
+.c16 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -303,7 +325,7 @@ Array [
   list-style: none;
 }
 
-.c16 {
+.c17 {
   color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -323,13 +345,13 @@ Array [
   width: 3rem;
 }
 
-.c16:hover,
-.c16:active,
-.c16:focus {
+.c17:hover,
+.c17:active,
+.c17:focus {
   color: inherit;
 }
 
-.c22 {
+.c23 {
   height: 4.7rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -426,31 +448,37 @@ Array [
 }
 
 @media (max-width:37.5em) {
+  .c10 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
   .c7 {
     line-height: 4.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c12 {
+  .c13 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c12 {
+  .c13 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c13 {
+  .c14 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c13 {
+  .c14 {
     padding: 0;
   }
 }
@@ -535,10 +563,20 @@ Array [
                   System Status
                 </a>
               </li>
+              <li>
+                <button
+                  className="c10"
+                  data-testid="shortcut-link"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Keyboard Shortcuts
+                </button>
+              </li>
             </menu>
           </div>
           <div
-            className="c10"
+            className="c11"
           >
             <h3
               className="c7"
@@ -581,7 +619,7 @@ Array [
             </menu>
           </div>
           <div
-            className="c11"
+            className="c12"
           >
             <h3
               className="c7"
@@ -637,13 +675,13 @@ Array [
         </div>
       </div>
       <div
-        className="c12"
+        className="c13"
       >
         <div
-          className="c13"
+          className="c14"
         >
           <div
-            className="c14"
+            className="c15"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -661,19 +699,19 @@ Array [
             }
           />
           <menu
-            className="c15"
+            className="c16"
           >
             <li>
               <a
-                aria-label="facebook"
-                className="c16"
+                aria-label="OpenStax on Facebook"
+                className="c17"
                 href="https://www.facebook.com/openstax"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c17 c18"
+                  className="c18 c19"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 320 512"
@@ -688,8 +726,8 @@ Array [
             </li>
             <li>
               <a
-                aria-label="twitter"
-                className="c16"
+                aria-label="OpenStax on X"
+                className="c17"
                 href="https://twitter.com/openstax"
                 rel="noopener"
                 target="_blank"
@@ -714,15 +752,15 @@ Array [
             </li>
             <li>
               <a
-                aria-label="linkedin"
-                className="c16"
+                aria-label="OpenStax on LinkedIn"
+                className="c17"
                 href="https://www.linkedin.com/company/openstax"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c17 c19"
+                  className="c18 c20"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 448 512"
@@ -737,15 +775,15 @@ Array [
             </li>
             <li>
               <a
-                aria-label="instagram"
-                className="c16"
+                aria-label="OpenStax on Instagram"
+                className="c17"
                 href="https://www.instagram.com/openstax/"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c17 c20"
+                  className="c18 c21"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 448 512"
@@ -760,14 +798,14 @@ Array [
             </li>
             <li>
               <a
-                className="c21"
+                className="c22"
                 href="http://www.rice.edu"
                 rel="noopener"
                 target="_blank"
               >
                 <img
                   alt="Rice University logo"
-                  className="c22"
+                  className="c23"
                   src="rice-logo-white.png"
                 />
               </a>
@@ -848,21 +886,21 @@ Array [
       }
     />
   </div>,
-  .c17 {
+  .c18 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c18 {
+.c19 {
+  height: 1em;
+}
+
+.c21 {
   height: 1em;
 }
 
 .c20 {
-  height: 1em;
-}
-
-.c19 {
   height: 1em;
 }
 
@@ -945,7 +983,29 @@ Array [
   text-decoration: underline;
 }
 
-.c21 {
+.c10 {
+  color: #d5d5d5;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.c10:hover,
+.c10:active,
+.c10:focus {
+  color: inherit;
+}
+
+.c10:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c22 {
   color: #d5d5d5;
   display: inline-grid;
   grid-auto-flow: column;
@@ -953,9 +1013,9 @@ Array [
   overflow: hidden;
 }
 
-.c21:hover,
-.c21:active,
-.c21:focus {
+.c22:hover,
+.c22:active,
+.c22:focus {
   color: inherit;
 }
 
@@ -966,14 +1026,14 @@ Array [
   grid-area: col1;
 }
 
-.c10 {
+.c11 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
   grid-area: col2;
 }
 
-.c11 {
+.c12 {
   display: grid;
   grid-gap: 0.5rem;
   overflow: visible;
@@ -991,7 +1051,7 @@ Array [
   margin: 0;
 }
 
-.c12 {
+.c13 {
   font-size: 1.2rem;
   font-weight: normal;
   -webkit-letter-spacing: normal;
@@ -1002,7 +1062,7 @@ Array [
   background-color: #3b3b3b;
 }
 
-.c13 {
+.c14 {
   max-width: 131rem;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1024,28 +1084,28 @@ Array [
   overflow: visible;
 }
 
-.c14 {
+.c15 {
   display: grid;
   grid-gap: 1rem;
   overflow: visible;
 }
 
-.c14 [data-html="copyright"] {
+.c15 [data-html="copyright"] {
   overflow: visible;
 }
 
-.c14 a {
+.c15 a {
   color: #d5d5d5;
   overflow: visible;
 }
 
-.c14 a:hover,
-.c14 a:active,
-.c14 a:focus {
+.c15 a:hover,
+.c15 a:active,
+.c15 a:focus {
   color: inherit;
 }
 
-.c14 sup {
+.c15 sup {
   font-size: 66%;
   margin-left: 0.1rem;
   position: relative;
@@ -1053,7 +1113,7 @@ Array [
   vertical-align: top;
 }
 
-.c15 {
+.c16 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1083,7 +1143,7 @@ Array [
   list-style: none;
 }
 
-.c16 {
+.c17 {
   color: #d5d5d5;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -1103,13 +1163,13 @@ Array [
   width: 3rem;
 }
 
-.c16:hover,
-.c16:active,
-.c16:focus {
+.c17:hover,
+.c17:active,
+.c17:focus {
   color: inherit;
 }
 
-.c22 {
+.c23 {
   height: 4.7rem;
   -webkit-transform: translateY(0.2rem);
   -ms-transform: translateY(0.2rem);
@@ -1206,31 +1266,37 @@ Array [
 }
 
 @media (max-width:37.5em) {
+  .c10 {
+    line-height: 4.5rem;
+  }
+}
+
+@media (max-width:37.5em) {
   .c7 {
     line-height: 4.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c12 {
+  .c13 {
     padding: 2.5rem 0;
   }
 }
 
 @media (max-width:37.5em) {
-  .c12 {
+  .c13 {
     padding: 1.5rem;
   }
 }
 
 @media (min-width:37.6em) {
-  .c13 {
+  .c14 {
     grid-auto-flow: column;
   }
 }
 
 @media (max-width:37.5em) {
-  .c13 {
+  .c14 {
     padding: 0;
   }
 }
@@ -1315,10 +1381,20 @@ Array [
                   System Status
                 </a>
               </li>
+              <li>
+                <button
+                  className="c10"
+                  data-testid="shortcut-link"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Keyboard Shortcuts
+                </button>
+              </li>
             </menu>
           </div>
           <div
-            className="c10"
+            className="c11"
           >
             <h3
               className="c7"
@@ -1361,7 +1437,7 @@ Array [
             </menu>
           </div>
           <div
-            className="c11"
+            className="c12"
           >
             <h3
               className="c7"
@@ -1417,13 +1493,13 @@ Array [
         </div>
       </div>
       <div
-        className="c12"
+        className="c13"
       >
         <div
-          className="c13"
+          className="c14"
         >
           <div
-            className="c14"
+            className="c15"
             dangerouslySetInnerHTML={
               Object {
                 "__html": "
@@ -1441,19 +1517,19 @@ Array [
             }
           />
           <menu
-            className="c15"
+            className="c16"
           >
             <li>
               <a
-                aria-label="facebook"
-                className="c16"
+                aria-label="OpenStax on Facebook"
+                className="c17"
                 href="https://www.facebook.com/openstax"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c17 c18"
+                  className="c18 c19"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 320 512"
@@ -1468,8 +1544,8 @@ Array [
             </li>
             <li>
               <a
-                aria-label="twitter"
-                className="c16"
+                aria-label="OpenStax on X"
+                className="c17"
                 href="https://twitter.com/openstax"
                 rel="noopener"
                 target="_blank"
@@ -1494,15 +1570,15 @@ Array [
             </li>
             <li>
               <a
-                aria-label="linkedin"
-                className="c16"
+                aria-label="OpenStax on LinkedIn"
+                className="c17"
                 href="https://www.linkedin.com/company/openstax"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c17 c19"
+                  className="c18 c20"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 448 512"
@@ -1517,15 +1593,15 @@ Array [
             </li>
             <li>
               <a
-                aria-label="instagram"
-                className="c16"
+                aria-label="OpenStax on Instagram"
+                className="c17"
                 href="https://www.instagram.com/openstax/"
                 rel="noopener"
                 target="_blank"
               >
                 <svg
                   aria-hidden="true"
-                  className="c17 c20"
+                  className="c18 c21"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 448 512"
@@ -1540,14 +1616,14 @@ Array [
             </li>
             <li>
               <a
-                className="c21"
+                className="c22"
                 href="http://www.rice.edu"
                 rel="noopener"
                 target="_blank"
               >
                 <img
                   alt="Rice University logo"
-                  className="c22"
+                  className="c23"
                   src="rice-logo-white.png"
                 />
               </a>
