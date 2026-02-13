@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../../helpers/redux-bridge';
 import renderer from 'react-test-renderer';
 import { v4 as uuid } from 'uuid';
 import createTestServices from '../../../../test/createTestServices';

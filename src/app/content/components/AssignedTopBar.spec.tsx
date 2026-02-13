@@ -1,7 +1,7 @@
 import React from 'react';
 import { RawIntlProvider } from 'react-intl';
-import * as redux from 'react-redux';
-import { Provider } from 'react-redux';
+import * as redux from '../../../helpers/redux-bridge';
+import { Provider } from '../../../helpers/redux-bridge';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';
