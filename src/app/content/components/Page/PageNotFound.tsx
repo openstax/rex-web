@@ -33,13 +33,13 @@ const PageNotFoundText = styled.div`
 const PageNotFound = () => <PageNotFoundWrapper>
   <PageNotFoundTitle>
     <FormattedMessage id='i18n:page-not-found:heading'>
-      {(msg) => msg}
+      {(msg: string) => msg}
     </FormattedMessage>
   </PageNotFoundTitle>
   <PageNotFoundText>
     <span>
       <FormattedMessage id='i18n:page-not-found:text-before-button'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </span>
     <StyledOpenTOCControl />

@@ -97,7 +97,7 @@ const OpenKeyboardShortcutsLink = () => {
 
   return (
     <FormattedMessage id='i18n:a11y:keyboard-shortcuts:heading'>
-      {(txt) => (
+      {(txt: string) => (
         <Styled.FooterButton
           type="button"
           onClick={openKeyboardShortcutsMenu}

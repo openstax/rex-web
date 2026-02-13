@@ -39,14 +39,14 @@ const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
     >
       <Body >
         <FormattedMessage id='i18n:error:boundary:sub-heading'>
-          {(msg) => <BodyHeading id='modal-title'>{msg}</BodyHeading>}
+          {(msg: string) => <BodyHeading id='modal-title'>{msg}</BodyHeading>}
         </FormattedMessage>
         <BodyWithLink values={{ supportCenterLink }} />
         <ErrorIdList ids={stack} />
       </Body>
       <Footer>
         <FormattedMessage id='i18n:error:boundary:action-btn-text'>
-          {(msg) => <Button
+          {(msg: string) => <Button
             data-testid='clear-error'
             onClick={clearError}
             variant='primary'

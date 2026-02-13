@@ -18,7 +18,7 @@ const RelatedKeyTerms = ({ book, keyTermHits, selectedResult }: {
   return <Styled.RelatedKeyTerms data-analytics-region='kt-search-results'>
     <Styled.SearchResultsSectionTitle>
       <FormattedMessage id='i18n:search-results:related-key-term:title'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </Styled.SearchResultsSectionTitle>
     <SearchResultHits

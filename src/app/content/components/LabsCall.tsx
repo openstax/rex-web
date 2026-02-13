@@ -165,7 +165,7 @@ const LabsCTA = () => {
         <LabsCallLink
           component={<a href='/kinetic/'>
             <FormattedMessage id='i18n:toolbar:labs-cta:link'>
-              {(msg) => msg}
+              {(msg: string) => msg}
             </FormattedMessage>
           </a>}
           data-analytics-label='kinetic-banner'

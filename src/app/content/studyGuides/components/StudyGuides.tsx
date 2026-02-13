@@ -46,7 +46,7 @@ const StudyGuides = ({ className }: { className: string }) => {
       <HighlightsWrapper ref={container}>
         <GeneralCenterText>
           <FormattedMessage id='i18n:studyguides:popup:no-highlights'>
-            {(msg) => msg}
+            {(msg: string) => msg}
           </FormattedMessage>
           <NoStudyGuidesTip />
         </GeneralCenterText>

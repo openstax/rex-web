@@ -14,12 +14,12 @@ const RetiredBookRedirect = ({dismiss, className}:
   {dismiss: () => void, className?: string}) => <Body className={className}>
     <Group>
       <FormattedMessage id='i18n:notification:retired-book:header'>
-        {(txt) => <Header>{txt}</Header>}
+        {(txt: string) => <Header>{txt}</Header>}
       </FormattedMessage>
       <Content />
       <ButtonGroup>
         <FormattedMessage id='i18n:notification:retired-book:ok'>
-          {(txt) => <Button variant='primary' onClick={dismiss}>{txt}</Button>}
+          {(txt: string) => <Button variant='primary' onClick={dismiss}>{txt}</Button>}
         </FormattedMessage>
       </ButtonGroup>
     </Group>

@@ -125,13 +125,13 @@ function MobileSearchInputWrapper({
     <Styled.MobileSearchContainer>
       {showBackToSearchResults &&
         <FormattedMessage id='i18n:search-results:bar:toggle-text:mobile'>
-          {(msg) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
+          {(msg: string) => <Styled.SeachResultsTextButton onClick={openSearchbar} data-testid='back-to-search-results'>
             <Styled.LeftArrow /><Styled.InnerText>{msg}</Styled.InnerText>
           </Styled.SeachResultsTextButton>}
         </FormattedMessage>}
       {!showBackToSearchResults &&
         <FormattedMessage id='i18n:search-results:bar:close-text:mobile'>
-          {(msg) => <Styled.CloseSearchResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
+          {(msg: string) => <Styled.CloseSearchResultsTextButton onClick={toggleMobile} data-testid='close-search-results'>
             <Styled.InnerText>{msg}</Styled.InnerText>
           </Styled.CloseSearchResultsTextButton>}
         </FormattedMessage>}

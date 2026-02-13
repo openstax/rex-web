@@ -28,12 +28,12 @@ const BlueNote = () => <Styled.BlueStickyNote>
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:highlight'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:add-notes'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
   </Styled.StickyNoteUl>
@@ -44,12 +44,12 @@ const GreenNote = () => <Styled.GreenStickyNote>
   <Styled.StickyNoteUl>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:review'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
     <Styled.StickyNoteLi>
       <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:filter-chapters'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </Styled.StickyNoteLi>
   </Styled.StickyNoteUl>
@@ -63,7 +63,7 @@ const LoginForHighlights = () => {
     <Styled.GridWrapper>
       <Styled.GeneralText>
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:highlights-free'>
-          {(msg) => msg}
+          {(msg: string) => msg}
         </FormattedMessage>
       </Styled.GeneralText>
       <Styled.ImagesGrid>

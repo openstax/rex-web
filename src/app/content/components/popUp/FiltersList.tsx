@@ -69,7 +69,7 @@ export const FiltersListColor = (props: FiltersListColorProps) => (
 
     <ItemLabel>
       <FormattedMessage id={props.labelKey(props.color)}>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </ItemLabel>
   </FilterListItem>
