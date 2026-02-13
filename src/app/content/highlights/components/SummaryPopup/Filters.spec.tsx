@@ -1,6 +1,6 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../../../helpers/redux-bridge';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../../test/createTestServices';
 import createTestStore from '../../../../../test/createTestStore';

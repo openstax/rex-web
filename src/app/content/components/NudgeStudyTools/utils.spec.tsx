@@ -1,7 +1,7 @@
 import { DOMRect, HTMLElement } from '@openstax/types/lib.dom';
 import * as Cookies from 'js-cookie';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../../helpers/redux-bridge';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import { shortPage } from '../../../../test/mocks/archiveLoader';
