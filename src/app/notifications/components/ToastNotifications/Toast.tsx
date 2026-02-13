@@ -108,7 +108,7 @@ const Toast = ({ dismiss, notification, positionProps, variant}: ToastProps) => 
     >
       <BannerBody variant={variant} >
         <FormattedMessage id={notification.messageKey}>
-          {(txt) =>  <Header>
+          {(txt: string) =>  <Header>
             {txt}
             {
               notification.errorId

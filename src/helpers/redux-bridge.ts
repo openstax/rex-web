@@ -12,7 +12,7 @@
 import { Provider as ReduxProvider } from 'react-redux';
 
 // Type assertion to fix React 16 + react-redux Provider compatibility issue
-export const Provider = ReduxProvider as any;
+export const Provider = ReduxProvider as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 // Re-export everything else from react-redux (except Provider which we override above)
 export {
