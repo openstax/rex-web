@@ -18,8 +18,8 @@ export const DotMenuIcon = styled(EllipsisV)`
 `;
 
 export const DotMenuToggle = styled(
-  React.forwardRef(
-    ({isOpen, ...props}: {isOpen: boolean}, ref) => {
+  React.forwardRef<HTMLButtonElement, {isOpen: boolean}>(
+    ({isOpen, ...props}, ref) => {
 
       return (
         <PlainButton aria-label='Actions' aria-expanded={isOpen} {...props} ref={ref}>
@@ -40,7 +40,7 @@ export const DotMenuToggle = styled(
   }
 `;
 
-export const DotMenuDropdownList = styled(DropdownList)`
+export const DotMenuDropdownList = styled(DropdownList)<{rightAlign?: boolean}>`
   && {
     ${(props) => {
       return props.rightAlign === true
@@ -51,7 +51,8 @@ export const DotMenuDropdownList = styled(DropdownList)`
   }
 `;
 
-export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown {...props} toggle={<DotMenuToggle />} />)`
+export const DotMenuDropdown = styled((props: React.PropsWithChildren<DropdownProps>) =>
+  <Dropdown {...props} toggle={<DotMenuToggle />} />)`
   .focus-within ${DotMenuIcon} {
     color: ${theme.color.primary.gray.base};
   }
