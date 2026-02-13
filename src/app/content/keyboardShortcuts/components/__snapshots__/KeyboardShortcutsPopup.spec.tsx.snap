@@ -621,6 +621,109 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
           </div>
         </div>
       </div>
+      <div
+        className="c8"
+      >
+        Interacting with Math Equations
+      </div>
+      <div
+        className="c9"
+      >
+        <div
+          className="c10"
+        >
+          <div
+            className="c11"
+          >
+            <div
+              className="c12"
+            >
+              <span
+                className="c13"
+              >
+                Tab
+              </span>
+            </div>
+            <div
+              className="c12"
+            >
+              Move focus to math equation
+            </div>
+          </div>
+          <div
+            className="c11"
+          >
+            <div
+              className="c12"
+            >
+              <span
+                className="c13"
+              >
+                Space
+              </span>
+               or 
+              <span
+                className="c13"
+              >
+                Enter
+              </span>
+            </div>
+            <div
+              className="c12"
+            >
+              Open MathJax context menu (after focusing equation)
+            </div>
+          </div>
+          <div
+            className="c11"
+          >
+            <div
+              className="c12"
+            >
+              <span
+                className="c13"
+              >
+                Shift
+              </span>
+               + 
+              <span
+                className="c13"
+              >
+                F10
+              </span>
+            </div>
+            <div
+              className="c12"
+            >
+              (Windows) – Alternative: open context menu
+            </div>
+          </div>
+          <div
+            className="c11"
+          >
+            <div
+              className="c12"
+            >
+              <span
+                className="c13"
+              >
+                Ctrl
+              </span>
+               + 
+              <span
+                className="c13"
+              >
+                Enter
+              </span>
+            </div>
+            <div
+              className="c12"
+            >
+              (macOS)(Safari, Firefox, Edge) – Alternative: open context menu
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

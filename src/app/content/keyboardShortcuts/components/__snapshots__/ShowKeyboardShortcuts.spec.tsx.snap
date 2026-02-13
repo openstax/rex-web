@@ -384,5 +384,108 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
       </div>
     </div>
   </div>
+  <div
+    className="c1"
+  >
+    Interacting with Math Equations
+  </div>
+  <div
+    className="c2"
+  >
+    <div
+      className="c3"
+    >
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            Tab
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Move focus to math equation
+        </div>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            Space
+          </span>
+           or 
+          <span
+            className="c6"
+          >
+            Enter
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Open MathJax context menu (after focusing equation)
+        </div>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            Shift
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            F10
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          (Windows) – Alternative: open context menu
+        </div>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
+            Ctrl
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            Enter
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          (macOS)(Safari, Firefox, Edge) – Alternative: open context menu
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
