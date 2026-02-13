@@ -63,15 +63,13 @@ export const NoHighlightsAvailable = ({ container }: { container: React.RefObjec
 export const HighlightsList = (
   {
     container,
-    className,
     orderedHighlights,
   }: {
     container: React.RefObject<HTMLElement>,
-    className: string,
     orderedHighlights: OrderedSummaryHighlights | null,
   }
 ) => (
-  <HighlightsWrapper ref={container} className={className}>
+  <HighlightsWrapper ref={container}>
     {orderedHighlights?.map((highlightData) => (
       <SectionHighlights
         key={highlightData.location.id}

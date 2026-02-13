@@ -13,7 +13,7 @@ import * as selectors from '../selectors';
 import { HighlightsList, NoHighlightsAvailable, NoHighlightsInBook } from './HighlightsCards';
 import { receiveReadyToPrintHighlights } from '../actions';
 
-const Highlights = ({ className }: { className: string }) => {
+const Highlights = () => {
   const orderedHighlights = useSelector(selectors.orderedSummaryHighlights);
   const isLoading = useSelector(selectors.summaryIsLoading);
   const totalCountsPerPage = useSelector(selectors.totalCountsPerPage);
@@ -53,7 +53,7 @@ const Highlights = ({ className }: { className: string }) => {
     <React.Fragment>
       {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
       {orderedHighlights &&
-        <HighlightsList container={container} className={className} orderedHighlights={orderedHighlights} />
+        <HighlightsList container={container} orderedHighlights={orderedHighlights} />
       }
     </React.Fragment>
   );
