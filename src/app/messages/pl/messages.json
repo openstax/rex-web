@@ -149,7 +149,7 @@
   "i18n:practice-questions:popup:empty:message": "Nie ma pytań do tego fragmentu książki.",
   "i18n:practice-questions:popup:empty:next-section": "Wybierz rozdział z listy powyżej albo przejdź do ",
   "i18n:practice-questions:popup:filters:chapters": "Rozdział i sekcja",
-  "i18n:practice-questions:popup:filters:filter-by:aria-label": "Filtruj Ćwiczenia wg {filter}",
+  "i18n:practice-questions:popup:filters:filter-by:aria-label": "Wybierz Ćwiczenia wg {filter}",
   "i18n:practice-questions:popup:final": "To już wszystkie pytania w tym zestawie!",
   "i18n:practice-questions:popup:final:next-section": "Następna sekcja:",
   "i18n:practice-questions:popup:heading": "Ćwiczenia",
@@ -245,5 +245,6 @@
   "i18n:toolbar:textresizer:button:decrease:aria-label": "Zmniejsz rozmiar tekstu",
   "i18n:toolbar:textresizer:button:increase:aria-label": "Zwiększ rozmiar tekstu",
   "i18n:toolbar:textresizer:popup:heading": "Rozmiar tekstu",
-  "i18n:content-warning:heading:aria-label": "Ostrzeżenie o treści"
+  "i18n:content-warning:heading:aria-label": "Ostrzeżenie o treści",
+  "i18n:modal:close": "Zamknij okno modalne"
 }

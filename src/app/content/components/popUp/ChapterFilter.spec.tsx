@@ -18,7 +18,7 @@ import { receiveStudyGuidesTotalCounts } from '../../studyGuides/actions';
 import Filters from '../../studyGuides/components/Filters';
 import { formatBookData, stripIdVersion } from '../../utils';
 import { findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
-import ChapterFilter, { StyledDetailsContainer, StyledSummaryButton } from './ChapterFilter';
+import ChapterFilter, { StyledChapterFilterItemWrapper, StyledDetailsContainer, StyledSummaryButton } from './ChapterFilter';
 import { LocationFilters } from './types';
 
 describe('ChapterFilter', () => {
@@ -220,22 +220,71 @@ describe('ChapterFilter', () => {
 
     const component = renderer.create(<TestContainer store={store}>
       <ChapterFilter
+        id="test-chapter-filter"
         locationFilters={locationFilters}
-        locationFiltersWithContent={new Set()}
+        locationFiltersWithContent={new Map()}
         selectedLocationFilters={new Set()}
         ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+        multiselect={false}
+        setFilters={() => { }}
       />
     </TestContainer>);
 
     const [details] = component.root.findAllByType(StyledDetailsContainer);
     const [summary] = details.findAllByType(StyledSummaryButton);
-    expect(details.props.open).toEqual(false);
 
     renderer.act(() => {
       summary.props.onClick({ preventDefault: jest.fn() });
     });
 
-    component.update(<TestContainer store={store}>
+    const [wrapper] = details.findAllByType(StyledChapterFilterItemWrapper);
+    expect(wrapper.props.hidden).toEqual(false);
+
+    renderer.act(() => {
+      summary.props.onClick({ preventDefault: jest.fn() });
+    });
+
+    expect(wrapper.props.hidden).toEqual(true);
+  });
+
+  it('initially has open chapter with selected section', () => {
+    const locationFilters = new Map([[
+      'testbook1-testchapter2-uuid',
+      {
+        children: [{ id: 'testbook1-testpage3-uuid', title: 'page' }],
+        section: { id: 'testbook1-testchapter2-uuid', title: 'chapter' },
+      },
+    ]]);
+
+    const component = renderer.create(<TestContainer store={store}>
+      <ChapterFilter
+        id="test-chapter-filter"
+        locationFilters={locationFilters}
+        locationFiltersWithContent={new Map()}
+        selectedLocationFilters={new Set(['testbook1-testpage3-uuid'])}
+        ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+        multiselect={false}
+        setFilters={() => { }}
+      />
+    </TestContainer>);
+
+    const [details] = component.root.findAllByType(StyledDetailsContainer);
+    const [summary] = details.findAllByType(StyledSummaryButton);
+    expect(summary.props['aria-expanded']).toBe(false);
+  });
+
+  it('selects a nested section and removes it', () => {
+    const section = { id: 'testbook1-testpage3-uuid', title: 'page' };
+    const locationFilters = new Map([[
+      'testbook1-testchapter2-uuid',
+      {
+        children: [section],
+        section: { id: 'testbook1-testchapter2-uuid', title: 'chapter' },
+      },
+    ]]);
+    const setFilters = jest.fn();
+
+    const component = renderer.create(<TestContainer store={store}>
       <ChapterFilter
         id="test-chapter-filter"
         locationFilters={locationFilters}
@@ -243,11 +292,40 @@ describe('ChapterFilter', () => {
         selectedLocationFilters={new Set()}
         ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
         multiselect={false}
-        setFilters={jest.fn()}
+        setFilters={setFilters}
       />
     </TestContainer>);
 
-    const [detailsAfterUpdate] = component.root.findAllByType(StyledDetailsContainer);
-    expect(detailsAfterUpdate.props.open).toEqual(true);
+    const [details] = component.root.findAllByType(StyledDetailsContainer);
+    const [summary] = details.findAllByType(StyledSummaryButton);
+
+    renderer.act(() => {
+      summary.props.onClick({ preventDefault: jest.fn() });
+    });
+
+    const [item] = component.root.findAllByProps({ title: section.title });
+    renderer.act(() => {
+      item.props.onChange();
+    });
+
+    expect(setFilters).toHaveBeenCalledWith({ remove: [], new: [section] });
+
+    component.update(<TestContainer store={store}>
+      <ChapterFilter
+        id="test-chapter-filter"
+        locationFilters={locationFilters}
+        locationFiltersWithContent={new Map()}
+        selectedLocationFilters={new Set([section.id])}
+        ariaLabelItemId='i18n:practice-questions:popup:filters:filter-by:aria-label'
+        multiselect={false}
+        setFilters={setFilters}
+      />
+    </TestContainer>);
+
+    renderer.act(() => {
+      item.props.onChange();
+    });
+
+    expect(setFilters).toHaveBeenCalledWith({ remove: [section], new: [] });
   });
 });
