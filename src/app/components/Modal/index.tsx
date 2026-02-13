@@ -23,14 +23,14 @@ const Modal = ({
         <Styled.Card>
           <Styled.Header>
             <FormattedMessage id={heading}>
-              {(message) => (
+              {(message: string) => (
                 <Styled.Heading>
                   {message}
                 </Styled.Heading>
               )}
             </FormattedMessage>
             <FormattedMessage id="i18n:modal:close">
-              {(txt) => (
+              {(txt: string) => (
                 <Styled.CloseModalIcon
                   ref={closeButtonRef}
                   onClick={onModalClose}

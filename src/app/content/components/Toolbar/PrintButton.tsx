@@ -13,7 +13,7 @@ const PrintButton = (props: Props) => {
   const intl = useIntl();
 
   return <FormattedMessage id='i18n:toolbar:print:text'>
-    {(msg) => (
+    {(msg: string) => (
       <Styled.PrintOptWrapper
         onClick={props.onClick ? props.onClick : () => assertWindow().print()}
         aria-label={intl.formatMessage({id: 'i18n:toolbar:print:aria-label'})}

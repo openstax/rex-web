@@ -197,7 +197,7 @@ const LoggedInState: FunctionComponent<{
 };
 
 const LoggedOutState: FunctionComponent<{currentPath: string}> = ({currentPath}) => <FormattedMessage id='i18n:nav:login:text'>
-  {(msg) => <Styled.Link href={'/accounts/login?r=' + currentPath}
+  {(msg: string) => <Styled.Link href={'/accounts/login?r=' + currentPath}
     data-testid='nav-login' data-analytics-label='login'> {msg}
   </Styled.Link>}
 </FormattedMessage>;

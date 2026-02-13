@@ -73,7 +73,7 @@ const ColorFilter = ({
         <ColorIndicator style={style} size='small'/>
         <ColorLabel>
           <FormattedMessage id={labelKey(style.label)}>
-            {(msg) => msg}
+            {(msg: string) => msg}
           </FormattedMessage>
         </ColorLabel>
       </Checkbox>)}

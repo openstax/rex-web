@@ -30,7 +30,7 @@ const ShortcutsHeadingDiv = styled.div`
 export const ShortcutsHeading = ({msgKey}: {msgKey: string}) => (
   <ShortcutsHeadingDiv>
     <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
-      {(msg) => msg}
+      {(msg: string) => msg}
     </FormattedMessage>
   </ShortcutsHeadingDiv>
 );
@@ -89,7 +89,7 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
       {keys.map<React.ReactNode>(
         (k, index) => <ShortcutKey key={index}>
           <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:keys:${k}`}>
-            {(msg) => msg}
+            {(msg: string) => msg}
           </FormattedMessage>
         </ShortcutKey>
       ).reduce((prev, curr) => [prev, ' + ', curr])}
@@ -97,7 +97,7 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
 
     <ShortcutBlock>
       <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </ShortcutBlock>
   </ShortcutRow>

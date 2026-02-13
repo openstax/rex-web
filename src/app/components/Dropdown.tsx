@@ -274,7 +274,7 @@ const DropdownItemContent = ({
   );
 
 return <FormattedMessage id={message}>
-    {(msg) => href
+    {(msg: string) => href
       ? <a
         role='button'
         href={href}

@@ -105,7 +105,7 @@ export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) 
     >
       <LeftArrow />
       <FormattedMessage id='i18n:prevnext:prev:text'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </HidingContentLink>
 
@@ -119,7 +119,7 @@ export const PrevNextBar = ({book, prevNext, queryParams, ...props}: PropTypes) 
       data-analytics-label='next'
     >
       <FormattedMessage id='i18n:prevnext:next:text'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
       <RightArrow />
     </HidingContentLink>

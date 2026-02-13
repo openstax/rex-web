@@ -118,7 +118,7 @@ const ShowPracticeQuestions = () => {
                   <QuestionsWrapper>
                     <QuestionsHeader id='progress-bar-header'>
                       <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                        {(msg) => msg}
+                        {(msg: string) => msg}
                       </FormattedMessage>
                     </QuestionsHeader>
                     <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />

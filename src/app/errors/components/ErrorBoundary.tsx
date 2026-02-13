@@ -71,7 +71,7 @@ class ErrorBoundary extends React.Component<Props, State> {
         <ErrorWrapper error={this.state.error}>
           <HeadingWrapper>
             <FormattedMessage id='i18n:error:boundary:sub-heading'>
-              {(msg) => <H2>{msg}</H2>}
+              {(msg: string) => <H2>{msg}</H2>}
             </FormattedMessage>
           </HeadingWrapper>
           <BodyWithLink values={{supportCenterLink}}/>

@@ -35,7 +35,7 @@ const AnswerResult = ({ showCorrect, isSelected, isSubmitted, isCorrect }: Answe
 
   return <StyledAnswerResult isCorrect={isCorrect}>
     <FormattedMessage id={resultMsgKey}>
-      {(msg) => msg}
+      {(msg: string) => msg}
     </FormattedMessage>
   </StyledAnswerResult>;
 };
