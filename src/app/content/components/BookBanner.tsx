@@ -65,7 +65,7 @@ const bookBannerTextStyle = css`
 
 type Style = string | number | FlattenSimpleInterpolation;
 const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
-  (props: {variant: 'mini' | 'big'}) =>
+  (props: {variant?: 'mini' | 'big'}) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
 const bookTitleMiniNavDestkopWidth = 27;
@@ -132,7 +132,7 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => va
 interface BarWrapperProps {
   colorSchema: BookWithOSWebData['theme'] | undefined;
   up: boolean;
-  variant: 'mini' | 'big';
+  variant?: 'mini' | 'big';
 }
 export const BarWrapper = styled.div<BarWrapperProps>`
   ${disablePrint}
@@ -284,14 +284,12 @@ const BookBanner = () => {
       <TopBar>
         {
           bookUrl === undefined
-            ? <BookTitle data-testid='book-title-collapsed' colorSchema={bookTheme} variant='mini'>
+            ? <BookTitle data-testid='book-title-collapsed' variant='mini'>
               {book.title}
             </BookTitle>
             : <BookTitleLink
               data-testid='details-link-collapsed'
               href={bookUrl}
-              variant='mini'
-              colorSchema={bookTheme}
               onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                 handleLinkClick(e, bookUrl);
               }}
