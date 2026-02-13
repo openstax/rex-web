@@ -50,7 +50,7 @@ export const useMatchMobileQuery = () => useMatchMediaQuery(theme.breakpoints.mo
 // Updates are debounced by 50ms to avoid excessive re-renders
 export const useDebouncedWindowSize = () => {
   const window = assertWindow();
-  const timeout = React.useRef(0);
+  const timeout = React.useRef<ReturnType <typeof setTimeout>>();
   const [size, setSize] = React.useState([window.innerWidth, window.innerHeight]);
 
   React.useLayoutEffect(() => {
