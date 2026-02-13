@@ -6,6 +6,9 @@ import createTestServices from './createTestServices';
 import createTestStore from './createTestStore';
 import MessageProvider from './MessageProvider';
 
+// Type assertion to fix React 16 + react-redux Provider compatibility issue
+const ReduxProvider = Provider as any;
+
 interface TestContainerProps {
   services?: ReturnType<typeof createTestServices>;
   store?: Store;
@@ -19,13 +22,13 @@ const TestContainer = (props: TestContainerProps) => {
     dispatch: store.dispatch,
     getState: store.getState,
   };
-  return <Provider store={store}>
+  return <ReduxProvider store={store}>
     <Services.Provider value={{...services, ...reduxMiddleware}}>
       <MessageProvider>
         {props.children}
       </MessageProvider>
     </Services.Provider>
-  </Provider>;
+  </ReduxProvider>;
 };
 
 export default TestContainer;
