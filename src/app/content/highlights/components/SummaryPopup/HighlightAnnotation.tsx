@@ -30,25 +30,19 @@ const HighlightNoteAnnotation = styled.div`
 const TextareaLabel = styled.label`
   font-weight: bold;
   width: 100%;
-`;
-
-const TextareaRow = styled.div`
   display: flex;
-  width: 100%;
-  gap: 1rem;
-  flex-wrap: wrap;
-  align-items: start;
+  flex-direction: column;
 `;
 
 const Textarea = styled.textarea`
   ${textRegularStyle}
   font-family: inherit;
-  flex: 1;
+  width: 100%;
   letter-spacing: 0;
   line-height: 2rem;
   min-height: 3.6rem;
   max-height: calc(60vh - 20rem);
-  min-width: 60%;
+  box-sizing: border-box;
   color: ${theme.color.text.label};
   padding: 0.8rem;
 `;
@@ -132,50 +126,48 @@ const EditHighlightAnnotation = ({
         <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
           {msg => msg}
         </FormattedMessage>
-        <TextareaRow>
-          <Textarea
-            value={anno}
-            placeholder={intl.formatMessage({
-              id: 'i18n:highlighting:card:placeholder',
-            })}
-            autoFocus={true}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-              setAnno(e.target.value);
-            }}
-            ref={ref}
-            onInput={calculateHeight}
-            style={taStyle}
-          />
-          <HighlightEditButtons>
-            <Button
-              data-testid='save'
-              data-analytics-label='save'
-              size='medium'
-              variant='primary'
-              aria-label={intl.formatMessage({
-                id: 'i18n:highlighting:button:save',
-              })}
-              onClick={() => onSave(anno)}
-            >
-              {intl.formatMessage({ id: 'i18n:highlighting:button:save' })}
-            </Button>
-            <Button
-              size='medium'
-              data-analytics-label='cancel'
-              data-testid='cancel'
-              aria-label={intl.formatMessage({
-                id: 'i18n:highlighting:button:cancel',
-              })}
-              onClick={() => {
-                onCancel();
-                setAnno(annotation);
-              }}
-            >
-              {intl.formatMessage({ id: 'i18n:highlighting:button:cancel' })}
-            </Button>
-          </HighlightEditButtons>
-        </TextareaRow>
+        <Textarea
+          value={anno}
+          placeholder={intl.formatMessage({
+            id: 'i18n:highlighting:card:placeholder',
+          })}
+          autoFocus={true}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            setAnno(e.target.value);
+          }}
+          ref={ref}
+          onInput={calculateHeight}
+          style={taStyle}
+        />
       </TextareaLabel>
+      <HighlightEditButtons>
+        <Button
+          data-testid='save'
+          data-analytics-label='save'
+          size='medium'
+          variant='primary'
+          aria-label={intl.formatMessage({
+            id: 'i18n:highlighting:button:save',
+          })}
+          onClick={() => onSave(anno)}
+        >
+          {intl.formatMessage({ id: 'i18n:highlighting:button:save' })}
+        </Button>
+        <Button
+          size='medium'
+          data-analytics-label='cancel'
+          data-testid='cancel'
+          aria-label={intl.formatMessage({
+            id: 'i18n:highlighting:button:cancel',
+          })}
+          onClick={() => {
+            onCancel();
+            setAnno(annotation);
+          }}
+        >
+          {intl.formatMessage({ id: 'i18n:highlighting:button:cancel' })}
+        </Button>
+      </HighlightEditButtons>
     </HighlightNote>
   );
 };
