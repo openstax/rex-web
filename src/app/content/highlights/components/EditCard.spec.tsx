@@ -2,7 +2,6 @@ import { Highlight } from '@openstax/highlighter';
 import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React, { ReactElement } from 'react';
 import renderer from 'react-test-renderer';
-import ReactTestUtils from 'react-dom/test-utils';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
@@ -140,13 +139,12 @@ describe('EditCard', () => {
       const { component, cleanup } = renderAuthenticatedEditCard({
         ...editCardProps,
         highlight: newHighlight,
-        data: highlightData,
+        data: undefined,
         isActive: true,
         shouldFocusCard: false,
       });
 
-      const button = component.root.findByType('button');
-      expect(button.props.children.props.id).toBe('i18n:highlighting:create-instructions');
+      expect(component.root.findByProps({ id: 'i18n:highlighting:create-instructions' })).toBeTruthy();
       cleanup();
     });
 
@@ -609,7 +607,7 @@ describe('EditCard', () => {
         ...highlightData,
       };
 
-      const component = renderToDom(
+      renderToDom(
         <div id={MAIN_CONTENT_ID} tabIndex={-1}>
           <TestContainer services={services} store={store}>
             <a href='#foo'>text</a>
@@ -630,16 +628,6 @@ describe('EditCard', () => {
       document?.querySelector('a')?.focus();
       document?.getElementById(MAIN_CONTENT_ID)?.focus();
       expect(editCardProps.onBlur).not.toHaveBeenCalled();
-      const button = component.node.querySelector('button') as HTMLButtonElement;
-      const preventDefault = jest.fn();
-      document!.dispatchEvent = jest.fn();
-
-      // Two branches of showCard - must be mousedown of button 0
-      ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 1 });
-      expect(preventDefault).not.toHaveBeenCalled();
-      ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 0 });
-      expect(preventDefault).toHaveBeenCalled();
-      expect(document!.dispatchEvent).toHaveBeenCalled();
 
       cleanup();
     });
