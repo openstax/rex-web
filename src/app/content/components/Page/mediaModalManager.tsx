@@ -50,7 +50,6 @@ function createMediaModalPortal() {
 
         const content = (
           <img
-            tabIndex={0}
             src={img.src}
             alt={img.alt || ''}
             width={img.width}
