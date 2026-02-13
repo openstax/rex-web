@@ -337,7 +337,7 @@ describe('CardWrapper', () => {
     const highlight2 = createMockHighlight('id2');
     const highlightElement1 = document.createElement('span');
     const highlightElement2 = document.createElement('span');
-    const selectionHighlight = {id: 'string', elements: []};
+    const selectionHighlight = { id: 'string', elements: [] };
 
     highlight1.elements.push(highlightElement1);
     highlight2.elements.push(highlightElement2);
@@ -410,7 +410,7 @@ describe('CardWrapper', () => {
     // Trigger editOnEnter with no focusedHighlight
     renderer.act(() => {
       dispatchKeyDownEvent({
-          key: 'Enter',
+        key: 'Enter',
       });
     });
 
@@ -788,7 +788,7 @@ describe('CardWrapper', () => {
     it('does nothing if selection is collapsed', () => {
       renderer.create(
         <Provider store={mockedStore}>
-          <CardWrapper container={mockedContainer} highlights={[createMockHighlight('id1')]} dispatch={dispatchSpy} />
+          <CardWrapper container={mockedContainer} highlights={[createMockHighlight('id1')]} dispatch={dispatchSpy} status='visible' />
         </Provider>
       );
 
@@ -807,6 +807,32 @@ describe('CardWrapper', () => {
 
       expect(dispatchSpy).not.toHaveBeenCalled();
       getSelectionSpy.mockRestore();
+    });
+
+    it('does nothing if event target is inside the wrapper', () => {
+      const dispatchSpy = jest.fn();
+      const divInside = assertDocument().createElement('div');
+      const cardWrapperElement = assertDocument().createElement('div');
+      cardWrapperElement.appendChild(divInside);
+
+      renderer.create(
+        <Provider store={mockedStore}>
+          <CardWrapper container={mockedContainer} highlights={[createMockHighlight('id1')]} dispatch={dispatchSpy} status='visible' />
+        </Provider>,
+        { createNodeMock: () => cardWrapperElement }
+      );
+
+      // Flush effects to register the ref
+      renderer.act(() => undefined);
+
+      const event = new (assertWindow() as any).MouseEvent('mouseup', { bubbles: true });
+      Object.defineProperty(event, 'target', { value: divInside });
+
+      renderer.act(() => {
+        assertDocument().dispatchEvent(event);
+      });
+
+      expect(dispatchSpy).not.toHaveBeenCalled();
     });
 
     it('dispatches simulated mouseup event if selection is not collapsed', () => {

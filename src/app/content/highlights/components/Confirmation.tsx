@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
 import Button, { ButtonGroup } from '../../../components/Button';
 import { labelStyle } from '../../../components/Typography';
-import { useDrawFocus, useTrapTabNavigation } from '../../../reactUtils';
+import { useDrawFocus, useTrapTabNavigation, useOnEsc } from '../../../reactUtils';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';
 import { cardPadding } from '../constants';
@@ -47,19 +47,20 @@ interface Props {
 }
 
 const Confirmation = React.forwardRef<HTMLElement, Props>((
-  {message, confirmMessage, confirmLink, always, onCancel, onConfirm, drawFocus = true, ...props}: Props,
+  { message, confirmMessage, confirmLink, always, onCancel, onConfirm, drawFocus = true, ...props }: Props,
   ref
 ) => {
   const drawFocusRef = useDrawFocus();
 
   useTrapTabNavigation(drawFocusRef);
+  useOnEsc(true, onCancel);
 
   return <Overlay
     ref={mergeRefs(ref, drawFocus ? drawFocusRef : null)}
     tabIndex={-1}
     role='alertdialog'
     {...props['data-analytics-region']
-      ? {'data-analytics-region': props['data-analytics-region']}
+      ? { 'data-analytics-region': props['data-analytics-region'] }
       : {}
     }
   >
@@ -86,7 +87,7 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
           }}
           {...confirmLink
             // eslint-disable-next-line
-            ? {component: <a href={confirmLink} />}
+            ? { component: <a href={confirmLink} /> }
             : {}
           }
         >{msg}</Button>}

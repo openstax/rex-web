@@ -197,7 +197,7 @@ exports[`EditCard Snapshots and Rendering matches snapshot when focused 1`] = `
         "data-analytics-region": "highlighting-login",
         "drawFocus": false,
         "message": "i18n:highlighting:login:prompt",
-        "onCancel": [MockFunction],
+        "onCancel": [Function],
       }
     }
     mock-confirmation="true"
@@ -294,7 +294,7 @@ exports[`EditCard Snapshots and Rendering matches snapshot without data 1`] = `
         "data-analytics-region": "highlighting-login",
         "drawFocus": false,
         "message": "i18n:highlighting:login:prompt",
-        "onCancel": [MockFunction],
+        "onCancel": [Function],
       }
     }
     mock-confirmation="true"

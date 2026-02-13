@@ -136,7 +136,7 @@ describe('EditCard', () => {
     });
 
     it('shows create highlight message for new highlight', () => {
-      const newHighlight = {...highlight, elements: []};
+      const newHighlight = { ...highlight, elements: [] };
       const { component, cleanup } = renderAuthenticatedEditCard({
         ...editCardProps,
         highlight: newHighlight,
@@ -265,7 +265,7 @@ describe('EditCard', () => {
 
       const cancel = findByTestId('cancel');
       renderer.act(() => {
-        cancel.props.onClick({preventDefault: jest.fn()});
+        cancel.props.onClick({ preventDefault: jest.fn() });
       });
 
       expect(note.props.note).toBe('qwer');
@@ -293,11 +293,11 @@ describe('EditCard', () => {
 
       const saveButton = findByTestId('save');
       renderer.act(() => {
-        saveButton.props.onClick({preventDefault: jest.fn()});
+        saveButton.props.onClick({ preventDefault: jest.fn() });
       });
 
       expect(dispatch).toHaveBeenCalledWith(updateHighlight({
-        highlight: {color: highlightData.style as any, annotation: 'asdf'},
+        highlight: { color: highlightData.style as any, annotation: 'asdf' },
         id: highlightData.id,
       }, {
         locationFilterId: 'locationId',
@@ -379,7 +379,7 @@ describe('EditCard', () => {
 
       const saveButton = findByTestId('save');
       renderer.act(() => {
-        saveButton.props.onClick({preventDefault: jest.fn()});
+        saveButton.props.onClick({ preventDefault: jest.fn() });
       });
 
       expect(() => findByTestId('confirm-delete')).not.toThrow();
@@ -407,7 +407,7 @@ describe('EditCard', () => {
 
       const saveButton = findByTestId('save');
       renderer.act(() => {
-        saveButton.props.onClick({preventDefault: jest.fn()});
+        saveButton.props.onClick({ preventDefault: jest.fn() });
       });
 
       const confirmation = findByTestId('confirm-delete');
@@ -418,7 +418,7 @@ describe('EditCard', () => {
 
       expect(() => findByTestId('confirm-delete')).toThrow();
       expect(dispatch).toHaveBeenCalledWith(updateHighlight({
-        highlight: {color: highlightData.style as any, annotation: ''},
+        highlight: { color: highlightData.style as any, annotation: '' },
         id: highlightData.id,
       }, {
         locationFilterId: 'locationId',
@@ -456,7 +456,7 @@ describe('EditCard', () => {
 
       const saveButton = findByTestId('save');
       renderer.act(() => {
-        saveButton.props.onClick({preventDefault: jest.fn()});
+        saveButton.props.onClick({ preventDefault: jest.fn() });
       });
 
       const confirmation = findByTestId('confirm-delete');
@@ -490,7 +490,7 @@ describe('EditCard', () => {
 
       expect(highlight.setStyle).toHaveBeenCalledWith('blue');
       expect(store.dispatch).toHaveBeenCalledWith(updateHighlight({
-        highlight: {annotation: highlightData.annotation, color: 'blue' as any},
+        highlight: { annotation: highlightData.annotation, color: 'blue' as any },
         id: highlightData.id,
       }, {
         locationFilterId: 'locationId',
@@ -563,7 +563,7 @@ describe('EditCard', () => {
         <TestContainer services={services} store={store}>
           <EditCard {...editCardProps} onHeightChange={onHeightChange} shouldFocusCard={true} />
         </TestContainer>,
-        {createNodeMock}
+        { createNodeMock }
       );
 
       // Wait for hooks
@@ -584,7 +584,7 @@ describe('EditCard', () => {
           <TestContainer services={services} store={store}>
             <a href='#foo'>text</a>
             <EditCard
-              {...{...editCardProps, hasUnsavedHighlight: false}}
+              {...{ ...editCardProps, hasUnsavedHighlight: false }}
               onHeightChange={onHeightChange}
               isActive={true}
               shouldFocusCard={true}
@@ -661,7 +661,7 @@ describe('EditCard', () => {
             shouldFocusCard={true}
           />
         </TestContainer>,
-        {createNodeMock}
+        { createNodeMock }
       );
 
       expect(onHeightChange).not.toHaveBeenCalled();
@@ -756,21 +756,26 @@ describe('EditCard', () => {
       expect(spyAnalytics).not.toHaveBeenCalled();
     });
 
-    it('shows login for unauthenticated user when card is active', () => {
-      renderer.create(
-        <TestContainer services={services} store={store}>
-          <EditCard
-            {...editCardProps}
-            isActive={false}
-            data={undefined}
-            shouldFocusCard={true}
-          />
-        </TestContainer>
-      );
+    it('clears selection when login is cancelled', () => {
+      const component = renderEditCard({
+        ...editCardProps,
+        isActive: true,
+        shouldFocusCard: true,
+      } as EditCardProps);
 
-      // Wait for React.useEffect
-      renderer.act(() => undefined);
+      // Mock getSelection
+      const removeAllRanges = jest.fn();
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({
+        removeAllRanges,
+      } as any);
 
+      const confirmation = component.root.findByProps({ 'mock-confirmation': 'true' });
+      renderer.act(() => {
+        confirmation.props['data-props'].onCancel();
+      });
+
+      expect(removeAllRanges).toHaveBeenCalled();
+      getSelectionSpy.mockRestore();
     });
   });
 });
