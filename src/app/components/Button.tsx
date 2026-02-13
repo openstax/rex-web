@@ -28,7 +28,7 @@ type Size = 'large' | 'medium' | 'small';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 
-interface ButtonProps<T extends ComponentType | undefined> {
+interface ButtonProps<T extends ComponentType | undefined> extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   variant?: Variant;
   size?: Size;
