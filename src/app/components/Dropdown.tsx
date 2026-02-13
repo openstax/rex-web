@@ -16,6 +16,7 @@ import { textStyle } from './Typography/base';
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
 interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   className?: string;
+  isOpen?: boolean;
   component: T extends React.ComponentType
     ? React.ReactComponentElement<T>:
     never;

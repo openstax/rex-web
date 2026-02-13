@@ -112,13 +112,13 @@ const Button = styled(ButtonHoc)`
   `}
 `;
 
-export const ButtonGroup = styled.div`
+export const ButtonGroup = styled.div<{expand?: boolean; vertical?: boolean}>`
   display: grid;
   overflow: visible;
-  ${(props: {expand?: boolean}) => props.expand === false && css`
+  ${(props) => props.expand === false && css`
     grid-auto-columns: min-content;
   `}
-  grid-auto-flow: ${(props: {vertical?: boolean}) => props.vertical === true ? 'row' : 'column'};
+  grid-auto-flow: ${(props) => props.vertical === true ? 'row' : 'column'};
   grid-gap: 1rem;
 `;
 
@@ -130,10 +130,10 @@ export const PlainButton = styled.button`
   background: none;
 `;
 
-export const ButtonLink = styled(PlainButton)`
+export const ButtonLink = styled(PlainButton)<{decorated: boolean}>`
   outline: none;
   ${textStyle}
-  ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
+  ${(props) => props.decorated ? decoratedLinkStyle : linkStyle}
 `;
 
 export default Button;
