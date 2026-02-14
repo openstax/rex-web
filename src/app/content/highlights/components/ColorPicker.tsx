@@ -27,13 +27,9 @@ type Props = (SingleSelectProps | MultipleSelectProps) & {
   size?: 'small';
 };
 
-interface ColorButtonProps {
-  name: string;
-  checked: boolean;
+interface ColorButtonProps extends Omit<React.HTMLProps<HTMLInputElement>, 'size' | 'style'> {
   size: Props['size'];
   style: typeof highlightStyles[number];
-  onClick: () => void;
-  className?: string;
 }
 
 const ColorButton = styled(({className, size, style, ...props}: ColorButtonProps) => {
