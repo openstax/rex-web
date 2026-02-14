@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { Check } from 'styled-icons/fa-solid/Check';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
@@ -19,9 +19,10 @@ interface Props<T extends React.ComponentType | undefined = React.ComponentType>
   component?: T extends undefined ? undefined :
     T extends React.ComponentType ? React.ReactComponentElement<T>:
     never;
+  title?: string;
 }
 
-const CheckIcon = styled(Check)`
+const CheckIcon = styled(Check as AnyStyledComponent)`
   display: none;
 `;
 
@@ -76,19 +77,20 @@ function Hoc<T extends React.ComponentType | undefined>(props: React.PropsWithCh
   </div>;
 }
 
-const indicatorSize = (props: {size?: 'small'}) => props.size === 'small' ? 1.6 : 2.4;
-const checkSize = (props: {size?: 'small'}) => props.size === 'small' ? 1 : 1.6;
+type SizeProps = {size?: 'small'}
+const indicatorSize = (props: SizeProps) => props.size === 'small' ? 1.6 : 2.4;
+const checkSize = (props: SizeProps) => props.size === 'small' ? 1 : 1.6;
 
-const ColorIndicator = styled(Hoc)`
+const ColorIndicator = styled(Hoc)<StyleProps>`
   position: relative;
-  background-color: ${(props: {style: typeof highlightStyles[number]}) => props.style.passive};
-  border: 1px solid ${(props: {style: typeof highlightStyles[number]}) => props.style.focusBorder};
-  height: ${(props: Props) => indicatorSize(props)}rem;
-  width: ${(props: Props) => indicatorSize(props)}rem;
+  background-color: ${(props) => props.style.passive};
+  border: 1px solid ${(props) => props.style.focusBorder};
+  height: ${(props) => indicatorSize(props)}rem;
+  width: ${(props) => indicatorSize(props)}rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  ${(props: Props) => (props.shape === 'circle' || props.shape === undefined) && css`
+  ${(props) => (props.shape === 'circle' || props.shape === undefined) && css`
     border-radius: 2rem;
   `}
   overflow: visible;
@@ -109,15 +111,17 @@ const ColorIndicator = styled(Hoc)`
     ${defaultFocusOutline}
     z-index: 1;
   }
-`;
+` as React.ComponentType<Props>;
+
+type TBProps = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  className?: string;
+}
 
 function TB({
   onClick,
   className,
-}: {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  className: string;
-}) {
+}: TBProps) {
   return (
     <button
       type='button'
@@ -135,6 +139,6 @@ export const TrashButton = styled(TB)`
     height: ${(props: Props) => indicatorSize(props) - 0.5}rem;
     width: ${(props: Props) => indicatorSize(props) - 0.5}rem;
   }
-`;
+` as React.ComponentType<SizeProps & TBProps>;
 
 export default ColorIndicator;
