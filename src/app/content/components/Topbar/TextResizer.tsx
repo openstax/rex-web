@@ -11,10 +11,11 @@ import {
   TextResizerValue,
   textResizerValues,
 } from '../../constants';
+import { BookWithOSWebData } from '../../types';
 import * as Styled from './styled';
 
 export interface TextResizerProps {
-  bookTheme: string;
+  bookTheme: BookWithOSWebData['theme'];
   textSize: TextResizerValue | null;
   setTextSize: (value: TextResizerValue) => void;
   mobileToolbarOpen?: boolean;
@@ -55,7 +56,8 @@ export const TextResizer = (props: TextResizerProps) => {
       ariaLabelId='i18n:toolbar:textresizer:button:aria-label'
       dataAnalyticsLabel='Change text size'
       controlsId='text-resizer-menu'
-      {...props}
+      mobileToolbarOpen={props.mobileToolbarOpen ?? false}
+      mobileVariant={props.mobileVariant ?? true}
     >
       <Styled.TextResizerMenu id='text-resizer-menu' bookTheme={props.bookTheme} textSize={props.textSize}>
         <label id='text-resizer-label'><FormattedMessage id='i18n:toolbar:textresizer:popup:heading' /></label>

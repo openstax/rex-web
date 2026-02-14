@@ -1,7 +1,7 @@
 import { HTMLAnchorElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { FlattenSimpleInterpolation } from 'styled-components';
+import { AnyStyledComponent, FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
@@ -40,7 +40,7 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'yellow': '#faea36',
 };
 
-const LeftArrow = styled(ChevronLeft)`
+const LeftArrow = styled(ChevronLeft as AnyStyledComponent)`
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -77,7 +77,7 @@ interface BookTitleProps {
 const bookTitleStyles = css<BookTitleProps>`
   ${h4Style}
   ${bookBannerTextStyle}
-  ${applyBookTextColor as any}
+  ${applyBookTextColor as () => FlattenSimpleInterpolation}
   display: ${ifMiniNav('inline-block', 'block')};
   height: ${textRegularLineHeight}rem;
   font-weight: normal;
@@ -86,7 +86,7 @@ const bookTitleStyles = css<BookTitleProps>`
 
   ${theme.breakpoints.mobile(css`
     ${bookBannerTextStyle}
-  `) as any}
+  `) as FlattenSimpleInterpolation}
 
   ${ifMiniNav(css`
     width: ${bookTitleMiniNavDestkopWidth}rem;
@@ -112,7 +112,7 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}: React
   <span {...props}>{children}</span> : <h1 {...props}>{children}</h1>)<BookTitleProps>`
   ${ifMiniNav(h4Style, h3Style)}
   ${bookBannerTextStyle}
-  ${applyBookTextColor as any}
+  ${applyBookTextColor as () => FlattenSimpleInterpolation}
   font-weight: 600;
   display: ${ifMiniNav('inline-block', 'block')};
   margin: 1rem 0 0 0;
@@ -125,7 +125,7 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}: React
 
     max-height: ${h3MobileLineHeight * 2}rem;
     margin-top: 0.3rem;
-  `) as any}
+  `) as FlattenSimpleInterpolation}
   ${ifMiniNav(css`
     max-width: ${maxNavWidth - bookTitleMiniNavDestkopWidth - (maxNavWidth - contentTextWidth) / 2}rem;
 
@@ -172,8 +172,10 @@ export const BarWrapper = styled.div<BarWrapperProps>`
 
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
-    height: ${(ifMiniNav(bookBannerMobileMiniHeight, bookBannerMobileBigHeight) as any)}rem;
-    ${ifMiniNav(`margin-top: -${bookBannerMobileMiniHeight}rem`) as any}
+    height: ${(
+      ifMiniNav(bookBannerMobileMiniHeight, bookBannerMobileBigHeight)
+    ) as unknown as FlattenSimpleInterpolation}rem;
+    ${ifMiniNav(`margin-top: -${bookBannerMobileMiniHeight}rem`) as unknown as FlattenSimpleInterpolation}
   `)}
 
   ${ifMiniNav(`margin-top: -${bookBannerDesktopMiniHeight}rem`)}
