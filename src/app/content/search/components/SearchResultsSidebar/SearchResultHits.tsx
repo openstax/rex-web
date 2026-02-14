@@ -178,4 +178,5 @@ export const ConnectedSearchResultHits = connect((state: AppState) => ({
   queryParams: navSelect.persistentQueryParameters(state),
 }))(SearchResultHits);
 
-export default ConnectedSearchResultHits as React.ComponentType<SearchResultHitsProps>;
+// The connected component only needs props that aren't provided by mapStateToProps
+export default ConnectedSearchResultHits as React.ComponentType<Omit<SearchResultHitsProps, 'queryParams'>>;
