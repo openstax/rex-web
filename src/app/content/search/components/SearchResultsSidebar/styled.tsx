@@ -157,14 +157,14 @@ export const SearchResultsBar = styled.div`
   flex-direction: column;
 `;
 
-export const SearchResultsHeader = styled.h2`
+export const SearchResultsHeader = styled.h2<{ emptyHeaderStyle?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   height: ${topbarDesktopHeight}rem;
   margin: 0;
-  ${({ emptyHeaderStyle = false }: { emptyHeaderStyle: boolean }) => emptyHeaderStyle && css`
+  ${({ emptyHeaderStyle = false }) => emptyHeaderStyle && css`
     border-bottom: 0;
     justify-content: flex-end;
   `}

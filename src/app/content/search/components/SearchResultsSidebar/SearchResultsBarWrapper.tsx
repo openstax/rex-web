@@ -177,7 +177,7 @@ const ResultsSummary = ({
     <Styled.SearchQueryWrapper>
       <Styled.SearchQuery>
         <Styled.SearchIconInsideBar src={searchIcon} alt='' />
-        <Styled.HeaderQuery role='note' tabIndex='0'>
+        <Styled.HeaderQuery role='note' tabIndex={0}>
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
             values={{search: props.totalHits, terms: props.totalHitsKeyTerms}}
@@ -219,7 +219,7 @@ const ResultsList = ({
         selectedResult={selectedResult}
         keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
       />}
-      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex='0'>
+      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex={0}>
         <FormattedMessage id='i18n:search-results:bar:title'>
           {(msg: string) => msg}
         </FormattedMessage>
