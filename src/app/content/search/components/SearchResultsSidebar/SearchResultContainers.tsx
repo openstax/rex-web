@@ -136,4 +136,4 @@ export default connect(
       dispatch(closeSearchResultsMobile());
     },
   })
-)(SearchResultContainers);
+)(SearchResultContainers) as React.ComponentType<SearchResultContainersProps>;

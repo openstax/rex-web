@@ -24,7 +24,7 @@ interface SearchResultHitsProps {
   getPage: (hit: SearchResultHit) => ArchiveTreeSection;
   onClick: (result: { result: SearchResultHit; highlight: number }) => void;
   selectedResult: SelectedResult | null;
-  queryParams: OutputParams;
+  queryParams?: OutputParams;
 }
 
 type UseKeyTermPairProps = {
@@ -178,4 +178,4 @@ export const ConnectedSearchResultHits = connect((state: AppState) => ({
   queryParams: navSelect.persistentQueryParameters(state),
 }))(SearchResultHits);
 
-export default ConnectedSearchResultHits;
+export default ConnectedSearchResultHits as React.ComponentType<SearchResultHitsProps>;
