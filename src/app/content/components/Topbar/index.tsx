@@ -19,7 +19,7 @@ import { useSearchState, useMobileToolbar } from './hooks';
 
 type CommonSearchInputParams = {
   mobileToolbarOpen: boolean;
-  searchButtonColor: string | null;
+  searchButtonColor: Styled.SearchInputWrapperProps['colorSchema'];
   searchInSidebar: boolean;
   newButtonEnabled: boolean;
   onSearchChange: (e: React.FormEvent<HTMLInputElement>) => void;
@@ -76,7 +76,7 @@ function DesktopSearchInputWrapper({
         />
       }
       {state.formSubmitted && newButtonEnabled &&
-        <Styled.CloseButtonNew desktop
+        <Styled.CloseButtonNew
           type='button'
           aria-label='clear search'
           onClick={onSearchClear}
@@ -159,7 +159,6 @@ function MobileSearchInputWrapper({
             type='button'
             aria-label='clear search'
             onClick={onSearchClear}
-            formSubmitted={state.formSubmitted}
             data-testid='mobile-clear-search'
           >
             <Styled.CloseIcon />
@@ -299,7 +298,7 @@ function Topbar() {
           onSearchChange={onSearchChange}
           onSearchClear={onSearchClear}
           onSearchSubmit={onSearchSubmit}
-          searchButtonColor={searchButtonColor}
+          searchButtonColor={searchButtonColor ?? undefined}
           searchInSidebar={searchInSidebar}
           state={state}
           toggleMobile={toggleMobile}
@@ -318,7 +317,7 @@ function Topbar() {
           onSearchChange={onSearchChange}
           onSearchClear={onSearchClear}
           onSearchSubmit={onSearchSubmit}
-          searchButtonColor={searchButtonColor}
+          searchButtonColor={searchButtonColor ?? undefined}
           searchInSidebar={searchInSidebar}
           state={state}
           toggleMobile={toggleMobile}
