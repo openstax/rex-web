@@ -11,12 +11,16 @@ const connectNavigationProvider = connect((state: AppState) => ({
   location: selectors.location(state),
 }));
 
+// Type assertion to fix React 16 + redux connect + ErrorBoundary children type compatibility
+// In some environments, connect() + ErrorBoundary combination causes TypeScript to infer 'never' for children
+const TypedErrorBoundary = ErrorBoundary as any;
+
 export default connectNavigationProvider(({ routes, location }: { routes: AnyRoute[], location: Location }) => {
   const match = utils.findRouteMatch(routes, location);
 
   if (match) {
     const Component = match.route.component;
-    return <ErrorBoundary><Component /></ErrorBoundary >;
+    return <TypedErrorBoundary><Component /></TypedErrorBoundary >;
   } else {
     return null;
   }
