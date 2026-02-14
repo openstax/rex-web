@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import KineticCTAMobile from '../../../assets/kinetic-cta-mobile.svg';
 import KineticCTA from '../../../assets/kinetic-cta.svg';
 import icon from '../../../assets/kinetic-logo.png';
@@ -44,7 +44,7 @@ const LabsCallWrapper = styled.div`
 
 /* stylelint-disable block-opening-brace-newline-after, block-closing-brace-newline-before */
 /* stylelint-disable block-opening-brace-space-after, block-closing-brace-space-before */
-const Column = styled.div`
+const Column = styled.div<{maxWidth?: number; noShrink?: boolean; last?: boolean}>`
   display: flex;
   flex-direction: column;
   color: ${theme.color.primary.gray.darker};
@@ -103,7 +103,7 @@ const LabsCallHeader = isVerticalNavOpenConnector(styled.div`
         @media screen and (min-width: 50em) and (max-width: 52em) {
           margin-right: 14rem;
         }
-      `)}
+      `) as FlattenSimpleInterpolation}
     }
   }
 
@@ -118,7 +118,7 @@ const LabsCallHeader = isVerticalNavOpenConnector(styled.div`
       margin-right: 1.4rem;
     }
   `)}
-`);
+`) as React.ComponentType;
 
 const LabsText = styled.div`
   font-size: 1.8rem;
