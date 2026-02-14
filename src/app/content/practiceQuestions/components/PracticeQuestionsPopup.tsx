@@ -40,7 +40,7 @@ const PracticeQuestionsPopup = () => {
   return isPracticeQuestionsOpen ?
     <Modal
       ref={popUpRef}
-      tabIndex='-1'
+      tabIndex={-1}
       data-testid='practice-questions-popup-wrapper'
       scrollLockProps={{
         mediumScreensOnly: false,

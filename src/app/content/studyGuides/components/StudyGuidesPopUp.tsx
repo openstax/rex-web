@@ -34,7 +34,7 @@ const StudyguidesPopUp = () => {
   return isStudyGuidesOpen ?
     <Modal
       ref={popUpRef}
-      tabIndex='-1'
+      tabIndex={-1}
       data-testid='studyguides-popup-wrapper'
       scrollLockProps={{
         mediumScreensOnly: false,
