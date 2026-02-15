@@ -38,7 +38,7 @@ const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentL
     ? <ContentLink book={book} page={page} {...props} />
     : <span aria-hidden />;
 
-const HidingContentLink = styled(HidingContentLinkComponent as AnyStyledComponent)`
+const HidingContentLink = styled(HidingContentLinkComponent)`
   ${decoratedLinkStyle}
   ${(props) => props.side === 'left' && theme.breakpoints.mobile(css`
     margin-left: -0.8rem;
@@ -46,7 +46,7 @@ const HidingContentLink = styled(HidingContentLinkComponent as AnyStyledComponen
   ${(props) => props.side === 'right' && theme.breakpoints.mobile(css`
     margin-right: -0.8rem;
   `)}
-`;
+` as AnyStyledComponent;
 
 const BarWrapper = styled.div`
   ${disablePrint}
