@@ -59,10 +59,10 @@ const Highlights = () => {
   );
 };
 
-export default styled(Highlights as AnyStyledComponent)`
+export default styled(Highlights)`
   @media print {
     ${HighlightWrapper} {
       margin: 0;
     }
   }
-`;
+` as AnyStyledComponent;
