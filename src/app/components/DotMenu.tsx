@@ -41,7 +41,7 @@ export const DotMenuToggle = styled(
 `;
 
 type DropdownListProps = {rightAlign?: boolean}
-export const DotMenuDropdownList = styled(DropdownList)<DropdownListProps>`
+export const DotMenuDropdownList = styled(DropdownList as AnyStyledComponent)<DropdownListProps>`
   && {
     ${(props) => {
       return props.rightAlign === true

@@ -1,11 +1,11 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { textRegularSize } from '../../../components/Typography';
 import theme from '../../../theme';
 import PrintButton from '../../components/Toolbar/PrintButton';
 import { filters } from '../../styles/PopupConstants';
 import { PrintOptions } from '../Toolbar/styled';
 
-export default styled(PrintButton)`
+export default styled(PrintButton as AnyStyledComponent)`
   flex-direction: row;
   cursor: ${({loading}) => loading ? 'wait' : 'pointer'};
   height: max-content;

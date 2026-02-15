@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { loggedOut } from '../../../auth/selectors';
 import { useServices } from '../../../context/Services';
 import { AppState, Dispatch } from '../../../types';
@@ -48,7 +48,7 @@ const ConnectedChapterFilter = connect(
   })
 )(ChapterFilter);
 
-const StyledColorFilter = styled(ColorFilter)`
+const StyledColorFilter = styled(ColorFilter as AnyStyledComponent)`
   min-width: 29rem;
 `;
 

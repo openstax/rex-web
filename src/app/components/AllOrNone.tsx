@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { ButtonLink } from './Button';
 
 interface Props {
@@ -20,7 +20,7 @@ const AllOrNone = ({className, onAll, onNone, disabled}: Props) => <div classNam
   </FormattedMessage>
 </div>;
 
-export default styled(AllOrNone)`
+export default styled(AllOrNone as AnyStyledComponent)`
   &,
   ${ButtonLink} {
     font-size: 1.4rem;

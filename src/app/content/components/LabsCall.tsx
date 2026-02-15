@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import KineticCTAMobile from '../../../assets/kinetic-cta-mobile.svg';
 import KineticCTA from '../../../assets/kinetic-cta.svg';
 import icon from '../../../assets/kinetic-logo.png';
@@ -136,7 +136,7 @@ const LabsText = styled.div`
   `)}
 `;
 
-const LabsCallLink = styled(Button)`
+const LabsCallLink = styled(Button as AnyStyledComponent)`
   background-color: #6922ea;
   border-radius: 4px;
   height: 4rem;

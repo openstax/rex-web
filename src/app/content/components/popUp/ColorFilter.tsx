@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
@@ -81,7 +81,7 @@ const ColorFilter = ({
   </div>;
 };
 
-export default styled(ColorFilter)`
+export default styled(ColorFilter as AnyStyledComponent)`
   background: ${theme.color.white};
   display: flex;
   flex-direction: column;

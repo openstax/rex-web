@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import theme from '../../../../theme';
 
 const StyledItemWrapper = styled.li`
@@ -47,12 +47,12 @@ const StyledItem = styled.span`
   font-weight: bold;
 `;
 
-const StyledActiveItem = styled(StyledItem)`
+const StyledActiveItem = styled(StyledItem as AnyStyledComponent)`
   color: ${theme.color.primary.gray.base};
   background-color: ${theme.color.neutral.base};
 `;
 
-const StyledDisabledItem = styled(StyledItem)`
+const StyledDisabledItem = styled(StyledItem as AnyStyledComponent)`
   color: #6e6e6e;
   background-color: #f1f1f1;
   border-color: #f1f1f1;

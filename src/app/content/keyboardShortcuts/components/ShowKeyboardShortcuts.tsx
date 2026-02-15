@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { htmlMessage } from '../../../components/htmlMessage';
 import theme from '../../../theme';
 import { PopupBody } from '../../styles/PopupStyles';
 
-const ShowKeyboardShortcutsBody = styled(PopupBody)`
+const ShowKeyboardShortcutsBody = styled(PopupBody as AnyStyledComponent)`
   background-color: ${theme.color.neutral.darker};
   color: ${theme.color.text.default};
   font-size: 1.6rem;

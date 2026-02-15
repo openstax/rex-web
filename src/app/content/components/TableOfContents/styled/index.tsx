@@ -1,5 +1,5 @@
 import { TreeItem, TreeItemContent } from 'react-aria-components';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
 import { iconSize } from '../../../../components/Details';
 import { labelStyle } from '../../../../components/Typography';
@@ -39,7 +39,7 @@ export const SummaryTitle = styled.span`
   flex: 1;
 `;
 
-export const ContentLink = styled(ContentLinkComponent)`
+export const ContentLink = styled(ContentLinkComponent as AnyStyledComponent)`
   ${labelStyle}
   font-size: 1.6rem;
   line-height: 1.8rem;
@@ -58,7 +58,7 @@ export const ContentLink = styled(ContentLinkComponent)`
   }
 `;
 
-export const NavItem = styled(TreeItemContent)`
+export const NavItem = styled(TreeItemContent as AnyStyledComponent)`
   list-style: none;
   overflow: visible;
   margin: 1.2rem 0 0 0;
@@ -100,11 +100,11 @@ const getNumberWidth = (contents: ArchiveTree['contents']) => contents.reduce((r
   );
 }, 0);
 
-export const StyledTree = styled(Tree)``;
+export const StyledTree = styled(Tree as AnyStyledComponent)``;
 
-export const StyledTreeItemContent = styled(TreeItemContent)``;
+export const StyledTreeItemContent = styled(TreeItemContent as AnyStyledComponent)``;
 
-export const StyledTreeItem = styled(TreeItem)<{ section: ArchiveTree }>`
+export const StyledTreeItem = styled(TreeItem as AnyStyledComponent)<{ section: ArchiveTree }>`
   margin: 0;
 
   > div > div {

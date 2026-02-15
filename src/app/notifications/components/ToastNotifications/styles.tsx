@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css, keyframes } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
 import { disablePrint } from '../../../content/components/utils/disablePrint';
@@ -90,7 +90,7 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
   cursor: pointer;
 `;
 
-export const CloseButton = styled(PlainButton) <{ variant?: ToastVariant }>`
+export const CloseButton = styled(PlainButton as AnyStyledComponent) <{ variant?: ToastVariant }>`
   color: ${({ variant }) => variant === 'warning' ? warningCloseIconColor : closeIconColor};
   overflow: visible;
 

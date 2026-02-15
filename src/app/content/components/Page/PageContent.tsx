@@ -1,5 +1,5 @@
 import Color from 'color';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import MainContent from '../../../components/MainContent';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme, { hiddenButAccessible } from '../../../theme';
@@ -22,7 +22,7 @@ export const contentTextStyle = css`
 // otherwise math elements won't have full height background color
 const SELF_AND_CHILD_MATH_SELECTOR = '&, & .math';
 
-export default styled(MainContent)`
+export default styled(MainContent as AnyStyledComponent)`
   ${contentTextStyle}
   overflow: visible;
 

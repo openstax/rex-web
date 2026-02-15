@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { ChevronRight } from 'styled-icons/boxicons-regular/ChevronRight';
 import { decoratedLinkStyle, textRegularLineHeight, textRegularStyle } from '../../components/Typography';
@@ -19,11 +19,11 @@ const prevNextIconStyles = css`
   width: ${textRegularLineHeight}rem;
 `;
 
-const LeftArrow = styled(ChevronLeft)`
+const LeftArrow = styled(ChevronLeft as AnyStyledComponent)`
   ${prevNextIconStyles}
 `;
 
-const RightArrow = styled(ChevronRight)`
+const RightArrow = styled(ChevronRight as AnyStyledComponent)`
   ${prevNextIconStyles}
   margin-top: 0.1rem;
 `;
@@ -38,7 +38,7 @@ const HidingContentLinkComponent = ({page, book, side, ...props}: HidingContentL
     ? <ContentLink book={book} page={page} {...props} />
     : <span aria-hidden />;
 
-const HidingContentLink = styled(HidingContentLinkComponent)`
+const HidingContentLink = styled(HidingContentLinkComponent as AnyStyledComponent)`
   ${decoratedLinkStyle}
   ${(props) => props.side === 'left' && theme.breakpoints.mobile(css`
     margin-left: -0.8rem;

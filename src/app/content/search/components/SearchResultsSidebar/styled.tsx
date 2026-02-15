@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlattenSimpleInterpolation } from 'styled-components';
+import { AnyStyledComponent,  FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Details as BaseDetails, Summary } from '../../../../components/Details';
 import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
@@ -224,7 +224,7 @@ export const SummaryTitle = styled.h3`
   margin: 0;
 `;
 
-export const Details = styled(BaseDetails)`
+export const Details = styled(BaseDetails as AnyStyledComponent)`
   overflow: visible;
 `;
 
@@ -243,7 +243,7 @@ export const SearchBarSummaryContainer = styled.div`
   `)}
 `;
 
-export const SearchBarSummary = styled(Summary)`
+export const SearchBarSummary = styled(Summary as AnyStyledComponent)`
   min-height: 3.8rem;
 
   > * {
@@ -417,7 +417,7 @@ export const SimpleResult = styled.div`
   }
 `;
 
-export const KeyTermResult = styled(SimpleResult)`
+export const KeyTermResult = styled(SimpleResult as AnyStyledComponent)`
   ${theme.breakpoints.mobile(css`
     margin-left: 3.2rem;
   `)}

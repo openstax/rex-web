@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
 import ErrorBoundary from '../../errors/components/ErrorBoundary';
@@ -49,7 +49,7 @@ const Background = styled.div`
   }
 `;
 
-const ContentNotifications = styled(Notifications)`
+const ContentNotifications = styled(Notifications as AnyStyledComponent)`
   &&& {
     z-index: ${theme.zIndex.contentNotifications};
     top: ${bookBannerDesktopMiniHeight + topbarDesktopHeight}rem;

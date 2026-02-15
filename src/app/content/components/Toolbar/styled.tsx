@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css, keyframes } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { maxNavWidth } from '../../../components/NavBar/styled';
@@ -73,7 +73,7 @@ export const PlainButton = styled.button`
   }
 `;
 
-export const PrintOptWrapper = styled(PlainButton)`
+export const PrintOptWrapper = styled(PlainButton as AnyStyledComponent)`
   ${toolbarDefaultButton};
   height: auto;
   padding: 0 10px;
@@ -85,7 +85,7 @@ export const PrintOptions = styled.span`
   line-height: 1.5rem;
 `;
 
-export const PrintIcon = styled(Print)`
+export const PrintIcon = styled(Print as AnyStyledComponent)`
   ${toolbarIconStyles}
 `;
 
@@ -194,7 +194,7 @@ export const ToolbarMobileHeaderTitle = styled.span`
   font-weight: bold;
 `;
 
-export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
+export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />) as AnyStyledComponent`
   ${toolbarIconStyles};
   vertical-align: middle;
   color: ${toolbarIconColor.base};
@@ -204,7 +204,7 @@ export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' 
   }
 `;
 
-export const LeftArrow = styled(ChevronLeft)`
+export const LeftArrow = styled(ChevronLeft as AnyStyledComponent)`
   width: 4rem;
   height: 4rem;
   color: ${toolbarIconColor.base};

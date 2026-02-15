@@ -4,7 +4,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { AnyStyledComponent } from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -289,7 +289,7 @@ function EditCardWithOnCreate({
   );
 }
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(Card as AnyStyledComponent)`
   ${mainCardStyles}
 `;
 

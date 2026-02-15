@@ -1,7 +1,7 @@
 import { Highlight, HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { Edit as EditIcon } from 'styled-icons/fa-solid/Edit';
 import { ExternalLinkAlt as LinkIcon } from 'styled-icons/fa-solid/ExternalLinkAlt';
 import { TrashAlt as TrashAltIcon } from 'styled-icons/fa-solid/TrashAlt';
@@ -39,7 +39,7 @@ export const StyledContextMenu = styled.div`
   }
 `;
 
-const StyledDropdownList = styled(DropdownList)`
+const StyledDropdownList = styled(DropdownList as AnyStyledComponent)`
   padding: 0;
 
   li {
@@ -58,21 +58,21 @@ const StyledDropdownList = styled(DropdownList)`
   }
 `;
 
-const StyledEditIcon = styled(EditIcon)`
+const StyledEditIcon = styled(EditIcon as AnyStyledComponent)`
   width: 15px;
   height: 15px;
   margin-right: 10px;
   color: ${theme.color.text.default};
 `;
 
-const StyledTrashAltIcon = styled(TrashAltIcon)`
+const StyledTrashAltIcon = styled(TrashAltIcon as AnyStyledComponent)`
   width: 15px;
   height: 15px;
   margin-right: 10px;
   color: ${theme.color.text.default};
 `;
 
-const StyledLinkIcon = styled(LinkIcon)`
+const StyledLinkIcon = styled(LinkIcon as AnyStyledComponent)`
   width: 15px;
   height: 15px;
   margin-right: 10px;

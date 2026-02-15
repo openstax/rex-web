@@ -2,7 +2,7 @@ import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { hiddenButAccessible } from '../../../theme';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { match, not } from '../../../fpUtils';
 import { highlightStyles } from '../../constants';
 import { cardPadding } from '../constants';
@@ -160,7 +160,7 @@ const ColorPicker = ({className, ...props}: Props) => {
   );
 };
 
-export default styled(ColorPicker)`
+export default styled(ColorPicker as AnyStyledComponent)`
   border: 0;
   outline: none;
   display: flex;
