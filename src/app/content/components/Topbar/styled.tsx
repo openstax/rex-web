@@ -218,7 +218,7 @@ export const SearchInputWrapper = styled.form<SearchInputWrapperProps>`
       display: none;
     }
   `}
-`;
+` as AnyStyledComponent;
 
 export const SearchInput = styled(({ desktop, mobile, autoFocus, ...props }) => {
   const ref = React.useRef<HTMLInputElement>(null);

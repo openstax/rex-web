@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { AnyStyledComponent, css } from 'styled-components';
 import { isHtmlElement } from '../../../../guards';
 import theme from '../../../../theme';
 import { assertDocument } from '../../../../utils';
@@ -14,14 +14,14 @@ interface State {
   formSubmitted: boolean;
 }
 
-export const StyledSearchWrapper = styled.div`
+export const StyledSearchWrapper = styled.div<{ background: boolean }>`
   flex: 1;
   padding: 1.6rem;
-  ${(props: { background: boolean }) => props.background && css`
+  ${(props) => props.background && css`
     background: ${theme.color.white};
     border-bottom: 0.1rem solid ${theme.color.neutral.formBorder};
   `}
-  ${TopbarStyled.SearchInputWrapper} {
+  ${TopbarStyled.SearchInputWrapper as AnyStyledComponent} {
     margin: 0;
     width: 100%;
     background: ${theme.color.white};
@@ -30,19 +30,19 @@ export const StyledSearchWrapper = styled.div`
   ${theme.breakpoints.mobileMedium(css`
     display: none;
   `)}
-`;
+` as React.ComponentType<{ background: boolean }>;
 
-const StyledSearchCloseButton = styled(TopbarStyled.CloseButton)`
+const StyledSearchCloseButton = styled(TopbarStyled.CloseButton)<{ formSubmitted: boolean }>`
   ${(props: { formSubmitted: boolean }) => !props.formSubmitted && theme.breakpoints.mobile(css`
     display: block;
   `)}
 `;
 
-export const StyledSearchCloseButtonNew = styled(TopbarStyled.CloseButtonNew)`
-  ${(props: { formSubmitted: boolean }) => !props.formSubmitted && theme.breakpoints.mobile(css`
+export const StyledSearchCloseButtonNew = styled(TopbarStyled.CloseButtonNew)<{ formSubmitted: boolean }>`
+  ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
     display: block;
   `)}
-`;
+` as AnyStyledComponent;
 
 // Search in sidebar experiment
 export class SidebarSearchInput extends Component<ResultsSidebarProps> {
