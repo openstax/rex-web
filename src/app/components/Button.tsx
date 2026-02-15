@@ -46,9 +46,9 @@ const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
     return React.cloneElement(component, {...props, ref});
   }
   return <button ref={ref} {...props} />;
-});
+}) as AnyStyledComponent;
 
-const Button = styled(ButtonHoc as AnyStyledComponent)`
+const Button = styled(ButtonHoc)`
   display: flex;
   cursor: pointer;
   align-items: center;
