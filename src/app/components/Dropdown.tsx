@@ -136,9 +136,12 @@ const TabHiddenDropDown = styled(React.forwardRef<HTMLElement, TabHiddenProps>((
   `}
 `;
 
+// Type assertion needed to fix React 16 + styled-components v5 children array compatibility
+// In some environments (yarn), passing multiple children creates a type mismatch
+// Cast as AnyStyledComponent to allow use as both a component and a CSS selector
 export const DropdownFocusWrapper = styled.div`
   overflow: visible;
-`;
+` as AnyStyledComponent;
 
 const TabTransparentDropdown = styled(React.forwardRef<HTMLElement, React.PropsWithChildren<Props>>((
   {toggle, children, className}, ref
@@ -148,49 +151,47 @@ const TabTransparentDropdown = styled(React.forwardRef<HTMLElement, React.PropsW
     {children}
   </DropdownFocusWrapper>
   <DropdownToggle tabIndex={0} component={toggle} />
-</div>))`
-  ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
-    ${DropdownFocusWrapper} + ${DropdownToggle} {
-      ${visuallyHidden}
-    }
-    ${DropdownFocusWrapper}.focus-within + ${DropdownToggle} {
-      ${visuallyShown}
-    }
-    ${DropdownFocusWrapper}:focus-within + ${DropdownToggle} {
-      ${visuallyShown}
-    }
+</div>) as AnyStyledComponent)`
+  ${DropdownFocusWrapper} + ${DropdownToggle} {
+    ${visuallyHidden}
+  }
+  ${DropdownFocusWrapper}.focus-within + ${DropdownToggle} {
+    ${visuallyShown}
+  }
+  ${DropdownFocusWrapper}:focus-within + ${DropdownToggle} {
+    ${visuallyShown}
+  }
 
-    ${DropdownFocusWrapper} > ${DropdownToggle} {
-      ${visuallyShown}
-    }
-    ${DropdownFocusWrapper}.focus-within > ${DropdownToggle} {
-      ${visuallyHidden}
-    }
-    ${DropdownFocusWrapper}:focus-within > ${DropdownToggle} {
-      ${visuallyHidden}
-    }
+  ${DropdownFocusWrapper} > ${DropdownToggle} {
+    ${visuallyShown}
+  }
+  ${DropdownFocusWrapper}.focus-within > ${DropdownToggle} {
+    ${visuallyHidden}
+  }
+  ${DropdownFocusWrapper}:focus-within > ${DropdownToggle} {
+    ${visuallyHidden}
+  }
 
-    ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
-      ${fadeInAnimation}
-      position: absolute;
-      box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
-      border: 1px solid ${theme.color.neutral.formBorder};
-      top: calc(100% + 0.4rem);
-      left: 0;
-    }
+  ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
+    ${fadeInAnimation}
+    position: absolute;
+    box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid ${theme.color.neutral.formBorder};
+    top: calc(100% + 0.4rem);
+    left: 0;
+  }
 
-    ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
-      ${visuallyHidden}
-    }
+  ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
+    ${visuallyHidden}
+  }
 
-    ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
-      ${visuallyShown}
-    }
+  ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
+    ${visuallyShown}
+  }
 
-    ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
-      ${visuallyShown}
-    }
-  `}
+  ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
+    ${visuallyShown}
+  }
 `;
 
 function TrappingDropdownList(props: object) {
@@ -213,7 +214,7 @@ function TrappingDropdownList(props: object) {
 }
 
 
-export const DropdownList = styled(TrappingDropdownList as AnyStyledComponent)`
+export const DropdownList = styled(TrappingDropdownList)`
   list-style: none;
   margin: 0;
   padding: 0.6rem 0;

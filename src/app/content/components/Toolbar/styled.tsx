@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { AnyStyledComponent, css, keyframes } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css, FlattenSimpleInterpolation, keyframes } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { maxNavWidth } from '../../../components/NavBar/styled';
@@ -170,7 +170,7 @@ export const ToolbarWrapper = styled.div`
     ${(props: {isMobileMenuOpen: boolean}) => props.isMobileMenuOpen && css`
       animation: ${showMobileMenu} .2s forwards;
     `}
-  `)}
+  ` as FlattenSimpleInterpolation)}
 
   ${disablePrint}
 `;
@@ -194,7 +194,7 @@ export const ToolbarMobileHeaderTitle = styled.span`
   font-weight: bold;
 `;
 
-export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />) as AnyStyledComponent`
+export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
   ${toolbarIconStyles};
   vertical-align: middle;
   color: ${toolbarIconColor.base};

@@ -190,7 +190,7 @@ export const TimesIcon = styled((
   { theme: _theme, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }
 ) =>
   <button type="button" aria-label='close menu' {...props}><Times /></button>
-) as AnyStyledComponent)`
+)`
   cursor: pointer;
   border: none;
   padding: 0;
