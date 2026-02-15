@@ -130,10 +130,10 @@ export const PlainButton = styled.button`
   background: none;
 `;
 
-export const ButtonLink = styled(PlainButton as AnyStyledComponent)<{decorated: boolean}>`
+export const ButtonLink = styled(PlainButton)<{decorated?: boolean}>`
   outline: none;
   ${textStyle}
   ${(props) => props.decorated ? decoratedLinkStyle : linkStyle}
-` as React.ComponentType<{decorated: boolean}>;
+` as React.ComponentType<{decorated?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>>;
 
 export default Button;

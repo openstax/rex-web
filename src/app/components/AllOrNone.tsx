@@ -20,9 +20,9 @@ const AllOrNone = ({className, onAll, onNone, disabled}: Props) => <div classNam
   </FormattedMessage>
 </div>;
 
-export default styled(AllOrNone as AnyStyledComponent)`
+export default styled(AllOrNone)`
   &,
-  ${ButtonLink} {
+  ${ButtonLink as AnyStyledComponent} {
     font-size: 1.4rem;
     overflow: visible;
   }
@@ -35,4 +35,4 @@ export default styled(AllOrNone as AnyStyledComponent)`
   span {
     padding: 0 1rem;
   }
-`;
+` as AnyStyledComponent;
