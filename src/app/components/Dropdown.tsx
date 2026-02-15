@@ -5,7 +5,7 @@ import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { css, keyframes, AnyStyledComponent } from 'styled-components/macro';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme, { defaultFocusOutline } from '../theme';
@@ -23,7 +23,7 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
 }
 export const DropdownToggle = styled(React.forwardRef<HTMLElement, ToggleProps>(
   ({component, ...props}, ref) => React.cloneElement(component, {...props, ref})
-))`
+) as AnyStyledComponent)`
   cursor: pointer;
 `;
 
@@ -61,7 +61,7 @@ interface ControlledProps {
 }
 
 interface Props {
-  toggle: React.ReactNode;
+  toggle?: React.ReactNode;
   className?: string;
   onToggle?: () => void;
 }
@@ -123,7 +123,7 @@ const TabHiddenDropDown = styled(React.forwardRef<HTMLElement, TabHiddenProps>((
     />
     {(isOpen) && children}
   </div>;
-}))`
+}) as AnyStyledComponent)`
   ${css`
     & > *:not(${DropdownToggle}) {
       ${fadeInAnimation}
