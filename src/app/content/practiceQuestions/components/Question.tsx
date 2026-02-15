@@ -31,7 +31,7 @@ export const QuestionWrapper = styled.form`
 
 export const QuestionContent = styled(React.forwardRef((props, ref) => <legend tabIndex={0}>
   <ContentExcerpt {...props} tabIndex={-1} ref={ref} disableDynamicContentStyles={true} />
-</legend>))`
+</legend>) as AnyStyledComponent)`
   ${h4Style}
   font-weight: bold;
   color: ${theme.color.primary.gray.base};
