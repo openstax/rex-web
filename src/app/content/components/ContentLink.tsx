@@ -116,11 +116,11 @@ export const ConnectedContentLink = connect(
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
   })
-)(ContentLink as () => React.JSX.Element) as React.ComponentType<Props>;
+)(ContentLink as () => React.JSX.Element) as React.ComponentType<Props> as AnyStyledComponent;
 
-export const StyledContentLink = styled(ConnectedContentLink as AnyStyledComponent)`
+export const StyledContentLink = styled(ConnectedContentLink)`
   ${linkStyle}
-`;
+` as AnyStyledComponent;
 
 export default React.forwardRef<
   HTMLAnchorElement,
