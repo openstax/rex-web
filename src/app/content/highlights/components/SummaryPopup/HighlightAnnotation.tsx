@@ -1,7 +1,7 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import { textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
@@ -45,7 +45,7 @@ const Textarea = styled.textarea`
   box-sizing: border-box;
   color: ${theme.color.text.label};
   padding: 0.8rem;
-`;
+` as AnyStyledComponent;
 
 interface HighlightAnnotationProps {
   annotation: string;

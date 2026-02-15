@@ -159,7 +159,7 @@ export const SearchResultsBar = styled.div<{
 
   display: flex;
   flex-direction: column;
-`;
+` as AnyStyledComponent;
 
 export const SearchResultsHeader = styled.h2<{ emptyHeaderStyle?: boolean }>`
   display: flex;
@@ -266,7 +266,7 @@ interface SectionContentPreviewProps extends React.ComponentProps<typeof Content
 export const SectionContentPreview = styled(
   React.forwardRef<HTMLAnchorElement, SectionContentPreviewProps>(
     ({selectedResult, ...props}: SectionContentPreviewProps, ref) => <ContentLinkComponent {...props} ref={ref} />
-  )
+  ) as AnyStyledComponent
 )`
   ${labelStyle}
   cursor: pointer;
