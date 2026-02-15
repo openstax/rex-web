@@ -58,7 +58,7 @@ const ContentExcerpt = (props: Props) => {
 };
 
 export default styled(React.forwardRef<HTMLElement, Props>(
-  (props, ref) => <ContentExcerpt {...props} forwardedRef={ref} />)
+  (props, ref) => <ContentExcerpt {...props} forwardedRef={ref} />) as AnyStyledComponent
 )`
   ${bodyCopyRegularStyle}
   overflow: auto;
