@@ -49,7 +49,7 @@ const Background = styled.div`
   }
 `;
 
-const ContentNotifications = styled(Notifications as AnyStyledComponent)`
+const ContentNotifications = styled(Notifications as unknown as AnyStyledComponent)`
   &&& {
     z-index: ${theme.zIndex.contentNotifications};
     top: ${bookBannerDesktopMiniHeight + topbarDesktopHeight}rem;
@@ -58,7 +58,7 @@ const ContentNotifications = styled(Notifications as AnyStyledComponent)`
           ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
           : bookBannerMobileMiniHeight + topbarMobileHeight
       }rem;
-    `)}
+    `) as FlattenSimpleInterpolation}
   }
 `;
 
@@ -71,7 +71,7 @@ const OuterWrapper = styled.div`
 `;
 
 
-const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) => <Layout>
+const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book?: Book}) => <Layout>
   <ScrollOffset
     desktopOffset={
       bookBannerDesktopMiniHeight

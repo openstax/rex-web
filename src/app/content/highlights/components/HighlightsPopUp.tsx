@@ -157,4 +157,4 @@ export default connect(
   (dispatch: Dispatch) => ({
     closeMyHighlights: () => dispatch(closeMyHighlightsAction()),
   })
-)(MaybeHighlightsPopUp);
+)(MaybeHighlightsPopUp) as React.ComponentType;
