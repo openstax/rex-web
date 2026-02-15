@@ -329,4 +329,4 @@ export default connect(
     remove: flow(requestDeleteHighlight, dispatch),
     setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
   })
-)(PreCard as () => React.JSX.Element);
+)(PreCard as React.ComponentType<Omit<CardProps, 'page' | 'book' | 'data' | 'hasQuery' | 'isActive' | 'isTocOpen' | 'lastActive' | 'blur' | 'create' | 'focus' | 'remove' | 'setAnnotationChangesPending'>>);
