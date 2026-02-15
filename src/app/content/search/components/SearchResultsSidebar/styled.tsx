@@ -101,7 +101,11 @@ const styleWhenMobileToolbarClosed = (closedStyle: FlattenSimpleInterpolation) =
     theme.breakpoints.mobileMedium(closedStyle)}
 `;
 
-export const SearchResultsBar = styled.div`
+export const SearchResultsBar = styled.div<{
+  searchResultsOpen: boolean;
+  mobileToolbarOpen: boolean;
+  hasQuery: boolean;
+}>`
   -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   grid-area: 1 / 2 / auto / 3;
@@ -261,7 +265,7 @@ interface SectionContentPreviewProps extends React.ComponentProps<typeof Content
 
 export const SectionContentPreview = styled(
   React.forwardRef<HTMLAnchorElement, SectionContentPreviewProps>(
-    ({selectedResult, ...props}: {selectedResult: unknown}, ref) => <ContentLinkComponent {...props} ref={ref} />
+    ({selectedResult, ...props}: SectionContentPreviewProps, ref) => <ContentLinkComponent {...props} ref={ref} />
   )
 )`
   ${labelStyle}

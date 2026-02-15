@@ -11,6 +11,7 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
+import { PromiseRejectionEvent } from '@openstax/types/lib.dom';
 import { recordError } from '../actions';
 import { getMessageIdStack } from '../selectors';
 import ErrorIdList from './ErrorIdList';
@@ -80,7 +81,7 @@ class ErrorBoundary extends React.Component<Props, State> {
         <Footer />
       </React.Fragment>;
     }
-    return this.props.children;
+    return this.props.children as React.JSX.Element;
   }
 
   private handleRejection = (event: PromiseRejectionEvent) => {
@@ -98,9 +99,4 @@ const ConnectedErrorBoundary = connect(
   })
 )(ErrorBoundary);
 
-// Type assertion to fix React 16 + redux connect + ErrorBoundary children type compatibility
-// In some environments (particularly with yarn), the combination of connect() HOC wrapping a
-// class component with children causes TypeScript to incorrectly infer the children prop as 'never'.
-// This is a known issue with React 16 types and redux connect HOC interaction.
-// The 'as any' cast maintains runtime functionality while satisfying TypeScript's type checker.
-export default ConnectedErrorBoundary as any;
+export default ConnectedErrorBoundary;
