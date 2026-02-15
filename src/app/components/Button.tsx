@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
 import { decoratedLinkStyle, linkColor, linkStyle } from './Typography';
@@ -48,7 +48,7 @@ const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
   return <button ref={ref} {...props} />;
 });
 
-const Button = styled(ButtonHoc)`
+const Button = styled(ButtonHoc as AnyStyledComponent)`
   display: flex;
   cursor: pointer;
   align-items: center;
@@ -130,10 +130,10 @@ export const PlainButton = styled.button`
   background: none;
 `;
 
-export const ButtonLink = styled(PlainButton)<{decorated: boolean}>`
+export const ButtonLink = styled(PlainButton as AnyStyledComponent)<{decorated: boolean}>`
   outline: none;
   ${textStyle}
   ${(props) => props.decorated ? decoratedLinkStyle : linkStyle}
-`;
+` as React.ComponentType<{decorated: boolean}>;
 
 export default Button;

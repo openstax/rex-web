@@ -81,7 +81,7 @@ type SizeProps = {size?: 'small'}
 const indicatorSize = (props: SizeProps) => props.size === 'small' ? 1.6 : 2.4;
 const checkSize = (props: SizeProps) => props.size === 'small' ? 1 : 1.6;
 
-const ColorIndicator = styled(Hoc)<StyleProps>`
+const ColorIndicator = styled(Hoc as AnyStyledComponent)<StyleProps>`
   position: relative;
   background-color: ${(props) => props.style.passive};
   border: 1px solid ${(props) => props.style.focusBorder};
@@ -134,7 +134,7 @@ function TB({
   );
 }
 
-export const TrashButton = styled(TB)`
+export const TrashButton = styled(TB as AnyStyledComponent)`
   img {
     height: ${(props: Props) => indicatorSize(props) - 0.5}rem;
     width: ${(props: Props) => indicatorSize(props) - 0.5}rem;

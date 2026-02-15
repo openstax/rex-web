@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
@@ -59,7 +59,7 @@ const Highlights = () => {
   );
 };
 
-export default styled(Highlights)`
+export default styled(Highlights as AnyStyledComponent)`
   @media print {
     ${HighlightWrapper} {
       margin: 0;

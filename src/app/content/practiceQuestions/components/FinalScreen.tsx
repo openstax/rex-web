@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { textRegularStyle } from '../../../components/Typography';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
@@ -24,7 +24,7 @@ const StyledText = styled.span`
   overflow: initial;
 `;
 
-const StyledNextSectionMessage = styled(NextSectionMessage)`
+const StyledNextSectionMessage = styled(NextSectionMessage as AnyStyledComponent)`
   ${StyledMessageText} {
     display: block;
   }

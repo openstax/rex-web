@@ -1,7 +1,7 @@
 import flow from 'lodash/fp/flow';
 import React, { HTMLAttributes } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import DynamicContentStyles from '../../components/DynamicContentStyles';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { assertDefined } from '../../utils';

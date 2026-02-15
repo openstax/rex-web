@@ -2,7 +2,7 @@ import { Highlight } from '@openstax/highlighter';
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography/base';
@@ -140,7 +140,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
   );
 });
 
-export default styled(DisplayNote)`
+export default styled(DisplayNote as AnyStyledComponent)`
   width: ${cardWidth}rem;
   overflow: visible;
   background: ${theme.color.neutral.formBackground};

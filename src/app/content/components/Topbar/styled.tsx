@@ -350,7 +350,7 @@ export const InnerText = styled.div`
   text-align: left;
 `;
 
-export const SeachResultsTextButton = styled(PlainButton)`
+export const SeachResultsTextButton = styled(PlainButton as AnyStyledComponent)`
   ${textRegularStyle}
   ${decoratedLinkStyle}
   display: flex;
@@ -358,7 +358,7 @@ export const SeachResultsTextButton = styled(PlainButton)`
   min-width: auto;
 `;
 
-export const TextResizerDropdown = styled(FilterDropdown)<{
+export const TextResizerDropdown = styled(FilterDropdown as AnyStyledComponent)<{
     mobileVariant: boolean,
     mobileToolbarOpen: boolean
   }>`
@@ -518,7 +518,7 @@ export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props
   margin: 0.2rem 0.6rem;
 `;
 
-export const CloseSearchResultsTextButton = styled(SeachResultsTextButton)`
+export const CloseSearchResultsTextButton = styled(SeachResultsTextButton as AnyStyledComponent)`
   display: none;
   ${theme.breakpoints.mobileMedium(css`
     display: block;

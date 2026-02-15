@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled, { AnyStyledComponent } from 'styled-components';
 import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
 import { Body, BodyHeading, Footer } from '../../../components/Modal/styles';
@@ -10,7 +10,7 @@ interface Props {
   confirm: () => void;
 }
 
-const ConfirmationFooter = styled(Footer)`
+const ConfirmationFooter = styled(Footer as AnyStyledComponent)`
   justify-content: space-between;
 `;
 

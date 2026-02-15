@@ -2,7 +2,7 @@ import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import React, { Component } from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
 import { htmlMessage } from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';
@@ -65,7 +65,7 @@ const Content = styled.div`
   }
 `;
 
-const AttributionDetails = styled(Details)`
+const AttributionDetails = styled(Details as AnyStyledComponent)`
   ${bodyCopyRegularStyle}
   box-shadow: 0 -1rem 1rem -1rem rgba(0, 0, 0, 0.1);
   margin: ${detailsMarginTop}rem 0 0 0;

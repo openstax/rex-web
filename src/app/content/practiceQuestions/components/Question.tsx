@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
 import { h4Style } from '../../../components/Typography';
 import { useServices } from '../../../context/Services';

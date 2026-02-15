@@ -213,7 +213,7 @@ function TrappingDropdownList(props: object) {
 }
 
 
-export const DropdownList = styled(TrappingDropdownList)`
+export const DropdownList = styled(TrappingDropdownList as AnyStyledComponent)`
   list-style: none;
   margin: 0;
   padding: 0.6rem 0;
@@ -322,7 +322,7 @@ const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, 
     : <TabHiddenDropDown ref={ref} {...props} />
 );
 
-export default styled(Dropdown)`
+export default styled(Dropdown as AnyStyledComponent)`
   overflow: visible;
   position: relative;
 `;

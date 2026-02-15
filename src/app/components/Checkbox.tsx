@@ -1,10 +1,10 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { Check } from 'styled-icons/fa-solid/Check';
 import theme, { defaultFocusOutline } from '../theme';
 import { disabledStyle } from './Typography';
 
-const CheckIcon = styled(Check)`
+const CheckIcon = styled(Check as AnyStyledComponent)`
   color: ${theme.color.white};
   height: 1rem;
   width: 1rem;
@@ -46,7 +46,7 @@ const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props
   {children}
 </label>;
 
-export default styled(Checkbox)`
+export default styled(Checkbox as AnyStyledComponent)`
   cursor: pointer;
   display: flex;
   flex-direction: row;

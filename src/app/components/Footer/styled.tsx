@@ -214,7 +214,7 @@ export const FooterLink = styled.a`
   ${footerLinkStyle}
 `;
 
-export const ManageCookiesLink = styled(RawCookiesLink)`
+export const ManageCookiesLink = styled(RawCookiesLink as AnyStyledComponent)`
   && {
     ${textRegularStyle}
     ${footerLinkStyle}
@@ -235,11 +235,11 @@ export const FooterButton = styled.button`
   ${flexFooterLinkStyle}
 `;
 
-export const ManageCookiesFlexLink = styled(RawCookiesLink)`
+export const ManageCookiesFlexLink = styled(RawCookiesLink as AnyStyledComponent)`
   ${flexFooterLinkStyle}
 `;
 
-export const ContactDialog = styled(Modal)`
+export const ContactDialog = styled(Modal as AnyStyledComponent)`
   & > div > div {
     width: 75vw;
     height: 75vh;

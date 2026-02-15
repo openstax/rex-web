@@ -5,7 +5,7 @@ import { connect, useSelector } from 'react-redux';
 import flow from 'lodash/fp/flow';
 import { clearFocusedHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
-import styled from 'styled-components';
+import styled, { AnyStyledComponent } from 'styled-components';
 import { isHtmlElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight, useOnEsc } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -309,6 +309,6 @@ export default connect(
     hasQuery: !!selectSearch.query(state),
     isTocOpen: contentSelect.tocOpen(state),
   })
-)(styled(MaybeWrapper)`
+)(styled(MaybeWrapper as AnyStyledComponent)`
   ${mainWrapperStyles}
 `);

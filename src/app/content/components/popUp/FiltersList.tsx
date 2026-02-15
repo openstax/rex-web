@@ -1,7 +1,7 @@
 import { HighlightColorEnum } from '@openstax/highlighter/dist/api';
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { PlainButton } from '../../../components/Button';
 import Times from '../../../components/Times';
 import { textStyle } from '../../../components/Typography';
@@ -12,7 +12,7 @@ import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { LocationFilters } from './types';
 
-export const StyledPlainButton = styled(PlainButton)`
+export const StyledPlainButton = styled(PlainButton as AnyStyledComponent)`
   height: 1.7rem;
   margin-right: 0.4rem;
 
@@ -201,7 +201,7 @@ const FiltersList = ({
   </>;
 };
 
-export default styled(FiltersList)`
+export default styled(FiltersList as AnyStyledComponent)`
   ${textStyle}
   font-size: 1.4rem;
   display: flex;

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import Button from '../../../../components/Button';
 import theme from '../../../../theme';
 import { disablePrint } from '../../../components/utils/disablePrint';
@@ -62,7 +62,7 @@ export const StudyGuidesCTAButtons = styled.div`
   flex-wrap: wrap;
 `;
 
-export const StudyGuidesCTAButton = styled(Button)`
+export const StudyGuidesCTAButton = styled(Button as AnyStyledComponent)`
   width: 24rem;
   height: 4.8rem;
   padding: 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import HighlightsIcon from '../../../../assets/HighlightsIcon';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { AppState, Dispatch } from '../../../types';
@@ -20,7 +20,7 @@ interface Props {
   myHighlightsOpen?: boolean;
 }
 
-const MyHighlightsWrapper = styled(PlainButton)`
+const MyHighlightsWrapper = styled(PlainButton as AnyStyledComponent)`
   ${toolbarDefaultButton}
   height: auto;
   padding: 0;

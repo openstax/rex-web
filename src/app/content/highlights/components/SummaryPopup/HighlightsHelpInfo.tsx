@@ -1,7 +1,7 @@
 import * as Cookies from 'js-cookie';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { AnyStyledComponent,  css, keyframes } from 'styled-components';
 import { Times } from 'styled-icons/fa-solid/Times';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { user as userSelector } from '../../../../auth/selectors';
@@ -51,7 +51,7 @@ const Wrapper = styled.div`
   ${disablePrint}
 `;
 
-export const CloseIcon = styled(Times)`
+export const CloseIcon = styled(Times as AnyStyledComponent)`
   color: ${theme.color.secondary.lightGray.darkest};
   width: 1.4rem;
 `;

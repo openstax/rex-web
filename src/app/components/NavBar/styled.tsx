@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css, keyframes } from 'styled-components/macro';
 import { ModalOverlay, Modal } from 'react-aria-components';
 import Color from 'color';
 import { contentWrapperMaxWidth } from '../../content/components/constants';
@@ -147,7 +147,7 @@ export const DropdownList = styled.menu`
   }
 `;
 
-export const MobileMenuOverlay = styled(ModalOverlay)`
+export const MobileMenuOverlay = styled(ModalOverlay as AnyStyledComponent)`
   position: fixed;
   top: 0;
   left: 0;
@@ -157,7 +157,7 @@ export const MobileMenuOverlay = styled(ModalOverlay)`
   z-index: ${theme.zIndex.navbar + 1};
 `;
 
-export const MobileMenuModal = styled(Modal)`
+export const MobileMenuModal = styled(Modal as AnyStyledComponent)`
   position: fixed;
   top: 0;
   left: 0;
@@ -190,7 +190,7 @@ export const TimesIcon = styled((
   { theme: _theme, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }
 ) =>
   <button type="button" aria-label='close menu' {...props}><Times /></button>
-)`
+) as AnyStyledComponent)`
   cursor: pointer;
   border: none;
   padding: 0;

@@ -4,10 +4,10 @@ import { hasOSWebData } from '../guards';
 import { ConnectedLoginButton } from '../../components/NavBar';
 import { user } from '../../auth/selectors';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import ModalWithScrollLock from '../../components/Modal';
 
-const Modal = styled(ModalWithScrollLock)`
+const Modal = styled(ModalWithScrollLock as AnyStyledComponent)`
   width: 100vw;
 
   > div:first-child > div {
