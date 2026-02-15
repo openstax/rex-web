@@ -1,7 +1,7 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
 import { KeyboardEvent } from '@openstax/types/lib.dom';
@@ -38,7 +38,7 @@ const TextArea = styled.textarea`
   :empty {
     padding-top: 1rem;
   }
-`;
+` as AnyStyledComponent;
 
 const SimpleLabel = styled.label`
   color: ${theme.color.primary.blue.base};

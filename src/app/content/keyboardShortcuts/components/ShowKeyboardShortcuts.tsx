@@ -71,7 +71,7 @@ const ShortcutBlock = styled.div`
     display: block;
     margin: 0.8rem;
   `)}
-`;
+` as AnyStyledComponent;
 
 export const ShortcutKey = styled.span`
   background-color: ${theme.color.neutral.darker};
