@@ -387,4 +387,4 @@ const Footer = ({
   );
 };
 
-export default isVerticalNavOpenConnector(Footer);
+export default isVerticalNavOpenConnector(Footer) as React.ComponentType;

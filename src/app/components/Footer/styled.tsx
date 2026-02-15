@@ -1,6 +1,6 @@
 import { ManageCookiesLink as RawCookiesLink } from '@openstax/ui-components';
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { FacebookF } from 'styled-icons/fa-brands/FacebookF';
 import { Instagram } from 'styled-icons/fa-brands/Instagram';
 import { LinkedinIn } from 'styled-icons/fa-brands/LinkedinIn';
@@ -34,7 +34,7 @@ export const iconStyles = css`
   height: 1em;
 `;
 
-export const FBIcon = styled(FacebookF)`
+export const FBIcon = styled(FacebookF as AnyStyledComponent)`
   ${iconStyles}
 `;
 
@@ -68,11 +68,11 @@ function XTwitter() {
 
 export const TwitterIcon = XTwitter;
 
-export const IGIcon = styled(Instagram)`
+export const IGIcon = styled(Instagram as AnyStyledComponent)`
   ${iconStyles}
 `;
 
-export const LinkedInIcon = styled(LinkedinIn)`
+export const LinkedInIcon = styled(LinkedinIn as AnyStyledComponent)`
   ${iconStyles}
 `;
 
@@ -103,7 +103,7 @@ const verticalNavToolbarStyling = css`
   }
 `;
 
-export const FooterWrapper = styled.footer`
+export const FooterWrapper = styled.footer<{isVerticalNavOpen?: boolean | null}>`
   ${textRegularStyle}
   z-index: 0;
   opacity: 1;
@@ -262,7 +262,7 @@ const InnerBottomLink = styled.a`
   grid-auto-flow: column;
   grid-column-gap: 0.7rem;
   overflow: hidden;
-`;
+` as React.ComponentType;
 
 export function BottomLink(props: React.AnchorHTMLAttributes<unknown>) {
   return (
@@ -409,7 +409,7 @@ const InnerSocialIcon = styled.a`
   justify-content: center;
   overflow: hidden;
   width: 3rem;
-`;
+` as React.ComponentType;
 
 export function SocialIcon(props: React.AnchorHTMLAttributes<unknown>) {
   return (
