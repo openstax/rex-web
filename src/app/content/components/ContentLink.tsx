@@ -2,7 +2,7 @@ import flow from 'lodash/fp/flow';
 import { OutputParams } from 'query-string';
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { linkStyle } from '../../components/Typography';
 import { useServices } from '../../context/Services';
 import { push } from '../../navigation/actions';
@@ -116,9 +116,9 @@ export const ConnectedContentLink = connect(
   (dispatch: Dispatch) => ({
     navigate: flow(push, dispatch),
   })
-)(ContentLink);
+)(ContentLink as () => React.JSX.Element) as React.ComponentType<Props>;
 
-export const StyledContentLink = styled(ConnectedContentLink)`
+export const StyledContentLink = styled(ConnectedContentLink as AnyStyledComponent)`
   ${linkStyle}
 `;
 

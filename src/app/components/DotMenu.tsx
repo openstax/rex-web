@@ -1,11 +1,11 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
 import theme from '../theme';
 import { PlainButton } from './Button';
 import Dropdown, { DropdownList, DropdownProps } from './Dropdown';
 
-export const DotMenuIcon = styled(EllipsisV)`
+export const DotMenuIcon = styled(EllipsisV as AnyStyledComponent)`
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
@@ -29,7 +29,7 @@ export const DotMenuToggle = styled(
         </PlainButton>
       );
     }
-  )
+  ) as AnyStyledComponent
 )`
   border: none;
   display: block;
@@ -40,7 +40,8 @@ export const DotMenuToggle = styled(
   }
 `;
 
-export const DotMenuDropdownList = styled(DropdownList)<{rightAlign?: boolean}>`
+type DropdownListProps = {rightAlign?: boolean}
+export const DotMenuDropdownList = styled(DropdownList)<DropdownListProps>`
   && {
     ${(props) => {
       return props.rightAlign === true
@@ -49,7 +50,7 @@ export const DotMenuDropdownList = styled(DropdownList)<{rightAlign?: boolean}>`
       ;
     }}
   }
-`;
+` as React.ComponentType<DropdownListProps>;
 
 export const DotMenuDropdown = styled((props: React.PropsWithChildren<DropdownProps>) =>
   <Dropdown {...props} toggle={<DotMenuToggle />} />)`
@@ -60,4 +61,4 @@ export const DotMenuDropdown = styled((props: React.PropsWithChildren<DropdownPr
   :focus-within ${DotMenuIcon} {
     color: ${theme.color.primary.gray.base};
   }
-`;
+` as React.ComponentType<React.PropsWithChildren<DropdownProps>>;
