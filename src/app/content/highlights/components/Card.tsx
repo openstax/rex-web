@@ -4,7 +4,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { AnyStyledComponent } from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -105,12 +105,12 @@ function useComputedProps(props: CardProps) {
 
   React.useEffect(() => {
     if (annotation) {
-      highlight.elements.forEach(el =>
-        (el as HTMLElement).classList.add('has-note')
+      (highlight.elements as HTMLElement[]).forEach((el) =>
+        el.classList.add('has-note')
       );
     } else {
-      highlight.elements.forEach(el =>
-        (el as HTMLElement).classList.remove('has-note')
+      (highlight.elements as HTMLElement[]).forEach((el) =>
+        el.classList.remove('has-note')
       );
     }
   }, [highlight.elements, annotation]);
@@ -289,7 +289,7 @@ function EditCardWithOnCreate({
   );
 }
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(Card as AnyStyledComponent)`
   ${mainCardStyles}
 `;
 
@@ -306,6 +306,9 @@ function PreCard(props: CardProps) {
   );
 }
 
+// Type assertion needed because PreCard can return null (when !annotation && !isActive)
+// In yarn environments with nested @types/react packages, TypeScript sees
+// '(props) => Element | null' as incompatible with JSXElementConstructor
 export default connect(
   (state: AppState, ownProps: { highlight: Highlight }) => ({
     ...selectContent.bookAndPage(state),
@@ -326,4 +329,4 @@ export default connect(
     remove: flow(requestDeleteHighlight, dispatch),
     setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
   })
-)(PreCard);
+)(PreCard as React.ComponentType<Omit<CardProps, 'page' | 'book' | 'data' | 'hasQuery' | 'isActive' | 'isTocOpen' | 'lastActive' | 'blur' | 'create' | 'focus' | 'remove' | 'setAnnotationChangesPending'>>);

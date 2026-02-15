@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import Loader from '../../../components/Loader';
 import { h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
@@ -18,7 +18,7 @@ import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
 
-export const ShowPracticeQuestionsBody = styled(PopupBody)`
+export const ShowPracticeQuestionsBody = styled(PopupBody as AnyStyledComponent)`
   display: flex;
   flex-direction: column;
   background: ${theme.color.neutral.darker};
@@ -118,7 +118,7 @@ const ShowPracticeQuestions = () => {
                   <QuestionsWrapper>
                     <QuestionsHeader id='progress-bar-header'>
                       <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                        {(msg) => msg}
+                        {(msg: string) => msg}
                       </FormattedMessage>
                     </QuestionsHeader>
                     <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />

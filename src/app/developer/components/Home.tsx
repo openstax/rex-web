@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import Footer from '../../components/Footer';
 import Layout, { LayoutBody } from '../../components/Layout';
 import { H1, textRegularStyle } from '../../components/Typography';
@@ -29,7 +29,7 @@ const Col = styled.div`
   flex: 1;
 `;
 
-const Wrapper = styled(LayoutBody)`
+const Wrapper = styled(LayoutBody as AnyStyledComponent)`
   flex: 1;
 `;
 

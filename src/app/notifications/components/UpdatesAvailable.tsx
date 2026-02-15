@@ -37,15 +37,15 @@ const UpdatesAvailable = ({className}: {className?: string}) => {
   return <Body className={className}>
     <Group>
       <FormattedMessage id='i18n:notification:update:header'>
-        {(txt) => (<Header>{txt}</Header>)}
+        {(txt: string) => (<Header>{txt}</Header>)}
       </FormattedMessage>
       <FormattedMessage id='i18n:notification:update:body'>
-        {(txt) => (<P>{txt}</P>)}
+        {(txt: string) => (<P>{txt}</P>)}
       </FormattedMessage>
     </Group>
     <ButtonGroup>
       <FormattedMessage id='i18n:notification:update:reload'>
-        {(txt) => (<Button variant='primary' onClick={activateSwAndReload(sw)}>{txt}</Button>)}
+        {(txt: string) => (<Button variant='primary' onClick={activateSwAndReload(sw)}>{txt}</Button>)}
       </FormattedMessage>
     </ButtonGroup>
   </Body>;

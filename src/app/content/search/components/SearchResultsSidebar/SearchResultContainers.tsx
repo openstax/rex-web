@@ -126,6 +126,7 @@ const SearchResultsDropdown = (props: {
   </Styled.ListItem>;
 };
 
+// The connected component only needs props that aren't provided by mapStateToProps/mapDispatchToProps
 export default connect(
   (state: AppState) => ({
     currentPage: select.page(state),
@@ -136,4 +137,6 @@ export default connect(
       dispatch(closeSearchResultsMobile());
     },
   })
-)(SearchResultContainers);
+)(SearchResultContainers) as React.ComponentType<
+  Omit<SearchResultContainersProps, 'currentPage' | 'currentQuery' | 'selectResult'>
+>;

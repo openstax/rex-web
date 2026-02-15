@@ -34,7 +34,7 @@ const EmptyScreen = ({ nextSection }: EmptyScreenProps) => {
   return <StyledEmptyScreen>
     <StyledText>
       <FormattedMessage id='i18n:practice-questions:popup:empty:message'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </StyledText>
     <NextSectionMessage

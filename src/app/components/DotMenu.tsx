@@ -1,11 +1,11 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
 import theme from '../theme';
 import { PlainButton } from './Button';
 import Dropdown, { DropdownList, DropdownProps } from './Dropdown';
 
-export const DotMenuIcon = styled(EllipsisV)`
+export const DotMenuIcon = styled(EllipsisV as AnyStyledComponent)`
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
@@ -18,8 +18,8 @@ export const DotMenuIcon = styled(EllipsisV)`
 `;
 
 export const DotMenuToggle = styled(
-  React.forwardRef(
-    ({isOpen, ...props}: {isOpen: boolean}, ref) => {
+  React.forwardRef<HTMLButtonElement, {isOpen: boolean}>(
+    ({isOpen, ...props}, ref) => {
 
       return (
         <PlainButton aria-label='Actions' aria-expanded={isOpen} {...props} ref={ref}>
@@ -29,7 +29,7 @@ export const DotMenuToggle = styled(
         </PlainButton>
       );
     }
-  )
+  ) as AnyStyledComponent
 )`
   border: none;
   display: block;
@@ -40,7 +40,8 @@ export const DotMenuToggle = styled(
   }
 `;
 
-export const DotMenuDropdownList = styled(DropdownList)`
+type DropdownListProps = {rightAlign?: boolean}
+export const DotMenuDropdownList = styled(DropdownList as AnyStyledComponent)<DropdownListProps>`
   && {
     ${(props) => {
       return props.rightAlign === true
@@ -49,9 +50,10 @@ export const DotMenuDropdownList = styled(DropdownList)`
       ;
     }}
   }
-`;
+` as React.ComponentType<DropdownListProps>;
 
-export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown {...props} toggle={<DotMenuToggle />} />)`
+export const DotMenuDropdown = styled((props: React.PropsWithChildren<DropdownProps>) =>
+  <Dropdown {...props} toggle={<DotMenuToggle />} />)`
   .focus-within ${DotMenuIcon} {
     color: ${theme.color.primary.gray.base};
   }
@@ -59,4 +61,4 @@ export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown {...pr
   :focus-within ${DotMenuIcon} {
     color: ${theme.color.primary.gray.base};
   }
-`;
+` as React.ComponentType<React.PropsWithChildren<DropdownProps>>;

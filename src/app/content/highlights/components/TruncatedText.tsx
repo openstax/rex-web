@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { linkStyle } from '../../../components/Typography';
 import { textStyle } from '../../../components/Typography/base';
 import theme from '../../../theme';
@@ -45,13 +45,13 @@ const NoteText = ({id, text, isActive, className, onChange }: Props) => {
   return <React.Fragment>
     <p id={id} ref={noteTextRef} className={className}>{text}</p>
     {showLink && <FormattedMessage id='i18n:highlighting:card:show-more'>
-      {(msg) => <Link>{msg}</Link>}
+      {(msg: string) => <Link>{msg}</Link>}
     </FormattedMessage>}
   </React.Fragment>;
 };
 
 const lineHeight = 1.8;
-export default styled(NoteText)`
+export default styled(NoteText as AnyStyledComponent)`
   ${textStyle}
   overflow: hidden;
   white-space: pre-wrap;

@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
 import { h4Style } from '../../../components/Typography';
 import { useServices } from '../../../context/Services';
@@ -31,7 +31,7 @@ export const QuestionWrapper = styled.form`
 
 export const QuestionContent = styled(React.forwardRef((props, ref) => <legend tabIndex={0}>
   <ContentExcerpt {...props} tabIndex={-1} ref={ref} disableDynamicContentStyles={true} />
-</legend>))`
+</legend>) as AnyStyledComponent)`
   ${h4Style}
   font-weight: bold;
   color: ${theme.color.primary.gray.base};

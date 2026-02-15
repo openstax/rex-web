@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
 import Loader from '../../../components/Loader';
 import { useServices } from '../../../context/Services';
@@ -13,7 +13,7 @@ import * as selectors from '../selectors';
 import { HighlightsList, NoHighlightsAvailable, NoHighlightsInBook } from './HighlightsCards';
 import { receiveReadyToPrintHighlights } from '../actions';
 
-const Highlights = ({ className }: { className: string }) => {
+const Highlights = () => {
   const orderedHighlights = useSelector(selectors.orderedSummaryHighlights);
   const isLoading = useSelector(selectors.summaryIsLoading);
   const totalCountsPerPage = useSelector(selectors.totalCountsPerPage);
@@ -53,7 +53,7 @@ const Highlights = ({ className }: { className: string }) => {
     <React.Fragment>
       {isLoading ? <LoaderWrapper><Loader large /></LoaderWrapper> : null}
       {orderedHighlights &&
-        <HighlightsList container={container} className={className} orderedHighlights={orderedHighlights} />
+        <HighlightsList container={container} orderedHighlights={orderedHighlights} />
       }
     </React.Fragment>
   );
@@ -65,4 +65,4 @@ export default styled(Highlights)`
       margin: 0;
     }
   }
-`;
+` as AnyStyledComponent;

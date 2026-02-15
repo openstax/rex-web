@@ -1,7 +1,7 @@
 import { Highlight } from '@openstax/highlighter';
 import { Document, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../../helpers/redux-bridge';
 import renderer from 'react-test-renderer';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';

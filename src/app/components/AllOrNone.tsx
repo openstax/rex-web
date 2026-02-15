@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { ButtonLink } from './Button';
 
 interface Props {
@@ -12,17 +12,17 @@ interface Props {
 
 const AllOrNone = ({className, onAll, onNone, disabled}: Props) => <div className={className}>
   <FormattedMessage id='i18n:highlighting:filters:all'>
-    {(msg) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}
+    {(msg: string) => <ButtonLink disabled={disabled} decorated onClick={onAll}>{msg}</ButtonLink>}
   </FormattedMessage>
   <span aria-hidden="true">|</span>
   <FormattedMessage id='i18n:highlighting:filters:none'>
-    {(msg) => <ButtonLink disabled={disabled} decorated onClick={onNone}>{msg}</ButtonLink>}
+    {(msg: string) => <ButtonLink disabled={disabled} decorated onClick={onNone}>{msg}</ButtonLink>}
   </FormattedMessage>
 </div>;
 
 export default styled(AllOrNone)`
   &,
-  ${ButtonLink} {
+  ${ButtonLink as AnyStyledComponent} {
     font-size: 1.4rem;
     overflow: visible;
   }
@@ -35,4 +35,4 @@ export default styled(AllOrNone)`
   span {
     padding: 0 1rem;
   }
-`;
+` as AnyStyledComponent;

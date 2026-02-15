@@ -28,7 +28,7 @@ const IntroScreen = () => {
   return <IntroScreenWrapper>
     <IntroScreenMessage>
       <FormattedMessage id='i18n:practice-questions:popup:intro:message' values={{ questions: questionsCount }}>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </IntroScreenMessage>
     <Button
@@ -38,7 +38,7 @@ const IntroScreen = () => {
       data-analytics-label='Start now'
     >
       <FormattedMessage id='i18n:practice-questions:popup:intro:start'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </Button>
   </IntroScreenWrapper>;

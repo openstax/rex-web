@@ -2,7 +2,7 @@ import UntypedHighlighter, { SerializedHighlight as UntypedSerializedHighlight }
 import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../helpers/redux-bridge';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';
 import createTestStore from '../../../test/createTestStore';

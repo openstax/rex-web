@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import htmlMessage from '../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
 import { H3, h4Style } from '../../../components/Typography/headings';
@@ -64,7 +64,7 @@ export const StickyNote = styled.div`
   opacity: ${stickyNoteMeasures.opacity};
 `;
 
-export const BlueStickyNote = styled(StickyNote)`
+export const BlueStickyNote = styled(StickyNote as AnyStyledComponent)`
   background: ${stickyNoteMeasures.blue};
   top: ${stickyNoteMeasures.defaultOffset}rem;
   left: ${stickyNoteMeasures.left + (stickyNoteMeasures.bulletSize / 2)}rem;
@@ -81,7 +81,7 @@ export const BlueStickyNote = styled(StickyNote)`
   }
 `;
 
-export const GreenStickyNote = styled(StickyNote)`
+export const GreenStickyNote = styled(StickyNote as AnyStyledComponent)`
   background: ${stickyNoteMeasures.green};
   bottom: ${stickyNoteMeasures.defaultOffset}rem;
   right: ${stickyNoteMeasures.left + (stickyNoteMeasures.bulletSize / 2)}rem;
@@ -134,7 +134,7 @@ export const ImagesGrid = styled.div`
   overflow: visible;
 `;
 
-export const GeneralText = styled(H3)`
+export const GeneralText = styled(H3 as AnyStyledComponent)`
   width: 100%;
   padding: 0.8rem 0;
 `;
@@ -160,13 +160,13 @@ export const MyHighlightsWrapper = styled.div`
   `)}
 `;
 
-export const GeneralLeftText = styled(GeneralTextWrapper)`
+export const GeneralLeftText = styled(GeneralTextWrapper as AnyStyledComponent)`
   display: flex;
   flex-direction: column;
   padding: 2rem 3.2rem;
 `;
 
-export const GeneralCenterText = styled(GeneralTextWrapper)`
+export const GeneralCenterText = styled(GeneralTextWrapper as AnyStyledComponent)`
   display: flex;
   align-items: center;
   flex-direction: column;

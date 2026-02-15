@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { htmlMessage } from '../../../components/htmlMessage';
 import theme from '../../../theme';
 import { PopupBody } from '../../styles/PopupStyles';
 
-const ShowKeyboardShortcutsBody = styled(PopupBody)`
+const ShowKeyboardShortcutsBody = styled(PopupBody as AnyStyledComponent)`
   background-color: ${theme.color.neutral.darker};
   color: ${theme.color.text.default};
   font-size: 1.6rem;
@@ -30,7 +30,7 @@ const ShortcutsHeadingDiv = styled.div`
 export const ShortcutsHeading = ({msgKey}: {msgKey: string}) => (
   <ShortcutsHeadingDiv>
     <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
-      {(msg) => msg}
+      {(msg: string) => msg}
     </FormattedMessage>
   </ShortcutsHeadingDiv>
 );
@@ -71,7 +71,7 @@ const ShortcutBlock = styled.div`
     display: block;
     margin: 0.8rem;
   `)}
-`;
+` as AnyStyledComponent;
 
 export const ShortcutKey = styled.span`
   background-color: ${theme.color.neutral.darker};
@@ -89,7 +89,7 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
       {keys.map<React.ReactNode>(
         (k, index) => <ShortcutKey key={index}>
           <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:keys:${k}`}>
-            {(msg) => msg}
+            {(msg: string) => msg}
           </FormattedMessage>
         </ShortcutKey>
       ).reduce((prev, curr) => [prev, ' + ', curr])}
@@ -97,7 +97,7 @@ export const Shortcut = ({keys, msgKey}: {keys: string[], msgKey: string}) => (
 
     <ShortcutBlock>
       <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </ShortcutBlock>
   </ShortcutRow>

@@ -16,7 +16,7 @@ const SkipAndSubmitButtons = ({ disableSubmit, isFinalQuestion, question }: Skip
 
   return <React.Fragment>
     <FormattedMessage id='i18n:practice-questions:popup:navigation:skip'>
-      {(msg) => (
+      {(msg: string) => (
         <Button
           size='large'
           variant='transparent'
@@ -37,7 +37,7 @@ const SkipAndSubmitButtons = ({ disableSubmit, isFinalQuestion, question }: Skip
       )}
     </FormattedMessage>
     <FormattedMessage id='i18n:practice-questions:popup:navigation:submit'>
-      {(msg) => (
+      {(msg: string) => (
         <Button
           variant='primary'
           size='large'

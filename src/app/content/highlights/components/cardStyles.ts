@@ -1,4 +1,4 @@
-import { css, keyframes } from 'styled-components';
+import { css, FlattenSimpleInterpolation, keyframes } from 'styled-components';
 import { DropdownList } from '../../../components/Dropdown';
 import theme from '../../../theme';
 import { remsToEms } from '../../../utils';
@@ -16,7 +16,6 @@ import {
   cardPadding,
   cardWidth,
 } from '../constants';
-import { HighlightData } from '../types';
 import { CardProps } from './Card';
 import { getHighlightBottomOffset, getHighlightTopOffset } from './cardUtils';
 import { WrapperProps } from './CardWrapper';
@@ -100,7 +99,7 @@ const fadeInAnimation = css`
   animation: ${600}ms ${fadeIn} ease-out;
 `;
 
-export const mainCardStyles = css`
+export const mainCardStyles = css<CardProps>`
   ${(props: CardProps) => props.isHidden
     ? 'visibility: hidden;'
     : 'visibility: visible;'}
@@ -119,7 +118,7 @@ export const mainCardStyles = css`
     z-index: 1;
   }
 
-  ${(props: {data: HighlightData}) => {
+  ${(props) => {
     const data = props.data;
 
     if (!data?.color) {
@@ -181,7 +180,7 @@ export const mainCardStyles = css`
   ${theme.breakpoints.touchDeviceQuery(css`
     animation: none;
     ${touchScreenDisplay}
-  `)}
+  ` as FlattenSimpleInterpolation)}
 `;
 
 export const mainWrapperStyles = css`

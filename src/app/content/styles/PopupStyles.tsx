@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import Times from '../../../../src/app/components/Times';
 import { PlainButton } from '../../components/Button';
 import { h3Style } from '../../components/Typography/headings';
@@ -106,7 +106,7 @@ export const Modal = styled.div`
   }
 `;
 
-export const CloseIconWrapper = styled(PlainButton)`
+export const CloseIconWrapper = styled(PlainButton as AnyStyledComponent)`
   display: flex;
   align-items: center;
   justify-content: center;

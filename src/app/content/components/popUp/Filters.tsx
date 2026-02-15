@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
@@ -10,7 +10,7 @@ import { filters } from '../../styles/PopupConstants';
 import { disablePrint } from '../utils/disablePrint';
 import FiltersList from './FiltersList';
 
-export const AngleIcon = styled(AngleDown)`
+export const AngleIcon = styled(AngleDown as AnyStyledComponent)`
   color: ${theme.color.primary.gray.base};
   width: ${filters.dropdownToggle.icon.width}rem;
   height: ${filters.dropdownToggle.icon.height}rem;
@@ -78,7 +78,7 @@ const Toggle = styled(
         </div>
       </PlainButton>
     )
-  )
+  ) as AnyStyledComponent
 )`
   position: relative;
   border-left: ${filters.border}rem solid transparent;
@@ -155,7 +155,7 @@ const Filters = ({className, children}: React.PropsWithChildren<Props>) => {
   </div>;
 };
 
-export default styled(Filters)`
+export default styled(Filters as AnyStyledComponent)`
   position: relative;
   z-index: 2;
   overflow: visible;

@@ -46,7 +46,7 @@ const BuyBook = ({book}: {book: Book}) => {
       data-analytics-label='buy-book'
     >
       <FormattedMessage id='i18n:toolbar:buy-book:text'>
-        {(msg) => msg}
+        {(msg: string) => msg}
       </FormattedMessage>
     </BuyBookLink>
   </BuyBookAlignment>;

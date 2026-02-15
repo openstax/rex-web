@@ -1,7 +1,7 @@
 import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
@@ -234,7 +234,7 @@ export const StyledSummary = styled.summary`
   }
 `;
 
-export const StyledSectionItem = styled(PlainButton)`
+export const StyledSectionItem = styled(PlainButton as AnyStyledComponent)`
   display: flex;
   align-items: center;
   height: 4rem;
@@ -263,7 +263,7 @@ export const StyledChapterFilterItemWrapper = styled.div`
   overflow: visible;
 `;
 
-export default styled(ChapterFilter)`
+export default styled(ChapterFilter as AnyStyledComponent)`
   ${textStyle}
   background: ${theme.color.white};
   font-size: 1.4rem;

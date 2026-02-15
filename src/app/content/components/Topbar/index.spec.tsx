@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../../helpers/redux-bridge';
 import renderer, { TestRendererOptions } from 'react-test-renderer';
 import Topbar from '.';
 import createTestServices from '../../../../test/createTestServices';
