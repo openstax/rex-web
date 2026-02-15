@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent }from 'styled-components/macro';
 import { H2 } from '../../components/Typography';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 const Wrappper = styled.div`
   padding: 1rem;
-`;
+` as AnyStyledComponent;
 
 const Panel = ({title, children}: React.PropsWithChildren<Props>) => <div>
   <H2>{title}</H2>
