@@ -5,7 +5,7 @@ import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css, keyframes, AnyStyledComponent } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css, keyframes } from 'styled-components/macro';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme, { defaultFocusOutline } from '../theme';
@@ -18,14 +18,14 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   className?: string;
   isOpen?: boolean;
   component: T extends React.ComponentType
-    ? React.ReactComponentElement<T>:
-    never;
+    ? React.ReactComponentElement<T>
+    : never;
 }
 export const DropdownToggle = styled(React.forwardRef<HTMLElement, ToggleProps>(
   ({component, ...props}, ref) => React.cloneElement(component, {...props, ref})
-) as AnyStyledComponent)`
+))`
   cursor: pointer;
-`;
+` as AnyStyledComponent;
 
 const fadeIn = keyframes`
   0% {
@@ -123,7 +123,7 @@ const TabHiddenDropDown = styled(React.forwardRef<HTMLElement, TabHiddenProps>((
     />
     {(isOpen) && children}
   </div>;
-}) as AnyStyledComponent)`
+}))`
   ${css`
     & > *:not(${DropdownToggle}) {
       ${fadeInAnimation}
@@ -213,7 +213,7 @@ function TrappingDropdownList(props: object) {
 }
 
 
-export const DropdownList = styled(TrappingDropdownList as AnyStyledComponent)`
+export const DropdownList = styled(TrappingDropdownList)`
   list-style: none;
   margin: 0;
   padding: 0.6rem 0;
@@ -275,7 +275,7 @@ const DropdownItemContent = ({
   );
 
 return <FormattedMessage id={message}>
-    {(msg: string) => href
+    {(msg) => href
       ? <a
         role='button'
         href={href}
@@ -316,13 +316,16 @@ export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & Cont
 
 export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
 
-const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, ...props}, ref) =>
+const Dropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<DropdownProps>>((
+  {transparentTab, ...props},
+  ref
+) =>
   transparentTab !== false
     ? <TabTransparentDropdown ref={ref} {...props} />
     : <TabHiddenDropDown ref={ref} {...props} />
 );
 
-export default styled(Dropdown as AnyStyledComponent)`
+export default styled(Dropdown)`
   overflow: visible;
   position: relative;
 `;
