@@ -119,7 +119,7 @@ const hideMobileMenu = keyframes`
   }
 `;
 
-export const ToolbarWrapper = styled.div`
+export const ToolbarWrapper = styled.div<{isMobileMenuOpen: boolean}>`
   grid-area: 1 / 1 / auto / 2;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;

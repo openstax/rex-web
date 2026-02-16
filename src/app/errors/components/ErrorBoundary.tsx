@@ -99,4 +99,4 @@ const ConnectedErrorBoundary = connect(
   })
 )(ErrorBoundary);
 
-export default ConnectedErrorBoundary as React.ComponentType;
+export default ConnectedErrorBoundary;

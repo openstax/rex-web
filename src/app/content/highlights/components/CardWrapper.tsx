@@ -75,7 +75,7 @@ function useCardPositionObserver(
     return () => resizeObserver.disconnect();
   }, [container]);
 
-  return [cardsPositions, offsets];
+  return [cardsPositions, offsets] as const;
 }
 
 function useCardsHeights() {

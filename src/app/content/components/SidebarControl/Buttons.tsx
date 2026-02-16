@@ -3,7 +3,6 @@ import theme from '../../../theme';
 import { toolbarIconColor } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { toolbarDefaultButton, toolbarDefaultText } from '../Toolbar/styled';
-import type { InnerProps } from './types';
 
 export const ButtonText = styled.span`
   ${toolbarDefaultText}
@@ -29,7 +28,7 @@ export const CloseButton = styled.button`
   `)}
 `;
 
-export const OpenButton = styled.button<{isOpen: InnerProps['isOpen'] }>`
+export const OpenButton = styled.button`
   background: none;
   ${toolbarDefaultButton}
   color: ${toolbarIconColor.base};

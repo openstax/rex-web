@@ -3,7 +3,7 @@ export interface InnerProps {
   message: string;
   onClick: () => void;
   className?: string;
-  isActive?: boolean | null;
+  isActive?: boolean;
 }
 
 export interface MiddleProps {
