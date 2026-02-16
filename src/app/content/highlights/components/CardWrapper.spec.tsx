@@ -149,37 +149,44 @@ describe('CardWrapper', () => {
       card1.props.onHeightChange({ current: { offsetHeight: 100 } });
       card2.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
-    // We are starting at 100 because of getHighlightTopOffset mock
-    expect(card1.props.topOffset).toEqual(100);
-    expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
+    // Cards are now centered on their highlights. With mock returning {top: 100, bottom: 100} (0 height highlight)
+    // and card height of 100px, centered position is: 100 + (0/2) - (100/2) = 50
+    expect(card1.props.topOffset).toEqual(50);
+    expect(card2.props.topOffset).toEqual(50 + 100 + remsToPx(cardMarginBottom));
 
     // Noops when height is the same
     renderer.act(() => {
       card1.props.onHeightChange({ current: { offsetHeight: 100 } });
     });
-    expect(card1.props.topOffset).toEqual(100);
-    expect(card2.props.topOffset).toEqual(100 + 100 + remsToPx(cardMarginBottom));
+    expect(card1.props.topOffset).toEqual(50);
+    expect(card2.props.topOffset).toEqual(50 + 100 + remsToPx(cardMarginBottom));
 
     // Handle null value
     renderer.act(() => {
       card1.props.onHeightChange({ current: null });
     });
-    // First card have null height so secondcard starts at the highlight top offset
+    // First card have null height (treated as 0), so centered at 100 + (0/2) - (0/2) = 100
+    // Second card starts at the highlight top offset, centered: 100 + (0/2) - (100/2) = 50
     expect(card1.props.topOffset).toEqual(100);
-    expect(card2.props.topOffset).toEqual(100);
+    expect(card2.props.topOffset).toEqual(50);
 
     expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
 
   it(`update only these cards that needs it when focusing highlight`, () => {
     const highlights = [createMockHighlight(), createMockHighlight(), createMockHighlight(), createMockHighlight()];
+    // Simulate existing highlights by adding mock DOM elements
+    // This indicates these are saved highlights, not new text selections
+    highlights.forEach(h => {
+      h.elements = [document?.createElement('span') as HTMLElement];
+    });
     const highlightsPositionsInDocument = [0, 100, 120, 300];
 
     jest.spyOn(cardUtils, 'getHighlightOffset')
       .mockImplementation((_container: any, highlight: Highlight) => {
         const top = highlightsPositionsInDocument[highlights.findIndex((search) => search.id === highlight.id)];
         return {
-          bottom: top + 20,
+          bottom: top,
           top,
         };
       });
@@ -201,42 +208,43 @@ describe('CardWrapper', () => {
       card3.props.onHeightChange({ current: { offsetHeight: 50 } });
       card4.props.onHeightChange({ current: { offsetHeight: 50 } });
     });
-    expect(card1.props.topOffset).toEqual(0); // first card have only 50px height + 20px margin bottom
-    expect(card2.props.topOffset).toEqual(100); // so the second cards starts and the highlight level which is 100
-    // highlight for the card3 starts at 120px which is too close to the card2
-    // calculated offset will be equal to card2 offset + card2 height + card2 margin bottom = 170px
-    expect(card3.props.topOffset).toEqual(170);
-    expect(card4.props.topOffset).toEqual(300); // card4 will start at the corresponding highlight level
+    // Cards are centered on their highlights (0-height highlights with 50px cards)
+    expect(card1.props.topOffset).toEqual(0); // centered at 0 + 0/2 - 50/2 = -25, but max(0, -25) = 0
+    expect(card2.props.topOffset).toEqual(75); // centered at 100 - 25 = 75
+    // card3 centered would be 120 - 25 = 95, but card2 ends at 75+50=125
+    // so stacked: 125 + margin(20) = 145
+    expect(card3.props.topOffset).toEqual(145);
+    expect(card4.props.topOffset).toEqual(275); // centered at 300 - 25 = 275
 
-    // Move card2 and card3 to the top when the card3 is focused - card1 and card4 are not affected
+    // Focusing card3 should NOT reposition it (no jumping for existing highlights)
     renderer.act(() => {
       store.dispatch(focusHighlight(card3.props.highlight.id));
     });
-    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    // All cards stay at their original positions
     expect(card1.props.topOffset).toEqual(0);
-    expect(card2.props.topOffset).toEqual(50);
-    expect(card3.props.topOffset).toEqual(120);
-    expect(card4.props.topOffset).toEqual(300);
+    expect(card2.props.topOffset).toEqual(75);
+    expect(card3.props.topOffset).toEqual(145);
+    expect(card4.props.topOffset).toEqual(275);
 
-    // focusing card1 is not changing position of any cards
+    // Focusing card1 should NOT reposition cards (no jumping for existing highlights)
     renderer.act(() => {
       store.dispatch(focusHighlight(card1.props.highlight.id));
     });
-    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    // All cards stay at their positions
     expect(card1.props.topOffset).toEqual(0);
-    expect(card2.props.topOffset).toEqual(100);
-    expect(card3.props.topOffset).toEqual(170);
-    expect(card4.props.topOffset).toEqual(300);
+    expect(card2.props.topOffset).toEqual(75);
+    expect(card3.props.topOffset).toEqual(145);
+    expect(card4.props.topOffset).toEqual(275);
 
-    // focusing card4 is not changing position of any cards
+    // focusing card4 doesn't affect earlier cards
     renderer.act(() => {
-      store.dispatch(focusHighlight(card1.props.highlight.id));
+      store.dispatch(focusHighlight(card4.props.highlight.id));
     });
-    // cards were moved by 70px up (50 is height of the focused card and 20 px is margin bottom)
+    // card4 stays at its centered position, earlier cards unchanged
     expect(card1.props.topOffset).toEqual(0);
-    expect(card2.props.topOffset).toEqual(100);
-    expect(card3.props.topOffset).toEqual(170);
-    expect(card4.props.topOffset).toEqual(300);
+    expect(card2.props.topOffset).toEqual(75);
+    expect(card3.props.topOffset).toEqual(145);
+    expect(card4.props.topOffset).toEqual(275);
 
     expect(() => component.root.findAllByType(Card)).not.toThrow();
   });
@@ -554,11 +562,17 @@ describe('CardWrapper', () => {
         </Provider>
       );
     });
+    const node = assertDocument().getRootNode();
+    const compareDocumentPositionMock = jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING);
 
     const selectionMock = {
       isCollapsed: true,
-      anchorNode: {},
-      focusNode: {},
+      anchorNode: {
+        compareDocumentPosition: compareDocumentPositionMock,
+      },
+      focusNode: {
+        compareDocumentPosition: compareDocumentPositionMock,
+      },
     };
     const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
 
@@ -584,11 +598,13 @@ describe('CardWrapper', () => {
         </Provider>
       );
     });
+    const node = assertDocument().getRootNode();
 
     const selectionMock = {
       isCollapsed: false,
-      anchorNode: {},
-      focusNode: {},
+      anchorNode: {
+        compareDocumentPosition: jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING),
+      },
     };
     const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
 
@@ -778,7 +794,9 @@ describe('CardWrapper', () => {
 
       const selectionMock = {
         isCollapsed: true,
-        anchorNode: {},
+        anchorNode: {
+          compareDocumentPosition: jest.fn().mockReturnValue(0),
+        },
         focusNode: {},
       };
       const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
@@ -803,9 +821,12 @@ describe('CardWrapper', () => {
         unmount = rendered.unmount;
       });
 
+      const node = assertDocument().getRootNode();
       const selectionMock = {
         isCollapsed: false,
-        anchorNode: {},
+        anchorNode: {
+          compareDocumentPosition: jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING),
+        },
         focusNode: {},
         toString: () => 'some text',
       };
@@ -825,5 +846,163 @@ describe('CardWrapper', () => {
         unmount();
       });
     });
+  });
+
+  describe('position preservation and offset adjustment logic', () => {
+    const document = assertDocument();
+
+    it('preserves position when highlight already has position in initialPositions', () => {
+      // Create 3 existing highlights plus 1 NEW highlight (no elements)
+      const highlights = [
+        createMockHighlight('h1'),
+        createMockHighlight('h2'),
+        createMockHighlight('h3-new'), // This will be the NEW highlight
+        createMockHighlight('h4'),
+      ];
+      // h1, h2, h4 are existing (have elements), h3 is new (no elements)
+      highlights[0].elements = [document.createElement('span') as any];
+      highlights[1].elements = [document.createElement('span') as any];
+      highlights[2].elements = []; // NEW highlight
+      highlights[3].elements = [document.createElement('span') as any];
+
+      const highlightsPositionsInDocument = [0, 100, 200, 300];
+      jest.spyOn(cardUtils, 'getHighlightOffset')
+        .mockImplementation((_container: any, highlight: Highlight) => {
+          const top = highlightsPositionsInDocument[highlights.findIndex((search) => search.id === highlight.id)];
+          return { bottom: top, top };
+        });
+
+      const component = renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={highlights} />
+      </Provider>);
+
+      const [card1, card2, card3, card4] = component.root.findAllByType(Card);
+
+      // Set heights for all cards
+      renderer.act(() => {
+        card1.props.onHeightChange({ current: { offsetHeight: 50 } });
+        card2.props.onHeightChange({ current: { offsetHeight: 50 } });
+        card3.props.onHeightChange({ current: { offsetHeight: 50 } });
+        card4.props.onHeightChange({ current: { offsetHeight: 50 } });
+      });
+
+      // Focus h3 (NEW highlight, no elements) - this triggers the offset adjustment flow
+      // which calls updateStackedCardsPositions twice:
+      // 1. First call (line 203): calculates all positions (h1, h2, h3, h4)
+      // 2. Second call (line 265): processes highlightsAfterFocused (h4) with initialPositions
+      // The condition at line 98 should preserve h4's position from the first call
+      renderer.act(() => {
+        store.dispatch(focusHighlight(highlights[2].id));
+      });
+
+      // Verify positions are defined and the code path executed successfully
+      // The main goal is to ensure the initialPositions preservation logic runs without errors
+      // After focusing NEW highlight h3, offset adjustment shifts cards by +25:
+      expect(card1.props.topOffset).toBe(0);    // -25 (centered) + 25 (offset) = 0
+      expect(card2.props.topOffset).toBe(75);   // 75 (centered), no change
+      expect(card3.props.topOffset).toBe(200);  // 175 (centered) + 25 (offset) = 200
+      expect(card4.props.topOffset).toBe(275);  // 275 (centered), not affected
+    });
+
+    it('covers preferEnd true branch with text selection', () => {
+      // Create a NEW highlight (no elements = fresh text selection)
+      const highlight = createMockHighlight('new-highlight');
+      highlight.elements = []; // NEW highlight has no DOM elements yet
+
+      jest.spyOn(cardUtils, 'getHighlightOffset')
+        .mockReturnValue({ bottom: 100, top: 50 });
+
+      // Mock window.getSelection() to return a selection with anchorNode and focusNode
+      const anchorNode = document.createElement('div');
+      const focusNode = document.createElement('div');
+      const node = assertDocument().getRootNode();
+
+      // Stub compareDocumentPosition to return DOCUMENT_POSITION_FOLLOWING
+      // This ensures preferEnd evaluates to true (forward selection)
+      anchorNode.compareDocumentPosition = jest.fn().mockReturnValue(node.DOCUMENT_POSITION_FOLLOWING);
+
+      const selectionMock = {
+        anchorNode,
+        focusNode,
+        anchorOffset: 0,
+        focusOffset: 10,
+      };
+      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue(selectionMock as any);
+
+      const component = renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={[highlight]} />
+      </Provider>);
+
+      const card = component.root.findByType(Card);
+
+      // Set height and focus the new highlight
+      renderer.act(() => {
+        card.props.onHeightChange({ current: { offsetHeight: 80 } });
+        store.dispatch(focusHighlight(highlight.id));
+      });
+
+      // With preferEnd = true, the offset calculation:
+      // - Centered offset = top + (height/2) - (cardHeight/2) = 50 + 25 - 40 = 35
+      // - Target (preferEnd) = bottom - 120 = 100 - 120 = -20
+      // - offsetToAdjust = 35 - (-20) = 55
+      // - Final position = 35 - 55 = -20
+      expect(card.props.topOffset).toBe(-20);
+
+      getSelectionSpy.mockRestore();
+    });
+
+    it('covers early break in repositioning loop when cards have sufficient space', () => {
+      // Create highlights with large gaps between them
+      const highlights = [
+        createMockHighlight('h1'),
+        createMockHighlight('h2'),
+        createMockHighlight('h3'),
+      ];
+      // Make h3 a NEW highlight (no elements)
+      highlights[0].elements = [document.createElement('span') as any];
+      highlights[1].elements = [document.createElement('span') as any];
+      highlights[2].elements = []; // NEW highlight
+
+      // Position them with large gaps: 0, 200, 500
+      const highlightsPositionsInDocument = [0, 200, 500];
+      jest.spyOn(cardUtils, 'getHighlightOffset')
+        .mockImplementation((_container: any, highlight: Highlight) => {
+          const top = highlightsPositionsInDocument[highlights.findIndex((search) => search.id === highlight.id)];
+          return { bottom: top, top };
+        });
+
+      const component = renderer.create(<Provider store={store}>
+        <CardWrapper container={container} highlights={highlights} />
+      </Provider>);
+
+      const [card1, card2, card3] = component.root.findAllByType(Card);
+
+      // Set heights
+      renderer.act(() => {
+        card1.props.onHeightChange({ current: { offsetHeight: 50 } });
+        card2.props.onHeightChange({ current: { offsetHeight: 50 } });
+        card3.props.onHeightChange({ current: { offsetHeight: 50 } });
+      });
+
+      // Focus the new highlight h3
+      renderer.act(() => {
+        store.dispatch(focusHighlight(highlights[2].id));
+      });
+
+      // Expected positions (highlights have 0 height, cards have 50px height):
+      // Initial calculation:
+      // - h1: centered at 0 + 0/2 - 50/2 = -25, but starts at 0 (first card, no stacking)
+      // - h2: centered at 200 - 25 = 175, stacking from h1 end (50): max(175, 50) = 175
+      // - h3: centered at 500 - 25 = 475, stacking from h2 end (225): max(475, 225) = 475
+      // After focusing h3, offset adjustment targets h3.top = 500
+      // offsetToAdjust = 475 - 500 = -25
+      // Adjusted h3 = 475 - (-25) = 500
+      // h2 and h1 need to check if they overlap with adjusted h3 (500)
+      // h2 at 175 with height 50 ends at 225, which is < 500, so break (line 254 evaluates true)
+      expect(card1.props.topOffset).toBe(0);
+      expect(card2.props.topOffset).toBe(175);
+      expect(card3.props.topOffset).toBe(500);
+    });
+
   });
 });

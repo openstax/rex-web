@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
@@ -5,6 +6,7 @@ import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
+import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
@@ -12,6 +14,7 @@ import { LinkedArchiveTreeNode } from '../../types';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { AngleIcon, Fieldset } from './Filters';
 import { FiltersChange, LocationFilters } from './types';
+import { linkColor, linkHover } from '../../../components/Typography';
 
 const Row = styled.div`
   display: flex;
@@ -71,6 +74,8 @@ interface ChapterFilterProps {
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
   const intl = useIntl();
+  const ref = React.useRef<HTMLElement>(null);
+  useTrapTabNavigation(ref);
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -107,7 +112,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
   const hasFiltersWithChildren = Boolean(values.find((filter) => filter.children));
   const sectionChunks = hasFiltersWithChildren ? [values] : chunk(values);
 
-  return <div className={props.className} tabIndex={-1} id={props.id}>
+  return <div className={props.className} tabIndex={-1} id={props.id} ref={ref}>
     {props.multiselect
       ? (
         <AllOrNone
@@ -190,9 +195,9 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
 
   return <StyledSectionItem
     onClick={props.onChange}
-    isSelected={props.selected}
     aria-label={props.ariaLabel}
     data-analytics-label={props.dataAnalyticsLabel}
+    aria-current={props.selected ? 'true' : undefined}
   >
     <ChapterTitle dangerouslySetInnerHTML={{ __html: props.title }} />
   </StyledSectionItem>;
@@ -237,15 +242,15 @@ export const StyledSectionItem = styled(PlainButton)`
   text-align: left;
   font-size: 1.4rem;
   ${textStyle}
-  ${(props: { isSelected: boolean }) => {
-    if (props.isSelected) {
-      return 'color: #027eb5;';
-    }
-  }}
+
+  &[aria-current="true"] {
+    color: ${linkColor};
+  }
 
   &:hover,
   &:focus {
     background-color: ${theme.color.neutral.pageBackground};
+    color: ${linkHover};
   }
 
   ${ChapterTitle} {

@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import * as reactUtils from '../../app/reactUtils';
+import * as focusUtils from '../reactUtils/focusUtils';
+import * as keyboardUtils from '../reactUtils/keyboardUtils';
 import TestContainer from '../../test/TestContainer';
 import Dropdown, { DropdownItem, DropdownList, callOrRefocus } from './Dropdown';
 
@@ -52,7 +53,7 @@ describe('Dropdown', () => {
   });
 
   it('tab hidden closes on focus lost', () => {
-    const useFocusLost = jest.spyOn(reactUtils, 'useFocusLost');
+    const useFocusLost = jest.spyOn(focusUtils, 'useFocusLost');
 
     const component = renderer.create(<TestContainer>
       <Dropdown transparentTab={false} toggle={<button>show more</button>}>
@@ -88,7 +89,7 @@ describe('Dropdown', () => {
   });
 
   it('tab hidden closes on Esc', () => {
-    const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
+    const useOnEscSpy = jest.spyOn(keyboardUtils, 'useOnEsc');
 
     const component = renderer.create(<TestContainer>
       <Dropdown transparentTab={false} toggle={<button>show more</button>}>
@@ -115,7 +116,7 @@ describe('Dropdown', () => {
   });
 
   it('tab hidden focus after Esc', () => {
-    const useOnEscSpy = jest.spyOn(reactUtils, 'useOnEsc');
+    const useOnEscSpy = jest.spyOn(keyboardUtils, 'useOnEsc');
 
     const focus = jest.fn();
     const focus2 = jest.fn();

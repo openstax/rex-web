@@ -427,18 +427,26 @@ export const TextResizerMenu = styled.div`
     input {
       -webkit-appearance: none; /* stylelint-disable property-no-vendor-prefix */
       -moz-appearance: none;
-      background: #f1f1f1;
-      ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme && css`
-        background-image:
-          linear-gradient(${theme.color.primary[props.bookTheme].base}, ${theme.color.primary[props.bookTheme].base});
+      ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme ? css`
+        background:
+          linear-gradient(
+            to right,
+            ${theme.color.primary[props.bookTheme].base}
+              ${({textSize}: {textSize: number}) => `
+                calc(
+                  (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
+                )
+              `},
+              ${theme.color.primary.gray.medium}
+              ${({textSize}: {textSize: number}) => `
+                calc(
+                  (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
+                )
+              `}
+          );
+      ` : css`
+        background: ${theme.color.primary.gray.medium};
       `}
-      background-size:
-        ${({textSize}) => `
-          calc(
-            (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
-          ) 100%
-        `};
-      background-repeat: no-repeat;
       overflow: visible;
       height: 0.4rem;
       width: 12rem;

@@ -1,10 +1,10 @@
 import { Highlight } from '@openstax/highlighter';
 import { HighlightColorEnum, HighlightUpdateColorEnum, UpdateHighlightRequest } from '@openstax/highlighter/dist/api';
-import { Element, HTMLElement } from '@openstax/types/lib.dom';
+import { Element, HTMLElement, Selection } from '@openstax/types/lib.dom';
 import React from 'react';
 import { findElementSelfOrParent } from '../../../domUtils';
 import { isHtmlElement } from '../../../guards';
-import { assertWindow, remsToPx } from '../../../utils';
+import { assertDocument, assertWindow, remsToPx } from '../../../utils';
 import { assertDefined } from '../../../utils/assertions';
 import { cardMarginBottom } from '../constants';
 import { HighlightData } from '../types';
@@ -85,27 +85,36 @@ const updateStackedCardsPositions = (
   heights: Map<string, number>,
   getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
   checkIfHiddenByCollapsedAncestor: (highlight: Highlight) => boolean,
-  initialPositions?: Map<string, number>,
-  addAditionalMarginForTheFirstCard = false,
-  lastVisibleCardPosition = 0,
-  lastVisibleCardHeight = 0
+  initialPositions: Map<string, number> | undefined,
+  addAdditionalMarginForTheFirstCard: boolean,
+  lastVisibleCardPosition: number,
+  lastVisibleCardHeight: number
 ) => {
-  const positions = initialPositions ? initialPositions : new Map<string, number>();
+  const positions = initialPositions || new Map<string, number>();
 
   for (const [index, highlight] of highlightsElements.entries()) {
-    const topOffset = getHighlightPosition(highlight).top;
+    // Get highlight bounds
+    const { top, bottom } = getHighlightPosition(highlight);
+    const highlightHeight = bottom - top;
+    const cardHeight = heights.get(highlight.id) || 0;
 
-    const marginToAdd = index > 0 || addAditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
+    // Center the card vertically on the highlight
+    // For inactive cards, position at vertical center of highlight
+    const centeredOffset = top + (highlightHeight / 2) - (cardHeight / 2);
+
+    const marginToAdd = index > 0 || addAdditionalMarginForTheFirstCard ? remsToPx(cardMarginBottom) : 0;
     const lastVisibleCardBottom = lastVisibleCardPosition + lastVisibleCardHeight;
-    const stackedTopOffset = Math.max(topOffset, lastVisibleCardBottom + marginToAdd);
+
+    // Use the greater of: centered position OR stacked position (to avoid overlap)
+    const stackedBottomOffset = Math.max(centeredOffset, lastVisibleCardBottom + marginToAdd);
     const heightsForId = heights.get(highlight.id);
 
     if (heightsForId && !checkIfHiddenByCollapsedAncestor(highlight)) {
-      lastVisibleCardPosition = stackedTopOffset;
+      lastVisibleCardPosition = stackedBottomOffset;
       lastVisibleCardHeight = heightsForId;
     }
 
-    positions.set(highlight.id, stackedTopOffset);
+    positions.set(highlight.id, stackedBottomOffset);
   }
 
   return positions;
@@ -115,20 +124,51 @@ const updateStackedCardsPositions = (
  * Calculate how much we have to move cards to adjust their offset so we can align a card for @param highlight
  * with the corresponding highlight in the document.
  */
-const getOffsetToAdjustForHighlightPosition = (
+export const getOffsetToAdjustForHighlightPosition = (
   highlight: Highlight | undefined,
   cardsPositions: Map<string, number>,
-  getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number }
+  getHighlightPosition: (highlight: Highlight) => { top: number, bottom: number },
+  preferEnd: boolean
 ) => {
   const position = highlight
     ? assertDefined(cardsPositions.get(highlight.id), 'internal function requested postion of unknown highlight')
     : 0;
 
-  const topOffsetFocused = highlight && position
-    ? getHighlightPosition(highlight).top
-    : 0;
+  const highlightPos = highlight ? getHighlightPosition(highlight) : { top: 0, bottom: 0 };
+  const offset = preferEnd ? highlightPos.bottom - 120 : highlightPos.top;
 
-  return position - topOffsetFocused;
+  return position - offset;
+};
+
+export const getSelectionDirection = (selection: Selection): 'forward' | 'backward' => {
+  if (!selection.anchorNode || !selection.focusNode) {
+    return 'forward';
+  }
+
+  if (selection.anchorNode === selection.focusNode) {
+    return selection.anchorOffset <= selection.focusOffset
+      ? 'forward'
+      : 'backward';
+  }
+
+  const position = selection.anchorNode.compareDocumentPosition(
+    selection.focusNode
+  );
+  const node = assertDocument().getRootNode();
+
+  // eslint-disable-next-line no-bitwise
+  return position & node.DOCUMENT_POSITION_FOLLOWING
+    ? 'forward'
+    : 'backward';
+};
+
+export const getPreferEnd = (): boolean => {
+  const selection = assertWindow().getSelection();
+  const preferEnd = selection && selection.anchorNode && selection.focusNode
+    ? getSelectionDirection(selection) === 'forward'
+    : false;
+
+  return preferEnd;
 };
 
 /**
@@ -148,12 +188,28 @@ export const updateCardsPositions = (
     highlights,
     cardsHeights,
     getHighlightPosition,
-    checkIfHiddenByCollapsedAncestor
+    checkIfHiddenByCollapsedAncestor,
+    undefined,
+    false,
+    0,
+    0
   );
 
-  const offsetToAdjust = getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition);
+  // Offset adjustment logic should only run for NEW highlights (fresh text selections)
+  // New highlights have no DOM elements yet (elements.length === 0)
+  // Existing saved highlights have DOM elements and should not be repositioned when activated
+  const isNewHighlight = focusedHighlight && focusedHighlight.elements.length === 0;
 
-  if (!focusedHighlight || offsetToAdjust === 0) { return cardsPositions; }
+  if (!focusedHighlight || !isNewHighlight) {
+    return cardsPositions;
+  }
+
+  const preferEnd = getPreferEnd();
+
+  const offsetToAdjust =
+    getOffsetToAdjustForHighlightPosition(focusedHighlight, cardsPositions, getHighlightPosition, preferEnd);
+
+  if (offsetToAdjust === 0) { return cardsPositions; }
 
   const focusedHighlightIndex = highlights.findIndex((highlight) => highlight.id === focusedHighlight.id);
 

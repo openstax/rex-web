@@ -1131,10 +1131,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 .c20 .controls input {
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: #f1f1f1;
-  background-image: linear-gradient(#002468,#002468);
-  background-size: calc( (0 - -2) * 100 / (3 - -2) * 1% ) 100%;
-  background-repeat: no-repeat;
+  background: linear-gradient( to right, #002468  calc( (0 - -2) * 100 / (3 - -2) * 1% ) , #888888  calc( (0 - -2) * 100 / (3 - -2) * 1% )  );
   overflow: visible;
   height: 0.4rem;
   width: 12rem;
@@ -1598,6 +1595,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       className="c13 c14 c15"
     >
       <button
+        aria-controls="text-resizer-menu"
         aria-expanded={true}
         aria-label="Change text size"
         className="c16 c17 c18 c19"
@@ -1616,6 +1614,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
       <div
         className="c20"
+        id="text-resizer-menu"
       >
         <label
           id="text-resizer-label"
@@ -1623,7 +1622,9 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
           Text size
         </label>
         <div
+          aria-labelledby="text-resizer-label"
           className="controls"
+          role="group"
         >
           <button
             aria-label="Decrease text size"
@@ -1741,6 +1742,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         className="c13 c14 c15"
       >
         <button
+          aria-controls="text-resizer-menu"
           aria-expanded={false}
           aria-label="Change text size"
           className="c16 c28 c18 c19"
