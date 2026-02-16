@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "14.x"
+    "node": "20.x"
   },
   "dependencies": {
     "@craco/craco": "<7",
@@ -122,7 +122,7 @@
     "@types/jest-image-snapshot": "^6",
     "@types/js-cookie": "~2.2",
     "@types/lodash": "4.14.160",
-    "@types/node": "^14.0.0",
+    "@types/node": "^20",
     "@types/node-fetch": "~2.6",
     "@types/pretty": "^2.0.0",
     "@types/progress": "^2.0.3",
