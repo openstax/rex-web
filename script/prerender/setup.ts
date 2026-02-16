@@ -49,6 +49,7 @@ ignoreStyles(DEFAULT_EXTENSIONS, (mod, filename) => {
       // file doesn't exist in build folder, assume it is an inlined image
       // and inline it again here
       const fileContent = fs.readFileSync(filename);
+      // @ts-expect-error getType does not exist on mime
       const mimetype = mime.getType(filename);
       mod.exports = `data:${mimetype || ''};base64,${Buffer.from(fileContent).toString('base64')}`;
     }
