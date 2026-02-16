@@ -98,14 +98,13 @@ describe('pageLoadTracker', () => {
 });
 
 describe('pageLoadTracker middleware', () => {
-    it('catches and logs errors from hookBody', async () => {
+    it('throws error when hookBody fails', async () => {
         const services = {
             ...createTestServices(),
             dispatch: jest.fn(),
             getState: jest.fn(),
         };
 
-        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
         const testError = new Error('Test error from calm');
         jest.spyOn(services.promiseCollector, 'calm').mockRejectedValue(testError);
 
@@ -122,12 +121,28 @@ describe('pageLoadTracker middleware', () => {
             action: 'PUSH',
         });
 
+        let caughtError: any = null;
+        let resolveError: (value: unknown) => void;
+        const errorCaught = new Promise((resolve) => {
+            resolveError = resolve;
+        });
+
+        const unhandledRejectionHandler = (error: Error) => {
+            caughtError = error;
+            resolveError(true);
+        };
+
+        process.on('unhandledRejection' as any, unhandledRejectionHandler);
+
         middleware(store)(next)(action);
 
-        await new Promise(resolve => setTimeout(resolve, 50));
+        await Promise.race([
+            errorCaught,
+            new Promise(resolve => setTimeout(resolve, 500))
+        ]);
 
-        expect(consoleErrorSpy).toHaveBeenCalledWith('pageLoadTracker error:', testError);
+        expect(caughtError.message).toBe('pageLoadTracker Error: Test error from calm');
 
-        consoleErrorSpy.mockRestore();
+        process.off('unhandledRejection' as any, unhandledRejectionHandler);
     });
 });
