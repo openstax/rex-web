@@ -129,7 +129,9 @@ async function visitPages(
             await page.goto(decodeURI(`${rootUrl}${pageUrl}${appendQueryString}`));
           }
 
-          await page.waitForSelector('body[data-rex-loaded="1"]');
+          await page.waitForFunction(() => {
+            return document?.body.hasAttribute('data-rex-loaded') && !document?.body.hasAttribute('data-rex-loading');
+          });
           await calmHooks(page);
 
           const matches = await page.evaluate(audit);
@@ -180,7 +182,7 @@ async function newPage(
   browser: puppeteer.Browser,
   bar: ReturnType<typeof progressBar>
 ): Promise<puppeteer.Page> {
-  const cache = new QuickLRU<string, puppeteer.ResponseForRequest>({maxSize: cacheMaxSize});
+  const cache = new QuickLRU<string, puppeteer.ResponseForRequest>({ maxSize: cacheMaxSize });
   const page = await browser.newPage();
   const errorObserver: PageErrorObserver = (message) => {
     if (quiet !== undefined) {
