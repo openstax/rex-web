@@ -35,7 +35,8 @@ const pageLoadTrackerMiddleware = (services: Parameters<typeof hookBody>[0]) => 
         // This prevents it from being added to promiseCollector
         if (promise) {
             promise.catch((e) => {
-                throw new Error(`pageLoadTracker ${e}`);
+              // eslint-disable-next-line no-console
+              console.error(`pageLoadTracker ${e}`);
             });
         }
         return;

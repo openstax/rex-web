@@ -121,28 +121,14 @@ describe('pageLoadTracker middleware', () => {
             action: 'PUSH',
         });
 
-        let caughtError: any = null;
-        let resolveError: (value: unknown) => void;
-        const errorCaught = new Promise((resolve) => {
-            resolveError = resolve;
-        });
-
-        const unhandledRejectionHandler = (error: Error) => {
-            caughtError = error;
-            resolveError(true);
-        };
-
-        process.on('unhandledRejection' as any, unhandledRejectionHandler);
+        const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => { });
 
         middleware(store)(next)(action);
 
-        await Promise.race([
-            errorCaught,
-            new Promise(resolve => setTimeout(resolve, 500))
-        ]);
+        // Wait for the async catch block
+        await new Promise(resolve => setTimeout(resolve, 50));
 
-        expect(caughtError.message).toBe('pageLoadTracker Error: Test error from calm');
-
-        process.off('unhandledRejection' as any, unhandledRejectionHandler);
+        expect(errorSpy).toHaveBeenCalledWith('pageLoadTracker Error: Test error from calm');
+        errorSpy.mockRestore();
     });
 });
