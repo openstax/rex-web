@@ -67,7 +67,7 @@ export const navigate = async(target: puppeteer.Page, path: string) => {
 };
 
 export const finishRender = async(page: puppeteer.Page) => {
-  await page.waitForSelector('body[data-rex-loaded="true"]');
+  await page.waitForSelector('body[data-rex-loaded="1"]');
 
   let lastScreen: Buffer | undefined;
   let newScreen: Buffer | undefined;

@@ -129,7 +129,7 @@ async function visitPages(
             await page.goto(decodeURI(`${rootUrl}${pageUrl}${appendQueryString}`));
           }
 
-          await page.waitForSelector('body[data-rex-loaded="true"]');
+          await page.waitForSelector('body[data-rex-loaded="1"]');
           await calmHooks(page);
 
           const matches = await page.evaluate(audit);
