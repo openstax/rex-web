@@ -8,6 +8,7 @@ defaults:
 
 jobs:
   playwright-python:
+    timeout-minutes: 60
     runs-on: ubuntu-22.04
     env:
       BASE_URL: ${{ github.event.inputs.base_url }}
