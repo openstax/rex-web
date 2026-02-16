@@ -44,10 +44,9 @@ export const SearchControlButton = searchConnector(
       <OpenButton
         aria-label={label}
         aria-controls='search-results-sidebar'
-        aria-expanded={props.isOpen}
+        aria-expanded={props.isOpen ?? undefined}
         data-analytics-label={label}
         data-testid='desktop-search-button'
-        hideMobile={true}
         onClick={action}
         {...props}
       >

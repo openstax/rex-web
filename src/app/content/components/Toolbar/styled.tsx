@@ -45,7 +45,7 @@ export const toolbarDefaultButton = css`
   align-items: center;
   justify-content: center;
   min-height: 77px;
-  ${(props: { isActive: boolean }) => props.isActive && `
+  ${(props: { isActive?: boolean }) => props.isActive && `
     background-color: rgba(0,0,0,0.1);
   `}
   ${theme.breakpoints.mobileMedium(css`

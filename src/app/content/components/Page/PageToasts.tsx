@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import {
   bookBannerDesktopMiniHeight,
   bookBannerMobileMiniHeight,
@@ -18,11 +18,12 @@ import { contentWrapperAndNavWidthBreakpoint, contentWrapperWidthBreakpoint } fr
 import { ToastProps } from '../../../notifications/components/ToastNotifications/Toast';
 
 export const desktopSearchFailureTop = bookBannerDesktopMiniHeight + topbarDesktopHeight;
-export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen: boolean}) => mobileToolbarOpen
+export const getMobileSearchFailureTop = ({mobileToolbarOpen}: {mobileToolbarOpen?: boolean}) => mobileToolbarOpen
   ? bookBannerMobileMiniHeight + topbarMobileHeight + toolbarMobileSearchWrapperHeight
   : bookBannerMobileMiniHeight + topbarMobileHeight;
 
-export const ToastContainerWrapper = styled.div`
+// ToastContainerWrapper needs mobileToolbarOpen prop for getMobileSearchFailureTop function
+export const ToastContainerWrapper = styled.div<{mobileToolbarOpen?: boolean}>`
   position: sticky;
   overflow: visible;
   z-index: ${theme.zIndex.contentNotifications - 1};
@@ -42,8 +43,8 @@ export const ToastContainerWrapper = styled.div`
     max-width: 100%;
     left: 0;
     z-index: ${theme.zIndex.contentNotifications + 1};
-    top: ${getMobileSearchFailureTop}rem;
-  `)}
+    top: ${(props: {mobileToolbarOpen?: boolean}) => getMobileSearchFailureTop(props)}rem;
+  ` as FlattenSimpleInterpolation)}
 `;
 
 /*

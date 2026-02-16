@@ -11,8 +11,8 @@ import { contentWrapperMaxWidth, verticalNavbarMaxWidth } from './constants';
 export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
-  hasQuery: boolean;
-  verticalNavOpen: boolean;
+  hasQuery?: boolean;
+  verticalNavOpen?: boolean;
   className?: string;
 }
 
