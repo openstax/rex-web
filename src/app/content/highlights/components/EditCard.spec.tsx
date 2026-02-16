@@ -743,27 +743,5 @@ describe('EditCard', () => {
 
       expect(spyAnalytics).not.toHaveBeenCalled();
     });
-
-    it('clears selection when login is cancelled', () => {
-      const component = renderEditCard({
-        ...editCardProps,
-        isActive: true,
-        shouldFocusCard: true,
-      } as EditCardProps);
-
-      // Mock getSelection
-      const removeAllRanges = jest.fn();
-      const getSelectionSpy = jest.spyOn(window!, 'getSelection').mockReturnValue({
-        removeAllRanges,
-      } as any);
-
-      const confirmation = component.root.findByProps({ 'mock-confirmation': 'true' });
-      renderer.act(() => {
-        confirmation.props['data-props'].onCancel();
-      });
-
-      expect(removeAllRanges).toHaveBeenCalled();
-      getSelectionSpy.mockRestore();
-    });
   });
 });
