@@ -1,6 +1,6 @@
 import { MouseEvent } from '@openstax/types/lib.dom';
 import React from 'react';
-import { createGlobalStyle, css } from 'styled-components/macro';
+import { createGlobalStyle, css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
 import { assertWindow, remsToPx } from '../utils';
@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle<ScrollOffsetProps>`
     scroll-padding: ${(props) => props.desktopOffset}rem 0 0 0;
     ${theme.breakpoints.mobile(css`
       scroll-padding: ${(props: ScrollOffsetProps) => props.mobileOffset}rem 0 0 0;
-    `)}
+    ` as FlattenSimpleInterpolation)}
   }
 `;
 

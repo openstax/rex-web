@@ -23,7 +23,7 @@ const OpenKeyboardShortcutsMenuLink = () => {
 
   return <FormattedMessage id='i18n:a11y:keyboard-shortcuts:menu'>
     {/* TODO - use url based modal control */}
-    {(txt: string) => <HiddenButton onClick={openKeyboardShortcutsMenu} href='#'>{txt}</HiddenButton>}
+    {(txt: string) => <HiddenButton onClick={openKeyboardShortcutsMenu}>{txt}</HiddenButton>}
   </FormattedMessage>;
 };
 
