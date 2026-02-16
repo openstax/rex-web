@@ -65,7 +65,7 @@ interface Props {
   onClick: () => void;
 }
 
-const ContentPane = ({ isDesktopSearchOpen, isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
+const ContentPane = ({ isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
   <Wrapper
     verticalNavOpen={isVerticalNavOpen}
     data-testid='centered-content-row'

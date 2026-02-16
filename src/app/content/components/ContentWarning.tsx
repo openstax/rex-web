@@ -96,7 +96,7 @@ export default function ContentWarning({ book }: { book: Book }) {
 
   return (
     <Modal
-      ariaLabel={intl.formatMessage({ id: 'i18n:content-warning:heading:aria-label' })}
+      aria-label={intl.formatMessage({ id: 'i18n:content-warning:heading:aria-label' })}
       tabIndex={-1}
       scrollLockProps={{
         mediumScreensOnly: false,

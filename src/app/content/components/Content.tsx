@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import Layout from '../../components/Layout';
 import ScrollOffset from '../../components/ScrollOffset';
@@ -33,11 +34,11 @@ import LabsCTA from './LabsCall';
 import NudgeStudyTools from './NudgeStudyTools';
 import Page from './Page';
 import PrevNextBar from './PrevNextBar';
-
 import Navigation from './Navigation';
 import Topbar from './Topbar';
 import { ConfirmationToastProvider } from './ConfirmationToast';
 import Wrapper from './Wrapper';
+import { assertDefined } from '../../utils';
 
 const Background = styled.div`
   @media screen {
@@ -58,7 +59,7 @@ const ContentNotifications = styled(Notifications as unknown as AnyStyledCompone
           ? bookBannerMobileMiniHeight + toolbarMobileExpandedHeight
           : bookBannerMobileMiniHeight + topbarMobileHeight
       }rem;
-    `) as FlattenSimpleInterpolation}
+    ` as FlattenSimpleInterpolation)}
   }
 `;
 
@@ -71,7 +72,7 @@ const OuterWrapper = styled.div`
 `;
 
 
-const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book?: Book}) => <Layout>
+const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) => <Layout>
   <ScrollOffset
     desktopOffset={
       bookBannerDesktopMiniHeight
@@ -120,6 +121,6 @@ const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book?: Book})
 export default connect(
   (state: AppState) => ({
     mobileExpanded: mobileToolbarOpen(state),
-    book: bookSelector(state),
+    book: assertDefined(bookSelector(state), 'Book is not defined!'),
   })
 )(Content);

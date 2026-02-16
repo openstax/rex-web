@@ -111,7 +111,7 @@ const ColorIndicator = styled(Hoc as AnyStyledComponent)<StyleProps>`
     ${defaultFocusOutline}
     z-index: 1;
   }
-` as React.ComponentType<Props>;
+`;
 
 type TBProps = {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
