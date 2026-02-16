@@ -73,10 +73,7 @@ describe('MediaModal', () => {
     const wrapperElement = document.createElement('div');
     const closeButtonElement = document.createElement('button');
     wrapperElement.appendChild(closeButtonElement);
-    // createTrapTab filters out hidden elements (offsetWidth/offsetHeight === 0)
-    Object.defineProperty(closeButtonElement, 'offsetWidth', { value: 40 });
-    Object.defineProperty(closeButtonElement, 'offsetHeight', { value: 40 });
-
+    // Give the close button non-zero dimensions to simulate a visible, focusable element
     const spyFocus = jest.spyOn(closeButtonElement, 'focus');
 
     const createNodeMock = (element: React.ReactElement) => {

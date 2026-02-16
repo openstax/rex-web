@@ -187,7 +187,7 @@ describe('mediaModalManager', () => {
       expect(modalImg?.alt).toBe('Test alt text');
       expect(modalImg?.width).toBe(800);
       expect(modalImg?.height).toBe(600);
-      expect(modalImg?.tabIndex).toBe(-1);
+      expect(modalImg?.getAttribute('tabindex')).toBeNull();
       document.body.removeChild(mockButton);
     });
 
