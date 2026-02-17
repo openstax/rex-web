@@ -1,7 +1,7 @@
 import { HTMLAnchorElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { FlattenSimpleInterpolation } from 'styled-components';
+import { AnyStyledComponent, FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
@@ -40,7 +40,7 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'yellow': '#faea36',
 };
 
-const LeftArrow = styled(ChevronLeft)`
+const LeftArrow = styled(ChevronLeft as AnyStyledComponent)`
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -57,7 +57,6 @@ const TopBar = styled.div`
 const bookBannerTextStyle = css`
   max-width: ${maxNavWidth - (maxNavWidth - contentTextWidth) / 2}rem;
   padding: 0;
-  ${applyBookTextColor}
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -65,14 +64,20 @@ const bookBannerTextStyle = css`
 
 type Style = string | number | FlattenSimpleInterpolation;
 const ifMiniNav = (miniStyle: Style, bigStyle?: Style) =>
-  (props: {variant: 'mini' | 'big'}) =>
+  (props: {variant?: 'mini' | 'big'}) =>
     props.variant === 'mini' ? miniStyle : bigStyle;
 
 const bookTitleMiniNavDestkopWidth = 27;
 
-const bookTitleStyles = css`
+interface BookTitleProps {
+  colorSchema?: BookWithOSWebData['theme'];
+  variant?: 'mini' | 'big';
+}
+
+const bookTitleStyles = css<BookTitleProps>`
   ${h4Style}
   ${bookBannerTextStyle}
+  ${applyBookTextColor as () => FlattenSimpleInterpolation}
   display: ${ifMiniNav('inline-block', 'block')};
   height: ${textRegularLineHeight}rem;
   font-weight: normal;
@@ -81,7 +86,7 @@ const bookTitleStyles = css`
 
   ${theme.breakpoints.mobile(css`
     ${bookBannerTextStyle}
-  `)}
+  `) as FlattenSimpleInterpolation}
 
   ${ifMiniNav(css`
     width: ${bookTitleMiniNavDestkopWidth}rem;
@@ -92,21 +97,22 @@ const bookTitleStyles = css`
   `)}
 `;
 
-const BookTitle = styled.span`
+const BookTitle = styled.span<BookTitleProps>`
   ${bookTitleStyles}
 `;
 
-const BookTitleLink = styled.a`
+const BookTitleLink = styled.a<BookTitleProps>`
   ${bookTitleStyles}
   :hover {
     text-decoration: underline;
   }
 `;
 
-const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => variant === 'mini' ?
-  <span {...props}>{children}</span> : <h1 {...props}>{children}</h1>)`
+const BookChapter = styled(({colorSchema: _, variant, children, ...props}: React.PropsWithChildren<BookTitleProps & {className?: string; dangerouslySetInnerHTML?: {__html: string}}>) => variant === 'mini' ?
+  <span {...props}>{children}</span> : <h1 {...props}>{children}</h1>)<BookTitleProps>`
   ${ifMiniNav(h4Style, h3Style)}
   ${bookBannerTextStyle}
+  ${applyBookTextColor as () => FlattenSimpleInterpolation}
   font-weight: 600;
   display: ${ifMiniNav('inline-block', 'block')};
   margin: 1rem 0 0 0;
@@ -119,7 +125,7 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => va
 
     max-height: ${h3MobileLineHeight * 2}rem;
     margin-top: 0.3rem;
-  `)}
+  `) as FlattenSimpleInterpolation}
   ${ifMiniNav(css`
     max-width: ${maxNavWidth - bookTitleMiniNavDestkopWidth - (maxNavWidth - contentTextWidth) / 2}rem;
 
@@ -132,7 +138,7 @@ const BookChapter = styled(({colorSchema: _, variant, children, ...props}) => va
 interface BarWrapperProps {
   colorSchema: BookWithOSWebData['theme'] | undefined;
   up: boolean;
-  variant: 'mini' | 'big';
+  variant?: 'mini' | 'big';
 }
 export const BarWrapper = styled.div<BarWrapperProps>`
   ${disablePrint}
@@ -166,8 +172,10 @@ export const BarWrapper = styled.div<BarWrapperProps>`
 
   ${theme.breakpoints.mobile(css`
     padding: ${theme.padding.page.mobile}rem;
-    height: ${ifMiniNav(bookBannerMobileMiniHeight, bookBannerMobileBigHeight)}rem;
-    ${ifMiniNav(`margin-top: -${bookBannerMobileMiniHeight}rem`)}
+    height: ${(
+      ifMiniNav(bookBannerMobileMiniHeight, bookBannerMobileBigHeight)
+    ) as unknown as FlattenSimpleInterpolation}rem;
+    ${ifMiniNav(`margin-top: -${bookBannerMobileMiniHeight}rem`) as unknown as FlattenSimpleInterpolation}
   `)}
 
   ${ifMiniNav(`margin-top: -${bookBannerDesktopMiniHeight}rem`)}
@@ -188,8 +196,8 @@ const BookBanner = () => {
   const bookTheme = useSelector(select.bookTheme);
   const params = useSelector(select.contentParams);
   const hasUnsavedHighlight = useSelector(hasUnsavedHighlightSelector);
-  const miniBanner = React.useRef<HTMLDivElement>();
-  const bigBanner = React.useRef<HTMLDivElement>();
+  const miniBanner = React.useRef<HTMLDivElement>(null);
+  const bigBanner = React.useRef<HTMLDivElement>(null);
   const services = useServices();
 
   const handleScroll = () => {
@@ -276,6 +284,7 @@ const BookBanner = () => {
     <BarWrapper
       colorSchema={bookTheme}
       variant='mini'
+      up={false}
       key='mini-nav'
       ref={miniBanner}
       data-testid='bookbanner-collapsed'
@@ -284,14 +293,12 @@ const BookBanner = () => {
       <TopBar>
         {
           bookUrl === undefined
-            ? <BookTitle data-testid='book-title-collapsed' colorSchema={bookTheme} variant='mini'>
+            ? <BookTitle data-testid='book-title-collapsed' variant='mini'>
               {book.title}
             </BookTitle>
             : <BookTitleLink
               data-testid='details-link-collapsed'
               href={bookUrl}
-              variant='mini'
-              colorSchema={bookTheme}
               onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                 handleLinkClick(e, bookUrl);
               }}

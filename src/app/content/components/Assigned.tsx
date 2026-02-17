@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import AccessibilityButtonsWrapper from '../../components/AccessibilityButtonsWrapper';
 import Button from '../../components/Button';
 import { useServices } from '../../context/Services';
@@ -43,7 +43,7 @@ const ToastOverride = styled(PageToasts)`
   max-width: 100%;
   ${theme.breakpoints.mobile(css`
     top: ${assignedMobileTop}rem;
-  `)}
+  ` as FlattenSimpleInterpolation)}
 `;
 
 // tslint:disable-next-line: variable-name
@@ -128,7 +128,7 @@ export default () => {
           }
           {!prevNext?.next && typeof return_url === 'string'
             ? (<FormattedMessage id='i18n:assigned:button:continue'>
-              {(msg) => <StyledButton component={<a href={return_url}>{msg}</a>} variant='primary' size='large' />}
+              {(msg: string) => <StyledButton component={<a href={return_url}>{msg}</a>} variant='primary' size='large' />}
             </FormattedMessage>)
             : null
           }

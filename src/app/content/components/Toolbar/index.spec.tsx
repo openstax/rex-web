@@ -1,6 +1,6 @@
 import { noop } from 'lodash/fp';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../../helpers/redux-bridge';
 import renderer from 'react-test-renderer';
 import Toolbar from '.';
 import createTestServices from '../../../../test/createTestServices';

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
 import '../../polyfill/details';
@@ -10,11 +10,11 @@ const expandCollapseIconStyle = css`
   width: ${iconSize}rem;
 `;
 
-export const ExpandIcon = styled(CaretRight)`
+export const ExpandIcon = styled(CaretRight as AnyStyledComponent)`
   ${expandCollapseIconStyle}
 `;
 
-export const CollapseIcon = styled(CaretDown)`
+export const CollapseIcon = styled(CaretDown as AnyStyledComponent)`
   ${expandCollapseIconStyle}
 `;
 

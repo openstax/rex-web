@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled, { css } from 'styled-components';
+import styled, { AnyStyledComponent, css } from 'styled-components';
 import { MessageEvent } from '@openstax/types/lib.dom';
 import theme from '../../theme';
 import { setTextSize } from '../actions';
@@ -12,7 +12,7 @@ import { topbarDesktopHeight, topbarMobileHeight } from './constants';
 import { TextResizerValue, textResizerValues } from '../constants';
 import { useLaunchToken } from '../launchToken';
 
-const StyledTopBarWrapper = styled(TopBarWrapper)`
+const StyledTopBarWrapper = styled(TopBarWrapper as AnyStyledComponent)`
   ${shadow}
 
   && {

@@ -7,7 +7,7 @@ import defer from 'lodash/fp/defer';
 import keyBy from 'lodash/fp/keyBy';
 import React from 'react';
 import { IntlShape } from 'react-intl';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../../helpers/redux-bridge';
 import renderer from 'react-test-renderer';
 import createIntl from '../../../../test/createIntl';
 import createTestServices from '../../../../test/createTestServices';

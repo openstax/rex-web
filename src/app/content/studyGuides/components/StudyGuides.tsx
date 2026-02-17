@@ -2,7 +2,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { typesetMath } from '../../../../helpers/mathjax';
 import htmlMessage from '../../../components/htmlMessage';
 import Loader from '../../../components/Loader';
@@ -46,7 +46,7 @@ const StudyGuides = ({ className }: { className: string }) => {
       <HighlightsWrapper ref={container}>
         <GeneralCenterText>
           <FormattedMessage id='i18n:studyguides:popup:no-highlights'>
-            {(msg) => msg}
+            {(msg: string) => msg}
           </FormattedMessage>
           <NoStudyGuidesTip />
         </GeneralCenterText>
@@ -68,7 +68,7 @@ const StudyGuides = ({ className }: { className: string }) => {
   </div>;
 };
 
-export default styled(StudyGuides)`
+export default styled(StudyGuides as AnyStyledComponent)`
   ${HighlightsChapterWrapper} {
     ${theme.breakpoints.mobile`
       max-width: 90%;

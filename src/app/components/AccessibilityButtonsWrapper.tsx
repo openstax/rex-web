@@ -23,7 +23,7 @@ const OpenKeyboardShortcutsMenuLink = () => {
 
   return <FormattedMessage id='i18n:a11y:keyboard-shortcuts:menu'>
     {/* TODO - use url based modal control */}
-    {(txt) => <HiddenButton onClick={openKeyboardShortcutsMenu} href='#'>{txt}</HiddenButton>}
+    {(txt: string) => <HiddenButton onClick={openKeyboardShortcutsMenu}>{txt}</HiddenButton>}
   </FormattedMessage>;
 };
 
@@ -33,11 +33,11 @@ export default class AccessibilityButtonsWrapper extends Component {
   public render() {
     return <Provider value={{ registerMainContent: this.registerMainContent }}>
       <FormattedMessage id='i18n:a11y:skipToContent'>
-        {(txt) => <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>{txt}</HiddenLink>}
+        {(txt: string) => <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>{txt}</HiddenLink>}
       </FormattedMessage>
       <FormattedMessage id='i18n:a11y:accessibilityHelp'>
-        {(txt) => <FormattedMessage id='i18n:a11y:accessibilityHelp:link'>
-          {(href) => <HiddenLink href={href}>{txt}</HiddenLink>}
+        {(txt: string) => <FormattedMessage id='i18n:a11y:accessibilityHelp:link'>
+          {(href: string) => <HiddenLink href={href}>{txt}</HiddenLink>}
         </FormattedMessage>}
       </FormattedMessage>
       <OpenKeyboardShortcutsMenuLink />

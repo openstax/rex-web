@@ -4,7 +4,7 @@ import Button from '../../../../components/Button';
 
 const FinishButton = () => {
   return <FormattedMessage id='i18n:practice-questions:popup:navigation:finish'>
-    {(msg) => <Button
+    {(msg: string) => <Button
       variant='primary'
       size='large'
       data-analytics-label='Finish'

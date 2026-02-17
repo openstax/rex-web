@@ -4,7 +4,7 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import React from 'react';
 import { connect, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import styled, { AnyStyledComponent } from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
@@ -33,29 +33,29 @@ import { useConfirmationToastContext } from '../../components/ConfirmationToast'
 import { getPreferEnd } from './cardUtils';
 
 export interface CardProps {
-  page: ReturnType<typeof selectContent['bookAndPage']>['page'];
-  book: ReturnType<typeof selectContent['bookAndPage']>['book'];
+  page?: ReturnType<typeof selectContent['bookAndPage']>['page'];
+  book?: ReturnType<typeof selectContent['bookAndPage']>['book'];
   container?: HTMLElement;
-  isActive: boolean;
-  lastActive: number;
-  isTocOpen: boolean;
-  hasQuery: boolean;
-  highlighter: Highlighter;
+  isActive?: boolean;
+  lastActive?: number;
+  isTocOpen?: boolean;
+  hasQuery?: boolean;
+  highlighter?: Highlighter;
   highlight: Highlight;
-  create: typeof createHighlight;
-  focus: typeof focusHighlight;
-  remove: typeof requestDeleteHighlight;
-  blur: typeof clearFocusedHighlight;
-  setAnnotationChangesPending: typeof setAnnotationChangesPending;
+  create?: typeof createHighlight;
+  focus?: typeof focusHighlight;
+  remove?: typeof requestDeleteHighlight;
+  blur?: typeof clearFocusedHighlight;
+  setAnnotationChangesPending?: typeof setAnnotationChangesPending;
   data?: HighlightData;
-  className: string;
-  zIndex: number;
-  shouldFocusCard: boolean;
+  className?: string;
+  zIndex?: number;
+  shouldFocusCard?: boolean;
   topOffset?: number;
   highlightOffsets?: { top: number; bottom: number };
-  onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
-  isHidden: boolean;
-  preferEnd: boolean;
+  onHeightChange?: (ref: React.RefObject<HTMLElement>) => void;
+  isHidden?: boolean;
+  preferEnd?: boolean;
 }
 
 type CardPropsWithBookAndPage = Omit<CardProps, 'book' | 'page'> & {
@@ -76,7 +76,7 @@ function useComputedProps(props: CardProps) {
       !assertDocument().activeElement?.closest?.('[data-no-card-activate]') &&
       (!hasUnsavedHighlight || (await showConfirmation(services)))
     ) {
-      focus(id);
+      focus?.(id);
     }
   }, [isActive, hasUnsavedHighlight, id, focus, services]);
   const element = React.useRef<HTMLElement>(null);
@@ -117,7 +117,7 @@ function useComputedProps(props: CardProps) {
 
   React.useEffect(() => {
     if (!annotation && !isActive) {
-      onHeightChange({ current: null });
+      onHeightChange?.({ current: null });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [annotation, isActive]); // onHeightChange
@@ -166,7 +166,7 @@ function Card(props: CardProps) {
 
   return (
     <NoteOrCard
-      props={props as CardPropsWithBookAndPage}
+      props={props as Required<CardPropsWithBookAndPage>}
       setHighlightRemoved={setHighlightRemoved}
       locationFilterId={locationFilterId}
       computedProps={computedProps}
@@ -183,7 +183,7 @@ function NoteOrCard({
   locationFilterId,
   computedProps,
 }: {
-  props: CardPropsWithBookAndPage;
+  props: Required<CardPropsWithBookAndPage>;
   setHighlightRemoved: React.Dispatch<React.SetStateAction<boolean>>;
   locationFilterId: string;
   computedProps: ComputedProps;
@@ -239,7 +239,7 @@ function NoteOrCard({
 
 type EditCardProps = {
   commonProps: CommonProps & {onRemove: () => void};
-  cardProps: CardPropsWithBookAndPage;
+  cardProps: Required<CardPropsWithBookAndPage>;
   locationFilterId: string;
 } & Pick<ComputedProps, 'hasUnsavedHighlight' | 'setEditing'>;
 
@@ -289,7 +289,7 @@ function EditCardWithOnCreate({
   );
 }
 
-const StyledCard = styled(Card)`
+const StyledCard = styled(Card as AnyStyledComponent)`
   ${mainCardStyles}
 `;
 
@@ -326,4 +326,4 @@ export default connect(
     remove: flow(requestDeleteHighlight, dispatch),
     setAnnotationChangesPending: flow(setAnnotationChangesPending, dispatch),
   })
-)(PreCard);
+)(PreCard as () => React.JSX.Element) as React.ComponentType<CardProps>;

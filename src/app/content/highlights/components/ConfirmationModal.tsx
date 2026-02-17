@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled, { AnyStyledComponent } from 'styled-components';
 import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
 import { Body, BodyHeading, Footer } from '../../../components/Modal/styles';
@@ -10,7 +10,7 @@ interface Props {
   confirm: () => void;
 }
 
-const ConfirmationFooter = styled(Footer)`
+const ConfirmationFooter = styled(Footer as AnyStyledComponent)`
   justify-content: space-between;
 `;
 
@@ -18,12 +18,12 @@ const ConfirmationModal = ({deny, confirm}: Props) => {
   return <Modal onModalClose={deny} heading='i18n:discard:heading'>
     <Body>
       <FormattedMessage id='i18n:discard:body'>
-        {(msg) => <BodyHeading>{msg}</BodyHeading>}
+        {(msg: string) => <BodyHeading>{msg}</BodyHeading>}
       </FormattedMessage>
     </Body>
     <ConfirmationFooter>
       <FormattedMessage id='i18n:discard:button:discard'>
-        {(msg) => <Button
+        {(msg: string) => <Button
           data-testid='discard-changes'
           onClick={confirm}
           variant='primary'
@@ -31,7 +31,7 @@ const ConfirmationModal = ({deny, confirm}: Props) => {
         </Button>}
       </FormattedMessage>
       <FormattedMessage id='i18n:discard:button:cancel'>
-        {(msg) => <Button
+        {(msg: string) => <Button
           data-testid='cancel-discard'
           onClick={deny}
           variant='secondary'

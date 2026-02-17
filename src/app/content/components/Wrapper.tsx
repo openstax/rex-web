@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { AppState } from '../../types';
@@ -11,8 +11,8 @@ import { contentWrapperMaxWidth, verticalNavbarMaxWidth } from './constants';
 export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
-  hasQuery: boolean;
-  verticalNavOpen: boolean;
+  hasQuery?: boolean;
+  verticalNavOpen?: boolean;
   className?: string;
 }
 
@@ -42,7 +42,7 @@ const ContentLayoutBody = styled.div`
   ${theme.breakpoints.mobileMedium(css`
     grid-template-columns: 100%;
   `)}
-`;
+` as AnyStyledComponent;
 
 export default connect(
   (state: AppState) => ({

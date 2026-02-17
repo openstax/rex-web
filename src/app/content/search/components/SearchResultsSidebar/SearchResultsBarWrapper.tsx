@@ -81,7 +81,7 @@ const SearchResultsHeader = ({
     <Styled.SearchResultsHeader>
       <Styled.SearchResultsHeaderTitle id='search-results-title'>
         <FormattedMessage id={titleMessageId || defaultTitle}>
-          {(msg) => msg}
+          {(msg: string) => msg}
         </FormattedMessage>
       </Styled.SearchResultsHeaderTitle>
       <LabeledCloseButton
@@ -147,7 +147,7 @@ const NoResults = ({
     )}
     <SidebarSearchInput {...props} />
     <FormattedMessage id='i18n:search-results:bar:query:no-results'>
-      {(msg) => (
+      {(msg: string) => (
         <Styled.SearchQuery role='status'>
           <Styled.SearchQueryAlignment>
             {msg} <strong> &lsquo;{props.query}&rsquo;</strong>
@@ -177,7 +177,7 @@ const ResultsSummary = ({
     <Styled.SearchQueryWrapper>
       <Styled.SearchQuery>
         <Styled.SearchIconInsideBar src={searchIcon} alt='' />
-        <Styled.HeaderQuery role='note' tabIndex='0'>
+        <Styled.HeaderQuery role='note' tabIndex={0}>
           <FormattedMessage
             id='i18n:search-results:bar:query:results'
             values={{search: props.totalHits, terms: props.totalHitsKeyTerms}}
@@ -219,9 +219,9 @@ const ResultsList = ({
         selectedResult={selectedResult}
         keyTermHits={assertNotNull(sortedKeyTermHits, 'displayRelatedKeyTerms is true')}
       />}
-      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex='0'>
+      {displaySearchResultsSectionTitle && <Styled.SearchResultsSectionTitle tabIndex={0}>
         <FormattedMessage id='i18n:search-results:bar:title'>
-          {(msg) => msg}
+          {(msg: string) => msg}
         </FormattedMessage>
       </Styled.SearchResultsSectionTitle>}
       <Styled.SearchResultsOl data-analytics-region='content-search-results'>

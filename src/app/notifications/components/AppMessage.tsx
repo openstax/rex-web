@@ -12,13 +12,13 @@ const AppMessage = ({dismiss, notification, className}:
   {dismiss: () => void, notification: AppMessageNotification, className?: string}) => <Body className={className}>
   <Group>
     <FormattedMessage id='i18n:notification:appmessage:header'>
-      {(txt) => <Header>{txt}</Header>}
+      {(txt: string) => <Header>{txt}</Header>}
     </FormattedMessage>
     <P dangerouslySetInnerHTML={{__html: notification.payload.html}} />
   </Group>
   <ButtonGroup>
     <FormattedMessage id='i18n:notification:appmessage:dismiss'>
-      {(txt) => <Button variant='primary' onClick={dismiss}>{txt}</Button>}
+      {(txt: string) => <Button variant='primary' onClick={dismiss}>{txt}</Button>}
     </FormattedMessage>
   </ButtonGroup>
 </Body>;

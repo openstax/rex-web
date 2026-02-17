@@ -110,7 +110,7 @@ function TocHeader() {
     <Header data-testid='tocheader'>
       <TOCBackButton><LeftArrow /></TOCBackButton>
       <FormattedMessage id='i18n:toc:title'>
-        {(msg) => <HeaderText>{msg}</HeaderText>}
+        {(msg: string) => <HeaderText>{msg}</HeaderText>}
       </FormattedMessage>
       <CloseToCAndMobileMenuButton />
       <TOCCloseButton><TimesIcon /></TOCCloseButton>

@@ -57,7 +57,7 @@ export const TOCControlButton = tocConnector(({open, close, ...props}: MiddlePro
       aria-controls='toc-sidebar'
       aria-label={`Click to ${isOpen ? 'close' : 'open'} the Table of Contents`}
       onClick={isOpen ? close : open}
-      isOpen={isOpen}
+      isActive={isOpen}
     >
       <TocIcon />
       <ButtonText>
@@ -67,7 +67,7 @@ export const TOCControlButton = tocConnector(({open, close, ...props}: MiddlePro
   );
 });
 
-export const TOCCloseButton = (lockTocControlState(true, CloseTOC));
+export const TOCCloseButton = lockTocControlState(true, CloseTOC) as React.ComponentType;
 
 export const TOCBackButton = styled(TOCCloseButton)`
   display: none;

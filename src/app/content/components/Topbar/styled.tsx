@@ -1,6 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
 import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
@@ -72,7 +72,7 @@ export const TopBarWrapper = styled.div`
   ${disablePrint}
 `;
 
-export const HamburgerIcon = styled(Hamburger)`
+export const HamburgerIcon = styled(Hamburger as AnyStyledComponent)`
   ${toolbarIconStyles}
 `;
 
@@ -167,7 +167,13 @@ export const CloseButtonNew = styled.button`
     width: 2.2rem;
   `;
 
-export const SearchInputWrapper = styled.form`
+export type SearchInputWrapperProps = { 
+  active?: boolean;
+  colorSchema?: BookWithOSWebData['theme'];
+  searchInSidebar?: boolean;
+}
+
+export const SearchInputWrapper = styled.form<SearchInputWrapperProps>`
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -193,26 +199,26 @@ export const SearchInputWrapper = styled.form`
   ${theme.breakpoints.mobile(css`
     height: 100%;
     overflow: hidden;
-    ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
+    ${(props: SearchInputWrapperProps) => props.active && css`
       background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
 
       ${SearchButton} {
-        ${applySearchIconColor(props.colorSchema)};
+        ${applySearchIconColor(props.colorSchema ?? null)};
       }
     `}
-  `)}
+  ` as unknown as FlattenSimpleInterpolation)}
   ${theme.breakpoints.mobileMedium(css`
     width: 100%;
     &, &:last-child { margin-right: 0; }
   `)}
 
 
-  ${(props: { searchInSidebar: boolean }) => props.searchInSidebar && css`
+  ${(props) => props.searchInSidebar && css`
     @media screen and (min-width: ${theme.breakpoints.mobileMediumBreak}em) {
       display: none;
     }
   `}
-`;
+` as AnyStyledComponent;
 
 export const SearchInput = styled(({ desktop, mobile, autoFocus, ...props }) => {
   const ref = React.useRef<HTMLInputElement>(null);
@@ -253,6 +259,9 @@ export const SearchInput = styled(({ desktop, mobile, autoFocus, ...props }) => 
   `)}
 `;
 
+// Type assertion to fix React 16 + Redux connect + styled-components v5 compatibility
+// The connect() HOC changes the return type in a way that may not be compatible with JSX
+// in some environments (e.g., when using yarn vs npm for dependency resolution)
 export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
   height: ${topbarDesktopHeight}rem;
   max-width: ${contentWrapperMaxWidth}rem;
@@ -283,9 +292,12 @@ export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
     }
   `)}
   ${shadow}
-`);
+`) as React.ComponentType;
 
-export const MobileSearchContainer = styled.div`
+// Explicitly typed to accept children (React.ReactNode)
+// This resolves TypeScript errors in environments where ReactNode types
+// from different @types/react versions are incompatible
+export const MobileSearchContainer = styled.div<{ children?: React.ReactNode }>`
   ${barPadding}
   overflow: visible;
   margin-top: ${mobileSearchContainerMargin}rem;
@@ -299,9 +311,9 @@ export const MobileSearchContainer = styled.div`
   ${theme.breakpoints.mobileMedium(css`
     justify-content: space-between;
   `)}
-`;
+` as React.ComponentType;
 
-export const MobileSearchWrapper = styled.div`
+export const MobileSearchWrapper = styled.div<{mobileToolbarOpen: boolean}>`
   display: none;
   overflow: visible;
   height: ${toolbarMobileSearchWrapperHeight}rem;
@@ -313,7 +325,8 @@ export const MobileSearchWrapper = styled.div`
   ${theme.breakpoints.mobileMedium(css`
     padding-left: 0;
     display: ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen ? 'block' : 'none'};
-  `)}
+  ` as FlattenSimpleInterpolation)
+  }
 `;
 
 export const Hr = styled.hr`
@@ -326,7 +339,7 @@ export const Hr = styled.hr`
   `)}
 `;
 
-export const LeftArrow = styled(AngleLeft)`
+export const LeftArrow = styled(AngleLeft as AnyStyledComponent)`
   width: 2.5rem;
   height: 2.5rem;
 `;
@@ -337,7 +350,7 @@ export const InnerText = styled.div`
   text-align: left;
 `;
 
-export const SeachResultsTextButton = styled(PlainButton)`
+export const SeachResultsTextButton = styled(PlainButton as AnyStyledComponent)`
   ${textRegularStyle}
   ${decoratedLinkStyle}
   display: flex;
@@ -345,7 +358,10 @@ export const SeachResultsTextButton = styled(PlainButton)`
   min-width: auto;
 `;
 
-export const TextResizerDropdown = styled(FilterDropdown)`
+export const TextResizerDropdown = styled(FilterDropdown as AnyStyledComponent)<{
+    mobileVariant: boolean,
+    mobileToolbarOpen: boolean
+  }>`
   z-index: 3;
 
   > button {
@@ -356,10 +372,7 @@ export const TextResizerDropdown = styled(FilterDropdown)`
     }
   }
 
-  ${(props: {
-    mobileVariant: boolean,
-    mobileToolbarOpen: boolean
-  }) => props.mobileVariant !== false && theme.breakpoints.mobileMedium(css`
+  ${(props) => props.mobileVariant !== false && theme.breakpoints.mobileMedium(css`
     margin-left: 0;
     > button {
       max-height: 4.6rem;
@@ -397,7 +410,9 @@ const tickMarkCss = css`
   );
 `;
 
-export const TextResizerMenu = styled.div`
+type TextResizerMenuProps = { bookTheme: BookWithOSWebData['theme']; textSize?: number };
+
+export const TextResizerMenu = styled.div<TextResizerMenuProps>`
   color: ${theme.color.primary.gray.base};
 
   && {
@@ -427,26 +442,29 @@ export const TextResizerMenu = styled.div`
     input {
       -webkit-appearance: none; /* stylelint-disable property-no-vendor-prefix */
       -moz-appearance: none;
-      ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme ? css`
+      ${(props) => props.bookTheme ? css`
         background:
           linear-gradient(
             to right,
             ${theme.color.primary[props.bookTheme].base}
-              ${({textSize}: {textSize: number}) => `
+              ${({textSize}: TextResizerMenuProps) => `
                 calc(
-                  (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
+                  (${textSize || textResizerMinValue} - ${textResizerMinValue}) * 100 /
+                  (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
                 )
               `},
               ${theme.color.primary.gray.medium}
-              ${({textSize}: {textSize: number}) => `
+              ${({textSize}: TextResizerMenuProps) => `
                 calc(
-                  (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
+                  (${textSize || textResizerMinValue} - ${textResizerMinValue}) * 100 /
+                  (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
                 )
               `}
           );
       ` : css`
         background: ${theme.color.primary.gray.medium};
-      `}
+      ` as any // eslint-disable-line @typescript-eslint/no-explicit-any
+      }
       overflow: visible;
       height: 0.4rem;
       width: 12rem;
@@ -500,7 +518,7 @@ export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props
   margin: 0.2rem 0.6rem;
 `;
 
-export const CloseSearchResultsTextButton = styled(SeachResultsTextButton)`
+export const CloseSearchResultsTextButton = styled(SeachResultsTextButton as AnyStyledComponent)`
   display: none;
   ${theme.breakpoints.mobileMedium(css`
     display: block;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components/macro';
 import ScrollLock from '../../components/ScrollLock';
 import theme from '../../theme';
 import { Dispatch } from '../../types';
@@ -55,7 +55,7 @@ const Wrapper = styled.div<{verticalNavOpen: State['tocOpen']}>`
 
     ${styleWhenSidebarClosed(css`
       padding-left: 0 !important;
-    `)}
+    `) as FlattenSimpleInterpolation}
   }
 `;
 
@@ -65,10 +65,9 @@ interface Props {
   onClick: () => void;
 }
 
-const ContentPane = ({ isDesktopSearchOpen, isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
+const ContentPane = ({ isVerticalNavOpen, onClick, children }: React.PropsWithChildren<Props>) =>
   <Wrapper
-    isVerticalNavOpen={isVerticalNavOpen}
-    isDesktopSearchOpen={isDesktopSearchOpen}
+    verticalNavOpen={isVerticalNavOpen}
     data-testid='centered-content-row'
   >
       {isVerticalNavOpen &&
@@ -88,4 +87,4 @@ const dispatchConnector = connect(
   })
 );
 
-export default isVerticalNavOpenConnector(dispatchConnector(ContentPane));
+export default isVerticalNavOpenConnector(dispatchConnector(ContentPane)) as React.ComponentType;

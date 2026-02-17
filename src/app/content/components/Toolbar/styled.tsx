@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css, FlattenSimpleInterpolation, keyframes } from 'styled-components/macro';
 import { ChevronLeft } from 'styled-icons/boxicons-regular';
 import { Print } from 'styled-icons/fa-solid/Print';
 import { maxNavWidth } from '../../../components/NavBar/styled';
@@ -45,7 +45,7 @@ export const toolbarDefaultButton = css`
   align-items: center;
   justify-content: center;
   min-height: 77px;
-  ${(props: { isActive: boolean }) => props.isActive && `
+  ${(props: { isActive?: boolean }) => props.isActive && `
     background-color: rgba(0,0,0,0.1);
   `}
   ${theme.breakpoints.mobileMedium(css`
@@ -73,7 +73,7 @@ export const PlainButton = styled.button`
   }
 `;
 
-export const PrintOptWrapper = styled(PlainButton)`
+export const PrintOptWrapper = styled(PlainButton as AnyStyledComponent)`
   ${toolbarDefaultButton};
   height: auto;
   padding: 0 10px;
@@ -85,7 +85,7 @@ export const PrintOptions = styled.span`
   line-height: 1.5rem;
 `;
 
-export const PrintIcon = styled(Print)`
+export const PrintIcon = styled(Print as AnyStyledComponent)`
   ${toolbarIconStyles}
 `;
 
@@ -119,7 +119,7 @@ const hideMobileMenu = keyframes`
   }
 `;
 
-export const ToolbarWrapper = styled.div`
+export const ToolbarWrapper = styled.div<{isMobileMenuOpen: boolean}>`
   grid-area: 1 / 1 / auto / 2;
   position: sticky;
   top: ${bookBannerDesktopMiniHeight}rem;
@@ -170,7 +170,7 @@ export const ToolbarWrapper = styled.div`
     ${(props: {isMobileMenuOpen: boolean}) => props.isMobileMenuOpen && css`
       animation: ${showMobileMenu} .2s forwards;
     `}
-  `)}
+  ` as FlattenSimpleInterpolation)}
 
   ${disablePrint}
 `;
@@ -204,7 +204,7 @@ export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' 
   }
 `;
 
-export const LeftArrow = styled(ChevronLeft)`
+export const LeftArrow = styled(ChevronLeft as AnyStyledComponent)`
   width: 4rem;
   height: 4rem;
   color: ${toolbarIconColor.base};

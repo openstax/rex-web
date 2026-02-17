@@ -59,7 +59,7 @@ function WarningDivWithTrap({
   useTrapTabNavigation(ref);
 
   return (
-    <WarningDiv tabIndex='-1' ref={ref}>
+    <WarningDiv tabIndex={-1} ref={ref}>
       <div dangerouslySetInnerHTML={{__html: text}} />
       <Button type='button' onClick={dismiss}>
         Ok
@@ -96,8 +96,8 @@ export default function ContentWarning({ book }: { book: Book }) {
 
   return (
     <Modal
-      ariaLabel={intl.formatMessage({ id: 'i18n:content-warning:heading:aria-label' })}
-      tabIndex='-1'
+      aria-label={intl.formatMessage({ id: 'i18n:content-warning:heading:aria-label' })}
+      tabIndex={-1}
       scrollLockProps={{
         mediumScreensOnly: false,
         overlay: true,

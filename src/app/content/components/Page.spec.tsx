@@ -5,7 +5,7 @@ import defer from 'lodash/fp/defer';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
+import { Provider } from '../../../helpers/redux-bridge';
 import renderer from 'react-test-renderer';
 import * as mathjax from '../../../helpers/mathjax';
 import createTestServices from '../../../test/createTestServices';

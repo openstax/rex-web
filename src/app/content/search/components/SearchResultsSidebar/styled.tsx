@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlattenSimpleInterpolation } from 'styled-components';
+import { AnyStyledComponent,  FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { Details as BaseDetails, Summary } from '../../../../components/Details';
 import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
@@ -101,7 +101,11 @@ const styleWhenMobileToolbarClosed = (closedStyle: FlattenSimpleInterpolation) =
     theme.breakpoints.mobileMedium(closedStyle)}
 `;
 
-export const SearchResultsBar = styled.div`
+export const SearchResultsBar = styled.div<{
+  searchResultsOpen: boolean;
+  mobileToolbarOpen: boolean;
+  hasQuery: boolean;
+}>`
   -webkit-overflow-scrolling: touch;
   overflow-x: visible;
   grid-area: 1 / 2 / auto / 3;
@@ -155,16 +159,16 @@ export const SearchResultsBar = styled.div`
 
   display: flex;
   flex-direction: column;
-`;
+` as AnyStyledComponent;
 
-export const SearchResultsHeader = styled.h2`
+export const SearchResultsHeader = styled.h2<{ emptyHeaderStyle?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   height: ${topbarDesktopHeight}rem;
   margin: 0;
-  ${({ emptyHeaderStyle = false }: { emptyHeaderStyle: boolean }) => emptyHeaderStyle && css`
+  ${({ emptyHeaderStyle = false }) => emptyHeaderStyle && css`
     border-bottom: 0;
     justify-content: flex-end;
   `}
@@ -220,7 +224,7 @@ export const SummaryTitle = styled.h3`
   margin: 0;
 `;
 
-export const Details = styled(BaseDetails)`
+export const Details = styled(BaseDetails as AnyStyledComponent)`
   overflow: visible;
 `;
 
@@ -239,7 +243,7 @@ export const SearchBarSummaryContainer = styled.div`
   `)}
 `;
 
-export const SearchBarSummary = styled(Summary)`
+export const SearchBarSummary = styled(Summary as AnyStyledComponent)`
   min-height: 3.8rem;
 
   > * {
@@ -261,8 +265,8 @@ interface SectionContentPreviewProps extends React.ComponentProps<typeof Content
 
 export const SectionContentPreview = styled(
   React.forwardRef<HTMLAnchorElement, SectionContentPreviewProps>(
-    ({selectedResult, ...props}: {selectedResult: unknown}, ref) => <ContentLinkComponent {...props} ref={ref} />
-  )
+    ({selectedResult, ...props}: SectionContentPreviewProps, ref) => <ContentLinkComponent {...props} ref={ref} />
+  ) as AnyStyledComponent
 )`
   ${labelStyle}
   cursor: pointer;
@@ -413,7 +417,7 @@ export const SimpleResult = styled.div`
   }
 `;
 
-export const KeyTermResult = styled(SimpleResult)`
+export const KeyTermResult = styled(SimpleResult as AnyStyledComponent)`
   ${theme.breakpoints.mobile(css`
     margin-left: 3.2rem;
   `)}

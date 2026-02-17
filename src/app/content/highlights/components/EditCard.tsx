@@ -55,7 +55,7 @@
 import { Highlight } from '@openstax/highlighter';
 import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { ButtonGroup } from '../../../components/Button';
 import { useTrapTabNavigation } from '../../../reactUtils';
@@ -279,7 +279,7 @@ function ActiveEditCard({
 }
 
 // tslint:disable-next-line
-export default styled(EditCard)`
+export default styled(EditCard as AnyStyledComponent)`
   background: ${theme.color.neutral.formBackground};
   user-select: none;
   overflow: visible;

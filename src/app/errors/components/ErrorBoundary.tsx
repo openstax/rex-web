@@ -11,6 +11,7 @@ import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography/headings';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
+import { PromiseRejectionEvent } from '@openstax/types/lib.dom';
 import { recordError } from '../actions';
 import { getMessageIdStack } from '../selectors';
 import ErrorIdList from './ErrorIdList';
@@ -68,10 +69,10 @@ class ErrorBoundary extends React.Component<Props, State> {
   public render() {
     if (this.state.error) {
       return <React.Fragment>
-        <ErrorWrapper error={this.state.error}>
+        <ErrorWrapper>
           <HeadingWrapper>
             <FormattedMessage id='i18n:error:boundary:sub-heading'>
-              {(msg) => <H2>{msg}</H2>}
+              {(msg: string) => <H2>{msg}</H2>}
             </FormattedMessage>
           </HeadingWrapper>
           <BodyWithLink values={{supportCenterLink}}/>
@@ -80,7 +81,7 @@ class ErrorBoundary extends React.Component<Props, State> {
         <Footer />
       </React.Fragment>;
     }
-    return this.props.children;
+    return this.props.children as React.JSX.Element;
   }
 
   private handleRejection = (event: PromiseRejectionEvent) => {
@@ -89,7 +90,7 @@ class ErrorBoundary extends React.Component<Props, State> {
   };
 }
 
-export default connect(
+const ConnectedErrorBoundary = connect(
   (state: AppState) => ({
     stack: getMessageIdStack(state),
   }),
@@ -97,3 +98,5 @@ export default connect(
     recordError: flow(recordError, dispatch),
   })
 )(ErrorBoundary);
+
+export default ConnectedErrorBoundary;

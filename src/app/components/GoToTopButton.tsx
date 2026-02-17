@@ -1,12 +1,12 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { disablePrint } from '../content/components/utils/disablePrint';
 import { PlainButton } from './Button';
 import theme from '../theme';
 
-export const GoToTopWrapper = styled(PlainButton)`
+export const GoToTopWrapper = styled(PlainButton as AnyStyledComponent)`
   width: 4.8rem;
   height: 4.8rem;
   position: absolute;
@@ -31,7 +31,7 @@ export const GoToTop = styled.div`
   color: white;
 `;
 
-export const GoToTopIcon = styled(AngleUp)`
+export const GoToTopIcon = styled(AngleUp as AnyStyledComponent)`
   width: 1.6rem;
   height: 1.6rem;
 `;

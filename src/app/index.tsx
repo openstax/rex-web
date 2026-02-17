@@ -1,6 +1,6 @@
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider } from '../helpers/redux-bridge';
 import { StoreEnhancer } from 'redux';
 import analytics from '../helpers/analytics';
 import createStore from '../helpers/createStore';

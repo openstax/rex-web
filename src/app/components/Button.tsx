@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
 import { decoratedLinkStyle, linkColor, linkStyle } from './Typography';
@@ -28,7 +28,7 @@ type Size = 'large' | 'medium' | 'small';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 
-interface ButtonProps<T extends ComponentType | undefined> {
+interface ButtonProps<T extends ComponentType | undefined> extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
   variant?: Variant;
   size?: Size;
@@ -46,7 +46,7 @@ const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
     return React.cloneElement(component, {...props, ref});
   }
   return <button ref={ref} {...props} />;
-});
+}) as AnyStyledComponent;
 
 const Button = styled(ButtonHoc)`
   display: flex;
@@ -112,13 +112,13 @@ const Button = styled(ButtonHoc)`
   `}
 `;
 
-export const ButtonGroup = styled.div`
+export const ButtonGroup = styled.div<{expand?: boolean; vertical?: boolean}>`
   display: grid;
   overflow: visible;
-  ${(props: {expand?: boolean}) => props.expand === false && css`
+  ${(props) => props.expand === false && css`
     grid-auto-columns: min-content;
   `}
-  grid-auto-flow: ${(props: {vertical?: boolean}) => props.vertical === true ? 'row' : 'column'};
+  grid-auto-flow: ${(props) => props.vertical === true ? 'row' : 'column'};
   grid-gap: 1rem;
 `;
 
@@ -130,10 +130,10 @@ export const PlainButton = styled.button`
   background: none;
 `;
 
-export const ButtonLink = styled(PlainButton)`
+export const ButtonLink = styled(PlainButton)<{decorated?: boolean}>`
   outline: none;
   ${textStyle}
-  ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
-`;
+  ${(props) => props.decorated ? decoratedLinkStyle : linkStyle}
+` as React.ComponentType<{decorated?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>>;
 
 export default Button;

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components/macro';
+import styled, { AnyStyledComponent,  css } from 'styled-components/macro';
 import { Times } from 'styled-icons/fa-solid/Times';
 import { PlainButton } from '../../../components/Button';
 import htmlMessage from '../../../components/htmlMessage';
@@ -77,12 +77,12 @@ export const NudgeArrow = styled.img`
   `}
 `;
 
-export const NudgeCloseIcon = styled(Times)`
+export const NudgeCloseIcon = styled(Times as AnyStyledComponent)`
   width: 1.1rem;
   color: ${theme.color.text.white};
 `;
 
-export const NudgeCloseButton = styled(PlainButton)`
+export const NudgeCloseButton = styled(PlainButton as AnyStyledComponent)`
   position: fixed;
   z-index: ${theme.zIndex.nudgeOverlay + 1};
   ${(props: { top: number, left: number }) => `

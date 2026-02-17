@@ -5,7 +5,7 @@ import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled, { AnyStyledComponent, css, keyframes } from 'styled-components/macro';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
 import theme, { defaultFocusOutline } from '../theme';
@@ -16,15 +16,16 @@ import { textStyle } from './Typography/base';
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
 interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   className?: string;
+  isOpen?: boolean;
   component: T extends React.ComponentType
-    ? React.ReactComponentElement<T>:
-    never;
+    ? React.ReactComponentElement<T>
+    : never;
 }
 export const DropdownToggle = styled(React.forwardRef<HTMLElement, ToggleProps>(
   ({component, ...props}, ref) => React.cloneElement(component, {...props, ref})
 ))`
   cursor: pointer;
-`;
+` as AnyStyledComponent;
 
 const fadeIn = keyframes`
   0% {
@@ -60,7 +61,7 @@ interface ControlledProps {
 }
 
 interface Props {
-  toggle: React.ReactNode;
+  toggle?: React.ReactNode;
   className?: string;
   onToggle?: () => void;
 }
@@ -315,7 +316,10 @@ export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & Cont
 
 export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
 
-const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, ...props}, ref) =>
+const Dropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<DropdownProps>>((
+  {transparentTab, ...props},
+  ref
+) =>
   transparentTab !== false
     ? <TabTransparentDropdown ref={ref} {...props} />
     : <TabHiddenDropDown ref={ref} {...props} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import studyGuidesIcon from '../../../../assets/studyGuidesIcon.svg';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { openStudyGuides as openStudyGuidesAction } from '../../studyGuides/actions';
@@ -10,7 +10,7 @@ import { toolbarIconStyles } from './iconStyles';
 import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
 import { captureOpeningElement } from '../../utils/focusManager';
 
-export const StudyGuidesWrapper = styled(PlainButton)`
+export const StudyGuidesWrapper = styled(PlainButton as AnyStyledComponent)`
   ${toolbarDefaultButton}
   height: auto;
   padding: 0;

@@ -16,7 +16,7 @@ export default connectNavigationProvider(({ routes, location }: { routes: AnyRou
 
   if (match) {
     const Component = match.route.component;
-    return <ErrorBoundary><Component /></ErrorBoundary >;
+    return <ErrorBoundary><Component /></ErrorBoundary>;
   } else {
     return null;
   }

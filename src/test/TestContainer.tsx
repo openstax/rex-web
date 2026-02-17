@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Provider } from 'react-redux';
+import { Provider } from '../helpers/redux-bridge';
 import * as Services from '../app/context/Services';
 import { Store } from '../app/types';
 import createTestServices from './createTestServices';

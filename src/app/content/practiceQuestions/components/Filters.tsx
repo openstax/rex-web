@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components/macro';
+import styled, { AnyStyledComponent } from 'styled-components/macro';
 import ChapterFilter from '../../components/popUp/ChapterFilter';
 import Filters, { FilterDropdown, FiltersTopBar } from '../../components/popUp/Filters';
 import { FiltersChange } from '../../components/popUp/types';
@@ -8,7 +8,7 @@ import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
 import * as selectors from '../selectors';
 
-const StyledChapterFilters = styled(ChapterFilter)`
+const StyledChapterFilters = styled(ChapterFilter as AnyStyledComponent)`
   padding: 0;
 `;
 

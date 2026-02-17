@@ -13,7 +13,7 @@ const ShowAnswerButton = React.forwardRef((
 ) => {
   return <FormattedMessage id='i18n:practice-questions:popup:navigation:show-answer:after-submit-incorrect:aria-label'>
     {(ariaLabel: string) => <FormattedMessage id='i18n:practice-questions:popup:navigation:show-answer'>
-      {(msg) => (
+      {(msg: string) => (
         <Button
           ref={ref}
           size='large'
