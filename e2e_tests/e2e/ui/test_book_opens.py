@@ -73,7 +73,7 @@ async def test_book_content_portal_opens(chrome_page, base_url):
 
     # THEN: New browser tab opens
     async with chrome_page.expect_popup() as popup_info:
-        await home.click_book_details_page_link()
+        await chrome_page.get_by_label("Astronomy").click()
 
     new_tab = await popup_info.value
     await new_tab.wait_for_load_state()
@@ -90,4 +90,4 @@ async def test_book_content_portal_opens(chrome_page, base_url):
 
     assert "404 Not Found - OpenStax" not in await new_tab.title()
 
-    assert await new_tab.locator("span").get_by_text("Table of contents").is_visible()
+    assert await new_tab.get_by_role("heading", name="Table of contents").is_visible()
