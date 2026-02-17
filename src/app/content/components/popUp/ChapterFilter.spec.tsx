@@ -247,7 +247,7 @@ describe('ChapterFilter', () => {
     expect(wrapper.props.hidden).toEqual(true);
   });
 
-  it('initially has open chapter with selected section', () => {
+  it('chapter list is open and selected section is not expanded', () => {
     const locationFilters = new Map([[
       'testbook1-testchapter2-uuid',
       {

@@ -129,6 +129,13 @@ describe('Filters', () => {
       summary.props.onClick({ preventDefault: mockPreventDefault });
     });
 
+    const [wrapper1] = details1.findAllByType(StyledChapterFilterItemWrapper);
+    const [updatedWrapper2] = details2.findAllByType(StyledChapterFilterItemWrapper);
+
+    expect(wrapper1.props.hidden).toEqual(false);
+    expect(wrapper1.props['aria-hidden']).toEqual(false);
+    expect(updatedWrapper2.props.hidden).toEqual(true);
+    expect(updatedWrapper2.props['aria-hidden']).toEqual(true);
     expect(mockPreventDefault).toHaveBeenCalled();
 
     renderer.act(() => {
@@ -172,7 +179,9 @@ describe('Filters', () => {
 
     renderer.act(() => {
       const [details1] = component.root.findAllByType(StyledDetailsContainer);
-      if (!details1.props.open) {
+      const [chapterWrapper] = details1.findAllByType(StyledChapterFilterItemWrapper);
+      const isHidden = chapterWrapper.props.hidden ?? chapterWrapper.props['aria-hidden'];
+      if (isHidden) {
         const summary = details1.findByType(StyledSummaryButton);
         summary.props.onClick({ preventDefault: jest.fn() });
       }
