@@ -361,6 +361,51 @@ describe('createTrapTab', () => {
     trapTab = utils.createTrapTab(emptyEl);
     trapTab({ key: 'Tab', shiftKey: true, preventDefault } as unknown as KeyboardEvent);
   });
+  it('picks up dynamically added focusable elements', () => {
+    const newBtn = assertDocument().createElement('button');
+    Object.defineProperty(newBtn, 'offsetHeight', { value: 100, writable: false });
+    htmlElement.appendChild(newBtn);
+
+    newBtn.focus = jest.fn();
+    Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
+    preventDefault.mockClear();
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+    // newBtn is now the last focusable element, so tabbing from i (previously last) should not wrap
+    expect(preventDefault).not.toHaveBeenCalled();
+
+    // But tabbing from newBtn (new last) should wrap to first
+    Object.defineProperty(document, 'activeElement', { value: newBtn, writable: false, configurable: true });
+    b.focus = jest.fn();
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+    expect(b.focus).toHaveBeenCalled();
+    expect(preventDefault).toHaveBeenCalled();
+
+    htmlElement.removeChild(newBtn);
+  });
+  it('handles dynamically removed focusable elements', () => {
+    htmlElement.removeChild(i);
+
+    // Now b is both first and last, so tabbing forward from b should wrap to b
+    b.focus = jest.fn();
+    Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
+    preventDefault.mockClear();
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+    expect(b.focus).toHaveBeenCalled();
+    expect(preventDefault).toHaveBeenCalled();
+
+    htmlElement.appendChild(i);
+  });
+  it('handles all focusable elements removed after creation', () => {
+    htmlElement.removeChild(b);
+    htmlElement.removeChild(i);
+
+    preventDefault.mockClear();
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+    expect(preventDefault).not.toHaveBeenCalled();
+
+    htmlElement.appendChild(b);
+    htmlElement.appendChild(i);
+  });
 });
 
 describe('onKeyHandler', () => {
