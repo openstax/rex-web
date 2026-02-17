@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
+import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import { FirstArgumentType } from '../../../types';
 import { useModalFocusManagement } from '../../hooks/useModalFocusManagement';
@@ -31,6 +32,8 @@ const StudyguidesPopUp = () => {
   }, [dispatch, trackClose]);
 
   useOnEsc(isStudyGuidesOpen, closeAndTrack('esc'));
+  useTrapTabNavigation(popUpRef, isStudyGuidesOpen);
+
   React.useEffect(() => {
     if (isStudyGuidesOpen && popUpRef.current && !getOpeningElement('studyguides')) {
       popUpRef.current.focus();
