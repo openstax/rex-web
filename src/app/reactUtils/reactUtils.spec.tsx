@@ -355,6 +355,10 @@ describe('createTrapTab', () => {
     expect(b.focus).toHaveBeenCalled();
     expect(preventDefault).toHaveBeenCalled();
   });
+  it('returns noop when given no valid containers', () => {
+    const result = utils.createTrapTab({} as HTMLElement);
+    expect(result({ key: 'Tab' } as KeyboardEvent)).toBeNull();
+  });
   it('short circuits when no focusable elements', () => {
     const emptyEl = assertDocument().createElement('div');
 
