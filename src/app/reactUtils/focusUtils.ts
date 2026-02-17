@@ -47,7 +47,7 @@ export const focusableItemQuery = ([
   'select',
   'textarea',
   '[href]',
-  '[tabindex]:not([tabindex=\'-1\']',
+  '[tabindex]:not([tabindex=\'-1\'])',
 ])
   .map((s) => (s.includes('[') ? s : `${s}:not([disabled])`))
   .join(',');
