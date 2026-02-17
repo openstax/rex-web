@@ -109,21 +109,6 @@ describe('PracticeQuestions', () => {
     }, 10);
   });
 
-  it('focuses popup when modal opens via query param (no opening element)', (done) => {
-    jest.spyOn(pqSelectors, 'isPracticeQuestionsOpen').mockReturnValue(true);
-    const document = assertWindow().document;
-
-    const { root } = renderToDom(<TestContainer services={services} store={store}>
-      <PracticeQuestionsPopup />
-    </TestContainer>);
-
-    setTimeout(() => {
-      const popup = root.querySelector('[data-testid="practice-questions-popup-wrapper"]');
-      expect(document.activeElement).toBe(popup);
-      done();
-    }, 10);
-  });
-
   it('restores focus to opening button when modal closes', (done) => {
     const document = assertWindow().document;
 

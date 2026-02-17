@@ -141,22 +141,6 @@ describe('Study Guides button and PopUp', () => {
     }, 10);
   });
 
-  it('focuses popup when modal opens via query param (no opening element)', (done) => {
-    const document = utils.assertDocument();
-
-    const { root } = renderToDom(<TestContainer services={services} store={store}>
-      <StudyguidesPopUp />
-    </TestContainer>);
-
-    act(() => { store.dispatch(openStudyGuides()); });
-
-    setTimeout(() => {
-      const popup = root.querySelector('[data-testid="studyguides-popup-wrapper"]');
-      expect(document.activeElement).toBe(popup);
-      done();
-    }, 10);
-  });
-
   it('restores focus to opening button when modal closes', (done) => {
     const document = utils.assertDocument();
 

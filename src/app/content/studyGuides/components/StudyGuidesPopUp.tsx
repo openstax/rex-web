@@ -11,7 +11,6 @@ import { useModalFocusManagement } from '../../hooks/useModalFocusManagement';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
-import { getOpeningElement } from '../../utils/focusManager';
 import { closeStudyGuides } from '../actions';
 import { studyGuidesOpen } from '../selectors';
 import ShowStudyGuides from './ShowStudyGuides';
@@ -33,12 +32,6 @@ const StudyguidesPopUp = () => {
 
   useOnEsc(isStudyGuidesOpen, closeAndTrack('esc'));
   useTrapTabNavigation(popUpRef, isStudyGuidesOpen);
-
-  React.useEffect(() => {
-    if (isStudyGuidesOpen && popUpRef.current && !getOpeningElement('studyguides')) {
-      popUpRef.current.focus();
-    }
-  }, [isStudyGuidesOpen]);
 
   return isStudyGuidesOpen ?
     <Modal
