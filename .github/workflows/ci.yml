@@ -85,6 +85,14 @@ jobs:
         cache: 'yarn'
     - run: yarn install --immutable --immutable-cache
     - run: yarn ci:test:${{ matrix.suite }}
+    - name: Upload coverage to Codecov
+      if: matrix.suite == 'unit'
+      uses: codecov/codecov-action@v4
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      with:
+        files: ./coverage/lcov.info
+        fail_ci_if_error: false
 
   lint:
     name: Lint
