@@ -18,7 +18,7 @@ import { assertNotNull } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { formatBookData } from '../../utils';
-import { captureOpeningElement } from '../../utils/focusManager';
+import { captureOpeningElement, clearOpeningElement } from '../../utils/focusManager';
 import { closeStudyGuides, openStudyGuides } from '../actions';
 import StudyguidesPopUp from './StudyGuidesPopUp';
 
@@ -59,6 +59,7 @@ describe('Study Guides button and PopUp', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     dispatch = jest.spyOn(store, 'dispatch');
+    clearOpeningElement('studyguides');
   });
 
   it('closes pop up with close button', async() => {
@@ -136,6 +137,22 @@ describe('Study Guides button and PopUp', () => {
       const closeButton = document.querySelector('[data-testid="close-studyguides-popup"]');
       expect(document.activeElement).toBe(closeButton);
       mockButton.remove();
+      done();
+    }, 10);
+  });
+
+  it('focuses popup when modal opens via query param (no opening element)', (done) => {
+    const document = utils.assertDocument();
+
+    const { root } = renderToDom(<TestContainer services={services} store={store}>
+      <StudyguidesPopUp />
+    </TestContainer>);
+
+    act(() => { store.dispatch(openStudyGuides()); });
+
+    setTimeout(() => {
+      const popup = root.querySelector('[data-testid="studyguides-popup-wrapper"]');
+      expect(document.activeElement).toBe(popup);
       done();
     }, 10);
   });

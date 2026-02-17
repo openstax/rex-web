@@ -10,6 +10,7 @@ import { useModalFocusManagement } from '../../hooks/useModalFocusManagement';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
+import { getOpeningElement } from '../../utils/focusManager';
 import { closePracticeQuestions } from '../actions';
 import * as pqSelectors from '../selectors';
 import ShowPracticeQuestions from './ShowPracticeQuestions';
@@ -36,6 +37,11 @@ const PracticeQuestionsPopup = () => {
   }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch]);
 
   useOnEsc(isPracticeQuestionsOpen, closeAndTrack('esc'));
+  React.useEffect(() => {
+    if (isPracticeQuestionsOpen && popUpRef.current && !getOpeningElement('practicequestions')) {
+      popUpRef.current.focus();
+    }
+  }, [isPracticeQuestionsOpen]);
 
   return isPracticeQuestionsOpen ?
     <Modal
