@@ -6,7 +6,7 @@
     "node": "14.x"
   },
   "dependencies": {
-    "@craco/craco": "<7",
+    "@craco/craco": "^7.1.0",
     "@formatjs/intl-pluralrules": "^5.2.3",
     "@openstax/event-capture-client": "^2.0.2",
     "@openstax/highlighter": "https://github.com/openstax/highlighter#1.16.4b",
@@ -60,7 +60,7 @@
     "start": "./script/start.bash",
     "start:static": "export REACT_APP_ENV=${REACT_APP_ENV:-test} && npm run-script build && npm run-script prerender:local && npm run-script server",
     "clean": "rm -rf ./build",
-    "build": "export DISABLE_NEW_JSX_TRANSFORM=true && npm run-script build:css && npm run-script build:js",
+    "build": "npm run-script build:css && npm run-script build:js",
     "build:css": "lessc --source-map --source-map-include-source ./generic-styles/index.less ./src/content.css",
     "build:js": "export REACT_APP_ENV=${REACT_APP_ENV:-production} && GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} craco build",
     "build:clean": "npm run-script clean && npm run-script build",
@@ -155,7 +155,7 @@
     "pretty": "^2.0.0",
     "progress": "^2.0.3",
     "puppeteer": "^13.7.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "react-test-renderer": "~16.9",
     "resize-observer-polyfill": "^1.5.1",
     "serve-static": "~1.16",
