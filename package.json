@@ -60,7 +60,7 @@
     "start": "./script/start.bash",
     "start:static": "export REACT_APP_ENV=${REACT_APP_ENV:-test} && npm run-script build && npm run-script prerender:local && npm run-script server",
     "clean": "rm -rf ./build",
-    "build": "export DISABLE_NEW_JSX_TRANSFORM=true && npm run-script build:css && npm run-script build:js",
+    "build": "npm run-script build:css && npm run-script build:js",
     "build:css": "lessc --source-map --source-map-include-source ./generic-styles/index.less ./src/content.css",
     "build:js": "export REACT_APP_ENV=${REACT_APP_ENV:-production} && GENERATE_SOURCEMAP=${GENERATE_SOURCEMAP:-true} craco build",
     "build:clean": "npm run-script clean && npm run-script build",

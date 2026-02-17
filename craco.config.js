@@ -6,9 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     webpack: {
       alias: {
-        // ts-utils uses the `exports` package.json options, which is not supported in webpack 4
-        // this can be removed if we update react-scripts
-        '@openstax/ts-utils': '@openstax/ts-utils/dist/cjs'
+        // Webpack 5 (react-scripts 5.x) supports the `exports` field in package.json natively
+        // so we no longer need this alias
       },
     },
     plugins: [{
