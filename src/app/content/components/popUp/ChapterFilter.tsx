@@ -54,10 +54,10 @@ const ChapterTitle = styled.span`
   }
 `;
 
-const chunk = <T extends unknown>(sections: T[]) => {
+function chunk<T>(sections: T[]) {
   const cutoff = Math.max(20, Math.ceil(sections.length / 2));
   return [sections.slice(0, cutoff), sections.slice(cutoff)].filter((arr) => arr.length > 0);
-};
+}
 
 interface ChapterFilterProps {
   ariaLabelItemId?: string;

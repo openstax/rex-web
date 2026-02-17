@@ -6,7 +6,7 @@
     "node": "20.x"
   },
   "dependencies": {
-    "@craco/craco": "<7",
+    "@craco/craco": "^7",
     "@formatjs/intl-pluralrules": "^5.2.3",
     "@openstax/event-capture-client": "^2.0.2",
     "@openstax/highlighter": "https://github.com/openstax/highlighter#1.16.4b",
@@ -153,7 +153,7 @@
     "pretty": "^2.0.0",
     "progress": "^2.0.3",
     "puppeteer": "^13.7.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5",
     "react-test-renderer": "~16.9",
     "resize-observer-polyfill": "^1.5.1",
     "serve-static": "~1.16",
