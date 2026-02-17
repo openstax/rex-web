@@ -1535,7 +1535,7 @@ describe('Page', () => {
       });
 
       // the modal portal renders into document.body
-      const opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      const opened = assertDocument().body.querySelector('[role="dialog"] img');
       expect(opened).toBeTruthy();
       if (!opened) return;
 
@@ -1557,26 +1557,26 @@ describe('Page', () => {
       ReactTestUtils.act(() => {
         img.dispatchEvent(makeClickEvent());
       });
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeTruthy();
 
       // send escape
       ReactTestUtils.act(() => {
         assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
       });
 
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
 
       ReactTestUtils.act(() => {
         img.dispatchEvent(makeClickEvent());
       });
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeTruthy();
 
       // send Esc event
       ReactTestUtils.act(() => {
         assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
       });
 
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
 
     });
 
@@ -1597,7 +1597,7 @@ describe('Page', () => {
       ReactTestUtils.act(() => {
         document.body.dispatchEvent(makeClickEvent());
       });
-      expect(document.body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(document.body.querySelector('[role="dialog"] img')).toBeFalsy();
     });
 
     it('does not open after unmount', async() => {
@@ -1616,7 +1616,7 @@ describe('Page', () => {
       });
 
       // still query document.body
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
     });
 
     it('opens via Enter/Space keydown and ignores other keys', async() => {
@@ -1633,7 +1633,7 @@ describe('Page', () => {
         button.dispatchEvent(enterEvt);
       });
 
-      let opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      let opened = assertDocument().body.querySelector('[role="dialog"] img');
       expect(opened).toBeTruthy();
       expect((enterEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
@@ -1649,7 +1649,7 @@ describe('Page', () => {
         button.dispatchEvent(spaceEvt);
       });
 
-      opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      opened = assertDocument().body.querySelector('[role="dialog"] img');
       expect(opened).toBeTruthy();
       expect((spaceEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
@@ -1658,7 +1658,7 @@ describe('Page', () => {
         assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: ',', bubbles: true }));
       });
 
-      opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      opened = assertDocument().body.querySelector('[role="dialog"] img');
       expect(opened).toBeTruthy();
 
       // Close again
@@ -1674,9 +1674,10 @@ describe('Page', () => {
       });
 
       // should not open or call preventDefault
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
       expect((otherEvt.preventDefault as jest.Mock)).not.toHaveBeenCalled();
     });
+
   });
 
   describe('media modal guard: no <img> inside wrapper', () => {
@@ -1701,7 +1702,7 @@ describe('Page', () => {
       button.dispatchEvent(evt);
 
       // assert nothing opened
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
     });
   });
 
@@ -1727,7 +1728,7 @@ describe('Page', () => {
       ReactTestUtils.act(() => {
         img.dispatchEvent(makeClickEvent());
       });
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeTruthy();
       expect(img.getAttribute('alt')).toBe(null);
 
       // Click the close button
@@ -1741,7 +1742,7 @@ describe('Page', () => {
       }
 
       // Closed
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
       expect(assertDocument().body.querySelector('[aria-label="Close media preview"]')).toBeFalsy();
     });
 
