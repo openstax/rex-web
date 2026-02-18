@@ -327,17 +327,17 @@ describe('Page', () => {
           </div>
         </div>
       `)).toEqual(`<div class="os-figure" id="figure-id1">
-          <figure data-id="figure-id1">
+          <figure data-id="figure-id1" class="ui-has-child-figcaption">
             <span data-alt="Something happens." data-type="media" id="span-id1">
               <button type="button" aria-label="Click to enlarge image of Something happens." class="image-button-wrapper"><img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/hash" width="300" data-original-src="/apps/archive/codeversion/resources/hash"></button>
             </span>
-          </figure>
-          <div class="os-caption-container">
+          <figcaption class="os-caption-container">
             <span class="os-title-label">Figure </span>
             <span class="os-number">1.1</span>
             <span class="os-divider"> </span>
             <span class="os-caption">Some explanation about the image. (credit: someone)</span>
-          </div>
+          </figcaption></figure>
+          
         </div>
 
         <div class="os-table" id="table-id1">
