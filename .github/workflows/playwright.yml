@@ -1,6 +1,9 @@
 name: Playwright
 
-on: [pull_request]
+on:
+  push:
+    branches:
+    - main  # Trigger QA tests only when code is merged into main
 
 defaults:
   run:
