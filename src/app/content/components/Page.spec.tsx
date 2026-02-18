@@ -256,6 +256,32 @@ describe('Page', () => {
       .toEqual('<figure class="ui-has-child-figcaption">FF<figcaption>CC</figcaption></figure>');
     });
 
+    it('moves os-caption-container inside figure as figcaption', async() => {
+      expect(await htmlHelper(
+        '<div class="os-figure">' +
+          '<figure><span data-type="media">content</span></figure>' +
+          '<div class="os-caption-container"><span class="os-title-label">Figure </span><span class="os-number">1.1</span></div>' +
+        '</div>'
+      )).toEqual(
+        '<div class="os-figure">' +
+          '<figure class="ui-has-child-figcaption"><span data-type="media">content</span>' +
+          '<figcaption class="os-caption-container"><span class="os-title-label">Figure </span><span class="os-number">1.1</span></figcaption></figure>' +
+        '</div>'
+      );
+    });
+
+    it('does not move os-caption-container when there is no figure element', async() => {
+      expect(await htmlHelper(
+        '<div class="os-figure">' +
+          '<div class="os-caption-container"><span>Caption</span></div>' +
+        '</div>'
+      )).toEqual(
+        '<div class="os-figure">' +
+          '<div class="os-caption-container"><span>Caption</span></div>' +
+        '</div>'
+      );
+    });
+
     it('numbers lists that have a start attribute', async() => {
       expect(await htmlHelper('<ol start="123"><li>item</li></ol>'))
       .toEqual('<ol start="123" style="counter-reset: list-item 122"><li>item</li></ol>');
