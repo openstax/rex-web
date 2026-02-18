@@ -123,12 +123,14 @@ function tweakFigures(rootEl: HTMLElement) {
 
   rootEl.querySelectorAll('.os-figure > .os-caption-container').forEach((captionDiv) => {
     const osFigure = assertNotNull(captionDiv.parentElement, 'caption parent should be .os-figure');
-    const figure = osFigure.querySelector('figure');
+    const figure = Array.from(osFigure.children).find((el) => el.matches('figure'));
     if (!figure) { return; }
 
     const figcaption = captionDiv.ownerDocument.createElement('figcaption');
     figcaption.className = 'os-caption-container';
-    figcaption.innerHTML = captionDiv.innerHTML;
+    while (captionDiv.firstChild) {
+      figcaption.appendChild(captionDiv.firstChild);
+    }
 
     figure.appendChild(figcaption);
     figure.classList.add('ui-has-child-figcaption');
