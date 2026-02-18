@@ -28,37 +28,37 @@ async def test_highlight_not_saved_in_show_hide_solution(
     await home.click_continue_login()
 
     # THEN: Book page with solution opens and text inside is highlighted but not saved
-
     await chrome_page.keyboard.press("Escape")
 
-    # THEN: Solution dialog opens and text gets highlighted
+    await home.clear_all_blockers()
 
+    # THEN: Solution dialog opens and text gets highlighted
     await home.click_show_hide_solution_link()
 
-    await home.click_text_in_solution_block()
+    await home.clear_all_blockers()
+
+    # THEN: Double click text in solution dropdown
+    await chrome_page.locator("#fs-id1165134108431").dblclick()
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
 
     # THEN: Solution dialog closes
-
     await home.click_show_hide_solution_link()
 
     assert not await home.highlight_box_is_visible()
 
     # THEN: Solution dialog opens
-
     await home.click_show_hide_solution_link()
 
     assert not await home.highlight_box_is_visible()
 
-    await home.click_text_in_solution_block()
+    # THEN: Double click text in solution dropdown
+    await chrome_page.locator("#fs-id1165134108431").dblclick()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
@@ -66,7 +66,6 @@ async def test_highlight_not_saved_in_show_hide_solution(
     await home.fill_highlight_box_note_field("autotest highlight")
 
     # THEN: Solutions dialog closes/reopens
-
     await home.click_show_hide_solution_link()
 
     await home.click_show_hide_solution_link()
@@ -74,7 +73,6 @@ async def test_highlight_not_saved_in_show_hide_solution(
     assert await home.highlight_infobox.is_visible()
 
     # THEN: Delete existing highlight
-
     await home.click_highlights_option()
 
     await home.click_discard_changes_button()
@@ -107,17 +105,18 @@ async def test_highlight_saved_in_show_hide_solution(
 
     await home.click_continue_login()
 
-    # THEN: Book page with solution opens and text inside is highlighted and saved
-
     await chrome_page.keyboard.press("Escape")
 
+    # THEN: Book page with solution opens and text inside is highlighted and saved
     await home.click_show_hide_solution_link()
 
-    await home.click_text_in_solution_block()
+    await home.clear_all_blockers()
+
+    # THEN: Double click text in solution dropdown
+    await chrome_page.locator("#fs-id1165134108431").dblclick()
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
@@ -129,16 +128,15 @@ async def test_highlight_saved_in_show_hide_solution(
     assert await home.small_highlighted_note_box_is_visible()
 
     # THEN: Solutions dialog closes
-
     await home.click_show_hide_solution_link()
 
     assert not await home.small_highlighted_note_box_is_visible()
 
     # THEN: Solutions dialog opens
-
     await home.click_show_hide_solution_link()
 
-    await home.select_text_block_in_solution()
+    # THEN: Selects a text block in the solution dropdown
+    await chrome_page.locator("#fs-id1165134108431").select_text()
     await chrome_page.keyboard.press("Enter")
 
     assert (
@@ -151,7 +149,6 @@ async def test_highlight_saved_in_show_hide_solution(
     assert not await home.small_highlighted_note_box_is_visible()
 
     # THEN: Delete existing highlight
-
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
     await home.click_highlights_option_page_menu_delete()
