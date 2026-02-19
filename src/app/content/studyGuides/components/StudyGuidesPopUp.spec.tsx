@@ -59,6 +59,9 @@ describe('Study Guides button and PopUp', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     dispatch = jest.spyOn(store, 'dispatch');
+  });
+
+  afterEach(() => {
     clearOpeningElement('studyguides');
   });
 
