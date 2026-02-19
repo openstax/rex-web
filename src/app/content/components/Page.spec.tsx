@@ -256,6 +256,32 @@ describe('Page', () => {
       .toEqual('<figure class="ui-has-child-figcaption">FF<figcaption>CC</figcaption></figure>');
     });
 
+    it('moves os-caption-container inside figure as figcaption', async() => {
+      expect(await htmlHelper(
+        '<div class="os-figure">' +
+          '<figure><span data-type="media">content</span></figure>' +
+          '<div class="os-caption-container"><span class="os-title-label">Figure </span><span class="os-number">1.1</span></div>' +
+        '</div>'
+      )).toEqual(
+        '<div class="os-figure">' +
+          '<figure class="ui-has-child-figcaption"><span data-type="media">content</span>' +
+          '<figcaption class="os-caption-container"><span class="os-title-label">Figure </span><span class="os-number">1.1</span></figcaption></figure>' +
+        '</div>'
+      );
+    });
+
+    it('does not move os-caption-container when there is no figure element', async() => {
+      expect(await htmlHelper(
+        '<div class="os-figure">' +
+          '<div class="os-caption-container"><span>Caption</span></div>' +
+        '</div>'
+      )).toEqual(
+        '<div class="os-figure">' +
+          '<div class="os-caption-container"><span>Caption</span></div>' +
+        '</div>'
+      );
+    });
+
     it('numbers lists that have a start attribute', async() => {
       expect(await htmlHelper('<ol start="123"><li>item</li></ol>'))
       .toEqual('<ol start="123" style="counter-reset: list-item 122"><li>item</li></ol>');
@@ -327,17 +353,17 @@ describe('Page', () => {
           </div>
         </div>
       `)).toEqual(`<div class="os-figure" id="figure-id1">
-          <figure data-id="figure-id1">
+          <figure data-id="figure-id1" class="ui-has-child-figcaption">
             <span data-alt="Something happens." data-type="media" id="span-id1">
               <button type="button" aria-label="Click to enlarge image of Something happens." class="image-button-wrapper"><img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/hash" width="300" data-original-src="/apps/archive/codeversion/resources/hash"></button>
             </span>
-          </figure>
-          <div class="os-caption-container">
+          <figcaption class="os-caption-container">
             <span class="os-title-label">Figure </span>
             <span class="os-number">1.1</span>
             <span class="os-divider"> </span>
             <span class="os-caption">Some explanation about the image. (credit: someone)</span>
-          </div>
+          </figcaption></figure>
+          
         </div>
 
         <div class="os-table" id="table-id1">
