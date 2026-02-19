@@ -195,7 +195,7 @@ export default styled(MainContent)`
 
   /* Make inner figure transparent in layout so figcaption's table-caption
      applies to the .os-figure table */
-  #${MAIN_CONTENT_ID} .os-figure > figure {
+  #${MAIN_CONTENT_ID} .os-figure > figure:not([data-orient="vertical"]) {
     display: contents;
 
     > figcaption.os-caption-container {
