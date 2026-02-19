@@ -4,13 +4,13 @@ from e2e_tests.e2e.ui.pages.home import HomeRex
 
 
 @pytest.mark.asyncio
-async def test_subjects_homepage(chrome_page, base_url):
+async def test_subjects_homepage(chrome_page_unlogged, base_url):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
     # WHEN: The Home page is fully loaded
-    await chrome_page.goto(base_url)
-    home = HomeRex(chrome_page)
+    await chrome_page_unlogged.goto(base_url)
+    home = HomeRex(chrome_page_unlogged)
 
     assert await home.subjects_page_menu()
 
@@ -43,7 +43,7 @@ async def test_subjects_homepage(chrome_page, base_url):
 
     await home.click_learn_about_openstax_link()
 
-    assert f"{base_url}/about" == chrome_page.url
+    assert f"{base_url}/about" == chrome_page_unlogged.url
     assert (
         "Who we are" in await home.about_page.inner_text()
         and "What we do" in await home.about_page.inner_text()

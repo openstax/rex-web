@@ -5,13 +5,13 @@ from e2e_tests.e2e.ui.pages.home import HomeRex
 
 
 @pytest.mark.asyncio
-async def test_subjects_footer(chrome_page, base_url):
+async def test_subjects_footer(chrome_page_unlogged, base_url):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
     # WHEN: The Home page is fully loaded
-    await chrome_page.goto(base_url)
-    home = HomeRex(chrome_page)
+    await chrome_page_unlogged.goto(base_url)
+    home = HomeRex(chrome_page_unlogged)
 
     await home.click_subjects_page_menu()
 

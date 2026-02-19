@@ -8,23 +8,23 @@ from e2e_tests.e2e.ui.pages.home import HomeRex
     "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
 )
 async def test_login_to_highlight_dialog(
-    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+    chrome_page_unlogged, base_url, book_slug, page_slug, rex_user, rex_password
 ):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
     # WHEN: The Home page is fully loaded
-    await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
-    home = HomeRex(chrome_page)
+    await chrome_page_unlogged.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
+    home = HomeRex(chrome_page_unlogged)
 
     # THEN: User highlights text without being logged in
-    await chrome_page.keyboard.press("Escape")
+    await chrome_page_unlogged.keyboard.press("Escape")
 
     await home.double_click_text()
 
     assert await home.small_login_box.is_visible()
 
-    await chrome_page.keyboard.press("Escape")
+    await chrome_page_unlogged.keyboard.press("Escape")
 
     assert not await home.small_login_box.is_visible()
 
@@ -43,15 +43,15 @@ async def test_login_to_highlight_dialog(
 
     await home.click_continue_login()
 
-    await chrome_page.keyboard.press("Escape")
+    await chrome_page_unlogged.keyboard.press("Escape")
 
-    assert page_slug in chrome_page.url
+    assert page_slug in chrome_page_unlogged.url
 
     await home.double_click_text()
 
     assert await home.highlight_infobox.is_visible()
 
-    await chrome_page.keyboard.press("Enter")
+    await chrome_page_unlogged.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 

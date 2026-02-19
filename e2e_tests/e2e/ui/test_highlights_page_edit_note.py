@@ -17,13 +17,6 @@ async def test_highlights_page_edit_note(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, highlight box appears and note can be edited
 
     await chrome_page.keyboard.press("Escape")

@@ -17,13 +17,6 @@ async def test_highlight_editbox_opens_on_one_click(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, highlight infobox and edit box appears
 
     await chrome_page.keyboard.press("Escape")
@@ -32,7 +25,6 @@ async def test_highlight_editbox_opens_on_one_click(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
@@ -64,13 +56,6 @@ async def test_highlight_editbox_remains_open_when_clicked_inside(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, highlight infobox and edit box appears
 
     await chrome_page.keyboard.press("Escape")
@@ -79,7 +64,6 @@ async def test_highlight_editbox_remains_open_when_clicked_inside(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
@@ -100,6 +84,8 @@ async def test_highlight_editbox_remains_open_when_clicked_inside(
     )
 
     # THEN: Delete the created highlight
+
+    await chrome_page.keyboard.press("Escape")
 
     await home.click_highlights_option_page_menu()
 
