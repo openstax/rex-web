@@ -201,6 +201,8 @@ export default styled(MainContent)`
 
     > figcaption.os-caption-container {
       text-align: left;
+      padding: 1rem 0 0;
+      margin-bottom: 0;
     }
   }
 
