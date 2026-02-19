@@ -220,7 +220,6 @@ function ActiveEditCard({
   const ref = React.useRef<HTMLElement>(null);
 
   useTrapTabNavigation(ref, editingAnnotation);
-  useDisableContentTabbing(props.shouldFocusCard);
 
   return (
     <div ref={ref}>
