@@ -58,7 +58,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { ButtonGroup } from '../../../components/Button';
-import { useTrapTabNavigation, useDisableContentTabbing } from '../../../reactUtils';
+import { useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import {
