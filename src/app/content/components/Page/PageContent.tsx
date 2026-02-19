@@ -193,11 +193,14 @@ export default styled(MainContent)`
     margin-bottom: 5px; /* fix double scrollbar bug */
   }
 
-  /* override figcaption from table-caption to block so it spans the full
-     figure width instead of being constrained to the inner table */
-  #${MAIN_CONTENT_ID} .os-figure > figure > figcaption.os-caption-container {
-    display: block;
-    text-align: left;
+  /* Make inner figure transparent in layout so figcaption's table-caption
+     applies to the .os-figure table */
+  #${MAIN_CONTENT_ID} .os-figure > figure {
+    display: contents;
+
+    > figcaption.os-caption-container {
+      text-align: left;
+    }
   }
 
   .image-button-wrapper {

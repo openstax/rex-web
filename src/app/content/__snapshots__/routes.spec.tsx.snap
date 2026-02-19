@@ -451,6 +451,14 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-bottom: 5px;
 }
 
+.c16 #main-content .os-figure > figure {
+  display: contents;
+}
+
+.c16 #main-content .os-figure > figure > figcaption.os-caption-container {
+  text-align: left;
+}
+
 .c16 .image-button-wrapper {
   border: none;
   padding: 0;
