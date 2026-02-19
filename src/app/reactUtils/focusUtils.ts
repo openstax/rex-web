@@ -56,27 +56,37 @@ function ringAdd(arr: unknown[], a: number, b: number) {
 // Creates a tab navigation trap that cycles focus within container elements
 // Based on https://hidde.blog/using-javascript-to-trap-focus-in-an-element/
 export function createTrapTab(...elements: HTMLElement[]) {
-  const focusableElements = elements
-    .filter((c) => c && 'querySelectorAll' in c) // in some tests, this gets garbage
-    .map((container) => {
-      const contents = Array.from(
-        container.querySelectorAll<HTMLElement>(focusableItemQuery)
-      );
+  const containers = elements
+    .filter((c) => c && 'querySelectorAll' in c); // in some tests, this gets garbage
 
-      return {
-        container,
-        firstEl: contents[0],
-        lastEl: contents[contents.length - 1],
-      };
-    })
-    .filter((c) => c.firstEl);
-
-  if (focusableElements.length === 0) {
+  if (containers.length === 0) {
     return () => null;
+  }
+
+  function queryFocusable() {
+    return containers
+      .map((container) => {
+        const contents = Array.from(
+          container.querySelectorAll<HTMLElement>(focusableItemQuery)
+        );
+
+        return {
+          container,
+          firstEl: contents[0],
+          lastEl: contents[contents.length - 1],
+        };
+      })
+      .filter((c) => c.firstEl);
   }
 
   return (event: KeyboardEvent) => {
     if (event.key !== 'Tab') {
+      return;
+    }
+
+    const focusableElements = queryFocusable();
+
+    if (focusableElements.length === 0) {
       return;
     }
 
