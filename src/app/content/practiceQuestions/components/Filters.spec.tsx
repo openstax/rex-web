@@ -6,7 +6,12 @@ import TestContainer from '../../../../test/TestContainer';
 import { DropdownToggle } from '../../../components/Dropdown';
 import { Store } from '../../../types';
 import { receiveBook } from '../../actions';
-import { StyledDetails, StyledSectionItem, StyledSummary } from '../../components/popUp/ChapterFilter';
+import {
+  StyledChapterFilterItemWrapper,
+  StyledDetailsContainer,
+  StyledSectionItem,
+  StyledSummaryButton,
+} from '../../components/popUp/ChapterFilter';
 import { LocationFiltersWithChildren } from '../../components/popUp/types';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
@@ -108,28 +113,30 @@ describe('Filters', () => {
       chapterFilterToggle.props.onClick();
     });
 
-    const [details1, details2] = component.root.findAllByType(StyledDetails);
-    expect(details1.props.open).toEqual(false);
-    expect(details2.props.open).toEqual(true);
+    const [details1, details2] = component.root.findAllByType(StyledDetailsContainer);
+    const [wrapper2] = details2.findAllByType(StyledChapterFilterItemWrapper);
+    expect(wrapper2.props['aria-hidden']).toEqual(false);
 
     const mockPreventDefault = jest.fn();
 
     renderer.act(() => {
-      const summary = details2.findByType(StyledSummary);
+      const summary = details2.findByType(StyledSummaryButton);
       summary.props.onClick({ preventDefault: mockPreventDefault });
     });
-
-    expect(details1.props.open).toEqual(false);
-    expect(details2.props.open).toEqual(false);
 
     renderer.act(() => {
-      const summary = details1.findByType(StyledSummary);
+      const summary = details1.findByType(StyledSummaryButton);
       summary.props.onClick({ preventDefault: mockPreventDefault });
     });
 
+    const [wrapper1] = details1.findAllByType(StyledChapterFilterItemWrapper);
+    const [updatedWrapper2] = details2.findAllByType(StyledChapterFilterItemWrapper);
+
+    expect(wrapper1.props.hidden).toEqual(false);
+    expect(wrapper1.props['aria-hidden']).toEqual(false);
+    expect(updatedWrapper2.props.hidden).toEqual(true);
+    expect(updatedWrapper2.props['aria-hidden']).toEqual(true);
     expect(mockPreventDefault).toHaveBeenCalled();
-    expect(details1.props.open).toEqual(true);
-    expect(details2.props.open).toEqual(false);
 
     renderer.act(() => {
       const [section1] = details1.findAllByType(StyledSectionItem);
@@ -170,15 +177,19 @@ describe('Filters', () => {
       chapterFilterToggle.props.onClick();
     });
 
-    const [details1] = component.root.findAllByType(StyledDetails);
-
     renderer.act(() => {
-      const summary = details1.findByType(StyledSummary);
-      summary.props.onClick({ preventDefault: jest.fn() });
+      const [details1] = component.root.findAllByType(StyledDetailsContainer);
+      const [chapterWrapper] = details1.findAllByType(StyledChapterFilterItemWrapper);
+      const isHidden = chapterWrapper.props.hidden ?? chapterWrapper.props['aria-hidden'];
+      if (isHidden) {
+        const summary = details1.findByType(StyledSummaryButton);
+        summary.props.onClick({ preventDefault: jest.fn() });
+      }
     });
 
     renderer.act(() => {
-      const [section1] = details1.findAllByType(StyledSectionItem);
+      const [details1AfterOpen] = component.root.findAllByType(StyledDetailsContainer);
+      const [section1] = details1AfterOpen.findAllByType(StyledSectionItem);
       section1.props.onClick();
     });
 

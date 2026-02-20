@@ -491,7 +491,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
             <button
               aria-controls="practice-filter-chapter"
               aria-expanded={false}
-              aria-label="Filter PQ by Chapter & Section"
+              aria-label="Select Practice Questions by Chapter & Section"
               className="c12 c13 c14 c15"
               data-analytics-label="Filter PQ by Chapter & Section"
               onClick={[Function]}

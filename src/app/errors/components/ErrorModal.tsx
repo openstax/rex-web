@@ -11,6 +11,7 @@ import { AppState, Dispatch } from '../../types';
 import { hideErrorDialog } from '../actions';
 import * as select from '../selectors';
 import ErrorIdList from './ErrorIdList';
+import { useModalFocusManagement } from '../../content/hooks/useModalFocusManagement';
 
 const BodyErrorText = styled.div`
   padding: ${modalPadding * 0.5}rem 0;
@@ -26,15 +27,21 @@ interface PropTypes {
 }
 
 const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
+  const { closeButtonRef } = useModalFocusManagement({ modalId: 'errordialog', isOpen: show });
+
   if (!show) { return null; }
 
   return (
-    <Modal className='error-modal' heading='i18n:error:boundary:heading' onModalClose={clearError}>
+    <Modal
+      className='error-modal'
+      heading='i18n:error:boundary:heading'
+      onModalClose={clearError}
+    >
       <Body >
         <FormattedMessage id='i18n:error:boundary:sub-heading'>
           {(msg) => <BodyHeading id='modal-title'>{msg}</BodyHeading>}
         </FormattedMessage>
-        <BodyWithLink values={{supportCenterLink}}/>
+        <BodyWithLink values={{ supportCenterLink }} />
         <ErrorIdList ids={stack} />
       </Body>
       <Footer>
@@ -43,7 +50,8 @@ const ErrorModal = ({ show, clearError, stack }: PropTypes) => {
             data-testid='clear-error'
             onClick={clearError}
             variant='primary'
-            >{msg}
+            ref={closeButtonRef}
+          >{msg}
           </Button>}
         </FormattedMessage>
       </Footer>
