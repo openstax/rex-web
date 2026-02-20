@@ -15,9 +15,13 @@ Array [
   gap: 1vh;
 }
 
+.c1.c1.c1 {
+  z-index: 71;
+}
+
 <div
     aria-live="polite"
-    className="c0"
+    className="c0 c1"
   />,
   .c4 {
   display: -webkit-box;
@@ -239,9 +243,13 @@ Array [
   gap: 1vh;
 }
 
+.c1.c1.c1 {
+  z-index: 71;
+}
+
 <div
     aria-live="polite"
-    className="c0"
+    className="c0 c1"
   />,
   .c1 {
   min-width: 20rem;
