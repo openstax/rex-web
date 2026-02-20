@@ -23,7 +23,6 @@ import createUserLoader from './gateways/createUserLoader';
 import createImageCDNUtils from './gateways/createImageCDNUtils';
 import { registerGlobalAnalytics } from './helpers/analytics';
 import loadFont from './helpers/loadFont';
-import loadOptimize from './helpers/loadOptimize';
 import { initializeMathJaxMenuPositioning } from './helpers/mathjaxMenuPosition';
 import pollUpdates from './helpers/pollUpdates';
 import Sentry from './helpers/Sentry';
@@ -122,9 +121,6 @@ initializeMathJaxMenuPositioning(window);
 // start long running processes
 pollUpdates(app.store);
 
-// load optimize
-loadOptimize(window, app.store);
-
 function cookiesBlocked(e: Error) {
   return e instanceof DOMException && ['SecurityError', 'NotSupportedError'].includes(e.name);
 }
@@ -191,13 +187,36 @@ app.services.userLoader.getCurrentUser().then((user) => {
     window.cookieYesActive = true;
   });
 
-  /* eslint-disable no-var, @typescript-eslint/no-non-null-assertion */
-  // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
-    })(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
+  async function shouldSkipGTM() {
+    const pathMatch = window.location.pathname.match(/\/portal\/([^/]+)/);
+    if (pathMatch) {
+      const portalName = pathMatch[1];
+      try {
+        const schoolData = await app.services.osWebLoader.getSchoolDataFromPortalName(portalName);
+        if (schoolData?.industry === 'K12') {
+          return true;
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error('Error fetching school data', e);
+      }
+    }
+    return false;
+  }
+
+  (async() => {
+    const skipGTM = await shouldSkipGTM();
+    if (!skipGTM) {
+      /* eslint-disable no-var, @typescript-eslint/no-non-null-assertion */
+      // GTM snippet slightly modified to assume f.parentNode is not null and with const types so ts doesn't complain
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode!.insertBefore(j,f);
+        })(window,document,'script' as const,'dataLayer' as const,'GTM-TFCS56G');
+    }
+  })();
+
   /* eslint-enable no-var, @typescript-eslint/no-non-null-assertion */
 
   // The code below similar logic to the GTM script but to insert the CookieYes script instead

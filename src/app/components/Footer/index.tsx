@@ -1,5 +1,8 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import { useDispatch } from 'react-redux';
+import { useAnalyticsEvent } from '../../../helpers/analytics';
+import { openKeyboardShortcutsMenu as openKeyboardShortcutsMenuAction } from '../../content/keyboardShortcuts/actions';
 import RiceWhiteLogo from '../../../assets/rice-logo-white.png';
 import htmlMessage from '../../components/htmlMessage';
 import { isVerticalNavOpenConnector } from '../../content/components/utils/sidebar';
@@ -9,6 +12,8 @@ import * as guards from '../../guards';
 import * as Styled from './styled';
 import { MessageEvent } from '@openstax/types/lib.dom';
 import { useSelector } from 'react-redux';
+import { captureOpeningElement } from '../../content/utils/focusManager';
+import { useModalFocusManagement } from '../../content/hooks/useModalFocusManagement';
 
 const fbUrl = 'https://www.facebook.com/openstax';
 const twitterUrl = 'https://twitter.com/openstax';
@@ -62,7 +67,7 @@ const SocialIconMessage: React.FunctionComponent<{
   Icon: React.ComponentType;
 }> = ({ id, href, Icon }) => (
   <Styled.SocialIcon
-    aria-label={useIntl().formatMessage({ id })}
+    aria-label={`OpenStax on ${useIntl().formatMessage({ id })}`}
     href={href}
     target='_blank'
     rel='noopener'
@@ -71,13 +76,39 @@ const SocialIconMessage: React.FunctionComponent<{
   </Styled.SocialIcon>
 );
 
-function LinkList({children}: React.PropsWithChildren<{}>) {
+function LinkList({ children }: React.PropsWithChildren<{}>) {
   return (
     <Styled.LinkListWrapper>
       {React.Children.toArray(children).map((c, i) => <li key={i}>{c}</li>)}
     </Styled.LinkListWrapper>
   );
 }
+
+const OpenKeyboardShortcutsLink = () => {
+  const dispatch = useDispatch();
+  const trackOpenCloseKS = useAnalyticsEvent('openCloseKeyboardShortcuts');
+
+  const openKeyboardShortcutsMenu = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    captureOpeningElement('keyboardshortcuts');
+    dispatch(openKeyboardShortcutsMenuAction());
+    trackOpenCloseKS();
+  };
+
+  return (
+    <FormattedMessage id='i18n:a11y:keyboard-shortcuts:heading'>
+      {(txt) => (
+        <Styled.FooterButton
+          type="button"
+          onClick={openKeyboardShortcutsMenu}
+          data-testid="shortcut-link"
+        >
+          {txt}
+        </Styled.FooterButton>
+      )}
+    </FormattedMessage>
+  );
+};
 
 const Column1 = () => (
   <Styled.Column1>
@@ -97,6 +128,7 @@ const Column1 = () => (
         target='_blank'
         rel='noopener'
       />
+      <OpenKeyboardShortcutsLink />
     </LinkList>
   </Styled.Column1>
 );
@@ -223,7 +255,7 @@ export function ContactDialog({
 }: {
   isOpen: boolean;
   close: () => void;
-  contactFormParams?: {key: string; value: string}[];
+  contactFormParams?: { key: string; value: string }[];
   className?: string;
 }) {
   const contactFormUrl = React.useMemo(() => {
@@ -231,7 +263,7 @@ export function ContactDialog({
 
     if (contactFormParams !== undefined) {
       const params = contactFormParams
-        .map(({key, value}) => encodeURIComponent(`${key}=${value}`))
+        .map(({ key, value }) => encodeURIComponent(`${key}=${value}`))
         .map((p) => `body=${p}`)
         .join('&');
 
@@ -240,8 +272,15 @@ export function ContactDialog({
 
     return formUrl;
   }, [contactFormParams]);
+  const { closeButtonRef } = useModalFocusManagement({ modalId: 'contactdialog', isOpen });
+
   return !isOpen ? null : (
-    <Styled.ContactDialog className={className} onModalClose={close} heading='i18n:footer:column1:contact-us'>
+    <Styled.ContactDialog
+      className={className}
+      onModalClose={close}
+      heading='i18n:footer:column1:contact-us'
+      closeButtonRef={closeButtonRef}
+    >
       <iframe id='contact-us' title='contact-us' src={contactFormUrl} />
     </Styled.ContactDialog>
   );
@@ -256,7 +295,7 @@ export function useContactDialog() {
     () => {
       const win = window;
 
-      const closeOnSubmit = ({data}: MessageEvent) => {
+      const closeOnSubmit = ({ data }: MessageEvent) => {
         if (data === 'CONTACT_FORM_SUBMITTED') {
           close();
         }
@@ -274,13 +313,16 @@ export function useContactDialog() {
 const PortalColumn2 = ({ portalName }: { portalName: string }) => {
   const { isOpen, open, close } = useContactDialog();
   const contactFormParams = [
-    {key: 'source_url', value: window?.location.href},
+    { key: 'source_url', value: window?.location.href },
   ].filter((p): p is { key: string; value: string } => !!p.value);
 
   return (
     <Styled.Column2>
       <LinkList>
-        <Styled.FooterButton onClick={open}>
+        <Styled.FooterButton onClick={() => {
+          captureOpeningElement('contactdialog');
+          open();
+        }}>
           <BareMessage id='i18n:footer:column1:contact-us' />
         </Styled.FooterButton>
         <FooterLinkMessage href={`/${portalName}/tos`} id='i18n:footer:column3:terms' />

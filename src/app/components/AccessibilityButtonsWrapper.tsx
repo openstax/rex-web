@@ -7,7 +7,8 @@ import { openKeyboardShortcutsMenu as openKeyboardShortcutsMenuAction } from '..
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Provider } from '../context/SkipToContent';
 import { scrollTo } from '../domUtils';
-import HiddenLink, {HiddenButton} from './HiddenLink';
+import HiddenLink, { HiddenButton } from './HiddenLink';
+import { captureOpeningElement } from '../content/utils/focusManager';
 
 const OpenKeyboardShortcutsMenuLink = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const OpenKeyboardShortcutsMenuLink = () => {
 
   const openKeyboardShortcutsMenu = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
+    captureOpeningElement('keyboardshortcuts');
     dispatch(openKeyboardShortcutsMenuAction());
     trackOpenCloseKS();
   };
@@ -29,7 +31,7 @@ export default class AccessibilityButtonsWrapper extends Component {
   public mainContent: HTMLDivElement | undefined;
 
   public render() {
-    return <Provider value={{registerMainContent: this.registerMainContent}}>
+    return <Provider value={{ registerMainContent: this.registerMainContent }}>
       <FormattedMessage id='i18n:a11y:skipToContent'>
         {(txt) => <HiddenLink onClick={this.scrollToTarget} href={`#${MAIN_CONTENT_ID}`}>{txt}</HiddenLink>}
       </FormattedMessage>

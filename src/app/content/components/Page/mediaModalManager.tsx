@@ -9,8 +9,9 @@ import {
   HTMLImageElement,
 } from '@openstax/types/lib.dom';
 import { assertDocument } from '../../../utils';
+import { captureOpeningElement, clearOpeningElement, getOpeningElement } from '../../utils/focusManager';
 
-function createInteractionHandler(open: (content: ReactNode) => void) {
+function createInteractionHandler(open: (triggerButton: HTMLButtonElement) => void) {
   return (e: MouseEvent | KeyboardEvent) => {
     const target = e.target as HTMLElement;
 
@@ -26,23 +27,16 @@ function createInteractionHandler(open: (content: ReactNode) => void) {
     const img = button.querySelector('img') as HTMLImageElement | null;
     if (!img) return;
 
-    open(
-      <img
-        tabIndex={0}
-        src={img.src}
-        alt={img.alt || ''}
-        width={img.width}
-        height={img.height}
-      />
-    );
+    open(button);
   };
 }
 
 function createMediaModalPortal() {
-  let setModalContent: ((content: ReactNode) => void) | null = null;
+  let setModalContent: ((triggerButton: HTMLButtonElement) => void) | null = null;
 
-  const open = (content: ReactNode) => {
-    setModalContent?.(content);
+  const open = (triggerButton: HTMLButtonElement) => {
+    captureOpeningElement('mediamodal');
+    setModalContent?.(triggerButton);
   };
 
   const MediaModalPortal: React.FC = () => {
@@ -50,7 +44,19 @@ function createMediaModalPortal() {
     const [modalContent, setContent] = React.useState<ReactNode>(null);
 
     useEffect(() => {
-      setModalContent = (content) => {
+      setModalContent = (button) => {
+        const img = button.querySelector('img') as HTMLImageElement | null;
+        if (!img) return;
+
+        const content = (
+          <img
+            src={img.src}
+            alt={img.alt || ''}
+            width={img.width}
+            height={img.height}
+          />
+        );
+
         setContent(content);
         setIsOpen(true);
       };
@@ -59,24 +65,33 @@ function createMediaModalPortal() {
       };
     }, []);
 
+    const handleClose = React.useCallback(() => {
+      setIsOpen(false);
+      const openingElement = getOpeningElement('mediamodal');
+      if (openingElement) {
+        openingElement.focus();
+        clearOpeningElement('mediamodal');
+      }
+    }, []);
+
     useEffect(() => {
       if (!isOpen || typeof document === 'undefined') return;
       const doc = assertDocument();
       const onKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape' || e.key === 'Esc') {
-          setIsOpen(false);
+          handleClose();
         }
       };
       doc.addEventListener('keydown', onKeyDown);
       return () => {
         doc.removeEventListener('keydown', onKeyDown);
       };
-    }, [isOpen]);
+    }, [isOpen, handleClose]);
 
-  if (typeof document === 'undefined' || !document?.body) return null;
+    if (typeof document === 'undefined' || !document?.body) return null;
 
     return createPortal(
-      <MediaModal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+      <MediaModal isOpen={isOpen} onClose={handleClose}>
         {modalContent}
       </MediaModal>,
       document.body
@@ -86,7 +101,7 @@ function createMediaModalPortal() {
   return { open, MediaModalPortal };
 }
 
-function createListeners(open: (content: ReactNode) => void) {
+function createListeners(open: (triggerButton: HTMLButtonElement) => void) {
   let container: HTMLElement | null = null;
   const handleInteraction = createInteractionHandler(open);
 
@@ -97,7 +112,7 @@ function createListeners(open: (content: ReactNode) => void) {
   };
 
   const detach = () => {
-    if (!container ) return;
+    if (!container) return;
     container.removeEventListener('click', handleInteraction);
     container.removeEventListener('keydown', handleInteraction);
   };

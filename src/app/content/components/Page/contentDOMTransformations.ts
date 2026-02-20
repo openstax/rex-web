@@ -120,6 +120,23 @@ function tweakFigures(rootEl: HTMLElement) {
     parent.classList.add('ui-has-child-figcaption');
     parent.appendChild(el);
   });
+
+  rootEl.querySelectorAll('.os-figure > .os-caption-container').forEach((captionDiv) => {
+    const osFigure = assertNotNull(captionDiv.parentElement, 'caption parent should be .os-figure');
+    const figure = Array.from(osFigure.children).find((el) => el.matches('figure'));
+    if (!figure) { return; }
+
+    const figcaption = captionDiv.ownerDocument.createElement('figcaption');
+    figcaption.className = 'os-caption-container';
+    while (captionDiv.firstChild) {
+      figcaption.appendChild(captionDiv.firstChild);
+    }
+
+    figure.appendChild(figcaption);
+    figure.classList.add('ui-has-child-figcaption');
+
+    captionDiv.remove();
+  });
 }
 
 function optimizeImages(rootEl: HTMLElement, services: AppServices & MiddlewareAPI) {

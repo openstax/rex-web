@@ -156,6 +156,7 @@ const FiltersList = ({
   colorDataAnalyticsLabel,
   colorLabelKey,
 }: FiltersListProps) => {
+  const intl = useIntl();
 
   const onRemoveChapter = (location: LinkedArchiveTreeNode) => {
     setFilters({
@@ -173,7 +174,12 @@ const FiltersList = ({
 
   return <>
     <StatusDiv role='status'>{statusMessage}</StatusDiv>
-    <ul className={className} aria-live='polite' aria-atomic='true'>
+    <ul
+      className={className}
+      aria-live='polite'
+      aria-atomic='true'
+      aria-label={intl.formatMessage({id: 'i18n:highlighting:filters:applied-filters:aria-label'})}
+    >
       {Array.from(locationFilters).map(([locationId, location]) => selectedLocationFilters.has(locationId) &&
       <FiltersListChapter
         key={locationId}
