@@ -4,6 +4,8 @@ from e2e_tests.e2e.ui.pages.home import HomeRex
 
 import requests
 
+from playwright.async_api import TimeoutError
+
 
 @pytest.mark.asyncio
 async def test_book_opens(chrome_page, base_url):
@@ -15,42 +17,33 @@ async def test_book_opens(chrome_page, base_url):
     home = HomeRex(chrome_page)
 
     # THEN: Book details page opens
-    if "staging" in chrome_page.url:
-        async with chrome_page.expect_popup() as popup_info:
-            await home.click_book_cover_link()
+    async with chrome_page.expect_popup() as popup_info:
+        await home.click_book_cover_link()
 
-        new_tab = await popup_info.value
-        await new_tab.wait_for_load_state()
+    new_tab = await popup_info.value
+    await new_tab.wait_for_load_state()
 
-        # THEN: Books details page opens
-        assert "calculus-volume-1" in new_tab.url
+    # THEN: Books details page opens
+    assert "calculus-volume-1" in new_tab.url
 
-        assert await new_tab.get_by_text("Recommended").is_visible()
+    assert await new_tab.get_by_text("Recommended").is_visible()
 
-        assert await new_tab.locator(".order-print-copy").is_visible()
+    assert await new_tab.locator(".order-print-copy").is_visible()
 
-        await new_tab.get_by_text("View online").click()
+    await new_tab.get_by_text("View online").click()
+
+    # THEN: Cookies dialog might open
+    try:
+        await new_tab.get_by_role("button", name="Close", exact=True).click()
+
+    except TimeoutError as te:
+        print(f"{te}\nNo Cookies dialog, continue testing... ")
+
+    finally:
 
         await new_tab.get_by_text("Go to your ").click()
 
         assert await new_tab.get_by_text("Table of contents").is_visible()
-
-    else:
-        await home.click_book_cover_link()
-
-        assert await home.book_title_image.is_visible()
-
-        assert "calculus-volume-1" in chrome_page.url
-
-        assert await home.highlight_recommended_popup_is_visible()
-
-        assert await home.order_print_copy_options_box_is_visible()
-
-        await home.click_view_online_link()
-
-        await home.click_go_to_your_book_link()
-
-        assert await home.toc_is_visible()
 
 
 @pytest.mark.asyncio
@@ -73,7 +66,7 @@ async def test_book_content_portal_opens(chrome_page, base_url):
 
     # THEN: New browser tab opens
     async with chrome_page.expect_popup() as popup_info:
-        await home.click_book_details_page_link()
+        await chrome_page.get_by_label("Astronomy").click()
 
     new_tab = await popup_info.value
     await new_tab.wait_for_load_state()
@@ -90,4 +83,4 @@ async def test_book_content_portal_opens(chrome_page, base_url):
 
     assert "404 Not Found - OpenStax" not in await new_tab.title()
 
-    assert await new_tab.locator("span").get_by_text("Table of contents").is_visible()
+    assert await new_tab.get_by_role("heading", name="Table of contents").is_visible()
