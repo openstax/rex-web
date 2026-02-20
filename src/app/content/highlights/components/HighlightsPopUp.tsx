@@ -22,6 +22,7 @@ import * as selectors from '../selectors';
 import * as Styled from './HighlightStyles';
 import ShowMyHighlights from './ShowMyHighlights';
 import HighlightsHelpInfo from './SummaryPopup/HighlightsHelpInfo';
+import { ModalToastAnnouncer } from '../../components/ConfirmationToast';
 
 const BlueNote = () => <Styled.BlueStickyNote>
   <Styled.StickyNoteBullet />
@@ -136,6 +137,7 @@ const HighlightsPopUp = ({ closeMyHighlights, ...props }: Omit<Props, 'myHighlig
     </Header>
     {props.user ? <ShowMyHighlights topElRef={popUpRef} /> : <LoginForHighlights />}
     <HighlightsHelpInfo />
+    <ModalToastAnnouncer />
   </Modal>;
 };
 

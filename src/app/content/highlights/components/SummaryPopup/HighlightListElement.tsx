@@ -14,7 +14,8 @@ import ContextMenu from './ContextMenu';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import { useCreateHighlightLink } from './utils';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { useConfirmationToastContext } from '../../../components/ConfirmationToast';
 
 const HighlightOuterWrapper = styled.div`
   position: relative;
@@ -96,6 +97,8 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
   const trackEditNoteColor = useAnalyticsEvent('editNoteColor');
   const trackEditAnnotation = useAnalyticsEvent('editAnnotation');
   const trackDeleteHighlight = useAnalyticsEvent('deleteHighlight');
+  const showToast = useConfirmationToastContext();
+  const intl = useIntl();
 
   const updateAnnotation = React.useCallback(
     (
@@ -123,9 +126,17 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       }));
       trackEditAnnotation(addedNote, highlight.color, true);
       setIsEditing(false);
+      const removedNote = annotation === '' && !addedNote;
       setConfirming(false);
+      showToast({
+        message: intl.formatMessage({
+          id: removedNote
+            ? 'i18n:highlighting:toast:note-delete'
+            : 'i18n:highlighting:toast:save-success',
+        }),
+      });
     },
-    [dispatch, highlight, locationFilterId, pageId, trackEditAnnotation, confirming]
+    [dispatch, highlight, locationFilterId, pageId, trackEditAnnotation, confirming, showToast, intl]
   );
 
   const updateColor = (color: HighlightColorEnum) => {
@@ -152,6 +163,9 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       pageId,
     }));
     trackDeleteHighlight(highlight.color, true);
+    showToast({
+      message: intl.formatMessage({ id: 'i18n:highlighting:toast:highlight-delete' }),
+    });
   };
 
   return <HighlightOuterWrapper>
