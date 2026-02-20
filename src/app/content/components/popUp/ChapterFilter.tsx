@@ -1,3 +1,4 @@
+import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
@@ -5,6 +6,7 @@ import AllOrNone from '../../../components/AllOrNone';
 import { PlainButton } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography/base';
+import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import ColorIndicator from '../../highlights/components/ColorIndicator';
 import { filters, mobileMarginSides } from '../../styles/PopupConstants';
@@ -72,6 +74,8 @@ interface ChapterFilterProps {
 const ChapterFilter = (props: ChapterFilterProps) => {
   const [openChapterId, setOpenChapterId] = React.useState<string | null>(null);
   const intl = useIntl();
+  const ref = React.useRef<HTMLElement>(null);
+  useTrapTabNavigation(ref);
 
   React.useEffect(() => {
     const selectedSectionId = Array.from(props.selectedLocationFilters).pop();
@@ -108,7 +112,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
   const hasFiltersWithChildren = Boolean(values.find((filter) => filter.children));
   const sectionChunks = hasFiltersWithChildren ? [values] : chunk(values);
 
-  return <div className={props.className} tabIndex={-1} id={props.id}>
+  return <div className={props.className} tabIndex={-1} id={props.id} ref={ref}>
     {props.multiselect
       ? (
         <AllOrNone
@@ -135,15 +139,24 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                 dataAnalyticsLabel={`Filter PQ by ${splitTitleParts(section.title).join(' ')}`}
               /></li>;
             } else {
-              return <li key={section.id}><StyledDetails open={openChapterId === section.id}>
-                <StyledSummary onClick={(ev: React.MouseEvent) => {
-                  ev.preventDefault();
-                  setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
-                }}>
+              const chapterFilterItemId = `${props.id}-content-${section.id}`;
+              return <li key={section.id}><StyledDetailsContainer>
+                <StyledSummaryButton
+                  aria-expanded={openChapterId === section.id}
+                  aria-controls={chapterFilterItemId}
+                  onClick={(ev: React.MouseEvent) => {
+                    ev.preventDefault();
+                    setOpenChapterId((currentId) => currentId !== section.id ? section.id : null);
+                  }}
+                >
                   <ChapterTitle dangerouslySetInnerHTML={{ __html: section.title }} />
                   <AngleIcon direction={openChapterId === section.id ? 'up' : 'down'} />
-                </StyledSummary>
-                <StyledChapterFilterItemWrapper>
+                </StyledSummaryButton>
+                <StyledChapterFilterItemWrapper
+                  id={chapterFilterItemId}
+                  hidden={openChapterId !== section.id}
+                  aria-hidden={openChapterId !== section.id}
+                >
                   {children.map((child) => (
                     <ChapterFilterItem
                       key={child.id}
@@ -157,7 +170,7 @@ const ChapterFilter = (props: ChapterFilterProps) => {
                     />
                   ))}
                 </StyledChapterFilterItemWrapper>
-              </StyledDetails></li>;
+              </StyledDetailsContainer></li>;
             }
           })}
         </Column>)}
@@ -199,9 +212,8 @@ const ChapterFilterItem = (props: ChapterFilterItemProps) => {
   </StyledSectionItem>;
 };
 
-export const StyledDetails = styled.details`
+export const StyledDetailsContainer = styled.div`
   width: 400px;
-  cursor: pointer;
   border-bottom: 1px solid ${theme.color.neutral.formBorder};
   overflow: visible;
   ${theme.breakpoints.mobileSmall(css`
@@ -209,15 +221,11 @@ export const StyledDetails = styled.details`
   `)}
 `;
 
-export const StyledSummary = styled.summary`
+export const StyledSummaryButton = styled(PlainButton)`
+  display: block;
+  width: 100%;
   padding: 1rem 1.6rem;
-  list-style: none;
-
-  &::marker,
-  &::-webkit-details-marker {
-    content: "";
-    display: none;
-  }
+  text-align: left;
 
   ${ChapterTitle} {
     float: left;
@@ -227,6 +235,12 @@ export const StyledSummary = styled.summary`
 
   ${AngleIcon} {
     float: right;
+  }
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
   }
 `;
 
@@ -280,7 +294,7 @@ export default styled(ChapterFilter)`
     margin: 0 1.6rem 0 1.6rem;
   }
 
-  ${StyledDetails} {
+  ${StyledDetailsContainer} {
     &:last-child {
       border-bottom: none;
     }
