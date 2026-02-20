@@ -1,6 +1,11 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 import { ToastData, ToastContainer } from '@openstax/ui-components';
-import { StyledHiddenLiveRegion } from '../highlights/components/HighlightStyles';
+import { hiddenButAccessible } from '../../theme';
+
+const HiddenLiveRegion = styled.div`
+  ${hiddenButAccessible}
+`;
 
 interface ConfirmationToastContextValue {
   showToast: (data: ConfirmationToastData) => void;
@@ -39,9 +44,9 @@ function ModalToastAnnouncer() {
   }, [announcement]);
 
   return (
-    <StyledHiddenLiveRegion aria-live='polite'>
+    <HiddenLiveRegion aria-live='polite'>
       {liveMsg}
-    </StyledHiddenLiveRegion>
+    </HiddenLiveRegion>
   );
 }
 
