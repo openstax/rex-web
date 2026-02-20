@@ -10,33 +10,33 @@ import requests
     "book_slug, page_slug", [("astronomy-2e", "9-333-impact-craters")]
 )
 async def test_logged_and_unlogged_page_content(
-    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+    chrome_page_unlogged, base_url, book_slug, page_slug, rex_user, rex_password
 ):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
     # WHEN: The Home page is fully loaded
-    await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
-    home = HomeRex(chrome_page)
+    await chrome_page_unlogged.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
+    home = HomeRex(chrome_page_unlogged)
 
-    resp_code = requests.head(chrome_page.url)
+    resp_code = requests.head(chrome_page_unlogged.url)
 
     # THEN: Error page is shown
     assert 404 == resp_code.status_code
 
-    incorrect_page_slug = chrome_page.url
+    incorrect_page_slug = chrome_page_unlogged.url
     correct_page_slug = incorrect_page_slug.replace(
         "9-333-impact-craters", "9-3-impact-craters"
     )
 
-    await chrome_page.goto(f"{correct_page_slug}")
+    await chrome_page_unlogged.goto(f"{correct_page_slug}")
 
     # THEN: Correct book page opens
-    resp_code = requests.head(chrome_page.url)
+    resp_code = requests.head(chrome_page_unlogged.url)
 
     assert 200 == resp_code.status_code
 
-    assert "impact craters" in await chrome_page.content()
+    assert "impact craters" in await chrome_page_unlogged.content()
 
     # THEN: User logs in and sees the same content
     await home.click_login()
@@ -46,9 +46,9 @@ async def test_logged_and_unlogged_page_content(
 
     await home.click_continue_login()
 
-    await chrome_page.keyboard.press("Escape")
+    await chrome_page_unlogged.keyboard.press("Escape")
 
-    assert "impact craters" in await chrome_page.content()
+    assert "impact craters" in await chrome_page_unlogged.content()
 
     assert await home.logged_in_user_dropdown_is_visible()
 

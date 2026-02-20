@@ -17,17 +17,7 @@ async def test_highlight_box_save_note(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await chrome_page.keyboard.press("Escape")
-
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, highlight box appears, note is saved
-
     await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
@@ -67,17 +57,7 @@ async def test_overlapping_highlights(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await chrome_page.keyboard.press("Escape")
-
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, a highlight exists and adding another highlight brings up an overlapping warning message
-
     await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
@@ -118,21 +98,12 @@ async def test_highlight_box_note_colours(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, highlight box appears with colours and highlighted text can get different colour
-
     await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
     await home.double_click_text()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()

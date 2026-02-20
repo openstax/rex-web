@@ -5,12 +5,12 @@ from e2e_tests.e2e.ui.pages.home import HomeRex
 
 
 @pytest.mark.asyncio
-async def test_subjects_books_pages_load(chrome_page, base_url):
+async def test_subjects_books_pages_load(chrome_page_unlogged, base_url):
     # GIVEN: Playwright, chromium and the rex_base_url
 
     # WHEN: The Home page is fully loaded
-    await chrome_page.goto(base_url)
-    home = HomeRex(chrome_page)
+    await chrome_page_unlogged.goto(base_url)
+    home = HomeRex(chrome_page_unlogged)
 
     await home.click_subjects_page_menu()
 
@@ -22,7 +22,7 @@ async def test_subjects_books_pages_load(chrome_page, base_url):
         hrefs = await item.get_attribute("href")
         slink = f"{base_url}{hrefs}"
 
-        slink_resp = await chrome_page.goto(slink)
+        slink_resp = await chrome_page_unlogged.goto(slink)
 
         assert slink_resp.status == 200
 
