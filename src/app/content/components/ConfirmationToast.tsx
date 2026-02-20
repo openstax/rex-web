@@ -14,7 +14,7 @@ const ctx = React.createContext<ConfirmationToastContextValue>({
 const defaultToastData: Omit<ToastData, 'message'> = {
   title: '',
   variant: 'success',
-  dismissAfterMs: 4000,
+  dismissAfterMs: 5000,
 };
 type ConfirmationToastData = Partial<ToastData> & Pick<ToastData, 'message'>;
 

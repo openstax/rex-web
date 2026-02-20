@@ -191,6 +191,9 @@ function ActiveEditCard({
     }
   }, [props.data, trackShowCreate]);
 
+  const showToast = useConfirmationToastContext();
+  const intl = useIntl();
+
   const onColorChange = useOnColorChange({
     highlight: props.highlight,
     data: props.data,
@@ -198,9 +201,6 @@ function ActiveEditCard({
     pageId: props.pageId,
     onCreate: props.onCreate,
   });
-
-  const showToast = useConfirmationToastContext();
-  const intl = useIntl();
 
   const rawSaveAnnotation = useSaveAnnotation(
     {

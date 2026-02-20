@@ -126,9 +126,14 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       }));
       trackEditAnnotation(addedNote, highlight.color, true);
       setIsEditing(false);
+      const removedNote = annotation === '' && !addedNote;
       setConfirming(false);
       showToast({
-        message: intl.formatMessage({ id: 'i18n:highlighting:toast:save-success' }),
+        message: intl.formatMessage({
+          id: removedNote
+            ? 'i18n:highlighting:toast:delete-success'
+            : 'i18n:highlighting:toast:save-success',
+        }),
       });
     },
     [dispatch, highlight, locationFilterId, pageId, trackEditAnnotation, confirming, showToast, intl]
