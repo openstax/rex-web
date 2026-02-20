@@ -1,10 +1,16 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import { ToastData, ToastContainer } from '@openstax/ui-components';
-import { hiddenButAccessible } from '../../theme';
+import theme, { hiddenButAccessible } from '../../theme';
 
 const HiddenLiveRegion = styled.div`
   ${hiddenButAccessible}
+`;
+
+const ElevatedToastContainer = styled(ToastContainer)`
+  &&& {
+    z-index: ${theme.zIndex.navbar + 1};
+  }
 `;
 
 interface ConfirmationToastContextValue {
@@ -76,7 +82,7 @@ function ConfirmationToastProvider({ children }: React.PropsWithChildren<{}>) {
 
   return (
     <ctx.Provider value={value}>
-      <ToastContainer toasts={toastData} />
+      <ElevatedToastContainer toasts={toastData} />
       {children}
     </ctx.Provider>
   );
