@@ -1,6 +1,9 @@
 name: Playwright
 
-on: [pull_request]
+on:
+  push:
+    branches:
+    - main  # Trigger QA tests only when code is merged into main
 
 defaults:
   run:
@@ -8,6 +11,7 @@ defaults:
 
 jobs:
   playwright-python:
+    timeout-minutes: 60
     runs-on: ubuntu-22.04
     env:
       BASE_URL: ${{ github.event.inputs.base_url }}
