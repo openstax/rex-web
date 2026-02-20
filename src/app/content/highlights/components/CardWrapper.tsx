@@ -6,7 +6,7 @@ import flow from 'lodash/fp/flow';
 import { clearFocusedHighlight } from '../actions';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
-import { isHtmlElement } from '../../../guards';
+import { isHtmlElement, isElement } from '../../../guards';
 import { useFocusLost, useKeyCombination, useFocusHighlight, useOnEsc } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
 import { assertDefined, assertDocument, stripHtml } from '../../../utils';
@@ -54,12 +54,12 @@ function useCardPositionObserver(
     return newOffsets;
   }, [container]);
   const updatePositions = React.useCallback(() => updateCardsPositions(
-      focusedHighlight,
-      highlights,
-      cardsHeights,
-      getOffsetsForHighlight,
-      checkIfHiddenByCollapsedAncestor
-    ), [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
+    focusedHighlight,
+    highlights,
+    cardsHeights,
+    getOffsetsForHighlight,
+    checkIfHiddenByCollapsedAncestor
+  ), [cardsHeights, focusedHighlight, getOffsetsForHighlight, highlights]);
   // This creates a function that doesn't require dependency updates, for use by
   // the resizeObserver effect. A little nicer than using a ref.
   const [, dispatchPositions] = React.useReducer(
@@ -152,7 +152,7 @@ function useFocusedHighlight(
 
   // This function is triggered by keyboard shortcut defined in useKeyCombination(...)
   // It moves focus between Card component and highlight in the content.
-  const moveFocus = React.useCallback(({target}: KeyboardEvent) => {
+  const moveFocus = React.useCallback(({ target }: KeyboardEvent) => {
     const activeElement = isHtmlElement(target) ? target : null;
     const cardIsFocused = focusedHighlight && element.current?.contains(activeElement);
 
@@ -166,7 +166,7 @@ function useFocusedHighlight(
   // @ts-expect-error contains is not on HTMLElement
   const notFiredFromHighlight = (el: Element) => !(focusedHighlight && keyContainer.contains(el));
 
-  useKeyCombination({key: 'Enter'}, editOnEnter, notFiredFromHighlight);
+  useKeyCombination({ key: 'Enter' }, editOnEnter, notFiredFromHighlight);
   useKeyCombination(highlightKeyCombination, moveFocus, noopKeyCombinationHandler([container, element]));
   // Clear shouldFocusCard when focus is lost from the CardWrapper.
   // If we don't do this then card related for the focused highlight will be focused automatically.
@@ -222,7 +222,7 @@ function CardsForHighlights({
   * Allow to show EditCard using Enter key
   * It is important to preserve the default behavior of Enter key
   */
-  useKeyCombination({key: 'Enter'}, () => showCard(focusedHighlight?.id), undefined, false);
+  useKeyCombination({ key: 'Enter' }, () => showCard(focusedHighlight?.id), undefined, false);
 
   // Allow to hide EditCard using Escape key
   useOnEsc(true, hideCard);
@@ -246,7 +246,7 @@ function CardsForHighlights({
   </>;
 }
 
-const Wrapper = ({highlights, className, container, highlighter, dispatch}: WrapperProps) => {
+const Wrapper = ({ highlights, className, container, highlighter, dispatch }: WrapperProps) => {
   const element = React.useRef<HTMLElement>(null);
   const unfocus = flow(clearFocusedHighlight, dispatch);
   const [focusedHighlight, shouldFocusCard, setShouldFocusCard] = useFocusedHighlight(
@@ -257,6 +257,7 @@ const Wrapper = ({highlights, className, container, highlighter, dispatch}: Wrap
     function handleGlobalMouseUp(event: MouseEvent) {
       // Avoid infinite loop calling over and over the event
       if (processedEvents.has(event)) return;
+      if (isElement(event.target) && element.current?.contains(event.target)) return;
       const selection = window?.getSelection();
       if (!selection || selection.isCollapsed) return;
 
