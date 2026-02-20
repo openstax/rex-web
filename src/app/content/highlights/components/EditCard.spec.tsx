@@ -19,6 +19,7 @@ import Note from './Note';
 import * as onClickOutsideModule from './utils/onClickOutside';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import { renderToDom } from '../../../../test/reactutils';
+import { ConfirmationToastProvider } from '../../components/ConfirmationToast';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker='true' data-props={props} />);
 jest.mock('./Note', () => (props: any) => <div mock-note='true' data-props={props} ref={props.textareaRef} />);
@@ -46,7 +47,9 @@ describe('EditCard', () => {
   const renderEditCard = (props: Partial<EditCardProps> & Pick<EditCardProps, 'highlight'>) => {
     return renderer.create(
       <TestContainer services={services} store={store}>
-        <EditCard {...props} />
+        <ConfirmationToastProvider>
+          <EditCard {...props} />
+        </ConfirmationToastProvider>
       </TestContainer>
     );
   };
