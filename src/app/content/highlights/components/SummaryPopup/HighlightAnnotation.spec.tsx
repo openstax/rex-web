@@ -189,7 +189,7 @@ describe('Highlight annotation', () => {
       colorPicker.props.onChange('blue');
     });
 
-    const track = jest.spyOn(services.analytics.editNoteColor, 'track');
+    jest.spyOn(services.analytics.editNoteColor, 'track');
     expect(component.root.findAllByProps({ 'aria-live': 'polite' }).length).toBeGreaterThan(0);
   });
 
@@ -229,7 +229,7 @@ describe('Highlight annotation', () => {
       deleteWrapper.props.onDelete();
     });
 
-    const track = jest.spyOn(services.analytics.deleteHighlight, 'track');
+    jest.spyOn(services.analytics.deleteHighlight, 'track');
     expect(component.root.findAllByProps({ 'aria-live': 'polite' }).length).toBeGreaterThan(0);
   });
 });
