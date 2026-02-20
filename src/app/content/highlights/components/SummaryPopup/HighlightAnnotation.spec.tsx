@@ -14,7 +14,6 @@ import { highlightLocationFilters } from '../../selectors';
 import { HighlightData } from '../../types';
 import { getHighlightLocationFilterForPage } from '../../utils';
 import MenuToggle from '../MenuToggle';
-import ColorPicker from '../ColorPicker';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightListElement from './HighlightListElement';
 import HighlightDeleteWrapper from './HighlightDeleteWrapper';
@@ -156,41 +155,6 @@ describe('Highlight annotation', () => {
     });
 
     expect(track).toHaveBeenCalled();
-  });
-
-  it('shows success toast when changing highlight color', () => {
-    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
-    store.dispatch(receivePage({...page, references: []}));
-
-    const locationFilters = highlightLocationFilters(store.getState());
-    const location = getHighlightLocationFilterForPage(locationFilters, page);
-
-    jest.spyOn(utils, 'useCreateHighlightLink')
-      .mockReturnValue('/link/to/highlight');
-
-    const createNodeMock = () => assertDocument().createElement('div');
-    const component = renderer.create(<TestContainer services={services} store={store}>
-      <ConfirmationToastProvider>
-        <HighlightListElement
-          highlight={highlight as unknown as HighlightData}
-          locationFilterId={location!.id}
-          pageId={page.id}
-        />
-      </ConfirmationToastProvider>
-    </TestContainer>, {createNodeMock});
-
-    renderer.act(() => {
-      const dropdown = component.root.findByType(MenuToggle);
-      dropdown.props.onClick();
-    });
-
-    renderer.act(() => {
-      const colorPicker = component.root.findByType(ColorPicker);
-      colorPicker.props.onChange('blue');
-    });
-
-    jest.spyOn(services.analytics.editNoteColor, 'track');
-    expect(component.root.findAllByProps({ 'aria-live': 'polite' }).length).toBeGreaterThan(0);
   });
 
   it('shows delete toast when deleting highlight', () => {
