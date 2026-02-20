@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { disablePrint } from '../content/components/utils/disablePrint';
 import { PlainButton } from './Button';
+import theme from '../theme';
 
 export const GoToTopWrapper = styled(PlainButton)`
   width: 4.8rem;
@@ -22,7 +23,7 @@ export const GoToTopWrapper = styled(PlainButton)`
 export const GoToTop = styled.div`
   width: 2.4rem;
   height: 2.4rem;
-  background: #959595;
+  background: ${theme.color.primary.gray.light};
   border-radius: 50%;
   display: flex;
   align-items: center;

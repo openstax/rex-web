@@ -12,6 +12,8 @@ import * as guards from '../../guards';
 import * as Styled from './styled';
 import { MessageEvent } from '@openstax/types/lib.dom';
 import { useSelector } from 'react-redux';
+import { captureOpeningElement } from '../../content/utils/focusManager';
+import { useModalFocusManagement } from '../../content/hooks/useModalFocusManagement';
 
 const fbUrl = 'https://www.facebook.com/openstax';
 const twitterUrl = 'https://twitter.com/openstax';
@@ -88,6 +90,7 @@ const OpenKeyboardShortcutsLink = () => {
 
   const openKeyboardShortcutsMenu = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
+    captureOpeningElement('keyboardshortcuts');
     dispatch(openKeyboardShortcutsMenuAction());
     trackOpenCloseKS();
   };
@@ -269,8 +272,15 @@ export function ContactDialog({
 
     return formUrl;
   }, [contactFormParams]);
+  const { closeButtonRef } = useModalFocusManagement({ modalId: 'contactdialog', isOpen });
+
   return !isOpen ? null : (
-    <Styled.ContactDialog className={className} onModalClose={close} heading='i18n:footer:column1:contact-us'>
+    <Styled.ContactDialog
+      className={className}
+      onModalClose={close}
+      heading='i18n:footer:column1:contact-us'
+      closeButtonRef={closeButtonRef}
+    >
       <iframe id='contact-us' title='contact-us' src={contactFormUrl} />
     </Styled.ContactDialog>
   );
@@ -309,7 +319,10 @@ const PortalColumn2 = ({ portalName }: { portalName: string }) => {
   return (
     <Styled.Column2>
       <LinkList>
-        <Styled.FooterButton onClick={open}>
+        <Styled.FooterButton onClick={() => {
+          captureOpeningElement('contactdialog');
+          open();
+        }}>
           <BareMessage id='i18n:footer:column1:contact-us' />
         </Styled.FooterButton>
         <FooterLinkMessage href={`/${portalName}/tos`} id='i18n:footer:column3:terms' />

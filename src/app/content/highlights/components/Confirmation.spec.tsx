@@ -1,4 +1,5 @@
 import React from 'react';
+import { onEscCallbacks } from '../../../reactUtils';
 import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
 import createTestServices from '../../../../test/createTestServices';
@@ -67,6 +68,7 @@ describe('Confirmation', () => {
     expect(tree).toMatchSnapshot();
   });
 
+
   it('prevents default when clicking confirm button', () => {
     const component = renderer.create(<Provider store={store}>
       <Services.Provider value={services}>
@@ -85,7 +87,7 @@ describe('Confirmation', () => {
     const button = findByTestId('confirm');
 
     const preventDefault = jest.fn();
-    button.props.onClick({preventDefault});
+    button.props.onClick({ preventDefault });
 
     expect(preventDefault).toHaveBeenCalled();
   });
@@ -99,7 +101,7 @@ describe('Confirmation', () => {
     const button = findByTestId('cancel');
 
     const preventDefault = jest.fn();
-    button.props.onClick({preventDefault});
+    button.props.onClick({ preventDefault });
 
     expect(preventDefault).toHaveBeenCalled();
   });
@@ -113,7 +115,7 @@ describe('Confirmation', () => {
     const button = findByTestId('confirm');
 
     const preventDefault = jest.fn();
-    button.props.onClick({preventDefault});
+    button.props.onClick({ preventDefault });
 
     expect(preventDefault).not.toHaveBeenCalled();
   });
@@ -126,7 +128,7 @@ describe('Confirmation', () => {
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('confirm');
-    button.props.onClick({preventDefault: jest.fn()});
+    button.props.onClick({ preventDefault: jest.fn() });
 
     expect(onConfirm).toHaveBeenCalled();
   });
@@ -139,7 +141,7 @@ describe('Confirmation', () => {
 
     const findByTestId = makeFindByTestId(component.root);
     const button = findByTestId('cancel');
-    button.props.onClick({preventDefault: jest.fn()});
+    button.props.onClick({ preventDefault: jest.fn() });
 
     expect(onCancel).toHaveBeenCalled();
   });
@@ -151,9 +153,62 @@ describe('Confirmation', () => {
     );
 
     const findByTestId = makeFindByTestId(component.root);
-    findByTestId('confirm').props.onClick({preventDefault: jest.fn()});
-    findByTestId('cancel').props.onClick({preventDefault: jest.fn()});
+    const preventDefault = jest.fn();
+    findByTestId('confirm').props.onClick({ preventDefault });
+    findByTestId('cancel').props.onClick({ preventDefault });
 
     expect(always).toHaveBeenCalledTimes(2);
+  });
+
+  it('works without optional props and drawFocus={true}', () => {
+    const onCancel = jest.fn();
+    const component = renderer.create(
+      <Provider store={store}>
+        <Services.Provider value={services}>
+          <MessageProvider locale='en' messages={messages}>
+            <Confirmation
+              message='message'
+              confirmMessage='confirm'
+              onCancel={onCancel}
+            />
+          </MessageProvider>
+        </Services.Provider>
+      </Provider>
+    );
+
+    const findByTestId = makeFindByTestId(component.root);
+
+    // Call handlers without optional callbacks
+    const preventDefault = jest.fn();
+    findByTestId('confirm').props.onClick({ preventDefault });
+    findByTestId('cancel').props.onClick({ preventDefault });
+
+    expect(onCancel).toHaveBeenCalled();
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('renders with data-analytics-label and ref', () => {
+    const ref = React.createRef<HTMLElement>();
+    const component = renderer.create(
+      <Component data-analytics-label='custom-label' ref={ref} />
+    );
+
+    const findByTestId = makeFindByTestId(component.root);
+    const button = findByTestId('confirm');
+
+    expect(button.props['data-analytics-label']).toBe('custom-label');
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('calls onCancel when ESC is pressed', () => {
+    const onCancel = jest.fn();
+    renderer.create(
+      <Component onCancel={onCancel} />
+    );
+
+    const callback = onEscCallbacks[onEscCallbacks.length - 1];
+    callback();
+
+    expect(onCancel).toHaveBeenCalled();
   });
 });
