@@ -27,7 +27,7 @@ const defaultToastData: Omit<ToastData, 'message'> = {
   variant: 'success',
   dismissAfterMs: 5000,
 };
-type ConfirmationToastData = Partial<ToastData> & Pick<ToastData, 'message'>;
+type ConfirmationToastData = Partial<ToastData> & { message: string };
 
 function useConfirmationToastContext() {
   return React.useContext(ctx).showToast;
@@ -70,7 +70,7 @@ function ConfirmationToastProvider({ children }: React.PropsWithChildren<{}>) {
           },
         },
       ]);
-      setAnnouncement((prev) => ({ message: data.message as string, key: prev.key + 1 }));
+      setAnnouncement((prev) => ({ message: data.message, key: prev.key + 1 }));
     },
     []
   );
