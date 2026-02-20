@@ -1,7 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EditCard Snapshots and Rendering matches snapshot when editing 1`] = `
-.c4 {
+Array [
+  .c0 {
+  position: fixed;
+  right: 2rem;
+  z-index: 40;
+  display: grid;
+  justify-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  gap: 1vh;
+}
+
+.c1.c1.c1 {
+  z-index: 71;
+}
+
+<div
+    aria-live="polite"
+    className="c0 c1"
+  />,
+  .c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -107,66 +129,67 @@ exports[`EditCard Snapshots and Rendering matches snapshot when editing 1`] = `
 }
 
 <div
-  aria-label="Edit highlighted note"
-  className="c0"
-  role="dialog"
->
-  <div
-    className="c1"
+    aria-label="Edit highlighted note"
+    className="c0"
+    role="dialog"
   >
-    <form
-      data-analytics-region="edit-note"
-      data-highlight-card={true}
+    <div
+      className="c1"
     >
-      <div>
-        <div
-          data-props={
-            Object {
-              "color": undefined,
-              "onChange": [Function],
-              "onRemove": null,
+      <form
+        data-analytics-region="edit-note"
+        data-highlight-card={true}
+      >
+        <div>
+          <div
+            data-props={
+              Object {
+                "color": undefined,
+                "onChange": [Function],
+                "onRemove": null,
+              }
             }
-          }
-          mock-color-picker="true"
-        />
-        <div
-          data-props={
-            Object {
-              "edit": false,
-              "note": "asdf",
-              "onChange": [Function],
-              "onFocus": [Function],
-              "textareaRef": Object {
-                "current": null,
-              },
+            mock-color-picker="true"
+          />
+          <div
+            data-props={
+              Object {
+                "edit": false,
+                "note": "asdf",
+                "onChange": [Function],
+                "onFocus": [Function],
+                "textareaRef": Object {
+                  "current": null,
+                },
+              }
             }
-          }
-          mock-note="true"
-        />
-        <div
-          className="c2 c3"
-        >
-          <button
-            className="c4"
-            data-analytics-label="save"
-            data-testid="save"
-            onClick={[Function]}
+            mock-note="true"
+          />
+          <div
+            className="c2 c3"
           >
-            Save
-          </button>
-          <button
-            className="c5"
-            data-analytics-label="cancel"
-            data-testid="cancel"
-            onClick={[Function]}
-          >
-            Cancel
-          </button>
+            <button
+              className="c4"
+              data-analytics-label="save"
+              data-testid="save"
+              onClick={[Function]}
+            >
+              Save
+            </button>
+            <button
+              className="c5"
+              data-analytics-label="cancel"
+              data-testid="cancel"
+              onClick={[Function]}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
-  </div>
-</div>
+      </form>
+    </div>
+  </div>,
+]
 `;
 
 exports[`EditCard Snapshots and Rendering matches snapshot when focused 1`] = `
@@ -206,7 +229,29 @@ exports[`EditCard Snapshots and Rendering matches snapshot when focused 1`] = `
 `;
 
 exports[`EditCard Snapshots and Rendering matches snapshot with data for authenticated user 1`] = `
-.c1 {
+Array [
+  .c0 {
+  position: fixed;
+  right: 2rem;
+  z-index: 40;
+  display: grid;
+  justify-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  gap: 1vh;
+}
+
+.c1.c1.c1 {
+  z-index: 71;
+}
+
+<div
+    aria-live="polite"
+    className="c0 c1"
+  />,
+  .c1 {
   min-width: 20rem;
 }
 
@@ -224,46 +269,47 @@ exports[`EditCard Snapshots and Rendering matches snapshot with data for authent
 }
 
 <div
-  aria-label="Edit highlighted note"
-  className="c0"
-  role="dialog"
->
-  <div
-    className="c1"
+    aria-label="Edit highlighted note"
+    className="c0"
+    role="dialog"
   >
-    <form
-      data-analytics-region="edit-note"
-      data-highlight-card={true}
+    <div
+      className="c1"
     >
-      <div>
-        <div
-          data-props={
-            Object {
-              "color": undefined,
-              "onChange": [Function],
-              "onRemove": null,
+      <form
+        data-analytics-region="edit-note"
+        data-highlight-card={true}
+      >
+        <div>
+          <div
+            data-props={
+              Object {
+                "color": undefined,
+                "onChange": [Function],
+                "onRemove": null,
+              }
             }
-          }
-          mock-color-picker="true"
-        />
-        <div
-          data-props={
-            Object {
-              "edit": false,
-              "note": "",
-              "onChange": [Function],
-              "onFocus": [Function],
-              "textareaRef": Object {
-                "current": null,
-              },
+            mock-color-picker="true"
+          />
+          <div
+            data-props={
+              Object {
+                "edit": false,
+                "note": "",
+                "onChange": [Function],
+                "onFocus": [Function],
+                "textareaRef": Object {
+                  "current": null,
+                },
+              }
             }
-          }
-          mock-note="true"
-        />
-      </div>
-    </form>
-  </div>
-</div>
+            mock-note="true"
+          />
+        </div>
+      </form>
+    </div>
+  </div>,
+]
 `;
 
 exports[`EditCard Snapshots and Rendering matches snapshot without data 1`] = `
