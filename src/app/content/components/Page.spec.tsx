@@ -256,6 +256,32 @@ describe('Page', () => {
       .toEqual('<figure class="ui-has-child-figcaption">FF<figcaption>CC</figcaption></figure>');
     });
 
+    it('moves os-caption-container inside figure as figcaption', async() => {
+      expect(await htmlHelper(
+        '<div class="os-figure">' +
+          '<figure><span data-type="media">content</span></figure>' +
+          '<div class="os-caption-container"><span class="os-title-label">Figure </span><span class="os-number">1.1</span></div>' +
+        '</div>'
+      )).toEqual(
+        '<div class="os-figure">' +
+          '<figure class="ui-has-child-figcaption"><span data-type="media">content</span>' +
+          '<figcaption class="os-caption-container"><span class="os-title-label">Figure </span><span class="os-number">1.1</span></figcaption></figure>' +
+        '</div>'
+      );
+    });
+
+    it('does not move os-caption-container when there is no figure element', async() => {
+      expect(await htmlHelper(
+        '<div class="os-figure">' +
+          '<div class="os-caption-container"><span>Caption</span></div>' +
+        '</div>'
+      )).toEqual(
+        '<div class="os-figure">' +
+          '<div class="os-caption-container"><span>Caption</span></div>' +
+        '</div>'
+      );
+    });
+
     it('numbers lists that have a start attribute', async() => {
       expect(await htmlHelper('<ol start="123"><li>item</li></ol>'))
       .toEqual('<ol start="123" style="counter-reset: list-item 122"><li>item</li></ol>');
@@ -327,17 +353,17 @@ describe('Page', () => {
           </div>
         </div>
       `)).toEqual(`<div class="os-figure" id="figure-id1">
-          <figure data-id="figure-id1">
+          <figure data-id="figure-id1" class="ui-has-child-figcaption">
             <span data-alt="Something happens." data-type="media" id="span-id1">
               <button type="button" aria-label="Click to enlarge image of Something happens." class="image-button-wrapper"><img alt="Something happens." data-media-type="image/png" id="img-id1" src="/apps/image-cdn/v1/f=webp/apps/archive/codeversion/resources/hash" width="300" data-original-src="/apps/archive/codeversion/resources/hash"></button>
             </span>
-          </figure>
-          <div class="os-caption-container">
+          <figcaption class="os-caption-container">
             <span class="os-title-label">Figure </span>
             <span class="os-number">1.1</span>
             <span class="os-divider"> </span>
             <span class="os-caption">Some explanation about the image. (credit: someone)</span>
-          </div>
+          </figcaption></figure>
+          
         </div>
 
         <div class="os-table" id="table-id1">
@@ -1535,7 +1561,7 @@ describe('Page', () => {
       });
 
       // the modal portal renders into document.body
-      const opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      const opened = assertDocument().body.querySelector('[role="dialog"] img');
       expect(opened).toBeTruthy();
       if (!opened) return;
 
@@ -1557,26 +1583,26 @@ describe('Page', () => {
       ReactTestUtils.act(() => {
         img.dispatchEvent(makeClickEvent());
       });
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeTruthy();
 
       // send escape
       ReactTestUtils.act(() => {
         assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
       });
 
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
 
       ReactTestUtils.act(() => {
         img.dispatchEvent(makeClickEvent());
       });
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeTruthy();
 
       // send Esc event
       ReactTestUtils.act(() => {
         assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: 'Esc', bubbles: true }));
       });
 
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
 
     });
 
@@ -1597,7 +1623,7 @@ describe('Page', () => {
       ReactTestUtils.act(() => {
         document.body.dispatchEvent(makeClickEvent());
       });
-      expect(document.body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(document.body.querySelector('[role="dialog"] img')).toBeFalsy();
     });
 
     it('does not open after unmount', async() => {
@@ -1616,7 +1642,7 @@ describe('Page', () => {
       });
 
       // still query document.body
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
     });
 
     it('opens via Enter/Space keydown and ignores other keys', async() => {
@@ -1633,7 +1659,7 @@ describe('Page', () => {
         button.dispatchEvent(enterEvt);
       });
 
-      let opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      let opened = assertDocument().body.querySelector('[role="dialog"] img');
       expect(opened).toBeTruthy();
       expect((enterEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
@@ -1649,7 +1675,7 @@ describe('Page', () => {
         button.dispatchEvent(spaceEvt);
       });
 
-      opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      opened = assertDocument().body.querySelector('[role="dialog"] img');
       expect(opened).toBeTruthy();
       expect((spaceEvt.preventDefault as jest.Mock)).toHaveBeenCalled();
 
@@ -1658,7 +1684,7 @@ describe('Page', () => {
         assertDocument().dispatchEvent(new KeyboardEvent('keydown', { key: ',', bubbles: true }));
       });
 
-      opened = assertDocument().body.querySelector('img[tabindex="0"]');
+      opened = assertDocument().body.querySelector('[role="dialog"] img');
       expect(opened).toBeTruthy();
 
       // Close again
@@ -1674,9 +1700,10 @@ describe('Page', () => {
       });
 
       // should not open or call preventDefault
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
       expect((otherEvt.preventDefault as jest.Mock)).not.toHaveBeenCalled();
     });
+
   });
 
   describe('media modal guard: no <img> inside wrapper', () => {
@@ -1701,7 +1728,7 @@ describe('Page', () => {
       button.dispatchEvent(evt);
 
       // assert nothing opened
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
     });
   });
 
@@ -1727,7 +1754,7 @@ describe('Page', () => {
       ReactTestUtils.act(() => {
         img.dispatchEvent(makeClickEvent());
       });
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeTruthy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeTruthy();
       expect(img.getAttribute('alt')).toBe(null);
 
       // Click the close button
@@ -1741,7 +1768,7 @@ describe('Page', () => {
       }
 
       // Closed
-      expect(assertDocument().body.querySelector('img[tabindex="0"]')).toBeFalsy();
+      expect(assertDocument().body.querySelector('[role="dialog"] img')).toBeFalsy();
       expect(assertDocument().body.querySelector('[aria-label="Close media preview"]')).toBeFalsy();
     });
 

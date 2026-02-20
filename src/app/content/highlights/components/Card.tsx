@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
+import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
@@ -72,6 +73,7 @@ function useComputedProps(props: CardProps) {
   const focusCard = React.useCallback(async() => {
     if (
       !isActive &&
+      !assertDocument().activeElement?.closest?.('[data-no-card-activate]') &&
       (!hasUnsavedHighlight || (await showConfirmation(services)))
     ) {
       focus(id);
