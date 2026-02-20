@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
+import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import { assertWindow } from '../../../utils';
 import { useModalFocusManagement } from '../../hooks/useModalFocusManagement';
@@ -36,6 +37,7 @@ const PracticeQuestionsPopup = () => {
   }, [currentQuestionIndex, trackOpenClosePQ, intl, dispatch]);
 
   useOnEsc(isPracticeQuestionsOpen, closeAndTrack('esc'));
+  useTrapTabNavigation(popUpRef, isPracticeQuestionsOpen);
 
   return isPracticeQuestionsOpen ?
     <Modal
