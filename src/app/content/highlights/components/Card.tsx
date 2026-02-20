@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { useServices } from '../../../context/Services';
 import { useFocusIn } from '../../../reactUtils';
 import { AppState, Dispatch } from '../../../types';
+import { assertDocument } from '../../../utils';
 import { highlightStyles } from '../../constants';
 import * as selectHighlights from '../../highlights/selectors';
 import * as selectSearch from '../../search/selectors';
@@ -29,6 +30,7 @@ import EditCard from './EditCard';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 import { useConfirmationToastContext } from '../../components/ConfirmationToast';
+import { getPreferEnd } from './cardUtils';
 
 export interface CardProps {
   page: ReturnType<typeof selectContent['bookAndPage']>['page'];
@@ -53,6 +55,7 @@ export interface CardProps {
   highlightOffsets?: { top: number; bottom: number };
   onHeightChange: (ref: React.RefObject<HTMLElement>) => void;
   isHidden: boolean;
+  preferEnd: boolean;
 }
 
 type CardPropsWithBookAndPage = Omit<CardProps, 'book' | 'page'> & {
@@ -70,6 +73,7 @@ function useComputedProps(props: CardProps) {
   const focusCard = React.useCallback(async() => {
     if (
       !isActive &&
+      !assertDocument().activeElement?.closest?.('[data-no-card-activate]') &&
       (!hasUnsavedHighlight || (await showConfirmation(services)))
     ) {
       focus(id);
@@ -292,12 +296,13 @@ const StyledCard = styled(Card)`
 // Styling is expensive and most Cards don't need to render
 function PreCard(props: CardProps) {
   const computedProps = useComputedProps(props);
+  const preferEnd = getPreferEnd();
 
   if (!computedProps.annotation && (!props.isActive)) {
     return null;
   }
   return (
-    <StyledCard {...props} />
+    <StyledCard {...props} preferEnd={preferEnd} />
   );
 }
 

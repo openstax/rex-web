@@ -4,8 +4,10 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
 import { useOnEsc } from '../../../reactUtils';
+import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import { FirstArgumentType } from '../../../types';
+import { useModalFocusManagement } from '../../hooks/useModalFocusManagement';
 import Modal from '../../components/Modal';
 import { bookTheme as bookThemeSelector } from '../../selectors';
 import { CloseIcon, CloseIconWrapper, Header } from '../../styles/PopupStyles';
@@ -21,6 +23,7 @@ const StudyguidesPopUp = () => {
   const trackClose = useAnalyticsEvent('closeStudyGuides');
   const isStudyGuidesOpen = useSelector(studyGuidesOpen) || false;
   const bookTheme = useSelector(bookThemeSelector);
+  const { closeButtonRef } = useModalFocusManagement({ modalId: 'studyguides', isOpen: isStudyGuidesOpen });
 
   const closeAndTrack = React.useCallback((method: FirstArgumentType<typeof trackClose>) => () => {
     dispatch(closeStudyGuides());
@@ -28,14 +31,7 @@ const StudyguidesPopUp = () => {
   }, [dispatch, trackClose]);
 
   useOnEsc(isStudyGuidesOpen, closeAndTrack('esc'));
-
-  React.useEffect(() => {
-    const popUp = popUpRef.current;
-
-    if (popUp && isStudyGuidesOpen) {
-      popUp.focus();
-    }
-  }, [isStudyGuidesOpen]);
+  useTrapTabNavigation(popUpRef, isStudyGuidesOpen);
 
   return isStudyGuidesOpen ?
     <Modal
@@ -54,6 +50,7 @@ const StudyguidesPopUp = () => {
           <FormattedMessage id='i18n:toolbar:studyguides:popup:heading' />
         </h1>
         <CloseIconWrapper
+          ref={closeButtonRef}
           data-testid='close-studyguides-popup'
           aria-label={intl.formatMessage({id: 'i18n:toolbar:studyguides:popup:close-button:aria-label'})}
           data-analytics-label='Close Study Guides'

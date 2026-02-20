@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import ScrollLock from '../../../components/ScrollLock';
+import { HTMLButtonElement, HTMLDivElement } from '@openstax/types/lib.dom';
+import { useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 
 const buttonHeight = 4.2; // rem
@@ -65,6 +67,17 @@ interface MediaModalProps {
   children: React.ReactNode;
 }
 const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) => {
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (isOpen) {
+      closeButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  useTrapTabNavigation(wrapperRef, isOpen);
+
   if (!isOpen) return null;
 
   return (
@@ -74,9 +87,9 @@ const MediaModal: React.FC<MediaModalProps> = ({ isOpen, onClose, children }) =>
         overlay={true}
         zIndex={theme.zIndex.highlightSummaryPopup}
       />
-      <ModalWrapper aria-modal='true' role='dialog'>
+      <ModalWrapper ref={wrapperRef} aria-modal='true' role='dialog' aria-label='Enlarged media'>
         <ContentContainer >
-          <FloatingCloseButton onClick={onClose} aria-label='Close media preview'>
+          <FloatingCloseButton ref={closeButtonRef} onClick={onClose} aria-label='Close media preview'>
             <CloseIcon />
           </FloatingCloseButton>
           <ScrollableContent>{children}</ScrollableContent>
