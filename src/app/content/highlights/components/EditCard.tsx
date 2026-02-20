@@ -61,10 +61,12 @@ import { ButtonGroup } from '../../../components/Button';
 import { useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
+import { useIntl } from 'react-intl';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
 } from '../actions';
+import { useConfirmationToastContext } from '../../components/ConfirmationToast';
 import { cardPadding } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
@@ -197,7 +199,10 @@ function ActiveEditCard({
     onCreate: props.onCreate,
   });
 
-  const saveAnnotation = useSaveAnnotation(
+  const showToast = useConfirmationToastContext();
+  const intl = useIntl();
+
+  const rawSaveAnnotation = useSaveAnnotation(
     {
       data: props.data,
       pageId: props.pageId,
@@ -207,6 +212,16 @@ function ActiveEditCard({
     },
     element,
     pendingAnnotation
+  );
+
+  const saveAnnotation = React.useCallback(
+    (data: HighlightData) => {
+      rawSaveAnnotation(data);
+      showToast({
+        message: intl.formatMessage({ id: 'i18n:highlighting:toast:save-success' }),
+      });
+    },
+    [rawSaveAnnotation, showToast, intl]
   );
 
   const removeHighlight = useOnRemove(
