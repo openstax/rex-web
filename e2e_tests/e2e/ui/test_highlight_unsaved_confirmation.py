@@ -34,7 +34,6 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
@@ -53,13 +52,13 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(
 
     assert not await home.unsaved_highlight_dialog_is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
+    # THEN: Escape key has to be pressed twice to dismiss both the edit and info boxes
+    await chrome_page.keyboard.press("Escape")
     await chrome_page.keyboard.press("Escape")
 
-    # NOTE!!! For now Escape key will not dismiss the highlight editbox
-    assert await home.highlight_box_trash_icon_is_visible()
+    assert not await home.highlight_box_trash_icon_is_visible()
 
     await chrome_page.keyboard.press("Enter")
 
@@ -111,7 +110,6 @@ async def test_highlight_unsaved_confirmation_on_previous_next_page_change(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
@@ -136,7 +134,6 @@ async def test_highlight_unsaved_confirmation_on_previous_next_page_change(
 
     assert not await home.unsaved_highlight_dialog_is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     await home.fill_highlight_box_note_field("autotest highlight-2")
@@ -184,7 +181,6 @@ async def test_highlight_unsaved_confirmation_on_small_highlight_dialog(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert await home.highlight_box_is_visible()
