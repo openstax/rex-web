@@ -1,13 +1,17 @@
 name: Playwright
 
-on: [pull_request]
+on:
+  push:
+    branches:
+    - main  # Trigger QA tests only when code is merged into main
 
 defaults:
   run:
-    working-directory: playwright
+    working-directory: e2e_tests
 
 jobs:
   playwright-python:
+    timeout-minutes: 60
     runs-on: ubuntu-22.04
     env:
       BASE_URL: ${{ github.event.inputs.base_url }}
@@ -17,6 +21,7 @@ jobs:
       with:
         python-version: '3.11'
         cache: 'pip' # caching pip dependencies
+    - run: python -m pip install --upgrade pip
     - run: pip install -r requirements.txt
     - run: playwright install chromium --with-deps
     - env:
