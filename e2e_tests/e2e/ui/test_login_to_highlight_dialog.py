@@ -51,9 +51,6 @@ async def test_login_to_highlight_dialog(
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now Enter key needs to be pressed twice on the infobox
-    # to open the edit highlight box open
-    await chrome_page.keyboard.press("Enter")
     await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
