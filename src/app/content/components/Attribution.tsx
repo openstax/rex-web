@@ -43,7 +43,7 @@ const AttributionSummary = styled((props) => {
   return <Summary {...props} aria-label={message}>
     <SummaryClosedIcon />
     <SummaryOpenIcon />
-    <span>{message}</span>
+    <span role="heading" aria-level={2}>{message}</span>
   </Summary>;
 })`
   ${contentTextStyle}

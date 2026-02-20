@@ -54,11 +54,12 @@ export const TextResizer = (props: TextResizerProps) => {
       label='i18n:toolbar:textresizer:button:aria-label'
       ariaLabelId='i18n:toolbar:textresizer:button:aria-label'
       dataAnalyticsLabel='Change text size'
+      controlsId='text-resizer-menu'
       {...props}
     >
-      <Styled.TextResizerMenu bookTheme={props.bookTheme} textSize={props.textSize}>
+      <Styled.TextResizerMenu id='text-resizer-menu' bookTheme={props.bookTheme} textSize={props.textSize}>
         <label id='text-resizer-label'><FormattedMessage id='i18n:toolbar:textresizer:popup:heading' /></label>
-        <div className='controls'>
+        <div className='controls' role='group' aria-labelledby='text-resizer-label'>
           <Styled.TextResizerChangeButton
             onClick={onDecreaseTextSize}
             ariaLabelId='i18n:toolbar:textresizer:button:decrease:aria-label'
