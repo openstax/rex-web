@@ -10,10 +10,10 @@ declare global {
   // Puppeteer v13.7.0 types forbid null, but runtime requires it to disable emulation.
   var page: puppeteer.Page & { emulateMediaType(type: string | null): Promise<void> };
   var browser: puppeteer.Browser;
-  var puppeteerConfig: {server: {port: number}};
+  var puppeteerConfig: { server: { port: number } };
 }
 
-if (typeof(browser) === 'undefined' || typeof(page) === 'undefined') {
+if (typeof (browser) === 'undefined' || typeof (page) === 'undefined') {
   throw new Error('Browser has not been started! Did you remember to specify `@jest-environment puppeteer`?');
 }
 
@@ -49,11 +49,11 @@ if (process.env.CI) {
 
 export const desktopWidth = 1400;
 export const setWideDesktopViewport = (target: puppeteer.Page) =>
-  target.setViewport({height: 1074, width: desktopWidth * 2});
+  target.setViewport({ height: 1074, width: desktopWidth * 2 });
 export const setTallerDesktopViewport = (target: puppeteer.Page) =>
-  target.setViewport({height: 1074, width: desktopWidth});
-export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({height: 874, width: desktopWidth});
-export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({height: 731, width: 411});
+  target.setViewport({ height: 1074, width: desktopWidth });
+export const setDesktopViewport = (target: puppeteer.Page) => target.setViewport({ height: 874, width: desktopWidth });
+export const setMobileViewport = (target: puppeteer.Page) => target.setViewport({ height: 731, width: 411 });
 
 const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   if (window && window.__APP_ASYNC_HOOKS) {
@@ -61,18 +61,20 @@ const calmHooks = (target: puppeteer.Page) => target.evaluate(() => {
   }
 });
 
-export const navigate = async(target: puppeteer.Page, path: string) => {
+export const navigate = async (target: puppeteer.Page, path: string) => {
   await target.goto(url(path));
   await calmHooks(target);
 };
 
-export const finishRender = async(page: puppeteer.Page) => {
-  await page.waitForSelector('body[data-rex-loaded="true"]');
+export const finishRender = async (page: puppeteer.Page) => {
+  await page.waitForFunction(() => {
+    return document?.body.hasAttribute('data-rex-loaded') && !document?.body.hasAttribute('data-rex-loading');
+  });
 
   let lastScreen: Buffer | undefined;
   let newScreen: Buffer | undefined;
 
-  const stillChanging = async() => {
+  const stillChanging = async () => {
     newScreen = await page.screenshot() as Buffer;
     return !lastScreen || !lastScreen.equals(newScreen);
   };
@@ -98,7 +100,7 @@ export const scrollUp = (target: puppeteer.Page) => target.evaluate(() => {
  *  - sampleInterval: milliseconds between samples (default 100)
  *  - settledCount: how many consecutive identical samples to consider settled (default 3)
  */
-export const getScrollTop = async(target: puppeteer.Page, { sampleInterval = 100, settledCount = 3 } = {}) => {
+export const getScrollTop = async (target: puppeteer.Page, { sampleInterval = 100, settledCount = 3 } = {}) => {
   let lastScrollTop;
   let same = 0;
 
@@ -116,7 +118,7 @@ export const getScrollTop = async(target: puppeteer.Page, { sampleInterval = 100
   return lastScrollTop;
 };
 
-export const fullPageScreenshot = async(target: puppeteer.Page) => {
+export const fullPageScreenshot = async (target: puppeteer.Page) => {
   await finishRender(target);
   await scrollUp(target);
 
