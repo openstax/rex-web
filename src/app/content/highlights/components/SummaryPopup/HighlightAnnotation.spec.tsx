@@ -167,6 +167,8 @@ describe('Highlight annotation', () => {
     jest.spyOn(utils, 'useCreateHighlightLink')
       .mockReturnValue('/link/to/highlight');
 
+    const track = jest.spyOn(services.analytics.deleteHighlight, 'track');
+
     const createNodeMock = () => assertDocument().createElement('div');
     const component = renderer.create(<TestContainer services={services} store={store}>
       <ConfirmationToastProvider>
@@ -193,7 +195,11 @@ describe('Highlight annotation', () => {
       deleteWrapper.props.onDelete();
     });
 
-    jest.spyOn(services.analytics.deleteHighlight, 'track');
-    expect(component.root.findAllByProps({ 'aria-live': 'polite' }).length).toBeGreaterThan(0);
+    expect(track).toHaveBeenCalled();
+
+    const toastMessages = component.root.findAll(
+      (node) => node.children?.length === 1 && node.children[0] === 'Highlight removed'
+    );
+    expect(toastMessages.length).toBeGreaterThan(0);
   });
 });
