@@ -207,7 +207,7 @@ function NoteOrCard({
         pageId: props.page.id,
       });
       showToast({
-        message: intl.formatMessage({ id: 'i18n:highlighting:toast:delete-success' }),
+        message: intl.formatMessage({ id: 'i18n:highlighting:toast:highlight-delete' }),
       });
     }
   }, [locationFilterId, props, showToast, intl, setHighlightRemoved]);

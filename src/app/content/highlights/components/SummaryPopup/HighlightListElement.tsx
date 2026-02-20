@@ -131,7 +131,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       showToast({
         message: intl.formatMessage({
           id: removedNote
-            ? 'i18n:highlighting:toast:delete-success'
+            ? 'i18n:highlighting:toast:note-delete'
             : 'i18n:highlighting:toast:save-success',
         }),
       });
@@ -164,7 +164,7 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
     }));
     trackDeleteHighlight(highlight.color, true);
     showToast({
-      message: intl.formatMessage({ id: 'i18n:highlighting:toast:delete-success' }),
+      message: intl.formatMessage({ id: 'i18n:highlighting:toast:highlight-delete' }),
     });
   };
 

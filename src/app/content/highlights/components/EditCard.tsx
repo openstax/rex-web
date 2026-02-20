@@ -285,7 +285,7 @@ function ActiveEditCard({
             // use raw to avoid announcing "highlight saved" before "highlight deleted"
             rawSaveAnnotation(props.data as HighlightData);
             showToast({
-              message: intl.formatMessage({ id: 'i18n:highlighting:toast:delete-success' }),
+              message: intl.formatMessage({ id: 'i18n:highlighting:toast:note-delete' }),
             });
           }}
           onCancel={() => {
