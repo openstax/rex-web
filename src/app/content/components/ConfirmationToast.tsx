@@ -1,22 +1,70 @@
 import React from 'react';
+import styled from 'styled-components/macro';
 import { ToastData, ToastContainer } from '@openstax/ui-components';
+import theme, { hiddenButAccessible } from '../../theme';
 
-const ctx = React.createContext({});
+const HiddenLiveRegion = styled.div`
+  ${hiddenButAccessible}
+`;
+
+const ElevatedToastContainer = styled(ToastContainer)`
+  &&& {
+    z-index: ${theme.zIndex.navbar + 1};
+  }
+`;
+
+interface ConfirmationToastContextValue {
+  showToast: (data: ConfirmationToastData) => void;
+  announcement: { message: string; key: number };
+}
+
+const ctx = React.createContext<ConfirmationToastContextValue>({
+  showToast: () => undefined,
+  announcement: { message: '', key: 0 },
+});
 const defaultToastData: Omit<ToastData, 'message'> = {
   title: '',
   variant: 'success',
-  dismissAfterMs: 4000,
+  dismissAfterMs: 5000,
 };
-type ConfirmationToastData = Partial<ToastData> & Pick<ToastData, 'message'>;
+type ConfirmationToastData = Partial<ToastData> & { message: string };
 
 function useConfirmationToastContext() {
-  return React.useContext(ctx) as (data: ConfirmationToastData) => void;
+  return React.useContext(ctx).showToast;
+}
+
+/**
+ * Renders a visually-hidden aria-live region that mirrors toast messages.
+ * Place inside aria-modal dialogs so screen readers announce toasts
+ * that would otherwise be suppressed by the modal boundary.
+ */
+function ModalToastAnnouncer() {
+  const { announcement } = React.useContext(ctx);
+  const [liveMsg, setLiveMsg] = React.useState('');
+
+  React.useEffect(() => {
+    if (!announcement.message) { return; }
+    // Screen readers only announce aria-live regions when the content changes.
+    // If the same message is repeated (e.g. saving twice), we must clear the
+    // region first, then re-insert the text after a brief delay so the browser
+    // treats it as a new change and announces it again.
+    setLiveMsg('');
+    const timer = setTimeout(() => setLiveMsg(announcement.message), 100);
+    return () => clearTimeout(timer);
+  }, [announcement]);
+
+  return (
+    <HiddenLiveRegion aria-live='polite'>
+      {liveMsg}
+    </HiddenLiveRegion>
+  );
 }
 
 function ConfirmationToastProvider({ children }: React.PropsWithChildren<{}>) {
   const [toastData, setToastData] = React.useState<ToastData[]>([]);
+  const [announcement, setAnnouncement] = React.useState({ message: '', key: 0 });
   const showToast = React.useCallback(
-    (data: ConfirmationToastData) =>
+    (data: ConfirmationToastData) => {
       setToastData([
         {
           ...defaultToastData,
@@ -25,16 +73,23 @@ function ConfirmationToastProvider({ children }: React.PropsWithChildren<{}>) {
             setToastData([]);
           },
         },
-      ]),
+      ]);
+      setAnnouncement((prev) => ({ message: data.message, key: prev.key + 1 }));
+    },
     []
   );
 
+  const value = React.useMemo(
+    () => ({ showToast, announcement }),
+    [showToast, announcement]
+  );
+
   return (
-    <ctx.Provider value={showToast}>
-      <ToastContainer toasts={toastData} />
+    <ctx.Provider value={value}>
+      <ElevatedToastContainer toasts={toastData} />
       {children}
     </ctx.Provider>
   );
 }
 
-export { useConfirmationToastContext, ConfirmationToastProvider };
+export { useConfirmationToastContext, ConfirmationToastProvider, ModalToastAnnouncer };
