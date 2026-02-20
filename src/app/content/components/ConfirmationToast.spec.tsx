@@ -34,7 +34,7 @@ describe('ConfirmationToast', () => {
 
     const Trigger = () => {
       const showToast = useConfirmationToastContext();
-      return <button onClick={() => showToast({ message: 'Highlight saved successfully' })}>Save</button>;
+      return <button onClick={() => showToast({ message: 'Highlight saved' })}>Save</button>;
     };
 
     it('renders empty live region initially', () => {
@@ -76,7 +76,7 @@ describe('ConfirmationToast', () => {
       });
 
       const liveRegion = findAnnouncerLiveRegion(container);
-      expect(liveRegion.textContent).toBe('Highlight saved successfully');
+      expect(liveRegion.textContent).toBe('Highlight saved');
     });
 
     it('clears and re-announces on repeated toasts', () => {
@@ -101,7 +101,7 @@ describe('ConfirmationToast', () => {
       });
 
       const liveRegion = findAnnouncerLiveRegion(container);
-      expect(liveRegion.textContent).toBe('Highlight saved successfully');
+      expect(liveRegion.textContent).toBe('Highlight saved');
 
       // Second toast (same message) — should clear then re-announce
       act(() => {
@@ -114,7 +114,7 @@ describe('ConfirmationToast', () => {
         jest.advanceTimersByTime(150);
       });
 
-      expect(liveRegion.textContent).toBe('Highlight saved successfully');
+      expect(liveRegion.textContent).toBe('Highlight saved');
     });
   });
 
