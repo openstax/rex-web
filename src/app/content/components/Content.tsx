@@ -87,14 +87,14 @@ const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) 
   <Background>
     <BookBanner />
     <ErrorBoundary>
-      <HighlightsPopUp />
-      <KeyboardShortcutsPopup />
-      <StudyguidesPopUp />
-      <PracticeQuestionsPopup />
-      <NudgeStudyTools />
-      <OuterWrapper>
-        <Wrapper>
-          <ConfirmationToastProvider>
+      <ConfirmationToastProvider>
+        <HighlightsPopUp />
+        <KeyboardShortcutsPopup />
+        <StudyguidesPopUp />
+        <PracticeQuestionsPopup />
+        <NudgeStudyTools />
+        <OuterWrapper>
+          <Wrapper>
             <Navigation />
             <ContentPane>
               <LoginGate book={book}>
@@ -110,9 +110,9 @@ const Content = ({mobileExpanded, book}: {mobileExpanded: boolean; book: Book}) 
               <Attribution />
               <Footer />
             </ContentPane>
-          </ConfirmationToastProvider>
-        </Wrapper>
-      </OuterWrapper>
+          </Wrapper>
+        </OuterWrapper>
+      </ConfirmationToastProvider>
     </ErrorBoundary>
   </Background>
 </Layout>;

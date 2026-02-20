@@ -61,10 +61,12 @@ import { ButtonGroup } from '../../../components/Button';
 import { useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
+import { useIntl } from 'react-intl';
 import {
   clearFocusedHighlight,
   setAnnotationChangesPending as setAnnotationChangesPendingAction,
 } from '../actions';
+import { useConfirmationToastContext } from '../../components/ConfirmationToast';
 import { cardPadding } from '../constants';
 import { HighlightData } from '../types';
 import ColorPicker from './ColorPicker';
@@ -189,6 +191,9 @@ function ActiveEditCard({
     }
   }, [props.data, trackShowCreate]);
 
+  const showToast = useConfirmationToastContext();
+  const intl = useIntl();
+
   const onColorChange = useOnColorChange({
     highlight: props.highlight,
     data: props.data,
@@ -197,7 +202,7 @@ function ActiveEditCard({
     onCreate: props.onCreate,
   });
 
-  const saveAnnotation = useSaveAnnotation(
+  const rawSaveAnnotation = useSaveAnnotation(
     {
       data: props.data,
       pageId: props.pageId,
@@ -207,6 +212,16 @@ function ActiveEditCard({
     },
     element,
     pendingAnnotation
+  );
+
+  const saveAnnotation = React.useCallback(
+    (data: HighlightData) => {
+      rawSaveAnnotation(data);
+      showToast({
+        message: intl.formatMessage({ id: 'i18n:highlighting:toast:save-success' }),
+      });
+    },
+    [rawSaveAnnotation, showToast, intl]
   );
 
   const removeHighlight = useOnRemove(
@@ -266,7 +281,13 @@ function ActiveEditCard({
           data-analytics-region='highlighting-delete-note'
           message='i18n:highlighting:confirmation:delete-note'
           confirmMessage='i18n:highlighting:button:delete'
-          onConfirm={() => saveAnnotation(props.data as HighlightData)}
+          onConfirm={() => {
+            // use raw to avoid announcing "highlight saved" before "highlight deleted"
+            rawSaveAnnotation(props.data as HighlightData);
+            showToast({
+              message: intl.formatMessage({ id: 'i18n:highlighting:toast:note-delete' }),
+            });
+          }}
           onCancel={() => {
             setEditing(true);
             resetAnnotation();
