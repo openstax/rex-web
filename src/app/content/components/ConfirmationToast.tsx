@@ -44,6 +44,10 @@ function ModalToastAnnouncer() {
 
   React.useEffect(() => {
     if (!announcement.message) { return; }
+    // Screen readers only announce aria-live regions when the content changes.
+    // If the same message is repeated (e.g. saving twice), we must clear the
+    // region first, then re-insert the text after a brief delay so the browser
+    // treats it as a new change and announces it again.
     setLiveMsg('');
     const timer = setTimeout(() => setLiveMsg(announcement.message), 100);
     return () => clearTimeout(timer);
