@@ -150,9 +150,6 @@ const HighlightListElement = ({ highlight, locationFilterId, pageId }: Highlight
       },
     }));
     trackEditNoteColor(color, true);
-    showToast({
-      message: intl.formatMessage({ id: 'i18n:highlighting:toast:save-success' }),
-    });
   };
 
   const confirmDelete = () => {

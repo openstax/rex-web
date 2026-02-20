@@ -281,7 +281,13 @@ function ActiveEditCard({
           data-analytics-region='highlighting-delete-note'
           message='i18n:highlighting:confirmation:delete-note'
           confirmMessage='i18n:highlighting:button:delete'
-          onConfirm={() => saveAnnotation(props.data as HighlightData)}
+          onConfirm={() => {
+            // use raw to avoid announcing "highlight saved" before "highlight deleted"
+            rawSaveAnnotation(props.data as HighlightData);
+            showToast({
+              message: intl.formatMessage({ id: 'i18n:highlighting:toast:delete-success' }),
+            });
+          }}
           onCancel={() => {
             setEditing(true);
             resetAnnotation();
