@@ -20,7 +20,7 @@ const mobileMaxWidth = '60.1';
 const mobileMinWidth = '37.5';
 const textColor = '#d5d5d5';
 
-export const columnLink = css`
+const columnLink = css`
   color: ${textColor};
 
   &:hover,
@@ -399,9 +399,8 @@ export const LinkListWrapper = styled.menu`
 `;
 
 const InnerSocialIcon = styled.a`
-  ${columnLink}
   ${textRegularSize}
-  background-color: #878787;
+  background-color: ${theme.color.primary.gray.light};
   color: #fff;
   align-content: center;
   border-radius: 50%;
