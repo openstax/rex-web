@@ -49,7 +49,10 @@ async def test_buy_print_copy_link(chrome_page_unlogged, base_url, book_slug):
     if "staging" in details_books_url:
         assert "amazon.com" in new_tab_content.lower()
     else:
-        assert "openstax" and book_slug in new_tab_content.lower()
+        assert (
+            "openstax" in new_tab_content.lower()
+            and book_slug in new_tab_content.lower()
+        )
 
 
 @pytest.mark.parametrize("book_slug", ["statistics"])
@@ -101,7 +104,10 @@ async def test_accessibility_help(chrome_page_unlogged, base_url, book_slug, pag
 
         accessibility_page_content = await home.accessibility_help_content.inner_text()
 
-        assert "Accessibility" and "OpenStax" in accessibility_page_content
+        assert (
+            "Accessibility" in accessibility_page_content
+            and "OpenStax" in accessibility_page_content
+        )
 
 
 @pytest.mark.parametrize("book_slug", ["algebra-and-trigonometry-2e"])

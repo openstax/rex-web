@@ -30,6 +30,8 @@ async def login_to_rex(base_url, rex_user, rex_password):
             await page.fill("#login_form_password", rex_password)
             await page.click("input.primary")
 
+            await page.wait_for_load_state("networkidle")
+
             yield await context.storage_state(path="login_state.json")
 
             await ch_browser.close()

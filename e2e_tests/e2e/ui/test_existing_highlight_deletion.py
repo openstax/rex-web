@@ -18,13 +18,6 @@ async def test_delete_existing_highlights_astro(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    # await home.click_login()
-
-    # await home.fill_user_field(rex_user)
-    # await home.fill_password_field(rex_password)
-
-    # await home.click_continue_login()
-
     # THEN: Book page opens, checks for highlights and deletes any existing ones
     await chrome_page.keyboard.press("Escape")
 

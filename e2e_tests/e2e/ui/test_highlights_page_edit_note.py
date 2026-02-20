@@ -26,7 +26,7 @@ async def test_highlights_page_edit_note(
 
     await home.oneclick_highlight_infobox()
 
-    assert home.highlight_box_is_visible
+    assert home.highlight_box_is_visible()
 
     await home.click_highlight_box_note_field()
 
