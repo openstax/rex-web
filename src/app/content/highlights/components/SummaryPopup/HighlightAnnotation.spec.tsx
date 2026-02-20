@@ -16,7 +16,9 @@ import { getHighlightLocationFilterForPage } from '../../utils';
 import MenuToggle from '../MenuToggle';
 import HighlightAnnotation from './HighlightAnnotation';
 import HighlightListElement from './HighlightListElement';
+import HighlightDeleteWrapper from './HighlightDeleteWrapper';
 import * as utils from './utils';
+import { ConfirmationToastProvider } from '../../../components/ConfirmationToast';
 
 describe('HighlightDeleteWrapper', () => {
   let store: Store;
@@ -118,11 +120,13 @@ describe('Highlight annotation', () => {
 
       const createNodeMock = () => assertDocument().createElement('div');
       const component = renderer.create(<TestContainer services={services} store={store}>
-      <HighlightListElement
-        highlight={highlight as unknown as HighlightData}
-        locationFilterId={location!.id}
-        pageId={page.id}
-      />
+      <ConfirmationToastProvider>
+        <HighlightListElement
+          highlight={highlight as unknown as HighlightData}
+          locationFilterId={location!.id}
+          pageId={page.id}
+        />
+      </ConfirmationToastProvider>
     </TestContainer>, {createNodeMock});
 
     const track = jest.spyOn(services.analytics.editAnnotation, 'track');
@@ -151,5 +155,51 @@ describe('Highlight annotation', () => {
     });
 
     expect(track).toHaveBeenCalled();
+  });
+
+  it('shows delete toast when deleting highlight', () => {
+    store.dispatch(receiveBook(formatBookData(book, mockCmsBook)));
+    store.dispatch(receivePage({...page, references: []}));
+
+    const locationFilters = highlightLocationFilters(store.getState());
+    const location = getHighlightLocationFilterForPage(locationFilters, page);
+
+    jest.spyOn(utils, 'useCreateHighlightLink')
+      .mockReturnValue('/link/to/highlight');
+
+    const track = jest.spyOn(services.analytics.deleteHighlight, 'track');
+
+    const createNodeMock = () => assertDocument().createElement('div');
+    const component = renderer.create(<TestContainer services={services} store={store}>
+      <ConfirmationToastProvider>
+        <HighlightListElement
+          highlight={highlight as unknown as HighlightData}
+          locationFilterId={location!.id}
+          pageId={page.id}
+        />
+      </ConfirmationToastProvider>
+    </TestContainer>, {createNodeMock});
+
+    renderer.act(() => {
+      const dropdown = component.root.findByType(MenuToggle);
+      dropdown.props.onClick();
+    });
+
+    renderer.act(() => {
+      const deleteButton = component.root.findByProps({ 'data-testid': 'delete' });
+      deleteButton.props.onClick();
+    });
+
+    renderer.act(() => {
+      const deleteWrapper = component.root.findByType(HighlightDeleteWrapper);
+      deleteWrapper.props.onDelete();
+    });
+
+    expect(track).toHaveBeenCalled();
+
+    const toastMessages = component.root.findAll(
+      (node) => node.children?.length === 1 && node.children[0] === 'Highlight removed'
+    );
+    expect(toastMessages.length).toBeGreaterThan(0);
   });
 });
