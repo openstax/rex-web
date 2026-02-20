@@ -8,7 +8,7 @@ import TestContainer from '../../../test/TestContainer';
 import { assertDocument } from '../../utils';
 
 function findAnnouncerLiveRegion(root: HTMLElement): HTMLElement {
-  // ModalToastAnnouncer uses StyledHiddenLiveRegion (position: absolute, 1px x 1px).
+  // ModalToastAnnouncer uses a visually-hidden div.
   // ToastContainer also has aria-live="polite". Select the last one, which is the announcer.
   const regions = Array.from(
     root.querySelectorAll<HTMLElement>('[aria-live="polite"]')
