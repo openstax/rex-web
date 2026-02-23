@@ -18,7 +18,7 @@ import { assertNotNull } from '../../../utils';
 import { receiveBook, receivePage } from '../../actions';
 import { studyGuidesFeatureFlag } from '../../constants';
 import { formatBookData } from '../../utils';
-import { captureOpeningElement } from '../../utils/focusManager';
+import { captureOpeningElement, clearOpeningElement } from '../../utils/focusManager';
 import { closeStudyGuides, openStudyGuides } from '../actions';
 import StudyguidesPopUp from './StudyGuidesPopUp';
 
@@ -59,6 +59,10 @@ describe('Study Guides button and PopUp', () => {
     store.dispatch(receiveFeatureFlags([studyGuidesFeatureFlag]));
 
     dispatch = jest.spyOn(store, 'dispatch');
+  });
+
+  afterEach(() => {
+    clearOpeningElement('studyguides');
   });
 
   it('closes pop up with close button', async() => {

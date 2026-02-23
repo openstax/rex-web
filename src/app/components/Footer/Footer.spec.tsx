@@ -8,6 +8,9 @@ import { openKeyboardShortcutsMenu } from '../../content/keyboardShortcuts/actio
 import { AppState, Store } from '../../types';
 import { assertWindow } from '../../utils';
 import * as analytics from '../../../helpers/analytics';
+import * as focusManager from '../../content/utils/focusManager';
+
+jest.mock('../../content/utils/focusManager');
 
 describe('Footer', () => {
   it('uses normal footer', () => {
@@ -16,22 +19,45 @@ describe('Footer', () => {
     const component = renderer.create(<TestContainer store={store}>
       <Footer />
     </TestContainer>);
-    expect(() => component.root.findByProps({'data-testid': 'portal-footer'})).toThrow();
+    expect(() => component.root.findByProps({ 'data-testid': 'portal-footer' })).toThrow();
   });
 
   it('uses portal footer', () => {
     const portalName = 'portalName';
-    const params = {portalName};
+    const params = { portalName };
     const state = {
       navigation: {
-        match: {params},
+        match: { params },
       },
     } as unknown as AppState;
     const store = createTestStore(state);
     const component = renderer.create(<TestContainer store={store}>
       <Footer />
     </TestContainer>);
-    expect(() => component.root.findByProps({'data-testid': 'portal-footer'})).not.toThrow();
+    expect(() => component.root.findByProps({ 'data-testid': 'portal-footer' })).not.toThrow();
+  });
+
+  it('calls captureOpeningElement when "Contact Us" is clicked in portal footer', () => {
+    const portalName = 'portalName';
+    const params = { portalName };
+    const state = {
+      navigation: {
+        match: { params },
+      },
+    } as unknown as AppState;
+    const store = createTestStore(state);
+    const component = renderer.create(<TestContainer store={store}>
+      <Footer />
+    </TestContainer>);
+
+    const contactUsButton = component.root.findAllByType(require('./styled').FooterButton)
+      .find(button => button.props.children.props.id === 'i18n:footer:column1:contact-us')!;
+
+    renderer.act(() => {
+      contactUsButton.props.onClick();
+    });
+
+    expect(focusManager.captureOpeningElement).toHaveBeenCalledWith('contactdialog');
   });
 
 });
@@ -80,13 +106,13 @@ describe('useContactDialog', () => {
       },
     };
 
-    return {component, controller};
+    return { component, controller };
   };
 
   it('supports form params', () => {
     const contactFormParams = [{ key: 'userId', value: 'test' }];
 
-    const {controller, component} = testComponent(store, {contactFormParams});
+    const { controller, component } = testComponent(store, { contactFormParams });
 
     renderer.act(() => {
       controller.button.props.onClick();
@@ -96,7 +122,7 @@ describe('useContactDialog', () => {
   });
 
   it('opens and closes', () => {
-    const {controller, component} = testComponent(store);
+    const { controller, component } = testComponent(store);
     expect(() => controller.iframe).toThrow();
     renderer.act(() => {
       controller.button.props.onClick();
@@ -146,8 +172,8 @@ describe('OpenKeyboardShortcutsLink', () => {
       () => trackOpenCloseKS
     );
 
-    const {root} = renderer.create(<TestContainer>
-      <Footer/>
+    const { root } = renderer.create(<TestContainer>
+      <Footer />
     </TestContainer>);
 
     expect(spyRedux).toHaveBeenCalledTimes(1);
@@ -155,8 +181,8 @@ describe('OpenKeyboardShortcutsLink', () => {
     expect(spyAnalytics).toHaveBeenCalledTimes(1);
     expect(spyAnalytics).toHaveBeenCalledWith('openCloseKeyboardShortcuts');
 
-    const shortCutLink = root.findByProps({'data-testid': 'shortcut-link'});
-    shortCutLink.props.onClick({preventDefault: jest.fn()});
+    const shortCutLink = root.findByProps({ 'data-testid': 'shortcut-link' });
+    shortCutLink.props.onClick({ preventDefault: jest.fn() });
 
     expect(dispatch).toHaveBeenCalledTimes(1);
     expect(dispatch).toHaveBeenCalledWith(openKeyboardShortcutsMenu());

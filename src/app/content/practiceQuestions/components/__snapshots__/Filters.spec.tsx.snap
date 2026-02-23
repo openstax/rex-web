@@ -160,7 +160,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
       <button
         aria-controls="practice-filter-chapter"
         aria-expanded={false}
-        aria-label="Filter PQ by Chapter & Section"
+        aria-label="Select Practice Questions by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
@@ -395,20 +395,20 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 
 .c17 {
   width: 400px;
-  cursor: pointer;
   border-bottom: 1px solid #d5d5d5;
   overflow: visible;
 }
 
 .c18 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  display: block;
+  width: 100%;
   padding: 1rem 1.6rem;
-  list-style: none;
-}
-
-.c18::marker,
-.c18::-webkit-details-marker {
-  content: "";
-  display: none;
+  text-align: left;
 }
 
 .c18 .c19 {
@@ -419,6 +419,12 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 
 .c18 .c10 {
   float: right;
+}
+
+.c18::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .c23 {
@@ -556,7 +562,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
       <button
         aria-controls="practice-filter-chapter"
         aria-expanded={true}
-        aria-label="Filter PQ by Chapter & Section"
+        aria-label="Select Practice Questions by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
@@ -600,11 +606,12 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
               className="c15"
             >
               <li>
-                <details
+                <div
                   className="c16 c17"
-                  open={false}
                 >
-                  <summary
+                  <button
+                    aria-controls="practice-filter-chapter-content-testbook1-testchapter1-uuid"
+                    aria-expanded={false}
                     className="c18"
                     onClick={[Function]}
                   >
@@ -630,12 +637,15 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                         fill="currentColor"
                       />
                     </svg>
-                  </summary>
+                  </button>
                   <div
+                    aria-hidden={true}
                     className="c22"
+                    hidden={true}
+                    id="practice-filter-chapter-content-testbook1-testchapter1-uuid"
                   >
                     <button
-                      aria-label="Filter PQ by  section1"
+                      aria-label="Select Practice Questions by  section1"
                       className="c23"
                       data-analytics-label="Filter PQ by  section1"
                       onClick={[Function]}
@@ -650,7 +660,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                       />
                     </button>
                     <button
-                      aria-label="Filter PQ by  section2"
+                      aria-label="Select Practice Questions by  section2"
                       className="c23"
                       data-analytics-label="Filter PQ by  section2"
                       onClick={[Function]}
@@ -665,14 +675,15 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                       />
                     </button>
                   </div>
-                </details>
+                </div>
               </li>
               <li>
-                <details
+                <div
                   className="c16 c17"
-                  open={true}
                 >
-                  <summary
+                  <button
+                    aria-controls="practice-filter-chapter-content-testbook1-testchapter2-uuid"
+                    aria-expanded={true}
                     className="c18"
                     onClick={[Function]}
                   >
@@ -698,13 +709,16 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                         fill="currentColor"
                       />
                     </svg>
-                  </summary>
+                  </button>
                   <div
+                    aria-hidden={false}
                     className="c22"
+                    hidden={false}
+                    id="practice-filter-chapter-content-testbook1-testchapter2-uuid"
                   >
                     <button
                       aria-current="true"
-                      aria-label="Filter PQ by  section21"
+                      aria-label="Select Practice Questions by  section21"
                       className="c23"
                       data-analytics-label="Filter PQ by  section21"
                       onClick={[Function]}
@@ -719,7 +733,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                       />
                     </button>
                   </div>
-                </details>
+                </div>
               </li>
             </ul>
           </div>
@@ -935,20 +949,20 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
 
 .c17 {
   width: 400px;
-  cursor: pointer;
   border-bottom: 1px solid #d5d5d5;
   overflow: visible;
 }
 
 .c18 {
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  display: block;
+  width: 100%;
   padding: 1rem 1.6rem;
-  list-style: none;
-}
-
-.c18::marker,
-.c18::-webkit-details-marker {
-  content: "";
-  display: none;
+  text-align: left;
 }
 
 .c18 .c19 {
@@ -959,6 +973,12 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
 
 .c18 .c10 {
   float: right;
+}
+
+.c18::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .c23 {
@@ -1096,7 +1116,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
       <button
         aria-controls="practice-filter-chapter"
         aria-expanded={true}
-        aria-label="Filter PQ by Chapter & Section"
+        aria-label="Select Practice Questions by Chapter & Section"
         className="c5 c6 c7 c8"
         data-analytics-label="Filter PQ by Chapter & Section"
         onClick={[Function]}
@@ -1140,11 +1160,12 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
               className="c15"
             >
               <li>
-                <details
+                <div
                   className="c16 c17"
-                  open={false}
                 >
-                  <summary
+                  <button
+                    aria-controls="practice-filter-chapter-content-testbook1-testchapter1-uuid"
+                    aria-expanded={false}
                     className="c18"
                     onClick={[Function]}
                   >
@@ -1170,12 +1191,15 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                         fill="currentColor"
                       />
                     </svg>
-                  </summary>
+                  </button>
                   <div
+                    aria-hidden={true}
                     className="c22"
+                    hidden={true}
+                    id="practice-filter-chapter-content-testbook1-testchapter1-uuid"
                   >
                     <button
-                      aria-label="Filter PQ by  section1"
+                      aria-label="Select Practice Questions by  section1"
                       className="c23"
                       data-analytics-label="Filter PQ by  section1"
                       onClick={[Function]}
@@ -1190,7 +1214,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                       />
                     </button>
                     <button
-                      aria-label="Filter PQ by  section2"
+                      aria-label="Select Practice Questions by  section2"
                       className="c23"
                       data-analytics-label="Filter PQ by  section2"
                       onClick={[Function]}
@@ -1205,14 +1229,15 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                       />
                     </button>
                   </div>
-                </details>
+                </div>
               </li>
               <li>
-                <details
+                <div
                   className="c16 c17"
-                  open={false}
                 >
-                  <summary
+                  <button
+                    aria-controls="practice-filter-chapter-content-testbook1-testchapter2-uuid"
+                    aria-expanded={false}
                     className="c18"
                     onClick={[Function]}
                   >
@@ -1238,12 +1263,15 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                         fill="currentColor"
                       />
                     </svg>
-                  </summary>
+                  </button>
                   <div
+                    aria-hidden={true}
                     className="c22"
+                    hidden={true}
+                    id="practice-filter-chapter-content-testbook1-testchapter2-uuid"
                   >
                     <button
-                      aria-label="Filter PQ by  section21"
+                      aria-label="Select Practice Questions by  section21"
                       className="c23"
                       data-analytics-label="Filter PQ by  section21"
                       onClick={[Function]}
@@ -1258,7 +1286,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                       />
                     </button>
                   </div>
-                </details>
+                </div>
               </li>
             </ul>
           </div>

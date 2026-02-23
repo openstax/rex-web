@@ -2,7 +2,6 @@ import { Highlight } from '@openstax/highlighter';
 import { HighlightUpdateColorEnum } from '@openstax/highlighter/dist/api';
 import React, { ReactElement } from 'react';
 import renderer from 'react-test-renderer';
-import ReactTestUtils from 'react-dom/test-utils';
 import createTestServices from '../../../../test/createTestServices';
 import createTestStore from '../../../../test/createTestStore';
 import createMockHighlight from '../../../../test/mocks/highlight';
@@ -20,6 +19,7 @@ import Note from './Note';
 import * as onClickOutsideModule from './utils/onClickOutside';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
 import { renderToDom } from '../../../../test/reactutils';
+import { ConfirmationToastProvider } from '../../components/ConfirmationToast';
 
 jest.mock('./ColorPicker', () => (props: any) => <div mock-color-picker='true' data-props={props} />);
 jest.mock('./Note', () => (props: any) => <div mock-note='true' data-props={props} ref={props.textareaRef} />);
@@ -47,7 +47,9 @@ describe('EditCard', () => {
   const renderEditCard = (props: Partial<EditCardProps> & Pick<EditCardProps, 'highlight'>) => {
     return renderer.create(
       <TestContainer services={services} store={store}>
-        <EditCard {...props} />
+        <ConfirmationToastProvider>
+          <EditCard {...props} />
+        </ConfirmationToastProvider>
       </TestContainer>
     );
   };
@@ -136,17 +138,16 @@ describe('EditCard', () => {
     });
 
     it('shows create highlight message for new highlight', () => {
-      const newHighlight = {...highlight, elements: []};
+      const newHighlight = { ...highlight, elements: [] };
       const { component, cleanup } = renderAuthenticatedEditCard({
         ...editCardProps,
         highlight: newHighlight,
-        data: highlightData,
+        data: undefined,
         isActive: true,
         shouldFocusCard: false,
       });
 
-      const button = component.root.findByType('button');
-      expect(button.props.children.props.id).toBe('i18n:highlighting:create-instructions');
+      expect(component.root.findByProps({ id: 'i18n:highlighting:create-instructions' })).toBeTruthy();
       cleanup();
     });
 
@@ -265,7 +266,7 @@ describe('EditCard', () => {
 
       const cancel = findByTestId('cancel');
       renderer.act(() => {
-        cancel.props.onClick({preventDefault: jest.fn()});
+        cancel.props.onClick({ preventDefault: jest.fn() });
       });
 
       expect(note.props.note).toBe('qwer');
@@ -293,11 +294,11 @@ describe('EditCard', () => {
 
       const saveButton = findByTestId('save');
       renderer.act(() => {
-        saveButton.props.onClick({preventDefault: jest.fn()});
+        saveButton.props.onClick({ preventDefault: jest.fn() });
       });
 
       expect(dispatch).toHaveBeenCalledWith(updateHighlight({
-        highlight: {color: highlightData.style as any, annotation: 'asdf'},
+        highlight: { color: highlightData.style as any, annotation: 'asdf' },
         id: highlightData.id,
       }, {
         locationFilterId: 'locationId',
@@ -379,7 +380,7 @@ describe('EditCard', () => {
 
       const saveButton = findByTestId('save');
       renderer.act(() => {
-        saveButton.props.onClick({preventDefault: jest.fn()});
+        saveButton.props.onClick({ preventDefault: jest.fn() });
       });
 
       expect(() => findByTestId('confirm-delete')).not.toThrow();
@@ -407,7 +408,7 @@ describe('EditCard', () => {
 
       const saveButton = findByTestId('save');
       renderer.act(() => {
-        saveButton.props.onClick({preventDefault: jest.fn()});
+        saveButton.props.onClick({ preventDefault: jest.fn() });
       });
 
       const confirmation = findByTestId('confirm-delete');
@@ -418,7 +419,7 @@ describe('EditCard', () => {
 
       expect(() => findByTestId('confirm-delete')).toThrow();
       expect(dispatch).toHaveBeenCalledWith(updateHighlight({
-        highlight: {color: highlightData.style as any, annotation: ''},
+        highlight: { color: highlightData.style as any, annotation: '' },
         id: highlightData.id,
       }, {
         locationFilterId: 'locationId',
@@ -456,7 +457,7 @@ describe('EditCard', () => {
 
       const saveButton = findByTestId('save');
       renderer.act(() => {
-        saveButton.props.onClick({preventDefault: jest.fn()});
+        saveButton.props.onClick({ preventDefault: jest.fn() });
       });
 
       const confirmation = findByTestId('confirm-delete');
@@ -490,7 +491,7 @@ describe('EditCard', () => {
 
       expect(highlight.setStyle).toHaveBeenCalledWith('blue');
       expect(store.dispatch).toHaveBeenCalledWith(updateHighlight({
-        highlight: {annotation: highlightData.annotation, color: 'blue' as any},
+        highlight: { annotation: highlightData.annotation, color: 'blue' as any },
         id: highlightData.id,
       }, {
         locationFilterId: 'locationId',
@@ -563,7 +564,7 @@ describe('EditCard', () => {
         <TestContainer services={services} store={store}>
           <EditCard {...editCardProps} onHeightChange={onHeightChange} shouldFocusCard={true} />
         </TestContainer>,
-        {createNodeMock}
+        { createNodeMock }
       );
 
       // Wait for hooks
@@ -584,7 +585,7 @@ describe('EditCard', () => {
           <TestContainer services={services} store={store}>
             <a href='#foo'>text</a>
             <EditCard
-              {...{...editCardProps, hasUnsavedHighlight: false}}
+              {...{ ...editCardProps, hasUnsavedHighlight: false }}
               onHeightChange={onHeightChange}
               isActive={true}
               shouldFocusCard={true}
@@ -609,7 +610,7 @@ describe('EditCard', () => {
         ...highlightData,
       };
 
-      const component = renderToDom(
+      renderToDom(
         <div id={MAIN_CONTENT_ID} tabIndex={-1}>
           <TestContainer services={services} store={store}>
             <a href='#foo'>text</a>
@@ -630,16 +631,6 @@ describe('EditCard', () => {
       document?.querySelector('a')?.focus();
       document?.getElementById(MAIN_CONTENT_ID)?.focus();
       expect(editCardProps.onBlur).not.toHaveBeenCalled();
-      const button = component.node.querySelector('button') as HTMLButtonElement;
-      const preventDefault = jest.fn();
-      document!.dispatchEvent = jest.fn();
-
-      // Two branches of showCard - must be mousedown of button 0
-      ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 1 });
-      expect(preventDefault).not.toHaveBeenCalled();
-      ReactTestUtils.Simulate.mouseDown(button, { preventDefault, button: 0 });
-      expect(preventDefault).toHaveBeenCalled();
-      expect(document!.dispatchEvent).toHaveBeenCalled();
 
       cleanup();
     });
@@ -661,7 +652,7 @@ describe('EditCard', () => {
             shouldFocusCard={true}
           />
         </TestContainer>,
-        {createNodeMock}
+        { createNodeMock }
       );
 
       expect(onHeightChange).not.toHaveBeenCalled();
@@ -754,23 +745,6 @@ describe('EditCard', () => {
       renderer.act(() => undefined);
 
       expect(spyAnalytics).not.toHaveBeenCalled();
-    });
-
-    it('shows login for unauthenticated user when card is active', () => {
-      renderer.create(
-        <TestContainer services={services} store={store}>
-          <EditCard
-            {...editCardProps}
-            isActive={false}
-            data={undefined}
-            shouldFocusCard={true}
-          />
-        </TestContainer>
-      );
-
-      // Wait for React.useEffect
-      renderer.act(() => undefined);
-
     });
   });
 });

@@ -30,6 +30,7 @@ import EditCard from './EditCard';
 import scrollHighlightIntoView from './utils/scrollHighlightIntoView';
 import showConfirmation from './utils/showConfirmation';
 import { useConfirmationToastContext } from '../../components/ConfirmationToast';
+import { useIntl } from 'react-intl';
 import { getPreferEnd } from './cardUtils';
 
 export interface CardProps {
@@ -197,6 +198,7 @@ function NoteOrCard({
     commonProps,
   } = computedProps;
   const showToast = useConfirmationToastContext();
+  const intl = useIntl();
   const onRemove = React.useCallback(() => {
     if (props.data) {
       setHighlightRemoved(true);
@@ -205,10 +207,10 @@ function NoteOrCard({
         pageId: props.page.id,
       });
       showToast({
-        message: 'Highlight removed',
+        message: intl.formatMessage({ id: 'i18n:highlighting:toast:highlight-delete' }),
       });
     }
-  }, [locationFilterId, props, showToast, setHighlightRemoved]);
+  }, [locationFilterId, props, showToast, intl, setHighlightRemoved]);
   const style = highlightStyles.find(
     search => props.data && search.label === props.data.color
   );

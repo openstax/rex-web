@@ -372,12 +372,6 @@ class HomeRex:
         await self.page.locator("p:has-text('impact history')").select_text()
 
     @pytest.mark.asyncio
-    async def select_text_block_in_solution(self):
-        await self.page.locator(
-            "p:has-text('formula. Repeat with values')"
-        ).select_text()
-
-    @pytest.mark.asyncio
     async def click_astronomy_book_chapter93(self):
         await self.page.get_by_test_id("content-link-test").get_by_text(
             "Impact Craters"
@@ -395,7 +389,6 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def oneclick_highlight_infobox(self):
-        await self.page.get_by_label("Edit highlighted note").click()
         await self.page.get_by_label("Edit highlighted note").click()
 
     @property
@@ -484,13 +477,11 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_show_hide_solution_link(self):
-        await self.page.locator("#fs-id1165134108429").get_by_title(
-            "Show/Hide Solution"
-        ).click()
-
-    @pytest.mark.asyncio
-    async def click_text_in_solution_block(self):
-        await self.page.locator("p#fs-id1165134108431").dblclick()
+        button_locator = self.page.locator(
+            'summary[data-content="Show/Hide Solution"]'
+        ).first
+        await button_locator.scroll_into_view_if_needed()
+        await button_locator.click()
 
     # Unsaved highlight dialog
 
@@ -580,8 +571,12 @@ class HomeRex:
     async def section_count(self):
         return await self.page.locator("section").all()
 
-    # Content portal
+    # Clears blockers/overlays
 
     @pytest.mark.asyncio
-    async def click_book_details_page_link(self):
-        await self.page.get_by_label("Astronomy").click()
+    async def clear_all_blockers(self):
+        await self.page.evaluate(
+            """() => {
+            document.querySelectorAll('div[class*="ClickBlocker"]').forEach(el => el.remove());
+        }"""
+        )

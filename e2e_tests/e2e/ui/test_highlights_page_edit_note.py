@@ -31,7 +31,6 @@ async def test_highlights_page_edit_note(
     await home.select_text()
     await home.double_click_text()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
     await home.oneclick_highlight_infobox()
 
     assert home.highlight_box_is_visible

@@ -27,15 +27,22 @@ const HighlightNoteAnnotation = styled.div`
   overflow-wrap: break-word;
 `;
 
+const TextareaLabel = styled.label`
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
 const Textarea = styled.textarea`
   ${textRegularStyle}
   font-family: inherit;
-  flex: 1;
+  width: 100%;
   letter-spacing: 0;
   line-height: 2rem;
   min-height: 3.6rem;
   max-height: calc(60vh - 20rem);
-  min-width: 60%;
+  box-sizing: border-box;
   color: ${theme.color.text.label};
   padding: 0.8rem;
 `;
@@ -115,22 +122,24 @@ const EditHighlightAnnotation = ({
 
   return (
     <HighlightNote>
-      <Textarea
-        value={anno}
-        placeholder={intl.formatMessage({
-          id: 'i18n:highlighting:card:placeholder',
-        })}
-        autoFocus={true}
-        aria-label={intl.formatMessage({
-          id: 'i18n:highlighting:card:aria-label',
-        })}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-          setAnno(e.target.value);
-        }}
-        ref={ref}
-        onInput={calculateHeight}
-        style={taStyle}
-      />
+      <TextareaLabel>
+        <FormattedMessage id='i18n:toolbar:highlights:popup:body:note:text'>
+          {msg => msg}
+        </FormattedMessage>
+        <Textarea
+          value={anno}
+          placeholder={intl.formatMessage({
+            id: 'i18n:highlighting:card:placeholder',
+          })}
+          autoFocus={true}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            setAnno(e.target.value);
+          }}
+          ref={ref}
+          onInput={calculateHeight}
+          style={taStyle}
+        />
+      </TextareaLabel>
       <HighlightEditButtons>
         <Button
           data-testid='save'

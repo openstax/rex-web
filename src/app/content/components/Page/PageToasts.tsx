@@ -68,7 +68,7 @@ const PageToasts = (props: ToastProps | {}) => {
   }, [setToastsHidden, toastsHidden]);
 
   return (
-    <ToastContainerWrapper aria-live='polite' role='alertdialog' {...props} mobileToolbarOpen={mobileToolbarOpen}>
+    <ToastContainerWrapper aria-live='polite' {...props} mobileToolbarOpen={mobileToolbarOpen}>
       {toasts && !toastsHidden ? <ToastNotifications toasts={toasts} /> : null}
     </ToastContainerWrapper>
   );

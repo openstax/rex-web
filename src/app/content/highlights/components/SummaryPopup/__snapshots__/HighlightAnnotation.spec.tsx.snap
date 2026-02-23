@@ -48,7 +48,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to false 1`] 
 `;
 
 exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] = `
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -80,20 +80,20 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   -moz-osx-font-smoothing: grayscale;
 }
 
-.c3:hover {
+.c4:hover {
   background-color: ,#be3c08,;
 }
 
-.c3:active {
+.c4:active {
   background-color: ,#b03808,;
 }
 
-.c3:focus {
+.c4:focus {
   outline: solid #fff;
   box-shadow: inset 0 0 0 0.3rem #000;
 }
 
-.c4 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -123,15 +123,15 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   font-weight: regular;
 }
 
-.c4:hover {
+.c5:hover {
   background-color: ,#fafafa,;
 }
 
-.c4:active {
+.c5:active {
   background-color: ,#e5e5e5,;
 }
 
-.c2 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -172,13 +172,23 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
 }
 
 .c1 {
+  font-weight: bold;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c2 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
   font-family: inherit;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  width: 100%;
   -webkit-letter-spacing: 0;
   -moz-letter-spacing: 0;
   -ms-letter-spacing: 0;
@@ -186,7 +196,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
   line-height: 2rem;
   min-height: 3.6rem;
   max-height: calc(60vh - 20rem);
-  min-width: 60%;
+  box-sizing: border-box;
   color: #6f6f6f;
   padding: 0.8rem;
 }
@@ -194,26 +204,30 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
 <div
   className="c0"
 >
-  <textarea
-    aria-label="Enter note's text"
-    autoFocus={true}
+  <label
     className="c1"
-    onChange={[Function]}
-    onInput={[Function]}
-    placeholder="Add a note"
-    style={
-      Object {
-        "height": "2px",
+  >
+    Note:
+    <textarea
+      autoFocus={true}
+      className="c2"
+      onChange={[Function]}
+      onInput={[Function]}
+      placeholder="Add a note"
+      style={
+        Object {
+          "height": "2px",
+        }
       }
-    }
-    value="Some annotation"
-  />
+      value="Some annotation"
+    />
+  </label>
   <div
-    className="c2"
+    className="c3"
   >
     <button
       aria-label="Save"
-      className="c3"
+      className="c4"
       data-analytics-label="save"
       data-testid="save"
       onClick={[Function]}
@@ -222,7 +236,7 @@ exports[`HighlightDeleteWrapper match snapshot when editing is set to true 1`] =
     </button>
     <button
       aria-label="Cancel"
-      className="c4"
+      className="c5"
       data-analytics-label="cancel"
       data-testid="cancel"
       onClick={[Function]}
