@@ -24,6 +24,11 @@ export default [
   ...studyGuidesHooks,
   ...practiceQuestionsHooks,
   receivePageNotFoundId,
+  /*
+  * NOTE: pageLoadTracker should always be the last hook in this array.
+  * It removes the loading flag after all other hooks have run.
+  * If you add new hooks, ensure pageLoadTracker remains last!
+  */
   pageLoadTracker,
   /*
    * clears meta on locationChange, in case the new route doesn't call setHead

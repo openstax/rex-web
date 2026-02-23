@@ -2,7 +2,10 @@ import createTestServices from '../../../test/createTestServices';
 import { locationChange } from '../../navigation/actions';
 import { assertDocument } from '../../utils';
 import { MiddlewareAPI } from '../../types';
+import Sentry from '../../../helpers/Sentry';
 import { hookBody } from './pageLoadTracker';
+
+jest.mock('../../../helpers/Sentry');
 
 describe('pageLoadTracker', () => {
     let services: MiddlewareAPI & ReturnType<typeof createTestServices>;
@@ -128,7 +131,7 @@ describe('pageLoadTracker middleware', () => {
         // Wait for the async catch block
         await new Promise(resolve => setTimeout(resolve, 50));
 
-        expect(errorSpy).toHaveBeenCalledWith('pageLoadTracker Error: Test error from calm');
+        expect(Sentry.captureException).toHaveBeenCalled();
         errorSpy.mockRestore();
     });
 });

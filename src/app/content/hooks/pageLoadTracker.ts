@@ -1,6 +1,7 @@
 import { ActionHookBody } from '../../types';
 import { actionHook } from '../../utils';
 import { locationChange } from '../../navigation/actions';
+import Sentry from '../../../helpers/Sentry';
 
 export const hookBody: ActionHookBody<typeof locationChange> = ({ promiseCollector }) => {
     return () => {
@@ -35,8 +36,7 @@ const pageLoadTrackerMiddleware = (services: Parameters<typeof hookBody>[0]) => 
         // This prevents it from being added to promiseCollector
         if (promise) {
             promise.catch((e) => {
-              // eslint-disable-next-line no-console
-              console.error(`pageLoadTracker ${e}`);
+                Sentry.captureException(`pageLoadTracker ${e}`);
             });
         }
         return;
