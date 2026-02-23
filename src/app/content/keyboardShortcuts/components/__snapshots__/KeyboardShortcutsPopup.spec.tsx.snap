@@ -659,6 +659,30 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
               <span
                 className="c13"
               >
+                Shift
+              </span>
+               + 
+              <span
+                className="c13"
+              >
+                Tab
+              </span>
+            </div>
+            <div
+              className="c12"
+            >
+              Move focus backward to math equation
+            </div>
+          </div>
+          <div
+            className="c11"
+          >
+            <div
+              className="c12"
+            >
+              <span
+                className="c13"
+              >
                 Space
               </span>
                or 
@@ -719,7 +743,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
             <div
               className="c12"
             >
-              (macOS)(Safari, Firefox, Edge) – Alternative: open context menu
+              (Mac) – Alternative: open context menu
             </div>
           </div>
         </div>

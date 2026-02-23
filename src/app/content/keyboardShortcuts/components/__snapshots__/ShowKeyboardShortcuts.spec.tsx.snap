@@ -422,6 +422,30 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
           <span
             className="c6"
           >
+            Shift
+          </span>
+           + 
+          <span
+            className="c6"
+          >
+            Tab
+          </span>
+        </div>
+        <div
+          className="c5"
+        >
+          Move focus backward to math equation
+        </div>
+      </div>
+      <div
+        className="c4"
+      >
+        <div
+          className="c5"
+        >
+          <span
+            className="c6"
+          >
             Space
           </span>
            or 
@@ -482,7 +506,7 @@ exports[`ShowKeyboardShortcuts renders the keyboard shortcuts menu 1`] = `
         <div
           className="c5"
         >
-          (macOS)(Safari, Firefox, Edge) – Alternative: open context menu
+          (Mac) – Alternative: open context menu
         </div>
       </div>
     </div>

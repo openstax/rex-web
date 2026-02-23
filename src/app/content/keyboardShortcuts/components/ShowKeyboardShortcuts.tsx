@@ -27,7 +27,7 @@ const ShortcutsHeadingDiv = styled.div`
   `)}
 `;
 
-export const ShortcutsHeading = ({msgKey}: {msgKey: string}) => (
+export const ShortcutsHeading = ({ msgKey }: { msgKey: string }) => (
   <ShortcutsHeadingDiv>
     <FormattedMessage id={`i18n:a11y:keyboard-shortcuts:${msgKey}`}>
       {(msg) => msg}
@@ -83,7 +83,7 @@ export const ShortcutKey = styled.span`
   vertical-align: middle;
 `;
 
-export const Shortcut = ({keys, msgKey, separator = ' + '}: {keys: string[], msgKey: string, separator?: string}) => (
+export const Shortcut = ({ keys, msgKey, separator = ' + ' }: { keys: string[], msgKey: string, separator?: string }) => (
   <ShortcutRow>
     <ShortcutBlock>
       {keys.map<React.ReactNode>(
@@ -117,30 +117,30 @@ const ShowKeyboardShortcuts = () => (
     data-analytics-region='KS popup'
     tabIndex={-1}
   >
-    <ShortcutsHeading msgKey='sub-heading'/>
+    <ShortcutsHeading msgKey='sub-heading' />
 
     <ShortcutsCard>
       <ShortcutsTable>
-        <Shortcut keys={['shift', '?']} msgKey='open-menu'/>
-        <Shortcut keys={['tab']} msgKey='move-forward'/>
-        <Shortcut keys={['shift', 'tab']} msgKey='move-backward'/>
-        <Shortcut keys={['alt', 'h']} msgKey='move-focus-in-out'/>
-        <Shortcut keys={['tab']} msgKey='move-through-note-editing'/>
-        <Shortcut keys={['arrows']} msgKey='select-highlight-color'/>
-        <Shortcut keys={['enter']} msgKey='save-or-cancel'/>
+        <Shortcut keys={['shift', '?']} msgKey='open-menu' />
+        <Shortcut keys={['tab']} msgKey='move-forward' />
+        <Shortcut keys={['shift', 'tab']} msgKey='move-backward' />
+        <Shortcut keys={['alt', 'h']} msgKey='move-focus-in-out' />
+        <Shortcut keys={['tab']} msgKey='move-through-note-editing' />
+        <Shortcut keys={['arrows']} msgKey='select-highlight-color' />
+        <Shortcut keys={['enter']} msgKey='save-or-cancel' />
       </ShortcutsTable>
     </ShortcutsCard>
 
-    <ShortcutsHeading msgKey='creating-highlights-and-notes'/>
+    <ShortcutsHeading msgKey='creating-highlights-and-notes' />
 
-    <CaretMessage/>
+    <CaretMessage />
 
     <ShortcutsCard>
       <ShortcutsTable>
-        <Shortcut keys={['arrows']} msgKey='move-focus-through-each-line'/>
-        <Shortcut keys={['shift', 'arrows']} msgKey='select-text'/>
-        <Shortcut keys={['alt', 'h']} msgKey='create-highlight-or-note'/>
-        <Shortcut keys={['alt', 's']} msgKey='cycle-search-regions'/>
+        <Shortcut keys={['arrows']} msgKey='move-focus-through-each-line' />
+        <Shortcut keys={['shift', 'arrows']} msgKey='select-text' />
+        <Shortcut keys={['alt', 'h']} msgKey='create-highlight-or-note' />
+        <Shortcut keys={['alt', 's']} msgKey='cycle-search-regions' />
       </ShortcutsTable>
     </ShortcutsCard>
 
@@ -148,10 +148,11 @@ const ShowKeyboardShortcuts = () => (
 
     <ShortcutsCard>
       <ShortcutsTable>
-        <Shortcut keys={['tab']} msgKey='math-focus-equation'/>
-        <Shortcut keys={['space', 'enter']} msgKey='math-open-context-menu' separator=' or '/>
-        <Shortcut keys={['shift', 'f10']} msgKey='math-open-context-menu-nvda-win'/>
-        <Shortcut keys={['ctrl', 'enter']} msgKey='math-open-context-menu-nvda-mac'/>
+        <Shortcut keys={['tab']} msgKey='math-focus-equation' />
+        <Shortcut keys={['shift', 'tab']} msgKey='math-focus-equation-backward' />
+        <Shortcut keys={['space', 'enter']} msgKey='math-open-context-menu' separator=' or ' />
+        <Shortcut keys={['shift', 'f10']} msgKey='math-open-context-menu-nvda-win' />
+        <Shortcut keys={['ctrl', 'enter']} msgKey='math-open-context-menu-nvda-mac' />
       </ShortcutsTable>
     </ShortcutsCard>
   </ShowKeyboardShortcutsBody>
