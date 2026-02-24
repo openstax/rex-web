@@ -92,7 +92,7 @@ const ShowPracticeQuestions = () => {
     const currentSectionId = section ? section.id : page ? page.id : null;
     return currentSectionId ? getNextPageWithPracticeQuestions(currentSectionId, locationFilters, book) : undefined;
   }, [book, page, section, locationFilters]);
-  const questionsInProggress = useSelector(pqSelectors.questionsInProggress);
+  const questionsInProgress = useSelector(pqSelectors.questionsInProgress);
   const hasAnswers = useSelector(pqSelectors.hasAnswers);
   const isLoading = useSelector(pqSelectors.practiceQuestionsAreLoading);
 
@@ -108,26 +108,27 @@ const ShowPracticeQuestions = () => {
         : <ShowPracticeQuestionsContent>
           <MaybeSectionTitle />
           <div role="status">
-            {questionsCount === 0
-                ? (nextSection
-                  ? <EmptyScreen nextSection={nextSection} />
-                  : <FinalScreen />
+            {
+              questionsCount === 0
+              ? !nextSection && <FinalScreen />
+              : hasAnswers && !questionsInProgress && <FinalScreen nextSection={nextSection} />
+            }
+          </div>
+          {questionsCount === 0
+              ? (nextSection && <EmptyScreen nextSection={nextSection} />)
+              : !(hasAnswers && !questionsInProgress) &&
+                (
+                  <QuestionsWrapper>
+                    <QuestionsHeader id='progress-bar-header'>
+                      <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                        {(msg) => msg}
+                      </FormattedMessage>
+                    </QuestionsHeader>
+                    <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+                    {questionsInProgress ? <Question /> : <IntroScreen />}
+                  </QuestionsWrapper>
                 )
-                : hasAnswers && !questionsInProggress
-                  ? <FinalScreen nextSection={nextSection} />
-                  : (
-                    <QuestionsWrapper>
-                      <QuestionsHeader id='progress-bar-header'>
-                        <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                          {(msg) => msg}
-                        </FormattedMessage>
-                      </QuestionsHeader>
-                      <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-                      {questionsInProggress ? <Question /> : <IntroScreen />}
-                    </QuestionsWrapper>
-                  )
-              }
-            </div>
+            }
         </ShowPracticeQuestionsContent>
       }
     </ShowPracticeQuestionsBody>
