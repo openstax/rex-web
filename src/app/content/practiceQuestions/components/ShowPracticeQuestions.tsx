@@ -110,24 +110,23 @@ const ShowPracticeQuestions = () => {
           <div role="status">
             {
               questionsCount === 0
-              ? !nextSection && <FinalScreen />
+              ? !nextSection ? <FinalScreen /> : <EmptyScreen nextSection={nextSection} />
               : hasAnswers && !questionsInProgress && <FinalScreen nextSection={nextSection} />
             }
           </div>
-          {questionsCount === 0
-              ? (nextSection && <EmptyScreen nextSection={nextSection} />)
-              : !(hasAnswers && !questionsInProgress) &&
-                (
-                  <QuestionsWrapper>
-                    <QuestionsHeader id='progress-bar-header'>
-                      <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                        {(msg) => msg}
-                      </FormattedMessage>
-                    </QuestionsHeader>
-                    <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-                    {questionsInProgress ? <Question /> : <IntroScreen />}
-                  </QuestionsWrapper>
-                )
+          {questionsCount !== 0 &&
+            !(hasAnswers && !questionsInProgress) &&
+              (
+                <QuestionsWrapper>
+                  <QuestionsHeader id='progress-bar-header'>
+                    <FormattedMessage id='i18n:practice-questions:popup:questions'>
+                      {(msg) => msg}
+                    </FormattedMessage>
+                  </QuestionsHeader>
+                  <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+                  {questionsInProgress ? <Question /> : <IntroScreen />}
+                </QuestionsWrapper>
+              )
             }
         </ShowPracticeQuestionsContent>
       }
