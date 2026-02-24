@@ -6,7 +6,7 @@ import Button from '../../../components/Button';
 import { Store } from '../../../types';
 import { LinkedArchiveTreeSection } from '../../types';
 import { setSelectedSection } from '../actions';
-import EmptyScreen from './EmptyScreen';
+import EmptyScreen, { EmptyScreenStatus } from './EmptyScreen';
 
 describe('EmptyScreen for practice questions', () => {
   let store: Store;
@@ -31,6 +31,15 @@ describe('EmptyScreen for practice questions', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith(setSelectedSection(mockSection));
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  it('EmptyScreenStatus renders status message without next section button', () => {
+    const component = renderer.create(<TestContainer store={store}>
+      <EmptyScreenStatus />
+    </TestContainer>);
+
+    expect(() => component.root.findByType(Button)).toThrow();
     expect(component.toJSON()).toMatchSnapshot();
   });
 });

@@ -28,7 +28,7 @@ interface EmptyScreenProps {
   nextSection: LinkedArchiveTreeSection;
 }
 
-export const emptyScreenStatus = () => <StyledEmptyScreen>
+export const EmptyScreenStatus = () => <StyledEmptyScreen>
   <StyledText>
     <FormattedMessage id='i18n:practice-questions:popup:empty:message' />
   </StyledText>

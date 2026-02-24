@@ -11,7 +11,7 @@ import { PopupBody } from '../../styles/PopupStyles';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import * as pqSelectors from '../selectors';
 import { getNextPageWithPracticeQuestions } from '../utils';
-import EmptyScreen, { emptyScreenStatus } from './EmptyScreen';
+import EmptyScreen, { EmptyScreenStatus } from './EmptyScreen';
 import Filters from './Filters';
 import FinalScreen, { FinalScreenStatus } from './FinalScreen';
 import IntroScreen from './IntroScreen';
@@ -105,7 +105,7 @@ function StatusRegion({ questionsCount, nextSection, hasAnswers, questionsInProg
   if (questionsCount === 0 && nextSection) {
     return (
       <div role="status">
-        {emptyScreenStatus()}
+        <EmptyScreenStatus />
       </div>
     );
   }
