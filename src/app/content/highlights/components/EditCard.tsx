@@ -233,6 +233,8 @@ function ActiveEditCard({
   );
 
   const ref = React.useRef<HTMLElement>(null);
+  const annotationEditorRef = React.useRef<HTMLTextAreaElement>(null);
+
 
   useTrapTabNavigation(ref, editingAnnotation);
 
@@ -245,6 +247,7 @@ function ActiveEditCard({
       />
 
       <AnnotationEditor
+        textareaRef={annotationEditorRef}
         highlight={props.highlight}
         data={props.data}
         pendingAnnotation={pendingAnnotation}
@@ -271,6 +274,7 @@ function ActiveEditCard({
             resetAnnotation={resetAnnotation}
             setAnnotationChangesPending={props.setAnnotationChangesPending}
             onCancel={props.onCancel}
+            textareaRef={annotationEditorRef}
           />
         </ButtonGroup>
       )}
