@@ -19,7 +19,7 @@ const StyledFinalScreen = styled.div`
 `;
 
 const StyledText = styled.span`
-  margin-bottom: 3rem;
+  margin-bottom: -1rem;
   max-width: 38rem;
   overflow: initial;
 `;
@@ -31,27 +31,25 @@ const StyledNextSectionMessage = styled(NextSectionMessage)`
 `;
 
 interface FinalScreenProps {
-  nextSection?: LinkedArchiveTreeSection;
+  nextSection: LinkedArchiveTreeSection;
 }
+
+export const finalScreenStatus = <StyledFinalScreen>
+  <StyledText>
+    <FormattedMessage id='i18n:practice-questions:popup:final' />
+  </StyledText>
+</StyledFinalScreen>;
 
 const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   const dispatch = useDispatch();
 
   return <StyledFinalScreen>
-    <StyledText>
-      <FormattedMessage id='i18n:practice-questions:popup:final'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </StyledText>
-    {
-      nextSection &&
       <StyledNextSectionMessage
         nextSection={nextSection}
         messageKey='i18n:practice-questions:popup:final:next-section'
         onClick={() => dispatch(setSelectedSection(nextSection))}
         analyticsLabel='Continue (Final Screen)'
       />
-    }
   </StyledFinalScreen>;
 };
 

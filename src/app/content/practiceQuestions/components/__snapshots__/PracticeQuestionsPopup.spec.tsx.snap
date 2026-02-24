@@ -250,7 +250,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 .c20 {
-  margin-bottom: 3rem;
+  margin-bottom: -1rem;
   max-width: 38rem;
   overflow: initial;
 }

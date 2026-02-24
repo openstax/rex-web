@@ -11,9 +11,9 @@ import { PopupBody } from '../../styles/PopupStyles';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import * as pqSelectors from '../selectors';
 import { getNextPageWithPracticeQuestions } from '../utils';
-import EmptyScreen from './EmptyScreen';
+import EmptyScreen, { emptyScreenStatus } from './EmptyScreen';
 import Filters from './Filters';
-import FinalScreen from './FinalScreen';
+import FinalScreen, { finalScreenStatus } from './FinalScreen';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
@@ -110,13 +110,15 @@ const ShowPracticeQuestions = () => {
           <div role="status">
             {
               questionsCount === 0
-              ? !nextSection ? <FinalScreen /> : <EmptyScreen nextSection={nextSection} />
-              : hasAnswers && !questionsInProgress && <FinalScreen nextSection={nextSection} />
+              ? (nextSection ? emptyScreenStatus : finalScreenStatus)
+              : (hasAnswers && !questionsInProgress && finalScreenStatus)
             }
           </div>
-          {questionsCount !== 0 &&
-            !(hasAnswers && !questionsInProgress) &&
-              (
+          {questionsCount === 0
+            ? (nextSection && <EmptyScreen nextSection={nextSection} />)
+            : hasAnswers && !questionsInProgress
+              ? (nextSection && <FinalScreen nextSection={nextSection} />)
+              : (
                 <QuestionsWrapper>
                   <QuestionsHeader id='progress-bar-header'>
                     <FormattedMessage id='i18n:practice-questions:popup:questions'>
@@ -127,7 +129,7 @@ const ShowPracticeQuestions = () => {
                   {questionsInProgress ? <Question /> : <IntroScreen />}
                 </QuestionsWrapper>
               )
-            }
+          }
         </ShowPracticeQuestionsContent>
       }
     </ShowPracticeQuestionsBody>

@@ -19,7 +19,7 @@ const StyledEmptyScreen = styled.div`
 `;
 
 const StyledText = styled.span`
-  margin-bottom: 3rem;
+  margin-bottom: -1rem;
   max-width: 38rem;
   overflow: initial;
 `;
@@ -28,15 +28,16 @@ interface EmptyScreenProps {
   nextSection: LinkedArchiveTreeSection;
 }
 
+export const emptyScreenStatus = <StyledEmptyScreen>
+  <StyledText>
+    <FormattedMessage id='i18n:practice-questions:popup:empty:message' />
+  </StyledText>
+</StyledEmptyScreen>;
+
 const EmptyScreen = ({ nextSection }: EmptyScreenProps) => {
   const dispatch = useDispatch();
 
   return <StyledEmptyScreen>
-    <StyledText>
-      <FormattedMessage id='i18n:practice-questions:popup:empty:message'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </StyledText>
     <NextSectionMessage
       nextSection={nextSection}
       messageKey='i18n:practice-questions:popup:empty:next-section'
