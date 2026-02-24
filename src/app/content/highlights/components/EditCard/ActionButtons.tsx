@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import Button from '../../../../components/Button';
 import { useOnEsc } from '../../../../reactUtils';
 import { HighlightData } from '../../types';
@@ -85,7 +86,7 @@ export function CancelButton({
       onCancel();
       textareaRef?.current?.focus();
     },
-    [resetAnnotation, setAnnotationChangesPending, setEditing, onCancel]
+    [resetAnnotation, setAnnotationChangesPending, setEditing, onCancel, textareaRef]
   );
 
   useOnEsc(isActive, cancelEditing);

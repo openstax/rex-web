@@ -53,7 +53,7 @@
  */
 
 import { Highlight } from '@openstax/highlighter';
-import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
+import { FocusEvent, HTMLElement, HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';

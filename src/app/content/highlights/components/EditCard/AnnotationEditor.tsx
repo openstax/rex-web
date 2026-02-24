@@ -80,7 +80,7 @@ export function AnnotationEditor({
       setFocus();
       defer(setFocus);
     }
-  }, [onColorChange, highlight]);
+  }, [onColorChange, highlight, textareaRef]);
 
   useFocusElement(textareaRef, shouldFocusCard);
 
