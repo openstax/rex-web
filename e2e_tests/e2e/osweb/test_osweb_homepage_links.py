@@ -36,15 +36,10 @@ async def test_osweb_homepage_try_assignable_link(chrome_page, base_url):
     home = HomeRex(chrome_page)
 
     # THEN: Try OpenStax Assignable page opens
-    if "staging" in chrome_page.url:
-        await home.click_try_assignable_link()
+    await home.click_try_assignable_link()
 
-        assert "assignable" in chrome_page.url
+    assert "assignable" in chrome_page.url
 
-    else:
-        await home.click_try_assignable_link()
-
-        assert "assignable" in chrome_page.url
-
+    if "staging" not in chrome_page.url:
         # THEN: Number of books available in assignables is 31 (as of Feb. 2026)
         assert await home.available_book_list() >= 31

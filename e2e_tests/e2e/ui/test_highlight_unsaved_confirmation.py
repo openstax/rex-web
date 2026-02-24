@@ -189,7 +189,7 @@ async def test_highlight_unsaved_confirmation_on_small_highlight_dialog(
 
     await home.click_highlight_box_save_button()
 
-    assert home.small_highlighted_note_box_is_visible
+    assert await home.small_highlighted_note_box_is_visible()
 
     # THEN: Click next page, then click previous page link with unsaved highlights
     # and confirmation dialog pops up

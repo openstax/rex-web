@@ -32,7 +32,7 @@ async def test_small_highlight_box_delete_note(
     # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
     await chrome_page.keyboard.press("Enter")
 
-    assert home.highlight_box_is_visible
+    assert await home.highlight_box_is_visible()
 
     await home.fill_highlight_box_note_field("autotest highlight")
 
