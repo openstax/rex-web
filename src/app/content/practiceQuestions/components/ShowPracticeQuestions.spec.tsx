@@ -173,7 +173,7 @@ describe('ShowPracticeQuestions', () => {
     expect(() => component.root.findByType(Question)).not.toThrow();
   });
 
-  it('renders FinalScreen screen at the end of section questions', () => {
+  it('renders finalScreenStatus but not FinalScreen at the end of section questions', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
     store.dispatch(receivePracticeQuestionsSummary({
@@ -187,16 +187,25 @@ describe('ShowPracticeQuestions', () => {
     const component = renderer.create(render());
 
     expect(() => component.root.findByType(Question)).toThrow();
-    expect(() => component.root.findByType(FinalScreen)).not.toThrow();
+    expect(() => component.root.findByType(FinalScreen)).toThrow();
+
+    const statusDiv = component.root.findByProps({ role: 'status' });
+    expect(statusDiv).toBeDefined();
+    expect(statusDiv.children.length).toBeGreaterThan(0);
   });
 
-  it('renders FinalScreen screen if section has no questions and there is no nextSection', () => {
+  it('renders finalScreenStatus but not FinalScreen if section has no questions and there is no nextSection', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
     store.dispatch(setQuestions([]));
 
     const component = renderer.create(render());
 
-    expect(() => component.root.findByType(FinalScreen)).not.toThrow();
+    expect(() => component.root.findByType(FinalScreen)).toThrow();
+    expect(() => component.root.findByType(EmptyScreen)).toThrow();
+
+    const statusDiv = component.root.findByProps({ role: 'status' });
+    expect(statusDiv).toBeDefined();
+    expect(statusDiv.children.length).toBeGreaterThan(0);
   });
 });
