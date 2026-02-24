@@ -202,4 +202,21 @@ describe('ShowPracticeQuestions', () => {
     expect(() => component.root.findByType(Question)).toThrow();
     expect(() => component.root.findByType(IntroScreen)).toThrow();
   });
+
+  it('renders FinalScreen screen if section has no questions and there is no nextSection', () => {
+    store.dispatch(receiveBook(book));
+    store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(receivePracticeQuestionsSummary({
+      countsPerSource: {
+        [linkedArchiveTreeSection.id]: 0,
+      },
+    }));
+    store.dispatch(setQuestions([]));
+
+    const component = renderer.create(render());
+
+    expect(() => component.root.findByType(FinalScreen)).not.toThrow();
+    expect(() => component.root.findByType(EmptyScreen)).toThrow();
+    expect(() => component.root.findByType(IntroScreen)).toThrow();
+  });
 });
