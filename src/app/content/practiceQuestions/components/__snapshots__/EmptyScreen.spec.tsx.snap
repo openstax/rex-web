@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EmptyScreen for practice questions renders properly and dispatches action on click 1`] = `
-.c7 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,39 +32,39 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
   -moz-osx-font-smoothing: grayscale;
 }
 
-.c7:hover {
+.c6:hover {
   background-color: ,#be3c08,;
 }
 
-.c7:active {
+.c6:active {
   background-color: ,#b03808,;
 }
 
-.c7:focus {
+.c6:focus {
   outline: solid #fff;
   box-shadow: inset 0 0 0 0.3rem #000;
 }
 
-.c2 {
+.c1 {
   max-width: 38rem;
   overflow: initial;
 }
 
-.c2 .c6 {
+.c1 .c5 {
   margin: 4rem auto;
 }
 
-.c3 {
+.c2 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
-.c4 {
+.c3 {
   display: inline;
 }
 
-.c5 {
+.c4 {
   font-weight: 700;
 }
 
@@ -91,33 +91,22 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
   line-height: 2.5rem;
 }
 
-.c1 {
-  margin-bottom: 3rem;
-  max-width: 38rem;
-  overflow: initial;
-}
-
 <div
   className="c0"
 >
-  <span
+  <div
     className="c1"
   >
-    There are no questions for this chapter/section.
-  </span>
-  <div
-    className="c2"
-  >
     <div
-      className="c3"
+      className="c2"
     >
       <span
-        className="c4"
+        className="c3"
       >
         Select a section from the dropdown above or continue to 
       </span>
       <span
-        className="c5"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "some title",
@@ -126,7 +115,7 @@ exports[`EmptyScreen for practice questions renders properly and dispatches acti
       />
     </div>
     <button
-      className="c6 c7"
+      className="c5 c6"
       data-analytics-label="Continue (Empty Screen)"
       onClick={[Function]}
     >
