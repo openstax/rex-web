@@ -40,26 +40,8 @@ async def test_highlight_not_saved_in_show_hide_solution(
     # THEN: Double click text in solution dropdown
     await chrome_page.locator("#fs-id1165134108431").dblclick()
 
-    assert await home.highlight_infobox.is_visible()
-
-    await home.oneclick_highlight_infobox()
-
-    assert await home.highlight_box_is_visible()
-
-    # THEN: Solution dialog closes
-    await home.click_show_hide_solution_link()
-
-    assert not await home.highlight_box_is_visible()
-
-    # THEN: Solution dialog opens
-    await home.click_show_hide_solution_link()
-
-    assert not await home.highlight_box_is_visible()
-
-    # THEN: Double click text in solution dropdown
-    await chrome_page.locator("#fs-id1165134108431").dblclick()
-
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
@@ -71,6 +53,14 @@ async def test_highlight_not_saved_in_show_hide_solution(
     await home.click_show_hide_solution_link()
 
     assert await home.highlight_infobox.is_visible()
+
+    # THEN: Tabbing down to the highlighted text
+    await chrome_page.keyboard.press("Tab")
+    await chrome_page.keyboard.press("Tab")
+
+    await chrome_page.keyboard.press("Enter")
+
+    assert await home.highlight_box_is_visible()
 
     # THEN: Delete existing highlight
     await home.click_highlights_option()
@@ -117,7 +107,8 @@ async def test_highlight_saved_in_show_hide_solution(
 
     assert await home.highlight_infobox.is_visible()
 
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 

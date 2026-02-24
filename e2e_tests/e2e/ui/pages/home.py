@@ -23,6 +23,38 @@ class HomeRex:
     async def upper_menu_options(self):
         return await self.page.locator("div > nav > menu.container > li").count()
 
+    @pytest.mark.asyncio
+    async def click_interested_link(self):
+        interested_locator = self.page.get_by_role("link", name="I'm interested!")
+        await interested_locator.scroll_into_view_if_needed()
+        await interested_locator.click()
+
+    @pytest.mark.asyncio
+    async def click_iam_dropdown_in_interested(self):
+        # I am a... dropdown in Interested page
+        iam_locator = self.page.get_by_role("combobox")
+        await iam_locator.scroll_into_view_if_needed()
+        await iam_locator.click()
+
+    @property
+    def iam_dropdown_list_item(self):
+        return self.page.get_by_role("option", name="Administrator")
+
+    @property
+    def iam_form_page(self):
+        return self.page.get_by_label("School name")
+
+    @pytest.mark.asyncio
+    async def click_try_assignable_link(self):
+        try_locator = self.page.get_by_text("Try OpenStax Assignable")
+        await try_locator.scroll_into_view_if_needed()
+        await try_locator.click()
+
+    async def available_book_list(self):
+        return (
+            await self.page.locator(".course-list").first.locator("div > div").count()
+        )
+
     # Subjects homepage
 
     @pytest.mark.asyncio
@@ -143,9 +175,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def fill_highlights_option_edit_note_field(self, value):
-        await self.page.locator(
-            "div.HighlightAnnotation__HighlightNote-ppiq8t-0.kkNpZF > textarea"
-        ).fill(value)
+        await self.page.locator("textarea[placeholder='Add a note']").fill(value)
 
     @pytest.mark.asyncio
     async def click_highlights_option_edit_save_button(self):
@@ -386,10 +416,6 @@ class HomeRex:
     @pytest.mark.asyncio
     async def click_highlight_box_trash_icon(self):
         await self.page.get_by_label("Deselect current highlight").click()
-
-    @pytest.mark.asyncio
-    async def oneclick_highlight_infobox(self):
-        await self.page.get_by_label("Edit highlighted note").click()
 
     @property
     def highlight_infobox(self):

@@ -27,14 +27,13 @@ async def test_highlight_box_save_note(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight box appears, note is saved
-
     await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
     await home.double_click_text()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
@@ -76,8 +75,8 @@ async def test_overlapping_highlights(
 
     await home.click_continue_login()
 
-    # THEN: Book page opens, a highlight exists and adding another highlight brings up an overlapping warning message
-
+    # THEN: Book page opens, a highlight exists and adding another highlight brings up
+    # an overlapping warning message
     await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
@@ -91,7 +90,6 @@ async def test_overlapping_highlights(
     )
 
     # THEN: Delete the created highlight
-
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
 
@@ -125,15 +123,15 @@ async def test_highlight_box_note_colours(
 
     await home.click_continue_login()
 
-    # THEN: Book page opens, highlight box appears with colours and highlighted text can get different colour
-
+    # THEN: Book page opens, highlight box appears with colours and highlighted text
+    # can get different colour
     await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
     await home.double_click_text()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
@@ -165,7 +163,6 @@ async def test_highlight_box_note_colours(
     assert "green" in await home.highlights_option_text_colour_check_green
 
     # THEN: Delete the created highlight
-
     await chrome_page.keyboard.press("Escape")
 
     await home.click_highlights_option_page_menu()
