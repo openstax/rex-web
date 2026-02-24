@@ -17,6 +17,7 @@ import FinalScreen, { FinalScreenStatus } from './FinalScreen';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
+import { LinkedArchiveTreeSection } from '../../types';
 
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
   display: flex;
@@ -82,6 +83,78 @@ function MaybeSectionTitle() {
   return <SectionTitle tabIndex={-1} dangerouslySetInnerHTML={{ __html: section.title }} />;
 }
 
+interface StatusRegionProps {
+  questionsCount: number;
+  nextSection: LinkedArchiveTreeSection | undefined;
+  hasAnswers: boolean;
+  questionsInProgress: boolean;
+}
+
+function StatusRegion({ questionsCount, nextSection, hasAnswers, questionsInProgress }: StatusRegionProps) {
+  const shouldShowFinalStatus = questionsCount === 0 && !nextSection;
+  const shouldShowFinalStatusAfterCompletion = questionsCount > 0 && hasAnswers && !questionsInProgress;
+
+  if (shouldShowFinalStatus || shouldShowFinalStatusAfterCompletion) {
+    return (
+      <div role="status">
+        <FinalScreenStatus />
+      </div>
+    );
+  }
+
+  if (questionsCount === 0 && nextSection) {
+    return (
+      <div role="status">
+        {emptyScreenStatus()}
+      </div>
+    );
+  }
+
+  return null;
+}
+
+interface PracticeQuestionsDisplayProps {
+  questionsCount: number;
+  nextSection: LinkedArchiveTreeSection | undefined;
+  hasAnswers: boolean;
+  questionsInProgress: boolean;
+  currentQuestionIndex: number | null;
+}
+
+function PracticeQuestionsDisplay({
+  questionsCount,
+  nextSection,
+  hasAnswers,
+  questionsInProgress,
+  currentQuestionIndex,
+}: PracticeQuestionsDisplayProps) {
+  // No questions available
+  if (questionsCount === 0) {
+    if (nextSection) {
+      return <EmptyScreen nextSection={nextSection} />;
+    }
+    return <FinalScreen />;
+  }
+
+  // Questions finished
+  if (hasAnswers && !questionsInProgress) {
+    return <FinalScreen nextSection={nextSection} />;
+  }
+
+  // Questions in progress or intro screen
+  return (
+    <QuestionsWrapper>
+      <QuestionsHeader id='progress-bar-header'>
+        <FormattedMessage id='i18n:practice-questions:popup:questions'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </QuestionsHeader>
+      <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+      {questionsInProgress ? <Question /> : <IntroScreen />}
+    </QuestionsWrapper>
+  );
+}
+
 const ShowPracticeQuestions = () => {
   const {book, page} = useSelector(contentSelectors.bookAndPage);
   const questionsCount = useSelector(pqSelectors.questionsCount);
@@ -103,38 +176,26 @@ const ShowPracticeQuestions = () => {
       data-analytics-location={section ? splitTitleParts(section.title).join(' ') : 'section not loaded'}
     >
       <Filters />
-      {isLoading
-        ? <LoaderWrapper><Loader large /></LoaderWrapper>
-        : <ShowPracticeQuestionsContent>
+      {isLoading ? (
+        <LoaderWrapper><Loader large /></LoaderWrapper>
+      ) : (
+        <ShowPracticeQuestionsContent>
           <MaybeSectionTitle />
-          <div role="status">
-            {
-              questionsCount === 0
-              ? (nextSection ? emptyScreenStatus() : <FinalScreenStatus />)
-              : (hasAnswers && !questionsInProgress && <FinalScreenStatus />)
-            }
-          </div>
-          {questionsCount === 0
-            ? (nextSection
-                ? <EmptyScreen nextSection={nextSection} />
-                : <FinalScreen />
-              )
-            : hasAnswers && !questionsInProgress
-              ? <FinalScreen nextSection={nextSection} />
-              : (
-                <QuestionsWrapper>
-                  <QuestionsHeader id='progress-bar-header'>
-                    <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                      {(msg) => msg}
-                    </FormattedMessage>
-                  </QuestionsHeader>
-                  <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-                  {questionsInProgress ? <Question /> : <IntroScreen />}
-                </QuestionsWrapper>
-              )
-          }
+          <StatusRegion
+            questionsCount={questionsCount}
+            nextSection={nextSection}
+            hasAnswers={hasAnswers}
+            questionsInProgress={questionsInProgress}
+          />
+          <PracticeQuestionsDisplay
+            questionsCount={questionsCount}
+            nextSection={nextSection}
+            hasAnswers={hasAnswers}
+            questionsInProgress={questionsInProgress}
+            currentQuestionIndex={currentQuestionIndex}
+          />
         </ShowPracticeQuestionsContent>
-      }
+      )}
     </ShowPracticeQuestionsBody>
   );
 };

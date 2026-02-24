@@ -44,7 +44,7 @@ const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   const dispatch = useDispatch();
 
   if (!nextSection) {
-    return <FinalScreenStatus />;
+    return null;
   }
 
   return <StyledFinalScreen>
