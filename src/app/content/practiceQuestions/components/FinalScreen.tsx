@@ -31,7 +31,7 @@ const StyledNextSectionMessage = styled(NextSectionMessage)`
 `;
 
 interface FinalScreenProps {
-  nextSection: LinkedArchiveTreeSection;
+  nextSection?: LinkedArchiveTreeSection;
 }
 
 export const finalScreenStatus = <StyledFinalScreen>
@@ -42,6 +42,10 @@ export const finalScreenStatus = <StyledFinalScreen>
 
 const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   const dispatch = useDispatch();
+
+  if (!nextSection) {
+    return finalScreenStatus;
+  }
 
   return <StyledFinalScreen>
       <StyledNextSectionMessage

@@ -115,9 +115,12 @@ const ShowPracticeQuestions = () => {
             }
           </div>
           {questionsCount === 0
-            ? (nextSection && <EmptyScreen nextSection={nextSection} />)
+            ? (nextSection
+                ? <EmptyScreen nextSection={nextSection} />
+                : <FinalScreen nextSection={nextSection} />
+              )
             : hasAnswers && !questionsInProgress
-              ? (nextSection && <FinalScreen nextSection={nextSection} />)
+              ? <FinalScreen nextSection={nextSection} />
               : (
                 <QuestionsWrapper>
                   <QuestionsHeader id='progress-bar-header'>
