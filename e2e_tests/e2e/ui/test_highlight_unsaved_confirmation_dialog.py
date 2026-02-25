@@ -27,13 +27,12 @@ async def test_highlight_unsaved_confirmation_dialog(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight box appears, note is unsaved
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
@@ -42,7 +41,6 @@ async def test_highlight_unsaved_confirmation_dialog(
     await home.fill_highlight_box_note_field("autotest highlight")
 
     # THEN: Click search with unsaved highlights and confirmation dialog pops up
-
     await home.click_search()
 
     await home.fill_search_field('"about the Sun (88"')
@@ -56,26 +54,22 @@ async def test_highlight_unsaved_confirmation_dialog(
     await home.click_cancel_changes_button()
 
     # THEN: Click openstax logo with unsaved highlights and confirmation dialog pops up
-
     await home.click_openstax_logo()
     assert await home.unsaved_highlight_dialog_is_visible()
     await home.click_cancel_changes_button()
 
     # THEN: Click logout with unsaved highlights and confirmation dialog pops up
-
     await home.click_logged_in_user_dropdown()
     await home.click_logout_link()
     assert await home.unsaved_highlight_dialog_is_visible()
     await home.click_cancel_changes_button()
 
     # THEN: Click Highlights option with unsaved highlights and confirmation dialog pops up
-
     await home.click_highlights_option()
     assert await home.unsaved_highlight_dialog_is_visible()
     await home.click_cancel_changes_button()
 
     # THEN: Delete existing highlight
-
     await chrome_page.keyboard.press("Escape")
 
     await home.click_highlights_option()

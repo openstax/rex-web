@@ -27,14 +27,14 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight box appears, note is saved
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
     assert await home.highlight_infobox.is_visible()
 
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
@@ -43,7 +43,6 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(
     await home.click_new_chapter()
 
     # THEN: Click another chapter with unsaved highlights and confirmation dialog pops up
-
     assert await home.unsaved_highlight_dialog_is_visible()
     assert await home.unsaved_highlight_dialog_discard_button_is_visible()
     assert await home.unsaved_highlight_dialog_cancel_button_is_visible()
@@ -52,7 +51,8 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(
 
     assert not await home.unsaved_highlight_dialog_is_visible()
 
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open only with pressing Enter key (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     # THEN: Escape key has to be pressed twice to dismiss both the edit and info boxes
     await chrome_page.keyboard.press("Escape")
@@ -72,7 +72,6 @@ async def test_highlight_unsaved_confirmation_on_chapter_change(
     assert "Ideas for the Origin of the Moon" in await chrome_page.content()
 
     # THEN: Delete any existing highlights
-
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
 
@@ -103,21 +102,21 @@ async def test_highlight_unsaved_confirmation_on_previous_next_page_change(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight box appears, note is saved
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
     assert await home.highlight_infobox.is_visible()
 
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
     await home.fill_highlight_box_note_field("autotest highlight")
 
-    # THEN: Click next page, then click previous page link with unsaved highlights and confirmation dialog pops up
-
+    # THEN: Click next page, then click previous page link with unsaved highlights
+    # and confirmation dialog pops up
     await home.click_content_page_next_link()
 
     assert await home.unsaved_highlight_dialog_is_visible()
@@ -134,7 +133,9 @@ async def test_highlight_unsaved_confirmation_on_previous_next_page_change(
 
     assert not await home.unsaved_highlight_dialog_is_visible()
 
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Escape")
+    await chrome_page.keyboard.press("Enter")
 
     await home.fill_highlight_box_note_field("autotest highlight-2")
 
@@ -143,7 +144,6 @@ async def test_highlight_unsaved_confirmation_on_previous_next_page_change(
     assert await home.small_highlighted_note_box_is_visible()
 
     # THEN: Delete any existing highlights
-
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
 
@@ -174,14 +174,14 @@ async def test_highlight_unsaved_confirmation_on_small_highlight_dialog(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight box appears, note is saved
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
     assert await home.highlight_infobox.is_visible()
 
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
@@ -189,10 +189,10 @@ async def test_highlight_unsaved_confirmation_on_small_highlight_dialog(
 
     await home.click_highlight_box_save_button()
 
-    assert home.small_highlighted_note_box_is_visible
+    assert await home.small_highlighted_note_box_is_visible()
 
-    # THEN: Click next page, then click previous page link with unsaved highlights and confirmation dialog pops up
-
+    # THEN: Click next page, then click previous page link with unsaved highlights
+    # and confirmation dialog pops up
     await home.click_small_highlight_box_dropdown()
     await home.click_small_highlight_box_edit_button()
 
@@ -229,7 +229,6 @@ async def test_highlight_unsaved_confirmation_on_small_highlight_dialog(
     assert not await home.highlight_box_is_visible()
 
     # THEN: Delete any existing highlights
-
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
 

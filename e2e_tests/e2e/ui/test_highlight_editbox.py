@@ -25,15 +25,14 @@ async def test_highlight_editbox_opens_on_one_click(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight infobox and edit box appears
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
@@ -72,20 +71,18 @@ async def test_highlight_editbox_remains_open_when_clicked_inside(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight infobox and edit box appears
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
     assert await home.highlight_infobox.is_visible()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
     assert await home.highlight_box_is_visible()
 
     # THEN: Highlight edit box remains open when note field is clicked
-
     await home.click_highlight_box_note_field()
 
     assert await home.highlight_box_is_visible()
@@ -100,7 +97,6 @@ async def test_highlight_editbox_remains_open_when_clicked_inside(
     )
 
     # THEN: Delete the created highlight
-
     await home.click_highlights_option_page_menu()
 
     await home.click_highlights_option_page_menu_delete()

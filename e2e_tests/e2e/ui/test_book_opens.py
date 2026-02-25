@@ -84,3 +84,5 @@ async def test_book_content_portal_opens(chrome_page, base_url):
     assert "404 Not Found - OpenStax" not in await new_tab.title()
 
     assert await new_tab.get_by_role("heading", name="Table of contents").is_visible()
+
+    await chrome_page.close()

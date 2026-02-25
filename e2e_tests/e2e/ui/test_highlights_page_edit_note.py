@@ -25,15 +25,15 @@ async def test_highlights_page_edit_note(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight box appears and note can be edited
-
     await chrome_page.keyboard.press("Escape")
 
     await home.select_text()
     await home.double_click_text()
 
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
-    assert home.highlight_box_is_visible
+    assert await home.highlight_box_is_visible()
 
     await home.click_highlight_box_note_field()
 
@@ -72,7 +72,6 @@ async def test_highlights_page_edit_note(
     await chrome_page.keyboard.press("Escape")
 
     # THEN: Delete the created highlight
-
     await home.click_highlights_option()
     await home.click_highlights_option_page_menu()
 

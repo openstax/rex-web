@@ -25,15 +25,14 @@ async def test_small_highlight_box_delete_note(
     await home.click_continue_login()
 
     # THEN: Book page opens, highlight box appears, note is saved, then deleted and box disappears
-
     await chrome_page.keyboard.press("Escape")
 
     await home.double_click_text()
 
-    # NOTE!!! For now infobox needs to be clicked twice to have the edit highlight box open
-    await home.oneclick_highlight_infobox()
+    # THEN: Highlight infobox can be open by pressing Enter key only (as of Feb. 23, 2026)
+    await chrome_page.keyboard.press("Enter")
 
-    assert home.highlight_box_is_visible
+    assert await home.highlight_box_is_visible()
 
     await home.fill_highlight_box_note_field("autotest highlight")
 
