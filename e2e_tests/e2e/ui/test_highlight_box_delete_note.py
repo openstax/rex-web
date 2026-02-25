@@ -24,7 +24,7 @@ async def test_small_highlight_box_delete_note(
 
     await home.oneclick_highlight_infobox()
 
-    assert home.highlight_box_is_visible
+    assert home.highlight_box_is_visible()
 
     await home.fill_highlight_box_note_field("autotest highlight")
 
