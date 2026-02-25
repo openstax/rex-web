@@ -1,31 +1,27 @@
-import styled from 'styled-components/macro';
-import theme from '../theme';
+import React from 'react';
+import classNames from 'classnames';
+import './HiddenLink.css';
 
-const hiddenStyle = `
-  /* Hide the link when it is not focused */
-  clip: rect(1px, 1px, 1px, 1px);
-  margin: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden; 
-  text-decoration: none;
+interface HiddenLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: React.ReactNode;
+}
 
-  /* Show the link when it is focused */
-  :focus {
-    clip: auto;
-    height: auto;
-    width: auto;
-    z-index: ${theme.zIndex.focusedHiddenLink};
-  }
-`;
+export default function HiddenLink({ children, className, ...props }: HiddenLinkProps) {
+  return (
+    <a {...props} className={classNames('hidden-link', className)}>
+      {children}
+    </a>
+  );
+}
 
-export default styled.a`
-  ${ hiddenStyle }
-`;
+interface HiddenButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+}
 
-export const HiddenButton = styled.button`
-  ${ hiddenStyle }
-`;
+export function HiddenButton({ children, className, ...props }: HiddenButtonProps) {
+  return (
+    <button {...props} className={classNames('hidden-button', className)}>
+      {children}
+    </button>
+  );
+}

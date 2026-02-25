@@ -1,29 +1,53 @@
 /**
- * Breakpoint Mixins for CSS Modules
+ * Breakpoint documentation for plain CSS
  *
- * This file provides media query definitions that can be used in CSS Modules.
- * These replace the breakpoint helper functions from theme.ts
- */
-
-/* Media query strings that can be used with @media */
-@custom-media --mobile-small (max-width: 30em);      /* 480px */
-@custom-media --mobile-medium (max-width: 50em);     /* 800px */
-@custom-media --mobile (max-width: 75em);            /* 1200px */
-@custom-media --desktop (min-width: 75.0625em);      /* 1201px */
-@custom-media --touch-device not all and (pointer: fine), (hover: none);
-
-/**
- * Usage in CSS Modules:
+ * This project does not rely on @custom-media (which requires a
+ * PostCSS pipeline with the postcss-custom-media plugin). As a result,
+ * this file does not define functional custom media queries.
  *
- * @import './breakpoints.css';
+ * Instead of using:
  *
- * .myComponent {
- *   padding: 2rem;
- * }
+ *   @import './breakpoints.css';
  *
- * @media (--mobile) {
- *   .myComponent {
- *     padding: 1rem;
+ *   @media (--mobile) {
+ *     [styles here]
  *   }
- * }
+ *
+ * use standard media queries directly, as recommended by the migration guide.
+ *
+ * Example usage in plain CSS:
+ *
+ *   .myComponent {
+ *     padding: 2rem;
+ *   }
+ *
+ *   [max-width: 75em (1200px)]
+ *   @media screen and (max-width: 75em) {
+ *     .myComponent {
+ *       padding: 1rem;
+ *     }
+ *   }
+ *
+ * Common breakpoints (define inline where needed):
+ *
+ *   [30em  (480px)]
+ *   @media screen and (max-width: 30em) { ... }
+ *
+ *   [50em  (800px)]
+ *   @media screen and (max-width: 50em) { ... }
+ *
+ *   [75em  (1200px)]
+ *   @media screen and (max-width: 75em) { ... }
+ *
+ *   [75.0625em (~1201px)]
+ *   @media screen and (min-width: 75.0625em) { ... }
+ *
+ * Touch-target example:
+ *
+ *   @media not all and (pointer: fine), (hover: none) {
+ *     [styles for touch devices]
+ *   }
+ *
+ * This file is intentionally comment-only so that existing imports do not
+ * break, but it should not be relied upon for defining custom media queries.
  */

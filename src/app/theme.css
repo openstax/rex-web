@@ -3,7 +3,7 @@
  *
  * This file defines CSS variables for the REX application theme.
  * These variables replace the TypeScript theme object from theme.ts
- * as part of the migration from styled-components to CSS Modules.
+ * as part of the migration from styled-components to plain CSS with global variables and utility classes.
  */
 
 :root {
@@ -122,14 +122,6 @@
   --color-white: #fff;
 
   /* ========================================
-     BREAKPOINTS
-     ======================================== */
-  --breakpoint-mobile-small: 30em;     /* 480px */
-  --breakpoint-mobile-medium: 50em;    /* 800px */
-  --breakpoint-mobile: 75em;           /* 1200px */
-  --breakpoint-desktop: 75.0625em;     /* 1201px */
-
-  /* ========================================
      PADDING
      ======================================== */
   --padding-page-desktop: 3.2rem;
@@ -169,7 +161,7 @@
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
   border: 0;
 }
