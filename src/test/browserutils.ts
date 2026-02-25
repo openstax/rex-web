@@ -68,7 +68,9 @@ export const navigate = async (target: puppeteer.Page, path: string) => {
 
 export const finishRender = async (page: puppeteer.Page) => {
   await page.waitForFunction(() => {
-    return document?.body.hasAttribute('data-rex-loaded') && !document?.body.hasAttribute('data-rex-loading');
+    const loadedValue = document?.body.getAttribute('data-rex-loaded');
+    const isLoading = document?.body.hasAttribute('data-rex-loading');
+    return loadedValue && parseInt(loadedValue, 10) > 0 && !isLoading;
   });
 
   let lastScreen: Buffer | undefined;

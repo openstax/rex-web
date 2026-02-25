@@ -36,7 +36,7 @@ const pageLoadTrackerMiddleware = (services: Parameters<typeof hookBody>[0]) => 
         // This prevents it from being added to promiseCollector
         if (promise) {
             promise.catch((e) => {
-                Sentry.captureException(`pageLoadTracker ${e}`);
+                Sentry.captureException(e);
             });
         }
         return;
