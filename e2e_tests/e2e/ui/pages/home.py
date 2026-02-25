@@ -143,9 +143,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def fill_highlights_option_edit_note_field(self, value):
-        await self.page.locator(
-            "div.HighlightAnnotation__HighlightNote-ppiq8t-0.kkNpZF > textarea"
-        ).fill(value)
+        await self.page.locator("textarea[placeholder='Add a note']").fill(value)
 
     @pytest.mark.asyncio
     async def click_highlights_option_edit_save_button(self):
