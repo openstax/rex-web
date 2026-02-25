@@ -1,0 +1,29 @@
+/**
+ * HiddenLink CSS Module
+ *
+ * Example component demonstrating CSS Modules infrastructure.
+ * This is a test migration to verify the setup works correctly.
+ */
+
+.hiddenLink,
+.hiddenButton {
+  /* Hide the link/button when it is not focused */
+  clip: rect(1px, 1px, 1px, 1px);
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+/* Show the link/button when it is focused */
+.hiddenLink:focus,
+.hiddenButton:focus {
+  clip: auto;
+  height: auto;
+  width: auto;
+  z-index: var(--z-index-focused-hidden-link);
+}

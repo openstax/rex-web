@@ -1,0 +1,29 @@
+/**
+ * Breakpoint Mixins for CSS Modules
+ *
+ * This file provides media query definitions that can be used in CSS Modules.
+ * These replace the breakpoint helper functions from theme.ts
+ */
+
+/* Media query strings that can be used with @media */
+@custom-media --mobile-small (max-width: 30em);      /* 480px */
+@custom-media --mobile-medium (max-width: 50em);     /* 800px */
+@custom-media --mobile (max-width: 75em);            /* 1200px */
+@custom-media --desktop (min-width: 75.0625em);      /* 1201px */
+@custom-media --touch-device not all and (pointer: fine), (hover: none);
+
+/**
+ * Usage in CSS Modules:
+ *
+ * @import './breakpoints.css';
+ *
+ * .myComponent {
+ *   padding: 2rem;
+ * }
+ *
+ * @media (--mobile) {
+ *   .myComponent {
+ *     padding: 1rem;
+ *   }
+ * }
+ */

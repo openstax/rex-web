@@ -13,6 +13,7 @@ import { updateAvailable } from './app/notifications/actions';
 import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
 import './content.css';
+import './app/theme.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createBookConfigLoader from './gateways/createBookConfigLoader';
 import createHighlightClient from './gateways/createHighlightClient';
