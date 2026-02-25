@@ -9,7 +9,7 @@ import { cardWidth } from '../../constants';
 import Confirmation from '../Confirmation';
 import theme from '../../../../theme';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import { mergeRefs } from '../../../../utils';
+import { mergeRefs, assertWindow } from '../../../../utils';
 
 interface LoginOrEditProps {
   children: React.ReactNode;
@@ -35,6 +35,13 @@ export function LoginOrEdit({
   const authenticated = !!useSelector(selectAuth.user);
   const { formatMessage } = useIntl();
 
+  const showCard = React.useCallback((event: React.MouseEvent) => {
+    if (event.button === 0) {
+      event.preventDefault();
+      document?.dispatchEvent(new CustomEvent('showCardEvent', { bubbles: true }));
+    }
+  }, []);
+
   return (
     <div
       className={className}
@@ -52,13 +59,15 @@ export function LoginOrEdit({
               {children}
             </form>
           ) : (
-            <FormattedMessage
-              id={
-                isNewSelection
-                  ? 'i18n:highlighting:create-instructions'
-                  : 'i18n:highlighting:instructions'
-              }
-            />
+            <button type='button' onMouseDown={showCard}>
+              <FormattedMessage
+                id={
+                  isNewSelection
+                    ? 'i18n:highlighting:create-instructions'
+                    : 'i18n:highlighting:instructions'
+                }
+              />
+            </button>
           )}
         </HiddenOnMobile>
       ) : (
@@ -75,6 +84,10 @@ export function LoginConfirmation({
 }) {
   const loginLink = useSelector(selectAuth.loginLink);
   const trackShowLogin = useAnalyticsEvent('showLogin');
+  const onCancel = React.useCallback(() => {
+    onBlur();
+    assertWindow().getSelection()?.removeAllRanges();
+  }, [onBlur]);
 
   React.useEffect(() => {
     trackShowLogin();
@@ -87,7 +100,7 @@ export function LoginConfirmation({
       message='i18n:highlighting:login:prompt'
       confirmMessage='i18n:highlighting:login:link'
       confirmLink={loginLink}
-      onCancel={onBlur}
+      onCancel={onCancel}
       drawFocus={false}
     />
   );
