@@ -63,8 +63,8 @@ export const useAnalyticsEvent = <T extends keyof typeof events>(eventType: T) =
   // https://github.com/Microsoft/TypeScript/issues/13995
   // but the returned function has the correct args so whatever
   const services = useServices();
-  const event = services.analytics[eventType];
-  const data = useSelector(event.selector);
+  const event = services.analytics?.[eventType];
+  const data = useSelector(event?.selector ?? (() => undefined));
 
   type E = typeof services['analytics'][T];
   type RemainingArgumentTypes = E['track'] extends (
@@ -75,7 +75,9 @@ export const useAnalyticsEvent = <T extends keyof typeof events>(eventType: T) =
     : never;
 
   return (...args: RemainingArgumentTypes) => {
-    (event.track as (...args: unknown[]) => void)(data, ...args);
+    if (event) {
+      (event.track as (...args: unknown[]) => void)(data, ...args);
+    }
   };
 };
 
