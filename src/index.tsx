@@ -75,16 +75,12 @@ app.services.fontCollector.handle((font) => {
   app.services.promiseCollector.add(loadFont(font));
 });
 
-app.services.promiseCollector.calm().then(() => {
-  if (typeof(document) !== 'undefined') {
-    document.body.setAttribute('data-rex-loaded', 'true');
-  }
-});
+app.services.promiseCollector.calm();
 
 if (window.__PRELOADED_STATE__) {
   // content isn't received in a preloaded state its in the state already,
   // so trigger it here
-  window.dataLayer.push({contentTags: selectHead.contentTags(app.store.getState())});
+  window.dataLayer.push({ contentTags: selectHead.contentTags(app.store.getState()) });
 
   Loadable.preloadReady()
     .then(() => {

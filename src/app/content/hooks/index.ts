@@ -14,6 +14,7 @@ import kineticEnabled from './kineticEnabled';
 import { assignedRouteHookBody, contentRouteHookBody } from './locationChange';
 import receiveContentBody from './receiveContent';
 import receivePageNotFoundId from './receivePageNotFoundId';
+import pageLoadTracker from './pageLoadTracker';
 import storeTextSize, { loadStoredTextSize } from './storeTextSize';
 
 export default [
@@ -23,6 +24,12 @@ export default [
   ...studyGuidesHooks,
   ...practiceQuestionsHooks,
   receivePageNotFoundId,
+  /*
+  * NOTE: pageLoadTracker should always be the last hook in this array.
+  * It removes the loading flag after all other hooks have run.
+  * If you add new hooks, ensure pageLoadTracker remains last!
+  */
+  pageLoadTracker,
   /*
    * clears meta on locationChange, in case the new route doesn't call setHead
    * */
