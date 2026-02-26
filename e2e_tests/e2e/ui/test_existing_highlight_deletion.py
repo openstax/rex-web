@@ -18,13 +18,6 @@ async def test_delete_existing_highlights_astro(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, checks for highlights and deletes any existing ones
     await chrome_page.keyboard.press("Escape")
 
@@ -35,7 +28,9 @@ async def test_delete_existing_highlights_astro(
     while await highlights.count() > 0:
         iteration += 1
         if iteration > max_iterations:
-            raise RuntimeError(f"Failed to delete all highlights after {max_iterations} attempts")
+            raise RuntimeError(
+                f"Failed to delete all highlights after {max_iterations} attempts"
+            )
         current_count = await highlights.count()
         print(f"Found {current_count} highlights. Deleting...")
 
@@ -71,13 +66,6 @@ async def test_delete_existing_highlights_alg_and_tri(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, checks for highlights and deletes any existing ones
     await chrome_page.keyboard.press("Escape")
 
@@ -88,7 +76,9 @@ async def test_delete_existing_highlights_alg_and_tri(
     while await highlights.count() > 0:
         iteration += 1
         if iteration > max_iterations:
-            raise RuntimeError(f"Failed to delete all highlights after {max_iterations} attempts")
+            raise RuntimeError(
+                f"Failed to delete all highlights after {max_iterations} attempts"
+            )
         current_count = await highlights.count()
         print(f"Found {current_count} highlights. Deleting...")
 

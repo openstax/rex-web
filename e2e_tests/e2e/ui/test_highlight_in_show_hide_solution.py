@@ -18,15 +18,6 @@ async def test_highlight_not_saved_in_show_hide_solution(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await chrome_page.keyboard.press("Escape")
-
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page with solution opens and text inside is highlighted but not saved
     await chrome_page.keyboard.press("Escape")
 
@@ -95,15 +86,6 @@ async def test_highlight_saved_in_show_hide_solution(
     # WHEN: The Home page is fully loaded
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
-
-    await chrome_page.keyboard.press("Escape")
-
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
 
     await chrome_page.keyboard.press("Escape")
 
