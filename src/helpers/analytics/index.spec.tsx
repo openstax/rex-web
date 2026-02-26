@@ -11,7 +11,7 @@ const TrackComponent = ({ eventType, onTrack }: {
   onTrack: (track: (...args: any[]) => void) => void;
 }) => {
   const track = useAnalyticsEvent(eventType);
-  onTrack(track);
+  onTrack(track as (...args: any[]) => void);
   return null;
 };
 
