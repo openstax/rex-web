@@ -575,6 +575,50 @@ describe('EditCard', () => {
       expect(spyTextareaFocus).toHaveBeenCalledTimes(1);
       cleanup();
     });
+
+    it('cancelling resets the form state', () => {
+      highlight.getStyle.mockReturnValue('red');
+      const data = {
+        ...highlightData,
+        annotation: 'qwer',
+      };
+      // Create a ref with a textarea element for testing
+      const textareaRef = React.createRef<HTMLTextAreaElement>();
+      const textarea = assertDocument().createElement('textarea');
+      (textareaRef as any).current = textarea;
+
+      const { component, cleanup } = renderAuthenticatedEditCard({
+        ...editCardProps,
+        data,
+        isActive: true,
+      });
+      const findByTestId = makeFindByTestId(component.root);
+
+      const note = component.root.findByType(Note);
+      // Assign the ref with focus spy
+      (note.props.textareaRef as any).current = textarea;
+      const spyTextareaFocus = jest.spyOn(textarea, 'focus');
+
+      renderer.act(() => {
+        note.props.onChange('asdf');
+      });
+
+      expect(component.root.findAllByType('button').length).toBe(2);
+      expect(note.props.note).toBe('asdf');
+
+      const cancel = findByTestId('cancel');
+      
+      renderer.act(() => {
+        cancel.props.onClick({ preventDefault: jest.fn() });
+      });
+
+      expect(note.props.note).toBe('qwer');
+      expect(editCardProps.onBlur).not.toHaveBeenCalled();
+      expect(component.root.findAllByType('button').length).toBe(0);
+      expect(spyTextareaFocus).toHaveBeenCalled();
+      cleanup();
+    });
+
   });
 
   describe('Event Handling', () => {

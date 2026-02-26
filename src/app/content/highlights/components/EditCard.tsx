@@ -53,7 +53,7 @@
  */
 
 import { Highlight } from '@openstax/highlighter';
-import { FocusEvent, HTMLElement } from '@openstax/types/lib.dom';
+import { FocusEvent, HTMLElement, HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
@@ -233,6 +233,8 @@ function ActiveEditCard({
   );
 
   const ref = React.useRef<HTMLElement>(null);
+  const annotationEditorRef = React.useRef<HTMLTextAreaElement>(null);
+
 
   useTrapTabNavigation(ref, editingAnnotation);
 
@@ -245,6 +247,7 @@ function ActiveEditCard({
       />
 
       <AnnotationEditor
+        textareaRef={annotationEditorRef}
         highlight={props.highlight}
         data={props.data}
         pendingAnnotation={pendingAnnotation}
@@ -271,6 +274,7 @@ function ActiveEditCard({
             resetAnnotation={resetAnnotation}
             setAnnotationChangesPending={props.setAnnotationChangesPending}
             onCancel={props.onCancel}
+            textareaRef={annotationEditorRef}
           />
         </ButtonGroup>
       )}
