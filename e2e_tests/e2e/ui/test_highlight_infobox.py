@@ -17,13 +17,6 @@ async def test_highlight_infobox_dismisses_on_esc(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, highlight infobox and edit box appears
 
     await chrome_page.keyboard.press("Escape")
@@ -58,13 +51,6 @@ async def test_highlight_infobox_dismisses_on_one_click(
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
 
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
-
     # THEN: Book page opens, highlight infobox and edit box appears
 
     await chrome_page.keyboard.press("Escape")
@@ -98,13 +84,6 @@ async def test_highlight_infobox_remains_open_when_clicking_the_highlighted_text
     # WHEN: The Home page is fully loaded
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page)
-
-    await home.click_login()
-
-    await home.fill_user_field(rex_user)
-    await home.fill_password_field(rex_password)
-
-    await home.click_continue_login()
 
     # THEN: Book page opens, highlight infobox and edit box appears
 
