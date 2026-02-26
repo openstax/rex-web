@@ -19,6 +19,7 @@ export interface AnnotationEditorProps {
   setPendingAnnotation: (value: React.SetStateAction<string>) => void;
   setAnnotationChangesPending: typeof setAnnotationChangesPendingAction;
   onColorChange: (color: HighlightColorEnum, isDefault?: boolean) => void;
+  textareaRef: React.RefObject<HTMLTextAreaElement>;
 }
 
 /**
@@ -35,8 +36,8 @@ export function AnnotationEditor({
   setPendingAnnotation,
   setAnnotationChangesPending,
   onColorChange,
+  textareaRef,
 }: AnnotationEditorProps) {
-  const textarea = React.useRef<HTMLTextAreaElement>(null);
 
   const updateUnsavedHighlightStatus = React.useCallback(
     (newValue: string) => {
@@ -68,24 +69,24 @@ export function AnnotationEditor({
    */
   const initializeColor = React.useCallback(() => {
     if (!highlight.getStyle()) {
-      textarea.current?.blur();
+      textareaRef.current?.blur();
 
       onColorChange(highlightStyles[0].label, true);
 
       const setFocus = () => {
-        textarea.current?.focus();
+        textareaRef.current?.focus();
       };
 
       setFocus();
       defer(setFocus);
     }
-  }, [onColorChange, highlight]);
+  }, [onColorChange, highlight, textareaRef]);
 
-  useFocusElement(textarea, shouldFocusCard);
+  useFocusElement(textareaRef, shouldFocusCard);
 
   return (
     <Note
-      textareaRef={textarea}
+      textareaRef={textareaRef}
       note={pendingAnnotation}
       onFocus={initializeColor}
       onChange={updateUnsavedHighlightStatus}
