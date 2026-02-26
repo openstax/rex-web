@@ -50,6 +50,7 @@ async def chrome_page():
             root_dir = Path(".")
             json_file_path = root_dir / file_name
 
+            # Checks that login_state.json exists and is not empty
             if os.path.exists(json_file_path) and os.path.getsize(json_file_path) > 4:
 
                 context = await ch_browser.new_context(storage_state="login_state.json")
@@ -58,7 +59,9 @@ async def chrome_page():
                 yield page
 
             else:
-                pytest.exit("No login_state.json file exists or is empty")
+                pytest.exit(
+                    "Stopping run as no login_state.json file exists or is empty"
+                )
 
             await ch_browser.close()
 
