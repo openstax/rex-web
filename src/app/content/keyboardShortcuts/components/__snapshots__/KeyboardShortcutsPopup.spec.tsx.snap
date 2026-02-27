@@ -310,7 +310,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
         Keyboard Shortcuts
       </h1>
       <button
-        aria-label="Click to close Keyboard Shortcuts menu"
+        aria-label="Close Keyboard Shortcuts menu"
         className="c5"
         data-analytics-label="Click to close Keyboard Shortcuts modal"
         data-testid="close-keyboard-shortcuts-popup"
