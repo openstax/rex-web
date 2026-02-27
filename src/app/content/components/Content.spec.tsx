@@ -6,6 +6,7 @@ import createTestStore from '../../../test/createTestStore';
 import MessageProvider from '../../../test/MessageProvider';
 import { book, shortPage } from '../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../test/mocks/osWebLoader';
+import enMessages from '../../messages/en';
 import ScrollLock from '../../components/ScrollLock';
 import ScrollOffset from '../../components/ScrollOffset';
 import * as Services from '../../context/Services';
@@ -299,7 +300,7 @@ describe('content', () => {
     renderer.act(() => {
       component.root
         .findAllByProps({
-          'aria-label': 'Click to close the Table of Contents',
+          'aria-label': enMessages['i18n:toc:toggle:opened'],
         })[0]
         .props.onClick();
     });
@@ -308,7 +309,7 @@ describe('content', () => {
 
     renderer.act(() => {
       component.root
-        .findByProps({ 'aria-label': 'Click to open the Table of Contents' })
+        .findByProps({ 'aria-label': enMessages['i18n:toc:toggle:closed'] })
         .props.onClick();
     });
 
