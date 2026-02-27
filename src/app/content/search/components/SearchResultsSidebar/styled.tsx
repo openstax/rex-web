@@ -157,7 +157,7 @@ export const SearchResultsBar = styled.div`
   flex-direction: column;
 `;
 
-export const SearchResultsHeader = styled.h2`
+export const SearchResultsHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -173,7 +173,7 @@ export const SearchResultsHeader = styled.h2`
   `)}
 `;
 
-export const SearchResultsHeaderTitle = styled.span`
+export const SearchResultsHeaderTitle = styled.h2`
   font-size: 1.8rem;
   margin-left: 16px;
   padding: 1rem 0;
