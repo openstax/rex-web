@@ -865,6 +865,11 @@ exports[`assigned route route renders renders a component 1`] = `
     className="hidden-link"
     href="#main-content"
     onClick={[Function]}
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Skip to Content
   </a>
@@ -875,12 +880,22 @@ exports[`assigned route route renders renders a component 1`] = `
         "https://openstax.org/accessibility-statement",
       ]
     }
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Go to accessibility page
   </a>
   <button
     className="hidden-button"
     onClick={[Function]}
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Keyboard shortcuts menu
   </button>

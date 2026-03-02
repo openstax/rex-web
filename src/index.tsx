@@ -12,7 +12,6 @@ import { currentLocale } from './app/messages/selectors';
 import { updateAvailable } from './app/notifications/actions';
 import { assertDefined, assertWindow } from './app/utils';
 import config from './config';
-import './app/theme.css';
 import './content.css';
 import createArchiveLoader from './gateways/createArchiveLoader';
 import createBookConfigLoader from './gateways/createBookConfigLoader';

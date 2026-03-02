@@ -6,6 +6,11 @@ Array [
     className="hidden-link"
     href="#main-content"
     onClick={[Function]}
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Skip to Content
   </a>,
@@ -16,12 +21,22 @@ Array [
         "https://openstax.org/accessibility-statement",
       ]
     }
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Go to accessibility page
   </a>,
   <button
     className="hidden-button"
     onClick={[Function]}
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Keyboard shortcuts menu
   </button>,
