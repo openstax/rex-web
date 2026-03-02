@@ -177,7 +177,7 @@ function ArchiveTreeComponent({
 
 export function maybeAriaLabel(page: LinkedArchiveTreeSection, active?: boolean) {
   const [num, titleText] = splitTitleParts(page.title);
-  const currentPageAriaLabel = { 'aria-label': 'Current Page' };
+  const currentPageAriaLabel = { 'aria-current': 'page' };
   if (num) {
     return active ? currentPageAriaLabel : {};
   }

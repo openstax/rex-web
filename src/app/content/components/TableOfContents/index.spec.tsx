@@ -428,7 +428,7 @@ describe('maybeAriaLabel', () => {
 
   it('returns aria-label when active is true', () => {
     const result = maybeAriaLabel(mockPage, true);
-    expect(result).toEqual({ 'aria-label': 'Current Page' });
+    expect(result).toEqual({ 'aria-current': 'page' });
   });
 
   it('returns empty object when active is false', () => {
