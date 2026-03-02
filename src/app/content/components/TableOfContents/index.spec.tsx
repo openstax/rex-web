@@ -435,4 +435,20 @@ describe('maybeAriaAttributes', () => {
     const result = maybeAriaAttributes(mockPage, false);
     expect(result).toEqual({});
   });
+
+  it('returns aria-current and disambiguating aria-label when title has no number but parent has number', () => {
+    const pageWithParentNumber = {
+      ...mockPage,
+      title: 'Chapter summary', // no number in the title itself
+      parent: {
+        title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
+      },
+    } as any;
+
+    const result = maybeAriaAttributes(pageWithParentNumber, true);
+
+    expect(result['aria-current']).toBe('page');
+    expect(typeof result['aria-label']).toBe('string');
+    expect(result['aria-label']).not.toMatch(/Current Page/i);
+  });
 });

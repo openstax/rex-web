@@ -175,7 +175,10 @@ function ArchiveTreeComponent({
   );
 }
 
-export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boolean) {
+export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boolean): {
+  'aria-current'?: string;
+  'aria-label'?: string;
+} {
   const [num, titleText] = splitTitleParts(page.title);
   const currentPageIndicator = { 'aria-current': 'page' };
   if (num) {
@@ -188,9 +191,10 @@ export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boo
     return active ? currentPageIndicator : {};
   }
 
-  const activeAriaLabel = active ? '- Current Page' : '';
-
-  return { 'aria-label': `${titleText} - Chapter ${parentNum} ${activeAriaLabel}` };
+  return {
+    'aria-label': `${titleText} - Chapter ${parentNum}`,
+    ...(active ? currentPageIndicator : {}),
+  };
 }
 
 function TocLeaf({
