@@ -106,3 +106,54 @@ class SummaryMultiChoice:
     @property
     def questions_section_chapter_link(self):
         return self.page.locator("p#fs-idm249293696")
+
+    # Chapter end - Exercise Set B section
+
+    @property
+    def exercise_set_section(self):
+        return self.page.get_by_text("Exercise Set B", exact=True)
+
+    @property
+    def exercise_set_section_page(self):
+        return self.page.locator(
+            "div.os-eoc.os-exercise-set-b-container", has_text="Exercise Set B"
+        )
+
+    @property
+    # Link to EB3.LO 3.2Provide the missing amounts of the accounting equation for each of the following companies.
+    def exercise_set_section_chapter_link(self):
+        return self.page.locator("p#fs-idm676586784")
+
+    # Chapter end - Problem Set A section
+
+    @property
+    def problem_set_section(self):
+        return self.page.get_by_text("Problem Set A", exact=True)
+
+    @property
+    def problem_set_section_page(self):
+        return self.page.locator(
+            "div.os-eoc.os-problem-set-a-container", has_text="Problem Set A"
+        )
+
+    @property
+    # Link to PA1.LO 5.1Identify whether each of the following accounts would be considered...
+    def problem_set_section_chapter_link(self):
+        return self.page.locator("p#fs-idm209245648")
+
+    # Chapter end - Thought Provokers section
+
+    @property
+    def tprovokers_section(self):
+        return self.page.get_by_text("Thought Provokers", exact=True)
+
+    @property
+    def tprovokers_section_page(self):
+        return self.page.locator(
+            "div.os-eoc.os-thought-provokers-container", has_text="Thought Provokers"
+        )
+
+    @property
+    # Link to TP5.LO 2.3The following historical information is from Assisi Community Markets.
+    def tprovokers_section_chapter_link(self):
+        return self.page.locator("p#fs-idm373368272")

@@ -133,7 +133,9 @@ async def test_accounting_multiple_choice_section(
         )
     ],
 )
-async def test_accounting_questions_section(chrome_page, base_url, book_slug, page_slug):
+async def test_accounting_questions_section(
+    chrome_page, base_url, book_slug, page_slug
+):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -153,4 +155,109 @@ async def test_accounting_questions_section(chrome_page, base_url, book_slug, pa
 
     assert (
         "Prepare the Completed Statement of Cash Flows Using the Indirect Method"
+    ).lower() in chrome_page.url.replace("-", " ")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "book_slug, page_slug",
+    [
+        (
+            "principles-financial-accounting",
+            "3-6-prepare-a-trial-balance",
+        )
+    ],
+)
+async def test_accounting_exercise_set_section(
+    chrome_page, base_url, book_slug, page_slug
+):
+
+    # GIVEN: Playwright, chromium and the rex_base_url
+
+    # WHEN: The Home page is fully loaded
+    await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
+    summarymultichoice = SummaryMultiChoice(chrome_page)
+
+    # THEN: Exercises and Practice Test links are visible (only in some math books)
+
+    await summarymultichoice.exercise_set_section.click()
+
+    await chrome_page.keyboard.press("Escape")
+
+    assert await summarymultichoice.exercise_set_section_page.is_visible()
+
+    await summarymultichoice.exercise_set_section_chapter_link.click()
+
+    assert (
+        "Define and Describe the Expanded Accounting Equation and Its Relationship to Analyzing"
+    ).lower() in chrome_page.url.replace("-", " ")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "book_slug, page_slug",
+    [
+        (
+            "principles-financial-accounting",
+            "5-2-prepare-a-post-closing-trial-balance",
+        )
+    ],
+)
+async def test_accounting_problem_set_section(
+    chrome_page, base_url, book_slug, page_slug
+):
+
+    # GIVEN: Playwright, chromium and the rex_base_url
+
+    # WHEN: The Home page is fully loaded
+    await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
+    summarymultichoice = SummaryMultiChoice(chrome_page)
+
+    # THEN: Exercises and Practice Test links are visible (only in some math books)
+
+    await summarymultichoice.problem_set_section.click()
+
+    await chrome_page.keyboard.press("Escape")
+
+    assert await summarymultichoice.problem_set_section_page.is_visible()
+
+    await summarymultichoice.problem_set_section_chapter_link.click()
+
+    assert (
+        "Describe and Prepare Closing Entries for a Business"
+    ).lower() in chrome_page.url.replace("-", " ")
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "book_slug, page_slug",
+    [
+        (
+            "principles-financial-accounting",
+            "2-3-prepare-an-income-statement-statement-of-owners-equity-and-balance-sheet",
+        )
+    ],
+)
+async def test_accounting_thought_provokers_section(
+    chrome_page, base_url, book_slug, page_slug
+):
+
+    # GIVEN: Playwright, chromium and the rex_base_url
+
+    # WHEN: The Home page is fully loaded
+    await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
+    summarymultichoice = SummaryMultiChoice(chrome_page)
+
+    # THEN: Exercises and Practice Test links are visible (only in some math books)
+
+    await summarymultichoice.tprovokers_section.click()
+
+    await chrome_page.keyboard.press("Escape")
+
+    assert await summarymultichoice.tprovokers_section_page.is_visible()
+
+    await summarymultichoice.tprovokers_section_chapter_link.click()
+
+    assert "Prepare an Income Statement, Statement of".replace(
+        ",", ""
     ).lower() in chrome_page.url.replace("-", " ")
