@@ -3,7 +3,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import ConnectedTableOfContents, { TableOfContents, maybeAriaLabel } from '.';
+import ConnectedTableOfContents, { TableOfContents, maybeAriaAttributes } from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
@@ -417,7 +417,7 @@ describe('TableOfContents', () => {
   });
 });
 
-describe('maybeAriaLabel', () => {
+describe('maybeAriaAttributes', () => {
   const mockPage = {
     id: 'some-id',
     title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
@@ -426,13 +426,13 @@ describe('maybeAriaLabel', () => {
     },
   } as any;
 
-  it('returns aria-label when active is true', () => {
-    const result = maybeAriaLabel(mockPage, true);
+  it('returns aria-current="page" when active is true', () => {
+    const result = maybeAriaAttributes(mockPage, true);
     expect(result).toEqual({ 'aria-current': 'page' });
   });
 
   it('returns empty object when active is false', () => {
-    const result = maybeAriaLabel(mockPage, false);
+    const result = maybeAriaAttributes(mockPage, false);
     expect(result).toEqual({});
   });
 });

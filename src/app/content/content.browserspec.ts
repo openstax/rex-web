@@ -124,7 +124,7 @@ const clickTocLink = (href: string) => page.evaluate(async(href) => {
 const getSelectedTocSection = () => page.evaluate(() => {
   const toc = document && document.querySelector('[data-testid="toc"]');
 
-  const a = toc && toc.querySelector('a[aria-current$="page"]');
+  const a = toc && toc.querySelector('a[aria-current="page"]');
   const href = a && a.attributes.getNamedItem('href');
 
   return href && href.value;

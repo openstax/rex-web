@@ -175,17 +175,17 @@ function ArchiveTreeComponent({
   );
 }
 
-export function maybeAriaLabel(page: LinkedArchiveTreeSection, active?: boolean) {
+export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boolean) {
   const [num, titleText] = splitTitleParts(page.title);
-  const currentPageAriaLabel = { 'aria-current': 'page' };
+  const currentPageIndicator = { 'aria-current': 'page' };
   if (num) {
-    return active ? currentPageAriaLabel : {};
+    return active ? currentPageIndicator : {};
   }
 
   const [parentNum, parentTitleText] = splitTitleParts(page.parent.title);
 
   if (!parentNum || titleText.includes(parentTitleText)) {
-    return active ? currentPageAriaLabel : {};
+    return active ? currentPageIndicator : {};
   }
 
   const activeAriaLabel = active ? '- Current Page' : '';
@@ -234,7 +234,7 @@ function TocLeaf({
           book={book}
           page={item}
           dangerouslySetInnerHTML={{ __html: item.title }}
-          {...maybeAriaLabel(item, active)}
+          {...maybeAriaAttributes(item, active)}
         />
       </Styled.NavItem>
     </Styled.StyledTreeItem>

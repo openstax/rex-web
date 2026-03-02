@@ -17,7 +17,7 @@ export { ExpandIcon, CollapseIcon } from '../../../../components/Details';
     (result, char) => (result[char] = ((element.innerText = char) && element.getBoundingClientRect().width)) && result,
     {}
   )
-)(element = document.querySelector('[data-testid=toc] [aria-label="Current Page"] a')
+)(element = document.querySelector('[data-testid=toc] a[aria-current="page"]')
   .appendChild(document.createElement('span'))
 );
  */
@@ -47,7 +47,7 @@ export const ContentLink = styled(ContentLinkComponent)`
   margin-left: ${iconSize}rem;
   text-decoration: none;
 
-  &[aria-label$="Current Page"] {
+  &[aria-current="page"] {
     font-weight: 600;
   }
 
