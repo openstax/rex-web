@@ -41,6 +41,22 @@ noscript {
   overflow-wrap: break-word;
 }
 
+/*
+ * Utility class for hiding elements visually while keeping them accessible to screen readers.
+ * Based on hiddenButAccessible from theme.ts
+ */
+.hidden-but-accessible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
 @import url("https://fast.fonts.net/t/1.css?apiType=css&projectid=437b6557-ce99-4f35-97ff-64a93247731f");
 @font-face {

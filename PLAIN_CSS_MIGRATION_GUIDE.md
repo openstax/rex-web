@@ -436,7 +436,7 @@ export function Highlight({ color, children }) {
 
 Plain CSS imports need to be mocked for Jest tests. This is already configured in the project:
 
-**package.json** (already configured):
+**package.json**:
 ```json
 {
   "jest": {
@@ -447,7 +447,7 @@ Plain CSS imports need to be mocked for Jest tests. This is already configured i
 }
 ```
 
-**__mocks__/styleMock.js** (already exists):
+**__mocks__/styleMock.js**:
 ```javascript
 module.exports = {};
 ```
@@ -581,7 +581,7 @@ When migrating a component:
 ## Summary
 
 The hybrid approach gives us:
-- ✅ **Theme in JavaScript**: Type-safe, centraliz ed, dynamically accessible
+- ✅ **Theme in JavaScript**: Type-safe, centralized, dynamically accessible
 - ✅ **Styles in CSS**: Better performance, familiar syntax, static optimization
 - ✅ **CSS Variables Bridge**: Connect JavaScript theme to CSS when needed
 - ✅ **Flexibility**: Use the right tool for each situation

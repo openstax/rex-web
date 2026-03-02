@@ -1,29 +1,27 @@
 /**
  * HiddenLink CSS
  *
- * Plain CSS styles for HiddenLink and HiddenButton components.
- * Uses global class names with component-specific prefixes to avoid conflicts.
+ * Styles for HiddenLink and HiddenButton components.
+ * Uses global `.hidden-but-accessible` utility class from index.css for the base hiding styles.
  */
 
 .hidden-link,
 .hidden-button {
-  /* Hide the link/button when it is not focused */
-  clip: rect(1px, 1px, 1px, 1px);
-  margin: 0;
-  position: absolute;
   left: 0;
   top: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
   text-decoration: none;
 }
 
 /* Show the link/button when it is focused */
 .hidden-link:focus,
 .hidden-button:focus {
+  /* Override hidden-but-accessible styles when focused */
   clip: auto;
   height: auto;
   width: auto;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  white-space: normal;
   z-index: var(--z-index-focused-hidden-link);
 }

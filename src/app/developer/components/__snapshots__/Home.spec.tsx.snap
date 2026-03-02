@@ -3,7 +3,7 @@
 exports[`Home matches snapshot 1`] = `
 Array [
   <a
-    className="hidden-link"
+    className="hidden-but-accessible hidden-link"
     href="#main-content"
     onClick={[Function]}
     style={
@@ -15,7 +15,7 @@ Array [
     Skip to Content
   </a>,
   <a
-    className="hidden-link"
+    className="hidden-but-accessible hidden-link"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
@@ -30,7 +30,7 @@ Array [
     Go to accessibility page
   </a>,
   <button
-    className="hidden-button"
+    className="hidden-but-accessible hidden-button"
     onClick={[Function]}
     style={
       Object {

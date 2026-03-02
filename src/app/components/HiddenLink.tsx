@@ -11,7 +11,7 @@ export default function HiddenLink({ children, className, style, ...props }: Hid
   return (
     <a
       {...props}
-      className={classNames('hidden-link', className)}
+      className={classNames('hidden-but-accessible', 'hidden-link', className)}
       style={{
         ...style,
         '--z-index-focused-hidden-link': theme.zIndex.focusedHiddenLink,
@@ -30,7 +30,7 @@ export function HiddenButton({ children, className, style, ...props }: HiddenBut
   return (
     <button
       {...props}
-      className={classNames('hidden-button', className)}
+      className={classNames('hidden-but-accessible', 'hidden-button', className)}
       style={{
         ...style,
         '--z-index-focused-hidden-link': theme.zIndex.focusedHiddenLink,

@@ -862,7 +862,7 @@ exports[`assigned route route renders renders a component 1`] = `
   className="c0"
 >
   <a
-    className="hidden-link"
+    className="hidden-but-accessible hidden-link"
     href="#main-content"
     onClick={[Function]}
     style={
@@ -874,7 +874,7 @@ exports[`assigned route route renders renders a component 1`] = `
     Skip to Content
   </a>
   <a
-    className="hidden-link"
+    className="hidden-but-accessible hidden-link"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
@@ -889,7 +889,7 @@ exports[`assigned route route renders renders a component 1`] = `
     Go to accessibility page
   </a>
   <button
-    className="hidden-button"
+    className="hidden-but-accessible hidden-button"
     onClick={[Function]}
     style={
       Object {
