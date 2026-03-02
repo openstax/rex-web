@@ -11,12 +11,13 @@ import { PopupBody } from '../../styles/PopupStyles';
 import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import * as pqSelectors from '../selectors';
 import { getNextPageWithPracticeQuestions } from '../utils';
-import EmptyScreen from './EmptyScreen';
+import EmptyScreen, { EmptyScreenStatus } from './EmptyScreen';
 import Filters from './Filters';
-import FinalScreen from './FinalScreen';
+import FinalScreen, { FinalScreenStatus } from './FinalScreen';
 import IntroScreen from './IntroScreen';
 import ProgressBar from './ProgressBar';
 import Question from './Question';
+import { LinkedArchiveTreeSection } from '../../types';
 
 export const ShowPracticeQuestionsBody = styled(PopupBody)`
   display: flex;
@@ -27,10 +28,10 @@ export const ShowPracticeQuestionsBody = styled(PopupBody)`
   `)}
 `;
 
-export const ShowPracitceQuestionsContent = styled.div`
+export const ShowPracticeQuestionsContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: start;
   flex: 1;
   padding: 2rem 3.2rem 0 3.2rem;
   ${theme.breakpoints.mobile(css`
@@ -82,6 +83,78 @@ function MaybeSectionTitle() {
   return <SectionTitle tabIndex={-1} dangerouslySetInnerHTML={{ __html: section.title }} />;
 }
 
+interface StatusRegionProps {
+  questionsCount: number;
+  nextSection: LinkedArchiveTreeSection | undefined;
+  hasAnswers: boolean;
+  questionsInProgress: boolean;
+}
+
+function StatusRegion({ questionsCount, nextSection, hasAnswers, questionsInProgress }: StatusRegionProps) {
+  const shouldShowFinalStatus = questionsCount === 0 && !nextSection;
+  const shouldShowFinalStatusAfterCompletion = questionsCount > 0 && hasAnswers && !questionsInProgress;
+
+  if (shouldShowFinalStatus || shouldShowFinalStatusAfterCompletion) {
+    return (
+      <div role="status">
+        <FinalScreenStatus />
+      </div>
+    );
+  }
+
+  if (questionsCount === 0 && nextSection) {
+    return (
+      <div role="status">
+        <EmptyScreenStatus />
+      </div>
+    );
+  }
+
+  return null;
+}
+
+interface PracticeQuestionsDisplayProps {
+  questionsCount: number;
+  nextSection: LinkedArchiveTreeSection | undefined;
+  hasAnswers: boolean;
+  questionsInProgress: boolean;
+  currentQuestionIndex: number | null;
+}
+
+function PracticeQuestionsDisplay({
+  questionsCount,
+  nextSection,
+  hasAnswers,
+  questionsInProgress,
+  currentQuestionIndex,
+}: PracticeQuestionsDisplayProps) {
+  // No questions available
+  if (questionsCount === 0) {
+    if (nextSection) {
+      return <EmptyScreen nextSection={nextSection} />;
+    }
+    return <FinalScreen />;
+  }
+
+  // Questions finished
+  if (hasAnswers && !questionsInProgress) {
+    return <FinalScreen nextSection={nextSection} />;
+  }
+
+  // Questions in progress or intro screen
+  return (
+    <QuestionsWrapper>
+      <QuestionsHeader id='progress-bar-header'>
+        <FormattedMessage id='i18n:practice-questions:popup:questions'>
+          {(msg) => msg}
+        </FormattedMessage>
+      </QuestionsHeader>
+      <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
+      {questionsInProgress ? <Question /> : <IntroScreen />}
+    </QuestionsWrapper>
+  );
+}
+
 const ShowPracticeQuestions = () => {
   const {book, page} = useSelector(contentSelectors.bookAndPage);
   const questionsCount = useSelector(pqSelectors.questionsCount);
@@ -92,7 +165,7 @@ const ShowPracticeQuestions = () => {
     const currentSectionId = section ? section.id : page ? page.id : null;
     return currentSectionId ? getNextPageWithPracticeQuestions(currentSectionId, locationFilters, book) : undefined;
   }, [book, page, section, locationFilters]);
-  const questionsInProggress = useSelector(pqSelectors.questionsInProggress);
+  const questionsInProgress = useSelector(pqSelectors.questionsInProgress);
   const hasAnswers = useSelector(pqSelectors.hasAnswers);
   const isLoading = useSelector(pqSelectors.practiceQuestionsAreLoading);
 
@@ -103,31 +176,26 @@ const ShowPracticeQuestions = () => {
       data-analytics-location={section ? splitTitleParts(section.title).join(' ') : 'section not loaded'}
     >
       <Filters />
-      {isLoading
-        ? <LoaderWrapper><Loader large /></LoaderWrapper>
-        : <ShowPracitceQuestionsContent>
+      {isLoading ? (
+        <LoaderWrapper><Loader large /></LoaderWrapper>
+      ) : (
+        <ShowPracticeQuestionsContent>
           <MaybeSectionTitle />
-          {questionsCount === 0
-              ? (nextSection
-                ? <EmptyScreen nextSection={nextSection} />
-                : <FinalScreen />
-              )
-              : hasAnswers && !questionsInProggress
-                ? <FinalScreen nextSection={nextSection} />
-                : (
-                  <QuestionsWrapper>
-                    <QuestionsHeader id='progress-bar-header'>
-                      <FormattedMessage id='i18n:practice-questions:popup:questions'>
-                        {(msg) => msg}
-                      </FormattedMessage>
-                    </QuestionsHeader>
-                    <ProgressBar total={questionsCount} activeIndex={currentQuestionIndex} />
-                    {questionsInProggress ? <Question /> : <IntroScreen />}
-                  </QuestionsWrapper>
-                )
-            }
-        </ShowPracitceQuestionsContent>
-      }
+          <StatusRegion
+            questionsCount={questionsCount}
+            nextSection={nextSection}
+            hasAnswers={hasAnswers}
+            questionsInProgress={questionsInProgress}
+          />
+          <PracticeQuestionsDisplay
+            questionsCount={questionsCount}
+            nextSection={nextSection}
+            hasAnswers={hasAnswers}
+            questionsInProgress={questionsInProgress}
+            currentQuestionIndex={currentQuestionIndex}
+          />
+        </ShowPracticeQuestionsContent>
+      )}
     </ShowPracticeQuestionsBody>
   );
 };
