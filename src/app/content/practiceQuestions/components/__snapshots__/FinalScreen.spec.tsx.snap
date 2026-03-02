@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FinalScreen for practice questions renders properly and dispatches action on click 1`] = `
-.c9 {
+.c8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,39 +32,39 @@ exports[`FinalScreen for practice questions renders properly and dispatches acti
   -moz-osx-font-smoothing: grayscale;
 }
 
-.c9:hover {
+.c8:hover {
   background-color: ,#be3c08,;
 }
 
-.c9:active {
+.c8:active {
   background-color: ,#b03808,;
 }
 
-.c9:focus {
+.c8:focus {
   outline: solid #fff;
   box-shadow: inset 0 0 0 0.3rem #000;
 }
 
-.c2 {
+.c1 {
   max-width: 38rem;
   overflow: initial;
 }
 
-.c2 .c8 {
+.c1 .c7 {
   margin: 4rem auto;
 }
 
-.c4 {
+.c3 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
-.c6 {
+.c5 {
   display: inline;
 }
 
-.c7 {
+.c6 {
   font-weight: 700;
 }
 
@@ -91,37 +91,26 @@ exports[`FinalScreen for practice questions renders properly and dispatches acti
   line-height: 2.5rem;
 }
 
-.c1 {
-  margin-bottom: 3rem;
-  max-width: 38rem;
-  overflow: initial;
-}
-
-.c3 .c5 {
+.c2 .c4 {
   display: block;
 }
 
 <div
   className="c0"
 >
-  <span
-    className="c1"
-  >
-    You have reached the end of this set!
-  </span>
   <div
-    className="c2 c3"
+    className="c1 c2"
   >
     <div
-      className="c4"
+      className="c3"
     >
       <span
-        className="c5 c6"
+        className="c4 c5"
       >
         Next section:
       </span>
       <span
-        className="c7"
+        className="c6"
         dangerouslySetInnerHTML={
           Object {
             "__html": "some title",
@@ -130,7 +119,7 @@ exports[`FinalScreen for practice questions renders properly and dispatches acti
       />
     </div>
     <button
-      className="c8 c9"
+      className="c7 c8"
       data-analytics-label="Continue (Final Screen)"
       onClick={[Function]}
     >

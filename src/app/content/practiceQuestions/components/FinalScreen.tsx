@@ -19,7 +19,7 @@ const StyledFinalScreen = styled.div`
 `;
 
 const StyledText = styled.span`
-  margin-bottom: 3rem;
+  margin-bottom: -1rem;
   max-width: 38rem;
   overflow: initial;
 `;
@@ -34,24 +34,26 @@ interface FinalScreenProps {
   nextSection?: LinkedArchiveTreeSection;
 }
 
+export const FinalScreenStatus = () => <StyledFinalScreen>
+  <StyledText>
+    <FormattedMessage id='i18n:practice-questions:popup:final' />
+  </StyledText>
+</StyledFinalScreen>;
+
 const FinalScreen = ({ nextSection }: FinalScreenProps) => {
   const dispatch = useDispatch();
 
+  if (!nextSection) {
+    return null;
+  }
+
   return <StyledFinalScreen>
-    <StyledText>
-      <FormattedMessage id='i18n:practice-questions:popup:final'>
-        {(msg) => msg}
-      </FormattedMessage>
-    </StyledText>
-    {
-      nextSection &&
       <StyledNextSectionMessage
         nextSection={nextSection}
         messageKey='i18n:practice-questions:popup:final:next-section'
         onClick={() => dispatch(setSelectedSection(nextSection))}
         analyticsLabel='Continue (Final Screen)'
       />
-    }
   </StyledFinalScreen>;
 };
 

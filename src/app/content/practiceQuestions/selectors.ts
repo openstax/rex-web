@@ -82,7 +82,7 @@ export const isFinalQuestion = createSelector(
   (count, index) => count - 1 === index
 );
 
-export const questionsInProggress = createSelector(
+export const questionsInProgress = createSelector(
   currentQuestionIndex,
   (index) => index !== null
 );
