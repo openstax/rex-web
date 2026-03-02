@@ -49,6 +49,10 @@ export const HighlightContentWrapper = styled.div`
 
       ${ContentExcerpt} {
         background-color: ${style.passive};
+
+        a {
+          color: inherit;
+        }
       }
 
       .highlight-note-text {
