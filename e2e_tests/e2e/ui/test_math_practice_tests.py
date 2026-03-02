@@ -16,7 +16,7 @@ async def test_math_practice_tests(chrome_page, base_url, book_slug, page_slug):
     await chrome_page.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     practicetest = PracticeTest(chrome_page)
 
-    # THEN: Exercises and Practice Test links are visible (only in some match books)
+    # THEN: Exercises and Practice Test links are visible (only in some math books)
     await practicetest.exercises_icon.click()
 
     assert await practicetest.practice_test_icon.is_visible()
@@ -29,7 +29,7 @@ async def test_math_practice_tests(chrome_page, base_url, book_slug, page_slug):
     assert await practicetest.practice_test_page_title.is_visible()
 
     assert await practicetest.practice_test_page.is_visible()
-    assert await practicetest.practice_test_exercise.count() is not None
+    assert await practicetest.practice_test_exercise.count() > 0
 
     await practicetest.practice_test_exercise_link.click()
 
@@ -45,11 +45,11 @@ async def test_math_practice_tests(chrome_page, base_url, book_slug, page_slug):
     assert await practicetest.practice_test_table_image.is_visible()
 
     assert await practicetest.practice_test_page.is_visible()
-    assert await practicetest.practice_test_exercise.count() is not None
+    assert await practicetest.practice_test_exercise.count() > 0
 
     await practicetest.practice_test_figure_link.click()
 
     assert await practicetest.practice_test_figure_image.is_visible()
 
     assert await practicetest.practice_test_page.is_visible()
-    assert await practicetest.practice_test_exercise.count() is not None
+    assert await practicetest.practice_test_exercise.count() > 0
