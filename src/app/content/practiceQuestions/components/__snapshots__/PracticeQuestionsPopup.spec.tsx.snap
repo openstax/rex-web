@@ -250,7 +250,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 .c20 {
-  margin-bottom: 3rem;
+  margin-bottom: -1rem;
   max-width: 38rem;
   overflow: initial;
 }
@@ -279,10 +279,10 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  -webkit-box-pack: start;
+  -webkit-justify-content: start;
+  -ms-flex-pack: start;
+  justify-content: start;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -523,13 +523,17 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
         className="c18"
       >
         <div
-          className="c19"
+          role="status"
         >
-          <span
-            className="c20"
+          <div
+            className="c19"
           >
-            You have reached the end of this set!
-          </span>
+            <span
+              className="c20"
+            >
+              You have reached the end of this set!
+            </span>
+          </div>
         </div>
       </div>
     </div>
