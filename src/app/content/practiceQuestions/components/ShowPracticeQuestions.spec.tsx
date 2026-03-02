@@ -29,7 +29,16 @@ import ShowPracticeQuestions, {
 
 jest.mock('./IntroScreen', () => (props: any) => <div data-mock-intro-section {...props} />);
 jest.mock('./Question', () => (props: any) => <div data-mock-quesiton {...props} />);
-jest.mock('./FinalScreen', () => (props: any) => <div data-mock-final-section {...props} />);
+jest.mock('./FinalScreen', () => ({
+  __esModule: true,
+  default: (props: any) => <div data-mock-final-section {...props} />,
+  FinalScreenStatus: () => <div data-mock-final-screen-status />,
+}));
+jest.mock('./EmptyScreen', () => ({
+  __esModule: true,
+  default: (props: any) => <div data-mock-empty-section {...props} />,
+  EmptyScreenStatus: () => <div data-mock-empty-screen-status />,
+}));
 
 describe('ShowPracticeQuestions', () => {
   let store: Store;
@@ -173,30 +182,41 @@ describe('ShowPracticeQuestions', () => {
     expect(() => component.root.findByType(Question)).not.toThrow();
   });
 
-  it('renders FinalScreen screen at the end of section questions', () => {
+  it('renders FinalScreen when all questions are answered and finished', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
     store.dispatch(receivePracticeQuestionsSummary({
       countsPerSource: { [linkedArchiveTreeSection.id]: 3 },
     }));
-
-    store.dispatch(setQuestions([{ id: 'asd' } as any as PracticeQuestion]));
-    store.dispatch(setAnswer({ questionId: 'asd', answer: { id: 'qwe' } as any as PracticeAnswer }));
+    store.dispatch(setQuestions([
+      {id: 'q1'} as any as PracticeQuestion,
+      {id: 'q2'} as any as PracticeQuestion,
+    ]));
+    store.dispatch(setAnswer({ questionId: 'q1', answer: { id: 'a1' } as any as PracticeAnswer }));
+    store.dispatch(setAnswer({ questionId: 'q2', answer: { id: 'a2' } as any as PracticeAnswer }));
     store.dispatch(finishQuestions());
 
     const component = renderer.create(render());
 
-    expect(() => component.root.findByType(Question)).toThrow();
     expect(() => component.root.findByType(FinalScreen)).not.toThrow();
+    expect(() => component.root.findByType(Question)).toThrow();
+    expect(() => component.root.findByType(IntroScreen)).toThrow();
   });
 
   it('renders FinalScreen screen if section has no questions and there is no nextSection', () => {
     store.dispatch(receiveBook(book));
     store.dispatch(setSelectedSection(linkedArchiveTreeSection));
+    store.dispatch(receivePracticeQuestionsSummary({
+      countsPerSource: {
+        [linkedArchiveTreeSection.id]: 0,
+      },
+    }));
     store.dispatch(setQuestions([]));
 
     const component = renderer.create(render());
 
     expect(() => component.root.findByType(FinalScreen)).not.toThrow();
+    expect(() => component.root.findByType(EmptyScreen)).toThrow();
+    expect(() => component.root.findByType(IntroScreen)).toThrow();
   });
 });
