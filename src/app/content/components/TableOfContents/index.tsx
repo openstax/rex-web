@@ -220,6 +220,7 @@ function TocLeaf({
       id={item.id}
       key={item.id}
       textValue={stripHtml(item.title, true)}
+      aria-label={`${stripHtml(item.title, true)}, link`}
       onAction={
         // Ignored until RAC and TS versions are compatible
         // istanbul ignore next
@@ -276,6 +277,7 @@ function TocSection({
                 section={section}
                 id={item.id}
                 textValue={stripHtml(item.title, true)}
+                aria-label={`${stripHtml(item.title, true)}, section`}
                 onClick={() => handleTreeItemClick(item.id)}
               >
                 <ArchiveTreeComponent
