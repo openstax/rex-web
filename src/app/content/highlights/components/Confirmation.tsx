@@ -51,12 +51,16 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
   ref
 ) => {
   const drawFocusRef = useDrawFocus();
+  const overlayRef = React.useRef<HTMLElement>(null);
 
-  useTrapTabNavigation(drawFocusRef);
+  // Use drawFocusRef if drawFocus is true, otherwise use overlayRef for trap navigation
+  const trapRef = drawFocus ? drawFocusRef : overlayRef;
+  
+  useTrapTabNavigation(trapRef);
   useOnEsc(true, onCancel);
 
   return <Overlay
-    ref={mergeRefs(ref, drawFocus ? drawFocusRef : null)}
+    ref={mergeRefs(ref, drawFocus ? drawFocusRef : overlayRef)}
     tabIndex={-1}
     role='alertdialog'
     {...props['data-analytics-region']

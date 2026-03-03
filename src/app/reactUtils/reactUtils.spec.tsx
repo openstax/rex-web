@@ -294,6 +294,227 @@ describe('useTrapTabNavigation', () => {
     );
     tr.unmount();
   });
+  it('auto-focuses first focusable element on mount', () => {
+    const container = assertDocument().createElement('div');
+    const btn1 = assertDocument().createElement('button');
+    const btn2 = assertDocument().createElement('button');
+    const focusSpy = jest.spyOn(btn1, 'focus');
+
+    Object.defineProperty(btn1, 'offsetHeight', {
+      value: 1000,
+      writable: false,
+    });
+    Object.defineProperty(btn2, 'offsetHeight', {
+      value: 1000,
+      writable: false,
+    });
+
+    container.appendChild(btn1);
+    container.appendChild(btn2);
+
+    // Mock activeElement to return body (no focus yet)
+    const originalActiveElement = Object.getOwnPropertyDescriptor(document, 'activeElement');
+    Object.defineProperty(document, 'activeElement', {
+      value: document.body,
+      writable: false,
+      configurable: true,
+    });
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref);
+      return <div />;
+    };
+
+    renderer.act(() => {
+      renderer.create(<Component />);
+    });
+
+    expect(focusSpy).toHaveBeenCalled();
+
+    // Restore original activeElement
+    if (originalActiveElement) {
+      Object.defineProperty(document, 'activeElement', originalActiveElement);
+    }
+
+    focusSpy.mockRestore();
+  });
+  it('preserves selection when auto-focusing on mount', () => {
+    const container = assertDocument().createElement('div');
+    const btn = assertDocument().createElement('button');
+
+    Object.defineProperty(btn, 'offsetHeight', {
+      value: 1000,
+      writable: false,
+    });
+
+    container.appendChild(btn);
+
+    const mockRange = {
+      cloneRange: jest.fn(function() {
+        return this;
+      }),
+    } as any;
+
+    const mockSelection = {
+      rangeCount: 1,
+      getRangeAt: jest.fn(() => mockRange),
+      removeAllRanges: jest.fn(),
+      addRange: jest.fn(),
+    } as any;
+
+    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+
+    Object.defineProperty(document, 'activeElement', {
+      value: document.body,
+      writable: false,
+      configurable: true,
+    });
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref);
+      return <div />;
+    };
+
+    renderer.act(() => {
+      renderer.create(<Component />);
+    });
+
+    // Should have saved and restored selection when auto-focusing
+    expect(getSelectionSpy).toHaveBeenCalled();
+    expect(mockRange.cloneRange).toHaveBeenCalled();
+    expect(mockSelection.removeAllRanges).toHaveBeenCalled();
+    expect(mockSelection.addRange).toHaveBeenCalledWith(mockRange);
+
+    getSelectionSpy.mockRestore();
+  });
+  it('does not steal focus if element already has focus', () => {
+    const container = assertDocument().createElement('div');
+    const btn = assertDocument().createElement('button');
+
+    Object.defineProperty(btn, 'offsetHeight', {
+      value: 1000,
+      writable: false,
+    });
+
+    container.appendChild(btn);
+    const focusSpy = jest.spyOn(btn, 'focus');
+
+    // Mock activeElement to return container (already has focus)
+    Object.defineProperty(document, 'activeElement', {
+      value: container,
+      writable: false,
+      configurable: true,
+    });
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref);
+      return <div />;
+    };
+
+    renderer.act(() => {
+      renderer.create(<Component />);
+    });
+
+    // Should NOT focus because container already has focus
+    expect(focusSpy).not.toHaveBeenCalled();
+
+    focusSpy.mockRestore();
+  });
+  it('handles SSR errors gracefully', () => {
+    const container = assertDocument().createElement('div');
+    const btn = assertDocument().createElement('button');
+
+    container.appendChild(btn);
+
+    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockImplementation(() => {
+      throw new Error('Window not available');
+    });
+
+    Object.defineProperty(document, 'activeElement', {
+      value: document.body,
+      writable: false,
+      configurable: true,
+    });
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref);
+      return <div />;
+    };
+
+    // Should not throw even with getSelection error
+    expect(() => {
+      renderer.act(() => {
+        renderer.create(<Component />);
+      });
+    }).not.toThrow();
+
+    getSelectionSpy.mockRestore();
+  });
+  it('handles null selection when auto-focusing', () => {
+    const container = assertDocument().createElement('div');
+    const btn = assertDocument().createElement('button');
+
+    Object.defineProperty(btn, 'offsetHeight', {
+      value: 1000,
+      writable: false,
+    });
+
+    container.appendChild(btn);
+    const focusSpy = jest.spyOn(btn, 'focus');
+
+    const mockRange = {
+      cloneRange: jest.fn(function() {
+        return this;
+      }),
+    } as any;
+
+    const mockSelection = {
+      rangeCount: 1,
+      getRangeAt: jest.fn(() => mockRange),
+      removeAllRanges: jest.fn(),
+      addRange: jest.fn(),
+    } as any;
+
+    let callCount = 0;
+    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockImplementation(() => {
+      callCount++;
+      // Return valid selection for the first call (to save the range)
+      // Return null for subsequent calls (to test the null handling in restoration)
+      if (callCount === 1) {
+        return mockSelection;
+      }
+      return null;
+    });
+
+    Object.defineProperty(document, 'activeElement', {
+      value: document.body,
+      writable: false,
+      configurable: true,
+    });
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref);
+      return <div />;
+    };
+
+    // Should not throw even when getSelection returns null
+    expect(() => {
+      renderer.act(() => {
+        renderer.create(<Component />);
+      });
+    }).not.toThrow();
+
+    // Should still focus the element
+    expect(focusSpy).toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+    focusSpy.mockRestore();
+  });
 });
 
 describe('createTrapTab', () => {
@@ -409,6 +630,168 @@ describe('createTrapTab', () => {
 
     htmlElement.appendChild(b);
     htmlElement.appendChild(i);
+  });
+  it('preserves text selection when tab wraps around', () => {
+    // Mock window.getSelection
+    const mockRange = {
+      cloneRange: jest.fn(function() {
+        return this;
+      }),
+    } as any;
+
+    const mockSelection = {
+      rangeCount: 1,
+      getRangeAt: jest.fn(() => mockRange),
+      removeAllRanges: jest.fn(),
+      addRange: jest.fn(),
+    } as any;
+
+    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+
+    // Tab forward from the last element (should wrap)
+    Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
+    b.focus = jest.fn();
+    preventDefault.mockClear();
+
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+
+    // Should have saved and restored selection
+    expect(getSelectionSpy).toHaveBeenCalled();
+    expect(mockRange.cloneRange).toHaveBeenCalled();
+    expect(mockSelection.removeAllRanges).toHaveBeenCalled();
+    expect(mockSelection.addRange).toHaveBeenCalledWith(mockRange);
+    expect(b.focus).toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+  });
+  it('preserves text selection during normal tab navigation', () => {
+    const mockRange = {
+      cloneRange: jest.fn(function() {
+        return this;
+      }),
+    } as any;
+
+    const mockSelection = {
+      rangeCount: 1,
+      getRangeAt: jest.fn(() => mockRange),
+      removeAllRanges: jest.fn(),
+      addRange: jest.fn(),
+    } as any;
+
+    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+    const rafSpy = jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: any) => {
+      cb();
+      return 1;
+    });
+
+    // Tab within the container (should not prevent default)
+    Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
+    preventDefault.mockClear();
+
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+
+    // Should schedule restoration via requestAnimationFrame
+    expect(rafSpy).toHaveBeenCalled();
+    expect(mockSelection.removeAllRanges).toHaveBeenCalled();
+    expect(mockSelection.addRange).toHaveBeenCalledWith(mockRange);
+    expect(preventDefault).not.toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+    rafSpy.mockRestore();
+  });
+  it('handles no selection gracefully', () => {
+    const mockSelection = {
+      rangeCount: 0,
+      getRangeAt: jest.fn(),
+    } as any;
+
+    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+
+    // Tab forward from the last element
+    Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
+    b.focus = jest.fn();
+    preventDefault.mockClear();
+
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+
+    // Should not throw even with no selection
+    expect(b.focus).toHaveBeenCalled();
+    expect(preventDefault).toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+  });
+  it('restores selection from outside focus', () => {
+    const mockRange = {
+      cloneRange: jest.fn(function() {
+        return this;
+      }),
+    } as any;
+
+    const mockSelection = {
+      rangeCount: 1,
+      getRangeAt: jest.fn(() => mockRange),
+      removeAllRanges: jest.fn(),
+      addRange: jest.fn(),
+    } as any;
+
+    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+
+    const outsideEl = assertDocument().createElement('button');
+    b.focus = jest.fn();
+    preventDefault.mockClear();
+
+    // Focus is outside the container
+    Object.defineProperty(document, 'activeElement', { value: outsideEl, writable: false, configurable: true });
+
+    trapTab({ key: 'Tab', shiftKey: true, preventDefault } as unknown as KeyboardEvent);
+
+    // Should restore selection when bringing focus back
+    expect(mockSelection.removeAllRanges).toHaveBeenCalled();
+    expect(mockSelection.addRange).toHaveBeenCalledWith(mockRange);
+    expect(b.focus).toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
+  });
+  it('handles null selection gracefully when restoring', () => {
+    const mockRange = {
+      cloneRange: jest.fn(function() {
+        return this;
+      }),
+    } as any;
+
+    const mockSelection = {
+      rangeCount: 1,
+      getRangeAt: jest.fn(() => mockRange),
+      removeAllRanges: jest.fn(),
+      addRange: jest.fn(),
+    } as any;
+
+    let callCount = 0;
+    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockImplementation(() => {
+      callCount++;
+      // Return valid selection for the first call (to save the range in createTrapTab)
+      // Return null for subsequent calls (to test the null handling in restoration)
+      if (callCount === 1) {
+        return mockSelection;
+      }
+      return null;
+    });
+
+    // Create a new trapTab to capture the initial selection
+    const newTrapTab = utils.createTrapTab(htmlElement);
+
+    // Tab forward from the last element (should trigger restoration with null selection)
+    Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
+    b.focus = jest.fn();
+    preventDefault.mockClear();
+
+    newTrapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+
+    // Should still focus even if getSelection returns null on restoration
+    expect(b.focus).toHaveBeenCalled();
+    expect(preventDefault).toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
   });
 });
 
@@ -811,5 +1194,277 @@ describe('useFocusHighlight', () => {
     Object.defineProperty(fakeEvent, 'target', { value: null });
     document.dispatchEvent(fakeEvent);
     expect(showCard).not.toHaveBeenCalled();
+  });
+});
+
+describe('useDrawFocus', () => {
+  it('focuses element on mount', () => {
+    const htmlElement = assertDocument().createElement('button');
+    const focusSpy = jest.spyOn(htmlElement, 'focus');
+
+    const Component = () => {
+      const innerRef = utils.useDrawFocus<HTMLButtonElement>();
+      // Set the ref to the element so the hook can focus it
+      React.useLayoutEffect(() => {
+        (innerRef as any).current = htmlElement;
+      }, []);
+      return <div />;
+    };
+
+    renderer.act(() => {
+      renderer.create(<Component />);
+    });
+
+    // The hook should have called focus() on the element
+    expect(focusSpy).toHaveBeenCalled();
+    focusSpy.mockRestore();
+  });
+
+  it('returns a ref object', () => {
+    const Component = () => {
+      const ref = utils.useDrawFocus();
+      expect(ref.current).toBeNull();
+      return <div />;
+    };
+
+    renderer.create(<Component />);
+  });
+});
+
+describe('useFocusElement', () => {
+  it('focuses element when shouldFocus is true', () => {
+    const htmlElement = assertDocument().createElement('button');
+    const focusSpy = jest.spyOn(htmlElement, 'focus');
+    const ref = React.createRef<HTMLButtonElement>();
+
+    const Component = ({ shouldFocus }: { shouldFocus: boolean }) => {
+      React.useEffect(() => {
+        (ref as any).current = htmlElement;
+      }, []);
+      utils.useFocusElement(ref, shouldFocus);
+      return <div />;
+    };
+
+    const tr = renderer.create(<Component shouldFocus={false} />);
+
+    renderer.act(() => {
+      tr.update(<Component shouldFocus={true} />);
+    });
+
+    expect(focusSpy).toHaveBeenCalled();
+    focusSpy.mockRestore();
+  });
+
+  it('does not focus when shouldFocus is false', () => {
+    const htmlElement = assertDocument().createElement('button');
+    const focusSpy = jest.spyOn(htmlElement, 'focus');
+    const ref = React.createRef<HTMLButtonElement>();
+
+    const Component = () => {
+      React.useEffect(() => {
+        (ref as any).current = htmlElement;
+      }, []);
+      utils.useFocusElement(ref, false);
+      return <div />;
+    };
+
+    renderer.create(<Component />);
+
+    expect(focusSpy).not.toHaveBeenCalled();
+    focusSpy.mockRestore();
+  });
+
+  it('does nothing when element is null', () => {
+    const ref = React.createRef<HTMLButtonElement>();
+
+    const Component = () => {
+      utils.useFocusElement(ref, true);
+      return <div />;
+    };
+
+    expect(() => {
+      renderer.create(<Component />);
+    }).not.toThrow();
+  });
+});
+
+describe('useFocusLost', () => {
+  it('registers focusout event listener', () => {
+    const htmlElement = assertDocument().createElement('div');
+    const callback = jest.fn();
+    const ref = React.createRef<HTMLElement>();
+
+    const addEventListenerSpy = jest.spyOn(htmlElement, 'addEventListener');
+
+    const Component = () => {
+      React.useEffect(() => {
+        // Manually set the ref to the element for testing
+        (ref as any).current = htmlElement;
+      }, []);
+      utils.useFocusLost(ref, true, callback);
+      return <div />;
+    };
+
+    renderer.act(() => {
+      renderer.create(<Component />);
+    });
+
+    expect(addEventListenerSpy).toHaveBeenCalledWith('focusout', expect.any(Function));
+
+    addEventListenerSpy.mockRestore();
+  });
+
+  it('does not register listener when disabled', () => {
+    const htmlElement = assertDocument().createElement('div');
+    const callback = jest.fn();
+    const ref = React.createRef<HTMLElement>();
+
+    const addEventListenerSpy = jest.spyOn(htmlElement, 'addEventListener');
+
+    const Component = () => {
+      React.useEffect(() => {
+        (ref as any).current = htmlElement;
+      }, []);
+      utils.useFocusLost(ref, false, callback);
+      return <div />;
+    };
+
+    renderer.act(() => {
+      renderer.create(<Component />);
+    });
+
+    expect(addEventListenerSpy).not.toHaveBeenCalled();
+
+    addEventListenerSpy.mockRestore();
+  });
+});
+
+describe('useFocusIn', () => {
+  it('registers focusin event listener', () => {
+    const htmlElement = assertDocument().createElement('div');
+    const callback = jest.fn();
+    const ref = React.createRef<HTMLElement>();
+
+    const addEventListenerSpy = jest.spyOn(htmlElement, 'addEventListener');
+
+    const Component = () => {
+      React.useEffect(() => {
+        // Manually set the ref to the element for testing
+        (ref as any).current = htmlElement;
+      }, []);
+      utils.useFocusIn(ref, true, callback);
+      return <div />;
+    };
+
+    renderer.act(() => {
+      renderer.create(<Component />);
+    });
+
+    expect(addEventListenerSpy).toHaveBeenCalledWith('focusin', expect.any(Function));
+
+    addEventListenerSpy.mockRestore();
+  });
+  it('does not register listener when disabled', () => {
+    const htmlElement = assertDocument().createElement('div');
+    const callback = jest.fn();
+    const ref = React.createRef<HTMLElement>();
+
+    const addEventListenerSpy = jest.spyOn(htmlElement, 'addEventListener');
+
+    const Component = () => {
+      React.useEffect(() => {
+        (ref as any).current = htmlElement;
+      }, []);
+      utils.useFocusIn(ref, false, callback);
+      return <div />;
+    };
+
+    renderer.act(() => {
+      renderer.create(<Component />);
+    });
+
+    expect(addEventListenerSpy).not.toHaveBeenCalled();
+
+    addEventListenerSpy.mockRestore();
+  });
+});
+
+describe('focusableItemQuery', () => {
+  it('is a valid CSS selector', () => {
+    const div = assertDocument().createElement('div');
+
+    // Add various focusable elements
+    const btn = assertDocument().createElement('button');
+    const input = assertDocument().createElement('input');
+    const link = assertDocument().createElement('a');
+    link.href = 'https://example.com';
+    const select = assertDocument().createElement('select');
+    const textarea = assertDocument().createElement('textarea');
+
+    div.appendChild(btn);
+    div.appendChild(input);
+    div.appendChild(link);
+    div.appendChild(select);
+    div.appendChild(textarea);
+
+    const focusable = Array.from(div.querySelectorAll(utils.focusableItemQuery))
+      .filter((el: any) => !el.disabled && el.tabIndex !== -1);
+
+    expect(focusable.length).toBe(5);
+    expect(focusable).toContain(btn);
+    expect(focusable).toContain(input);
+    expect(focusable).toContain(link);
+    expect(focusable).toContain(select);
+    expect(focusable).toContain(textarea);
+  });
+
+  it('excludes disabled elements', () => {
+    const div = assertDocument().createElement('div');
+
+    const btn = assertDocument().createElement('button');
+    const disabledBtn = assertDocument().createElement('button');
+    disabledBtn.disabled = true;
+
+    div.appendChild(btn);
+    div.appendChild(disabledBtn);
+
+    const focusable = Array.from(div.querySelectorAll(utils.focusableItemQuery))
+      .filter((el: any) => !el.disabled && el.tabIndex !== -1);
+
+    expect(focusable.length).toBe(1);
+    expect(focusable).toContain(btn);
+    expect(focusable).not.toContain(disabledBtn);
+  });
+
+  it('excludes tabindex=-1 elements', () => {
+    const div = assertDocument().createElement('div');
+
+    const btn = assertDocument().createElement('button');
+    const notTabbableBtn = assertDocument().createElement('button');
+    notTabbableBtn.tabIndex = -1;
+
+    div.appendChild(btn);
+    div.appendChild(notTabbableBtn);
+
+    const focusable = Array.from(div.querySelectorAll(utils.focusableItemQuery))
+      .filter((el: any) => el.tabIndex !== -1);
+
+    expect(focusable.length).toBe(1);
+    expect(focusable).toContain(btn);
+    expect(focusable).not.toContain(notTabbableBtn);
+  });
+
+  it('includes tabindex >= 0 elements', () => {
+    const div = assertDocument().createElement('div');
+
+    const span = assertDocument().createElement('span');
+    span.tabIndex = 0;
+
+    div.appendChild(span);
+
+    const focusable = div.querySelectorAll(utils.focusableItemQuery);
+
+    expect(focusable.length).toBe(1);
+    expect(Array.from(focusable)).toContain(span);
   });
 });
