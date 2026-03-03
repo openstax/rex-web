@@ -797,6 +797,58 @@ describe('createTrapTab', () => {
 
     getSelectionSpy.mockRestore();
   });
+
+  it('uses setTimeout fallback when requestAnimationFrame is not available', () => {
+    const mockRange = {
+      cloneRange: jest.fn(function(this: any) {
+        return this;
+      }),
+    } as any;
+
+    const mockSelection = {
+      rangeCount: 1,
+      getRangeAt: jest.fn(() => mockRange),
+      removeAllRanges: jest.fn(),
+      addRange: jest.fn(),
+    } as any;
+
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
+    
+    // Mock requestAnimationFrame to be undefined
+    const originalRAF = assertWindow().requestAnimationFrame;
+    Object.defineProperty(assertWindow(), 'requestAnimationFrame', {
+      value: undefined,
+      writable: true,
+      configurable: true,
+    });
+
+    const setTimeoutSpy = jest.spyOn(assertWindow(), 'setTimeout').mockImplementation((cb: any) => {
+      cb();
+      return 1 as any;
+    });
+
+    // Tab within the container (should not prevent default)
+    Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
+    preventDefault.mockClear();
+
+    trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+
+    // Should schedule restoration via setTimeout fallback
+    expect(setTimeoutSpy).toHaveBeenCalledWith(expect.any(Function), 0);
+    expect(mockSelection.removeAllRanges).toHaveBeenCalled();
+    expect(mockSelection.addRange).toHaveBeenCalledWith(mockRange);
+    expect(preventDefault).not.toHaveBeenCalled();
+
+    // Restore original requestAnimationFrame
+    Object.defineProperty(assertWindow(), 'requestAnimationFrame', {
+      value: originalRAF,
+      writable: true,
+      configurable: true,
+    });
+
+    getSelectionSpy.mockRestore();
+    setTimeoutSpy.mockRestore();
+  });
 });
 
 describe('onKeyHandler', () => {

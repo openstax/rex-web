@@ -18,6 +18,7 @@ import type {
   HTMLElement,
   KeyboardEvent,
   Event,
+  Range,
 } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Highlight } from '@openstax/highlighter';
@@ -53,6 +54,77 @@ function ringAdd(arr: unknown[], a: number, b: number) {
   return (arr.length + a + b) % arr.length;
 }
 
+// Helper type for focusable element entries
+interface FocusableEntry {
+  container: HTMLElement;
+  firstEl: HTMLElement;
+  lastEl: HTMLElement;
+  allElements: HTMLElement[];
+}
+
+// Saves the current text selection for later restoration (important for Firefox)
+function saveTextSelection(win: Window): Range | null {
+  const selection = win.getSelection();
+  return selection && selection.rangeCount > 0
+    ? selection.getRangeAt(0).cloneRange()
+    : null;
+}
+
+// Restores a previously saved text selection
+function restoreTextSelection(win: Window, savedRange: Range | null): void {
+  if (savedRange) {
+    try {
+      const sel = win.getSelection();
+      if (sel) {
+        sel.removeAllRanges();
+        sel.addRange(savedRange);
+      }
+    } catch (e) {
+      // Ignore restoration errors
+    }
+  }
+}
+
+// Schedules selection restoration after browser processes Tab event
+function scheduleSelectionRestoration(win: Window, restoreFn: () => void): void {
+  if (typeof win.requestAnimationFrame === 'function') {
+    win.requestAnimationFrame(restoreFn);
+  } else {
+    setTimeout(restoreFn, 0);
+  }
+}
+
+// Determines the next focus element when Tab wraps around
+function getNextWrapElement(
+  currentIndex: number,
+  isShiftKey: boolean,
+  focusableElements: FocusableEntry[],
+  currentEntry: FocusableEntry
+): { nextElement: HTMLElement | null; shouldPreventDefault: boolean } {
+  if (isShiftKey) {
+    if (currentIndex <= 0) {
+      // At or before first element, wrap to last
+      const feIdx = focusableElements.indexOf(currentEntry);
+      const newIdx = ringAdd(focusableElements, feIdx, -1);
+      return {
+        nextElement: focusableElements[newIdx].lastEl,
+        shouldPreventDefault: true,
+      };
+    }
+  } else {
+    if (currentIndex >= currentEntry.allElements.length - 1) {
+      // At or after last element, wrap to first
+      const feIdx = focusableElements.indexOf(currentEntry);
+      const newIdx = ringAdd(focusableElements, feIdx, 1);
+      return {
+        nextElement: focusableElements[newIdx].firstEl,
+        shouldPreventDefault: true,
+      };
+    }
+  }
+  return { nextElement: null, shouldPreventDefault: false };
+}
+
 // Creates a tab navigation trap that cycles focus within container elements
 // Based on https://hidde.blog/using-javascript-to-trap-focus-in-an-element/
 // IMPORTANT: Preserves text selection on Firefox when Tab navigation occurs
@@ -64,7 +136,7 @@ export function createTrapTab(...elements: HTMLElement[]) {
     return () => null;
   }
 
-  function queryFocusable() {
+  function queryFocusable(): FocusableEntry[] {
     return containers
       .map((container) => {
         const contents = Array.from(
@@ -92,32 +164,15 @@ export function createTrapTab(...elements: HTMLElement[]) {
       return;
     }
 
+    const win = assertWindow();
+    const savedRange = saveTextSelection(win);
+    const restoreSelection = () => restoreTextSelection(win, savedRange);
+
     // Keep track of where we came from
     const startEl = document?.activeElement as HTMLElement;
     const feEntry = focusableElements.find((entry) =>
       entry.container.contains(startEl)
     );
-
-    // Save the current text selection before moving focus (for Firefox)
-    const win = assertWindow();
-    const selection = win.getSelection();
-    const savedRange = selection && selection.rangeCount > 0
-      ? selection.getRangeAt(0).cloneRange()
-      : null;
-
-    const restoreSelection = () => {
-      if (savedRange) {
-        try {
-          const sel = win.getSelection();
-          if (sel) {
-            sel.removeAllRanges();
-            sel.addRange(savedRange);
-          }
-        } catch (e) {
-          // Ignore restoration errors
-        }
-      }
-    };
 
     // Focus has escaped the trap
     if (!feEntry) {
@@ -128,28 +183,13 @@ export function createTrapTab(...elements: HTMLElement[]) {
     }
 
     // Check if we need to wrap around (focus is at a boundary)
-    const allElements = feEntry.allElements;
-    const currentIndex = allElements.indexOf(startEl);
-    let shouldPreventDefault = false;
-    let nextElement: HTMLElement | null = null;
-
-    if (event.shiftKey) {
-      if (currentIndex <= 0) {
-        // At or before first element, wrap to last
-        const feIdx = focusableElements.indexOf(feEntry);
-        const newIdx = ringAdd(focusableElements, feIdx, -1);
-        nextElement = focusableElements[newIdx].lastEl;
-        shouldPreventDefault = true;
-      }
-    } else {
-      if (currentIndex >= allElements.length - 1) {
-        // At or after last element, wrap to first
-        const feIdx = focusableElements.indexOf(feEntry);
-        const newIdx = ringAdd(focusableElements, feIdx, 1);
-        nextElement = focusableElements[newIdx].firstEl;
-        shouldPreventDefault = true;
-      }
-    }
+    const currentIndex = feEntry.allElements.indexOf(startEl);
+    const { nextElement, shouldPreventDefault } = getNextWrapElement(
+      currentIndex,
+      event.shiftKey,
+      focusableElements,
+      feEntry
+    );
 
     // If we're wrapping around, handle focus and restore selection
     if (nextElement && shouldPreventDefault) {
@@ -161,10 +201,7 @@ export function createTrapTab(...elements: HTMLElement[]) {
 
     // For normal Tab navigation within the same container,
     // let the browser handle it but restore selection after
-    // Schedule restoration after browser processes the Tab
-    requestAnimationFrame(() => {
-      restoreSelection();
-    });
+    scheduleSelectionRestoration(win, restoreSelection);
   };
 }
 
