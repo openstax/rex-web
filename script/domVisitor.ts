@@ -124,7 +124,7 @@ async function visitPages(
 
               linkElt.click();
             }, linkSelector);
-            await page.waitForSelector(`${linkSelector}[aria-label*="Current Page"]`);
+            await page.waitForSelector(`${linkSelector}[aria-current="page"]`);
           } else {
             await page.goto(decodeURI(`${rootUrl}${pageUrl}${appendQueryString}`));
           }
