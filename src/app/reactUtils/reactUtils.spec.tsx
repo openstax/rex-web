@@ -52,11 +52,11 @@ describe('onFocusInOrOutHandler focusout', () => {
   });
 
   it('moving focusout event trigger callback', () => {
-    const window = assertWindow();
+    const testWindow = assertWindow();
     const cb = jest.fn();
     utils.onFocusInOrOutHandler(ref, true, cb, 'focusout')();
 
-    const focusOutEvent = window.document.createEvent('FocusEvent');
+    const focusOutEvent = testWindow.document.createEvent('FocusEvent');
     Object.defineProperty(focusOutEvent, 'relatedTarget', {
       value: siblingElement,
       writable: false,
@@ -69,11 +69,11 @@ describe('onFocusInOrOutHandler focusout', () => {
   });
 
   it('noops when clicking on child item', () => {
-    const window = assertWindow();
+    const testWindow = assertWindow();
     const cb = jest.fn();
     utils.onFocusInOrOutHandler(ref, true, cb, 'focusout')();
 
-    const focusOutEvent = window.document.createEvent('FocusEvent');
+    const focusOutEvent = testWindow.document.createEvent('FocusEvent');
     Object.defineProperty(focusOutEvent, 'relatedTarget', {
       value: childElement,
       writable: false,
@@ -85,11 +85,11 @@ describe('onFocusInOrOutHandler focusout', () => {
     expect(cb).not.toHaveBeenCalled();
   });
   it('noops when relatedTarget is null', () => {
-    const window = assertWindow();
+    const testWindow = assertWindow();
     const cb = jest.fn();
     utils.onFocusInOrOutHandler(ref, true, cb, 'focusout')();
 
-    const focusOutEvent = window.document.createEvent('FocusEvent');
+    const focusOutEvent = testWindow.document.createEvent('FocusEvent');
     // no relatedTarget
     focusOutEvent.initEvent('focusout', true, false);
 
@@ -116,11 +116,11 @@ describe('onFocusInOrOutHandler focusin', () => {
   });
 
   it('clicking on child element triggers callback', () => {
-    const window = assertWindow();
+    const testWindow = assertWindow();
     const cb = jest.fn();
     utils.onFocusInOrOutHandler(ref, true, cb, 'focusin')();
 
-    const focusinEvent = window.document.createEvent('FocusEvent');
+    const focusinEvent = testWindow.document.createEvent('FocusEvent');
     Object.defineProperty(focusinEvent, 'target', {
       value: childElement,
       writable: false,
@@ -133,11 +133,11 @@ describe('onFocusInOrOutHandler focusin', () => {
   });
 
   it('noops when clicking on sibling item', () => {
-    const window = assertWindow();
+    const testWindow = assertWindow();
     const cb = jest.fn();
     utils.onFocusInOrOutHandler(ref, true, cb, 'focusin')();
 
-    const focusinEvent = window.document.createEvent('FocusEvent');
+    const focusinEvent = testWindow.document.createEvent('FocusEvent');
     Object.defineProperty(focusinEvent, 'target', {
       value: siblingElement,
       writable: false,
@@ -238,17 +238,17 @@ describe('useOnDOMEvent', () => {
   });
 
   describe('on window', () => {
-    let window: Window;
+    let testWindow: Window;
 
     beforeEach(() => {
-      window = assertWindow();
+      testWindow = assertWindow();
 
-      addEventListener = jest.spyOn(window, 'addEventListener');
-      removeEventListener = jest.spyOn(window, 'removeEventListener');
+      addEventListener = jest.spyOn(testWindow, 'addEventListener');
+      removeEventListener = jest.spyOn(testWindow, 'removeEventListener');
     });
 
     it('follows the normal flow', () => {
-      const cleanup = utils.onDOMEventHandler(window, true, 'click', cb)();
+      const cleanup = utils.onDOMEventHandler(testWindow, true, 'click', cb)();
 
       expect(cleanup).toBeDefined();
       expect(addEventListener).toHaveBeenCalledWith('click', cb);
@@ -260,13 +260,13 @@ describe('useOnDOMEvent', () => {
 });
 
 describe('useTrapTabNavigation', () => {
-  let window;
+  let testWindow: Window;
   let addEventListener: jest.SpyInstance;
 
   beforeEach(() => {
-    window = assertWindow();
+    testWindow = assertWindow();
 
-    addEventListener = jest.spyOn(window.document, 'addEventListener');
+    addEventListener = jest.spyOn(testWindow.document, 'addEventListener');
   });
 
   function Component() {
@@ -314,8 +314,9 @@ describe('useTrapTabNavigation', () => {
 
     // Mock activeElement to return body (no focus yet)
     const originalActiveElement = Object.getOwnPropertyDescriptor(document, 'activeElement');
+    const docBody = assertDocument().body;
     Object.defineProperty(document, 'activeElement', {
-      value: document.body,
+      value: docBody,
       writable: false,
       configurable: true,
     });
@@ -351,7 +352,7 @@ describe('useTrapTabNavigation', () => {
     container.appendChild(btn);
 
     const mockRange = {
-      cloneRange: jest.fn(function() {
+      cloneRange: jest.fn(function(this: any) {
         return this;
       }),
     } as any;
@@ -363,10 +364,11 @@ describe('useTrapTabNavigation', () => {
       addRange: jest.fn(),
     } as any;
 
-    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
 
+    const docBody = assertDocument().body;
     Object.defineProperty(document, 'activeElement', {
-      value: document.body,
+      value: docBody,
       writable: false,
       configurable: true,
     });
@@ -429,12 +431,13 @@ describe('useTrapTabNavigation', () => {
 
     container.appendChild(btn);
 
-    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockImplementation(() => {
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockImplementation(() => {
       throw new Error('Window not available');
     });
 
+    const docBody = assertDocument().body;
     Object.defineProperty(document, 'activeElement', {
-      value: document.body,
+      value: docBody,
       writable: false,
       configurable: true,
     });
@@ -467,7 +470,7 @@ describe('useTrapTabNavigation', () => {
     const focusSpy = jest.spyOn(btn, 'focus');
 
     const mockRange = {
-      cloneRange: jest.fn(function() {
+      cloneRange: jest.fn(function(this: any) {
         return this;
       }),
     } as any;
@@ -480,7 +483,7 @@ describe('useTrapTabNavigation', () => {
     } as any;
 
     let callCount = 0;
-    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockImplementation(() => {
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockImplementation(() => {
       callCount++;
       // Return valid selection for the first call (to save the range)
       // Return null for subsequent calls (to test the null handling in restoration)
@@ -490,8 +493,9 @@ describe('useTrapTabNavigation', () => {
       return null;
     });
 
+    const docBody = assertDocument().body;
     Object.defineProperty(document, 'activeElement', {
-      value: document.body,
+      value: docBody,
       writable: false,
       configurable: true,
     });
@@ -634,7 +638,7 @@ describe('createTrapTab', () => {
   it('preserves text selection when tab wraps around', () => {
     // Mock window.getSelection
     const mockRange = {
-      cloneRange: jest.fn(function() {
+      cloneRange: jest.fn(function(this: any) {
         return this;
       }),
     } as any;
@@ -646,7 +650,7 @@ describe('createTrapTab', () => {
       addRange: jest.fn(),
     } as any;
 
-    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
 
     // Tab forward from the last element (should wrap)
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
@@ -666,7 +670,7 @@ describe('createTrapTab', () => {
   });
   it('preserves text selection during normal tab navigation', () => {
     const mockRange = {
-      cloneRange: jest.fn(function() {
+      cloneRange: jest.fn(function(this: any) {
         return this;
       }),
     } as any;
@@ -678,8 +682,8 @@ describe('createTrapTab', () => {
       addRange: jest.fn(),
     } as any;
 
-    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
-    const rafSpy = jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb: any) => {
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
+    const rafSpy = jest.spyOn(assertWindow(), 'requestAnimationFrame').mockImplementation((cb: any) => {
       cb();
       return 1;
     });
@@ -705,7 +709,7 @@ describe('createTrapTab', () => {
       getRangeAt: jest.fn(),
     } as any;
 
-    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
 
     // Tab forward from the last element
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
@@ -722,7 +726,7 @@ describe('createTrapTab', () => {
   });
   it('restores selection from outside focus', () => {
     const mockRange = {
-      cloneRange: jest.fn(function() {
+      cloneRange: jest.fn(function(this: any) {
         return this;
       }),
     } as any;
@@ -734,7 +738,7 @@ describe('createTrapTab', () => {
       addRange: jest.fn(),
     } as any;
 
-    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue(mockSelection);
 
     const outsideEl = assertDocument().createElement('button');
     b.focus = jest.fn();
@@ -754,7 +758,7 @@ describe('createTrapTab', () => {
   });
   it('handles null selection gracefully when restoring', () => {
     const mockRange = {
-      cloneRange: jest.fn(function() {
+      cloneRange: jest.fn(function(this: any) {
         return this;
       }),
     } as any;
@@ -767,7 +771,7 @@ describe('createTrapTab', () => {
     } as any;
 
     let callCount = 0;
-    const getSelectionSpy = jest.spyOn(window, 'getSelection').mockImplementation(() => {
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockImplementation(() => {
       callCount++;
       // Return valid selection for the first call (to save the range in createTrapTab)
       // Return null for subsequent calls (to test the null handling in restoration)
@@ -828,7 +832,7 @@ describe('onKeyHandler', () => {
   });
 
   it('clicking Escape invokes callback', () => {
-    const window = assertWindow();
+    const testWindow = assertWindow();
     const cb = jest.fn();
     utils.onKeyHandler({ key: 'Escape' }, ref, true, cb)();
 
@@ -836,7 +840,7 @@ describe('onKeyHandler', () => {
       bubbles: true,
       cancelable: true,
       key: 'Escape',
-      view: window,
+      view: testWindow,
     });
 
     ref.current!.dispatchEvent(keyboardEvent);
@@ -845,7 +849,7 @@ describe('onKeyHandler', () => {
   });
 
   it('clicking other button doesn\'t invokes callback', () => {
-    const window = assertWindow();
+    const testWindow = assertWindow();
     const cb = jest.fn();
     utils.onKeyHandler({ key: 'Escape' }, ref, true, cb)();
 
@@ -853,7 +857,7 @@ describe('onKeyHandler', () => {
       bubbles: true,
       cancelable: true,
       key: 'Other key',
-      view: window,
+      view: testWindow,
     });
 
     ref.current!.dispatchEvent(keyboardEvent);
@@ -1203,7 +1207,7 @@ describe('useDrawFocus', () => {
     const focusSpy = jest.spyOn(htmlElement, 'focus');
 
     const Component = () => {
-      const innerRef = utils.useDrawFocus<HTMLButtonElement>();
+      const innerRef = utils.useDrawFocus<HTMLElement>();
       // Set the ref to the element so the hook can focus it
       React.useLayoutEffect(() => {
         (innerRef as any).current = htmlElement;
@@ -1235,7 +1239,7 @@ describe('useFocusElement', () => {
   it('focuses element when shouldFocus is true', () => {
     const htmlElement = assertDocument().createElement('button');
     const focusSpy = jest.spyOn(htmlElement, 'focus');
-    const ref = React.createRef<HTMLButtonElement>();
+    const ref = React.createRef<HTMLElement>();
 
     const Component = ({ shouldFocus }: { shouldFocus: boolean }) => {
       React.useEffect(() => {
@@ -1258,7 +1262,7 @@ describe('useFocusElement', () => {
   it('does not focus when shouldFocus is false', () => {
     const htmlElement = assertDocument().createElement('button');
     const focusSpy = jest.spyOn(htmlElement, 'focus');
-    const ref = React.createRef<HTMLButtonElement>();
+    const ref = React.createRef<HTMLElement>();
 
     const Component = () => {
       React.useEffect(() => {
@@ -1275,7 +1279,7 @@ describe('useFocusElement', () => {
   });
 
   it('does nothing when element is null', () => {
-    const ref = React.createRef<HTMLButtonElement>();
+    const ref = React.createRef<HTMLElement>();
 
     const Component = () => {
       utils.useFocusElement(ref, true);

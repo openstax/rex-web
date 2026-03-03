@@ -195,7 +195,7 @@ export function useTrapTabNavigation(
       // Check if the first focusable element exists and nothing has explicit focus on this element
       if (focusableElements.length > 0) {
         const currentFocus = assertDocument().activeElement;
-        const isElementFocused = el.contains(currentFocus as Node);
+        const isElementFocused = currentFocus && el.contains(currentFocus);
 
         if (!isElementFocused) {
           // Element doesn't have focus, focus the first focusable child
