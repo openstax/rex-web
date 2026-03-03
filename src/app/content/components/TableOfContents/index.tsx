@@ -175,22 +175,26 @@ function ArchiveTreeComponent({
   );
 }
 
-export function maybeAriaLabel(page: LinkedArchiveTreeSection, active?: boolean) {
+export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boolean): {
+  'aria-current'?: string;
+  'aria-label'?: string;
+} {
   const [num, titleText] = splitTitleParts(page.title);
-  const currentPageAriaLabel = { 'aria-label': 'Current Page' };
+  const currentPageIndicator = { 'aria-current': 'page' };
   if (num) {
-    return active ? currentPageAriaLabel : {};
+    return active ? currentPageIndicator : {};
   }
 
   const [parentNum, parentTitleText] = splitTitleParts(page.parent.title);
 
   if (!parentNum || titleText.includes(parentTitleText)) {
-    return active ? currentPageAriaLabel : {};
+    return active ? currentPageIndicator : {};
   }
 
-  const activeAriaLabel = active ? '- Current Page' : '';
-
-  return { 'aria-label': `${titleText} - Chapter ${parentNum} ${activeAriaLabel}` };
+  return {
+    'aria-label': `${titleText} - Chapter ${parentNum}`,
+    ...(active ? currentPageIndicator : {}),
+  };
 }
 
 function TocLeaf({
@@ -234,7 +238,7 @@ function TocLeaf({
           book={book}
           page={item}
           dangerouslySetInnerHTML={{ __html: item.title }}
-          {...maybeAriaLabel(item, active)}
+          {...maybeAriaAttributes(item, active)}
         />
       </Styled.NavItem>
     </Styled.StyledTreeItem>
