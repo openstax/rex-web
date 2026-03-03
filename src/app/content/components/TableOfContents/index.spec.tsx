@@ -3,7 +3,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import ConnectedTableOfContents, { TableOfContents, maybeAriaLabel, shouldBeOpen } from '.';
+import ConnectedTableOfContents, { TableOfContents, shouldBeOpen, maybeAriaAttributes } from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
