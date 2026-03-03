@@ -398,6 +398,32 @@ describe('TableOfContents', () => {
     // Verify it contains the "Table of contents" text
     expect(h2Element?.textContent).toBe('Table of contents');
   });
+
+  it('adds aria-label to TreeItem for leaf sections (links)', () => {
+    const component = renderer.create(Component);
+    const treeItems = component.root.findAllByProps({ 'data-testid': 'mock-tree-item' });
+
+    // Find a leaf item (one that has a link)
+    const leafItem = treeItems.find((item: any) => {
+      return item.props['aria-label'] && item.props['aria-label'].includes(', link');
+    });
+
+    expect(leafItem).toBeDefined();
+    expect(leafItem?.props['aria-label']).toMatch(/, link$/);
+  });
+
+  it('adds aria-label to TreeItem for expandable sections', () => {
+    const component = renderer.create(Component);
+    const treeItems = component.root.findAllByProps({ 'data-testid': 'mock-tree-item' });
+
+    // Find a section item (one that has subsections)
+    const sectionItem = treeItems.find((item: any) => {
+      return item.props['aria-label'] && item.props['aria-label'].includes(', section');
+    });
+
+    expect(sectionItem).toBeDefined();
+    expect(sectionItem?.props['aria-label']).toMatch(/, section$/);
+  });
 });
 
 describe('expandParentsOfCurrentPage', () => {
