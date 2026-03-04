@@ -356,8 +356,9 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     let changed = false;
 
     // Walk up the parent chain and collect all ancestor IDs
+    // Stop before adding book.tree (root) since it's not rendered as a TreeItem
     let parent: LinkedArchiveTree | undefined = (currentNode as LinkedArchiveTreeSection).parent;
-    while (parent) {
+    while (parent && parent.id !== book.tree.id) {
       if (!newExpandedKeys.has(parent.id)) {
         newExpandedKeys.add(parent.id);
         changed = true;
