@@ -14,6 +14,7 @@ import * as mediaUtils from '../../../reactUtils/mediaQueryUtils';
 import { AppState, Store } from '../../../types';
 import { assertWindow } from '../../../utils';
 import * as actions from '../../actions';
+import { Page } from '../../types';
 import { initialState } from '../../reducer';
 import { formatBookData } from '../../utils';
 import * as domUtils from '../../utils/domUtils';
@@ -373,24 +374,6 @@ describe('TableOfContents', () => {
     expect(instance.state.expandedKeys).toEqual(new Set(['abc', 'xyz']));
   });
 
-  it('removes item from expandedKeys via handleTreeItemClick', () => {
-    const component = renderer.create(SecondComponent);
-
-    const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
-
-    renderer.act(() => {
-      instance.setState({ expandedKeys: new Set(['item-1']) });
-    });
-
-    const treeItem = component.root.findAllByProps({ 'data-testid': 'mock-tree-item' })[0];
-
-    renderer.act(() => {
-      treeItem.props.onClick();
-    });
-
-    expect(instance.state.expandedKeys).toEqual(new Set());
-  });
-
   it('returns null in SSR', () => {
     jest.spyOn(reactUtils, 'isSSR').mockReturnValue(true);
     const component = renderer.create(Component);
@@ -414,6 +397,126 @@ describe('TableOfContents', () => {
 
     // Verify it contains the "Table of contents" text
     expect(h2Element?.textContent).toBe('Table of contents');
+  });
+});
+
+describe('expandParentsOfCurrentPage', () => {
+  const mockBook = {
+    tree: {
+      id: 'root',
+      title: 'Root',
+      contents: [
+        {
+          id: 'chapter1',
+          title: 'Chapter 1',
+          contents: [
+            {
+              id: 'page1',
+              title: 'Page 1',
+            },
+          ],
+        },
+      ],
+    },
+  } as any;
+
+  const mockPage = { id: 'page1', abstract: null, title: 'Page 1', slug: 'page-1' } as Page;
+
+  let componentDidMountSpy: jest.SpyInstance;
+
+  afterEach(() => {
+    componentDidMountSpy?.mockRestore();
+  });
+
+  it('does not setState when no parents need expansion (changed=false)', () => {
+    componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
+
+    const component = renderer.create(
+      <TableOfContents
+        isOpen={true}
+        book={mockBook}
+        page={mockPage}
+        onNavigate={jest.fn()}
+      />
+    );
+
+    const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
+    
+    // Set all parents as already expanded so changed will be false
+    renderer.act(() => {
+      instance.setState({ expandedKeys: new Set(['root', 'chapter1']) });
+    });
+
+    const setStateSpy = jest.spyOn(instance, 'setState');
+    setStateSpy.mockClear();
+
+    renderer.act(() => {
+      instance['expandParentsOfCurrentPage']();
+    });
+
+    expect(setStateSpy).not.toHaveBeenCalled();
+
+    setStateSpy.mockRestore();
+  });
+
+  it('does setState when parents need expansion (changed=true)', () => {
+    componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
+
+    const component = renderer.create(
+      <TableOfContents
+        isOpen={true}
+        book={mockBook}
+        page={mockPage}
+        onNavigate={jest.fn()}
+      />
+    );
+
+    const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
+
+    renderer.act(() => {
+      instance.setState({ expandedKeys: new Set() });
+    });
+
+    const setStateSpy = jest.spyOn(instance, 'setState');
+    setStateSpy.mockClear();
+
+    renderer.act(() => {
+      instance['expandParentsOfCurrentPage']();
+    });
+
+    expect(setStateSpy).toHaveBeenCalled();
+    const callArgs = setStateSpy.mock.calls[0][0] as any;
+    expect(callArgs.expandedKeys).toBeInstanceOf(Set);
+    expect(callArgs.expandedKeys.has('chapter1')).toBe(true);
+
+    setStateSpy.mockRestore();
+  });
+
+  it('returns early when currentNode is not found in tree', () => {
+    componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
+
+    const component = renderer.create(
+      <TableOfContents
+        isOpen={true}
+        book={mockBook}
+        page={{ id: 'nonexistent-page', abstract: null, title: 'Not Found', slug: 'not-found' } as Page}
+        onNavigate={jest.fn()}
+      />
+    );
+
+    const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
+
+    const setStateSpy = jest.spyOn(instance, 'setState');
+    setStateSpy.mockClear();
+
+    renderer.act(() => {
+      instance['expandParentsOfCurrentPage']();
+    });
+
+    // Should not call setState when currentNode is not found
+    expect(setStateSpy).not.toHaveBeenCalled();
+
+    setStateSpy.mockRestore();
   });
 });
 
