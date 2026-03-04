@@ -8,7 +8,7 @@ import { isArchiveTree } from '../../guards';
 import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
 import { ArchiveTree, Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page, State } from '../../types';
-import { archiveTreeContainsNode, getArchiveTreeSectionType, splitTitleParts } from '../../utils/archiveTreeUtils';
+import { getArchiveTreeSectionType, splitTitleParts, findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
@@ -133,10 +133,6 @@ function TocToggle({
   );
 }
 
-function shouldBeOpen(page: Page | undefined, node: ArchiveTree) {
-  return Boolean(page && archiveTreeContainsNode(node, page.id));
-}
-
 function ArchiveTreeComponent({
   item,
   book,
@@ -144,7 +140,6 @@ function ArchiveTreeComponent({
   activeSection,
   onNavigate,
   expandedKeys,
-  handleTreeItemClick,
 }: {
   item: LinkedArchiveTree;
   book: Book | undefined;
@@ -152,13 +147,7 @@ function ArchiveTreeComponent({
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
   expandedKeys: Set<string>;
-  handleTreeItemClick: (id: string) => void;
 }) {
-
-  if (shouldBeOpen(page, item)) {
-    expandedKeys.add(item.id);
-  }
-
   return (
     <>
       <TocToggle title={item.title} />
@@ -169,7 +158,6 @@ function ArchiveTreeComponent({
         activeSection={activeSection}
         onNavigate={onNavigate}
         expandedKeys={expandedKeys}
-        handleTreeItemClick={handleTreeItemClick}
       />
     </>
   );
@@ -252,7 +240,6 @@ function TocSection({
   activeSection,
   onNavigate,
   expandedKeys,
-  handleTreeItemClick,
 }: {
   book: Book | undefined;
   page: Page | undefined;
@@ -260,7 +247,6 @@ function TocSection({
   activeSection: React.RefObject<HTMLElement>;
   onNavigate: () => void;
   expandedKeys: Set<string>;
-  handleTreeItemClick: (id: string) => void;
 }) {
   return (
     <>
@@ -276,7 +262,6 @@ function TocSection({
                 section={section}
                 id={item.id}
                 textValue={stripHtml(item.title, true)}
-                onClick={() => handleTreeItemClick(item.id)}
               >
                 <ArchiveTreeComponent
                   item={item}
@@ -285,7 +270,6 @@ function TocSection({
                   activeSection={activeSection}
                   onNavigate={onNavigate}
                   expandedKeys={expandedKeys}
-                  handleTreeItemClick={handleTreeItemClick}
                 />
               </Styled.StyledTreeItem>
               : <TocLeaf
@@ -313,7 +297,6 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
       expandedKeys: new Set(),
     };
     this.handleExpandedChange = this.handleExpandedChange.bind(this);
-    this.handleTreeItemClick = this.handleTreeItemClick.bind(this);
     this.handleTreeKeyUp = this.handleTreeKeyUp.bind(this);
   }
 
@@ -340,7 +323,6 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
                 activeSection={this.activeSection}
                 onNavigate={this.props.onNavigate}
                 expandedKeys={this.state.expandedKeys}
-                handleTreeItemClick={this.handleTreeItemClick}
               />
             </Styled.StyledTree >
           </div>
@@ -353,12 +335,41 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     this.setState({ expandedKeys });
   }
 
-  handleTreeItemClick = (id: string) => {
-    const prev = this.state.expandedKeys;
-    const next = new Set(prev);
-    next.delete(id);
-    this.setState({ expandedKeys: next });
-  };
+  public componentDidUpdate(prevProps: SidebarProps) {
+    if (this.props.page !== prevProps.page) {
+      expandCurrentChapter(this.activeSection.current);
+      this.scrollToSelectedPage();
+      // Auto-expand parent chapters when page changes
+      this.expandParentsOfCurrentPage();
+    }
+  }
+
+  private expandParentsOfCurrentPage() {
+    const { page, book } = this.props;
+    if (!page || !book) return;
+
+    // Find the current page node in the tree using its ID
+    const currentNode = findArchiveTreeNodeById(book.tree, page.id);
+    if (!currentNode) return;
+
+    const newExpandedKeys = new Set(this.state.expandedKeys);
+    let changed = false;
+
+    // Walk up the parent chain and collect all ancestor IDs
+    // Stop before adding book.tree (root) since it's not rendered as a TreeItem
+    let parent: LinkedArchiveTree | undefined = (currentNode as LinkedArchiveTreeSection).parent;
+    while (parent && parent.id !== book.tree.id) {
+      if (!newExpandedKeys.has(parent.id)) {
+        newExpandedKeys.add(parent.id);
+        changed = true;
+      }
+      parent = parent.parent;
+    }
+
+    if (changed) {
+      this.setState({ expandedKeys: newExpandedKeys });
+    }
+  }
 
   handleTreeKeyUp = (event: React.KeyboardEvent) => {
     // Handle Shift+Tab to move focus to the close button
@@ -374,6 +385,9 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
 
   public componentDidMount() {
     this.scrollToSelectedPage();
+
+    // Expand parents of current page on initial load
+    this.expandParentsOfCurrentPage();
     const sidebar = this.sidebar.current;
 
     if (!sidebar || typeof (window) === 'undefined') {
@@ -383,13 +397,6 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     const { callback, deregister } = setSidebarHeight(sidebar, window);
     callback();
     this.deregister = deregister;
-  }
-
-  public componentDidUpdate(prevProps: SidebarProps) {
-    if (this.props.page !== prevProps.page) {
-      expandCurrentChapter(this.activeSection.current);
-      this.scrollToSelectedPage();
-    }
   }
 
   public componentWillUnmount() {
