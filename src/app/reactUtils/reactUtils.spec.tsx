@@ -267,9 +267,12 @@ describe('useTrapTabNavigation', () => {
   });
 
   afterEach(() => {
-    // Restore the original activeElement descriptor
+    // Restore the original activeElement descriptor or remove test overrides
     if (originalActiveElementDescriptor) {
       Object.defineProperty(document, 'activeElement', originalActiveElementDescriptor);
+    } else {
+      // If there was no own-property descriptor originally, remove any override created during the test
+      delete (document as any).activeElement;
     }
   });
 
@@ -577,6 +580,7 @@ describe('createTrapTab', () => {
   const d = assertDocument().createElement('div');
   const b = assertDocument().createElement('button');
   const i = assertDocument().createElement('input');
+  let originalActiveElementDescriptor: PropertyDescriptor | undefined;
 
   htmlElement.appendChild(d); // not focusable
   htmlElement.appendChild(b);
@@ -594,6 +598,18 @@ describe('createTrapTab', () => {
   beforeEach(() => {
     preventDefault.mockClear();
     trapTab = utils.createTrapTab(htmlElement);
+    // Capture the original activeElement descriptor to restore it later
+    originalActiveElementDescriptor = Object.getOwnPropertyDescriptor(document, 'activeElement');
+  });
+
+  afterEach(() => {
+    // Restore the original activeElement descriptor or remove test overrides
+    if (originalActiveElementDescriptor) {
+      Object.defineProperty(document, 'activeElement', originalActiveElementDescriptor);
+    } else {
+      // If there was no own-property descriptor originally, remove any override created during the test
+      delete (document as any).activeElement;
+    }
   });
   it('ignores non-Tab events', () => {
     trapTab({ key: 'a' } as KeyboardEvent);
@@ -615,7 +631,10 @@ describe('createTrapTab', () => {
   });
   it('tabs normally otherwise', () => {
     preventDefault.mockClear();
+
+    Object.defineProperty(document, 'activeElement', { value: b, writable: false, configurable: true });
     trapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+
     Object.defineProperty(document, 'activeElement', { value: i, writable: false, configurable: true });
     trapTab({ key: 'Tab', shiftKey: true, preventDefault } as unknown as KeyboardEvent);
     expect(preventDefault).not.toHaveBeenCalled();
@@ -902,8 +921,7 @@ describe('createTrapTab', () => {
 
   it('returns noop handler when containers list is empty', () => {
     // When no valid containers are passed, createTrapTab should skip
-    // the assertWindow() call and return a noop function immediately
-    // This covers the early return before try/catch
+    // calling assertWindow() and return a noop function immediately.
     const result = utils.createTrapTab();
     
     // Should return null when handler is called
