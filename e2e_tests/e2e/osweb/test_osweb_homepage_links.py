@@ -12,6 +12,8 @@ async def test_osweb_homepage_interested_link(chrome_page, base_url):
     await chrome_page.goto(base_url)
     home = HomeRex(chrome_page)
 
+    await chrome_page.keyboard.press("Escape")
+
     # THEN: I'm interested page opens
     await home.click_interested_link()
 
@@ -34,6 +36,8 @@ async def test_osweb_homepage_try_assignable_link(chrome_page, base_url):
     # WHEN: The Home page is fully loaded
     await chrome_page.goto(base_url)
     home = HomeRex(chrome_page)
+
+    await chrome_page.keyboard.press("Escape")
 
     # THEN: Try OpenStax Assignable page opens
     await home.click_try_assignable_link()
