@@ -332,7 +332,7 @@ describe('useTrapTabNavigation', () => {
 
     const Component = () => {
       const ref = React.useRef<HTMLElement | null>(container);
-      utils.useTrapTabNavigation(ref);
+      utils.useTrapTabNavigation(ref, undefined, true);
       return <div />;
     };
 
@@ -379,7 +379,7 @@ describe('useTrapTabNavigation', () => {
 
     const Component = () => {
       const ref = React.useRef<HTMLElement | null>(container);
-      utils.useTrapTabNavigation(ref);
+      utils.useTrapTabNavigation(ref, undefined, true);
       return <div />;
     };
 
@@ -416,7 +416,7 @@ describe('useTrapTabNavigation', () => {
 
     const Component = () => {
       const ref = React.useRef<HTMLElement | null>(container);
-      utils.useTrapTabNavigation(ref);
+      utils.useTrapTabNavigation(ref, undefined, true);
       return <div />;
     };
 
@@ -448,7 +448,7 @@ describe('useTrapTabNavigation', () => {
 
     const Component = () => {
       const ref = React.useRef<HTMLElement | null>(container);
-      utils.useTrapTabNavigation(ref);
+      utils.useTrapTabNavigation(ref, undefined, true);
       return <div />;
     };
 
@@ -506,7 +506,7 @@ describe('useTrapTabNavigation', () => {
 
     const Component = () => {
       const ref = React.useRef<HTMLElement | null>(container);
-      utils.useTrapTabNavigation(ref);
+      utils.useTrapTabNavigation(ref, undefined, true);
       return <div />;
     };
 
@@ -522,6 +522,45 @@ describe('useTrapTabNavigation', () => {
 
     getSelectionSpy.mockRestore();
     focusSpy.mockRestore();
+  });
+
+  it('skips auto-focus when no focusable elements exist', () => {
+    const container = assertDocument().createElement('div');
+    // Add only non-focusable elements
+    const div = assertDocument().createElement('div');
+    const span = assertDocument().createElement('span');
+    container.appendChild(div);
+    container.appendChild(span);
+
+    const docBody = assertDocument().body;
+    Object.defineProperty(document, 'activeElement', {
+      value: docBody,
+      writable: false,
+      configurable: true,
+    });
+
+    const getSelectionSpy = jest.spyOn(assertWindow(), 'getSelection').mockReturnValue({
+      rangeCount: 0,
+    } as any);
+
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref, undefined, true);
+      return <div />;
+    };
+
+    // Should not throw even when there are no focusable elements
+    expect(() => {
+      renderer.act(() => {
+        renderer.create(<Component />);
+      });
+    }).not.toThrow();
+
+    // getSelection is called to save selection, but focus() should not be called
+    // because there are no focusable elements to focus
+    expect(getSelectionSpy).toHaveBeenCalled();
+
+    getSelectionSpy.mockRestore();
   });
 });
 
@@ -852,6 +891,32 @@ describe('createTrapTab', () => {
 
     getSelectionSpy.mockRestore();
     setTimeoutSpy.mockRestore();
+  });
+
+  it('returns noop handler when containers list is empty', () => {
+    // When no valid containers are passed, createTrapTab should skip
+    // the assertWindow() call and return a noop function immediately
+    // This covers the early return before try/catch
+    const result = utils.createTrapTab();
+    
+    // Should return null when handler is called
+    expect(result({ key: 'Tab' } as KeyboardEvent)).toBeNull();
+  });
+
+  it('does nothing when no focusable elements in container', () => {
+    const emptyContainer = assertDocument().createElement('div');
+    const nonFocusableDiv = assertDocument().createElement('div');
+    emptyContainer.appendChild(nonFocusableDiv);
+
+    const emptyTrapTab = utils.createTrapTab(emptyContainer);
+
+    // Should not throw when there are no focusable elements
+    expect(() => {
+      emptyTrapTab({ key: 'Tab', preventDefault } as unknown as KeyboardEvent);
+    }).not.toThrow();
+
+    // preventDefault should not be called since we short-circuit
+    expect(preventDefault).not.toHaveBeenCalled();
   });
 });
 

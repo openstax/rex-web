@@ -164,12 +164,7 @@ export function createTrapTab(...elements: HTMLElement[]) {
     return () => null;
   }
 
-  let win: Window;
-  try {
-    win = assertWindow();
-  } catch (e) {
-    return () => null;
-  }
+  const win = assertWindow();
 
   return (event: KeyboardEvent) => {
     if (event.key !== 'Tab') {
@@ -226,7 +221,7 @@ export function createTrapTab(...elements: HTMLElement[]) {
 // Used for modals/overlays that need initial focus but preserve user's text selection
 function autoFocusFirstElement(el: HTMLElement): void {
   const win = assertWindow();
-  const savedRange = saveTextSelection(win);
+  const savedRange = safeSaveTextSelection(win);
 
   const focusableElements = Array.from(
     el.querySelectorAll<HTMLElement>(focusableItemQuery)
