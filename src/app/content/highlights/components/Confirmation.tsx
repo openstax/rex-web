@@ -56,7 +56,8 @@ const Confirmation = React.forwardRef<HTMLElement, Props>((
   // Use drawFocusRef if drawFocus is true, otherwise use overlayRef for trap navigation
   const trapRef = drawFocus ? drawFocusRef : overlayRef;
   
-  useTrapTabNavigation(trapRef);
+  // Auto-focus first element when drawFocus=false (overlay case)
+  useTrapTabNavigation(trapRef, undefined, !drawFocus);
   useOnEsc(true, onCancel);
 
   return <Overlay

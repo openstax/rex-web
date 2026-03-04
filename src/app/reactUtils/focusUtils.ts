@@ -90,7 +90,7 @@ function scheduleSelectionRestoration(win: Window, restoreFn: () => void): void 
   if (typeof win.requestAnimationFrame === 'function') {
     win.requestAnimationFrame(restoreFn);
   } else {
-    setTimeout(restoreFn, 0);
+    win.setTimeout(restoreFn, 0);
   }
 }
 
@@ -125,6 +125,34 @@ function getNextWrapElement(
   return { nextElement: null, shouldPreventDefault: false };
 }
 
+// Query focusable elements within containers
+function queryFocusableInContainers(containers: HTMLElement[]): FocusableEntry[] {
+  return containers
+    .map((container) => {
+      const contents = Array.from(
+        container.querySelectorAll<HTMLElement>(focusableItemQuery)
+      );
+
+      return {
+        container,
+        firstEl: contents[0],
+        lastEl: contents[contents.length - 1],
+        allElements: contents,
+      };
+    })
+    .filter((c) => c.firstEl);
+}
+
+// Safely saves the current text selection, returning null if unavailable
+function safeSaveTextSelection(win: Window): Range | null {
+  try {
+    return saveTextSelection(win);
+  } catch (e) {
+    // Selection API unavailable or restricted context
+    return null;
+  }
+}
+
 // Creates a tab navigation trap that cycles focus within container elements
 // Based on https://hidde.blog/using-javascript-to-trap-focus-in-an-element/
 // IMPORTANT: Preserves text selection on Firefox when Tab navigation occurs
@@ -136,21 +164,11 @@ export function createTrapTab(...elements: HTMLElement[]) {
     return () => null;
   }
 
-  function queryFocusable(): FocusableEntry[] {
-    return containers
-      .map((container) => {
-        const contents = Array.from(
-          container.querySelectorAll<HTMLElement>(focusableItemQuery)
-        );
-
-        return {
-          container,
-          firstEl: contents[0],
-          lastEl: contents[contents.length - 1],
-          allElements: contents,
-        };
-      })
-      .filter((c) => c.firstEl);
+  let win: Window;
+  try {
+    win = assertWindow();
+  } catch (e) {
+    return () => null;
   }
 
   return (event: KeyboardEvent) => {
@@ -158,14 +176,13 @@ export function createTrapTab(...elements: HTMLElement[]) {
       return;
     }
 
-    const focusableElements = queryFocusable();
+    const focusableElements = queryFocusableInContainers(containers);
 
     if (focusableElements.length === 0) {
       return;
     }
 
-    const win = assertWindow();
-    const savedRange = saveTextSelection(win);
+    const savedRange = safeSaveTextSelection(win);
     const restoreSelection = () => restoreTextSelection(win, savedRange);
 
     // Keep track of where we came from
@@ -205,10 +222,33 @@ export function createTrapTab(...elements: HTMLElement[]) {
   };
 }
 
+// Focuses the first focusable element while preserving text selection
+// Used for modals/overlays that need initial focus but preserve user's text selection
+function autoFocusFirstElement(el: HTMLElement): void {
+  const win = assertWindow();
+  const savedRange = saveTextSelection(win);
+
+  const focusableElements = Array.from(
+    el.querySelectorAll<HTMLElement>(focusableItemQuery)
+  );
+
+  if (focusableElements.length > 0) {
+    const currentFocus = assertDocument().activeElement;
+    const isElementFocused = currentFocus && el.contains(currentFocus);
+
+    if (!isElementFocused) {
+      focusableElements[0].focus();
+      restoreTextSelection(win, savedRange);
+    }
+  }
+}
+
 // Supply otherDep when focusable elements might change (see EditCard)
+// Set autoFocus=true to focus the first focusable element on mount (useful for modals/overlays)
 export function useTrapTabNavigation(
   ref: React.MutableRefObject<HTMLElement | null>,
-  otherDep?: unknown
+  otherDep?: unknown,
+  autoFocus?: boolean
 ) {
   React.useEffect(() => {
     const el = ref.current;
@@ -216,44 +256,13 @@ export function useTrapTabNavigation(
       return;
     }
 
-    // Save current selection and focus first focusable element if this is a fresh mount
-    // This handles cases like drawFocus={false} where we need to focus without losing selection
-    try {
-      const win = assertWindow();
-      const selection = win.getSelection();
-      const savedRange = selection && selection.rangeCount > 0
-        ? selection.getRangeAt(0).cloneRange()
-        : null;
-
-      const focusableElements = Array.from(
-        el.querySelectorAll<HTMLElement>(focusableItemQuery)
-      );
-
-      // Check if the first focusable element exists and nothing has explicit focus on this element
-      if (focusableElements.length > 0) {
-        const currentFocus = assertDocument().activeElement;
-        const isElementFocused = currentFocus && el.contains(currentFocus);
-
-        if (!isElementFocused) {
-          // Element doesn't have focus, focus the first focusable child
-          focusableElements[0].focus();
-
-          // Restore selection after focusing
-          if (savedRange) {
-            try {
-              const sel = win.getSelection();
-              if (sel) {
-                sel.removeAllRanges();
-                sel.addRange(savedRange);
-              }
-            } catch (e) {
-              // Ignore restoration errors
-            }
-          }
-        }
+    // Auto-focus first element if requested (for modals/overlays)
+    if (autoFocus) {
+      try {
+        autoFocusFirstElement(el);
+      } catch (e) {
+        // Ignore errors in SSR or when window is not available
       }
-    } catch (e) {
-      // Ignore errors in SSR or when window is not available
     }
 
     const trapTab = createTrapTab(el);
@@ -261,7 +270,7 @@ export function useTrapTabNavigation(
     el.addEventListener('keydown', trapTab, true);
 
     return () => el.removeEventListener('keydown', trapTab, true);
-  }, [ref, otherDep]);
+  }, [ref, otherDep, autoFocus]);
 }
 
 export const onFocusInOrOutHandler =

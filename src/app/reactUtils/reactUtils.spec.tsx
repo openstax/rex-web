@@ -262,11 +262,21 @@ describe('useOnDOMEvent', () => {
 describe('useTrapTabNavigation', () => {
   let testWindow: Window;
   let addEventListener: jest.SpyInstance;
+  let originalActiveElementDescriptor: PropertyDescriptor | undefined;
 
   beforeEach(() => {
     testWindow = assertWindow();
-
     addEventListener = jest.spyOn(testWindow.document, 'addEventListener');
+    
+    // Capture the original activeElement descriptor to restore it later
+    originalActiveElementDescriptor = Object.getOwnPropertyDescriptor(document, 'activeElement');
+  });
+
+  afterEach(() => {
+    // Restore the original activeElement descriptor
+    if (originalActiveElementDescriptor) {
+      Object.defineProperty(document, 'activeElement', originalActiveElementDescriptor);
+    }
   });
 
   function Component() {
@@ -313,7 +323,6 @@ describe('useTrapTabNavigation', () => {
     container.appendChild(btn2);
 
     // Mock activeElement to return body (no focus yet)
-    const originalActiveElement = Object.getOwnPropertyDescriptor(document, 'activeElement');
     const docBody = assertDocument().body;
     Object.defineProperty(document, 'activeElement', {
       value: docBody,
@@ -332,11 +341,6 @@ describe('useTrapTabNavigation', () => {
     });
 
     expect(focusSpy).toHaveBeenCalled();
-
-    // Restore original activeElement
-    if (originalActiveElement) {
-      Object.defineProperty(document, 'activeElement', originalActiveElement);
-    }
 
     focusSpy.mockRestore();
   });
