@@ -283,7 +283,14 @@ describe('useTrapTabNavigation', () => {
       return <div />;
     };
 
-    renderer.create(<Component />);
+    const createComponent = () => {
+      const component = renderer.create(<Component />);
+      runHooks(renderer);
+      renderer.act(() => {
+        component.unmount();
+      });
+    };
+    expect(createComponent).not.toThrow();
   });
 
   it('attaches listeners to container element', () => {
