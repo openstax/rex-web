@@ -39,7 +39,7 @@ async def test_logged_and_unlogged_page_content(
     assert "impact craters" in await chrome_page_unlogged.content()
 
     # THEN: User logs in and sees the same content
-    await home.click_login()
+    await home.login_link.click()
 
     await home.fill_user_field(rex_user)
     await home.fill_password_field(rex_password)

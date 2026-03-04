@@ -7,9 +7,50 @@ from e2e_tests.e2e.ui.pages.home import HomeRex
 @pytest.mark.parametrize(
     "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
 )
-async def test_highlights_page_edit_note(
-    chrome_page, base_url, book_slug, page_slug, rex_user, rex_password
+async def test_highlights_page_unlogged(
+    chrome_page_unlogged, base_url, book_slug, page_slug, rex_user, rex_password
 ):
+
+    # GIVEN: Playwright, chromium and the rex_base_url
+
+    # WHEN: The Home page is fully loaded
+    await chrome_page_unlogged.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
+    home = HomeRex(chrome_page_unlogged)
+
+    # THEN: Book page opens, highlight box appears and note can be edited
+
+    await chrome_page_unlogged.keyboard.press("Escape")
+
+    await home.click_highlights_option()
+
+    assert (
+        "Log in to highlight. 100% FREE."
+        in await home.highlights_option_page.inner_text()
+    )
+
+    assert await home.login_link.is_visible()
+
+    await home.login_link.click()
+
+    assert await home.login_page.is_visible()
+
+    await home.fill_user_field(rex_user)
+    await home.fill_password_field(rex_password)
+
+    await home.click_continue_login()
+
+    await chrome_page_unlogged.keyboard.press("Escape")
+
+    assert "impact craters" in await chrome_page_unlogged.content()
+
+    assert await home.logged_in_user_dropdown_is_visible()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("astronomy-2e", "9-3-impact-craters")]
+)
+async def test_highlights_page_edit_note(chrome_page, base_url, book_slug, page_slug):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
