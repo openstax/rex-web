@@ -7,8 +7,8 @@ import { closeMobileMenu, resetToc } from '../../actions';
 import { isArchiveTree } from '../../guards';
 import { linkContents } from '../../search/utils';
 import * as selectors from '../../selectors';
-import { ArchiveTree, Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page, State, ArchiveTreeSection } from '../../types';
-import { archiveTreeContainsNode, getArchiveTreeSectionType, splitTitleParts } from '../../utils/archiveTreeUtils';
+import { ArchiveTree, Book, LinkedArchiveTree, LinkedArchiveTreeSection, Page, State } from '../../types';
+import { getArchiveTreeSectionType, splitTitleParts, findArchiveTreeNodeById } from '../../utils/archiveTreeUtils';
 import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } from '../../utils/domUtils';
 import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
@@ -131,10 +131,6 @@ function TocToggle({
       </Styled.SummaryWrapper>
     </Styled.StyledTreeItemContent>
   );
-}
-
-export function shouldBeOpen(page: Page | undefined, node: ArchiveTree) {
-  return Boolean(page && archiveTreeContainsNode(node, page.id));
 }
 
 function ArchiveTreeComponent({
@@ -352,34 +348,22 @@ export class TableOfContents extends Component<SidebarProps, { expandedKeys: Set
     const { page, book } = this.props;
     if (!page || !book) return;
 
+    // Find the current page node in the tree using its ID
+    const currentNode = findArchiveTreeNodeById(book.tree, page.id);
+    if (!currentNode) return;
+
     const newExpandedKeys = new Set(this.state.expandedKeys);
     let changed = false;
 
-    // Helper to find and mark all nodes that contain the current page
-    const markPath = (node: ArchiveTree | ArchiveTreeSection): boolean => {
-      // Base case: check if this node IS the current page
-      if (stripIdVersion(node.id) === page.id) {
-        return true;
+    // Walk up the parent chain and collect all ancestor IDs
+    let parent: LinkedArchiveTree | undefined = (currentNode as LinkedArchiveTreeSection).parent;
+    while (parent) {
+      if (!newExpandedKeys.has(parent.id)) {
+        newExpandedKeys.add(parent.id);
+        changed = true;
       }
-
-      // If this is a tree, check all children
-      if (isArchiveTree(node)) {
-        for (const child of node.contents) {
-          if (markPath(child)) {
-            // This child contains the page, so expand this node
-            if (!newExpandedKeys.has(node.id)) {
-              newExpandedKeys.add(node.id);
-              changed = true;
-            }
-            return true; // Signal that we found the page in this subtree
-          }
-        }
-      }
-
-      return false; // Page not found in this subtree
-    };
-
-    markPath(book.tree);
+      parent = parent.parent;
+    }
 
     if (changed) {
       this.setState({ expandedKeys: newExpandedKeys });

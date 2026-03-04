@@ -3,7 +3,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import ConnectedTableOfContents, { TableOfContents, shouldBeOpen, maybeAriaAttributes } from '.';
+import ConnectedTableOfContents, { TableOfContents, maybeAriaAttributes } from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
@@ -398,36 +398,6 @@ describe('TableOfContents', () => {
     // Verify it contains the "Table of contents" text
     expect(h2Element?.textContent).toBe('Table of contents');
   });
-
-  describe('shouldBeOpen', () => {
-    const mockNode = {
-      id: 'chapter1@1',
-      title: 'Chapter 1',
-      contents: [
-        {
-          id: 'page1@1',
-          title: 'Page 1',
-        },
-      ],
-    } as any;
-
-    it('returns true when page is inside node', () => {
-      const mockPage = { id: 'page1', abstract: null, title: 'Page 1', slug: 'page-1' } as Page;
-      const result = shouldBeOpen(mockPage, mockNode);
-      expect(result).toBe(true);
-    });
-
-    it('returns false when page is undefined', () => {
-      const result = shouldBeOpen(undefined, mockNode);
-      expect(result).toBe(false);
-    });
-
-    it('returns false when page is not inside node', () => {
-      const mockPage = { id: 'nonexistent', abstract: null, title: 'Nonexistent', slug: 'nonexistent' } as Page;
-      const result = shouldBeOpen(mockPage, mockNode);
-      expect(result).toBe(false);
-    });
-  });
 });
 
 describe('expandParentsOfCurrentPage', () => {
@@ -452,9 +422,14 @@ describe('expandParentsOfCurrentPage', () => {
 
   const mockPage = { id: 'page1', abstract: null, title: 'Page 1', slug: 'page-1' } as Page;
 
+  let componentDidMountSpy: jest.SpyInstance;
+
+  afterEach(() => {
+    componentDidMountSpy?.mockRestore();
+  });
+
   it('does not setState when no parents need expansion (changed=false)', () => {
-    const originalComponentDidMount = TableOfContents.prototype.componentDidMount;
-    TableOfContents.prototype.componentDidMount = jest.fn();
+    componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
 
     const component = renderer.create(
       <TableOfContents
@@ -481,12 +456,11 @@ describe('expandParentsOfCurrentPage', () => {
 
     expect(setStateSpy).not.toHaveBeenCalled();
 
-    TableOfContents.prototype.componentDidMount = originalComponentDidMount;
+    setStateSpy.mockRestore();
   });
 
   it('does setState when parents need expansion (changed=true)', () => {
-    const originalComponentDidMount = TableOfContents.prototype.componentDidMount;
-    TableOfContents.prototype.componentDidMount = jest.fn();
+    componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
 
     const component = renderer.create(
       <TableOfContents
@@ -515,7 +489,34 @@ describe('expandParentsOfCurrentPage', () => {
     expect(callArgs.expandedKeys).toBeInstanceOf(Set);
     expect(callArgs.expandedKeys.has('chapter1')).toBe(true);
 
-    TableOfContents.prototype.componentDidMount = originalComponentDidMount;
+    setStateSpy.mockRestore();
+  });
+
+  it('returns early when currentNode is not found in tree', () => {
+    componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
+
+    const component = renderer.create(
+      <TableOfContents
+        isOpen={true}
+        book={mockBook}
+        page={{ id: 'nonexistent-page', abstract: null, title: 'Not Found', slug: 'not-found' } as Page}
+        onNavigate={jest.fn()}
+      />
+    );
+
+    const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
+
+    const setStateSpy = jest.spyOn(instance, 'setState');
+    setStateSpy.mockClear();
+
+    renderer.act(() => {
+      instance['expandParentsOfCurrentPage']();
+    });
+
+    // Should not call setState when currentNode is not found
+    expect(setStateSpy).not.toHaveBeenCalled();
+
+    setStateSpy.mockRestore();
   });
 });
 
