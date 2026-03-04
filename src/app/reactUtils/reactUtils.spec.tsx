@@ -5,7 +5,6 @@ import renderer from 'react-test-renderer';
 import { resetModules, runHooks } from '../../test/utils';
 import * as utils from '.';
 import { assertDocument, assertWindow } from '../utils';
-import { dispatchKeyDownEvent } from '../../test/reactutils';
 import { Highlight } from '@openstax/highlighter';
 import { act } from 'react-dom/test-utils';
 
@@ -260,14 +259,9 @@ describe('useOnDOMEvent', () => {
 });
 
 describe('useTrapTabNavigation', () => {
-  let testWindow: Window;
-  let addEventListener: jest.SpyInstance;
   let originalActiveElementDescriptor: PropertyDescriptor | undefined;
 
   beforeEach(() => {
-    testWindow = assertWindow();
-    addEventListener = jest.spyOn(testWindow.document, 'addEventListener');
-    
     // Capture the original activeElement descriptor to restore it later
     originalActiveElementDescriptor = Object.getOwnPropertyDescriptor(document, 'activeElement');
   });
@@ -279,30 +273,42 @@ describe('useTrapTabNavigation', () => {
     }
   });
 
-  function Component() {
+  it('short circuits if no ref element', () => {
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(null);
+      utils.useTrapTabNavigation(ref);
+      return <div />;
+    };
+
+    renderer.create(<Component />);
+  });
+
+  it('attaches listeners to container element', () => {
     const container = assertDocument().createElement('div');
     const b = assertDocument().createElement('button');
-
     container.appendChild(b);
-    const ref = React.useRef<HTMLElement | null>(container);
-    utils.useTrapTabNavigation(ref);
+    const addEventListenerSpy = jest.spyOn(container, 'addEventListener');
+    const removeEventListenerSpy = jest.spyOn(container, 'removeEventListener');
 
-    return <div />;
-  }
+    const Component = () => {
+      const ref = React.useRef<HTMLElement | null>(container);
+      utils.useTrapTabNavigation(ref);
+      return <div />;
+    };
 
-  it('short circuits if no ref element', () => {
-    renderer.create(<Component />);
-    expect(addEventListener).not.toHaveBeenCalled();
-  });
-  it('attaches listeners', () => {
     const tr = renderer.create(<Component />);
+    runHooks(renderer);
 
-    renderer.act(
-      () => {
-        dispatchKeyDownEvent({ key: 'Tab' });
-      }
-    );
-    tr.unmount();
+    expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
+
+    renderer.act(() => {
+      tr.unmount();
+    });
+
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
+
+    addEventListenerSpy.mockRestore();
+    removeEventListenerSpy.mockRestore();
   });
   it('auto-focuses first focusable element on mount', () => {
     const container = assertDocument().createElement('div');
@@ -586,6 +592,7 @@ describe('createTrapTab', () => {
   });
 
   beforeEach(() => {
+    preventDefault.mockClear();
     trapTab = utils.createTrapTab(htmlElement);
   });
   it('ignores non-Tab events', () => {
