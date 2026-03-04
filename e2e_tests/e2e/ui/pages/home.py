@@ -163,7 +163,7 @@ class HomeRex:
 
     @property
     def highlights_option_page(self):
-        return self.page.locator("div").get_by_test_id("show-myhighlights-body")
+        return self.page.locator("div").get_by_test_id("highlights-popup-wrapper")
 
     @pytest.mark.asyncio
     async def click_highlights_option_page_menu(self):
@@ -333,9 +333,13 @@ class HomeRex:
 
     # Login
 
-    @pytest.mark.asyncio
-    async def click_login(self):
-        await self.page.locator("a").get_by_text("Log in").click()
+    @property
+    def login_page(self):
+        return self.page.locator("#login-page")
+
+    @property
+    def login_link(self):
+        return self.page.get_by_role("link", name="Log in")
 
     @pytest.mark.asyncio
     async def click_login_other(self):
