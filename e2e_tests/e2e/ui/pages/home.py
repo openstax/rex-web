@@ -286,6 +286,10 @@ class HomeRex:
         await self.page.locator("div").get_by_text("Astronomy 2e").click()
 
     @pytest.mark.asyncio
+    async def click_clinical_nursing_skills_book(self):
+        await self.page.get_by_label("Maternal-Newborn Nursing book").click()
+
+    @pytest.mark.asyncio
     async def buy_print_copy_button_is_visible(self):
         return await self.page.locator("a").get_by_text("Buy a print copy").is_visible()
 

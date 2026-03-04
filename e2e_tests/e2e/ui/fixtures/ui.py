@@ -24,6 +24,8 @@ async def login_to_rex(base_url, rex_user, rex_password):
 
             await page.goto(base_url)
 
+            await page.keyboard.press("Escape")
+
             await page.click("a[href*='accounts/login']")
 
             await page.fill("#login_form_email", rex_user)
@@ -44,7 +46,7 @@ async def chrome_page():
         browser_obj = playwright.chromium
         if browser_obj:
             ch_browser = await browser_obj.launch(
-                headless=True, slow_mo=1800, timeout=120000
+                headless=True, slow_mo=3800, timeout=120000
             )
             file_name = "login_state.json"
             root_dir = Path(".")
