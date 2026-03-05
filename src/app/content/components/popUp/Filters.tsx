@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/macro';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
-import { textStyle } from '../../../components/Typography/base';
+import { textStyle } from '../../../components/Typography';
 import theme, { hiddenButAccessible } from '../../../theme';
 import { filters } from '../../styles/PopupConstants';
 import { disablePrint } from '../utils/disablePrint';
