@@ -214,7 +214,6 @@ async def test_accounting_problem_set_section(
     summarymultichoice = SummaryMultiChoice(chrome_page)
 
     # THEN: Exercises and Practice Test links are visible (only in some math books)
-
     await summarymultichoice.problem_set_section.click()
 
     await chrome_page.keyboard.press("Escape")
@@ -249,7 +248,6 @@ async def test_accounting_thought_provokers_section(
     summarymultichoice = SummaryMultiChoice(chrome_page)
 
     # THEN: Exercises and Practice Test links are visible (only in some math books)
-
     await summarymultichoice.tprovokers_section.click()
 
     await chrome_page.keyboard.press("Escape")
