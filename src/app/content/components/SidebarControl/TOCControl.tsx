@@ -36,8 +36,8 @@ export const tocConnector = connect(
   })
 );
 
-export const lockTocControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
-  tocConnector(({open, close, ...props}: MiddleProps) => <Control
+export function lockTocControlState(isOpen: boolean, Control: React.ComponentType<InnerProps>) {
+  return tocConnector(({open, close, ...props}: MiddleProps) => <Control
     {...props}
     data-testid='toc-button'
     message={isOpen ? openTocMessage : closedTocMessage}
@@ -45,10 +45,11 @@ export const lockTocControlState = (isOpen: boolean, Control: React.ComponentTyp
     onClick={isOpen ? close : open}
     isActive={false}
   />);
+}
 
-export const mobileResponsiveTocControl = (Control: React.ComponentType<InnerProps>) =>
-  tocConnector(({open, close, ...props}: MiddleProps) => {
-    const isMobile = typeof window !== 'undefined' && useMatchMobileQuery();
+export function withMobileResponsiveTocControl(Control: React.ComponentType<InnerProps>) {
+  return tocConnector(({open, close, ...props}: MiddleProps) => {
+    const isMobile = useMatchMobileQuery();
     const isOpen = props.isOpen === null ? !isMobile : props.isOpen;
 
     return <Control
@@ -61,3 +62,4 @@ export const mobileResponsiveTocControl = (Control: React.ComponentType<InnerPro
       aria-controls='toc-sidebar'
     />;
   });
+}

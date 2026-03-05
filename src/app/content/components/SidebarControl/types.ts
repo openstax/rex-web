@@ -4,8 +4,8 @@ export interface InnerProps {
   onClick: () => void;
   className?: string;
   isActive?: boolean | null;
-  'aria-expanded'?: boolean;
-  'aria-controls'?: string;
+  'aria-expanded'?: React.AriaAttributes['aria-expanded'];
+  'aria-controls'?: React.AriaAttributes['aria-controls'];
 }
 
 export interface MiddleProps {

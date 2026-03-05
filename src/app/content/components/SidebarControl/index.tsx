@@ -8,7 +8,7 @@ import * as actions from '../../actions';
 import { PlainButton, TimesIcon } from '../Toolbar/styled';
 import { InnerProps } from './types';
 import { CloseButton, ButtonText } from './Buttons';
-import { TOCControl, lockTocControlState, mobileResponsiveTocControl } from './TOCControl';
+import { TOCControl, lockTocControlState, withMobileResponsiveTocControl } from './TOCControl';
 
 export const CloseToCAndMobileMenuButton = styled((props) => {
   const intl = useIntl();
@@ -43,7 +43,7 @@ export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren
   </CloseButton>;
 
 
-export const TOCControlButton = mobileResponsiveTocControl(TOCControl);
+export const TOCControlButton = withMobileResponsiveTocControl(TOCControl);
 
 export const TOCCloseButton = (lockTocControlState(true, CloseTOC));
 
