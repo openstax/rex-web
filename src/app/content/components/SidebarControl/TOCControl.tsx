@@ -49,6 +49,12 @@ export function lockTocControlState(isOpen: boolean, Control: React.ComponentTyp
 
 export function withMobileResponsiveTocControl(Control: React.ComponentType<InnerProps>) {
   return tocConnector(({open, close, ...props}: MiddleProps) => {
+    // Note: This conditional hook call violates React's Rules of Hooks, but is necessary
+    // because useMatchMobileQuery() calls assertWindow() which throws during SSR.
+    // Since window never changes from defined to undefined during runtime, the hook
+    // order remains consistent after the initial render. This pattern existed in the
+    // original TOCControlButton implementation.
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const isMobile = typeof window !== 'undefined' && useMatchMobileQuery();
     const isOpen = props.isOpen === null ? !isMobile : props.isOpen;
 
