@@ -285,9 +285,9 @@ class HomeRex:
     async def click_book_selection(self):
         await self.page.locator("div").get_by_text("Astronomy 2e").click()
 
-    @pytest.mark.asyncio
-    async def click_clinical_nursing_skills_book(self):
-        await self.page.get_by_label("Maternal-Newborn Nursing book").click()
+    #    @pytest.mark.asyncio
+    #    async def click_clinical_nursing_skills_book(self):
+    #        await self.page.get_by_label("Maternal-Newborn Nursing book").click()
 
     @pytest.mark.asyncio
     async def buy_print_copy_button_is_visible(self):
@@ -340,6 +340,26 @@ class HomeRex:
     @property
     def login_page(self):
         return self.page.locator("#login-page")
+
+    @property
+    def signup_page(self):
+        return self.page.get_by_role("heading", name="Welcome! Join OpenStax as")
+
+    @property
+    def signup_page_student(self):
+        return self.page.get_by_role("link", name="Student")
+
+    @property
+    def signup_page_educator_researcher(self):
+        return self.page.get_by_role("link", name="Educator / Researcher")
+
+    @property
+    def signup_page_facebook_link(self):
+        return self.page.get_by_role("link", name="Facebook")
+
+    @property
+    def signup_page_google_link(self):
+        return self.page.get_by_role("link", name="Google")
 
     @property
     def login_link(self):

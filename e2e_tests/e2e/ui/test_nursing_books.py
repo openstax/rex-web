@@ -5,7 +5,7 @@ from e2e_tests.e2e.ui.pages.nursingbooks import NursingBooks
 
 
 @pytest.mark.asyncio
-async def test_nursing_book_content_warning_logged(chrome_page, base_url):
+async def test_nursing_book_content_warning_logged_in(chrome_page, base_url):
 
     # GIVEN: Playwright, chromium and the rex_base_url
 
@@ -15,7 +15,7 @@ async def test_nursing_book_content_warning_logged(chrome_page, base_url):
 
     await chrome_page.keyboard.press("Escape")
 
-    await nursing.click_get_the_book_link()
+    await nursing.click_get_the_maternal_newborn_book_link()
 
     await nursing.click_maternal_newborn_book_view_online_link()
     await nursing.click_nursing_content_warning_dialog_goto()
@@ -40,11 +40,11 @@ async def test_nursing_book_content_warning_signup(chrome_page_unlogged, base_ur
     await chrome_page_unlogged.keyboard.press("Escape")
 
     is_staging = "staging" in chrome_page_unlogged.url
-    (
-        await nursing.click_get_the_book_link()
-        if is_staging
-        else await nursing.click_get_the_book_link2()
-    )
+
+    if is_staging:
+        await nursing.click_get_the_maternal_newborn_book_link()
+    else:
+        await nursing.click_get_the_clinical_nursing_book_link()
 
     await nursing.click_maternal_newborn_book_view_online_link()
     await nursing.click_nursing_content_warning_dialog_goto()
@@ -75,7 +75,7 @@ async def test_nursing_book_content_warning_login(
 
     await chrome_page_unlogged.keyboard.press("Escape")
 
-    await nursing.click_get_the_book_link()
+    await nursing.click_get_the_maternal_newborn_book_link()
 
     await nursing.click_maternal_newborn_book_view_online_link()
     await nursing.click_nursing_content_warning_dialog_goto()
