@@ -16,10 +16,6 @@ class NursingBooks:
         ).click()
 
     @property
-    def nursing_login_warning_dialog(self):
-        return self.page.get_by_role("dialog", name="Before you go there")
-
-    @property
     def nursing_material_warning_dialog(self):
         return self.page.locator(
             "div",
@@ -35,13 +31,13 @@ class NursingBooks:
         await self.page.locator("a[href*='signup/student']").click()
 
     @pytest.mark.asyncio
-    async def click_get_the_book_link(self):
+    async def click_get_the_maternal_newborn_book_link(self):
         get_book = self.page.locator("button#books\\/maternal-newborn-nursing-ddb")
         await get_book.scroll_into_view_if_needed()
         await get_book.click()
 
     @pytest.mark.asyncio
-    async def click_get_the_book_link2(self):
+    async def click_get_the_clinical_nursing_book_link(self):
         get_book2 = self.page.locator("button#books\\/clinical-nursing-skills-ddb")
         await get_book2.scroll_into_view_if_needed()
         await get_book2.click()
