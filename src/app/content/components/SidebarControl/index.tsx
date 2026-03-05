@@ -2,15 +2,13 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import TocIcon from '../../../../assets/TocIcon';
 import { textRegularSize } from '../../../components/Typography';
 import theme from '../../../theme';
 import * as actions from '../../actions';
 import { PlainButton, TimesIcon } from '../Toolbar/styled';
-import { InnerProps, MiddleProps } from './types';
-import { OpenButton, CloseButton, ButtonText } from './Buttons';
-import { TOCControl, tocConnector, lockTocControlState } from './TOCControl';
-import { useMatchMobileQuery } from '../../../reactUtils';
+import { InnerProps } from './types';
+import { CloseButton, ButtonText } from './Buttons';
+import { TOCControl, lockTocControlState, mobileResponsiveTocControl } from './TOCControl';
 
 export const CloseToCAndMobileMenuButton = styled((props) => {
   const intl = useIntl();
@@ -45,28 +43,7 @@ export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren
   </CloseButton>;
 
 
-export const TOCControlButton = tocConnector(({open, close, ...props}: MiddleProps) => {
-  const isMobile = typeof window !== 'undefined' && useMatchMobileQuery();
-  const isOpen = props.isOpen === null ? !isMobile : props.isOpen;
-  const intl = useIntl();
-
-  return (
-    <OpenButton
-      {...props}
-      data-testid='toc-button'
-      aria-expanded={isOpen === true}
-      aria-controls='toc-sidebar'
-      aria-label={intl.formatMessage({ id: isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed' })}
-      onClick={isOpen ? close : open}
-      isOpen={isOpen}
-    >
-      <TocIcon />
-      <ButtonText>
-        {intl.formatMessage({ id: 'i18n:toolbar:toc:text' })}
-      </ButtonText>
-    </OpenButton>
-  );
-});
+export const TOCControlButton = mobileResponsiveTocControl(TOCControl);
 
 export const TOCCloseButton = (lockTocControlState(true, CloseTOC));
 
