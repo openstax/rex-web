@@ -1,68 +1,32 @@
-import { css } from 'styled-components/macro';
-import { textStyle } from './base';
+import theme from '../../theme';
 
-export * from './base';
-export * from './headings';
+// Import CSS files
+import './TextStyles.css';
+import './Links.css';
 
-export const disabledStyle = css`
-  ${textStyle}
-  cursor: not-allowed;
-  opacity: 0.4;
-`;
+// Export new components
+export * from './Headings';
+export * from './Links';
 
+// Export constants for backward compatibility
 export const linkColor = '#027EB5';
 export const linkHover = '#0064A0';
-export const linkStyle = css`
-  color: ${linkColor};
-  cursor: pointer;
-  text-decoration: underline;
-
-  :hover {
-    color: ${linkHover};
-  }
-`;
-export const decoratedLinkStyle = css`
-  color: ${linkColor};
-  cursor: pointer;
-  text-decoration: none;
-
-  :hover,
-  :focus {
-    text-decoration: underline;
-    color: ${linkHover};
-  }
-
-  ${(props: {disabled?: boolean}) => props.disabled && css`
-    &,
-    :hover,
-    :focus {
-      ${disabledStyle}
-    }
-  `}
-`;
-
 export const textRegularLineHeight = 2.5;
-export const textRegularSize = css`
-  font-size: 1.6rem;
-  line-height: ${textRegularLineHeight}rem;
-`;
 
-export const textRegularStyle = css`
-  ${textStyle}
-  ${textRegularSize}
-`;
+// Export class names as style strings for backward compatibility with styled-components usage
+// These allow existing code using these in template literals to continue working
+export const textStyle = 'text-style';
+export const textRegularSize = 'text-regular-size';
+export const textRegularStyle = 'text-regular-style';
+export const bodyCopyRegularStyle = 'body-copy-regular-style';
+export const labelStyle = 'label-style';
+export const disabledStyle = 'disabled-style';
+export const linkStyle = 'link-style';
+export const decoratedLinkStyle = 'decorated-link-style';
 
-export const bodyCopyRegularStyle = css`
-  ${textRegularStyle}
-
-  a {
-    ${linkStyle}
-  }
-`;
-
-export const labelStyle = css`
-  ${textStyle}
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-`;
+// For code that needs to bind theme colors to CSS variables
+export function getTextStyleWithTheme() {
+  return {
+    '--text-color': theme.color.text.default,
+  };
+}

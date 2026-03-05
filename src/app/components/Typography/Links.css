@@ -1,0 +1,39 @@
+/**
+ * Link Style Utilities CSS
+ *
+ * Styles for link utility classes.
+ */
+
+/* Link style - standard link with underline */
+.link-style {
+  color: #027EB5;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.link-style:hover {
+  color: #0064A0;
+}
+
+/* Decorated link style - no underline by default, underline on hover/focus */
+.decorated-link-style {
+  color: #027EB5;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.decorated-link-style:hover,
+.decorated-link-style:focus {
+  text-decoration: underline;
+  color: #0064A0;
+}
+
+/* Decorated link disabled state */
+.decorated-link-style--disabled,
+.decorated-link-style--disabled:hover,
+.decorated-link-style--disabled:focus {
+  color: var(--text-color);
+  cursor: not-allowed;
+  opacity: 0.4;
+  text-decoration: none;
+}

@@ -10,7 +10,7 @@ import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../react
 import { useOnEsc } from '../reactUtils';
 import theme, { defaultFocusOutline } from '../theme';
 import { mergeRefs, preventDefault } from '../utils';
-import { textStyle } from './Typography/base';
+import { textStyle } from './Typography';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
