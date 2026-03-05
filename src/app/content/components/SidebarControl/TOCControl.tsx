@@ -49,7 +49,7 @@ export function lockTocControlState(isOpen: boolean, Control: React.ComponentTyp
 
 export function withMobileResponsiveTocControl(Control: React.ComponentType<InnerProps>) {
   return tocConnector(({open, close, ...props}: MiddleProps) => {
-    const isMobile = useMatchMobileQuery();
+    const isMobile = typeof window !== 'undefined' && useMatchMobileQuery();
     const isOpen = props.isOpen === null ? !isMobile : props.isOpen;
 
     return <Control
