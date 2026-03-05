@@ -18,12 +18,13 @@ import type {
   HTMLElement,
   KeyboardEvent,
   Event,
+  Range,
 } from '@openstax/types/lib.dom';
 import React from 'react';
 import { Highlight } from '@openstax/highlighter';
 import { addSafeEventListener } from '../domUtils';
 import { isElement } from '../guards';
-import { assertDocument } from '../utils';
+import { assertDocument, assertWindow } from '../utils';
 
 export const useDrawFocus = <E extends HTMLElement = HTMLElement>() => {
   const ref = React.useRef<E>(null);
@@ -53,8 +54,108 @@ function ringAdd(arr: unknown[], a: number, b: number) {
   return (arr.length + a + b) % arr.length;
 }
 
+// Helper type for focusable element entries
+interface FocusableEntry {
+  container: HTMLElement;
+  firstEl: HTMLElement;
+  lastEl: HTMLElement;
+  allElements: HTMLElement[];
+}
+
+// Saves the current text selection for later restoration (important for Firefox)
+function saveTextSelection(win: Window): Range | null {
+  const selection = win.getSelection();
+  return selection && selection.rangeCount > 0
+    ? selection.getRangeAt(0).cloneRange()
+    : null;
+}
+
+// Restores a previously saved text selection
+function restoreTextSelection(win: Window, savedRange: Range | null): void {
+  if (savedRange) {
+    try {
+      const sel = win.getSelection();
+      if (sel) {
+        sel.removeAllRanges();
+        sel.addRange(savedRange);
+      }
+    } catch (e) {
+      // Ignore restoration errors
+    }
+  }
+}
+
+// Schedules selection restoration after browser processes Tab event
+function scheduleSelectionRestoration(win: Window, restoreFn: () => void): void {
+  if (typeof win.requestAnimationFrame === 'function') {
+    win.requestAnimationFrame(restoreFn);
+  } else {
+    win.setTimeout(restoreFn, 0);
+  }
+}
+
+// Determines the next focus element when Tab wraps around
+function getNextWrapElement(
+  currentIndex: number,
+  isShiftKey: boolean,
+  focusableElements: FocusableEntry[],
+  currentEntry: FocusableEntry
+): { nextElement: HTMLElement | null; shouldPreventDefault: boolean } {
+  if (isShiftKey) {
+    if (currentIndex <= 0) {
+      // At or before first element, wrap to last
+      const feIdx = focusableElements.indexOf(currentEntry);
+      const newIdx = ringAdd(focusableElements, feIdx, -1);
+      return {
+        nextElement: focusableElements[newIdx].lastEl,
+        shouldPreventDefault: true,
+      };
+    }
+  } else {
+    if (currentIndex >= currentEntry.allElements.length - 1) {
+      // At or after last element, wrap to first
+      const feIdx = focusableElements.indexOf(currentEntry);
+      const newIdx = ringAdd(focusableElements, feIdx, 1);
+      return {
+        nextElement: focusableElements[newIdx].firstEl,
+        shouldPreventDefault: true,
+      };
+    }
+  }
+  return { nextElement: null, shouldPreventDefault: false };
+}
+
+// Query focusable elements within containers
+function queryFocusableInContainers(containers: HTMLElement[]): FocusableEntry[] {
+  return containers
+    .map((container) => {
+      const contents = Array.from(
+        container.querySelectorAll<HTMLElement>(focusableItemQuery)
+      );
+
+      return {
+        container,
+        firstEl: contents[0],
+        lastEl: contents[contents.length - 1],
+        allElements: contents,
+      };
+    })
+    .filter((c) => c.firstEl);
+}
+
+// Safely saves the current text selection, returning null if unavailable
+function safeSaveTextSelection(win: Window): Range | null {
+  try {
+    return saveTextSelection(win);
+  } catch (e) {
+    // Selection API unavailable or restricted context
+    return null;
+  }
+}
+
 // Creates a tab navigation trap that cycles focus within container elements
 // Based on https://hidde.blog/using-javascript-to-trap-focus-in-an-element/
+// IMPORTANT: Preserves text selection on Firefox when Tab navigation occurs
 export function createTrapTab(...elements: HTMLElement[]) {
   const containers = elements
     .filter((c) => c && 'querySelectorAll' in c); // in some tests, this gets garbage
@@ -63,32 +164,21 @@ export function createTrapTab(...elements: HTMLElement[]) {
     return () => null;
   }
 
-  function queryFocusable() {
-    return containers
-      .map((container) => {
-        const contents = Array.from(
-          container.querySelectorAll<HTMLElement>(focusableItemQuery)
-        );
-
-        return {
-          container,
-          firstEl: contents[0],
-          lastEl: contents[contents.length - 1],
-        };
-      })
-      .filter((c) => c.firstEl);
-  }
+  const win = assertWindow();
 
   return (event: KeyboardEvent) => {
     if (event.key !== 'Tab') {
       return;
     }
 
-    const focusableElements = queryFocusable();
+    const focusableElements = queryFocusableInContainers(containers);
 
     if (focusableElements.length === 0) {
       return;
     }
+
+    const savedRange = safeSaveTextSelection(win);
+    const restoreSelection = () => restoreTextSelection(win, savedRange);
 
     // Keep track of where we came from
     const startEl = document?.activeElement as HTMLElement;
@@ -100,44 +190,82 @@ export function createTrapTab(...elements: HTMLElement[]) {
     if (!feEntry) {
       focusableElements[0].firstEl.focus();
       event.preventDefault();
+      restoreSelection();
       return;
     }
 
-    // Move to the next container
-    if (event.shiftKey) {
-      if (startEl === feEntry.firstEl) {
-        const feIdx = focusableElements.indexOf(feEntry);
-        const newIdx = ringAdd(focusableElements, feIdx, -1);
+    // Check if we need to wrap around (focus is at a boundary)
+    const currentIndex = feEntry.allElements.indexOf(startEl);
+    const { nextElement, shouldPreventDefault } = getNextWrapElement(
+      currentIndex,
+      event.shiftKey,
+      focusableElements,
+      feEntry
+    );
 
-        focusableElements[newIdx].lastEl.focus();
-        event.preventDefault();
-      }
-    } else if (startEl === feEntry.lastEl) {
-      const feIdx = focusableElements.indexOf(feEntry);
-      const newIdx = ringAdd(focusableElements, feIdx, 1);
-
-      focusableElements[newIdx].firstEl.focus();
+    // If we're wrapping around, handle focus and restore selection
+    if (nextElement && shouldPreventDefault) {
+      nextElement.focus();
       event.preventDefault();
+      restoreSelection();
+      return;
     }
+
+    // For normal Tab navigation within the same container,
+    // let the browser handle it but restore selection after
+    scheduleSelectionRestoration(win, restoreSelection);
   };
 }
 
+// Focuses the first focusable element while preserving text selection
+// Used for modals/overlays that need initial focus but preserve user's text selection
+function autoFocusFirstElement(el: HTMLElement): void {
+  const win = assertWindow();
+  const savedRange = safeSaveTextSelection(win);
+
+  const focusableElements = Array.from(
+    el.querySelectorAll<HTMLElement>(focusableItemQuery)
+  );
+
+  if (focusableElements.length > 0) {
+    const currentFocus = assertDocument().activeElement;
+    const isElementFocused = currentFocus && el.contains(currentFocus);
+
+    if (!isElementFocused) {
+      focusableElements[0].focus();
+      restoreTextSelection(win, savedRange);
+    }
+  }
+}
+
 // Supply otherDep when focusable elements might change (see EditCard)
+// Set autoFocus=true to focus the first focusable element on mount (useful for modals/overlays)
 export function useTrapTabNavigation(
   ref: React.MutableRefObject<HTMLElement | null>,
-  otherDep?: unknown
+  otherDep?: unknown,
+  autoFocus?: boolean
 ) {
   React.useEffect(() => {
     const el = ref.current;
     if (!el?.addEventListener) {
       return;
     }
+
+    // Auto-focus first element if requested (for modals/overlays)
+    if (autoFocus) {
+      try {
+        autoFocusFirstElement(el);
+      } catch (e) {
+        // Ignore errors in SSR or when window is not available
+      }
+    }
+
     const trapTab = createTrapTab(el);
 
     el.addEventListener('keydown', trapTab, true);
 
     return () => el.removeEventListener('keydown', trapTab, true);
-  }, [ref, otherDep]);
+  }, [ref, otherDep, autoFocus]);
 }
 
 export const onFocusInOrOutHandler =
