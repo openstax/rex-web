@@ -5,7 +5,7 @@ const TEST_PAGE_NAME = 'test-page-1';
 const TEST_PAGE_LONG_NUMBER = '1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units';
 const TEST_PAGE_URL = `/books/book-slug-1/pages/${TEST_PAGE_NAME}`;
 const TEST_PAGE_LONG_NUMBER_URL = `/books/book-slug-1/pages/${TEST_PAGE_LONG_NUMBER}`;
-const openToc = '[aria-label="Click to open the Table of Contents"]';
+const openToc = '[aria-label="Open the Table of Contents"]';
 
 describe('Sidebar', () => {
   it('renders correctly on mobile', async() => {

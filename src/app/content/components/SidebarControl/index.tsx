@@ -48,6 +48,7 @@ export const CloseTOC = ({ message, children, ...props}: React.PropsWithChildren
 export const TOCControlButton = tocConnector(({open, close, ...props}: MiddleProps) => {
   const isMobile = typeof window !== 'undefined' && useMatchMobileQuery();
   const isOpen = props.isOpen === null ? !isMobile : props.isOpen;
+  const intl = useIntl();
 
   return (
     <OpenButton
@@ -55,13 +56,13 @@ export const TOCControlButton = tocConnector(({open, close, ...props}: MiddlePro
       data-testid='toc-button'
       aria-expanded={isOpen === true}
       aria-controls='toc-sidebar'
-      aria-label={`Click to ${isOpen ? 'close' : 'open'} the Table of Contents`}
+      aria-label={intl.formatMessage({ id: isOpen ? 'i18n:toc:toggle:opened' : 'i18n:toc:toggle:closed' })}
       onClick={isOpen ? close : open}
       isOpen={isOpen}
     >
       <TocIcon />
       <ButtonText>
-        {useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
+        {intl.formatMessage({ id: 'i18n:toolbar:toc:text' })}
       </ButtonText>
     </OpenButton>
   );

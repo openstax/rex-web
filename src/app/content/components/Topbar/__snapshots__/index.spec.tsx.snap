@@ -536,7 +536,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
       id="mobile-menu-button"
     >
       <button
-        aria-label="Click to open menu"
+        aria-label="Open menu"
         className="c3 c4"
         onClick={[Function]}
         type="button"
@@ -1481,7 +1481,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       id="mobile-menu-button"
     >
       <button
-        aria-label="Click to open menu"
+        aria-label="Open menu"
         className="c3 c4"
         onClick={[Function]}
         type="button"
