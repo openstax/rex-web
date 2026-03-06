@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
 import Checkbox from '../../../components/Checkbox';
-import { textStyle } from '../../../components/Typography/base';
+import { textStyle } from '../../../components/Typography';
 import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
 import theme from '../../../theme';
 import { highlightStyles } from '../../constants';

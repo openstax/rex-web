@@ -2,19 +2,7 @@
 
 exports[`ErrorBoundary captures unhandled rejected promises 1`] = `
 Array [
-  .c2 {
-  color: #424242;
-  font-size: 3.6rem;
-  line-height: 4rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 2rem 0 1rem 0;
-  margin: 0;
-}
-
-.c0 {
+  .c0 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -27,20 +15,20 @@ Array [
   margin-top: 5rem;
 }
 
-.c3 {
+.c2 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
-.c3 a {
+.c2 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c3 a:hover {
+.c2 a:hover {
   color: #0064A0;
 }
 
@@ -51,13 +39,18 @@ Array [
       className="c1"
     >
       <h2
-        className="c2"
+        className="typography-heading typography-h2"
+        style={
+          Object {
+            "--heading-text-color": "#424242",
+          }
+        }
       >
         Uh-oh, there's been a glitch
       </h2>
     </div>
     <div
-      className="c3"
+      className="c2"
       dangerouslySetInnerHTML={
         Object {
           "__html": "
@@ -813,19 +806,7 @@ Array [
 
 exports[`ErrorBoundary matches snapshot 1`] = `
 Array [
-  .c2 {
-  color: #424242;
-  font-size: 3.6rem;
-  line-height: 4rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 2rem 0 1rem 0;
-  margin: 0;
-}
-
-.c0 {
+  .c0 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -838,20 +819,20 @@ Array [
   margin-top: 5rem;
 }
 
-.c3 {
+.c2 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
-.c3 a {
+.c2 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c3 a:hover {
+.c2 a:hover {
   color: #0064A0;
 }
 
@@ -862,13 +843,18 @@ Array [
       className="c1"
     >
       <h2
-        className="c2"
+        className="typography-heading typography-h2"
+        style={
+          Object {
+            "--heading-text-color": "#424242",
+          }
+        }
       >
         Uh-oh, there's been a glitch
       </h2>
     </div>
     <div
-      className="c3"
+      className="c2"
       dangerouslySetInnerHTML={
         Object {
           "__html": "

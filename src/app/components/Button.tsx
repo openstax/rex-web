@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import { isDefined } from '../guards';
 import theme, { ColorSet } from '../theme';
 import { decoratedLinkStyle, linkColor, linkStyle } from './Typography';
-import { textStyle } from './Typography/base';
+import { textStyle } from './Typography';
 
 const applyColor = (color: ColorSet) => `
 

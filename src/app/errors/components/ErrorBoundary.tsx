@@ -8,7 +8,7 @@ import Footer from '../../components/Footer';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../components/Typography';
-import { H2 } from '../../components/Typography/headings';
+import { H2 } from '../../components/Typography';
 import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { recordError } from '../actions';
