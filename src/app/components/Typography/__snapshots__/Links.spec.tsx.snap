@@ -7,6 +7,8 @@ exports[`DecoratedLink snapshots matches snapshot - basic 1`] = `
   onClick={[Function]}
   style={
     Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
       "--text-color": "#424242",
     }
   }
@@ -22,6 +24,8 @@ exports[`DecoratedLink snapshots matches snapshot - disabled 1`] = `
   onClick={[Function]}
   style={
     Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
       "--text-color": "#424242",
     }
   }
@@ -40,6 +44,8 @@ exports[`DecoratedLink snapshots matches snapshot - with additional props 1`] = 
   onClick={[Function]}
   style={
     Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
       "--text-color": "#424242",
     }
   }
@@ -55,6 +61,8 @@ exports[`DecoratedLink snapshots matches snapshot - with className 1`] = `
   onClick={[Function]}
   style={
     Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
       "--text-color": "#424242",
     }
   }
@@ -70,6 +78,8 @@ exports[`DecoratedLink snapshots matches snapshot - with style 1`] = `
   onClick={[Function]}
   style={
     Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
       "--text-color": "#424242",
       "fontSize": "16px",
     }

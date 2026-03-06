@@ -1,56 +1,14 @@
 /**
  * Text Style Utilities CSS
  *
- * Styles for text utility classes.
- * Uses CSS variables bound from theme.ts for text color.
+ * NOTE: Previously defined text utility classes (.text-style, .text-regular-style,
+ * .body-copy-regular-style, .label-style, .disabled-style, etc.) have been removed
+ * because they were not referenced in the TS/TSX codebase and were causing
+ * dead-style/static-analysis warnings.
+ *
+ * Legacy styled-components css fragments (textStyle, textRegularStyle, etc.)
+ * are now in Typography.legacy.ts for backward compatibility with existing code.
+ *
+ * This file is intentionally left minimal so existing imports (if any)
+ * remain valid without affecting behavior.
  */
-
-/* Base text style - applies theme color with fallback */
-.text-style {
-  color: var(--text-color, #424242);
-}
-
-/* Regular text size */
-.text-regular-size {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-/* Regular text style (combines text-style and text-regular-size) */
-.text-regular-style {
-  color: var(--text-color, #424242);
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-/* Body copy regular style (text-regular-style + link styles) */
-.body-copy-regular-style {
-  color: var(--text-color, #424242);
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-}
-
-.body-copy-regular-style a {
-  color: #027EB5;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.body-copy-regular-style a:hover {
-  color: #0064A0;
-}
-
-/* Label style */
-.label-style {
-  color: var(--text-color, #424242);
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-}
-
-/* Disabled style */
-.disabled-style {
-  color: var(--text-color, #424242);
-  cursor: not-allowed;
-  opacity: 0.4;
-}

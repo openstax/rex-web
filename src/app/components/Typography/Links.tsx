@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import theme from '../../theme';
+import { linkColor, linkHover } from './Links.constants';
 import './Links.css';
 
 interface DecoratedLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -36,6 +37,8 @@ export function DecoratedLink({ children, className, style, disabled, onClick, h
       )}
       style={{
         '--text-color': theme.color.text.default,
+        '--link-color': linkColor,
+        '--link-hover': linkHover,
         ...style,
       } as React.CSSProperties}
       tabIndex={disabled ? -1 : props.tabIndex}

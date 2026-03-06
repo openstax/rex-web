@@ -1,82 +1,21 @@
-import { css } from 'styled-components/macro';
-import theme from '../../theme';
+/**
+ * Typography Module Entry Point
+ *
+ * This module exports:
+ * 1. Plain CSS components (H1-H6, DecoratedLink) - no styled-components dependencies
+ * 2. Legacy styled-components css fragments for backward compatibility
+ *
+ * The legacy exports will be removed in a future phase once all call sites
+ * have been migrated to use plain CSS.
+ */
 
-// Import CSS files
-import './TextStyles.css';
-import './Links.css';
-
-// Export new components
+// Export plain CSS components (no styled-components dependencies)
 export * from './Headings';
-export * from './Links';
+export { DecoratedLink } from './Links';
 
-// Export constants for backward compatibility
-export const linkColor = '#027EB5';
-export const linkHover = '#0064A0';
-export const textRegularLineHeight = 2.5;
-
-// Export styled-components css fragments for backward compatibility
-// These maintain compatibility with existing code that interpolates them in styled-components
-export const textStyle = css`
-  color: ${theme.color.text.default};
-`;
-
-export const textRegularSize = css`
-  font-size: 1.6rem;
-  line-height: ${textRegularLineHeight}rem;
-`;
-
-export const textRegularStyle = css`
-  ${textStyle}
-  ${textRegularSize}
-`;
-
-export const linkStyle = css`
-  color: ${linkColor};
-  cursor: pointer;
-  text-decoration: underline;
-
-  :hover {
-    color: ${linkHover};
-  }
-`;
-
-export const bodyCopyRegularStyle = css`
-  ${textRegularStyle}
-
-  a {
-    ${linkStyle}
-  }
-`;
-
-export const labelStyle = css`
-  ${textStyle}
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  font-weight: normal;
-`;
-
-export const disabledStyle = css`
-  ${textStyle}
-  cursor: not-allowed;
-  opacity: 0.4;
-`;
-
-export const decoratedLinkStyle = css`
-  color: ${linkColor};
-  cursor: pointer;
-  text-decoration: none;
-
-  :hover,
-  :focus {
-    text-decoration: underline;
-    color: ${linkHover};
-  }
-
-  ${(props: {disabled?: boolean}) => props.disabled && css`
-    &,
-    :hover,
-    :focus {
-      ${disabledStyle}
-    }
-  `}
-`;
+// Export legacy styled-components css fragments for backward compatibility.
+// NOTE: These are kept in separate files to make it *possible* for consumers
+// to avoid pulling in styled-components by importing only the non-legacy
+// submodules (e.g., `./Headings`, `./Links`) and/or relying on tree-shaking.
+export * from './Headings.legacy';
+export * from './Typography.legacy';
