@@ -8,94 +8,54 @@ interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   children: React.ReactNode;
 }
 
-export function H1({ children, className, style, ...props }: HeadingProps) {
+// Base heading component that accepts a tag type and CSS class
+function Heading({
+  tag: Tag,
+  cssClass,
+  children,
+  className,
+  style,
+  ...props
+}: HeadingProps & {
+  tag: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  cssClass: string;
+}) {
   return (
-    <h1
+    <Tag
       {...props}
-      className={classNames('typography-heading', 'typography-h1', className)}
+      className={classNames('typography-heading', cssClass, className)}
       style={{
         ...style,
         '--heading-text-color': theme.color.text.default,
       } as React.CSSProperties}
     >
       {children}
-    </h1>
+    </Tag>
   );
 }
 
-export function H2({ children, className, style, ...props }: HeadingProps) {
-  return (
-    <h2
-      {...props}
-      className={classNames('typography-heading', 'typography-h2', className)}
-      style={{
-        ...style,
-        '--heading-text-color': theme.color.text.default,
-      } as React.CSSProperties}
-    >
-      {children}
-    </h2>
-  );
+export function H1(props: HeadingProps) {
+  return <Heading tag="h1" cssClass="typography-h1" {...props} />;
 }
 
-export function H3({ children, className, style, ...props }: HeadingProps) {
-  return (
-    <h3
-      {...props}
-      className={classNames('typography-heading', 'typography-h3', className)}
-      style={{
-        ...style,
-        '--heading-text-color': theme.color.text.default,
-      } as React.CSSProperties}
-    >
-      {children}
-    </h3>
-  );
+export function H2(props: HeadingProps) {
+  return <Heading tag="h2" cssClass="typography-h2" {...props} />;
 }
 
-export function H4({ children, className, style, ...props }: HeadingProps) {
-  return (
-    <h4
-      {...props}
-      className={classNames('typography-heading', 'typography-h4', className)}
-      style={{
-        ...style,
-        '--heading-text-color': theme.color.text.default,
-      } as React.CSSProperties}
-    >
-      {children}
-    </h4>
-  );
+export function H3(props: HeadingProps) {
+  return <Heading tag="h3" cssClass="typography-h3" {...props} />;
 }
 
-export function H5({ children, className, style, ...props }: HeadingProps) {
-  return (
-    <h5
-      {...props}
-      className={classNames('typography-heading', 'typography-h5', className)}
-      style={{
-        ...style,
-        '--heading-text-color': theme.color.text.default,
-      } as React.CSSProperties}
-    >
-      {children}
-    </h5>
-  );
+export function H4(props: HeadingProps) {
+  return <Heading tag="h4" cssClass="typography-h4" {...props} />;
 }
 
-export function H6({ children, className, style, ...props }: HeadingProps) {
-  return (
-    <h6
-      {...props}
-      className={classNames('typography-heading', 'typography-h6', className)}
-      style={{
-        ...style,
-        '--heading-text-color': theme.color.text.default,
-      } as React.CSSProperties}
-    >
-      {children}
-    </h6>
-  );
+export function H5(props: HeadingProps) {
+  return <Heading tag="h5" cssClass="typography-h5" {...props} />;
+}
+
+export function H6(props: HeadingProps) {
+  return <Heading tag="h6" cssClass="typography-h6" {...props} />;
 }
 
 // Export constants for backward compatibility

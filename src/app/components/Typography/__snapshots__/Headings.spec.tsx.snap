@@ -1,0 +1,301 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Typography Headings H1 matches snapshot 1`] = `
+<h1
+  className="typography-heading typography-h1"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 1
+</h1>
+`;
+
+exports[`Typography Headings H1 renders with additional props 1`] = `
+<h1
+  className="typography-heading typography-h1"
+  data-testid="h1"
+  id="test-id"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 1
+</h1>
+`;
+
+exports[`Typography Headings H1 renders with custom className 1`] = `
+<h1
+  className="typography-heading typography-h1 custom-class"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 1
+</h1>
+`;
+
+exports[`Typography Headings H1 renders with custom style 1`] = `
+<h1
+  className="typography-heading typography-h1"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+      "color": "red",
+    }
+  }
+>
+  Test Heading 1
+</h1>
+`;
+
+exports[`Typography Headings H2 matches snapshot 1`] = `
+<h2
+  className="typography-heading typography-h2"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 2
+</h2>
+`;
+
+exports[`Typography Headings H2 renders with custom className 1`] = `
+<h2
+  className="typography-heading typography-h2 custom-class"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 2
+</h2>
+`;
+
+exports[`Typography Headings H2 renders with custom style 1`] = `
+<h2
+  className="typography-heading typography-h2"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+      "color": "blue",
+    }
+  }
+>
+  Test Heading 2
+</h2>
+`;
+
+exports[`Typography Headings H3 matches snapshot 1`] = `
+<h3
+  className="typography-heading typography-h3"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 3
+</h3>
+`;
+
+exports[`Typography Headings H3 renders with custom className 1`] = `
+<h3
+  className="typography-heading typography-h3 custom-class"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 3
+</h3>
+`;
+
+exports[`Typography Headings H3 renders with custom style 1`] = `
+<h3
+  className="typography-heading typography-h3"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+      "color": "green",
+    }
+  }
+>
+  Test Heading 3
+</h3>
+`;
+
+exports[`Typography Headings H4 matches snapshot 1`] = `
+<h4
+  className="typography-heading typography-h4"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 4
+</h4>
+`;
+
+exports[`Typography Headings H4 renders with additional props 1`] = `
+<h4
+  className="typography-heading typography-h4"
+  id="test-h4"
+  role="heading"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 4
+</h4>
+`;
+
+exports[`Typography Headings H4 renders with custom className 1`] = `
+<h4
+  className="typography-heading typography-h4 custom-class"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 4
+</h4>
+`;
+
+exports[`Typography Headings H4 renders with custom style 1`] = `
+<h4
+  className="typography-heading typography-h4"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+      "fontWeight": "bold",
+    }
+  }
+>
+  Test Heading 4
+</h4>
+`;
+
+exports[`Typography Headings H5 matches snapshot 1`] = `
+<h5
+  className="typography-heading typography-h5"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 5
+</h5>
+`;
+
+exports[`Typography Headings H5 renders with additional props 1`] = `
+<h5
+  aria-label="Heading 5"
+  className="typography-heading typography-h5"
+  id="test-h5"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 5
+</h5>
+`;
+
+exports[`Typography Headings H5 renders with custom className 1`] = `
+<h5
+  className="typography-heading typography-h5 custom-class"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 5
+</h5>
+`;
+
+exports[`Typography Headings H5 renders with custom style 1`] = `
+<h5
+  className="typography-heading typography-h5"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+      "textTransform": "uppercase",
+    }
+  }
+>
+  Test Heading 5
+</h5>
+`;
+
+exports[`Typography Headings H6 matches snapshot 1`] = `
+<h6
+  className="typography-heading typography-h6"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 6
+</h6>
+`;
+
+exports[`Typography Headings H6 renders with additional props 1`] = `
+<h6
+  className="typography-heading typography-h6"
+  data-testid="heading-6"
+  id="test-h6"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 6
+</h6>
+`;
+
+exports[`Typography Headings H6 renders with custom className 1`] = `
+<h6
+  className="typography-heading typography-h6 custom-class"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+    }
+  }
+>
+  Test Heading 6
+</h6>
+`;
+
+exports[`Typography Headings H6 renders with custom style 1`] = `
+<h6
+  className="typography-heading typography-h6"
+  style={
+    Object {
+      "--heading-text-color": "#424242",
+      "letterSpacing": "0.1rem",
+    }
+  }
+>
+  Test Heading 6
+</h6>
+`;
