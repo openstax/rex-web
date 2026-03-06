@@ -35,8 +35,8 @@ export function DecoratedLink({ children, className, style, disabled, onClick, h
         className
       )}
       style={{
-        ...style,
         '--text-color': theme.color.text.default,
+        ...style,
       } as React.CSSProperties}
       tabIndex={disabled ? -1 : props.tabIndex}
       aria-disabled={disabled}

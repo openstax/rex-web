@@ -25,8 +25,8 @@ function Heading({
       {...props}
       className={classNames('typography-heading', cssClass, className)}
       style={{
-        ...style,
         '--heading-text-color': theme.color.text.default,
+        ...style,
       } as React.CSSProperties}
     >
       {children}
