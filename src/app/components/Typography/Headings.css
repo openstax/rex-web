@@ -7,7 +7,7 @@
 
 /* Base heading styles shared by all headings */
 .typography-heading {
-  color: var(--heading-text-color);
+  color: var(--heading-text-color, #424242);
   letter-spacing: -0.02rem;
   padding-bottom: 1rem;
   margin: 0;

@@ -13,10 +13,22 @@ interface DecoratedLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElemen
  * A link with no underline by default, underline on hover/focus
  * Supports disabled state
  */
-export function DecoratedLink({ children, className, style, disabled, ...props }: DecoratedLinkProps) {
+export function DecoratedLink({ children, className, style, disabled, onClick, href, ...props }: DecoratedLinkProps) {
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (disabled) {
+      event.preventDefault();
+      return;
+    }
+    if (onClick) {
+      onClick(event);
+    }
+  };
+
   return (
     <a
       {...props}
+      href={disabled ? undefined : href}
+      onClick={handleClick}
       className={classNames(
         'decorated-link-style',
         { 'decorated-link-style--disabled': disabled },
@@ -26,6 +38,7 @@ export function DecoratedLink({ children, className, style, disabled, ...props }
         ...style,
         '--text-color': theme.color.text.default,
       } as React.CSSProperties}
+      tabIndex={disabled ? -1 : props.tabIndex}
       aria-disabled={disabled}
     >
       {children}

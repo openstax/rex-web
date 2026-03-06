@@ -5,9 +5,9 @@
  * Uses CSS variables bound from theme.ts for text color.
  */
 
-/* Base text style - applies theme color */
+/* Base text style - applies theme color with fallback */
 .text-style {
-  color: var(--text-color);
+  color: var(--text-color, #424242);
 }
 
 /* Regular text size */
@@ -18,14 +18,14 @@
 
 /* Regular text style (combines text-style and text-regular-size) */
 .text-regular-style {
-  color: var(--text-color);
+  color: var(--text-color, #424242);
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
 
 /* Body copy regular style (text-regular-style + link styles) */
 .body-copy-regular-style {
-  color: var(--text-color);
+  color: var(--text-color, #424242);
   font-size: 1.6rem;
   line-height: 2.5rem;
 }
@@ -42,7 +42,7 @@
 
 /* Label style */
 .label-style {
-  color: var(--text-color);
+  color: var(--text-color, #424242);
   font-size: 1.4rem;
   line-height: 1.6rem;
   font-weight: normal;
@@ -50,7 +50,7 @@
 
 /* Disabled style */
 .disabled-style {
-  color: var(--text-color);
+  color: var(--text-color, #424242);
   cursor: not-allowed;
   opacity: 0.4;
 }
