@@ -16,16 +16,24 @@ import theme from '../theme';
 import { assertWindow } from '../utils';
 
 const useMatchMediaQuery = (mediaQuery: string) => {
+  // Always call hooks unconditionally per Rules of Hooks
+  // Check for matchMedia availability (handles both SSR and old browsers)
   const matchMedia = React.useMemo(
-    () => assertWindow().matchMedia(mediaQuery),
+    () => typeof window !== 'undefined' && window.matchMedia ? window.matchMedia(mediaQuery) : null,
     [mediaQuery]
   );
+
   const [matches, listener] = React.useReducer(
     (_state: unknown, e: MediaQueryListEvent) => e.matches,
-    matchMedia.matches
+    matchMedia?.matches ?? false
   );
 
   React.useEffect(() => {
+    // No-op effect if window is undefined (SSR)
+    if (!matchMedia) {
+      return;
+    }
+
     // Support both modern and legacy browsers
     if (typeof matchMedia.addEventListener === 'function') {
       matchMedia.addEventListener('change', listener);
