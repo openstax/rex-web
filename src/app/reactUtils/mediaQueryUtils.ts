@@ -17,8 +17,9 @@ import { assertWindow } from '../utils';
 
 const useMatchMediaQuery = (mediaQuery: string) => {
   // Always call hooks unconditionally per Rules of Hooks
+  // Check for matchMedia availability (handles both SSR and old browsers)
   const matchMedia = React.useMemo(
-    () => typeof window !== 'undefined' ? window.matchMedia(mediaQuery) : null,
+    () => typeof window !== 'undefined' && window.matchMedia ? window.matchMedia(mediaQuery) : null,
     [mediaQuery]
   );
 

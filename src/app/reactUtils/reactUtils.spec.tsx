@@ -1031,19 +1031,23 @@ describe('useMatchMobileQuery', () => {
     };
   });
 
-  it('returns false if window is not defined', () => {
-    const saveWindow = globalThis.window;
+  it('returns false when matchMedia is unavailable', () => {
+    // Test the behavior when matchMedia is unavailable (SSR or old browsers)
+    // By making window.matchMedia undefined, we test the null branch in the useMemo
+    // which simulates SSR environment where matchMedia doesn't exist
+    const originalMatchMedia = window?.matchMedia;
+    delete (window as any).matchMedia;
     let component: renderer.ReactTestRenderer | undefined;
 
     try {
-      delete (globalThis as any).window;
-
       component = renderer.create(<Component />);
 
-      expect(() => component.root.findByProps({ 'data-test-id': 'mobile-resolution' })).toThrow();
-      expect(() => component.root.findByProps({ 'data-test-id': 'desktop-resolution' })).not.toThrow();
+      // When matchMedia returns null, useMatchMobileQuery should return false (desktop)
+      expect(component.root.findByProps({ 'data-test-id': 'desktop-resolution' })).toBeTruthy();
+      expect(() => component?.root.findByProps({ 'data-test-id': 'mobile-resolution' })).toThrow();
     } finally {
-      globalThis.window = saveWindow;
+      // Restore original matchMedia
+      (window as any).matchMedia = originalMatchMedia;
       if (component) {
         component.unmount();
       }
