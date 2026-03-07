@@ -7,21 +7,26 @@ import * as actions from '../../actions';
 import { AppState, Dispatch } from '../../../types';
 import type { InnerProps, MiddleProps } from './types';
 import { OpenButton, ButtonText } from './Buttons';
+import { useMatchMobileQuery } from '../../../reactUtils';
 
 const closedTocMessage = 'i18n:toc:toggle:closed';
 const openTocMessage = 'i18n:toc:toggle:opened';
 
-export const TOCControl = ({ message, children, ...props }: React.PropsWithChildren<InnerProps>) =>
-  <OpenButton
-    aria-label={useIntl().formatMessage({ id: message })}
+export const TOCControl = ({ message, children, 'aria-expanded': ariaExpanded, 'aria-controls': ariaControls, ...props }: React.PropsWithChildren<InnerProps>) => {
+  const intl = useIntl();
+  return <OpenButton
+    aria-label={intl.formatMessage({ id: message })}
+    aria-expanded={ariaExpanded}
+    aria-controls={ariaControls}
     {...props}
   >
     <TocIcon />
     <ButtonText>
-      {useIntl().formatMessage({ id: 'i18n:toolbar:toc:text' })}
+      {intl.formatMessage({ id: 'i18n:toolbar:toc:text' })}
     </ButtonText>
     {children}
   </OpenButton>;
+};
 
 export const tocConnector = connect(
   (state: AppState) => ({
@@ -33,8 +38,8 @@ export const tocConnector = connect(
   })
 );
 
-export const lockTocControlState = (isOpen: boolean, Control: React.ComponentType<InnerProps>) =>
-  tocConnector(({open, close, ...props}: MiddleProps) => <Control
+export function lockTocControlState(isOpen: boolean, Control: React.ComponentType<InnerProps>) {
+  return tocConnector(({open, close, ...props}: MiddleProps) => <Control
     {...props}
     data-testid='toc-button'
     message={isOpen ? openTocMessage : closedTocMessage}
@@ -42,3 +47,21 @@ export const lockTocControlState = (isOpen: boolean, Control: React.ComponentTyp
     onClick={isOpen ? close : open}
     isActive={false}
   />);
+}
+
+export function withMobileResponsiveTocControl(Control: React.ComponentType<InnerProps>) {
+  return tocConnector(({open, close, ...props}: MiddleProps) => {
+    const isMobile = useMatchMobileQuery();
+    const isOpen = props.isOpen === null ? !isMobile : props.isOpen;
+
+    return <Control
+      {...props}
+      data-testid='toc-button'
+      message={isOpen ? openTocMessage : closedTocMessage}
+      onClick={isOpen ? close : open}
+      isOpen={isOpen}
+      aria-expanded={isOpen === true}
+      aria-controls='toc-sidebar'
+    />;
+  });
+}
