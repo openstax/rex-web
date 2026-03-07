@@ -1031,6 +1031,25 @@ describe('useMatchMobileQuery', () => {
     };
   });
 
+  it('returns false if window is not defined', () => {
+    const saveWindow = globalThis.window;
+    let component: renderer.ReactTestRenderer | undefined;
+
+    try {
+      delete (globalThis as any).window;
+
+      component = renderer.create(<Component />);
+
+      expect(() => component.root.findByProps({ 'data-test-id': 'mobile-resolution' })).toThrow();
+      expect(() => component.root.findByProps({ 'data-test-id': 'desktop-resolution' })).not.toThrow();
+    } finally {
+      globalThis.window = saveWindow;
+      if (component) {
+        component.unmount();
+      }
+    }
+  });
+
   it('adds and removes listeners', () => {
     const mock = {
       addEventListener: jest.fn(),
