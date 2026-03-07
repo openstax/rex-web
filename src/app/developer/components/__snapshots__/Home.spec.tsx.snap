@@ -2,93 +2,41 @@
 
 exports[`Home matches snapshot 1`] = `
 Array [
-  .c0 {
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-  margin: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:focus {
-  -webkit-clip: auto;
-  clip: auto;
-  height: auto;
-  width: auto;
-  z-index: 150;
-}
-
-<a
-    className="c0"
+  <a
+    className="hidden-but-accessible hidden-link"
     href="#main-content"
     onClick={[Function]}
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Skip to Content
   </a>,
-  .c0 {
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-  margin: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:focus {
-  -webkit-clip: auto;
-  clip: auto;
-  height: auto;
-  width: auto;
-  z-index: 150;
-}
-
-<a
-    className="c0"
+  <a
+    className="hidden-but-accessible hidden-link"
     href={
       Array [
         "https://openstax.org/accessibility-statement",
       ]
     }
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Go to accessibility page
   </a>,
-  .c0 {
-  -webkit-clip: rect(1px,1px,1px,1px);
-  clip: rect(1px,1px,1px,1px);
-  margin: 0;
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:focus {
-  -webkit-clip: auto;
-  clip: auto;
-  height: auto;
-  width: auto;
-  z-index: 150;
-}
-
-<button
-    className="c0"
-    href="#"
+  <button
+    className="hidden-but-accessible hidden-button"
     onClick={[Function]}
+    style={
+      Object {
+        "--z-index-focused-hidden-link": 150,
+      }
+    }
   >
     Keyboard shortcuts menu
   </button>,

@@ -15,6 +15,7 @@
     "@openstax/ui-components": "openstax/ui-components#1.20.0",
     "@sentry/integrations": "^7.54.0",
     "@sentry/react": "^7.54.0",
+    "classnames": "2.3.2",
     "color": "^3.1.2",
     "details-element-polyfill": "^2.4.0",
     "flat": "~5.0",
@@ -179,7 +180,8 @@
     ],
     "moduleNameMapper": {
       "//comment//": "remove this when CRA upgrades jest above 28",
-      "(.*)@openstax/ts-utils(.*)": "$1@openstax/ts-utils/dist/cjs$2"
+      "(.*)@openstax/ts-utils(.*)": "$1@openstax/ts-utils/dist/cjs$2",
+      "\\.css$": "<rootDir>/__mocks__/styleMock.js"
     },
     "setupFilesAfterEnv": [
       "<rootDir>/src/test/setup.ts"
