@@ -17,7 +17,10 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def osweb_homepage_content_sections(self):
-        return await self.page.locator("main > section:nth-child(5)").is_visible()
+        # Higher and K12 Education, and Learning Research sections of the openstax.org homepage
+        return await self.page.locator(
+            "section.content-block-section", has_text="Higher Education"
+        ).is_visible()
 
     @pytest.mark.asyncio
     async def upper_menu_options(self):

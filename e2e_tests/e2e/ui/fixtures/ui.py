@@ -24,6 +24,8 @@ async def login_to_rex(base_url, rex_user, rex_password):
 
             await page.goto(base_url)
 
+            await page.keyboard.press("Escape")
+
             await page.click("a[href*='accounts/login']")
 
             await page.fill("#login_form_email", rex_user)

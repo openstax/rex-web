@@ -13,6 +13,8 @@ async def test_subjects_philanthropic_support(chrome_page_unlogged, base_url):
     await chrome_page_unlogged.goto(base_url)
     home = HomeRex(chrome_page_unlogged)
 
+    await chrome_page_unlogged.keyboard.press("Escape")
+
     await home.click_subjects_page_menu()
 
     await home.click_subjects_homepage_link()
