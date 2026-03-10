@@ -32,3 +32,17 @@ class StudyGuides:
     @property
     def study_guides_filter_by_color_dropdown(self):
         return self.page.locator("#guide-filter-color")
+
+    @property
+    def study_guides_unlogged_banner(self):
+        return self.page.get_by_text(
+            "Expert-created study guides. 100% free!Sign UporLog in"
+        )
+
+    @property
+    def study_guides_unlogged_banner_signup(self):
+        return self.page.locator("a[data-analytics-label='signup']")
+
+    @property
+    def study_guides_unlogged_banner_login(self):
+        return self.page.get_by_role("link", name="Log in")

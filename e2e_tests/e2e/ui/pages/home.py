@@ -338,6 +338,26 @@ class HomeRex:
         return self.page.locator("#login-page")
 
     @property
+    def signup_page(self):
+        return self.page.get_by_role("heading", name="Welcome! Join OpenStax as")
+
+    @property
+    def signup_page_student(self):
+        return self.page.get_by_role("link", name="Student")
+
+    @property
+    def signup_page_educator_researcher(self):
+        return self.page.get_by_role("link", name="Educator / Researcher")
+
+    @property
+    def signup_page_facebook_link(self):
+        return self.page.get_by_role("link", name="Facebook")
+
+    @property
+    def signup_page_google_link(self):
+        return self.page.get_by_role("link", name="Google")
+
+    @property
     def login_link(self):
         return self.page.get_by_role("link", name="Log in")
 
