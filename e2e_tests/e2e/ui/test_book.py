@@ -15,6 +15,8 @@ async def test_book_title_links_to_books_detail_page(chrome_page_unlogged, base_
     await chrome_page_unlogged.goto(f"{base_url}/subjects")
     home = HomeRex(chrome_page_unlogged)
 
+    await chrome_page_unlogged.keyboard.press("Escape")
+
     assert await home.subject_listing_book_is_visible()
 
     await home.click_subject_listing_book()
@@ -36,6 +38,8 @@ async def test_buy_print_copy_link(chrome_page_unlogged, base_url, book_slug):
 
     await chrome_page_unlogged.goto(details_books_url)
     home = HomeRex(chrome_page_unlogged)
+
+    await chrome_page_unlogged.keyboard.press("Escape")
 
     # THEN: Buy print copy button exists and opens correct page
     assert await home.buy_print_copy_button_is_visible()
@@ -67,6 +71,8 @@ async def test_order_options_link(chrome_page_unlogged, base_url, book_slug):
     await chrome_page_unlogged.goto(details_books_url)
     home = HomeRex(chrome_page_unlogged)
 
+    await chrome_page_unlogged.keyboard.press("Escape")
+
     # THEN: Order options button exists and opens correct page
     assert await home.bookstore_box_is_visible()
     assert await home.order_options_button_is_visible()
@@ -86,6 +92,8 @@ async def test_accessibility_help(chrome_page_unlogged, base_url, book_slug, pag
     # WHEN: The Home page is fully loaded
     await chrome_page_unlogged.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
     home = HomeRex(chrome_page_unlogged)
+
+    await chrome_page_unlogged.keyboard.press("Escape")
 
     try:
         await home.click_cookieyes_accept()
@@ -122,6 +130,8 @@ async def test_toc_slideout(chrome_page_unlogged, base_url, book_slug):
     await chrome_page_unlogged.goto(details_books_url)
     home = HomeRex(chrome_page_unlogged)
 
+    await chrome_page_unlogged.keyboard.press("Escape")
+
     await home.click_book_toc_link()
 
     book_toc_content = await home.book_toc_content.inner_text()
@@ -141,6 +151,8 @@ async def test_resources_tabs(chrome_page_unlogged, base_url, book_slug):
 
     await chrome_page_unlogged.goto(details_books_url)
     home = HomeRex(chrome_page_unlogged)
+
+    await chrome_page_unlogged.keyboard.press("Escape")
 
     # THEN: Resources tabs are visible and clickable
     assert await home.resources_tabs_are_visible()
