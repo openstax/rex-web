@@ -2,7 +2,7 @@
 
 exports[`wrapper matches snapshot 1`] = `
 <div
-  className="content-wrapper "
+  className="content-wrapper"
   style={
     Object {
       "--content-max-width": "144rem",
@@ -17,7 +17,7 @@ exports[`wrapper matches snapshot 1`] = `
 
 exports[`wrapper matches snapshot with search open 1`] = `
 <div
-  className="content-wrapper "
+  className="content-wrapper"
   style={
     Object {
       "--content-max-width": "144rem",
