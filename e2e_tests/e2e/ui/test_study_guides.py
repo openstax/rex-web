@@ -1,6 +1,7 @@
 import pytest
 
 from e2e_tests.e2e.ui.pages.studyguides import StudyGuides
+from e2e_tests.e2e.ui.pages.home import HomeRex
 
 
 @pytest.mark.asyncio
@@ -47,3 +48,67 @@ async def test_study_guides(chrome_page, base_url, book_slug, page_slug):
     await chrome_page.keyboard.press("Escape")
 
     assert not await studyguides.study_guides_page.is_visible()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("principles-management", "3-2-the-italian-renaissance")]
+)
+async def test_study_guides_unlogged_banner_signup(
+    chrome_page_unlogged, base_url, book_slug, page_slug
+):
+
+    # GIVEN: Playwright, chromium and the rex_base_url
+
+    # WHEN: The Home page is fully loaded
+    await chrome_page_unlogged.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
+    studyguides = StudyGuides(chrome_page_unlogged)
+    home = HomeRex(chrome_page_unlogged)
+
+    # THEN: Study Guides icon is visible (only present in Principles of Economics 2e, American Government 2e,
+    # Introduction to Business, Principles of Management, and Psychology 2e books)
+    assert await studyguides.study_guides_icon.is_visible()
+
+    await studyguides.study_guides_icon.click()
+
+    # THEN: Study Guides signup banner opens
+    assert await studyguides.study_guides_unlogged_banner.is_visible()
+
+    # THEN: Study Guides signup page opens
+    await studyguides.study_guides_unlogged_banner_signup.click()
+    assert await home.signup_page.is_visible()
+
+    assert await home.signup_page_student.is_visible()
+    assert await home.signup_page_educator_researcher.is_visible()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "book_slug, page_slug", [("principles-management", "3-2-the-italian-renaissance")]
+)
+async def test_study_guides_unlogged_banner_login(
+    chrome_page_unlogged, base_url, book_slug, page_slug
+):
+
+    # GIVEN: Playwright, chromium and the rex_base_url
+
+    # WHEN: The Home page is fully loaded
+    await chrome_page_unlogged.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
+    studyguides = StudyGuides(chrome_page_unlogged)
+    home = HomeRex(chrome_page_unlogged)
+
+    # THEN: Study Guides icon is visible (only present in Principles of Economics 2e, American Government 2e,
+    # Introduction to Business, Principles of Management, and Psychology 2e books)
+    assert await studyguides.study_guides_icon.is_visible()
+
+    await studyguides.study_guides_icon.click()
+
+    # THEN: Study Guides login banner opens
+    assert await studyguides.study_guides_unlogged_banner.is_visible()
+
+    # THEN: Study Guides login page opens
+    await home.login_link.click()
+    assert await home.login_page.is_visible()
+
+    assert await home.signup_page_facebook_link.is_visible()
+    assert await home.signup_page_google_link.is_visible()
