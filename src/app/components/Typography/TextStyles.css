@@ -1,0 +1,14 @@
+/**
+ * Text Style Utilities CSS
+ *
+ * NOTE: Previously defined text utility classes (.text-style, .text-regular-style,
+ * .body-copy-regular-style, .label-style, .disabled-style, etc.) have been removed
+ * because they were not referenced in the TS/TSX codebase and were causing
+ * dead-style/static-analysis warnings.
+ *
+ * Legacy styled-components css fragments (textStyle, textRegularStyle, etc.)
+ * are now in Typography.legacy.ts for backward compatibility with existing code.
+ *
+ * This file is intentionally left minimal so existing imports (if any)
+ * remain valid without affecting behavior.
+ */

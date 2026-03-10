@@ -139,49 +139,13 @@ Array [
   >
     
   </div>,
-  .c19 {
+  .c16 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c2 {
-  color: #424242;
-  font-size: 4.8rem;
-  line-height: 5rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 0 0 1rem 0;
-  margin: 0;
-}
-
-.c5 {
-  color: #424242;
-  font-size: 3.6rem;
-  line-height: 4rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 2rem 0 1rem 0;
-  margin: 0;
-}
-
-.c9 {
-  color: #424242;
-  font-size: 2.4rem;
-  line-height: 3rem;
-  -webkit-letter-spacing: -0.02rem;
-  -moz-letter-spacing: -0.02rem;
-  -ms-letter-spacing: -0.02rem;
-  letter-spacing: -0.02rem;
-  padding: 1.5rem 0 1rem 0;
-  margin: 0;
-}
-
-.c8 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -211,22 +175,22 @@ Array [
   font-weight: regular;
 }
 
-.c8:hover {
+.c6:hover {
   background-color: ,#fafafa,;
 }
 
-.c8:active {
+.c6:active {
   background-color: ,#e5e5e5,;
 }
 
-.c7 {
+.c5 {
   display: grid;
   overflow: visible;
   grid-auto-flow: row;
   grid-gap: 1rem;
 }
 
-.c15 {
+.c12 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -234,11 +198,11 @@ Array [
   background: none;
 }
 
-.c18 {
+.c15 {
   cursor: pointer;
 }
 
-.c12 > *:not(.c17) {
+.c9 > *:not(.c14) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -248,12 +212,12 @@ Array [
   left: 0;
 }
 
-.c13 {
+.c10 {
   overflow: visible;
   position: relative;
 }
 
-.c21 {
+.c18 {
   height: 2rem;
   width: 2rem;
   padding: 0.2rem;
@@ -264,44 +228,44 @@ Array [
   user-select: none;
 }
 
-.c21:hover {
+.c18:hover {
   color: #818181;
 }
 
-.c16 {
+.c13 {
   border: none;
   display: block;
 }
 
-.c16 > div {
+.c13 > div {
   display: inline-block;
   outline: none;
 }
 
-.c14 .focus-within .c20 {
+.c11 .focus-within .c17 {
   color: #5e6062;
 }
 
-.c14:focus-within .c20 {
+.c11:focus-within .c17 {
   color: #5e6062;
 }
 
-.c11 {
+.c8 {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c11:hover {
+.c8:hover {
   color: #0064A0;
 }
 
-.c6 {
+.c4 {
   padding: 1rem;
 }
 
-.c10 {
+.c7 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -320,11 +284,11 @@ Array [
   justify-content: space-between;
 }
 
-.c10 h3 {
+.c7 h3 {
   padding-bottom: 0;
 }
 
-.c10 small {
+.c7 small {
   margin-top: -0.2rem;
   color: #ccc;
 }
@@ -341,7 +305,7 @@ Array [
   flex: 1;
 }
 
-.c3 {
+.c2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -354,7 +318,7 @@ Array [
   flex: 1;
 }
 
-.c4 {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -376,13 +340,6 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c9 {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
   .c0 {
     padding: 0 1.6rem;
   }
@@ -395,51 +352,61 @@ Array [
       className="c1"
     >
       <h1
-        className="c2"
+        className="typography-heading typography-h1"
+        style={
+          Object {
+            "--heading-text-color": "#424242",
+          }
+        }
       >
         REX Developer Homepage
       </h1>
       <div
-        className="c3"
+        className="c2"
       >
         <div
-          className="c4"
+          className="c3"
         >
           <div>
             <h2
-              className="c5"
+              className="typography-heading typography-h2"
+              style={
+                Object {
+                  "--heading-text-color": "#424242",
+                }
+              }
             >
               Notifications
             </h2>
             <div
-              className="c6"
+              className="c4"
             >
               <div
-                className="c7"
+                className="c5"
               >
                 <button
-                  className="c8"
+                  className="c6"
                   data-testid="trigger-updates-available"
                   onClick={[Function]}
                 >
                   update available
                 </button>
                 <button
-                  className="c8"
+                  className="c6"
                   data-testid="trigger-messages"
                   onClick={[Function]}
                 >
                   app messages
                 </button>
                 <button
-                  className="c8"
+                  className="c6"
                   data-testid="trigger-inline-error"
                   onClick={[Function]}
                 >
                   inline error
                 </button>
                 <button
-                  className="c8"
+                  className="c6"
                   data-testid="trigger-modal-error"
                   onClick={[Function]}
                 >
@@ -450,16 +417,26 @@ Array [
           </div>
           <div>
             <h2
-              className="c5"
+              className="typography-heading typography-h2"
+              style={
+                Object {
+                  "--heading-text-color": "#424242",
+                }
+              }
             >
               Routes
             </h2>
             <div
-              className="c6"
+              className="c4"
             >
               <div>
                 <h3
-                  className="c9"
+                  className="typography-heading typography-h3"
+                  style={
+                    Object {
+                      "--heading-text-color": "#424242",
+                    }
+                  }
                 >
                   Developer Home
                 </h3>
@@ -471,7 +448,12 @@ Array [
               </div>
               <div>
                 <h3
-                  className="c9"
+                  className="typography-heading typography-h3"
+                  style={
+                    Object {
+                      "--heading-text-color": "#424242",
+                    }
+                  }
                 >
                   Content
                 </h3>
@@ -543,7 +525,12 @@ Array [
               </div>
               <div>
                 <h3
-                  className="c9"
+                  className="typography-heading typography-h3"
+                  style={
+                    Object {
+                      "--heading-text-color": "#424242",
+                    }
+                  }
                 >
                   Assigned
                 </h3>
@@ -553,7 +540,12 @@ Array [
               </div>
               <div>
                 <h3
-                  className="c9"
+                  className="typography-heading typography-h3"
+                  style={
+                    Object {
+                      "--heading-text-color": "#424242",
+                    }
+                  }
                 >
                   NotFound
                 </h3>
@@ -563,7 +555,12 @@ Array [
               </div>
               <div>
                 <h3
-                  className="c9"
+                  className="typography-heading typography-h3"
+                  style={
+                    Object {
+                      "--heading-text-color": "#424242",
+                    }
+                  }
                 >
                   External
                 </h3>
@@ -575,16 +572,21 @@ Array [
           </div>
         </div>
         <div
-          className="c4"
+          className="c3"
         >
           <div>
             <h2
-              className="c5"
+              className="typography-heading typography-h2"
+              style={
+                Object {
+                  "--heading-text-color": "#424242",
+                }
+              }
             >
               Books
             </h2>
             <div
-              className="c6"
+              className="c4"
             >
               <ul
                 style={
@@ -594,14 +596,19 @@ Array [
                 }
               >
                 <li
-                  className="c10"
+                  className="c7"
                 >
                   <div>
                     <h3
-                      className="c9"
+                      className="typography-heading typography-h3"
+                      style={
+                        Object {
+                          "--heading-text-color": "#424242",
+                        }
+                      }
                     >
                       <a
-                        className="c11"
+                        className="c8"
                         data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
@@ -614,12 +621,12 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c12 c13 c14"
+                    className="c9 c10 c11"
                   >
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="c15 c16 c17 c18"
+                      className="c12 c13 c14 c15"
                       onClick={[Function]}
                     >
                       <div
@@ -627,7 +634,7 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c19 c20 c21"
+                          className="c16 c17 c18"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 192 512"
@@ -643,14 +650,19 @@ Array [
                   </div>
                 </li>
                 <li
-                  className="c10"
+                  className="c7"
                 >
                   <div>
                     <h3
-                      className="c9"
+                      className="typography-heading typography-h3"
+                      style={
+                        Object {
+                          "--heading-text-color": "#424242",
+                        }
+                      }
                     >
                       <a
-                        className="c11"
+                        className="c8"
                         data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
@@ -663,12 +675,12 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c12 c13 c14"
+                    className="c9 c10 c11"
                   >
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="c15 c16 c17 c18"
+                      className="c12 c13 c14 c15"
                       onClick={[Function]}
                     >
                       <div
@@ -676,7 +688,7 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c19 c20 c21"
+                          className="c16 c17 c18"
                           fill="currentColor"
                           focusable="false"
                           viewBox="0 0 192 512"

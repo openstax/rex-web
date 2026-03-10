@@ -1,0 +1,72 @@
+/**
+ * Headings CSS
+ *
+ * Styles for H1-H6 heading components.
+ * Uses CSS variables bound from theme.ts for text color.
+ */
+
+/* Base heading styles shared by all headings */
+.typography-heading {
+  color: var(--heading-text-color, #424242);
+  letter-spacing: -0.02rem;
+  padding-bottom: 1rem;
+  margin: 0;
+}
+
+/* H1 styles */
+.typography-h1 {
+  font-size: 4.8rem;
+  line-height: 5rem;
+  padding-top: 0;
+}
+
+/* H2 styles */
+.typography-h2 {
+  font-size: 3.6rem;
+  line-height: 4rem;
+  padding-top: 2rem;
+}
+
+/* H3 styles */
+.typography-h3 {
+  font-size: 2.4rem;
+  line-height: 3rem;
+  padding-top: 1.5rem;
+}
+
+/* H3 mobile styles */
+@media screen and (max-width: 75em) {
+  .typography-h3 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+/* H4 styles */
+.typography-h4 {
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  padding-top: 1rem;
+}
+
+/* H4 mobile styles */
+@media screen and (max-width: 75em) {
+  .typography-h4 {
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+/* H5 styles (if needed) */
+.typography-h5 {
+  font-size: 1.6rem;
+  line-height: 2rem;
+  padding-top: 1rem;
+}
+
+/* H6 styles (if needed) */
+.typography-h6 {
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  padding-top: 1rem;
+}

@@ -2,7 +2,7 @@ import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import styled from 'styled-components/macro';
-import { textStyle } from '../../../components/Typography/base';
+import { textStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { KeyboardEvent } from '@openstax/types/lib.dom';
 import { cardPadding, cardWidth } from '../constants';

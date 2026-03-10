@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/macro';
 import htmlMessage from '../../../components/htmlMessage';
 import { bodyCopyRegularStyle } from '../../../components/Typography';
-import { H3, h4Style } from '../../../components/Typography/headings';
+import { H3, h4Style } from '../../../components/Typography';
 import theme from '../../../theme';
 import { desktopPopupWidth, popupBodyPadding, popupPadding } from '../../styles/PopupStyles';
 

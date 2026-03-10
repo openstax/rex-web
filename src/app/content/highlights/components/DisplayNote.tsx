@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
 import Dropdown, { DropdownItem, DropdownList } from '../../../components/Dropdown';
 import Times from '../../../components/Times';
-import { textStyle } from '../../../components/Typography/base';
+import { textStyle } from '../../../components/Typography';
 import { useDebouncedWindowSize, useFocusElement } from '../../../reactUtils';
 import theme from '../../../theme';
 import { mergeRefs } from '../../../utils';

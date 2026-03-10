@@ -3,7 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import { linkStyle } from '../../../components/Typography';
-import { textStyle } from '../../../components/Typography/base';
+import { textStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { cardPadding } from '../constants';
 

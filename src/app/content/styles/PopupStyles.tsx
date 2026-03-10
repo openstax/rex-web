@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import Times from '../../../../src/app/components/Times';
 import { PlainButton } from '../../components/Button';
-import { h3Style } from '../../components/Typography/headings';
+import { h3Style } from '../../components/Typography';
 import theme from '../../theme';
 import { contentWrapperMaxWidth } from '../components/constants';
 import { applyBookTextColor } from '../components/utils/applyBookTextColor';
