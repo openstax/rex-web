@@ -13,13 +13,13 @@
 
 .content-layout-body {
   width: 100%;
-  max-width: var(--content-max-width, 104rem);
+  max-width: var(--content-max-width, 144rem);
   margin: 0 auto;
   display: grid;
   grid-template-columns: 8rem auto auto;
 }
 
-@media screen and (max-width: 62.5em) {
+@media screen and (max-width: 50em) {
   .content-layout-body {
     grid-template-columns: 100%;
   }

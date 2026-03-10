@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import ScrollLock from '../../components/ScrollLock';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
@@ -44,7 +45,7 @@ export const Wrapper = ({
   className,
   ...props
 }: React.PropsWithChildren<WrapperProps>) => (
-  <ContentLayoutBody {...props} className={`content-wrapper ${className || ''}`}>
+  <ContentLayoutBody {...props} className={classNames('content-wrapper', className)}>
     {verticalNavOpen && <ScrollLock overlay={false} mediumScreensOnly={true} />}
     <div className="content-layout-body">{children}</div>
   </ContentLayoutBody>

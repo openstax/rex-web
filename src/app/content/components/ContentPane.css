@@ -7,7 +7,7 @@
   width: 100%;
   overflow: visible; /* so sidebar position: sticky works */
   margin: 0 auto;
-  max-width: var(--content-wrapper-max-width, 82.5rem);
+  max-width: var(--content-wrapper-max-width, 128rem);
 }
 
 @media screen {
@@ -19,13 +19,13 @@
 }
 
 /* Responsive breakpoints for sidebar width adjustment */
-@media screen and (max-width: 104em) {
+@media screen and (max-width: 90em) {
   .content-pane-wrapper {
-    padding-left: calc(var(--sidebar-desktop-with-toolbar-width, 45.5rem) - (100vw - var(--content-wrapper-max-width, 82.5rem)) / 2);
+    padding-left: calc(var(--sidebar-desktop-with-toolbar-width, 45.5rem) - (100vw - var(--content-wrapper-max-width, 128rem)) / 2);
   }
 }
 
-@media screen and (max-width: 82.5em) {
+@media screen and (max-width: 80em) {
   .content-pane-wrapper {
     padding-left: var(--sidebar-desktop-with-toolbar-width, 45.5rem);
   }
@@ -38,7 +38,7 @@
   }
 }
 
-@media screen and (max-width: 62.5em) {
+@media screen and (max-width: 50em) {
   .content-pane-wrapper {
     grid-column: 1 / -1;
   }
