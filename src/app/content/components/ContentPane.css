@@ -1,0 +1,58 @@
+/* ContentPane component styles */
+
+.content-pane-wrapper {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: center;
+  width: 100%;
+  overflow: visible; /* so sidebar position: sticky works */
+  margin: 0 auto;
+  max-width: var(--content-wrapper-max-width, 82.5rem);
+}
+
+@media screen {
+  .content-pane-wrapper {
+    background-color: var(--main-content-background, #fff);
+    padding-left: var(--sidebar-desktop-width, 37.5rem);
+    transition: padding-left var(--sidebar-transition-time, 300ms) ease-in-out;
+  }
+}
+
+/* Responsive breakpoints for sidebar width adjustment */
+@media screen and (max-width: 104em) {
+  .content-pane-wrapper {
+    padding-left: calc(var(--sidebar-desktop-with-toolbar-width, 45.5rem) - (100vw - var(--content-wrapper-max-width, 82.5rem)) / 2);
+  }
+}
+
+@media screen and (max-width: 82.5em) {
+  .content-pane-wrapper {
+    padding-left: var(--sidebar-desktop-with-toolbar-width, 45.5rem);
+  }
+}
+
+@media screen and (max-width: 75em) {
+  .content-pane-wrapper {
+    grid-column-start: 2;
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 62.5em) {
+  .content-pane-wrapper {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Sidebar closed states */
+@media screen and (max-width: 75em) {
+  .content-pane-wrapper--sidebar-closed-mobile {
+    padding-left: 0 !important;
+  }
+}
+
+@media screen {
+  .content-pane-wrapper--sidebar-closed-desktop {
+    padding-left: 0 !important;
+  }
+}

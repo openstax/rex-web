@@ -1,0 +1,26 @@
+/* Wrapper component styles */
+
+.content-wrapper {
+  position: relative; /* for sidebar overlay */
+  overflow: visible; /* so sidebar position: sticky works */
+}
+
+@media screen and (max-width: 75em) {
+  .content-wrapper {
+    margin-left: 0;
+  }
+}
+
+.content-layout-body {
+  width: 100%;
+  max-width: var(--content-max-width, 104rem);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 8rem auto auto;
+}
+
+@media screen and (max-width: 62.5em) {
+  .content-layout-body {
+    grid-template-columns: 100%;
+  }
+}
