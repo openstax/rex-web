@@ -25,7 +25,8 @@ interface ContentStylesProps extends Omit<Props, 'className'> {
 
 const ContentStyles = React.forwardRef<HTMLElement, React.PropsWithChildren<ContentStylesProps>>(
   ({ textSize, className, style, children, ...props }, ref) => {
-    const textScale = textResizerValueMap.get(textSize);
+    // Use default value (0) if textSize is undefined, which maps to scale 1
+    const textScale = textResizerValueMap.get(textSize ?? 0);
 
     return (
       <DynamicContentStyles
