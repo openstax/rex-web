@@ -1,7 +1,7 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import classNames from 'classnames';
-import { TextResizerValue, textResizerValueMap } from '../content/constants';
+import { TextResizerValue, textResizerValueMap, textResizerDefaultValue } from '../content/constants';
 import { State } from '../content/types';
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Consumer } from '../context/SkipToContent';
@@ -24,9 +24,8 @@ interface ContentStylesProps extends Omit<Props, 'className'> {
 }
 
 const ContentStyles = React.forwardRef<HTMLElement, React.PropsWithChildren<ContentStylesProps>>(
-  ({ textSize, className, style, children, ...props }, ref) => {
-    // Use default value (0) if textSize is undefined, which maps to scale 1
-    const textScale = textResizerValueMap.get(textSize ?? 0);
+  ({ textSize=textResizerDefaultValue, className, style, children, ...props }, ref) => {
+    const textScale = textResizerValueMap.get(textSize);
 
     return (
       <DynamicContentStyles
