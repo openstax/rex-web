@@ -35,7 +35,7 @@ export const defaultFocusOutline = `
   outline: 0.2rem auto -webkit-focus-ring-color;
 `;
 
-const greyColors = {
+const grayColors = {
   base: '#5e6062',
   darker: '#424242',
   foreground: textColors.white,
@@ -72,50 +72,50 @@ const color = {
     'blue': {
       base: '#002468',
       foreground: textColors.white,
-      foregroundHover: greyColors.medium,
+      foregroundHover: grayColors.medium,
     },
     'deep-green': {
       base: '#067056',
       foreground: textColors.white,
-      foregroundHover: greyColors.lighter,
+      foregroundHover: grayColors.lighter,
     },
-    'gray': greyColors,
+    'gray': grayColors,
     'green': {
       base: '#63a524',
       foreground: textColors.black,
-      foregroundHover: greyColors.darker,
+      foregroundHover: grayColors.darker,
     },
     'light-blue': {
       base: '#0DC0DC',
       foreground: textColors.black,
-      foregroundHover: greyColors.darker,
+      foregroundHover: grayColors.darker,
     },
     'midnight': {
       base: '#003e52',
       foreground: textColors.white,
-      foregroundHover: greyColors.medium,
+      foregroundHover: grayColors.medium,
     },
     'orange': {
       base: '#d4450c',
       darker: '#be3c08',
       darkest: '#b03808',
       foreground: textColors.white,
-      foregroundHover: greyColors.lightest,
+      foregroundHover: grayColors.lightest,
     },
     'raise-green': {
       base: '#0a5b50',
       foreground: textColors.white,
-      foregroundHover: greyColors.lighter,
+      foregroundHover: grayColors.lighter,
     },
     'red': {
       base: '#C22032',
       foreground: textColors.white,
-      foregroundHover: greyColors.lighter,
+      foregroundHover: grayColors.lighter,
     },
     'yellow': {
       base: '#f4d019',
       foreground: textColors.black,
-      foregroundHover: greyColors.light,
+      foregroundHover: grayColors.light,
     },
   },
   secondary: {

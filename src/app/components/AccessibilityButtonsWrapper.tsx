@@ -14,7 +14,7 @@ const OpenKeyboardShortcutsMenuLink = () => {
   const dispatch = useDispatch();
   const trackOpenCloseKS = useAnalyticsEvent('openCloseKeyboardShortcuts');
 
-  const openKeyboardShortcutsMenu = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const openKeyboardShortcutsMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     captureOpeningElement('keyboardshortcuts');
     dispatch(openKeyboardShortcutsMenuAction());
@@ -23,7 +23,7 @@ const OpenKeyboardShortcutsMenuLink = () => {
 
   return <FormattedMessage id='i18n:a11y:keyboard-shortcuts:menu'>
     {/* TODO - use url based modal control */}
-    {(txt) => <HiddenButton onClick={openKeyboardShortcutsMenu} href='#'>{txt}</HiddenButton>}
+    {(txt) => <HiddenButton onClick={openKeyboardShortcutsMenu}>{txt}</HiddenButton>}
   </FormattedMessage>;
 };
 
@@ -37,7 +37,7 @@ export default class AccessibilityButtonsWrapper extends Component {
       </FormattedMessage>
       <FormattedMessage id='i18n:a11y:accessibilityHelp'>
         {(txt) => <FormattedMessage id='i18n:a11y:accessibilityHelp:link'>
-          {(href) => <HiddenLink href={href}>{txt}</HiddenLink>}
+          {(href: string) => <HiddenLink href={href}>{txt}</HiddenLink>}
         </FormattedMessage>}
       </FormattedMessage>
       <OpenKeyboardShortcutsMenuLink />
