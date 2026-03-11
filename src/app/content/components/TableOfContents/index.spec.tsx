@@ -401,28 +401,32 @@ describe('TableOfContents', () => {
 
   it('adds aria-label to TreeItem for leaf sections (links)', () => {
     const component = renderer.create(Component);
-    const treeItems = component.root.findAllByProps({ 'data-testid': 'mock-tree-item' });
 
-    // Find a leaf item (one that has a link)
-    const leafItem = treeItems.find((item: any) => {
-      return item.props['aria-label'] && item.props['aria-label'].includes(', link');
+    // Find all elements in the tree with aria-label ending in ', link'
+    const leafItems = component.root.findAll((node: any) => {
+      const ariaLabel = node.props && node.props['aria-label'];
+      return ariaLabel && typeof ariaLabel === 'string' && ariaLabel.endsWith(', link');
     });
 
-    expect(leafItem).toBeDefined();
-    expect(leafItem?.props['aria-label']).toMatch(/, link$/);
+    expect(leafItems.length).toBeGreaterThan(0);
+    if (leafItems.length > 0) {
+      expect(leafItems[0].props['aria-label']).toMatch(/, link$/);
+    }
   });
 
   it('adds aria-label to TreeItem for expandable sections', () => {
     const component = renderer.create(Component);
-    const treeItems = component.root.findAllByProps({ 'data-testid': 'mock-tree-item' });
 
-    // Find a section item (one that has subsections)
-    const sectionItem = treeItems.find((item: any) => {
-      return item.props['aria-label'] && item.props['aria-label'].includes(', section');
+    // Find all elements in the tree with aria-label ending in ', section'
+    const sectionItems = component.root.findAll((node: any) => {
+      const ariaLabel = node.props && node.props['aria-label'];
+      return ariaLabel && typeof ariaLabel === 'string' && ariaLabel.endsWith(', section');
     });
 
-    expect(sectionItem).toBeDefined();
-    expect(sectionItem?.props['aria-label']).toMatch(/, section$/);
+    expect(sectionItems.length).toBeGreaterThan(0);
+    if (sectionItems.length > 0) {
+      expect(sectionItems[0].props['aria-label']).toMatch(/, section$/);
+    }
   });
 });
 

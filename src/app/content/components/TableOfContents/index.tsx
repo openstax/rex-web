@@ -201,14 +201,17 @@ function TocLeaf({
   active: boolean | undefined;
 }) {
   const linkRef = React.useRef<HTMLElement>(null);
+  const intl = useIntl();
+  const strippedTitle = stripHtml(item.title, true);
+  const linkSuffix = intl.formatMessage({ id: 'i18n:toc:aria-label-suffix:link' });
 
   return (
     <Styled.StyledTreeItem
       section={section}
       id={item.id}
       key={item.id}
-      textValue={stripHtml(item.title, true)}
-      aria-label={`${stripHtml(item.title, true)}, link`}
+      textValue={strippedTitle}
+      aria-label={`${strippedTitle}, ${linkSuffix}`}
       onAction={
         // Ignored until RAC and TS versions are compatible
         // istanbul ignore next
@@ -249,11 +252,15 @@ function TocSection({
   onNavigate: () => void;
   expandedKeys: Set<string>;
 }) {
+  const intl = useIntl();
+  const sectionSuffix = intl.formatMessage({ id: 'i18n:toc:aria-label-suffix:section' });
+
   return (
     <>
       {linkContents(section).map((item) => {
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
+        const strippedTitle = stripHtml(item.title, true);
 
         return (
           <React.Fragment key={item.id}>
@@ -262,8 +269,8 @@ function TocSection({
               <Styled.StyledTreeItem
                 section={section}
                 id={item.id}
-                textValue={stripHtml(item.title, true)}
-                aria-label={`${stripHtml(item.title, true)}, section`}
+                textValue={strippedTitle}
+                aria-label={`${strippedTitle}, ${sectionSuffix}`}
               >
                 <ArchiveTreeComponent
                   item={item}
