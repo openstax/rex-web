@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 import ScrollLock from '../../components/ScrollLock';
 import { AppState } from '../../types';
@@ -38,6 +38,7 @@ const ContentLayoutBody = ({
   );
 };
 
+// Export named component for testing
 export const Wrapper = ({
   hasQuery,
   verticalNavOpen,
@@ -51,9 +52,27 @@ export const Wrapper = ({
   </ContentLayoutBody>
 );
 
-export default connect(
-  (state: AppState) => ({
-    hasQuery: !!selectSearch.query(state),
-    verticalNavOpen: contentSelectors.mobileMenuOpen(state) || selectSearch.searchResultsOpen(state),
-  })
-)(Wrapper);
+// Default export with Redux hooks
+const WrapperConnected = ({
+  children,
+  className,
+  ...props
+}: React.PropsWithChildren<Omit<WrapperProps, 'hasQuery' | 'verticalNavOpen'>>) => {
+  const hasQuery = useSelector((state: AppState) => !!selectSearch.query(state));
+  const verticalNavOpen = useSelector((state: AppState) =>
+    contentSelectors.mobileMenuOpen(state) || selectSearch.searchResultsOpen(state)
+  );
+
+  return (
+    <Wrapper
+      {...props}
+      hasQuery={hasQuery}
+      verticalNavOpen={verticalNavOpen}
+      className={className}
+    >
+      {children}
+    </Wrapper>
+  );
+};
+
+export default WrapperConnected;
