@@ -163,25 +163,47 @@ function ArchiveTreeComponent({
   );
 }
 
-export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boolean): {
-  'aria-current'?: string;
-  'aria-label'?: string;
-} {
+// Helper function to get chapter disambiguation info for i18n formatting
+// Returns structured data when a page title needs chapter context (unnumbered pages)
+function getChapterDisambiguation(page: LinkedArchiveTreeSection): {
+  titleText: string;
+  chapterNumber: string;
+} | null {
   const [num, titleText] = splitTitleParts(page.title);
-  const currentPageIndicator = { 'aria-current': 'page' };
   if (num) {
-    return active ? currentPageIndicator : {};
+    return null;
   }
 
   const [parentNum, parentTitleText] = splitTitleParts(page.parent.title);
 
   if (!parentNum || titleText.includes(parentTitleText)) {
-    return active ? currentPageIndicator : {};
+    return null;
   }
 
   return {
-    'aria-label': `${titleText} - Chapter ${parentNum}`,
-    ...(active ? currentPageIndicator : {}),
+    titleText,
+    chapterNumber: parentNum,
+  };
+}
+
+// DEPRECATED: Returns aria attributes for legacy ContentLink components
+// This function returns hard-coded English text and should be replaced with i18n-aware code
+// For new code, use getChapterDisambiguation() with intl.formatMessage() instead
+export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boolean): {
+  'aria-current'?: string;
+  'aria-label'?: string;
+} {
+  const currentPageIndicator = { 'aria-current': 'page' };
+  const disambiguationInfo = getChapterDisambiguation(page);
+  const ariaPageIfActive = active ? currentPageIndicator : {}
+
+  if (!disambiguationInfo) {
+    return ariaPageIfActive;
+  }
+
+  return {
+    'aria-label': `${disambiguationInfo.titleText} - Chapter ${disambiguationInfo.chapterNumber}`,
+    ...ariaPageIfActive,
   };
 }
 
@@ -203,7 +225,25 @@ function TocLeaf({
   const linkRef = React.useRef<HTMLElement>(null);
   const intl = useIntl();
   const strippedTitle = stripHtml(item.title, true);
-  const linkSuffix = intl.formatMessage({ id: 'i18n:toc:aria-label-suffix:link' });
+
+  // Check if chapter disambiguation is needed for unnumbered pages
+  const disambiguationInfo = getChapterDisambiguation(item);
+  const disambiguatedTitle = disambiguationInfo
+    ? intl.formatMessage(
+        { id: 'i18n:toc:aria-label:chapter-disambiguation' },
+        { title: disambiguationInfo.titleText, chapterNumber: disambiguationInfo.chapterNumber }
+      )
+    : strippedTitle;
+
+  // Build aria attributes for ContentLink with proper i18n
+  const contentLinkAriaAttrs: { 'aria-current'?: string; 'aria-label'?: string } = {};
+  if (active) {
+    contentLinkAriaAttrs['aria-current'] = 'page';
+  }
+  // Only add aria-label to ContentLink if disambiguation is needed
+  if (disambiguationInfo) {
+    contentLinkAriaAttrs['aria-label'] = disambiguatedTitle;
+  }
 
   return (
     <Styled.StyledTreeItem
@@ -211,7 +251,7 @@ function TocLeaf({
       id={item.id}
       key={item.id}
       textValue={strippedTitle}
-      aria-label={`${strippedTitle}, ${linkSuffix}`}
+      aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:link' }, { title: disambiguatedTitle })}
       onAction={
         // Ignored until RAC and TS versions are compatible
         // istanbul ignore next
@@ -222,7 +262,7 @@ function TocLeaf({
     >
       <Styled.NavItem
         data-type={sectionType}
-        textValue={stripHtml(item.title, true)}
+        textValue={strippedTitle}
       >
         <Styled.ContentLink
           ref={linkRef}
@@ -230,7 +270,7 @@ function TocLeaf({
           book={book}
           page={item}
           dangerouslySetInnerHTML={{ __html: item.title }}
-          {...maybeAriaAttributes(item, active)}
+          {...contentLinkAriaAttrs}
         />
       </Styled.NavItem>
     </Styled.StyledTreeItem>
@@ -253,7 +293,6 @@ function TocSection({
   expandedKeys: Set<string>;
 }) {
   const intl = useIntl();
-  const sectionSuffix = intl.formatMessage({ id: 'i18n:toc:aria-label-suffix:section' });
 
   return (
     <>
@@ -270,7 +309,7 @@ function TocSection({
                 section={section}
                 id={item.id}
                 textValue={strippedTitle}
-                aria-label={`${strippedTitle}, ${sectionSuffix}`}
+                aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:section' }, { title: strippedTitle })}
               >
                 <ArchiveTreeComponent
                   item={item}

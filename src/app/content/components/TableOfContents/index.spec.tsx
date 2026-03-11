@@ -378,6 +378,42 @@ describe('TableOfContents', () => {
     expect(instance.state.expandedKeys).toEqual(new Set(['abc', 'xyz']));
   });
 
+  it('adds event listener when ToC is open on mobile', () => {
+    jest.spyOn(mediaUtils, 'useMatchMobileQuery')
+      .mockReturnValue(true);
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(false);
+
+    const addEventListenerSpy = jest.spyOn(document!, 'addEventListener');
+    const removeEventListenerSpy = jest.spyOn(document!, 'removeEventListener');
+
+    const { unmount } = renderToDom(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+
+    reactDomAct(() => {
+      store.dispatch(actions.openToc());
+    });
+
+    // Find the actual keydown handler that was registered
+    const keydownCall = addEventListenerSpy.mock.calls.find(
+      ([eventType]) => eventType === 'keydown'
+    );
+
+    expect(keydownCall).toBeDefined();
+
+    const [, keydownHandler, useCapture] = keydownCall!;
+
+    // Verify addEventListener was called with 'keydown' event for tab trapping
+    expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', keydownHandler, useCapture);
+    expect(useCapture).toBe(true);
+
+    // Cleanup: specifically verify that unmount removes the same event listener
+    removeEventListenerSpy.mockClear();
+    unmount();
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', keydownHandler, useCapture);
+  });
+
   it('returns null in SSR', () => {
     jest.spyOn(reactUtils, 'isSSR').mockReturnValue(true);
     const component = renderer.create(Component);
@@ -406,31 +442,63 @@ describe('TableOfContents', () => {
   it('adds aria-label to TreeItem for leaf sections (links)', () => {
     const component = renderer.create(Component);
 
-    // Find all elements in the tree with aria-label ending in ', link'
-    const leafItems = component.root.findAll((node: any) => {
-      const ariaLabel = node.props && node.props['aria-label'];
-      return ariaLabel && typeof ariaLabel === 'string' && ariaLabel.endsWith(', link');
-    });
+    // Find mock-tree-item elements that represent leaf nodes (links to pages)
+    const treeItems = component.root.findAll((node: any) =>
+      node.props && node.props['data-testid'] === 'mock-tree-item' && node.props['aria-label']
+    );
 
-    expect(leafItems.length).toBeGreaterThan(0);
-    if (leafItems.length > 0) {
-      expect(leafItems[0].props['aria-label']).toMatch(/, link$/);
+    // Find a specific leaf item - look for one that ends with ', link'
+    const leafItem = treeItems.find((item: any) =>
+      item.props['aria-label'] && item.props['aria-label'].endsWith(', link')
+    );
+
+    // Verify a leaf TreeItem exists
+    expect(leafItem).toBeDefined();
+    if (!leafItem) {
+      throw new Error('Expected to find a TreeItem with aria-label ending in ", link"');
     }
+
+    // Verify the aria-label matches the expected format
+    // The aria-label should be built from a title (which has been stripped of HTML) plus ", link"
+    expect(leafItem.props['aria-label']).toMatch(/^.+, link$/);
+
+    // Verify the aria-label contains actual content (not just the suffix)
+    expect(leafItem.props['aria-label'].length).toBeGreaterThan(', link'.length);
+
+    // Verify the textValue prop (used for keyboard navigation) is also set correctly
+    expect(leafItem.props['textValue']).toBeDefined();
+    expect(typeof leafItem.props['textValue']).toBe('string');
   });
 
   it('adds aria-label to TreeItem for expandable sections', () => {
     const component = renderer.create(Component);
 
-    // Find all elements in the tree with aria-label ending in ', section'
-    const sectionItems = component.root.findAll((node: any) => {
-      const ariaLabel = node.props && node.props['aria-label'];
-      return ariaLabel && typeof ariaLabel === 'string' && ariaLabel.endsWith(', section');
-    });
+    // Find mock-tree-item elements
+    const treeItems = component.root.findAll((node: any) =>
+      node.props && node.props['data-testid'] === 'mock-tree-item' && node.props['aria-label']
+    );
 
-    expect(sectionItems.length).toBeGreaterThan(0);
-    if (sectionItems.length > 0) {
-      expect(sectionItems[0].props['aria-label']).toMatch(/, section$/);
+    // Find a specific section item - look for one that ends with ', section'
+    const sectionItem = treeItems.find((item: any) =>
+      item.props['aria-label'] && item.props['aria-label'].endsWith(', section')
+    );
+
+    // Verify a section TreeItem exists
+    expect(sectionItem).toBeDefined();
+    if (!sectionItem) {
+      throw new Error('Expected to find a TreeItem with aria-label ending in ", section"');
     }
+
+    // Verify the aria-label matches the expected format
+    // The aria-label should be built from a section title (stripped of HTML) plus ", section"
+    expect(sectionItem.props['aria-label']).toMatch(/^.+, section$/);
+
+    // Verify the aria-label contains actual content (not just the suffix)
+    expect(sectionItem.props['aria-label'].length).toBeGreaterThan(', section'.length);
+
+    // Verify the textValue prop (used for keyboard navigation) is also set correctly
+    expect(sectionItem.props['textValue']).toBeDefined();
+    expect(typeof sectionItem.props['textValue']).toBe('string');
   });
 });
 
