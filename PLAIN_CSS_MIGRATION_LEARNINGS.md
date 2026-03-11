@@ -257,6 +257,71 @@ Cross-reference the original styled-components code to ensure the media query lo
 
 ---
 
+## Redux Integration Patterns
+
+### Upgrade from connect() HOC to Hooks
+
+**Issue (Phase 1.2)**: When migrating components that use Redux's `connect()` HOC, the HOC passes a `dispatch` prop that can leak to DOM elements when using `...props` spreading.
+
+**Warning Signs**:
+- React warnings about invalid DOM props (e.g., "Warning: React does not recognize the `dispatch` prop on a DOM element")
+- TypeScript errors about unused parameters
+- Unexpected props appearing on DOM elements
+
+**Resolution**: Replace `connect()` HOC with Redux hooks (`useSelector`, `useDispatch`):
+
+**Before (connect HOC)**:
+```typescript
+import { connect } from 'react-redux';
+
+const Wrapper = ({ hasQuery, verticalNavOpen, children, ...props }) => (
+  <div {...props}> {/* dispatch leaks to DOM here */}
+    {children}
+  </div>
+);
+
+export default connect(
+  (state: AppState) => ({
+    hasQuery: !!selectSearch.query(state),
+    verticalNavOpen: contentSelectors.mobileMenuOpen(state),
+  })
+)(Wrapper);
+```
+
+**After (hooks)**:
+```typescript
+import { useSelector } from 'react-redux';
+
+// Named export for testing - accepts props directly
+export const Wrapper = ({ verticalNavOpen, children, ...props }) => (
+  <div {...props}>
+    {children}
+  </div>
+);
+
+// Default export with Redux hooks - selects state internally
+const WrapperConnected = ({ children, ...props }) => {
+  const verticalNavOpen = useSelector((state: AppState) =>
+    contentSelectors.mobileMenuOpen(state)
+  );
+
+  return <Wrapper verticalNavOpen={verticalNavOpen} {...props}>{children}</Wrapper>;
+};
+
+export default WrapperConnected;
+```
+
+**Benefits**:
+- ✅ No `dispatch` prop leaking to DOM elements
+- ✅ Cleaner separation of concerns (state selection vs presentation)
+- ✅ Easier to test (named export accepts props directly)
+- ✅ Modern React patterns (hooks are the recommended approach)
+- ✅ Better TypeScript inference
+
+**For Future Phases**: Whenever you edit a component that uses `connect()`, take the opportunity to upgrade it to hooks. This is especially important when migrating to plain CSS, as you're already touching the component structure.
+
+---
+
 ## Testing Requirements
 
 ### Test All Heading Levels
@@ -391,6 +456,7 @@ Use this checklist when migrating additional components from styled-components t
 - [ ] Extract shared constants into `.constants.ts` files (no side effects)
 - [ ] Create `.legacy.ts` files for backward-compatible styled-components exports
 - [ ] Use selective exports in index files to avoid conflicts
+- [ ] Upgrade Redux `connect()` to hooks (`useSelector`, `useDispatch`) when editing connected components
 
 ### Testing
 - [ ] Add snapshot tests for all component variations

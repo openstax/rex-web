@@ -9,7 +9,7 @@ describe('wrapper', () => {
   });
 
   it('matches snapshot with search open', () => {
-    const tree = renderer.create(<Wrapper hasQuery verticalNavOpen />).toJSON();
+    const tree = renderer.create(<Wrapper verticalNavOpen />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

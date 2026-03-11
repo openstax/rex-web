@@ -11,7 +11,6 @@ import './Wrapper.css';
 export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
-  hasQuery?: boolean;
   verticalNavOpen?: boolean;
   className?: string;
 }
@@ -40,7 +39,6 @@ const ContentLayoutBody = ({
 
 // Export named component for testing
 export const Wrapper = ({
-  hasQuery,
   verticalNavOpen,
   children,
   className,
@@ -57,8 +55,7 @@ const WrapperConnected = ({
   children,
   className,
   ...props
-}: React.PropsWithChildren<Omit<WrapperProps, 'hasQuery' | 'verticalNavOpen'>>) => {
-  const hasQuery = useSelector((state: AppState) => !!selectSearch.query(state));
+}: React.PropsWithChildren<Omit<WrapperProps, 'verticalNavOpen'>>) => {
   const verticalNavOpen = useSelector((state: AppState) =>
     contentSelectors.mobileMenuOpen(state) || selectSearch.searchResultsOpen(state)
   );
@@ -66,7 +63,6 @@ const WrapperConnected = ({
   return (
     <Wrapper
       {...props}
-      hasQuery={hasQuery}
       verticalNavOpen={verticalNavOpen}
       className={className}
     >
