@@ -81,6 +81,10 @@ describe('TableOfContents', () => {
       </TestContainer>;
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('mounts and unmounts without a dom', () => {
     const component = renderer.create(Component);
     expect(() => component.unmount()).not.toThrow();
@@ -431,7 +435,11 @@ describe('TableOfContents', () => {
 });
 
 describe('expandParentsOfCurrentPage', () => {
+  const pageUuid = '12345678-abcd-1234-abcd-1234567890ab';
+  // Use a simpler book structure that matches the actual book's tree
+  // but reuse properties from the formatted book to avoid routing errors
   const mockBook = {
+    ...book,
     tree: {
       id: 'root',
       title: 'Root',
@@ -441,7 +449,7 @@ describe('expandParentsOfCurrentPage', () => {
           title: 'Chapter 1',
           contents: [
             {
-              id: 'page1',
+              id: pageUuid,
               title: 'Page 1',
             },
           ],
@@ -450,7 +458,7 @@ describe('expandParentsOfCurrentPage', () => {
     },
   } as any;
 
-  const mockPage = { id: 'page1', abstract: null, title: 'Page 1', slug: 'page-1' } as Page;
+  const mockPage = { id: pageUuid, abstract: null, title: 'Page 1', slug: 'page-1' } as Page;
 
   let componentDidMountSpy: jest.SpyInstance;
 
@@ -462,12 +470,14 @@ describe('expandParentsOfCurrentPage', () => {
     componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
 
     const component = renderer.create(
-      <TableOfContents
-        isOpen={true}
-        book={mockBook}
-        page={mockPage}
-        onNavigate={jest.fn()}
-      />
+      <TestContainer store={createTestStore({} as any)}>
+        <TableOfContents
+          isOpen={true}
+          book={mockBook}
+          page={mockPage}
+          onNavigate={jest.fn()}
+        />
+      </TestContainer>
     );
 
     const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
@@ -493,12 +503,14 @@ describe('expandParentsOfCurrentPage', () => {
     componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
 
     const component = renderer.create(
-      <TableOfContents
-        isOpen={true}
-        book={mockBook}
-        page={mockPage}
-        onNavigate={jest.fn()}
-      />
+      <TestContainer store={createTestStore({} as any)}>
+        <TableOfContents
+          isOpen={true}
+          book={mockBook}
+          page={mockPage}
+          onNavigate={jest.fn()}
+        />
+      </TestContainer>
     );
 
     const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
@@ -526,12 +538,14 @@ describe('expandParentsOfCurrentPage', () => {
     componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
 
     const component = renderer.create(
-      <TableOfContents
-        isOpen={true}
-        book={mockBook}
-        page={{ id: 'nonexistent-page', abstract: null, title: 'Not Found', slug: 'not-found' } as Page}
-        onNavigate={jest.fn()}
-      />
+      <TestContainer store={createTestStore({} as any)}>
+        <TableOfContents
+          isOpen={true}
+          book={mockBook}
+          page={{ id: 'nonexistent-page', abstract: null, title: 'Not Found', slug: 'not-found' } as Page}
+          onNavigate={jest.fn()}
+        />
+      </TestContainer>
     );
 
     const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
