@@ -1,0 +1,34 @@
+/* Details element and summary styling for expandable/collapsible content */
+
+.details-expand-icon,
+.details-collapse-icon {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.details-summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.details-summary::before {
+  display: none;
+}
+
+.details-summary::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.details-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Hide expand icon when details is open */
+details[open] > summary .details-expand-icon {
+  display: none;
+}
+
+/* Hide collapse icon when details is closed */
+details:not([open]) > summary .details-collapse-icon {
+  display: none;
+}

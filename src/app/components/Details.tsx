@@ -1,48 +1,40 @@
-import styled, { css } from 'styled-components/macro';
+import React from 'react';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
 import '../../polyfill/details';
+import './Details.css';
 
 export const iconSize = 1.7;
 
-const expandCollapseIconStyle = css`
-  height: ${iconSize}rem;
-  width: ${iconSize}rem;
-`;
+interface IconProps extends React.SVGAttributes<SVGElement> {
+  className?: string;
+  size?: number | string;
+}
 
-export const ExpandIcon = styled(CaretRight)`
-  ${expandCollapseIconStyle}
-`;
+export const ExpandIcon: React.FC<IconProps> = ({ className, ...props }) => (
+  <CaretRight className={`details-expand-icon ${className || ''}`} {...props} />
+);
 
-export const CollapseIcon = styled(CaretDown)`
-  ${expandCollapseIconStyle}
-`;
+export const CollapseIcon: React.FC<IconProps> = ({ className, ...props }) => (
+  <CaretDown className={`details-collapse-icon ${className || ''}`} {...props} />
+);
 
-export const Summary = styled.summary`
-  list-style: none;
-  cursor: pointer;
+export const Summary: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+  children,
+  className,
+  ...props
+}) => (
+  <summary className={`details-summary ${className || ''}`} {...props}>
+    {children}
+  </summary>
+);
 
-  ::before {
-    display: none;
-  }
-
-  ::-moz-list-bullet {
-    list-style-type: none;
-  }
-
-  ::-webkit-details-marker {
-    display: none;
-  }
-`;
-
-export const Details = styled.details`
-  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
-    &[open] > summary ${ExpandIcon} {
-      display: none;
-    }
-
-    &:not([open]) > summary ${CollapseIcon} {
-      display: none;
-    }
-  `}
-`;
+export const Details: React.FC<React.DetailsHTMLAttributes<HTMLDetailsElement>> = ({
+  children,
+  className,
+  ...props
+}) => (
+  <details className={className} {...props}>
+    {children}
+  </details>
+);
