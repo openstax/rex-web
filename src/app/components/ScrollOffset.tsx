@@ -1,23 +1,14 @@
 import { MouseEvent } from '@openstax/types/lib.dom';
-import React from 'react';
-import { createGlobalStyle, css } from 'styled-components/macro';
+import React, { useEffect, useRef, useState } from 'react';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
 import { assertWindow, remsToPx } from '../utils';
+import './ScrollOffset.css';
 
 interface ScrollOffsetProps {
   desktopOffset: number;
   mobileOffset: number;
 }
-
-const GlobalStyle = createGlobalStyle<ScrollOffsetProps>`
-  body {
-    scroll-padding: ${(props) => props.desktopOffset}rem 0 0 0;
-    ${theme.breakpoints.mobile(css`
-      scroll-padding: ${(props: ScrollOffsetProps) => props.mobileOffset}rem 0 0 0;
-    `)}
-  }
-`;
 
 /*
  * everything from here down is only necessary because some browsers do not support
@@ -45,80 +36,23 @@ const matchingThreshold = 4;
  */
 const pageLoadScrollChecks = 3;
 
-export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
-  public state = { componentMounted: false };
+const ScrollOffset: React.FC<ScrollOffsetProps> = ({ desktopOffset, mobileOffset }) => {
+  const [componentMounted, setComponentMounted] = useState(false);
+  const propsRef = useRef({ desktopOffset, mobileOffset });
 
-  public getOffset = (window: Window) => -(window.matchMedia(theme.breakpoints.mobileQuery).matches
-    ? remsToPx(this.props.mobileOffset)
-    : remsToPx(this.props.desktopOffset)
-  );
+  // Update props ref when props change
+  useEffect(() => {
+    propsRef.current = { desktopOffset, mobileOffset };
+  }, [desktopOffset, mobileOffset]);
 
-  public componentDidMount() {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    // hashchange event is unreliable because it is not sent
-    // when clicking the same link twice
-    window.addEventListener('click', this.clickHandler);
-    // but listen to hashchange anyway to catch manually editing the url hash
-    window.addEventListener('hashchange', this.hashchangeHandler);
-    window.addEventListener('resize', this.resizeHandler);
-
-    this.resizeHandler();
-    this.checkScroll(pageLoadScrollChecks);
-
-    this.setState({componentMounted : true});
-  }
-
-  public componentWillUnmount() {
-    if (typeof(window) === 'undefined') {
-      return;
-    }
-    window.removeEventListener('click', this.clickHandler);
-    window.removeEventListener('hashchange', this.hashchangeHandler);
-    window.removeEventListener('resize', this.resizeHandler);
-  }
-
-  public render() {
-    return this.state.componentMounted ? null : <GlobalStyle {...this.props} />;
-  }
-
-  public componentDidUpdate() {
-    this.resizeHandler();
-  }
-
-  private resizeHandler = () => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    const body = window.document.body;
-
-    body.setAttribute('data-scroll-padding', String(this.getOffset(window)));
+  const getOffset = (window: Window) => {
+    const { desktopOffset: desktop, mobileOffset: mobile } = propsRef.current;
+    return -(window.matchMedia(theme.breakpoints.mobileQuery).matches
+      ? remsToPx(mobile)
+      : remsToPx(desktop));
   };
 
-  private hashchangeHandler = () => {
-    this.checkScroll();
-  };
-
-  private clickHandler = (e: MouseEvent) => {
-    if (isHtmlElement(e.target) && e.target.matches('a[href^="#"]')) {
-      this.checkScroll();
-    }
-  };
-
-  private checkScroll = (maxChecks = 1) => {
-    let scrolls = 0;
-    const handler = () => {
-      scrolls++;
-      if (scrolls >= maxChecks) {
-        assertWindow().removeEventListener('scroll', handler);
-      }
-      this.scrollForOffset();
-    };
-    assertWindow().addEventListener('scroll', handler);
-  };
-
-  private scrollForOffset = () => {
+  const scrollForOffset = () => {
     const window = assertWindow();
     const targetId = window.location.hash.slice(1);
     const target = window.document.getElementById(targetId);
@@ -128,7 +62,83 @@ export default class ScrollOffset extends React.Component<ScrollOffsetProps> {
     }
 
     if (Math.abs(target.getBoundingClientRect().top) < matchingThreshold) {
-      window.scrollBy(0, this.getOffset(window));
+      window.scrollBy(0, getOffset(window));
     }
   };
-}
+
+  const checkScroll = (maxChecks = 1) => {
+    let scrolls = 0;
+    const handler = () => {
+      scrolls++;
+      if (scrolls >= maxChecks) {
+        assertWindow().removeEventListener('scroll', handler);
+      }
+      scrollForOffset();
+    };
+    assertWindow().addEventListener('scroll', handler);
+  };
+
+  const resizeHandler = () => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+    const body = window.document.body;
+    body.setAttribute('data-scroll-padding', String(getOffset(window)));
+  };
+
+  const hashchangeHandler = () => {
+    checkScroll();
+  };
+
+  const clickHandler = (e: MouseEvent) => {
+    if (isHtmlElement(e.target) && e.target.matches('a[href^="#"]')) {
+      checkScroll();
+    }
+  };
+
+  // Set up CSS variables for scroll-padding
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.style.setProperty('--scroll-offset-desktop', `${desktopOffset}rem`);
+      document.documentElement.style.setProperty('--scroll-offset-mobile', `${mobileOffset}rem`);
+    }
+  }, [desktopOffset, mobileOffset]);
+
+  // Component lifecycle
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    // Add event listeners
+    window.addEventListener('click', clickHandler);
+    window.addEventListener('hashchange', hashchangeHandler);
+    window.addEventListener('resize', resizeHandler);
+
+    // Initial setup
+    resizeHandler();
+    checkScroll(pageLoadScrollChecks);
+
+    setComponentMounted(true);
+
+    // Cleanup
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('click', clickHandler);
+        window.removeEventListener('hashchange', hashchangeHandler);
+        window.removeEventListener('resize', resizeHandler);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Handle resize on update
+  useEffect(() => {
+    resizeHandler();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
+
+  return null;
+};
+
+export default ScrollOffset;

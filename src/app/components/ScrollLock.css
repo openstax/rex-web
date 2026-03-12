@@ -1,0 +1,83 @@
+/* ScrollLock styling - prevents page scrolling when overlay is active */
+
+/* Body overflow control */
+body.body.scroll-lock {
+  overflow: hidden;
+}
+
+body.body.scroll-lock-medium-screens-only {
+  overflow: visible; /* Default - no lock */
+}
+
+/* Mobile breakpoint: max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  body.body.scroll-lock-medium-screens-only {
+    overflow: hidden;
+  }
+}
+
+/* Print media - always allow overflow */
+@media print {
+  body.body.scroll-lock,
+  body.body.scroll-lock-medium-screens-only {
+    overflow: visible !important;
+  }
+}
+
+/* Hide root in print when scroll lock is active */
+@media print {
+  body.body.scroll-lock #root,
+  body.body.scroll-lock-medium-screens-only #root {
+    display: none;
+  }
+}
+
+/* Fade in animation */
+@keyframes scroll-lock-fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Overlay styling */
+.scroll-lock-overlay {
+  animation: var(--scroll-lock-transition-time, 300ms) scroll-lock-fade-in ease-out;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  content: "";
+  top: calc(var(--scroll-lock-topbar-height, 0rem) * -1);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--scroll-lock-z-index, 40);
+}
+
+/* Disable print for overlay */
+@media print {
+  .scroll-lock-overlay {
+    display: none;
+  }
+}
+
+/* Medium screens only - hide overlay by default, show on mobile */
+.scroll-lock-overlay.scroll-lock-overlay-medium-screens-only {
+  display: none;
+}
+
+/* Mobile breakpoint: max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .scroll-lock-overlay.scroll-lock-overlay-medium-screens-only {
+    display: block;
+  }
+}
+
+/* Mobile medium breakpoint: max-width: 50em (800px) - hide again on very small screens */
+@media screen and (max-width: 50em) {
+  .scroll-lock-overlay.scroll-lock-overlay-medium-screens-only {
+    display: none;
+  }
+}
