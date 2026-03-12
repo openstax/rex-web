@@ -186,27 +186,6 @@ function getChapterDisambiguation(page: LinkedArchiveTreeSection): {
   };
 }
 
-// DEPRECATED: Returns aria attributes for legacy ContentLink components
-// This function returns hard-coded English text and should be replaced with i18n-aware code
-// For new code, use getChapterDisambiguation() with intl.formatMessage() instead
-export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boolean): {
-  'aria-current'?: string;
-  'aria-label'?: string;
-} {
-  const currentPageIndicator = { 'aria-current': 'page' };
-  const disambiguationInfo = getChapterDisambiguation(page);
-  const ariaPageIfActive = active ? currentPageIndicator : {}
-
-  if (!disambiguationInfo) {
-    return ariaPageIfActive;
-  }
-
-  return {
-    'aria-label': `${disambiguationInfo.titleText} - Chapter ${disambiguationInfo.chapterNumber}`,
-    ...ariaPageIfActive,
-  };
-}
-
 function TocLeaf({
   section,
   item,
