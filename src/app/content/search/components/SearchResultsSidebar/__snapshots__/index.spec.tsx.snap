@@ -397,7 +397,6 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 .c3 {
   font-size: 1.8rem;
   margin-left: 16px;
-  padding: 1rem 0;
   color: #5e6062;
   font-weight: bold;
 }
@@ -1160,7 +1159,6 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
 .c3 {
   font-size: 1.8rem;
   margin-left: 16px;
-  padding: 1rem 0;
   color: #5e6062;
   font-weight: bold;
 }
