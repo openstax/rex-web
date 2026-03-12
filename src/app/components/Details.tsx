@@ -4,7 +4,8 @@ import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
 import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import '../../polyfill/details';
-import './Details.css';
+// Note: Details.css is imported globally from src/app/index.tsx to ensure consistent
+// CSS ordering across code-split chunks
 
 export const iconSize = 1.7;
 

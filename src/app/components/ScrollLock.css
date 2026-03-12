@@ -48,7 +48,6 @@ body.body.scroll-lock-medium-screens-only {
   animation: var(--scroll-lock-transition-time, 300ms) scroll-lock-fade-in ease-out;
   background-color: rgba(0, 0, 0, 0.8);
   position: absolute;
-  content: "";
   top: calc(var(--scroll-lock-topbar-height, 0rem) * -1);
   bottom: 0;
   left: 0;
