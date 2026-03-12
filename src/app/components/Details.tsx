@@ -1,6 +1,8 @@
 import React from 'react';
+import classNames from 'classnames';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
+import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import '../../polyfill/details';
 import './Details.css';
 
@@ -11,30 +13,32 @@ interface IconProps extends React.SVGAttributes<SVGElement> {
   size?: number | string;
 }
 
-export const ExpandIcon: React.FC<IconProps> = ({ className, ...props }) => (
-  <CaretRight className={`details-expand-icon ${className || ''}`} {...props} />
-);
+export function ExpandIcon({ className, ...props }: IconProps) {
+  return <CaretRight className={classNames('details-expand-icon', className)} {...props} />;
+}
 
-export const CollapseIcon: React.FC<IconProps> = ({ className, ...props }) => (
-  <CaretDown className={`details-collapse-icon ${className || ''}`} {...props} />
-);
+export function CollapseIcon({ className, ...props }: IconProps) {
+  return <CaretDown className={classNames('details-collapse-icon', className)} {...props} />;
+}
 
-export const Summary: React.FC<React.HTMLAttributes<HTMLElement>> = ({
+export function Summary({
   children,
   className,
   ...props
-}) => (
-  <summary className={`details-summary ${className || ''}`} {...props}>
-    {children}
-  </summary>
-);
+}: React.HTMLAttributes<HTMLElement>) {
+  return (
+    <summary className={classNames('details-summary', className)} {...props}>
+      {children}
+    </summary>
+  );
+}
 
-export const Details: React.FC<React.DetailsHTMLAttributes<HTMLDetailsElement>> = ({
-  children,
-  className,
-  ...props
-}) => (
-  <details className={className} {...props}>
-    {children}
-  </details>
+export const Details = React.forwardRef<HTMLDetailsElement, React.DetailsHTMLAttributes<HTMLDetailsElement>>(
+  function Details({ children, className, ...props }, ref) {
+    return (
+      <details ref={ref} className={className} {...props}>
+        {children}
+      </details>
+    );
+  }
 );

@@ -75,12 +75,12 @@ exports[`assigned route route renders renders a component 1`] = `
   padding: 1.4rem;
 }
 
-.c22 {
+.c21 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c25 {
+.c23 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -465,11 +465,11 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-left: 1.6rem;
 }
 
-.c23 {
+.c22 {
   margin-left: -0.3rem;
 }
 
-.c26 {
+.c24 {
   margin-left: -0.3rem;
 }
 
@@ -511,7 +511,7 @@ exports[`assigned route route renders renders a component 1`] = `
   color: #0064A0;
 }
 
-.c27 blockquote {
+.c25 blockquote {
   margin-left: 0;
 }
 
@@ -524,14 +524,6 @@ exports[`assigned route route renders renders a component 1`] = `
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c15[open] > summary .c21 {
-  display: none;
-}
-
-.c15:not([open]) > summary .c24 {
-  display: none;
 }
 
 .c15 a {
@@ -756,7 +748,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c27 {
+  .c25 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -966,7 +958,7 @@ exports[`assigned route route renders renders a component 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c20 c21 c22 c23"
+        className="c20 c21 c22"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 192 512"
@@ -979,7 +971,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="c20 c24 c25 c26"
+        className="c20 c23 c24"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 320 512"
@@ -998,7 +990,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c27"
+      className="c25"
       dangerouslySetInnerHTML={
         Object {
           "__html": "

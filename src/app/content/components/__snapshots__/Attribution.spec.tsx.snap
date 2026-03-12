@@ -67,112 +67,112 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   overflow: hidden;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -364,91 +364,91 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
@@ -870,47 +870,47 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
@@ -923,14 +923,6 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -964,12 +956,35 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -1003,12 +1018,35 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -1042,12 +1080,35 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -1081,12 +1142,35 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -1120,14 +1204,6 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
 .c0 a {
   color: #027EB5;
   cursor: pointer;
@@ -1157,170 +1233,6 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -1421,77 +1333,77 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -1761,7 +1673,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
+      className="c5 c6 c7"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -1774,7 +1686,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
+      className="c5 c8 c9"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -1793,7 +1705,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
     </span>
   </summary>
   <div
-    className="c12"
+    className="c10"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -1866,7 +1778,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   />
   <strong>
     <div
-      className="c12"
+      className="c10"
       dangerouslySetInnerHTML={
         Object {
           "__html": "This book utilizes the OpenStax Python Code Runner. The code runner is developed by Wiley and is All Rights Reserved.",
@@ -1920,72 +1832,72 @@ exports[`Attribution in browser renders default attribution 1`] = `
   overflow: hidden;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -2109,59 +2021,59 @@ exports[`Attribution in browser renders default attribution 1`] = `
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
@@ -2431,31 +2343,31 @@ exports[`Attribution in browser renders default attribution 1`] = `
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
@@ -2468,14 +2380,6 @@ exports[`Attribution in browser renders default attribution 1`] = `
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -2509,12 +2413,35 @@ exports[`Attribution in browser renders default attribution 1`] = `
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -2548,12 +2475,35 @@ exports[`Attribution in browser renders default attribution 1`] = `
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -2587,14 +2537,6 @@ exports[`Attribution in browser renders default attribution 1`] = `
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
 .c0 a {
   color: #027EB5;
   cursor: pointer;
@@ -2624,92 +2566,6 @@ exports[`Attribution in browser renders default attribution 1`] = `
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -2782,49 +2638,49 @@ exports[`Attribution in browser renders default attribution 1`] = `
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -3002,7 +2858,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
+      className="c5 c6 c7"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -3015,7 +2871,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
+      className="c5 c8 c9"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -3034,7 +2890,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </span>
   </summary>
   <div
-    className="c12"
+    className="c10"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -3157,82 +3013,82 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   overflow: hidden;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -3373,67 +3229,67 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
@@ -3741,35 +3597,35 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
@@ -3782,14 +3638,6 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -3823,12 +3671,35 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -3862,12 +3733,35 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -3901,14 +3795,6 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
 .c0 a {
   color: #027EB5;
   cursor: pointer;
@@ -3940,14 +3826,6 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
 .c0 a {
   color: #027EB5;
   cursor: pointer;
@@ -3977,92 +3855,6 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -4142,56 +3934,56 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -4392,7 +4184,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
+      className="c5 c6 c7"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -4405,7 +4197,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
+      className="c5 c8 c9"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -4424,7 +4216,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </span>
   </summary>
   <div
-    className="c12"
+    className="c10"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -4561,102 +4353,102 @@ exports[`Attribution in browser renders special licensing and attribution for In
   overflow: hidden;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -4831,83 +4623,83 @@ exports[`Attribution in browser renders special licensing and attribution for In
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
@@ -5291,43 +5083,43 @@ exports[`Attribution in browser renders special licensing and attribution for In
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
@@ -5340,14 +5132,6 @@ exports[`Attribution in browser renders special licensing and attribution for In
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -5381,12 +5165,35 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -5420,12 +5227,35 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -5459,12 +5289,35 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -5498,14 +5351,6 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
 .c0 a {
   color: #027EB5;
   cursor: pointer;
@@ -5537,14 +5382,6 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
 .c0 a {
   color: #027EB5;
   cursor: pointer;
@@ -5574,131 +5411,6 @@ exports[`Attribution in browser renders special licensing and attribution for In
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -5792,70 +5504,70 @@ exports[`Attribution in browser renders special licensing and attribution for In
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -6102,7 +5814,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
+      className="c5 c6 c7"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -6115,7 +5827,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
+      className="c5 c8 c9"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -6134,7 +5846,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </span>
   </summary>
   <div
-    className="c12"
+    className="c10"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -6263,92 +5975,92 @@ exports[`Attribution in browser renders special licensing and attribution for St
   overflow: hidden;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c8 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -6506,75 +6218,75 @@ exports[`Attribution in browser renders special licensing and attribution for St
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c9 {
   margin-left: -0.3rem;
 }
 
@@ -6920,39 +6632,39 @@ exports[`Attribution in browser renders special licensing and attribution for St
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c10 blockquote {
   margin-left: 0;
 }
 
@@ -6965,14 +6677,6 @@ exports[`Attribution in browser renders special licensing and attribution for St
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -7006,12 +6710,35 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -7045,12 +6772,35 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -7084,12 +6834,35 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
 }
 
 .c0 a {
@@ -7123,14 +6896,6 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
 .c0 a {
   color: #027EB5;
   cursor: pointer;
@@ -7160,131 +6925,6 @@ exports[`Attribution in browser renders special licensing and attribution for St
   min-height: 6rem;
   padding: 0 3.2rem;
   padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
-  display: none;
 }
 
 .c0 a {
@@ -7371,63 +7011,63 @@ exports[`Attribution in browser renders special licensing and attribution for St
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c10 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -7651,7 +7291,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
+      className="c5 c6 c7"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 192 512"
@@ -7664,7 +7304,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
+      className="c5 c8 c9"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 320 512"
@@ -7683,7 +7323,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </span>
   </summary>
   <div
-    className="c12"
+    className="c10"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
