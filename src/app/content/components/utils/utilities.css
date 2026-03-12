@@ -1,7 +1,7 @@
 /* Utility CSS classes for accessibility and print control */
 
-.disable-print {
-  @media print {
+@media print {
+  .disable-print {
     display: none;
   }
 }

@@ -1,5 +1,5 @@
 import { MouseEvent } from '@openstax/types/lib.dom';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
 import { assertWindow, remsToPx } from '../utils';
@@ -36,8 +36,7 @@ const matchingThreshold = 4;
  */
 const pageLoadScrollChecks = 3;
 
-const ScrollOffset: React.FC<ScrollOffsetProps> = ({ desktopOffset, mobileOffset }) => {
-  const [componentMounted, setComponentMounted] = useState(false);
+function ScrollOffset({ desktopOffset, mobileOffset }: ScrollOffsetProps) {
   const propsRef = useRef({ desktopOffset, mobileOffset });
 
   // Update props ref when props change
@@ -119,15 +118,13 @@ const ScrollOffset: React.FC<ScrollOffsetProps> = ({ desktopOffset, mobileOffset
     resizeHandler();
     checkScroll(pageLoadScrollChecks);
 
-    setComponentMounted(true);
-
     // Cleanup
     return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('click', clickHandler);
-        window.removeEventListener('hashchange', hashchangeHandler);
-        window.removeEventListener('resize', resizeHandler);
-      }
+      const w = assertWindow();
+
+      w.removeEventListener('click', clickHandler);
+      w.removeEventListener('hashchange', hashchangeHandler);
+      w.removeEventListener('resize', resizeHandler);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -139,6 +136,6 @@ const ScrollOffset: React.FC<ScrollOffsetProps> = ({ desktopOffset, mobileOffset
   });
 
   return null;
-};
+}
 
 export default ScrollOffset;

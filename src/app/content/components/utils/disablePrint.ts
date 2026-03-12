@@ -1,9 +1,9 @@
-// Import utilities CSS for side effects
-import './utilities.css';
-
 /**
  * CSS class name for hiding elements in print media.
  * Apply this class to elements that should not appear in printed output.
+ *
+ * Note: The utilities.css file (which defines this class) is imported globally
+ * from src/app/index.tsx. Do not import it here to avoid side effects.
  *
  * @example
  * <div className={disablePrintClass}>Not visible in print</div>

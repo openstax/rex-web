@@ -25,6 +25,8 @@ import * as notifications from './notifications';
 import createReducer from './reducer';
 import { AppServices, AppState, Middleware } from './types';
 import { createRouterService } from './navigation/routerService';
+// Import global utility CSS classes
+import './content/components/utils/utilities.css';
 
 export const actions = {
   app: appAactions,

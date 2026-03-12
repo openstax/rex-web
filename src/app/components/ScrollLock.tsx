@@ -4,7 +4,15 @@ import { sidebarTransitionTime, topbarDesktopHeight } from '../content/component
 import { useDisableContentTabbing } from '../reactUtils';
 import theme from '../theme';
 import OnScroll, { OnTouchMoveCallback } from './OnScroll';
-import './ScrollLock.css';
+// Note: ScrollLock.css is imported globally from src/app/index.tsx to ensure consistent
+// CSS ordering across code-split chunks
+
+// Reference counting for scroll lock instances
+// This ensures the body class is only removed when the last instance unmounts
+const scrollLockRefCounts = {
+  standard: 0,
+  mediumScreensOnly: 0,
+};
 
 interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -12,13 +20,13 @@ interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   zIndex?: number;
 }
 
-export const Overlay: React.FC<OverlayProps> = ({
+export function Overlay({
   mediumScreensOnly,
   zIndex,
   className,
   style,
   ...props
-}) => {
+}: OverlayProps) {
   useDisableContentTabbing(mediumScreensOnly ? false : true);
 
   return (
@@ -35,7 +43,7 @@ export const Overlay: React.FC<OverlayProps> = ({
       } as React.CSSProperties}
     />
   );
-};
+}
 
 interface Props {
   onClick?: () => void;
@@ -44,20 +52,28 @@ interface Props {
   zIndex?: number | undefined;
 }
 
-const ScrollLock: React.FC<Props> = ({ onClick, overlay, mediumScreensOnly, zIndex }) => {
-  // Add/remove body class for scroll locking
+function ScrollLock({ onClick, overlay, mediumScreensOnly, zIndex }: Props) {
+  // Add/remove body class for scroll locking with reference counting
+  // This ensures the class is only removed when the last instance unmounts
   useEffect(() => {
     if (typeof document === 'undefined') {
       return;
     }
 
     const body = document.body;
+    const lockType = mediumScreensOnly ? 'mediumScreensOnly' : 'standard';
     const scrollLockClass = mediumScreensOnly ? 'scroll-lock-medium-screens-only' : 'scroll-lock';
 
+    // Increment reference count and add class
+    scrollLockRefCounts[lockType]++;
     body.classList.add(scrollLockClass);
 
     return () => {
-      body.classList.remove(scrollLockClass);
+      // Decrement reference count and only remove class if this is the last instance
+      scrollLockRefCounts[lockType]--;
+      if (scrollLockRefCounts[lockType] === 0) {
+        body.classList.remove(scrollLockClass);
+      }
     };
   }, [mediumScreensOnly]);
 
@@ -83,6 +99,6 @@ const ScrollLock: React.FC<Props> = ({ onClick, overlay, mediumScreensOnly, zInd
       )}
     </OnScroll>
   );
-};
+}
 
 export default ScrollLock;
