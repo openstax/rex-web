@@ -3,7 +3,8 @@ import { useEffect, useRef } from 'react';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
 import { assertWindow, remsToPx } from '../utils';
-import './ScrollOffset.css';
+// Note: ScrollOffset.css is imported globally from src/app/index.tsx to ensure consistent
+// CSS ordering across code-split chunks
 
 interface ScrollOffsetProps {
   desktopOffset: number;
@@ -38,6 +39,7 @@ const pageLoadScrollChecks = 3;
 
 function ScrollOffset({ desktopOffset, mobileOffset }: ScrollOffsetProps) {
   const propsRef = useRef({ desktopOffset, mobileOffset });
+  const scrollHandlersRef = useRef<(() => void)[]>([]);
 
   // Update props ref when props change
   useEffect(() => {
@@ -70,11 +72,17 @@ function ScrollOffset({ desktopOffset, mobileOffset }: ScrollOffsetProps) {
     const handler = () => {
       scrolls++;
       if (scrolls >= maxChecks) {
-        assertWindow().removeEventListener('scroll', handler);
+        const window = assertWindow();
+        window.removeEventListener('scroll', handler);
+        // Remove from tracked handlers
+        scrollHandlersRef.current = scrollHandlersRef.current.filter(h => h !== handler);
       }
       scrollForOffset();
     };
-    assertWindow().addEventListener('scroll', handler);
+    const window = assertWindow();
+    window.addEventListener('scroll', handler);
+    // Track handler for cleanup
+    scrollHandlersRef.current.push(handler);
   };
 
   const resizeHandler = () => {
@@ -125,6 +133,12 @@ function ScrollOffset({ desktopOffset, mobileOffset }: ScrollOffsetProps) {
       w.removeEventListener('click', clickHandler);
       w.removeEventListener('hashchange', hashchangeHandler);
       w.removeEventListener('resize', resizeHandler);
+
+      // Clean up any remaining scroll handlers
+      scrollHandlersRef.current.forEach(handler => {
+        w.removeEventListener('scroll', handler);
+      });
+      scrollHandlersRef.current = [];
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
