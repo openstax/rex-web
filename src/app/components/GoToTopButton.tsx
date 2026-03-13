@@ -1,40 +1,30 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
-import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
-import { disablePrint } from '../content/components/utils/disablePrint';
+import classNames from 'classnames';
+import { disablePrintClass } from '../content/components/utils/disablePrint';
 import { PlainButton } from './Button';
 import theme from '../theme';
+import './GoToTopButton.css';
 
-export const GoToTopWrapper = styled(PlainButton)`
-  width: 4.8rem;
-  height: 4.8rem;
-  position: absolute;
-  z-index: 2;
-  bottom: 4.8rem;
-  right: 4.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  ${disablePrint}
-`;
-
-export const GoToTop = styled.div`
-  width: 2.4rem;
-  height: 2.4rem;
-  background: ${theme.color.primary.gray.light};
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-`;
-
-export const GoToTopIcon = styled(AngleUp)`
-  width: 1.6rem;
-  height: 1.6rem;
-`;
+/**
+ * Icon component for the "scroll to top" button.
+ * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ */
+export function GoToTopIcon({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
+  return (
+    <svg
+      className={classNames('go-to-top-icon', className)}
+      viewBox="0 0 320 512"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M177 159.7l136 136c-9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L40 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+      />
+    </svg>
+  );
+}
 
 interface GoToTopButtonProps {
   i18nAriaLabel: string;
@@ -42,15 +32,27 @@ interface GoToTopButtonProps {
   [key: string]: unknown;
 }
 
-const GoToTopButton = ({ i18nAriaLabel, onClick, ...rest }: GoToTopButtonProps) => <GoToTopWrapper
-  onClick={onClick}
-  aria-label={useIntl().formatMessage({id: i18nAriaLabel})}
-  type='button'
-  {...rest}
->
-  <GoToTop>
-    <GoToTopIcon />
-  </GoToTop>
-</GoToTopWrapper>;
+const GoToTopButton = ({ i18nAriaLabel, onClick, ...rest }: GoToTopButtonProps) => {
+  const intl = useIntl();
+
+  return (
+    <PlainButton
+      className={classNames('go-to-top-wrapper', disablePrintClass)}
+      onClick={onClick}
+      aria-label={intl.formatMessage({id: i18nAriaLabel})}
+      type="button"
+      {...rest}
+    >
+      <div
+        className="go-to-top-circle"
+        style={{
+          '--go-to-top-bg': theme.color.primary.gray.light,
+        } as React.CSSProperties}
+      >
+        <GoToTopIcon />
+      </div>
+    </PlainButton>
+  );
+};
 
 export default GoToTopButton;
