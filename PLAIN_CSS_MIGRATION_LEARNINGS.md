@@ -622,9 +622,9 @@ export function MyComponent({ prop1, prop2 }: MyProps) {
 
 ### Use React.forwardRef for Components That Receive Refs
 
-**Issue (Phase 1.3)**: When converting components from `React.FC` to normal functions, components that receive refs must use `React.forwardRef` in older versions of React.
+**Issue (Phase 1.3)**: When converting components from `React.FC` to normal functions, components that receive refs must use `React.forwardRef`.
 
-**Context**: In React 18+, function components can receive refs directly, but rex-web uses an older version of React that requires `React.forwardRef` wrapper for components that need to forward refs to DOM elements.
+**Context**: Function components require `React.forwardRef` to accept refs in React versions through 18. Rex-web uses React 16, which definitely requires this wrapper. (Note: React 19+ introduces experimental ref-as-prop behavior, but this is not yet stable or widely adopted.)
 
 **Warning Signs**:
 - Test warnings: "Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?"
