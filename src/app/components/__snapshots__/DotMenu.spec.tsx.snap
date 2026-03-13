@@ -160,13 +160,6 @@ exports[`Dropdown matches snapshot 1`] = `
       aria-expanded={false}
       aria-label="Actions"
       className="c4 dot-menu-toggle c5 c6"
-      style={
-        Object {
-          "--dot-menu-color": "#424242",
-          "--dot-menu-focus-color": "#5e6062",
-          "--dot-menu-hover-color": "#818181",
-        }
-      }
       tabIndex={0}
     >
       <div
@@ -214,13 +207,6 @@ exports[`Dropdown matches snapshot 1`] = `
     aria-expanded={false}
     aria-label="Actions"
     className="c4 dot-menu-toggle c5 c6"
-    style={
-      Object {
-        "--dot-menu-color": "#424242",
-        "--dot-menu-focus-color": "#5e6062",
-        "--dot-menu-hover-color": "#818181",
-      }
-    }
     tabIndex={0}
   >
     <div
@@ -401,13 +387,6 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       aria-expanded={false}
       aria-label="Actions"
       className="c4 dot-menu-toggle c5 c6"
-      style={
-        Object {
-          "--dot-menu-color": "#424242",
-          "--dot-menu-focus-color": "#5e6062",
-          "--dot-menu-hover-color": "#818181",
-        }
-      }
       tabIndex={0}
     >
       <div
@@ -455,13 +434,6 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     aria-expanded={false}
     aria-label="Actions"
     className="c4 dot-menu-toggle c5 c6"
-    style={
-      Object {
-        "--dot-menu-color": "#424242",
-        "--dot-menu-focus-color": "#5e6062",
-        "--dot-menu-hover-color": "#818181",
-      }
-    }
     tabIndex={0}
   >
     <div

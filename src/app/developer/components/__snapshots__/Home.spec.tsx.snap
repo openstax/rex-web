@@ -587,13 +587,6 @@ Array [
                       aria-label="Actions"
                       className="c11 dot-menu-toggle c12 c13"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "--dot-menu-color": "#424242",
-                          "--dot-menu-focus-color": "#5e6062",
-                          "--dot-menu-hover-color": "#818181",
-                        }
-                      }
                     >
                       <div
                         tabIndex={-1}
@@ -645,13 +638,6 @@ Array [
                       aria-label="Actions"
                       className="c11 dot-menu-toggle c12 c13"
                       onClick={[Function]}
-                      style={
-                        Object {
-                          "--dot-menu-color": "#424242",
-                          "--dot-menu-focus-color": "#5e6062",
-                          "--dot-menu-hover-color": "#818181",
-                        }
-                      }
                     >
                       <div
                         tabIndex={-1}

@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import theme from '../theme';
+import styled from 'styled-components/macro';
 import './Checkbox.css';
 
 /**
@@ -31,7 +31,12 @@ interface CheckboxProps {
   children?: React.ReactNode;
 }
 
-const Checkbox = ({ children, className, disabled, ...props }: CheckboxProps) => {
+/**
+ * Checkbox component with inline SVG icon and plain CSS styling.
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+const CheckboxBase = ({ children, className, disabled, ...props }: CheckboxProps) => {
   return (
     <label
       className={classNames(
@@ -39,12 +44,6 @@ const Checkbox = ({ children, className, disabled, ...props }: CheckboxProps) =>
         { 'checkbox-disabled': disabled },
         className
       )}
-      style={{
-        '--text-color': theme.color.text.default,
-        '--checkbox-border-color': theme.color.primary.gray.darker,
-        '--checkbox-checked-bg': theme.color.primary.orange.darkest,
-        '--checkbox-focus-bg': theme.color.neutral.pageBackground,
-      } as React.CSSProperties}
     >
       <input type="checkbox" disabled={disabled} {...props} />
       <span className="checkbox-custom">
@@ -54,5 +53,7 @@ const Checkbox = ({ children, className, disabled, ...props }: CheckboxProps) =>
     </label>
   );
 };
+
+const Checkbox = styled(CheckboxBase)``;
 
 export default Checkbox;
