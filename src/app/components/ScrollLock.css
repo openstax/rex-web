@@ -5,10 +5,6 @@ body.body.scroll-lock {
   overflow: hidden;
 }
 
-body.body.scroll-lock-medium-screens-only {
-  overflow: visible; /* Default - no lock */
-}
-
 /* Mobile breakpoint: max-width: 75em (1200px) */
 @media screen and (max-width: 75em) {
   body.body.scroll-lock-medium-screens-only {
