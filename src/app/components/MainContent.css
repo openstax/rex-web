@@ -1,0 +1,12 @@
+/* MainContent component styles */
+
+.main-content-styles {
+  outline: none;
+}
+
+/* Compensates for a Firefox issue */
+.main-content-styles .os-problem-container .token,
+.main-content-styles .os-solution-container .token {
+  font-size-adjust: cap-height 1;
+  vertical-align: middle;
+}

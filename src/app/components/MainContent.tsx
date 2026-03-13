@@ -1,12 +1,13 @@
 import { HTMLDivElement } from '@openstax/types/lib.dom';
 import React from 'react';
-import styled from 'styled-components/macro';
-import { TextResizerValue, textResizerValueMap } from '../content/constants';
+import classNames from 'classnames';
+import { TextResizerValue, textResizerValueMap, textResizerDefaultValue } from '../content/constants';
 import { State } from '../content/types';
 import { MAIN_CONTENT_ID } from '../context/constants';
 import { Consumer } from '../context/SkipToContent';
 import { mergeRefs } from '../utils';
 import DynamicContentStyles from './DynamicContentStyles';
+import './MainContent.css';
 
 interface Props {
   book: State['book'];
@@ -14,37 +15,46 @@ interface Props {
   dangerouslySetInnerHTML?: { __html: string; };
   textSize?: TextResizerValue;
 }
-const ContentStyles = styled(({ textSize, ...props }) => <DynamicContentStyles {...props} />)`
-  outline: none;
-  ${(props: {textSize: TextResizerValue}) => `
-    --content-text-scale: ${textResizerValueMap.get(props.textSize)};
-  `}
 
-  /* Compensates for a Firefox issue */
-  .os-problem-container .token,
-  .os-solution-container .token {
-    font-size-adjust: cap-height 1;
-    vertical-align: middle;
-  }
-`;
+interface ContentStylesProps extends Omit<Props, 'className'> {
+  className?: string;
+  style?: React.CSSProperties;
+  id?: string;
+  tabIndex?: number;
+}
 
-const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(
-  ({book, children, className, ...props}, ref) => <Consumer>
-    {({registerMainContent}) => <main
-      ref={mergeRefs(ref, registerMainContent)}
-      className={className}
-      tabIndex={-1}
-    >
-      <ContentStyles
-        id={MAIN_CONTENT_ID}
-        book={book}
-        tabIndex={-1}
+const ContentStyles = React.forwardRef<HTMLElement, React.PropsWithChildren<ContentStylesProps>>(
+  ({ textSize=textResizerDefaultValue, className, style, children, ...props }, ref) => {
+    const textScale = textResizerValueMap.get(textSize);
+
+    return (
+      <DynamicContentStyles
         {...props}
+        ref={ref}
+        className={classNames('main-content-styles', className)}
+        style={{
+          '--content-text-scale': textScale,
+          ...style,
+        } as React.CSSProperties}
       >
         {children}
-      </ContentStyles>
-    </main>}
-  </Consumer>
+      </DynamicContentStyles>
+    );
+  }
+);
+
+const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(
+  ({ book, children, className, ...props }, ref) => (
+    <Consumer>
+      {({ registerMainContent }) => (
+        <main ref={mergeRefs(ref, registerMainContent)} className={className} tabIndex={-1}>
+          <ContentStyles id={MAIN_CONTENT_ID} book={book} tabIndex={-1} {...props}>
+            {children}
+          </ContentStyles>
+        </main>
+      )}
+    </Consumer>
+  )
 );
 
 export default MainContent;

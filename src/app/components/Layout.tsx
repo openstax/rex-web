@@ -1,5 +1,6 @@
 import React, { SFC } from 'react';
-import styled, { createGlobalStyle, css } from 'styled-components/macro';
+import classNames from 'classnames';
+import { createGlobalStyle } from 'styled-components/macro';
 import ErrorBoundary from '../errors/components/ErrorBoundary';
 import ErrorModal from '../errors/components/ErrorModal';
 import theme from '../theme';
@@ -7,6 +8,8 @@ import AccessibilityButtonsWrapper from './AccessibilityButtonsWrapper';
 import NavBar from './NavBar';
 import OnEsc from './OnEsc';
 import PageTitleConfirmation from './PageTitleConfirmation';
+import { layoutPadding } from './Layout.constants';
+import './Layout.css';
 
 const MathJaxStyles = createGlobalStyle`
   mjx-help-background {
@@ -25,16 +28,26 @@ const Layout: SFC = ({ children }) => <AccessibilityButtonsWrapper>
   </ErrorBoundary>
 </AccessibilityButtonsWrapper>;
 
-export const wrapperPadding = css`
-  padding: 0 ${theme.padding.page.desktop}rem;
-  ${theme.breakpoints.mobile(css`
-    padding: 0 ${theme.padding.page.mobile}rem;
-  `)}
-`;
+// Export legacy styled-components fragment for backward compatibility
+export { wrapperPadding } from './Layout.legacy';
 
-export const LayoutBody = styled.div`
-  width: 100%;
-  ${wrapperPadding}
-`;
+export const LayoutBody = ({
+  children,
+  className,
+  style,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    {...props}
+    className={classNames('layout-body', className)}
+    style={{
+      '--layout-padding-desktop': `${layoutPadding.desktop}rem`,
+      '--layout-padding-mobile': `${layoutPadding.mobile}rem`,
+      ...style,
+    } as React.CSSProperties}
+  >
+    {children}
+  </div>
+);
 
 export default Layout;
