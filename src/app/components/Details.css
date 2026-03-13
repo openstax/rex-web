@@ -1,5 +1,10 @@
 /* Details element and summary styling for expandable/collapsible content */
 
+/* Icon size: 1.7rem matches the exported iconSize constant in Details.tsx
+ * IMPORTANT: If iconSize is changed in Details.tsx, update these values to match.
+ * The iconSize export is used for styled-components consumers, while these
+ * CSS values apply to the plain React components.
+ */
 .details-expand-icon,
 .details-collapse-icon {
   height: 1.7rem;
