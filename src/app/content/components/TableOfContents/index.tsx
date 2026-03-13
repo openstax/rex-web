@@ -163,25 +163,26 @@ function ArchiveTreeComponent({
   );
 }
 
-export function maybeAriaAttributes(page: LinkedArchiveTreeSection, active?: boolean): {
-  'aria-current'?: string;
-  'aria-label'?: string;
-} {
+// Helper function to get chapter disambiguation info for i18n formatting
+// Returns structured data when a page title needs chapter context (unnumbered pages)
+function getChapterDisambiguation(page: LinkedArchiveTreeSection): {
+  titleText: string;
+  chapterNumber: string;
+} | null {
   const [num, titleText] = splitTitleParts(page.title);
-  const currentPageIndicator = { 'aria-current': 'page' };
   if (num) {
-    return active ? currentPageIndicator : {};
+    return null;
   }
 
   const [parentNum, parentTitleText] = splitTitleParts(page.parent.title);
 
   if (!parentNum || titleText.includes(parentTitleText)) {
-    return active ? currentPageIndicator : {};
+    return null;
   }
 
   return {
-    'aria-label': `${titleText} - Chapter ${parentNum}`,
-    ...(active ? currentPageIndicator : {}),
+    titleText,
+    chapterNumber: parentNum,
   };
 }
 
@@ -201,13 +202,35 @@ function TocLeaf({
   active: boolean | undefined;
 }) {
   const linkRef = React.useRef<HTMLElement>(null);
+  const intl = useIntl();
+  const strippedTitle = stripHtml(item.title, true);
+
+  // Check if chapter disambiguation is needed for unnumbered pages
+  const disambiguationInfo = getChapterDisambiguation(item);
+  const disambiguatedTitle = disambiguationInfo
+    ? intl.formatMessage(
+        { id: 'i18n:toc:aria-label:chapter-disambiguation' },
+        { title: disambiguationInfo.titleText, chapterNumber: disambiguationInfo.chapterNumber }
+      )
+    : strippedTitle;
+
+  // Build aria attributes for ContentLink with proper i18n
+  const contentLinkAriaAttrs: { 'aria-current'?: string; 'aria-label'?: string } = {};
+  if (active) {
+    contentLinkAriaAttrs['aria-current'] = 'page';
+  }
+  // Only add aria-label to ContentLink if disambiguation is needed
+  if (disambiguationInfo) {
+    contentLinkAriaAttrs['aria-label'] = disambiguatedTitle;
+  }
 
   return (
     <Styled.StyledTreeItem
       section={section}
       id={item.id}
       key={item.id}
-      textValue={stripHtml(item.title, true)}
+      textValue={strippedTitle}
+      aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:link' }, { title: disambiguatedTitle })}
       onAction={
         // Ignored until RAC and TS versions are compatible
         // istanbul ignore next
@@ -218,7 +241,7 @@ function TocLeaf({
     >
       <Styled.NavItem
         data-type={sectionType}
-        textValue={stripHtml(item.title, true)}
+        textValue={strippedTitle}
       >
         <Styled.ContentLink
           ref={linkRef}
@@ -226,7 +249,7 @@ function TocLeaf({
           book={book}
           page={item}
           dangerouslySetInnerHTML={{ __html: item.title }}
-          {...maybeAriaAttributes(item, active)}
+          {...contentLinkAriaAttrs}
         />
       </Styled.NavItem>
     </Styled.StyledTreeItem>
@@ -248,11 +271,14 @@ function TocSection({
   onNavigate: () => void;
   expandedKeys: Set<string>;
 }) {
+  const intl = useIntl();
+
   return (
     <>
       {linkContents(section).map((item) => {
         const sectionType = getArchiveTreeSectionType(item);
         const active = page && stripIdVersion(item.id) === page.id;
+        const strippedTitle = stripHtml(item.title, true);
 
         return (
           <React.Fragment key={item.id}>
@@ -261,7 +287,8 @@ function TocSection({
               <Styled.StyledTreeItem
                 section={section}
                 id={item.id}
-                textValue={stripHtml(item.title, true)}
+                textValue={strippedTitle}
+                aria-label={intl.formatMessage({ id: 'i18n:toc:aria-label:section' }, { title: strippedTitle })}
               >
                 <ArchiveTreeComponent
                   item={item}
