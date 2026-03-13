@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import styled from 'styled-components/macro';
-import theme from '../theme';
 import { PlainButton } from './Button';
 import Dropdown, { DropdownList, DropdownProps } from './Dropdown';
 import './DotMenu.css';
@@ -35,8 +34,8 @@ interface DotMenuToggleProps {
   className?: string;
 }
 
-export const DotMenuToggle = React.forwardRef<HTMLButtonElement, DotMenuToggleProps>(
-  function DotMenuToggle({ isOpen, className, ...props }, ref) {
+const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps>(
+  function DotMenuToggleBase({ isOpen, className, ...props }, ref) {
     return (
       <PlainButton
         className={classNames('dot-menu-toggle', className)}
@@ -44,11 +43,6 @@ export const DotMenuToggle = React.forwardRef<HTMLButtonElement, DotMenuTogglePr
         aria-expanded={isOpen}
         {...props}
         ref={ref}
-        style={{
-          '--dot-menu-color': theme.color.primary.gray.darker,
-          '--dot-menu-hover-color': theme.color.secondary.lightGray.darkest,
-          '--dot-menu-focus-color': theme.color.primary.gray.base,
-        } as React.CSSProperties}
       >
         <div tabIndex={-1}>
           <DotMenuIcon />
@@ -57,6 +51,8 @@ export const DotMenuToggle = React.forwardRef<HTMLButtonElement, DotMenuTogglePr
     );
   }
 );
+
+export const DotMenuToggle = styled(DotMenuToggleBase)``;
 
 interface DotMenuDropdownListProps {
   rightAlign?: boolean;

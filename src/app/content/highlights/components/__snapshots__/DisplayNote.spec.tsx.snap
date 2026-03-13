@@ -100,13 +100,6 @@ exports[`DisplayNote matches snapshot 1`] = `
       className="c4 dot-menu-toggle c5 c6"
       data-no-card-activate={true}
       onClick={[Function]}
-      style={
-        Object {
-          "--dot-menu-color": "#424242",
-          "--dot-menu-focus-color": "#5e6062",
-          "--dot-menu-hover-color": "#818181",
-        }
-      }
     >
       <div
         tabIndex={-1}
@@ -281,13 +274,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
       className="c4 dot-menu-toggle c5 c6"
       data-no-card-activate={true}
       onClick={[Function]}
-      style={
-        Object {
-          "--dot-menu-color": "#424242",
-          "--dot-menu-focus-color": "#5e6062",
-          "--dot-menu-hover-color": "#818181",
-        }
-      }
     >
       <div
         tabIndex={-1}
@@ -512,13 +498,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       className="c4 dot-menu-toggle c5 c6"
       data-no-card-activate={true}
       onClick={[Function]}
-      style={
-        Object {
-          "--dot-menu-color": "#424242",
-          "--dot-menu-focus-color": "#5e6062",
-          "--dot-menu-hover-color": "#818181",
-        }
-      }
     >
       <div
         tabIndex={-1}
