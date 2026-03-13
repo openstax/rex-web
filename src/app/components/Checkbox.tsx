@@ -27,6 +27,7 @@ interface CheckboxProps {
   className?: string;
   checked?: boolean;
   disabled?: boolean;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   children?: React.ReactNode;
 }
 

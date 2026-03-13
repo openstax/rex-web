@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import styled from 'styled-components/macro';
 import theme from '../theme';
 import { PlainButton } from './Button';
 import Dropdown, { DropdownList, DropdownProps } from './Dropdown';
@@ -8,8 +9,10 @@ import './DotMenu.css';
 /**
  * Three-dot vertical menu icon (ellipsis).
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
  */
-export function DotMenuIcon({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
+function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
   return (
     <svg
       className={classNames('dot-menu-icon', className)}
@@ -24,6 +27,8 @@ export function DotMenuIcon({ className, ...props }: React.SVGAttributes<SVGSVGE
     </svg>
   );
 }
+
+export const DotMenuIcon = styled(DotMenuIconBase)``;
 
 interface DotMenuToggleProps {
   isOpen: boolean;
@@ -74,18 +79,19 @@ export function DotMenuDropdownList({ rightAlign, className, children, ...props 
   );
 }
 
-export function DotMenuDropdown({ className, ...props }: DropdownProps) {
+export type DotMenuDropdownProps = Omit<DropdownProps, 'children' | 'toggle'> & {
+  children?: React.ReactNode;
+  toggle?: React.ReactNode;
+};
+
+export const DotMenuDropdown: React.FC<DotMenuDropdownProps> = ({ className, children, toggle, ...props }) => {
   return (
     <Dropdown
       className={classNames('dot-menu-dropdown', className)}
-      toggle={<DotMenuToggle isOpen={false} />}
+      toggle={toggle || <DotMenuToggle isOpen={false} />}
       {...props}
-      style={{
-        '--dot-menu-color': theme.color.primary.gray.darker,
-        '--dot-menu-hover-color': theme.color.secondary.lightGray.darkest,
-        '--dot-menu-focus-color': theme.color.primary.gray.base,
-        ...(props.style || {}),
-      } as React.CSSProperties}
-    />
+    >
+      {children}
+    </Dropdown>
   );
-}
+};
