@@ -1,52 +1,74 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import styled, { css } from 'styled-components/macro';
+import { useSelector } from 'react-redux';
+import classNames from 'classnames';
 import ScrollLock from '../../components/ScrollLock';
-import theme from '../../theme';
 import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
 import * as contentSelectors from '../selectors';
 import { contentWrapperMaxWidth, verticalNavbarMaxWidth } from './constants';
+import './Wrapper.css';
 
 export { wrapperPadding } from '../../components/Layout';
 
 interface WrapperProps {
-  hasQuery: boolean;
-  verticalNavOpen: boolean;
+  verticalNavOpen?: boolean;
   className?: string;
 }
 
-export const Wrapper = styled(
-  ({hasQuery, verticalNavOpen, children, ...props}: React.PropsWithChildren<WrapperProps>) =>
-    <ContentLayoutBody {...props}>
-      {verticalNavOpen && <ScrollLock overlay={false} mediumScreensOnly={true} />}
+const ContentLayoutBody = ({
+  children,
+  className,
+  style,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => {
+  const maxWidth = contentWrapperMaxWidth + verticalNavbarMaxWidth * 2;
+
+  return (
+    <div
+      {...props}
+      className={className}
+      style={{
+        '--content-max-width': `${maxWidth}rem`,
+        ...style,
+      } as React.CSSProperties}
+    >
       {children}
-    </ContentLayoutBody>
-)`
-  position: relative; /* for sidebar overlay */
-  overflow: visible; /* so sidebar position: sticky works */
+    </div>
+  );
+};
 
-  @media screen {
-    ${theme.breakpoints.mobile(css`
-      margin-left: 0;
-    `)}
-  }
-`;
+// Export named component for testing
+export const Wrapper = ({
+  verticalNavOpen,
+  children,
+  className,
+  ...props
+}: React.PropsWithChildren<WrapperProps>) => (
+  <ContentLayoutBody {...props} className={classNames('content-wrapper', className)}>
+    {verticalNavOpen && <ScrollLock overlay={false} mediumScreensOnly={true} />}
+    <div className="content-layout-body">{children}</div>
+  </ContentLayoutBody>
+);
 
-const ContentLayoutBody = styled.div`
-  width: 100%;
-  max-width: ${contentWrapperMaxWidth + verticalNavbarMaxWidth * 2}rem;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 8rem auto auto;
-  ${theme.breakpoints.mobileMedium(css`
-    grid-template-columns: 100%;
-  `)}
-`;
+// Default export with Redux hooks
+const WrapperConnected = ({
+  children,
+  className,
+  ...props
+}: React.PropsWithChildren<Omit<WrapperProps, 'verticalNavOpen'>>) => {
+  const verticalNavOpen = useSelector((state: AppState) =>
+    contentSelectors.mobileMenuOpen(state) || selectSearch.searchResultsOpen(state)
+  );
 
-export default connect(
-  (state: AppState) => ({
-    hasQuery: !!selectSearch.query(state),
-    verticalNavOpen: contentSelectors.mobileMenuOpen(state) || selectSearch.searchResultsOpen(state),
-  })
-)(Wrapper);
+  return (
+    <Wrapper
+      {...props}
+      verticalNavOpen={verticalNavOpen}
+      className={className}
+    >
+      {children}
+    </Wrapper>
+  );
+};
+
+export default WrapperConnected;

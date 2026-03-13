@@ -1,14 +1,15 @@
-# Phase 1.1: Typography Migration - Learnings & Best Practices
+# Plain CSS Migration - Learnings & Best Practices
 
-This document captures key learnings from the Phase 1.1 Typography Components Migration, documenting issues encountered and resolutions to help guide future migration phases.
+This document captures key learnings from the styled-components to plain CSS migration, documenting issues encountered and resolutions to help guide future migration phases.
 
 ## Table of Contents
 1. [Migration Strategy](#migration-strategy)
 2. [Module Structure & Dependencies](#module-structure--dependencies)
 3. [CSS Variables & Theming](#css-variables--theming)
-4. [Testing Requirements](#testing-requirements)
-5. [Code Organization](#code-organization)
-6. [Checklist for Future Phases](#checklist-for-future-phases)
+4. [Responsive Design & Media Queries](#responsive-design--media-queries)
+5. [Testing Requirements](#testing-requirements)
+6. [Code Organization](#code-organization)
+7. [Checklist for Future Phases](#checklist-for-future-phases)
 
 ---
 
@@ -164,6 +165,163 @@ style={{
 
 ---
 
+## Responsive Design & Media Queries
+
+### Understanding rem vs em in Media Queries
+
+**Issue (Phase 1.2)**: Initial breakpoint values were incorrect because raw `rem` values were used directly in media queries instead of converting to `em` units.
+
+**Background**: The rex-web codebase uses a custom base font size:
+- The `html` element has `font-size: 62.5%`, making `1rem = 10px` (62.5% of 16px default)
+- However, media queries use `em` units based on the browser's default font size (typically 16px)
+- This means `1rem = 10px` but `1em = 16px` in media query contexts
+
+**Resolution**: Always use the `remsToEms()` conversion function when converting layout dimensions from `rem` to `em` for media queries:
+
+```typescript
+// Conversion formula
+remsToEms = (rems) => rems * 10 / 16
+
+// Example
+contentWrapperMaxWidth = 128 // rem
+breakpoint = remsToEms(128) = 128 * 10/16 = 80 // em
+```
+
+**Common Mistakes**:
+```css
+/* ❌ Bad - using rem value directly as em */
+@media screen and (max-width: 128em) {
+  /* This is actually 2048px, not 1280px! */
+}
+
+/* ✅ Good - converted using remsToEms() */
+@media screen and (max-width: 80em) {
+  /* Correctly evaluates to 1280px (80 * 16) */
+}
+```
+
+**For Future Phases**: Always convert rem dimensions to em for media queries using the `remsToEms()` formula. Never use rem values directly as em values.
+
+### Document Hard-Coded Breakpoint Calculations
+
+**Issue (Phase 1.2)**: Media query breakpoints in CSS files are static values derived from TypeScript constants. If the constants change, the CSS breakpoints won't automatically update.
+
+**Resolution**: Add comprehensive inline documentation in CSS files explaining:
+1. The source constants from TypeScript
+2. The step-by-step calculation
+3. The conversion formula (rems * 10/16 = ems)
+4. References to exported constant names
+5. An explicit warning about maintenance
+
+**Example Documentation Pattern**:
+```css
+/* Responsive breakpoints for sidebar width adjustment
+ *
+ * IMPORTANT: These breakpoint values are derived from constants in constants.ts:
+ *
+ * 90em = remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2)
+ *      = remsToEms(128 + 8 * 2) = remsToEms(144) = 144 * 10/16 = 90em
+ *      (exported as contentWrapperAndNavWidthBreakpoint)
+ *
+ * 80em = remsToEms(contentWrapperMaxWidth)
+ *      = remsToEms(128) = 128 * 10/16 = 80em
+ *      (exported as contentWrapperWidthBreakpoint)
+ *
+ * If constants.ts values change, these breakpoints MUST be updated accordingly.
+ * The conversion formula is: rems * 10 / 16 = ems (because 1rem = 10px, 1em = 16px in media queries)
+ */
+@media screen and (max-width: 90em) {
+  /* ... */
+}
+
+@media screen and (max-width: 80em) {
+  /* ... */
+}
+```
+
+**Why Not CSS Variables?**: CSS variables cannot be used in media query breakpoints because the CSS specification requires them to be static values. The TypeScript exports are still maintained for use elsewhere in the codebase.
+
+**For Future Phases**: When using calculated breakpoints in CSS files, always add comprehensive documentation showing the derivation from TypeScript constants.
+
+### Verify Breakpoint Constants Match Theme
+
+**Issue (Phase 1.2)**: Easy to accidentally use incorrect breakpoint values when migrating from theme.breakpoints to plain CSS.
+
+**Resolution**: Always verify breakpoint values against the original theme definitions:
+- `theme.breakpoints.mobile()` → `@media screen and (max-width: 75em)`
+- `theme.breakpoints.mobileMedium()` → `@media screen and (max-width: 50em)`
+
+Cross-reference the original styled-components code to ensure the media query logic is identical.
+
+**For Future Phases**: Create a table mapping all theme.breakpoints values to their CSS equivalents and verify each migration against it.
+
+---
+
+## Redux Integration Patterns
+
+### Upgrade from connect() HOC to Hooks
+
+**Issue (Phase 1.2)**: When migrating components that use Redux's `connect()` HOC, the HOC passes a `dispatch` prop that can leak to DOM elements when using `...props` spreading.
+
+**Warning Signs**:
+- React warnings about invalid DOM props (e.g., "Warning: React does not recognize the `dispatch` prop on a DOM element")
+- TypeScript errors about unused parameters
+- Unexpected props appearing on DOM elements
+
+**Resolution**: Replace `connect()` HOC with Redux hooks (`useSelector`, `useDispatch`):
+
+**Before (connect HOC)**:
+```typescript
+import { connect } from 'react-redux';
+
+const Wrapper = ({ hasQuery, verticalNavOpen, children, ...props }) => (
+  <div {...props}> {/* dispatch leaks to DOM here */}
+    {children}
+  </div>
+);
+
+export default connect(
+  (state: AppState) => ({
+    hasQuery: !!selectSearch.query(state),
+    verticalNavOpen: contentSelectors.mobileMenuOpen(state),
+  })
+)(Wrapper);
+```
+
+**After (hooks)**:
+```typescript
+import { useSelector } from 'react-redux';
+
+// Named export for testing - accepts props directly
+export const Wrapper = ({ verticalNavOpen, children, ...props }) => (
+  <div {...props}>
+    {children}
+  </div>
+);
+
+// Default export with Redux hooks - selects state internally
+const WrapperConnected = ({ children, ...props }) => {
+  const verticalNavOpen = useSelector((state: AppState) =>
+    contentSelectors.mobileMenuOpen(state)
+  );
+
+  return <Wrapper verticalNavOpen={verticalNavOpen} {...props}>{children}</Wrapper>;
+};
+
+export default WrapperConnected;
+```
+
+**Benefits**:
+- ✅ No `dispatch` prop leaking to DOM elements
+- ✅ Cleaner separation of concerns (state selection vs presentation)
+- ✅ Easier to test (named export accepts props directly)
+- ✅ Modern React patterns (hooks are the recommended approach)
+- ✅ Better TypeScript inference
+
+**For Future Phases**: Whenever you edit a component that uses `connect()`, take the opportunity to upgrade it to hooks. This is especially important when migrating to plain CSS, as you're already touching the component structure.
+
+---
+
 ## Testing Requirements
 
 ### Test All Heading Levels
@@ -298,6 +456,7 @@ Use this checklist when migrating additional components from styled-components t
 - [ ] Extract shared constants into `.constants.ts` files (no side effects)
 - [ ] Create `.legacy.ts` files for backward-compatible styled-components exports
 - [ ] Use selective exports in index files to avoid conflicts
+- [ ] Upgrade Redux `connect()` to hooks (`useSelector`, `useDispatch`) when editing connected components
 
 ### Testing
 - [ ] Add snapshot tests for all component variations
@@ -333,7 +492,7 @@ Use this checklist when migrating additional components from styled-components t
 
 ## Summary
 
-The Phase 1.1 migration successfully migrated Typography components to plain CSS while maintaining backward compatibility. Key success factors:
+The styled-components to plain CSS migration has successfully migrated Typography (Phase 1.1) and Container/Layout (Phase 1.2) components while maintaining backward compatibility. Key success factors:
 
 1. **Hybrid Approach** - Incremental migration without breaking existing code
 2. **Clear Separation** - Legacy code isolated in `.legacy.ts` files
@@ -341,5 +500,12 @@ The Phase 1.1 migration successfully migrated Typography components to plain CSS
 4. **Module Hygiene** - Side-effect-free constants, no duplicate exports
 5. **CSS Best Practices** - Variables with fallbacks, single source of truth
 6. **Code Quality** - Eliminated duplication through base components
+7. **Responsive Design** - Proper rem/em conversion, documented breakpoint calculations
 
-These patterns and practices should serve as a foundation for future migration phases, helping to avoid the issues encountered during Phase 1.1 and streamlining the migration process.
+### Phase-Specific Highlights
+
+**Phase 1.1 (Typography)**: Established the hybrid migration pattern, module structure, and CSS variable binding approach.
+
+**Phase 1.2 (Container/Layout)**: Addressed responsive design complexities, particularly the rem/em conversion requirement for media queries and the importance of documenting hard-coded breakpoint values.
+
+These patterns and practices should serve as a foundation for future migration phases, helping to avoid the issues encountered and streamlining the migration process.

@@ -332,21 +332,19 @@ Array [
 }
 
 .c0 {
-  width: 100%;
-  padding: 0 3.2rem;
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
 }
 
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
 <div
-    className="c0"
+    className="layout-body c0"
+    style={
+      Object {
+        "--layout-padding-desktop": "3.2rem",
+        "--layout-padding-mobile": "1.6rem",
+      }
+    }
   >
     <div
       className="c1"

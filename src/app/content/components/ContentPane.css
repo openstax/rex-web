@@ -1,0 +1,72 @@
+/* ContentPane component styles */
+
+.content-pane-wrapper {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: center;
+  width: 100%;
+  overflow: visible; /* so sidebar position: sticky works */
+  margin: 0 auto;
+  max-width: var(--content-wrapper-max-width, 128rem);
+}
+
+@media screen {
+  .content-pane-wrapper {
+    background-color: var(--main-content-background, #fff);
+    padding-left: var(--sidebar-desktop-width, 37.5rem);
+    transition: padding-left var(--sidebar-transition-time, 300ms) ease-in-out;
+  }
+}
+
+/* Responsive breakpoints for sidebar width adjustment
+ *
+ * IMPORTANT: These breakpoint values are derived from constants in constants.ts:
+ *
+ * 90em = remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2)
+ *      = remsToEms(128 + 8 * 2) = remsToEms(144) = 144 * 10/16 = 90em
+ *      (exported as contentWrapperAndNavWidthBreakpoint)
+ *
+ * 80em = remsToEms(contentWrapperMaxWidth)
+ *      = remsToEms(128) = 128 * 10/16 = 80em
+ *      (exported as contentWrapperWidthBreakpoint)
+ *
+ * If constants.ts values change, these breakpoints MUST be updated accordingly.
+ * The conversion formula is: rems * 10 / 16 = ems (because 1rem = 10px, 1em = 16px in media queries)
+ */
+@media screen and (max-width: 90em) {
+  .content-pane-wrapper {
+    padding-left: calc(var(--sidebar-desktop-with-toolbar-width, 45.5rem) - (100vw - var(--content-wrapper-max-width, 128rem)) / 2);
+  }
+}
+
+@media screen and (max-width: 80em) {
+  .content-pane-wrapper {
+    padding-left: var(--sidebar-desktop-with-toolbar-width, 45.5rem);
+  }
+}
+
+@media screen and (max-width: 75em) {
+  .content-pane-wrapper {
+    grid-column-start: 2;
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 50em) {
+  .content-pane-wrapper {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Sidebar closed states */
+@media screen and (max-width: 75em) {
+  .content-pane-wrapper--sidebar-closed-mobile {
+    padding-left: 0 !important;
+  }
+}
+
+@media screen {
+  .content-pane-wrapper--sidebar-closed-desktop {
+    padding-left: 0 !important;
+  }
+}
