@@ -1,7 +1,8 @@
 import React from 'react';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css, keyframes } from 'styled-components/macro';
-import { Details as BaseDetails, Summary } from '../../../../components/Details';
+import { Details as BaseDetails } from '../../../../components/Details';
+import { Summary } from '../../../../components/Details.legacy';
 import { navDesktopHeight, navMobileHeight } from '../../../../components/NavBar';
 import Times from '../../../../components/Times';
 import {
