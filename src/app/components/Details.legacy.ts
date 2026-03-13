@@ -10,12 +10,11 @@ import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
  * - ExpandIcon, CollapseIcon, Summary, Details
  *
  * @example
- * // Old (styled-components):
- * import { ExpandIcon, Summary, Details } from './Details';
+ * // For styled-components usage (component selectors, styled wrappers):
+ * import { ExpandIcon, Summary, Details } from './Details.legacy';
  *
- * // New (plain CSS):
+ * // For plain CSS usage (modern approach):
  * import { ExpandIcon, Summary, Details } from './Details';
- * // Components now use plain CSS classes instead of styled-components
  */
 
 export const iconSize = 1.7;

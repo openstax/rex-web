@@ -1,7 +1,6 @@
 import { TreeItem, TreeItemContent } from 'react-aria-components';
 import styled, { css } from 'styled-components/macro';
-import { CollapseIcon, ExpandIcon } from '../../../../components/Details';
-import { iconSize } from '../../../../components/Details';
+import { CollapseIcon, ExpandIcon, iconSize } from '../../../../components/Details.legacy';
 import { labelStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { ArchiveTree } from '../../../types';
@@ -9,7 +8,7 @@ import { splitTitleParts } from '../../../utils/archiveTreeUtils';
 import ContentLinkComponent from '../../ContentLink';
 import { Tree } from 'react-aria-components';
 
-export { ExpandIcon, CollapseIcon } from '../../../../components/Details';
+export { ExpandIcon, CollapseIcon } from '../../../../components/Details.legacy';
 
 /* to regenerate these numbers, run this in a rex browser window
 (
