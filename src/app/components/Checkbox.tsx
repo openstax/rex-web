@@ -23,11 +23,7 @@ function CheckIcon({ className, ...props }: React.SVGAttributes<SVGSVGElement>) 
   );
 }
 
-interface CheckboxProps {
-  className?: string;
-  checked?: boolean;
-  disabled?: boolean;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   children?: React.ReactNode;
 }
 
