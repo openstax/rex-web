@@ -80,7 +80,7 @@ export type DotMenuDropdownProps = Omit<DropdownProps, 'children' | 'toggle'> & 
   toggle?: React.ReactNode;
 };
 
-export const DotMenuDropdown: React.FC<DotMenuDropdownProps> = ({ className, children, toggle, ...props }) => {
+export function DotMenuDropdown({ className, children, toggle, ...props }: DotMenuDropdownProps) {
   return (
     <Dropdown
       className={classNames('dot-menu-dropdown', className)}
@@ -90,4 +90,4 @@ export const DotMenuDropdown: React.FC<DotMenuDropdownProps> = ({ className, chi
       {children}
     </Dropdown>
   );
-};
+}
