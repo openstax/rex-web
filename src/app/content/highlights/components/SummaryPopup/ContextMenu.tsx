@@ -86,7 +86,7 @@ const HighlightToggleEditContent = styled.div`
   margin-bottom: 1rem; /* for last context menu to show with more space */
 `;
 
-const HighlightDropdownMenu = React.forwardRef<HTMLButtonElement, { isOpen: boolean }>((props, ref) => {
+const HighlightDropdownMenu = React.forwardRef<HTMLButtonElement, { isOpen?: boolean }>((props, ref) => {
   return <MenuToggle
     data-testid='highlight-dropdown-menu-toggle'
     aria-label={useIntl().formatMessage({id: 'i18n:highlighting:dropdown:edit:aria-label'})}
@@ -118,7 +118,7 @@ const ContextMenu = ({
 
   return <StyledContextMenu>
     <Dropdown
-      toggle={<HighlightDropdownMenu isOpen={false} />}
+      toggle={<HighlightDropdownMenu />}
       transparentTab={false}
     >
       <HighlightToggleEditContent>
