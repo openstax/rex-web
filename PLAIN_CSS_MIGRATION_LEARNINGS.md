@@ -496,6 +496,66 @@ export default WrapperConnected;
 
 ## Testing Requirements
 
+### Wrap Migrated Components with styled() for Component Selector Compatibility
+
+**Issue (Phase 1.4)**: When migrating icon components from `styled-icons` to inline SVG components, snapshot tests failed with `PrettyFormatPluginError: undefined:342:115: missing '}'` and warnings like "DotMenuIcon is not a styled component and cannot be referred to via component selector."
+
+**Root Cause**: Many existing styled-components use **component selectors** to target icons and other components in their CSS:
+
+```typescript
+// Example from ContextMenu.tsx
+const StyledContextMenu = styled.div`
+  ${MenuToggle} {
+    float: right;
+    margin-right: 0.2rem;
+  }
+`;
+
+// Example from TableOfContents
+const StyledSummary = styled(Summary)`
+  &[data-expanded] > div ${ExpandIcon} {
+    display: none;
+  }
+`;
+```
+
+Component selectors (`${Component}`) only work when the component is created with `styled()` or is a styled-component. When we migrated icons to plain React function components, these selectors broke, causing:
+1. Runtime warnings: "Component is not a styled component"
+2. Test failures: The `jest-styled-components` snapshot serializer failed to parse the generated CSS
+
+**Resolution**: Wrap migrated components with `styled()` using an empty template literal:
+
+```typescript
+// ❌ Bad - Plain function component breaks component selectors
+export function DotMenuIcon({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
+  return <svg className={className} {...props}>...</svg>;
+}
+
+// ✅ Good - Wrapped with styled() for component selector compatibility
+function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
+  return <svg className={className} {...props}>...</svg>;
+}
+
+export const DotMenuIcon = styled(DotMenuIconBase)``;
+```
+
+The empty template literal (` `` `) means no additional styles are added - the component retains its original implementation but becomes a styled-component that can be referenced in component selectors.
+
+**Components Fixed in Phase 1.4**:
+- `DotMenuIcon` and `DotMenuToggle` in `DotMenu.tsx`
+- `ExpandIcon` and `CollapseIcon` in `Details.tsx`
+- `Checkbox` in `Checkbox.tsx`
+
+**Benefits**:
+- ✅ Eliminates styled-components warnings
+- ✅ Fixes snapshot test failures
+- ✅ Preserves existing CSS selector behavior
+- ✅ No visual changes
+- ✅ No breaking changes to API
+- ✅ Maintains goal of migrating away from `styled-icons` while preserving compatibility with existing codebase patterns
+
+**For Future Phases**: Before migrating a component, search the codebase for component selector usage (search for `${ComponentName}`). If the component is used in any component selectors, wrap it with `styled()` using an empty template literal to maintain compatibility.
+
 ### Test All Heading Levels
 
 **Issue**: Initial tests only covered H1-H3, missing H4-H6.
@@ -703,6 +763,63 @@ export function Details({
 
 **For Future Phases**: When using specific HTML element types in component props, always import them explicitly from `@openstax/types/lib.dom`.
 
+### Extend HTML Attributes for Form Components
+
+**Issue (Phase 1.4)**: When creating form components like `Checkbox`, defining a restrictive props interface prevents consumers from passing standard HTML input attributes like `aria-label`, `aria-selected`, `name`, `id`, `data-*`, etc.
+
+**Problem**:
+```typescript
+// ❌ Bad - Too restrictive, doesn't allow standard input attributes
+interface CheckboxProps {
+  className?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  children?: React.ReactNode;
+}
+
+// This causes TypeScript errors at call sites:
+<Checkbox
+  checked={selected}
+  disabled={disabled}
+  onChange={handleChange}
+  aria-label={ariaLabel}  // ❌ Type error!
+  aria-selected={selected} // ❌ Type error!
+/>
+```
+
+**Resolution**: Extend `React.InputHTMLAttributes<HTMLInputElement>` and omit only the attributes you want to override or prevent:
+
+```typescript
+// ✅ Good - Extends all standard input attributes
+interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
+  children?: React.ReactNode;
+}
+
+// Now all standard input attributes work:
+<Checkbox
+  checked={selected}
+  disabled={disabled}
+  onChange={handleChange}
+  aria-label={ariaLabel}      // ✅ Works!
+  aria-selected={selected}     // ✅ Works!
+  name="myCheckbox"            // ✅ Works!
+  id="checkbox-1"              // ✅ Works!
+  data-testid="my-checkbox"    // ✅ Works!
+/>
+```
+
+**Why Omit `type`**: We omit `type` from the base `InputHTMLAttributes` because the component always renders `type="checkbox"` and we don't want consumers to override this.
+
+**Benefits**:
+- ✅ Supports all standard HTML input attributes out of the box
+- ✅ Better TypeScript experience for consumers
+- ✅ Reduces need to update the interface when new attributes are needed
+- ✅ Matches React best practices for form components
+- ✅ Enables proper accessibility attributes (ARIA)
+
+**For Future Phases**: When creating form components (checkboxes, radio buttons, text inputs, etc.), always extend the appropriate `React.*HTMLAttributes` type and only omit attributes you explicitly want to prevent or override.
+
 ### Remove Unused State Variables and Effects
 
 **Issue (Phase 1.3)**: During migration from class components to functional components, sometimes state variables are converted but never actually used.
@@ -878,5 +995,7 @@ The styled-components to plain CSS migration has successfully migrated Typograph
 **Phase 1.2 (Container/Layout)**: Addressed responsive design complexities, particularly the rem/em conversion requirement for media queries and the importance of documenting hard-coded breakpoint values.
 
 **Phase 1.3 (Utility Components)**: Established TypeScript and React best practices, including preferring normal functions over React.FC, using the classnames package for className composition, ensuring media queries are top-level in CSS, importing global CSS from app entry point instead of theme module or utility modules, implementing reference counting for components that manipulate global state (to handle multiple instances), explicitly importing HTML element types, and removing unused state variables during class-to-functional component conversions.
+
+**Phase 1.4 (Icon Components)**: Addressed styled-components testing compatibility by wrapping migrated inline SVG components with `styled()` to support component selectors used throughout the codebase. Established the pattern of extending `React.*HTMLAttributes` for form components to ensure all standard HTML attributes are supported without manually defining each one.
 
 These patterns and practices should serve as a foundation for future migration phases, helping to avoid the issues encountered and streamlining the migration process.
