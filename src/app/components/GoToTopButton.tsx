@@ -8,19 +8,19 @@ import './GoToTopButton.css';
 
 /**
  * Icon component for the "scroll to top" button.
- * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ * SVG path from Font Awesome Free angle-up icon (https://fontawesome.com - MIT License)
  */
 export function GoToTopIcon({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
   return (
     <svg
       className={classNames('go-to-top-icon', className)}
-      viewBox="0 0 320 512"
+      viewBox="0 0 384 512"
       aria-hidden="true"
       {...props}
     >
       <path
         fill="currentColor"
-        d="M177 159.7l136 136c-9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L40 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+        d="M352 352c-8.188 0-16.38-3.125-22.62-9.375L192 205.3l-137.4 137.4c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25C368.4 348.9 360.2 352 352 352z"
       />
     </svg>
   );

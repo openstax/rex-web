@@ -1,6 +1,9 @@
 import styled, { css } from 'styled-components/macro';
-import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
-import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
+import {
+  ExpandIcon as ExpandIconBase,
+  CollapseIcon as CollapseIconBase,
+  iconSize as baseIconSize,
+} from './Details';
 
 /**
  * Legacy styled-components exports for backward compatibility.
@@ -8,6 +11,10 @@ import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
  * @deprecated These exports are for backward compatibility with existing styled-components usage.
  * New code should use the plain React components from './Details.tsx':
  * - ExpandIcon, CollapseIcon, Summary, Details
+ *
+ * This file wraps the inline SVG icon components from Details.tsx with styled-components
+ * styling to maintain backward compatibility with existing component selectors and styled wrappers.
+ * No longer depends on styled-icons library.
  *
  * @example
  * // For styled-components usage (component selectors, styled wrappers):
@@ -17,18 +24,18 @@ import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
  * import { ExpandIcon, Summary, Details } from './Details';
  */
 
-export const iconSize = 1.7;
+export const iconSize = baseIconSize;
 
 const expandCollapseIconStyle = css`
   height: ${iconSize}rem;
   width: ${iconSize}rem;
 `;
 
-export const ExpandIcon = styled(CaretRight)`
+export const ExpandIcon = styled(ExpandIconBase)`
   ${expandCollapseIconStyle}
 `;
 
-export const CollapseIcon = styled(CaretDown)`
+export const CollapseIcon = styled(CollapseIconBase)`
   ${expandCollapseIconStyle}
 `;
 
