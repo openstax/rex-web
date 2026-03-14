@@ -1,83 +1,59 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
-import { Check } from 'styled-icons/fa-solid/Check';
-import theme, { defaultFocusOutline } from '../theme';
-import { disabledStyle } from './Typography';
+import classNames from 'classnames';
+import styled from 'styled-components/macro';
+import './Checkbox.css';
 
-const CheckIcon = styled(Check)`
-  color: ${theme.color.white};
-  height: 1rem;
-  width: 1rem;
-  display: none;
-`;
+/**
+ * Checkmark icon for the checkbox component.
+ * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ */
+function CheckIcon({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
+  return (
+    <svg
+      className={classNames('checkbox-icon', className)}
+      viewBox="0 0 512 512"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+      />
+    </svg>
+  );
+}
 
-interface Props {
+interface CheckboxProps {
   className?: string;
   checked?: boolean;
   disabled?: boolean;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  children?: React.ReactNode;
 }
 
-const CustomCheckbox = styled(
-  ({className}: {className?: string}) => <span className={className}><CheckIcon /></span>
-)`
-  height: 1.6rem;
-  width: 1.6rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
+/**
+ * Checkbox component with inline SVG icon and plain CSS styling.
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+const CheckboxBase = ({ children, className, disabled, ...props }: CheckboxProps) => {
+  return (
+    <label
+      className={classNames(
+        'checkbox-label',
+        { 'checkbox-disabled': disabled },
+        className
+      )}
+    >
+      <input type="checkbox" disabled={disabled} {...props} />
+      <span className="checkbox-custom">
+        <CheckIcon />
+      </span>
+      {children}
+    </label>
+  );
+};
 
-  input:not(:checked) + & {
-    border: 1px solid ${theme.color.primary.gray.darker};
-  }
+const Checkbox = styled(CheckboxBase)``;
 
-  input:checked + & {
-    background-color: ${theme.color.primary.orange.darkest};
-  }
-
-  input:checked + & ${CheckIcon} {
-    display: block;
-  }
-`;
-
-const Checkbox = ({children, className, ...props}: React.PropsWithChildren<Props>) => <label className={className}>
-  <input type='checkbox' {...props} />
-  <CustomCheckbox />
-  {children}
-</label>;
-
-export default styled(Checkbox)`
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  ${(props) => props.disabled ? disabledStyle : null}
-
-  input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-
-  ${css`
-    &:focus-within {
-      border-radius: 0.4rem;
-      background-color: ${theme.color.neutral.pageBackground};
-      ${defaultFocusOutline}
-
-      ${CustomCheckbox} {
-        border: 1px solid ${theme.color.primary.orange.darkest};
-      }
-    }
-    &.focus-within {
-      border-radius: 0.4rem;
-      background-color: ${theme.color.neutral.pageBackground};
-
-      ${CustomCheckbox} {
-        border: 1px solid ${theme.color.primary.orange.darkest};
-      }
-    }
-  `}
-`;
+export default Checkbox;

@@ -1,13 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown matches snapshot 1`] = `
-.c9 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
+.c4 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -15,15 +9,15 @@ exports[`Dropdown matches snapshot 1`] = `
   background: none;
 }
 
-.c8 {
+.c6 {
   cursor: pointer;
 }
 
-.c4 {
+.c3 {
   overflow: visible;
 }
 
-.c0 .c3 + .c7 {
+.c0 .c2 + .c5 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -31,7 +25,7 @@ exports[`Dropdown matches snapshot 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c0 .c3.focus-within + .c7 {
+.c0 .c2.focus-within + .c5 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -39,7 +33,7 @@ exports[`Dropdown matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c0 .c3:focus-within + .c7 {
+.c0 .c2:focus-within + .c5 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -47,7 +41,7 @@ exports[`Dropdown matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c0 .c3 > .c7 {
+.c0 .c2 > .c5 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -55,7 +49,7 @@ exports[`Dropdown matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c0 .c3.focus-within > .c7 {
+.c0 .c2.focus-within > .c5 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -63,7 +57,7 @@ exports[`Dropdown matches snapshot 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c0 .c3:focus-within > .c7 {
+.c0 .c2:focus-within > .c5 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -71,7 +65,7 @@ exports[`Dropdown matches snapshot 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c0 .c3 > *:not(.c7) {
+.c0 .c2 > *:not(.c5) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -81,7 +75,7 @@ exports[`Dropdown matches snapshot 1`] = `
   left: 0;
 }
 
-.c0 .c3 > *:not(.c7) {
+.c0 .c2 > *:not(.c5) {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -89,7 +83,7 @@ exports[`Dropdown matches snapshot 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c0 .c3.focus-within > *:not(.c7) {
+.c0 .c2.focus-within > *:not(.c5) {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -97,7 +91,7 @@ exports[`Dropdown matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c0 .c3:focus-within > *:not(.c7) {
+.c0 .c2:focus-within > *:not(.c5) {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -105,37 +99,7 @@ exports[`Dropdown matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c1 {
-  overflow: visible;
-  position: relative;
-}
-
-.c11 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #424242;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c11:hover {
-  color: #818181;
-}
-
-.c6 {
-  border: none;
-  display: block;
-}
-
-.c6 > div {
-  display: inline-block;
-  outline: none;
-}
-
-.c12 {
+.c7 {
   list-style: none;
   margin: 0;
   padding: 0.6rem 0;
@@ -143,12 +107,12 @@ exports[`Dropdown matches snapshot 1`] = `
   z-index: 1;
 }
 
-.c12 li {
+.c7 li {
   padding: 0.2rem;
 }
 
-.c12 li button,
-.c12 li a {
+.c7 li button,
+.c7 li a {
   white-space: nowrap;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -174,35 +138,28 @@ exports[`Dropdown matches snapshot 1`] = `
   line-height: 2rem;
 }
 
-.c12 li button:focus,
-.c12 li a:focus {
+.c7 li button:focus,
+.c7 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-.c12.c12 {
-  left: 0;
-  right: unset;
-}
-
-.c2 .focus-within .c10 {
-  color: #5e6062;
-}
-
-.c2:focus-within .c10 {
-  color: #5e6062;
+.c1 {
+  overflow: visible;
+  position: relative;
 }
 
 <div
-  className="c0 c1 c2"
+  className="c0 c1 dot-menu-dropdown"
 >
   <div
-    className="c3 c4"
+    className="c2 c3"
   >
     <button
+      aria-expanded={false}
       aria-label="Actions"
-      className="c5 c6 c7 c8"
+      className="c4 dot-menu-toggle c5 c6"
       tabIndex={0}
     >
       <div
@@ -210,11 +167,8 @@ exports[`Dropdown matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
-          fill="currentColor"
-          focusable="false"
+          className="dot-menu-icon "
           viewBox="0 0 192 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -224,7 +178,7 @@ exports[`Dropdown matches snapshot 1`] = `
       </div>
     </button>
     <menu
-      className="c12"
+      className="c7 dot-menu-dropdown-list"
     >
       <li>
         <button
@@ -250,8 +204,9 @@ exports[`Dropdown matches snapshot 1`] = `
     </menu>
   </div>
   <button
+    aria-expanded={false}
     aria-label="Actions"
-    className="c5 c6 c7 c8"
+    className="c4 dot-menu-toggle c5 c6"
     tabIndex={0}
   >
     <div
@@ -259,11 +214,8 @@ exports[`Dropdown matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c9 c10 c11"
-        fill="currentColor"
-        focusable="false"
+        className="dot-menu-icon "
         viewBox="0 0 192 512"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -276,13 +228,7 @@ exports[`Dropdown matches snapshot 1`] = `
 `;
 
 exports[`Dropdown matches snapshot on right align 1`] = `
-.c9 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
+.c4 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -290,15 +236,15 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   background: none;
 }
 
-.c8 {
+.c6 {
   cursor: pointer;
 }
 
-.c4 {
+.c3 {
   overflow: visible;
 }
 
-.c0 .c3 + .c7 {
+.c0 .c2 + .c5 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -306,7 +252,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c0 .c3.focus-within + .c7 {
+.c0 .c2.focus-within + .c5 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -314,7 +260,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   overflow: visible;
 }
 
-.c0 .c3:focus-within + .c7 {
+.c0 .c2:focus-within + .c5 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -322,7 +268,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   overflow: visible;
 }
 
-.c0 .c3 > .c7 {
+.c0 .c2 > .c5 {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -330,7 +276,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   overflow: visible;
 }
 
-.c0 .c3.focus-within > .c7 {
+.c0 .c2.focus-within > .c5 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -338,7 +284,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c0 .c3:focus-within > .c7 {
+.c0 .c2:focus-within > .c5 {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -346,7 +292,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c0 .c3 > *:not(.c7) {
+.c0 .c2 > *:not(.c5) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -356,7 +302,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   left: 0;
 }
 
-.c0 .c3 > *:not(.c7) {
+.c0 .c2 > *:not(.c5) {
   height: 0;
   width: 0;
   overflow: hidden;
@@ -364,7 +310,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   clip: rect(1px,1px,1px,1px);
 }
 
-.c0 .c3.focus-within > *:not(.c7) {
+.c0 .c2.focus-within > *:not(.c5) {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -372,7 +318,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   overflow: visible;
 }
 
-.c0 .c3:focus-within > *:not(.c7) {
+.c0 .c2:focus-within > *:not(.c5) {
   height: unset;
   width: unset;
   -webkit-clip: unset;
@@ -380,37 +326,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   overflow: visible;
 }
 
-.c1 {
-  overflow: visible;
-  position: relative;
-}
-
-.c11 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #424242;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c11:hover {
-  color: #818181;
-}
-
-.c6 {
-  border: none;
-  display: block;
-}
-
-.c6 > div {
-  display: inline-block;
-  outline: none;
-}
-
-.c12 {
+.c7 {
   list-style: none;
   margin: 0;
   padding: 0.6rem 0;
@@ -418,12 +334,12 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   z-index: 1;
 }
 
-.c12 li {
+.c7 li {
   padding: 0.2rem;
 }
 
-.c12 li button,
-.c12 li a {
+.c7 li button,
+.c7 li a {
   white-space: nowrap;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -449,35 +365,28 @@ exports[`Dropdown matches snapshot on right align 1`] = `
   line-height: 2rem;
 }
 
-.c12 li button:focus,
-.c12 li a:focus {
+.c7 li button:focus,
+.c7 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-.c12.c12 {
-  right: 0;
-  left: unset;
-}
-
-.c2 .focus-within .c10 {
-  color: #5e6062;
-}
-
-.c2:focus-within .c10 {
-  color: #5e6062;
+.c1 {
+  overflow: visible;
+  position: relative;
 }
 
 <div
-  className="c0 c1 c2"
+  className="c0 c1 dot-menu-dropdown"
 >
   <div
-    className="c3 c4"
+    className="c2 c3"
   >
     <button
+      aria-expanded={false}
       aria-label="Actions"
-      className="c5 c6 c7 c8"
+      className="c4 dot-menu-toggle c5 c6"
       tabIndex={0}
     >
       <div
@@ -485,11 +394,8 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
-          fill="currentColor"
-          focusable="false"
+          className="dot-menu-icon "
           viewBox="0 0 192 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -499,8 +405,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       </div>
     </button>
     <menu
-      className="c12"
-      rightAlign={true}
+      className="c7 dot-menu-dropdown-list dot-menu-right-align"
     >
       <li>
         <button
@@ -526,8 +431,9 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     </menu>
   </div>
   <button
+    aria-expanded={false}
     aria-label="Actions"
-    className="c5 c6 c7 c8"
+    className="c4 dot-menu-toggle c5 c6"
     tabIndex={0}
   >
     <div
@@ -535,11 +441,8 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c9 c10 c11"
-        fill="currentColor"
-        focusable="false"
+        className="dot-menu-icon "
         viewBox="0 0 192 512"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"

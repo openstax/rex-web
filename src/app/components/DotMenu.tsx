@@ -1,62 +1,93 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
-import { EllipsisV } from 'styled-icons/fa-solid/EllipsisV';
-import theme from '../theme';
+import classNames from 'classnames';
+import styled from 'styled-components/macro';
 import { PlainButton } from './Button';
 import Dropdown, { DropdownList, DropdownProps } from './Dropdown';
+import './DotMenu.css';
 
-export const DotMenuIcon = styled(EllipsisV)`
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: ${theme.color.primary.gray.darker};
-  user-select: none;
+/**
+ * Three-dot vertical menu icon (ellipsis).
+ * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElement>) {
+  return (
+    <svg
+      className={classNames('dot-menu-icon', className)}
+      viewBox="0 0 192 512"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+      />
+    </svg>
+  );
+}
 
-  &:hover {
-    color: ${theme.color.secondary.lightGray.darkest};
+export const DotMenuIcon = styled(DotMenuIconBase)``;
+
+interface DotMenuToggleProps {
+  isOpen: boolean;
+  className?: string;
+}
+
+const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps>(
+  function DotMenuToggleBase({ isOpen, className, ...props }, ref) {
+    return (
+      <PlainButton
+        className={classNames('dot-menu-toggle', className)}
+        aria-label="Actions"
+        aria-expanded={isOpen}
+        {...props}
+        ref={ref}
+      >
+        <div tabIndex={-1}>
+          <DotMenuIcon />
+        </div>
+      </PlainButton>
+    );
   }
-`;
+);
 
-export const DotMenuToggle = styled(
-  React.forwardRef(
-    ({isOpen, ...props}: {isOpen: boolean}, ref) => {
+export const DotMenuToggle = styled(DotMenuToggleBase)``;
 
-      return (
-        <PlainButton aria-label='Actions' aria-expanded={isOpen} {...props} ref={ref}>
-          <div tabIndex={-1}>
-            <DotMenuIcon />
-          </div>
-        </PlainButton>
-      );
-    }
-  )
-)`
-  border: none;
-  display: block;
+interface DotMenuDropdownListProps {
+  rightAlign?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+}
 
-  > div {
-    display: inline-block;
-    outline: none;
-  }
-`;
+export function DotMenuDropdownList({ rightAlign, className, children, ...props }: DotMenuDropdownListProps) {
+  return (
+    <DropdownList
+      className={classNames(
+        'dot-menu-dropdown-list',
+        { 'dot-menu-right-align': rightAlign },
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </DropdownList>
+  );
+}
 
-export const DotMenuDropdownList = styled(DropdownList)`
-  && {
-    ${(props) => {
-      return props.rightAlign === true
-        ? css`right: 0; left: unset`
-        : css`left: 0; right: unset`
-      ;
-    }}
-  }
-`;
+export type DotMenuDropdownProps = Omit<DropdownProps, 'children' | 'toggle'> & {
+  children?: React.ReactNode;
+  toggle?: React.ReactNode;
+};
 
-export const DotMenuDropdown = styled((props: DropdownProps) => <Dropdown {...props} toggle={<DotMenuToggle />} />)`
-  .focus-within ${DotMenuIcon} {
-    color: ${theme.color.primary.gray.base};
-  }
-
-  :focus-within ${DotMenuIcon} {
-    color: ${theme.color.primary.gray.base};
-  }
-`;
+export const DotMenuDropdown: React.FC<DotMenuDropdownProps> = ({ className, children, toggle, ...props }) => {
+  return (
+    <Dropdown
+      className={classNames('dot-menu-dropdown', className)}
+      toggle={toggle || <DotMenuToggle isOpen={false} />}
+      {...props}
+    >
+      {children}
+    </Dropdown>
+  );
+};

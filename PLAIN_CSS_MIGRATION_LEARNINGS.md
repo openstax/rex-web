@@ -165,6 +165,178 @@ style={{
 
 ---
 
+## CSS Best Practices
+
+### Media Queries Must Be Top-Level in Plain CSS
+
+**Issue (Phase 1.3)**: Nested `@media` rules inside class selectors are invalid in plain CSS and will be ignored by the browser.
+
+**Problem**:
+```css
+/* ❌ Bad - nested @media is invalid in plain CSS */
+.disable-print {
+  @media print {
+    display: none;
+  }
+}
+/* This rule will be completely ignored! */
+```
+
+**Resolution**: Move media queries to the top level:
+```css
+/* ✅ Good - media query at top level */
+@media print {
+  .disable-print {
+    display: none;
+  }
+}
+```
+
+**Note**: While CSS preprocessors (Sass, Less) and CSS-in-JS libraries (styled-components) support nested media queries, plain CSS does not. During migration, always restructure nested media queries to be top-level.
+
+**For Future Phases**: When converting from styled-components, watch for nested media queries and restructure them to be top-level in plain CSS.
+
+### Import Global CSS from App Entry, Not from Theme Module
+
+**Issue (Phase 1.3)**: Importing CSS files from the theme module (`theme.ts`) creates global side effects that affect all consumers of the theme, including tests and SSR contexts.
+
+**Problem**:
+```typescript
+// theme.ts
+// ❌ Bad - creates side effects when importing theme
+import './content/components/utils/utilities.css';
+
+export const theme = { ... };
+```
+
+**Why This Is Problematic**:
+- Makes `theme.ts` have global side effects
+- Pulls CSS into test environments unnecessarily
+- Can cause SSR rendering issues
+- Violates separation of concerns (theme should be pure values)
+
+**Resolution**: Import global CSS from the app entry point (`src/app/index.tsx`):
+```typescript
+// src/app/index.tsx
+// ✅ Good - global CSS imported at app bootstrap
+import './content/components/utils/utilities.css';
+
+// ... rest of app setup
+```
+
+**Benefits**:
+- ✅ `theme.ts` remains a pure values module
+- ✅ CSS only loaded in browser/app context
+- ✅ Tests can import theme without side effects
+- ✅ Clear separation between values and global styles
+
+**For Future Phases**: Always import global CSS files from the app entry point, not from shared modules like `theme.ts`.
+
+### Avoid Duplicate CSS Imports Across Modules
+
+**Issue (Phase 1.3)**: Importing the same CSS file from multiple modules creates redundant side effects and can lead to confusion about where CSS is actually loaded.
+
+**Problem**:
+```typescript
+// utilities.css imported in both places:
+// src/app/index.tsx
+import './content/components/utils/utilities.css';
+
+// src/app/content/components/utils/disablePrint.ts
+// ❌ Bad - duplicate CSS import
+import './utilities.css';
+
+export const disablePrintClass = 'disable-print';
+```
+
+**Why This Is Problematic**:
+- Creates confusion about where CSS is actually loaded
+- Makes modules have unnecessary side effects
+- Can pull CSS into test environments unexpectedly
+- Violates the single import point principle
+
+**Resolution**: Remove duplicate CSS imports from utility modules and rely on the app entry point:
+```typescript
+// src/app/index.tsx
+// ✅ Good - single CSS import point
+import './content/components/utils/utilities.css';
+
+// src/app/content/components/utils/disablePrint.ts
+// ✅ Good - no CSS import, pure module
+// Note in comment that CSS is imported globally
+/**
+ * Note: The utilities.css file (which defines this class) is imported globally
+ * from src/app/index.tsx. Do not import it here to avoid side effects.
+ */
+export const disablePrintClass = 'disable-print';
+```
+
+**For Future Phases**: Never import CSS files from utility modules that export constants. Import CSS once from the app entry point and document this in comments.
+
+---
+
+## React Component Patterns
+
+### Implement Reference Counting for Global State Changes
+
+**Issue (Phase 1.3)**: When migrating from styled-components `createGlobalStyle` to manual DOM manipulation with `useEffect`, multiple component instances can conflict with each other.
+
+**Problem**: The original `ScrollLock` component used `createGlobalStyle` which automatically handled multiple instances. After migration to `useEffect` with body class manipulation, when multiple `ScrollLock` instances mount (e.g., modal + vertical nav), unmounting one instance removes the body class even though another is still active.
+
+**Example of the Problem**:
+```typescript
+// ❌ Bad - breaks with multiple instances
+function ScrollLock({ mediumScreensOnly }) {
+  useEffect(() => {
+    const className = mediumScreensOnly ? 'scroll-lock-medium' : 'scroll-lock';
+    document.body.classList.add(className);
+
+    return () => {
+      // When ANY instance unmounts, class is removed!
+      document.body.classList.remove(className);
+    };
+  }, [mediumScreensOnly]);
+}
+```
+
+**Resolution**: Implement reference counting at module scope:
+```typescript
+// ✅ Good - tracks instances with reference counting
+const scrollLockRefCounts = {
+  standard: 0,
+  mediumScreensOnly: 0,
+};
+
+function ScrollLock({ mediumScreensOnly }) {
+  useEffect(() => {
+    const lockType = mediumScreensOnly ? 'mediumScreensOnly' : 'standard';
+    const className = mediumScreensOnly ? 'scroll-lock-medium' : 'scroll-lock';
+
+    // Increment ref count and add class
+    scrollLockRefCounts[lockType]++;
+    document.body.classList.add(className);
+
+    return () => {
+      // Only remove class when last instance unmounts
+      scrollLockRefCounts[lockType]--;
+      if (scrollLockRefCounts[lockType] === 0) {
+        document.body.classList.remove(className);
+      }
+    };
+  }, [mediumScreensOnly]);
+}
+```
+
+**Benefits**:
+- ✅ Multiple instances can coexist safely
+- ✅ Global state only cleaned up when truly no longer needed
+- ✅ Matches behavior of `createGlobalStyle`
+- ✅ Prevents scroll re-enabling bugs
+
+**For Future Phases**: When migrating from `createGlobalStyle` or other global state management, consider whether multiple component instances can exist simultaneously. If so, implement reference counting to match the original behavior.
+
+---
+
 ## Responsive Design & Media Queries
 
 ### Understanding rem vs em in Media Queries
@@ -371,6 +543,194 @@ it('prevents default and does not call onClick when disabled', () => {
 
 ---
 
+## TypeScript and React Best Practices
+
+### Use classnames Package for className Composition
+
+**Issue (Phase 1.3)**: Using string template literals or concatenation for className composition can produce trailing whitespace and makes the code less clean.
+
+**Problem with String Concatenation**:
+```typescript
+// ❌ Bad - produces trailing whitespace when className is undefined
+<div className={`base-class ${className || ''}`}>
+  {/* className will be "base-class " with trailing space */}
+</div>
+
+// ❌ Also bad - harder to read with conditionals
+<div className={`base-class ${isActive ? 'active' : ''} ${className || ''}`}>
+</div>
+```
+
+**Resolution**: Use the `classnames` package (already a dependency in rex-web) for clean className composition:
+
+```typescript
+import classNames from 'classnames';
+
+// ✅ Good - no trailing whitespace, clean syntax
+<div className={classNames('base-class', className)}>
+  {/* className will be "base-class" when className is undefined */}
+</div>
+
+// ✅ Good - supports conditionals cleanly
+<div className={classNames('base-class', { active: isActive }, className)}>
+</div>
+
+// ✅ Good - supports arrays
+<div className={classNames(['base-class', 'another-class'], className)}>
+</div>
+```
+
+**Benefits**:
+- ✅ No trailing whitespace in rendered output
+- ✅ Cleaner snapshot tests
+- ✅ Better support for conditional classes
+- ✅ More maintainable code
+- ✅ Already a dependency in the project
+
+**For Future Phases**: Always use `classNames` from the `classnames` package for className composition instead of string concatenation or template literals.
+
+### Prefer Normal Functions Over React.FC
+
+**Issue (Phase 1.3)**: Using `React.FC` (React.FunctionComponent) for component definitions is no longer recommended in the React community.
+
+**Resolution**: Use normal function declarations with TypeScript type annotations:
+
+**Before (React.FC)**:
+```typescript
+// ❌ Avoid - React.FC is no longer recommended
+export const MyComponent: React.FC<MyProps> = ({ prop1, prop2 }) => {
+  return <div>{prop1}</div>;
+};
+```
+
+**After (normal function)**:
+```typescript
+// ✅ Preferred - Normal function with type annotations
+export function MyComponent({ prop1, prop2 }: MyProps) {
+  return <div>{prop1}</div>;
+}
+```
+
+**Benefits**:
+- ✅ Simpler and more idiomatic TypeScript
+- ✅ Better matches modern React documentation
+- ✅ Easier to refactor and maintain
+- ✅ No implicit `children` prop (more explicit typing)
+- ✅ Better support for generic components
+
+**For Future Phases**: Always use normal function declarations instead of `React.FC` when creating or migrating React components.
+
+### Use React.forwardRef for Components That Receive Refs
+
+**Issue (Phase 1.3)**: When converting components from `React.FC` to normal functions, components that receive refs must use `React.forwardRef`.
+
+**Context**: Function components require `React.forwardRef` to accept refs in React versions through 18. Rex-web uses React 16, which definitely requires this wrapper. (Note: React 19+ introduces experimental ref-as-prop behavior, but this is not yet stable or widely adopted.)
+
+**Warning Signs**:
+- Test warnings: "Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?"
+- Components used with `ref={...}` prop in styled-components wrappers
+- Components that need to expose DOM element references to parent components
+
+**Resolution**: Use `React.forwardRef` wrapper for components that receive refs:
+
+**Before (no forwardRef)**:
+```typescript
+// ❌ Causes warning when ref is passed
+export function Details({
+  children,
+  className,
+  ...props
+}: React.DetailsHTMLAttributes<HTMLDetailsElement>) {
+  return (
+    <details className={className} {...props}>
+      {children}
+    </details>
+  );
+}
+```
+
+**After (with forwardRef)**:
+```typescript
+// ✅ Properly forwards ref to DOM element
+export const Details = React.forwardRef<
+  HTMLDetailsElement,
+  React.DetailsHTMLAttributes<HTMLDetailsElement>
+>(function Details({ children, className, ...props }, ref) {
+  return (
+    <details ref={ref} className={className} {...props}>
+      {children}
+    </details>
+  );
+});
+```
+
+**Pattern Notes**:
+- The display name function (`function Details`) helps with debugging and DevTools
+- Generic types: `React.forwardRef<RefType, PropsType>`
+- First parameter is the ref type (e.g., `HTMLDetailsElement`)
+- Second parameter is the props type
+- Always pass `ref` to the appropriate DOM element
+
+**For Future Phases**: When migrating components, check if they're used with refs anywhere in the codebase. If so, use `React.forwardRef` wrapper to avoid warnings and ensure proper ref forwarding.
+
+### Always Import HTML Element Types Explicitly
+
+**Issue (Phase 1.3)**: When using specific HTML element types (like `HTMLDetailsElement`, `HTMLDivElement`, etc.) in TypeScript, our environment requires explicit imports.
+
+**Resolution**: Import HTML element types from `@openstax/types/lib.dom`:
+
+```typescript
+// ✅ Good - Explicit import of HTML element type
+import { HTMLDetailsElement } from '@openstax/types/lib.dom';
+
+export function Details({
+  children,
+  className,
+  ...props
+}: React.DetailsHTMLAttributes<HTMLDetailsElement>) {
+  return (
+    <details className={className} {...props}>
+      {children}
+    </details>
+  );
+}
+```
+
+**Why This Matters**:
+- Our TypeScript environment requires these imports to be explicit
+- All HTML element type imports should be grouped together at the top of the file
+- This ensures proper type checking and IDE support
+
+**For Future Phases**: When using specific HTML element types in component props, always import them explicitly from `@openstax/types/lib.dom`.
+
+### Remove Unused State Variables and Effects
+
+**Issue (Phase 1.3)**: During migration from class components to functional components, sometimes state variables are converted but never actually used.
+
+**Example - Unused State**:
+```typescript
+// ❌ Bad - componentMounted is set but never used
+const [componentMounted, setComponentMounted] = useState(false);
+
+useEffect(() => {
+  // ... setup code ...
+  setComponentMounted(true); // Set but never read
+}, []);
+```
+
+**Resolution**: Remove unused state variables:
+```typescript
+// ✅ Good - No unused state
+useEffect(() => {
+  // ... setup code ...
+  // No need to track mounted state if it's not used
+}, []);
+```
+
+**For Future Phases**: After converting class components to functional components, review all state variables and ensure they're actually being used. Remove any that are set but never read.
+
+---
+
 ## Code Organization
 
 ### Eliminate Duplication Through Base Components
@@ -450,13 +810,22 @@ Use this checklist when migrating additional components from styled-components t
 
 ### Implementation
 - [ ] Create plain CSS files for component styles
+- [ ] Ensure all `@media` queries are at the top level, not nested inside class selectors
 - [ ] Create React components that use plain CSS classes
+- [ ] Use `classnames` package for all className composition (no string concatenation)
+- [ ] Use normal function declarations instead of `React.FC` for all components
+- [ ] Use `React.forwardRef` for components that receive refs (check for `ref={...}` usage in codebase)
+- [ ] Import HTML element types explicitly from `@openstax/types/lib.dom` when needed
 - [ ] Bind theme values as CSS variables (set before `...style`)
 - [ ] Add CSS variable fallbacks in CSS files
+- [ ] Import global CSS files from app entry point (`src/app/index.tsx`), not from `theme.ts` or utility modules
+- [ ] Avoid duplicate CSS imports across multiple modules
+- [ ] When migrating `createGlobalStyle`, implement reference counting if multiple instances can coexist
 - [ ] Extract shared constants into `.constants.ts` files (no side effects)
 - [ ] Create `.legacy.ts` files for backward-compatible styled-components exports
 - [ ] Use selective exports in index files to avoid conflicts
 - [ ] Upgrade Redux `connect()` to hooks (`useSelector`, `useDispatch`) when editing connected components
+- [ ] Remove unused state variables and effects after converting from class components
 
 ### Testing
 - [ ] Add snapshot tests for all component variations
@@ -507,5 +876,7 @@ The styled-components to plain CSS migration has successfully migrated Typograph
 **Phase 1.1 (Typography)**: Established the hybrid migration pattern, module structure, and CSS variable binding approach.
 
 **Phase 1.2 (Container/Layout)**: Addressed responsive design complexities, particularly the rem/em conversion requirement for media queries and the importance of documenting hard-coded breakpoint values.
+
+**Phase 1.3 (Utility Components)**: Established TypeScript and React best practices, including preferring normal functions over React.FC, using the classnames package for className composition, ensuring media queries are top-level in CSS, importing global CSS from app entry point instead of theme module or utility modules, implementing reference counting for components that manipulate global state (to handle multiple instances), explicitly importing HTML element types, and removing unused state variables during class-to-functional component conversions.
 
 These patterns and practices should serve as a foundation for future migration phases, helping to avoid the issues encountered and streamlining the migration process.
