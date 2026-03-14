@@ -29,13 +29,12 @@ function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElem
 
 export const DotMenuIcon = styled(DotMenuIconBase)``;
 
-interface DotMenuToggleProps {
-  isOpen: boolean;
-  className?: string;
+interface DotMenuToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  isOpen?: boolean;
 }
 
 const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps>(
-  function DotMenuToggleBase({ isOpen, className, ...props }, ref) {
+  function DotMenuToggleBase({ isOpen = false, className, ...props }, ref) {
     return (
       <PlainButton
         className={classNames('dot-menu-toggle', className)}
