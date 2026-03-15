@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import TestContainer from '../../test/TestContainer';
-import { DotMenuDropdown, DotMenuDropdownList } from './DotMenu';
+import { DotMenuDropdown, DotMenuDropdownList, DotMenuToggle } from './DotMenu';
 import { DropdownItem } from './Dropdown';
 
 describe('Dropdown', () => {
@@ -31,5 +31,37 @@ describe('Dropdown', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+});
+
+describe('DotMenuToggle', () => {
+  it('renders with default isOpen=false when isOpen prop is not supplied', () => {
+    const component = renderer.create(<TestContainer>
+      <DotMenuToggle />
+    </TestContainer>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    // Verify aria-expanded is false when isOpen is not supplied
+    const button = tree && typeof tree === 'object' && 'props' in tree ? tree : null;
+    if (button && 'props' in button) {
+      expect(button.props['aria-expanded']).toBe(false);
+    }
+  });
+
+  it('renders with isOpen=true when explicitly set', () => {
+    const component = renderer.create(<TestContainer>
+      <DotMenuToggle isOpen={true} />
+    </TestContainer>);
+
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+
+    // Verify aria-expanded is true when isOpen is explicitly set to true
+    const button = tree && typeof tree === 'object' && 'props' in tree ? tree : null;
+    if (button && 'props' in button) {
+      expect(button.props['aria-expanded']).toBe(true);
+    }
   });
 });
