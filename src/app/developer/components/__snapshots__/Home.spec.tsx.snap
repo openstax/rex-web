@@ -139,13 +139,7 @@ Array [
   >
     
   </div>,
-  .c16 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c6 {
+  .c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -190,7 +184,7 @@ Array [
   grid-gap: 1rem;
 }
 
-.c12 {
+.c11 {
   cursor: pointer;
   border: none;
   margin: 0;
@@ -198,11 +192,11 @@ Array [
   background: none;
 }
 
-.c15 {
+.c13 {
   cursor: pointer;
 }
 
-.c9 > *:not(.c14) {
+.c9 > *:not(.c12) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -215,39 +209,6 @@ Array [
 .c10 {
   overflow: visible;
   position: relative;
-}
-
-.c18 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #424242;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c18:hover {
-  color: #818181;
-}
-
-.c13 {
-  border: none;
-  display: block;
-}
-
-.c13 > div {
-  display: inline-block;
-  outline: none;
-}
-
-.c11 .focus-within .c17 {
-  color: #5e6062;
-}
-
-.c11:focus-within .c17 {
-  color: #5e6062;
 }
 
 .c8 {
@@ -619,12 +580,12 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c9 c10 c11"
+                    className="c9 c10 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="c12 c13 c14 c15"
+                      className="c11 dot-menu-toggle c12 c13"
                       onClick={[Function]}
                     >
                       <div
@@ -632,11 +593,8 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c17 c18"
-                          fill="currentColor"
-                          focusable="false"
+                          className="dot-menu-icon "
                           viewBox="0 0 192 512"
-                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -673,12 +631,12 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c9 c10 c11"
+                    className="c9 c10 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="c12 c13 c14 c15"
+                      className="c11 dot-menu-toggle c12 c13"
                       onClick={[Function]}
                     >
                       <div
@@ -686,11 +644,8 @@ Array [
                       >
                         <svg
                           aria-hidden="true"
-                          className="c16 c17 c18"
-                          fill="currentColor"
-                          focusable="false"
+                          className="dot-menu-icon "
                           viewBox="0 0 192 512"
-                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"

@@ -1,52 +1,18 @@
-import React, { HTMLAttributes } from 'react';
-import styled, { createGlobalStyle, css, keyframes } from 'styled-components/macro';
+import classNames from 'classnames';
+import React, { HTMLAttributes, useEffect } from 'react';
 import { sidebarTransitionTime, topbarDesktopHeight } from '../content/components/constants';
-import { disablePrint } from '../content/components/utils/disablePrint';
 import { useDisableContentTabbing } from '../reactUtils';
 import theme from '../theme';
 import OnScroll, { OnTouchMoveCallback } from './OnScroll';
+// Note: ScrollLock.css is imported globally from src/app/index.tsx to ensure consistent
+// CSS ordering across code-split chunks
 
-const ScrollLockBodyClass = createGlobalStyle`
-  body.body {
-    ${(props: {mediumScreensOnly?: boolean}) => props.mediumScreensOnly && css`
-      ${theme.breakpoints.mobile(css`
-        @media print {
-          #root {
-            display: none;
-          }
-        }
-
-        overflow: hidden;
-      `)}
-    `}
-
-    ${(props: {mediumScreensOnly?: boolean}) => !props.mediumScreensOnly && css`
-      @media print {
-        #root {
-          display: none;
-        }
-      }
-
-      overflow: hidden;
-    `}
-  }
-
-  @media print {
-    body.body {
-      overflow: visible;
-    }
-  }
-`;
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-`;
+// Reference counting for scroll lock instances
+// This ensures the body class is only removed when the last instance unmounts
+const scrollLockRefCounts = {
+  standard: 0,
+  mediumScreensOnly: 0,
+};
 
 interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   className?: string;
@@ -54,35 +20,30 @@ interface OverlayProps extends HTMLAttributes<HTMLDivElement> {
   zIndex?: number;
 }
 
-export const Overlay = styled(({ mediumScreensOnly, zIndex, ...props}: OverlayProps) => {
+export function Overlay({
+  mediumScreensOnly,
+  zIndex,
+  className,
+  style,
+  ...props
+}: OverlayProps) {
   useDisableContentTabbing(mediumScreensOnly ? false : true);
-  return <div {...props} />;
-})`
-  animation: ${sidebarTransitionTime}ms ${fadeIn} ease-out;
-  background-color: rgba(0, 0, 0, 0.8);
-  ${(props: {zIndex?: number}) => props.zIndex && css`
-    z-index: ${props.zIndex};
-  `}
-  position: absolute;
-  content: "";
-  top: -${topbarDesktopHeight}rem;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  ${(props: {mediumScreensOnly?: boolean}) => props.mediumScreensOnly && css`
-    display: none;
 
-    ${theme.breakpoints.mobile(css`
-      display: block;
-    `)}
-
-    ${theme.breakpoints.mobileMedium(css`
-      display: none;
-    `)}
-  `}
-
-  ${disablePrint}
-`;
+  return (
+    <div
+      {...props}
+      className={classNames('scroll-lock-overlay', {
+        'scroll-lock-overlay-medium-screens-only': mediumScreensOnly,
+      }, className)}
+      style={{
+        '--scroll-lock-transition-time': `${sidebarTransitionTime}ms`,
+        '--scroll-lock-topbar-height': `${topbarDesktopHeight}rem`,
+        '--scroll-lock-z-index': zIndex,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
 
 interface Props {
   onClick?: () => void;
@@ -91,27 +52,53 @@ interface Props {
   zIndex?: number | undefined;
 }
 
-export default class ScrollLock extends React.Component<Props> {
+function ScrollLock({ onClick, overlay, mediumScreensOnly, zIndex }: Props) {
+  // Add/remove body class for scroll locking with reference counting
+  // This ensures the class is only removed when the last instance unmounts
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
 
-  public render() {
-    return <OnScroll onTouchMove={this.blockScroll}>
-      <ScrollLockBodyClass mediumScreensOnly={this.props.mediumScreensOnly}/>
-      {this.props.overlay !== false && <Overlay
-        data-testid='scroll-lock-overlay'
-        onClick={this.props.onClick}
-        mediumScreensOnly={this.props.mediumScreensOnly}
-        zIndex={this.props.zIndex}
-      />}
-    </OnScroll>;
-  }
+    const body = document.body;
+    const lockType = mediumScreensOnly ? 'mediumScreensOnly' : 'standard';
+    const scrollLockClass = mediumScreensOnly ? 'scroll-lock-medium-screens-only' : 'scroll-lock';
 
-  private blockScroll: OnTouchMoveCallback = (element, e) => {
+    // Increment reference count and add class
+    scrollLockRefCounts[lockType]++;
+    body.classList.add(scrollLockClass);
+
+    return () => {
+      // Decrement reference count and only remove class if this is the last instance
+      scrollLockRefCounts[lockType]--;
+      if (scrollLockRefCounts[lockType] === 0) {
+        body.classList.remove(scrollLockClass);
+      }
+    };
+  }, [mediumScreensOnly]);
+
+  const blockScroll: OnTouchMoveCallback = (element, e) => {
     if (
-      typeof(window) !== 'undefined'
+      typeof window !== 'undefined'
       && window.matchMedia(theme.breakpoints.mobileQuery).matches
       && element === window
     ) {
       e.preventDefault();
     }
   };
+
+  return (
+    <OnScroll onTouchMove={blockScroll}>
+      {overlay !== false && (
+        <Overlay
+          data-testid='scroll-lock-overlay'
+          onClick={onClick}
+          mediumScreensOnly={mediumScreensOnly}
+          zIndex={zIndex}
+        />
+      )}
+    </OnScroll>
+  );
 }
+
+export default ScrollLock;

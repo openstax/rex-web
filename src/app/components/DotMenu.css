@@ -1,0 +1,42 @@
+/* DotMenu component - three-dot vertical menu icon with dropdown */
+
+.dot-menu-icon {
+  height: 2rem;
+  width: 2rem;
+  padding: 0.2rem;
+  color: var(--dot-menu-color, #424242); /* theme.color.primary.gray.darker */
+  user-select: none;
+}
+
+.dot-menu-icon:hover {
+  color: var(--dot-menu-hover-color, #5e6366); /* theme.color.secondary.lightGray.darkest */
+}
+
+.dot-menu-toggle {
+  border: none;
+  display: block;
+}
+
+.dot-menu-toggle > div {
+  display: inline-block;
+  outline: none;
+}
+
+.dot-menu-dropdown-list.dot-menu-right-align {
+  right: 0;
+  left: unset;
+}
+
+.dot-menu-dropdown-list:not(.dot-menu-right-align) {
+  left: 0;
+  right: unset;
+}
+
+/* Focus state styles */
+.dot-menu-dropdown.focus-within .dot-menu-icon {
+  color: var(--dot-menu-focus-color, #5b5b5b); /* theme.color.primary.gray.base */
+}
+
+.dot-menu-dropdown:focus-within .dot-menu-icon {
+  color: var(--dot-menu-focus-color, #5b5b5b); /* theme.color.primary.gray.base */
+}

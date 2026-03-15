@@ -1,0 +1,39 @@
+/* Details element and summary styling for expandable/collapsible content */
+
+/* Icon size: 1.7rem matches the exported iconSize constant in Details.tsx
+ * IMPORTANT: If iconSize is changed in Details.tsx, update these values to match.
+ * The iconSize export is used for styled-components consumers, while these
+ * CSS values apply to the plain React components.
+ */
+.details-expand-icon,
+.details-collapse-icon {
+  height: 1.7rem;
+  width: 1.7rem;
+}
+
+.details-summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.details-summary::before {
+  display: none;
+}
+
+.details-summary::-moz-list-bullet {
+  list-style-type: none;
+}
+
+.details-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Hide expand icon when details is open */
+details[open] > summary .details-expand-icon {
+  display: none;
+}
+
+/* Hide collapse icon when details is closed */
+details:not([open]) > summary .details-collapse-icon {
+  display: none;
+}

@@ -9,6 +9,28 @@ export interface ColorSet {
   darkest?: string;
 }
 
+/**
+ * CSS class name for visually hiding content while keeping it accessible to screen readers.
+ * Apply this class to elements that should be hidden visually but remain in the accessibility tree.
+ *
+ * @example
+ * <span className={hiddenButAccessibleClass}>Screen reader only text</span>
+ */
+export const hiddenButAccessibleClass = 'hidden-but-accessible';
+
+/**
+ * @deprecated Use `hiddenButAccessibleClass` with className instead.
+ * This CSS string export is for backward compatibility with existing styled-components usage.
+ *
+ * @example
+ * // Old (styled-components):
+ * const Label = styled.label`
+ *   ${hiddenButAccessible}
+ * `;
+ *
+ * // New (plain CSS):
+ * <label className={hiddenButAccessibleClass}>...</label>
+ */
 export const hiddenButAccessible = `
   position: absolute;
   width: 1px;
