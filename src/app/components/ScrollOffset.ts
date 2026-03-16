@@ -1,5 +1,5 @@
 import { MouseEvent } from '@openstax/types/lib.dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { isHtmlElement } from '../guards';
 import theme from '../theme';
 import { assertWindow, remsToPx } from '../utils';
@@ -85,13 +85,14 @@ function ScrollOffset({ desktopOffset, mobileOffset }: ScrollOffsetProps) {
     scrollHandlersRef.current.push(handler);
   };
 
-  const resizeHandler = () => {
+  const resizeHandler = useCallback(() => {
     if (typeof window === 'undefined') {
       return;
     }
     const body = window.document.body;
     body.setAttribute('data-scroll-padding', String(getOffset(window)));
-  };
+  },
+  []);
 
   const hashchangeHandler = () => {
     checkScroll();
@@ -154,7 +155,7 @@ function ScrollOffset({ desktopOffset, mobileOffset }: ScrollOffsetProps) {
   // Handle resize when offsets change
   useEffect(() => {
     resizeHandler();
-  }, [desktopOffset, mobileOffset]);
+  }, [desktopOffset, mobileOffset, resizeHandler]);
 
   return null;
 }
