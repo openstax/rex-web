@@ -14,8 +14,8 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 }
 
 /**
- * Expand icon (caret-right) for Details component.
- * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ * Expand icon (caret-right) for Details component - filled triangle pointing right.
+ * SVG path from Font Awesome Free solid caret-right (https://fontawesome.com - MIT License)
  *
  * Note: Wrapped with styled() to enable styled-components component selector references
  */
@@ -23,13 +23,13 @@ function ExpandIconBase({ className, ...props }: IconProps) {
   return (
     <svg
       className={classNames('details-expand-icon', className)}
-      viewBox="0 0 256 512"
+      viewBox="0 0 192 512"
       aria-hidden="true"
       {...props}
     >
       <path
         fill="currentColor"
-        d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"
+        d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
       />
     </svg>
   );
