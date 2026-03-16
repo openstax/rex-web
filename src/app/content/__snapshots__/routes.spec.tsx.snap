@@ -961,6 +961,7 @@ exports[`assigned route route renders renders a component 1`] = `
       <svg
         aria-hidden="true"
         className="details-expand-icon c20 c21 c22"
+        focusable="false"
         viewBox="0 0 192 512"
       >
         <path
@@ -971,6 +972,7 @@ exports[`assigned route route renders renders a component 1`] = `
       <svg
         aria-hidden="true"
         className="details-collapse-icon c23 c24 c25"
+        focusable="false"
         viewBox="0 0 320 512"
       >
         <path

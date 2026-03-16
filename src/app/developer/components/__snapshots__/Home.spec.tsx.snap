@@ -594,6 +594,7 @@ Array [
                         <svg
                           aria-hidden="true"
                           className="dot-menu-icon "
+                          focusable="false"
                           viewBox="0 0 192 512"
                         >
                           <path
@@ -645,6 +646,7 @@ Array [
                         <svg
                           aria-hidden="true"
                           className="dot-menu-icon "
+                          focusable="false"
                           viewBox="0 0 192 512"
                         >
                           <path

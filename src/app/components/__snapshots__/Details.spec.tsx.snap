@@ -4,6 +4,7 @@ exports[`Details components CollapseIcon renders correctly 1`] = `
 <svg
   aria-hidden="true"
   className="details-collapse-icon "
+  focusable="false"
   viewBox="0 0 320 512"
 >
   <path
@@ -42,6 +43,7 @@ exports[`Details components ExpandIcon renders correctly 1`] = `
 <svg
   aria-hidden="true"
   className="details-expand-icon "
+  focusable="false"
   viewBox="0 0 192 512"
 >
   <path

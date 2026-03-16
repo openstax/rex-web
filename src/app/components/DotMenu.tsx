@@ -17,6 +17,7 @@ function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElem
       className={classNames('dot-menu-icon', className)}
       viewBox="0 0 192 512"
       aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path
@@ -34,7 +35,7 @@ interface DotMenuToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps>(
-  function DotMenuToggleBase({ isOpen = false, className, ...props }, ref) {
+  function DotMenuToggleBase({ isOpen, className, ...props }, ref) {
     return (
       <PlainButton
         className={classNames('dot-menu-toggle', className)}
@@ -53,11 +54,9 @@ const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps
 
 export const DotMenuToggle = styled(DotMenuToggleBase)``;
 
-interface DotMenuDropdownListProps {
+type DotMenuDropdownListProps = React.ComponentProps<typeof DropdownList> & {
   rightAlign?: boolean;
-  className?: string;
-  children?: React.ReactNode;
-}
+};
 
 export function DotMenuDropdownList({ rightAlign, className, children, ...props }: DotMenuDropdownListProps) {
   return (
@@ -76,14 +75,14 @@ export function DotMenuDropdownList({ rightAlign, className, children, ...props 
 
 export type DotMenuDropdownProps = Omit<DropdownProps, 'children' | 'toggle'> & {
   children?: React.ReactNode;
-  toggle?: React.ReactNode;
+  toggle?: React.ReactElement;
 };
 
 export function DotMenuDropdown({ className, children, toggle, ...props }: DotMenuDropdownProps) {
   return (
     <Dropdown
       className={classNames('dot-menu-dropdown', className)}
-      toggle={toggle || <DotMenuToggle isOpen={false} />}
+      toggle={toggle || <DotMenuToggle />}
       {...props}
     >
       {children}

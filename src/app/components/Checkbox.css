@@ -35,7 +35,7 @@
 }
 
 .checkbox-label input:checked + .checkbox-custom {
-  background-color: var(--checkbox-checked-bg, #d4450c); /* theme.color.primary.orange.darkest */
+  background-color: var(--checkbox-checked-bg, #b03808); /* theme.color.primary.orange.darkest */
 }
 
 .checkbox-icon {
@@ -52,22 +52,22 @@
 /* Focus styles */
 .checkbox-label:focus-within {
   border-radius: 0.4rem;
-  background-color: var(--checkbox-focus-bg, #f5f5f5); /* theme.color.neutral.pageBackground */
+  background-color: var(--checkbox-focus-bg, #f1f1f1); /* theme.color.neutral.pageBackground */
   /* Browser default focus outline */
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
 .checkbox-label:focus-within .checkbox-custom {
-  border: 1px solid var(--checkbox-checked-bg, #d4450c); /* theme.color.primary.orange.darkest */
+  border: 1px solid var(--checkbox-checked-bg, #b03808); /* theme.color.primary.orange.darkest */
 }
 
 /* Fallback for browsers that don't support :focus-within */
 .checkbox-label.focus-within {
   border-radius: 0.4rem;
-  background-color: var(--checkbox-focus-bg, #f5f5f5); /* theme.color.neutral.pageBackground */
+  background-color: var(--checkbox-focus-bg, #f1f1f1); /* theme.color.neutral.pageBackground */
 }
 
 .checkbox-label.focus-within .checkbox-custom {
-  border: 1px solid var(--checkbox-checked-bg, #d4450c); /* theme.color.primary.orange.darkest */
+  border: 1px solid var(--checkbox-checked-bg, #b03808); /* theme.color.primary.orange.darkest */
 }

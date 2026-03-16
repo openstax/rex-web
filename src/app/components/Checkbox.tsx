@@ -13,6 +13,7 @@ function CheckIcon({ className, ...props }: React.SVGAttributes<SVGSVGElement>) 
       className={classNames('checkbox-icon', className)}
       viewBox="0 0 512 512"
       aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path

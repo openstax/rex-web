@@ -16,7 +16,7 @@
 .go-to-top-circle {
   width: 2.4rem;
   height: 2.4rem;
-  background: var(--go-to-top-bg, #6f6f6f); /* theme.color.primary.gray.light */
+  background: var(--go-to-top-bg, #767676); /* theme.color.primary.gray.light */
   border-radius: 50%;
   display: flex;
   align-items: center;

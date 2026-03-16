@@ -16,6 +16,7 @@ export function GoToTopIcon({ className, ...props }: React.SVGAttributes<SVGSVGE
       className={classNames('go-to-top-icon', className)}
       viewBox="0 0 384 512"
       aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path
@@ -26,18 +27,18 @@ export function GoToTopIcon({ className, ...props }: React.SVGAttributes<SVGSVGE
   );
 }
 
-interface GoToTopButtonProps {
+type GoToTopButtonProps = Omit<React.ComponentProps<typeof PlainButton>, 'aria-label' | 'onClick'> & {
   i18nAriaLabel: string;
   onClick: () => void;
-  [key: string]: unknown;
-}
+};
 
-const GoToTopButton = ({ i18nAriaLabel, onClick, ...rest }: GoToTopButtonProps) => {
+const GoToTopButton = (props: GoToTopButtonProps) => {
+  const { i18nAriaLabel, onClick, className, ...rest } = props;
   const intl = useIntl();
 
   return (
     <PlainButton
-      className={classNames('go-to-top-wrapper', disablePrintClass)}
+      className={classNames('go-to-top-wrapper', disablePrintClass, className)}
       onClick={onClick}
       aria-label={intl.formatMessage({id: i18nAriaLabel})}
       type="button"

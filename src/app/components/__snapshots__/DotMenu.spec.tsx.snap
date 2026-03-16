@@ -1,67 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DotMenuToggle renders with default isOpen=false when isOpen prop is not supplied 1`] = `
-.c0 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-<button
-  aria-expanded={false}
-  aria-label="Actions"
-  className="c0 dot-menu-toggle "
->
-  <div
-    tabIndex={-1}
-  >
-    <svg
-      aria-hidden="true"
-      className="dot-menu-icon "
-      viewBox="0 0 192 512"
-    >
-      <path
-        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-        fill="currentColor"
-      />
-    </svg>
-  </div>
-</button>
-`;
-
-exports[`DotMenuToggle renders with isOpen=true when explicitly set 1`] = `
-.c0 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-<button
-  aria-expanded={true}
-  aria-label="Actions"
-  className="c0 dot-menu-toggle "
->
-  <div
-    tabIndex={-1}
-  >
-    <svg
-      aria-hidden="true"
-      className="dot-menu-icon "
-      viewBox="0 0 192 512"
-    >
-      <path
-        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-        fill="currentColor"
-      />
-    </svg>
-  </div>
-</button>
-`;
-
 exports[`Dropdown matches snapshot 1`] = `
 .c4 {
   cursor: pointer;
@@ -219,7 +157,6 @@ exports[`Dropdown matches snapshot 1`] = `
     className="c2 c3"
   >
     <button
-      aria-expanded={false}
       aria-label="Actions"
       className="c4 dot-menu-toggle c5 c6"
       tabIndex={0}
@@ -230,6 +167,7 @@ exports[`Dropdown matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon "
+          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -266,7 +204,6 @@ exports[`Dropdown matches snapshot 1`] = `
     </menu>
   </div>
   <button
-    aria-expanded={false}
     aria-label="Actions"
     className="c4 dot-menu-toggle c5 c6"
     tabIndex={0}
@@ -277,6 +214,7 @@ exports[`Dropdown matches snapshot 1`] = `
       <svg
         aria-hidden="true"
         className="dot-menu-icon "
+        focusable="false"
         viewBox="0 0 192 512"
       >
         <path
@@ -446,7 +384,6 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     className="c2 c3"
   >
     <button
-      aria-expanded={false}
       aria-label="Actions"
       className="c4 dot-menu-toggle c5 c6"
       tabIndex={0}
@@ -457,6 +394,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon "
+          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -493,7 +431,6 @@ exports[`Dropdown matches snapshot on right align 1`] = `
     </menu>
   </div>
   <button
-    aria-expanded={false}
     aria-label="Actions"
     className="c4 dot-menu-toggle c5 c6"
     tabIndex={0}
@@ -504,6 +441,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       <svg
         aria-hidden="true"
         className="dot-menu-icon "
+        focusable="false"
         viewBox="0 0 192 512"
       >
         <path

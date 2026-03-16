@@ -928,6 +928,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
               <svg
                 aria-hidden="true"
                 className="details-expand-icon "
+                focusable="false"
                 viewBox="0 0 192 512"
               >
                 <path
@@ -938,6 +939,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
               <svg
                 aria-hidden="true"
                 className="details-collapse-icon "
+                focusable="false"
                 viewBox="0 0 320 512"
               >
                 <path
@@ -1569,6 +1571,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <svg
                 aria-hidden="true"
                 className="details-expand-icon "
+                focusable="false"
                 viewBox="0 0 192 512"
               >
                 <path
@@ -1579,6 +1582,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <svg
                 aria-hidden="true"
                 className="details-collapse-icon "
+                focusable="false"
                 viewBox="0 0 320 512"
               >
                 <path
@@ -1658,6 +1662,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <svg
                 aria-hidden="true"
                 className="details-expand-icon "
+                focusable="false"
                 viewBox="0 0 192 512"
               >
                 <path
@@ -1668,6 +1673,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <svg
                 aria-hidden="true"
                 className="details-collapse-icon "
+                focusable="false"
                 viewBox="0 0 320 512"
               >
                 <path

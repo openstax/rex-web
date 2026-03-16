@@ -423,6 +423,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="checkbox-icon"
+          focusable="false"
           viewBox="0 0 512 512"
         >
           <path
@@ -493,6 +494,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="checkbox-icon"
+          focusable="false"
           viewBox="0 0 512 512"
         >
           <path
@@ -563,6 +565,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="checkbox-icon"
+          focusable="false"
           viewBox="0 0 512 512"
         >
           <path
@@ -633,6 +636,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="checkbox-icon"
+          focusable="false"
           viewBox="0 0 512 512"
         >
           <path
@@ -703,6 +707,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="checkbox-icon"
+          focusable="false"
           viewBox="0 0 512 512"
         >
           <path

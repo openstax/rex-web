@@ -77,6 +77,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c8 "
+          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -583,6 +584,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c8 "
+          focusable="false"
           viewBox="0 0 192 512"
         >
           <path

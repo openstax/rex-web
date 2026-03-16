@@ -10,7 +10,6 @@ export const iconSize = 1.7;
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
-  size?: number | string;
 }
 
 /**
@@ -25,6 +24,7 @@ function ExpandIconBase({ className, ...props }: IconProps) {
       className={classNames('details-expand-icon', className)}
       viewBox="0 0 192 512"
       aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path
@@ -49,6 +49,7 @@ function CollapseIconBase({ className, ...props }: IconProps) {
       className={classNames('details-collapse-icon', className)}
       viewBox="0 0 320 512"
       aria-hidden="true"
+      focusable="false"
       {...props}
     >
       <path

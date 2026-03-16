@@ -1696,6 +1696,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
     <svg
       aria-hidden="true"
       className="details-expand-icon c5 c6 c7"
+      focusable="false"
       viewBox="0 0 192 512"
     >
       <path
@@ -1706,6 +1707,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
     <svg
       aria-hidden="true"
       className="details-collapse-icon c8 c9 c10"
+      focusable="false"
       viewBox="0 0 320 512"
     >
       <path
@@ -2889,6 +2891,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     <svg
       aria-hidden="true"
       className="details-expand-icon c5 c6 c7"
+      focusable="false"
       viewBox="0 0 192 512"
     >
       <path
@@ -2899,6 +2902,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     <svg
       aria-hidden="true"
       className="details-collapse-icon c8 c9 c10"
+      focusable="false"
       viewBox="0 0 320 512"
     >
       <path
@@ -4225,6 +4229,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     <svg
       aria-hidden="true"
       className="details-expand-icon c5 c6 c7"
+      focusable="false"
       viewBox="0 0 192 512"
     >
       <path
@@ -4235,6 +4240,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     <svg
       aria-hidden="true"
       className="details-collapse-icon c8 c9 c10"
+      focusable="false"
       viewBox="0 0 320 512"
     >
       <path
@@ -5869,6 +5875,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     <svg
       aria-hidden="true"
       className="details-expand-icon c5 c6 c7"
+      focusable="false"
       viewBox="0 0 192 512"
     >
       <path
@@ -5879,6 +5886,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     <svg
       aria-hidden="true"
       className="details-collapse-icon c8 c9 c10"
+      focusable="false"
       viewBox="0 0 320 512"
     >
       <path
@@ -7358,6 +7366,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     <svg
       aria-hidden="true"
       className="details-expand-icon c5 c6 c7"
+      focusable="false"
       viewBox="0 0 192 512"
     >
       <path
@@ -7368,6 +7377,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     <svg
       aria-hidden="true"
       className="details-collapse-icon c8 c9 c10"
+      focusable="false"
       viewBox="0 0 320 512"
     >
       <path
