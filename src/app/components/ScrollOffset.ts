@@ -109,6 +109,14 @@ function ScrollOffset({ desktopOffset, mobileOffset }: ScrollOffsetProps) {
       document.documentElement.style.setProperty('--scroll-offset-desktop', `${desktopOffset}rem`);
       document.documentElement.style.setProperty('--scroll-offset-mobile', `${mobileOffset}rem`);
     }
+
+    // Cleanup: remove CSS variables on unmount
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.documentElement.style.removeProperty('--scroll-offset-desktop');
+        document.documentElement.style.removeProperty('--scroll-offset-mobile');
+      }
+    };
   }, [desktopOffset, mobileOffset]);
 
   // Component lifecycle
@@ -143,11 +151,10 @@ function ScrollOffset({ desktopOffset, mobileOffset }: ScrollOffsetProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handle resize on update
+  // Handle resize when offsets change
   useEffect(() => {
     resizeHandler();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, [desktopOffset, mobileOffset]);
 
   return null;
 }
