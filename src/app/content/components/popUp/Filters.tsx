@@ -1,7 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
-import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import { PlainButton } from '../../../components/Button';
 import Dropdown, { DropdownToggle, TabHiddenDropdownProps } from '../../../components/Dropdown';
 import { textStyle } from '../../../components/Typography';
@@ -10,7 +9,36 @@ import { filters } from '../../styles/PopupConstants';
 import { disablePrint } from '../utils/disablePrint';
 import FiltersList from './FiltersList';
 
-export const AngleIcon = styled(AngleDown)`
+interface IconProps extends React.SVGAttributes<SVGSVGElement> {
+  className?: string;
+  size?: number | string;
+}
+
+/**
+ * Angle down icon for filter dropdowns.
+ * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+function AngleDownIconBase({ className, ...props }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 320 512"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+      />
+    </svg>
+  );
+}
+
+const AngleDownIcon = styled(AngleDownIconBase)``;
+
+export const AngleIcon = styled(AngleDownIcon)`
   color: ${theme.color.primary.gray.base};
   width: ${filters.dropdownToggle.icon.width}rem;
   height: ${filters.dropdownToggle.icon.height}rem;

@@ -3,7 +3,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { FlattenSimpleInterpolation } from 'styled-components';
 import styled, { css } from 'styled-components/macro';
-import { ChevronLeft } from 'styled-icons/boxicons-regular/ChevronLeft';
 import { maxNavWidth } from '../../components/NavBar';
 import { h3MobileLineHeight, h3Style, h4Style, textRegularLineHeight } from '../../components/Typography';
 import { useServices } from '../../context/Services';
@@ -27,6 +26,34 @@ import {
 import { applyBookTextColor } from './utils/applyBookTextColor';
 import { disablePrint } from './utils/disablePrint';
 
+interface IconProps extends React.SVGAttributes<SVGSVGElement> {
+  className?: string;
+}
+
+/**
+ * ChevronLeft icon for BookBanner component.
+ * SVG path from Boxicons (https://boxicons.com - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+function ChevronLeftIconBase({ className, ...props }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+      />
+    </svg>
+  );
+}
+
+export const ChevronLeftIcon = styled(ChevronLeftIconBase)``;
+
 const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'blue': '#004aa2',
   'deep-green': '#12A28C',
@@ -40,7 +67,7 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
   'yellow': '#faea36',
 };
 
-const LeftArrow = styled(ChevronLeft)`
+const LeftArrow = styled(ChevronLeftIcon)`
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
