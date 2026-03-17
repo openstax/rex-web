@@ -3,7 +3,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { act as reactDomAct } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
 import { HTMLElement } from '@openstax/types/lib.dom';
-import ConnectedTableOfContents, { TableOfContents, maybeAriaAttributes } from '.';
+import ConnectedTableOfContents, { TableOfContents } from '.';
 import createTestStore from '../../../../test/createTestStore';
 import { book as archiveBook, page, shortPage } from '../../../../test/mocks/archiveLoader';
 import { mockCmsBook } from '../../../../test/mocks/osWebLoader';
@@ -79,6 +79,10 @@ describe('TableOfContents', () => {
           onNavigate={jest.fn()}
         />
       </TestContainer>;
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   it('mounts and unmounts without a dom', () => {
@@ -374,6 +378,42 @@ describe('TableOfContents', () => {
     expect(instance.state.expandedKeys).toEqual(new Set(['abc', 'xyz']));
   });
 
+  it('adds event listener when ToC is open on mobile', () => {
+    jest.spyOn(mediaUtils, 'useMatchMobileQuery')
+      .mockReturnValue(true);
+    jest.spyOn(mediaUtils, 'useMatchMobileMediumQuery')
+      .mockReturnValue(false);
+
+    const addEventListenerSpy = jest.spyOn(document!, 'addEventListener');
+    const removeEventListenerSpy = jest.spyOn(document!, 'removeEventListener');
+
+    const { unmount } = renderToDom(<TestContainer store={store}>
+      <ConnectedTableOfContents />
+    </TestContainer>);
+
+    reactDomAct(() => {
+      store.dispatch(actions.openToc());
+    });
+
+    // Find the actual keydown handler that was registered
+    const keydownCall = addEventListenerSpy.mock.calls.find(
+      ([eventType]) => eventType === 'keydown'
+    );
+
+    expect(keydownCall).toBeDefined();
+
+    const [, keydownHandler, useCapture] = keydownCall!;
+
+    // Verify addEventListener was called with 'keydown' event for tab trapping
+    expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', keydownHandler, useCapture);
+    expect(useCapture).toBe(true);
+
+    // Cleanup: specifically verify that unmount removes the same event listener
+    removeEventListenerSpy.mockClear();
+    unmount();
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', keydownHandler, useCapture);
+  });
+
   it('returns null in SSR', () => {
     jest.spyOn(reactUtils, 'isSSR').mockReturnValue(true);
     const component = renderer.create(Component);
@@ -398,10 +438,76 @@ describe('TableOfContents', () => {
     // Verify it contains the "Table of contents" text
     expect(h2Element?.textContent).toBe('Table of contents');
   });
+
+  it('adds aria-label to TreeItem for leaf sections (links)', () => {
+    const component = renderer.create(Component);
+
+    // Find mock-tree-item elements that represent leaf nodes (links to pages)
+    const treeItems = component.root.findAll((node: any) =>
+      node.props && node.props['data-testid'] === 'mock-tree-item' && node.props['aria-label']
+    );
+
+    // Find a specific leaf item - look for one that ends with ', link'
+    const leafItem = treeItems.find((item: any) =>
+      item.props['aria-label'] && item.props['aria-label'].endsWith(', link')
+    );
+
+    // Verify a leaf TreeItem exists
+    expect(leafItem).toBeDefined();
+    if (!leafItem) {
+      throw new Error('Expected to find a TreeItem with aria-label ending in ", link"');
+    }
+
+    // Verify the aria-label matches the expected format
+    // The aria-label should be built from a title (which has been stripped of HTML) plus ", link"
+    expect(leafItem.props['aria-label']).toMatch(/^.+, link$/);
+
+    // Verify the aria-label contains actual content (not just the suffix)
+    expect(leafItem.props['aria-label'].length).toBeGreaterThan(', link'.length);
+
+    // Verify the textValue prop (used for keyboard navigation) is also set correctly
+    expect(leafItem.props['textValue']).toBeDefined();
+    expect(typeof leafItem.props['textValue']).toBe('string');
+  });
+
+  it('adds aria-label to TreeItem for expandable sections', () => {
+    const component = renderer.create(Component);
+
+    // Find mock-tree-item elements
+    const treeItems = component.root.findAll((node: any) =>
+      node.props && node.props['data-testid'] === 'mock-tree-item' && node.props['aria-label']
+    );
+
+    // Find a specific section item - look for one that ends with ', section'
+    const sectionItem = treeItems.find((item: any) =>
+      item.props['aria-label'] && item.props['aria-label'].endsWith(', section')
+    );
+
+    // Verify a section TreeItem exists
+    expect(sectionItem).toBeDefined();
+    if (!sectionItem) {
+      throw new Error('Expected to find a TreeItem with aria-label ending in ", section"');
+    }
+
+    // Verify the aria-label matches the expected format
+    // The aria-label should be built from a section title (stripped of HTML) plus ", section"
+    expect(sectionItem.props['aria-label']).toMatch(/^.+, section$/);
+
+    // Verify the aria-label contains actual content (not just the suffix)
+    expect(sectionItem.props['aria-label'].length).toBeGreaterThan(', section'.length);
+
+    // Verify the textValue prop (used for keyboard navigation) is also set correctly
+    expect(sectionItem.props['textValue']).toBeDefined();
+    expect(typeof sectionItem.props['textValue']).toBe('string');
+  });
 });
 
 describe('expandParentsOfCurrentPage', () => {
+  const pageUuid = '12345678-abcd-1234-abcd-1234567890ab';
+  // Use a simpler book structure that matches the actual book's tree
+  // but reuse properties from the formatted book to avoid routing errors
   const mockBook = {
+    ...book,
     tree: {
       id: 'root',
       title: 'Root',
@@ -411,7 +517,7 @@ describe('expandParentsOfCurrentPage', () => {
           title: 'Chapter 1',
           contents: [
             {
-              id: 'page1',
+              id: pageUuid,
               title: 'Page 1',
             },
           ],
@@ -420,7 +526,7 @@ describe('expandParentsOfCurrentPage', () => {
     },
   } as any;
 
-  const mockPage = { id: 'page1', abstract: null, title: 'Page 1', slug: 'page-1' } as Page;
+  const mockPage = { id: pageUuid, abstract: null, title: 'Page 1', slug: 'page-1' } as Page;
 
   let componentDidMountSpy: jest.SpyInstance;
 
@@ -432,12 +538,14 @@ describe('expandParentsOfCurrentPage', () => {
     componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
 
     const component = renderer.create(
-      <TableOfContents
-        isOpen={true}
-        book={mockBook}
-        page={mockPage}
-        onNavigate={jest.fn()}
-      />
+      <TestContainer store={createTestStore({} as any)}>
+        <TableOfContents
+          isOpen={true}
+          book={mockBook}
+          page={mockPage}
+          onNavigate={jest.fn()}
+        />
+      </TestContainer>
     );
 
     const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
@@ -463,12 +571,14 @@ describe('expandParentsOfCurrentPage', () => {
     componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
 
     const component = renderer.create(
-      <TableOfContents
-        isOpen={true}
-        book={mockBook}
-        page={mockPage}
-        onNavigate={jest.fn()}
-      />
+      <TestContainer store={createTestStore({} as any)}>
+        <TableOfContents
+          isOpen={true}
+          book={mockBook}
+          page={mockPage}
+          onNavigate={jest.fn()}
+        />
+      </TestContainer>
     );
 
     const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
@@ -496,12 +606,14 @@ describe('expandParentsOfCurrentPage', () => {
     componentDidMountSpy = jest.spyOn(TableOfContents.prototype, 'componentDidMount').mockImplementation(jest.fn());
 
     const component = renderer.create(
-      <TableOfContents
-        isOpen={true}
-        book={mockBook}
-        page={{ id: 'nonexistent-page', abstract: null, title: 'Not Found', slug: 'not-found' } as Page}
-        onNavigate={jest.fn()}
-      />
+      <TestContainer store={createTestStore({} as any)}>
+        <TableOfContents
+          isOpen={true}
+          book={mockBook}
+          page={{ id: 'nonexistent-page', abstract: null, title: 'Not Found', slug: 'not-found' } as Page}
+          onNavigate={jest.fn()}
+        />
+      </TestContainer>
     );
 
     const instance = component.root.findByType(TableOfContents).instance as TableOfContents;
@@ -517,41 +629,5 @@ describe('expandParentsOfCurrentPage', () => {
     expect(setStateSpy).not.toHaveBeenCalled();
 
     setStateSpy.mockRestore();
-  });
-});
-
-describe('maybeAriaAttributes', () => {
-  const mockPage = {
-    id: 'some-id',
-    title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
-    parent: {
-      title: 'Chapter 1',
-    },
-  } as any;
-
-  it('returns aria-current="page" when active is true', () => {
-    const result = maybeAriaAttributes(mockPage, true);
-    expect(result).toEqual({ 'aria-current': 'page' });
-  });
-
-  it('returns empty object when active is false', () => {
-    const result = maybeAriaAttributes(mockPage, false);
-    expect(result).toEqual({});
-  });
-
-  it('returns aria-current and disambiguating aria-label when title has no number but parent has number', () => {
-    const pageWithParentNumber = {
-      ...mockPage,
-      title: 'Chapter summary', // no number in the title itself
-      parent: {
-        title: '<span class="os-number">1</span><span class="os-divider"> </span><span class="os-text">chapter 1</span>',
-      },
-    } as any;
-
-    const result = maybeAriaAttributes(pageWithParentNumber, true);
-
-    expect(result['aria-current']).toBe('page');
-    expect(typeof result['aria-label']).toBe('string');
-    expect(result['aria-label']).not.toMatch(/Current Page/i);
   });
 });
