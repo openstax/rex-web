@@ -1,48 +1,45 @@
-import styled, { css } from 'styled-components/macro';
+import React from 'react';
+import classNames from 'classnames';
 import { CaretDown } from 'styled-icons/fa-solid/CaretDown';
 import { CaretRight } from 'styled-icons/fa-solid/CaretRight';
+import { HTMLDetailsElement } from '@openstax/types/lib.dom';
 import '../../polyfill/details';
+// Note: Details.css is imported globally from src/app/index.tsx to ensure consistent
+// CSS ordering across code-split chunks
 
 export const iconSize = 1.7;
 
-const expandCollapseIconStyle = css`
-  height: ${iconSize}rem;
-  width: ${iconSize}rem;
-`;
+interface IconProps extends React.SVGAttributes<SVGElement> {
+  className?: string;
+  size?: number | string;
+}
 
-export const ExpandIcon = styled(CaretRight)`
-  ${expandCollapseIconStyle}
-`;
+export function ExpandIcon({ className, ...props }: IconProps) {
+  return <CaretRight className={classNames('details-expand-icon', className)} {...props} />;
+}
 
-export const CollapseIcon = styled(CaretDown)`
-  ${expandCollapseIconStyle}
-`;
+export function CollapseIcon({ className, ...props }: IconProps) {
+  return <CaretDown className={classNames('details-collapse-icon', className)} {...props} />;
+}
 
-export const Summary = styled.summary`
-  list-style: none;
-  cursor: pointer;
+export function Summary({
+  children,
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLElement>) {
+  return (
+    <summary className={classNames('details-summary', className)} {...props}>
+      {children}
+    </summary>
+  );
+}
 
-  ::before {
-    display: none;
+export const Details = React.forwardRef<HTMLDetailsElement, React.DetailsHTMLAttributes<HTMLDetailsElement>>(
+  function Details({ children, className, ...props }, ref) {
+    return (
+      <details ref={ref} className={className} {...props}>
+        {children}
+      </details>
+    );
   }
-
-  ::-moz-list-bullet {
-    list-style-type: none;
-  }
-
-  ::-webkit-details-marker {
-    display: none;
-  }
-`;
-
-export const Details = styled.details`
-  ${/* suppress errors from https://github.com/stylelint/stylelint/issues/3391 */ css`
-    &[open] > summary ${ExpandIcon} {
-      display: none;
-    }
-
-    &:not([open]) > summary ${CollapseIcon} {
-      display: none;
-    }
-  `}
-`;
+);

@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Details components CollapseIcon renders correctly 1`] = `
+.c0 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+<svg
+  aria-hidden="true"
+  className="c0 details-collapse-icon"
+  fill="currentColor"
+  focusable="false"
+  viewBox="0 0 320 512"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
+    fill="currentColor"
+  />
+</svg>
+`;
+
+exports[`Details components Details applies custom className 1`] = `
+<details
+  className="custom-class"
+>
+  <summary
+    className="details-summary"
+  >
+    Test
+  </summary>
+</details>
+`;
+
+exports[`Details components Details renders correctly with children 1`] = `
+<details>
+  <summary
+    className="details-summary"
+  >
+    Click to expand
+  </summary>
+  <p>
+    Hidden content
+  </p>
+</details>
+`;
+
+exports[`Details components ExpandIcon renders correctly 1`] = `
+.c0 {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
+}
+
+<svg
+  aria-hidden="true"
+  className="c0 details-expand-icon"
+  fill="currentColor"
+  focusable="false"
+  viewBox="0 0 192 512"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
+    fill="currentColor"
+  />
+</svg>
+`;
+
+exports[`Details components Summary renders correctly with children 1`] = `
+<summary
+  className="details-summary"
+>
+  Click to expand
+</summary>
+`;

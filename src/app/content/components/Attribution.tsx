@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details';
+import { CollapseIcon, Details, ExpandIcon, Summary } from '../../components/Details.legacy';
 import { htmlMessage } from '../../components/htmlMessage';
 import { bodyCopyRegularStyle, decoratedLinkStyle, textRegularLineHeight } from '../../components/Typography';
 import { scrollTo } from '../../domUtils';

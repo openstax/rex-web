@@ -2,29 +2,17 @@
 
 exports[`MediaModal renders correctly when isOpen is true 1`] = `
 Array [
-  .c0 {
-  -webkit-animation: 300ms bcCCNc ease-out;
-  animation: 300ms bcCCNc ease-out;
-  background-color: rgba(0,0,0,0.8);
-  z-index: 110;
-  position: absolute;
-  content: "";
-  top: -5rem;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-@media print {
-  .c0 {
-    display: none;
-  }
-}
-
-<div
-    className="c0"
+  <div
+    className="scroll-lock-overlay"
     data-testid="scroll-lock-overlay"
     onClick={[MockFunction]}
+    style={
+      Object {
+        "--scroll-lock-topbar-height": "5rem",
+        "--scroll-lock-transition-time": "300ms",
+        "--scroll-lock-z-index": 110,
+      }
+    }
   />,
   .c3 {
   background: white;

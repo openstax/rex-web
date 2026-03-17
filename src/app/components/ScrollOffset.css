@@ -1,0 +1,15 @@
+/*
+ * Scroll offset styling for hash navigation
+ * Provides scroll-padding on body to account for fixed headers when navigating to hash links
+ */
+
+body {
+  scroll-padding: var(--scroll-offset-desktop, 0) 0 0 0;
+}
+
+/* Mobile breakpoint: max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  body {
+    scroll-padding: var(--scroll-offset-mobile, 0) 0 0 0;
+  }
+}
