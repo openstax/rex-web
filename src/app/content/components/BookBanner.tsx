@@ -28,6 +28,8 @@ import { disablePrint } from './utils/disablePrint';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
+  // Styling prop used by styled-components; should not be forwarded to the SVG element
+  colorSchema?: BookWithOSWebData['theme'];
 }
 
 /**
@@ -36,7 +38,7 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
  *
  * Note: Wrapped with styled() to enable styled-components component selector references
  */
-function ChevronLeftIconBase({ className, ...props }: IconProps) {
+function ChevronLeftIconBase({ className, colorSchema: _colorSchema, ...props }: IconProps) {
   return (
     <svg
       className={className}
@@ -68,6 +70,9 @@ const gradients: {[key in BookWithOSWebData['theme']]: string} = {
 };
 
 const LeftArrow = styled(ChevronLeftIcon)`
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;

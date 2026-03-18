@@ -1084,7 +1084,6 @@ export const ChevronLeftIcon = styled(ChevronLeftIconBase)``;
 ```typescript
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
-  size?: number | string; // Optional, if needed
 }
 
 /**
@@ -1130,7 +1129,7 @@ export const Icon = styled(IconBase)``;
 1. **Re-use existing icon components** (preferred):
 ```typescript
 // NudgeStudyTools/styles.ts
-import Times from '../../../components/Times';  // ✅ Import existing icon
+import Times from '../../../components/icons/Times';  // ✅ Import existing icon
 ```
 
 2. **Convert file to `.tsx`** (if appropriate):

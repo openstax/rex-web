@@ -11,7 +11,6 @@ import FiltersList from './FiltersList';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
-  size?: number | string;
 }
 
 /**

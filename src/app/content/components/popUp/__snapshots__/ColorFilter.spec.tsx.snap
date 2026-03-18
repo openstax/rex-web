@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorFilter matches snapshot 1`] = `
-.c8 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c2 {
   height: 2rem;
   display: -webkit-box;
@@ -32,11 +26,11 @@ exports[`ColorFilter matches snapshot 1`] = `
   padding: 0 1rem;
 }
 
-.c10 {
+.c9 {
   display: none;
 }
 
-.c12 {
+.c11 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -51,7 +45,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border-radius: 50%;
 }
 
-.c13 {
+.c12 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -65,7 +59,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #fed200;
 }
 
-.c16 {
+.c15 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -79,7 +73,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #92d101;
 }
 
-.c18 {
+.c17 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -93,7 +87,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c20 {
+.c19 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -107,7 +101,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c22 {
+.c21 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -143,19 +137,19 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c7 .c9 {
+.c7 .c8 {
   height: 1rem;
   width: 1rem;
 }
 
-.c7 input:focus + .c11 {
+.c7 input:focus + .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c15 {
+.c14 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -177,19 +171,19 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c15 .c9 {
+.c14 .c8 {
   height: 1rem;
   width: 1rem;
 }
 
-.c15 input:focus + .c11 {
+.c14 input:focus + .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c17 {
+.c16 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -211,19 +205,19 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c17 .c9 {
+.c16 .c8 {
   height: 1rem;
   width: 1rem;
 }
 
-.c17 input:focus + .c11 {
+.c16 input:focus + .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c19 {
+.c18 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -245,19 +239,19 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c19 .c9 {
+.c18 .c8 {
   height: 1rem;
   width: 1rem;
 }
 
-.c19 input:focus + .c11 {
+.c18 input:focus + .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c21 {
+.c20 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -279,12 +273,12 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c21 .c9 {
+.c20 .c8 {
   height: 1rem;
   width: 1rem;
 }
 
-.c21 input:focus + .c11 {
+.c20 input:focus + .c10 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
@@ -310,7 +304,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 0;
 }
 
-.c14 {
+.c13 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -428,11 +422,8 @@ exports[`ColorFilter matches snapshot 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c8 c9 c10"
-          fill="currentColor"
-          focusable="false"
+          className="c8 c9"
           viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -440,7 +431,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c11 c12"
+          className="c10 c11"
           size="small"
           style={
             Object {
@@ -452,7 +443,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c13"
+          className="c12"
           size="small"
           style={
             Object {
@@ -465,7 +456,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c14"
+        className="c13"
       >
         yellow
       </span>
@@ -495,15 +486,12 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c15"
+        className="c6 c14"
       >
         <svg
           aria-hidden="true"
-          className="c8 c9 c10"
-          fill="currentColor"
-          focusable="false"
+          className="c8 c9"
           viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -511,7 +499,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c11 c12"
+          className="c10 c11"
           size="small"
           style={
             Object {
@@ -523,7 +511,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c16"
+          className="c15"
           size="small"
           style={
             Object {
@@ -536,7 +524,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c14"
+        className="c13"
       >
         green
       </span>
@@ -566,15 +554,12 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c17"
+        className="c6 c16"
       >
         <svg
           aria-hidden="true"
-          className="c8 c9 c10"
-          fill="currentColor"
-          focusable="false"
+          className="c8 c9"
           viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -582,7 +567,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c11 c12"
+          className="c10 c11"
           size="small"
           style={
             Object {
@@ -594,7 +579,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c18"
+          className="c17"
           size="small"
           style={
             Object {
@@ -607,7 +592,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c14"
+        className="c13"
       >
         blue
       </span>
@@ -637,15 +622,12 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c19"
+        className="c6 c18"
       >
         <svg
           aria-hidden="true"
-          className="c8 c9 c10"
-          fill="currentColor"
-          focusable="false"
+          className="c8 c9"
           viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -653,7 +635,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c11 c12"
+          className="c10 c11"
           size="small"
           style={
             Object {
@@ -665,7 +647,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c20"
+          className="c19"
           size="small"
           style={
             Object {
@@ -678,7 +660,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c14"
+        className="c13"
       >
         purple
       </span>
@@ -708,15 +690,12 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c6 c21"
+        className="c6 c20"
       >
         <svg
           aria-hidden="true"
-          className="c8 c9 c10"
-          fill="currentColor"
-          focusable="false"
+          className="c8 c9"
           viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -724,7 +703,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c11 c12"
+          className="c10 c11"
           size="small"
           style={
             Object {
@@ -736,7 +715,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c22"
+          className="c21"
           size="small"
           style={
             Object {
@@ -749,7 +728,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c14"
+        className="c13"
       >
         pink
       </span>

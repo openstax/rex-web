@@ -79,7 +79,7 @@ function HamburgerIconComponentBase({ className, ...props }: IconProps) {
   );
 }
 
-export const HamburgerIconComponent = styled(HamburgerIconComponentBase)``;
+const HamburgerIconComponent = styled(HamburgerIconComponentBase)``;
 
 /**
  * TimesCircle icon for Topbar component.
@@ -103,7 +103,7 @@ function TimesCircleIconBase({ className, ...props }: IconProps) {
   );
 }
 
-export const TimesCircleIcon = styled(TimesCircleIconBase)``;
+const TimesCircleIcon = styled(TimesCircleIconBase)``;
 
 const hideSearchChrome = css`
   appearance: textfield;
