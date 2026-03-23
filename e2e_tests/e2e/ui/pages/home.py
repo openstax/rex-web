@@ -28,7 +28,7 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def click_interested_link(self):
-        interested_locator = self.page.get_by_role("link", name="I'm interested!")
+        interested_locator = self.page.get_by_text("I'm interested!")
         await interested_locator.scroll_into_view_if_needed()
         await interested_locator.click()
 
@@ -48,10 +48,16 @@ class HomeRex:
         return self.page.get_by_label("School name")
 
     @pytest.mark.asyncio
-    async def click_try_assignable_link(self):
-        try_locator = self.page.get_by_text("Try OpenStax Assignable")
-        await try_locator.scroll_into_view_if_needed()
-        await try_locator.click()
+    async def open_technology_menu_item(self):
+        tech_locator = self.page.get_by_role("button", name="Technology")
+        await tech_locator.scroll_into_view_if_needed()
+        await tech_locator.hover()
+
+    @pytest.mark.asyncio
+    async def click_openstax_assignable_link(self):
+        ostax_locator = self.page.get_by_role("link", name="OpenStax Assignable")
+        await ostax_locator.scroll_into_view_if_needed()
+        await ostax_locator.click()
 
     async def available_book_list(self):
         return (
