@@ -44,8 +44,9 @@ async def test_osweb_homepage_try_assignable_link(chrome_page_unlogged, base_url
 
     await chrome_page_unlogged.keyboard.press("Escape")
 
-    # THEN: Try OpenStax Assignable page opens
-    await home.click_try_assignable_link()
+    # THEN: OpenStax Assignable page opens
+    await home.open_technology_menu_item()
+    await home.click_openstax_assignable_link()
 
     assert "assignable" in chrome_page_unlogged.url
 
