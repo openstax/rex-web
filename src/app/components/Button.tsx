@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
-import { HTMLButtonElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import { isDefined } from '../guards';
 import theme from '../theme';
 import { linkColor, linkHover } from './Typography/Links.constants';
-import './Button.css';
+// Note: Button.css is imported globally from src/app/index.tsx to ensure consistent
+// CSS ordering across code-split chunks and to avoid PrettyFormatPluginError in jest snapshots
 
 type Variant = 'primary' | 'secondary' | 'transparent' | 'default';
 type Size = 'large' | 'medium' | 'small';
@@ -21,7 +21,7 @@ interface ButtonProps<T extends ComponentType | undefined> extends Omit<React.Bu
     never;
 }
 
-export function Button<T extends ComponentType | undefined>({
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps<ComponentType | undefined>>(function Button({
   variant = 'default',
   size = 'medium',
   disabled = false,
@@ -29,7 +29,7 @@ export function Button<T extends ComponentType | undefined>({
   style,
   component,
   ...props
-}: ButtonProps<T>) {
+}, ref) {
   const classes = classNames(
     'button',
     `button-${variant}`,
@@ -63,6 +63,7 @@ export function Button<T extends ComponentType | undefined>({
   if (isDefined(component)) {
     return React.cloneElement(component, {
       ...props,
+      ref,
       className: classes,
       style: cssVariables,
       disabled,
@@ -72,12 +73,13 @@ export function Button<T extends ComponentType | undefined>({
   return (
     <button
       {...props}
+      ref={ref}
       className={classes}
       style={cssVariables}
       disabled={disabled}
     />
   );
-}
+});
 
 interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   expand?: boolean;
@@ -103,43 +105,41 @@ export function ButtonGroup({
   );
 }
 
-export function PlainButton({
-  className,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  return (
-    <button
-      {...props}
-      className={classNames('plain-button', className)}
-    />
-  );
-}
+export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
+  function PlainButton({ className, ...props }, ref) {
+    return (
+      <button
+        {...props}
+        ref={ref}
+        className={classNames('plain-button', className)}
+      />
+    );
+  }
+);
 
 interface ButtonLinkProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   decorated?: boolean;
 }
 
-export function ButtonLink({
-  decorated = false,
-  className,
-  style,
-  ...props
-}: ButtonLinkProps) {
-  return (
-    <PlainButton
-      {...props}
-      className={classNames(
-        'button-link',
-        { 'button-link-decorated': decorated },
-        className
-      )}
-      style={{
-        '--link-color': linkColor,
-        '--link-hover': linkHover,
-        ...style,
-      } as React.CSSProperties}
-    />
-  );
-}
+export const ButtonLink = React.forwardRef<HTMLButtonElement, ButtonLinkProps>(
+  function ButtonLink({ decorated = false, className, style, ...props }, ref) {
+    return (
+      <PlainButton
+        {...props}
+        ref={ref}
+        className={classNames(
+          'button-link',
+          { 'button-link-decorated': decorated },
+          className
+        )}
+        style={{
+          ...style,
+          '--link-color': linkColor,
+          '--link-hover': linkHover,
+        } as React.CSSProperties}
+      />
+    );
+  }
+);
 
 export default Button;

@@ -1,444 +1,517 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button matches snapshot - default 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #5e6062;
-  background-color: #fff;
-  border: 1px solid #d5d5d5;
-  font-weight: regular;
-}
-
-.c0:hover {
-  background-color: ,#fafafa,;
-}
-
-.c0:active {
-  background-color: ,#e5e5e5,;
-}
-
 <button
-  className="c0"
+  className="button button-default button-medium"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+/>
+`;
+
+exports[`Button matches snapshot - disabled 1`] = `
+<button
+  className="button button-default button-medium button-disabled"
+  disabled={true}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
 />
 `;
 
 exports[`Button matches snapshot - large 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  font-size: 1.6rem;
-  height: 5rem;
-  padding: 0 3rem;
-  color: #5e6062;
-  background-color: #fff;
-  border: 1px solid #d5d5d5;
-  font-weight: regular;
-}
-
-.c0:hover {
-  background-color: ,#fafafa,;
-}
-
-.c0:active {
-  background-color: ,#e5e5e5,;
-}
-
 <button
-  className="c0"
+  className="button button-default button-large"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
 />
 `;
 
 exports[`Button matches snapshot - link 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #5e6062;
-  background-color: #fff;
-  border: 1px solid #d5d5d5;
-  font-weight: regular;
-}
-
-.c0:hover {
-  background-color: ,#fafafa,;
-}
-
-.c0:active {
-  background-color: ,#e5e5e5,;
-}
-
 <a
-  className="c0"
+  className="button button-default button-medium"
+  disabled={false}
   href="/"
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
 >
   this is a link
 </a>
 `;
 
 exports[`Button matches snapshot - medium 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #5e6062;
-  background-color: #fff;
-  border: 1px solid #d5d5d5;
-  font-weight: regular;
-}
-
-.c0:hover {
-  background-color: ,#fafafa,;
-}
-
-.c0:active {
-  background-color: ,#e5e5e5,;
-}
-
 <button
-  className="c0"
+  className="button button-default button-medium"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
 />
 `;
 
 exports[`Button matches snapshot - primary 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #fff;
-  background-color: #d4450c;
-  font-weight: bold;
-  border: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.c0:hover {
-  background-color: ,#be3c08,;
-}
-
-.c0:active {
-  background-color: ,#b03808,;
-}
-
-.c0:focus {
-  outline: solid #fff;
-  box-shadow: inset 0 0 0 0.3rem #000;
-}
-
 <button
-  className="c0"
+  className="button button-primary button-medium"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
 />
 `;
 
 exports[`Button matches snapshot - secondary 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #fff;
-  background-color: #949494;
-  font-weight: bold;
-  border: none;
-}
-
-.c0:hover {
-  background-color: ,#8b8b8b,;
-}
-
-.c0:active {
-  background-color: ,#818181,;
-}
-
 <button
-  className="c0"
+  className="button button-secondary button-medium"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
 />
 `;
 
 exports[`Button matches snapshot - small 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  font-size: 1.4rem;
-  height: 3rem;
-  padding: 0 2rem;
-  color: #5e6062;
-  background-color: #fff;
-  border: 1px solid #d5d5d5;
-  font-weight: regular;
-}
-
-.c0:hover {
-  background-color: ,#fafafa,;
-}
-
-.c0:active {
-  background-color: ,#e5e5e5,;
-}
-
 <button
-  className="c0"
+  className="button button-default button-small"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+/>
+`;
+
+exports[`Button matches snapshot - transparent 1`] = `
+<button
+  className="button button-transparent button-medium"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+/>
+`;
+
+exports[`Button matches snapshot - with children 1`] = `
+<button
+  className="button button-default button-medium"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+>
+  Click me
+</button>
+`;
+
+exports[`Button matches snapshot - with custom className 1`] = `
+<button
+  className="button button-default button-medium custom-class"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+/>
+`;
+
+exports[`Button matches snapshot - with custom style 1`] = `
+<button
+  className="button button-default button-medium"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+      "marginTop": "10px",
+    }
+  }
 />
 `;
 
 exports[`ButtonGroup matches snapshot (expand) 1`] = `
-.c0 {
-  display: grid;
-  overflow: visible;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-}
-
 <div
-  className="c0"
+  className="button-group"
 />
 `;
 
 exports[`ButtonGroup matches snapshot (not-expand) 1`] = `
-.c0 {
-  display: grid;
-  overflow: visible;
-  grid-auto-columns: min-content;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-}
-
 <div
-  className="c0"
+  className="button-group button-group-no-expand"
 />
 `;
 
-exports[`ButtonGroup matches snapshot 1`] = `
-.c0 {
-  display: grid;
-  overflow: visible;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
-}
-
+exports[`ButtonGroup matches snapshot (vertical and not-expand) 1`] = `
 <div
-  className="c0"
+  className="button-group button-group-no-expand button-group-vertical"
+/>
+`;
+
+exports[`ButtonGroup matches snapshot (vertical) 1`] = `
+<div
+  className="button-group button-group-vertical"
+/>
+`;
+
+exports[`ButtonGroup matches snapshot - with children 1`] = `
+<div
+  className="button-group"
+>
+  <button
+    className="button button-default button-medium"
+    disabled={false}
+    style={
+      Object {
+        "--button-default-active": "#e5e5e5",
+        "--button-default-border": "#d5d5d5",
+        "--button-default-color": "#fff",
+        "--button-default-foreground": "#5e6062",
+        "--button-default-hover": "#fafafa",
+        "--button-disabled-color": "#f1f1f1",
+        "--button-disabled-foreground": "#c1c1c1",
+        "--button-focus-outline": "#fff",
+        "--button-focus-shadow": "#000",
+        "--button-primary-active": "#b03808",
+        "--button-primary-color": "#d4450c",
+        "--button-primary-foreground": "#fff",
+        "--button-primary-hover": "#be3c08",
+        "--button-secondary-active": "#818181",
+        "--button-secondary-color": "#949494",
+        "--button-secondary-foreground": "#fff",
+        "--button-secondary-hover": "#8b8b8b",
+        "--button-transparent-color": "#027EB5",
+      }
+    }
+  >
+    Button 1
+  </button>
+  <button
+    className="button button-default button-medium"
+    disabled={false}
+    style={
+      Object {
+        "--button-default-active": "#e5e5e5",
+        "--button-default-border": "#d5d5d5",
+        "--button-default-color": "#fff",
+        "--button-default-foreground": "#5e6062",
+        "--button-default-hover": "#fafafa",
+        "--button-disabled-color": "#f1f1f1",
+        "--button-disabled-foreground": "#c1c1c1",
+        "--button-focus-outline": "#fff",
+        "--button-focus-shadow": "#000",
+        "--button-primary-active": "#b03808",
+        "--button-primary-color": "#d4450c",
+        "--button-primary-foreground": "#fff",
+        "--button-primary-hover": "#be3c08",
+        "--button-secondary-active": "#818181",
+        "--button-secondary-color": "#949494",
+        "--button-secondary-foreground": "#fff",
+        "--button-secondary-hover": "#8b8b8b",
+        "--button-transparent-color": "#027EB5",
+      }
+    }
+  >
+    Button 2
+  </button>
+</div>
+`;
+
+exports[`ButtonGroup matches snapshot 1`] = `
+<div
+  className="button-group"
 />
 `;
 
 exports[`ButtonLink matches snapshot (decorated and disabled) 1`] = `
-.c0 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-  outline: none;
-  color: #424242;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover,
-.c0:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
-.c0,
-.c0:hover,
-.c0:focus {
-  color: #424242;
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
 <button
-  className="c0"
+  className="plain-button button-link button-link-decorated"
   disabled={true}
+  style={
+    Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
+    }
+  }
 />
 `;
 
 exports[`ButtonLink matches snapshot (decorated) 1`] = `
-.c0 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-  outline: none;
-  color: #424242;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c0:hover,
-.c0:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
-}
-
 <button
-  className="c0"
+  className="plain-button button-link button-link-decorated"
+  style={
+    Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
+    }
+  }
+/>
+`;
+
+exports[`ButtonLink matches snapshot - with className 1`] = `
+<button
+  className="plain-button button-link custom"
+  style={
+    Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
+    }
+  }
 />
 `;
 
 exports[`ButtonLink matches snapshot 1`] = `
-.c0 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-  outline: none;
-  color: #424242;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0:hover {
-  color: #0064A0;
-}
-
 <button
-  className="c0"
+  className="plain-button button-link"
+  style={
+    Object {
+      "--link-color": "#027EB5",
+      "--link-hover": "#0064A0",
+    }
+  }
+/>
+`;
+
+exports[`PlainButton matches snapshot - with children 1`] = `
+<button
+  className="plain-button"
+>
+  Click
+</button>
+`;
+
+exports[`PlainButton matches snapshot - with className 1`] = `
+<button
+  className="plain-button custom"
+/>
+`;
+
+exports[`PlainButton matches snapshot 1`] = `
+<button
+  className="plain-button"
 />
 `;

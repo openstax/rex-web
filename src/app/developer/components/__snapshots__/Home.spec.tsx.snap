@@ -139,64 +139,11 @@ Array [
   >
     
   </div>,
-  .c6 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #5e6062;
-  background-color: #fff;
-  border: 1px solid #d5d5d5;
-  font-weight: regular;
-}
-
-.c6:hover {
-  background-color: ,#fafafa,;
-}
-
-.c6:active {
-  background-color: ,#e5e5e5,;
-}
-
-.c5 {
-  display: grid;
-  overflow: visible;
-  grid-auto-flow: row;
-  grid-gap: 1rem;
-}
-
-.c11 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-.c13 {
+  .c10 {
   cursor: pointer;
 }
 
-.c9 > *:not(.c12) {
+.c7 > *:not(.c9) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -206,19 +153,19 @@ Array [
   left: 0;
 }
 
-.c10 {
+.c8 {
   overflow: visible;
   position: relative;
 }
 
-.c8 {
+.c6 {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c8:hover {
+.c6:hover {
   color: #0064A0;
 }
 
@@ -226,7 +173,7 @@ Array [
   padding: 1rem;
 }
 
-.c7 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -245,11 +192,11 @@ Array [
   justify-content: space-between;
 }
 
-.c7 h3 {
+.c5 h3 {
   padding-bottom: 0;
 }
 
-.c7 small {
+.c5 small {
   margin-top: -0.2rem;
   color: #ccc;
 }
@@ -341,33 +288,125 @@ Array [
               className="c4"
             >
               <div
-                className="c5"
+                className="button-group button-group-vertical"
               >
                 <button
-                  className="c6"
+                  className="button button-default button-medium"
                   data-testid="trigger-updates-available"
+                  disabled={false}
                   onClick={[Function]}
+                  style={
+                    Object {
+                      "--button-default-active": "#e5e5e5",
+                      "--button-default-border": "#d5d5d5",
+                      "--button-default-color": "#fff",
+                      "--button-default-foreground": "#5e6062",
+                      "--button-default-hover": "#fafafa",
+                      "--button-disabled-color": "#f1f1f1",
+                      "--button-disabled-foreground": "#c1c1c1",
+                      "--button-focus-outline": "#fff",
+                      "--button-focus-shadow": "#000",
+                      "--button-primary-active": "#b03808",
+                      "--button-primary-color": "#d4450c",
+                      "--button-primary-foreground": "#fff",
+                      "--button-primary-hover": "#be3c08",
+                      "--button-secondary-active": "#818181",
+                      "--button-secondary-color": "#949494",
+                      "--button-secondary-foreground": "#fff",
+                      "--button-secondary-hover": "#8b8b8b",
+                      "--button-transparent-color": "#027EB5",
+                    }
+                  }
                 >
                   update available
                 </button>
                 <button
-                  className="c6"
+                  className="button button-default button-medium"
                   data-testid="trigger-messages"
+                  disabled={false}
                   onClick={[Function]}
+                  style={
+                    Object {
+                      "--button-default-active": "#e5e5e5",
+                      "--button-default-border": "#d5d5d5",
+                      "--button-default-color": "#fff",
+                      "--button-default-foreground": "#5e6062",
+                      "--button-default-hover": "#fafafa",
+                      "--button-disabled-color": "#f1f1f1",
+                      "--button-disabled-foreground": "#c1c1c1",
+                      "--button-focus-outline": "#fff",
+                      "--button-focus-shadow": "#000",
+                      "--button-primary-active": "#b03808",
+                      "--button-primary-color": "#d4450c",
+                      "--button-primary-foreground": "#fff",
+                      "--button-primary-hover": "#be3c08",
+                      "--button-secondary-active": "#818181",
+                      "--button-secondary-color": "#949494",
+                      "--button-secondary-foreground": "#fff",
+                      "--button-secondary-hover": "#8b8b8b",
+                      "--button-transparent-color": "#027EB5",
+                    }
+                  }
                 >
                   app messages
                 </button>
                 <button
-                  className="c6"
+                  className="button button-default button-medium"
                   data-testid="trigger-inline-error"
+                  disabled={false}
                   onClick={[Function]}
+                  style={
+                    Object {
+                      "--button-default-active": "#e5e5e5",
+                      "--button-default-border": "#d5d5d5",
+                      "--button-default-color": "#fff",
+                      "--button-default-foreground": "#5e6062",
+                      "--button-default-hover": "#fafafa",
+                      "--button-disabled-color": "#f1f1f1",
+                      "--button-disabled-foreground": "#c1c1c1",
+                      "--button-focus-outline": "#fff",
+                      "--button-focus-shadow": "#000",
+                      "--button-primary-active": "#b03808",
+                      "--button-primary-color": "#d4450c",
+                      "--button-primary-foreground": "#fff",
+                      "--button-primary-hover": "#be3c08",
+                      "--button-secondary-active": "#818181",
+                      "--button-secondary-color": "#949494",
+                      "--button-secondary-foreground": "#fff",
+                      "--button-secondary-hover": "#8b8b8b",
+                      "--button-transparent-color": "#027EB5",
+                    }
+                  }
                 >
                   inline error
                 </button>
                 <button
-                  className="c6"
+                  className="button button-default button-medium"
                   data-testid="trigger-modal-error"
+                  disabled={false}
                   onClick={[Function]}
+                  style={
+                    Object {
+                      "--button-default-active": "#e5e5e5",
+                      "--button-default-border": "#d5d5d5",
+                      "--button-default-color": "#fff",
+                      "--button-default-foreground": "#5e6062",
+                      "--button-default-hover": "#fafafa",
+                      "--button-disabled-color": "#f1f1f1",
+                      "--button-disabled-foreground": "#c1c1c1",
+                      "--button-focus-outline": "#fff",
+                      "--button-focus-shadow": "#000",
+                      "--button-primary-active": "#b03808",
+                      "--button-primary-color": "#d4450c",
+                      "--button-primary-foreground": "#fff",
+                      "--button-primary-hover": "#be3c08",
+                      "--button-secondary-active": "#818181",
+                      "--button-secondary-color": "#949494",
+                      "--button-secondary-foreground": "#fff",
+                      "--button-secondary-hover": "#8b8b8b",
+                      "--button-transparent-color": "#027EB5",
+                    }
+                  }
                 >
                   modal error
                 </button>
@@ -555,7 +594,7 @@ Array [
                 }
               >
                 <li
-                  className="c7"
+                  className="c5"
                 >
                   <div>
                     <h3
@@ -567,7 +606,7 @@ Array [
                       }
                     >
                       <a
-                        className="c8"
+                        className="c6"
                         data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
@@ -580,12 +619,12 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c9 c10 dot-menu-dropdown"
+                    className="c7 c8 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="c11 dot-menu-toggle c12 c13"
+                      className="plain-button dot-menu-toggle c9 c10"
                       onClick={[Function]}
                     >
                       <div
@@ -607,7 +646,7 @@ Array [
                   </div>
                 </li>
                 <li
-                  className="c7"
+                  className="c5"
                 >
                   <div>
                     <h3
@@ -619,7 +658,7 @@ Array [
                       }
                     >
                       <a
-                        className="c8"
+                        className="c6"
                         data-testid="content-link-test"
                         href="books/book-slug-1/pages/1-introduction-to-science-and-the-realm-of-physics-physical-quantities-and-units"
                         onClick={[Function]}
@@ -632,12 +671,12 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c9 c10 dot-menu-dropdown"
+                    className="c7 c8 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="c11 dot-menu-toggle c12 c13"
+                      className="plain-button dot-menu-toggle c9 c10"
                       onClick={[Function]}
                     >
                       <div

@@ -78,6 +78,7 @@
   background-color: transparent;
   color: var(--button-transparent-color, #027EB5);
   font-weight: normal;
+  box-shadow: none;
 }
 
 .button-default {
@@ -96,10 +97,25 @@
 }
 
 /* Disabled state */
-.button-disabled {
+.button-disabled,
+.button[disabled] {
   color: var(--button-disabled-foreground, #c1c1c1);
   background-color: var(--button-disabled-color, #f1f1f1);
   cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Disabled state overrides for all variants - prevent hover/active/focus states */
+.button-disabled:hover,
+.button-disabled:active,
+.button-disabled:focus,
+.button[disabled]:hover,
+.button[disabled]:active,
+.button[disabled]:focus {
+  color: var(--button-disabled-foreground, #c1c1c1);
+  background-color: var(--button-disabled-color, #f1f1f1);
+  outline: none;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
 }
 
 /* PlainButton - unstyled button base */
@@ -138,7 +154,6 @@
   width: 0;
   height: 0.1rem;
   background-color: var(--link-color, #027EB5);
-  transition: width 0.3s ease;
 }
 
 .button-link-decorated:hover::after,
@@ -154,6 +169,23 @@
 .button-link-decorated:focus {
   text-decoration: underline;
   color: var(--link-hover, #0064A0);
+}
+
+/* ButtonLink disabled state */
+.button-link[disabled],
+.button-link[aria-disabled='true'],
+.button-link-decorated[disabled],
+.button-link-decorated[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+.button-link-decorated[disabled]::after,
+.button-link-decorated[aria-disabled='true']::after {
+  width: 0;
+  background-color: transparent;
 }
 
 /* ButtonGroup - container for button groups */
