@@ -1,26 +1,10 @@
 import React from 'react';
-import styled, { css } from 'styled-components/macro';
+import classNames from 'classnames';
+import { HTMLButtonElement, HTMLDivElement } from '@openstax/types/lib.dom';
 import { isDefined } from '../guards';
-import theme, { ColorSet } from '../theme';
-import { decoratedLinkStyle, linkColor, linkStyle } from './Typography';
-import { textStyle } from './Typography';
-
-const applyColor = (color: ColorSet) => `
-
-  color: ${color.foreground};
-  background-color: ${color.base};
-
-  ${color.darker && css`
-    :hover {
-      background-color: ${color.darker};
-    }
-  `}
-  ${color.darkest && css`
-    :active {
-      background-color: ${color.darkest};
-    }
-  `}
-`;
+import theme from '../theme';
+import { linkColor, linkHover } from './Typography/Links.constants';
+import './Button.css';
 
 type Variant = 'primary' | 'secondary' | 'transparent' | 'default';
 type Size = 'large' | 'medium' | 'small';
@@ -28,112 +12,134 @@ type Size = 'large' | 'medium' | 'small';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 
-interface ButtonProps<T extends ComponentType | undefined> {
+interface ButtonProps<T extends ComponentType | undefined> extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'size'> {
   disabled?: boolean;
   variant?: Variant;
   size?: Size;
-  className?: string;
   component?: T extends undefined ? undefined :
     T extends ComponentType ? React.ReactComponentElement<T>:
     never;
 }
 
-const ButtonHoc = React.forwardRef(<T extends ComponentType | undefined>(
-  {variant, size, component, ...props}: ButtonProps<T>,
-  ref: React.Ref<Omit<HTMLButtonElement | T, 'undefined'>>
-) => {
+export function Button<T extends ComponentType | undefined>({
+  variant = 'default',
+  size = 'medium',
+  disabled = false,
+  className,
+  style,
+  component,
+  ...props
+}: ButtonProps<T>) {
+  const classes = classNames(
+    'button',
+    `button-${variant}`,
+    `button-${size}`,
+    { 'button-disabled': disabled },
+    className
+  );
+
+  const cssVariables = {
+    '--button-primary-color': theme.color.primary.orange.base,
+    '--button-primary-foreground': theme.color.primary.orange.foreground,
+    '--button-primary-hover': theme.color.primary.orange.darker,
+    '--button-primary-active': theme.color.primary.orange.darkest,
+    '--button-focus-outline': theme.color.white,
+    '--button-focus-shadow': theme.color.black,
+    '--button-secondary-color': theme.color.secondary.lightGray.base,
+    '--button-secondary-foreground': theme.color.secondary.lightGray.foreground,
+    '--button-secondary-hover': theme.color.secondary.lightGray.darker,
+    '--button-secondary-active': theme.color.secondary.lightGray.darkest,
+    '--button-transparent-color': linkColor,
+    '--button-default-color': theme.color.neutral.base,
+    '--button-default-foreground': theme.color.primary.gray.base,
+    '--button-default-hover': theme.color.neutral.darker,
+    '--button-default-active': theme.color.neutral.darkest,
+    '--button-default-border': theme.color.neutral.formBorder,
+    '--button-disabled-color': theme.color.disabled.base,
+    '--button-disabled-foreground': theme.color.disabled.foreground,
+    ...style,
+  } as React.CSSProperties;
+
   if (isDefined(component)) {
-    return React.cloneElement(component, {...props, ref});
+    return React.cloneElement(component, {
+      ...props,
+      className: classes,
+      style: cssVariables,
+      disabled,
+    });
   }
-  return <button ref={ref} {...props} />;
-});
 
-const Button = styled(ButtonHoc)`
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black), 0.2);
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  ${(props) => props.size === 'large' && `
-    font-size: 1.6rem;
-    height: 5rem;
-    padding: 0 3rem;
-  `}
-  ${(props) => (props.size === 'medium' || props.size === undefined) && `
-    min-width: 12rem;
-    font-size: 1.6rem;
-    height: 4rem;
-    padding: 0 3rem;
-  `}
-  ${(props) => props.size === 'small' && `
-    font-size: 1.4rem;
-    height: 3rem;
-    padding: 0 2rem;
-  `}
+  return (
+    <button
+      {...props}
+      className={classes}
+      style={cssVariables}
+      disabled={disabled}
+    />
+  );
+}
 
-  ${(props) => props.variant === 'primary' && `
-    ${applyColor(theme.color.primary.orange)}
-    font-weight: bold;
-    border: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+  expand?: boolean;
+  vertical?: boolean;
+}
 
-    &:focus {
-      outline: solid ${theme.color.white};
-      box-shadow: inset 0 0 0 0.3rem ${theme.color.black};
-    }
-  `}
-  ${(props) => props.variant === 'secondary' && `
-    ${applyColor(theme.color.secondary.lightGray)}
-    font-weight: bold;
-    border: none;
-  `}
-  ${(props) => props.variant === 'transparent' && `
-    border: none;
-    background-color: transparent;
-    color: ${linkColor};
-    font-weight: normal;
-  `}
-  ${(props) => (props.variant === 'default' || props.variant === undefined) && `
-    ${applyColor({
-      ...theme.color.neutral,
-      foreground: theme.color.primary.gray.base,
-    })}
-    border: 1px solid #d5d5d5;
-    font-weight: regular;
-  `}
-  ${(props) => props.disabled && `
-    ${applyColor(theme.color.disabled)}
-    cursor: not-allowed;
-  `}
-`;
+export function ButtonGroup({
+  expand = true,
+  vertical = false,
+  className,
+  ...props
+}: ButtonGroupProps) {
+  return (
+    <div
+      {...props}
+      className={classNames(
+        'button-group',
+        { 'button-group-no-expand': expand === false },
+        { 'button-group-vertical': vertical },
+        className
+      )}
+    />
+  );
+}
 
-export const ButtonGroup = styled.div`
-  display: grid;
-  overflow: visible;
-  ${(props: {expand?: boolean}) => props.expand === false && css`
-    grid-auto-columns: min-content;
-  `}
-  grid-auto-flow: ${(props: {vertical?: boolean}) => props.vertical === true ? 'row' : 'column'};
-  grid-gap: 1rem;
-`;
+export function PlainButton({
+  className,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      {...props}
+      className={classNames('plain-button', className)}
+    />
+  );
+}
 
-export const PlainButton = styled.button`
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-`;
+interface ButtonLinkProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  decorated?: boolean;
+}
 
-export const ButtonLink = styled(PlainButton)`
-  outline: none;
-  ${textStyle}
-  ${(props: {decorated: boolean}) => props.decorated ? decoratedLinkStyle : linkStyle}
-`;
+export function ButtonLink({
+  decorated = false,
+  className,
+  style,
+  ...props
+}: ButtonLinkProps) {
+  return (
+    <PlainButton
+      {...props}
+      className={classNames(
+        'button-link',
+        { 'button-link-decorated': decorated },
+        className
+      )}
+      style={{
+        '--link-color': linkColor,
+        '--link-hover': linkHover,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
 
 export default Button;
