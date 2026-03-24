@@ -1,0 +1,30 @@
+/* GoToTopButton styles - scroll-to-top button that appears on long pages */
+
+.go-to-top-wrapper {
+  width: 4.8rem;
+  height: 4.8rem;
+  position: absolute;
+  z-index: 2;
+  bottom: 4.8rem;
+  right: 4.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.go-to-top-circle {
+  width: 2.4rem;
+  height: 2.4rem;
+  background: var(--go-to-top-bg, #767676); /* theme.color.primary.gray.light */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.go-to-top-icon {
+  width: 1.6rem;
+  height: 1.6rem;
+}

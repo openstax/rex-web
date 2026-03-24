@@ -308,6 +308,7 @@ export const DropdownItem = ({ariaMessage, ...contentProps}: DropdownItemProps) 
 
 interface CommonDropdownProps {
   transparentTab?: boolean;
+  children?: React.ReactNode;
 }
 
 type TabTransparentDropdownProps = CommonDropdownProps & Props;
@@ -321,7 +322,7 @@ const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, 
     : <TabHiddenDropDown ref={ref} {...props} />
 );
 
-export default styled(Dropdown)`
+export default styled(Dropdown)<DropdownProps>`
   overflow: visible;
   position: relative;
 `;
