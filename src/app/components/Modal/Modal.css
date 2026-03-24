@@ -36,6 +36,17 @@
   color: var(--text-color, #424242);
 }
 
+/* Link styling inside modal card - mirrors bodyCopyRegularStyle link behavior */
+.modal-card a {
+  color: var(--link-color, #027EB5);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.modal-card a:hover {
+  color: var(--link-hover-color, #0064A0);
+}
+
 /* Modal header */
 .modal-header {
   display: flex;
@@ -43,13 +54,13 @@
   margin-bottom: 1.5rem; /* modalPadding * 0.5 = 3.0 * 0.5 */
   padding: 1.5rem 3.0rem; /* modalPadding * 0.5, modalPadding */
   background: var(--header-bg, #f1f1f1);
-  border-bottom: solid 0.1rem var(--header-border, #d5d5d5);
+  border-bottom: solid 0.1rem var(--header-border, #fafafa);
   justify-content: space-between;
 }
 
 /* Modal heading (h1 with h4 style) */
 .modal-heading {
-  /* h4Style from Typography.legacy.ts */
+  /* h4Style from Typography/Headings.legacy.ts */
   font-size: 1.8rem;
   line-height: 2.5rem;
   letter-spacing: -0.02rem;
@@ -71,11 +82,10 @@
 
 /* Modal body heading (h3) */
 .modal-body-heading {
-  /* h3Style from Typography.legacy.ts */
+  /* h3Style from Typography/Headings.legacy.ts */
   font-size: 2.4rem;
   line-height: 3rem;
   letter-spacing: -0.02rem;
-  padding: 1.5rem 0 1rem 0;
   margin: 0;
   color: var(--text-color, #424242);
   /* Additional styles from BodyHeading */
@@ -123,9 +133,9 @@
 
 /* Close modal icon button */
 .modal-close-icon {
-  /* toolbarIconStyles - height/width from textRegularLineHeight (2.5rem) */
-  height: 2.5rem;
-  width: 2.5rem;
+  /* Final legacy CloseModalIcon size: 2rem x 2rem */
+  height: 2rem;
+  width: 2rem;
   padding: 0.4rem;
   /* Base button styles */
   cursor: pointer;
@@ -137,12 +147,12 @@
   align-items: center;
   justify-content: center;
   /* toolbarIconColor.lighter */
-  color: var(--icon-color-lighter, #6f6f6f);
+  color: var(--icon-color-lighter, #c5c5c5);
 }
 
 .modal-close-icon:hover {
   /* toolbarIconColor.base */
-  color: var(--icon-color-base, #424242);
+  color: var(--icon-color-base, #5e6062);
 }
 
 .modal-close-icon > svg {

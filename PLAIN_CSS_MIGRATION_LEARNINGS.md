@@ -916,6 +916,85 @@ useEffect(() => {
 
 **For Future Phases**: After converting class components to functional components, review all state variables and ensure they're actually being used. Remove any that are set but never read.
 
+### Filter styled-components Internal Props Before Spreading to DOM
+
+**Issue (Phase 2.2 - Modal)**: When creating plain CSS/React components that are wrapped by styled-components in legacy exports (for backward compatibility), styled-components injects internal props like `theme` into the component. If these props are spread directly onto DOM elements using `{...props}`, React will produce warnings about invalid DOM attributes and render `theme="[object Object]"` in the HTML output.
+
+**Problem**:
+```typescript
+// ❌ Bad - theme prop leaks to DOM when wrapped by styled()
+export function ModalWrapper({ className, style, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      {...props}  // ⚠️ If styled() wraps this, theme will be spread to DOM!
+      className={classNames('modal-wrapper', className)}
+      style={{ ...style }}
+    />
+  );
+}
+
+// In styles.legacy.tsx
+export const ModalWrapper = styled(ModalComponents.ModalWrapper)``;
+// This injects a theme prop that will leak to the DOM
+```
+
+**Warning Signs**:
+- React warnings in console: "Warning: React does not recognize the `theme` prop on a DOM element"
+- Invalid HTML attributes in rendered output: `<div theme="[object Object]">`
+- Copilot/automated code review comments about styled-components prop injection
+
+**Resolution**: Widen the prop types to accept `theme?: unknown` and destructure it out before spreading to the DOM:
+
+```typescript
+// ✅ Good - filters out theme prop before spreading to DOM
+export function ModalWrapper(
+  { className, style, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }
+) {
+  const { theme: _theme, ...domProps } = props as any;
+  return (
+    <div
+      {...domProps}  // ✅ theme filtered out, safe to spread
+      className={classNames('modal-wrapper', className)}
+      style={{ ...style }}
+    />
+  );
+}
+```
+
+**Pattern for forwardRef Components**:
+```typescript
+// ✅ Good - filters theme in forwardRef components too
+export const CloseModalIcon = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }
+>(
+  function CloseModalIcon({ className, style, ...props }, ref) {
+    const { theme: _theme, ...domProps } = props as any;
+    return (
+      <button
+        ref={ref}
+        {...domProps}  // ✅ theme filtered out
+        type="button"
+        className={classNames('modal-close-icon', className)}
+      >
+        {/* ... */}
+      </button>
+    );
+  }
+);
+```
+
+**Why This Matters**:
+- Prevents React warnings about invalid DOM props
+- Prevents invalid HTML attributes in rendered output
+- Maintains clean separation between styled-components internals and DOM
+- Essential when using the hybrid migration approach with legacy styled-components wrappers
+
+**For Future Phases**: When creating plain CSS/React components that will be wrapped by styled-components in `.legacy.tsx` files, always:
+1. Add `& { theme?: unknown }` to the component's prop types
+2. Destructure `theme: _theme` out of props before spreading to DOM elements
+3. Apply this pattern to ALL components that spread props to DOM elements, including both regular components and `forwardRef` components
+
 ---
 
 ## Code Organization
