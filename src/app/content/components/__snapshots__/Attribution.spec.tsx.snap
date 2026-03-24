@@ -1,178 +1,112 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Attribution in browser renders CodeRunnerNote when slug includes python 1`] = `
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -364,91 +298,91 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
@@ -870,47 +804,47 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
@@ -925,11 +859,11 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -964,50 +898,11 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -1042,50 +937,11 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -1120,50 +976,11 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -1198,50 +1015,11 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -1276,11 +1054,11 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -1315,11 +1093,167 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -1421,77 +1355,77 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -1761,11 +1695,9 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
-      fill="currentColor"
+      className="details-expand-icon c5 c6 c7"
       focusable="false"
       viewBox="0 0 192 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -1774,11 +1706,9 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
-      fill="currentColor"
+      className="details-collapse-icon c8 c9 c10"
       focusable="false"
       viewBox="0 0 320 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -1793,7 +1723,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
     </span>
   </summary>
   <div
-    className="c12"
+    className="c11"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -1866,7 +1796,7 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
   />
   <strong>
     <div
-      className="c12"
+      className="c11"
       dangerouslySetInnerHTML={
         Object {
           "__html": "This book utilizes the OpenStax Python Code Runner. The code runner is developed by Wiley and is All Rights Reserved.",
@@ -1878,114 +1808,72 @@ exports[`Attribution in browser renders CodeRunnerNote when slug includes python
 `;
 
 exports[`Attribution in browser renders default attribution 1`] = `
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -2109,59 +1997,59 @@ exports[`Attribution in browser renders default attribution 1`] = `
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
@@ -2431,31 +2319,31 @@ exports[`Attribution in browser renders default attribution 1`] = `
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
@@ -2470,11 +2358,11 @@ exports[`Attribution in browser renders default attribution 1`] = `
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -2509,50 +2397,11 @@ exports[`Attribution in browser renders default attribution 1`] = `
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -2587,50 +2436,11 @@ exports[`Attribution in browser renders default attribution 1`] = `
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -2665,11 +2475,11 @@ exports[`Attribution in browser renders default attribution 1`] = `
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -2704,11 +2514,89 @@ exports[`Attribution in browser renders default attribution 1`] = `
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -2782,49 +2670,49 @@ exports[`Attribution in browser renders default attribution 1`] = `
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -3002,11 +2890,9 @@ exports[`Attribution in browser renders default attribution 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
-      fill="currentColor"
+      className="details-expand-icon c5 c6 c7"
       focusable="false"
       viewBox="0 0 192 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -3015,11 +2901,9 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
-      fill="currentColor"
+      className="details-collapse-icon c8 c9 c10"
       focusable="false"
       viewBox="0 0 320 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -3034,7 +2918,7 @@ exports[`Attribution in browser renders default attribution 1`] = `
     </span>
   </summary>
   <div
-    className="c12"
+    className="c11"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -3109,130 +2993,82 @@ exports[`Attribution in browser renders default attribution 1`] = `
 `;
 
 exports[`Attribution in browser renders special licensing and attribution for HS Physics 1`] = `
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -3373,67 +3209,67 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
@@ -3741,35 +3577,35 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
@@ -3784,11 +3620,11 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -3823,50 +3659,11 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -3901,50 +3698,11 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -3979,50 +3737,11 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -4057,11 +3776,128 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -4142,56 +3978,56 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -4392,11 +4228,9 @@ exports[`Attribution in browser renders special licensing and attribution for HS
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
-      fill="currentColor"
+      className="details-expand-icon c5 c6 c7"
       focusable="false"
       viewBox="0 0 192 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -4405,11 +4239,9 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
-      fill="currentColor"
+      className="details-collapse-icon c8 c9 c10"
       focusable="false"
       viewBox="0 0 320 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -4424,7 +4256,7 @@ exports[`Attribution in browser renders special licensing and attribution for HS
     </span>
   </summary>
   <div
-    className="c12"
+    className="c11"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -4501,162 +4333,102 @@ exports[`Attribution in browser renders special licensing and attribution for HS
 `;
 
 exports[`Attribution in browser renders special licensing and attribution for Intellectual Property 1`] = `
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -4831,83 +4603,83 @@ exports[`Attribution in browser renders special licensing and attribution for In
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
@@ -5291,43 +5063,43 @@ exports[`Attribution in browser renders special licensing and attribution for In
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
@@ -5342,11 +5114,11 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -5381,50 +5153,11 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -5459,50 +5192,11 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -5537,50 +5231,11 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -5615,50 +5270,11 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -5693,11 +5309,167 @@ exports[`Attribution in browser renders special licensing and attribution for In
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -5792,70 +5564,70 @@ exports[`Attribution in browser renders special licensing and attribution for In
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -6102,11 +5874,9 @@ exports[`Attribution in browser renders special licensing and attribution for In
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
-      fill="currentColor"
+      className="details-expand-icon c5 c6 c7"
       focusable="false"
       viewBox="0 0 192 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -6115,11 +5885,9 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
-      fill="currentColor"
+      className="details-collapse-icon c8 c9 c10"
       focusable="false"
       viewBox="0 0 320 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -6134,7 +5902,7 @@ exports[`Attribution in browser renders special licensing and attribution for In
     </span>
   </summary>
   <div
-    className="c12"
+    className="c11"
     dangerouslySetInnerHTML={
       Object {
         "__html": "
@@ -6209,146 +5977,92 @@ exports[`Attribution in browser renders special licensing and attribution for In
 `;
 
 exports[`Attribution in browser renders special licensing and attribution for Statistics 1`] = `
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c5 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c7 {
+.c6 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c10 {
+.c9 {
   height: 1.7rem;
   width: 1.7rem;
 }
@@ -6506,75 +6220,75 @@ exports[`Attribution in browser renders special licensing and attribution for St
   display: none;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c8 {
+.c7 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
-.c11 {
+.c10 {
   margin-left: -0.3rem;
 }
 
@@ -6920,39 +6634,39 @@ exports[`Attribution in browser renders special licensing and attribution for St
   color: #0064A0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
-.c12 blockquote {
+.c11 blockquote {
   margin-left: 0;
 }
 
@@ -6967,11 +6681,11 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -7006,50 +6720,11 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -7084,50 +6759,11 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -7162,50 +6798,11 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
-  display: none;
-}
-
-.c0 a {
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.c0 a:hover {
-  color: #0064A0;
-}
-
-.c0 > .c3 {
-  margin-bottom: 1.8rem;
-}
-
-.c0 li {
-  margin-bottom: 1rem;
-  overflow: visible;
-}
-
-.c0 {
-  color: #424242;
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
-  margin: 3rem 0 0 0;
-  min-height: 6rem;
-  padding: 0 3.2rem;
-  padding-top: 1.8rem;
-}
-
-.c0[open] > summary .c6 {
-  display: none;
-}
-
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -7240,11 +6837,11 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -7279,11 +6876,128 @@ exports[`Attribution in browser renders special licensing and attribution for St
   padding-top: 1.8rem;
 }
 
-.c0[open] > summary .c6 {
+.c0[open] > summary .c5 {
   display: none;
 }
 
-.c0:not([open]) > summary .c9 {
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
+  display: none;
+}
+
+.c0 a {
+  color: #027EB5;
+  cursor: pointer;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c0 a:hover {
+  color: #0064A0;
+}
+
+.c0 > .c3 {
+  margin-bottom: 1.8rem;
+}
+
+.c0 li {
+  margin-bottom: 1rem;
+  overflow: visible;
+}
+
+.c0 {
+  color: #424242;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  box-shadow: 0 -1rem 1rem -1rem rgba(0,0,0,0.1);
+  margin: 3rem 0 0 0;
+  min-height: 6rem;
+  padding: 0 3.2rem;
+  padding-top: 1.8rem;
+}
+
+.c0[open] > summary .c5 {
+  display: none;
+}
+
+.c0:not([open]) > summary .c8 {
   display: none;
 }
 
@@ -7371,63 +7085,63 @@ exports[`Attribution in browser renders special licensing and attribution for St
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
@@ -7651,11 +7365,9 @@ exports[`Attribution in browser renders special licensing and attribution for St
   >
     <svg
       aria-hidden="true"
-      className="c5 c6 c7 c8"
-      fill="currentColor"
+      className="details-expand-icon c5 c6 c7"
       focusable="false"
       viewBox="0 0 192 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -7664,11 +7376,9 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </svg>
     <svg
       aria-hidden="true"
-      className="c5 c9 c10 c11"
-      fill="currentColor"
+      className="details-collapse-icon c8 c9 c10"
       focusable="false"
       viewBox="0 0 320 512"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -7683,7 +7393,7 @@ exports[`Attribution in browser renders special licensing and attribution for St
     </span>
   </summary>
   <div
-    className="c12"
+    className="c11"
     dangerouslySetInnerHTML={
       Object {
         "__html": "

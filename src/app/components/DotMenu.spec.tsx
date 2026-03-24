@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import TestContainer from '../../test/TestContainer';
-import { DotMenuDropdown, DotMenuDropdownList } from './DotMenu';
+import { DotMenuDropdown, DotMenuDropdownList, DotMenuToggle } from './DotMenu';
 import { DropdownItem } from './Dropdown';
 
 describe('Dropdown', () => {
@@ -31,5 +31,27 @@ describe('Dropdown', () => {
 
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
+  });
+});
+
+describe('DotMenuToggle', () => {
+  it('renders without aria-expanded when isOpen prop is not supplied', () => {
+    const component = renderer.create(<TestContainer>
+      <DotMenuToggle />
+    </TestContainer>);
+
+    // Verify aria-expanded is not set when isOpen is not supplied
+    const button = component.root.findByType('button');
+    expect(button.props['aria-expanded']).toBeUndefined();
+  });
+
+  it('renders with isOpen=true when explicitly set', () => {
+    const component = renderer.create(<TestContainer>
+      <DotMenuToggle isOpen={true} />
+    </TestContainer>);
+
+    // Verify aria-expanded is true when isOpen is explicitly set to true
+    const button = component.root.findByType('button');
+    expect(button.props['aria-expanded']).toBe(true);
   });
 });

@@ -22,7 +22,14 @@ body.body.scroll-lock {
 
 /* Hide root in print when scroll lock is active */
 @media print {
-  body.body.scroll-lock #root,
+  body.body.scroll-lock #root {
+    display: none;
+  }
+}
+
+/* Hide root in print when scroll lock is active on medium screens only */
+/* Only applies when scroll-lock-medium-screens-only is actually locking (mobile viewport) */
+@media print and (max-width: 75em) {
   body.body.scroll-lock-medium-screens-only #root {
     display: none;
   }

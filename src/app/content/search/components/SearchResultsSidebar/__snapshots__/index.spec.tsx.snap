@@ -272,12 +272,6 @@ exports[`SearchResultsSidebar matches snapshot for no search results 1`] = `
 `;
 
 exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
-.c25 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c10 {
   height: 2.5rem;
   width: 2.5rem;
@@ -353,7 +347,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   display: none;
 }
 
-.c34 > .c12 {
+.c33 > .c12 {
   position: relative;
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -362,7 +356,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   padding: 0;
 }
 
-.c34 > .c12::before {
+.c33 > .c12::before {
   display: none;
 }
 
@@ -447,7 +441,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   border-bottom: 1px solid #d5d5d5;
 }
 
-.c27 {
+.c26 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -498,7 +492,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   outline: none;
 }
 
-.c32 {
+.c31 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -552,7 +546,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   outline: none;
 }
 
-.c31 {
+.c30 {
   min-height: 3.4rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -566,16 +560,16 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   border-top: solid 0.2rem rgba(0,0,0,0.06);
 }
 
-.c28 {
+.c27 {
   overflow: visible;
   padding: 0;
 }
 
-.c28 .c30 {
+.c27 .c29 {
   padding-left: 2.5rem;
 }
 
-.c29 {
+.c28 {
   overflow: visible;
   background: #fafafa;
 }
@@ -591,7 +585,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   width: 3.7rem;
 }
 
-.c35 .c4 {
+.c34 .c4 {
   margin: 0.3rem;
 }
 
@@ -635,20 +629,20 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
   font-weight: bold;
 }
 
-.c33 {
+.c32 {
   margin: 0 0 0 3.2rem;
   padding: 1.2rem 1.6rem 1.2rem 0;
 }
 
-.c15:not(:last-child) > .c33 {
+.c15:not(:last-child) > .c32 {
   border-bottom: solid 0.1rem rgba(0,0,0,0.06);
 }
 
-.c33 > div::before {
+.c32 > div::before {
   content: '... ';
 }
 
-.c33 > div::after {
+.c32 > div::after {
   content: ' ...';
 }
 
@@ -722,13 +716,13 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
     padding-left: 1.6rem;
   }
 
-  .c24 .c26 {
+  .c24 .c25 {
     padding-right: 1.6rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c31 {
+  .c30 {
     padding-left: 3.3rem;
   }
 }
@@ -740,7 +734,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c33 {
+  .c32 {
     margin-left: 5rem;
   }
 }
@@ -933,11 +927,9 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="c25 details-expand-icon"
-                fill="currentColor"
+                className="details-expand-icon "
                 focusable="false"
                 viewBox="0 0 192 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -946,11 +938,9 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="c25 details-collapse-icon"
-                fill="currentColor"
+                className="details-collapse-icon "
                 focusable="false"
                 viewBox="0 0 320 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -958,7 +948,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
                 />
               </svg>
               <h3
-                className="c26 c27"
+                className="c25 c26"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -968,16 +958,16 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
             </div>
           </summary>
           <ol
-            className="c28"
+            className="c27"
           >
             <li
-              className="c29"
+              className="c28"
             >
               <div
-                className="c30 c31"
+                className="c29 c30"
               >
                 <h4
-                  className="c32"
+                  className="c31"
                   dangerouslySetInnerHTML={
                     Object {
                       "__html": "<span class=\\"os-text\\">Test Page 7</span>",
@@ -994,7 +984,7 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
                 onClick={[Function]}
               >
                 <div
-                  className="c33"
+                  className="c32"
                 >
                   <div
                     dangerouslySetInnerHTML={
@@ -1016,12 +1006,6 @@ exports[`SearchResultsSidebar matches snapshot with related key terms 1`] = `
 `;
 
 exports[`SearchResultsSidebar matches snapshot with results 1`] = `
-.c25 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c10 {
   height: 2.5rem;
   width: 2.5rem;
@@ -1097,7 +1081,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   display: none;
 }
 
-.c30 > .c12 {
+.c29 > .c12 {
   position: relative;
   -webkit-flex: 1;
   -ms-flex: 1;
@@ -1106,7 +1090,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   padding: 0;
 }
 
-.c30 > .c12::before {
+.c29 > .c12::before {
   display: none;
 }
 
@@ -1191,7 +1175,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   border-bottom: 1px solid #d5d5d5;
 }
 
-.c27 {
+.c26 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -1253,7 +1237,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   margin: 0;
 }
 
-.c29 {
+.c28 {
   color: #424242;
   font-size: 1.4rem;
   line-height: 1.6rem;
@@ -1270,7 +1254,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   line-height: 1.3;
 }
 
-.c29 > * {
+.c28 > * {
   outline: none;
 }
 
@@ -1310,12 +1294,12 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   border-top: solid 0.2rem rgba(0,0,0,0.06);
 }
 
-.c28 {
+.c27 {
   overflow: visible;
   padding: 0;
 }
 
-.c28 .c15 {
+.c27 .c15 {
   padding-left: 2.5rem;
 }
 
@@ -1335,7 +1319,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
   width: 3.7rem;
 }
 
-.c31 .c4 {
+.c30 .c4 {
   margin: 0.3rem;
 }
 
@@ -1416,7 +1400,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
     padding-left: 1.6rem;
   }
 
-  .c24 .c26 {
+  .c24 .c25 {
     padding-right: 1.6rem;
   }
 }
@@ -1586,11 +1570,9 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="c25 details-expand-icon"
-                fill="currentColor"
+                className="details-expand-icon "
                 focusable="false"
                 viewBox="0 0 192 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -1599,11 +1581,9 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="c25 details-collapse-icon"
-                fill="currentColor"
+                className="details-collapse-icon "
                 focusable="false"
                 viewBox="0 0 320 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -1611,7 +1591,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 />
               </svg>
               <h3
-                className="c26 c27"
+                className="c25 c26"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -1621,7 +1601,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             </div>
           </summary>
           <ol
-            className="c28"
+            className="c27"
           >
             <li
               className="c14"
@@ -1642,7 +1622,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <a
                 aria-current={false}
                 aria-label="cool highlight bruh (Result 1 in Test Page 6 with special characters in url)"
-                className="c18 c29"
+                className="c18 c28"
                 data-testid="search-result"
                 href="books/book-slug-1/pages/10-test-page-6-f%C3%ADsica?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
                 onClick={[Function]}
@@ -1681,11 +1661,9 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             >
               <svg
                 aria-hidden="true"
-                className="c25 details-expand-icon"
-                fill="currentColor"
+                className="details-expand-icon "
                 focusable="false"
                 viewBox="0 0 192 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"
@@ -1694,11 +1672,9 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               </svg>
               <svg
                 aria-hidden="true"
-                className="c25 details-collapse-icon"
-                fill="currentColor"
+                className="details-collapse-icon "
                 focusable="false"
                 viewBox="0 0 320 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"
@@ -1706,7 +1682,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
                 />
               </svg>
               <h3
-                className="c26 c27"
+                className="c25 c26"
                 dangerouslySetInnerHTML={
                   Object {
                     "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -1716,7 +1692,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
             </div>
           </summary>
           <ol
-            className="c28"
+            className="c27"
           >
             <li
               className="c14"
@@ -1736,7 +1712,7 @@ exports[`SearchResultsSidebar matches snapshot with results 1`] = `
               <a
                 aria-current={false}
                 aria-label="cool highlight bruh (Result 1 in Test Page 7)"
-                className="c18 c29"
+                className="c18 c28"
                 data-testid="search-result"
                 href="books/book-slug-1/pages/12-test-page-7?query=cool%20search&target=%7B%22index%22%3A0%2C%22type%22%3A%22search%22%7D#fs-id1544727"
                 onClick={[Function]}
