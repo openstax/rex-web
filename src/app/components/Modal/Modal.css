@@ -1,0 +1,151 @@
+/**
+ * Modal component styles
+ * Migrated from styled-components to plain CSS
+ */
+
+/* Modal wrapper - full screen fixed overlay */
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: var(--modal-z-index, 10000);
+}
+
+/* Card wrapper - z-index container */
+.modal-card-wrapper {
+  z-index: 1;
+}
+
+/* Main modal card */
+.modal-card {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  overflow: hidden;
+  width: 40rem;
+  background-color: white;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0 4rem rgba(0, 0, 0, 0.08);
+  /* bodyCopyRegularStyle - font-size: 1.6rem, line-height: 2.5rem, color from theme */
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  color: var(--text-color, #424242);
+}
+
+/* Modal header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem; /* modalPadding * 0.5 = 3.0 * 0.5 */
+  padding: 1.5rem 3.0rem; /* modalPadding * 0.5, modalPadding */
+  background: var(--header-bg, #f1f1f1);
+  border-bottom: solid 0.1rem var(--header-border, #d5d5d5);
+  justify-content: space-between;
+}
+
+/* Modal heading (h1 with h4 style) */
+.modal-heading {
+  /* h4Style from Typography.legacy.ts */
+  font-size: 1.8rem;
+  line-height: 2.5rem;
+  letter-spacing: -0.02rem;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
+  color: var(--text-color, #424242);
+  /* Additional heading styles */
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 75em) {
+  .modal-heading {
+    /* h4MobileStyle */
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+/* Modal body heading (h3) */
+.modal-body-heading {
+  /* h3Style from Typography.legacy.ts */
+  font-size: 2.4rem;
+  line-height: 3rem;
+  letter-spacing: -0.02rem;
+  padding: 1.5rem 0 1rem 0;
+  margin: 0;
+  color: var(--text-color, #424242);
+  /* Additional styles from BodyHeading */
+  font-weight: 400;
+  padding: 1.5rem 0; /* modalPadding * 0.5 */
+}
+
+@media screen and (max-width: 75em) {
+  .modal-body-heading {
+    /* h3MobileStyle */
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+}
+
+/* Modal body */
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 3.0rem; /* modalPadding */
+}
+
+/* Special case: when Card.Header + Body, remove top margin */
+.modal-card .modal-header + .modal-body {
+  margin-top: 0;
+}
+
+/* Modal mask - semi-transparent backdrop */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Modal footer */
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 3.0rem; /* modalPadding */
+}
+
+/* Close modal icon button */
+.modal-close-icon {
+  /* toolbarIconStyles - height/width from textRegularLineHeight (2.5rem) */
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+  /* Base button styles */
+  cursor: pointer;
+  margin-right: 0;
+  padding-right: 0;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* toolbarIconColor.lighter */
+  color: var(--icon-color-lighter, #6f6f6f);
+}
+
+.modal-close-icon:hover {
+  /* toolbarIconColor.base */
+  color: var(--icon-color-base, #424242);
+}
+
+.modal-close-icon > svg {
+  height: 100%;
+  width: 100%;
+}

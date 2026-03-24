@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import * as Styled from './styles';
+import * as Styled from './Modal';
 
 interface PropTypes {
   onModalClose: () => void;
