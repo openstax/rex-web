@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChapterFilter matches snapshot 1`] = `
-.c12 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c4 {
   cursor: pointer;
   border: none;
@@ -53,134 +47,6 @@ exports[`ChapterFilter matches snapshot 1`] = `
   padding: 0 1rem;
 }
 
-.c14 {
-  color: #fff;
-  height: 1rem;
-  width: 1rem;
-  display: none;
-}
-
-.c11 {
-  height: 1.6rem;
-  width: 1.6rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-input:not(:checked) + .c11 {
-  border: 1px solid #424242;
-}
-
-input:checked + .c11 {
-  background-color: #b03808;
-}
-
-input:checked + .c11 .c13 {
-  display: block;
-}
-
-.c9 {
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c9 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.c9:focus-within {
-  border-radius: 0.4rem;
-  background-color: #f1f1f1;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-}
-
-.c9:focus-within .c10 {
-  border: 1px solid #b03808;
-}
-
-.c9.focus-within {
-  border-radius: 0.4rem;
-  background-color: #f1f1f1;
-}
-
-.c9.focus-within .c10 {
-  border: 1px solid #b03808;
-}
-
-.c16 {
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #424242;
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-.c16 input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-.c16:focus-within {
-  border-radius: 0.4rem;
-  background-color: #f1f1f1;
-  outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
-}
-
-.c16:focus-within .c10 {
-  border: 1px solid #b03808;
-}
-
-.c16.focus-within {
-  border-radius: 0.4rem;
-  background-color: #f1f1f1;
-}
-
-.c16.focus-within .c10 {
-  border: 1px solid #b03808;
-}
-
 .c5 {
   padding: 0;
   border: none;
@@ -224,7 +90,7 @@ input:checked + .c11 .c13 {
   padding: 0;
 }
 
-.c15 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -236,18 +102,18 @@ input:checked + .c11 .c13 {
   margin-left: 0.8rem;
 }
 
-.c15 > * {
+.c9 > * {
   overflow: hidden;
 }
 
-.c15 .os-text {
+.c9 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-overflow: ellipsis;
 }
 
-.c15 .os-divider {
+.c9 .os-divider {
   margin: 0 0.4rem;
 }
 
@@ -269,11 +135,11 @@ input:checked + .c11 .c13 {
   padding: 0.8rem;
 }
 
-.c0 .c17 {
+.c0 .c10 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c0 .c18:last-child {
+.c0 .c11:last-child {
   border-bottom: none;
 }
 
@@ -332,7 +198,7 @@ input:checked + .c11 .c13 {
       >
         <li>
           <label
-            className="c8 c9"
+            className="checkbox-label c8 "
           >
             <input
               aria-selected={true}
@@ -342,15 +208,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -359,7 +223,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-text\\">Test Page 1</span>",
@@ -370,7 +234,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -380,15 +244,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -397,7 +259,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -408,7 +270,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -418,15 +280,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -435,7 +295,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -446,7 +306,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -456,15 +316,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -473,7 +331,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -484,7 +342,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -494,15 +352,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -511,7 +367,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -522,7 +378,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -532,15 +388,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -549,7 +403,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -560,7 +414,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -570,15 +424,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -587,7 +439,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -598,7 +450,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -608,15 +460,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -625,7 +475,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -636,7 +486,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -646,15 +496,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -663,7 +511,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">A</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Atomic Masses</span>",
@@ -674,7 +522,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -684,15 +532,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -701,7 +547,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-number\\">D</span><span class=\\"os-divider\\"> | </span><span class=\\"os-text\\">Glossary of Key Symbols and Notation</span>",
@@ -712,7 +558,7 @@ input:checked + .c11 .c13 {
         </li>
         <li>
           <label
-            className="c8 c16"
+            className="checkbox-label checkbox-disabled c8 "
           >
             <input
               aria-selected={false}
@@ -722,15 +568,13 @@ input:checked + .c11 .c13 {
               type="checkbox"
             />
             <span
-              className="c10 c11"
+              className="checkbox-custom"
             >
               <svg
                 aria-hidden="true"
-                className="c12 c13 c14"
-                fill="currentColor"
+                className="checkbox-icon"
                 focusable="false"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -739,7 +583,7 @@ input:checked + .c11 .c13 {
               </svg>
             </span>
             <span
-              className="c15"
+              className="c9"
               dangerouslySetInnerHTML={
                 Object {
                   "__html": "<span class=\\"os-text\\">Test Page for Generic Styles</span>",

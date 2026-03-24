@@ -7,6 +7,9 @@
  */
 .details-expand-icon,
 .details-collapse-icon {
+  display: inline-block;
+  vertical-align: -.125em;
+  overflow: hidden;
   height: 1.7rem;
   width: 1.7rem;
 }

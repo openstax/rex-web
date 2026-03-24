@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContextMenu match snapshot when closed 1`] = `
-.c9 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c4 {
   cursor: pointer;
   border: none;
@@ -15,11 +9,11 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   background: none;
 }
 
-.c8 {
+.c7 {
   cursor: pointer;
 }
 
-.c1 > *:not(.c7) {
+.c1 > *:not(.c6) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -34,31 +28,6 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   position: relative;
 }
 
-.c11 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #424242;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c11:hover {
-  color: #818181;
-}
-
-.c6 {
-  border: none;
-  display: block;
-}
-
-.c6 > div {
-  display: inline-block;
-  outline: none;
-}
-
 .c0 .c2 {
   position: absolute;
   width: 150px;
@@ -66,15 +35,15 @@ exports[`ContextMenu match snapshot when closed 1`] = `
   right: 0;
 }
 
-.c0 .c2 .focus-within .c10 {
+.c0 .c2 .focus-within .c8 {
   color: #818181;
 }
 
-.c0 .c2:focus-within .c10 {
+.c0 .c2:focus-within .c8 {
   color: #818181;
 }
 
-.c0 .c12 {
+.c0 .c9 {
   margin: 0.6rem 0 0 0.6rem;
 }
 
@@ -98,7 +67,7 @@ exports[`ContextMenu match snapshot when closed 1`] = `
     <button
       aria-expanded={false}
       aria-label="Edit this highlight"
-      className="c4 c5 c6 c7 c8"
+      className="c4 dot-menu-toggle c5 c6 c7"
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
@@ -107,11 +76,9 @@ exports[`ContextMenu match snapshot when closed 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
-          fill="currentColor"
+          className="dot-menu-icon c8 "
           focusable="false"
           viewBox="0 0 192 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -125,17 +92,17 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 `;
 
 exports[`ContextMenu match snapshot when open 1`] = `
-.c9 {
+.c16 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c20 {
+.c18 {
   display: none;
 }
 
-.c22 {
+.c20 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -150,7 +117,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border-radius: 50%;
 }
 
-.c23 {
+.c21 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -164,7 +131,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #fed200;
 }
 
-.c25 {
+.c23 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -178,7 +145,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #92d101;
 }
 
-.c27 {
+.c25 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -192,7 +159,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c29 {
+.c27 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -206,7 +173,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c31 {
+.c29 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -220,7 +187,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #de017e;
 }
 
-.c17 {
+.c14 {
   position: relative;
   background-color: #ffff8a;
   border: 1px solid #8f7700;
@@ -242,19 +209,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c17 .c19 {
+.c14 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c17 input:focus + .c21 {
+.c14 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c24 {
+.c22 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -276,19 +243,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c24 .c19 {
+.c22 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c24 input:focus + .c21 {
+.c22 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c26 {
+.c24 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -310,7 +277,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c26 .c19 {
+.c24 .c17 {
   height: 1rem;
   width: 1rem;
   color: #00c3ed;
@@ -319,14 +286,14 @@ exports[`ContextMenu match snapshot when open 1`] = `
   display: block;
 }
 
-.c26 input:focus + .c21 {
+.c24 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c28 {
+.c26 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -348,19 +315,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c28 .c19 {
+.c26 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c28 input:focus + .c21 {
+.c26 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c30 {
+.c28 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -382,24 +349,24 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c30 .c19 {
+.c28 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c30 input:focus + .c21 {
+.c28 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c18 {
+.c15 {
   cursor: pointer;
   margin: 0;
 }
 
-.c18 input {
+.c15 input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -407,7 +374,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   width: 0;
 }
 
-.c14 {
+.c11 {
   border: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -418,7 +385,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   flex-direction: row;
 }
 
-.c14 legend {
+.c11 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -431,7 +398,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 0;
 }
 
-.c16 {
+.c13 {
   border: 0;
   outline: none;
   display: -webkit-box;
@@ -454,11 +421,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
   background: none;
 }
 
-.c8 {
+.c7 {
   cursor: pointer;
 }
 
-.c1 > *:not(.c7) {
+.c1 > *:not(.c6) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -473,31 +440,6 @@ exports[`ContextMenu match snapshot when open 1`] = `
   position: relative;
 }
 
-.c11 {
-  height: 2rem;
-  width: 2rem;
-  padding: 0.2rem;
-  color: #424242;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c11:hover {
-  color: #818181;
-}
-
-.c6 {
-  border: none;
-  display: block;
-}
-
-.c6 > div {
-  display: inline-block;
-  outline: none;
-}
-
 .c0 .c2 {
   position: absolute;
   width: 150px;
@@ -505,15 +447,15 @@ exports[`ContextMenu match snapshot when open 1`] = `
   right: 0;
 }
 
-.c0 .c2 .focus-within .c10 {
+.c0 .c2 .focus-within .c8 {
   color: #818181;
 }
 
-.c0 .c2:focus-within .c10 {
+.c0 .c2:focus-within .c8 {
   color: #818181;
 }
 
-.c0 .c15 {
+.c0 .c12 {
   margin: 0.6rem 0 0 0.6rem;
 }
 
@@ -522,7 +464,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   margin-right: 0.2rem;
 }
 
-.c13 {
+.c10 {
   list-style: none;
   margin: 0;
   padding: 0.6rem 0;
@@ -531,12 +473,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
   padding: 0;
 }
 
-.c13 li {
+.c10 li {
   padding: 0.2rem;
 }
 
-.c13 li button,
-.c13 li a {
+.c10 li button,
+.c10 li a {
   white-space: nowrap;
   -webkit-text-decoration: none;
   text-decoration: none;
@@ -562,31 +504,45 @@ exports[`ContextMenu match snapshot when open 1`] = `
   line-height: 2rem;
 }
 
-.c13 li button:focus,
-.c13 li a:focus {
+.c10 li button:focus,
+.c10 li a:focus {
   background: #d5d5d5;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-.c13 li {
+.c10 li {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
 }
 
-.c13 li button,
-.c13 li a {
+.c10 li button,
+.c10 li a {
   border: 0;
   width: 100%;
 }
 
-.c13 li button:focus,
-.c13 li a:focus,
-.c13 li button:hover,
-.c13 li a:hover {
+.c10 li button:focus,
+.c10 li a:focus,
+.c10 li button:hover,
+.c10 li a:hover {
   outline-width: 0;
+}
+
+.c30 {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: #424242;
+}
+
+.c31 {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: #424242;
 }
 
 .c32 {
@@ -596,21 +552,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   color: #424242;
 }
 
-.c33 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
-}
-
-.c34 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
-}
-
-.c12 {
+.c9 {
   z-index: 2;
   border: 1px solid #d5d5d5;
   background-color: #f5f5f5;
@@ -632,7 +574,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
     <button
       aria-expanded={true}
       aria-label="Edit this highlight"
-      className="c4 c5 c6 c7 c8"
+      className="c4 dot-menu-toggle c5 c6 c7"
       data-testid="highlight-dropdown-menu-toggle"
       onClick={[Function]}
     >
@@ -641,11 +583,9 @@ exports[`ContextMenu match snapshot when open 1`] = `
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
-          fill="currentColor"
+          className="dot-menu-icon c8 "
           focusable="false"
           viewBox="0 0 192 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
@@ -655,17 +595,17 @@ exports[`ContextMenu match snapshot when open 1`] = `
       </div>
     </button>
     <div
-      className="c12"
+      className="c9"
     >
       <menu
-        className="c13"
+        className="c10"
       >
         <li>
           <div
-            className="c14"
+            className="c11"
           >
             <fieldset
-              className="c15 c16"
+              className="c12 c13"
               data-testid="highlight-colours-picker"
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -678,7 +618,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply yellow highlight"
                 checked={false}
-                className="c17 c18"
+                className="c14 c15"
                 component={<label />}
                 size="small"
                 style={
@@ -693,7 +633,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c9 c19 c20"
+                  className="c16 c17 c18"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 512 512"
@@ -713,7 +653,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c21 c22"
+                  className="c19 c20"
                   size="small"
                   style={
                     Object {
@@ -725,7 +665,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c23"
+                  className="c21"
                   size="small"
                   style={
                     Object {
@@ -740,7 +680,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply green highlight"
                 checked={false}
-                className="c24 c18"
+                className="c22 c15"
                 component={<label />}
                 size="small"
                 style={
@@ -755,7 +695,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c9 c19 c20"
+                  className="c16 c17 c18"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 512 512"
@@ -775,7 +715,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c21 c22"
+                  className="c19 c20"
                   size="small"
                   style={
                     Object {
@@ -787,7 +727,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c25"
+                  className="c23"
                   size="small"
                   style={
                     Object {
@@ -802,7 +742,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply blue highlight"
                 checked={true}
-                className="c26 c18"
+                className="c24 c15"
                 component={<label />}
                 size="small"
                 style={
@@ -817,7 +757,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c9 c19 c20"
+                  className="c16 c17 c18"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 512 512"
@@ -837,7 +777,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c21 c22"
+                  className="c19 c20"
                   size="small"
                   style={
                     Object {
@@ -849,7 +789,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c27"
+                  className="c25"
                   size="small"
                   style={
                     Object {
@@ -864,7 +804,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply purple highlight"
                 checked={false}
-                className="c28 c18"
+                className="c26 c15"
                 component={<label />}
                 size="small"
                 style={
@@ -879,7 +819,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c9 c19 c20"
+                  className="c16 c17 c18"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 512 512"
@@ -899,7 +839,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c21 c22"
+                  className="c19 c20"
                   size="small"
                   style={
                     Object {
@@ -911,7 +851,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c29"
+                  className="c27"
                   size="small"
                   style={
                     Object {
@@ -926,7 +866,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply pink highlight"
                 checked={false}
-                className="c30 c18"
+                className="c28 c15"
                 component={<label />}
                 size="small"
                 style={
@@ -941,7 +881,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c9 c19 c20"
+                  className="c16 c17 c18"
                   fill="currentColor"
                   focusable="false"
                   viewBox="0 0 512 512"
@@ -961,7 +901,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c21 c22"
+                  className="c19 c20"
                   size="small"
                   style={
                     Object {
@@ -973,7 +913,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c31"
+                  className="c29"
                   size="small"
                   style={
                     Object {
@@ -999,7 +939,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c9 c32"
+              className="c16 c30"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 576 512"
@@ -1024,7 +964,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c9 c33"
+              className="c16 c31"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 448 512"
@@ -1049,7 +989,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c9 c34"
+              className="c16 c32"
               fill="currentColor"
               focusable="false"
               viewBox="0 0 512 512"
