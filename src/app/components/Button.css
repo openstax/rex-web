@@ -2,9 +2,16 @@
  * Migrated from styled-components to plain CSS as part of Phase 2.1
  */
 
- button {
-  border: none;
- }
+/*
+ * Global button border reset
+ *
+ * Putting this on plain-button did not work right because when (not-yet-converted)
+ * styled components had borders, the plain-border spec would override them.
+ * The need for this may go away when migration from styled-components is complete.
+ */
+button {
+  border: unset;
+}
 
 /* Base button styles */
 .button {
@@ -127,8 +134,8 @@
   cursor: pointer;
   padding: 0;
   background: none;
-  /* Note: border and margin are not reset here to allow styled-components wrappers to add their own borders and margins */
-  /* Native buttons have no border by default in most browsers, and any border is reset by browser normalization CSS */
+  /* Note: border and margin are intentionally not reset because they override styled-components wrappers */
+  /* Default button borders are unset globally */
 }
 
 /* ButtonLink - button styled as a link */
@@ -163,6 +170,7 @@
 .button-link-decorated:hover::after,
 .button-link-decorated:focus::after {
   width: 100%;
+  background-color: currentColor;
 }
 
 .button-link-decorated:hover {
@@ -171,8 +179,8 @@
 }
 
 .button-link-decorated:focus {
-  text-decoration: underline;
   color: var(--link-hover, #0064A0);
+  text-decoration: none;
 }
 
 /* ButtonLink disabled state */

@@ -23,11 +23,20 @@ interface ButtonProps<T extends ComponentType | undefined> extends Omit<React.Bu
     T extends ComponentType ? React.ReactComponentElement<T>:
     never;
   // Allow additional props for polymorphic usage (e.g., anchor attributes when component is an <a>)
+  // NOTE: The index signature [key: string]: any disables type-checking for all Button usages.
+  // A future improvement would be to implement full polymorphic typing using React.ElementType
+  // and ComponentPropsWithoutRef<T>, but that requires a larger refactor. For now, this provides
+  // backward compatibility for existing polymorphic usages while accepting reduced type safety.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps<ComponentType | undefined>>(function Button({
+// NOTE: The ref is typed as HTMLElement (not HTMLButtonElement) to support polymorphic usage.
+// When component prop is not provided, Button renders as <button>, but when component is provided,
+// it can be any element type. A future improvement would be to use ref type overloads or conditional
+// types to provide HTMLButtonElement for the default case and HTMLElement for the polymorphic case.
+// For now, this provides maximum flexibility while accepting some loss of type precision.
+export const Button = React.forwardRef<HTMLElement, ButtonProps<ComponentType | undefined>>(function Button({
   variant = 'default',
   size = 'medium',
   disabled = false,
@@ -70,8 +79,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps<ComponentT
     // Merge className and style with component's existing props to avoid overwriting
     const mergedClassName = classNames(component.props.className, classes);
     const mergedStyle: React.CSSProperties = {
-      ...cssVariables,
       ...(component.props.style || {}),
+      ...cssVariables,
     };
 
     // Check if the component is a native form element that supports the disabled attribute
@@ -98,21 +107,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps<ComponentT
       (extraProps as { tabIndex?: number }).tabIndex = -1;
 
       // Block activation events when disabled
-      const originalOnClick = component.props.onClick;
-      const propOnClick = (props as { onClick?: React.MouseEventHandler<HTMLElement> }).onClick;
-
       (extraProps as { onClick?: React.MouseEventHandler<HTMLElement> }).onClick = (
         event: React.MouseEvent<HTMLElement>
       ) => {
+        // Completely block activation when disabled - do not call any handlers
         event.preventDefault();
         event.stopPropagation();
-        // Still call original handlers in case they have side effects
-        if (typeof originalOnClick === 'function') {
-          originalOnClick(event);
-        }
-        if (typeof propOnClick === 'function') {
-          propOnClick(event);
-        }
+        return;
       };
 
       const originalOnKeyDown = component.props.onKeyDown;

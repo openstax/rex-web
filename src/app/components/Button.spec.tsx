@@ -121,7 +121,7 @@ describe('Button', () => {
       expect(event.stopPropagation).toHaveBeenCalled();
     });
 
-    it('calls original onClick from component prop when disabled', () => {
+    it('does not call original onClick from component prop when disabled', () => {
       const componentOnClick = jest.fn();
       const component = renderer.create(
         <Button component={<a href='/' onClick={componentOnClick} />} disabled>Link</Button>
@@ -137,10 +137,10 @@ describe('Button', () => {
         tree.props.onClick(event);
       }
 
-      expect(componentOnClick).toHaveBeenCalledWith(event);
+      expect(componentOnClick).not.toHaveBeenCalled();
     });
 
-    it('calls onClick from Button props when disabled', () => {
+    it('does not call onClick from Button props when disabled', () => {
       const buttonOnClick = jest.fn();
       const component = renderer.create(
         <Button component={<a href='/' />} disabled onClick={buttonOnClick}>Link</Button>
@@ -156,10 +156,10 @@ describe('Button', () => {
         tree.props.onClick(event);
       }
 
-      expect(buttonOnClick).toHaveBeenCalledWith(event);
+      expect(buttonOnClick).not.toHaveBeenCalled();
     });
 
-    it('calls both onClick handlers when disabled', () => {
+    it('does not call any onClick handlers when disabled', () => {
       const componentOnClick = jest.fn();
       const buttonOnClick = jest.fn();
       const component = renderer.create(
@@ -176,8 +176,8 @@ describe('Button', () => {
         tree.props.onClick(event);
       }
 
-      expect(componentOnClick).toHaveBeenCalledWith(event);
-      expect(buttonOnClick).toHaveBeenCalledWith(event);
+      expect(componentOnClick).not.toHaveBeenCalled();
+      expect(buttonOnClick).not.toHaveBeenCalled();
     });
 
     it('handles missing onClick handlers gracefully when disabled', () => {
