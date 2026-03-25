@@ -593,9 +593,12 @@ export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLA
   function PlainButton({ className, ...props }, ref) {
     // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
     // Styled-components uses transient props for style-only props that shouldn't appear as HTML attributes
-    const safeProps = Object.fromEntries(
-      Object.entries(props).filter(([key]) => !key.startsWith('$'))
-    ) as React.ButtonHTMLAttributes<HTMLButtonElement>;
+    const safeProps = Object.keys(props).reduce((acc, key) => {
+      if (!key.startsWith('$')) {
+        acc[key] = props[key];
+      }
+      return acc;
+    }, {} as Record<string, any>) as React.ButtonHTMLAttributes<HTMLButtonElement>;
 
     return (
       <button
@@ -607,6 +610,8 @@ export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLA
   }
 );
 ```
+
+**Important Note - ES2017 Compatibility**: The example above uses `Object.keys().reduce()` instead of `Object.fromEntries()` for ES2017 compatibility. While `Object.fromEntries()` is cleaner and was suggested by Copilot, it requires ES2019+ and will cause TypeScript compilation errors if your `tsconfig.json` targets ES2017 or ES2018. The `reduce` approach achieves the same result while maintaining compatibility with older ES targets.
 
 **Impact**:
 - ✅ Prevents invalid HTML attributes in the DOM
