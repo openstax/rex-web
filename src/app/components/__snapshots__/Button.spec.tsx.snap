@@ -147,6 +147,138 @@ exports[`Button matches snapshot - medium 1`] = `
 />
 `;
 
+exports[`Button matches snapshot - polymorphic with anchor component disabled 1`] = `
+<a
+  aria-disabled={true}
+  className="button button-default button-medium button-disabled"
+  href="/"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+  tabIndex={-1}
+>
+  Link
+</a>
+`;
+
+exports[`Button matches snapshot - polymorphic with div component disabled 1`] = `
+<div
+  aria-disabled={true}
+  className="button button-default button-medium button-disabled"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="button"
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+  tabIndex={-1}
+>
+  Div Button
+</div>
+`;
+
+exports[`Button matches snapshot - polymorphic with input component 1`] = `
+<input
+  className="button button-default button-medium"
+  disabled={false}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+  type="button"
+  value="Submit"
+/>
+`;
+
+exports[`Button matches snapshot - polymorphic with input component disabled 1`] = `
+<input
+  className="button button-default button-medium button-disabled"
+  disabled={true}
+  style={
+    Object {
+      "--button-default-active": "#e5e5e5",
+      "--button-default-border": "#d5d5d5",
+      "--button-default-color": "#fff",
+      "--button-default-foreground": "#5e6062",
+      "--button-default-hover": "#fafafa",
+      "--button-disabled-color": "#f1f1f1",
+      "--button-disabled-foreground": "#c1c1c1",
+      "--button-focus-outline": "#fff",
+      "--button-focus-shadow": "#000",
+      "--button-primary-active": "#b03808",
+      "--button-primary-color": "#d4450c",
+      "--button-primary-foreground": "#fff",
+      "--button-primary-hover": "#be3c08",
+      "--button-secondary-active": "#818181",
+      "--button-secondary-color": "#949494",
+      "--button-secondary-foreground": "#fff",
+      "--button-secondary-hover": "#8b8b8b",
+      "--button-transparent-color": "#027EB5",
+    }
+  }
+  type="button"
+  value="Submit"
+/>
+`;
+
 exports[`Button matches snapshot - primary 1`] = `
 <button
   className="button button-primary button-medium"

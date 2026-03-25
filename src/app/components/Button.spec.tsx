@@ -75,6 +75,267 @@ describe('Button', () => {
     const tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('matches snapshot - polymorphic with input component', () => {
+    const component = renderer.create(<Button component={<input type='button' value='Submit' />} />);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot - polymorphic with input component disabled', () => {
+    const component = renderer.create(<Button component={<input type='button' value='Submit' />} disabled />);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot - polymorphic with anchor component disabled', () => {
+    const component = renderer.create(<Button component={<a href='/' />} disabled>Link</Button>);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('matches snapshot - polymorphic with div component disabled', () => {
+    const component = renderer.create(<Button component={<div role='button' />} disabled>Div Button</Button>);
+    const tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  describe('polymorphic disabled onClick handler', () => {
+    it('prevents default and stops propagation on click', () => {
+      const onClick = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' onClick={jest.fn()} />} disabled onClick={onClick}>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.MouseEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onClick) {
+        tree.props.onClick(event);
+      }
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(event.stopPropagation).toHaveBeenCalled();
+    });
+
+    it('calls original onClick from component prop when disabled', () => {
+      const componentOnClick = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' onClick={componentOnClick} />} disabled>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.MouseEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onClick) {
+        tree.props.onClick(event);
+      }
+
+      expect(componentOnClick).toHaveBeenCalledWith(event);
+    });
+
+    it('calls onClick from Button props when disabled', () => {
+      const buttonOnClick = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' />} disabled onClick={buttonOnClick}>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.MouseEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onClick) {
+        tree.props.onClick(event);
+      }
+
+      expect(buttonOnClick).toHaveBeenCalledWith(event);
+    });
+
+    it('calls both onClick handlers when disabled', () => {
+      const componentOnClick = jest.fn();
+      const buttonOnClick = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' onClick={componentOnClick} />} disabled onClick={buttonOnClick}>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.MouseEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onClick) {
+        tree.props.onClick(event);
+      }
+
+      expect(componentOnClick).toHaveBeenCalledWith(event);
+      expect(buttonOnClick).toHaveBeenCalledWith(event);
+    });
+
+    it('handles missing onClick handlers gracefully when disabled', () => {
+      const component = renderer.create(
+        <Button component={<a href='/' />} disabled>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.MouseEvent<HTMLElement>;
+
+      // Should not throw when no onClick handlers are present
+      expect(() => {
+        if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onClick) {
+          tree.props.onClick(event);
+        }
+      }).not.toThrow();
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(event.stopPropagation).toHaveBeenCalled();
+    });
+  });
+
+  describe('polymorphic disabled onKeyDown handler', () => {
+    it('prevents default and stops propagation for Enter key', () => {
+      const onKeyDown = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' onKeyDown={jest.fn()} />} disabled onKeyDown={onKeyDown}>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        key: 'Enter',
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.KeyboardEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onKeyDown) {
+        tree.props.onKeyDown(event);
+      }
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(event.stopPropagation).toHaveBeenCalled();
+      // Original handlers should NOT be called for Enter/Space
+      expect(onKeyDown).not.toHaveBeenCalled();
+    });
+
+    it('prevents default and stops propagation for Space key', () => {
+      const onKeyDown = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' onKeyDown={jest.fn()} />} disabled onKeyDown={onKeyDown}>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        key: ' ',
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.KeyboardEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onKeyDown) {
+        tree.props.onKeyDown(event);
+      }
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(event.stopPropagation).toHaveBeenCalled();
+      // Original handlers should NOT be called for Enter/Space
+      expect(onKeyDown).not.toHaveBeenCalled();
+    });
+
+    it('calls original onKeyDown from component prop for non-activation keys', () => {
+      const componentOnKeyDown = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' onKeyDown={componentOnKeyDown} />} disabled>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        key: 'Escape',
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.KeyboardEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onKeyDown) {
+        tree.props.onKeyDown(event);
+      }
+
+      expect(componentOnKeyDown).toHaveBeenCalledWith(event);
+      expect(event.preventDefault).not.toHaveBeenCalled();
+    });
+
+    it('calls onKeyDown from Button props for non-activation keys', () => {
+      const buttonOnKeyDown = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' />} disabled onKeyDown={buttonOnKeyDown}>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        key: 'Tab',
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.KeyboardEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onKeyDown) {
+        tree.props.onKeyDown(event);
+      }
+
+      expect(buttonOnKeyDown).toHaveBeenCalledWith(event);
+      expect(event.preventDefault).not.toHaveBeenCalled();
+    });
+
+    it('calls both onKeyDown handlers for non-activation keys', () => {
+      const componentOnKeyDown = jest.fn();
+      const buttonOnKeyDown = jest.fn();
+      const component = renderer.create(
+        <Button component={<a href='/' onKeyDown={componentOnKeyDown} />} disabled onKeyDown={buttonOnKeyDown}>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        key: 'ArrowDown',
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.KeyboardEvent<HTMLElement>;
+
+      if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onKeyDown) {
+        tree.props.onKeyDown(event);
+      }
+
+      expect(componentOnKeyDown).toHaveBeenCalledWith(event);
+      expect(buttonOnKeyDown).toHaveBeenCalledWith(event);
+    });
+
+    it('handles missing onKeyDown handlers gracefully for non-activation keys', () => {
+      const component = renderer.create(
+        <Button component={<a href='/' />} disabled>Link</Button>
+      );
+      const tree = component.toJSON();
+
+      const event = {
+        key: 'Escape',
+        preventDefault: jest.fn(),
+        stopPropagation: jest.fn(),
+      } as unknown as React.KeyboardEvent<HTMLElement>;
+
+      // Should not throw when no onKeyDown handlers are present
+      expect(() => {
+        if (tree && typeof tree === 'object' && 'props' in tree && tree.props.onKeyDown) {
+          tree.props.onKeyDown(event);
+        }
+      }).not.toThrow();
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+    });
+  });
 });
 
 describe('PlainButton', () => {
