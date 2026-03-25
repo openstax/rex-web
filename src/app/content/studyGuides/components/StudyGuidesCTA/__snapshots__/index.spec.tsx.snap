@@ -258,7 +258,6 @@ exports[`StudyGuidesCTA does render if user is not logged in 1`] = `
         <a
           className="button button-default button-medium c5"
           data-analytics-label="signup"
-          disabled={false}
           href="/accounts/signup?r=/"
           style={
             Object {

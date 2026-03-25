@@ -12,6 +12,9 @@ type Size = 'large' | 'medium' | 'small';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentType = keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>;
 
+// When component prop is provided, allow additional props that may be needed for that element type
+// (e.g., href, target, rel for anchor elements). This provides backward compatibility for existing
+// usages while the base type remains ButtonHTMLAttributes for standard button usage.
 interface ButtonProps<T extends ComponentType | undefined> extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'size'> {
   disabled?: boolean;
   variant?: Variant;
@@ -19,6 +22,9 @@ interface ButtonProps<T extends ComponentType | undefined> extends Omit<React.Bu
   component?: T extends undefined ? undefined :
     T extends ComponentType ? React.ReactComponentElement<T>:
     never;
+  // Allow additional props for polymorphic usage (e.g., anchor attributes when component is an <a>)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps<ComponentType | undefined>>(function Button({
@@ -61,13 +67,75 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps<ComponentT
   } as React.CSSProperties;
 
   if (isDefined(component)) {
-    return React.cloneElement(component, {
+    // Merge className and style with component's existing props to avoid overwriting
+    const mergedClassName = classNames(component.props.className, classes);
+    const mergedStyle: React.CSSProperties = {
+      ...cssVariables,
+      ...(component.props.style || {}),
+    };
+
+    // Check if the component is a native form element that supports the disabled attribute
+    const isIntrinsic = typeof component.type === 'string';
+    const isFormElement =
+      isIntrinsic &&
+      ['button', 'input', 'select', 'textarea', 'fieldset'].includes(
+        component.type as string
+      );
+
+    const extraProps: Record<string, unknown> = {
       ...props,
       ref,
-      className: classes,
-      style: cssVariables,
-      disabled,
-    });
+      className: mergedClassName,
+      style: mergedStyle,
+    };
+
+    if (isFormElement) {
+      // Native form controls support the disabled attribute
+      (extraProps as { disabled?: boolean }).disabled = disabled;
+    } else if (disabled) {
+      // For non-form elements (e.g., <a>), emulate disabled behavior accessibly
+      (extraProps as { 'aria-disabled'?: boolean })['aria-disabled'] = true;
+      (extraProps as { tabIndex?: number }).tabIndex = -1;
+
+      // Block activation events when disabled
+      const originalOnClick = component.props.onClick;
+      const propOnClick = (props as { onClick?: React.MouseEventHandler<HTMLElement> }).onClick;
+
+      (extraProps as { onClick?: React.MouseEventHandler<HTMLElement> }).onClick = (
+        event: React.MouseEvent<HTMLElement>
+      ) => {
+        event.preventDefault();
+        event.stopPropagation();
+        // Still call original handlers in case they have side effects
+        if (typeof originalOnClick === 'function') {
+          originalOnClick(event);
+        }
+        if (typeof propOnClick === 'function') {
+          propOnClick(event);
+        }
+      };
+
+      const originalOnKeyDown = component.props.onKeyDown;
+      const propOnKeyDown = (props as { onKeyDown?: React.KeyboardEventHandler<HTMLElement> }).onKeyDown;
+
+      (extraProps as { onKeyDown?: React.KeyboardEventHandler<HTMLElement> }).onKeyDown = (
+        event: React.KeyboardEvent<HTMLElement>
+      ) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        if (typeof originalOnKeyDown === 'function') {
+          originalOnKeyDown(event);
+        }
+        if (typeof propOnKeyDown === 'function') {
+          propOnKeyDown(event);
+        }
+      };
+    }
+
+    return React.cloneElement(component, extraProps);
   }
 
   return (
@@ -107,9 +175,17 @@ export function ButtonGroup({
 
 export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
   function PlainButton({ className, ...props }, ref) {
+    // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
+    // Styled-components uses transient props for style-only props that shouldn't appear as HTML attributes
+    const safeProps = Object.keys(props).reduce((acc, key) => {
+      if (!key.startsWith('$')) {
+        acc[key] = props[key as keyof typeof props];
+      }
+      return acc;
+    }, {} as Record<string, unknown>) as React.ButtonHTMLAttributes<HTMLButtonElement>;
     return (
       <button
-        {...props}
+        {...safeProps}
         ref={ref}
         className={classNames('plain-button', className)}
       />
@@ -133,9 +209,9 @@ export const ButtonLink = React.forwardRef<HTMLButtonElement, ButtonLinkProps>(
           className
         )}
         style={{
-          ...style,
           '--link-color': linkColor,
           '--link-hover': linkHover,
+          ...style,
         } as React.CSSProperties}
       />
     );

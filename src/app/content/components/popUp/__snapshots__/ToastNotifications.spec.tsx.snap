@@ -270,7 +270,6 @@ exports[`ToastNotifications matches snapshots with toasts 1`] = `
           aria-label="dismiss"
           className="plain-button c11"
           onClick={[Function]}
-          variant="warning"
         >
           <svg
             aria-hidden="true"

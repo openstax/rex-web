@@ -2,6 +2,10 @@
  * Migrated from styled-components to plain CSS as part of Phase 2.1
  */
 
+ button {
+  border: none;
+ }
+
 /* Base button styles */
 .button {
   display: flex;
@@ -85,7 +89,7 @@
   color: var(--button-default-foreground, #424242);
   background-color: var(--button-default-color, #fff);
   border: 1px solid var(--button-default-border, #d5d5d5);
-  font-weight: regular;
+  font-weight: normal;
 }
 
 .button-default:hover {
@@ -121,10 +125,10 @@
 /* PlainButton - unstyled button base */
 .plain-button {
   cursor: pointer;
-  border: none;
-  margin: 0;
   padding: 0;
   background: none;
+  /* Note: border and margin are not reset here to allow styled-components wrappers to add their own borders and margins */
+  /* Native buttons have no border by default in most browsers, and any border is reset by browser normalization CSS */
 }
 
 /* ButtonLink - button styled as a link */

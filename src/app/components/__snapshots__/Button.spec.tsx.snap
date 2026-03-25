@@ -90,7 +90,6 @@ exports[`Button matches snapshot - large 1`] = `
 exports[`Button matches snapshot - link 1`] = `
 <a
   className="button button-default button-medium"
-  disabled={false}
   href="/"
   style={
     Object {
