@@ -19,8 +19,8 @@ Compares two pdf files. Before executing this test:
 3. copy them to a different folder (in my case 2pdfs folder in Downloads)
 4. make sure that base_from_dir variable is set accordingly
 5. base_to_dir is a temp folder and is auto-deleted after each test run
-6. run 'pytest -k test_compare_pdf_files.py e2e_tests/e2e/pdf-tools'
-7. to get a log file, run 'pytest -k test_compare_pdf_files.py e2e_tests/e2e/pdf-tools | tee pdf_diffs.txt'
+6. run 'pytest -k test_compare_pdf_files.py pdf-tools'
+7. to get a log file, run 'pytest -k test_compare_pdf_files.py pdf-tools | tee pdf_diffs.txt'
 
 Latest update on March 25th, 2026
 """
