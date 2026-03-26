@@ -1,6 +1,10 @@
 import os
 import shutil
 
+import warnings
+
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
 from diff_pdf_visually import pdf_similar
 import fitz
 
@@ -9,7 +13,7 @@ import tempfile
 
 
 """
-Compares two pdf files. To run:
+Compares two pdf files. Before executing this test:
 1. run two pdf jobs in corgi
 2. download the pdf files from corgi (by default to Downloads folder on Mac)
 3. copy them to a different folder (in my case 2pdfs folder in Downloads)
