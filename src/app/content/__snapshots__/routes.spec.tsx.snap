@@ -1,19 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`assigned route route renders renders a component 1`] = `
-.c6 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-.c9 {
+.c8 {
   cursor: pointer;
 }
 
-.c3 > *:not(.c8) {
+.c3 > *:not(.c7) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -28,13 +20,13 @@ exports[`assigned route route renders renders a component 1`] = `
   position: relative;
 }
 
-.c7 {
+.c6 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c7 > div {
+.c6 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -69,42 +61,42 @@ exports[`assigned route route renders renders a component 1`] = `
   padding: 1.4rem;
 }
 
-.c21 {
+.c20 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c24 {
+.c23 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c17 {
+.c16 {
   list-style: none;
   cursor: pointer;
 }
 
-.c17::before {
+.c16::before {
   display: none;
 }
 
-.c17::-moz-list-bullet {
+.c16::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c17::-webkit-details-marker {
+.c16::-webkit-details-marker {
   display: none;
 }
 
-.c14 {
+.c13 {
   overflow: visible;
 }
 
-.c14:focus-visible {
+.c13:focus-visible {
   outline: none;
 }
 
-.c14 .highlight {
+.c13 .highlight {
   position: relative;
   z-index: 1;
   -webkit-user-select: none;
@@ -113,39 +105,39 @@ exports[`assigned route route renders renders a component 1`] = `
   user-select: none;
 }
 
-.c14 [data-type="equation"] {
+.c13 [data-type="equation"] {
   text-align: center;
 }
 
-.c14 [data-type="equation"] .highlight {
+.c13 [data-type="equation"] .highlight {
   grid-column: 2;
 }
 
-.c14 mark mjx-container,
-.c14 mark mjx-math,
-.c14 mark mjx-semantics,
-.c14 mark mjx-mrow,
-.c14 mark mjx-row,
-.c14 mark mjx-under,
-.c14 mark mjx-base,
-.c14 mark mjx-munder,
-.c14 mark mjx-mo,
-.c14 mark mjx-mi,
-.c14 mark mjx-mn,
-.c14 mark mjx-mtext,
-.c14 mark mjx-c {
+.c13 mark mjx-container,
+.c13 mark mjx-math,
+.c13 mark mjx-semantics,
+.c13 mark mjx-mrow,
+.c13 mark mjx-row,
+.c13 mark mjx-under,
+.c13 mark mjx-base,
+.c13 mark mjx-munder,
+.c13 mark mjx-mo,
+.c13 mark mjx-mi,
+.c13 mark mjx-mn,
+.c13 mark mjx-mtext,
+.c13 mark mjx-c {
   background: inherit;
 }
 
-.c14 .highlight.yellow {
+.c13 .highlight.yellow {
   background-color: #ffff8a;
 }
 
-.c14 .highlight.yellow.block {
+.c13 .highlight.yellow.block {
   display: block;
 }
 
-.c14 .highlight.yellow.block:after {
+.c13 .highlight.yellow.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -157,7 +149,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #ffff8a;
 }
 
-.c14 .highlight.yellow.block.first.has-note:before {
+.c13 .highlight.yellow.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -169,7 +161,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c14 .highlight.yellow.first.text.has-note:after {
+.c13 .highlight.yellow.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -184,15 +176,15 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c14 .highlight.green {
+.c13 .highlight.green {
   background-color: #def99f;
 }
 
-.c14 .highlight.green.block {
+.c13 .highlight.green.block {
   display: block;
 }
 
-.c14 .highlight.green.block:after {
+.c13 .highlight.green.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -204,7 +196,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #def99f;
 }
 
-.c14 .highlight.green.block.first.has-note:before {
+.c13 .highlight.green.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -216,7 +208,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c14 .highlight.green.first.text.has-note:after {
+.c13 .highlight.green.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -231,15 +223,15 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c14 .highlight.blue {
+.c13 .highlight.blue {
   background-color: #c8f5ff;
 }
 
-.c14 .highlight.blue.block {
+.c13 .highlight.blue.block {
   display: block;
 }
 
-.c14 .highlight.blue.block:after {
+.c13 .highlight.blue.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -251,7 +243,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #c8f5ff;
 }
 
-.c14 .highlight.blue.block.first.has-note:before {
+.c13 .highlight.blue.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -263,7 +255,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c14 .highlight.blue.first.text.has-note:after {
+.c13 .highlight.blue.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -278,15 +270,15 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c14 .highlight.purple {
+.c13 .highlight.purple {
   background-color: #cbcfff;
 }
 
-.c14 .highlight.purple.block {
+.c13 .highlight.purple.block {
   display: block;
 }
 
-.c14 .highlight.purple.block:after {
+.c13 .highlight.purple.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -298,7 +290,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #cbcfff;
 }
 
-.c14 .highlight.purple.block.first.has-note:before {
+.c13 .highlight.purple.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -310,7 +302,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c14 .highlight.purple.first.text.has-note:after {
+.c13 .highlight.purple.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -325,15 +317,15 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c14 .highlight.pink {
+.c13 .highlight.pink {
   background-color: #ffc5e1;
 }
 
-.c14 .highlight.pink.block {
+.c13 .highlight.pink.block {
   display: block;
 }
 
-.c14 .highlight.pink.block:after {
+.c13 .highlight.pink.block:after {
   position: absolute;
   z-index: -1;
   content: "";
@@ -345,7 +337,7 @@ exports[`assigned route route renders renders a component 1`] = `
   background-color: #ffc5e1;
 }
 
-.c14 .highlight.pink.block.first.has-note:before {
+.c13 .highlight.pink.block.first.has-note:before {
   position: absolute;
   top: -1rem;
   left: -1rem;
@@ -357,7 +349,7 @@ exports[`assigned route route renders renders a component 1`] = `
   border-bottom: 1.2em solid transparent;
 }
 
-.c14 .highlight.pink.first.text.has-note:after {
+.c13 .highlight.pink.first.text.has-note:after {
   position: absolute;
   top: 0;
   left: 0;
@@ -372,7 +364,7 @@ exports[`assigned route route renders renders a component 1`] = `
   transform: rotate(90deg);
 }
 
-.c14 [data-for-screenreaders="true"] {
+.c13 [data-for-screenreaders="true"] {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -385,24 +377,24 @@ exports[`assigned route route renders renders a component 1`] = `
   border: 0;
 }
 
-.c14 .os-figure,
-.c14 .os-figure:last-child {
+.c13 .os-figure,
+.c13 .os-figure:last-child {
   margin-bottom: 5px;
 }
 
-.c14 #main-content .os-figure > figure,
-.c14 #main-content .os-figure > figure:not([data-orient="vertical"]) {
+.c13 #main-content .os-figure > figure,
+.c13 #main-content .os-figure > figure:not([data-orient="vertical"]) {
   display: contents;
 }
 
-.c14 #main-content .os-figure > figure > figcaption.os-caption-container,
-.c14 #main-content .os-figure > figure:not([data-orient="vertical"]) > figcaption.os-caption-container {
+.c13 #main-content .os-figure > figure > figcaption.os-caption-container,
+.c13 #main-content .os-figure > figure:not([data-orient="vertical"]) > figcaption.os-caption-container {
   text-align: left;
   padding: 1rem 0 0;
   margin-bottom: 0;
 }
 
-.c14 .image-button-wrapper {
+.c13 .image-button-wrapper {
   border: none;
   padding: 0;
   margin: 0;
@@ -411,19 +403,19 @@ exports[`assigned route route renders renders a component 1`] = `
   cursor: pointer;
 }
 
-.c14 .image-button-wrapper:focus {
+.c13 .image-button-wrapper:focus {
   outline: 1px solid Highlight;
   outline: 1px solid -webkit-focus-ring-color;
   outline-offset: 2px;
 }
 
-.c14 .image-button-wrapper img {
+.c13 .image-button-wrapper img {
   display: block;
   max-width: 100%;
   height: auto;
 }
 
-.c14 #main-content * {
+.c13 #main-content * {
   overflow: initial;
 }
 
@@ -459,21 +451,21 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-left: 1.6rem;
 }
 
-.c22 {
+.c21 {
   margin-left: -0.3rem;
 }
 
-.c25 {
+.c24 {
   margin-left: -0.3rem;
 }
 
-.c19 {
+.c18 {
   font-weight: 500;
   list-style: none;
 }
 
-.c19,
-.c19 span {
+.c18,
+.c18 span {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -483,33 +475,33 @@ exports[`assigned route route renders renders a component 1`] = `
   text-decoration: none;
 }
 
-.c19 a,
-.c19 span a {
+.c18 a,
+.c18 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c19 a:hover,
-.c19 span a:hover {
+.c18 a:hover,
+.c18 span a:hover {
   color: #0064A0;
 }
 
-.c19:hover,
-.c19 span:hover,
-.c19:focus,
-.c19 span:focus {
+.c18:hover,
+.c18 span:hover,
+.c18:focus,
+.c18 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c26 blockquote {
+.c25 blockquote {
   margin-left: 0;
 }
 
-.c15 {
+.c14 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -520,35 +512,35 @@ exports[`assigned route route renders renders a component 1`] = `
   padding-top: 1.8rem;
 }
 
-.c15[open] > summary .c20 {
+.c14[open] > summary .c19 {
   display: none;
 }
 
-.c15:not([open]) > summary .c23 {
+.c14:not([open]) > summary .c22 {
   display: none;
 }
 
-.c15 a {
+.c14 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c15 a:hover {
+.c14 a:hover {
   color: #0064A0;
 }
 
-.c15 > .c18 {
+.c14 > .c17 {
   margin-bottom: 1.8rem;
 }
 
-.c15 li {
+.c14 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
 
-.c11 {
+.c10 {
   position: -webkit-sticky;
   position: sticky;
   overflow: visible;
@@ -556,11 +548,11 @@ exports[`assigned route route renders renders a component 1`] = `
   top: 12rem;
 }
 
-.c13:focus-within {
+.c12:focus-within {
   overflow: visible;
 }
 
-.c12 {
+.c11 {
   top: 5rem;
   left: 0;
   max-width: 100%;
@@ -571,20 +563,20 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c7 > div {
+  .c6 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen {
-  .c14 {
+  .c13 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c14 {
+  .c13 {
     -webkit-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -595,117 +587,117 @@ exports[`assigned route route renders renders a component 1`] = `
     width: 100%;
   }
 
-  .c14 #main-content {
+  .c13 #main-content {
     overflow: visible;
     width: 100%;
   }
 
-  .c14 #main-content > [data-type="page"],
-  .c14 #main-content > [data-type="composite-page"] {
+  .c13 #main-content > [data-type="page"],
+  .c13 #main-content > [data-type="composite-page"] {
     margin-top: 3.2rem;
   }
 }
 
 @media screen {
-  .c14 .highlight.yellow[aria-current] {
+  .c13 .highlight.yellow[aria-current] {
     background-color: #fed200;
     border-bottom: 0.2rem solid #8f7700;
     padding: 0.2rem 0 0;
   }
 
-  .c14 .highlight.yellow[aria-current].block:after {
+  .c13 .highlight.yellow[aria-current].block:after {
     background-color: #fed200;
   }
 
-  .c14 .highlight.yellow[aria-current].first.text.has-note:after {
+  .c13 .highlight.yellow[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c14 .highlight.green[aria-current] {
+  .c13 .highlight.green[aria-current] {
     background-color: #92d101;
     border-bottom: 0.2rem solid #4e6f01;
     padding: 0.2rem 0 0;
   }
 
-  .c14 .highlight.green[aria-current].block:after {
+  .c13 .highlight.green[aria-current].block:after {
     background-color: #92d101;
   }
 
-  .c14 .highlight.green[aria-current].first.text.has-note:after {
+  .c13 .highlight.green[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c14 .highlight.blue[aria-current] {
+  .c13 .highlight.blue[aria-current] {
     background-color: #00c3ed;
     border-bottom: 0.2rem solid #006880;
     padding: 0.2rem 0 0;
   }
 
-  .c14 .highlight.blue[aria-current].block:after {
+  .c13 .highlight.blue[aria-current].block:after {
     background-color: #00c3ed;
   }
 
-  .c14 .highlight.blue[aria-current].first.text.has-note:after {
+  .c13 .highlight.blue[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c14 .highlight.purple[aria-current] {
+  .c13 .highlight.purple[aria-current] {
     background-color: #545ec8;
     border-bottom: 0.2rem solid #141a3e;
     padding: 0.2rem 0 0;
     color: #fff;
   }
 
-  .c14 .highlight.purple[aria-current].block:after {
+  .c13 .highlight.purple[aria-current].block:after {
     background-color: #545ec8;
   }
 
-  .c14 .highlight.purple[aria-current].first.text.has-note:after {
+  .c13 .highlight.purple[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c14 .highlight.pink[aria-current] {
+  .c13 .highlight.pink[aria-current] {
     background-color: #de017e;
     border-bottom: 0.2rem solid #560131;
     padding: 0.2rem 0 0;
     color: #fff;
   }
 
-  .c14 .highlight.pink[aria-current].block:after {
+  .c13 .highlight.pink[aria-current].block:after {
     background-color: #de017e;
   }
 
-  .c14 .highlight.pink[aria-current].first.text.has-note:after {
+  .c13 .highlight.pink[aria-current].first.text.has-note:after {
     display: none;
   }
 }
 
 @media screen {
-  .c14 .search-highlight {
+  .c13 .search-highlight {
     font-weight: bold;
   }
 
-  .c14 .search-highlight,
-  .c14 .search-highlight .math {
+  .c13 .search-highlight,
+  .c13 .search-highlight .math {
     background-color: #ffea00;
     box-shadow: 0 0.2rem 0.3rem 0 rgb(0,0,0,0.41);
   }
 
-  .c14 .search-highlight[aria-current],
-  .c14 .search-highlight[aria-current] .math {
+  .c13 .search-highlight[aria-current],
+  .c13 .search-highlight[aria-current] .math {
     background-color: #ff9e4b;
     padding: 0.2rem 0;
   }
 
-  .c14 .search-highlight[aria-current] .search-highlight {
+  .c13 .search-highlight[aria-current] .search-highlight {
     background-color: unset;
   }
 }
@@ -743,58 +735,58 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c19 {
+  .c18 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c26 {
+  .c25 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c15 {
+  .c14 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c15 {
+  .c14 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c15 > .c16 {
+  .c14 > .c15 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c15 {
+  .c14 {
     display: none;
   }
 }
 
 @media screen and (max-width:90em) {
-  .c11 {
+  .c10 {
     max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
     left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
   }
 }
 
 @media screen and (max-width:80em) {
-  .c11 {
+  .c10 {
     max-width: calc(100vw - 8rem);
     left: 8rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c10 {
     max-width: 100%;
     left: 0;
     z-index: 21;
@@ -803,7 +795,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c10 {
+  .c9 {
     overflow: visible;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -820,7 +812,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c13 {
+  .c12 {
     padding: 0 3.2rem;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -836,7 +828,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c11 {
     top: 5.300000000000001rem;
   }
 }
@@ -900,7 +892,7 @@ exports[`assigned route route renders renders a component 1`] = `
         aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
-        className="c6 c7 c8 c9"
+        className="plain-button c6 c7 c8"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -917,17 +909,17 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <div
-    className="c10"
+    className="c9"
   >
     <div
       aria-live="polite"
-      className="c11 c12"
+      className="c10 c11"
     />
     <div
-      className="c13"
+      className="c12"
     >
       <main
-        className="c14 page-content"
+        className="c13 page-content"
         tabIndex={-1}
       >
         <div
@@ -950,17 +942,17 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <details
-    className="c15"
+    className="c14"
     data-analytics-region="attribution"
     data-testid="attribution-details"
   >
     <summary
       aria-label="Citation/Attribution"
-      className="c16 c17 c18 c19"
+      className="c15 c16 c17 c18"
     >
       <svg
         aria-hidden="true"
-        className="details-expand-icon c20 c21 c22"
+        className="details-expand-icon c19 c20 c21"
         focusable="false"
         viewBox="0 0 192 512"
       >
@@ -971,7 +963,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="details-collapse-icon c23 c24 c25"
+        className="details-collapse-icon c22 c23 c24"
         focusable="false"
         viewBox="0 0 320 512"
       >
@@ -988,7 +980,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c26"
+      className="c25"
       dangerouslySetInnerHTML={
         Object {
           "__html": "

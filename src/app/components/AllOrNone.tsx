@@ -1,7 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
-import { ButtonLink } from './Button';
+import { ButtonLink as ButtonLinkBase } from './Button';
+
+// Wrap with styled() to make ButtonLink compatible with component selectors
+const ButtonLink = styled(ButtonLinkBase)``;
 
 interface Props {
   className?: string;

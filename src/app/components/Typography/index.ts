@@ -2,7 +2,7 @@
  * Typography Module Entry Point
  *
  * This module exports:
- * 1. Plain CSS components (H1-H6, DecoratedLink) - no styled-components dependencies
+ * 1. Plain CSS components (H1-H6) - no styled-components dependencies
  * 2. Legacy styled-components css fragments for backward compatibility
  *
  * The legacy exports will be removed in a future phase once all call sites
@@ -11,7 +11,6 @@
 
 // Export plain CSS components (no styled-components dependencies)
 export * from './Headings';
-export { DecoratedLink } from './Links';
 
 // Export legacy styled-components css fragments for backward compatibility.
 // NOTE: These are kept in separate files to make it *possible* for consumers
