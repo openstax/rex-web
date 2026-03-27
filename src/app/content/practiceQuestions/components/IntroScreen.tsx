@@ -2,10 +2,13 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
-import Button from '../../../components/Button';
+import ButtonBase from '../../../components/Button';
 import { textRegularSize } from '../../../components/Typography';
 import { nextQuestion } from '../actions';
 import * as pqSelectors from '../selectors';
+
+// Wrap Button with styled() to make it compatible with component selectors
+const Button = styled(ButtonBase)``;
 
 const IntroScreenWrapper = styled.div`
   text-align: center;

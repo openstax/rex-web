@@ -1,9 +1,12 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components/macro';
-import Button from '../../../components/Button';
+import ButtonBase from '../../../components/Button';
 import { textRegularStyle } from '../../../components/Typography';
 import { LinkedArchiveTreeSection } from '../../types';
+
+// Wrap Button with styled() to make it compatible with component selectors
+const Button = styled(ButtonBase)``;
 
 const StyledNextSectionMessage = styled.div`
   max-width: 38rem;

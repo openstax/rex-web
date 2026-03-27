@@ -90,12 +90,12 @@ export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' 
   cursor: pointer;
 `;
 
-export const CloseButton = styled(PlainButton) <{ variant?: ToastVariant }>`
-  color: ${({ variant }) => variant === 'warning' ? warningCloseIconColor : closeIconColor};
+export const CloseButton = styled(PlainButton) <{ $variant?: ToastVariant }>`
+  color: ${({ $variant }) => $variant === 'warning' ? warningCloseIconColor : closeIconColor};
   overflow: visible;
 
   &:hover {
-    color: ${({ variant }) => variant === 'warning' ? warningBorderColor : hoveredCloseIconColor};
+    color: ${({ $variant }) => $variant === 'warning' ? warningBorderColor : hoveredCloseIconColor};
   }
 `;
 
