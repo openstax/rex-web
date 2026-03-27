@@ -57,7 +57,7 @@ import { FocusEvent, HTMLElement, HTMLTextAreaElement } from '@openstax/types/li
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../../helpers/analytics';
-import { ButtonGroup } from '../../../components/Button';
+import { ButtonGroup as ButtonGroupBase } from '../../../components/Button';
 import { useTrapTabNavigation } from '../../../reactUtils';
 import theme from '../../../theme';
 import { MAIN_CONTENT_ID } from '../../../context/constants';
@@ -75,6 +75,9 @@ import { LoginOrEdit } from './EditCard/AuthenticationGate';
 import { SaveButton, CancelButton } from './EditCard/ActionButtons';
 import { AnnotationEditor } from './EditCard/AnnotationEditor';
 import { useOnRemove, useOnColorChange, useSaveAnnotation } from './EditCard/hooks';
+
+// Wrap ButtonGroup with styled() to make it compatible with component selectors
+const ButtonGroup = styled(ButtonGroupBase)``;
 
 export interface EditCardProps {
   isActive: boolean;

@@ -3,7 +3,7 @@
  *
  * Single source of truth for link colors used across Typography components.
  * These constants are:
- * - Imported by Links.tsx and bound as CSS variables
+ * - Imported by Button.tsx (ButtonLink component) and bound as CSS variables
  * - Imported by Typography.legacy.ts for styled-components css fragments
  *
  * This module has no side effects (no React, no CSS imports).

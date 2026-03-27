@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot 1`] = `
-.c9 {
+.c8 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c8 {
+.c7 {
   cursor: pointer;
 }
 
-.c2 > *:not(.c7) {
+.c2 > *:not(.c6) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -26,31 +26,18 @@ exports[`Filters matches snapshot 1`] = `
   position: relative;
 }
 
-.c5 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-.c20 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
+.c19 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c20 svg {
+.c19 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c21 {
+.c20 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -62,7 +49,7 @@ exports[`Filters matches snapshot 1`] = `
   line-height: 1.5rem;
 }
 
-.c19 {
+.c18 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -76,7 +63,7 @@ exports[`Filters matches snapshot 1`] = `
   height: 4rem;
 }
 
-.c16 {
+.c15 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -89,7 +76,7 @@ exports[`Filters matches snapshot 1`] = `
   border: 0;
 }
 
-.c18 {
+.c17 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -107,7 +94,7 @@ exports[`Filters matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c10 {
+.c9 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -115,13 +102,13 @@ exports[`Filters matches snapshot 1`] = `
   padding-top: 0.2rem;
 }
 
-.c6 {
+.c5 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c6 > div {
+.c5 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -176,17 +163,17 @@ exports[`Filters matches snapshot 1`] = `
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c0 .c7 {
+.c0 .c6 {
   font-weight: bold;
 }
 
-.c0 .c3 > *:not(.c7) {
+.c0 .c3 > *:not(.c6) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
 }
 
-.c11 {
+.c10 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -218,12 +205,12 @@ exports[`Filters matches snapshot 1`] = `
   padding: 0 10px;
 }
 
-.c11:hover,
-.c11:focus {
+.c10:hover,
+.c10:focus {
   color: #424242;
 }
 
-.c15 {
+.c14 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -231,13 +218,13 @@ exports[`Filters matches snapshot 1`] = `
   line-height: 1.5rem;
 }
 
-.c13 {
+.c12 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c12 {
+.c11 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -250,20 +237,20 @@ exports[`Filters matches snapshot 1`] = `
   padding-right: 2.4rem;
 }
 
-.c12 .c14 {
+.c11 .c13 {
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0px 0px 0px 0.5rem;
 }
 
 @media print {
-  .c20 {
+  .c19 {
     display: none;
   }
 }
 
 @media print {
-  .c21 {
+  .c20 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -271,25 +258,25 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c18 {
+  .c17 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c18 {
+  .c17 {
     margin: 0;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c6 > div {
+  .c5 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c0 .c3 > *:not(.c7) {
+  .c0 .c3 > *:not(.c6) {
     max-height: calc(100vh - 18.4rem);
   }
 }
@@ -299,7 +286,7 @@ exports[`Filters matches snapshot 1`] = `
     position: initial;
   }
 
-  .c0 .c3 > *:not(.c7) {
+  .c0 .c3 > *:not(.c6) {
     top: auto;
     margin-top: -0.1rem;
   }
@@ -312,13 +299,13 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c17) {
+  .c0 > *:not(.c16) {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c11 {
+  .c10 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -333,7 +320,7 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media screen and (max-width:50em) {
-  .c15 {
+  .c14 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -341,13 +328,13 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c12 {
+  .c11 {
     padding-right: 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c12 .c14 {
+  .c11 .c13 {
     display: none;
   }
 }
@@ -365,7 +352,7 @@ exports[`Filters matches snapshot 1`] = `
         aria-controls="summary-filter-chapter"
         aria-expanded={false}
         aria-label="Filter highlights by Chapter"
-        className="c5 c6 c7 c8"
+        className="plain-button c5 c6 c7"
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -375,7 +362,7 @@ exports[`Filters matches snapshot 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="c9 c10"
+            className="c8 c9"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -397,7 +384,7 @@ exports[`Filters matches snapshot 1`] = `
         aria-controls="summary-filter-color"
         aria-expanded={false}
         aria-label="Filter highlights by Color"
-        className="c5 c6 c7 c8"
+        className="plain-button c5 c6 c7"
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -407,7 +394,7 @@ exports[`Filters matches snapshot 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="c9 c10"
+            className="c8 c9"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -424,7 +411,7 @@ exports[`Filters matches snapshot 1`] = `
     </div>
     <button
       aria-label="print"
-      className="c11 c12"
+      className="c10 c11"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -432,7 +419,7 @@ exports[`Filters matches snapshot 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c9 c13"
+        className="c8 c12"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -444,28 +431,28 @@ exports[`Filters matches snapshot 1`] = `
         />
       </svg>
       <span
-        className="c14 c15"
+        className="c13 c14"
       >
         Print
       </span>
     </button>
   </div>
   <div
-    className="c16"
+    className="c15"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c17 c18"
+    className="c16 c17"
   >
     <li
-      className="c19"
+      className="c18"
     >
       <button
         aria-label="Remove color blue"
-        className="c20"
+        className="plain-button c19"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -497,17 +484,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c21"
+        className="c20"
       >
         blue
       </span>
     </li>
     <li
-      className="c19"
+      className="c18"
     >
       <button
         aria-label="Remove color green"
-        className="c20"
+        className="plain-button c19"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -539,17 +526,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c21"
+        className="c20"
       >
         green
       </span>
     </li>
     <li
-      className="c19"
+      className="c18"
     >
       <button
         aria-label="Remove color pink"
-        className="c20"
+        className="plain-button c19"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -581,17 +568,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c21"
+        className="c20"
       >
         pink
       </span>
     </li>
     <li
-      className="c19"
+      className="c18"
     >
       <button
         aria-label="Remove color purple"
-        className="c20"
+        className="plain-button c19"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -623,17 +610,17 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c21"
+        className="c20"
       >
         purple
       </span>
     </li>
     <li
-      className="c19"
+      className="c18"
     >
       <button
         aria-label="Remove color yellow"
-        className="c20"
+        className="plain-button c19"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -665,7 +652,7 @@ exports[`Filters matches snapshot 1`] = `
         </svg>
       </button>
       <span
-        className="c21"
+        className="c20"
       >
         yellow
       </span>
@@ -675,17 +662,17 @@ exports[`Filters matches snapshot 1`] = `
 `;
 
 exports[`Filters matches snapshot when open color filters 1`] = `
-.c9 {
+.c8 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
 }
 
-.c8 {
+.c7 {
   cursor: pointer;
 }
 
-.c2 > *:not(.c7) {
+.c2 > *:not(.c6) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -700,15 +687,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   position: relative;
 }
 
-.c5 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-}
-
-.c18 {
+.c17 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -721,7 +700,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   border: 0;
 }
 
-.c20 {
+.c19 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -739,7 +718,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   overflow: visible;
 }
 
-.c10 {
+.c9 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -747,7 +726,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   padding-top: 0.2rem;
 }
 
-.c12 {
+.c11 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -760,13 +739,13 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   padding-bottom: 0.2rem;
 }
 
-.c6 {
+.c5 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c6 > div {
+.c5 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -789,7 +768,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   justify-content: flex-end;
 }
 
-.c11 {
+.c10 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
@@ -802,7 +781,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   border-right: 0.1rem solid #d5d5d5;
 }
 
-.c11 > div {
+.c10 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -857,17 +836,17 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c0 .c7 {
+.c0 .c6 {
   font-weight: bold;
 }
 
-.c0 .c3 > *:not(.c7) {
+.c0 .c3 > *:not(.c6) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
 }
 
-.c13 {
+.c12 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -899,12 +878,12 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   padding: 0 10px;
 }
 
-.c13:hover,
-.c13:focus {
+.c12:hover,
+.c12:focus {
   color: #424242;
 }
 
-.c17 {
+.c16 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -912,13 +891,13 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   line-height: 1.5rem;
 }
 
-.c15 {
+.c14 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c14 {
+.c13 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -931,38 +910,38 @@ exports[`Filters matches snapshot when open color filters 1`] = `
   padding-right: 2.4rem;
 }
 
-.c14 .c16 {
+.c13 .c15 {
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0px 0px 0px 0.5rem;
 }
 
 @media screen and (max-width:75em) {
-  .c20 {
+  .c19 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c20 {
+  .c19 {
     margin: 0;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c6 > div {
+  .c5 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c11 > div {
+  .c10 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c0 .c3 > *:not(.c7) {
+  .c0 .c3 > *:not(.c6) {
     max-height: calc(100vh - 18.4rem);
   }
 }
@@ -972,7 +951,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     position: initial;
   }
 
-  .c0 .c3 > *:not(.c7) {
+  .c0 .c3 > *:not(.c6) {
     top: auto;
     margin-top: -0.1rem;
   }
@@ -985,13 +964,13 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c19) {
+  .c0 > *:not(.c18) {
     display: none;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c13 {
+  .c12 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -1006,7 +985,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 }
 
 @media screen and (max-width:50em) {
-  .c17 {
+  .c16 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -1014,13 +993,13 @@ exports[`Filters matches snapshot when open color filters 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c14 {
+  .c13 {
     padding-right: 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c14 .c16 {
+  .c13 .c15 {
     display: none;
   }
 }
@@ -1038,7 +1017,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         aria-controls="summary-filter-chapter"
         aria-expanded={false}
         aria-label="Filter highlights by Chapter"
-        className="c5 c6 c7 c8"
+        className="plain-button c5 c6 c7"
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -1048,7 +1027,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="c9 c10"
+            className="c8 c9"
             direction="down"
             fill="currentColor"
             focusable="false"
@@ -1070,7 +1049,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         aria-controls="summary-filter-color"
         aria-expanded={true}
         aria-label="Filter highlights by Color"
-        className="c5 c11 c7 c8"
+        className="plain-button c10 c6 c7"
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -1080,7 +1059,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="c9 c12"
+            className="c8 c11"
             direction="up"
             fill="currentColor"
             focusable="false"
@@ -1139,7 +1118,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     </div>
     <button
       aria-label="print"
-      className="c13 c14"
+      className="c12 c13"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -1147,7 +1126,7 @@ exports[`Filters matches snapshot when open color filters 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c9 c15"
+        className="c8 c14"
         fill="currentColor"
         focusable="false"
         viewBox="0 0 512 512"
@@ -1159,21 +1138,21 @@ exports[`Filters matches snapshot when open color filters 1`] = `
         />
       </svg>
       <span
-        className="c16 c17"
+        className="c15 c16"
       >
         Print
       </span>
     </button>
   </div>
   <div
-    className="c18"
+    className="c17"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c19 c20"
+    className="c18 c19"
   />
 </div>
 `;

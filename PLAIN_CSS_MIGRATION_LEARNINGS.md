@@ -556,6 +556,76 @@ The empty template literal (` `` `) means no additional styles are added - the c
 
 **For Future Phases**: Before migrating a component, search the codebase for component selector usage (search for `${ComponentName}`). If the component is used in any component selectors, wrap it with `styled()` using an empty template literal to maintain compatibility.
 
+### Filter Transient Props to Prevent DOM Attribute Leakage
+
+**Issue (Phase 2.1)**: When migrating button components, styled-components using **transient props** (props prefixed with `$`) would pass those props to the underlying plain React component, which would then spread them to the DOM as invalid HTML attributes, causing React warnings and potentially breaking functionality.
+
+**Root Cause**: Styled-components automatically filters out transient props (any prop starting with `$`) to prevent them from being forwarded to the DOM. However, when a plain React component is wrapped with `styled()`, the component still receives all props including the transient ones. If the component spreads `{...props}` directly to a DOM element, the transient props leak through as invalid HTML attributes.
+
+**Example Problem**:
+```typescript
+// CloseButton styled component with transient prop
+export const CloseButton = styled(PlainButton)<{ $variant?: ToastVariant }>`
+  color: ${({ $variant }) => $variant === 'warning' ? warningColor : defaultColor};
+`;
+
+// PlainButton implementation (BEFORE fix)
+export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
+  function PlainButton({ className, ...props }, ref) {
+    return (
+      <button
+        {...props}  // ❌ This spreads $variant to the DOM!
+        ref={ref}
+        className={classNames('plain-button', className)}
+      />
+    );
+  }
+);
+
+// Result: <button $variant="warning">Close</button> ❌ Invalid HTML attribute!
+```
+
+**Resolution**: Filter out transient props (any prop starting with `$`) before spreading to DOM elements:
+
+```typescript
+// PlainButton implementation (AFTER fix)
+export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
+  function PlainButton({ className, ...props }, ref) {
+    // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
+    // Styled-components uses transient props for style-only props that shouldn't appear as HTML attributes
+    const safeProps = Object.keys(props).reduce((acc, key) => {
+      if (!key.startsWith('$')) {
+        acc[key] = props[key];
+      }
+      return acc;
+    }, {} as Record<string, any>) as React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+    return (
+      <button
+        {...safeProps}  // ✅ Only safe props are spread to DOM
+        ref={ref}
+        className={classNames('plain-button', className)}
+      />
+    );
+  }
+);
+```
+
+**Important Note - ES2017 Compatibility**: The example above uses `Object.keys().reduce()` instead of `Object.fromEntries()` for ES2017 compatibility. While `Object.fromEntries()` is cleaner and was suggested by Copilot, it requires ES2019+ and will cause TypeScript compilation errors if your `tsconfig.json` targets ES2017 or ES2018. The `reduce` approach achieves the same result while maintaining compatibility with older ES targets.
+
+**Impact**:
+- ✅ Prevents invalid HTML attributes in the DOM
+- ✅ Eliminates React warnings about unknown DOM properties
+- ✅ Maintains full styled-components compatibility for wrapped components
+- ✅ Follows styled-components best practices for transient props
+
+**When to Apply This Pattern**:
+- Any plain React component that spreads `{...props}` to a native DOM element (`<button>`, `<div>`, `<input>`, etc.)
+- Components that are wrapped with `styled()` for component selector compatibility
+- Base components that may be used by styled-components with transient props
+
+**For Future Phases**: When migrating components that spread props to DOM elements, always filter out transient props (keys starting with `$`) to prevent DOM attribute leakage. This is especially important for "base" components that are designed to be wrapped with styled-components.
+
 ### Test All Heading Levels
 
 **Issue**: Initial tests only covered H1-H3, missing H4-H6.
@@ -997,5 +1067,7 @@ The styled-components to plain CSS migration has successfully migrated Typograph
 **Phase 1.3 (Utility Components)**: Established TypeScript and React best practices, including preferring normal functions over React.FC, using the classnames package for className composition, ensuring media queries are top-level in CSS, importing global CSS from app entry point instead of theme module or utility modules, implementing reference counting for components that manipulate global state (to handle multiple instances), explicitly importing HTML element types, and removing unused state variables during class-to-functional component conversions.
 
 **Phase 1.4 (Icon Components)**: Addressed styled-components testing compatibility by wrapping migrated inline SVG components with `styled()` to support component selectors used throughout the codebase. Established the pattern of extending `React.*HTMLAttributes` for form components to ensure all standard HTML attributes are supported without manually defining each one.
+
+**Phase 2.1 (Button System)**: Addressed transient prop filtering to prevent DOM attribute leakage when plain React components are wrapped with styled-components. Established the pattern of filtering props starting with `$` before spreading to DOM elements, which is critical for base components designed to be wrapped with styled-components. Also improved polymorphic typing for components that accept a `component` prop for rendering as different element types.
 
 These patterns and practices should serve as a foundation for future migration phases, helping to avoid the issues encountered and streamlining the migration process.
