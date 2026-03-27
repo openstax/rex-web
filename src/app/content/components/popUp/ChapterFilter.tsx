@@ -3,7 +3,7 @@ import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
 import AllOrNone from '../../../components/AllOrNone';
-import { PlainButton } from '../../../components/Button';
+import { PlainButton as PlainButtonBase } from '../../../components/Button';
 import Checkbox from '../../../components/Checkbox';
 import { textStyle } from '../../../components/Typography';
 import { useTrapTabNavigation } from '../../../reactUtils/focusUtils';
@@ -15,6 +15,9 @@ import { splitTitleParts } from '../../utils/archiveTreeUtils';
 import { AngleIcon, Fieldset } from './Filters';
 import { FiltersChange, LocationFilters } from './types';
 import { linkColor, linkHover } from '../../../components/Typography';
+
+// Wrap with styled() to make PlainButton compatible with component selectors
+const PlainButton = styled(PlainButtonBase)``;
 
 const Row = styled.div`
   display: flex;

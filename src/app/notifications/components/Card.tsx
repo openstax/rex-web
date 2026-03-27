@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { ButtonGroup } from '../../components/Button';
+import { ButtonGroup as ButtonGroupBase } from '../../components/Button';
 import { bodyCopyRegularStyle } from '../../components/Typography';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
 import { inlineDisplayBreak, inlineDisplayMediumBreak } from '../theme';
+
+// Wrap ButtonGroup with styled() to make it compatible with component selectors
+const ButtonGroup = styled(ButtonGroupBase)``;
 
 const notificationWidth = 30;
 

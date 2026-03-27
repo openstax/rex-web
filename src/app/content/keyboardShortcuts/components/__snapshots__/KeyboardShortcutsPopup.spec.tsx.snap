@@ -70,11 +70,6 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
 }
 
 .c4 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -299,7 +294,7 @@ exports[`KeyboardShortcuts renders keyboard shortcuts modal if it is open 1`] = 
       </h1>
       <button
         aria-label="Close Keyboard Shortcuts menu"
-        className="c4"
+        className="plain-button c4"
         data-analytics-label="Click to close Keyboard Shortcuts modal"
         data-testid="close-keyboard-shortcuts-popup"
         onClick={[Function]}

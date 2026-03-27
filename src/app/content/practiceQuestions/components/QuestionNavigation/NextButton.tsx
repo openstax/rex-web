@@ -1,4 +1,3 @@
-import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import { useDispatch } from 'react-redux';
@@ -9,7 +8,7 @@ interface NextButtonProps {
   submittedAnswerIsCorrect: boolean;
 }
 
-const NextButton = React.forwardRef(({ submittedAnswerIsCorrect }: NextButtonProps, ref: React.Ref<HTMLElement>) => {
+const NextButton = React.forwardRef<HTMLButtonElement, NextButtonProps>(({ submittedAnswerIsCorrect }, ref) => {
   const dispatch = useDispatch();
 
   const ariaLabelKey = submittedAnswerIsCorrect
