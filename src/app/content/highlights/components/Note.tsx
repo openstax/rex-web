@@ -1,11 +1,10 @@
 import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
-import { textStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { KeyboardEvent } from '@openstax/types/lib.dom';
 import { cardPadding, cardWidth } from '../constants';
+import './Note.css';
 
 interface Props {
   note: string;
@@ -16,35 +15,6 @@ interface Props {
 }
 
 const noteMaxLength = 1000;
-
-const width = cardWidth - cardPadding * 2;
-const TextArea = styled.textarea`
-  display: block;
-  min-height: 5.6rem;
-  width: ${width}rem;
-  max-height: 30rem;
-  max-width: ${width}rem;
-  min-width: ${width}rem;
-  border: 1px solid ${theme.color.neutral.formBorder};
-  padding: ${cardPadding}rem;
-  padding-top: 0.2rem;
-  ${textStyle}
-  color: ${theme.color.text.label};
-  font-size: 1.4rem;
-  font-family: inherit;
-  line-height: 2rem;
-  font-weight: normal;
-
-  :empty {
-    padding-top: 1rem;
-  }
-`;
-
-const SimpleLabel = styled.label`
-  color: ${theme.color.primary.blue.base};
-  font-size: 1.2rem;
-  padding-left: 0.2rem;
-`;
 
 // exported for test coverage reasons
 export function escapeHandler(onElement: HTMLTextAreaElement | null, shouldDo: boolean) {
@@ -73,10 +43,21 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
     escapeHandler(textareaRef.current, shouldDo);
   }, [textareaRef]);
 
+  // Calculate width from constants (for CSS variable)
+  const textareaWidth = cardWidth - cardPadding * 2;
+
   return (
     <>
-      <SimpleLabel htmlFor='note-textarea'>{useIntl().formatMessage({id: labelId})}</SimpleLabel>
-      <TextArea
+      <label
+        htmlFor='note-textarea'
+        className='note-label'
+        style={{
+          '--primary-blue': theme.color.primary.blue.base,
+        } as React.CSSProperties}
+      >
+        {useIntl().formatMessage({id: labelId})}
+      </label>
+      <textarea
         id='note-textarea'
         ref={textareaRef}
         value={note}
@@ -87,6 +68,14 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
         }}
         placeholder=''
         onKeyDown={escCb}
+        className='note-textarea'
+        style={{
+          '--note-textarea-width': `${textareaWidth}rem`,
+          '--card-padding': `${cardPadding}rem`,
+          '--form-border-color': theme.color.neutral.formBorder,
+          '--text-color': theme.color.text.default,
+          '--label-color': theme.color.text.label,
+        } as React.CSSProperties}
       />
     </>
   );

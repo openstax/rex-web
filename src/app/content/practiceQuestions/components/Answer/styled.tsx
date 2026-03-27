@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components/macro';
 import { linkColor, linkHover, textRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
+import './Answer.css';
 
 export const AnswerExcerpt = styled.span`
   ${textRegularStyle}
@@ -115,12 +116,8 @@ export const AnswerWrapper = styled.div`
   overflow: visible;
 `;
 
-export const AnswerInput = styled.input`
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-`;
+// AnswerInput migrated to plain CSS - export className for usage
+export const answerInputClass = 'answer-input';
 
 export const AnswerBlock = styled.label`
   padding: 1rem 2.4rem;

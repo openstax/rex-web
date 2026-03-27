@@ -1,0 +1,31 @@
+/* TextArea styles */
+.note-textarea {
+  display: block;
+  min-height: 5.6rem;
+  width: var(--note-textarea-width);
+  max-height: 30rem;
+  max-width: var(--note-textarea-width);
+  min-width: var(--note-textarea-width);
+  border: 1px solid var(--form-border-color, #d5d5d5);
+  padding: var(--card-padding, 1.6rem);
+  padding-top: 0.2rem;
+  /* Base text style */
+  color: var(--text-color, #424242);
+  /* Component-specific overrides */
+  color: var(--label-color, #6f6f6f);
+  font-size: 1.4rem;
+  line-height: 2rem;
+  font-family: inherit;
+  font-weight: normal;
+}
+
+.note-textarea:empty {
+  padding-top: 1rem;
+}
+
+/* SimpleLabel styles */
+.note-label {
+  color: var(--primary-blue, #027EB5);
+  font-size: 1.2rem;
+  padding-left: 0.2rem;
+}
