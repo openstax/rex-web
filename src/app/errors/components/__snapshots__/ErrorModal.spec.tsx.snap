@@ -1,51 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ErrorModal matches snapshot 1`] = `
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #fff;
-  background-color: #d4450c;
-  font-weight: bold;
-  border: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.c1:hover {
-  background-color: ,#be3c08,;
-}
-
-.c1:active {
-  background-color: ,#b03808,;
-}
-
-.c1:focus {
-  outline: solid #fff;
-  box-shadow: inset 0 0 0 0.3rem #000;
-}
-
 .c0 {
   padding: 1.5rem 0;
 }
@@ -161,9 +116,32 @@ exports[`ErrorModal matches snapshot 1`] = `
         className="modal-footer "
       >
         <button
-          className="c1"
+          className="button button-primary button-medium"
           data-testid="clear-error"
+          disabled={false}
           onClick={[Function]}
+          style={
+            Object {
+              "--button-default-active": "#e5e5e5",
+              "--button-default-border": "#d5d5d5",
+              "--button-default-color": "#fff",
+              "--button-default-foreground": "#5e6062",
+              "--button-default-hover": "#fafafa",
+              "--button-disabled-color": "#f1f1f1",
+              "--button-disabled-foreground": "#c1c1c1",
+              "--button-focus-outline": "#fff",
+              "--button-focus-shadow": "#000",
+              "--button-primary-active": "#b03808",
+              "--button-primary-color": "#d4450c",
+              "--button-primary-foreground": "#fff",
+              "--button-primary-hover": "#be3c08",
+              "--button-secondary-active": "#818181",
+              "--button-secondary-color": "#949494",
+              "--button-secondary-foreground": "#fff",
+              "--button-secondary-hover": "#8b8b8b",
+              "--button-transparent-color": "#027EB5",
+            }
+          }
         >
           OK
         </button>
@@ -185,51 +163,6 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
   font-size: 0.9rem;
   color: #424242;
   opacity: 0.6;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: pointer;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.2rem 0.4rem rgba(ui-color(black),0.2);
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: initial;
-  min-width: 12rem;
-  font-size: 1.6rem;
-  height: 4rem;
-  padding: 0 3rem;
-  color: #fff;
-  background-color: #d4450c;
-  font-weight: bold;
-  border: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.c2:hover {
-  background-color: ,#be3c08,;
-}
-
-.c2:active {
-  background-color: ,#b03808,;
-}
-
-.c2:focus {
-  outline: solid #fff;
-  box-shadow: inset 0 0 0 0.3rem #000;
 }
 
 .c0 {
@@ -352,9 +285,32 @@ exports[`ErrorModal matches snapshots with recorded error ids 1`] = `
         className="modal-footer "
       >
         <button
-          className="c2"
+          className="button button-primary button-medium"
           data-testid="clear-error"
+          disabled={false}
           onClick={[Function]}
+          style={
+            Object {
+              "--button-default-active": "#e5e5e5",
+              "--button-default-border": "#d5d5d5",
+              "--button-default-color": "#fff",
+              "--button-default-foreground": "#5e6062",
+              "--button-default-hover": "#fafafa",
+              "--button-disabled-color": "#f1f1f1",
+              "--button-disabled-foreground": "#c1c1c1",
+              "--button-focus-outline": "#fff",
+              "--button-focus-shadow": "#000",
+              "--button-primary-active": "#b03808",
+              "--button-primary-color": "#d4450c",
+              "--button-primary-foreground": "#fff",
+              "--button-primary-hover": "#be3c08",
+              "--button-secondary-active": "#818181",
+              "--button-secondary-color": "#949494",
+              "--button-secondary-foreground": "#fff",
+              "--button-secondary-hover": "#8b8b8b",
+              "--button-transparent-color": "#027EB5",
+            }
+          }
         >
           OK
         </button>

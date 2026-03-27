@@ -33,7 +33,7 @@ const Modal = ({
               <Styled.CloseModalIcon
                 ref={closeButtonRef}
                 onClick={onModalClose}
-                aria-label={intl.formatMessage({id: "i18n:modal:close"})}
+                aria-label={intl.formatMessage({ id: 'i18n:modal:close' })}
               />
           </Styled.Header>
           {children}
