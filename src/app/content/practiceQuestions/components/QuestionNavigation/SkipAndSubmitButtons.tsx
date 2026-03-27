@@ -42,7 +42,6 @@ const SkipAndSubmitButtons = ({ disableSubmit, isFinalQuestion, question }: Skip
           variant='primary'
           size='large'
           disabled={disableSubmit}
-          default={true}
           data-analytics-label='Submit'
           type='submit'
         >
