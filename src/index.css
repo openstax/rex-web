@@ -33,6 +33,21 @@ noscript {
   min-width: 15.4rem;
 }
 
+/*
+ * Global button border reset
+ *
+ * This reset is necessary to prevent default browser button borders from appearing on PlainButton
+ * components and other buttons throughout the application. While this is a broad reset that affects
+ * all <button> elements (including potential 3rd-party widgets), there is a demonstrated need for it
+ * in this codebase (see PR #2824, Review 30).
+ *
+ * Styled-component wrappers can still add their own borders since they generate additional CSS classes
+ * that override this global reset. This follows common CSS normalization patterns.
+ */
+button {
+  border: none;
+}
+
 * {
   box-sizing: border-box;
 }

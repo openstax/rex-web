@@ -1,31 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorFilter matches snapshot 1`] = `
-.c9 {
+.c8 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
-}
-
-.c4 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
-  outline: none;
-  color: #424242;
-  color: #027EB5;
-  cursor: pointer;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:hover,
-.c4:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  color: #0064A0;
 }
 
 .c2 {
@@ -53,11 +32,11 @@ exports[`ColorFilter matches snapshot 1`] = `
   padding: 0 1rem;
 }
 
-.c11 {
+.c10 {
   display: none;
 }
 
-.c13 {
+.c12 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -72,7 +51,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border-radius: 50%;
 }
 
-.c14 {
+.c13 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -86,7 +65,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #fed200;
 }
 
-.c17 {
+.c16 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -100,7 +79,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #92d101;
 }
 
-.c19 {
+.c18 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -114,7 +93,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c21 {
+.c20 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -128,7 +107,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c23 {
+.c22 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -142,7 +121,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 1px solid #de017e;
 }
 
-.c8 {
+.c7 {
   position: relative;
   background-color: #ffff8a;
   border: 1px solid #8f7700;
@@ -164,19 +143,19 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c8 .c10 {
+.c7 .c9 {
   height: 1rem;
   width: 1rem;
 }
 
-.c8 input:focus + .c12 {
+.c7 input:focus + .c11 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c16 {
+.c15 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -198,19 +177,19 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c16 .c10 {
+.c15 .c9 {
   height: 1rem;
   width: 1rem;
 }
 
-.c16 input:focus + .c12 {
+.c15 input:focus + .c11 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c18 {
+.c17 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -232,19 +211,19 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c18 .c10 {
+.c17 .c9 {
   height: 1rem;
   width: 1rem;
 }
 
-.c18 input:focus + .c12 {
+.c17 input:focus + .c11 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c20 {
+.c19 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -266,19 +245,19 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c20 .c10 {
+.c19 .c9 {
   height: 1rem;
   width: 1rem;
 }
 
-.c20 input:focus + .c12 {
+.c19 input:focus + .c11 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c22 {
+.c21 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -300,25 +279,25 @@ exports[`ColorFilter matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c22 .c10 {
+.c21 .c9 {
   height: 1rem;
   width: 1rem;
 }
 
-.c22 input:focus + .c12 {
+.c21 input:focus + .c11 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c5 {
+.c4 {
   padding: 0;
   border: none;
   margin: 0;
 }
 
-.c5 legend {
+.c4 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -331,7 +310,7 @@ exports[`ColorFilter matches snapshot 1`] = `
   border: 0;
 }
 
-.c15 {
+.c14 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -361,12 +340,12 @@ exports[`ColorFilter matches snapshot 1`] = `
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c0 .c6 {
+.c0 .c5 {
   padding: 0.8rem;
   text-transform: capitalize;
 }
 
-.c0 .c7 {
+.c0 .c6 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
@@ -385,8 +364,14 @@ exports[`ColorFilter matches snapshot 1`] = `
     className="c1 c2"
   >
     <button
-      className="c3 c4"
+      className="plain-button button-link button-link-decorated c3 "
       onClick={[Function]}
+      style={
+        Object {
+          "--link-color": "#027EB5",
+          "--link-hover": "#0064A0",
+        }
+      }
     >
       All
     </button>
@@ -396,20 +381,26 @@ exports[`ColorFilter matches snapshot 1`] = `
       |
     </span>
     <button
-      className="c3 c4"
+      className="plain-button button-link button-link-decorated c3 "
       onClick={[Function]}
+      style={
+        Object {
+          "--link-color": "#027EB5",
+          "--link-hover": "#0064A0",
+        }
+      }
     >
       None
     </button>
   </div>
   <fieldset
-    className="c5"
+    className="c4"
   >
     <legend>
       Filter by colors
     </legend>
     <label
-      className="checkbox-label c6 "
+      className="checkbox-label c5 "
     >
       <input
         checked={true}
@@ -433,11 +424,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c7 c8"
+        className="c6 c7"
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
+          className="c8 c9 c10"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 512 512"
@@ -449,7 +440,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c12 c13"
+          className="c11 c12"
           size="small"
           style={
             Object {
@@ -461,7 +452,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c14"
+          className="c13"
           size="small"
           style={
             Object {
@@ -474,13 +465,13 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c15"
+        className="c14"
       >
         yellow
       </span>
     </label>
     <label
-      className="checkbox-label c6 "
+      className="checkbox-label c5 "
     >
       <input
         checked={true}
@@ -504,11 +495,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c7 c16"
+        className="c6 c15"
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
+          className="c8 c9 c10"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 512 512"
@@ -520,7 +511,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c12 c13"
+          className="c11 c12"
           size="small"
           style={
             Object {
@@ -532,7 +523,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c17"
+          className="c16"
           size="small"
           style={
             Object {
@@ -545,13 +536,13 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c15"
+        className="c14"
       >
         green
       </span>
     </label>
     <label
-      className="checkbox-label checkbox-disabled c6 "
+      className="checkbox-label checkbox-disabled c5 "
     >
       <input
         checked={false}
@@ -575,11 +566,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c7 c18"
+        className="c6 c17"
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
+          className="c8 c9 c10"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 512 512"
@@ -591,7 +582,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c12 c13"
+          className="c11 c12"
           size="small"
           style={
             Object {
@@ -603,7 +594,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c19"
+          className="c18"
           size="small"
           style={
             Object {
@@ -616,13 +607,13 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c15"
+        className="c14"
       >
         blue
       </span>
     </label>
     <label
-      className="checkbox-label checkbox-disabled c6 "
+      className="checkbox-label checkbox-disabled c5 "
     >
       <input
         checked={false}
@@ -646,11 +637,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c7 c20"
+        className="c6 c19"
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
+          className="c8 c9 c10"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 512 512"
@@ -662,7 +653,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c12 c13"
+          className="c11 c12"
           size="small"
           style={
             Object {
@@ -674,7 +665,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c21"
+          className="c20"
           size="small"
           style={
             Object {
@@ -687,13 +678,13 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c15"
+        className="c14"
       >
         purple
       </span>
     </label>
     <label
-      className="checkbox-label c6 "
+      className="checkbox-label c5 "
     >
       <input
         checked={true}
@@ -717,11 +708,11 @@ exports[`ColorFilter matches snapshot 1`] = `
         </svg>
       </span>
       <div
-        className="c7 c22"
+        className="c6 c21"
       >
         <svg
           aria-hidden="true"
-          className="c9 c10 c11"
+          className="c8 c9 c10"
           fill="currentColor"
           focusable="false"
           viewBox="0 0 512 512"
@@ -733,7 +724,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           />
         </svg>
         <span
-          className="c12 c13"
+          className="c11 c12"
           size="small"
           style={
             Object {
@@ -745,7 +736,7 @@ exports[`ColorFilter matches snapshot 1`] = `
           }
         />
         <span
-          className="c23"
+          className="c22"
           size="small"
           style={
             Object {
@@ -758,7 +749,7 @@ exports[`ColorFilter matches snapshot 1`] = `
         />
       </div>
       <span
-        className="c15"
+        className="c14"
       >
         pink
       </span>

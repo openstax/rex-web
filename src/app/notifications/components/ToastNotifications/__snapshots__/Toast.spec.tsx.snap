@@ -68,11 +68,6 @@ exports[`Toast matches snapshot 1`] = `
 }
 
 .c4 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
   color: #C22032;
   overflow: visible;
 }
@@ -121,7 +116,7 @@ exports[`Toast matches snapshot 1`] = `
     </div>
     <button
       aria-label="dismiss"
-      className="c4"
+      className="plain-button c4"
       onClick={[MockFunction]}
     >
       <svg

@@ -87,11 +87,6 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
 }
 
 .c5 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
   color: #C22032;
   overflow: visible;
 }
@@ -149,7 +144,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
       </div>
       <button
         aria-label="dismiss"
-        className="c5"
+        className="plain-button c5"
         onClick={[Function]}
       >
         <svg
@@ -200,7 +195,7 @@ exports[`ToastNotifications matches snapshot for few notifications 1`] = `
       </div>
       <button
         aria-label="dismiss"
-        className="c5"
+        className="plain-button c5"
         onClick={[Function]}
       >
         <svg

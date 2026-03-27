@@ -74,12 +74,4 @@ export const decoratedLinkStyle = css`
     text-decoration: underline;
     color: ${linkHover};
   }
-
-  ${(props: {disabled?: boolean}) => props.disabled && css`
-    &,
-    :hover,
-    :focus {
-      ${disabledStyle}
-    }
-  `}
 `;

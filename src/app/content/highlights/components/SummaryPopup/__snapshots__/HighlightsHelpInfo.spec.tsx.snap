@@ -3,18 +3,10 @@
 exports[`HighlightsHelpInfo matches snapshot when hidden 1`] = `null`;
 
 exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
-.c2 {
+.c1 {
   display: inline-block;
   vertical-align: -.125em;
   overflow: hidden;
-}
-
-.c1 {
-  cursor: pointer;
-  border: none;
-  margin: 0;
-  padding: 0;
-  background: none;
 }
 
 .c0 {
@@ -57,7 +49,7 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   color: #0064A0;
 }
 
-.c3 {
+.c2 {
   color: #818181;
   width: 1.4rem;
 }
@@ -87,13 +79,13 @@ exports[`HighlightsHelpInfo matches snapshot when showed 1`] = `
   />
   <button
     aria-label="dismiss"
-    className="c1"
+    className="plain-button"
     data-analytics-label="close"
     onClick={[Function]}
   >
     <svg
       aria-hidden="true"
-      className="c2 c3"
+      className="c1 c2"
       fill="currentColor"
       focusable="false"
       viewBox="0 0 352 512"
