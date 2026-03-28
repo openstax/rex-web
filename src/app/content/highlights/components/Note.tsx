@@ -2,7 +2,6 @@ import { HTMLTextAreaElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useIntl } from 'react-intl';
 import theme from '../../../theme';
-import { KeyboardEvent } from '@openstax/types/lib.dom';
 import { cardPadding, cardWidth } from '../constants';
 import './Note.css';
 
@@ -37,7 +36,7 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
   const labelId = `i18n:highlighting:card:placeholder${edit ? '-edit' : ''}`;
 
   React.useEffect(setTextAreaHeight, [note, setTextAreaHeight]);
-  const escCb = React.useCallback((ev: KeyboardEvent) => {
+  const escCb = React.useCallback((ev: React.KeyboardEvent) => {
     const shouldDo = ev.key === 'Escape' && textareaRef.current?.textContent === '';
 
     escapeHandler(textareaRef.current, shouldDo);
@@ -73,8 +72,7 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
           '--note-textarea-width': `${textareaWidth}rem`,
           '--card-padding': `${cardPadding}rem`,
           '--form-border-color': theme.color.neutral.formBorder,
-          '--text-color': theme.color.text.default,
-          '--label-color': theme.color.text.label,
+          '--note-text-color': theme.color.text.label,
         } as React.CSSProperties}
       />
     </>

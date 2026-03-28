@@ -1,9 +1,8 @@
 import flow from 'lodash/fp/flow';
 import styled, { css } from 'styled-components/macro';
 import { linkColor, linkHover, textRegularStyle } from '../../../../components/Typography';
-import theme from '../../../../theme';
+import theme, { hiddenButAccessibleClass } from '../../../../theme';
 import ContentExcerpt from '../../../components/ContentExcerpt';
-import './Answer.css';
 
 export const AnswerExcerpt = styled.span`
   ${textRegularStyle}
@@ -116,8 +115,8 @@ export const AnswerWrapper = styled.div`
   overflow: visible;
 `;
 
-// AnswerInput migrated to plain CSS - export className for usage
-export const answerInputClass = 'answer-input';
+// AnswerInput migrated to plain CSS - using standard hidden-but-accessible utility
+export { hiddenButAccessibleClass as answerInputClass };
 
 export const AnswerBlock = styled.label`
   padding: 1rem 2.4rem;

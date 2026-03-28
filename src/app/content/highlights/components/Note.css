@@ -9,10 +9,9 @@
   border: 1px solid var(--form-border-color, #d5d5d5);
   padding: var(--card-padding, 1.6rem);
   padding-top: 0.2rem;
-  /* Base text style */
-  color: var(--text-color, #424242);
-  /* Component-specific overrides */
-  color: var(--label-color, #6f6f6f);
+
+  /* Text color */
+  color: var(--note-text-color, #6f6f6f);
   font-size: 1.4rem;
   line-height: 2rem;
   font-family: inherit;
