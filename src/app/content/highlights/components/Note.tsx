@@ -37,10 +37,10 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
 
   React.useEffect(setTextAreaHeight, [note, setTextAreaHeight]);
   const escCb = React.useCallback((ev: React.KeyboardEvent) => {
-    const shouldDo = ev.key === 'Escape' && textareaRef.current?.textContent === '';
+    const shouldDo = ev.key === 'Escape' && note === '';
 
     escapeHandler(textareaRef.current, shouldDo);
-  }, [textareaRef]);
+  }, [note, textareaRef]);
 
   // Calculate width from constants (for CSS variable)
   const textareaWidth = cardWidth - cardPadding * 2;
