@@ -16,19 +16,19 @@ Compares docx files. To run:
 2. download the docx zip files from corgi (by default to Downloads folder on Mac)
 3. make sure that base_to_dir and base_from_dir variables are set correctly
    - required folder structure is: root folder docx_old_new and its two subfolders 0 and 1
-4. run 'pytest -k test_unzip_and_compare_docxs.py docx-tools > docx_diffs.txt'
+4. run 'pytest -k test_compare_unzipped_docxs.py docx-tools > docx_diffs.txt'
 
 Latest update on March 30th, 2026
 """
 
 HOME_DIR = os.path.expanduser("~")
-BASE_FROM_DIR = f"{HOME_DIR}/downloads/2pdfs"
+BASE_FROM_DIR = f"{HOME_DIR}/Downloads/2pdfs"
 BASE_TO_DIR = f"{os.getcwd()}/docx_old_new"
 MAX_WIDTH = 120
 
 
 def unzip_files(zip_path, extract_to):
-    """Unzipps the downloaded docx file packages from corgi"""
+    """Unzips the downloaded docx file packages from corgi"""
     with zipfile.ZipFile(zip_path) as z:
         z.extractall(extract_to)
 
@@ -66,6 +66,7 @@ def test_compare_unzipped_docx_files():
 
     for i, zip_file in enumerate(zip_files):
         dest_dir = os.path.join(BASE_TO_DIR, str(i))
+        os.makedirs(dest_dir, exist_ok=True)
         dest_path = os.path.join(dest_dir, zip_file)
         shutil.copy(os.path.join(BASE_FROM_DIR, zip_file), dest_path)
         unzip_files(dest_path, dest_dir)
@@ -81,3 +82,6 @@ def test_compare_unzipped_docx_files():
         print("------>>>>> NO DIFFERENCES <<<<<------")
     else:
         print_diffs(diffs)
+        pytest.fail(
+            "Differences found between DOCX files. See printed diffs in docx_diffs.txt"
+        )
