@@ -159,7 +159,6 @@ exports[`Dropdown matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon "
-          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -206,7 +205,6 @@ exports[`Dropdown matches snapshot 1`] = `
       <svg
         aria-hidden="true"
         className="dot-menu-icon "
-        focusable="false"
         viewBox="0 0 192 512"
       >
         <path
@@ -378,7 +376,6 @@ exports[`Dropdown matches snapshot on right align 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon "
-          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -425,7 +422,6 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       <svg
         aria-hidden="true"
         className="dot-menu-icon "
-        focusable="false"
         viewBox="0 0 192 512"
       >
         <path

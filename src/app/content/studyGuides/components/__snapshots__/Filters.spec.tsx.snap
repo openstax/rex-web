@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = `
-.c8 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c7 {
   cursor: pointer;
 }
@@ -26,18 +20,18 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   position: relative;
 }
 
-.c44 {
+.c43 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c44 svg {
+.c43 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c45 {
+.c44 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -49,7 +43,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   line-height: 1.5rem;
 }
 
-.c43 {
+.c42 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -63,7 +57,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   height: 4rem;
 }
 
-.c40 {
+.c39 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -76,7 +70,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   border: 0;
 }
 
-.c42 {
+.c41 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -94,7 +88,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   overflow: visible;
 }
 
-.c12 {
+.c11 {
   height: 2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -109,21 +103,21 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   align-items: center;
 }
 
-.c12,
-.c12 .c13 {
+.c11,
+.c11 .c12 {
   font-size: 1.4rem;
   overflow: visible;
 }
 
-.c12 span {
+.c11 span {
   padding: 0 1rem;
 }
 
-.c23 {
+.c22 {
   display: none;
 }
 
-.c25 {
+.c24 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -138,7 +132,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   border-radius: 50%;
 }
 
-.c26 {
+.c25 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -152,7 +146,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   border: 1px solid #fed200;
 }
 
-.c29 {
+.c28 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -166,7 +160,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   border: 1px solid #92d101;
 }
 
-.c31 {
+.c30 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -180,7 +174,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   border: 1px solid #00c3ed;
 }
 
-.c33 {
+.c32 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -194,7 +188,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   border: 1px solid #545ec8;
 }
 
-.c21 {
+.c20 {
   position: relative;
   background-color: #ffff8a;
   border: 1px solid #8f7700;
@@ -216,19 +210,19 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   overflow: visible;
 }
 
-.c21 .c22 {
+.c20 .c21 {
   height: 1rem;
   width: 1rem;
 }
 
-.c21 input:focus + .c24 {
+.c20 input:focus + .c23 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c28 {
+.c27 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -250,19 +244,19 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   overflow: visible;
 }
 
-.c28 .c22 {
+.c27 .c21 {
   height: 1rem;
   width: 1rem;
 }
 
-.c28 input:focus + .c24 {
+.c27 input:focus + .c23 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c30 {
+.c29 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -284,19 +278,19 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   overflow: visible;
 }
 
-.c30 .c22 {
+.c29 .c21 {
   height: 1rem;
   width: 1rem;
 }
 
-.c30 input:focus + .c24 {
+.c29 input:focus + .c23 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c32 {
+.c31 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -318,19 +312,19 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   overflow: visible;
 }
 
-.c32 .c22 {
+.c31 .c21 {
   height: 1rem;
   width: 1rem;
 }
 
-.c32 input:focus + .c24 {
+.c31 input:focus + .c23 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c9 {
+.c8 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -343,13 +337,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   padding-bottom: 0.2rem;
 }
 
-.c14 {
+.c13 {
   padding: 0;
   border: none;
   margin: 0;
 }
 
-.c14 legend {
+.c13 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -440,7 +434,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   max-height: calc(100vh - 26rem);
 }
 
-.c15 {
+.c14 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -450,7 +444,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   flex-direction: row;
 }
 
-.c16 {
+.c15 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -464,7 +458,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   padding: 0;
 }
 
-.c18 {
+.c17 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -476,22 +470,22 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   margin-left: 0.8rem;
 }
 
-.c18 > * {
+.c17 > * {
   overflow: hidden;
 }
 
-.c18 .os-text {
+.c17 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-overflow: ellipsis;
 }
 
-.c18 .os-divider {
+.c17 .os-divider {
   margin: 0 0.4rem;
 }
 
-.c10 {
+.c9 {
   color: #424242;
   background: #fff;
   font-size: 1.4rem;
@@ -501,23 +495,23 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   z-index: 1;
 }
 
-.c10 .c11 {
+.c9 .c10 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c10 .c17 {
+.c9 .c16 {
   padding: 0.8rem;
 }
 
-.c10 .c20 {
+.c9 .c19 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c10 .c46:last-child {
+.c9 .c45:last-child {
   border-bottom: none;
 }
 
-.c27 {
+.c26 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -526,7 +520,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   white-space: nowrap;
 }
 
-.c35 {
+.c34 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -558,12 +552,12 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   padding: 0 10px;
 }
 
-.c35:hover,
-.c35:focus {
+.c34:hover,
+.c34:focus {
   color: #424242;
 }
 
-.c39 {
+.c38 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -571,13 +565,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   line-height: 1.5rem;
 }
 
-.c37 {
+.c36 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c36 {
+.c35 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -590,13 +584,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   padding-right: 2.4rem;
 }
 
-.c36 .c38 {
+.c35 .c37 {
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0px 0px 0px 0.5rem;
 }
 
-.c19 {
+.c18 {
   background: #fff;
   display: -webkit-box;
   display: -webkit-flex;
@@ -614,20 +608,20 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   min-width: 29rem;
 }
 
-.c19 .c11 {
+.c18 .c10 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c19 .c17 {
+.c18 .c16 {
   padding: 0.8rem;
   text-transform: capitalize;
 }
 
-.c19 .c20 {
+.c18 .c19 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c34 {
+.c33 {
   margin-left: auto;
   display: -webkit-box;
   display: -webkit-flex;
@@ -641,13 +635,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media print {
-  .c44 {
+  .c43 {
     display: none;
   }
 }
 
 @media print {
-  .c45 {
+  .c44 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -655,13 +649,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media screen and (max-width:75em) {
-  .c42 {
+  .c41 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c42 {
+  .c41 {
     margin: 0;
   }
 }
@@ -696,13 +690,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media print {
-  .c0 > *:not(.c41) {
+  .c0 > *:not(.c40) {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c15 {
+  .c14 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -711,13 +705,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media screen and (max-width:30em) {
-  .c10 {
+  .c9 {
     width: calc(100vw - 1.6rem);
   }
 }
 
 @media screen and (max-width:50em) {
-  .c35 {
+  .c34 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -732,7 +726,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media screen and (max-width:50em) {
-  .c39 {
+  .c38 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -740,19 +734,19 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
 }
 
 @media screen and (max-width:75em) {
-  .c36 {
+  .c35 {
     padding-right: 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c36 .c38 {
+  .c35 .c37 {
     display: none;
   }
 }
 
 @media screen and (max-width:30em) {
-  .c19 {
+  .c18 {
     width: calc(100vw - 1.6rem);
   }
 }
@@ -780,12 +774,9 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           Chapter
           <svg
             aria-hidden="true"
-            className="c8 c9"
+            className="c8"
             direction="up"
-            fill="currentColor"
-            focusable="false"
             viewBox="0 0 320 512"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -795,15 +786,15 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </div>
       </button>
       <div
-        className="c10"
+        className="c9"
         id="guide-filter-chapter"
         tabIndex={-1}
       >
         <div
-          className="c11 c12"
+          className="c10 c11"
         >
           <button
-            className="plain-button button-link button-link-decorated c13 "
+            className="plain-button button-link button-link-decorated c12 "
             disabled={false}
             onClick={[Function]}
             style={
@@ -821,7 +812,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             |
           </span>
           <button
-            className="plain-button button-link button-link-decorated c13 "
+            className="plain-button button-link button-link-decorated c12 "
             disabled={false}
             onClick={[Function]}
             style={
@@ -835,21 +826,21 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           </button>
         </div>
         <fieldset
-          className="c14"
+          className="c13"
         >
           <legend>
             Filter by chapters
           </legend>
           <div
-            className="c15"
+            className="c14"
           >
             <ul
               aria-label="Filter by chapters"
-              className="c16"
+              className="c15"
             >
               <li>
                 <label
-                  className="checkbox-label checkbox-disabled c17 "
+                  className="checkbox-label checkbox-disabled c16 "
                 >
                   <input
                     aria-selected={false}
@@ -874,7 +865,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                     </svg>
                   </span>
                   <span
-                    className="c18"
+                    className="c17"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1</span>",
@@ -885,7 +876,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </li>
               <li>
                 <label
-                  className="checkbox-label checkbox-disabled c17 "
+                  className="checkbox-label checkbox-disabled c16 "
                 >
                   <input
                     aria-selected={false}
@@ -910,7 +901,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                     </svg>
                   </span>
                   <span
-                    className="c18"
+                    className="c17"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">1</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 1.1</span>",
@@ -921,7 +912,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </li>
               <li>
                 <label
-                  className="checkbox-label c17 "
+                  className="checkbox-label c16 "
                 >
                   <input
                     aria-selected={true}
@@ -946,7 +937,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                     </svg>
                   </span>
                   <span
-                    className="c18"
+                    className="c17"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -957,7 +948,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </li>
               <li>
                 <label
-                  className="checkbox-label checkbox-disabled c17 "
+                  className="checkbox-label checkbox-disabled c16 "
                 >
                   <input
                     aria-selected={false}
@@ -982,7 +973,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                     </svg>
                   </span>
                   <span
-                    className="c18"
+                    className="c17"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">3</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 3</span>",
@@ -993,7 +984,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </li>
               <li>
                 <label
-                  className="checkbox-label checkbox-disabled c17 "
+                  className="checkbox-label checkbox-disabled c16 "
                 >
                   <input
                     aria-selected={false}
@@ -1018,7 +1009,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                     </svg>
                   </span>
                   <span
-                    className="c18"
+                    className="c17"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">4</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 4</span>",
@@ -1029,7 +1020,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </li>
               <li>
                 <label
-                  className="checkbox-label checkbox-disabled c17 "
+                  className="checkbox-label checkbox-disabled c16 "
                 >
                   <input
                     aria-selected={false}
@@ -1054,7 +1045,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                     </svg>
                   </span>
                   <span
-                    className="c18"
+                    className="c17"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">10</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 5</span>",
@@ -1065,7 +1056,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </li>
               <li>
                 <label
-                  className="checkbox-label checkbox-disabled c17 "
+                  className="checkbox-label checkbox-disabled c16 "
                 >
                   <input
                     aria-selected={false}
@@ -1090,7 +1081,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                     </svg>
                   </span>
                   <span
-                    className="c18"
+                    className="c17"
                     dangerouslySetInnerHTML={
                       Object {
                         "__html": "<span class=\\"os-number\\">12</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 6</span>",
@@ -1121,12 +1112,9 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           Color
           <svg
             aria-hidden="true"
-            className="c8 c9"
+            className="c8"
             direction="up"
-            fill="currentColor"
-            focusable="false"
             viewBox="0 0 320 512"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -1136,15 +1124,15 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </div>
       </button>
       <div
-        className="c19"
+        className="c18"
         id="guide-filter-color"
         tabIndex={-1}
       >
         <div
-          className="c11 c12"
+          className="c10 c11"
         >
           <button
-            className="plain-button button-link button-link-decorated c13 "
+            className="plain-button button-link button-link-decorated c12 "
             disabled={false}
             onClick={[Function]}
             style={
@@ -1162,7 +1150,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
             |
           </span>
           <button
-            className="plain-button button-link button-link-decorated c13 "
+            className="plain-button button-link button-link-decorated c12 "
             disabled={false}
             onClick={[Function]}
             style={
@@ -1176,13 +1164,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           </button>
         </div>
         <fieldset
-          className="c14"
+          className="c13"
         >
           <legend>
             Filter by colors
           </legend>
           <label
-            className="checkbox-label c17 "
+            className="checkbox-label c16 "
           >
             <input
               checked={true}
@@ -1206,15 +1194,12 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </svg>
             </span>
             <div
-              className="c20 c21"
+              className="c19 c20"
             >
               <svg
                 aria-hidden="true"
-                className="c8 c22 c23"
-                fill="currentColor"
-                focusable="false"
+                className="c21 c22"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -1222,7 +1207,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 />
               </svg>
               <span
-                className="c24 c25"
+                className="c23 c24"
                 size="small"
                 style={
                   Object {
@@ -1234,7 +1219,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 }
               />
               <span
-                className="c26"
+                className="c25"
                 size="small"
                 style={
                   Object {
@@ -1247,13 +1232,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </div>
             <span
-              className="c27"
+              className="c26"
             >
               Key Terms
             </span>
           </label>
           <label
-            className="checkbox-label c17 "
+            className="checkbox-label c16 "
           >
             <input
               checked={true}
@@ -1277,15 +1262,12 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </svg>
             </span>
             <div
-              className="c20 c28"
+              className="c19 c27"
             >
               <svg
                 aria-hidden="true"
-                className="c8 c22 c23"
-                fill="currentColor"
-                focusable="false"
+                className="c21 c22"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -1293,7 +1275,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 />
               </svg>
               <span
-                className="c24 c25"
+                className="c23 c24"
                 size="small"
                 style={
                   Object {
@@ -1305,7 +1287,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 }
               />
               <span
-                className="c29"
+                className="c28"
                 size="small"
                 style={
                   Object {
@@ -1318,13 +1300,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </div>
             <span
-              className="c27"
+              className="c26"
             >
               Connections & Relationships
             </span>
           </label>
           <label
-            className="checkbox-label c17 "
+            className="checkbox-label c16 "
           >
             <input
               checked={true}
@@ -1348,15 +1330,12 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </svg>
             </span>
             <div
-              className="c20 c30"
+              className="c19 c29"
             >
               <svg
                 aria-hidden="true"
-                className="c8 c22 c23"
-                fill="currentColor"
-                focusable="false"
+                className="c21 c22"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -1364,7 +1343,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 />
               </svg>
               <span
-                className="c24 c25"
+                className="c23 c24"
                 size="small"
                 style={
                   Object {
@@ -1376,7 +1355,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 }
               />
               <span
-                className="c31"
+                className="c30"
                 size="small"
                 style={
                   Object {
@@ -1389,13 +1368,13 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </div>
             <span
-              className="c27"
+              className="c26"
             >
               Important Concepts
             </span>
           </label>
           <label
-            className="checkbox-label c17 "
+            className="checkbox-label c16 "
           >
             <input
               checked={true}
@@ -1419,15 +1398,12 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               </svg>
             </span>
             <div
-              className="c20 c32"
+              className="c19 c31"
             >
               <svg
                 aria-hidden="true"
-                className="c8 c22 c23"
-                fill="currentColor"
-                focusable="false"
+                className="c21 c22"
                 viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -1435,7 +1411,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 />
               </svg>
               <span
-                className="c24 c25"
+                className="c23 c24"
                 size="small"
                 style={
                   Object {
@@ -1447,7 +1423,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
                 }
               />
               <span
-                className="c33"
+                className="c32"
                 size="small"
                 style={
                   Object {
@@ -1460,7 +1436,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
               />
             </div>
             <span
-              className="c27"
+              className="c26"
             >
               Enrichment
             </span>
@@ -1469,11 +1445,11 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       </div>
     </div>
     <div
-      className="c34"
+      className="c33"
     >
       <button
         aria-label="print"
-        className="c35 c36"
+        className="c34 c35"
         data-analytics-label="print"
         data-testid="print"
         disabled={true}
@@ -1481,11 +1457,8 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       >
         <svg
           aria-hidden="true"
-          className="c8 c37"
-          fill="currentColor"
-          focusable="false"
+          className="c36"
           viewBox="0 0 512 512"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
@@ -1493,7 +1466,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
           />
         </svg>
         <span
-          className="c38 c39"
+          className="c37 c38"
         >
           Print
         </span>
@@ -1501,21 +1474,21 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
     </div>
   </div>
   <div
-    className="c40"
+    className="c39"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c41 c42"
+    className="c40 c41"
   >
     <li
-      className="c43"
+      className="c42"
     >
       <button
         aria-label="Remove chapter 2 Test Chapter 2"
-        className="plain-button c44"
+        className="plain-button c43"
         data-analytics-label="Remove breadcrumb for chapter 2 Test Chapter 2"
         onClick={[Function]}
       >
@@ -1547,7 +1520,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c45"
+        className="c44"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-number\\">2</span><span class=\\"os-divider\\"> </span><span class=\\"os-text\\">Test Chapter 2</span>",
@@ -1556,11 +1529,11 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
       />
     </li>
     <li
-      className="c43"
+      className="c42"
     >
       <button
         aria-label="Remove label Important Concepts"
-        className="plain-button c44"
+        className="plain-button c43"
         data-analytics-label="Remove breadcrumb for label Important Concepts"
         onClick={[Function]}
       >
@@ -1592,17 +1565,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c45"
+        className="c44"
       >
         Important Concepts
       </span>
     </li>
     <li
-      className="c43"
+      className="c42"
     >
       <button
         aria-label="Remove label Connections & Relationships"
-        className="plain-button c44"
+        className="plain-button c43"
         data-analytics-label="Remove breadcrumb for label Connections & Relationships"
         onClick={[Function]}
       >
@@ -1634,17 +1607,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c45"
+        className="c44"
       >
         Connections & Relationships
       </span>
     </li>
     <li
-      className="c43"
+      className="c42"
     >
       <button
         aria-label="Remove label Enrichment"
-        className="plain-button c44"
+        className="plain-button c43"
         data-analytics-label="Remove breadcrumb for label Enrichment"
         onClick={[Function]}
       >
@@ -1676,17 +1649,17 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c45"
+        className="c44"
       >
         Enrichment
       </span>
     </li>
     <li
-      className="c43"
+      className="c42"
     >
       <button
         aria-label="Remove label Key Terms"
-        className="plain-button c44"
+        className="plain-button c43"
         data-analytics-label="Remove breadcrumb for label Key Terms"
         onClick={[Function]}
       >
@@ -1718,7 +1691,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
         </svg>
       </button>
       <span
-        className="c45"
+        className="c44"
       >
         Key Terms
       </span>

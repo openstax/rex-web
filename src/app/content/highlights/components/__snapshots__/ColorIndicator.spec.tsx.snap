@@ -1,17 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorIndicator matches snapshot (checked) 1`] = `
-.c1 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c3 {
+.c2 {
   display: none;
 }
 
-.c5 {
+.c4 {
   display: none;
   position: absolute;
   height: 2.8rem;
@@ -26,7 +20,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   border-radius: 50%;
 }
 
-.c6 {
+.c5 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -40,12 +34,12 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   border: 1px solid #fed200;
 }
 
-.c7 .c2 {
+.c6 .c1 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c7 input:focus + .c4 {
+.c6 input:focus + .c3 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
@@ -74,7 +68,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   overflow: visible;
 }
 
-.c0 .c2 {
+.c0 .c1 {
   height: 1.6rem;
   width: 1.6rem;
   color: #fed200;
@@ -83,7 +77,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
   display: block;
 }
 
-.c0 input:focus + .c4 {
+.c0 input:focus + .c3 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
@@ -95,11 +89,8 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 >
   <svg
     aria-hidden="true"
-    className="c1 c2 c3"
-    fill="currentColor"
-    focusable="false"
+    className="c1 c2"
     viewBox="0 0 512 512"
-    xmlns="http://www.w3.org/2000/svg"
   >
     <path
       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -107,7 +98,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
     />
   </svg>
   <span
-    className="c4 c5"
+    className="c3 c4"
     style={
       Object {
         "focusBorder": "#8f7700",
@@ -118,7 +109,7 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
     }
   />
   <span
-    className="c6"
+    className="c5"
     style={
       Object {
         "focusBorder": "#8f7700",
@@ -132,17 +123,11 @@ exports[`ColorIndicator matches snapshot (checked) 1`] = `
 `;
 
 exports[`ColorIndicator matches snapshot 1`] = `
-.c1 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c3 {
+.c2 {
   display: none;
 }
 
-.c5 {
+.c4 {
   display: none;
   position: absolute;
   height: 2.8rem;
@@ -157,7 +142,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
   border-radius: 50%;
 }
 
-.c6 {
+.c5 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -193,12 +178,12 @@ exports[`ColorIndicator matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c0 .c2 {
+.c0 .c1 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c0 input:focus + .c4 {
+.c0 input:focus + .c3 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
@@ -210,11 +195,8 @@ exports[`ColorIndicator matches snapshot 1`] = `
 >
   <svg
     aria-hidden="true"
-    className="c1 c2 c3"
-    fill="currentColor"
-    focusable="false"
+    className="c1 c2"
     viewBox="0 0 512 512"
-    xmlns="http://www.w3.org/2000/svg"
   >
     <path
       d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -222,7 +204,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
     />
   </svg>
   <span
-    className="c4 c5"
+    className="c3 c4"
     style={
       Object {
         "focusBorder": "#8f7700",
@@ -233,7 +215,7 @@ exports[`ColorIndicator matches snapshot 1`] = `
     }
   />
   <span
-    className="c6"
+    className="c5"
     style={
       Object {
         "focusBorder": "#8f7700",

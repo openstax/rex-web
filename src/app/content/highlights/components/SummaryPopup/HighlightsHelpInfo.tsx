@@ -2,18 +2,18 @@ import * as Cookies from 'js-cookie';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
-import { Times } from 'styled-icons/fa-solid/Times';
 import { useAnalyticsEvent } from '../../../../../helpers/analytics';
 import { user as userSelector } from '../../../../auth/selectors';
 import { PlainButton } from '../../../../components/Button';
 import htmlMessage from '../../../../components/htmlMessage';
+import { TimesIcon } from '../../../../components/icons/Times';
 import { bodyCopyRegularStyle } from '../../../../components/Typography';
 import theme from '../../../../theme';
 import { assertWindow } from '../../../../utils';
 import { disablePrint } from '../../../components/utils/disablePrint';
 
 // This is copied from CallToActionPopup > styles.tsx
-// Wher should we store this kind of functions?
+// Where should we store this kind of function?
 const slideInFromBottom = keyframes`
   0% {
     bottom: -100%;
@@ -51,7 +51,7 @@ const Wrapper = styled.div`
   ${disablePrint}
 `;
 
-export const CloseIcon = styled(Times)`
+export const CloseIcon = styled(TimesIcon)`
   color: ${theme.color.secondary.lightGray.darkest};
   width: 1.4rem;
 `;

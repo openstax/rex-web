@@ -2,7 +2,10 @@
 
 exports[`BookBanner outside browser renders 1`] = `
 Array [
-  .c4 {
+  .c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -45,7 +48,7 @@ Array [
   text-decoration: underline;
 }
 
-.c5 {
+.c4 {
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -88,12 +91,6 @@ Array [
   background: linear-gradient(to right, #002468, #004aa2);
 }
 
-.c3 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
 @media screen and (max-width:75em) {
   .c2 {
     color: #424242;
@@ -120,14 +117,14 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     max-width: 105.25rem;
     padding: 0;
     color: #fff;
@@ -172,20 +169,18 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="c3 c4"
-          fill="currentColor"
-          focusable="false"
+          className="BookBanner__ChevronLeftIcon-sc-1avy0c0-0 c3"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            fill="currentColor"
           />
         </svg>
         Test Book 1
       </a>
       <h1
-        className="c5"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -194,7 +189,10 @@ Array [
       />
     </div>
   </div>,
-  .c4 {
+  .c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -238,7 +236,7 @@ Array [
   text-decoration: underline;
 }
 
-.c5 {
+.c4 {
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -284,12 +282,6 @@ Array [
   margin-top: -7rem;
 }
 
-.c3 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
 @media screen and (max-width:75em) {
   .c2 {
     color: #424242;
@@ -322,7 +314,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -336,7 +328,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     max-width: 105.25rem;
     padding: 0;
     color: #fff;
@@ -353,7 +345,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     max-width: none;
   }
 }
@@ -389,20 +381,18 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="c3 c4"
-          fill="currentColor"
-          focusable="false"
+          className="BookBanner__ChevronLeftIcon-sc-1avy0c0-0 c3"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            fill="currentColor"
           />
         </svg>
         Test Book 1
       </a>
       <span
-        className="c5"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -420,9 +410,6 @@ Array [
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
-}
-
-.c4 {
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -465,7 +452,7 @@ Array [
   text-decoration: underline;
 }
 
-.c5 {
+.c4 {
   color: #424242;
   font-size: 2.4rem;
   line-height: 3rem;
@@ -534,14 +521,14 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     font-size: 1.6rem;
     line-height: 2rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     max-width: 105.25rem;
     padding: 0;
     color: #fff;
@@ -586,20 +573,18 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="c3 c4"
-          fill="currentColor"
-          focusable="false"
+          className="c3"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            fill="currentColor"
           />
         </svg>
         Test Book 1
       </a>
       <h1
-        className="c5"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -612,9 +597,6 @@ Array [
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
-}
-
-.c4 {
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -658,7 +640,7 @@ Array [
   text-decoration: underline;
 }
 
-.c5 {
+.c4 {
   color: #424242;
   font-size: 1.8rem;
   line-height: 2.5rem;
@@ -736,7 +718,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     color: #424242;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -750,7 +732,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     max-width: 105.25rem;
     padding: 0;
     color: #fff;
@@ -767,7 +749,7 @@ Array [
 }
 
 @media screen and (max-width:75em) {
-  .c5 {
+  .c4 {
     max-width: none;
   }
 }
@@ -803,20 +785,18 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="c3 c4"
-          fill="currentColor"
-          focusable="false"
+          className="c3"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            fill="currentColor"
           />
         </svg>
         Test Book 1
       </a>
       <span
-        className="c5"
+        className="c4"
         dangerouslySetInnerHTML={
           Object {
             "__html": "<span class=\\"os-text\\">Test Page 4</span>",
@@ -1958,15 +1938,6 @@ Array [
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
-}
-
-.c3 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c4 {
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -1974,7 +1945,10 @@ Array [
   color: #fff;
 }
 
-.c4 {
+.c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -2311,14 +2285,12 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="c3 c4"
-          fill="currentColor"
-          focusable="false"
+          className="c3"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            fill="currentColor"
           />
         </svg>
         Test Book 1
@@ -2329,15 +2301,6 @@ Array [
   display: inline-block;
   vertical-align: middle;
   overflow: hidden;
-}
-
-.c3 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c4 {
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -2345,7 +2308,10 @@ Array [
   color: #fff;
 }
 
-.c4 {
+.c3 {
+  display: inline-block;
+  vertical-align: middle;
+  overflow: hidden;
   margin-top: -0.25rem;
   margin-left: -0.8rem;
   height: 3rem;
@@ -2712,14 +2678,12 @@ Array [
       >
         <svg
           aria-hidden="true"
-          className="c3 c4"
-          fill="currentColor"
-          focusable="false"
+          className="c3"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+            fill="currentColor"
           />
         </svg>
         Test Book 1

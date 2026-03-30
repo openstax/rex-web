@@ -1046,6 +1046,128 @@ Use this checklist when migrating additional components from styled-components t
 
 ---
 
+## Icon Migration from styled-icons to Inline SVG
+
+### Always Wrap Icon Components with styled()
+
+**Issue (Phase 1.4)**: Components that use styled-components component selectors (e.g., `${Checkbox} { padding: 0.8rem; }`) will break if the referenced component is not a styled-component.
+
+**Problem**: After migrating a component to plain CSS/React, existing styled-components that reference it with component selectors will fail with snapshot test errors or runtime errors.
+
+**Resolution**: Wrap all migrated icon components with `styled()`, even if they have no styles:
+
+```typescript
+// Icon base component
+function ChevronLeftIconBase({ className, ...props }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path fill="currentColor" d="..." />
+    </svg>
+  );
+}
+
+// ✅ Wrap with styled() to enable component selector references
+export const ChevronLeftIcon = styled(ChevronLeftIconBase)``;
+```
+
+**Benefits**:
+- ✅ Maintains compatibility with existing component selector usage
+- ✅ Allows gradual migration without breaking existing styled-components
+- ✅ Empty template literal adds no runtime overhead
+
+**For Future Phases**: Always wrap migrated components with `styled()` if they're referenced in component selectors anywhere in the codebase.
+
+### Establish Consistent Icon Component Pattern
+
+**Pattern (Phases 1.4 & 1.5)**: All icon components follow the same structure to ensure consistency:
+
+```typescript
+interface IconProps extends React.SVGAttributes<SVGSVGElement> {
+  className?: string;
+}
+
+/**
+ * [Icon name] icon component.
+ * SVG path from [Font Awesome/Boxicons] (https://[source] - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+function IconBase({ className, ...props }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="..." // Appropriate viewBox for the icon
+      aria-hidden="true"
+      {...props}
+    >
+      <path fill="currentColor" d="..." />
+    </svg>
+  );
+}
+
+export const Icon = styled(IconBase)``;
+```
+
+**Key Elements**:
+1. **IconProps interface** - Extends `React.SVGAttributes<SVGSVGElement>` for full SVG prop support
+2. **Documentation comment** - Includes icon source and MIT license attribution
+3. **aria-hidden="true"** - Icons are decorative, hidden from screen readers
+4. **fill="currentColor"** - Inherits text color from parent element
+5. **{...props}** spread - Allows custom SVG attributes
+6. **styled() wrapper** - Enables component selector compatibility
+
+**For Future Phases**: Follow this exact pattern for all icon migrations to ensure consistency across the codebase.
+
+### Handle .ts Files That Need JSX
+
+**Issue (Phase 1.5)**: TypeScript `.ts` files cannot contain JSX syntax. Attempting to add inline SVG components to a `.ts` file will cause compilation errors.
+
+**Problem**: When migrating icons in utility files with `.ts` extension, you cannot create JSX components inline.
+
+**Resolution Options**:
+
+1. **Re-use existing icon components** (preferred):
+```typescript
+// NudgeStudyTools/styles.ts
+import Times from '../../../components/icons/Times';  // ✅ Import existing icon
+```
+
+2. **Convert file to `.tsx`** (if appropriate):
+- Only if the file's purpose justifies having JSX
+- Update all imports across the codebase
+
+3. **Create separate icon file**:
+```typescript
+// icons/TimesIcon.tsx - New file
+export const TimesIcon = styled(TimesIconBase)``;
+
+// styles.ts - Import from icon file
+import { TimesIcon } from './icons/TimesIcon';
+```
+
+**For Future Phases**: Before creating new icon components, check if an equivalent already exists in the `src/assets/` or `src/app/components/` directories. Re-use existing icons when possible.
+
+### MIT-Licensed Icon Sources
+
+**Icon Sources (Phases 1.4 & 1.5)**: All icons are sourced from MIT-licensed libraries:
+
+- **Font Awesome Free** (https://fontawesome.com) - MIT License
+  - Used for: Print, Edit, ExternalLinkAlt, TrashAlt, Check, Times, Hamburger, AngleLeft, AngleDown, TimesCircle, social media icons
+- **Boxicons** (https://boxicons.com) - MIT License
+  - Used for: ChevronLeft, ChevronRight
+
+**Pattern for Attribution**:
+```typescript
+/**
+ * [Icon name] icon component.
+ * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ */
+```
+
+**For Future Phases**: Always include source attribution in comments and verify the license is MIT-compatible before using icon SVG paths.
+
+---
+
 ## Summary
 
 The styled-components to plain CSS migration has successfully migrated Typography (Phase 1.1) and Container/Layout (Phase 1.2) components while maintaining backward compatibility. Key success factors:
@@ -1066,7 +1188,9 @@ The styled-components to plain CSS migration has successfully migrated Typograph
 
 **Phase 1.3 (Utility Components)**: Established TypeScript and React best practices, including preferring normal functions over React.FC, using the classnames package for className composition, ensuring media queries are top-level in CSS, importing global CSS from app entry point instead of theme module or utility modules, implementing reference counting for components that manipulate global state (to handle multiple instances), explicitly importing HTML element types, and removing unused state variables during class-to-functional component conversions.
 
-**Phase 1.4 (Icon Components)**: Addressed styled-components testing compatibility by wrapping migrated inline SVG components with `styled()` to support component selectors used throughout the codebase. Established the pattern of extending `React.*HTMLAttributes` for form components to ensure all standard HTML attributes are supported without manually defining each one.
+**Phase 1.4 (Icons - Part 1)**: Migrated Details component icons (CaretRight, CaretDown), Checkbox, DotMenu, and GoToTopButton from styled-icons to inline SVG. Established the icon migration pattern: create inline SVG components with proper TypeScript types, wrap with `styled()` for component selector compatibility, use `currentColor` for fill to inherit text color, and maintain `aria-hidden` for accessibility. Learned that components used with styled-components component selectors (e.g., `${Checkbox}`) must be wrapped with `styled()`, even if they don't have styles themselves. Addressed styled-components testing compatibility by wrapping migrated inline SVG components with `styled()` to support component selectors used throughout the codebase. Established the pattern of extending `React.*HTMLAttributes` for form components to ensure all standard HTML attributes are supported without manually defining each one.
+
+**Phase 1.5 (Icons - Part 2)**: Completed icon migration by migrating all remaining icons (navigation, UI, highlights, footer) from styled-icons to inline SVG. Key learning: `.ts` files cannot contain JSX/TSX code—either convert to `.tsx` or re-use existing icon components. Successfully migrated 11 files covering 20+ icon components while maintaining backward compatibility through Details.legacy.ts. Created shared icon components (e.g., Times icon) to avoid duplication across the codebase.
 
 **Phase 2.1 (Button System)**: Addressed transient prop filtering to prevent DOM attribute leakage when plain React components are wrapped with styled-components. Established the pattern of filtering props starting with `$` before spreading to DOM elements, which is critical for base components designed to be wrapped with styled-components. Also improved polymorphic typing for components that accept a `component` prop for rendering as different element types.
 

@@ -99,7 +99,6 @@ exports[`DisplayNote matches snapshot 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c6 "
-          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -266,7 +265,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c6 "
-          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -483,7 +481,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c6 "
-          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
