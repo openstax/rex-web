@@ -12,7 +12,8 @@ import ShowAnswerButton from './ShowAnswerButton';
 import SkipAndSubmitButtons from './SkipAndSubmitButtons';
 
 // Wrap Button with styled() to make it compatible with component selectors
-const Button = styled(ButtonBase)``;
+// Exported for use in child components that need to match the Wrapper's Button selector
+export const Button = styled(ButtonBase)``;
 
 const Wrapper = styled.div`
   display: flex;
