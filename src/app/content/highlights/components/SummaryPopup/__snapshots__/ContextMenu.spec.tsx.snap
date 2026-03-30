@@ -69,7 +69,6 @@ exports[`ContextMenu match snapshot when closed 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c7 "
-          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -84,17 +83,11 @@ exports[`ContextMenu match snapshot when closed 1`] = `
 `;
 
 exports[`ContextMenu match snapshot when open 1`] = `
-.c15 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c17 {
+.c16 {
   display: none;
 }
 
-.c19 {
+.c18 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -109,7 +102,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border-radius: 50%;
 }
 
-.c20 {
+.c19 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -123,7 +116,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #fed200;
 }
 
-.c22 {
+.c21 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -137,7 +130,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #92d101;
 }
 
-.c24 {
+.c23 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -151,7 +144,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c26 {
+.c25 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -165,7 +158,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c28 {
+.c27 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -201,19 +194,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c13 .c16 {
+.c13 .c15 {
   height: 1rem;
   width: 1rem;
 }
 
-.c13 input:focus + .c18 {
+.c13 input:focus + .c17 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c21 {
+.c20 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -235,19 +228,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c21 .c16 {
+.c20 .c15 {
   height: 1rem;
   width: 1rem;
 }
 
-.c21 input:focus + .c18 {
+.c20 input:focus + .c17 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c23 {
+.c22 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -269,7 +262,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c23 .c16 {
+.c22 .c15 {
   height: 1rem;
   width: 1rem;
   color: #00c3ed;
@@ -278,14 +271,14 @@ exports[`ContextMenu match snapshot when open 1`] = `
   display: block;
 }
 
-.c23 input:focus + .c18 {
+.c22 input:focus + .c17 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c25 {
+.c24 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -307,19 +300,19 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c25 .c16 {
+.c24 .c15 {
   height: 1rem;
   width: 1rem;
 }
 
-.c25 input:focus + .c18 {
+.c24 input:focus + .c17 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c27 {
+.c26 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -341,12 +334,12 @@ exports[`ContextMenu match snapshot when open 1`] = `
   overflow: visible;
 }
 
-.c27 .c16 {
+.c26 .c15 {
   height: 1rem;
   width: 1rem;
 }
 
-.c27 input:focus + .c18 {
+.c26 input:focus + .c17 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
@@ -515,6 +508,13 @@ exports[`ContextMenu match snapshot when open 1`] = `
   outline-width: 0;
 }
 
+.c28 {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  color: #424242;
+}
+
 .c29 {
   width: 15px;
   height: 15px;
@@ -523,13 +523,6 @@ exports[`ContextMenu match snapshot when open 1`] = `
 }
 
 .c30 {
-  width: 15px;
-  height: 15px;
-  margin-right: 10px;
-  color: #424242;
-}
-
-.c31 {
   width: 15px;
   height: 15px;
   margin-right: 10px;
@@ -568,7 +561,6 @@ exports[`ContextMenu match snapshot when open 1`] = `
         <svg
           aria-hidden="true"
           className="dot-menu-icon c7 "
-          focusable="false"
           viewBox="0 0 192 512"
         >
           <path
@@ -617,11 +609,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c15 c16 c17"
-                  fill="currentColor"
-                  focusable="false"
+                  className="c15 c16"
                   viewBox="0 0 512 512"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -637,7 +626,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c18 c19"
+                  className="c17 c18"
                   size="small"
                   style={
                     Object {
@@ -649,7 +638,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c20"
+                  className="c19"
                   size="small"
                   style={
                     Object {
@@ -664,7 +653,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply green highlight"
                 checked={false}
-                className="c21 c14"
+                className="c20 c14"
                 component={<label />}
                 size="small"
                 style={
@@ -679,11 +668,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c15 c16 c17"
-                  fill="currentColor"
-                  focusable="false"
+                  className="c15 c16"
                   viewBox="0 0 512 512"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -699,7 +685,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c18 c19"
+                  className="c17 c18"
                   size="small"
                   style={
                     Object {
@@ -711,7 +697,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c22"
+                  className="c21"
                   size="small"
                   style={
                     Object {
@@ -726,7 +712,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply blue highlight"
                 checked={true}
-                className="c23 c14"
+                className="c22 c14"
                 component={<label />}
                 size="small"
                 style={
@@ -741,11 +727,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c15 c16 c17"
-                  fill="currentColor"
-                  focusable="false"
+                  className="c15 c16"
                   viewBox="0 0 512 512"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -761,7 +744,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c18 c19"
+                  className="c17 c18"
                   size="small"
                   style={
                     Object {
@@ -773,7 +756,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c24"
+                  className="c23"
                   size="small"
                   style={
                     Object {
@@ -788,7 +771,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply purple highlight"
                 checked={false}
-                className="c25 c14"
+                className="c24 c14"
                 component={<label />}
                 size="small"
                 style={
@@ -803,11 +786,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c15 c16 c17"
-                  fill="currentColor"
-                  focusable="false"
+                  className="c15 c16"
                   viewBox="0 0 512 512"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -823,7 +803,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c18 c19"
+                  className="c17 c18"
                   size="small"
                   style={
                     Object {
@@ -835,7 +815,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c26"
+                  className="c25"
                   size="small"
                   style={
                     Object {
@@ -850,7 +830,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
               <label
                 aria-label="Apply pink highlight"
                 checked={false}
-                className="c27 c14"
+                className="c26 c14"
                 component={<label />}
                 size="small"
                 style={
@@ -865,11 +845,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
               >
                 <svg
                   aria-hidden="true"
-                  className="c15 c16 c17"
-                  fill="currentColor"
-                  focusable="false"
+                  className="c15 c16"
                   viewBox="0 0 512 512"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -885,7 +862,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   type="radio"
                 />
                 <span
-                  className="c18 c19"
+                  className="c17 c18"
                   size="small"
                   style={
                     Object {
@@ -897,7 +874,7 @@ exports[`ContextMenu match snapshot when open 1`] = `
                   }
                 />
                 <span
-                  className="c28"
+                  className="c27"
                   size="small"
                   style={
                     Object {
@@ -923,11 +900,8 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c15 c29"
-              fill="currentColor"
-              focusable="false"
+              className="c28"
               viewBox="0 0 576 512"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"
@@ -948,14 +922,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c15 c30"
-              fill="currentColor"
-              focusable="false"
+              className="c29"
               viewBox="0 0 448 512"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M32 464a48 48 0 0048 48h288a48 48 0 0048-48V128H32zm272-256a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zm-96 0a16 16 0 0132 0v224a16 16 0 01-32 0zM432 32H312l-9.4-18.7A24 24 0 00281.1 0H166.8a23.72 23.72 0 00-21.4 13.3L136 32H16A16 16 0 000 48v32a16 16 0 0016 16h416a16 16 0 0016-16V48a16 16 0 00-16-16z"
+                d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"
                 fill="currentColor"
               />
             </svg>
@@ -973,14 +944,11 @@ exports[`ContextMenu match snapshot when open 1`] = `
           >
             <svg
               aria-hidden="true"
-              className="c15 c31"
-              fill="currentColor"
-              focusable="false"
-              viewBox="0 0 512 512"
-              xmlns="http://www.w3.org/2000/svg"
+              className="c30"
+              viewBox="0 0 576 512"
             >
               <path
-                d="M432 320h-32a16 16 0 00-16 16v112H64V128h144a16 16 0 0016-16V80a16 16 0 00-16-16H48a48 48 0 00-48 48v352a48 48 0 0048 48h352a48 48 0 0048-48V336a16 16 0 00-16-16zM488 0H360c-21.37 0-32.05 25.91-17 41l35.73 35.73L135 320.37a24 24 0 000 34L157.67 377a24 24 0 0034 0l243.61-243.68L471 169c15 15 41 4.5 41-17V24a24 24 0 00-24-24z"
+                d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"
                 fill="currentColor"
               />
             </svg>
