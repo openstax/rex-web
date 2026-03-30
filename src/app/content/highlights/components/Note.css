@@ -18,10 +18,6 @@
   font-weight: normal;
 }
 
-.note-textarea[data-empty="true"] {
-  padding-top: 1rem;
-}
-
 /* SimpleLabel styles */
 .note-label {
   color: var(--primary-blue, #027eb5);
