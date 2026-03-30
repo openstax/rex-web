@@ -1,11 +1,38 @@
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { Check } from 'styled-icons/fa-solid/Check';
 import { isDefined } from '../../../guards';
 import { highlightStyles } from '../../constants';
 import { defaultFocusOutline } from '../../../theme';
 import { useIntl } from 'react-intl';
 import trashIcon from '../../../../assets/trash-347.svg';
+
+interface IconProps extends React.SVGAttributes<SVGSVGElement> {
+  className?: string;
+}
+
+/**
+ * Check icon component.
+ * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+function CheckBase({ className, ...props }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 512 512"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+      />
+    </svg>
+  );
+}
+
+const Check = styled(CheckBase)``;
 
 interface StyleProps {
   style: typeof highlightStyles[number];

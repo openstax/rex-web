@@ -17,7 +17,6 @@ function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElem
       className={classNames('dot-menu-icon', className)}
       viewBox="0 0 192 512"
       aria-hidden="true"
-      focusable="false"
       {...props}
     >
       <path
@@ -30,8 +29,9 @@ function DotMenuIconBase({ className, ...props }: React.SVGAttributes<SVGSVGElem
 
 export const DotMenuIcon = styled(DotMenuIconBase)``;
 
-interface DotMenuToggleProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface DotMenuToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   isOpen?: boolean;
+  [key: `data-${string}`]: unknown;
 }
 
 const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps>(
@@ -54,9 +54,9 @@ const DotMenuToggleBase = React.forwardRef<HTMLButtonElement, DotMenuToggleProps
 
 export const DotMenuToggle = styled(DotMenuToggleBase)``;
 
-type DotMenuDropdownListProps = React.ComponentProps<typeof DropdownList> & {
+type DotMenuDropdownListProps = React.ComponentPropsWithoutRef<typeof DropdownList> & {
   rightAlign?: boolean;
-};
+}
 
 export function DotMenuDropdownList({ rightAlign, className, children, ...props }: DotMenuDropdownListProps) {
   return (
