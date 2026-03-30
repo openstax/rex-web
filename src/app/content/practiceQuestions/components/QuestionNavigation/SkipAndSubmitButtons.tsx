@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useDispatch } from 'react-redux';
-import { Button } from './index';
+import { Button } from './Button';
 import { finishQuestions, nextQuestion, setAnswer } from '../../actions';
 import { PracticeQuestion } from '../../types';
 

@@ -68,6 +68,7 @@ const Note = ({onChange, onFocus, note, textareaRef, edit = false}: Props) => {
         placeholder=''
         onKeyDown={escCb}
         className='note-textarea'
+        data-empty={note === '' ? 'true' : 'false'}
         style={{
           '--note-textarea-width': `${textareaWidth}rem`,
           '--card-padding': `${cardPadding}rem`,
