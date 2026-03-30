@@ -1,0 +1,151 @@
+/* Dropdown component styles */
+
+/* Keyframe animation for dropdown fade-in */
+@keyframes dropdown-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* DropdownToggle styles */
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+/* TabHiddenDropDown menu styles - applies to children that are not the toggle */
+.dropdown-menu {
+  animation: 100ms dropdown-fade-in ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--dropdown-form-border, #d5d5d5); /* theme.color.neutral.formBorder */
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+/* DropdownFocusWrapper styles */
+.dropdown-focus-wrapper {
+  overflow: visible;
+}
+
+/* DropdownList styles */
+.dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem 0;
+  background: var(--dropdown-form-background, #f5f5f5); /* theme.color.neutral.formBackground */
+  z-index: 1;
+}
+
+.dropdown-list li {
+  padding: 0.2rem;
+}
+
+.dropdown-list li button,
+.dropdown-list li a {
+  white-space: nowrap;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  padding-left: 0.8rem;
+  margin: 0;
+  height: 3rem;
+  background: none;
+  min-width: 7rem;
+  /* textStyle from Typography - using CSS variables */
+  font-family: var(--text-font-family, Helvetica, Arial, sans-serif);
+  font-weight: var(--text-font-weight, normal);
+  color: var(--dropdown-text-color, #424242); /* theme.color.text.default */
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.dropdown-list li button:focus,
+.dropdown-list li a:focus {
+  background: var(--dropdown-form-border, #d5d5d5); /* theme.color.neutral.formBorder */
+  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto -webkit-focus-ring-color;
+}
+
+/* Visually hidden utility classes */
+.dropdown-visually-hidden {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.dropdown-visually-shown {
+  height: unset;
+  width: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+/* TabTransparentDropdown focus-within behavior */
+/* Hide the second toggle by default */
+.dropdown-transparent .dropdown-toggle-second {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Show the second toggle when focus is within the wrapper */
+.dropdown-transparent .dropdown-focus-wrapper.focus-within + .dropdown-toggle-second,
+.dropdown-transparent .dropdown-focus-wrapper:focus-within + .dropdown-toggle-second {
+  height: unset;
+  width: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+/* Show the first toggle by default */
+.dropdown-transparent .dropdown-focus-wrapper > .dropdown-toggle {
+  height: unset;
+  width: unset;
+  clip: unset;
+  overflow: visible;
+}
+
+/* Hide the first toggle when focus is within the wrapper */
+.dropdown-transparent .dropdown-focus-wrapper.focus-within > .dropdown-toggle,
+.dropdown-transparent .dropdown-focus-wrapper:focus-within > .dropdown-toggle {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Menu positioning and animation for TabTransparentDropdown */
+.dropdown-transparent .dropdown-focus-wrapper > .dropdown-menu {
+  animation: 100ms dropdown-fade-in ease-out;
+  position: absolute;
+  box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--dropdown-form-border, #d5d5d5); /* theme.color.neutral.formBorder */
+  top: calc(100% + 0.4rem);
+  left: 0;
+}
+
+/* Hide the menu by default */
+.dropdown-transparent .dropdown-focus-wrapper > .dropdown-menu {
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Show the menu when focus is within the wrapper */
+.dropdown-transparent .dropdown-focus-wrapper.focus-within > .dropdown-menu,
+.dropdown-transparent .dropdown-focus-wrapper:focus-within > .dropdown-menu {
+  height: unset;
+  width: unset;
+  clip: unset;
+  overflow: visible;
+}
