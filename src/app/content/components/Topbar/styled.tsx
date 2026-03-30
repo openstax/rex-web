@@ -1,9 +1,6 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 import styled, { css } from 'styled-components/macro';
-import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
-import { Bars as Hamburger } from 'styled-icons/fa-solid/Bars';
-import { TimesCircle } from 'styled-icons/fa-solid/TimesCircle';
 import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
 import { decoratedLinkStyle, textRegularStyle, textStyle } from '../../../components/Typography';
@@ -31,6 +28,82 @@ import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { disablePrint } from '../utils/disablePrint';
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from '../utils/sidebar';
+
+interface IconProps extends React.SVGAttributes<SVGSVGElement> {
+  className?: string;
+}
+
+/**
+ * AngleLeft icon for Topbar component.
+ * SVG path from Font Awesome (https://fontawesome.com - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+function AngleLeftIconBase({ className, ...props }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 256 512"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+      />
+    </svg>
+  );
+}
+
+export const AngleLeftIcon = styled(AngleLeftIconBase)``;
+
+/**
+ * Hamburger icon for Topbar component.
+ * SVG path from Font Awesome (https://fontawesome.com - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+function HamburgerIconComponentBase({ className, ...props }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 448 512"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+      />
+    </svg>
+  );
+}
+
+const HamburgerIconComponent = styled(HamburgerIconComponentBase)``;
+
+/**
+ * TimesCircle icon for Topbar component.
+ * SVG path from Font Awesome (https://fontawesome.com - MIT License)
+ *
+ * Note: Wrapped with styled() to enable styled-components component selector references
+ */
+function TimesCircleIconBase({ className, ...props }: IconProps) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 512 512"
+      aria-hidden="true"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"
+      />
+    </svg>
+  );
+}
+
+const TimesCircleIcon = styled(TimesCircleIconBase)``;
 
 const hideSearchChrome = css`
   appearance: textfield;
@@ -72,7 +145,7 @@ export const TopBarWrapper = styled.div`
   ${disablePrint}
 `;
 
-export const HamburgerIcon = styled(Hamburger)`
+export const HamburgerIcon = styled(HamburgerIconComponent)`
   ${toolbarIconStyles}
 `;
 
@@ -135,7 +208,7 @@ export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) 
   `;
 
 export const CloseButton = styled(
-  ({ desktop, ...props }) => <PlainButton {...props}><TimesCircle /></PlainButton>
+  ({ desktop, ...props }) => <PlainButton {...props}><TimesCircleIcon /></PlainButton>
 )`
     > svg {
       ${closeIconStyles}
@@ -326,7 +399,7 @@ export const Hr = styled.hr`
   `)}
 `;
 
-export const LeftArrow = styled(AngleLeft)`
+export const LeftArrow = styled(AngleLeftIcon)`
   width: 2.5rem;
   height: 2.5rem;
 `;

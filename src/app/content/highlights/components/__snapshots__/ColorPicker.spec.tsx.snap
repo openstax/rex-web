@@ -1,17 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ColorPicker matches snapshot no selection 1`] = `
-.c4 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
-.c6 {
+.c5 {
   display: none;
 }
 
-.c8 {
+.c7 {
   display: none;
   position: absolute;
   height: 2.8rem;
@@ -26,7 +20,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border-radius: 50%;
 }
 
-.c9 {
+.c8 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -40,7 +34,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #fed200;
 }
 
-.c11 {
+.c10 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -54,7 +48,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #92d101;
 }
 
-.c13 {
+.c12 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -68,7 +62,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c15 {
+.c14 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -82,7 +76,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c17 {
+.c16 {
   height: 2.1999999999999997rem;
   width: 2.1999999999999997rem;
   background-color: transparent;
@@ -118,19 +112,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c2 .c5 {
+.c2 .c4 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c2 input:focus + .c7 {
+.c2 input:focus + .c6 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c10 {
+.c9 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -152,19 +146,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c10 .c5 {
+.c9 .c4 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c10 input:focus + .c7 {
+.c9 input:focus + .c6 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c12 {
+.c11 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -186,19 +180,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c12 .c5 {
+.c11 .c4 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c12 input:focus + .c7 {
+.c11 input:focus + .c6 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c14 {
+.c13 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -220,19 +214,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c14 .c5 {
+.c13 .c4 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c14 input:focus + .c7 {
+.c13 input:focus + .c6 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c16 {
+.c15 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -254,19 +248,19 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   overflow: visible;
 }
 
-.c16 .c5 {
+.c15 .c4 {
   height: 1.6rem;
   width: 1.6rem;
 }
 
-.c16 input:focus + .c7 {
+.c15 input:focus + .c6 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c18 img {
+.c17 img {
   height: 1.9rem;
   width: 1.9rem;
 }
@@ -354,11 +348,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5 c6"
-        fill="currentColor"
-        focusable="false"
+        className="c4 c5"
         viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -374,7 +365,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c7 c8"
+        className="c6 c7"
         style={
           Object {
             "focusBorder": "#8f7700",
@@ -385,7 +376,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c9"
+        className="c8"
         style={
           Object {
             "focusBorder": "#8f7700",
@@ -399,7 +390,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply green highlight"
       checked={false}
-      className="c10 c3"
+      className="c9 c3"
       component={<label />}
       style={
         Object {
@@ -413,11 +404,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5 c6"
-        fill="currentColor"
-        focusable="false"
+        className="c4 c5"
         viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -433,7 +421,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c7 c8"
+        className="c6 c7"
         style={
           Object {
             "focusBorder": "#4e6f01",
@@ -444,7 +432,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c11"
+        className="c10"
         style={
           Object {
             "focusBorder": "#4e6f01",
@@ -458,7 +446,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply blue highlight"
       checked={false}
-      className="c12 c3"
+      className="c11 c3"
       component={<label />}
       style={
         Object {
@@ -472,11 +460,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5 c6"
-        fill="currentColor"
-        focusable="false"
+        className="c4 c5"
         viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -492,7 +477,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c7 c8"
+        className="c6 c7"
         style={
           Object {
             "focusBorder": "#006880",
@@ -503,7 +488,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c13"
+        className="c12"
         style={
           Object {
             "focusBorder": "#006880",
@@ -517,7 +502,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply purple highlight"
       checked={false}
-      className="c14 c3"
+      className="c13 c3"
       component={<label />}
       style={
         Object {
@@ -531,11 +516,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5 c6"
-        fill="currentColor"
-        focusable="false"
+        className="c4 c5"
         viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -551,7 +533,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c7 c8"
+        className="c6 c7"
         style={
           Object {
             "focusBorder": "#141a3e",
@@ -562,7 +544,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c15"
+        className="c14"
         style={
           Object {
             "focusBorder": "#141a3e",
@@ -576,7 +558,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     <label
       aria-label="Apply pink highlight"
       checked={false}
-      className="c16 c3"
+      className="c15 c3"
       component={<label />}
       style={
         Object {
@@ -590,11 +572,8 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c4 c5 c6"
-        fill="currentColor"
-        focusable="false"
+        className="c4 c5"
         viewBox="0 0 512 512"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
@@ -610,7 +589,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         type="radio"
       />
       <span
-        className="c7 c8"
+        className="c6 c7"
         style={
           Object {
             "focusBorder": "#560131",
@@ -621,7 +600,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
         }
       />
       <span
-        className="c17"
+        className="c16"
         style={
           Object {
             "focusBorder": "#560131",
@@ -635,7 +614,7 @@ exports[`ColorPicker matches snapshot no selection 1`] = `
   </fieldset>
   <button
     aria-label="Deselect current highlight color"
-    className="c18"
+    className="c17"
     onClick={[MockFunction]}
     type="button"
   >
