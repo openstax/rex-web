@@ -2,12 +2,6 @@
 
 exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book tree 1`] = `
 .c2 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c3 {
   height: 2.5rem;
   width: 2.5rem;
   margin-top: 0.1rem;
@@ -97,14 +91,12 @@ exports[`PrevNextBar renders \`null\` when passed a page that isn't in the book 
     Next
     <svg
       aria-hidden="true"
-      className="c2 c3"
-      fill="currentColor"
-      focusable="false"
+      className="c2"
       viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+        d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+        fill="currentColor"
       />
     </svg>
   </a>
@@ -115,17 +107,11 @@ exports[`PrevNextBar renders \`null\` with no page or book 1`] = `null`;
 
 exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 .c2 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c3 {
   height: 2.5rem;
   width: 2.5rem;
 }
 
-.c5 {
+.c4 {
   height: 2.5rem;
   width: 2.5rem;
   margin-top: 0.1rem;
@@ -145,15 +131,15 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   color: #0064A0;
 }
 
-.c4 {
+.c3 {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c4:hover,
-.c4:focus {
+.c3:hover,
+.c3:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
@@ -199,7 +185,7 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c4 {
+  .c3 {
     margin-right: -0.8rem;
   }
 }
@@ -231,21 +217,19 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="c2 c3"
-      fill="currentColor"
-      focusable="false"
+      className="c2"
       viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        fill="currentColor"
       />
     </svg>
     Previous
   </a>
   <a
     aria-label="Next Page"
-    className="c4"
+    className="c3"
     data-analytics-label="next"
     data-testid="content-link-test"
     href="books/book-slug-1/pages/4-test-page-5"
@@ -254,14 +238,12 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
     Next
     <svg
       aria-hidden="true"
-      className="c2 c5"
-      fill="currentColor"
-      focusable="false"
+      className="c4"
       viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+        d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+        fill="currentColor"
       />
     </svg>
   </a>
@@ -270,12 +252,6 @@ exports[`PrevNextBar renders correctly when you pass a page and book 1`] = `
 
 exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 .c2 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c3 {
   height: 2.5rem;
   width: 2.5rem;
   margin-top: 0.1rem;
@@ -365,14 +341,12 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
     Next
     <svg
       aria-hidden="true"
-      className="c2 c3"
-      fill="currentColor"
-      focusable="false"
+      className="c2"
       viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M10.707 17.707L16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+        d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"
+        fill="currentColor"
       />
     </svg>
   </a>
@@ -381,12 +355,6 @@ exports[`PrevNextBar renders only \`next\` element correctly 1`] = `
 
 exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
 .c2 {
-  display: inline-block;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-.c3 {
   height: 2.5rem;
   width: 2.5rem;
 }
@@ -471,14 +439,12 @@ exports[`PrevNextBar renders only \`prev\` element correctly 1`] = `
   >
     <svg
       aria-hidden="true"
-      className="c2 c3"
-      fill="currentColor"
-      focusable="false"
+      className="c2"
       viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M13.293 6.293L7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
+        fill="currentColor"
       />
     </svg>
     Previous

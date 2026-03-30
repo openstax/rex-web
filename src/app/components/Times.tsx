@@ -1,5 +1,13 @@
 import React from 'react';
 
+/**
+ * Times/Close icon component - Custom 15x15px icon for UI close buttons.
+ *
+ * Usage: Use this icon for close buttons in UI components like modals, toasts, sidebars,
+ * and navigation. This is the original custom icon used throughout the application.
+ *
+ * For content components that were migrated from styled-icons, use components/icons/Times.tsx (TimesIcon) instead.
+ */
 const SvgComponent = (props: React.HTMLAttributes<SVGElement>) => (
   <svg width='15px' height='15px' viewBox='0 0 15 15' version='1.1' {...props}>
     <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>

@@ -1,12 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
-.c8 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c7 {
   cursor: pointer;
 }
@@ -26,7 +20,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
   position: relative;
 }
 
-.c9 {
+.c8 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -163,12 +157,9 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="c8 c9"
+            className="c8"
             direction="down"
-            fill="currentColor"
-            focusable="false"
             viewBox="0 0 320 512"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -183,12 +174,6 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
 `;
 
 exports[`Filters ChapterFilter matches snapshot when open with selected section 1`] = `
-.c8 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c7 {
   cursor: pointer;
 }
@@ -208,7 +193,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   position: relative;
 }
 
-.c20 {
+.c19 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -216,7 +201,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   padding-top: 0.2rem;
 }
 
-.c10 {
+.c9 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -229,13 +214,13 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   padding-bottom: 0.2rem;
 }
 
-.c12 {
+.c11 {
   padding: 0;
   border: none;
   margin: 0;
 }
 
-.c12 legend {
+.c11 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -326,7 +311,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   max-height: calc(100vh - 26rem);
 }
 
-.c13 {
+.c12 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -336,7 +321,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   flex-direction: row;
 }
 
-.c14 {
+.c13 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -350,7 +335,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   padding: 0;
 }
 
-.c19 {
+.c18 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -362,51 +347,51 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   margin-left: 0.8rem;
 }
 
-.c19 > * {
+.c18 > * {
   overflow: hidden;
 }
 
-.c19 .os-text {
+.c18 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-overflow: ellipsis;
 }
 
-.c19 .os-divider {
+.c18 .os-divider {
   margin: 0 0.4rem;
 }
 
-.c16 {
+.c15 {
   width: 400px;
   border-bottom: 1px solid #d5d5d5;
   overflow: visible;
 }
 
-.c17 {
+.c16 {
   display: block;
   width: 100%;
   padding: 1rem 1.6rem;
   text-align: left;
 }
 
-.c17 .c18 {
+.c16 .c17 {
   float: left;
   margin-left: 0;
   text-align: left;
 }
 
-.c17 .c9 {
+.c16 .c8 {
   float: right;
 }
 
-.c17::after {
+.c16::after {
   content: "";
   display: table;
   clear: both;
 }
 
-.c22 {
+.c21 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -422,26 +407,26 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   color: #424242;
 }
 
-.c22[aria-current="true"] {
+.c21[aria-current="true"] {
   color: #027EB5;
 }
 
-.c22:hover,
-.c22:focus {
+.c21:hover,
+.c21:focus {
   background-color: #f1f1f1;
   color: #0064A0;
 }
 
-.c22 .c18 {
+.c21 .c17 {
   padding-left: 2.5rem;
   width: 95%;
 }
 
-.c21 {
+.c20 {
   overflow: visible;
 }
 
-.c11 {
+.c10 {
   color: #424242;
   background: #fff;
   font-size: 1.4rem;
@@ -452,19 +437,19 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   padding: 0;
 }
 
-.c11 .c23 {
+.c10 .c22 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c11 .c24 {
+.c10 .c23 {
   padding: 0.8rem;
 }
 
-.c11 .c25 {
+.c10 .c24 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c11 .c15:last-child {
+.c10 .c14:last-child {
   border-bottom: none;
 }
 
@@ -504,7 +489,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 }
 
 @media screen and (max-width:75em) {
-  .c13 {
+  .c12 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -513,13 +498,13 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 }
 
 @media screen and (max-width:30em) {
-  .c16 {
+  .c15 {
     width: 100%;
   }
 }
 
 @media screen and (max-width:30em) {
-  .c11 {
+  .c10 {
     width: calc(100vw - 1.6rem);
   }
 }
@@ -547,12 +532,9 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="c8 c9 c10"
+            className="c8 c9"
             direction="up"
-            fill="currentColor"
-            focusable="false"
             viewBox="0 0 320 512"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -562,35 +544,35 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
         </div>
       </button>
       <div
-        className="c11"
+        className="c10"
         id="practice-filter-chapter"
         tabIndex={-1}
       >
         <fieldset
-          className="c12"
+          className="c11"
         >
           <legend>
             Filter by chapters
           </legend>
           <div
-            className="c13"
+            className="c12"
           >
             <ul
               aria-label="Filter by chapters"
-              className="c14"
+              className="c13"
             >
               <li>
                 <div
-                  className="c15 c16"
+                  className="c14 c15"
                 >
                   <button
                     aria-controls="practice-filter-chapter-content-testbook1-testchapter1-uuid"
                     aria-expanded={false}
-                    className="plain-button c17"
+                    className="plain-button c16"
                     onClick={[Function]}
                   >
                     <span
-                      className="c18 c19"
+                      className="c17 c18"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "chapterId",
@@ -599,12 +581,9 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                     />
                     <svg
                       aria-hidden="true"
-                      className="c8 c9 c20"
+                      className="c8 c19"
                       direction="down"
-                      fill="currentColor"
-                      focusable="false"
                       viewBox="0 0 320 512"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -614,18 +593,18 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                   </button>
                   <div
                     aria-hidden={true}
-                    className="c21"
+                    className="c20"
                     hidden={true}
                     id="practice-filter-chapter-content-testbook1-testchapter1-uuid"
                   >
                     <button
                       aria-label="Select Practice Questions by  section1"
-                      className="plain-button c22"
+                      className="plain-button c21"
                       data-analytics-label="Filter PQ by  section1"
                       onClick={[Function]}
                     >
                       <span
-                        className="c18 c19"
+                        className="c17 c18"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "section1",
@@ -635,12 +614,12 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                     </button>
                     <button
                       aria-label="Select Practice Questions by  section2"
-                      className="plain-button c22"
+                      className="plain-button c21"
                       data-analytics-label="Filter PQ by  section2"
                       onClick={[Function]}
                     >
                       <span
-                        className="c18 c19"
+                        className="c17 c18"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "section2",
@@ -653,16 +632,16 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
               </li>
               <li>
                 <div
-                  className="c15 c16"
+                  className="c14 c15"
                 >
                   <button
                     aria-controls="practice-filter-chapter-content-testbook1-testchapter2-uuid"
                     aria-expanded={true}
-                    className="plain-button c17"
+                    className="plain-button c16"
                     onClick={[Function]}
                   >
                     <span
-                      className="c18 c19"
+                      className="c17 c18"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "chapterId2",
@@ -671,12 +650,9 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                     />
                     <svg
                       aria-hidden="true"
-                      className="c8 c9 c10"
+                      className="c8 c9"
                       direction="up"
-                      fill="currentColor"
-                      focusable="false"
                       viewBox="0 0 320 512"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -686,19 +662,19 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
                   </button>
                   <div
                     aria-hidden={false}
-                    className="c21"
+                    className="c20"
                     hidden={false}
                     id="practice-filter-chapter-content-testbook1-testchapter2-uuid"
                   >
                     <button
                       aria-current="true"
                       aria-label="Select Practice Questions by  section21"
-                      className="plain-button c22"
+                      className="plain-button c21"
                       data-analytics-label="Filter PQ by  section21"
                       onClick={[Function]}
                     >
                       <span
-                        className="c18 c19"
+                        className="c17 c18"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "section21",
@@ -719,12 +695,6 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
 `;
 
 exports[`Filters ChapterFilter matches snapshot when open without selected section 1`] = `
-.c8 {
-  display: inline-block;
-  vertical-align: -.125em;
-  overflow: hidden;
-}
-
 .c7 {
   cursor: pointer;
 }
@@ -744,7 +714,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   position: relative;
 }
 
-.c20 {
+.c19 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -752,7 +722,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   padding-top: 0.2rem;
 }
 
-.c10 {
+.c9 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -765,13 +735,13 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   padding-bottom: 0.2rem;
 }
 
-.c12 {
+.c11 {
   padding: 0;
   border: none;
   margin: 0;
 }
 
-.c12 legend {
+.c11 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -862,7 +832,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   max-height: calc(100vh - 26rem);
 }
 
-.c13 {
+.c12 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -872,7 +842,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   flex-direction: row;
 }
 
-.c14 {
+.c13 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -886,7 +856,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   padding: 0;
 }
 
-.c19 {
+.c18 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -898,51 +868,51 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   margin-left: 0.8rem;
 }
 
-.c19 > * {
+.c18 > * {
   overflow: hidden;
 }
 
-.c19 .os-text {
+.c18 .os-text {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
   text-overflow: ellipsis;
 }
 
-.c19 .os-divider {
+.c18 .os-divider {
   margin: 0 0.4rem;
 }
 
-.c16 {
+.c15 {
   width: 400px;
   border-bottom: 1px solid #d5d5d5;
   overflow: visible;
 }
 
-.c17 {
+.c16 {
   display: block;
   width: 100%;
   padding: 1rem 1.6rem;
   text-align: left;
 }
 
-.c17 .c18 {
+.c16 .c17 {
   float: left;
   margin-left: 0;
   text-align: left;
 }
 
-.c17 .c9 {
+.c16 .c8 {
   float: right;
 }
 
-.c17::after {
+.c16::after {
   content: "";
   display: table;
   clear: both;
 }
 
-.c22 {
+.c21 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -958,26 +928,26 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   color: #424242;
 }
 
-.c22[aria-current="true"] {
+.c21[aria-current="true"] {
   color: #027EB5;
 }
 
-.c22:hover,
-.c22:focus {
+.c21:hover,
+.c21:focus {
   background-color: #f1f1f1;
   color: #0064A0;
 }
 
-.c22 .c18 {
+.c21 .c17 {
   padding-left: 2.5rem;
   width: 95%;
 }
 
-.c21 {
+.c20 {
   overflow: visible;
 }
 
-.c11 {
+.c10 {
   color: #424242;
   background: #fff;
   font-size: 1.4rem;
@@ -988,19 +958,19 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   padding: 0;
 }
 
-.c11 .c23 {
+.c10 .c22 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c11 .c24 {
+.c10 .c23 {
   padding: 0.8rem;
 }
 
-.c11 .c25 {
+.c10 .c24 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c11 .c15:last-child {
+.c10 .c14:last-child {
   border-bottom: none;
 }
 
@@ -1040,7 +1010,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
 }
 
 @media screen and (max-width:75em) {
-  .c13 {
+  .c12 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -1049,13 +1019,13 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
 }
 
 @media screen and (max-width:30em) {
-  .c16 {
+  .c15 {
     width: 100%;
   }
 }
 
 @media screen and (max-width:30em) {
-  .c11 {
+  .c10 {
     width: calc(100vw - 1.6rem);
   }
 }
@@ -1083,12 +1053,9 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
           Chapter & Section
           <svg
             aria-hidden="true"
-            className="c8 c9 c10"
+            className="c8 c9"
             direction="up"
-            fill="currentColor"
-            focusable="false"
             viewBox="0 0 320 512"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -1098,35 +1065,35 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
         </div>
       </button>
       <div
-        className="c11"
+        className="c10"
         id="practice-filter-chapter"
         tabIndex={-1}
       >
         <fieldset
-          className="c12"
+          className="c11"
         >
           <legend>
             Filter by chapters
           </legend>
           <div
-            className="c13"
+            className="c12"
           >
             <ul
               aria-label="Filter by chapters"
-              className="c14"
+              className="c13"
             >
               <li>
                 <div
-                  className="c15 c16"
+                  className="c14 c15"
                 >
                   <button
                     aria-controls="practice-filter-chapter-content-testbook1-testchapter1-uuid"
                     aria-expanded={false}
-                    className="plain-button c17"
+                    className="plain-button c16"
                     onClick={[Function]}
                   >
                     <span
-                      className="c18 c19"
+                      className="c17 c18"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "chapterId",
@@ -1135,12 +1102,9 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                     />
                     <svg
                       aria-hidden="true"
-                      className="c8 c9 c20"
+                      className="c8 c19"
                       direction="down"
-                      fill="currentColor"
-                      focusable="false"
                       viewBox="0 0 320 512"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -1150,18 +1114,18 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                   </button>
                   <div
                     aria-hidden={true}
-                    className="c21"
+                    className="c20"
                     hidden={true}
                     id="practice-filter-chapter-content-testbook1-testchapter1-uuid"
                   >
                     <button
                       aria-label="Select Practice Questions by  section1"
-                      className="plain-button c22"
+                      className="plain-button c21"
                       data-analytics-label="Filter PQ by  section1"
                       onClick={[Function]}
                     >
                       <span
-                        className="c18 c19"
+                        className="c17 c18"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "section1",
@@ -1171,12 +1135,12 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                     </button>
                     <button
                       aria-label="Select Practice Questions by  section2"
-                      className="plain-button c22"
+                      className="plain-button c21"
                       data-analytics-label="Filter PQ by  section2"
                       onClick={[Function]}
                     >
                       <span
-                        className="c18 c19"
+                        className="c17 c18"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "section2",
@@ -1189,16 +1153,16 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
               </li>
               <li>
                 <div
-                  className="c15 c16"
+                  className="c14 c15"
                 >
                   <button
                     aria-controls="practice-filter-chapter-content-testbook1-testchapter2-uuid"
                     aria-expanded={false}
-                    className="plain-button c17"
+                    className="plain-button c16"
                     onClick={[Function]}
                   >
                     <span
-                      className="c18 c19"
+                      className="c17 c18"
                       dangerouslySetInnerHTML={
                         Object {
                           "__html": "chapterId2",
@@ -1207,12 +1171,9 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                     />
                     <svg
                       aria-hidden="true"
-                      className="c8 c9 c20"
+                      className="c8 c19"
                       direction="down"
-                      fill="currentColor"
-                      focusable="false"
                       viewBox="0 0 320 512"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
@@ -1222,18 +1183,18 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
                   </button>
                   <div
                     aria-hidden={true}
-                    className="c21"
+                    className="c20"
                     hidden={true}
                     id="practice-filter-chapter-content-testbook1-testchapter2-uuid"
                   >
                     <button
                       aria-label="Select Practice Questions by  section21"
-                      className="plain-button c22"
+                      className="plain-button c21"
                       data-analytics-label="Filter PQ by  section21"
                       onClick={[Function]}
                     >
                       <span
-                        className="c18 c19"
+                        className="c17 c18"
                         dangerouslySetInnerHTML={
                           Object {
                             "__html": "section21",
