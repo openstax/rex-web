@@ -6,7 +6,6 @@ import shutil
 import zipfile
 import textwrap
 
-from collections import OrderedDict
 from deepdiff import DeepDiff
 
 import docx2txt
