@@ -11,6 +11,7 @@
  */
 button {
   border: unset;
+  background: none;
 }
 
 /* Base button styles */
@@ -133,9 +134,7 @@ button {
 .plain-button {
   cursor: pointer;
   padding: 0;
-  background: none;
-  /* Note: border and margin are intentionally not reset because they override styled-components wrappers */
-  /* Default button borders are unset globally */
+  /* Note: border, background, and margin are intentionally not reset because they override styled-components wrappers */
 }
 
 /* ButtonLink - button styled as a link */
