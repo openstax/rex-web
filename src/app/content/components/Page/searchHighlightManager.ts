@@ -99,18 +99,30 @@ const handleUpdate = (services: Services) => (
   selectResult(services, previous, current, options);
 };
 
+const createHighlighter = (container: HTMLElement, intl: IntlShape) =>
+  new Highlighter(container, {
+    className: 'search-highlight',
+    formatMessage: ({ id }) => intl.formatMessage({ id: `${id}:search` }),
+    tabbable: false,
+  });
+
 const searchHighlightManager = (container: HTMLElement, intl: IntlShape) => {
-  const services = {
+  const services: Services = {
     container,
-    highlighter: new Highlighter(container, {
-      className: 'search-highlight',
-      formatMessage: ({ id }) => intl.formatMessage({ id: `${id}:search` }),
-      tabbable: false,
-    }),
+    highlighter: createHighlighter(container, intl),
     searchResultMap: [],
   };
 
   return {
+    // Replace the Highlighter instance without trying to unwrap orphaned DOM
+    // nodes. Call this after user highlight changes have already removed or
+    // restructured the shared DOM — the old search highlight spans are gone,
+    // so we just need to forget about them and re-highlight from scratch.
+    resetHighlighter: () => {
+      services.highlighter.unmount();
+      services.highlighter = createHighlighter(container, intl);
+      services.searchResultMap = [];
+    },
     unmount: () => services.highlighter.unmount(),
     update: handleUpdate(services),
   };
@@ -119,6 +131,7 @@ const searchHighlightManager = (container: HTMLElement, intl: IntlShape) => {
 export default searchHighlightManager;
 
 export const stubManager: ReturnType<typeof searchHighlightManager> = {
+  resetHighlighter: (): void => undefined,
   unmount: (): void => undefined,
   update: (): void => undefined,
 };

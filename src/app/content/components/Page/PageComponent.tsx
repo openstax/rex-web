@@ -152,6 +152,15 @@ export default class PageComponent extends Component<PagePropTypes> {
       onSelect: this.onHighlightSelect,
     });
 
+    // When user highlights were added or removed, the shared DOM has been
+    // restructured and the search Highlighter's tracked elements may now be
+    // detached. Replace the instance entirely — the orphaned spans are already
+    // gone so there is nothing to unwrap, and a fresh highlighter will
+    // re-highlight from the current DOM state.
+    if (highlightsAddedOrRemoved) {
+      this.searchHighlightManager.resetHighlighter();
+    }
+
     this.searchHighlightManager.update(prevProps.searchHighlights, this.props.searchHighlights, {
       forceRedraw: highlightsAddedOrRemoved,
       onSelect: this.onSearchHighlightSelect,
