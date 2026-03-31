@@ -2,17 +2,6 @@
  * Migrated from styled-components to plain CSS as part of Phase 2.1
  */
 
-/*
- * Global button border reset
- *
- * Putting this on plain-button did not work right because when (not-yet-converted)
- * styled components had borders, the plain-border spec would override them.
- * The need for this may go away when migration from styled-components is complete.
- */
-button {
-  border: unset;
-}
-
 /* Base button styles */
 .button {
   display: flex;
@@ -129,20 +118,18 @@ button {
   box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
 }
 
-/* PlainButton - unstyled button base */
-.plain-button {
+/* PlainButton - unstyled button base, minimal specificity */
+:where(.plain-button) {
   cursor: pointer;
   padding: 0;
+  border: unset;
   background: none;
-  /* Note: border and margin are intentionally not reset because they override styled-components wrappers */
-  /* Default button borders are unset globally */
 }
 
 /* ButtonLink - button styled as a link */
 .button-link {
   outline: none;
   font-size: 1.6rem;
-  line-height: 2.5rem;
   color: var(--link-color, #027EB5);
   cursor: pointer;
   text-decoration: underline;
