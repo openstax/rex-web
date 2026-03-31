@@ -334,6 +334,14 @@ class HomeRex:
             .is_visible()
         )
 
+    @pytest.mark.asyncio
+    async def audiobook_link_is_visible(self):
+        return await self.page.get_by_role("heading", name="Audiobook").is_visible()
+
+    @property
+    def audiobook_link_purchase_options(self):
+        return self.page.get_by_role("link", name="Purchase options")
+
     # Accessibility page (hidden link: go to accessibility page)
 
     @property

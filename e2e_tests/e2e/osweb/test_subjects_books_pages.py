@@ -39,3 +39,24 @@ async def test_subjects_books_pages_load(chrome_page_unlogged, base_url):
             mod_hrefs = mhrefs.replace("-", " ")
 
             assert await home.subjects_title() in mod_hrefs
+
+
+@pytest.mark.asyncio
+async def test_book_title_links_to_books_detail_page(chrome_page_unlogged, base_url):
+
+    # GIVEN: Playwright, chromium and the rex_base_url
+
+    # WHEN: The Home page is fully loaded
+    await chrome_page_unlogged.goto(f"{base_url}/subjects")
+    home = HomeRex(chrome_page_unlogged)
+
+    await chrome_page_unlogged.keyboard.press("Escape")
+
+    assert await home.subject_listing_book_is_visible()
+
+    await home.click_subject_listing_book()
+
+    await home.click_book_selection()
+
+    # THEN: The page navigates to {base_url}/details/books/astronomy-2e
+    assert "astronomy" in chrome_page_unlogged.url.lower()
