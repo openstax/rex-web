@@ -134,3 +134,11 @@
   clip: unset;
   overflow: visible;
 }
+
+/* TextResizerMenu customization for dropdown-menu */
+.dropdown-menu.text-resizer-menu {
+  background: #fff;
+  right: 0;
+  left: auto;
+  top: calc(100% - 1px);
+}

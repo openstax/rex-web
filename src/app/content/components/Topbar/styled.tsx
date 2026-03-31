@@ -472,14 +472,6 @@ const tickMarkCss = css`
 
 export const TextResizerMenu = styled.div`
   color: ${theme.color.primary.gray.base};
-
-  && {
-    background: #fff;
-    right: 0;
-    left: auto;
-    top: calc(100% - 1px);
-  }
-
   text-align: left;
   font-weight: bold;
 

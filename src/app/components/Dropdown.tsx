@@ -52,6 +52,7 @@ interface ControlledProps {
 interface Props {
   toggle: React.ReactNode;
   className?: string;
+  menuClassName?: string;
   onToggle?: () => void;
 }
 
@@ -83,7 +84,7 @@ type TabHiddenProps = React.PropsWithChildren<Props | Props & ControlledProps>;
 
 // Plain React component for TabHiddenDropDown
 const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
-  {toggle, children, className, onToggle, ...props}, ref
+  {toggle, children, className, menuClassName, onToggle, ...props}, ref
 ) => {
   const {isOpen, setOpen} = useIsOpen(props);
   const container = React.useRef<HTMLElement>(null);
@@ -111,13 +112,13 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
       }}
       isOpen={isOpen}
     />
-    {(isOpen) && <div className="dropdown-menu">{children}</div>}
+    {(isOpen) && <div className={classNames('dropdown-menu', menuClassName)}>{children}</div>}
   </div>;
 });
 
 // Plain React component for TabTransparentDropdown
 const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<Props>>((
-  {toggle, children, className}, ref
+  {toggle, children, className, menuClassName}, ref
 ) => {
   const [isFocusWithin, setIsFocusWithin] = React.useState(false);
 
@@ -140,7 +141,7 @@ const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChil
       onBlur={handleFocusOut}
     >
       <DropdownToggle tabIndex={0} component={toggle} />
-      <div className="dropdown-menu">{children}</div>
+      <div className={classNames('dropdown-menu', menuClassName)}>{children}</div>
     </DropdownFocusWrapper>
     <DropdownToggle className="dropdown-toggle-second" tabIndex={0} component={toggle} />
   </div>;
