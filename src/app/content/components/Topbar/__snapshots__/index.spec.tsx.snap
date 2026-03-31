@@ -722,32 +722,18 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   display: contents;
 }
 
-.c17 {
-  cursor: pointer;
-}
-
-.c12 > *:not(.c16) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c13 {
+.c12 {
   overflow: visible;
   position: relative;
 }
 
-.c26 {
+.c23 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c26 > div {
+.c23 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -770,7 +756,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   justify-content: flex-end;
 }
 
-.c15 {
+.c14 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
@@ -783,7 +769,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   border-right: 0.1rem solid #d5d5d5;
 }
 
-.c15 > div {
+.c14 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -962,7 +948,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   color: #6f6f6f;
 }
 
-.c25 {
+.c22 {
   color: #424242;
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -978,29 +964,29 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   appearance: textfield;
 }
 
-.c25::-webkit-search-decoration,
-.c25::-webkit-search-cancel-button,
-.c25::-webkit-search-results-button,
-.c25::-webkit-search-results-decoration {
+.c22::-webkit-search-decoration,
+.c22::-webkit-search-cancel-button,
+.c22::-webkit-search-results-button,
+.c22::-webkit-search-results-decoration {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   display: none;
 }
 
-.c25::-webkit-input-placeholder {
+.c22::-webkit-input-placeholder {
   color: #6f6f6f;
 }
 
-.c25::-moz-placeholder {
+.c22::-moz-placeholder {
   color: #6f6f6f;
 }
 
-.c25:-ms-input-placeholder {
+.c22:-ms-input-placeholder {
   color: #6f6f6f;
 }
 
-.c25::placeholder {
+.c22::placeholder {
   color: #6f6f6f;
 }
 
@@ -1028,7 +1014,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
-.c22 {
+.c19 {
   max-width: 128rem;
   margin: 0 auto;
   width: calc(100% - 3.2rem * 2);
@@ -1038,7 +1024,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   height: 3.2rem;
 }
 
-.c20 {
+.c17 {
   display: none;
   overflow: visible;
   height: 5.3rem;
@@ -1046,50 +1032,50 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
 }
 
-.c21 {
+.c18 {
   border: none;
   border-top: 0.1rem solid #efeff1;
   display: none;
   margin: 0;
 }
 
-.c24 {
+.c21 {
   white-space: nowrap;
   margin-right: 1rem;
   text-align: left;
 }
 
-.c14 {
+.c13 {
   z-index: 3;
 }
 
-.c14 > button {
+.c13 > button {
   max-height: 5.2rem;
 }
 
-.c14 > button > div {
+.c13 > button > div {
   padding: 1.4rem;
 }
 
-.c18 {
+.c15 {
   color: #5e6062;
   text-align: left;
   font-weight: bold;
 }
 
-.c18.c18 {
+.c15.c15 {
   background: #fff;
   right: 0;
   left: auto;
   top: calc(100% - 1px);
 }
 
-.c18 label {
+.c15 label {
   padding: 1.6rem 1.6rem 0;
   display: block;
 }
 
-.c18 .controls {
+.c15 .controls {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1100,12 +1086,12 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   align-items: center;
 }
 
-.c18 .controls > button {
+.c15 .controls > button {
   height: 4rem;
   width: 4.8rem;
 }
 
-.c18 .controls input {
+.c15 .controls input {
   -webkit-appearance: none;
   -moz-appearance: none;
   background: linear-gradient( to right, #002468  calc( (0 - -2) * 100 / (3 - -2) * 1% ) , #888888  calc( (0 - -2) * 100 / (3 - -2) * 1% )  );
@@ -1116,8 +1102,8 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   cursor: pointer;
 }
 
-.c18 .controls input[type="range"]::-webkit-slider-runnable-track,
-.c18 .controls input[type="range"]::-moz-range-track {
+.c15 .controls input[type="range"]::-webkit-slider-runnable-track,
+.c15 .controls input[type="range"]::-moz-range-track {
   -webkit-appearance: none;
   -moz-appearance: none;
   box-shadow: none;
@@ -1126,12 +1112,12 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   background: repeating-linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0,0) 19%, #fff 19%, #fff 20%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 20% );
 }
 
-.c18 .controls input[type="range"]::-webkit-slider-runnable-track {
+.c15 .controls input[type="range"]::-webkit-slider-runnable-track {
   height: 0.2rem;
   background: repeating-linear-gradient( to right, rgba(0,0,0,0), rgba(0,0,0,0) 19%, #fff 19%, #fff 20%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 20% );
 }
 
-.c18 .controls input[type="range"]::-moz-range-thumb {
+.c15 .controls input[type="range"]::-moz-range-thumb {
   background: white;
   height: 1.5rem;
   width: 0.7rem;
@@ -1140,7 +1126,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   box-shadow: 0 2px 1px -1px rgba(0,0,0,0.04), 0 1px 1px 0 rgba(0,0,0,0.14), 0 1px 3px 0 rgba(0,0,0,0.12);
 }
 
-.c18 .controls input[type="range"]::-webkit-slider-thumb {
+.c15 .controls input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1155,11 +1141,11 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   margin-top: -6px;
 }
 
-.c19 {
+.c16 {
   margin: 0.2rem 0.6rem;
 }
 
-.c23 {
+.c20 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -1187,26 +1173,26 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   display: none;
 }
 
-.c23:hover,
-.c23:focus {
+.c20:hover,
+.c20:focus {
   color: #424242;
 }
 
-.c23:hover,
-.c23:focus {
+.c20:hover,
+.c20:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
 @media screen and (max-width:75em) {
-  .c26 > div {
+  .c23 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c15 > div {
+  .c14 > div {
     padding: 1rem 1.6rem;
   }
 }
@@ -1375,13 +1361,13 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c22 {
+  .c19 {
     width: calc(100% - 1.6rem * 2);
   }
 }
 
 @media screen and (max-width:75em) {
-  .c22 {
+  .c19 {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -1398,7 +1384,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:50em) {
-  .c22 {
+  .c19 {
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
     -ms-flex-pack: justify;
@@ -1407,41 +1393,41 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c20 {
+  .c17 {
     display: block;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c20 {
+  .c17 {
     padding-left: 0;
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c21 {
+  .c18 {
     display: block;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c14 {
+  .c13 {
     margin-left: 0;
     display: block;
   }
 
-  .c14 > button {
+  .c13 > button {
     max-height: 4.6rem;
   }
 
-  .c14 > button > div {
+  .c13 > button > div {
     padding: 0.9rem 1.5rem;
   }
 }
 
 @media screen and (max-width:50em) {
-  .c23 {
+  .c20 {
     display: block;
   }
 }
@@ -1566,13 +1552,13 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </form>
     <div
-      className="c12 c13 c14"
+      className="c12 c13"
     >
       <button
         aria-controls="text-resizer-menu"
         aria-expanded={true}
         aria-label="Change text size"
-        className="plain-button c15 c16 c17"
+        className="plain-button c14 dropdown-toggle "
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -1587,73 +1573,77 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </div>
       </button>
       <div
-        className="c18"
-        id="text-resizer-menu"
+        className="dropdown-menu"
       >
-        <label
-          id="text-resizer-label"
-        >
-          Text size
-        </label>
         <div
-          aria-labelledby="text-resizer-label"
-          className="controls"
-          role="group"
+          className="c15"
+          id="text-resizer-menu"
         >
-          <button
-            aria-label="Decrease text size"
-            className="c3 c19"
-            data-testid="decrease-text-size"
-            onClick={[Function]}
+          <label
+            id="text-resizer-label"
           >
-            <img
-              alt=""
-              aria-hidden="true"
-              src="text-size-decrease.svg"
-            />
-          </button>
-          <input
+            Text size
+          </label>
+          <div
             aria-labelledby="text-resizer-label"
-            data-testid="change-text-size"
-            max={3}
-            min={-2}
-            onChange={[Function]}
-            step="1"
-            type="range"
-            value={0}
-          />
-          <button
-            aria-label="Increase text size"
-            className="c3 c19"
-            data-testid="increase-text-size"
-            onClick={[Function]}
+            className="controls"
+            role="group"
           >
-            <img
-              alt=""
-              aria-hidden="true"
-              src="text-size-increase.svg"
+            <button
+              aria-label="Decrease text size"
+              className="c3 c16"
+              data-testid="decrease-text-size"
+              onClick={[Function]}
+            >
+              <img
+                alt=""
+                aria-hidden="true"
+                src="text-size-decrease.svg"
+              />
+            </button>
+            <input
+              aria-labelledby="text-resizer-label"
+              data-testid="change-text-size"
+              max={3}
+              min={-2}
+              onChange={[Function]}
+              step="1"
+              type="range"
+              value={0}
             />
-          </button>
+            <button
+              aria-label="Increase text size"
+              className="c3 c16"
+              data-testid="increase-text-size"
+              onClick={[Function]}
+            >
+              <img
+                alt=""
+                aria-hidden="true"
+                src="text-size-increase.svg"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div
-    className="c20"
+    className="c17"
   >
     <hr
-      className="c21"
+      className="c18"
     />
     <div
-      className="c22"
+      className="c19"
     >
       <button
-        className="c23"
+        className="c20"
         data-testid="close-search-results"
         onClick={[Function]}
       >
         <div
-          className="c24"
+          className="c21"
         >
           Close
         </div>
@@ -1667,7 +1657,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       >
         <input
           aria-label="Search this book"
-          className="c25"
+          className="c22"
           data-testid="mobile-search-input"
           onChange={[Function]}
           placeholder="Search this book"
@@ -1713,13 +1703,13 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         
       </form>
       <div
-        className="c12 c13 c14"
+        className="c12 c13"
       >
         <button
           aria-controls="text-resizer-menu"
           aria-expanded={false}
           aria-label="Change text size"
-          className="plain-button c26 c16 c17"
+          className="plain-button c23 dropdown-toggle "
           data-analytics-label="Change text size"
           onClick={[Function]}
         >
