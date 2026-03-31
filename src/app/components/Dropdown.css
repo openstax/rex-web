@@ -73,21 +73,6 @@
   outline: 0.2rem auto -webkit-focus-ring-color;
 }
 
-/* Visually hidden utility classes */
-.dropdown-visually-hidden {
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-}
-
-.dropdown-visually-shown {
-  height: unset;
-  width: unset;
-  clip: unset;
-  overflow: visible;
-}
-
 /* TabTransparentDropdown focus-within behavior */
 /* Hide the second toggle by default */
 .dropdown-transparent .dropdown-toggle-second {

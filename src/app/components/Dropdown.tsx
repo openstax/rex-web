@@ -26,17 +26,8 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
 // Plain React component for DropdownToggle, but wrapped with styled() for backward compatibility
 const DropdownToggleBase = React.forwardRef<HTMLElement, ToggleProps>(
   ({component, className, ...props}, ref) => {
-    // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
-    const safeProps = Object.keys(props).reduce((acc, key) => {
-      if (!key.startsWith('$')) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (acc as any)[key] = (props as any)[key];
-      }
-      return acc;
-    }, {} as Record<string, unknown>);
-
     return React.cloneElement(component, {
-      ...safeProps,
+      ...props,
       className: classNames('dropdown-toggle', className),
       ref,
     });
@@ -137,7 +128,7 @@ const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChil
   const handleFocusOut = React.useCallback((e: React.FocusEvent<HTMLDivElement>) => {
     // Check if the new focus target is still within this element
     const currentTarget = e.currentTarget as HTMLDivElement;
-    if (e.relatedTarget && !currentTarget.contains(e.relatedTarget as HTMLElement)) {
+    if (!e.relatedTarget || !currentTarget.contains(e.relatedTarget as HTMLElement)) {
       setIsFocusWithin(false);
     }
   }, []);
