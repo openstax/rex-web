@@ -59,7 +59,7 @@ export function LoginOrEdit({
               {children}
             </form>
           ) : (
-            <button type='button' onMouseDown={showCard}>
+            <button type='button' className='button-default' onMouseDown={showCard}>
               <FormattedMessage
                 id={
                   isNewSelection
