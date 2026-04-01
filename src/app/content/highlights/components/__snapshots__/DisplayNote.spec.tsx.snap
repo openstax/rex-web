@@ -32,10 +32,6 @@ exports[`DisplayNote matches snapshot 1`] = `
   margin: 1.2000000000000002rem 0 0 1.6rem;
 }
 
-.c0 .c5.c5 {
-  left: -4rem;
-}
-
 .c0 .c1 {
   position: absolute;
   top: 0.8rem;
@@ -184,10 +180,6 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   margin: 1.2000000000000002rem 0 0 1.6rem;
 }
 
-.c0 .c6.c6 {
-  left: -4rem;
-}
-
 .c0 .c1 {
   position: absolute;
   top: 0.8rem;
@@ -295,7 +287,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   position: relative;
 }
 
-.c5 {
+.c4 {
   color: #c5c5c5;
   height: 4.2rem;
   width: 4.2rem;
@@ -306,21 +298,17 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   right: 0;
 }
 
-.c6 .c4.c4 {
-  left: -4rem;
-}
-
-.c6 .c1 {
+.c5 .c1 {
   position: absolute;
   top: 0.8rem;
   right: -0.2rem;
 }
 
-.c6 .c1 .focus-within .c3 {
+.c5 .c1 .focus-within .c3 {
   color: #5e6062;
 }
 
-.c6 .c1:focus-within .c3 {
+.c5 .c1:focus-within .c3 {
   color: #5e6062;
 }
 
@@ -338,10 +326,6 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   font-size: 1.4rem;
   line-height: 2rem;
   margin: 1.2000000000000002rem 0 0 1.6rem;
-}
-
-.c0 .c4.c4 {
-  left: -4rem;
 }
 
 .c0 .c1 {
@@ -403,10 +387,10 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
       </div>
     </button>
     <div
-      className="dropdown-menu"
+      className="dropdown-menu display-note-menu"
     >
       <menu
-        className="dropdown-list c4 "
+        className="dropdown-list "
       >
         <li>
           <button
@@ -433,7 +417,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   </div>
   <svg
     aria-hidden="true"
-    className="c5"
+    className="c4"
     focusable="false"
     height="15px"
     onClick={[MockFunction]}

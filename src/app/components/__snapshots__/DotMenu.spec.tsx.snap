@@ -35,7 +35,7 @@ exports[`Dropdown matches snapshot 1`] = `
       </div>
     </button>
     <div
-      className="dropdown-menu"
+      className="dropdown-menu dot-menu-left-align"
     >
       <menu
         className="dropdown-list dot-menu-dropdown-list"
@@ -122,7 +122,7 @@ exports[`Dropdown matches snapshot on right align 1`] = `
       </div>
     </button>
     <div
-      className="dropdown-menu"
+      className="dropdown-menu dot-menu-right-align"
     >
       <menu
         className="dropdown-list dot-menu-dropdown-list dot-menu-right-align"
