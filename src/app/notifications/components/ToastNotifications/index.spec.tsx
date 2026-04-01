@@ -9,7 +9,6 @@ import { AppState, Store } from '../../../types';
 import { addToast, dismissNotification } from '../../actions';
 import { toastNotifications } from '../../selectors';
 import { toastMessageKeys } from './constants';
-import { BannerBodyWrapper, CloseButton } from './styles';
 import Toast from './Toast';
 
 jest.mock('react', () => {
@@ -69,31 +68,31 @@ describe('ToastNotifications', () => {
       <ToastNotifications />
     </TestContainer>);
 
-    expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(1);
+    expect(root.findAllByProps({'data-testid': 'banner-body'})).toHaveLength(1);
 
     renderer.act(() => {
       store.dispatch(addToast(secondNotificationMessage, {destination}));
     });
 
-    expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(2);
+    expect(root.findAllByProps({'data-testid': 'banner-body'})).toHaveLength(2);
 
     const [firstNotification, secondNotification] = toastNotifications(store.getState());
 
     renderer.act(() => {
       const firstNotificationNode = root.findByProps({notification: firstNotification});
-      firstNotificationNode.findByType(CloseButton).props.onClick();
+      firstNotificationNode.findByProps({'aria-label': 'dismiss'}).props.onClick();
     });
 
     expect(dispatch).toHaveBeenCalledWith(dismissNotification(firstNotification));
-    expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(1);
+    expect(root.findAllByProps({'data-testid': 'banner-body'})).toHaveLength(1);
 
     renderer.act(() => {
       const secondNotificationNode = root.findByProps({notification: secondNotification});
-      secondNotificationNode.findByType(CloseButton).props.onClick();
+      secondNotificationNode.findByProps({'aria-label': 'dismiss'}).props.onClick();
     });
 
     expect(dispatch).toHaveBeenCalledWith(dismissNotification(secondNotification));
-    expect(root.findAllByType(BannerBodyWrapper)).toHaveLength(0);
+    expect(root.findAllByProps({'data-testid': 'banner-body'})).toHaveLength(0);
   });
 
   it('sorts notification in descending order based on timestamp', () => {

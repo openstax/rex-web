@@ -176,17 +176,11 @@ export function ButtonGroup({
 
 export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
   function PlainButton({ className, ...props }, ref) {
-    // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
-    // Styled-components uses transient props for style-only props that shouldn't appear as HTML attributes
-    const safeProps = Object.keys(props).reduce((acc, key) => {
-      if (!key.startsWith('$')) {
-        acc[key] = props[key as keyof typeof props];
-      }
-      return acc;
-    }, {} as Record<string, unknown>) as React.ButtonHTMLAttributes<HTMLButtonElement>;
+    // PlainButton accepts only standard HTML button attributes
+    // It can be wrapped with styled-components for additional styling
     return (
       <button
-        {...safeProps}
+        {...props}
         ref={ref}
         className={classNames('plain-button', className)}
       />

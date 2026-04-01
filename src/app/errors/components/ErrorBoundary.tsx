@@ -2,18 +2,16 @@ import flow from 'lodash/fp/flow';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import styled from 'styled-components/macro';
 import Sentry from '../../../helpers/Sentry';
 import Footer from '../../components/Footer';
 import { supportCenterLink } from '../../components/Footer';
 import htmlMessage from '../../components/htmlMessage';
-import { bodyCopyRegularStyle } from '../../components/Typography';
 import { H2 } from '../../components/Typography';
-import theme from '../../theme';
 import { AppState, Dispatch } from '../../types';
 import { recordError } from '../actions';
 import { getMessageIdStack } from '../selectors';
 import ErrorIdList from './ErrorIdList';
+import './ErrorBoundary.css';
 
 interface Props {
   children: ReactNode;
@@ -26,20 +24,10 @@ interface State {
   error?: Error;
 }
 
-const ErrorWrapper = styled.div`
-  flex: 1;
-  margin: 3rem auto;
-  padding: 0 ${theme.padding.page.mobile}rem;
-`;
-
-const HeadingWrapper = styled.div`
-  text-align: center;
-  margin-top: 5rem;
-`;
-
-const BodyErrorText = styled.div`
-  ${bodyCopyRegularStyle};
-`;
+// Simple wrapper component to replace styled component
+const BodyErrorText: React.FC<React.HTMLAttributes<HTMLDivElement>> = (props) => (
+  <div {...props} className="body-error-text" />
+);
 
 const BodyWithLink = htmlMessage('i18n:error:boundary:body', BodyErrorText);
 
@@ -68,15 +56,15 @@ class ErrorBoundary extends React.Component<Props, State> {
   public render() {
     if (this.state.error) {
       return <React.Fragment>
-        <ErrorWrapper error={this.state.error}>
-          <HeadingWrapper>
+        <div className="error-wrapper">
+          <div className="heading-wrapper">
             <FormattedMessage id='i18n:error:boundary:sub-heading'>
               {(msg) => <H2>{msg}</H2>}
             </FormattedMessage>
-          </HeadingWrapper>
+          </div>
           <BodyWithLink values={{supportCenterLink}}/>
           <ErrorIdList ids={this.props.stack} />
-        </ErrorWrapper>
+        </div>
         <Footer />
       </React.Fragment>;
     }

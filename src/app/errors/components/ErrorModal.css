@@ -1,0 +1,7 @@
+/* ErrorModal Styles
+ * Migrated from styled-components to plain CSS (Phase 2.5)
+ */
+
+.error-modal .body-error-text {
+  padding: 1.5rem 0;
+}

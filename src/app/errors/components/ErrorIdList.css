@@ -1,0 +1,11 @@
+/* ErrorIdList Styles
+ * Migrated from styled-components to plain CSS (Phase 2.5)
+ */
+
+.error-id-list {
+  color: #424242;
+  font-size: 0.9rem;
+  line-height: 1.6rem;
+  font-weight: normal;
+  opacity: 0.6;
+}
