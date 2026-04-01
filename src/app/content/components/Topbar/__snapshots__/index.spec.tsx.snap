@@ -1063,13 +1063,6 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   font-weight: bold;
 }
 
-.c15.c15 {
-  background: #fff;
-  right: 0;
-  left: auto;
-  top: calc(100% - 1px);
-}
-
 .c15 label {
   padding: 1.6rem 1.6rem 0;
   display: block;
@@ -1573,7 +1566,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         </div>
       </button>
       <div
-        className="dropdown-menu"
+        className="dropdown-menu text-resizer-menu"
       >
         <div
           className="c15"
