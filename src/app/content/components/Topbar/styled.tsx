@@ -118,7 +118,7 @@ export function TopBarWrapper(
   return (
     <div
       {...props}
-      className={classNames('topbar-wrapper', 'topbar-shadow', disablePrintClass, className)}
+      className={classNames('topbar-wrapper', 'TopBarWrapper', 'topbar-shadow', disablePrintClass, className)}
       style={{
         '--topbar-top-desktop': `${bookBannerDesktopMiniHeight}rem`,
         '--topbar-top-mobile': `${bookBannerMobileMiniHeight}rem`,
@@ -321,6 +321,7 @@ export function SearchInputWrapper({
       {...props}
       className={classNames(
         'topbar-search-input-wrapper',
+        'SearchInputWrapper',
         {
           'topbar-search-input-wrapper--active': active,
           'topbar-search-input-wrapper--search-in-sidebar': searchInSidebar,
@@ -386,7 +387,7 @@ export function SearchInput({ desktop, mobile, autoFocus, className, style, ...p
       style={{
         '--search-input-height': `${toolbarSearchInputHeight}rem`,
         '--placeholder-color': theme.color.text.label,
-        ...textStyle,
+        '--text-color': theme.color.text.default,
         ...style,
       } as React.CSSProperties}
     />
@@ -448,7 +449,9 @@ export function MobileSearchContainer(
       style={{
         '--mobile-search-margin': `${mobileSearchContainerMargin}rem`,
         '--mobile-search-input-height': `${toolbarSearchInputMobileHeight}rem`,
-        ...barPadding,
+        '--max-nav-width': `${contentWrapperMaxWidth}rem`,
+        '--page-padding-desktop': `${theme.padding.page.desktop}rem`,
+        '--page-padding-mobile': `${theme.padding.page.mobile}rem`,
         ...style,
       } as React.CSSProperties}
     >

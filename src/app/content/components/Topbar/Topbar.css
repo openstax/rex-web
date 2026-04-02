@@ -52,8 +52,9 @@
 }
 
 .topbar-search-button > svg {
-  /* toolbarIconStyles will be applied */
+  /* Keep the icon vertically aligned and support the search icon color CSS variable. */
   vertical-align: middle;
+  color: var(--search-icon-color, currentColor);
 }
 
 .topbar-search-button--desktop {
@@ -137,6 +138,7 @@
   outline: none;
   width: 100%;
   appearance: textfield;
+  color: var(--text-color, #424242);
 }
 
 .topbar-search-input-field::placeholder {
@@ -171,6 +173,11 @@
   margin-top: var(--mobile-search-margin, 0.8rem);
   margin-bottom: var(--mobile-search-margin, 0.8rem);
   height: var(--mobile-search-input-height, 4.8rem);
+  /* barPadding styles */
+  max-width: var(--max-nav-width, 120rem);
+  margin-left: auto;
+  margin-right: auto;
+  width: calc(100% - var(--page-padding-desktop, 3.2rem) * 2);
 }
 
 /* Mobile search wrapper */
@@ -360,6 +367,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: calc(100% - var(--page-padding-mobile, 1.6rem) * 2);
   }
 
   .topbar-mobile-search-wrapper {

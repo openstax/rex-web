@@ -141,6 +141,8 @@ export const PlainButton = React.forwardRef<HTMLButtonElement, PlainButtonProps>
   }
 );
 
+PlainButton.displayName = 'PlainButton';
+
 interface PrintOptWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isActive?: boolean;
   children: React.ReactNode;
@@ -161,6 +163,8 @@ export const PrintOptWrapper = React.forwardRef<HTMLButtonElement, PrintOptWrapp
     );
   }
 );
+
+PrintOptWrapper.displayName = 'PrintOptWrapper';
 
 export function PrintOptions({ children, className, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
   return (
