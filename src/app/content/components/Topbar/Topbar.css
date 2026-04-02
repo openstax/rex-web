@@ -1,0 +1,445 @@
+/* Topbar Component Styles - Migrated from styled-components to plain CSS */
+
+/* Base styling for search input chrome removal */
+.topbar-search-input {
+  appearance: textfield;
+}
+
+.topbar-search-input::-webkit-search-decoration,
+.topbar-search-input::-webkit-search-cancel-button,
+.topbar-search-input::-webkit-search-results-button,
+.topbar-search-input::-webkit-search-results-decoration {
+  appearance: none;
+  display: none;
+}
+
+/* Close icon styles */
+.topbar-close-icon {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+/* Shadow utility */
+.topbar-shadow {
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+}
+
+/* Top bar wrapper */
+.topbar-wrapper {
+  position: sticky;
+  top: var(--topbar-top-desktop, 8rem);
+  width: 100%;
+  overflow: visible;
+  display: block;
+  z-index: var(--topbar-z-index, 30);
+  /* disable-print class applied via className */
+}
+
+/* Menu button (hamburger) */
+.topbar-menu-button {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Search button */
+.topbar-search-button {
+  height: 3.2rem;
+  border-radius: 0;
+  margin: 0;
+  transition: var(--search-button-transition, none);
+  background: var(--search-button-bg, transparent);
+}
+
+.topbar-search-button > svg {
+  /* toolbarIconStyles will be applied */
+  vertical-align: middle;
+}
+
+.topbar-search-button--desktop {
+  /* desktop variant */
+}
+
+.topbar-search-button--mobile {
+  display: none;
+}
+
+/* Close button */
+.topbar-close-button > svg {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+
+.topbar-close-button--desktop {
+  /* desktop variant */
+}
+
+.topbar-close-button--not-submitted {
+  /* Hidden when not submitted on mobile */
+}
+
+/* Close icon (Times component) */
+.topbar-close-icon-times {
+  color: var(--toolbar-icon-color, #5e6062);
+  height: 2.2rem;
+}
+
+/* Close button new */
+.topbar-close-button-new {
+  /* toolbarIconStyles applied */
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin-right: 1.6rem;
+  background: transparent;
+  overflow: visible;
+  height: 2.2rem;
+  width: 2.2rem;
+}
+
+/* Search input wrapper */
+.topbar-search-input-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  position: relative;
+  color: var(--toolbar-icon-color, #5e6062);
+  border: solid 0.1rem;
+  border-radius: 0.2rem;
+  width: 38rem;
+}
+
+.topbar-search-input-wrapper:last-child {
+  margin-right: auto;
+}
+
+.topbar-search-input-wrapper:focus-within,
+.topbar-search-input-wrapper.focus-within {
+  border: solid 0.1rem var(--focus-border-color, #0dc0dc);
+  box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
+}
+
+.topbar-search-input-wrapper--active {
+  background: var(--search-button-bg, transparent);
+}
+
+.topbar-search-input-wrapper--search-in-sidebar {
+  /* Hidden on desktop when search is in sidebar */
+}
+
+/* Search input */
+.topbar-search-input-field {
+  font-size: 1.6rem;
+  margin: 0 1rem 0 1rem;
+  height: var(--search-input-height, 3.2rem);
+  border: none;
+  outline: none;
+  width: 100%;
+  appearance: textfield;
+}
+
+.topbar-search-input-field::placeholder {
+  color: var(--placeholder-color, #6f6f6f);
+}
+
+.topbar-search-input-field--desktop {
+  /* desktop variant */
+}
+
+/* Search print wrapper */
+.topbar-search-print-wrapper {
+  height: var(--topbar-desktop-height, 6.4rem);
+  max-width: var(--content-wrapper-max-width, 128rem);
+  margin: 0 auto;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  background-color: var(--neutral-bg, #fff);
+  transition: padding-left var(--sidebar-transition-time, 300ms);
+}
+
+.topbar-search-print-wrapper--sidebar-closed {
+  padding-left: 0 !important;
+}
+
+/* Mobile search container */
+.topbar-mobile-search-container {
+  overflow: visible;
+  margin-top: var(--mobile-search-margin, 0.8rem);
+  margin-bottom: var(--mobile-search-margin, 0.8rem);
+  height: var(--mobile-search-input-height, 4.8rem);
+}
+
+/* Mobile search wrapper */
+.topbar-mobile-search-wrapper {
+  display: none;
+  overflow: visible;
+  height: var(--mobile-search-wrapper-height, 7.2rem);
+  background-color: var(--neutral-bg, #fff);
+}
+
+/* Horizontal rule */
+.topbar-hr {
+  border: none;
+  border-top: var(--toolbar-hr-height, 0.1rem) solid #efeff1;
+  display: none;
+  margin: 0;
+}
+
+/* Left arrow */
+.topbar-left-arrow {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Inner text */
+.topbar-inner-text {
+  white-space: nowrap;
+  margin-right: 1rem;
+  text-align: left;
+}
+
+/* Search results text button */
+.topbar-search-results-text-button {
+  display: flex;
+  overflow: visible;
+  min-width: auto;
+}
+
+/* Close search results text button */
+.topbar-close-search-results-text-button {
+  display: none;
+}
+
+/* Text resizer dropdown */
+.topbar-text-resizer-dropdown {
+  z-index: 3;
+}
+
+.topbar-text-resizer-dropdown > button {
+  max-height: 5.2rem;
+}
+
+.topbar-text-resizer-dropdown > button > div {
+  padding: 1.4rem;
+}
+
+.topbar-text-resizer-dropdown--mobile-variant > button {
+  /* Mobile variant styles */
+}
+
+.topbar-text-resizer-dropdown--mobile-variant > button > div {
+  /* Mobile variant button div styles */
+}
+
+.topbar-text-resizer-dropdown--mobile-hidden {
+  display: none;
+}
+
+/* Text resizer menu */
+.topbar-text-resizer-menu {
+  color: var(--text-resizer-color, #5e6062);
+  background: #fff;
+  right: 0;
+  left: auto;
+  top: calc(100% - 1px);
+  text-align: left;
+  font-weight: bold;
+}
+
+.topbar-text-resizer-menu label {
+  padding: 1.6rem 1.6rem 0;
+  display: block;
+}
+
+.topbar-text-resizer-menu .controls {
+  display: flex;
+  align-items: center;
+}
+
+.topbar-text-resizer-menu .controls > button {
+  height: 4rem;
+  width: 4.8rem;
+}
+
+.topbar-text-resizer-menu .controls input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--text-resizer-gradient, var(--text-resizer-fallback-bg, #888888));
+  overflow: visible;
+  height: 0.4rem;
+  width: 12rem;
+  margin: 0.8rem 0.7rem;
+  cursor: pointer;
+}
+
+.topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track,
+.topbar-text-resizer-menu .controls input[type="range"]::-moz-range-track {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-shadow: none;
+  border: none;
+  height: 0.2rem;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 19%,
+    #fff 19%,
+    #fff 20%,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0) 20%
+  );
+}
+
+.topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track {
+  height: 0.2rem;
+}
+
+.topbar-text-resizer-menu .controls input[type="range"]::-moz-range-thumb {
+  background: white;
+  height: 1.5rem;
+  width: 0.7rem;
+  border: 1px solid var(--text-resizer-color, #5e6062);
+  border-radius: 1px;
+  box-shadow:
+    0 2px 1px -1px rgba(0, 0, 0, 0.04),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+
+.topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: white;
+  height: 1.5rem;
+  width: 0.8rem;
+  border: 1px solid var(--text-resizer-color, #5e6062);
+  border-radius: 1px;
+  box-shadow:
+    0 2px 1px -1px rgba(0, 0, 0, 0.04),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  margin-top: -6px;
+}
+
+/* Text resizer change button */
+.topbar-text-resizer-change-button {
+  margin: 0.2rem 0.6rem;
+}
+
+/* Media Queries - All at top level */
+
+/* Mobile breakpoint: max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .topbar-wrapper {
+    top: var(--topbar-top-mobile, 6rem);
+  }
+
+  .topbar-search-button--mobile {
+    display: block;
+    height: 100%;
+  }
+
+  .topbar-search-input-wrapper {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .topbar-close-button--not-submitted {
+    display: none;
+  }
+
+  .topbar-search-print-wrapper {
+    display: none;
+  }
+
+  .topbar-mobile-search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .topbar-mobile-search-wrapper {
+    display: block;
+  }
+
+  .topbar-hr {
+    display: block;
+  }
+}
+
+/* Mobile medium breakpoint: max-width: 50em (800px) */
+@media screen and (max-width: 50em) {
+  .topbar-wrapper {
+    /* Make sure toolbar dropdowns float over search results */
+    z-index: var(--topbar-z-index-mobile, 41);
+  }
+
+  .topbar-menu-button {
+    display: flex;
+  }
+
+  .topbar-search-button--desktop {
+    display: none;
+  }
+
+  .topbar-close-button--desktop {
+    display: none;
+  }
+
+  .topbar-search-input-field--desktop {
+    display: none;
+  }
+
+  .topbar-search-print-wrapper {
+    display: flex;
+    height: var(--topbar-mobile-height, 5.6rem);
+    justify-content: space-between;
+    padding: 0 6px;
+    transition: none;
+  }
+
+  .topbar-search-input-wrapper {
+    border: none;
+    border-radius: 0;
+    width: var(--button-min-width, 4.8rem);
+  }
+
+  .topbar-mobile-search-container {
+    justify-content: space-between;
+  }
+
+  .topbar-mobile-search-wrapper--mobile-toolbar-open {
+    display: block;
+  }
+
+  .topbar-mobile-search-wrapper--mobile-toolbar-closed {
+    display: none;
+  }
+
+  .topbar-text-resizer-dropdown--mobile-variant {
+    margin-left: 0;
+  }
+
+  .topbar-text-resizer-dropdown--mobile-variant > button {
+    max-height: 4.6rem;
+  }
+
+  .topbar-text-resizer-dropdown--mobile-variant > button > div {
+    padding: 0.9rem 1.5rem;
+  }
+
+  .topbar-close-search-results-text-button {
+    display: block;
+  }
+}
+
+/* Search in sidebar - hide search input on desktop when >= 50em */
+@media screen and (min-width: 50em) {
+  .topbar-search-input-wrapper--search-in-sidebar {
+    display: none;
+  }
+}

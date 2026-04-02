@@ -1,9 +1,10 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
+import classNames from 'classnames';
 import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
-import { decoratedLinkStyle, textRegularStyle, textStyle } from '../../../components/Typography';
+import { textRegularStyle, decoratedLinkStyle, textStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import { BookWithOSWebData } from '../../types';
@@ -24,10 +25,11 @@ import {
 } from '../constants';
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
-import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/styled';
+import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/Toolbar.legacy';
 import { applySearchIconColor } from '../utils/applySearchIconColor';
-import { disablePrint } from '../utils/disablePrint';
+import { disablePrintClass } from '../utils/disablePrint';
 import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from '../utils/sidebar';
+import './Topbar.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -105,310 +107,409 @@ function TimesCircleIconBase({ className, ...props }: IconProps) {
 
 const TimesCircleIcon = styled(TimesCircleIconBase)``;
 
-const hideSearchChrome = css`
-  appearance: textfield;
+interface TopBarWrapperProps {
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
 
-  ::-webkit-search-decoration,
-  ::-webkit-search-cancel-button,
-  ::-webkit-search-results-button,
-  ::-webkit-search-results-decoration {
-    appearance: none;
-    display: none;
-  }
-`;
-
-const closeIconStyles = css`
-  height: 1.6rem;
-  width: 1.6rem;
-`;
-
-export const shadow = css`
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
-`;
-
-export const TopBarWrapper = styled.div`
-  position: sticky;
-  top: ${bookBannerDesktopMiniHeight}rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: ${theme.zIndex.topbar}; /* stay above book content */
-  ${theme.breakpoints.mobile(css`
-    top: ${bookBannerMobileMiniHeight}rem;
-  `)}
-
-  ${theme.breakpoints.mobileMedium(css`
-    // Make sure toolbar dropdowns float over search results
-    z-index: ${theme.zIndex.sidebar + 1};
-  `)}
-
-  ${disablePrint}
-`;
+export function TopBarWrapper({ children, className, style, ...props }: TopBarWrapperProps & React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      {...props}
+      className={classNames('topbar-wrapper', 'topbar-shadow', disablePrintClass, className)}
+      style={{
+        '--topbar-top-desktop': `${bookBannerDesktopMiniHeight}rem`,
+        '--topbar-top-mobile': `${bookBannerMobileMiniHeight}rem`,
+        '--topbar-z-index': theme.zIndex.topbar,
+        '--topbar-z-index-mobile': theme.zIndex.sidebar + 1,
+        ...style,
+      } as React.CSSProperties}
+    >
+      {children}
+    </div>
+  );
+}
 
 export const HamburgerIcon = styled(HamburgerIconComponent)`
   ${toolbarIconStyles}
 `;
 
-export const MenuButton = styled((props) => {
+interface MenuButtonProps {
+  type?: 'button';
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+export function MenuButton(props: MenuButtonProps) {
   const intl = useIntl();
 
-  return <PlainButton {...props} aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:open'})}>
-    <HamburgerIcon />
-  </PlainButton>;
-})`
-  display: none;
-  justify-content: center;
-  align-items: center;
-  ${theme.breakpoints.mobileMedium(css`
-    display: flex;
-  `)}
-`;
-
-export const SearchButton = styled(({ desktop, mobile, ariaLabelId, ...props }) => {
-  const intl = useIntl();
-
-  return <PlainButton
-    {...props}
-    {...ariaLabelId
-      ? {
-        'aria-label': intl.formatMessage({ id: ariaLabelId }),
-      }
-      : {}
+  // Filter transient props before spreading to DOM
+  const safeProps = Object.keys(props).reduce((acc, key) => {
+    if (!key.startsWith('$')) {
+      acc[key] = (props as any)[key];
     }
-    value={intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}
-    aria-label={intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}
-  >
-    <SearchIcon />
-  </PlainButton>;
-})`
-    height: 3.2rem;
-    border-radius: 0;
-    margin: 0;
-    transition: ${(props) => props.colorSchema ? 'background 200ms' : 'none'};
-    background:
-      ${(props: { colorSchema: BookWithOSWebData['theme'] | null }) => props.colorSchema
-    ? theme.color.primary[props.colorSchema].base : 'transparent'};
-    ${(props) => applySearchIconColor(props.colorSchema)}
-
-    > svg {
-      ${toolbarIconStyles}
-      vertical-align: middle;
-    }
-
-    ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
-      display: none;
-    `)}
-    ${(props) => props.mobile && css`
-      display: none;
-      ${theme.breakpoints.mobile(css`
-        display: block;
-        height: 100%;
-      `)}
-    `}
-  `;
-
-export const CloseButton = styled(
-  ({ desktop, ...props }) => <PlainButton {...props}><TimesCircleIcon /></PlainButton>
-)`
-    > svg {
-      ${closeIconStyles}
-    }
-
-    ${(props) => !props.formSubmitted && theme.breakpoints.mobile(css`
-      display: none;
-    `)}
-
-    ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
-      display: none;
-    `)}
-  `;
-
-export const CloseIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
-    color: ${toolbarIconColor.base};
-    height: 2.2rem;
-  `;
-
-export const CloseButtonNew = styled.button`
-    ${toolbarIconStyles}
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    margin-right: 1.6rem;
-    background: transparent;
-    overflow: visible;
-    height: 2.2rem;
-    width: 2.2rem;
-  `;
-
-export const SearchInputWrapper = styled.form`
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  align-items: center;
-  position: relative;
-  color: ${toolbarIconColor.base};
-  border: solid 0.1rem;
-  border-radius: 0.2rem;
-  width: 38rem;
-
-  &:last-child { margin-right: auto; } // On desktop, center if no other controls to the right
-
-  &:focus-within {
-    border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
-    box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
-  }
-
-  &.focus-within {
-    border: solid 0.1rem ${theme.color.secondary.lightBlue.base};
-    box-shadow: 0 0 4px 0 rgba(13, 192, 220, 0.5);
-  }
-
-  ${theme.breakpoints.mobile(css`
-    height: 100%;
-    overflow: hidden;
-    ${(props: { active: boolean, colorSchema: BookWithOSWebData['theme'] }) => props.active && css`
-      background: ${props.colorSchema ? theme.color.primary[props.colorSchema].base : 'transparent'};
-
-      ${SearchButton} {
-        ${applySearchIconColor(props.colorSchema)};
-      }
-    `}
-  `)}
-  ${theme.breakpoints.mobileMedium(css`
-    width: 100%;
-    &, &:last-child { margin-right: 0; }
-  `)}
-
-
-  ${(props: { searchInSidebar: boolean }) => props.searchInSidebar && css`
-    @media screen and (min-width: ${theme.breakpoints.mobileMediumBreak}em) {
-      display: none;
-    }
-  `}
-`;
-
-export const SearchInput = styled(({ desktop, mobile, autoFocus, ...props }) => {
-  const ref = React.useRef<HTMLInputElement>(null);
-
-  React.useEffect(
-    () => {
-      if (autoFocus) {
-        ref.current?.focus();
-      }
-    },
-    [autoFocus]
-  );
+    return acc;
+  }, {} as Record<string, any>);
 
   return (
-    <input {...props}
+    <PlainButton
+      {...safeProps}
+      aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:open' })}
+      className="topbar-menu-button"
+    >
+      <HamburgerIcon />
+    </PlainButton>
+  );
+}
+
+interface SearchButtonProps {
+  desktop?: boolean;
+  mobile?: boolean;
+  ariaLabelId?: string;
+  colorSchema?: BookWithOSWebData['theme'] | null;
+  type?: 'button';
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export function SearchButton({ desktop, mobile, ariaLabelId, colorSchema, className, style, ...props }: SearchButtonProps) {
+  const intl = useIntl();
+
+  // Filter transient props before spreading to DOM
+  const safeProps = Object.keys(props).reduce((acc, key) => {
+    if (!key.startsWith('$')) {
+      acc[key] = (props as any)[key];
+    }
+    return acc;
+  }, {} as Record<string, any>);
+
+  // Get search icon color styles
+  const iconColorStyles = colorSchema ? applySearchIconColor(colorSchema) : {};
+  const iconColor = iconColorStyles.color || toolbarIconColor.base;
+
+  return (
+    <PlainButton
+      {...safeProps}
+      {...(ariaLabelId
+        ? {
+            'aria-label': intl.formatMessage({ id: ariaLabelId }),
+          }
+        : {})}
+      value={intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}
+      aria-label={intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}
+      className={classNames(
+        'topbar-search-button',
+        {
+          'topbar-search-button--desktop': desktop,
+          'topbar-search-button--mobile': mobile,
+        },
+        className
+      )}
+      style={{
+        '--search-button-transition': colorSchema ? 'background 200ms' : 'none',
+        '--search-button-bg': colorSchema ? theme.color.primary[colorSchema].base : 'transparent',
+        '--search-icon-color': iconColor,
+        ...style,
+      } as React.CSSProperties}
+    >
+      <SearchIcon style={{ color: iconColor }} />
+    </PlainButton>
+  );
+}
+
+interface CloseButtonProps {
+  desktop?: boolean;
+  formSubmitted?: boolean;
+  type?: 'button';
+  onClick?: (e: React.FormEvent) => void;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export function CloseButton({ desktop, formSubmitted, className, style, ...props }: CloseButtonProps) {
+  // Filter transient props before spreading to DOM
+  const safeProps = Object.keys(props).reduce((acc, key) => {
+    if (!key.startsWith('$')) {
+      acc[key] = (props as any)[key];
+    }
+    return acc;
+  }, {} as Record<string, any>);
+
+  return (
+    <PlainButton
+      {...safeProps}
+      className={classNames(
+        'topbar-close-button',
+        {
+          'topbar-close-button--desktop': desktop,
+          'topbar-close-button--not-submitted': !formSubmitted,
+        },
+        className
+      )}
+      style={style}
+    >
+      <TimesCircleIcon />
+    </PlainButton>
+  );
+}
+
+export function CloseIcon(props: React.SVGAttributes<SVGSVGElement>) {
+  return <Times {...props} aria-hidden="true" focusable="false" className="topbar-close-icon-times" />;
+}
+
+interface CloseButtonNewProps {
+  desktop?: boolean;
+  formSubmitted?: boolean;
+  type?: 'button';
+  onClick?: (e: React.FormEvent) => void;
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export function CloseButtonNew({ children, className, style, ...props }: CloseButtonNewProps) {
+  // Filter transient props before spreading to DOM
+  const safeProps = Object.keys(props).reduce((acc, key) => {
+    if (!key.startsWith('$')) {
+      acc[key] = (props as any)[key];
+    }
+    return acc;
+  }, {} as Record<string, any>);
+
+  return (
+    <button
+      {...safeProps}
+      className={classNames('topbar-close-button-new', className)}
+      style={{
+        ...toolbarIconStyles,
+        ...style,
+      } as React.CSSProperties}
+    >
+      {children}
+    </button>
+  );
+}
+
+interface SearchInputWrapperProps {
+  active?: boolean;
+  colorSchema?: BookWithOSWebData['theme'] | null;
+  searchInSidebar?: boolean;
+  onSubmit?: (e: React.FormEvent) => void;
+  action?: string;
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export function SearchInputWrapper({
+  active,
+  colorSchema,
+  searchInSidebar,
+  children,
+  className,
+  style,
+  ...props
+}: SearchInputWrapperProps & React.FormHTMLAttributes<HTMLFormElement>) {
+  // Get search icon color for active state
+  const iconColorStyles = colorSchema && active ? applySearchIconColor(colorSchema) : {};
+  const iconColor = iconColorStyles.color || toolbarIconColor.base;
+
+  return (
+    <form
+      {...props}
+      className={classNames(
+        'topbar-search-input-wrapper',
+        {
+          'topbar-search-input-wrapper--active': active,
+          'topbar-search-input-wrapper--search-in-sidebar': searchInSidebar,
+        },
+        className
+      )}
+      style={{
+        '--toolbar-icon-color': toolbarIconColor.base,
+        '--focus-border-color': theme.color.secondary.lightBlue.base,
+        '--search-button-bg': colorSchema && active ? theme.color.primary[colorSchema].base : 'transparent',
+        '--search-icon-color': iconColor,
+        ...style,
+      } as React.CSSProperties}
+    >
+      {children}
+    </form>
+  );
+}
+
+interface SearchInputProps {
+  desktop?: boolean;
+  mobile?: boolean;
+  autoFocus?: boolean;
+  type?: string;
+  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
+  value?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export function SearchInput({ desktop, mobile, autoFocus, className, style, ...props }: SearchInputProps) {
+  const ref = React.useRef<HTMLInputElement>(null);
+  const intl = useIntl();
+
+  React.useEffect(() => {
+    if (autoFocus) {
+      ref.current?.focus();
+    }
+  }, [autoFocus]);
+
+  // Filter transient props before spreading to DOM
+  const safeProps = Object.keys(props).reduce((acc, key) => {
+    if (!key.startsWith('$')) {
+      acc[key] = (props as any)[key];
+    }
+    return acc;
+  }, {} as Record<string, any>);
+
+  return (
+    <input
+      {...safeProps}
       ref={ref}
-      aria-label={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
-      placeholder={useIntl().formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
+      aria-label={intl.formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
+      placeholder={intl.formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
+      className={classNames(
+        'topbar-search-input-field',
+        'topbar-search-input',
+        {
+          'topbar-search-input-field--desktop': desktop,
+        },
+        className
+      )}
+      style={{
+        '--search-input-height': `${toolbarSearchInputHeight}rem`,
+        '--placeholder-color': theme.color.text.label,
+        ...textStyle,
+        ...style,
+      } as React.CSSProperties}
     />
   );
-})`
-  ${textStyle}
-  ${hideSearchChrome}
-  font-size: 1.6rem;
-  margin: 0 1rem 0 1rem;
-  height: ${toolbarSearchInputHeight}rem;
-  border: none;
-  outline: none;
-  width: 100%;
-  appearance: textfield;
+}
 
-  ::placeholder {
-    color: ${theme.color.text.label};
+interface SearchPrintWrapperProps {
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  verticalNavOpen?: boolean;
+}
+
+// Using the isVerticalNavOpenConnector HOC pattern
+export const SearchPrintWrapper = isVerticalNavOpenConnector(
+  function SearchPrintWrapperBase({
+    children, className, style, verticalNavOpen, ...props
+  }: SearchPrintWrapperProps & React.HTMLAttributes<HTMLDivElement>) {
+    return (
+      <div
+        {...props}
+        className={classNames(
+          'topbar-search-print-wrapper',
+          'topbar-shadow',
+          {
+            'topbar-search-print-wrapper--sidebar-closed': !verticalNavOpen,
+          },
+          className
+        )}
+        style={{
+          '--topbar-desktop-height': `${topbarDesktopHeight}rem`,
+          '--content-wrapper-max-width': `${contentWrapperMaxWidth}rem`,
+          '--neutral-bg': theme.color.neutral.base,
+          '--sidebar-transition-time': `${sidebarTransitionTime}ms`,
+          '--topbar-mobile-height': `${topbarMobileHeight}rem`,
+          '--button-min-width': `${buttonMinWidth}rem`,
+          ...style,
+        } as React.CSSProperties}
+      >
+        {children}
+      </div>
+    );
   }
+);
 
-  ${(props) => props.desktop && theme.breakpoints.mobileMedium(css`
-    display: none;
-  `)}
-`;
+interface MobileSearchContainerProps {
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
 
-export const SearchPrintWrapper = isVerticalNavOpenConnector(styled.div`
-  height: ${topbarDesktopHeight}rem;
-  max-width: ${contentWrapperMaxWidth}rem;
-  margin: 0 auto;
-  text-align: right;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: visible;
-  background-color: ${theme.color.neutral.base};
-  transition: padding-left ${sidebarTransitionTime}ms;
-  ${styleWhenSidebarClosed(css`
-      padding-left: 0 !important;
-  `)}
-  ${theme.breakpoints.mobile(css`
-    display: none;
-  `)}
-  ${theme.breakpoints.mobileMedium(css`
-    display: flex;
-    height: ${topbarMobileHeight}rem;
-    justify-content: space-between;
-    padding: 0 6px;
-    transition: none;
-    ${SearchInputWrapper} {
-      border: none;
-      border-radius: 0;
-      width: ${buttonMinWidth};
-    }
-  `)}
-  ${shadow}
-`);
+export function MobileSearchContainer({ children, className, style, ...props }: MobileSearchContainerProps & React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      {...props}
+      className={classNames('topbar-mobile-search-container', className)}
+      style={{
+        '--mobile-search-margin': `${mobileSearchContainerMargin}rem`,
+        '--mobile-search-input-height': `${toolbarSearchInputMobileHeight}rem`,
+        ...barPadding,
+        ...style,
+      } as React.CSSProperties}
+    >
+      {children}
+    </div>
+  );
+}
 
-export const MobileSearchContainer = styled.div`
-  ${barPadding}
-  overflow: visible;
-  margin-top: ${mobileSearchContainerMargin}rem;
-  margin-bottom: ${mobileSearchContainerMargin}rem;
-  height: ${toolbarSearchInputMobileHeight}rem;
-  ${theme.breakpoints.mobile(css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `)}
-  ${theme.breakpoints.mobileMedium(css`
-    justify-content: space-between;
-  `)}
-`;
+interface MobileSearchWrapperProps {
+  mobileToolbarOpen?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
 
-export const MobileSearchWrapper = styled.div`
-  display: none;
-  overflow: visible;
-  height: ${toolbarMobileSearchWrapperHeight}rem;
-  background-color: ${theme.color.neutral.base};
-  ${shadow}
-  ${theme.breakpoints.mobile(css`
-    display: block;
-  `)}
-  ${theme.breakpoints.mobileMedium(css`
-    padding-left: 0;
-    display: ${(props: {mobileToolbarOpen: boolean}) => props.mobileToolbarOpen ? 'block' : 'none'};
-  `)}
-`;
+export function MobileSearchWrapper({ mobileToolbarOpen, children, className, style, ...props }: MobileSearchWrapperProps & React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      {...props}
+      className={classNames(
+        'topbar-mobile-search-wrapper',
+        'topbar-shadow',
+        {
+          'topbar-mobile-search-wrapper--mobile-toolbar-open': mobileToolbarOpen,
+          'topbar-mobile-search-wrapper--mobile-toolbar-closed': !mobileToolbarOpen,
+        },
+        className
+      )}
+      style={{
+        '--mobile-search-wrapper-height': `${toolbarMobileSearchWrapperHeight}rem`,
+        '--neutral-bg': theme.color.neutral.base,
+        ...style,
+      } as React.CSSProperties}
+    >
+      {children}
+    </div>
+  );
+}
 
-export const Hr = styled.hr`
-  border: none;
-  border-top: ${toolbarHrHeight}rem solid #efeff1;
-  display: none;
-  margin: 0;
-  ${theme.breakpoints.mobile(css`
-    display: block;
-  `)}
-`;
+export function Hr({ className, style, ...props }: React.HTMLAttributes<HTMLHRElement>) {
+  return (
+    <hr
+      {...props}
+      className={classNames('topbar-hr', className)}
+      style={{
+        '--toolbar-hr-height': `${toolbarHrHeight}rem`,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+}
 
 export const LeftArrow = styled(AngleLeftIcon)`
   width: 2.5rem;
   height: 2.5rem;
 `;
 
-export const InnerText = styled.div`
-  white-space: nowrap;
-  margin-right: 1rem;
-  text-align: left;
-`;
+export function InnerText({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div {...props} className={classNames('topbar-inner-text', className)}>
+      {children}
+    </div>
+  );
+}
 
 export const SeachResultsTextButton = styled(PlainButton)`
   ${textRegularStyle}
@@ -418,164 +519,124 @@ export const SeachResultsTextButton = styled(PlainButton)`
   min-width: auto;
 `;
 
-export const TextResizerDropdown = styled(FilterDropdown)`
-  z-index: 3;
+interface TextResizerDropdownProps {
+  mobileVariant?: boolean;
+  mobileToolbarOpen?: boolean;
+  transparentTab?: boolean;
+  showLabel?: boolean;
+  showAngleIcon?: boolean;
+  toggleChildren?: React.ReactNode;
+  label?: string;
+  ariaLabelId?: string;
+  dataAnalyticsLabel?: string;
+  controlsId?: string;
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
 
-  > button {
-    max-height: 5.2rem;
-
-    > div {
-      padding: 1.4rem;
-    }
-  }
-
-  ${(props: {
-    mobileVariant: boolean,
-    mobileToolbarOpen: boolean
-  }) => props.mobileVariant !== false && theme.breakpoints.mobileMedium(css`
-    margin-left: 0;
-    > button {
-      max-height: 4.6rem;
-
-      > div {
-        padding: 0.9rem 1.5rem;
-      }
-    }
-
-    display: ${props.mobileToolbarOpen ? 'none' : 'block'};
-  `)}
-`;
-
-const thumbCss = css`
-  background: white;
-  height: 1.5rem;
-  width: 0.7rem;
-  border: 1px solid ${theme.color.primary.gray.base};
-  border-radius: 1px;
-  box-shadow:
-    0 2px 1px -1px rgba(0, 0, 0, 0.04),
-    0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
-`;
-
-const tickMarkCss = css`
-  background: repeating-linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0) 19%,
-    #fff 19%,
-    #fff 20%,
-    rgba(0, 0, 0, 0) 20%,
-    rgba(0, 0, 0, 0) 20%
+export function TextResizerDropdown({
+  mobileVariant,
+  mobileToolbarOpen,
+  children,
+  className,
+  style,
+  ...props
+}: TextResizerDropdownProps) {
+  return (
+    <FilterDropdown
+      {...props}
+      className={classNames(
+        'topbar-text-resizer-dropdown',
+        {
+          'topbar-text-resizer-dropdown--mobile-variant': mobileVariant !== false,
+          'topbar-text-resizer-dropdown--mobile-hidden': mobileVariant !== false && !mobileToolbarOpen,
+        },
+        className
+      )}
+      style={style}
+    >
+      {children}
+    </FilterDropdown>
   );
-`;
+}
 
-export const TextResizerMenu = styled.div`
-  color: ${theme.color.primary.gray.base};
+interface TextResizerMenuProps {
+  id?: string;
+  bookTheme?: BookWithOSWebData['theme'];
+  textSize?: number;
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
 
-  && {
-    background: #fff;
-    right: 0;
-    left: auto;
-    top: calc(100% - 1px);
-  }
+export function TextResizerMenu({ bookTheme, textSize, children, className, style, ...props }: TextResizerMenuProps & React.HTMLAttributes<HTMLDivElement>) {
+  // Calculate gradient for the text resizer slider
+  const gradientPercent = textSize
+    ? `calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%)`
+    : '0%';
 
-  text-align: left;
-  font-weight: bold;
+  const gradient = bookTheme
+    ? `linear-gradient(
+        to right,
+        ${theme.color.primary[bookTheme].base} ${gradientPercent},
+        ${theme.color.primary.gray.medium} ${gradientPercent}
+      )`
+    : theme.color.primary.gray.medium;
 
-  label {
-    padding: 1.6rem 1.6rem 0;
-    display: block;
-  }
+  return (
+    <div
+      {...props}
+      className={classNames('topbar-text-resizer-menu', className)}
+      style={{
+        '--text-resizer-color': theme.color.primary.gray.base,
+        '--text-resizer-gradient': gradient,
+        '--text-resizer-fallback-bg': theme.color.primary.gray.medium,
+        ...style,
+      } as React.CSSProperties}
+    >
+      {children}
+    </div>
+  );
+}
 
-  .controls {
-    display: flex;
-    align-items: center;
+interface TextResizerChangeButtonProps {
+  ariaLabelId?: string;
+  children?: React.ReactNode;
+  onClick?: (e: React.FormEvent<HTMLInputElement>) => void;
+  className?: string;
+  style?: React.CSSProperties;
+}
 
-    > button {
-      height: 4rem;
-      width: 4.8rem;
-    }
-
-    input {
-      -webkit-appearance: none; /* stylelint-disable property-no-vendor-prefix */
-      -moz-appearance: none;
-      ${(props: {bookTheme: BookWithOSWebData['theme']}) => props.bookTheme ? css`
-        background:
-          linear-gradient(
-            to right,
-            ${theme.color.primary[props.bookTheme].base}
-              ${({textSize}: {textSize: number}) => `
-                calc(
-                  (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
-                )
-              `},
-              ${theme.color.primary.gray.medium}
-              ${({textSize}: {textSize: number}) => `
-                calc(
-                  (${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%
-                )
-              `}
-          );
-      ` : css`
-        background: ${theme.color.primary.gray.medium};
-      `}
-      overflow: visible;
-      height: 0.4rem;
-      width: 12rem;
-      margin: 0.8rem 0.7rem;
-      cursor: pointer;
-    }
-
-    input[type="range"]::-webkit-slider-runnable-track,
-    input[type="range"]::-moz-range-track {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      box-shadow: none;
-      border: none;
-      height: 0.2rem;
-      ${tickMarkCss}
-    }
-
-    input[type="range"]::-webkit-slider-runnable-track {
-      height: 0.2rem;
-      ${tickMarkCss}
-    }
-
-    input[type="range"]::-moz-range-thumb {
-      ${thumbCss}
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      ${thumbCss}
-      width: 0.8rem;
-      margin-top: -6px;
-    }
-  }
-`;
-
-export const TextResizerChangeButton = styled(({ ariaLabelId, children, ...props }) => {
+export function TextResizerChangeButton({ ariaLabelId, children, className, style, ...props }: TextResizerChangeButtonProps) {
   const intl = useIntl();
 
-  return <PlainButton
-    {...props}
-    {...ariaLabelId &&
-      {
-        'aria-label': intl.formatMessage({ id: ariaLabelId }),
-      }
+  // Filter transient props before spreading to DOM
+  const safeProps = Object.keys(props).reduce((acc, key) => {
+    if (!key.startsWith('$')) {
+      acc[key] = (props as any)[key];
     }
-  >
-    {children}
-  </PlainButton>;
-})`
-  margin: 0.2rem 0.6rem;
-`;
+    return acc;
+  }, {} as Record<string, any>);
+
+  return (
+    <PlainButton
+      {...safeProps}
+      {...(ariaLabelId && {
+        'aria-label': intl.formatMessage({ id: ariaLabelId }),
+      })}
+      className={classNames('topbar-text-resizer-change-button', className)}
+      style={style}
+    >
+      {children}
+    </PlainButton>
+  );
+}
 
 export const CloseSearchResultsTextButton = styled(SeachResultsTextButton)`
   display: none;
-  ${theme.breakpoints.mobileMedium(css`
+
+  @media screen and (max-width: 50em) {
     display: block;
-  `)}
+  }
 `;

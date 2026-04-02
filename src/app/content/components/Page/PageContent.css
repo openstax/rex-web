@@ -1,0 +1,177 @@
+/* PageContent component styles
+ * Migrated from styled-components to plain CSS
+ *
+ * Note: Highlight styles are generated dynamically in the component
+ * using inline <style> tag to avoid duplication with constants.ts
+ */
+
+/* Content text width constraint - max-width: 82.5rem (contentTextWidth from constants.ts) */
+.page-content {
+  max-width: 82.5rem;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.page-content:focus-visible {
+  outline: none;
+}
+
+/* Media query for screen-specific styles - max-width must be at top level in plain CSS */
+@media screen {
+  .page-content {
+    flex: 1;
+    display: flex;
+    width: 100%;
+  }
+
+  #main-content {
+    overflow: visible;
+    width: 100%;
+  }
+
+  /* Page margin-top spacing
+   * Trying to add margin to a page wrapper that will collapse with the margin
+   * of the top element in the page. Can't add it to the page element because
+   * it is flexy, or the main_content because page makes it flexy. Those need
+   * to be flexy to center the loading indicator
+   */
+  #main-content > [data-type="page"],
+  #main-content > [data-type="composite-page"] {
+    margin-top: var(--page-padding-desktop, 3.2rem);
+  }
+
+  /* Search highlights */
+  .search-highlight {
+    font-weight: bold;
+  }
+
+  .search-highlight,
+  .search-highlight .math {
+    background-color: #ffea00;
+    box-shadow: 0 0.2rem 0.3rem 0 rgb(0, 0, 0, 0.41);
+  }
+
+  .search-highlight[aria-current],
+  .search-highlight[aria-current] .math {
+    background-color: #ff9e4b;
+    padding: 0.2rem 0;
+  }
+
+  .search-highlight[aria-current] .search-highlight {
+    background-color: unset;
+  }
+}
+
+/* Media query for mobile screens - max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  #main-content > [data-type="page"],
+  #main-content > [data-type="composite-page"] {
+    margin-top: var(--page-padding-mobile, 1.6rem);
+  }
+}
+
+/* Print media - full page width */
+@media print {
+  .page-content {
+    max-width: none;
+  }
+}
+
+/* Common highlight styles */
+.highlight {
+  position: relative;
+  z-index: 1;
+  user-select: none;
+}
+
+/* Fixes to keep MathJax 4 highlighted equations centered and
+ * showing the background without the .MathJax_Display wrapper
+ */
+[data-type="equation"] {
+  text-align: center;
+}
+
+[data-type="equation"] .highlight {
+  grid-column: 2;
+}
+
+/* Fix MathJax 4 highlights not inheriting background color
+ * In v4, mjx-row uses display:table-row which doesn't inherit backgrounds like v2's inline elements
+ */
+/* stylelint-disable selector-type-no-unknown */
+mark mjx-container,
+mark mjx-math,
+mark mjx-semantics,
+mark mjx-mrow,
+mark mjx-row,
+mark mjx-under,
+mark mjx-base,
+mark mjx-munder,
+mark mjx-mo,
+mark mjx-mi,
+mark mjx-mn,
+mark mjx-mtext,
+mark mjx-c {
+  background: inherit;
+}
+/* stylelint-enable selector-type-no-unknown */
+
+/* Screen reader only content */
+[data-for-screenreaders="true"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Figure styles */
+.os-figure,
+.os-figure:last-child {
+  margin-bottom: 5px; /* fix double scrollbar bug */
+}
+
+/* Make inner figure transparent in layout so figcaption's table-caption
+   applies to the .os-figure table */
+#main-content .os-figure > figure,
+#main-content .os-figure > figure:not([data-orient="vertical"]) {
+  display: contents;
+}
+
+#main-content .os-figure > figure > figcaption.os-caption-container {
+  text-align: left;
+  padding: 1rem 0 0;
+  margin-bottom: 0;
+}
+
+/* Image button wrapper (for media modal) */
+.image-button-wrapper {
+  /* Remove default button styles for media modal img wrapper */
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.image-button-wrapper:focus {
+  outline: 1px solid Highlight;
+  outline: 1px solid -webkit-focus-ring-color;
+  outline-offset: 2px;
+}
+
+.image-button-wrapper img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Rex styles default to overflow hidden, breaks content */
+#main-content * {
+  overflow: initial;
+}

@@ -1,0 +1,215 @@
+/* Toolbar Component Styles */
+
+/* Mobile menu animations */
+@keyframes showMobileMenu {
+  0% {
+    opacity: 0;
+  }
+
+  99% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes hideMobileMenu {
+  0% {
+    opacity: 1;
+  }
+
+  99% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Toolbar wrapper - main container */
+.toolbar-wrapper {
+  grid-area: 1 / 1 / auto / 2;
+  position: sticky;
+  top: 7rem; /* bookBannerDesktopMiniHeight */
+  height: calc(100vh - 13rem);
+  max-height: calc(100vh - 7rem);
+  max-width: 8rem; /* verticalNavbarMaxWidth */
+  overflow: visible;
+  z-index: var(--toolbar-z-index, 5); /* theme.zIndex.toolbar - stay above book content */
+  background-color: var(--toolbar-bg-color, #f1f1f1); /* theme.color.neutral.darker */
+  border-right: 1px solid var(--toolbar-border-color, #d5d5d5); /* theme.color.neutral.formBorder */
+  border-left: 1px solid var(--toolbar-border-color, #d5d5d5);
+}
+
+/* Hides the sidebar when it's sliding in */
+.toolbar-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -37.6rem; /* -(sidebarDesktopWidth + 0.1) - adding 1px prevents hiding toolbar's left border */
+  width: 37.5rem; /* sidebarDesktopWidth */
+  height: 100%;
+  background-color: var(--toolbar-bg-color, #f1f1f1);
+}
+
+/* Mobile breakpoint: max-width: 75em (1200px) */
+@media screen and (max-width: 75em) {
+  .toolbar-wrapper {
+    top: 6rem; /* bookBannerMobileMiniHeight */
+    max-height: calc(100vh - 6rem);
+  }
+
+  .toolbar-wrapper::before {
+    display: none;
+  }
+}
+
+/* Mobile medium breakpoint: max-width: 50em (800px) */
+@media screen and (max-width: 50em) {
+  .toolbar-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    max-height: unset;
+    max-width: 100%;
+    width: 100%;
+    animation: hideMobileMenu 0.2s forwards;
+    z-index: var(--mobile-menu-z-index, 200); /* theme.zIndex.mobileMenu */
+  }
+
+  .toolbar-wrapper.toolbar-wrapper--mobile-menu-open {
+    animation: showMobileMenu 0.2s forwards;
+  }
+}
+
+/* Print: hide toolbar */
+@media print {
+  .toolbar-wrapper {
+    display: none;
+  }
+}
+
+/* Toolbar mobile header */
+.toolbar-mobile-header {
+  display: none;
+}
+
+@media screen and (max-width: 50em) {
+  .toolbar-mobile-header {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid var(--toolbar-border-color, #d5d5d5);
+  }
+}
+
+.toolbar-mobile-header-title {
+  font-size: 1.8rem;
+  color: var(--toolbar-title-color, #5e6062); /* theme.color.primary.gray.base */
+  font-weight: bold;
+}
+
+/* Toolbar elements container */
+.toolbar-elements {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Plain button base component */
+.plain-button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  align-items: center;
+  color: var(--toolbar-icon-color-base, #5e6062); /* toolbarIconColor.base */
+  height: 100%;
+  min-width: 45px; /* buttonMinWidth */
+}
+
+.plain-button:hover,
+.plain-button:focus {
+  color: var(--toolbar-icon-color-darker, #424242); /* toolbarIconColor.darker */
+}
+
+/* Print button wrapper */
+.print-opt-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 77px;
+  height: auto;
+  padding: 0 10px;
+}
+
+.print-opt-wrapper.print-opt-wrapper--active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 50em) {
+  .print-opt-wrapper {
+    flex-direction: row;
+    justify-content: start;
+    min-height: unset;
+    margin-top: 25px;
+    background: none;
+  }
+}
+
+/* Print options text */
+.print-options {
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+@media screen and (max-width: 50em) {
+  .print-options {
+    font-size: 1.4rem; /* textRegularSize */
+    line-height: 2.5rem; /* textRegularLineHeight */
+    margin-left: 1.2rem;
+  }
+}
+
+/* Icons */
+.print-icon,
+.times-icon,
+.chevron-left-icon {
+  height: 2.5rem; /* textRegularLineHeight */
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.times-icon {
+  vertical-align: middle;
+  color: var(--toolbar-icon-color-base, #5e6062);
+}
+
+.times-icon:hover {
+  color: var(--toolbar-icon-color-darker, #424242);
+}
+
+.left-arrow {
+  width: 4rem;
+  height: 4rem;
+  color: var(--toolbar-icon-color-base, #5e6062);
+  margin: 0 -1rem;
+}
+
+.left-arrow:hover {
+  color: var(--toolbar-icon-color-darker, #424242);
+}

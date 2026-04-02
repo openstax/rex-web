@@ -13,7 +13,7 @@ import { expandCurrentChapter, scrollSidebarSectionIntoView, setSidebarHeight } 
 import { stripIdVersion } from '../../utils/idUtils';
 import { CloseToCAndMobileMenuButton, TOCBackButton, TOCCloseButton } from '../SidebarControl';
 import { Header, HeaderText, SidebarPaneBody } from '../SidebarPane';
-import { LeftArrow, TimesIcon } from '../Toolbar/styled';
+import { LeftArrow, TimesIcon } from '../Toolbar/Toolbar.legacy';
 import * as Styled from './styled';
 import { createTrapTab, useMatchMobileQuery, useMatchMobileMediumQuery, isSSR } from '../../../reactUtils';
 import { stripHtml } from '../../../utils';

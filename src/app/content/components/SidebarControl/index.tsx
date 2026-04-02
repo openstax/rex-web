@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components/macro';
 import { textRegularSize } from '../../../components/Typography';
 import theme from '../../../theme';
 import * as actions from '../../actions';
-import { PlainButton, TimesIcon } from '../Toolbar/styled';
+import { PlainButton, TimesIcon } from '../Toolbar/Toolbar.legacy';
 import { InnerProps } from './types';
 import { CloseButton, ButtonText } from './Buttons';
 import { TOCControl, lockTocControlState, withMobileResponsiveTocControl } from './TOCControl';

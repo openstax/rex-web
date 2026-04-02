@@ -3,7 +3,7 @@ import { textRegularSize } from '../../../components/Typography';
 import theme from '../../../theme';
 import PrintButton from '../../components/Toolbar/PrintButton';
 import { filters } from '../../styles/PopupConstants';
-import { PrintOptions } from '../Toolbar/styled';
+import { PrintOptions } from '../Toolbar/Toolbar.legacy';
 
 export default styled(PrintButton)`
   flex-direction: row;

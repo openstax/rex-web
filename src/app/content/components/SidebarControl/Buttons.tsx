@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components/macro';
 import theme from '../../../theme';
 import { toolbarIconColor } from '../constants';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
-import { toolbarDefaultButton, toolbarDefaultText } from '../Toolbar/styled';
+import { toolbarDefaultButton, toolbarDefaultText } from '../Toolbar/Toolbar.legacy';
 import type { InnerProps } from './types';
 
 export const ButtonText = styled.span`
