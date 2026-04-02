@@ -25,7 +25,14 @@ BASE_OUTPUT_DIR = Path(os.getcwd()) / "pdf_output_files"
 DIFF_OUTPUT_DIR = BASE_OUTPUT_DIR / "visual_diffs"
 TEMP_EXTRACT_ROOT = Path("/tmp/docx_conversion_work")
 
+# Hardcoded LibreOffice path for macOS:
 LIBREOFFICE_PATH = "/Applications/LibreOffice.app/Contents/MacOS/soffice"
+
+# LibreOffice path for Linux:
+# "/usr/bin/soffice" or "/usr/lib/libreoffice/program/soffice" or "/snap/bin/libreoffice"
+
+# LibreOffice path for win32:
+# "C:\Program Files\LibreOffice\program\soffice.exe" or "C:\Program Files (x86)\LibreOffice\program\soffice.exe"
 
 DPI = 150
 
@@ -65,7 +72,16 @@ def convert_docx_to_pdf(docx_path, output_dir):
             capture_output=True,
         )
     except subprocess.CalledProcessError as e:
-        print(f"  ❌ Error converting {docx_path.name}: {e.stderr.decode()}")
+        raise RuntimeError(
+            f"LibreOffice failed to convert {docx_path.name}: {e.stderr.decode()}"
+        ) from e
+
+    # Verify the PDF was actually created
+    expected_pdf = output_dir / (docx_path.stem + ".pdf")
+    if not expected_pdf.exists():
+        raise RuntimeError(
+            f"Conversion appeared to succeed but no PDF was created for {docx_path.name}"
+        )
 
 
 def prepare_files(input_path, output_dir):
@@ -80,19 +96,29 @@ def prepare_files(input_path, output_dir):
     if input_path.suffix == ".zip":
         unzip_file(input_path, temp_dir)
         docx_files = get_docx_files_from_dir(temp_dir)
-
     elif input_path.suffix == ".docx":
         shutil.copy(input_path, temp_dir / input_path.name)
         docx_files = [temp_dir / input_path.name]
-
     else:
-        print(
-            f"  ❌ Unsupported file type: {input_path.name}. Only .zip and .docx are supported."
+        raise ValueError(
+            f"Unsupported file type: {input_path.name}. Only .zip and .docx are supported."
         )
-        return
 
+    if not docx_files:
+        raise RuntimeError(f"No .docx files found in {input_path.name}")
+
+    failed = []
     for docx in docx_files:
-        convert_docx_to_pdf(docx, output_dir)
+        try:
+            convert_docx_to_pdf(docx, output_dir)
+        except RuntimeError as e:
+            print(f"  ❌ {e}")
+            failed.append(docx.name)
+
+    if failed:
+        raise RuntimeError(
+            f"Conversion failed for {len(failed)}/{len(docx_files)} file(s): {failed}"
+        )
 
 
 def compare_pdfs(pdf1_path, pdf2_path, diff_folder):
@@ -163,13 +189,19 @@ def test_compare_converted_docx_to_pdf_files():
     pdfs_old = sorted(dir_old.glob("*.pdf"))
     pdfs_new = sorted(dir_new.glob("*.pdf"))
 
+    # Validates that PDFs were created
+    if not pdfs_old:
+        raise RuntimeError(f"No PDFs were produced from {file1.name} — cannot compare.")
+    if not pdfs_new:
+        raise RuntimeError(f"No PDFs were produced from {file2.name} — cannot compare.")
+
     if len(pdfs_old) != len(pdfs_new):
         print(f"  ⚠️  Different number of PDFs: {len(pdfs_old)} vs {len(pdfs_new)}")
 
     total_diffs = 0
 
     for pdf_old, pdf_new in zip(pdfs_old, pdfs_new):
-        print("\nCOMPARING converted pdf files (converted from docx (zip)files:")
+        print("\nCOMPARING converted pdf files (converted from docx (zip) files):")
         print(f"  OLD: {pdf_old.name}")
         print(f"  NEW: {pdf_new.name}")
 
