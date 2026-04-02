@@ -53,11 +53,16 @@
 .checkbox-label:focus-within {
   border-radius: 0.4rem;
   background-color: var(--checkbox-focus-bg, #f1f1f1); /* theme.color.neutral.pageBackground */
+
   /* Browser default focus outline */
   outline: 0.2rem auto Highlight;
-  outline: 0.2rem auto -webkit-focus-ring-color;
+  /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
+  outline: 0.2rem auto -webkit-focus-ring-color; /* Fallback for webkit browsers */
 }
 
+/* stylelint-disable no-descending-specificity */
+
+/* Focus-within must come after input state selectors to properly override border styling */
 .checkbox-label:focus-within .checkbox-custom {
   border: 1px solid var(--checkbox-checked-bg, #b03808); /* theme.color.primary.orange.darkest */
 }
@@ -68,6 +73,8 @@
   background-color: var(--checkbox-focus-bg, #f1f1f1); /* theme.color.neutral.pageBackground */
 }
 
+/* Focus fallback must also come after input state selectors */
 .checkbox-label.focus-within .checkbox-custom {
   border: 1px solid var(--checkbox-checked-bg, #b03808); /* theme.color.primary.orange.darkest */
 }
+/* stylelint-enable no-descending-specificity */
