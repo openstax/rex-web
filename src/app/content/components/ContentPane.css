@@ -61,12 +61,14 @@
 /* Sidebar closed states */
 @media screen and (max-width: 75em) {
   .content-pane-wrapper--sidebar-closed-mobile {
-    padding-left: 0 !important;
+    /* stylelint-disable-next-line declaration-no-important */
+    padding-left: 0 !important; /* Must override responsive padding when sidebar is closed */
   }
 }
 
 @media screen {
   .content-pane-wrapper--sidebar-closed-desktop {
-    padding-left: 0 !important;
+    /* stylelint-disable-next-line declaration-no-important */
+    padding-left: 0 !important; /* Must override responsive padding when sidebar is closed */
   }
 }
