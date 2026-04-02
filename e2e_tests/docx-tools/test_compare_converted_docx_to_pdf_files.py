@@ -169,7 +169,7 @@ def test_compare_converted_docx_to_pdf_files():
     total_diffs = 0
 
     for pdf_old, pdf_new in zip(pdfs_old, pdfs_new):
-        print(f"\nCOMPARING converted pdf files (converted from docx (zip)files:")
+        print("\nCOMPARING converted pdf files (converted from docx (zip)files:")
         print(f"  OLD: {pdf_old.name}")
         print(f"  NEW: {pdf_new.name}")
 
