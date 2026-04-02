@@ -217,6 +217,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private renderLoading = () => <PageContent
     key='main-content'
     ref={this.container}
+    book={this.props.book}
   >
     <Loader large delay={1500} />
   </PageContent>;
@@ -224,6 +225,7 @@ export default class PageComponent extends Component<PagePropTypes> {
   private renderPageNotFound = () => <PageContent
     key='main-content'
     ref={this.container}
+    book={this.props.book}
   >
     <PageNotFound />
   </PageContent>;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
-const SvgComponent = () => {
+const SvgComponent = (props: React.SVGAttributes<SVGSVGElement>) => {
   const intl = useIntl();
 
   return (
-    <svg width='18px' height='18px' viewBox='0 0 18 18' version='1.1' aria-hidden='true' role='img'>
+    <svg {...props} width='18px' height='18px' viewBox='0 0 18 18' version='1.1' aria-hidden='true' role='img'>
       <title>{intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}</title>
       <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
         <g transform='translate(-938.000000, -206.000000)' fill='currentColor' fillRule='nonzero'>

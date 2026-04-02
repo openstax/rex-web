@@ -12,7 +12,7 @@ import {
 } from '../../practiceQuestions/selectors';
 import { bookAndPage } from '../../selectors';
 import { toolbarIconStyles } from './iconStyles';
-import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './styled';
+import { PlainButton, toolbarDefaultButton, toolbarDefaultText } from './Toolbar.legacy';
 import { captureOpeningElement } from '../../utils/focusManager';
 
 export const StyledPracticeQuestionsButton = styled(PlainButton)`

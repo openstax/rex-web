@@ -14,6 +14,7 @@ interface Props {
   className?: string;
   dangerouslySetInnerHTML?: { __html: string; };
   textSize?: TextResizerValue;
+  style?: React.CSSProperties;
 }
 
 interface ContentStylesProps extends Omit<Props, 'className'> {

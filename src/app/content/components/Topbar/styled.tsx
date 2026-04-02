@@ -26,9 +26,8 @@ import {
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/Toolbar.legacy';
-import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { disablePrintClass } from '../utils/disablePrint';
-import { isVerticalNavOpenConnector, styleWhenSidebarClosed } from '../utils/sidebar';
+import { isVerticalNavOpenConnector } from '../utils/sidebar';
 import './Topbar.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
@@ -113,7 +112,9 @@ interface TopBarWrapperProps {
   style?: React.CSSProperties;
 }
 
-export function TopBarWrapper({ children, className, style, ...props }: TopBarWrapperProps & React.HTMLAttributes<HTMLDivElement>) {
+export function TopBarWrapper(
+  { children, className, style, ...props }: TopBarWrapperProps & React.HTMLAttributes<HTMLDivElement>
+) {
   return (
     <div
       {...props}
@@ -144,12 +145,12 @@ export function MenuButton(props: MenuButtonProps) {
   const intl = useIntl();
 
   // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce((acc, key) => {
+  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
     if (!key.startsWith('$')) {
-      acc[key] = (props as any)[key];
+      acc[key] = (props as Record<string, unknown>)[key];
     }
     return acc;
-  }, {} as Record<string, any>);
+  }, {});
 
   return (
     <PlainButton
@@ -173,20 +174,21 @@ interface SearchButtonProps {
   style?: React.CSSProperties;
 }
 
-export function SearchButton({ desktop, mobile, ariaLabelId, colorSchema, className, style, ...props }: SearchButtonProps) {
+export function SearchButton(
+  { desktop, mobile, ariaLabelId, colorSchema, className, style, ...props }: SearchButtonProps
+) {
   const intl = useIntl();
 
   // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce((acc, key) => {
+  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
     if (!key.startsWith('$')) {
-      acc[key] = (props as any)[key];
+      acc[key] = (props as Record<string, unknown>)[key];
     }
     return acc;
-  }, {} as Record<string, any>);
+  }, {});
 
-  // Get search icon color styles
-  const iconColorStyles = colorSchema ? applySearchIconColor(colorSchema) : {};
-  const iconColor = iconColorStyles.color || toolbarIconColor.base;
+  // Get search icon color from theme
+  const iconColor = colorSchema ? theme.color.primary[colorSchema].foreground : toolbarIconColor.base;
 
   return (
     <PlainButton
@@ -229,12 +231,12 @@ interface CloseButtonProps {
 
 export function CloseButton({ desktop, formSubmitted, className, style, ...props }: CloseButtonProps) {
   // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce((acc, key) => {
+  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
     if (!key.startsWith('$')) {
-      acc[key] = (props as any)[key];
+      acc[key] = (props as Record<string, unknown>)[key];
     }
     return acc;
-  }, {} as Record<string, any>);
+  }, {});
 
   return (
     <PlainButton
@@ -255,7 +257,7 @@ export function CloseButton({ desktop, formSubmitted, className, style, ...props
 }
 
 export function CloseIcon(props: React.SVGAttributes<SVGSVGElement>) {
-  return <Times {...props} aria-hidden="true" focusable="false" className="topbar-close-icon-times" />;
+  return <Times {...props} aria-hidden="true" className="topbar-close-icon-times" />;
 }
 
 interface CloseButtonNewProps {
@@ -270,12 +272,12 @@ interface CloseButtonNewProps {
 
 export function CloseButtonNew({ children, className, style, ...props }: CloseButtonNewProps) {
   // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce((acc, key) => {
+  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
     if (!key.startsWith('$')) {
-      acc[key] = (props as any)[key];
+      acc[key] = (props as Record<string, unknown>)[key];
     }
     return acc;
-  }, {} as Record<string, any>);
+  }, {});
 
   return (
     <button
@@ -312,8 +314,7 @@ export function SearchInputWrapper({
   ...props
 }: SearchInputWrapperProps & React.FormHTMLAttributes<HTMLFormElement>) {
   // Get search icon color for active state
-  const iconColorStyles = colorSchema && active ? applySearchIconColor(colorSchema) : {};
-  const iconColor = iconColorStyles.color || toolbarIconColor.base;
+  const iconColor = colorSchema && active ? theme.color.primary[colorSchema].foreground : toolbarIconColor.base;
 
   return (
     <form
@@ -361,12 +362,12 @@ export function SearchInput({ desktop, mobile, autoFocus, className, style, ...p
   }, [autoFocus]);
 
   // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce((acc, key) => {
+  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
     if (!key.startsWith('$')) {
-      acc[key] = (props as any)[key];
+      acc[key] = (props as Record<string, unknown>)[key];
     }
     return acc;
-  }, {} as Record<string, any>);
+  }, {});
 
   return (
     <input
@@ -437,7 +438,9 @@ interface MobileSearchContainerProps {
   style?: React.CSSProperties;
 }
 
-export function MobileSearchContainer({ children, className, style, ...props }: MobileSearchContainerProps & React.HTMLAttributes<HTMLDivElement>) {
+export function MobileSearchContainer(
+  { children, className, style, ...props }: MobileSearchContainerProps & React.HTMLAttributes<HTMLDivElement>
+) {
   return (
     <div
       {...props}
@@ -461,7 +464,10 @@ interface MobileSearchWrapperProps {
   style?: React.CSSProperties;
 }
 
-export function MobileSearchWrapper({ mobileToolbarOpen, children, className, style, ...props }: MobileSearchWrapperProps & React.HTMLAttributes<HTMLDivElement>) {
+export function MobileSearchWrapper({
+  mobileToolbarOpen, children, className, style, ...props
+}: MobileSearchWrapperProps & React.HTMLAttributes<HTMLDivElement>
+) {
   return (
     <div
       {...props}
@@ -525,11 +531,11 @@ interface TextResizerDropdownProps {
   transparentTab?: boolean;
   showLabel?: boolean;
   showAngleIcon?: boolean;
-  toggleChildren?: React.ReactNode;
-  label?: string;
-  ariaLabelId?: string;
-  dataAnalyticsLabel?: string;
-  controlsId?: string;
+  toggleChildren?: JSX.Element;
+  label: string;
+  ariaLabelId: string;
+  dataAnalyticsLabel: string;
+  controlsId: string;
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -570,7 +576,10 @@ interface TextResizerMenuProps {
   style?: React.CSSProperties;
 }
 
-export function TextResizerMenu({ bookTheme, textSize, children, className, style, ...props }: TextResizerMenuProps & React.HTMLAttributes<HTMLDivElement>) {
+export function TextResizerMenu({
+  bookTheme, textSize, children, className, style, ...props
+}: TextResizerMenuProps & React.HTMLAttributes<HTMLDivElement>
+) {
   // Calculate gradient for the text resizer slider
   const gradientPercent = textSize
     ? `calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%)`
@@ -608,16 +617,18 @@ interface TextResizerChangeButtonProps {
   style?: React.CSSProperties;
 }
 
-export function TextResizerChangeButton({ ariaLabelId, children, className, style, ...props }: TextResizerChangeButtonProps) {
+export function TextResizerChangeButton(
+  { ariaLabelId, children, className, style, ...props }: TextResizerChangeButtonProps
+) {
   const intl = useIntl();
 
   // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce((acc, key) => {
+  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
     if (!key.startsWith('$')) {
-      acc[key] = (props as any)[key];
+      acc[key] = (props as Record<string, unknown>)[key];
     }
     return acc;
-  }, {} as Record<string, any>);
+  }, {});
 
   return (
     <PlainButton

@@ -145,6 +145,8 @@ type FilterDropdownProps = {
   showAngleIcon?: boolean;
   toggleChildren?: JSX.Element;
   controlsId: string;
+  style?: React.CSSProperties;
+  className?: string;
 } & Partial<TabHiddenDropdownProps>;
 
 export const FilterDropdown = ({label, showLabel, ariaLabelId, dataAnalyticsLabel, toggleChildren, children, ...props}:

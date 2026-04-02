@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import searchIcon from '../.../../../../../../assets/search-icon-v2.svg';
 import Loader from '../../../../components/Loader';
 import { assertDefined, assertNotNull } from '../../../../utils/assertions';
-import { Book } from '../../../types';
+import { Book, BookWithOSWebData } from '../../../types';
 import {
     fixSafariScrolling,
     scrollSidebarSectionIntoView,
@@ -30,7 +30,7 @@ export interface ResultsSidebarProps {
   search: typeof requestSearch;
   searchInSidebar: boolean;
   searchResultsOpen: boolean;
-  searchButtonColor: string | null;
+  searchButtonColor: BookWithOSWebData['theme'] | null;
   book?: Book;
   totalHits: number | null;
   totalHitsKeyTerms: number | null;

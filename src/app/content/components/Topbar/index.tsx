@@ -14,12 +14,13 @@ import { useKeyCombination, useMatchMobileQuery } from '../../../reactUtils';
 import { searchKeyCombination } from '../../highlights/constants';
 import { HTMLElement, HTMLInputElement } from '@openstax/types/lib.dom';
 import { useSearchState, useMobileToolbar } from './hooks';
+import { BookWithOSWebData } from '../../types';
 
 // Props interface no longer needed with hooks pattern - state comes from useSelector
 
 type CommonSearchInputParams = {
   mobileToolbarOpen: boolean;
-  searchButtonColor: string | null;
+  searchButtonColor: BookWithOSWebData['theme'] | null;
   searchInSidebar: boolean;
   newButtonEnabled: boolean;
   onSearchChange: (e: React.FormEvent<HTMLInputElement>) => void;

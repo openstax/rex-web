@@ -11,10 +11,11 @@ import {
   TextResizerValue,
   textResizerValues,
 } from '../../constants';
+import { BookWithOSWebData } from '../../types';
 import * as Styled from './styled';
 
 export interface TextResizerProps {
-  bookTheme: string;
+  bookTheme: BookWithOSWebData['theme'];
   textSize: TextResizerValue | null;
   setTextSize: (value: TextResizerValue) => void;
   mobileToolbarOpen?: boolean;
