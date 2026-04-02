@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignedTopBar renders 1`] = `
-.c7 {
+.c6 {
   cursor: pointer;
 }
 
-.c2 > *:not(.c6) {
+.c2 > *:not(.c5) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -20,13 +20,13 @@ exports[`AssignedTopBar renders 1`] = `
   position: relative;
 }
 
-.c5 {
+.c4 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c5 > div {
+.c4 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -49,26 +49,7 @@ exports[`AssignedTopBar renders 1`] = `
   justify-content: flex-end;
 }
 
-.c4 {
-  z-index: 3;
-}
-
-.c4 > button {
-  max-height: 5.2rem;
-}
-
-.c4 > button > div {
-  padding: 1.4rem;
-}
-
 .c0 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: 30;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   background-color: #fff;
   color: #424242;
@@ -94,26 +75,8 @@ exports[`AssignedTopBar renders 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c5 > div {
+  .c4 > div {
     padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    top: 6rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c0 {
-    z-index: 51;
-  }
-}
-
-@media print {
-  .c0 {
-    display: none;
   }
 }
 
@@ -132,7 +95,15 @@ exports[`AssignedTopBar renders 1`] = `
 }
 
 <div
-  className="c0"
+  className="topbar-wrapper TopBarWrapper topbar-shadow disable-print c0"
+  style={
+    Object {
+      "--topbar-top-desktop": "7rem",
+      "--topbar-top-mobile": "6rem",
+      "--topbar-z-index": 30,
+      "--topbar-z-index-mobile": 51,
+    }
+  }
 >
   <h2
     className="c1"
@@ -143,13 +114,13 @@ exports[`AssignedTopBar renders 1`] = `
     }
   />
   <div
-    className="c2 c3 c4"
+    className="c2 c3 topbar-text-resizer-dropdown"
   >
     <button
       aria-controls="text-resizer-menu"
       aria-expanded={false}
       aria-label="Change text size"
-      className="plain-button c5 c6 c7"
+      className="plain-button c4 c5 c6"
       data-analytics-label="Change text size"
       onClick={[Function]}
     >

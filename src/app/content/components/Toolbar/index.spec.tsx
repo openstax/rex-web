@@ -19,7 +19,7 @@ import { clearSearch, openSearchInSidebar, requestSearch, receiveSearchResults }
 import * as searchSelectors from '../../search/selectors';
 import * as selectors from '../../selectors';
 import { CloseToCAndMobileMenuButton } from '../SidebarControl';
-import { PlainButton } from './styled';
+import { PlainButton } from './Toolbar.legacy';
 
 describe('toolbar', () => {
   let store: Store;

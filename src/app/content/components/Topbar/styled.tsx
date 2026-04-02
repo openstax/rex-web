@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
-import { textRegularStyle, decoratedLinkStyle, textStyle } from '../../../components/Typography';
+import { textRegularStyle, decoratedLinkStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import { BookWithOSWebData } from '../../types';
@@ -25,7 +25,7 @@ import {
 } from '../constants';
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
-import { barPadding, buttonMinWidth, PlainButton } from '../Toolbar/Toolbar.legacy';
+import { buttonMinWidth, PlainButton } from '../Toolbar/Toolbar.legacy';
 import { disablePrintClass } from '../utils/disablePrint';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
 import './Topbar.css';

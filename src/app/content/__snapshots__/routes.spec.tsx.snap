@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`assigned route route renders renders a component 1`] = `
-.c8 {
+.c7 {
   cursor: pointer;
 }
 
-.c3 > *:not(.c7) {
+.c3 > *:not(.c6) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -20,13 +20,13 @@ exports[`assigned route route renders renders a component 1`] = `
   position: relative;
 }
 
-.c6 {
+.c5 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c6 > div {
+.c5 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -49,384 +49,34 @@ exports[`assigned route route renders renders a component 1`] = `
   justify-content: flex-end;
 }
 
-.c5 {
-  z-index: 3;
-}
-
-.c5 > button {
-  max-height: 5.2rem;
-}
-
-.c5 > button > div {
-  padding: 1.4rem;
-}
-
-.c20 {
+.c18 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c23 {
+.c21 {
   height: 1.7rem;
   width: 1.7rem;
 }
 
-.c16 {
+.c14 {
   list-style: none;
   cursor: pointer;
 }
 
-.c16::before {
+.c14::before {
   display: none;
 }
 
-.c16::-moz-list-bullet {
+.c14::-moz-list-bullet {
   list-style-type: none;
 }
 
-.c16::-webkit-details-marker {
+.c14::-webkit-details-marker {
   display: none;
 }
 
-.c13 {
-  overflow: visible;
-}
-
-.c13:focus-visible {
-  outline: none;
-}
-
-.c13 .highlight {
-  position: relative;
-  z-index: 1;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.c13 [data-type="equation"] {
-  text-align: center;
-}
-
-.c13 [data-type="equation"] .highlight {
-  grid-column: 2;
-}
-
-.c13 mark mjx-container,
-.c13 mark mjx-math,
-.c13 mark mjx-semantics,
-.c13 mark mjx-mrow,
-.c13 mark mjx-row,
-.c13 mark mjx-under,
-.c13 mark mjx-base,
-.c13 mark mjx-munder,
-.c13 mark mjx-mo,
-.c13 mark mjx-mi,
-.c13 mark mjx-mn,
-.c13 mark mjx-mtext,
-.c13 mark mjx-c {
-  background: inherit;
-}
-
-.c13 .highlight.yellow {
-  background-color: #ffff8a;
-}
-
-.c13 .highlight.yellow.block {
-  display: block;
-}
-
-.c13 .highlight.yellow.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #ffff8a;
-}
-
-.c13 .highlight.yellow.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #fed200;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c13 .highlight.yellow.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #fed200;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c13 .highlight.green {
-  background-color: #def99f;
-}
-
-.c13 .highlight.green.block {
-  display: block;
-}
-
-.c13 .highlight.green.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #def99f;
-}
-
-.c13 .highlight.green.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #92d101;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c13 .highlight.green.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #92d101;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c13 .highlight.blue {
-  background-color: #c8f5ff;
-}
-
-.c13 .highlight.blue.block {
-  display: block;
-}
-
-.c13 .highlight.blue.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #c8f5ff;
-}
-
-.c13 .highlight.blue.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #00c3ed;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c13 .highlight.blue.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #00c3ed;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c13 .highlight.purple {
-  background-color: #cbcfff;
-}
-
-.c13 .highlight.purple.block {
-  display: block;
-}
-
-.c13 .highlight.purple.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #cbcfff;
-}
-
-.c13 .highlight.purple.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #545ec8;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c13 .highlight.purple.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #545ec8;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c13 .highlight.pink {
-  background-color: #ffc5e1;
-}
-
-.c13 .highlight.pink.block {
-  display: block;
-}
-
-.c13 .highlight.pink.block:after {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  top: -1rem;
-  bottom: -1rem;
-  left: -1rem;
-  right: -1rem;
-  background-color: #ffc5e1;
-}
-
-.c13 .highlight.pink.block.first.has-note:before {
-  position: absolute;
-  top: -1rem;
-  left: -1rem;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 1.2em solid #de017e;
-  border-bottom: 1.2em solid transparent;
-}
-
-.c13 .highlight.pink.first.text.has-note:after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  width: 0;
-  height: 0;
-  opacity: 0.8;
-  border-left: 0.9em solid #de017e;
-  border-top: 0.9em solid transparent;
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-}
-
-.c13 [data-for-screenreaders="true"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c13 .os-figure,
-.c13 .os-figure:last-child {
-  margin-bottom: 5px;
-}
-
-.c13 #main-content .os-figure > figure,
-.c13 #main-content .os-figure > figure:not([data-orient="vertical"]) {
-  display: contents;
-}
-
-.c13 #main-content .os-figure > figure > figcaption.os-caption-container,
-.c13 #main-content .os-figure > figure:not([data-orient="vertical"]) > figcaption.os-caption-container {
-  text-align: left;
-  padding: 1rem 0 0;
-  margin-bottom: 0;
-}
-
-.c13 .image-button-wrapper {
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: none;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.c13 .image-button-wrapper:focus {
-  outline: 1px solid Highlight;
-  outline: 1px solid -webkit-focus-ring-color;
-  outline-offset: 2px;
-}
-
-.c13 .image-button-wrapper img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-.c13 #main-content * {
-  overflow: initial;
-}
-
 .c1 {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 7rem;
-  width: 100%;
-  overflow: visible;
-  display: block;
-  z-index: 30;
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.14);
   background-color: #fff;
   color: #424242;
@@ -451,21 +101,21 @@ exports[`assigned route route renders renders a component 1`] = `
   margin-left: 1.6rem;
 }
 
-.c21 {
+.c19 {
   margin-left: -0.3rem;
 }
 
-.c24 {
+.c22 {
   margin-left: -0.3rem;
 }
 
-.c18 {
+.c16 {
   font-weight: 500;
   list-style: none;
 }
 
-.c18,
-.c18 span {
+.c16,
+.c16 span {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -475,33 +125,33 @@ exports[`assigned route route renders renders a component 1`] = `
   text-decoration: none;
 }
 
-.c18 a,
-.c18 span a {
+.c16 a,
+.c16 span a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c18 a:hover,
-.c18 span a:hover {
+.c16 a:hover,
+.c16 span a:hover {
   color: #0064A0;
 }
 
-.c18:hover,
-.c18 span:hover,
-.c18:focus,
-.c18 span:focus {
+.c16:hover,
+.c16 span:hover,
+.c16:focus,
+.c16 span:focus {
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #0064A0;
 }
 
-.c25 blockquote {
+.c23 blockquote {
   margin-left: 0;
 }
 
-.c14 {
+.c12 {
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -512,35 +162,35 @@ exports[`assigned route route renders renders a component 1`] = `
   padding-top: 1.8rem;
 }
 
-.c14[open] > summary .c19 {
+.c12[open] > summary .c17 {
   display: none;
 }
 
-.c14:not([open]) > summary .c22 {
+.c12:not([open]) > summary .c20 {
   display: none;
 }
 
-.c14 a {
+.c12 a {
   color: #027EB5;
   cursor: pointer;
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }
 
-.c14 a:hover {
+.c12 a:hover {
   color: #0064A0;
 }
 
-.c14 > .c17 {
+.c12 > .c15 {
   margin-bottom: 1.8rem;
 }
 
-.c14 li {
+.c12 li {
   margin-bottom: 1rem;
   overflow: visible;
 }
 
-.c10 {
+.c9 {
   position: -webkit-sticky;
   position: sticky;
   overflow: visible;
@@ -548,11 +198,11 @@ exports[`assigned route route renders renders a component 1`] = `
   top: 12rem;
 }
 
-.c12:focus-within {
+.c11:focus-within {
   overflow: visible;
 }
 
-.c11 {
+.c10 {
   top: 5rem;
   left: 0;
   max-width: 100%;
@@ -563,160 +213,8 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c6 > div {
+  .c5 > div {
     padding: 1rem 1.6rem;
-  }
-}
-
-@media screen {
-  .c13 {
-    max-width: 82.5rem;
-    margin: 0 auto;
-  }
-}
-
-@media screen {
-  .c13 {
-    -webkit-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    width: 100%;
-  }
-
-  .c13 #main-content {
-    overflow: visible;
-    width: 100%;
-  }
-
-  .c13 #main-content > [data-type="page"],
-  .c13 #main-content > [data-type="composite-page"] {
-    margin-top: 3.2rem;
-  }
-}
-
-@media screen {
-  .c13 .highlight.yellow[aria-current] {
-    background-color: #fed200;
-    border-bottom: 0.2rem solid #8f7700;
-    padding: 0.2rem 0 0;
-  }
-
-  .c13 .highlight.yellow[aria-current].block:after {
-    background-color: #fed200;
-  }
-
-  .c13 .highlight.yellow[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c13 .highlight.green[aria-current] {
-    background-color: #92d101;
-    border-bottom: 0.2rem solid #4e6f01;
-    padding: 0.2rem 0 0;
-  }
-
-  .c13 .highlight.green[aria-current].block:after {
-    background-color: #92d101;
-  }
-
-  .c13 .highlight.green[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c13 .highlight.blue[aria-current] {
-    background-color: #00c3ed;
-    border-bottom: 0.2rem solid #006880;
-    padding: 0.2rem 0 0;
-  }
-
-  .c13 .highlight.blue[aria-current].block:after {
-    background-color: #00c3ed;
-  }
-
-  .c13 .highlight.blue[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c13 .highlight.purple[aria-current] {
-    background-color: #545ec8;
-    border-bottom: 0.2rem solid #141a3e;
-    padding: 0.2rem 0 0;
-    color: #fff;
-  }
-
-  .c13 .highlight.purple[aria-current].block:after {
-    background-color: #545ec8;
-  }
-
-  .c13 .highlight.purple[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c13 .highlight.pink[aria-current] {
-    background-color: #de017e;
-    border-bottom: 0.2rem solid #560131;
-    padding: 0.2rem 0 0;
-    color: #fff;
-  }
-
-  .c13 .highlight.pink[aria-current].block:after {
-    background-color: #de017e;
-  }
-
-  .c13 .highlight.pink[aria-current].first.text.has-note:after {
-    display: none;
-  }
-}
-
-@media screen {
-  .c13 .search-highlight {
-    font-weight: bold;
-  }
-
-  .c13 .search-highlight,
-  .c13 .search-highlight .math {
-    background-color: #ffea00;
-    box-shadow: 0 0.2rem 0.3rem 0 rgb(0,0,0,0.41);
-  }
-
-  .c13 .search-highlight[aria-current],
-  .c13 .search-highlight[aria-current] .math {
-    background-color: #ff9e4b;
-    padding: 0.2rem 0;
-  }
-
-  .c13 .search-highlight[aria-current] .search-highlight {
-    background-color: unset;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    top: 6rem;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c1 {
-    z-index: 51;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
   }
 }
 
@@ -735,58 +233,58 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c18 {
+  .c16 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen {
-  .c25 {
+  .c23 {
     max-width: 82.5rem;
     margin: 0 auto;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c14 {
+  .c12 {
     padding: 0 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c14 {
+  .c12 {
     min-height: 4rem;
     padding-top: 0.8rem;
   }
 
-  .c14 > .c15 {
+  .c12 > .c13 {
     margin-bottom: 0.8rem;
   }
 }
 
 @media print {
-  .c14 {
+  .c12 {
     display: none;
   }
 }
 
 @media screen and (max-width:90em) {
-  .c10 {
+  .c9 {
     max-width: calc(100vw - ((100vw - 128rem) / 2) - 8rem);
     left: calc(100vw - (100vw - ((100vw - 128rem) / 2) - 8rem));
   }
 }
 
 @media screen and (max-width:80em) {
-  .c10 {
+  .c9 {
     max-width: calc(100vw - 8rem);
     left: 8rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c10 {
+  .c9 {
     max-width: 100%;
     left: 0;
     z-index: 21;
@@ -795,7 +293,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c9 {
+  .c8 {
     overflow: visible;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -812,7 +310,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen {
-  .c12 {
+  .c11 {
     padding: 0 3.2rem;
     -webkit-flex: 1;
     -ms-flex: 1;
@@ -828,7 +326,7 @@ exports[`assigned route route renders renders a component 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c11 {
+  .c10 {
     top: 5.300000000000001rem;
   }
 }
@@ -875,7 +373,15 @@ exports[`assigned route route renders renders a component 1`] = `
     Keyboard shortcuts menu
   </button>
   <div
-    className="c1"
+    className="topbar-wrapper TopBarWrapper topbar-shadow disable-print c1"
+    style={
+      Object {
+        "--topbar-top-desktop": "7rem",
+        "--topbar-top-mobile": "6rem",
+        "--topbar-z-index": 30,
+        "--topbar-z-index-mobile": 51,
+      }
+    }
   >
     <h2
       className="c2"
@@ -886,13 +392,13 @@ exports[`assigned route route renders renders a component 1`] = `
       }
     />
     <div
-      className="c3 c4 c5"
+      className="c3 c4 topbar-text-resizer-dropdown"
     >
       <button
         aria-controls="text-resizer-menu"
         aria-expanded={false}
         aria-label="Change text size"
-        className="plain-button c6 c7 c8"
+        className="plain-button c5 c6 c7"
         data-analytics-label="Change text size"
         onClick={[Function]}
       >
@@ -909,17 +415,338 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <div
-    className="c9"
+    className="c8"
   >
     <div
       aria-live="polite"
-      className="c10 c11"
+      className="c9 c10"
     />
     <div
-      className="c12"
+      className="c11"
     >
+      <style
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "
+        .highlight.yellow {
+          background-color: #ffff8a;
+        }
+
+        .highlight.yellow.block {
+          display: block;
+        }
+
+        .highlight.yellow.block:after {
+          position: absolute;
+          z-index: -1;
+          content: \\"\\";
+          display: block;
+          top: -1rem;
+          bottom: -1rem;
+          left: -1rem;
+          right: -1rem;
+          background-color: #ffff8a;
+        }
+
+        .highlight.yellow.block.first.has-note:before {
+          position: absolute;
+          top: -1rem;
+          left: -1rem;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 1.2em solid #fed200;
+          border-bottom: 1.2em solid transparent;
+        }
+
+        .highlight.yellow.first.text.has-note:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 0.9em solid #fed200;
+          border-top: 0.9em solid transparent;
+          transform: rotate(90deg);
+        }
+
+        @media screen {
+          .highlight.yellow[aria-current] {
+            background-color: #fed200;
+            border-bottom: 0.2rem solid #8f7700;
+            padding: 0.2rem 0 0;
+            
+          }
+
+          .highlight.yellow[aria-current].block:after {
+            background-color: #fed200;
+          }
+
+          .highlight.yellow[aria-current].first.text.has-note:after {
+            display: none;
+          }
+        }
+      
+
+        .highlight.green {
+          background-color: #def99f;
+        }
+
+        .highlight.green.block {
+          display: block;
+        }
+
+        .highlight.green.block:after {
+          position: absolute;
+          z-index: -1;
+          content: \\"\\";
+          display: block;
+          top: -1rem;
+          bottom: -1rem;
+          left: -1rem;
+          right: -1rem;
+          background-color: #def99f;
+        }
+
+        .highlight.green.block.first.has-note:before {
+          position: absolute;
+          top: -1rem;
+          left: -1rem;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 1.2em solid #92d101;
+          border-bottom: 1.2em solid transparent;
+        }
+
+        .highlight.green.first.text.has-note:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 0.9em solid #92d101;
+          border-top: 0.9em solid transparent;
+          transform: rotate(90deg);
+        }
+
+        @media screen {
+          .highlight.green[aria-current] {
+            background-color: #92d101;
+            border-bottom: 0.2rem solid #4e6f01;
+            padding: 0.2rem 0 0;
+            
+          }
+
+          .highlight.green[aria-current].block:after {
+            background-color: #92d101;
+          }
+
+          .highlight.green[aria-current].first.text.has-note:after {
+            display: none;
+          }
+        }
+      
+
+        .highlight.blue {
+          background-color: #c8f5ff;
+        }
+
+        .highlight.blue.block {
+          display: block;
+        }
+
+        .highlight.blue.block:after {
+          position: absolute;
+          z-index: -1;
+          content: \\"\\";
+          display: block;
+          top: -1rem;
+          bottom: -1rem;
+          left: -1rem;
+          right: -1rem;
+          background-color: #c8f5ff;
+        }
+
+        .highlight.blue.block.first.has-note:before {
+          position: absolute;
+          top: -1rem;
+          left: -1rem;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 1.2em solid #00c3ed;
+          border-bottom: 1.2em solid transparent;
+        }
+
+        .highlight.blue.first.text.has-note:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 0.9em solid #00c3ed;
+          border-top: 0.9em solid transparent;
+          transform: rotate(90deg);
+        }
+
+        @media screen {
+          .highlight.blue[aria-current] {
+            background-color: #00c3ed;
+            border-bottom: 0.2rem solid #006880;
+            padding: 0.2rem 0 0;
+            
+          }
+
+          .highlight.blue[aria-current].block:after {
+            background-color: #00c3ed;
+          }
+
+          .highlight.blue[aria-current].first.text.has-note:after {
+            display: none;
+          }
+        }
+      
+
+        .highlight.purple {
+          background-color: #cbcfff;
+        }
+
+        .highlight.purple.block {
+          display: block;
+        }
+
+        .highlight.purple.block:after {
+          position: absolute;
+          z-index: -1;
+          content: \\"\\";
+          display: block;
+          top: -1rem;
+          bottom: -1rem;
+          left: -1rem;
+          right: -1rem;
+          background-color: #cbcfff;
+        }
+
+        .highlight.purple.block.first.has-note:before {
+          position: absolute;
+          top: -1rem;
+          left: -1rem;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 1.2em solid #545ec8;
+          border-bottom: 1.2em solid transparent;
+        }
+
+        .highlight.purple.first.text.has-note:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 0.9em solid #545ec8;
+          border-top: 0.9em solid transparent;
+          transform: rotate(90deg);
+        }
+
+        @media screen {
+          .highlight.purple[aria-current] {
+            background-color: #545ec8;
+            border-bottom: 0.2rem solid #141a3e;
+            padding: 0.2rem 0 0;
+            color: #fff;
+          }
+
+          .highlight.purple[aria-current].block:after {
+            background-color: #545ec8;
+          }
+
+          .highlight.purple[aria-current].first.text.has-note:after {
+            display: none;
+          }
+        }
+      
+
+        .highlight.pink {
+          background-color: #ffc5e1;
+        }
+
+        .highlight.pink.block {
+          display: block;
+        }
+
+        .highlight.pink.block:after {
+          position: absolute;
+          z-index: -1;
+          content: \\"\\";
+          display: block;
+          top: -1rem;
+          bottom: -1rem;
+          left: -1rem;
+          right: -1rem;
+          background-color: #ffc5e1;
+        }
+
+        .highlight.pink.block.first.has-note:before {
+          position: absolute;
+          top: -1rem;
+          left: -1rem;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 1.2em solid #de017e;
+          border-bottom: 1.2em solid transparent;
+        }
+
+        .highlight.pink.first.text.has-note:after {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: \\"\\";
+          width: 0;
+          height: 0;
+          opacity: 0.8;
+          border-left: 0.9em solid #de017e;
+          border-top: 0.9em solid transparent;
+          transform: rotate(90deg);
+        }
+
+        @media screen {
+          .highlight.pink[aria-current] {
+            background-color: #de017e;
+            border-bottom: 0.2rem solid #560131;
+            padding: 0.2rem 0 0;
+            color: #fff;
+          }
+
+          .highlight.pink[aria-current].block:after {
+            background-color: #de017e;
+          }
+
+          .highlight.pink[aria-current].first.text.has-note:after {
+            display: none;
+          }
+        }
+      ",
+          }
+        }
+      />
       <main
-        className="c13 page-content"
+        className="page-content page-content"
         tabIndex={-1}
       >
         <div
@@ -934,6 +761,8 @@ exports[`assigned route route renders renders a component 1`] = `
           style={
             Object {
               "--content-text-scale": 1,
+              "--page-padding-desktop": 3.2,
+              "--page-padding-mobile": 1.6,
             }
           }
           tabIndex={-1}
@@ -942,17 +771,17 @@ exports[`assigned route route renders renders a component 1`] = `
     </div>
   </div>
   <details
-    className="c14"
+    className="c12"
     data-analytics-region="attribution"
     data-testid="attribution-details"
   >
     <summary
       aria-label="Citation/Attribution"
-      className="c15 c16 c17 c18"
+      className="c13 c14 c15 c16"
     >
       <svg
         aria-hidden="true"
-        className="details-expand-icon c19 c20 c21"
+        className="details-expand-icon c17 c18 c19"
         viewBox="0 0 192 512"
       >
         <path
@@ -962,7 +791,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </svg>
       <svg
         aria-hidden="true"
-        className="details-collapse-icon c22 c23 c24"
+        className="details-collapse-icon c20 c21 c22"
         viewBox="0 0 320 512"
       >
         <path
@@ -978,7 +807,7 @@ exports[`assigned route route renders renders a component 1`] = `
       </span>
     </summary>
     <div
-      className="c25"
+      className="c23"
       dangerouslySetInnerHTML={
         Object {
           "__html": "
