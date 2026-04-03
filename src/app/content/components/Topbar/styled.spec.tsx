@@ -203,7 +203,7 @@ describe('Topbar styled components transient prop filtering', () => {
           <MenuButton
             type="button"
             onClick={jest.fn()}
-            {...({ 'data-analytics': 'menu-click', regularProp: 'value' } as any)}
+            {...({ 'data-analytics': 'menu-click', 'data-regular-prop': 'value' } as any)}
           />
         </MessageProvider>
       </Provider>
@@ -216,7 +216,7 @@ describe('Topbar styled components transient prop filtering', () => {
 
     // Non-transient props should be passed through
     expect(button.props['data-analytics']).toBe('menu-click');
-    expect(button.props.regularProp).toBe('value');
+    expect(button.props['data-regular-prop']).toBe('value');
     expect(button.props.type).toBe('button');
     expect(button.props.onClick).toBeDefined();
   });
