@@ -45,5 +45,5 @@ async def test_osweb_higher_education_page_bookstore_link(chrome_page, base_url)
         assert "Assignable Bookstore Order Form" in await new_tab.title()
 
     else:
-        # Waiting for Bookstore to be implemented in prod
+        # Waiting for Bookstore link to be implemented in prod under HE option
         await home.click_higher_education_link()
