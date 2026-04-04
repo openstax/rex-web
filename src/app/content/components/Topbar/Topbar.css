@@ -32,6 +32,7 @@
   overflow: visible;
   display: block;
   z-index: var(--topbar-z-index, 30);
+
   /* disable-print class applied via className */
 }
 
@@ -170,13 +171,11 @@
 /* Mobile search container */
 .topbar-mobile-search-container {
   overflow: visible;
-  margin-top: var(--mobile-search-margin, 0.8rem);
-  margin-bottom: var(--mobile-search-margin, 0.8rem);
+  margin-top: var(--mobile-search-margin, 0.8rem) auto;
   height: var(--mobile-search-input-height, 4.8rem);
+
   /* barPadding styles */
   max-width: var(--max-nav-width, 120rem);
-  margin-left: auto;
-  margin-right: auto;
   width: calc(100% - var(--page-padding-desktop, 3.2rem) * 2);
 }
 
@@ -275,7 +274,11 @@
 .topbar-text-resizer-menu .controls input {
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: var(--text-resizer-gradient, var(--text-resizer-fallback-bg, #888888));
+  background:
+    var(
+      --text-resizer-gradient,
+      var(--text-resizer-fallback-bg, #888)
+    );
   overflow: visible;
   height: 0.4rem;
   width: 12rem;
@@ -283,6 +286,7 @@
   cursor: pointer;
 }
 
+/* stylelint-disable function-comma-space-after */
 .topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track,
 .topbar-text-resizer-menu .controls input[type="range"]::-moz-range-track {
   -webkit-appearance: none;
@@ -290,15 +294,16 @@
   box-shadow: none;
   border: none;
   height: 0.2rem;
-  background: repeating-linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0) 19%,
-    #fff 19%,
-    #fff 20%,
-    rgba(0, 0, 0, 0) 20%,
-    rgba(0, 0, 0, 0) 20%
-  );
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0) 19%,
+      #fff 19%,
+      #fff 20%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0) 20%
+    );
 }
 
 .topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track {

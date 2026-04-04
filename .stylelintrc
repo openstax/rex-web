@@ -34,7 +34,7 @@
     } ],
     "font-family-no-duplicate-names": true,
     "font-family-no-missing-generic-family-keyword": true,
-    "function-comma-space-after": [ "always", {
+    "function-comma-space-after": [ "always-single-line", {
       "severity": "warning"
     } ],
     "function-max-empty-lines": 0,
