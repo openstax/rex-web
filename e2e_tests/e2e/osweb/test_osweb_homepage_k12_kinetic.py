@@ -21,7 +21,7 @@ async def test_osweb_homepage_k12_link(chrome_page, base_url):
 
     await home.k12_find_your_subject_dropdown.click()
 
-    # THEN: Book count is 17 on staging, 19 on prod (as of April 6th, 2026)
+    # Note, that book count is 17 on staging, 19 on prod (as of April 6th, 2026)
     assert await home.k12_find_your_subject_dropdown_options.count() >= 17
 
     # THEN: Subject dropdown closes
