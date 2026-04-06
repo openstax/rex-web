@@ -46,13 +46,13 @@ async def test_osweb_higher_education_page_bookstore_link(chrome_page, base_url)
         await home.click_campus_affordability_link()
 
     # THEN: Bookstore page elements are visible/enabled in both staging and prod envs
-    assert await home.higher_education_bookstore_order_access_code.is_enabled()
-    assert await home.higher_education_bookstore_view_print_options.first.is_enabled()
+    assert await home.higher_education_bookstore_order_access_code.is_visible()
+    assert await home.higher_education_bookstore_view_print_options.first.is_visible()
     assert await home.obtain_access_codes_via_vitalsource.is_visible()
     assert await home.obtain_access_codes_via_openstax.is_visible()
     assert await home.know_before_your_order_columns.is_visible()
-    assert await home.higher_education_bookstore_view_print_options.last.is_enabled()
-    assert await home.access_pdf.is_enabled()
+    assert await home.higher_education_bookstore_view_print_options.last.is_visible()
+    assert await home.access_pdf.is_visible()
 
     # THEN: Access code order form opens in new tab
     async with chrome_page.expect_popup() as popup_info:
