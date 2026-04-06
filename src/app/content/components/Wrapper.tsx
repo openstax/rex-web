@@ -6,7 +6,6 @@ import { AppState } from '../../types';
 import * as selectSearch from '../search/selectors';
 import * as contentSelectors from '../selectors';
 import { contentWrapperMaxWidth, verticalNavbarMaxWidth } from './constants';
-import './Wrapper.css';
 
 export { wrapperPadding } from '../../components/Layout';
 

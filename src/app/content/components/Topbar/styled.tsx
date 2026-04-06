@@ -28,7 +28,6 @@ import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { buttonMinWidth, PlainButton } from '../Toolbar/Toolbar.legacy';
 import { disablePrintClass } from '../utils/disablePrint';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
-import './Topbar.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;

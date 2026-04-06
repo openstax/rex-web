@@ -3,7 +3,6 @@ import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import theme from '../../../theme';
 import { toolbarIconColor } from '../constants';
-import './Toolbar.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;

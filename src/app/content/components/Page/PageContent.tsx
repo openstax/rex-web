@@ -10,7 +10,6 @@ import {
   highlightIndicatorSize,
   highlightIndicatorSizeForBlock,
 } from '../../highlights/constants';
-import './PageContent.css';
 
 // Re-export contentTextStyle for backward compatibility
 export { contentTextStyle } from './PageContent.legacy';
