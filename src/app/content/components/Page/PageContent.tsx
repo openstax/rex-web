@@ -110,8 +110,8 @@ const PageContent = React.forwardRef<HTMLDivElement, PageContentProps>(
           ref={ref}
           className={classNames('page-content', className)}
           style={{
-            '--page-padding-desktop': theme.padding.page.desktop,
-            '--page-padding-mobile': theme.padding.page.mobile,
+            '--page-padding-desktop': `${theme.padding.page.desktop}rem`,
+            '--page-padding-mobile': `${theme.padding.page.mobile}rem`,
           } as React.CSSProperties}
           {...props}
         >
