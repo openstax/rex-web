@@ -33,7 +33,9 @@ describe('sidebar utilities', () => {
       // Execute the interpolation function with isTocOpen === false to cover the desktop case
       const interpolationFn = result[3] as (props: {isTocOpen: boolean | null}) => any;
       if (typeof interpolationFn === 'function') {
-        interpolationFn({isTocOpen: false});
+        const fnResult = interpolationFn({isTocOpen: false});
+        // Verify closedStyle is returned to ensure coverage
+        expect(fnResult).toBe(closedStyle);
       }
     });
   });
@@ -73,7 +75,9 @@ describe('sidebar utilities', () => {
       if (typeof interpolationFn === 'function') {
         const fnResult = interpolationFn({isDesktopSearchOpen: false, isVerticalNavOpen: false});
         // When both conditions are false, closedStyle should be returned
-        expect(fnResult).toBeDefined();
+        // We verify it equals closedStyle to ensure coverage tools detect the branch
+        expect(fnResult).toBe(closedStyle);
+        expect(fnResult).toEqual(closedStyle);
       }
     });
 
