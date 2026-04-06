@@ -19,6 +19,76 @@ interface PageContentProps extends React.ComponentProps<typeof MainContent> {
   className?: string;
 }
 
+// Generate dynamic highlight CSS based on highlightStyles array
+const highlightCSS = highlightStyles.map((style) => {
+  const isDark = Color(style.focused).isDark();
+  const textColor = isDark ? theme.color.text.white : '';
+
+  return `
+    .highlight.${style.label} {
+      background-color: ${style.passive};
+    }
+
+    .highlight.${style.label}.block {
+      display: block;
+    }
+
+    .highlight.${style.label}.block:after {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      display: block;
+      top: -1rem;
+      bottom: -1rem;
+      left: -1rem;
+      right: -1rem;
+      background-color: ${style.passive};
+    }
+
+    .highlight.${style.label}.block.first.has-note:before {
+      position: absolute;
+      top: -${highlightBlockPadding}rem;
+      left: -${highlightBlockPadding}rem;
+      content: "";
+      width: 0;
+      height: 0;
+      opacity: 0.8;
+      border-left: ${highlightIndicatorSizeForBlock}em solid ${style.focused};
+      border-bottom: ${highlightIndicatorSizeForBlock}em solid transparent;
+    }
+
+    .highlight.${style.label}.first.text.has-note:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      width: 0;
+      height: 0;
+      opacity: 0.8;
+      border-left: ${highlightIndicatorSize}em solid ${style.focused};
+      border-top: ${highlightIndicatorSize}em solid transparent;
+      transform: rotate(90deg);
+    }
+
+    @media screen {
+      .highlight.${style.label}[aria-current] {
+        background-color: ${style.focused};
+        border-bottom: 0.2rem solid ${style.focusBorder};
+        padding: 0.2rem 0 0;
+        ${textColor ? `color: ${textColor};` : ''}
+      }
+
+      .highlight.${style.label}[aria-current].block:after {
+        background-color: ${style.focused};
+      }
+
+      .highlight.${style.label}[aria-current].first.text.has-note:after {
+        display: none;
+      }
+    }
+  `;
+}).join('\n');
+
 /**
  * PageContent component - Main content area for book pages
  *
@@ -30,75 +100,6 @@ interface PageContentProps extends React.ComponentProps<typeof MainContent> {
  */
 const PageContent = React.forwardRef<HTMLDivElement, PageContentProps>(
   function PageContent({ className, children, ...props }, ref) {
-    // Generate dynamic highlight CSS based on highlightStyles array
-    const highlightCSS = highlightStyles.map((style) => {
-      const isDark = Color(style.focused).isDark();
-      const textColor = isDark ? theme.color.text.white : '';
-
-      return `
-        .highlight.${style.label} {
-          background-color: ${style.passive};
-        }
-
-        .highlight.${style.label}.block {
-          display: block;
-        }
-
-        .highlight.${style.label}.block:after {
-          position: absolute;
-          z-index: -1;
-          content: "";
-          display: block;
-          top: -1rem;
-          bottom: -1rem;
-          left: -1rem;
-          right: -1rem;
-          background-color: ${style.passive};
-        }
-
-        .highlight.${style.label}.block.first.has-note:before {
-          position: absolute;
-          top: -${highlightBlockPadding}rem;
-          left: -${highlightBlockPadding}rem;
-          content: "";
-          width: 0;
-          height: 0;
-          opacity: 0.8;
-          border-left: ${highlightIndicatorSizeForBlock}em solid ${style.focused};
-          border-bottom: ${highlightIndicatorSizeForBlock}em solid transparent;
-        }
-
-        .highlight.${style.label}.first.text.has-note:after {
-          position: absolute;
-          top: 0;
-          left: 0;
-          content: "";
-          width: 0;
-          height: 0;
-          opacity: 0.8;
-          border-left: ${highlightIndicatorSize}em solid ${style.focused};
-          border-top: ${highlightIndicatorSize}em solid transparent;
-          transform: rotate(90deg);
-        }
-
-        @media screen {
-          .highlight.${style.label}[aria-current] {
-            background-color: ${style.focused};
-            border-bottom: 0.2rem solid ${style.focusBorder};
-            padding: 0.2rem 0 0;
-            ${textColor ? `color: ${textColor};` : ''}
-          }
-
-          .highlight.${style.label}[aria-current].block:after {
-            background-color: ${style.focused};
-          }
-
-          .highlight.${style.label}[aria-current].first.text.has-note:after {
-            display: none;
-          }
-        }
-      `;
-    }).join('\n');
 
     return (
       <>
