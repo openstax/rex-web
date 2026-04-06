@@ -19,7 +19,7 @@ import {
   Middleware,
   MiddlewareAPI,
 } from './types';
-export { merge, getCommonProperties } from '@openstax/ts-utils';
+export { merge } from '@openstax/ts-utils';
 export * from './utils/assertions';
 export * from './utils/browser-assertions';
 
