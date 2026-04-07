@@ -31,12 +31,12 @@ async function getExpectedScrollPosition(
   const result = await page.evaluate((selector, isClick) => {
     console.info('*** Inside page.evaluate - Selector:', selector); // eslint-disable-line
 
-    const element = document.querySelector(selector);
+    const element = document!.querySelector(selector);
     console.info('*** Element found?', Boolean(element)); // eslint-disable-line
 
     if (!element) {
       console.info('*** Element is null! Available IDs:', // eslint-disable-line
-        Array.from(document.querySelectorAll('[id]'))
+        Array.from(document!.querySelectorAll('[id]'))
           .map((el) => el.id)
           .slice(0, 20)
           .join(', ')
@@ -46,20 +46,20 @@ async function getExpectedScrollPosition(
 
     // Get the element's position relative to the document
     const rect = element.getBoundingClientRect();
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollTop = window!.pageYOffset || document!.documentElement!.scrollTop;
     const elementTop = rect.top + scrollTop;
 
     // The ScrollOffset component sets CSS variables --scroll-offset-desktop and --scroll-offset-mobile
-    const root = document.documentElement;
-    const rootStyles = window.getComputedStyle(root);
+    const root = document!.documentElement!;
+    const rootStyles = window!.getComputedStyle(root);
 
     // Check if we're in mobile viewport (max-width: 75em / 1200px)
-    const isMobile = window.matchMedia('(max-width: 75em)').matches;
+    const isMobile = window!.matchMedia('(max-width: 75em)').matches;
     const scrollOffsetVar = isMobile ? '--scroll-offset-mobile' : '--scroll-offset-desktop';
     const scrollOffsetValue = rootStyles.getPropertyValue(scrollOffsetVar) || '0rem';
 
     // Convert rem to pixels
-    const rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
+    const rootFontSize = parseFloat(window!.getComputedStyle(document!.documentElement!).fontSize) || 16;
     const scrollOffsetRem = parseFloat(scrollOffsetValue);
     const scrollPadding = scrollOffsetRem * rootFontSize;
 
