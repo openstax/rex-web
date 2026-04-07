@@ -27,23 +27,14 @@ async function getExpectedScrollPosition(
   elementSelector: string,
   isClickNavigation = false
 ): Promise<number> {
-  console.info('*** getExpectedScrollPosition called with selector:', elementSelector); // eslint-disable-line
   const result = await page.evaluate((selector, isClick) => {
-    console.info('*** Inside page.evaluate - Selector:', selector); // eslint-disable-line
-
     const element = document!.querySelector(selector);
-    console.info('*** Element found?', Boolean(element)); // eslint-disable-line
 
     if (!element) {
-      console.info('*** Element is null! Available IDs:', // eslint-disable-line
-        Array.from(document!.querySelectorAll('[id]'))
-          .map((el) => el.id)
-          .slice(0, 20)
-          .join(', ')
-      );
       return 0;
     }
 
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     // Get the element's position relative to the document
     const rect = element.getBoundingClientRect();
     const scrollTop = window!.pageYOffset || document!.documentElement!.scrollTop;
@@ -63,9 +54,6 @@ async function getExpectedScrollPosition(
     const scrollOffsetRem = parseFloat(scrollOffsetValue);
     const scrollPadding = scrollOffsetRem * rootFontSize;
 
-    console.info('*** SCROLL OFFSET VAR:', scrollOffsetVar, '=', scrollOffsetValue); // eslint-disable-line
-    console.info('*** SCROLL PADDING (px):', scrollPadding); // eslint-disable-line
-
     // Expected scroll position is element top minus scroll padding
     let expectedPosition = Math.max(0, elementTop - scrollPadding);
 
@@ -76,12 +64,9 @@ async function getExpectedScrollPosition(
       expectedPosition = Math.max(0, expectedPosition - scrollPadding);
     }
 
-    console.info('*** EXPECTED POSITION:', expectedPosition); // eslint-disable-line
-
     return expectedPosition;
   }, elementSelector, isClickNavigation);
 
-  console.info('*** getExpectedScrollPosition result:', result); // eslint-disable-line
   return result;
 }
 
@@ -149,9 +134,6 @@ describe('Content', () => {
           const actualScrollTop = await getScrollTop(page);
           // Pass isClickNavigation=true because ScrollOffset applies additional offset for clicks
           const expectedScrollTop = await getExpectedScrollPosition(page, `#${targetId}`, true);
-
-          /* eslint-disable no-console */
-          console.info('*** ACTUAL SCROLL TOP', actualScrollTop);
 
           expect(Math.abs(actualScrollTop - expectedScrollTop)).toBeLessThanOrEqual(MAX_SCROLL_DIFF);
         }
