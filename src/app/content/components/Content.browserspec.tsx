@@ -153,7 +153,10 @@ describe('Content', () => {
         for (const link of links) {
           // Get the href before clicking to know what element we're scrolling to
           const href = await page.evaluate((el) => el.getAttribute('href'), link);
-          const targetId = href?.replace(/^#/, '') || '';
+          // Extract just the hash part (after the # symbol) from href
+          // href might be "#main-content" or "page-slug#main-content"
+          const hashMatch = href?.match(/#(.+)$/);
+          const targetId = hashMatch ? hashMatch[1] : '';
 
           /* eslint-disable no-console */
           console.info('*** Clicking link with href:', href, 'targetId:', targetId);
