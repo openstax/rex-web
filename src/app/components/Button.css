@@ -76,7 +76,7 @@
 .button-transparent {
   border: none;
   background-color: transparent;
-  color: var(--button-transparent-color, #027EB5);
+  color: var(--button-transparent-color, #027eb5);
   font-weight: normal;
   box-shadow: none;
 }
@@ -130,13 +130,13 @@
 .button-link {
   outline: none;
   font-size: 1.6rem;
-  color: var(--link-color, #027EB5);
+  color: var(--link-color, #027eb5);
   cursor: pointer;
   text-decoration: underline;
 }
 
 .button-link:hover {
-  color: var(--link-hover, #0064A0);
+  color: var(--link-hover, #0064a0);
 }
 
 .button-link-decorated {
@@ -145,13 +145,13 @@
 }
 
 .button-link-decorated::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
   height: 0.1rem;
-  background-color: var(--link-color, #027EB5);
+  background-color: var(--link-color, #027eb5);
 }
 
 .button-link-decorated:hover::after,
@@ -161,20 +161,20 @@
 }
 
 .button-link-decorated:hover {
-  color: var(--link-hover, #0064A0);
+  color: var(--link-hover, #0064a0);
   text-decoration: none;
 }
 
 .button-link-decorated:focus {
-  color: var(--link-hover, #0064A0);
+  color: var(--link-hover, #0064a0);
   text-decoration: none;
 }
 
 /* ButtonLink disabled state */
 .button-link[disabled],
-.button-link[aria-disabled='true'],
+.button-link[aria-disabled="true"],
 .button-link-decorated[disabled],
-.button-link-decorated[aria-disabled='true'] {
+.button-link-decorated[aria-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.6;
   pointer-events: none;
@@ -182,7 +182,7 @@
 }
 
 .button-link-decorated[disabled]::after,
-.button-link-decorated[aria-disabled='true']::after {
+.button-link-decorated[aria-disabled="true"]::after {
   width: 0;
   background-color: transparent;
 }
