@@ -554,6 +554,7 @@ export function TextResizerDropdown({
   return (
     <FilterDropdown
       {...props}
+      style={style}
       className={classNames(
         'topbar-text-resizer-dropdown',
         {
@@ -562,7 +563,6 @@ export function TextResizerDropdown({
         },
         className
       )}
-      style={style}
     >
       {children}
     </FilterDropdown>
