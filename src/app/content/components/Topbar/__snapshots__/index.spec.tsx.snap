@@ -429,7 +429,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   cursor: pointer;
 }
 
-.c3 > *:not(.c6) {
+.c3 > :where(*:not(.c6)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -795,7 +795,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
       </button>
     </form>
     <div
-      className="c3 c4 topbar-text-resizer-dropdown topbar-text-resizer-dropdown--mobile-variant topbar-text-resizer-dropdown--mobile-hidden"
+      className="c3 c4 topbar-text-resizer-dropdown topbar-text-resizer-dropdown--mobile-variant"
     >
       <button
         aria-controls="text-resizer-menu"
@@ -1000,7 +1000,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
         
       </form>
       <div
-        className="c3 c4 topbar-text-resizer-dropdown topbar-text-resizer-dropdown--mobile-variant topbar-text-resizer-dropdown--mobile-hidden"
+        className="c3 c4 topbar-text-resizer-dropdown topbar-text-resizer-dropdown--mobile-variant"
       >
         <button
           aria-controls="text-resizer-menu"

@@ -100,7 +100,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   cursor: pointer;
 }
 
-.c8 > *:not(.c12) {
+.c8 > :where(*:not(.c12)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;

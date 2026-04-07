@@ -143,7 +143,7 @@ Array [
   cursor: pointer;
 }
 
-.c7 > *:not(.c9) {
+.c7 > :where(*:not(.c9)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;

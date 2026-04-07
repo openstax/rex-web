@@ -5,7 +5,7 @@ exports[`Filters matches snapshot with UTG banner open (opened initially) 1`] = 
   cursor: pointer;
 }
 
-.c2 > *:not(.c6) {
+.c2 > :where(*:not(.c6)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;

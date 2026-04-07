@@ -558,7 +558,7 @@ export function TextResizerDropdown({
         'topbar-text-resizer-dropdown',
         {
           'topbar-text-resizer-dropdown--mobile-variant': mobileVariant !== false,
-          'topbar-text-resizer-dropdown--mobile-hidden': mobileVariant !== false && !mobileToolbarOpen,
+          'topbar-text-resizer-dropdown--mobile-hidden': mobileVariant !== false && mobileToolbarOpen,
         },
         className
       )}

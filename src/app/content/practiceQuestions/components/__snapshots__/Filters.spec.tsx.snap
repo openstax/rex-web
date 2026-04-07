@@ -5,7 +5,7 @@ exports[`Filters ChapterFilter matches snapshot when it is closed 1`] = `
   cursor: pointer;
 }
 
-.c2 > *:not(.c6) {
+.c2 > :where(*:not(.c6)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -178,7 +178,7 @@ exports[`Filters ChapterFilter matches snapshot when open with selected section 
   cursor: pointer;
 }
 
-.c2 > *:not(.c6) {
+.c2 > :where(*:not(.c6)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -699,7 +699,7 @@ exports[`Filters ChapterFilter matches snapshot when open without selected secti
   cursor: pointer;
 }
 
-.c2 > *:not(.c6) {
+.c2 > :where(*:not(.c6)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;

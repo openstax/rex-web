@@ -5,7 +5,7 @@ exports[`DisplayNote matches snapshot 1`] = `
   cursor: pointer;
 }
 
-.c1 > *:not(.c4) {
+.c1 > :where(*:not(.c4)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -156,7 +156,7 @@ exports[`DisplayNote matches snapshot when focused 1`] = `
   cursor: pointer;
 }
 
-.c1 > *:not(.c4) {
+.c1 > :where(*:not(.c4)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -322,7 +322,7 @@ exports[`DisplayNote matches snapshot when focused with opened dropdown 1`] = `
   cursor: pointer;
 }
 
-.c1 > *:not(.c4) {
+.c1 > :where(*:not(.c4)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;

@@ -5,7 +5,7 @@ exports[`assigned route route renders renders a component 1`] = `
   cursor: pointer;
 }
 
-.c3 > *:not(.c6) {
+.c3 > :where(*:not(.c6)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -424,10 +424,8 @@ exports[`assigned route route renders renders a component 1`] = `
     <div
       className="c11"
     >
-      <style
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "
+      <style>
+        
     .highlight.yellow {
       background-color: #ffff8a;
     }
@@ -439,7 +437,7 @@ exports[`assigned route route renders renders a component 1`] = `
     .highlight.yellow.block:after {
       position: absolute;
       z-index: -1;
-      content: \\"\\";
+      content: "";
       display: block;
       top: -1rem;
       bottom: -1rem;
@@ -452,7 +450,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: -1rem;
       left: -1rem;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -464,7 +462,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: 0;
       left: 0;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -502,7 +500,7 @@ exports[`assigned route route renders renders a component 1`] = `
     .highlight.green.block:after {
       position: absolute;
       z-index: -1;
-      content: \\"\\";
+      content: "";
       display: block;
       top: -1rem;
       bottom: -1rem;
@@ -515,7 +513,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: -1rem;
       left: -1rem;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -527,7 +525,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: 0;
       left: 0;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -565,7 +563,7 @@ exports[`assigned route route renders renders a component 1`] = `
     .highlight.blue.block:after {
       position: absolute;
       z-index: -1;
-      content: \\"\\";
+      content: "";
       display: block;
       top: -1rem;
       bottom: -1rem;
@@ -578,7 +576,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: -1rem;
       left: -1rem;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -590,7 +588,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: 0;
       left: 0;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -628,7 +626,7 @@ exports[`assigned route route renders renders a component 1`] = `
     .highlight.purple.block:after {
       position: absolute;
       z-index: -1;
-      content: \\"\\";
+      content: "";
       display: block;
       top: -1rem;
       bottom: -1rem;
@@ -641,7 +639,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: -1rem;
       left: -1rem;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -653,7 +651,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: 0;
       left: 0;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -691,7 +689,7 @@ exports[`assigned route route renders renders a component 1`] = `
     .highlight.pink.block:after {
       position: absolute;
       z-index: -1;
-      content: \\"\\";
+      content: "";
       display: block;
       top: -1rem;
       bottom: -1rem;
@@ -704,7 +702,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: -1rem;
       left: -1rem;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -716,7 +714,7 @@ exports[`assigned route route renders renders a component 1`] = `
       position: absolute;
       top: 0;
       left: 0;
-      content: \\"\\";
+      content: "";
       width: 0;
       height: 0;
       opacity: 0.8;
@@ -741,10 +739,8 @@ exports[`assigned route route renders renders a component 1`] = `
         display: none;
       }
     }
-  ",
-          }
-        }
-      />
+  
+      </style>
       <main
         className="page-content page-content"
         tabIndex={-1}

@@ -194,7 +194,7 @@ exports[`Dropdown matches snapshot for tab hidden (closed) 1`] = `
   cursor: pointer;
 }
 
-.c0 > *:not(.c2) {
+.c0 > :where(*:not(.c2)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;
@@ -309,7 +309,7 @@ exports[`Dropdown matches snapshot for tab hidden (open) 1`] = `
   cursor: pointer;
 }
 
-.c0 > *:not(.c2) {
+.c0 > :where(*:not(.c2)) {
   -webkit-animation: 100ms bcCCNc ease-out;
   animation: 100ms bcCCNc ease-out;
   position: absolute;

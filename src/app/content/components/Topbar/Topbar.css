@@ -241,16 +241,15 @@
   /* Mobile variant button div styles */
 }
 
-.topbar-text-resizer-dropdown--mobile-hidden {
-  display: none;
-}
+/* Note: .topbar-text-resizer-dropdown--mobile-hidden class is only applied
+   in mobile breakpoint (< 50em) when toolbar is open, see media query below */
 
 /* Text resizer menu */
 .topbar-text-resizer-menu {
   color: var(--text-resizer-color, #5e6062);
   background: #fff;
-  right: 0;
   left: auto;
+  right: 0;
   top: calc(100% - 1px);
   text-align: left;
   font-weight: bold;
@@ -418,6 +417,7 @@
   .topbar-search-input-wrapper {
     border: none;
     border-radius: 0;
+    margin-right: 0;
     width: var(--button-min-width, 4.8rem);
   }
 
@@ -443,6 +443,11 @@
 
   .topbar-text-resizer-dropdown--mobile-variant > button > div {
     padding: 0.9rem 1.5rem;
+  }
+
+  /* Hide text resizer when mobile toolbar is open (only at mobile medium breakpoint) */
+  .topbar-text-resizer-dropdown--mobile-hidden {
+    display: none;
   }
 
   .topbar-close-search-results-text-button {
