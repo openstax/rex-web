@@ -171,7 +171,7 @@
 /* Mobile search container */
 .topbar-mobile-search-container {
   overflow: visible;
-  margin-top: var(--mobile-search-margin, 0.8rem) auto;
+  margin: var(--mobile-search-margin, 0.8rem) auto;
   height: var(--mobile-search-input-height, 4.8rem);
 
   /* barPadding styles */
@@ -422,6 +422,11 @@
 
   .topbar-mobile-search-container {
     justify-content: space-between;
+  }
+
+  /* Search input wrapper inside mobile search container should expand */
+  .topbar-mobile-search-container .topbar-search-input-wrapper {
+    width: 100%;
   }
 
   .topbar-mobile-search-wrapper--mobile-toolbar-open {
