@@ -103,7 +103,7 @@ const PageContent = React.forwardRef<HTMLDivElement, PageContentProps>(
     return (
       <>
         {/* Inject dynamic highlight styles */}
-        <style dangerouslySetInnerHTML={{ __html: highlightCSS }} />
+        <style>{highlightCSS}</style>
 
         <MainContent
           ref={ref}

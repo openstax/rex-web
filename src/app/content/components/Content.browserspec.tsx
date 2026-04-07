@@ -12,7 +12,7 @@ const TEST_CASES: { [testCase: string]: (target: Page) => Promise<void> } = {
   Desktop: setDesktopViewport, Mobile: setMobileViewport,
 };
 // Allow some slack to account for OS differences and layout variations
-const MAX_SCROLL_DIFF = 30;
+const MAX_SCROLL_DIFF = 10;
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
