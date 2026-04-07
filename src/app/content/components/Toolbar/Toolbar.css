@@ -130,10 +130,6 @@
 
 /* Plain button base component */
 .plain-button {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
   align-items: center;
   color: var(--toolbar-icon-color-base, #5e6062); /* toolbarIconColor.base */
   height: 100%;
