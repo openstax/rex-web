@@ -572,7 +572,7 @@ export function TextResizerDropdown({
 interface TextResizerMenuProps {
   id?: string;
   bookTheme?: BookWithOSWebData['theme'];
-  textSize?: number;
+  textSize: number;
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -583,15 +583,13 @@ export function TextResizerMenu({
 }: TextResizerMenuProps & React.HTMLAttributes<HTMLDivElement>
 ) {
   // Calculate gradient for the text resizer slider
-  const gradientPercent = textSize
-    ? `calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}))%`
-    : '0%';
+  const gradientPercent = (textSize - textResizerMinValue) * 100 / (textResizerMaxValue - textResizerMinValue);
 
   const gradient = bookTheme
     ? `linear-gradient(
         to right,
-        ${theme.color.primary[bookTheme].base} ${gradientPercent},
-        ${theme.color.primary.gray.medium} ${gradientPercent}
+        ${theme.color.primary[bookTheme].base} ${gradientPercent}%,
+        ${theme.color.primary.gray.medium} ${gradientPercent}%
       )`
     : theme.color.primary.gray.medium;
 

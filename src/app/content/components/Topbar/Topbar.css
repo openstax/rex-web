@@ -292,6 +292,9 @@
   -moz-appearance: none;
   box-shadow: none;
   border: none;
+}
+
+.topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track {
   height: 0.2rem;
   background:
     repeating-linear-gradient(
@@ -303,10 +306,6 @@
       rgba(0, 0, 0, 0) 20%,
       rgba(0, 0, 0, 0) 20%
     );
-}
-
-.topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track {
-  height: 0.2rem;
 }
 
 .topbar-text-resizer-menu .controls input[type="range"]::-moz-range-thumb {
