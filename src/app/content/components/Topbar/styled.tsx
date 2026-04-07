@@ -584,7 +584,7 @@ export function TextResizerMenu({
 ) {
   // Calculate gradient for the text resizer slider
   const gradientPercent = textSize
-    ? `calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}) * 1%)`
+    ? `calc((${textSize} - ${textResizerMinValue}) * 100 / (${textResizerMaxValue} - ${textResizerMinValue}))%`
     : '0%';
 
   const gradient = bookTheme
