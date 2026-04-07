@@ -14,7 +14,7 @@ exports[`practice questions button renders if feature flag is enabled and there 
   align-items: center;
   color: #5e6062;
   height: 100%;
-  min-width: 45px;
+  min-width: 4.8rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

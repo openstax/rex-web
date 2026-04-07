@@ -67,7 +67,7 @@ export const toolbarDefaultButton = css`
 `;
 
 // buttonMinWidth constant
-export const buttonMinWidth = `45px`;
+export const buttonMinWidth = 4.8;
 
 // Styled components still used by other components
 export const PlainButton = styled.button`
@@ -78,7 +78,7 @@ export const PlainButton = styled.button`
   align-items: center;
   color: ${toolbarIconColor.base};
   height: 100%;
-  min-width: ${buttonMinWidth};
+  min-width: ${buttonMinWidth}rem;
 
   :hover,
   :focus {

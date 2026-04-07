@@ -16,7 +16,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
   align-items: center;
   color: #5e6062;
   height: 100%;
-  min-width: 45px;
+  min-width: 4.8rem;
 }
 
 .c1:hover,
@@ -41,7 +41,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
   align-items: center;
   color: #5e6062;
   height: 100%;
-  min-width: 45px;
+  min-width: 4.8rem;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -133,7 +133,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
     isVerticalNavOpen={null}
     style={
       Object {
-        "--button-min-width": "45pxrem",
+        "--button-min-width": "4.8rem",
         "--content-wrapper-max-width": "128rem",
         "--neutral-bg": "#fff",
         "--sidebar-transition-time": "300ms",
@@ -520,7 +520,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   align-items: center;
   color: #5e6062;
   height: 100%;
-  min-width: 45px;
+  min-width: 4.8rem;
 }
 
 .c1:hover,
@@ -545,7 +545,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   align-items: center;
   color: #5e6062;
   height: 100%;
-  min-width: 45px;
+  min-width: 4.8rem;
   color: #424242;
   font-size: 1.6rem;
   line-height: 2.5rem;
@@ -634,7 +634,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
     isVerticalNavOpen={null}
     style={
       Object {
-        "--button-min-width": "45pxrem",
+        "--button-min-width": "4.8rem",
         "--content-wrapper-max-width": "128rem",
         "--neutral-bg": "#fff",
         "--sidebar-transition-time": "300ms",
@@ -824,8 +824,8 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
             "--text-resizer-fallback-bg": "#888888",
             "--text-resizer-gradient": "linear-gradient(
         to right,
-        #002468 0%,
-        #888888 0%
+        #002468 40%,
+        #888888 40%
       )",
           }
         }
