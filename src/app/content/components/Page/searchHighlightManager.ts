@@ -33,8 +33,23 @@ export interface UpdateOptions {
   onSelect: (selectedHighlight?: Highlight) => void;
 }
 
+const safeEraseAll = (services: Services, container: HTMLElement, intl: IntlShape) => {
+  try {
+    services.highlighter.eraseAll();
+  } catch {
+    // User highlight DOM mutations can orphan search highlight spans (parentNode
+    // becomes null), making eraseAll crash on insertBefore. When that happens,
+    // discard the broken instance and create a fresh one — the orphaned spans
+    // are already detached from the DOM so there is nothing left to unwrap.
+    services.highlighter.unmount();
+    services.highlighter = createHighlighter(container, intl);
+  }
+};
+
 const updateResults = (
   services: Services,
+  container: HTMLElement,
+  intl: IntlShape,
   previous: HighlightProp | null,
   current: HighlightProp,
   options: UpdateOptions) => {
@@ -42,7 +57,7 @@ const updateResults = (
     return;
   }
 
-  services.highlighter.eraseAll();
+  safeEraseAll(services, container, intl);
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
@@ -90,12 +105,12 @@ const selectResult = (
   options.onSelect(firstSelectedHighlight);
 };
 
-const handleUpdate = (services: Services) => (
+const handleUpdate = (services: Services, container: HTMLElement, intl: IntlShape) => (
   previous: HighlightProp | null,
   current: HighlightProp,
   options: UpdateOptions
 ) => {
-  updateResults(services, previous, current, options);
+  updateResults(services, container, intl, previous, current, options);
   selectResult(services, previous, current, options);
 };
 
@@ -114,24 +129,14 @@ const searchHighlightManager = (container: HTMLElement, intl: IntlShape) => {
   };
 
   return {
-    // Replace the Highlighter instance without trying to unwrap orphaned DOM
-    // nodes. Call this after user highlight changes have already removed or
-    // restructured the shared DOM — the old search highlight spans are gone,
-    // so we just need to forget about them and re-highlight from scratch.
-    resetHighlighter: () => {
-      services.highlighter.unmount();
-      services.highlighter = createHighlighter(container, intl);
-      services.searchResultMap = [];
-    },
     unmount: () => services.highlighter.unmount(),
-    update: handleUpdate(services),
+    update: handleUpdate(services, container, intl),
   };
 };
 
 export default searchHighlightManager;
 
 export const stubManager: ReturnType<typeof searchHighlightManager> = {
-  resetHighlighter: (): void => undefined,
   unmount: (): void => undefined,
   update: (): void => undefined,
 };
