@@ -63,7 +63,7 @@ interface ToolbarWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const ToolbarWrapper = React.forwardRef<HTMLDivElement, ToolbarWrapperProps>(
-  function ToolbarWrapper({ isMobileMenuOpen, className, style, children, ...props }, ref) {
+  ({ isMobileMenuOpen, className, style, children, ...props }, ref) => {
     return (
       <div
         ref={ref}
@@ -117,7 +117,7 @@ interface PlainButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 }
 
 export const PlainButton = React.forwardRef<HTMLButtonElement, PlainButtonProps>(
-  function PlainButton({ className, style, children, ...props }, ref) {
+  ({ className, style, children, ...props }, ref) => {
     // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
     // Styled-components uses transient props for style-only props that shouldn't appear as HTML attributes
     const safeProps = Object.keys(props).reduce((acc, key) => {
@@ -148,7 +148,7 @@ interface PrintOptWrapperProps extends React.ButtonHTMLAttributes<HTMLButtonElem
 }
 
 export const PrintOptWrapper = React.forwardRef<HTMLButtonElement, PrintOptWrapperProps>(
-  function PrintOptWrapper({ isActive, className, children, ...props }, ref) {
+  ({ isActive, className, children, ...props }, ref) => {
     return (
       <button
         ref={ref}

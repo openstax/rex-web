@@ -6,7 +6,7 @@
  * using the old API while the Toolbar component itself has been migrated to plain CSS.
  *
  * Files that import from this module:
- * - Topbar/styled.tsx (barPadding, buttonMinWidth, PlainButton)
+ * - Topbar/styled.tsx (buttonMinWidth, PlainButton)
  * - popUp/PrintButton.ts (PrintOptions)
  * - TableOfContents/index.tsx (LeftArrow, TimesIcon)
  * - SidebarControl/Buttons.tsx (toolbarDefaultButton, toolbarDefaultText)
@@ -18,7 +18,6 @@
 
 import React from 'react';
 import styled, { css } from 'styled-components/macro';
-import { maxNavWidth } from '../../../components/NavBar/styled';
 import Times from '../../../components/Times';
 import {
   textRegularSize,
@@ -36,15 +35,6 @@ export const toolbarDefaultText = css`
   ${theme.breakpoints.mobileMedium(css`
     ${textRegularSize};
     margin-left: 1.2rem;
-  `)}
-`;
-
-export const barPadding = css`
-  max-width: ${maxNavWidth}rem;
-  margin: 0 auto;
-  width: calc(100% - ${theme.padding.page.desktop}rem * 2);
-  ${theme.breakpoints.mobile(css`
-    width: calc(100% - ${theme.padding.page.mobile}rem * 2);
   `)}
 `;
 
