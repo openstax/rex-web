@@ -5,6 +5,7 @@ import subprocess
 from pathlib import Path
 from pdf2image import convert_from_path
 from PIL import ImageChops
+import pytest
 
 """
 Accepts two zips or docx files, converts docx to pdf via LibreOffice,
@@ -148,7 +149,7 @@ def compare_pdfs(pdf1_path, pdf2_path, diff_folder):
 
 def test_compare_converted_docx_to_pdf_files():
     if not BASE_FROM_DIR.exists():
-        print(f"Source directory not found: {BASE_FROM_DIR}")
+        pytest.fail(f"Source directory not found: {BASE_FROM_DIR}")
         return
 
     # Find zip or docx files
@@ -219,8 +220,6 @@ def test_compare_converted_docx_to_pdf_files():
         print("------>>>>> NO DIFFERENCES <<<<<------")
     else:
         print(f"\nIMAGES WITH DIFFERENCES SAVED TO: {DIFF_OUTPUT_DIR}\n")
-
-    shutil.rmtree(TEMP_EXTRACT_ROOT)
 
 
 if __name__ == "__main__":
