@@ -12,6 +12,7 @@ import allImagesLoaded from '../utils/allImagesLoaded';
 interface Services {
   highlighter: Highlighter;
   container: HTMLElement;
+  intl: IntlShape;
   searchResultMap: ReturnType<typeof highlightResults>;
 }
 
@@ -33,7 +34,7 @@ export interface UpdateOptions {
   onSelect: (selectedHighlight?: Highlight) => void;
 }
 
-const safeEraseAll = (services: Services, container: HTMLElement, intl: IntlShape) => {
+const safeEraseAll = (services: Services) => {
   try {
     services.highlighter.eraseAll();
   } catch {
@@ -42,14 +43,12 @@ const safeEraseAll = (services: Services, container: HTMLElement, intl: IntlShap
     // discard the broken instance and create a fresh one — the orphaned spans
     // are already detached from the DOM so there is nothing left to unwrap.
     services.highlighter.unmount();
-    services.highlighter = createHighlighter(container, intl);
+    services.highlighter = createHighlighter(services.container, services.intl);
   }
 };
 
 const updateResults = (
   services: Services,
-  container: HTMLElement,
-  intl: IntlShape,
   previous: HighlightProp | null,
   current: HighlightProp,
   options: UpdateOptions) => {
@@ -57,7 +56,7 @@ const updateResults = (
     return;
   }
 
-  safeEraseAll(services, container, intl);
+  safeEraseAll(services);
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
@@ -105,12 +104,12 @@ const selectResult = (
   options.onSelect(firstSelectedHighlight);
 };
 
-const handleUpdate = (services: Services, container: HTMLElement, intl: IntlShape) => (
+const handleUpdate = (services: Services) => (
   previous: HighlightProp | null,
   current: HighlightProp,
   options: UpdateOptions
 ) => {
-  updateResults(services, container, intl, previous, current, options);
+  updateResults(services, previous, current, options);
   selectResult(services, previous, current, options);
 };
 
@@ -125,12 +124,13 @@ const searchHighlightManager = (container: HTMLElement, intl: IntlShape) => {
   const services: Services = {
     container,
     highlighter: createHighlighter(container, intl),
+    intl,
     searchResultMap: [],
   };
 
   return {
     unmount: () => services.highlighter.unmount(),
-    update: handleUpdate(services, container, intl),
+    update: handleUpdate(services),
   };
 };
 

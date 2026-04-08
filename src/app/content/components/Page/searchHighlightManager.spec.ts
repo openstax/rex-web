@@ -126,5 +126,10 @@ describe('searchHighlightManager', () => {
     expect(firstHighlighterInstance.unmount).toHaveBeenCalled();
     // A new Highlighter instance should have been created to replace the broken one
     expect(Highlighter).toHaveBeenCalledTimes(2);
+    // The replacement highlighter should be used for subsequent highlightResults calls
+    expect(utils.highlightResults).toHaveBeenCalledWith(
+      Highlighter.mock.instances[1],
+      newSearchResults
+    );
   });
 });
