@@ -130,8 +130,8 @@ mark mjx-c {
 }
 
 /* Figure styles */
-.os-figure,
-.os-figure:last-child {
+#main-content .os-figure,
+#main-content .os-figure:last-child {
   margin-bottom: 5px; /* fix double scrollbar bug */
 }
 
