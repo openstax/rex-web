@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { isDefined } from '../guards';
 import theme from '../theme';
 import { linkColor, linkHover } from './Typography/Links.constants';
+import { filterTransientProps } from '../content/components/utils/filterTransientProps';
 // Note: Button.css is imported globally from src/app/index.tsx to ensure consistent
 // CSS ordering across code-split chunks and to avoid PrettyFormatPluginError in jest snapshots
 
@@ -176,14 +177,7 @@ export function ButtonGroup({
 
 export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
   function PlainButton({ className, ...props }, ref) {
-    // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
-    // Styled-components uses transient props for style-only props that shouldn't appear as HTML attributes
-    const safeProps = Object.keys(props).reduce((acc, key) => {
-      if (!key.startsWith('$')) {
-        acc[key] = props[key as keyof typeof props];
-      }
-      return acc;
-    }, {} as Record<string, unknown>) as React.ButtonHTMLAttributes<HTMLButtonElement>;
+    const safeProps = filterTransientProps(props) as React.ButtonHTMLAttributes<HTMLButtonElement>;
     return (
       <button
         {...safeProps}

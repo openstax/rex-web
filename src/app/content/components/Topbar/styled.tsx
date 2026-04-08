@@ -27,6 +27,7 @@ import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { buttonMinWidth, PlainButton } from '../Toolbar/Toolbar.legacy';
 import { disablePrintClass } from '../utils/disablePrint';
+import { filterTransientProps } from '../utils/filterTransientProps';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
@@ -142,14 +143,7 @@ interface MenuButtonProps {
 
 export function MenuButton(props: MenuButtonProps) {
   const intl = useIntl();
-
-  // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
-    if (!key.startsWith('$')) {
-      acc[key] = (props as Record<string, unknown>)[key];
-    }
-    return acc;
-  }, {});
+  const safeProps = filterTransientProps(props as Record<string, unknown>);
 
   return (
     <PlainButton
@@ -177,14 +171,7 @@ export function SearchButton(
   { desktop, mobile, ariaLabelId, colorSchema, className, style, ...props }: SearchButtonProps
 ) {
   const intl = useIntl();
-
-  // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
-    if (!key.startsWith('$')) {
-      acc[key] = (props as Record<string, unknown>)[key];
-    }
-    return acc;
-  }, {});
+  const safeProps = filterTransientProps(props);
 
   // Get search icon color from theme
   const iconColor = colorSchema ? theme.color.primary[colorSchema].foreground : toolbarIconColor.base;
@@ -229,13 +216,7 @@ interface CloseButtonProps {
 }
 
 export function CloseButton({ desktop, formSubmitted, className, style, ...props }: CloseButtonProps) {
-  // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
-    if (!key.startsWith('$')) {
-      acc[key] = (props as Record<string, unknown>)[key];
-    }
-    return acc;
-  }, {});
+  const safeProps = filterTransientProps(props);
 
   return (
     <PlainButton
@@ -270,13 +251,7 @@ interface CloseButtonNewProps {
 }
 
 export function CloseButtonNew({ children, className, style, ...props }: CloseButtonNewProps) {
-  // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
-    if (!key.startsWith('$')) {
-      acc[key] = (props as Record<string, unknown>)[key];
-    }
-    return acc;
-  }, {});
+  const safeProps = filterTransientProps(props);
 
   return (
     <button
@@ -361,13 +336,7 @@ export function SearchInput({ desktop, mobile, autoFocus, className, style, ...p
     }
   }, [autoFocus]);
 
-  // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
-    if (!key.startsWith('$')) {
-      acc[key] = (props as Record<string, unknown>)[key];
-    }
-    return acc;
-  }, {});
+  const safeProps = filterTransientProps(props);
 
   return (
     <input
@@ -621,14 +590,7 @@ export function TextResizerChangeButton(
   { ariaLabelId, children, className, style, ...props }: TextResizerChangeButtonProps
 ) {
   const intl = useIntl();
-
-  // Filter transient props before spreading to DOM
-  const safeProps = Object.keys(props).reduce<Record<string, unknown>>((acc, key) => {
-    if (!key.startsWith('$')) {
-      acc[key] = (props as Record<string, unknown>)[key];
-    }
-    return acc;
-  }, {});
+  const safeProps = filterTransientProps(props);
 
   return (
     <PlainButton

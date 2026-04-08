@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 import classNames from 'classnames';
 import theme from '../../../theme';
 import { toolbarIconColor } from '../constants';
+import { filterTransientProps } from '../utils/filterTransientProps';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -118,14 +119,7 @@ interface PlainButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export const PlainButton = React.forwardRef<HTMLButtonElement, PlainButtonProps>(
   ({ className, style, children, ...props }, ref) => {
-    // Filter out transient props (starting with $) to prevent them from being forwarded to the DOM
-    // Styled-components uses transient props for style-only props that shouldn't appear as HTML attributes
-    const safeProps = Object.keys(props).reduce((acc, key) => {
-      if (!key.startsWith('$')) {
-        acc[key] = (props as Record<string, unknown>)[key];
-      }
-      return acc;
-    }, {} as Record<string, unknown>) as React.ButtonHTMLAttributes<HTMLButtonElement>;
+    const safeProps = filterTransientProps(props) as React.ButtonHTMLAttributes<HTMLButtonElement>;
 
     return (
       <button
