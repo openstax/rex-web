@@ -22,7 +22,7 @@ Latest update on March 30th, 2026
 """
 
 HOME_DIR = os.path.expanduser("~")
-BASE_FROM_DIR = f"{HOME_DIR}/Downloads/2pdfs"
+BASE_FROM_DIR = f"{HOME_DIR}/Downloads/corgi_input_files"
 BASE_TO_DIR = f"{os.getcwd()}/docx_old_new"
 MAX_WIDTH = 120
 
