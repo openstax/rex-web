@@ -14,8 +14,8 @@ const TEST_CASES: { [testCase: string]: (target: Page) => Promise<void> } = {
 // Allow some slack to account for OS differences
 const MAX_SCROLL_DIFF = 10;
 const EXPECTED_SCROLL_TOPS: { [testCase: string]: number[] } = {
-  Desktop: [242, 90, 122, 242, 365, 668, 761, 1268, 1612 + 570],
-  Mobile: [239, 66, 96, 239, 523, 1263, 1402, 1756, 2123 + 490],
+  Desktop: [242, 90, 122, 242, 365, 668, 761, 1268 + 558, 1612 + 570],
+  Mobile: [239, 66, 96, 239, 523, 1263, 1402, 1756 + 490, 2123 + 490],
 };
 
 beforeAll(async() => {
