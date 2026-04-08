@@ -18,9 +18,25 @@ module.exports = class UniqueIds extends Gatherer {
   static audit(artifacts) {
     const ids = artifacts[UniqueIds.name];
     const areUnique = ids.length === new Set(ids).size;
+
+    // Find duplicates for debugging
+    const duplicates = ids.filter((id, index) => ids.indexOf(id) !== index);
+    const uniqueDuplicates = [...new Set(duplicates)];
+
+    // Log duplicates to console for debugging
+    if (!areUnique) {
+      console.log('*** Duplicate IDs found:', uniqueDuplicates);
+      console.log('*** All IDs:', ids.sort());
+    }
+
     return {
       rawValue: ids,
       score: Number(areUnique),
+      details: areUnique ? undefined : {
+        type: 'table',
+        headings: [{ key: 'id', itemType: 'text', text: 'Duplicate ID' }],
+        items: uniqueDuplicates.map(id => ({ id }))
+      }
     };
   }
 

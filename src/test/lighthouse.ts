@@ -27,6 +27,10 @@ export const checkLighthouse = async(target: Browser, urlPath: string, scoreTarg
         auditRefs.forEach(auditRef => {
           const audit = lhr.audits[auditRef.id];
           if (auditRef.weight > 0 && audit.score < 1) {
+            console.log('*** For URL:', JSON.stringify({
+              absoluteUrl,
+              categoryReport
+            }, null, 2));
             console.log(JSON.stringify(audit, null, 2));
           }
         });
