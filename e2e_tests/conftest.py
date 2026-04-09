@@ -1,10 +1,9 @@
 import os
-
 import pytest
 
 
 # Import fixtures
-pytest_plugins = "e2e_tests.e2e.ui.fixtures.ui"
+pytest_plugins = ("e2e_tests.e2e.ui.fixtures.ui", "e2e_tests.e2e.ui.fixtures.webview")
 
 
 def pytest_addoption(parser):
@@ -21,6 +20,13 @@ def pytest_addoption(parser):
         metavar="tag",
         default=os.getenv("REX_PASSWORD", None),
         help="rex password",
+    )
+    parser.addini("abl_url", help="base url for abl json file")
+    parser.addoption(
+        "--abl_url",
+        metavar="url",
+        default=os.getenv("ABL_URL", None),
+        help="base url for abl json",
     )
 
 
