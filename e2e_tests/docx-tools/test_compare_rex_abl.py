@@ -18,7 +18,7 @@ def test_compare_rex_abl(rex_released_books, abl_books_uuids_slugs):
     if missing:
         print("NOT MATCHING UUIDs:")
         for uuid in missing:
-            # Get the title/slug from the ABL dictionary
+            # Get the title slug from the ABL dictionary
             title = abl_books_uuids_slugs.get(uuid, "Unknown Title")
             print(f"  - {uuid} : {title}")
     else:
