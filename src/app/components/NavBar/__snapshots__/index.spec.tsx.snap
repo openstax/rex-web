@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`content in browser assignable user renders 1`] = `
-.c4 {
+.c0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25,22 +25,22 @@ exports[`content in browser assignable user renders 1`] = `
   cursor: pointer;
 }
 
-.c4:hover {
+.c0:hover {
   box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.3);
 }
 
-.c4[data-focused],
-.c4[data-focus-visible] {
+.c0[data-focused],
+.c0[data-focus-visible] {
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   outline-offset: 0.2rem;
 }
 
-.c4 svg {
+.c0 svg {
   width: 1.5rem;
 }
 
-.c4 {
+.c0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -64,246 +64,43 @@ exports[`content in browser assignable user renders 1`] = `
   cursor: pointer;
 }
 
-.c4:hover {
+.c0:hover {
   box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.3);
 }
 
-.c4[data-focused],
-.c4[data-focus-visible] {
+.c0[data-focused],
+.c0[data-focus-visible] {
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   outline-offset: 0.2rem;
 }
 
-.c4 svg {
+.c0 svg {
   width: 1.5rem;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c3 {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  overflow: visible;
-  position: relative;
-  height: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c3 {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  overflow: visible;
-  position: relative;
-  height: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    height: auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    height: auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
 }
 
 <div
-  className="c0"
+  className="navbar-bar-wrapper"
   data-analytics-region="openstax-navbar"
+  style={
+    Object {
+      "--navbar-bg": "#fff",
+      "--navbar-padding-desktop": "3.2rem",
+      "--navbar-padding-mobile": "1.6rem",
+      "--navbar-z-index": 70,
+    }
+  }
 >
   <div
-    className="c1"
+    className="navbar-topbar"
     data-testid="navbar"
+    style={
+      Object {
+        "--navbar-height-desktop": "6rem",
+        "--navbar-height-mobile": "5.2rem",
+        "--navbar-max-width": "128rem",
+      }
+    }
   >
     <a
       href="/"
@@ -311,20 +108,25 @@ exports[`content in browser assignable user renders 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="c2"
-        role="img"
+        className="navbar-header-image"
         src="logo.svg"
+        style={
+          Object {
+            "--navbar-logo-height-desktop": "3.5rem",
+            "--navbar-logo-height-mobile": "2.8rem",
+          }
+        }
       />
     </a>
     <div
-      className="c3"
+      className="navbar-dropdown-container"
       data-testid="user-nav"
     >
       <button
         aria-expanded={false}
         aria-haspopup={true}
         aria-label="Account actions"
-        className="c4"
+        className="c0"
         data-rac=""
         data-react-aria-pressable={true}
         data-testid="user-nav-toggle"
@@ -363,756 +165,28 @@ exports[`content in browser assignable user renders 1`] = `
 `;
 
 exports[`content in browser matches snapshot for logged out 1`] = `
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c3 {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  display: block;
-  -webkit-letter-spacing: -0.072rem;
-  -moz-letter-spacing: -0.072rem;
-  -ms-letter-spacing: -0.072rem;
-  letter-spacing: -0.072rem;
-  font-size: 1.8rem;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 1rem 0;
-  color: #5e6062;
-}
-
-.c3:hover,
-.c3:active,
-.c3:focus {
-  padding-bottom: 0.6rem;
-  border-bottom: 0.4rem solid #63a524;
-}
-
-.c3:hover {
-  color: #424242;
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    font-size: 1.4rem;
-    -webkit-letter-spacing: 0.02rem;
-    -moz-letter-spacing: 0.02rem;
-    -ms-letter-spacing: 0.02rem;
-    letter-spacing: 0.02rem;
-    padding: 0.7rem 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3:hover,
-  .c3:active,
-  .c3:focus {
-    padding: 0.7rem 0;
-    border-bottom: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
 <div
-  className="c0"
+  className="navbar-bar-wrapper"
   data-analytics-region="openstax-navbar"
+  style={
+    Object {
+      "--navbar-bg": "#fff",
+      "--navbar-padding-desktop": "3.2rem",
+      "--navbar-padding-mobile": "1.6rem",
+      "--navbar-z-index": 70,
+    }
+  }
 >
   <div
-    className="c1"
+    className="navbar-topbar"
     data-testid="navbar"
+    style={
+      Object {
+        "--navbar-height-desktop": "6rem",
+        "--navbar-height-mobile": "5.2rem",
+        "--navbar-max-width": "128rem",
+      }
+    }
   >
     <a
       href="/"
@@ -1120,18 +194,29 @@ exports[`content in browser matches snapshot for logged out 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="c2"
-        role="img"
+        className="navbar-header-image"
         src="logo.svg"
+        style={
+          Object {
+            "--navbar-logo-height-desktop": "3.5rem",
+            "--navbar-logo-height-mobile": "2.8rem",
+          }
+        }
       />
     </a>
     <a
-      className="c3"
+      className="navbar-link"
       data-analytics-label="login"
       data-testid="nav-login"
       href="/accounts/login?r=/"
+      style={
+        Object {
+          "--nav-border-color": "#63a524",
+          "--nav-text-color": "#5e6062",
+          "--nav-text-hover": "#424242",
+        }
+      }
     >
-       
       Log in
     </a>
   </div>
@@ -1139,71 +224,28 @@ exports[`content in browser matches snapshot for logged out 1`] = `
 `;
 
 exports[`content in browser matches snapshot for null state 1`] = `
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
 <div
-  className="c0"
+  className="navbar-bar-wrapper"
   data-analytics-region="openstax-navbar"
+  style={
+    Object {
+      "--navbar-bg": "#fff",
+      "--navbar-padding-desktop": "3.2rem",
+      "--navbar-padding-mobile": "1.6rem",
+      "--navbar-z-index": 70,
+    }
+  }
 >
   <div
-    className="c1"
+    className="navbar-topbar"
     data-testid="navbar"
+    style={
+      Object {
+        "--navbar-height-desktop": "6rem",
+        "--navbar-height-mobile": "5.2rem",
+        "--navbar-max-width": "128rem",
+      }
+    }
   >
     <a
       href="/"
@@ -1211,9 +253,14 @@ exports[`content in browser matches snapshot for null state 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="c2"
-        role="img"
+        className="navbar-header-image"
         src="logo.svg"
+        style={
+          Object {
+            "--navbar-logo-height-desktop": "3.5rem",
+            "--navbar-logo-height-mobile": "2.8rem",
+          }
+        }
       />
     </a>
   </div>
@@ -1221,7 +268,7 @@ exports[`content in browser matches snapshot for null state 1`] = `
 `;
 
 exports[`content in browser when logged in matches snapshot 1`] = `
-.c4 {
+.c0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1245,166 +292,43 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   cursor: pointer;
 }
 
-.c4:hover {
+.c0:hover {
   box-shadow: 0 0 0.2rem 0.2rem rgba(0,0,0,0.3);
 }
 
-.c4[data-focused],
-.c4[data-focus-visible] {
+.c0[data-focused],
+.c0[data-focus-visible] {
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   outline-offset: 0.2rem;
 }
 
-.c4 svg {
+.c0 svg {
   width: 1.5rem;
 }
 
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c1 {
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 6rem;
-  max-width: 128rem;
-  margin: 0 auto;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c2 {
-  display: block;
-  width: auto;
-  height: 3.5rem;
-}
-
-.c3 {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  overflow: visible;
-  position: relative;
-  height: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-.c0 {
-  overflow: visible;
-  z-index: 70;
-  background: #fff;
-  position: relative;
-  padding: 0 3.2rem;
-  box-shadow: 0 0.2rem 0.2rem 0 rgba(0,0,0,0.1);
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c1 {
-    height: 5.2rem;
-  }
-}
-
-@media print {
-  .c1 {
-    display: none;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c2 {
-    height: 2.8rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c3 {
-    height: auto;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 {
-    padding: 0 1.6rem;
-  }
-}
-
 <div
-  className="c0"
+  className="navbar-bar-wrapper"
   data-analytics-region="openstax-navbar"
+  style={
+    Object {
+      "--navbar-bg": "#fff",
+      "--navbar-padding-desktop": "3.2rem",
+      "--navbar-padding-mobile": "1.6rem",
+      "--navbar-z-index": 70,
+    }
+  }
 >
   <div
-    className="c1"
+    className="navbar-topbar"
     data-testid="navbar"
+    style={
+      Object {
+        "--navbar-height-desktop": "6rem",
+        "--navbar-height-mobile": "5.2rem",
+        "--navbar-max-width": "128rem",
+      }
+    }
   >
     <a
       href="/"
@@ -1412,20 +336,25 @@ exports[`content in browser when logged in matches snapshot 1`] = `
     >
       <img
         alt="OpenStax Logo"
-        className="c2"
-        role="img"
+        className="navbar-header-image"
         src="logo.svg"
+        style={
+          Object {
+            "--navbar-logo-height-desktop": "3.5rem",
+            "--navbar-logo-height-mobile": "2.8rem",
+          }
+        }
       />
     </a>
     <div
-      className="c3"
+      className="navbar-dropdown-container"
       data-testid="user-nav"
     >
       <button
         aria-expanded={false}
         aria-haspopup={true}
         aria-label="Account actions"
-        className="c4"
+        className="c0"
         data-rac=""
         data-react-aria-pressable={true}
         data-testid="user-nav-toggle"
