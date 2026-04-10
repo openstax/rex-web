@@ -1,11 +1,9 @@
-import React from 'react';
 import styled, { css, keyframes } from 'styled-components/macro';
 import { ModalOverlay, Modal } from 'react-aria-components';
 import Color from 'color';
 import { contentWrapperMaxWidth } from '../../content/components/constants';
 import { disablePrint } from '../../content/components/utils/disablePrint';
 import theme from '../../theme';
-import Times from '../Times';
 import { h4DesktopStyle, linkHover, textRegularStyle } from '../Typography';
 import { defaultFocusOutline } from '../../theme';
 
@@ -184,23 +182,6 @@ export const DropdownOverlay = styled.div`
     width: min-content;
     overflow: visible;
   }
-`;
-
-export const TimesIcon = styled((
-  { theme: _theme, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }
-) =>
-  <button type="button" aria-label='close menu' {...props}><Times /></button>
-)`
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  position: absolute;
-  height: ${navMobileHeight}rem;
-  width: ${navMobileHeight}rem;
-  top: 0;
-  right: 0;
-  color: ${theme.color.primary.gray.base};
 `;
 
 export const BarWrapper = styled.div`

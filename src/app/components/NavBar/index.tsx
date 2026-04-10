@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Dialog, ModalOverlay, Modal } from 'react-aria-components';
 import { ProfileMenu, ProfileMenuButton, ProfileMenuItem, UserIcon } from '@openstax/ui-components';
-import classNames from 'classnames';
 import Color from 'color';
 import openstaxLogo from '../../../assets/logo.svg';
 import * as authSelect from '../../auth/selectors';
@@ -295,7 +294,6 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
           onClick={(e) => unsavedHighlightsHandler(e, logoUrl)}
         >
           <img
-            role='img'
             src={openstaxLogo}
             alt={intl.formatMessage({id: 'i18n:nav:logo:alt'})}
             className="navbar-header-image"

@@ -203,7 +203,7 @@ const SocialIconMessage: React.FunctionComponent<{
       aria-label={`OpenStax on ${useIntl().formatMessage({ id })}`}
       href={href}
       target='_blank'
-      rel='noopener'
+      rel="noopener noreferrer"
     >
       <Icon />
     </a>
@@ -333,7 +333,7 @@ const SocialDirectory = () => (
       Icon={IGIcon}
     />
     <li>
-      <a className="footer-bottom-link" href={riceUrl} target='_blank' rel='noopener'>
+      <a className="footer-bottom-link" href={riceUrl} target='_blank' rel="noopener noreferrer">
         <img
           className="footer-logo"
           src={RiceWhiteLogo}

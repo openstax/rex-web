@@ -31,11 +31,7 @@
  */
 @media (min-width: 60.1em) and (max-width: 90em) {
   .footer-wrapper--vertical-nav-toolbar {
-    padding-left: clamp(
-      0rem,
-      calc(8rem - (100vw - 128rem) / 2),
-      8rem
-    );
+    padding-left: clamp(0rem, calc(8rem - (100vw - 128rem) / 2), 8rem);
   }
 }
 
