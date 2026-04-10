@@ -96,26 +96,12 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   color: #888888;
 }
 
-.c13 {
-  cursor: pointer;
-}
-
-.c8 > *:not(.c12) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c10 {
+.c9 {
   overflow: visible;
   position: relative;
 }
 
-.c14 {
+.c12 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -123,13 +109,13 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   padding-top: 0.2rem;
 }
 
-.c11 {
+.c10 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c11 > div {
+.c10 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -184,17 +170,17 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c6 .c12 {
+.c6 .c11 {
   font-weight: bold;
 }
 
-.c6 .c9 > *:not(.c12) {
+.c6 .c8 > *:not(.c11) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
 }
 
-.c16 {
+.c14 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -217,7 +203,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   line-height: 2.5rem;
 }
 
-.c17 {
+.c15 {
   margin-bottom: -1rem;
   max-width: 38rem;
   overflow: initial;
@@ -239,7 +225,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
   background: #fafafa;
 }
 
-.c15 {
+.c13 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -310,23 +296,23 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 @media screen and (max-width:75em) {
-  .c11 > div {
+  .c10 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c6 .c9 > *:not(.c12) {
+  .c6 .c8 > *:not(.c11) {
     max-height: calc(100vh - 18.4rem);
   }
 }
 
 @media screen and (max-width:30em) {
-  .c6 .c9 {
+  .c6 .c8 {
     position: initial;
   }
 
-  .c6 .c9 > *:not(.c12) {
+  .c6 .c8 > *:not(.c11) {
     top: auto;
     margin-top: -0.1rem;
   }
@@ -367,7 +353,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
 }
 
 @media screen and (max-width:75em) {
-  .c15 {
+  .c13 {
     text-align: left;
     padding: 0;
   }
@@ -455,13 +441,13 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
           className="c7"
         >
           <div
-            className="c8 c9 c10"
+            className="c8 c9"
           >
             <button
               aria-controls="practice-filter-chapter"
               aria-expanded={false}
               aria-label="Select Practice Questions by Chapter & Section"
-              className="plain-button c11 c12 c13"
+              className="plain-button c10 dropdown-toggle c11 "
               data-analytics-label="Filter PQ by Chapter & Section"
               onClick={[Function]}
             >
@@ -471,7 +457,7 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
                 Chapter & Section
                 <svg
                   aria-hidden="true"
-                  className="c14"
+                  className="c12"
                   direction="down"
                   viewBox="0 0 320 512"
                 >
@@ -486,16 +472,16 @@ exports[`PracticeQuestions renders practice questions modal if it is open 1`] = 
         </div>
       </div>
       <div
-        className="c15"
+        className="c13"
       >
         <div
           role="status"
         >
           <div
-            className="c16"
+            className="c14"
           >
             <span
-              className="c17"
+              className="c15"
             >
               You have reached the end of this set!
             </span>

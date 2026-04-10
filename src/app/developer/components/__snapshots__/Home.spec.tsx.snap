@@ -139,21 +139,7 @@ Array [
   >
     
   </div>,
-  .c10 {
-  cursor: pointer;
-}
-
-.c7 > *:not(.c9) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c8 {
+  .c7 {
   overflow: visible;
   position: relative;
 }
@@ -619,12 +605,12 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c7 c8 dot-menu-dropdown"
+                    className="c7 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="plain-button dot-menu-toggle c9 c10"
+                      className="plain-button dot-menu-toggle dropdown-toggle "
                       onClick={[Function]}
                     >
                       <div
@@ -670,12 +656,12 @@ Array [
                     </small>
                   </div>
                   <div
-                    className="c7 c8 dot-menu-dropdown"
+                    className="c7 dot-menu-dropdown"
                   >
                     <button
                       aria-expanded={false}
                       aria-label="Actions"
-                      className="plain-button dot-menu-toggle c9 c10"
+                      className="plain-button dot-menu-toggle dropdown-toggle "
                       onClick={[Function]}
                     >
                       <div
