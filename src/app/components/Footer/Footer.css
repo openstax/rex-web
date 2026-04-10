@@ -42,7 +42,7 @@
 
 /* Top section */
 .footer-top {
-  background-color: var(--footer-top-bg, #424242);
+  background-color: #424242;
 }
 
 /* Top section responsive padding */
@@ -348,7 +348,7 @@
   font-weight: normal;
   letter-spacing: normal;
   line-height: normal;
-  background-color: var(--footer-bottom-bg, #3b3b3b);
+  background-color: #3b3b3b;
 }
 
 @media (min-width: 37.6em) {

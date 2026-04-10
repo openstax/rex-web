@@ -368,12 +368,7 @@ const NormalFooter = ({
     data-analytics-region='footer'
   >
     <div className="footer-inner">
-      <div
-        className="footer-top"
-        style={{
-          '--footer-top-bg': '#424242',
-        } as React.CSSProperties}
-      >
+      <div className="footer-top">
         <div className="footer-top-boxed">
           <h2 className="footer-heading">
             <BareMessage id='i18n:footer:heading' />
@@ -384,12 +379,7 @@ const NormalFooter = ({
           <Column3 />
         </div>
       </div>
-      <div
-        className="footer-bottom"
-        style={{
-          '--footer-bottom-bg': '#3b3b3b',
-        } as React.CSSProperties}
-      >
+      <div className="footer-bottom">
         <div className="footer-bottom-boxed">
           <Copyrights values={getValues()} />
           <SocialDirectory />
@@ -533,12 +523,7 @@ const PortalFooter = ({
       data-testid='portal-footer'
     >
       <div className="footer-inner">
-        <div
-          className="footer-bottom"
-          style={{
-            '--footer-bottom-bg': '#3b3b3b',
-          } as React.CSSProperties}
-        >
+        <div className="footer-bottom">
           <div className="footer-portal-bottom-boxed">
             <PortalColumn1 />
             <PortalColumn2 portalName={portalName} />
