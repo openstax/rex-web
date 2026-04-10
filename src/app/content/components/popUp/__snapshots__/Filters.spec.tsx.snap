@@ -1,37 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot 1`] = `
-.c7 {
-  cursor: pointer;
-}
-
-.c2 > *:not(.c6) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c4 {
+.c3 {
   overflow: visible;
   position: relative;
 }
 
-.c18 {
+.c16 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c18 svg {
+.c16 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c19 {
+.c17 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -43,7 +29,7 @@ exports[`Filters matches snapshot 1`] = `
   line-height: 1.5rem;
 }
 
-.c17 {
+.c15 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -57,7 +43,7 @@ exports[`Filters matches snapshot 1`] = `
   height: 4rem;
 }
 
-.c14 {
+.c12 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -70,7 +56,7 @@ exports[`Filters matches snapshot 1`] = `
   border: 0;
 }
 
-.c16 {
+.c14 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -88,7 +74,7 @@ exports[`Filters matches snapshot 1`] = `
   overflow: visible;
 }
 
-.c8 {
+.c6 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -96,13 +82,13 @@ exports[`Filters matches snapshot 1`] = `
   padding-top: 0.2rem;
 }
 
-.c5 {
+.c4 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
 }
 
-.c5 > div {
+.c4 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -157,11 +143,655 @@ exports[`Filters matches snapshot 1`] = `
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c0 .c6 {
+.c0 .c5 {
   font-weight: bold;
 }
 
-.c0 .c3 > *:not(.c6) {
+.c0 .c2 > *:not(.c5) {
+  top: calc(100% - 0.1rem);
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  max-height: calc(100vh - 26rem);
+}
+
+.c7 {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background: none;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #5e6062;
+  height: 100%;
+  min-width: 45px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 77px;
+  height: auto;
+  padding: 0 10px;
+}
+
+.c7:hover,
+.c7:focus {
+  color: #424242;
+}
+
+.c11 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.c9 {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.4rem;
+}
+
+.c8 {
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  cursor: pointer;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  min-height: unset;
+  margin: 0 0 0 auto;
+  padding-right: 2.4rem;
+}
+
+.c8 .c10 {
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  margin: 0px 0px 0px 0.5rem;
+}
+
+@media print {
+  .c16 {
+    display: none;
+  }
+}
+
+@media print {
+  .c17 {
+    max-width: -webkit-max-content;
+    max-width: -moz-max-content;
+    max-width: max-content;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c14 {
+    padding: 0 2.4rem 0.4rem 2.4rem;
+  }
+}
+
+@media print {
+  .c14 {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c4 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 .c2 > *:not(.c5) {
+    max-height: calc(100vh - 18.4rem);
+  }
+}
+
+@media screen and (max-width:30em) {
+  .c0 .c2 {
+    position: initial;
+  }
+
+  .c0 .c2 > *:not(.c5) {
+    top: auto;
+    margin-top: -0.1rem;
+  }
+}
+
+@media print {
+  .c0 {
+    padding-left: 0;
+  }
+}
+
+@media print {
+  .c0 > *:not(.c13) {
+    display: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c7 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -webkit-justify-content: start;
+    -ms-flex-pack: start;
+    justify-content: start;
+    min-height: unset;
+    margin-top: 25px;
+    background: none;
+  }
+}
+
+@media screen and (max-width:50em) {
+  .c11 {
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    margin-left: 1.2rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c8 {
+    padding-right: 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c8 .c10 {
+    display: none;
+  }
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2 c3"
+    >
+      <button
+        aria-controls="summary-filter-chapter"
+        aria-expanded={false}
+        aria-label="Filter highlights by Chapter"
+        className="plain-button c4 dropdown-toggle c5 "
+        data-analytics-label="Filter highlights by Chapter"
+        onClick={[Function]}
+      >
+        <div
+          tabIndex={-1}
+        >
+          Chapter
+          <svg
+            aria-hidden="true"
+            className="c6"
+            direction="down"
+            viewBox="0 0 320 512"
+          >
+            <path
+              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+    <div
+      className="c2 c3"
+    >
+      <button
+        aria-controls="summary-filter-color"
+        aria-expanded={false}
+        aria-label="Filter highlights by Color"
+        className="plain-button c4 dropdown-toggle c5 "
+        data-analytics-label="Filter highlights by Color"
+        onClick={[Function]}
+      >
+        <div
+          tabIndex={-1}
+        >
+          Color
+          <svg
+            aria-hidden="true"
+            className="c6"
+            direction="down"
+            viewBox="0 0 320 512"
+          >
+            <path
+              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+    <button
+      aria-label="print"
+      className="c7 c8"
+      data-analytics-label="print"
+      data-testid="print"
+      disabled={false}
+      onClick={[Function]}
+    >
+      <svg
+        aria-hidden="true"
+        className="c9"
+        viewBox="0 0 512 512"
+      >
+        <path
+          d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
+          fill="currentColor"
+        />
+      </svg>
+      <span
+        className="c10 c11"
+      >
+        Print
+      </span>
+    </button>
+  </div>
+  <div
+    className="c12"
+    role="status"
+  />
+  <ul
+    aria-atomic="true"
+    aria-label="Applied filters"
+    aria-live="polite"
+    className="c13 c14"
+  >
+    <li
+      className="c15"
+    >
+      <button
+        aria-label="Remove color blue"
+        className="plain-button c16"
+        data-analytics-label="Remove breadcrumb for color blue"
+        onClick={[Function]}
+      >
+        <svg
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <span
+        className="c17"
+      >
+        blue
+      </span>
+    </li>
+    <li
+      className="c15"
+    >
+      <button
+        aria-label="Remove color green"
+        className="plain-button c16"
+        data-analytics-label="Remove breadcrumb for color green"
+        onClick={[Function]}
+      >
+        <svg
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <span
+        className="c17"
+      >
+        green
+      </span>
+    </li>
+    <li
+      className="c15"
+    >
+      <button
+        aria-label="Remove color pink"
+        className="plain-button c16"
+        data-analytics-label="Remove breadcrumb for color pink"
+        onClick={[Function]}
+      >
+        <svg
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <span
+        className="c17"
+      >
+        pink
+      </span>
+    </li>
+    <li
+      className="c15"
+    >
+      <button
+        aria-label="Remove color purple"
+        className="plain-button c16"
+        data-analytics-label="Remove breadcrumb for color purple"
+        onClick={[Function]}
+      >
+        <svg
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <span
+        className="c17"
+      >
+        purple
+      </span>
+    </li>
+    <li
+      className="c15"
+    >
+      <button
+        aria-label="Remove color yellow"
+        className="plain-button c16"
+        data-analytics-label="Remove breadcrumb for color yellow"
+        onClick={[Function]}
+      >
+        <svg
+          height="15px"
+          version="1.1"
+          viewBox="0 0 15 15"
+          width="15px"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <g
+              fill="currentColor"
+              transform="translate(-302.000000, -18.000000)"
+            >
+              <g
+                transform="translate(302.000000, 18.000000)"
+              >
+                <path
+                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
+                />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <span
+        className="c17"
+      >
+        yellow
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`Filters matches snapshot when open color filters 1`] = `
+.c3 {
+  overflow: visible;
+  position: relative;
+}
+
+.c14 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.c16 {
+  color: #424242;
+  font-size: 1.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0;
+  padding: 0 2.8rem 1rem 2.8rem;
+  margin-top: -1rem;
+  list-style: none;
+  overflow: visible;
+}
+
+.c6 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+}
+
+.c8 {
+  color: #5e6062;
+  width: 1rem;
+  height: 2rem;
+  margin-left: 0.8rem;
+  padding-top: 0.2rem;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  padding-top: 0;
+  padding-bottom: 0.2rem;
+}
+
+.c4 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+}
+
+.c4 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c7 {
+  position: relative;
+  border-left: 0.1rem solid transparent;
+  border-right: 0.1rem solid transparent;
+  z-index: 2;
+  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
+  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
+  clip-path: inset(0 -0.6rem 0px -0.6rem);
+  background-color: #fff;
+  border-left: 0.1rem solid #d5d5d5;
+  border-right: 0.1rem solid #d5d5d5;
+}
+
+.c7 > div {
+  padding: 2rem 2.4rem;
+  outline: none;
+  color: #424242;
+  font-size: 1.6rem;
+  color: #5e6062;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: visible;
+  width: 100%;
+}
+
+.c0 {
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #fff;
+  border-bottom: 0.1rem solid #d5d5d5;
+}
+
+.c0 .c5 {
+  font-weight: bold;
+}
+
+.c0 .c2 > *:not(.c5) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
@@ -237,20 +867,6 @@ exports[`Filters matches snapshot 1`] = `
   margin: 0px 0px 0px 0.5rem;
 }
 
-@media print {
-  .c18 {
-    display: none;
-  }
-}
-
-@media print {
-  .c19 {
-    max-width: -webkit-max-content;
-    max-width: -moz-max-content;
-    max-width: max-content;
-  }
-}
-
 @media screen and (max-width:75em) {
   .c16 {
     padding: 0 2.4rem 0.4rem 2.4rem;
@@ -264,23 +880,29 @@ exports[`Filters matches snapshot 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c5 > div {
+  .c4 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c0 .c3 > *:not(.c6) {
+  .c7 > div {
+    padding: 1rem 1.6rem;
+  }
+}
+
+@media screen and (max-width:75em) {
+  .c0 .c2 > *:not(.c5) {
     max-height: calc(100vh - 18.4rem);
   }
 }
 
 @media screen and (max-width:30em) {
-  .c0 .c3 {
+  .c0 .c2 {
     position: initial;
   }
 
-  .c0 .c3 > *:not(.c6) {
+  .c0 .c2 > *:not(.c5) {
     top: auto;
     margin-top: -0.1rem;
   }
@@ -340,13 +962,13 @@ exports[`Filters matches snapshot 1`] = `
     className="c1"
   >
     <div
-      className="c2 c3 c4"
+      className="c2 c3"
     >
       <button
         aria-controls="summary-filter-chapter"
         aria-expanded={false}
         aria-label="Filter highlights by Chapter"
-        className="plain-button c5 c6 c7"
+        className="plain-button c4 dropdown-toggle c5 "
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -356,7 +978,7 @@ exports[`Filters matches snapshot 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="c8"
+            className="c6"
             direction="down"
             viewBox="0 0 320 512"
           >
@@ -369,13 +991,13 @@ exports[`Filters matches snapshot 1`] = `
       </button>
     </div>
     <div
-      className="c2 c3 c4"
+      className="c2 c3"
     >
       <button
         aria-controls="summary-filter-color"
-        aria-expanded={false}
+        aria-expanded={true}
         aria-label="Filter highlights by Color"
-        className="plain-button c5 c6 c7"
+        className="plain-button c7 dropdown-toggle c5 "
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -386,7 +1008,7 @@ exports[`Filters matches snapshot 1`] = `
           <svg
             aria-hidden="true"
             className="c8"
-            direction="down"
+            direction="up"
             viewBox="0 0 320 512"
           >
             <path
@@ -396,6 +1018,52 @@ exports[`Filters matches snapshot 1`] = `
           </svg>
         </div>
       </button>
+      <div
+        className="dropdown-menu"
+      >
+        <div
+          colorFiltersWithContent={Set {}}
+          id="summary-filter-color"
+          labelKey={[Function]}
+          mock-color-filter={true}
+          selectedColorFilters={Set {}}
+          styles={
+            Array [
+              Object {
+                "focusBorder": "#8f7700",
+                "focused": "#fed200",
+                "label": "yellow",
+                "passive": "#ffff8a",
+              },
+              Object {
+                "focusBorder": "#4e6f01",
+                "focused": "#92d101",
+                "label": "green",
+                "passive": "#def99f",
+              },
+              Object {
+                "focusBorder": "#006880",
+                "focused": "#00c3ed",
+                "label": "blue",
+                "passive": "#c8f5ff",
+              },
+              Object {
+                "focusBorder": "#141a3e",
+                "focused": "#545ec8",
+                "label": "purple",
+                "passive": "#cbcfff",
+              },
+              Object {
+                "focusBorder": "#560131",
+                "focused": "#de017e",
+                "label": "pink",
+                "passive": "#ffc5e1",
+              },
+            ]
+          }
+          updateSummaryFilters={[Function]}
+        />
+      </div>
     </div>
     <button
       aria-label="print"
@@ -431,698 +1099,6 @@ exports[`Filters matches snapshot 1`] = `
     aria-label="Applied filters"
     aria-live="polite"
     className="c15 c16"
-  >
-    <li
-      className="c17"
-    >
-      <button
-        aria-label="Remove color blue"
-        className="plain-button c18"
-        data-analytics-label="Remove breadcrumb for color blue"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c19"
-      >
-        blue
-      </span>
-    </li>
-    <li
-      className="c17"
-    >
-      <button
-        aria-label="Remove color green"
-        className="plain-button c18"
-        data-analytics-label="Remove breadcrumb for color green"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c19"
-      >
-        green
-      </span>
-    </li>
-    <li
-      className="c17"
-    >
-      <button
-        aria-label="Remove color pink"
-        className="plain-button c18"
-        data-analytics-label="Remove breadcrumb for color pink"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c19"
-      >
-        pink
-      </span>
-    </li>
-    <li
-      className="c17"
-    >
-      <button
-        aria-label="Remove color purple"
-        className="plain-button c18"
-        data-analytics-label="Remove breadcrumb for color purple"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c19"
-      >
-        purple
-      </span>
-    </li>
-    <li
-      className="c17"
-    >
-      <button
-        aria-label="Remove color yellow"
-        className="plain-button c18"
-        data-analytics-label="Remove breadcrumb for color yellow"
-        onClick={[Function]}
-      >
-        <svg
-          height="15px"
-          version="1.1"
-          viewBox="0 0 15 15"
-          width="15px"
-        >
-          <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
-            <g
-              fill="currentColor"
-              transform="translate(-302.000000, -18.000000)"
-            >
-              <g
-                transform="translate(302.000000, 18.000000)"
-              >
-                <path
-                  d="M7.5,5.41522791 L12.0331524,0.579865364 C12.3077536,0.286957429 12.7165503,0.24816296 12.946282,0.493210121 L13.9861449,1.60239723 C14.2158766,1.84744439 14.1795068,2.28349422 13.9049056,2.57640216 L9.37175324,7.41176471 L13.9049056,12.2471273 C14.1795068,12.5400352 14.2158766,12.976085 13.9861449,13.2211322 L12.946282,14.3303193 C12.7165503,14.5753665 12.3077536,14.536572 12.0331524,14.243664 L7.5,9.4083015 L2.96684761,14.243664 C2.69224642,14.536572 2.2834497,14.5753665 2.05371799,14.3303193 L1.01385508,13.2211322 C0.784123363,12.976085 0.820493178,12.5400352 1.09509437,12.2471273 L5.62824676,7.41176471 L1.09509437,2.57640216 C0.820493178,2.28349422 0.784123363,1.84744439 1.01385508,1.60239723 L2.05371799,0.493210121 C2.2834497,0.24816296 2.69224642,0.286957429 2.96684761,0.579865364 L7.5,5.41522791 Z"
-                />
-              </g>
-            </g>
-          </g>
-        </svg>
-      </button>
-      <span
-        className="c19"
-      >
-        yellow
-      </span>
-    </li>
-  </ul>
-</div>
-`;
-
-exports[`Filters matches snapshot when open color filters 1`] = `
-.c7 {
-  cursor: pointer;
-}
-
-.c2 > *:not(.c6) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c4 {
-  overflow: visible;
-  position: relative;
-}
-
-.c16 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.c18 {
-  color: #424242;
-  font-size: 1.4rem;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 0;
-  padding: 0 2.8rem 1rem 2.8rem;
-  margin-top: -1rem;
-  list-style: none;
-  overflow: visible;
-}
-
-.c8 {
-  color: #5e6062;
-  width: 1rem;
-  height: 2rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-}
-
-.c10 {
-  color: #5e6062;
-  width: 1rem;
-  height: 2rem;
-  margin-left: 0.8rem;
-  padding-top: 0.2rem;
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-  padding-top: 0;
-  padding-bottom: 0.2rem;
-}
-
-.c5 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-}
-
-.c5 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c9 {
-  position: relative;
-  border-left: 0.1rem solid transparent;
-  border-right: 0.1rem solid transparent;
-  z-index: 2;
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  -webkit-clip-path: inset(0 -0.6rem 0px -0.6rem);
-  clip-path: inset(0 -0.6rem 0px -0.6rem);
-  background-color: #fff;
-  border-left: 0.1rem solid #d5d5d5;
-  border-right: 0.1rem solid #d5d5d5;
-}
-
-.c9 > div {
-  padding: 2rem 2.4rem;
-  outline: none;
-  color: #424242;
-  font-size: 1.6rem;
-  color: #5e6062;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: visible;
-  width: 100%;
-}
-
-.c0 {
-  position: relative;
-  z-index: 2;
-  overflow: visible;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row wrap;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background: #fff;
-  border-bottom: 0.1rem solid #d5d5d5;
-}
-
-.c0 .c6 {
-  font-weight: bold;
-}
-
-.c0 .c3 > *:not(.c6) {
-  top: calc(100% - 0.1rem);
-  box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
-  max-height: calc(100vh - 26rem);
-}
-
-.c11 {
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #5e6062;
-  height: 100%;
-  min-width: 45px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  min-height: 77px;
-  height: auto;
-  padding: 0 10px;
-}
-
-.c11:hover,
-.c11:focus {
-  color: #424242;
-}
-
-.c15 {
-  font-weight: 600;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-}
-
-.c13 {
-  height: 2.5rem;
-  width: 2.5rem;
-  padding: 0.4rem;
-}
-
-.c12 {
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  cursor: pointer;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
-  min-height: unset;
-  margin: 0 0 0 auto;
-  padding-right: 2.4rem;
-}
-
-.c12 .c14 {
-  font-size: 1.6rem;
-  line-height: 2.5rem;
-  margin: 0px 0px 0px 0.5rem;
-}
-
-@media screen and (max-width:75em) {
-  .c18 {
-    padding: 0 2.4rem 0.4rem 2.4rem;
-  }
-}
-
-@media print {
-  .c18 {
-    margin: 0;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c5 > div {
-    padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c9 > div {
-    padding: 1rem 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c0 .c3 > *:not(.c6) {
-    max-height: calc(100vh - 18.4rem);
-  }
-}
-
-@media screen and (max-width:30em) {
-  .c0 .c3 {
-    position: initial;
-  }
-
-  .c0 .c3 > *:not(.c6) {
-    top: auto;
-    margin-top: -0.1rem;
-  }
-}
-
-@media print {
-  .c0 {
-    padding-left: 0;
-  }
-}
-
-@media print {
-  .c0 > *:not(.c17) {
-    display: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c11 {
-    -webkit-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-pack: start;
-    -webkit-justify-content: start;
-    -ms-flex-pack: start;
-    justify-content: start;
-    min-height: unset;
-    margin-top: 25px;
-    background: none;
-  }
-}
-
-@media screen and (max-width:50em) {
-  .c15 {
-    font-size: 1.6rem;
-    line-height: 2.5rem;
-    margin-left: 1.2rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c12 {
-    padding-right: 1.6rem;
-  }
-}
-
-@media screen and (max-width:75em) {
-  .c12 .c14 {
-    display: none;
-  }
-}
-
-<div
-  className="c0"
->
-  <div
-    className="c1"
-  >
-    <div
-      className="c2 c3 c4"
-    >
-      <button
-        aria-controls="summary-filter-chapter"
-        aria-expanded={false}
-        aria-label="Filter highlights by Chapter"
-        className="plain-button c5 c6 c7"
-        data-analytics-label="Filter highlights by Chapter"
-        onClick={[Function]}
-      >
-        <div
-          tabIndex={-1}
-        >
-          Chapter
-          <svg
-            aria-hidden="true"
-            className="c8"
-            direction="down"
-            viewBox="0 0 320 512"
-          >
-            <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-      </button>
-    </div>
-    <div
-      className="c2 c3 c4"
-    >
-      <button
-        aria-controls="summary-filter-color"
-        aria-expanded={true}
-        aria-label="Filter highlights by Color"
-        className="plain-button c9 c6 c7"
-        data-analytics-label="Filter highlights by Color"
-        onClick={[Function]}
-      >
-        <div
-          tabIndex={-1}
-        >
-          Color
-          <svg
-            aria-hidden="true"
-            className="c10"
-            direction="up"
-            viewBox="0 0 320 512"
-          >
-            <path
-              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"
-              fill="currentColor"
-            />
-          </svg>
-        </div>
-      </button>
-      <div
-        colorFiltersWithContent={Set {}}
-        id="summary-filter-color"
-        labelKey={[Function]}
-        mock-color-filter={true}
-        selectedColorFilters={Set {}}
-        styles={
-          Array [
-            Object {
-              "focusBorder": "#8f7700",
-              "focused": "#fed200",
-              "label": "yellow",
-              "passive": "#ffff8a",
-            },
-            Object {
-              "focusBorder": "#4e6f01",
-              "focused": "#92d101",
-              "label": "green",
-              "passive": "#def99f",
-            },
-            Object {
-              "focusBorder": "#006880",
-              "focused": "#00c3ed",
-              "label": "blue",
-              "passive": "#c8f5ff",
-            },
-            Object {
-              "focusBorder": "#141a3e",
-              "focused": "#545ec8",
-              "label": "purple",
-              "passive": "#cbcfff",
-            },
-            Object {
-              "focusBorder": "#560131",
-              "focused": "#de017e",
-              "label": "pink",
-              "passive": "#ffc5e1",
-            },
-          ]
-        }
-        updateSummaryFilters={[Function]}
-      />
-    </div>
-    <button
-      aria-label="print"
-      className="c11 c12"
-      data-analytics-label="print"
-      data-testid="print"
-      disabled={false}
-      onClick={[Function]}
-    >
-      <svg
-        aria-hidden="true"
-        className="c13"
-        viewBox="0 0 512 512"
-      >
-        <path
-          d="M448 192V77.25c0-8.49-3.37-16.62-9.37-22.63L393.37 9.37c-6-6-14.14-9.37-22.63-9.37H96C78.33 0 64 14.33 64 32v160c-35.35 0-64 28.65-64 64v112c0 8.84 7.16 16 16 16h48v96c0 17.67 14.33 32 32 32h320c17.67 0 32-14.33 32-32v-96h48c8.84 0 16-7.16 16-16V256c0-35.35-28.65-64-64-64zm-64 256H128v-96h256v96zm0-224H128V64h192v48c0 8.84 7.16 16 16 16h48v96zm48 72c-13.25 0-24-10.75-24-24 0-13.26 10.75-24 24-24s24 10.74 24 24c0 13.25-10.75 24-24 24z"
-          fill="currentColor"
-        />
-      </svg>
-      <span
-        className="c14 c15"
-      >
-        Print
-      </span>
-    </button>
-  </div>
-  <div
-    className="c16"
-    role="status"
-  />
-  <ul
-    aria-atomic="true"
-    aria-label="Applied filters"
-    aria-live="polite"
-    className="c17 c18"
   />
 </div>
 `;
