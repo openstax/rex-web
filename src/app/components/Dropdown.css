@@ -119,7 +119,7 @@
 }
 
 /* Hide the menu by default */
-.dropdown-transparent .dropdown-focus-wrapper > .dropdown-menu {
+:where(.dropdown-transparent .dropdown-focus-wrapper > .dropdown-menu) {
   height: 0;
   width: 0;
   overflow: hidden;
