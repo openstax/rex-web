@@ -1,26 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filters matches snapshot and renders proper aria labels 1`] = `
-.c7 {
-  cursor: pointer;
-}
-
-.c2 > *:not(.c6) {
-  -webkit-animation: 100ms bcCCNc ease-out;
-  animation: 100ms bcCCNc ease-out;
-  position: absolute;
-  box-shadow: 0 0.5rem 0.5rem 0 rgba(0,0,0,0.1);
-  border: 1px solid #d5d5d5;
-  top: calc(100% + 0.4rem);
-  left: 0;
-}
-
-.c4 {
+.c3 {
   overflow: visible;
   position: relative;
 }
 
-.c11 {
+.c9 {
   height: 2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -35,21 +21,21 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   align-items: center;
 }
 
-.c11,
-.c11 .c12 {
+.c9,
+.c9 .c10 {
   font-size: 1.4rem;
   overflow: visible;
 }
 
-.c11 span {
+.c9 span {
   padding: 0 1rem;
 }
 
-.c20 {
+.c18 {
   display: none;
 }
 
-.c22 {
+.c20 {
   display: none;
   position: absolute;
   height: 2rem;
@@ -64,7 +50,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border-radius: 50%;
 }
 
-.c23 {
+.c21 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -78,7 +64,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 1px solid #fed200;
 }
 
-.c26 {
+.c24 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -92,7 +78,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 1px solid #92d101;
 }
 
-.c28 {
+.c26 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -106,7 +92,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 1px solid #00c3ed;
 }
 
-.c30 {
+.c28 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -120,7 +106,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 1px solid #545ec8;
 }
 
-.c32 {
+.c30 {
   height: 1.4000000000000001rem;
   width: 1.4000000000000001rem;
   background-color: transparent;
@@ -134,7 +120,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 1px solid #de017e;
 }
 
-.c18 {
+.c16 {
   position: relative;
   background-color: #ffff8a;
   border: 1px solid #8f7700;
@@ -156,19 +142,19 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: visible;
 }
 
-.c18 .c19 {
+.c16 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c18 input:focus + .c21 {
+.c16 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c25 {
+.c23 {
   position: relative;
   background-color: #def99f;
   border: 1px solid #4e6f01;
@@ -190,19 +176,19 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: visible;
 }
 
-.c25 .c19 {
+.c23 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c25 input:focus + .c21 {
+.c23 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c27 {
+.c25 {
   position: relative;
   background-color: #c8f5ff;
   border: 1px solid #006880;
@@ -224,19 +210,19 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: visible;
 }
 
-.c27 .c19 {
+.c25 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c27 input:focus + .c21 {
+.c25 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c29 {
+.c27 {
   position: relative;
   background-color: #cbcfff;
   border: 1px solid #141a3e;
@@ -258,19 +244,19 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: visible;
 }
 
-.c29 .c19 {
+.c27 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c29 input:focus + .c21 {
+.c27 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c31 {
+.c29 {
   position: relative;
   background-color: #ffc5e1;
   border: 1px solid #560131;
@@ -292,30 +278,30 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: visible;
 }
 
-.c31 .c19 {
+.c29 .c17 {
   height: 1rem;
   width: 1rem;
 }
 
-.c31 input:focus + .c21 {
+.c29 input:focus + .c19 {
   display: block;
   outline: 0.2rem auto Highlight;
   outline: 0.2rem auto -webkit-focus-ring-color;
   z-index: 1;
 }
 
-.c42 {
+.c40 {
   height: 1.7rem;
   margin-right: 0.4rem;
 }
 
-.c42 svg {
+.c40 svg {
   height: 0.8rem;
   width: 0.8rem;
   color: #5e6062;
 }
 
-.c43 {
+.c41 {
   color: #424242;
   font-weight: 300;
   color: #5e6062;
@@ -327,7 +313,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   line-height: 1.5rem;
 }
 
-.c41 {
+.c39 {
   margin-right: 3.2rem;
   display: -webkit-box;
   display: -webkit-flex;
@@ -341,7 +327,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   height: 4rem;
 }
 
-.c38 {
+.c36 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -354,7 +340,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 0;
 }
 
-.c40 {
+.c38 {
   color: #424242;
   font-size: 1.4rem;
   display: -webkit-box;
@@ -372,7 +358,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: visible;
 }
 
-.c8 {
+.c6 {
   color: #5e6062;
   width: 1rem;
   height: 2rem;
@@ -385,13 +371,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   padding-bottom: 0.2rem;
 }
 
-.c13 {
+.c11 {
   padding: 0;
   border: none;
   margin: 0;
 }
 
-.c13 legend {
+.c11 legend {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -404,7 +390,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border: 0;
 }
 
-.c5 {
+.c4 {
   position: relative;
   border-left: 0.1rem solid transparent;
   border-right: 0.1rem solid transparent;
@@ -417,7 +403,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border-right: 0.1rem solid #d5d5d5;
 }
 
-.c5 > div {
+.c4 > div {
   padding: 2rem 2.4rem;
   outline: none;
   color: #424242;
@@ -472,17 +458,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   border-bottom: 0.1rem solid #d5d5d5;
 }
 
-.c0 .c6 {
+.c0 .c5 {
   font-weight: bold;
 }
 
-.c0 .c3 > *:not(.c6) {
+.c0 .c2 > *:not(.c5) {
   top: calc(100% - 0.1rem);
   box-shadow: 0 0 0.6rem 0 rgba(0,0,0,0.2);
   max-height: calc(100vh - 26rem);
 }
 
-.c14 {
+.c12 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -492,7 +478,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   flex-direction: row;
 }
 
-.c9 {
+.c7 {
   color: #424242;
   background: #fff;
   font-size: 1.4rem;
@@ -502,23 +488,23 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   z-index: 1;
 }
 
-.c9 .c10 {
+.c7 .c8 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c9 .c16 {
+.c7 .c14 {
   padding: 0.8rem;
 }
 
-.c9 .c17 {
+.c7 .c15 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c9 .c44:last-child {
+.c7 .c42:last-child {
   border-bottom: none;
 }
 
-.c24 {
+.c22 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
@@ -527,7 +513,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   white-space: nowrap;
 }
 
-.c15 {
+.c13 {
   background: #fff;
   display: -webkit-box;
   display: -webkit-flex;
@@ -544,20 +530,20 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   overflow: auto;
 }
 
-.c15 .c10 {
+.c13 .c8 {
   margin: 0.8rem 0 0.8rem 0.8rem;
 }
 
-.c15 .c16 {
+.c13 .c14 {
   padding: 0.8rem;
   text-transform: capitalize;
 }
 
-.c15 .c17 {
+.c13 .c15 {
   margin: 0 1.6rem 0 1.6rem;
 }
 
-.c33 {
+.c31 {
   cursor: pointer;
   border: none;
   padding: 0;
@@ -589,12 +575,12 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   padding: 0 10px;
 }
 
-.c33:hover,
-.c33:focus {
+.c31:hover,
+.c31:focus {
   color: #424242;
 }
 
-.c37 {
+.c35 {
   font-weight: 600;
   font-size: 1.2rem;
   line-height: 1.5rem;
@@ -602,13 +588,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   line-height: 1.5rem;
 }
 
-.c35 {
+.c33 {
   height: 2.5rem;
   width: 2.5rem;
   padding: 0.4rem;
 }
 
-.c34 {
+.c32 {
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -621,20 +607,20 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
   padding-right: 2.4rem;
 }
 
-.c34 .c36 {
+.c32 .c34 {
   font-size: 1.6rem;
   line-height: 2.5rem;
   margin: 0px 0px 0px 0.5rem;
 }
 
 @media print {
-  .c42 {
+  .c40 {
     display: none;
   }
 }
 
 @media print {
-  .c43 {
+  .c41 {
     max-width: -webkit-max-content;
     max-width: -moz-max-content;
     max-width: max-content;
@@ -642,35 +628,35 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c40 {
+  .c38 {
     padding: 0 2.4rem 0.4rem 2.4rem;
   }
 }
 
 @media print {
-  .c40 {
+  .c38 {
     margin: 0;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c5 > div {
+  .c4 > div {
     padding: 1rem 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c0 .c3 > *:not(.c6) {
+  .c0 .c2 > *:not(.c5) {
     max-height: calc(100vh - 18.4rem);
   }
 }
 
 @media screen and (max-width:30em) {
-  .c0 .c3 {
+  .c0 .c2 {
     position: initial;
   }
 
-  .c0 .c3 > *:not(.c6) {
+  .c0 .c2 > *:not(.c5) {
     top: auto;
     margin-top: -0.1rem;
   }
@@ -683,13 +669,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media print {
-  .c0 > *:not(.c39) {
+  .c0 > *:not(.c37) {
     display: none;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c14 {
+  .c12 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
@@ -698,19 +684,19 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media screen and (max-width:30em) {
-  .c9 {
+  .c7 {
     width: calc(100vw - 1.6rem);
   }
 }
 
 @media screen and (max-width:30em) {
-  .c15 {
+  .c13 {
     width: calc(100vw - 1.6rem);
   }
 }
 
 @media screen and (max-width:50em) {
-  .c33 {
+  .c31 {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
@@ -725,7 +711,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media screen and (max-width:50em) {
-  .c37 {
+  .c35 {
     font-size: 1.6rem;
     line-height: 2.5rem;
     margin-left: 1.2rem;
@@ -733,13 +719,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
 }
 
 @media screen and (max-width:75em) {
-  .c34 {
+  .c32 {
     padding-right: 1.6rem;
   }
 }
 
 @media screen and (max-width:75em) {
-  .c34 .c36 {
+  .c32 .c34 {
     display: none;
   }
 }
@@ -751,13 +737,13 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     className="c1"
   >
     <div
-      className="c2 c3 c4"
+      className="c2 c3"
     >
       <button
         aria-controls="summary-filter-chapter"
         aria-expanded={true}
         aria-label="Filter highlights by Chapter"
-        className="plain-button c5 c6 c7"
+        className="plain-button c4 dropdown-toggle c5 "
         data-analytics-label="Filter highlights by Chapter"
         onClick={[Function]}
       >
@@ -767,7 +753,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Chapter
           <svg
             aria-hidden="true"
-            className="c8"
+            className="c6"
             direction="up"
             viewBox="0 0 320 512"
           >
@@ -779,63 +765,67 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </div>
       </button>
       <div
-        className="c9"
-        id="summary-filter-chapter"
-        tabIndex={-1}
+        className="dropdown-menu"
       >
         <div
-          className="c10 c11"
+          className="c7"
+          id="summary-filter-chapter"
+          tabIndex={-1}
         >
-          <button
-            className="plain-button button-link button-link-decorated c12 "
-            onClick={[Function]}
-            style={
-              Object {
-                "--link-color": "#027EB5",
-                "--link-hover": "#0064A0",
-              }
-            }
-          >
-            All
-          </button>
-          <span
-            aria-hidden="true"
-          >
-            |
-          </span>
-          <button
-            className="plain-button button-link button-link-decorated c12 "
-            onClick={[Function]}
-            style={
-              Object {
-                "--link-color": "#027EB5",
-                "--link-hover": "#0064A0",
-              }
-            }
-          >
-            None
-          </button>
-        </div>
-        <fieldset
-          className="c13"
-        >
-          <legend>
-            Filter by chapters
-          </legend>
           <div
-            className="c14"
-          />
-        </fieldset>
+            className="c8 c9"
+          >
+            <button
+              className="plain-button button-link button-link-decorated c10 "
+              onClick={[Function]}
+              style={
+                Object {
+                  "--link-color": "#027EB5",
+                  "--link-hover": "#0064A0",
+                }
+              }
+            >
+              All
+            </button>
+            <span
+              aria-hidden="true"
+            >
+              |
+            </span>
+            <button
+              className="plain-button button-link button-link-decorated c10 "
+              onClick={[Function]}
+              style={
+                Object {
+                  "--link-color": "#027EB5",
+                  "--link-hover": "#0064A0",
+                }
+              }
+            >
+              None
+            </button>
+          </div>
+          <fieldset
+            className="c11"
+          >
+            <legend>
+              Filter by chapters
+            </legend>
+            <div
+              className="c12"
+            />
+          </fieldset>
+        </div>
       </div>
     </div>
     <div
-      className="c2 c3 c4"
+      className="c2 c3"
     >
       <button
         aria-controls="summary-filter-color"
         aria-expanded={true}
         aria-label="Filter highlights by Color"
-        className="plain-button c5 c6 c7"
+        className="plain-button c4 dropdown-toggle c5 "
         data-analytics-label="Filter highlights by Color"
         onClick={[Function]}
       >
@@ -845,7 +835,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
           Color
           <svg
             aria-hidden="true"
-            className="c8"
+            className="c6"
             direction="up"
             viewBox="0 0 320 512"
           >
@@ -857,395 +847,399 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </div>
       </button>
       <div
-        className="c15"
-        id="summary-filter-color"
-        tabIndex={-1}
+        className="dropdown-menu"
       >
         <div
-          className="c10 c11"
-        >
-          <button
-            className="plain-button button-link button-link-decorated c12 "
-            onClick={[Function]}
-            style={
-              Object {
-                "--link-color": "#027EB5",
-                "--link-hover": "#0064A0",
-              }
-            }
-          >
-            All
-          </button>
-          <span
-            aria-hidden="true"
-          >
-            |
-          </span>
-          <button
-            className="plain-button button-link button-link-decorated c12 "
-            onClick={[Function]}
-            style={
-              Object {
-                "--link-color": "#027EB5",
-                "--link-hover": "#0064A0",
-              }
-            }
-          >
-            None
-          </button>
-        </div>
-        <fieldset
           className="c13"
+          id="summary-filter-color"
+          tabIndex={-1}
         >
-          <legend>
-            Filter by colors
-          </legend>
-          <label
-            className="checkbox-label c16 "
+          <div
+            className="c8 c9"
           >
-            <input
-              checked={true}
-              disabled={false}
-              onChange={[Function]}
-              type="checkbox"
-            />
-            <span
-              className="checkbox-custom"
-            >
-              <svg
-                aria-hidden="true"
-                className="checkbox-icon"
-                focusable="false"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
-            <div
-              className="c17 c18"
-            >
-              <svg
-                aria-hidden="true"
-                className="c19 c20"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
-                />
-              </svg>
-              <span
-                className="c21 c22"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#8f7700",
-                    "focused": "#fed200",
-                    "label": "yellow",
-                    "passive": "#ffff8a",
-                  }
+            <button
+              className="plain-button button-link button-link-decorated c10 "
+              onClick={[Function]}
+              style={
+                Object {
+                  "--link-color": "#027EB5",
+                  "--link-hover": "#0064A0",
                 }
-              />
-              <span
-                className="c23"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#8f7700",
-                    "focused": "#fed200",
-                    "label": "yellow",
-                    "passive": "#ffff8a",
-                  }
-                }
-              />
-            </div>
-            <span
-              className="c24"
+              }
             >
-              yellow
+              All
+            </button>
+            <span
+              aria-hidden="true"
+            >
+              |
             </span>
-          </label>
-          <label
-            className="checkbox-label c16 "
+            <button
+              className="plain-button button-link button-link-decorated c10 "
+              onClick={[Function]}
+              style={
+                Object {
+                  "--link-color": "#027EB5",
+                  "--link-hover": "#0064A0",
+                }
+              }
+            >
+              None
+            </button>
+          </div>
+          <fieldset
+            className="c11"
           >
-            <input
-              checked={true}
-              disabled={false}
-              onChange={[Function]}
-              type="checkbox"
-            />
-            <span
-              className="checkbox-custom"
+            <legend>
+              Filter by colors
+            </legend>
+            <label
+              className="checkbox-label c14 "
             >
-              <svg
-                aria-hidden="true"
-                className="checkbox-icon"
-                focusable="false"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
-            <div
-              className="c17 c25"
-            >
-              <svg
-                aria-hidden="true"
-                className="c19 c20"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
-                />
-              </svg>
-              <span
-                className="c21 c22"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#4e6f01",
-                    "focused": "#92d101",
-                    "label": "green",
-                    "passive": "#def99f",
-                  }
-                }
+              <input
+                checked={true}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
               />
               <span
-                className="c26"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#4e6f01",
-                    "focused": "#92d101",
-                    "label": "green",
-                    "passive": "#def99f",
+                className="checkbox-custom"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="checkbox-icon"
+                  focusable="false"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <div
+                className="c15 c16"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="c17 c18"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span
+                  className="c19 c20"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#8f7700",
+                      "focused": "#fed200",
+                      "label": "yellow",
+                      "passive": "#ffff8a",
+                    }
                   }
-                }
-              />
-            </div>
-            <span
-              className="c24"
-            >
-              green
-            </span>
-          </label>
-          <label
-            className="checkbox-label c16 "
-          >
-            <input
-              checked={true}
-              disabled={false}
-              onChange={[Function]}
-              type="checkbox"
-            />
-            <span
-              className="checkbox-custom"
-            >
-              <svg
-                aria-hidden="true"
-                className="checkbox-icon"
-                focusable="false"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
                 />
-              </svg>
-            </span>
-            <div
-              className="c17 c27"
-            >
-              <svg
-                aria-hidden="true"
-                className="c19 c20"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
+                <span
+                  className="c21"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#8f7700",
+                      "focused": "#fed200",
+                      "label": "yellow",
+                      "passive": "#ffff8a",
+                    }
+                  }
                 />
-              </svg>
+              </div>
               <span
-                className="c21 c22"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#006880",
-                    "focused": "#00c3ed",
-                    "label": "blue",
-                    "passive": "#c8f5ff",
-                  }
-                }
-              />
-              <span
-                className="c28"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#006880",
-                    "focused": "#00c3ed",
-                    "label": "blue",
-                    "passive": "#c8f5ff",
-                  }
-                }
-              />
-            </div>
-            <span
-              className="c24"
-            >
-              blue
-            </span>
-          </label>
-          <label
-            className="checkbox-label c16 "
-          >
-            <input
-              checked={true}
-              disabled={false}
-              onChange={[Function]}
-              type="checkbox"
-            />
-            <span
-              className="checkbox-custom"
-            >
-              <svg
-                aria-hidden="true"
-                className="checkbox-icon"
-                focusable="false"
-                viewBox="0 0 512 512"
+                className="c22"
               >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
-            <div
-              className="c17 c29"
+                yellow
+              </span>
+            </label>
+            <label
+              className="checkbox-label c14 "
             >
-              <svg
-                aria-hidden="true"
-                className="c19 c20"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
-                />
-              </svg>
-              <span
-                className="c21 c22"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#141a3e",
-                    "focused": "#545ec8",
-                    "label": "purple",
-                    "passive": "#cbcfff",
-                  }
-                }
+              <input
+                checked={true}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
               />
               <span
-                className="c30"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#141a3e",
-                    "focused": "#545ec8",
-                    "label": "purple",
-                    "passive": "#cbcfff",
-                  }
-                }
-              />
-            </div>
-            <span
-              className="c24"
-            >
-              purple
-            </span>
-          </label>
-          <label
-            className="checkbox-label c16 "
-          >
-            <input
-              checked={true}
-              disabled={false}
-              onChange={[Function]}
-              type="checkbox"
-            />
-            <span
-              className="checkbox-custom"
-            >
-              <svg
-                aria-hidden="true"
-                className="checkbox-icon"
-                focusable="false"
-                viewBox="0 0 512 512"
+                className="checkbox-custom"
               >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
-            <div
-              className="c17 c31"
-            >
-              <svg
-                aria-hidden="true"
-                className="c19 c20"
-                viewBox="0 0 512 512"
+                <svg
+                  aria-hidden="true"
+                  className="checkbox-icon"
+                  focusable="false"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <div
+                className="c15 c23"
               >
-                <path
-                  d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
-                  fill="currentColor"
+                <svg
+                  aria-hidden="true"
+                  className="c17 c18"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span
+                  className="c19 c20"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#4e6f01",
+                      "focused": "#92d101",
+                      "label": "green",
+                      "passive": "#def99f",
+                    }
+                  }
                 />
-              </svg>
-              <span
-                className="c21 c22"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#560131",
-                    "focused": "#de017e",
-                    "label": "pink",
-                    "passive": "#ffc5e1",
+                <span
+                  className="c24"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#4e6f01",
+                      "focused": "#92d101",
+                      "label": "green",
+                      "passive": "#def99f",
+                    }
                   }
-                }
-              />
+                />
+              </div>
               <span
-                className="c32"
-                size="small"
-                style={
-                  Object {
-                    "focusBorder": "#560131",
-                    "focused": "#de017e",
-                    "label": "pink",
-                    "passive": "#ffc5e1",
-                  }
-                }
-              />
-            </div>
-            <span
-              className="c24"
+                className="c22"
+              >
+                green
+              </span>
+            </label>
+            <label
+              className="checkbox-label c14 "
             >
-              pink
-            </span>
-          </label>
-        </fieldset>
+              <input
+                checked={true}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              <span
+                className="checkbox-custom"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="checkbox-icon"
+                  focusable="false"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <div
+                className="c15 c25"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="c17 c18"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span
+                  className="c19 c20"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#006880",
+                      "focused": "#00c3ed",
+                      "label": "blue",
+                      "passive": "#c8f5ff",
+                    }
+                  }
+                />
+                <span
+                  className="c26"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#006880",
+                      "focused": "#00c3ed",
+                      "label": "blue",
+                      "passive": "#c8f5ff",
+                    }
+                  }
+                />
+              </div>
+              <span
+                className="c22"
+              >
+                blue
+              </span>
+            </label>
+            <label
+              className="checkbox-label c14 "
+            >
+              <input
+                checked={true}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              <span
+                className="checkbox-custom"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="checkbox-icon"
+                  focusable="false"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <div
+                className="c15 c27"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="c17 c18"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span
+                  className="c19 c20"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#141a3e",
+                      "focused": "#545ec8",
+                      "label": "purple",
+                      "passive": "#cbcfff",
+                    }
+                  }
+                />
+                <span
+                  className="c28"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#141a3e",
+                      "focused": "#545ec8",
+                      "label": "purple",
+                      "passive": "#cbcfff",
+                    }
+                  }
+                />
+              </div>
+              <span
+                className="c22"
+              >
+                purple
+              </span>
+            </label>
+            <label
+              className="checkbox-label c14 "
+            >
+              <input
+                checked={true}
+                disabled={false}
+                onChange={[Function]}
+                type="checkbox"
+              />
+              <span
+                className="checkbox-custom"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="checkbox-icon"
+                  focusable="false"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <div
+                className="c15 c29"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="c17 c18"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"
+                    fill="currentColor"
+                  />
+                </svg>
+                <span
+                  className="c19 c20"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#560131",
+                      "focused": "#de017e",
+                      "label": "pink",
+                      "passive": "#ffc5e1",
+                    }
+                  }
+                />
+                <span
+                  className="c30"
+                  size="small"
+                  style={
+                    Object {
+                      "focusBorder": "#560131",
+                      "focused": "#de017e",
+                      "label": "pink",
+                      "passive": "#ffc5e1",
+                    }
+                  }
+                />
+              </div>
+              <span
+                className="c22"
+              >
+                pink
+              </span>
+            </label>
+          </fieldset>
+        </div>
       </div>
     </div>
     <button
       aria-label="print"
-      className="c33 c34"
+      className="c31 c32"
       data-analytics-label="print"
       data-testid="print"
       disabled={false}
@@ -1253,7 +1247,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
     >
       <svg
         aria-hidden="true"
-        className="c35"
+        className="c33"
         viewBox="0 0 512 512"
       >
         <path
@@ -1262,28 +1256,28 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         />
       </svg>
       <span
-        className="c36 c37"
+        className="c34 c35"
       >
         Print
       </span>
     </button>
   </div>
   <div
-    className="c38"
+    className="c36"
     role="status"
   />
   <ul
     aria-atomic="true"
     aria-label="Applied filters"
     aria-live="polite"
-    className="c39 c40"
+    className="c37 c38"
   >
     <li
-      className="c41"
+      className="c39"
     >
       <button
         aria-label="Remove color blue"
-        className="plain-button c42"
+        className="plain-button c40"
         data-analytics-label="Remove breadcrumb for color blue"
         onClick={[Function]}
       >
@@ -1315,17 +1309,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c43"
+        className="c41"
       >
         blue
       </span>
     </li>
     <li
-      className="c41"
+      className="c39"
     >
       <button
         aria-label="Remove color green"
-        className="plain-button c42"
+        className="plain-button c40"
         data-analytics-label="Remove breadcrumb for color green"
         onClick={[Function]}
       >
@@ -1357,17 +1351,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c43"
+        className="c41"
       >
         green
       </span>
     </li>
     <li
-      className="c41"
+      className="c39"
     >
       <button
         aria-label="Remove color pink"
-        className="plain-button c42"
+        className="plain-button c40"
         data-analytics-label="Remove breadcrumb for color pink"
         onClick={[Function]}
       >
@@ -1399,17 +1393,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c43"
+        className="c41"
       >
         pink
       </span>
     </li>
     <li
-      className="c41"
+      className="c39"
     >
       <button
         aria-label="Remove color purple"
-        className="plain-button c42"
+        className="plain-button c40"
         data-analytics-label="Remove breadcrumb for color purple"
         onClick={[Function]}
       >
@@ -1441,17 +1435,17 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c43"
+        className="c41"
       >
         purple
       </span>
     </li>
     <li
-      className="c41"
+      className="c39"
     >
       <button
         aria-label="Remove color yellow"
-        className="plain-button c42"
+        className="plain-button c40"
         data-analytics-label="Remove breadcrumb for color yellow"
         onClick={[Function]}
       >
@@ -1483,7 +1477,7 @@ exports[`Filters matches snapshot and renders proper aria labels 1`] = `
         </svg>
       </button>
       <span
-        className="c43"
+        className="c41"
       >
         yellow
       </span>

@@ -55,6 +55,7 @@ export const TextResizer = (props: TextResizerProps) => {
       ariaLabelId='i18n:toolbar:textresizer:button:aria-label'
       dataAnalyticsLabel='Change text size'
       controlsId='text-resizer-menu'
+      menuClassName='text-resizer-menu'
       {...props}
     >
       <Styled.TextResizerMenu id='text-resizer-menu' bookTheme={props.bookTheme} textSize={props.textSize}>
