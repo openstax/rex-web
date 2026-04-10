@@ -30,6 +30,7 @@ import './content/components/utils/utilities.css';
 // Import component CSS files in consistent order to avoid webpack chunk ordering warnings
 import './components/Button.css';
 import './components/Details.css';
+import './components/Dropdown.css';
 import './components/ScrollLock.css';
 import './components/ScrollOffset.css';
 import './content/components/ContentPane.css';

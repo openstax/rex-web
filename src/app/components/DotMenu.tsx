@@ -79,9 +79,15 @@ export type DotMenuDropdownProps = Omit<DropdownProps, 'children' | 'toggle'> & 
 };
 
 export function DotMenuDropdown({ className, children, toggle, ...props }: DotMenuDropdownProps) {
+  // Extract rightAlign from children if it's a DotMenuDropdownList
+  const rightAlign = React.Children.toArray(children).some(
+    (child) => React.isValidElement(child) && child.props.rightAlign
+  );
+
   return (
     <Dropdown
       className={classNames('dot-menu-dropdown', className)}
+      menuClassName={rightAlign ? 'dot-menu-right-align' : 'dot-menu-left-align'}
       toggle={toggle || <DotMenuToggle />}
       {...props}
     >
