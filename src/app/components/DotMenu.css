@@ -22,12 +22,13 @@
   outline: none;
 }
 
-.dot-menu-dropdown .dot-menu-dropdown-list.dot-menu-right-align {
+/* Positioning for dropdown-menu container */
+.dropdown-menu.dot-menu-right-align {
   right: 0;
   left: unset;
 }
 
-.dot-menu-dropdown .dot-menu-dropdown-list:not(.dot-menu-right-align) {
+.dropdown-menu.dot-menu-left-align {
   left: 0;
   right: unset;
 }

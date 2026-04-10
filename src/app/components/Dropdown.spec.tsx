@@ -177,4 +177,161 @@ describe('Dropdown', () => {
 
     expect(mockEv.preventDefault).toHaveBeenCalledTimes(2);
   });
+
+  it('TabTransparentDropdown handles focus in', () => {
+    const component = renderer.create(<TestContainer>
+      <Dropdown toggle={<button>show more</button>}>
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+        </DropdownList>
+      </Dropdown>
+    </TestContainer>);
+
+    // Find the dropdown focus wrapper div
+    const focusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+
+    // Initially, focus-within should not be present
+    expect(focusWrapper.props.className).not.toContain('focus-within');
+
+    // Simulate focus in
+    renderer.act(() => {
+      focusWrapper.props.onFocus();
+    });
+
+    // After focus in, focus-within should be present
+    const updatedFocusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+    expect(updatedFocusWrapper.props.className).toContain('focus-within');
+  });
+
+  it('TabTransparentDropdown handles focus out when focus moves outside', () => {
+    const component = renderer.create(<TestContainer>
+      <Dropdown toggle={<button>show more</button>}>
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+        </DropdownList>
+      </Dropdown>
+    </TestContainer>);
+
+    // Find the dropdown focus wrapper div
+    const focusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+
+    // Simulate focus in first
+    renderer.act(() => {
+      focusWrapper.props.onFocus();
+    });
+
+    // Verify focus-within is present
+    let updatedFocusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+    expect(updatedFocusWrapper.props.className).toContain('focus-within');
+
+    // Simulate focus out to an element outside the dropdown (relatedTarget is outside)
+    renderer.act(() => {
+      const outsideElement = document?.createElement('div');
+      focusWrapper.props.onBlur({
+        currentTarget: {
+          contains: jest.fn().mockReturnValue(false),
+        },
+        relatedTarget: outsideElement,
+      });
+    });
+
+    // After focus out, focus-within should be removed
+    updatedFocusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+    expect(updatedFocusWrapper.props.className).not.toContain('focus-within');
+  });
+
+  it('TabTransparentDropdown handles focus out when relatedTarget is null', () => {
+    const component = renderer.create(<TestContainer>
+      <Dropdown toggle={<button>show more</button>}>
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+        </DropdownList>
+      </Dropdown>
+    </TestContainer>);
+
+    // Find the dropdown focus wrapper div
+    const focusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+
+    // Simulate focus in first
+    renderer.act(() => {
+      focusWrapper.props.onFocus();
+    });
+
+    // Verify focus-within is present
+    let updatedFocusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+    expect(updatedFocusWrapper.props.className).toContain('focus-within');
+
+    // Simulate focus out with null relatedTarget (focus moved to browser UI or another app)
+    renderer.act(() => {
+      focusWrapper.props.onBlur({
+        currentTarget: {
+          contains: jest.fn(),
+        },
+        relatedTarget: null,
+      });
+    });
+
+    // After focus out with null relatedTarget, focus-within should be removed
+    updatedFocusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+    expect(updatedFocusWrapper.props.className).not.toContain('focus-within');
+  });
+
+  it('TabTransparentDropdown maintains focus when moving within the dropdown', () => {
+    const component = renderer.create(<TestContainer>
+      <Dropdown toggle={<button>show more</button>}>
+        <DropdownList>
+          <DropdownItem onClick={() => null} message='i18n:highlighting:dropdown:delete' />
+        </DropdownList>
+      </Dropdown>
+    </TestContainer>);
+
+    // Find the dropdown focus wrapper div
+    const focusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+
+    // Simulate focus in first
+    renderer.act(() => {
+      focusWrapper.props.onFocus();
+    });
+
+    // Verify focus-within is present
+    let updatedFocusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+    expect(updatedFocusWrapper.props.className).toContain('focus-within');
+
+    // Simulate focus moving to another element within the dropdown (relatedTarget is inside)
+    renderer.act(() => {
+      const insideElement = document?.createElement('div');
+      focusWrapper.props.onBlur({
+        currentTarget: {
+          contains: jest.fn().mockReturnValue(true),
+        },
+        relatedTarget: insideElement,
+      });
+    });
+
+    // Focus-within should still be present because focus is still within the dropdown
+    updatedFocusWrapper = component.root.findAll(
+      (el) => el.props.className && el.props.className.includes('dropdown-focus-wrapper')
+    )[0];
+    expect(updatedFocusWrapper.props.className).toContain('focus-within');
+  });
 });
