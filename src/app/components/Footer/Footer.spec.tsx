@@ -50,8 +50,12 @@ describe('Footer', () => {
       <Footer />
     </TestContainer>);
 
-    const contactUsButton = component.root.findAllByType(require('./styled').FooterButton)
-      .find(button => button.props.children.props.id === 'i18n:footer:column1:contact-us')!;
+    // Find button by className and message ID (migrated to plain CSS)
+    const contactUsButton = component.root.findAll(node =>
+      node.type === 'button' &&
+      node.props.className === 'footer-button' &&
+      node.props.children?.props?.id === 'i18n:footer:column1:contact-us'
+    )[0];
 
     renderer.act(() => {
       contactUsButton.props.onClick();
