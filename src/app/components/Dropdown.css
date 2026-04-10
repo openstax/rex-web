@@ -5,6 +5,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -58,6 +59,7 @@
   height: 3rem;
   background: none;
   min-width: 7rem;
+
   /* textStyle from Typography - using CSS variables */
   font-family: var(--text-font-family, Helvetica, Arial, sans-serif);
   font-weight: var(--text-font-weight, normal);
@@ -74,6 +76,7 @@
 }
 
 /* TabTransparentDropdown focus-within behavior */
+
 /* Hide the second toggle by default */
 .dropdown-transparent .dropdown-toggle-second {
   height: 0;
@@ -149,9 +152,7 @@
   border: 1px solid var(--dropdown-form-border, #d5d5d5); /* theme.color.neutral.formBorder */
   background-color: var(--dropdown-form-background, #f5f5f5); /* theme.color.neutral.formBackground */
   margin-bottom: 1rem; /* for last context menu to show with more space */
-}
 
-.dropdown-menu.context-menu {
   menu {
     padding: 0;
   }
