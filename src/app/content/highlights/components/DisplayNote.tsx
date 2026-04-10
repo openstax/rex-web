@@ -118,6 +118,7 @@ const DisplayNote = React.forwardRef<HTMLElement, DisplayNoteProps>((
         transparentTab={confirmingDelete}
         open={menuOpen}
         setOpen={setMenuOpen}
+        menuClassName='display-note-menu'
       >
         <DropdownList>
           <DropdownItem message='i18n:highlighting:dropdown:edit' onClick={onEdit} />
@@ -160,12 +161,6 @@ export default styled(DisplayNote)`
     line-height: 2rem;
     margin: ${cardPadding * 1.5}rem 0 0 ${cardPadding * 2}rem;
   }
-
-  ${css`
-    ${DropdownList}${DropdownList} {
-      left: -4rem;
-    }
-  `}
 
   ${Dropdown} {
     position: absolute;

@@ -152,13 +152,6 @@ const StyledLinkIcon = styled(LinkIcon)`
   color: ${theme.color.text.default};
 `;
 
-const HighlightToggleEditContent = styled.div`
-  z-index: 2;
-  border: 1px solid ${theme.color.neutral.formBorder};
-  background-color: ${theme.color.neutral.formBackground};
-  margin-bottom: 1rem; /* for last context menu to show with more space */
-`;
-
 const HighlightDropdownMenu = React.forwardRef<HTMLButtonElement, { isOpen?: boolean }>((props, ref) => {
   return <MenuToggle
     data-testid='highlight-dropdown-menu-toggle'
@@ -193,41 +186,40 @@ const ContextMenu = ({
     <Dropdown
       toggle={<HighlightDropdownMenu />}
       transparentTab={false}
+      menuClassName='context-menu'
     >
-      <HighlightToggleEditContent>
-        <StyledDropdownList>
-          <li>
-            <ColorPicker
-            data-testid='highlight-dropdown-menu-color-picker'
-            color={color}
-            size='small'
-            onChange={onColorChange}
-            />
-          </li>
-          <DropdownItem
-            data-testid='edit'
-            ariaMessage={editMessage}
-            message={editMessage}
-            prefix={<StyledEditIcon/>}
-            onClick={() => onEdit()}
+      <StyledDropdownList>
+        <li>
+          <ColorPicker
+          data-testid='highlight-dropdown-menu-color-picker'
+          color={color}
+          size='small'
+          onChange={onColorChange}
           />
-          <DropdownItem
-            data-testid='delete'
-            ariaMessage={deleteMessage}
-            message={deleteMessage}
-            prefix={<StyledTrashAltIcon/>}
-            onClick={() => onDelete()}
-          />
-          <DropdownItem
-            data-testid='go-to-highlight'
-            dataAnalyticsRegion='MH gotohighlight'
-            message='i18n:highlighting:dropdown:go-to-highlight'
-            prefix={<StyledLinkIcon/>}
-            href={linkToHighlight}
-            target='_blank'
-          />
-        </StyledDropdownList>
-      </HighlightToggleEditContent>
+        </li>
+        <DropdownItem
+          data-testid='edit'
+          ariaMessage={editMessage}
+          message={editMessage}
+          prefix={<StyledEditIcon/>}
+          onClick={() => onEdit()}
+        />
+        <DropdownItem
+          data-testid='delete'
+          ariaMessage={deleteMessage}
+          message={deleteMessage}
+          prefix={<StyledTrashAltIcon/>}
+          onClick={() => onDelete()}
+        />
+        <DropdownItem
+          data-testid='go-to-highlight'
+          dataAnalyticsRegion='MH gotohighlight'
+          message='i18n:highlighting:dropdown:go-to-highlight'
+          prefix={<StyledLinkIcon/>}
+          href={linkToHighlight}
+          target='_blank'
+        />
+      </StyledDropdownList>
     </Dropdown>
   </StyledContextMenu>;
 };

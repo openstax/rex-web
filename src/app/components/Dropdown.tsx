@@ -1,16 +1,16 @@
 
-import { HTMLElement, HTMLMenuElement } from '@openstax/types/lib.dom';
+import { HTMLDivElement, HTMLElement, HTMLMenuElement } from '@openstax/types/lib.dom';
 import flow from 'lodash/fp/flow';
 import isUndefined from 'lodash/fp/isUndefined';
 import omitBy from 'lodash/fp/omitBy';
 import React, { ReactNode } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled from 'styled-components/macro';
+import classNames from 'classnames';
 import { useFocusLost, useTrapTabNavigation, focusableItemQuery } from '../reactUtils';
 import { useOnEsc } from '../reactUtils';
-import theme, { defaultFocusOutline } from '../theme';
 import { mergeRefs, preventDefault } from '../utils';
-import { textStyle } from './Typography';
+import './Dropdown.css';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ComponentWithRef = React.ComponentType<{ref: React.RefObject<any>}>;
@@ -19,40 +19,30 @@ interface ToggleProps<T extends ComponentWithRef = ComponentWithRef> {
   component: T extends React.ComponentType
     ? React.ReactComponentElement<T>:
     never;
+  // Allow any additional props to be passed through (including onClick, isOpen, etc.)
+  [key: string]: unknown;
 }
-export const DropdownToggle = styled(React.forwardRef<HTMLElement, ToggleProps>(
-  ({component, ...props}, ref) => React.cloneElement(component, {...props, ref})
-))`
-  cursor: pointer;
-`;
 
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
+// Plain React component for DropdownToggle, but wrapped with styled() for backward compatibility
+const DropdownToggleBase = React.forwardRef<HTMLElement, ToggleProps>(
+  ({component, className, ...props}, ref) => {
+    return React.cloneElement(component, {
+      ...props,
+      className: classNames('dropdown-toggle', className),
+      ref,
+    });
   }
+);
 
-  100% {
-    opacity: 1;
-  }
-`;
+// Wrap with styled() for backward compatibility with component selectors
+export const DropdownToggle = styled(DropdownToggleBase)``;
 
-const fadeInAnimation = css`
-  animation: ${100}ms ${fadeIn} ease-out;
-`;
-
-const visuallyShown = css`
-  height: unset;
-  width: unset;
-  clip: unset;
-  overflow: visible;
-`;
-
-const visuallyHidden = css`
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
-`;
+// Plain div for DropdownFocusWrapper
+export const DropdownFocusWrapper = ({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={classNames('dropdown-focus-wrapper', className)} {...props}>
+    {children}
+  </div>
+);
 
 interface ControlledProps {
   open: boolean;
@@ -62,6 +52,7 @@ interface ControlledProps {
 interface Props {
   toggle: React.ReactNode;
   className?: string;
+  menuClassName?: string;
   onToggle?: () => void;
 }
 
@@ -91,8 +82,9 @@ export function callOrRefocus(
 
 type TabHiddenProps = React.PropsWithChildren<Props | Props & ControlledProps>;
 
-const TabHiddenDropDown = styled(React.forwardRef<HTMLElement, TabHiddenProps>((
-  {toggle, children, className, onToggle, ...props}, ref
+// Plain React component for TabHiddenDropDown
+const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
+  {toggle, children, className, menuClassName, onToggle, ...props}, ref
 ) => {
   const {isOpen, setOpen} = useIsOpen(props);
   const container = React.useRef<HTMLElement>(null);
@@ -120,79 +112,42 @@ const TabHiddenDropDown = styled(React.forwardRef<HTMLElement, TabHiddenProps>((
       }}
       isOpen={isOpen}
     />
-    {(isOpen) && children}
+    {(isOpen) && <div className={classNames('dropdown-menu', menuClassName)}>{children}</div>}
   </div>;
-}))`
-  ${css`
-    & > *:not(${DropdownToggle}) {
-      ${fadeInAnimation}
-      position: absolute;
-      box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
-      border: 1px solid ${theme.color.neutral.formBorder};
-      top: calc(100% + 0.4rem);
-      left: 0;
-    }
-  `}
-`;
+});
 
-export const DropdownFocusWrapper = styled.div`
-  overflow: visible;
-`;
+// Plain React component for TabTransparentDropdown
+const TabTransparentDropdown = React.forwardRef<HTMLElement, React.PropsWithChildren<Props>>((
+  {toggle, children, className, menuClassName}, ref
+) => {
+  const [isFocusWithin, setIsFocusWithin] = React.useState(false);
 
-const TabTransparentDropdown = styled(React.forwardRef<HTMLElement, React.PropsWithChildren<Props>>((
-  {toggle, children, className}, ref
-) => <div className={className} ref={ref}>
-  <DropdownFocusWrapper>
-    <DropdownToggle tabIndex={0} component={toggle} />
-    {children}
-  </DropdownFocusWrapper>
-  <DropdownToggle tabIndex={0} component={toggle} />
-</div>))`
-  ${/* i don't know why stylelint was complaining about this but it was, css wrapper suppresses */ css`
-    ${DropdownFocusWrapper} + ${DropdownToggle} {
-      ${visuallyHidden}
-    }
-    ${DropdownFocusWrapper}.focus-within + ${DropdownToggle} {
-      ${visuallyShown}
-    }
-    ${DropdownFocusWrapper}:focus-within + ${DropdownToggle} {
-      ${visuallyShown}
-    }
+  const handleFocusIn = React.useCallback(() => {
+    setIsFocusWithin(true);
+  }, []);
 
-    ${DropdownFocusWrapper} > ${DropdownToggle} {
-      ${visuallyShown}
+  const handleFocusOut = React.useCallback((e: React.FocusEvent<HTMLDivElement>) => {
+    // Check if the new focus target is still within this element
+    const currentTarget = e.currentTarget as HTMLDivElement;
+    if (!e.relatedTarget || !currentTarget.contains(e.relatedTarget as HTMLElement)) {
+      setIsFocusWithin(false);
     }
-    ${DropdownFocusWrapper}.focus-within > ${DropdownToggle} {
-      ${visuallyHidden}
-    }
-    ${DropdownFocusWrapper}:focus-within > ${DropdownToggle} {
-      ${visuallyHidden}
-    }
+  }, []);
 
-    ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
-      ${fadeInAnimation}
-      position: absolute;
-      box-shadow: 0 0.5rem 0.5rem 0 rgba(0, 0, 0, 0.1);
-      border: 1px solid ${theme.color.neutral.formBorder};
-      top: calc(100% + 0.4rem);
-      left: 0;
-    }
+  return <div className={classNames('dropdown-transparent', className)} ref={ref}>
+    <DropdownFocusWrapper
+      className={classNames({ 'focus-within': isFocusWithin })}
+      onFocus={handleFocusIn}
+      onBlur={handleFocusOut}
+    >
+      <DropdownToggle tabIndex={0} component={toggle} />
+      <div className={classNames('dropdown-menu', menuClassName)}>{children}</div>
+    </DropdownFocusWrapper>
+    <DropdownToggle className="dropdown-toggle-second" tabIndex={0} component={toggle} />
+  </div>;
+});
 
-    ${DropdownFocusWrapper} > *:not(${DropdownToggle}) {
-      ${visuallyHidden}
-    }
-
-    ${DropdownFocusWrapper}.focus-within > *:not(${DropdownToggle}) {
-      ${visuallyShown}
-    }
-
-    ${DropdownFocusWrapper}:focus-within > *:not(${DropdownToggle}) {
-      ${visuallyShown}
-    }
-  `}
-`;
-
-function TrappingDropdownList(props: object) {
+function TrappingDropdownList(props: React.MenuHTMLAttributes<HTMLMenuElement>) {
   const ref = React.useRef<HTMLMenuElement>(null);
 
   useTrapTabNavigation(ref);
@@ -211,44 +166,13 @@ function TrappingDropdownList(props: object) {
   );
 }
 
+// Plain React component for DropdownList, but wrapped with styled() for backward compatibility
+const DropdownListBase = ({ className, ...props }: React.MenuHTMLAttributes<HTMLMenuElement>) => {
+  return <TrappingDropdownList className={classNames('dropdown-list', className)} {...props} />;
+};
 
-export const DropdownList = styled(TrappingDropdownList)`
-  list-style: none;
-  margin: 0;
-  padding: 0.6rem 0;
-  background: ${theme.color.neutral.formBackground};
-  z-index: 1;
-
-  li {
-    padding: 0.2rem;
-  }
-
-  li button,
-  li a {
-    white-space: nowrap;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    text-align: left;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    padding-left: 0.8rem;
-    margin: 0;
-    height: 3rem;
-    background: none;
-    min-width: 7rem;
-    ${textStyle}
-    font-size: 1.4rem;
-    line-height: 2rem;
-
-    &:focus {
-      background: ${theme.color.neutral.formBorder};
-      ${defaultFocusOutline}
-    }
-  }
-`;
-
+// Wrap with styled() for backward compatibility with component selectors
+export const DropdownList = styled(DropdownListBase)``;
 
 interface DropdownItemProps {
   message: string;
@@ -316,13 +240,15 @@ export type TabHiddenDropdownProps = CommonDropdownProps & (Props | Props & Cont
 
 export type DropdownProps = TabTransparentDropdownProps | TabHiddenDropdownProps;
 
-const Dropdown = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, ...props}, ref) =>
+const DropdownBase = React.forwardRef<HTMLElement, DropdownProps>(({transparentTab, ...props}, ref) =>
   transparentTab !== false
     ? <TabTransparentDropdown ref={ref} {...props} />
     : <TabHiddenDropDown ref={ref} {...props} />
 );
 
-export default styled(Dropdown)<DropdownProps>`
+const Dropdown = styled(DropdownBase)<DropdownProps>`
   overflow: visible;
   position: relative;
 `;
+
+export default Dropdown;
