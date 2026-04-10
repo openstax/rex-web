@@ -66,10 +66,6 @@ export const MobileDropdown: FunctionComponent<{
                 src={openstaxLogo}
                 alt={intl.formatMessage({ id: 'i18n:nav:logo:alt' })}
                 className="navbar-overlay-logo"
-                style={{
-                  '--navbar-logo-height-mobile': '2.8rem',
-                  '--navbar-overlay-logo-top': '1.2rem',
-                } as React.CSSProperties}
               />
             </a>
             <button
@@ -78,7 +74,6 @@ export const MobileDropdown: FunctionComponent<{
               onClick={() => onOpenChange(false)}
               className="navbar-times-icon"
               style={{
-                '--navbar-height-mobile': '5.2rem',
                 '--nav-text-color': theme.color.primary.gray.base,
               } as React.CSSProperties}
             >
@@ -283,11 +278,6 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
       <div
         className="navbar-topbar"
         data-testid='navbar'
-        style={{
-          '--navbar-height-desktop': '6rem',
-          '--navbar-height-mobile': '5.2rem',
-          '--navbar-max-width': '128rem',
-        } as React.CSSProperties}
       >
         <a
           href={logoUrl}
@@ -297,10 +287,6 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
             src={openstaxLogo}
             alt={intl.formatMessage({id: 'i18n:nav:logo:alt'})}
             className="navbar-header-image"
-            style={{
-              '--navbar-logo-height-desktop': '3.5rem',
-              '--navbar-logo-height-mobile': '2.8rem',
-            } as React.CSSProperties}
           />
         </a>
         {loggedOut && <LoggedOutState currentPath={currentPath} />}

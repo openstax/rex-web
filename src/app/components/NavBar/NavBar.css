@@ -39,14 +39,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--navbar-height-desktop, 6rem);
-  max-width: var(--navbar-max-width, 128rem);
+  height: 6rem;
+  max-width: 128rem;
   margin: 0 auto;
 }
 
 @media screen and (max-width: 75em) {
   .navbar-topbar {
-    height: var(--navbar-height-mobile, 5.2rem);
+    height: 5.2rem;
   }
 }
 
@@ -60,12 +60,12 @@
 .navbar-header-image {
   display: block;
   width: auto;
-  height: var(--navbar-logo-height-desktop, 3.5rem);
+  height: 3.5rem;
 }
 
 @media screen and (max-width: 75em) {
   .navbar-header-image {
-    height: var(--navbar-logo-height-mobile, 2.8rem);
+    height: 2.8rem;
   }
 }
 
@@ -165,10 +165,10 @@
 /* Overlay Logo */
 .navbar-overlay-logo {
   width: auto;
-  height: var(--navbar-logo-height-mobile, 2.8rem);
+  height: 2.8rem;
   position: absolute;
   left: 1.6rem;
-  top: var(--navbar-overlay-logo-top, 1.2rem); /* (navMobileHeight - headerImageMobileHeight) / 2 = (5.2 - 2.8) / 2 = 1.2rem */
+  top: 1.2rem; /* (navMobileHeight - headerImageMobileHeight) / 2 = (5.2 - 2.8) / 2 = 1.2rem */
 }
 
 /* Overlay Heading */
@@ -224,8 +224,8 @@
   padding: 0;
   background: none;
   position: absolute;
-  height: var(--navbar-height-mobile, 5.2rem);
-  width: var(--navbar-height-mobile, 5.2rem);
+  height: 5.2rem;
+  width: 5.2rem;
   top: 0;
   right: 0;
   color: var(--nav-text-color, #5f6163);
