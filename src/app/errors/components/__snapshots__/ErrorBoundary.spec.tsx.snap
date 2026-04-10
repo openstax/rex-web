@@ -61,11 +61,6 @@ Array [
     >
       <div
         className="footer-top"
-        style={
-          Object {
-            "--footer-top-bg": "#424242",
-          }
-        }
       >
         <div
           className="footer-top-boxed"
@@ -255,11 +250,6 @@ Array [
       </div>
       <div
         className="footer-bottom"
-        style={
-          Object {
-            "--footer-bottom-bg": "#3b3b3b",
-          }
-        }
       >
         <div
           className="footer-bottom-boxed"
@@ -478,11 +468,6 @@ Array [
     >
       <div
         className="footer-top"
-        style={
-          Object {
-            "--footer-top-bg": "#424242",
-          }
-        }
       >
         <div
           className="footer-top-boxed"
@@ -672,11 +657,6 @@ Array [
       </div>
       <div
         className="footer-bottom"
-        style={
-          Object {
-            "--footer-bottom-bg": "#3b3b3b",
-          }
-        }
       >
         <div
           className="footer-bottom-boxed"

@@ -94,13 +94,6 @@ exports[`content in browser assignable user renders 1`] = `
   <div
     className="navbar-topbar"
     data-testid="navbar"
-    style={
-      Object {
-        "--navbar-height-desktop": "6rem",
-        "--navbar-height-mobile": "5.2rem",
-        "--navbar-max-width": "128rem",
-      }
-    }
   >
     <a
       href="/"
@@ -110,12 +103,6 @@ exports[`content in browser assignable user renders 1`] = `
         alt="OpenStax Logo"
         className="navbar-header-image"
         src="logo.svg"
-        style={
-          Object {
-            "--navbar-logo-height-desktop": "3.5rem",
-            "--navbar-logo-height-mobile": "2.8rem",
-          }
-        }
       />
     </a>
     <div
@@ -180,13 +167,6 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   <div
     className="navbar-topbar"
     data-testid="navbar"
-    style={
-      Object {
-        "--navbar-height-desktop": "6rem",
-        "--navbar-height-mobile": "5.2rem",
-        "--navbar-max-width": "128rem",
-      }
-    }
   >
     <a
       href="/"
@@ -196,12 +176,6 @@ exports[`content in browser matches snapshot for logged out 1`] = `
         alt="OpenStax Logo"
         className="navbar-header-image"
         src="logo.svg"
-        style={
-          Object {
-            "--navbar-logo-height-desktop": "3.5rem",
-            "--navbar-logo-height-mobile": "2.8rem",
-          }
-        }
       />
     </a>
     <a
@@ -239,13 +213,6 @@ exports[`content in browser matches snapshot for null state 1`] = `
   <div
     className="navbar-topbar"
     data-testid="navbar"
-    style={
-      Object {
-        "--navbar-height-desktop": "6rem",
-        "--navbar-height-mobile": "5.2rem",
-        "--navbar-max-width": "128rem",
-      }
-    }
   >
     <a
       href="/"
@@ -255,12 +222,6 @@ exports[`content in browser matches snapshot for null state 1`] = `
         alt="OpenStax Logo"
         className="navbar-header-image"
         src="logo.svg"
-        style={
-          Object {
-            "--navbar-logo-height-desktop": "3.5rem",
-            "--navbar-logo-height-mobile": "2.8rem",
-          }
-        }
       />
     </a>
   </div>
@@ -322,13 +283,6 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   <div
     className="navbar-topbar"
     data-testid="navbar"
-    style={
-      Object {
-        "--navbar-height-desktop": "6rem",
-        "--navbar-height-mobile": "5.2rem",
-        "--navbar-max-width": "128rem",
-      }
-    }
   >
     <a
       href="/"
@@ -338,12 +292,6 @@ exports[`content in browser when logged in matches snapshot 1`] = `
         alt="OpenStax Logo"
         className="navbar-header-image"
         src="logo.svg"
-        style={
-          Object {
-            "--navbar-logo-height-desktop": "3.5rem",
-            "--navbar-logo-height-mobile": "2.8rem",
-          }
-        }
       />
     </a>
     <div

@@ -55,13 +55,6 @@ Array [
     <div
       className="navbar-topbar"
       data-testid="navbar"
-      style={
-        Object {
-          "--navbar-height-desktop": "6rem",
-          "--navbar-height-mobile": "5.2rem",
-          "--navbar-max-width": "128rem",
-        }
-      }
     >
       <a
         href="/"
@@ -71,12 +64,6 @@ Array [
           alt="OpenStax Logo"
           className="navbar-header-image"
           src="logo.svg"
-          style={
-            Object {
-              "--navbar-logo-height-desktop": "3.5rem",
-              "--navbar-logo-height-mobile": "2.8rem",
-            }
-          }
         />
       </a>
     </div>
@@ -680,11 +667,6 @@ Array [
     >
       <div
         className="footer-top"
-        style={
-          Object {
-            "--footer-top-bg": "#424242",
-          }
-        }
       >
         <div
           className="footer-top-boxed"
@@ -874,11 +856,6 @@ Array [
       </div>
       <div
         className="footer-bottom"
-        style={
-          Object {
-            "--footer-bottom-bg": "#3b3b3b",
-          }
-        }
       >
         <div
           className="footer-bottom-boxed"
