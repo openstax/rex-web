@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { Dialog, ModalOverlay, Modal } from 'react-aria-components';
 import { ProfileMenu, ProfileMenuButton, ProfileMenuItem, UserIcon } from '@openstax/ui-components';
 import Color from 'color';
@@ -17,9 +17,11 @@ import { assertWindow } from '../../utils';
 import { useMatchMobileQuery } from '../../reactUtils';
 import theme from '../../theme';
 import Times from '../Times';
+import { linkHover, linkFocusOutline } from '../Typography/Links.constants';
+import { maxNavWidth, navDesktopHeight, navMobileHeight } from './constants';
 import './NavBar.css';
 
-export { maxNavWidth, navDesktopHeight, navMobileHeight } from './constants';
+export { maxNavWidth, navDesktopHeight, navMobileHeight };
 
 if (typeof(window) !== 'undefined') {
   import(/* webpackChunkName: "focus-within-polyfill" */ 'focus-within-polyfill');
@@ -47,6 +49,7 @@ export const MobileDropdown: FunctionComponent<{
   onAction: (key: React.Key) => void
 }> = ({user, currentPath, isOpen, onOpenChange, onAction}) => {
   const intl = useIntl();
+  const mobileOverlayBg = Color(theme.color.neutral.base).alpha(0.98).string();
 
   return (
     <ModalOverlay
@@ -54,13 +57,21 @@ export const MobileDropdown: FunctionComponent<{
       onOpenChange={onOpenChange}
       className="navbar-mobile-menu-overlay"
       style={{
-        '--mobile-overlay-bg': Color(theme.color.neutral.base).alpha(0.98).string(),
+        '--mobile-overlay-bg': mobileOverlayBg,
         '--mobile-overlay-z-index': theme.zIndex.navbar + 1,
       } as React.CSSProperties}
     >
       <Modal className="navbar-mobile-menu-modal">
         <Dialog aria-label={intl.formatMessage({ id: 'i18n:nav:hello:text' }, { name: user.firstName })}>
-          <div className="navbar-dropdown-overlay" data-testid='nav-overlay'>
+          <div
+            className="navbar-dropdown-overlay"
+            data-testid='nav-overlay'
+            style={{
+              '--nav-text-color': theme.color.primary.gray.base,
+              '--link-hover': linkHover,
+              '--focus-outline-color': linkFocusOutline,
+            } as React.CSSProperties}
+          >
             <a aria-hidden='true' tabIndex={-1} href='/'>
               <img
                 src={openstaxLogo}
@@ -73,9 +84,6 @@ export const MobileDropdown: FunctionComponent<{
               aria-label='close menu'
               onClick={() => onOpenChange(false)}
               className="navbar-times-icon"
-              style={{
-                '--nav-text-color': theme.color.primary.gray.base,
-              } as React.CSSProperties}
             >
               <Times />
             </button>
@@ -84,19 +92,12 @@ export const MobileDropdown: FunctionComponent<{
                 id='i18n:nav:hello:text'
                 values={{ name: user.firstName }}
               >
-                {msg => <h4 className="navbar-overlay-heading" style={{
-                  '--nav-text-color': theme.color.primary.gray.base,
-                } as React.CSSProperties}>{msg}</h4>}
+                {msg => <h4 className="navbar-overlay-heading">{msg}</h4>}
               </FormattedMessage>
               <menu
                 id='dropdown-menu'
                 role='menu'
                 className="navbar-dropdown-list"
-                style={{
-                  '--nav-text-color': theme.color.primary.gray.base,
-                  '--link-hover': '#0064a0',
-                  '--focus-outline-color': '#007297',
-                } as React.CSSProperties}
               >
                 <li role='presentation'>
                   <FormattedMessage id='i18n:nav:profile:text'>
@@ -273,6 +274,9 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
         '--navbar-bg': theme.color.neutral.base,
         '--navbar-padding-desktop': `${theme.padding.page.desktop}rem`,
         '--navbar-padding-mobile': `${theme.padding.page.mobile}rem`,
+        '--navbar-max-width': `${maxNavWidth}rem`,
+        '--navbar-desktop-height': `${navDesktopHeight}rem`,
+        '--navbar-mobile-height': `${navMobileHeight}rem`,
       } as React.CSSProperties}
     >
       <div
@@ -297,19 +301,25 @@ const NavigationBar = ({user, loggedOut, currentPath, hasUnsavedHighlight, param
 };
 
 const ConnectedNavigationBar = () => {
-  const currentPath = useSelector((state: AppState) => selectNavigation.pathname(state));
-  const params = useSelector((state: AppState) => selectNavigation.params(state));
-  const loggedOut = useSelector((state: AppState) => authSelect.loggedOut(state));
-  const user = useSelector((state: AppState) => authSelect.user(state));
-  const hasUnsavedHighlight = useSelector((state: AppState) => selectHighlights.hasUnsavedHighlight(state));
+  // Combine selectors to reduce re-render churn
+  const navState = useSelector(
+    (state: AppState) => ({
+      currentPath: selectNavigation.pathname(state),
+      params: selectNavigation.params(state),
+      loggedOut: authSelect.loggedOut(state),
+      user: authSelect.user(state),
+      hasUnsavedHighlight: selectHighlights.hasUnsavedHighlight(state),
+    }),
+    shallowEqual
+  );
 
   return (
     <NavigationBar
-      currentPath={currentPath}
-      params={params}
-      loggedOut={loggedOut}
-      user={user}
-      hasUnsavedHighlight={hasUnsavedHighlight}
+      currentPath={navState.currentPath}
+      params={navState.params}
+      loggedOut={navState.loggedOut}
+      user={navState.user}
+      hasUnsavedHighlight={navState.hasUnsavedHighlight}
     />
   );
 };

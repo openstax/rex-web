@@ -712,7 +712,7 @@ Array [
                 <a
                   className="footer-link"
                   href="https://help.openstax.org/s/"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   Support Center
@@ -732,7 +732,7 @@ Array [
                 <a
                   className="footer-link"
                   href="https://status.openstax.org/"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   System Status
@@ -780,7 +780,7 @@ Array [
                 <a
                   className="footer-link"
                   href="http://www2.openstax.org/l/218812/2016-10-04/lvk"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   Newsletter

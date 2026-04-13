@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import styled from 'styled-components/macro';
 import { useAnalyticsEvent } from '../../../helpers/analytics';
@@ -12,7 +12,6 @@ import { State } from '../../content/types';
 import * as selectNavigation from '../../navigation/selectors';
 import * as guards from '../../guards';
 import { MessageEvent } from '@openstax/types/lib.dom';
-import { useSelector } from 'react-redux';
 import { captureOpeningElement } from '../../content/utils/focusManager';
 import { useModalFocusManagement } from '../../content/hooks/useModalFocusManagement';
 import { ManageCookiesLink as RawCookiesLink } from '@openstax/ui-components';
@@ -30,9 +29,34 @@ const copyrightLink = 'https://creativecommons.org/licenses/by/4.0/';
 export const supportCenterLink = 'https://help.openstax.org/s/';
 const systemStatusLink = 'https://status.openstax.org/';
 const newsletterLink = 'http://www2.openstax.org/l/218812/2016-10-04/lvk';
-const textColor = '#d5d5d5';
+
+/**
+ * Helper function to safely construct rel attribute for links.
+ * Ensures noopener and noreferrer are present for target="_blank" links
+ * to prevent reverse-tabnabbing and referrer leakage.
+ *
+ * @param target - The target attribute value
+ * @param rel - Optional existing rel attribute value
+ * @returns Normalized rel attribute string
+ */
+export function getSafeRelAttribute(target: string | undefined, rel: string | undefined): string {
+  // Normalize rel tokens and ensure safe defaults for links opened in a new tab
+  const relTokens = new Set((rel || '').split(/\s+/).filter(Boolean));
+
+  if (target === '_blank') {
+    relTokens.add('noopener');
+    relTokens.add('noreferrer');
+  }
+
+  return Array.from(relTokens).join(' ');
+}
 
 // Icon components
+// These icons were migrated from styled-components in styled.tsx.
+// They remain as local SVG components so this module can apply consistent
+// inline sizing/styling via className and SVG attributes during the migration.
+// They are not exported for external styled-components component selector usage.
+// See PLAIN_CSS_MIGRATION_LEARNINGS.md for more details on the migration pattern.
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
 }
@@ -40,8 +64,6 @@ interface IconProps extends React.SVGAttributes<SVGSVGElement> {
 /**
  * Facebook icon for social media links.
  * SVG path from Font Awesome Free (https://fontawesome.com - MIT License)
- *
- * Note: Wrapped with styled() to enable styled-components styling
  */
 function FacebookIconBase({ className, ...props }: IconProps) {
   return (
@@ -149,12 +171,12 @@ const LinkedInIcon = styled(LinkedInIconBase)`
 `;
 
 // Plain div wrappers for htmlMessage
-const MissionDiv = ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className="footer-mission" {...props}>{children}</div>
+const MissionDiv = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={classNames('footer-mission', className)} {...props}>{children}</div>
 );
 
-const CopyrightsDiv = ({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className="footer-copyrights" {...props}>{children}</div>
+const CopyrightsDiv = ({ children, className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+  <div className={classNames('footer-copyrights', className)} {...props}>{children}</div>
 );
 
 const Mission = htmlMessage('i18n:footer:copyright:mission-text', MissionDiv);
@@ -177,16 +199,20 @@ const FooterLinkMessage: React.FunctionComponent<{
   href: string;
   target?: string;
   rel?: string;
-}> = ({ id, href, target, rel }) => (
-  <a
-    className="footer-link"
-    href={href}
-    target={target ? target : '_self'}
-    rel={rel ? rel : ''}
-  >
-    <BareMessage id={id} />
-  </a>
-);
+}> = ({ id, href, target, rel }) => {
+  const safeRel = getSafeRelAttribute(target, rel);
+
+  return (
+    <a
+      className="footer-link"
+      href={href}
+      target={target || '_self'}
+      rel={safeRel}
+    >
+      <BareMessage id={id} />
+    </a>
+  );
+};
 
 const SocialIconMessage: React.FunctionComponent<{
   id: string;
@@ -222,8 +248,7 @@ const OpenKeyboardShortcutsLink = () => {
   const dispatch = useDispatch();
   const trackOpenCloseKS = useAnalyticsEvent('openCloseKeyboardShortcuts');
 
-  const openKeyboardShortcutsMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const openKeyboardShortcutsMenu = () => {
     captureOpeningElement('keyboardshortcuts');
     dispatch(openKeyboardShortcutsMenuAction());
     trackOpenCloseKS();
@@ -234,9 +259,6 @@ const OpenKeyboardShortcutsLink = () => {
       {(txt) => (
         <button
           className="footer-button"
-          style={{
-            '--footer-text-color': textColor,
-          } as React.CSSProperties}
           type="button"
           onClick={openKeyboardShortcutsMenu}
           data-testid="shortcut-link"
@@ -301,9 +323,7 @@ const Column3 = () => (
         href='/privacy-policy'
         id='i18n:footer:column3:privacy-policy'
       />
-      <RawCookiesLink className="footer-manage-cookies-link" style={{
-        '--footer-text-color': textColor,
-      } as React.CSSProperties}>
+      <RawCookiesLink className="footer-manage-cookies-link">
         <BareMessage id='i18n:footer:column3:manage-cookies' />
       </RawCookiesLink>
     </LinkList>
@@ -362,9 +382,6 @@ const NormalFooter = ({
     className={classNames('footer-wrapper', {
       'footer-wrapper--vertical-nav-toolbar': isVerticalNavOpen === false,
     })}
-    style={{
-      '--footer-text-color': textColor,
-    } as React.CSSProperties}
     data-analytics-region='footer'
   >
     <div className="footer-inner">
@@ -469,9 +486,7 @@ const PortalColumn2 = ({ portalName }: { portalName: string }) => {
       <LinkList>
         <button
           className="footer-button"
-          style={{
-            '--footer-text-color': textColor,
-          } as React.CSSProperties}
+          data-testid="portal-footer-contact-button"
           onClick={() => {
             captureOpeningElement('contactdialog');
             open();
@@ -495,9 +510,7 @@ const PortalColumn3 = ({ portalName }: { portalName: string }) => (
         id='i18n:footer:column3:accessibility'
       />
       <FooterLinkMessage href={`/${portalName}/license`} id='i18n:footer:column3:license' />
-      <RawCookiesLink className="footer-manage-cookies-flex-link" style={{
-        '--footer-text-color': textColor,
-      } as React.CSSProperties}>
+      <RawCookiesLink className="footer-manage-cookies-flex-link">
         <BareMessage id='i18n:footer:column3:manage-cookies' />
       </RawCookiesLink>
     </LinkList>
@@ -516,9 +529,6 @@ const PortalFooter = ({
       className={classNames('footer-wrapper', {
         'footer-wrapper--vertical-nav-toolbar': isVerticalNavOpen === false,
       })}
-      style={{
-        '--footer-text-color': textColor,
-      } as React.CSSProperties}
       data-analytics-region='footer'
       data-testid='portal-footer'
     >

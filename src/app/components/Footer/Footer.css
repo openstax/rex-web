@@ -9,7 +9,7 @@
   font-weight: normal;
   letter-spacing: normal;
   line-height: 2.5rem;
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
 }
 
 /* Hide footer when printing */
@@ -20,23 +20,24 @@
 }
 
 /* Vertical nav toolbar styling when nav is closed
- * IMPORTANT: These breakpoint values are derived from constants.ts:
+ * IMPORTANT: These breakpoint values are derived from constants.ts and theme.ts:
  *
+ * 75.0625em = theme.breakpoints.desktopBreak (1201px)
  * 90em = remsToEms(contentWrapperMaxWidth + verticalNavbarMaxWidth * 2)
  *      = remsToEms(128 + 8 * 2) = remsToEms(144) = 144 * 10/16 = 90em
  *      (exported as contentWrapperAndNavWidthBreakpoint)
  *
- * If constants.ts values change, this breakpoint MUST be updated accordingly.
+ * If constants.ts or theme.ts values change, these breakpoints MUST be updated accordingly.
  * The conversion formula is: rems * 10 / 16 = ems (because 1rem = 10px, 1em = 16px in media queries)
  */
-@media (min-width: 60.1em) and (max-width: 90em) {
+@media (min-width: 75.0625em) and (max-width: 90em) {
   .footer-wrapper--vertical-nav-toolbar {
     padding-left: clamp(0rem, calc(8rem - (100vw - 128rem) / 2), 8rem);
   }
 }
 
 .footer-inner {
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
   display: grid;
 }
 
@@ -69,7 +70,6 @@
   max-width: calc(128rem + 1.5rem * 2);
   align-items: center;
   display: grid;
-  flex-flow: column nowrap;
   margin: 0 auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -150,7 +150,7 @@
 }
 
 .footer-copyrights a {
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
   overflow: visible;
 }
 
@@ -163,7 +163,7 @@
 }
 
 .footer-mission a {
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
   font-weight: bold;
   text-underline-position: under;
 }
@@ -216,7 +216,7 @@
 
 /* Footer links */
 .footer-link {
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
   text-decoration: none;
 }
 
@@ -242,7 +242,7 @@
   font-weight: normal;
   letter-spacing: normal;
   line-height: 2.5rem;
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
   text-decoration: none;
   cursor: pointer;
   padding: 0;
@@ -272,7 +272,7 @@
   font-weight: normal;
   letter-spacing: normal;
   line-height: 2.5rem;
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
   text-decoration: none;
   text-align: left;
 }
@@ -293,13 +293,13 @@
   }
 }
 
-/* Flex manage cookies link */
-.footer-manage-cookies-flex-link {
+/* Flex manage cookies link - doubled selector for specificity to override ui-components defaults */
+.footer-manage-cookies-flex-link.footer-manage-cookies-flex-link {
   font-size: 1.6rem;
   font-weight: normal;
   letter-spacing: normal;
   line-height: 2.5rem;
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
   text-decoration: none;
   cursor: pointer;
   padding: 0;
@@ -307,13 +307,13 @@
   background-color: transparent;
 }
 
-.footer-manage-cookies-flex-link:hover {
+.footer-manage-cookies-flex-link.footer-manage-cookies-flex-link:hover {
   text-decoration: underline;
 }
 
-.footer-manage-cookies-flex-link:hover,
-.footer-manage-cookies-flex-link:active,
-.footer-manage-cookies-flex-link:focus {
+.footer-manage-cookies-flex-link.footer-manage-cookies-flex-link:hover,
+.footer-manage-cookies-flex-link.footer-manage-cookies-flex-link:active,
+.footer-manage-cookies-flex-link.footer-manage-cookies-flex-link:focus {
   color: inherit;
 }
 
@@ -329,7 +329,7 @@
 
 /* Bottom link */
 .footer-bottom-link {
-  color: var(--footer-text-color, #d5d5d5);
+  color: #d5d5d5;
   display: inline-grid;
   grid-auto-flow: column;
   grid-column-gap: 0.7rem;
@@ -368,7 +368,6 @@
   max-width: calc(128rem + 1.5rem * 2);
   align-items: center;
   display: grid;
-  flex-flow: column nowrap;
   margin: 0 auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -394,7 +393,6 @@
   max-width: calc(128rem + 1.5rem * 2);
   align-items: start;
   display: grid;
-  flex-flow: column nowrap;
   margin: 0 auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -442,11 +440,6 @@
   justify-content: center;
   overflow: hidden;
   width: 3rem;
-}
-
-/* Icon styles */
-.footer-icon {
-  height: 1em;
 }
 
 /* Footer logo */
