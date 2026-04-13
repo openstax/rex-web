@@ -102,7 +102,7 @@ const TabHiddenDropDown = React.forwardRef<HTMLElement, TabHiddenProps>((
     if (toggleElement.current) { toggleElement.current.focus(); }
   });
 
-  return <div className={className} ref={mergeRefs(ref, container)}>
+  return <div className={classNames('dropdown-hidden', className)} ref={mergeRefs(ref, container)}>
     <DropdownToggle
       ref={toggleElement}
       component={toggle}
@@ -248,7 +248,6 @@ const DropdownBase = React.forwardRef<HTMLElement, DropdownProps>(({transparentT
 
 const Dropdown = styled(DropdownBase)<DropdownProps>`
   overflow: visible;
-  position: relative;
 `;
 
 export default Dropdown;

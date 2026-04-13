@@ -1,5 +1,12 @@
 /* Dropdown component styles */
 
+/* Base dropdown container styles */
+.dropdown-hidden,
+.dropdown-transparent {
+  position: relative; /* needed for absolute positioning of dropdown menu */
+  overflow: visible;
+}
+
 /* Keyframe animation for dropdown fade-in */
 @keyframes dropdown-fade-in {
   0% {
