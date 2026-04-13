@@ -12,6 +12,7 @@ import allImagesLoaded from '../utils/allImagesLoaded';
 interface Services {
   highlighter: Highlighter;
   container: HTMLElement;
+  intl: IntlShape;
   searchResultMap: ReturnType<typeof highlightResults>;
 }
 
@@ -33,6 +34,19 @@ export interface UpdateOptions {
   onSelect: (selectedHighlight?: Highlight) => void;
 }
 
+const safeEraseAll = (services: Services) => {
+  try {
+    services.highlighter.eraseAll();
+  } catch {
+    // User highlight DOM mutations can orphan search highlight spans (parentNode
+    // becomes null), making eraseAll crash on insertBefore. When that happens,
+    // discard the broken instance and create a fresh one — the orphaned spans
+    // are already detached from the DOM so there is nothing left to unwrap.
+    services.highlighter.unmount();
+    services.highlighter = createHighlighter(services.container, services.intl);
+  }
+};
+
 const updateResults = (
   services: Services,
   previous: HighlightProp | null,
@@ -42,7 +56,7 @@ const updateResults = (
     return;
   }
 
-  services.highlighter.eraseAll();
+  safeEraseAll(services);
   services.searchResultMap = highlightResults(services.highlighter, current.searchResults);
 };
 
@@ -99,14 +113,18 @@ const handleUpdate = (services: Services) => (
   selectResult(services, previous, current, options);
 };
 
+const createHighlighter = (container: HTMLElement, intl: IntlShape) =>
+  new Highlighter(container, {
+    className: 'search-highlight',
+    formatMessage: ({ id }) => intl.formatMessage({ id: `${id}:search` }),
+    tabbable: false,
+  });
+
 const searchHighlightManager = (container: HTMLElement, intl: IntlShape) => {
-  const services = {
+  const services: Services = {
     container,
-    highlighter: new Highlighter(container, {
-      className: 'search-highlight',
-      formatMessage: ({ id }) => intl.formatMessage({ id: `${id}:search` }),
-      tabbable: false,
-    }),
+    highlighter: createHighlighter(container, intl),
+    intl,
     searchResultMap: [],
   };
 
