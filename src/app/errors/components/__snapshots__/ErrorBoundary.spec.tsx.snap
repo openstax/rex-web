@@ -50,11 +50,6 @@ Array [
 <footer
     className="footer-wrapper"
     data-analytics-region="footer"
-    style={
-      Object {
-        "--footer-text-color": "#d5d5d5",
-      }
-    }
   >
     <div
       className="footer-inner"
@@ -137,11 +132,6 @@ Array [
                   className="footer-button"
                   data-testid="shortcut-link"
                   onClick={[Function]}
-                  style={
-                    Object {
-                      "--footer-text-color": "#d5d5d5",
-                    }
-                  }
                   type="button"
                 >
                   Keyboard Shortcuts
@@ -457,11 +447,6 @@ Array [
 <footer
     className="footer-wrapper"
     data-analytics-region="footer"
-    style={
-      Object {
-        "--footer-text-color": "#d5d5d5",
-      }
-    }
   >
     <div
       className="footer-inner"
@@ -544,11 +529,6 @@ Array [
                   className="footer-button"
                   data-testid="shortcut-link"
                   onClick={[Function]}
-                  style={
-                    Object {
-                      "--footer-text-color": "#d5d5d5",
-                    }
-                  }
                   type="button"
                 >
                   Keyboard Shortcuts

@@ -85,6 +85,9 @@ exports[`content in browser assignable user renders 1`] = `
   style={
     Object {
       "--navbar-bg": "#fff",
+      "--navbar-desktop-height": "6rem",
+      "--navbar-max-width": "128rem",
+      "--navbar-mobile-height": "5.2rem",
       "--navbar-padding-desktop": "3.2rem",
       "--navbar-padding-mobile": "1.6rem",
       "--navbar-z-index": 70,
@@ -158,6 +161,9 @@ exports[`content in browser matches snapshot for logged out 1`] = `
   style={
     Object {
       "--navbar-bg": "#fff",
+      "--navbar-desktop-height": "6rem",
+      "--navbar-max-width": "128rem",
+      "--navbar-mobile-height": "5.2rem",
       "--navbar-padding-desktop": "3.2rem",
       "--navbar-padding-mobile": "1.6rem",
       "--navbar-z-index": 70,
@@ -204,6 +210,9 @@ exports[`content in browser matches snapshot for null state 1`] = `
   style={
     Object {
       "--navbar-bg": "#fff",
+      "--navbar-desktop-height": "6rem",
+      "--navbar-max-width": "128rem",
+      "--navbar-mobile-height": "5.2rem",
       "--navbar-padding-desktop": "3.2rem",
       "--navbar-padding-mobile": "1.6rem",
       "--navbar-z-index": 70,
@@ -274,6 +283,9 @@ exports[`content in browser when logged in matches snapshot 1`] = `
   style={
     Object {
       "--navbar-bg": "#fff",
+      "--navbar-desktop-height": "6rem",
+      "--navbar-max-width": "128rem",
+      "--navbar-mobile-height": "5.2rem",
       "--navbar-padding-desktop": "3.2rem",
       "--navbar-padding-mobile": "1.6rem",
       "--navbar-z-index": 70,

@@ -46,6 +46,9 @@ Array [
     style={
       Object {
         "--navbar-bg": "#fff",
+        "--navbar-desktop-height": "6rem",
+        "--navbar-max-width": "128rem",
+        "--navbar-mobile-height": "5.2rem",
         "--navbar-padding-desktop": "3.2rem",
         "--navbar-padding-mobile": "1.6rem",
         "--navbar-z-index": 70,
@@ -656,11 +659,6 @@ Array [
 <footer
     className="footer-wrapper"
     data-analytics-region="footer"
-    style={
-      Object {
-        "--footer-text-color": "#d5d5d5",
-      }
-    }
   >
     <div
       className="footer-inner"
@@ -743,11 +741,6 @@ Array [
                   className="footer-button"
                   data-testid="shortcut-link"
                   onClick={[Function]}
-                  style={
-                    Object {
-                      "--footer-text-color": "#d5d5d5",
-                    }
-                  }
                   type="button"
                 >
                   Keyboard Shortcuts
