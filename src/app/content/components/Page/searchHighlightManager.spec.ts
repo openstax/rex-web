@@ -107,4 +107,29 @@ describe('searchHighlightManager', () => {
     options.formatMessage({ id: 'asdfg' });
     expect(intl.formatMessage).toHaveBeenCalledWith({ id: 'asdfg:search' });
   });
+
+  it('recreates highlighter when eraseAll throws', () => {
+    const firstHighlighterInstance = Highlighter.mock.instances[0];
+    firstHighlighterInstance.eraseAll.mockImplementation(() => { throw new Error('orphaned span'); });
+    firstHighlighterInstance.unmount = jest.fn();
+
+    const newSearchResults = [
+      makeSearchResultHit({book, page, highlights: ['highlight <strong>number</strong> 4']}),
+    ];
+
+    attachedManager.update(
+      {searchResults, selectedResult: null},
+      {searchResults: newSearchResults, selectedResult: null},
+      {forceRedraw: false, onSelect: onHighlightSelect}
+    );
+
+    expect(firstHighlighterInstance.unmount).toHaveBeenCalled();
+    // A new Highlighter instance should have been created to replace the broken one
+    expect(Highlighter).toHaveBeenCalledTimes(2);
+    // The replacement highlighter should be used for subsequent highlightResults calls
+    expect(utils.highlightResults).toHaveBeenCalledWith(
+      Highlighter.mock.instances[1],
+      newSearchResults
+    );
+  });
 });
