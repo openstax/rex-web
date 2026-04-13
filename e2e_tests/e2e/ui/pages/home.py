@@ -642,6 +642,60 @@ class HomeRex:
     async def section_count(self):
         return await self.page.locator("section").all()
 
+    # Higher Education and bookstore page
+
+    @pytest.mark.asyncio
+    async def click_higher_education_link(self):
+        await self.page.get_by_role("link", name="Explore Higher Ed resources").click()
+
+    @pytest.mark.asyncio
+    async def click_campus_affordability_link(self):
+        await self.page.get_by_role("link", name="Explore your options!").click()
+
+    @property
+    def higher_education_bookstore_order_access_code(self):
+        return self.page.get_by_role("link", name="Order access codes")
+
+    @property
+    def higher_education_bookstore_view_print_options(self):
+        return self.page.get_by_role("link", name="View print options")
+
+    @property
+    def obtain_access_codes_via_vitalsource(self):
+        return self.page.get_by_role(
+            "heading", name="Order through VitalSource-powered programs"
+        )
+
+    @property
+    def obtain_access_codes_via_openstax(self):
+        return self.page.get_by_role("heading", name="Order directly through OpenStax")
+
+    @property
+    def know_before_your_order_columns(self):
+        return self.page.locator(
+            "div.content-block-cards.card_style_rounded.has-columns"
+        )
+
+    @property
+    def access_pdf(self):
+        return self.page.get_by_role("link", name="Access PDF")
+
+    @property
+    def access_code_order_form(self):
+        return self.page.get_by_role("link", name="order form")
+
+    @property
+    def try_assignable_today_link(self):
+        return self.page.get_by_role("link", name="Try Assignable today!")
+
+    @property
+    def free_digital_library_subjects(self):
+        return self.page.locator("div.content-block-cards a.cta-link")
+
+    @property
+    def search_technology_partners_link(self):
+        return self.page.get_by_role("link", name="Search Technology Partners")
+
     # Clears blockers/overlays
 
     @pytest.mark.asyncio
