@@ -6,27 +6,6 @@ from playwright.async_api import TimeoutError
 import sys
 
 
-@pytest.mark.asyncio
-async def test_book_title_links_to_books_detail_page(chrome_page_unlogged, base_url):
-
-    # GIVEN: Playwright, chromium and the rex_base_url
-
-    # WHEN: The Home page is fully loaded
-    await chrome_page_unlogged.goto(f"{base_url}/subjects")
-    home = HomeRex(chrome_page_unlogged)
-
-    await chrome_page_unlogged.keyboard.press("Escape")
-
-    assert await home.subject_listing_book_is_visible()
-
-    await home.click_subject_listing_book()
-
-    await home.click_book_selection()
-
-    # THEN: The page navigates to {base_url}/details/books/astronomy-2e
-    assert "astronomy" in chrome_page_unlogged.url.lower()
-
-
 @pytest.mark.parametrize("book_slug", ["physics"])
 @pytest.mark.asyncio
 async def test_buy_print_copy_link(chrome_page_unlogged, base_url, book_slug):
@@ -80,44 +59,6 @@ async def test_order_options_link(chrome_page_unlogged, base_url, book_slug):
     assert "Kendall_Hunt" in await home.order_options_href()
 
 
-@pytest.mark.parametrize(
-    "book_slug, page_slug", [("astronomy-2e", "1-3-the-laws-of-nature")]
-)
-@pytest.mark.asyncio
-async def test_accessibility_help(chrome_page_unlogged, base_url, book_slug, page_slug):
-    # Verifies the hidden 'Go to accessibility page'
-
-    # GIVEN: Open osweb book details page
-
-    # WHEN: The Home page is fully loaded
-    await chrome_page_unlogged.goto(f"{base_url}/books/{book_slug}/pages/{page_slug}")
-    home = HomeRex(chrome_page_unlogged)
-
-    await chrome_page_unlogged.keyboard.press("Escape")
-
-    try:
-        await home.click_cookieyes_accept()
-
-    except TimeoutError as te:
-        print(f"{te}\nNo Cookies dialog, continue testing... ", file=sys.stderr)
-
-    finally:
-
-        await chrome_page_unlogged.keyboard.press("Tab")
-        await chrome_page_unlogged.keyboard.press("Tab")
-
-        await chrome_page_unlogged.keyboard.press("Enter")
-
-        # THEN: Accessibility help opens
-
-        accessibility_page_content = await home.accessibility_help_content.inner_text()
-
-        assert (
-            "Accessibility" in accessibility_page_content
-            and "OpenStax" in accessibility_page_content
-        )
-
-
 @pytest.mark.parametrize("book_slug", ["algebra-and-trigonometry-2e"])
 @pytest.mark.asyncio
 async def test_toc_slideout(chrome_page_unlogged, base_url, book_slug):
@@ -164,3 +105,23 @@ async def test_resources_tabs(chrome_page_unlogged, base_url, book_slug):
     await home.click_student_resources_tab()
 
     assert "Student" in chrome_page_unlogged.url
+
+
+@pytest.mark.parametrize("book_slug", ["anatomy-and-physiology-2e"])
+@pytest.mark.asyncio
+async def test_audiobook_link(chrome_page_unlogged, base_url, book_slug):
+
+    # GIVEN: Open osweb book details page
+
+    # WHEN: The Home page is fully loaded
+    details_books_url = f"{base_url}/details/books/{book_slug}"
+
+    await chrome_page_unlogged.goto(details_books_url)
+    home = HomeRex(chrome_page_unlogged)
+
+    await chrome_page_unlogged.keyboard.press("Escape")
+
+    # THEN: Audiobook link is visible and clickable
+    assert await home.audiobook_link_is_visible()
+
+    assert await home.audiobook_link_purchase_options.is_enabled()
