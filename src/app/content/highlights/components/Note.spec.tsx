@@ -56,7 +56,7 @@ describe('Note', () => {
       textarea.props.onKeyDown({key: 'Escape'});
     });
   });
-  it('emits custom event', () => {
+  it('emits custom event when shouldDo is true', () => {
     const catcher = jest.fn();
     function Component() {
       const taRef = React.useRef<HTMLTextAreaElement>(null);
@@ -75,6 +75,32 @@ describe('Note', () => {
       ReactDOM.render(<Component />, root);
     });
     expect(catcher).toHaveBeenCalled();
+  });
+
+  it('does not emit custom event when shouldDo is false', () => {
+    const catcher = jest.fn();
+    function Component() {
+      const taRef = React.useRef<HTMLTextAreaElement>(null);
+      const divRef = React.useRef<HTMLDivElement>(null);
+
+      React.useLayoutEffect(() => {
+        const div = divRef.current;
+        div?.addEventListener('hideCardEvent', catcher);
+        escapeHandler(taRef.current, false);
+
+        return () => {
+          div?.removeEventListener('hideCardEvent', catcher);
+        };
+      }, []);
+
+      return (<div ref={divRef}><textarea ref={taRef} /></div>);
+    }
+    const root = assertDocument().createElement('div');
+
+    act(() => {
+      ReactDOM.render(<Component />, root);
+    });
+    expect(catcher).not.toHaveBeenCalled();
   });
 
   it('resizes on update when necessary', () => {
