@@ -139,7 +139,7 @@ Resources:
         IamInstanceProfile:
           Name: !ImportValue RexPrerenderWorkersInstanceProfileName
         ImageId: >-
-          {{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}
+          {{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended/image_id}}
         InstanceInitiatedShutdownBehavior: terminate
         # Having less, larger instances is generally cheaper due to lower EBS costs
         InstanceType: r6a.4xlarge
