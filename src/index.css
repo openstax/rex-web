@@ -1,3 +1,10 @@
+/*
+ * Font @imports must appear at the top of the file per CSS spec.
+ * These external fonts (IBM Plex Mono from Google Fonts, Neue Helvetica from fonts.net)
+ * complement the local @font-face declarations below and do not conflict.
+ * The local @font-face declarations define Neue Helvetica W01 variants, while the external
+ * imports provide IBM Plex Mono for code/monospace usage.
+ */
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap");
 @import url("https://fast.fonts.net/t/1.css?apiType=css&projectid=437b6557-ce99-4f35-97ff-64a93247731f");
 
