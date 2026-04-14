@@ -55,7 +55,7 @@
   background-color: var(--checkbox-focus-bg, #f1f1f1); /* theme.color.neutral.pageBackground */
 
   /* Browser default focus outline */
-  outline: 0.2rem auto Highlight;
+  outline: 0.2rem auto highlight;
   /* stylelint-disable-next-line declaration-block-no-duplicate-properties */
   outline: 0.2rem auto -webkit-focus-ring-color; /* Fallback for webkit browsers */
 }

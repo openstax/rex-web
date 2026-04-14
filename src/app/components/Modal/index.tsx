@@ -1,7 +1,7 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import * as Styled from './styles';
+import * as Styled from './Modal';
 
 interface PropTypes {
   onModalClose: () => void;
@@ -17,6 +17,7 @@ const Modal = ({
   closeButtonRef,
   children,
 }: React.PropsWithChildren<PropTypes>) => {
+  const intl = useIntl();
   return (
     <Styled.ModalWrapper className={className}>
       <Styled.CardWrapper>
@@ -29,15 +30,11 @@ const Modal = ({
                 </Styled.Heading>
               )}
             </FormattedMessage>
-            <FormattedMessage id="i18n:modal:close">
-              {(txt) => (
-                <Styled.CloseModalIcon
-                  ref={closeButtonRef}
-                  onClick={onModalClose}
-                  aria-label={txt}
-                />
-              )}
-            </FormattedMessage>
+              <Styled.CloseModalIcon
+                ref={closeButtonRef}
+                onClick={onModalClose}
+                aria-label={intl.formatMessage({ id: 'i18n:modal:close' })}
+              />
           </Styled.Header>
           {children}
         </Styled.Card>
