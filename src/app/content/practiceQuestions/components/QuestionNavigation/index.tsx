@@ -2,17 +2,14 @@ import { HTMLElement } from '@openstax/types/lib.dom';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components/macro';
-import ButtonBase from '../../../../components/Button';
 import theme from '../../../../theme';
 import * as pqSelectors from '../../selectors';
 import { PracticeAnswer, PracticeQuestion } from '../../types';
+import { Button } from './Button';
 import FinishButton from './FinishButton';
 import NextButton from './NextButton';
 import ShowAnswerButton from './ShowAnswerButton';
 import SkipAndSubmitButtons from './SkipAndSubmitButtons';
-
-// Wrap Button with styled() to make it compatible with component selectors
-const Button = styled(ButtonBase)``;
 
 const Wrapper = styled.div`
   display: flex;

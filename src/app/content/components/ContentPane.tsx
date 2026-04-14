@@ -16,7 +16,6 @@ import {
   verticalNavbarMaxWidth,
 } from './constants';
 import { isVerticalNavOpenConnector } from './utils/sidebar';
-import './ContentPane.css';
 
 export const contentWrapperWidthBreakpoint = '(max-width: ' + remsToEms(contentWrapperMaxWidth) + 'em)';
 export const contentWrapperAndNavWidthBreakpoint =
