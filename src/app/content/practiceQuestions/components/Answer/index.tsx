@@ -9,7 +9,7 @@ import {
   AnswerContent,
   AnswerExcerpt,
   AnswerIndicator,
-  AnswerInput,
+  answerInputClass,
   AnswerWrapper,
   StyledAnswerResult,
 } from './styled';
@@ -71,13 +71,14 @@ const Answer = ({
   }, [showCorrect, isCorrect]);
 
   return <AnswerWrapper tabIndex={-1} ref={answerRef}>
-    <AnswerInput
+    <input
       id={choiceIndicator}
       type='radio'
       name={question.uid}
       checked={isSelected}
       disabled={isSubmitted}
       onChange={onSelect}
+      className={answerInputClass}
     />
     <AnswerBlock
       tabIndex={-1}

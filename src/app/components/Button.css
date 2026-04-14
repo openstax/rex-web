@@ -103,6 +103,7 @@
   background-color: var(--button-disabled-color, #f1f1f1);
   cursor: not-allowed;
   pointer-events: none;
+  box-shadow: none;
 }
 
 /* Disabled state overrides for all variants - prevent hover/active/focus states */
@@ -115,7 +116,7 @@
   color: var(--button-disabled-foreground, #c1c1c1);
   background-color: var(--button-disabled-color, #f1f1f1);
   outline: none;
-  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 /* PlainButton - unstyled button base, minimal specificity */
