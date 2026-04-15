@@ -13,6 +13,7 @@ interface Props {
   book: State['book'];
   className?: string;
   dangerouslySetInnerHTML?: { __html: string; };
+  style?: React.CSSProperties;
   textSize?: TextResizerValue;
 }
 
@@ -44,11 +45,11 @@ const ContentStyles = React.forwardRef<HTMLElement, React.PropsWithChildren<Cont
 );
 
 const MainContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Props>>(
-  ({ book, children, className, ...props }, ref) => (
+  ({ book, children, className, style, ...props }, ref) => (
     <Consumer>
       {({ registerMainContent }) => (
         <main ref={mergeRefs(ref, registerMainContent)} className={className} tabIndex={-1}>
-          <ContentStyles id={MAIN_CONTENT_ID} book={book} tabIndex={-1} {...props}>
+          <ContentStyles id={MAIN_CONTENT_ID} book={book} style={style} tabIndex={-1} {...props}>
             {children}
           </ContentStyles>
         </main>

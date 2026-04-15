@@ -6,6 +6,7 @@ import { TextResizerValue } from '../../constants';
 import { openSearchResultsMobile } from '../../search/actions';
 import * as selectSearch from '../../search/selectors';
 import * as selectContent from '../../selectors';
+import { BookWithOSWebData } from '../../types';
 import { mobileNudgeStudyToolsTargetId } from '../NudgeStudyTools/constants';
 import { NudgeElementTarget } from '../NudgeStudyTools/styles';
 import * as Styled from './styled';
@@ -19,7 +20,7 @@ import { useSearchState, useMobileToolbar } from './hooks';
 
 type CommonSearchInputParams = {
   mobileToolbarOpen: boolean;
-  searchButtonColor: string | null;
+  searchButtonColor: BookWithOSWebData['theme'] | null;
   searchInSidebar: boolean;
   newButtonEnabled: boolean;
   onSearchChange: (e: React.FormEvent<HTMLInputElement>) => void;
@@ -241,7 +242,7 @@ function Topbar() {
   const dispatch = useDispatch();
   const bookTheme = useSelector(selectContent.bookTheme);
   const hasSearchResults = useSelector(selectSearch.hasResults);
-  const searchButtonColor = useSelector(selectSearch.searchButtonColor);
+  const searchButtonColor: BookWithOSWebData['theme'] | null = useSelector(selectSearch.searchButtonColor);
   const searchInSidebar = useSelector(selectSearch.searchInSidebar);
   const searchSidebarOpen = useSelector(selectSearch.searchResultsOpen);
   const textSize = useSelector(selectContent.textSize);

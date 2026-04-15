@@ -1,9 +1,11 @@
 import Color from 'color';
 import React from 'react';
 import classNames from 'classnames';
+import { HTMLDivElement } from '@openstax/types/lib.dom';
 import MainContent from '../../../components/MainContent';
-import { MAIN_CONTENT_ID } from '../../../context/constants';
 import theme from '../../../theme';
+import { TextResizerValue } from '../../constants';
+import { State } from '../../types';
 import { highlightStyles } from '../../constants';
 import {
   highlightBlockPadding,
@@ -14,8 +16,11 @@ import { contentTextWidth } from '../constants';
 import './PageContent.css';
 
 interface PageContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  book?: State['book'];
   className?: string;
+  dangerouslySetInnerHTML?: { __html: string; };
   style?: React.CSSProperties;
+  textSize?: TextResizerValue;
 }
 
 /**
@@ -24,7 +29,8 @@ interface PageContentProps extends React.HTMLAttributes<HTMLDivElement> {
  * Migrated from styled-components to plain CSS.
  * Dynamic highlight styles are generated as inline <style> tag.
  */
-function PageContent({ className, style, ...props }: PageContentProps) {
+const PageContent = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageContentProps>>(
+  function PageContent({ book, className, dangerouslySetInnerHTML, textSize, style, children, ...props }, ref) {
   // Generate dynamic highlight styles
   const dynamicHighlightStyles = React.useMemo(() => {
     return highlightStyles.map((highlightStyle) => {
@@ -96,22 +102,28 @@ function PageContent({ className, style, ...props }: PageContentProps) {
     }).join('\n');
   }, []);
 
-  return (
-    <>
-      <style>{dynamicHighlightStyles}</style>
-      <MainContent
-        {...props}
-        id={MAIN_CONTENT_ID}
-        className={classNames('page-content', className)}
-        style={{
-          '--content-text-width': `${contentTextWidth}rem`,
-          '--page-margin-top-desktop': `${theme.padding.page.desktop}rem`,
-          '--page-margin-top-mobile': `${theme.padding.page.mobile}rem`,
-          ...style,
-        } as React.CSSProperties}
-      />
-    </>
-  );
-}
+    return (
+      <>
+        <style>{dynamicHighlightStyles}</style>
+        <MainContent
+          {...props}
+          ref={ref}
+          book={book}
+          dangerouslySetInnerHTML={dangerouslySetInnerHTML}
+          textSize={textSize}
+          className={classNames('page-content', className)}
+          style={{
+            '--content-text-width': `${contentTextWidth}rem`,
+            '--page-margin-top-desktop': `${theme.padding.page.desktop}rem`,
+            '--page-margin-top-mobile': `${theme.padding.page.mobile}rem`,
+            ...style,
+          } as React.CSSProperties}
+        >
+          {children}
+        </MainContent>
+      </>
+    );
+  }
+);
 
 export default PageContent;

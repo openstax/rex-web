@@ -46,9 +46,11 @@
   box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
 }
 
+/* stylelint-disable declaration-no-important */
 .topbar-search-print-wrapper.sidebar-closed {
   padding-left: 0 !important;
 }
+/* stylelint-enable declaration-no-important */
 
 /* Mobile breakpoint */
 @media screen and (max-width: 75em) {
@@ -304,13 +306,11 @@
 /* Mobile search container */
 .topbar-mobile-search-container {
   overflow: visible;
-  margin-top: var(--mobile-search-container-margin);
-  margin-bottom: var(--mobile-search-container-margin);
+  margin: var(--mobile-search-container-margin) auto;
   height: var(--toolbar-search-input-mobile-height);
+
   /* barPadding equivalent */
   max-width: var(--max-nav-width);
-  margin-left: auto;
-  margin-right: auto;
   width: calc(100% - var(--page-padding-desktop) * 2);
 }
 
@@ -422,8 +422,7 @@
 }
 
 .topbar-text-resizer-menu .controls input {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  appearance: none;
   background: var(--text-resizer-gradient, var(--primary-gray-medium-color));
   overflow: visible;
   height: 0.4rem;
@@ -432,23 +431,25 @@
   cursor: pointer;
 }
 
+/* stylelint-disable function-comma-space-after */
 .topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track,
 .topbar-text-resizer-menu .controls input[type="range"]::-moz-range-track {
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  appearance: none;
   box-shadow: none;
   border: none;
   height: 0.2rem;
-  background: repeating-linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 0) 19%,
-    #fff 19%,
-    #fff 20%,
-    rgba(0, 0, 0, 0) 20%,
-    rgba(0, 0, 0, 0) 20%
-  );
+  background:
+    repeating-linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0) 19%,
+      #fff 19%,
+      #fff 20%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0) 20%
+    );
 }
+/* stylelint-enable function-comma-space-after */
 
 .topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-runnable-track {
   height: 0.2rem;
@@ -467,7 +468,6 @@
 }
 
 .topbar-text-resizer-menu .controls input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
   appearance: none;
   background: white;
   height: 1.5rem;
