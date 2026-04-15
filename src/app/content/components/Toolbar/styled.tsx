@@ -1,5 +1,6 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components/macro';
+import styled from 'styled-components/macro';
+import classNames from 'classnames';
 import { maxNavWidth } from '../../../components/NavBar/constants';
 import Times from '../../../components/Times';
 import {
@@ -13,8 +14,8 @@ import {
   toolbarIconColor,
   verticalNavbarMaxWidth,
 } from '../constants';
-import { disablePrint } from '../utils/disablePrint';
 import { toolbarIconStyles } from './iconStyles';
+import './Toolbar.css';
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -70,189 +71,132 @@ export const PrintIconComponent = styled(PrintIconBase)``;
 
 export const buttonMinWidth = `45px`;
 
-export const toolbarDefaultText = css`
-  font-weight: 600;
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-  ${theme.breakpoints.mobileMedium(css`
-    ${textRegularSize};
-    margin-left: 1.2rem;
-  `)}
-`;
+export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }>(
+  function PlainButton({ className, style, ...props }, ref) {
+    const { theme: _theme, ...domProps } = props as any;
 
-export const barPadding = css`
-  max-width: ${maxNavWidth}rem;
-  margin: 0 auto;
-  width: calc(100% - ${theme.padding.page.desktop}rem * 2);
-  ${theme.breakpoints.mobile(css`
-    width: calc(100% - ${theme.padding.page.mobile}rem * 2);
-  `)}
-`;
-
-export const toolbarDefaultButton = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 77px;
-  ${(props: { isActive: boolean }) => props.isActive && `
-    background-color: rgba(0,0,0,0.1);
-  `}
-  ${theme.breakpoints.mobileMedium(css`
-    flex-direction: row;
-    justify-content: start;
-    min-height: unset;
-    margin-top: 25px;
-    background: none;
-  `)}
-`;
-
-export const PlainButton = styled.button`
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background: none;
-  align-items: center;
-  color: ${toolbarIconColor.base};
-  height: 100%;
-  min-width: ${buttonMinWidth};
-
-  :hover,
-  :focus {
-    color: ${toolbarIconColor.darker};
+    return (
+      <button
+        ref={ref}
+        {...domProps}
+        className={classNames('toolbar-plain-button', className)}
+        style={{
+          '--toolbar-icon-color': toolbarIconColor.base,
+          '--toolbar-icon-darker-color': toolbarIconColor.darker,
+          '--button-min-width': buttonMinWidth,
+          ...style,
+        } as React.CSSProperties}
+      />
+    );
   }
-`;
+);
 
-export const PrintOptWrapper = styled(PlainButton)`
-  ${toolbarDefaultButton};
-  height: auto;
-  padding: 0 10px;
-`;
+export const PrintOptWrapper = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & { isActive?: boolean; theme?: unknown }>(
+  function PrintOptWrapper({ isActive, className, style, ...props }, ref) {
+    const { theme: _theme, ...domProps } = props as any;
 
-export const PrintOptions = styled.span`
-  ${toolbarDefaultText}
-  font-size: 1.2rem;
-  line-height: 1.5rem;
-`;
+    return (
+      <PlainButton
+        ref={ref}
+        {...domProps}
+        className={classNames('toolbar-print-opt-wrapper', className)}
+        style={style}
+      />
+    );
+  }
+);
+
+export const PrintOptions = function PrintOptions({ className, ...props }: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as any;
+
+  return (
+    <span
+      {...domProps}
+      className={classNames('toolbar-print-options', className)}
+    />
+  );
+};
 
 export const PrintIcon = styled(PrintIconComponent)`
   ${toolbarIconStyles}
 `;
 
-const showMobileMenu = keyframes`
-  0% {
-    opacity: 0;
+export const ToolbarWrapper = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { isMobileMenuOpen?: boolean; theme?: unknown }>(
+  function ToolbarWrapper({ isMobileMenuOpen, className, style, ...props }, ref) {
+    const { theme: _theme, ...domProps } = props as any;
+
+    return (
+      <div
+        ref={ref}
+        {...domProps}
+        className={classNames(
+          'toolbar-wrapper',
+          { 'mobile-menu-open': isMobileMenuOpen },
+          className
+        )}
+        style={{
+          '--toolbar-sticky-top-desktop': `${bookBannerDesktopMiniHeight}rem`,
+          '--toolbar-sticky-top-mobile': `${bookBannerMobileMiniHeight}rem`,
+          '--vertical-navbar-max-width': `${verticalNavbarMaxWidth}rem`,
+          '--toolbar-z-index': theme.zIndex.toolbar,
+          '--neutral-darker-color': theme.color.neutral.darker,
+          '--neutral-form-border-color': theme.color.neutral.formBorder,
+          '--sidebar-desktop-width': `${sidebarDesktopWidth}rem`,
+          '--mobile-menu-z-index': theme.zIndex.mobileMenu,
+          ...style,
+        } as React.CSSProperties}
+      />
+    );
   }
+);
 
-  99% {
-    opacity: 1;
-  }
+export const ToolbarMobileHeader = function ToolbarMobileHeader({ className, style, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as any;
 
-  100% {
-    opacity: 1;
-    visibility: visible;
-  }
-`;
+  return (
+    <div
+      {...domProps}
+      className={classNames('toolbar-mobile-header', className)}
+      style={{
+        '--neutral-form-border-color': theme.color.neutral.formBorder,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+};
 
-const hideMobileMenu = keyframes`
-  0% {
-    opacity: 1;
-  }
+export const ToolbarMobileHeaderTitle = function ToolbarMobileHeaderTitle({ className, style, ...props }: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as any;
 
-  99% {
-    opacity: 0;
-  }
+  return (
+    <span
+      {...domProps}
+      className={classNames('toolbar-mobile-header-title', className)}
+      style={{
+        '--primary-gray-color': theme.color.primary.gray.base,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+};
 
-  100% {
-    opacity: 0;
-    visibility: hidden;
-  }
-`;
+export const TimesIcon = function TimesIcon({ className, style, ...props }: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as any;
 
-export const ToolbarWrapper = styled.div`
-  grid-area: 1 / 1 / auto / 2;
-  position: sticky;
-  top: ${bookBannerDesktopMiniHeight}rem;
-  height: calc(100vh - 13rem);
-  max-height: calc(100vh - 7rem);
-  max-width: ${verticalNavbarMaxWidth}rem;
-  overflow: visible;
-  z-index: ${theme.zIndex.toolbar}; /* stay above book content */
-  background-color: ${theme.color.neutral.darker};
-  border-right: 1px solid ${theme.color.neutral.formBorder};
-  border-left: 1px solid ${theme.color.neutral.formBorder};
-
-  /* hides the sidebar whens it's sliding in */
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -${sidebarDesktopWidth + .1}rem; /* adding 1px prevents hiding toolbar's left border */
-    width: ${sidebarDesktopWidth}rem;
-    height: 100%;
-    background-color: ${theme.color.neutral.darker};
-  }
-
-  ${theme.breakpoints.mobile(css`
-    top: ${bookBannerMobileMiniHeight}rem;
-    max-height: calc(100vh - 6rem);
-
-    &::before {
-      display: none;
-    }
-  `)}
-
-  ${theme.breakpoints.mobileMedium(css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    max-height: unset;
-    max-width: 100%;
-    width: 100%;
-    animation: ${hideMobileMenu} .2s forwards;
-    z-index: ${theme.zIndex.mobileMenu};
-
-    ${(props: {isMobileMenuOpen: boolean}) => props.isMobileMenuOpen && css`
-      animation: ${showMobileMenu} .2s forwards;
-    `}
-  `)}
-
-  ${disablePrint}
-`;
-
-export const ToolbarMobileHeader = styled.div`
-  display: none;
-  ${theme.breakpoints.mobileMedium(css`
-    display: flex;
-    width: 100%;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-    position: relaitive;
-    border-bottom: 1px solid ${theme.color.neutral.formBorder};
-  `)}
-`;
-
-export const ToolbarMobileHeaderTitle = styled.span`
-  font-size: 1.8rem;
-  color: ${theme.color.primary.gray.base};
-  font-weight: bold;
-`;
-
-export const TimesIcon = styled((props) => <Times {...props} aria-hidden='true' focusable='false' />)`
-  ${toolbarIconStyles};
-  vertical-align: middle;
-  color: ${toolbarIconColor.base};
-
-  :hover {
-    color: ${toolbarIconColor.darker};
-  }
-`;
+  return (
+    <Times
+      {...domProps}
+      aria-hidden='true'
+      focusable='false'
+      className={classNames('toolbar-times-icon', className)}
+      style={{
+        '--toolbar-icon-color': toolbarIconColor.base,
+        '--toolbar-icon-darker-color': toolbarIconColor.darker,
+        ...style,
+      } as React.CSSProperties}
+    />
+  );
+};
 
 export const LeftArrow = styled(ChevronLeftIcon)`
   width: 4rem;
@@ -265,7 +209,13 @@ export const LeftArrow = styled(ChevronLeftIcon)`
   }
 `;
 
-export const ToolbarElements = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+export const ToolbarElements = function ToolbarElements({ className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as any;
+
+  return (
+    <div
+      {...domProps}
+      className={classNames('toolbar-elements', className)}
+    />
+  );
+};
