@@ -270,17 +270,25 @@ class HomeRex:
 
     @pytest.mark.asyncio
     async def content_page_previous_next_page_bar_is_visible(self):
-        return await self.page.locator(
-            "div.PrevNextBar__BarWrapper-sc-13m2i12-3"
-        ).is_visible()
+        prevnext_locator = self.page.locator('[data-analytics-region="prev-next"]')
+        await prevnext_locator.scroll_into_view_if_needed()
+        return await prevnext_locator.is_visible()
 
     @pytest.mark.asyncio
     async def click_content_page_previous_link(self):
-        await self.page.locator("a").get_by_text("Previous").click()
+        prev_locator = self.page.locator(
+            '[data-analytics-region="prev-next"] [data-analytics-label="prev"]'
+        )
+        await prev_locator.scroll_into_view_if_needed()
+        await prev_locator.click()
 
     @pytest.mark.asyncio
     async def click_content_page_next_link(self):
-        await self.page.locator("a").get_by_text("Next").click()
+        next_locator = self.page.locator(
+            '[data-analytics-region="prev-next"] [data-analytics-label="next"]'
+        )
+        await next_locator.scroll_into_view_if_needed()
+        await next_locator.click()
 
     @pytest.mark.asyncio
     async def subject_listing_book_is_visible(self):
