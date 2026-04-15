@@ -20,11 +20,11 @@
 }
 
 .error-wrapper .body-error-text a {
-  color: #027EB5;
+  color: #027eb5;
   cursor: pointer;
   text-decoration: underline;
 }
 
 .error-wrapper .body-error-text a:hover {
-  color: #0064A0;
+  color: #0064a0;
 }

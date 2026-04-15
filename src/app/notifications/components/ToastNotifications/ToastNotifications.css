@@ -12,6 +12,7 @@
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -54,21 +55,21 @@
 
 /* Error variant (default) */
 .banner-body-error {
-  background: #F8E8EB;
-  border-color: #E297A0;
+  background: #f8e8eb;
+  border-color: #e297a0;
 }
 
 .banner-body-error .toast-header {
   background: inherit;
-  color: #C23834;
+  color: #c23834;
   font-weight: normal;
   line-height: 2.6rem;
 }
 
 /* Warning variant */
 .banner-body-warning {
-  background: #FFF5E0;
-  border-color: #FDBD3E;
+  background: #fff5e0;
+  border-color: #fdbd3e;
 }
 
 .banner-body-warning .toast-header {
@@ -97,11 +98,11 @@
 }
 
 .toast-close-button-error {
-  color: #C22032;
+  color: #c22032;
 }
 
 .toast-close-button-error:hover {
-  color: #E297A0;
+  color: #e297a0;
 }
 
 .toast-close-button-warning {
@@ -109,7 +110,7 @@
 }
 
 .toast-close-button-warning:hover {
-  color: #FDBD3E;
+  color: #fdbd3e;
 }
 
 .toast-close-icon {
@@ -121,6 +122,6 @@
 .toast-error-id {
   margin-left: 1rem;
   font-size: 1.2rem;
-  color: #C23834;
+  color: #c23834;
   white-space: nowrap;
 }
