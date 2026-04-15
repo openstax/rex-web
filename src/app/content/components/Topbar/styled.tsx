@@ -1,10 +1,9 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import classNames from 'classnames';
 import SearchIcon from '../../../../assets/SearchIcon';
 import Times from '../../../components/Times';
-import { textRegularStyle, textStyle } from '../../../components/Typography';
 import theme from '../../../theme';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
 import { BookWithOSWebData } from '../../types';
@@ -26,9 +25,18 @@ import {
 import { FilterDropdown } from '../popUp/Filters';
 import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { buttonMinWidth } from '../Toolbar/styled';
-import { applySearchIconColor } from '../utils/applySearchIconColor';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
+import { PlainButton as PlainButtonBase } from "../Toolbar/styled";
+import Color from 'color';
 import './Topbar.css';
+
+/**
+ * Shadow style for Topbar wrapper
+ * Used by AssignedTopBar component
+ */
+export const shadow = css`
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.14);
+`;
 
 interface IconProps extends React.SVGAttributes<SVGSVGElement> {
   className?: string;
@@ -106,34 +114,35 @@ function TimesCircleIconBase({ className, ...props }: IconProps) {
 
 const TimesCircleIcon = styled(TimesCircleIconBase)``;
 
-// PlainButton component - imported from Toolbar/styled
-import { PlainButton as PlainButtonBase } from '../Toolbar/styled';
-
 // Filter out theme prop before spreading to DOM
-function PlainButton({ className, style, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
-  return (
-    <PlainButtonBase
-      {...domProps}
-      className={className}
-      style={style}
-    />
-  );
+function PlainButton({
+  className,
+  style,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
+  return <PlainButtonBase {...domProps} className={className} style={style} />;
 }
 
-export const TopBarWrapper = function TopBarWrapper({ className, style, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const TopBarWrapper = function TopBarWrapper({
+  className,
+  style,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
   return (
     <div
       {...domProps}
       className={classNames('topbar-wrapper', className)}
-      style={{
-        '--topbar-sticky-top-desktop': `${bookBannerDesktopMiniHeight}rem`,
-        '--topbar-sticky-top-mobile': `${bookBannerMobileMiniHeight}rem`,
-        '--topbar-z-index': theme.zIndex.topbar,
-        '--topbar-z-index-mobile-medium': theme.zIndex.sidebar + 1,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--topbar-sticky-top-desktop': `${bookBannerDesktopMiniHeight}rem`,
+          '--topbar-sticky-top-mobile': `${bookBannerMobileMiniHeight}rem`,
+          '--topbar-z-index': theme.zIndex.topbar,
+          '--topbar-z-index-mobile-medium': theme.zIndex.sidebar + 1,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
@@ -142,14 +151,18 @@ export const HamburgerIcon = styled(HamburgerIconComponent)`
   ${toolbarIconStyles}
 `;
 
-export const MenuButton = function MenuButton({ className, style, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
+export const MenuButton = function MenuButton({
+  className,
+  style,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
   const intl = useIntl();
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <PlainButton
       {...domProps}
-      aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:open'})}
+      aria-label={intl.formatMessage({ id: 'i18n:toolbar:mobile-menu:open' })}
       className={classNames('topbar-menu-button', className)}
       style={style}
     >
@@ -174,13 +187,13 @@ export const SearchButton = function SearchButton({
   theme?: unknown;
 }) {
   const intl = useIntl();
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   // Compute search icon color
   const searchIconColor = colorSchema
-    ? (Color(theme.color.primary[colorSchema].base).isDark()
-        ? theme.color.text.white
-        : theme.color.primary[colorSchema].base)
+    ? Color(theme.color.primary[colorSchema].base).isDark()
+      ? theme.color.text.white
+      : theme.color.primary[colorSchema].base
     : toolbarIconColor.base;
 
   return (
@@ -188,31 +201,37 @@ export const SearchButton = function SearchButton({
       {...domProps}
       {...(ariaLabelId
         ? {
-          'aria-label': intl.formatMessage({ id: ariaLabelId }),
-        }
-        : {}
-      )}
-      value={intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}
-      aria-label={intl.formatMessage({ id: 'i18n:search-results:bar:search-icon:value' })}
+            'aria-label': intl.formatMessage({ id: ariaLabelId }),
+          }
+        : {})}
+      value={intl.formatMessage({
+        id: 'i18n:search-results:bar:search-icon:value',
+      })}
+      aria-label={intl.formatMessage({
+        id: 'i18n:search-results:bar:search-icon:value',
+      })}
       className={classNames(
         'topbar-search-button',
         { desktop, mobile },
         className
       )}
-      style={{
-        '--search-button-bg-color': colorSchema ? theme.color.primary[colorSchema].base : 'transparent',
-        '--search-button-transition': colorSchema ? 'background 200ms' : 'none',
-        '--search-icon-color': searchIconColor,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--search-button-bg-color': colorSchema
+            ? theme.color.primary[colorSchema].base
+            : 'transparent',
+          '--search-button-transition': colorSchema
+            ? 'background 200ms'
+            : 'none',
+          '--search-icon-color': searchIconColor,
+          ...style,
+        } as React.CSSProperties
+      }
     >
       <SearchIcon />
     </PlainButton>
   );
 };
-
-// Import Color for isDark check
-import Color from 'color';
 
 export const CloseButton = function CloseButton({
   desktop,
@@ -225,7 +244,7 @@ export const CloseButton = function CloseButton({
   formSubmitted?: boolean;
   theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <PlainButton
@@ -242,30 +261,49 @@ export const CloseButton = function CloseButton({
   );
 };
 
-export const CloseIcon = function CloseIcon({ className, style, ...props }: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const CloseIcon = function CloseIcon({
+  className,
+  style,
+  ...props
+}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <Times
       {...domProps}
-      aria-hidden='true'
-      focusable='false'
+      aria-hidden="true"
       className={classNames('topbar-close-icon', className)}
-      style={{
-        '--toolbar-icon-color': toolbarIconColor.base,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--toolbar-icon-color': toolbarIconColor.base,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
 
-export const CloseButtonNew = function CloseButtonNew({ className, style, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const CloseButtonNew = function CloseButtonNew({
+  desktop,
+  formSubmitted,
+  className,
+  style,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  desktop?: boolean;
+  formSubmitted?: boolean;
+  theme?: unknown;
+}) {
+  const { theme: _theme, ...domProps} = props as Record<string, unknown>;
 
   return (
     <button
       {...domProps}
-      className={classNames('topbar-close-button-new', className)}
+      className={classNames(
+        'topbar-close-button-new',
+        { desktop, 'form-submitted': formSubmitted },
+        className
+      )}
       style={style}
     />
   );
@@ -280,17 +318,17 @@ export const SearchInputWrapper = function SearchInputWrapper({
   ...props
 }: React.FormHTMLAttributes<HTMLFormElement> & {
   active?: boolean;
-  colorSchema: BookWithOSWebData['theme'] | null;
-  searchInSidebar: boolean;
+  colorSchema: BookWithOSWebData["theme"] | null;
+  searchInSidebar?: boolean;
   theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   // Compute search icon color for active state
   const searchIconColor = colorSchema
-    ? (Color(theme.color.primary[colorSchema].base).isDark()
-        ? theme.color.text.white
-        : theme.color.primary[colorSchema].base)
+    ? Color(theme.color.primary[colorSchema].base).isDark()
+      ? theme.color.text.white
+      : theme.color.primary[colorSchema].base
     : toolbarIconColor.base;
 
   return (
@@ -301,14 +339,18 @@ export const SearchInputWrapper = function SearchInputWrapper({
         { active, 'search-in-sidebar': searchInSidebar },
         className
       )}
-      style={{
-        '--toolbar-icon-color': toolbarIconColor.base,
-        '--light-blue-color': theme.color.secondary.lightBlue.base,
-        '--search-button-bg-color': colorSchema ? theme.color.primary[colorSchema].base : 'transparent',
-        '--search-icon-color': searchIconColor,
-        '--button-min-width': buttonMinWidth,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--toolbar-icon-color': toolbarIconColor.base,
+          '--light-blue-color': theme.color.secondary.lightBlue.base,
+          '--search-button-bg-color': colorSchema
+            ? theme.color.primary[colorSchema].base
+            : 'transparent',
+          '--search-icon-color': searchIconColor,
+          '--button-min-width': buttonMinWidth,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
@@ -328,84 +370,91 @@ export const SearchInput = function SearchInput({
 }) {
   const ref = React.useRef<HTMLInputElement>(null);
   const intl = useIntl();
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
-  React.useEffect(
-    () => {
-      if (autoFocus) {
-        ref.current?.focus();
-      }
-    },
-    [autoFocus]
-  );
+  React.useEffect(() => {
+    if (autoFocus) {
+      ref.current?.focus();
+    }
+  }, [autoFocus]);
 
   return (
     <input
       {...domProps}
       ref={ref}
       aria-label={intl.formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
-      placeholder={intl.formatMessage({ id: 'i18n:toolbar:search:placeholder' })}
-      className={classNames(
-        'topbar-search-input',
-        { desktop },
-        className
-      )}
-      style={{
-        '--toolbar-search-input-height': `${toolbarSearchInputHeight}rem`,
-        '--text-label-color': theme.color.text.label,
-        ...style,
-      } as React.CSSProperties}
+      placeholder={intl.formatMessage({
+        id: 'i18n:toolbar:search:placeholder',
+      })}
+      className={classNames('topbar-search-input', { desktop }, className)}
+      style={
+        {
+          '--toolbar-search-input-height': `${toolbarSearchInputHeight}rem`,
+          '--text-label-color': theme.color.text.label,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
 
-export const SearchPrintWrapper = isVerticalNavOpenConnector(function SearchPrintWrapper({
-  isVerticalNavOpen,
+export const SearchPrintWrapper = isVerticalNavOpenConnector(
+  function SearchPrintWrapper({
+    isVerticalNavOpen,
+    className,
+    style,
+    ...props
+  }: React.HTMLAttributes<HTMLDivElement> & {
+    isVerticalNavOpen?: boolean;
+    theme?: unknown;
+  }) {
+    const { theme: _theme, ...domProps } = props as Record<string, unknown>;
+
+    return (
+      <div
+        {...domProps}
+        className={classNames(
+          'topbar-search-print-wrapper',
+          { 'sidebar-closed': !isVerticalNavOpen },
+          className
+        )}
+        style={
+          {
+            '--topbar-desktop-height': `${topbarDesktopHeight}rem`,
+            '--content-wrapper-max-width': `${contentWrapperMaxWidth}rem`,
+            '--neutral-color': theme.color.neutral.base,
+            '--sidebar-transition-time': `${sidebarTransitionTime}ms`,
+            '--topbar-mobile-height': `${topbarMobileHeight}rem`,
+            '--button-min-width': buttonMinWidth,
+            ...style,
+          } as React.CSSProperties
+        }
+      />
+    );
+  }
+);
+
+export const MobileSearchContainer = function MobileSearchContainer({
   className,
   style,
   ...props
-}: React.HTMLAttributes<HTMLDivElement> & {
-  isVerticalNavOpen?: boolean;
-  theme?: unknown;
-}) {
-  const { theme: _theme, ...domProps } = props as any;
-
-  return (
-    <div
-      {...domProps}
-      className={classNames(
-        'topbar-search-print-wrapper',
-        { 'sidebar-closed': !isVerticalNavOpen },
-        className
-      )}
-      style={{
-        '--topbar-desktop-height': `${topbarDesktopHeight}rem`,
-        '--content-wrapper-max-width': `${contentWrapperMaxWidth}rem`,
-        '--neutral-color': theme.color.neutral.base,
-        '--sidebar-transition-time': `${sidebarTransitionTime}ms`,
-        '--topbar-mobile-height': `${topbarMobileHeight}rem`,
-        '--button-min-width': buttonMinWidth,
-        ...style,
-      } as React.CSSProperties}
-    />
-  );
-});
-
-export const MobileSearchContainer = function MobileSearchContainer({ className, style, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <div
       {...domProps}
       className={classNames('topbar-mobile-search-container', className)}
-      style={{
-        '--mobile-search-container-margin': `${mobileSearchContainerMargin}rem`,
-        '--toolbar-search-input-mobile-height': `${toolbarSearchInputMobileHeight}rem`,
-        '--max-nav-width': '120rem', // maxNavWidth from NavBar/styled
-        '--page-padding-desktop': `${theme.padding.page.desktop}rem`,
-        '--page-padding-mobile': `${theme.padding.page.mobile}rem`,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--mobile-search-container-margin': `${mobileSearchContainerMargin}rem`,
+          '--toolbar-search-input-mobile-height': `${toolbarSearchInputMobileHeight}rem`,
+          '--max-nav-width': '120rem', // maxNavWidth from NavBar/styled
+          '--page-padding-desktop': `${theme.padding.page.desktop}rem`,
+          '--page-padding-mobile': `${theme.padding.page.mobile}rem`,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
@@ -419,7 +468,7 @@ export const MobileSearchWrapper = function MobileSearchWrapper({
   mobileToolbarOpen: boolean;
   theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <div
@@ -429,26 +478,34 @@ export const MobileSearchWrapper = function MobileSearchWrapper({
         { 'mobile-toolbar-open': mobileToolbarOpen },
         className
       )}
-      style={{
-        '--toolbar-mobile-search-wrapper-height': `${toolbarMobileSearchWrapperHeight}rem`,
-        '--neutral-color': theme.color.neutral.base,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--toolbar-mobile-search-wrapper-height': `${toolbarMobileSearchWrapperHeight}rem`,
+          '--neutral-color': theme.color.neutral.base,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
 
-export const Hr = function Hr({ className, style, ...props }: React.HTMLAttributes<HTMLHRElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const Hr = function Hr({
+  className,
+  style,
+  ...props
+}: React.HTMLAttributes<HTMLHRElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <hr
       {...domProps}
       className={classNames('topbar-hr', className)}
-      style={{
-        '--toolbar-hr-height': `${toolbarHrHeight}rem`,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--toolbar-hr-height': `${toolbarHrHeight}rem`,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
@@ -458,19 +515,23 @@ export const LeftArrow = styled(AngleLeftIcon)`
   height: 2.5rem;
 `;
 
-export const InnerText = function InnerText({ className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const InnerText = function InnerText({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
-    <div
-      {...domProps}
-      className={classNames('topbar-inner-text', className)}
-    />
+    <div {...domProps} className={classNames('topbar-inner-text', className)} />
   );
 };
 
-export const SeachResultsTextButton = function SeachResultsTextButton({ className, style, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const SeachResultsTextButton = function SeachResultsTextButton({
+  className,
+  style,
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <PlainButton
@@ -485,14 +546,13 @@ export const TextResizerDropdown = function TextResizerDropdown({
   mobileVariant,
   mobileToolbarOpen,
   className,
-  style,
   ...props
 }: React.ComponentProps<typeof FilterDropdown> & {
   mobileVariant?: boolean;
   mobileToolbarOpen?: boolean;
   theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props;
 
   return (
     <FilterDropdown
@@ -501,12 +561,12 @@ export const TextResizerDropdown = function TextResizerDropdown({
         'topbar-text-resizer-dropdown',
         {
           'mobile-variant': mobileVariant !== false,
-          'mobile-toolbar-closed': mobileVariant !== false && !mobileToolbarOpen,
+          'mobile-toolbar-closed':
+            mobileVariant !== false && !mobileToolbarOpen,
           'mobile-toolbar-open': mobileVariant !== false && mobileToolbarOpen,
         },
         className
       )}
-      style={style}
     />
   );
 };
@@ -518,11 +578,11 @@ export const TextResizerMenu = function TextResizerMenu({
   style,
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & {
-  bookTheme: BookWithOSWebData['theme'];
+  bookTheme: BookWithOSWebData["theme"];
   textSize: number;
   theme?: unknown;
 }) {
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   // Compute text resizer gradient
   const textResizerGradient = bookTheme
@@ -539,12 +599,14 @@ export const TextResizerMenu = function TextResizerMenu({
     <div
       {...domProps}
       className={classNames('topbar-text-resizer-menu', className)}
-      style={{
-        '--primary-gray-color': theme.color.primary.gray.base,
-        '--text-resizer-gradient': textResizerGradient,
-        '--primary-gray-medium-color': theme.color.primary.gray.medium,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--primary-gray-color': theme.color.primary.gray.base,
+          '--text-resizer-gradient': textResizerGradient,
+          '--primary-gray-medium-color': theme.color.primary.gray.medium,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
@@ -560,16 +622,14 @@ export const TextResizerChangeButton = function TextResizerChangeButton({
   theme?: unknown;
 }) {
   const intl = useIntl();
-  const { theme: _theme, ...domProps } = props as any;
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <PlainButton
       {...domProps}
-      {...(ariaLabelId &&
-        {
-          'aria-label': intl.formatMessage({ id: ariaLabelId }),
-        }
-      )}
+      {...(ariaLabelId && {
+        'aria-label': intl.formatMessage({ id: ariaLabelId }),
+      })}
       className={classNames('topbar-text-resizer-change-button', className)}
       style={style}
     >
@@ -578,14 +638,22 @@ export const TextResizerChangeButton = function TextResizerChangeButton({
   );
 };
 
-export const CloseSearchResultsTextButton = function CloseSearchResultsTextButton({ className, style, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const CloseSearchResultsTextButton =
+  function CloseSearchResultsTextButton({
+    className,
+    style,
+    ...props
+  }: React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }) {
+    const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
-  return (
-    <SeachResultsTextButton
-      {...domProps}
-      className={classNames('topbar-close-search-results-text-button', className)}
-      style={style}
-    />
-  );
-};
+    return (
+      <SeachResultsTextButton
+        {...domProps}
+        className={classNames(
+          'topbar-close-search-results-text-button',
+          className
+        )}
+        style={style}
+      />
+    );
+  };

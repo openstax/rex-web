@@ -4,7 +4,7 @@ import withServices from '../../../context/Services';
 import connector from './connector';
 import PageComponent from './PageComponent';
 
-export { contentTextStyle } from './PageContent';
+export { contentTextStyle } from './PageContent.legacy';
 export { default as PageComponent } from './PageComponent';
 
 export default flow(

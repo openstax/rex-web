@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 import classNames from 'classnames';
-import { maxNavWidth } from '../../../components/NavBar/constants';
 import Times from '../../../components/Times';
-import {
-  textRegularSize,
-} from '../../../components/Typography';
 import theme from '../../../theme';
 import {
   bookBannerDesktopMiniHeight,
@@ -71,43 +67,53 @@ export const PrintIconComponent = styled(PrintIconBase)``;
 
 export const buttonMinWidth = `45px`;
 
-export const PlainButton = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }>(
-  function PlainButton({ className, style, ...props }, ref) {
-    const { theme: _theme, ...domProps } = props as any;
+export const PlainButton = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & { theme?: unknown }
+>(function PlainButton({ className, style, ...props }, ref) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
-    return (
-      <button
-        ref={ref}
-        {...domProps}
-        className={classNames('toolbar-plain-button', className)}
-        style={{
+  return (
+    <button
+      ref={ref}
+      {...domProps}
+      className={classNames('toolbar-plain-button', className)}
+      style={
+        {
           '--toolbar-icon-color': toolbarIconColor.base,
           '--toolbar-icon-darker-color': toolbarIconColor.darker,
           '--button-min-width': buttonMinWidth,
           ...style,
-        } as React.CSSProperties}
-      />
-    );
+        } as React.CSSProperties
+      }
+    />
+  );
+});
+
+export const PrintOptWrapper = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    isActive?: boolean;
+    theme?: unknown;
   }
-);
+>(function PrintOptWrapper({ isActive, className, style, ...props }, ref) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
-export const PrintOptWrapper = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement> & { isActive?: boolean; theme?: unknown }>(
-  function PrintOptWrapper({ isActive, className, style, ...props }, ref) {
-    const { theme: _theme, ...domProps } = props as any;
+  return (
+    <PlainButton
+      ref={ref}
+      {...domProps}
+      className={classNames('toolbar-print-opt-wrapper', className)}
+      style={style}
+    />
+  );
+});
 
-    return (
-      <PlainButton
-        ref={ref}
-        {...domProps}
-        className={classNames('toolbar-print-opt-wrapper', className)}
-        style={style}
-      />
-    );
-  }
-);
-
-export const PrintOptions = function PrintOptions({ className, ...props }: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const PrintOptions = function PrintOptions({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <span
@@ -121,20 +127,29 @@ export const PrintIcon = styled(PrintIconComponent)`
   ${toolbarIconStyles}
 `;
 
-export const ToolbarWrapper = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { isMobileMenuOpen?: boolean; theme?: unknown }>(
-  function ToolbarWrapper({ isMobileMenuOpen, className, style, ...props }, ref) {
-    const { theme: _theme, ...domProps } = props as any;
+export const ToolbarWrapper = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & {
+    isMobileMenuOpen?: boolean;
+    theme?: unknown;
+  }
+>(function ToolbarWrapper(
+  { isMobileMenuOpen, className, style, ...props },
+  ref
+) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
-    return (
-      <div
-        ref={ref}
-        {...domProps}
-        className={classNames(
-          'toolbar-wrapper',
-          { 'mobile-menu-open': isMobileMenuOpen },
-          className
-        )}
-        style={{
+  return (
+    <div
+      ref={ref}
+      {...domProps}
+      className={classNames(
+        'toolbar-wrapper',
+        { 'mobile-menu-open': isMobileMenuOpen },
+        className
+      )}
+      style={
+        {
           '--toolbar-sticky-top-desktop': `${bookBannerDesktopMiniHeight}rem`,
           '--toolbar-sticky-top-mobile': `${bookBannerMobileMiniHeight}rem`,
           '--vertical-navbar-max-width': `${verticalNavbarMaxWidth}rem`,
@@ -144,56 +159,73 @@ export const ToolbarWrapper = React.forwardRef<HTMLDivElement, React.HTMLAttribu
           '--sidebar-desktop-width': `${sidebarDesktopWidth}rem`,
           '--mobile-menu-z-index': theme.zIndex.mobileMenu,
           ...style,
-        } as React.CSSProperties}
-      />
-    );
-  }
-);
+        } as React.CSSProperties
+      }
+    />
+  );
+});
 
-export const ToolbarMobileHeader = function ToolbarMobileHeader({ className, style, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const ToolbarMobileHeader = function ToolbarMobileHeader({
+  className,
+  style,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <div
       {...domProps}
       className={classNames('toolbar-mobile-header', className)}
-      style={{
-        '--neutral-form-border-color': theme.color.neutral.formBorder,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--neutral-form-border-color': theme.color.neutral.formBorder,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
 
-export const ToolbarMobileHeaderTitle = function ToolbarMobileHeaderTitle({ className, style, ...props }: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const ToolbarMobileHeaderTitle = function ToolbarMobileHeaderTitle({
+  className,
+  style,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <span
       {...domProps}
       className={classNames('toolbar-mobile-header-title', className)}
-      style={{
-        '--primary-gray-color': theme.color.primary.gray.base,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--primary-gray-color': theme.color.primary.gray.base,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
 
-export const TimesIcon = function TimesIcon({ className, style, ...props }: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const TimesIcon = function TimesIcon({
+  className,
+  style,
+  ...props
+}: React.SVGAttributes<SVGSVGElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
     <Times
       {...domProps}
-      aria-hidden='true'
-      focusable='false'
+      aria-hidden="true"
       className={classNames('toolbar-times-icon', className)}
-      style={{
-        '--toolbar-icon-color': toolbarIconColor.base,
-        '--toolbar-icon-darker-color': toolbarIconColor.darker,
-        ...style,
-      } as React.CSSProperties}
+      style={
+        {
+          '--toolbar-icon-color': toolbarIconColor.base,
+          '--toolbar-icon-darker-color': toolbarIconColor.darker,
+          ...style,
+        } as React.CSSProperties
+      }
     />
   );
 };
@@ -209,13 +241,13 @@ export const LeftArrow = styled(ChevronLeftIcon)`
   }
 `;
 
-export const ToolbarElements = function ToolbarElements({ className, ...props }: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
-  const { theme: _theme, ...domProps } = props as any;
+export const ToolbarElements = function ToolbarElements({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { theme?: unknown }) {
+  const { theme: _theme, ...domProps } = props as Record<string, unknown>;
 
   return (
-    <div
-      {...domProps}
-      className={classNames('toolbar-elements', className)}
-    />
+    <div {...domProps} className={classNames('toolbar-elements', className)} />
   );
 };
