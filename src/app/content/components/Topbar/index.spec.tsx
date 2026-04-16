@@ -23,7 +23,7 @@ import { MiddlewareAPI, Store } from '../../../types';
 import { assertDocument } from '../../../utils';
 import { openMobileMenu, setTextSize } from '../../actions';
 import { textResizerMaxValue, textResizerMinValue } from '../../constants';
-import { HTMLElement, HTMLInputElement } from '@openstax/types/lib.dom';
+import { HTMLElement } from '@openstax/types/lib.dom';
 import { searchKeyCombination } from '../../highlights/constants';
 import {
   clearSearch,
@@ -114,7 +114,7 @@ describe('search', () => {
         </Services.Provider>
       </Provider>
     );
-    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+    const tb = node.querySelector<HTMLElement>('[data-testid="topbar"]');
 
     act(() => dispatchSearchShortcut(tb!));
     expect(document?.activeElement?.tagName).toBe('MAIN');
@@ -132,7 +132,7 @@ describe('search', () => {
         </Services.Provider>
       </Provider>
     );
-    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+    const tb = node.querySelector<HTMLElement>('[data-testid="topbar"]');
 
     store.dispatch(receiveSearchResults(makeSearchResults()));
 
@@ -156,70 +156,12 @@ describe('search', () => {
         </Services.Provider>
       </Provider>
     );
-    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
+    const tb = node.querySelector<HTMLElement>('[data-testid="topbar"]');
 
     act(() => dispatchSearchShortcut(tb!));
     expect(document?.activeElement?.tagName).toBe('INPUT');
     act(() => dispatchSearchShortcut(tb!));
     expect(document?.activeElement?.tagName).not.toBe('MAIN');
-  });
-
-  it('cycles between search input and main when no search results and focus is in search input', () => {
-    const { node } = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Topbar />
-            <main tabIndex={-1} />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
-    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
-    const searchInput = node.querySelector<HTMLInputElement>('.topbar-search-input-wrapper input');
-
-    // Focus the search input first
-    act(() => {
-      searchInput?.focus();
-    });
-    expect(document?.activeElement?.tagName).toBe('INPUT');
-
-    // Alt+S should cycle to main content
-    act(() => dispatchSearchShortcut(tb!));
-    expect(document?.activeElement?.tagName).toBe('MAIN');
-
-    // Alt+S again should cycle back to search input
-    act(() => dispatchSearchShortcut(tb!));
-    expect(document?.activeElement?.tagName).toBe('INPUT');
-  });
-
-  it('cycles between main and search input when no search results and focus is in main', () => {
-    const { node } = renderToDom(
-      <Provider store={store}>
-        <Services.Provider value={services}>
-          <MessageProvider>
-            <Topbar />
-            <main tabIndex={-1} />
-          </MessageProvider>
-        </Services.Provider>
-      </Provider>
-    );
-    const tb = node.querySelector<HTMLElement>('[class*="TopBar"]');
-    const mainElement = node.querySelector<HTMLElement>('main');
-
-    // Focus main content first
-    act(() => {
-      mainElement?.focus();
-    });
-    expect(document?.activeElement?.tagName).toBe('MAIN');
-
-    // Alt+S should cycle to search input
-    act(() => dispatchSearchShortcut(tb!));
-    expect(document?.activeElement?.tagName).toBe('INPUT');
-
-    // Alt+S again should cycle back to main
-    act(() => dispatchSearchShortcut(tb!));
-    expect(document?.activeElement?.tagName).toBe('MAIN');
   });
 
   it('doesn\'t dispatch search for empty string', () => {

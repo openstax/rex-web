@@ -24,7 +24,7 @@ exports[`text resizer does not render if textSize is null 1`] = `
   }
 >
   <div
-    className="topbar-search-print-wrapper sidebar-closed"
+    className="topbar-search-print-wrapper sidebar-mobile-closed"
     style={
       Object {
         "--button-min-width": "45px",
@@ -425,7 +425,7 @@ exports[`text resizer opens menu when clicking menu button 1`] = `
   }
 >
   <div
-    className="topbar-search-print-wrapper sidebar-closed"
+    className="topbar-search-print-wrapper sidebar-mobile-closed"
     style={
       Object {
         "--button-min-width": "45px",
