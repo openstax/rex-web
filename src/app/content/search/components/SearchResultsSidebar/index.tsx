@@ -95,7 +95,7 @@ export default connect(
     nonKeyTermResults: selectSearch.nonKeyTermResults(state),
     query: selectSearch.query(state),
     results: selectSearch.results(state),
-    searchButtonColor: selectSearch.searchButtonColor(state) as BookWithOSWebData['theme'] | null,
+    searchButtonColor: selectSearch.searchButtonColor(state),
     searchInSidebar: selectSearch.searchInSidebar(state),
     searchResultsOpen: selectSearch.searchResultsOpen(state),
     selectedResult: selectSearch.selectedResult(state),
