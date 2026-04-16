@@ -27,7 +27,6 @@ import { toolbarIconStyles } from '../Toolbar/iconStyles';
 import { buttonMinWidth, PlainButton as PlainButtonBase } from '../Toolbar/styled';
 import { isVerticalNavOpenConnector } from '../utils/sidebar';
 import Color from 'color';
-import './Topbar.css';
 
 /**
  * Shadow style for Topbar wrapper
