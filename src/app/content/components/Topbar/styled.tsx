@@ -266,7 +266,6 @@ export const CloseIcon = function CloseIcon({
     <Times
       {...domProps}
       aria-hidden="true"
-      focusable="false"
       className={classNames('topbar-close-icon', className)}
       style={
         {
