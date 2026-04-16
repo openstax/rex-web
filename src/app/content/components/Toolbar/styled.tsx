@@ -119,7 +119,7 @@ export const PrintOptWrapper = React.forwardRef<
   );
 });
 
-export const PrintOptions = function PrintOptions({
+export const PrintOptions = styled(function PrintOptions({
   className,
   ...props
 }: React.HTMLAttributes<HTMLSpanElement> & { theme?: unknown }) {
@@ -131,7 +131,7 @@ export const PrintOptions = function PrintOptions({
       className={classNames('toolbar-print-options', className)}
     />
   );
-};
+})``;
 
 export const PrintIcon = styled(PrintIconComponent)`
   ${toolbarIconStyles}
