@@ -193,7 +193,7 @@ function AltSCycler({hasSearchResults}: {hasSearchResults: boolean}) {
         return;
       }
       const targets = [
-        '[class*="SearchInputWrapper"] input',
+        '.topbar-search-input-wrapper input',
         '[class*="SearchResultsBar"]',
         'main',
       ].map((q) => document?.querySelector<HTMLElement>(q));
