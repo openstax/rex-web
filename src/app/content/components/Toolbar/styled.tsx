@@ -228,7 +228,6 @@ export const TimesIcon = function TimesIcon({
     <Times
       {...domProps}
       aria-hidden="true"
-      focusable="false"
       className={classNames('toolbar-times-icon', className)}
       style={
         {
